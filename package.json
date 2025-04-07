@@ -1,0 +1,7 @@
+{
+    "name": "CharacterSheet",
+    "version": "1.0.0",
+    "scripts": {
+      "build-css": "sass --watch --no-source-map scss/main.scss css/style.css"
+    }
+}
