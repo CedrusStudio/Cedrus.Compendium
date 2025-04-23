@@ -1,35 +1,235 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-section {
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+span {
+  display: inline-block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+div#main {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  height: 100vh;
+  width: 100vw;
+  background-color: aqua;
+}
+div#main div.combat {
+  order: 1;
+  flex: 1;
+  background-color: red;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  overflow: auto;
 }
-section .data-scss-content {
-  background-color: #EEF3F4;
+div#main div.combat #health {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+  flex: 1;
+  background-color: beige;
+  padding: 3px;
+  border: 5px solid black;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
 }
-section div {
+div#main div.combat #health #health-header {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #health #health-primary {
+  justify-content: center;
+}
+div#main div.combat #defense {
+  display: flex;
+  flex-direction: column;
+  order: 2;
+  flex: 1;
+  background-color: beige;
+  padding: 3px;
+  border: 5px solid black;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+}
+div#main div.combat #defense #defense-header {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #defense #defense-primary {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #defense #defense-secondary {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #defense #defense-thirdly {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #offense {
+  display: flex;
+  flex-direction: column;
+  order: 3;
+  flex: 3;
+  background-color: beige;
+  padding: 3px;
+  border: 5px solid black;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+}
+div#main div.combat #offense #offense-header {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #offense #weapon-dice {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #offense #damage-dice {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #offense #critical-range-and-damage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+div#main div.combat #offense #critical-range-and-damage #critical-range {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #offense .weapon {
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+div#main div.combat #offense .weapon2, div#main div.combat #offense .weapon3 {
+  display: none;
+}
+div#main div.properties {
+  order: 2;
+  flex: 1;
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+}
+div#main div.properties #combat-abilities {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+  flex: 3;
+  background-color: beige;
+  padding: 3px;
+  border: 5px solid red;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+}
+div#main div.properties #combat-abilities #combat-abilities-primary {
+  display: flex;
+  flex-direction: row;
+}
+div#main div.properties #characteristics {
+  order: 2;
+  flex: 2;
+  background-color: beige;
+  padding: 3px;
+  border: 5px solid red;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+}
+div#main div.actions {
+  order: 3;
+  flex: 1;
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  overflow: auto;
+}
+div#main div.actions #stances {
+  order: 2;
+  flex: 1;
+  background-color: beige;
+  padding: 3px;
+  border: 5px solid red;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+}
+div#main div.actions #maneuvers {
+  order: 2;
+  flex: 4;
+  background-color: beige;
+  padding: 3px;
+  border: 5px solid red;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+}
+div#main section {
   display: flex;
 }
-
-.info {
-  background: DarkGray;
-  box-shadow: 0 0 1px rgba(169, 169, 169, 0.25);
-  color: #fff;
+div#main section .section-header {
+  font-family: "Georgia", "Verdana", serif;
+  text-transform: capitalize;
+  line-height: 1.8em;
+  word-spacing: 0.1em;
+  letter-spacing: 0.01em;
+  font-weight: 700;
 }
-
-.alert {
-  background: DarkRed;
-  box-shadow: 0 0 1px rgba(139, 0, 0, 0.25);
-  color: #fff;
+div#main section .plus, div#main section .multiply, div#main section .equality, div#main section .bracket, div#main section .dice, div#main section .dash {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  background-color: aliceblue;
+  padding-top: 20px;
 }
-
-.success {
-  background: DarkGreen;
-  box-shadow: 0 0 1px rgba(0, 100, 0, 0.25);
-  color: #fff;
+div#main section div {
+  padding: 3px;
+  border: 1px solid blue;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+  display: flex;
 }
-
-/*# sourceMappingURL=style.css.map */
+div#main section div .labeled-databox {
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+div#main section div .labeled-databox p.databox-label {
+  background-color: chartreuse;
+  font-family: "Georgia", "Verdana", serif;
+  text-transform: capitalize;
+  line-height: 1em;
+  word-spacing: 0.1em;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+  font-size: smaller;
+}
+div#main section div .labeled-databox .data-box {
+  flex-direction: column;
+  padding: 3px;
+  margin: 3px;
+  border: 2px solid #000;
+  box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
+  color: #000;
+  height: 2rem;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+}

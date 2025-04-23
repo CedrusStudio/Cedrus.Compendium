@@ -3,289 +3,580 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Character Sheet</title>
 </head>
 <body>
-    <section id="characteristics">
 
-        <div id="strength">
-            <div class="data-box sum">1</div>
-            <div class="data-box base">2</div>
-            <div class="data-box other">3</div>
-            <div class="data-box diceAmount">4</div>
-            <div class="data-box diceGrade">5</div>
-            <div class="data-box diceBonus">6</div>
-        </div>
+    <div id="main">
 
-        <div id="dexterity">
-            <div class="data-box sum">7</div>
-            <div class="data-box base">8</div>
-            <div class="data-box other">9</div>
-            <div class="data-box diceAmount">10</div>
-            <div class="data-box diceGrade">11</div>
-            <div class="data-box diceBonus">12</div>
-        </div>
+        <div class="combat">
 
-        <div id="constitution">
-            <div class="data-box sum">13</div>
-            <div class="data-box base">14</div>
-            <div class="data-box other">15</div>
-            <div class="data-box diceAmount">16</div>
-            <div class="data-box diceGrade">17</div>
-            <div class="data-box diceBonus">18</div>
-        </div>
+            <section id="health">
+                <div id="health-header">
+                    <h3 class="section-header">Health</h3>
 
-        <div id="intelligence">
-            <div class="data-box sum">19</div>
-            <div class="data-box base">20</div>
-            <div class="data-box other">21</div>
-            <div class="data-box diceAmount">22</div>
-            <div class="data-box diceGrade">23</div>
-            <div class="data-box diceBonus">24</div>
-        </div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">barrier</p>
+                        <div id="barrier" class="data-box">95</div>
+                    </div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">recovery</p>
+                        <div id="recovery" class="data-box">92</div>
+                    </div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">lethal</p>
+                        <div id="lethal" class="data-box">93</div>
+                    </div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">lethal rounds</p>
+                        <div id="lethalRounds" class="data-box">94</div>
+                    </div>
 
-        <div id="wisdom">
-            <div class="data-box sum">25</div>
-            <div class="data-box base">26</div>
-            <div class="data-box other">27</div>
-            <div class="data-box diceAmount">28</div>
-            <div class="data-box diceGrade">29</div>
-            <div class="data-box diceBonus">30</div>
-        </div>
+                </div>
+                <div id="health-primary">
+                    <div class="labeled-databox">
+                        <p class="databox-label">sum</p>
+                        <div id="health-sum" class="data-box">88</div>
+                    </div>
+                    <div class="equality">&#61;</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">vitality</p>
+                        <div id="vitality" class="data-box">88</div>
+                    </div>
+                    <div class="plus">&#43;</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">base fortitude</p>
+                        <div id="fortitude-base" class="data-box">89</div>
+                    </div>
+                    <div class="plus">&#43;</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">constitution</p>
+                        <div id="constitution" class="data-box">90</div>
+                    </div>
+                    <div class="multiply">&times;</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">toughness</p>
+                        <div id="toughness" class="data-box">91</div>
+                    </div>
+                    <div class="plus">&#43;</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">other</p>
+                        <div id="health-other" class="data-box">911</div>
+                    </div>
+                </div>
 
-        <div id="charisma">
-            <div class="data-box sum">31</div>
-            <div class="data-box base">32</div>
-            <div class="data-box other">33</div>
-            <div class="data-box diceAmount">34</div>
-            <div class="data-box diceGrade">35</div>
-            <div class="data-box diceBonus">36</div>
-        </div>
+            </section>
 
-        <div id="spellborn">
-            <div class="data-box sum">37</div>
-            <div class="data-box base">38</div>
-            <div class="data-box other">39</div>
-            <div class="data-box diceAmount">40</div>
-            <div class="data-box diceGrade">41</div>
-            <div class="data-box diceBonus">42</div>
-        </div>
-    </section>
+            <section id="defense">
 
-    <section id="defense">
-        <div id="insensitivity" class="data-box">43</div>
-        <div id="resistance" class="data-box">44</div>
-        <div id="reduction" class="data-box">
-            <div id="block" class="data-box">
-                <div class="data-box">45</div>
-                <div id="block-shield" class="data-box">46</div>
-                <div id="block-other" class="data-box">47</div>
-            </div>
-            <div id="parry" class="data-box">
-                <div class="data-box">48</div>
-                <div id="parry-fencing" class="data-box">49</div>
-                <div id="parry-other" class="data-box">50</div>
-            </div>
-            <div id="dodge" class="data-box"></div>
-                <div class="data-box">51</div>
-                <div id="dodge-reflex-limited" class="data-box">52</div>
-                <div id="dodge-dexterity" class="data-box">53</div>
-                <div id="dodge-other" class="data-box">54</div>
-            <div id="armor" class="data-box">55</div>
-            <div id="magic" class="data-box">56</div>
-            <div id="other" class="data-box">57</div>
-        </div>
-    </section>
+                <div id="defense-header">
+                    <h3 class="section-header">Defence</h3>
 
-    <section id="offense">
+                    <div class="radio-group">
 
-        <div id="weapon1">
+                        <div class="labeled-databox">
+                            <label for="apple">reduction</label>
+                            <input type="radio" id="reduction" name="reduction-type" value="reduction">
+                        </div>
 
-            <div class="data-box dice-weapon-amount">58</div>
+                        <div class="labeled-databox">
+                            <label for="banana">block reduction</label>
+                            <input type="radio" id="block-reduction" name="reduction-type" value="block-reduction">
+                        </div>
 
-            <div class="data-box dice-weapon-grade">59</div>
+                        <div class="labeled-databox">
+                            <label for="cherry">direct reduction</label>
+                            <input type="radio" id="direct-reduction" name="reduction-type" value="direct-reduction">
+                        </div>
 
-            <div class="data-box dice-weapon-bonus">60</div>
+                    </div>
 
-            <div class="data-box dice-damage-amount">61</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">insensitivity</p>
+                        <div id="insensitivity" class="data-box">43</div>
+                    </div>
 
-            <div class="data-box dice-damage-grade">62</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">resistance</p>
+                        <div id="resistance" class="data-box">44</div>
+                    </div>
 
-            <div class="data-box dice-damage-bonus">63</div>
+                </div>
 
-            <div class="data-box damage-bonus">64</div>
+                <div id="defense-primary">
 
-            <div class="critical">
-                <div class="data-box critical-range-start">65</div>
+                    <div id="parry" class="data-box">
 
-                <div class="data-box critical-range-end">66</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">parry</p>
+                            <div class="data-box">48</div>
+                        </div>
 
-                <div class="data-box critical-damage-bonus">67</div>
-            </div>
+                        <div class="equality">&#61;</div>
 
-        </div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">fencing</p>
+                            <div id="parry-fencing" class="data-box">49</div>
+                        </div>
+                        
+                        <div class="plus">&#43;</div>
 
-        <div id="weapon2">
+                        <div class="labeled-databox">
+                            <p class="databox-label">other</p>
+                            <div id="parry-other" class="data-box">50</div>
+                        </div>
 
-            <div class="data-box dice-weapon-amount">68</div>
+                    </div>
 
-            <div class="data-box dice-weapon-grade">69</div>
+                    <div id="dodge" class="data-box">
 
-            <div class="data-box dice-weapon-bonus">70</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">dodge</p>
+                            <div class="data-box">51</div>
+                        </div>
 
-            <div class="data-box dice-damage-amount">71</div>
+                        <div class="equality">&#61;</div>
 
-            <div class="data-box dice-damage-grade">72</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">reflex</p>
+                            <div id="dodge-reflex-limited" class="data-box">52</div>
+                        </div>
+                        
+                        <div class="plus">&#43;</div>
 
-            <div class="data-box dice-damage-bonus">73</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">dexterity</p>
+                            <div id="dodge-dexterity" class="data-box">53</div>
+                        </div>
+                        
+                        <div class="plus">&#43;</div>
 
-            <div class="data-box damage-bonus">74</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">other</p>
+                            <div id="dodge-other" class="data-box">54</div>
+                        </div>
 
-            <div class="critical">
-                <div class="data-box critical-range-start">75</div>
+                    </div>
 
-                <div class="data-box critical-range-end">76</div>
+                </div>
 
-                <div class="data-box critical-damage-bonus">77</div>
-            </div>
+                <div id="defense-secondary" class="data-box">
 
-        </div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">armor</p>
+                        <div id="armor" class="data-box">55</div>
+                    </div>
 
-        <div id="weapon3">
+                    <div class="labeled-databox">
+                        <p class="databox-label">magic</p>
+                        <div id="magic" class="data-box">56</div>
+                    </div>
 
-            <div class="data-box dice-weapon-amount">78</div>
+                    <div class="labeled-databox">
+                        <p class="databox-label">other</p>
+                        <div id="other" class="data-box">57</div>
+                    </div>
 
-            <div class="data-box dice-weapon-grade">79</div>
+                    <div id="block" class="data-box">
 
-            <div class="data-box dice-weapon-bonus">80</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">block</p>
+                            <div class="data-box">45</div>
+                        </div>
+                        
+                        <div class="equality">&#61;</div>
 
-            <div class="data-box dice-damage-amount">81</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">shield</p>
+                            <div id="block-shield" class="data-box">46</div>
+                        </div>
+                        
+                        <div class="plus">&#43;</div>
 
-            <div class="data-box dice-damage-grade">82</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">other</p>
+                            <div id="block-other" class="data-box">47</div>
+                        </div>
 
-            <div class="data-box dice-damage-bonus">83</div>
+                    </div>
 
-            <div class="data-box damage-bonus">84</div>
+                </div>
 
-            <div class="critical">
-                <div class="data-box critical-range-start">85</div>
+                <div id="defense-thirdly" class="data-box">
 
-                <div class="data-box critical-range-end">86</div>
-
-                <div class="data-box critical-damage-bonus">87</div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="health">
-        <div id="vitality" class="data-box">88</div>
-        <div id="fortitude-base" class="data-box">89</div>
-        <div id="constitution" class="data-box">90</div>
-        <div id="toughness" class="data-box">91</div>
-        <div id="recovery" class="data-box">92</div>
-        <div id="lethal" class="data-box">93</div>
-        <div id="lethalRounds" class="data-box">94</div>
-        <div id="barrier" class="data-box">95</div>
-    </section>
-
-    <section id="combatAbilities">
-
-        <div id="fencing">
-            <div class="data-box sum">96</div>
-            <div class="data-box base">97</div>
-            <div class="data-box other">98</div>
-            <div class="data-box dice-amount">99</div>
-            <div class="data-box dice-grade">100</div>
-            <div class="data-box dice-bonus">101</div>
-        </div>
-
-        <div id="artifice">
-            <div class="data-box sum">102</div>
-            <div class="data-box base">103</div>
-            <div class="data-box other">104</div>
-            <div class="data-box dice-amount">105</div>
-            <div class="data-box dice-grade">106</div>
-            <div class="data-box dice-bonus">107</div>
-        </div>
-
-        <div id="precision">
-            <div class="data-box sum">108</div>
-            <div class="data-box base">109</div>
-            <div class="data-box other">110</div>
-            <div class="data-box dice-amount">111</div>
-            <div class="data-box dice-grade">112</div>
-            <div class="data-box dice-bonus">113</div>
-        </div>
-
-        <div id="initiative">
-            <div class="data-box sum">114</div>
-            <div class="data-box base">115</div>
-            <div class="data-box other">116</div>
-            <div class="data-box dice-amount">117</div>
-            <div class="data-box dice-grade">118</div>
-            <div class="data-box dice-bonus">119</div>
-        </div>
+                    <div id="defense-sum-databox" class="data-box">
+                        <div class="labeled-databox">
+                            <p class="databox-label">sum</p>
+                            <div id="defense-sum" class="data-box">55</div>
+                        </div>
     
-        <div id="martialArt">
-            <div class="data-box sum">120</div>
-            <div class="data-box base">121</div>
-            <div class="data-box other">122</div>
-            <div class="data-box dice-amount">123</div>
-            <div class="data-box dice-grade">124</div>
-            <div class="data-box dice-bonus">125</div>
-        </div>
+                        <div class="equality">&#61;</div>
     
-        <div id="horsemanship">
-            <div class="data-box sum">126</div>
-            <div class="data-box base">127</div>
-            <div class="data-box other">128</div>
-            <div class="data-box dice-amount">129</div>
-            <div class="data-box dice-grade">130</div>
-            <div class="data-box dice-bonus">131</div>
-        </div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">armor</p>
+                            <div id="magic" class="data-box">56</div>
+                        </div>
+                            
+                        <div class="plus">&#43;</div>
     
-        <div id="fortitude">
-            <div class="data-box sum">132</div>
-            <div class="data-box base">133</div>
-            <div class="data-box other">134</div>
-            <div class="data-box dice-amount">135</div>
-            <div class="data-box dice-grade">136</div>
-            <div class="data-box dice-bonus">137</div>
-        </div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">magic</p>
+                            <div id="magic" class="data-box">56</div>
+                        </div>
+                            
+                        <div class="plus">&#43;</div>
     
-        <div id="reflex">
-            <div class="data-box sum">138</div>
-            <div class="data-box base">139</div>
-            <div class="data-box other">140</div>
-            <div class="data-box dice-amount">141</div>
-            <div class="data-box dice-grade">142</div>
-            <div class="data-box dice-bonus">143</div>
+                        <div class="labeled-databox">
+                            <p class="databox-label">other</p>
+                            <div id="other" class="data-box">57</div>
+                        </div>
+                            
+                        <div class="plus">&#43;</div>
+    
+                        <div class="labeled-databox">
+                            <p class="databox-label">block</p>
+                            <div class="data-box">45</div>
+                        </div>
+    
+                        <div class="plus">&#43;</div>
+    
+                        <div class="labeled-databox">
+                            <p class="databox-label">parry</p>
+                            <div class="data-box">45</div>
+                        </div>
+    
+                        <div class="plus">&#43;</div>
+    
+                        <div class="labeled-databox">
+                            <p class="databox-label">dodge</p>
+                            <div class="data-box">45</div>
+                        </div>
+                    </div>
+                        
+                </div>
+
+            </section>
+        
+            <section id="offense">
+
+                <div id="offense-header">
+                    <h3 class="section-header">Offense</h3>
+
+                    <div class="radio-group">
+
+                        <div class="labeled-databox">
+                            <label for="weapon-first">weapon 1</label>
+                            <input type="radio" id="weapon-first" name="weapon-type" value="weapon-first">
+                        </div>
+
+                        <div class="labeled-databox">
+                            <label for="weapon-second">weapon 2</label>
+                            <input type="radio" id="weapon-second" name="weapon-type" value="weapon-second">
+                        </div>
+
+                        <div class="labeled-databox">
+                            <label for="weapon-third">weapon 3</label>
+                            <input type="radio" id="weapon-third" name="weapon-type" value="weapon-third">
+                        </div>
+
+                    </div>
+
+                </div>
+                
+                <div class="weapon weapon1">
+
+                    <div class="weapon-damage">
+
+                        <div class="labeled-databox">
+                            <p class="databox-label">Weapon Dices</p>
+
+                            <div id="weapon-dice">
+                                <div id="data-box dice-weapon-amount" class="data-box">58</div>
+                    
+                                <div class="bracket">&#40;</div>
+                                <div class="dice">&#75;</div>
+            
+                                <div id="data-box dice-weapon-grade" class="data-box">59</div>
+                                
+                                <div class="plus">&#43;</div>
+            
+                                <div id="data-box dice-weapon-bonus" class="data-box">60</div>
+            
+                                <div class="bracket">&#41;</div>
+                            </div>
+                        </div>
+
+
+                        <div class="plus">&#43;</div>
+
+                        <div class="labeled-databox">
+
+                            <p class="databox-label">Damage Dices</p>
+
+                            <div id="damage-dice">
+                                <div id="data-box dice-damage-amount" class="data-box">61</div>
+                            
+                                <div class="dice">&#75;</div>
+            
+                                <div id="data-box dice-damage-grade" class="data-box">62</div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="plus">&#43;</div>
+    
+                        <div class="labeled-databox">
+                            <p class="databox-label">Bonus</p>
+
+                            <div id="data-box damage-bonus" class="data-box">64</div>
+                        </div>
+                    </div>
+
+                    <div class="weapon-critical">
+                        <div class="labeled-databox">
+                            <p class="databox-label">Critical hit</p>
+
+                            <div id="critical-range-and-damage">
+                                <div id="critical-range">
+                                    <div class="data-box critical-range-start">65</div>
+                                    <div class="dash">&#45;</div>
+                                    <div class="data-box critical-range-end">66</div>
+                                </div>
+                                <div class="data-box critical-damage-bonus">67</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="weapon weapon2">
+
+                    <div class="data-box dice-weapon-amount">68</div>
+                    <div class="data-box dice-weapon-grade">69</div>
+                    <div class="data-box dice-weapon-bonus">70</div>
+                    <div class="data-box dice-damage-amount">71</div>
+                    <div class="data-box dice-damage-grade">72</div>
+                    <div class="data-box dice-damage-bonus">73</div>
+                    <div class="data-box damage-bonus">74</div>
+
+                    <div class="critical">
+                        <div class="data-box critical-range-start">75</div>
+                        <div class="data-box critical-range-end">76</div>
+                        <div class="data-box critical-damage-bonus">77</div>
+                    </div>
+
+                </div>
+
+                <div class="weapon weapon3">
+
+                    <div class="data-box dice-weapon-amount">78</div>
+                    <div class="data-box dice-weapon-grade">79</div>
+                    <div class="data-box dice-weapon-bonus">80</div>
+                    <div class="data-box dice-damage-amount">81</div>
+                    <div class="data-box dice-damage-grade">82</div>
+                    <div class="data-box dice-damage-bonus">83</div>
+                    <div class="data-box damage-bonus">84</div>
+
+                    <div class="critical">
+                        <div class="data-box critical-range-start">85</div>
+                        <div class="data-box critical-range-end">86</div>
+                        <div class="data-box critical-damage-bonus">87</div>
+                    </div>
+
+                </div>
+            </section>
+
         </div>
 
-        <div id="reflex-limited">
-            <div class="data-box sum">144</div>
-            <div class="data-box base">145</div>
-            <div class="data-box other">146</div>
-            <div class="data-box dice-amount">147</div>
-            <div class="data-box dice-grade">148</div>
-            <div class="data-box dice-bonus">149</div>
-        </div>
-    
-        <div id="willpower">
-            <div class="data-box sum">150</div>
-            <div class="data-box base">151</div>
-            <div class="data-box other">152</div>
-            <div class="data-box dice-amount">152</div>
-            <div class="data-box dice-grade">153</div>
-            <div class="data-box dice-bonus">154</div>
-        </div>
-    </section>
+        <div class="properties">
+ 
+            <section id="combat-abilities">
 
-    <section id="stances">
-    </section>
+                <div id="combat-abilities-header">
+                    <h3 class="section-header">Combat Abilities</h3>
+                </div>
 
-    <section id="maneuvers">
-    </section>
+                <div id="combat-abilities-primary">
+
+                    <div id="fencing">
+                        <div class="data-box sum">96</div>
+                        <div class="data-box base">97</div>
+                        <div class="data-box other">98</div>
+                        <div class="data-box dice-amount">99</div>
+                        <div class="data-box dice-grade">100</div>
+                        <div class="data-box dice-bonus">101</div>
+                    </div>
+            
+                    <div id="artifice">
+                        <div class="data-box sum">102</div>
+                        <div class="data-box base">103</div>
+                        <div class="data-box other">104</div>
+                        <div class="data-box dice-amount">105</div>
+                        <div class="data-box dice-grade">106</div>
+                        <div class="data-box dice-bonus">107</div>
+                    </div>
+            
+                    <div id="precision">
+                        <div class="data-box sum">108</div>
+                        <div class="data-box base">109</div>
+                        <div class="data-box other">110</div>
+                        <div class="data-box dice-amount">111</div>
+                        <div class="data-box dice-grade">112</div>
+                        <div class="data-box dice-bonus">113</div>
+                    </div>
+            
+                    <div id="initiative">
+                        <div class="data-box sum">114</div>
+                        <div class="data-box base">115</div>
+                        <div class="data-box other">116</div>
+                        <div class="data-box dice-amount">117</div>
+                        <div class="data-box dice-grade">118</div>
+                        <div class="data-box dice-bonus">119</div>
+                    </div>
+                
+                    <div id="martialArt">
+                        <div class="data-box sum">120</div>
+                        <div class="data-box base">121</div>
+                        <div class="data-box other">122</div>
+                        <div class="data-box dice-amount">123</div>
+                        <div class="data-box dice-grade">124</div>
+                        <div class="data-box dice-bonus">125</div>
+                    </div>
+                
+                    <div id="horsemanship">
+                        <div class="data-box sum">126</div>
+                        <div class="data-box base">127</div>
+                        <div class="data-box other">128</div>
+                        <div class="data-box dice-amount">129</div>
+                        <div class="data-box dice-grade">130</div>
+                        <div class="data-box dice-bonus">131</div>
+                    </div>
+                
+                    <div id="fortitude">
+                        <div class="data-box sum">132</div>
+                        <div class="data-box base">133</div>
+                        <div class="data-box other">134</div>
+                        <div class="data-box dice-amount">135</div>
+                        <div class="data-box dice-grade">136</div>
+                        <div class="data-box dice-bonus">137</div>
+                    </div>
+                
+                    <div id="reflex">
+                        <div class="data-box sum">138</div>
+                        <div class="data-box base">139</div>
+                        <div class="data-box other">140</div>
+                        <div class="data-box dice-amount">141</div>
+                        <div class="data-box dice-grade">142</div>
+                        <div class="data-box dice-bonus">143</div>
+                    </div>
+            
+                    <div id="reflex-limited">
+                        <div class="data-box sum">144</div>
+                        <div class="data-box base">145</div>
+                        <div class="data-box other">146</div>
+                        <div class="data-box dice-amount">147</div>
+                        <div class="data-box dice-grade">148</div>
+                        <div class="data-box dice-bonus">149</div>
+                    </div>
+                
+                    <div id="willpower">
+                        <div class="data-box sum">150</div>
+                        <div class="data-box base">151</div>
+                        <div class="data-box other">152</div>
+                        <div class="data-box dice-amount">152</div>
+                        <div class="data-box dice-grade">153</div>
+                        <div class="data-box dice-bonus">154</div>
+                    </div>
+
+                </div>
+
+            </section>
+        
+            <section id="characteristics">
+
+                <div id="strength">
+                    <div class="data-box sum">1</div>
+                    <div class="data-box base">2</div>
+                    <div class="data-box other">3</div>
+                    <div class="data-box diceAmount">4</div>
+                    <div class="data-box diceGrade">5</div>
+                    <div class="data-box diceBonus">6</div>
+                </div>
+
+                <div id="dexterity">
+                    <div class="data-box sum">7</div>
+                    <div class="data-box base">8</div>
+                    <div class="data-box other">9</div>
+                    <div class="data-box diceAmount">10</div>
+                    <div class="data-box diceGrade">11</div>
+                    <div class="data-box diceBonus">12</div>
+                </div>
+
+                <div id="constitution">
+                    <div class="data-box sum">13</div>
+                    <div class="data-box base">14</div>
+                    <div class="data-box other">15</div>
+                    <div class="data-box diceAmount">16</div>
+                    <div class="data-box diceGrade">17</div>
+                    <div class="data-box diceBonus">18</div>
+                </div>
+
+                <div id="intelligence">
+                    <div class="data-box sum">19</div>
+                    <div class="data-box base">20</div>
+                    <div class="data-box other">21</div>
+                    <div class="data-box diceAmount">22</div>
+                    <div class="data-box diceGrade">23</div>
+                    <div class="data-box diceBonus">24</div>
+                </div>
+
+                <div id="wisdom">
+                    <div class="data-box sum">25</div>
+                    <div class="data-box base">26</div>
+                    <div class="data-box other">27</div>
+                    <div class="data-box diceAmount">28</div>
+                    <div class="data-box diceGrade">29</div>
+                    <div class="data-box diceBonus">30</div>
+                </div>
+
+                <div id="charisma">
+                    <div class="data-box sum">31</div>
+                    <div class="data-box base">32</div>
+                    <div class="data-box other">33</div>
+                    <div class="data-box diceAmount">34</div>
+                    <div class="data-box diceGrade">35</div>
+                    <div class="data-box diceBonus">36</div>
+                </div>
+
+                <div id="spellborn">
+                    <div class="data-box sum">37</div>
+                    <div class="data-box base">38</div>
+                    <div class="data-box other">39</div>
+                    <div class="data-box diceAmount">40</div>
+                    <div class="data-box diceGrade">41</div>
+                    <div class="data-box diceBonus">42</div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="actions">
+
+                    
+            <section id="stances">
+                <div class="data-box">my-stance</div>
+                <div class="data-box">my-sance2</div>
+            </section>
+            
+            <section id="maneuvers">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum veritatis eum quis autem, deleniti amet vero modi, sed assumenda dolor quo reiciendis odio illo aut animi velit ipsa libero. Cupiditate.
+            </section>
+
+        </div>
+
+    </div>
+
 </body>
 </html>

@@ -1,42 +1,263 @@
 @use 'base';
 
-$color-blue-super: blue;
+// TOD: media type for orientation (landscape or portrait)
 
-section
+div#main 
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 5px;
+    height: 100vh;
+    width: 100vw;
+    background-color: aqua;
 
-    .data-scss-content
+    div.combat
     {
-        background-color: base.$color-grey-light;
+        order: 1;
+        flex: 1;
+        background-color: red;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: auto;
+
+        #health
+        {
+            display: flex;
+            flex-direction: column;
+
+            order: 1;
+            flex: 1;
+            background-color: beige;
+            @include base.datasection($bordercolor: black);
+
+            #health-header
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #health-primary
+            {
+                justify-content: center;
+            }
+        }
+
+        #defense
+        {            
+            display: flex;
+            flex-direction: column;
+
+            order: 2;
+            flex: 1;
+            background-color: beige;
+            @include base.datasection($bordercolor: black);
+            
+            #defense-header
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #defense-primary
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #defense-secondary
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #defense-thirdly
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+        }
+
+        #offense
+        {
+            display: flex;
+            flex-direction: column;
+
+            order: 3;
+            flex: 3;
+            background-color: beige;
+            @include base.datasection($bordercolor: black);
+
+            #offense-header
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #weapon-dice
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #damage-dice
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #critical-range-and-damage
+            {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                #critical-range
+                {
+                    justify-content: space-evenly;
+                    align-items: center;
+                }
+            }
+
+            .weapon
+            {
+                justify-content: space-evenly;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .weapon2, .weapon3
+            {
+                display: none;
+            }
+        }
+    }
+    
+    div.properties
+    {
+        order: 2;
+        flex: 1;
+        background-color: green;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: auto;
+        
+        #combat-abilities
+        {
+            display: flex;
+            flex-direction: column;
+
+            order: 1;
+            flex: 3;
+            background-color: beige;
+            @include base.datasection($bordercolor: red);
+
+            #combat-abilities-primary
+            {
+                display: flex;
+                flex-direction: row;
+            }
+        }
+
+        #characteristics
+        {
+            order: 2;
+            flex: 2;
+            background-color: beige;
+            @include base.datasection($bordercolor: red);
+        }
+    }
+    
+    div.actions
+    {
+        order: 3;
+        flex: 1;
+        background-color: blue;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        overflow: auto;
+
+        #stances
+        {
+            order: 2;
+            flex: 1;
+            background-color: beige;
+            @include base.datasection($bordercolor: red);
+        }
+
+        #maneuvers
+        {
+            order: 2;
+            flex: 4;
+            background-color: beige;
+            @include base.datasection($bordercolor: red);
+        }
     }
 
-    div 
+    section
     {
         display: flex;
+        
+        .section-header
+        {
+            font-family: 'Georgia', 'Verdana', serif;
+            text-transform: capitalize;
+            line-height: 1.8em;
+            word-spacing: 0.1em;
+            letter-spacing: 0.01em;
+            font-weight: 700;
+        }
+
+        .plus, .multiply, .equality, .bracket, .dice, .dash
+        {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 700;
+            background-color: aliceblue;
+            padding-top: 20px;
+        }
+
+        div 
+        {
+            @include base.databox($bordercolor: blue);
+            display: flex;
+    
+            .labeled-databox
+            {
+                background-color: antiquewhite;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                p.databox-label
+                {
+                    background-color: chartreuse;
+                    font-family: 'Georgia', 'Verdana', serif;
+                    text-transform: capitalize;
+                    line-height: 1em;
+                    word-spacing: 0.1em;
+                    letter-spacing: 0.01em;
+                    font-weight: 400;
+                    font-size: smaller;
+                }
+
+                .data-box
+                {
+                    flex-direction: column;
+                    padding: 3px;
+                    margin: 3px;
+                    border: 2px solid #000;
+                    box-shadow: 0 0 1px rgba(base.$color-grey-dark, 0.25);
+                    color: #000;
+                    height: 2rem;
+                    width: 2rem;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
     }
-}
-
-// Create functions (and with default values)
-@mixin theme($theme: DarkGray) 
-{
-    background: $theme;
-    box-shadow: 0 0 1px rgba($theme, .25);
-    color: #fff;
-}
-  
-.info 
-{
-    @include theme;
-}
-
-.alert 
-{
-    @include theme($theme: DarkRed);
-}
-
-.success 
-{
-    @include theme($theme: DarkGreen);
 }
