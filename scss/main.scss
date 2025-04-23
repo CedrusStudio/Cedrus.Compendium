@@ -199,16 +199,44 @@ div#main
         {
             order: 2;
             flex: 1;
+            display: flex;
+            flex-direction: column;
             background-color: beige;
             @include base.datasection($bordercolor: red);
+
+            #stances-header
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #stances-primary
+            {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         #maneuvers
         {
             order: 2;
             flex: 4;
+            display: flex;
+            flex-direction: column;
             background-color: beige;
             @include base.datasection($bordercolor: red);
+
+            #maneuvers-header
+            {
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            #maneuvers-primary
+            {
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
 
