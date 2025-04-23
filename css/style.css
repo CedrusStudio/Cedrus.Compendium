@@ -94,20 +94,16 @@ div#main div.combat #offense #offense-header {
   justify-content: space-evenly;
   align-items: center;
 }
-div#main div.combat #offense #weapon-dice {
-  justify-content: space-evenly;
-  align-items: center;
-}
-div#main div.combat #offense #damage-dice {
-  justify-content: space-evenly;
-  align-items: center;
-}
 div#main div.combat #offense #critical-range-and-damage {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 div#main div.combat #offense #critical-range-and-damage #critical-range {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.combat #offense .dice {
   justify-content: space-evenly;
   align-items: center;
 }
@@ -139,11 +135,17 @@ div#main div.properties #combat-abilities {
   box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
   color: #000;
 }
+div#main div.properties #combat-abilities #combat-abilities-header {
+  justify-content: space-evenly;
+  align-items: center;
+}
 div#main div.properties #combat-abilities #combat-abilities-primary {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 div#main div.properties #characteristics {
+  display: flex;
+  flex-direction: column;
   order: 2;
   flex: 2;
   background-color: beige;
@@ -151,6 +153,14 @@ div#main div.properties #characteristics {
   border: 5px solid red;
   box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
   color: #000;
+}
+div#main div.properties #characteristics #characteristics-header {
+  justify-content: space-evenly;
+  align-items: center;
+}
+div#main div.properties #characteristics #characteristics-primary {
+  display: flex;
+  flex-direction: column;
 }
 div#main div.actions {
   order: 3;
@@ -190,20 +200,21 @@ div#main section .section-header {
   word-spacing: 0.1em;
   letter-spacing: 0.01em;
   font-weight: 700;
+  min-width: 150px;
+  text-align: center;
 }
 div#main section .plus, div#main section .multiply, div#main section .equality, div#main section .bracket, div#main section .dice, div#main section .dash {
   text-align: center;
   font-size: 25px;
   font-weight: 700;
   background-color: aliceblue;
-  padding-top: 20px;
 }
 div#main section div {
+  display: flex;
   padding: 3px;
   border: 1px solid blue;
   box-shadow: 0 0 1px rgba(85, 90, 91, 0.25);
   color: #000;
-  display: flex;
 }
 div#main section div .labeled-databox {
   background-color: antiquewhite;
