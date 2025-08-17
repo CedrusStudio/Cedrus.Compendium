@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { type PropsWithChildren } from "react";
 
-type ContainerProps = PropsWithChildren & {
+export type ContainerProps = PropsWithChildren & {
   className?: string;
 };
 
