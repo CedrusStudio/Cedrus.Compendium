@@ -1,73 +1,48 @@
-import Cell from "@/components/character/Cell";
-import Section from "@/components/character/Section";
+import Image from "next/image";
+import Logo from "@/components/Logo";
+import LandingImg from "../assets/main.png";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function HomePage() 
 {
   return (
-    <>
-      <div className="grid grid-rows-5">
-
-        <div className="row-span-4">
-
-          <div className="grid grid-cols-2">
-
-            <div className="col-span-1">
-
-              <div className="grid grid-rows-12">
-
-                <Section title="Obrona" className="rows-span-5">
-                  <p>Opis obrony postaci</p>
-                  <Cell label="Pancerz" value={5} />
-                  <Cell label="Redukcja" value={5} />
-                  <Cell label="Odporność" value={5} />
-                  <Cell label="Pancerz" value={5} />
-                </Section>
-
-                <Section title="Atak" className="rows-span-5">
-                  <p>Opis ataku postaci</p>
-                </Section>
-                
-                <Section title="Postawy">
-                  <p>Opis postaw postaci</p>
-                </Section>
-
-              </div>
-
-            </div>
-
-            <div className="col-span-1">
-
-              <div className="grid grid-rows-12">
-
-                <Section title="Życie" className="rows-span-2">
-                  <p>Opis życia postaci</p>
-                </Section>
-
-                <Section title="Umiejętności" className="rows-span-5">
-                  <p>Opis umiejętności postaci</p>
-                </Section>
-                
-                <Section title="Cechy" className="rows-span-5">
-                  <p>Opis cech postaci</p>
-                </Section>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div className="row-span-1">
-
-          <Section title="Manewry">
-            <p>Opis manewrów postaci</p>
-          </Section>
-          
-        </div>
-
-      </div>
-    </>
+    <main>
+      <header className="max-w-6xl mx-auto px-4 sm:px-8 py-6 grid gr">
+        <section className="max-w-6xl mx-auto px-4 sm:px-8 h-screen grid lg:grid-cols-[1fr,400px] items-center">
+        <Heading />
+        <Description />
+        <GetStartedButton />
+        <Image className="hidden lg:block rounded-4xl" src={LandingImg} alt="Landing" priority />
+        </section>
+      </header>
+    </main>
   );
 }
+
+const Heading = () => 
+(
+  <div className="flex flex-row justify-around items-center">
+    <h1 className="capitalize text-4xl md:text-7xl font-bold">
+      Character <span className="text-primary">sheet</span> app
+    </h1>
+    <div className="pt-6"><Logo/></div>
+  </div>
+);
+
+const Description = () =>
+(
+  <p className="leading-loose max-w-md mt-4">
+    A simple and intuitive character sheet application for your tabletop RPG adventures. 
+    Create, manage, and share your characters with ease.
+  </p>
+);
+
+const GetStartedButton = () => 
+(
+  <Button asChild className="mt-4">
+    <Link href="/characters">
+      Get Started
+    </Link>
+  </Button>
+);

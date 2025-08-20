@@ -1,6 +1,6 @@
 import Container from "@/components/global/Container";
 import ThemeMode from "@/components/navbar/ThemeMode";
-import Logo from "@/components/navbar/Logo";
+import Logo from "@/components/Logo";
 
 export default function Navbar() 
 {
