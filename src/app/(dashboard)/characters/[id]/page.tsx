@@ -1,3 +1,5 @@
+import { characterRepository } from '@/persistence/characterRepository';
+
 type CharacterProps = 
 {
     params: 
@@ -9,10 +11,13 @@ type CharacterProps =
 export default async function CharacterPage(input: CharacterProps)
 {
   const params = await input.params;
+  const character = characterRepository.get(params.id);
 
   return (
-    <div>
-      CharacterPage{params.id ?? "my id"}
-    </div>
+    <>
+      <div>
+        {character?.name ?? `character not found for id: ${params.id}`}
+      </div>
+    </>
   );
 };
