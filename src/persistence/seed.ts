@@ -9,25 +9,25 @@ const dummyCharacter : Character =
   description: "Aurelia Stormborn is a seasoned adventurer whose life has been shaped by the harsh realities of the frontier. Born to a family of scholars, she quickly distinguished herself with her keen intellect and insatiable curiosity. Her early years were spent poring over ancient tomes and deciphering forgotten languages, but a tragic loss forced her to leave the safety of her home and seek answers in the wider world.",
   characteristics: 
   {
-    strength: { value: 0, grade: 3 },
-    dexterity: { value: 0, grade: 4 },
-    constitution: { value: 0, grade: 3 },
-    mind: { value: 0, grade: 5 },
-    charisma: { value: 0, grade: 2 },
-    spellborn: { value: 0, grade: 1 }
+    strength: { value: 0, grade: 3, bonus: 1 },
+    dexterity: { value: 0, grade: 4, bonus: 2 },
+    constitution: { value: 0, grade: 3, bonus: 1 },
+    mind: { value: 0, grade: 5, bonus: 3 },
+    charisma: { value: 0, grade: 2, bonus: 0 },
+    spellborn: { value: 0, grade: 1, bonus: 0 }
   },
   attributes: 
   {
-    fencing: { value: 1, grade: 3 },
-    artifice: { value: 0, grade: 2 },
-    precision: { value: 0, grade: 4 },
-    initiative: { value: 0, grade: 1 },
-    martialArt: { value: 0, grade: 5 },
-    horsemanship: { value: 0, grade: 2 },
+    fencing: { value: 1, grade: 3, bonus: 1 },
+    artifice: { value: 0, grade: 2, bonus: 0 },
+    precision: { value: 0, grade: 4, bonus: 0 },
+    initiative: { value: 0, grade: 1, bonus: 0 },
+    martialArt: { value: 0, grade: 5, bonus: 0 },
+    horsemanship: { value: 0, grade: 2, bonus: 0 },
 
-    fortitude: { value: 0, grade: 3 },
-    reflex: { value: 0, grade: 4 },
-    willpower: { value: 0, grade: 5 }
+    fortitude: { value: 0, grade: 3, bonus: 0 },
+    reflex: { value: 0, grade: 4, bonus: 1 },
+    willpower: { value: 0, grade: 5, bonus: 0 }
   },
   talents: [],
   health: 
@@ -113,4 +113,7 @@ const dummyCharacter : Character =
   },
 };
 
-characterRepository.upsert(dummyCharacter);
+export default function seedDatabase() 
+{
+  characterRepository.upsert(dummyCharacter);
+}

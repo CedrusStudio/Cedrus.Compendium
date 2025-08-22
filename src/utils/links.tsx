@@ -15,13 +15,13 @@ const links: NavLink[] =
     icon: <Activity />,
   },
   {
-    href: '/statistics',
-    label: 'statistics',
+    href: '/combat',
+    label: 'combat',
     icon: <Layers />,
   },
   {
-    href: '/abilities',
-    label: 'abilities',
+    href: '/talents',
+    label: 'talents',
     icon: <AreaChart />,
   },
   {

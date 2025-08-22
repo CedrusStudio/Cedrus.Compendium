@@ -17,26 +17,26 @@ export type Character =
 
 export type Characteristics = 
 {
-  strength: Characteristic;
-  dexterity: Characteristic;
-  constitution: Characteristic;
-  mind: Characteristic;
-  charisma: Characteristic;
-  spellborn: Characteristic;
+  strength: Statistic;
+  dexterity: Statistic;
+  constitution: Statistic;
+  mind: Statistic;
+  charisma: Statistic;
+  spellborn: Statistic;
 };
 
 export type Attributes = 
 {
-  fencing: Ability;
-  artifice: Ability;
-  precision: Ability;
-  initiative: Ability;
-  martialArt: Ability;
-  horsemanship: Ability;
+  fencing: Statistic;
+  artifice: Statistic;
+  precision: Statistic;
+  initiative: Statistic;
+  martialArt: Statistic;
+  horsemanship: Statistic;
 
-  fortitude: Ability;
-  reflex: Ability;
-  willpower: Ability;
+  fortitude: Statistic;
+  reflex: Statistic;
+  willpower: Statistic;
 };
 
 export type Talent = 
@@ -95,16 +95,11 @@ export type Critical =
   range: number;
 }
 
-export type Characteristic = 
+export type Statistic = 
 {
   grade: number;
   value: number;
-};
-
-export type Ability = 
-{
-  grade: number;
-  value: number;
+  bonus: number;
 };
 
 //Equipment
