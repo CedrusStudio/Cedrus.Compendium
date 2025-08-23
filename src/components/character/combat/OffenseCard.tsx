@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useState } from "react";
+import WeaponDamageCard from '@/components/character/combat/WeaponDamageCard';
+import DamageBonusCard from './DamageBonusCard';
 
 type OffenseCardProps = 
 {
@@ -37,49 +39,29 @@ function WeaponOffenseView({ leadingOffense, secondaryOffense, damageBonus }: { 
 {
     const [rollResult, setRollResult] = useState<number | null>(null);
 
-    const leadingWeaponCriticalRange = calculateWeaponCriticalRangeView(leadingOffense);
-    const leadingWeaponDamage = calculateWeaponDamageView(leadingOffense);
-
-    const secondaryWeaponCriticalRange = secondaryOffense ? calculateWeaponCriticalRangeView(secondaryOffense) : null;
-    const secondaryWeaponDamage = secondaryOffense ? calculateWeaponDamageView(secondaryOffense) : null;
-
-    const bonusDamage = `${damageBonus.amount}k${damageBonus.grade * 2}+${damageBonus.bonus}`;
-
     const handleRoll = () => 
     {
-        let totalDamage: number = 0;
+        const weapons = [leadingOffense, secondaryOffense].filter(Boolean) as WeaponOffense[];
 
-        for (let i = 0; i < leadingOffense.amount; i++) 
-        {
-            totalDamage += calculateDamageRoll(leadingOffense);
-        }
+        const totalDamage = weapons.reduce
+        (   
+            (totalDamage, weapon) => totalDamage + Array
+                .from({ length: weapon.amount }, () => calculateDamageRoll(weapon))
+                .reduce((totalWeaponDamage, rollDamage) => totalWeaponDamage + rollDamage, 0), 
+            calculateDamageBonusRoll(damageBonus)
+        );
 
-        if (secondaryOffense)
-        {
-            totalDamage += calculateDamageRoll(secondaryOffense);
-        }
-
-        const bonusDamageRoll = Math.floor(Math.random() * damageBonus.grade * 2) + 1 + damageBonus.bonus;
-        totalDamage += bonusDamageRoll;
         setRollResult(totalDamage);
     };
 
     return (
-        <div className='flex flex-row justify-around'>
-            <div className='flex flex-row gap-x-4'>
-                {
-                    secondaryWeaponDamage 
-                        ? <div>{leadingWeaponDamage}+{secondaryWeaponDamage}+{bonusDamage}</div>
-                        : <div>{leadingWeaponDamage}+{bonusDamage}</div>
-                }
-                <div>{leadingWeaponCriticalRange}</div>
-                <div>+{leadingOffense.critical.power}</div>
-                {
-                    secondaryWeaponDamage && <div><div>{secondaryWeaponCriticalRange}    +{secondaryOffense?.critical.power}</div></div>
-                }
-            </div>
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
 
-            <div className='flex flex-row gap-x-4'>
+            <WeaponDamageCard name='Leading Weapon' offense={leadingOffense} className='w-full' />
+            { secondaryOffense && <WeaponDamageCard name='Secondary Weapon' offense={secondaryOffense} className='w-full' /> }
+            <DamageBonusCard damageBonus={damageBonus} className='w-full' />
+
+            <div className='flex flex-row gap-x-4 justify-center items-center'>
                 <Button variant='outline' onClick={() => handleRoll()} className="w-32 grid grid-cols-12 gap-0">
                     <div className="col-span-10">Roll result:</div> 
                     <div className="col-span-2 text-start">{rollResult}</div>
@@ -101,12 +83,7 @@ function calculateDamageRoll(leadingOffense: WeaponOffense)
     return leadingWeaponDamageRoll;
 }
 
-function calculateWeaponDamageView(weaponOffense: WeaponOffense)
+function calculateDamageBonusRoll(damageOffense: DamageOffense) 
 {
-    return `${weaponOffense.amount}(k${weaponOffense.grade * 2}+${weaponOffense.bonus})`;
-}
-
-function calculateWeaponCriticalRangeView(weaponOffense: WeaponOffense)
-{
-    return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
+    return Math.floor(Math.random() * damageOffense.grade * 2) + 1 + damageOffense.bonus;
 }

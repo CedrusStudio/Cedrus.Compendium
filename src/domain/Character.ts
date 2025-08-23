@@ -10,8 +10,8 @@ export type Character =
     defense: Defense;
     offense: Offense;
     equipment: Equipment;
-    // stances: string;
-    // states: string;
+    stances: Mode[];
+    states: Mode[];
     // maneuvers: string;
 };
 
@@ -103,6 +103,15 @@ export type Statistic =
   bonus: number;
   testBonus: number;
 };
+
+//Modes
+
+export type Mode =
+{
+  name: string;
+  grade: number;
+  description: string;
+}
 
 //Equipment
 

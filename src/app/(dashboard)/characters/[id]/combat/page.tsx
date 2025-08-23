@@ -1,6 +1,7 @@
 import DefenseCard from '@/components/character/combat/DefenseCard';
 import HealthCard from '@/components/character/combat/HealthCard';
 import OffenseCard from '@/components/character/combat/OffenseCard';
+import ModesCard from '@/components/character/combat/ModesCard';
 import { characterRepository } from '@/persistence/characterRepository';
 
 type CombatPageProps = 
@@ -24,6 +25,10 @@ export default async function CombatPage(input: CombatPageProps)
         <DefenseCard defense={character.defense} />
       </div>
       <OffenseCard offense={character.offense} />
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+        <ModesCard name="Stances" modes={character.stances} />
+        <ModesCard name="States" modes={character.states} />
+      </div>
     </div>
   );
 };

@@ -81,6 +81,27 @@ const dummyCharacter : Character =
       bonus: 5
     }
   },
+  stances: 
+  [
+    {
+      name: "Defensive Stance",
+      grade: 3,
+      description: "Increases protection by 4 and reduces damage by 3."
+    },
+    {
+      name: "Fencing Stance",
+      grade: 2,
+      description: "Increases fencing by 2."
+    }
+  ],
+  states:
+  [
+    {
+      name: "rage",
+      grade: 1,
+      description: "Add 3 strength and 3 constitution."
+    }
+  ],
   equipment:
   {
     armor:
@@ -127,5 +148,6 @@ const dummyCharacter : Character =
 
 export default function seedDatabase() 
 {
+  console.log("Database seeded!");
   characterRepository.upsert(dummyCharacter);
 }
