@@ -16,7 +16,7 @@ export default function StatisticView({ name, statistic }: StatisticViewProps)
 
   const handleRoll = (statistic: Statistic) => 
   {
-    const result = Math.floor(Math.random() * statistic.grade * 2) + 1 + statistic.value;
+    const result = Math.floor(Math.random() * statistic.grade * 2) + 1 + statistic.value + statistic.bonus;
     setRollResult(result);
   };
 

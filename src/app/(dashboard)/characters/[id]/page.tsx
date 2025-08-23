@@ -13,8 +13,7 @@ export default async function CharacterPage(input: CharacterProps)
 {
   const params = await input.params;
   const character = characterRepository.get(params.id);
-
-  if (!character) return <NoCharacter />;
+  if (!character) throw Error("Character not found");
 
   return (
     <div className='flex flex-col'>
@@ -27,12 +26,3 @@ export default async function CharacterPage(input: CharacterProps)
     </div>
   );
 };
-
-function NoCharacter()
-{
-  return (
-    <div className='flex items-center justify-center mt-8'>
-      <h2 className='text-xl'>Character not found...</h2>
-    </div>
-  );
-}

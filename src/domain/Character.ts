@@ -54,6 +54,7 @@ export type Health =
   lethalHealthLevel: number;
   lethalHealthLevelRounds: number;
   barrier: number;
+  bonus: number;
 };
 
 export type Defense = 
@@ -100,6 +101,7 @@ export type Statistic =
   grade: number;
   value: number;
   bonus: number;
+  testBonus: number;
 };
 
 //Equipment
