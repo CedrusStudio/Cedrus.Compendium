@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type CharacterSliceState = 
 {
-  currentCharacterId: string;
+  characterNavbarSearch: string;
 };
 
 const initialState: CharacterSliceState = 
 {
-    currentCharacterId: ''
+    characterNavbarSearch: '' 
 };
 
 const characterSlice = createSlice
@@ -15,7 +15,16 @@ const characterSlice = createSlice
   name: 'character',
   initialState,
   reducers: {
+
+    setCharacterNavbarSearch(state, action: PayloadAction<string>) 
+    {
+      state.characterNavbarSearch = action.payload;
     },
+    clearCharacterNavbarSearch(state) 
+    {
+      state.characterNavbarSearch = '';
+    }
+  },
 });
 
 export const { actions, reducer } = characterSlice;

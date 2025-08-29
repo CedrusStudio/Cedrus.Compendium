@@ -12,9 +12,18 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import { useDispatch } from 'react-redux';
+import { actions } from '@/persistence/characterSlice';
 
 export default function CharacterCard({ character }: { character: Character })
 {
+  const dispatch = useDispatch()
+
+  const handleViewClick = () => 
+  {
+    dispatch(actions.clearCharacterNavbarSearch());
+  };
+
   return (
     <Card className='bg-muted'>
       
@@ -22,7 +31,7 @@ export default function CharacterCard({ character }: { character: Character })
         <CardTitle className='text-2xl flex justify-between'>
             {character.name}
 
-            <Button asChild size="sm" className='mt-0.5'>
+            <Button asChild size="sm" className='mt-0.5' onClick={handleViewClick}>
                 <Link href={`/characters/${character.id}`}>view</Link>
             </Button>
         </CardTitle>

@@ -10,6 +10,7 @@ export type CharacterRepository =
 {
   upsert: (character: Character) => void;
   getAll: () => Character[];
+  search: (query: string) => Character[];
   get: (id: string) => Character | null;
   delete: (id: string) => void;
 };
@@ -42,6 +43,12 @@ export const characterRepository: CharacterRepository =
     {
         const database = readDatabase();
         return database.characters ?? [];
+    },
+    search: (query: string): Character[] =>
+    {
+        const database = readDatabase();
+        const characters: Character[] = database.characters ?? [];
+        return characters.filter(character => character.name.toLowerCase().includes(query.toLowerCase()));
     },
     get: (id: string) : Character | null => 
     {
