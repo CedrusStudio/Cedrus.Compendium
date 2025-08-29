@@ -17,7 +17,7 @@ export default function ThemeMode()
   const { setTheme } = useTheme();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu  >
       
       <DropdownMenuTrigger asChild>
         <Button variant='outline' size='icon'>

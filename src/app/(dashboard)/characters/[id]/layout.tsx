@@ -1,6 +1,19 @@
 import CharacterSidebar from "@/components/character/CharacterSidebar";
 import { PropsWithChildren } from "react";
 
+// export default function layout({children}: PropsWithChildren)
+// {
+//   return (
+//     <>
+//       <div className="py-6 px-4">
+        
+//         {children}
+//       </div>
+//     </>
+//   );
+// };
+
+
 export default function layout({children}: PropsWithChildren)
 {
   return (
@@ -12,9 +25,7 @@ export default function layout({children}: PropsWithChildren)
         </div>
 
         <div className="lg:col-span-7">
-          <div>
             {children}
-          </div>
         </div>
       </div>
     </>

@@ -29,7 +29,72 @@ const dummyCharacter : Character =
     reflex: { value: 0, grade: 4, bonus: 1, testBonus: 0 },
     willpower: { value: 0, grade: 5, bonus: 0, testBonus: 0 }
   },
-  talents: [],
+  talents: 
+  [
+    // Sense category
+    { name: "perception", category: "sense", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "listening", category: "sense", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { name: "smell", category: "sense", characteristics: "constitution", grade: 1, bonus: 0, penalty: 0 },
+    { name: "taste", category: "sense", characteristics: "constitution", grade: 1, bonus: 0, penalty: 0 },
+    { name: "direction sense", category: "sense", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+
+    // Language category
+    { name: "divine", category: "language", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
+    { name: "elvish", category: "language", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "dwarvish", category: "language", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { name: "fey", category: "language", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
+
+    // Proficiency category
+    { name: "swimming", category: "proficiency", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
+    { name: "climbing", category: "proficiency", characteristics: "strength", grade: 3, bonus: 0, penalty: 0 },
+    { name: "acrobatics", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { name: "stealth", category: "proficiency", characteristics: "dexterity", grade: 4, bonus: 1, penalty: 0 },
+    { name: "pickpocketing", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { name: "lockpicking", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { name: "rope use", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { name: "escape artist", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { name: "balance", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { name: "sleight of hand", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { name: "stillness", category: "proficiency", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
+    { name: "first aid", category: "proficiency", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "survival", category: "proficiency", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 },
+    { name: "tracking", category: "proficiency", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "forgery", category: "proficiency", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
+    { name: "cooking", category: "proficiency", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { name: "search", category: "proficiency", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "hide", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { name: "appraise", category: "proficiency", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { name: "use device", category: "proficiency", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { name: "acting", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { name: "bluff", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { name: "diplomacy", category: "proficiency", characteristics: "charisma", grade: 4, bonus: 1, penalty: 0 },
+    { name: "etiquette", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { name: "musical instrument", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { name: "juggling", category: "proficiency", characteristics: "dexterity", grade: 1, bonus: 0, penalty: 0 },
+    { name: "rhetoric", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { name: "singing", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { name: "dancing", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { name: "animal handling", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { name: "performance", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { name: "intimidation", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { name: "gather information", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { name: "animal empathy", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { name: "inner power", category: "proficiency", characteristics: "spellborn", grade: 1, bonus: 0, penalty: 0 },
+
+    // Scholarship category
+    { name: "ancient lore", category: "scholarship", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 },
+    { name: "arcane knowledge", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "history", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "religion", category: "scholarship", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { name: "nature", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "blacksmithing", category: "scholarship", characteristics: "strength", grade: 1, bonus: 0, penalty: 0 },
+    { name: "carpentry", category: "scholarship", characteristics: "strength", grade: 1, bonus: 0, penalty: 0 },
+    { name: "alchemy", category: "scholarship", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { name: "herbalism", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { name: "merchant", category: "profession", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { name: "soldier", category: "profession", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
+    { name: "scholar", category: "profession", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 }
+  ],
   health: 
   { 
     vitality: 10,
@@ -138,11 +203,75 @@ const dummyCharacter : Character =
         critical: {
           power: 1,
           range: 1
-        }
+        },
+      },
+      damageBonus:
+      {
+        amount: 1,
+        grade: 3,
+        bonus: 5
       },
       range: 1
     },
-    magicEquipment: []
+    weapon2:
+    {
+      name: "Long Bow",
+      description: "A sturdy long bow.",
+      style: "Ranged",
+      offense: {
+        amount: 1,
+        grade: 2,
+        bonus: 0,
+        critical: {
+          power: 2,
+          range: 5
+        }
+      },
+      damageBonus: {
+        amount: 1,
+        grade: 2,
+        bonus: 0
+      },
+      range: 5
+    },
+    weapon3:
+    {
+      name: "Magic Staff",
+      description: "A staff imbued with magical properties.",
+      style: "Two-Handed",
+      offense: {
+        amount: 1,
+        grade: 4,
+        bonus: 2,
+        critical: {
+          power: 3,
+          range: 10
+        }
+      },
+      damageBonus: {
+        amount: 1,
+        grade: 4,
+        bonus: 2
+      },
+      range: 10
+    },
+    magicEquipment: 
+    [
+      {
+        name: "Ring of Power",
+        description: "A magical ring that grants the wearer increased strength.",
+        immunity: 1,
+        reduction: 2,
+        resistance: 3,
+      },
+      {
+        name: "Amulet of Wisdom",
+        description: "An amulet that enhances the wearer's intellect.",
+        immunity: 0,
+        reduction: 1,
+        resistance: 2
+      }
+    ]
   },
 };
 

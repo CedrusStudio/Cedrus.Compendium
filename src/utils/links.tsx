@@ -18,17 +18,7 @@ const links: NavLink[] =
     href: '/combat',
     label: 'combat',
     icon: <Layers />,
-  },
-  {
-    href: '/talents',
-    label: 'talents',
-    icon: <AreaChart />,
-  },
-  {
-    href: '/equipment',
-    label: 'equipment',
-    icon: <AppWindow />,
-  },
+  }
 ];
 
 export default links;

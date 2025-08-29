@@ -39,21 +39,101 @@ export type Attributes =
   willpower: Statistic;
 };
 
+//Talents
+
 export type Talent = 
 {
+  category: string;
   name: string;
+  characteristics: string;
   grade: number;
   bonus: number;
+  penalty: number;
 };
+
+export const talentCategories = 
+[
+  "sense",
+  "language",
+  "proficiency",
+  "scholarship",
+  "profession",
+];
+
+export const senseCategory = 
+[
+  "perception",
+  "listening",
+  "smell",
+  "taste",
+  "direction sense",
+];
+
+export const languageCategory =
+[
+  "divine",
+  "elvish",
+  "dwarvish",
+  "fey",
+];
+
+export const proficiencyCategory =
+[
+  "swimming",
+  "climbing",
+  "acrobatics",
+  "stealth",
+  "pick pocketing",
+  "lock picking",
+  "rope use",
+  "escape artist",
+  "balance",
+  "sleight of hand",
+  "stillness",
+  "first aid",
+  "survival",
+  "tracking",
+  "forgery",
+  "cooking",
+  "search",
+  "hide",
+  "appraise",
+  "use device",
+  "acting",
+  "bluff",
+  "diplomacy",
+  "etiquette",
+  "musical instrument",
+  "juggling",
+  "rhetoric",
+  "singing",
+  "dancing",
+  "animal handling",
+  "performance",
+  "intimidation",
+  "gather information",
+  "animal empathy",
+  "inner power",
+];
+
+export const scholarshipCategory = 
+[
+  "ancient lore",
+  "arcane knowledge",
+  "history",
+  "religion",
+  "nature",
+  "blacksmithing",
+];
 
 export type Health = 
 {
+  barrier: number;
   vitality: number;
   toughness: number;
   recoveryLevel: number;
   lethalHealthLevel: number;
   lethalHealthLevelRounds: number;
-  barrier: number;
   bonus: number;
 };
 
@@ -115,20 +195,21 @@ export type Mode =
 
 //Equipment
 
-type Item = 
+export type Item = 
 {
   name: string;
   description: string;
 };
 
-type Weapon = Item & 
+export type Weapon = Item & 
 {
   style: string;
   offense: WeaponOffense;
+  damageBonus: DamageOffense;
   range: number;
 };
 
-type Armor = Item & 
+export type Armor = Item & 
 {
   protection: number;
   dexterityRestriction: number;
@@ -138,7 +219,7 @@ type Armor = Item &
   strengthRequirement: number;
 };
 
-type Shield = Item & 
+export type Shield = Item & 
 {
   block: number;
   dexterityRestriction: number;
@@ -148,14 +229,14 @@ type Shield = Item &
   strengthRequirement: number;
 };
 
-type MagicEquipment = Item & 
+export type MagicEquipment = Item & 
 {
   reduction: number;
   resistance: number;
   immunity: number;
 };
 
-type Horse = Item & 
+export type Horse = Item & 
 {
   paceSpeed: number;
   gallopSpeed: number;
@@ -163,7 +244,7 @@ type Horse = Item &
   horsemanshipBonus: number;
 };
 
-type Equipment = 
+export type Equipment = 
 {
   weapon1: Weapon;
   weapon2?: Weapon;

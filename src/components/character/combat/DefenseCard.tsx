@@ -68,7 +68,6 @@ export default function DefenseCard(input: DefenseCardProps)
           }
           </SelectContent>
 
-
       </Select>
 
       </CardContent>
