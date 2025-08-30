@@ -7,6 +7,7 @@ import StatisticsCard from "@/components/character/StatisticsCard";
 import { Character } from "@/domain/Character";
 import HealthDataCard from "@/components/character/HealthDataCard";
 import DefenseDataCard from "@/components/character/DefenseDataCard";
+import { attributesIcons, characteristicIcons } from "@/utils/icons";
 
 export default function CharacterCarousel(input: { character: Character })
 {
@@ -17,8 +18,8 @@ export default function CharacterCarousel(input: { character: Character })
 
       <CarouselContent>
         <CarouselItem className="flex flex-col gap-2">
-            <StatisticsCard title="Characteristics" statistics={Object.entries(character.characteristics)} />
-            <StatisticsCard title="Attributes" statistics={Object.entries(character.attributes)} />
+            <StatisticsCard title="Characteristics" statistics={Object.entries(character.characteristics).map(([name, value]) => [name, value, characteristicIcons[name]])} />
+            <StatisticsCard title="Attributes" statistics={Object.entries(character.attributes).map(([name, value]) => [name, value, attributesIcons[name]])} />
         </CarouselItem>
 
         <CarouselItem className="flex flex-col gap-2">

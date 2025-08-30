@@ -1,4 +1,4 @@
-import { AreaChart, Layers, AppWindow, Activity } from 'lucide-react';
+import { Layers, Activity } from 'lucide-react';
 
 type NavLink = 
 {

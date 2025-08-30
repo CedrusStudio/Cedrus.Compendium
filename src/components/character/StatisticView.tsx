@@ -3,14 +3,20 @@
 import { Statistic } from "@/domain/Character";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 type StatisticViewProps = 
 {
   name: string;
   statistic: Statistic;
+  icon: React.ReactNode;
 };
 
-export default function StatisticView({ name, statistic }: StatisticViewProps) 
+export default function StatisticView({ name, statistic, icon }: StatisticViewProps) 
 {
   const [rollResult, setRollResult] = useState<number | null>(null);
 
@@ -22,7 +28,15 @@ export default function StatisticView({ name, statistic }: StatisticViewProps)
 
   return (
     <div className={'flex gap-x-6 items-center justify-around'}>
-      <div className="w-24 capitalize">{name}</div>
+      <div className="w-24 capitalize">
+        <Tooltip>
+          <TooltipTrigger>{icon}</TooltipTrigger>
+          <TooltipContent>
+            <p>{name}</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+
       <div className="w-8">{statistic.value}</div>
       <div className="w-26">1k{statistic.grade * 2}+{statistic.value}+{statistic.bonus}</div>
 

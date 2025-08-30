@@ -5,11 +5,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 
-export type CharacterSidebarProps = 
-{
-  characterPath: string;
-};
-
 export default function CharacterSidebar()
 {
   const currentFullPath = usePathname();

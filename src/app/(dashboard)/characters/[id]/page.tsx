@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
 import EquipmentAccordion from '@/components/character/EquipmentAccordion';
 // import seedDatabase from '@/persistence/seed';
+import CharacterHeader from "@/components/character/CharacterHeader";
 
 type CharacterProps = 
 {
@@ -26,7 +27,7 @@ export default async function CharacterPage(input: CharacterProps)
 
   return (
     <div>
-      <h2 className='text-xl text-center font-semibold text-primary pt-2 pb-12 capitalize'>{character.name}</h2>
+      {/* <CharacterHeader character={character} /> */}
 
       <div className='grid grid-cols-1 md:grid-cols-3'>
 
