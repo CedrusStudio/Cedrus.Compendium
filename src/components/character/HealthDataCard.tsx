@@ -1,7 +1,6 @@
 "use client";
 
 import { Health, Statistic } from '@/domain/Character';
-import { Separator } from '@/components/ui/separator';
 import FieldView from '@/components/character/FieldView';
 import {
   Card,
@@ -9,7 +8,6 @@ import {
   CardContent,
   CardTitle,
 } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 type HealthDataCardProps = 
 {

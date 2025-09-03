@@ -8,6 +8,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Badge } from "@/components/ui/badge";
+import { GiRollingDices } from "react-icons/gi";
 
 type StatisticViewProps = 
 {
@@ -27,8 +29,8 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
   };
 
   return (
-    <div className={'flex gap-x-6 items-center justify-around'}>
-      <div className="w-24 capitalize">
+    <div className={'flex gap-x-2 items-center justify-around'}>
+      <div className="capitalize">
         <Tooltip>
           <TooltipTrigger>{icon}</TooltipTrigger>
           <TooltipContent>
@@ -36,13 +38,16 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
           </TooltipContent>
         </Tooltip>
       </div>
+      
+      <div className="flex items-end">
+        1k{statistic.grade * 2}+
+        <Badge className="rounded-full px-1 font-mono inline">{statistic.value}</Badge>
+        +{statistic.bonus}
+      </div>
 
-      <div className="w-8">{statistic.value}</div>
-      <div className="w-26">1k{statistic.grade * 2}+{statistic.value}+{statistic.bonus}</div>
-
-      <Button variant='outline' onClick={() => handleRoll(statistic)} className="w-32 grid grid-cols-12 gap-0">
-        <div className="col-span-10">Roll result:</div> 
-        <div className="col-span-2 text-start">{rollResult}</div>
+      <Button variant='outline' onClick={() => handleRoll(statistic)} className="w-14 flex justify-center">
+        <div><GiRollingDices /></div>
+        <div className="text-start">{rollResult}</div>
       </Button>
     </div>
   );

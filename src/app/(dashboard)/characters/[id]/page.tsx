@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import EquipmentAccordion from '@/components/character/EquipmentAccordion';
 // import seedDatabase from '@/persistence/seed';
 import CharacterHeader from "@/components/character/CharacterHeader";
+import CombatView from '@/components/character/combat/CombatView';
 
 type CharacterProps = 
 {
@@ -27,18 +28,18 @@ export default async function CharacterPage(input: CharacterProps)
 
   return (
     <div>
-      {/* <CharacterHeader character={character} /> */}
+      <div className='grid md:grid-cols-12'>
 
-      <div className='grid grid-cols-1 md:grid-cols-3'>
-
-        <div className='col-span-1'>
+        <div className='col-span-4 lg:col-span-2'>
           <CharacterCarousel character={character} />
         </div>
 
-        <Tabs defaultValue="talents" className='col-span-2 ml-15 grid grid-rows-15'>
+        <Tabs defaultValue="character" className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'>
 
           <div className='row-span-1'>
             <TabsList className='mb-4'>
+              <TabsTrigger value="character">Character</TabsTrigger>
+              <TabsTrigger value="combat">Combat</TabsTrigger>
               <TabsTrigger value="talents">Talents</TabsTrigger>
               <TabsTrigger value="equipment">Equipment</TabsTrigger>
             </TabsList>
@@ -47,6 +48,14 @@ export default async function CharacterPage(input: CharacterProps)
           </div>
 
           <div className='row-span-14 mx-4'>
+            <TabsContent value="character">
+                <CharacterHeader character={character} />
+            </TabsContent>
+
+            <TabsContent value="combat">
+                <CombatView character={character} />
+            </TabsContent>
+
             <TabsContent value="talents">
                 <DataTable columns={columns} data={data} />
             </TabsContent>

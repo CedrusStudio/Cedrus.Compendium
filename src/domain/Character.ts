@@ -132,8 +132,8 @@ export type Health =
   vitality: number;
   toughness: number;
   recoveryLevel: number;
-  lethalHealthLevel: number;
-  lethalHealthLevelRounds: number;
+  lethalHealth: number;
+  lethalRounds: number;
   bonus: number;
 };
 

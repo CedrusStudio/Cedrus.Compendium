@@ -100,10 +100,10 @@ const dummyCharacter : Character =
     vitality: 10,
     toughness: 5,
     recoveryLevel: 1,
-    lethalHealthLevel: 0,
-    lethalHealthLevelRounds: 0,
-    barrier: 0,
-    bonus: 0
+    lethalHealth: 10,
+    lethalRounds: 2,
+    barrier: 5,
+    bonus: 2
   },
   defense: 
   {
