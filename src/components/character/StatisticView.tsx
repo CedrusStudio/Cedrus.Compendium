@@ -1,7 +1,6 @@
 "use client";
 
 import { Statistic } from "@/domain/Character";
-import { Button } from "../ui/button";
 import { useState } from "react";
 import {
   Tooltip,
@@ -9,7 +8,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge";
-import { GiRollingDices } from "react-icons/gi";
+import RollButton from "./RollButton";
 
 type StatisticViewProps = 
 {
@@ -45,10 +44,7 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
         +{statistic.bonus}
       </div>
 
-      <Button variant='outline' onClick={() => handleRoll(statistic)} className="w-14 flex justify-center">
-        <div><GiRollingDices /></div>
-        <div className="text-start">{rollResult}</div>
-      </Button>
+      <RollButton onClick={() => handleRoll(statistic)} rollResult={rollResult} />
     </div>
   );
 };

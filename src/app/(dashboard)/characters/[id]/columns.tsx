@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
 import { Talent } from "@/domain/Character"
 import { useState } from "react"
+import RollButton from "@/components/character/RollButton";
 
 export const columns: ColumnDef<Talent>[] = 
 [
@@ -51,25 +52,19 @@ export const columns: ColumnDef<Talent>[] =
   },
   {
     id: "roll",
-    cell: ({ row }) => 
-    {
-        const [rollResult, setRollResult] = useState(0);
-
-        const handleRoll = () => 
-        {
-            const talent = row.original
-            const rollResult = Math.floor(Math.random() * talent.grade * 2) + 1 + talent.bonus;
-            setRollResult(rollResult);
-        };
- 
-        return (
-            <div className='flex flex-row gap-x-4 justify-center items-center'>
-                <Button variant='outline' onClick={() => handleRoll()} className="w-32 grid grid-cols-12 gap-0">
-                    <div className="col-span-10">Roll result:</div> 
-                    <div className="col-span-2 text-start">{rollResult}</div>
-                </Button>
-            </div>
-        )
-    },
+    cell: ({ row }) => <RollCell talent={row.original} />
   },
 ]
+
+function RollCell({ talent }: { talent: Talent }) 
+{
+  const [rollResult, setRollResult] = useState(0);
+
+  const handleRoll = () => 
+  {
+    const result = Math.floor(Math.random() * talent.grade * 2) + 1 + talent.bonus;
+    setRollResult(result);
+  };
+
+  return <RollButton onClick={handleRoll} rollResult={rollResult} />;
+}

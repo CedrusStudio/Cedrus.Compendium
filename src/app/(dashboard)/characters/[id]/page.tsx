@@ -5,9 +5,9 @@ import { DataTable } from "@/app/(dashboard)/characters/[id]/data-table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
 import EquipmentAccordion from '@/components/character/EquipmentAccordion';
-// import seedDatabase from '@/persistence/seed';
 import CharacterHeader from "@/components/character/CharacterHeader";
 import CombatView from '@/components/character/combat/CombatView';
+// import seedDatabase from '@/persistence/seed';
 
 type CharacterProps = 
 {
@@ -38,10 +38,10 @@ export default async function CharacterPage(input: CharacterProps)
 
           <div className='row-span-1'>
             <TabsList className='mb-4'>
-              <TabsTrigger value="character">Character</TabsTrigger>
-              <TabsTrigger value="combat">Combat</TabsTrigger>
-              <TabsTrigger value="talents">Talents</TabsTrigger>
-              <TabsTrigger value="equipment">Equipment</TabsTrigger>
+              <TabsTriggerCapitalized value="character" />
+              <TabsTriggerCapitalized value="combat" />
+              <TabsTriggerCapitalized value="talents" />
+              <TabsTriggerCapitalized value="equipment" />
             </TabsList>
 
             <Separator />
@@ -70,3 +70,8 @@ export default async function CharacterPage(input: CharacterProps)
     </div>
   );
 };
+
+function TabsTriggerCapitalized({ value }: { value: string })
+{
+  return <TabsTrigger value={value} className='capitalize'>{value}</TabsTrigger>
+}

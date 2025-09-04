@@ -6,8 +6,9 @@ type CharactersPageProps =
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function CharactersPage({ searchParams }: CharactersPageProps)
+export default async function CharactersPage(input: CharactersPageProps)
 {
+  const searchParams = await input.searchParams;
   const searchQuery = searchParams?.search as string | undefined;
 
   const allCharacters = searchQuery 
