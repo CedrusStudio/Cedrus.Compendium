@@ -8,10 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { useState } from "react";
 import WeaponDamageCard from '@/components/character/combat/WeaponDamageCard';
 import DamageBonusCard from './DamageBonusCard';
+import RollButton from "@/components/character/RollButton";
 
 type OffenseCardProps = 
 {
@@ -62,10 +62,7 @@ function WeaponOffenseView({ leadingOffense, secondaryOffense, damageBonus }: { 
             <DamageBonusCard damageBonus={damageBonus} className='w-full' />
 
             <div className='flex flex-row gap-x-4 justify-center items-center'>
-                <Button variant='outline' onClick={() => handleRoll()} className="w-32 grid grid-cols-12 gap-0">
-                    <div className="col-span-10">Roll result:</div> 
-                    <div className="col-span-2 text-start">{rollResult}</div>
-                </Button>
+              <RollButton onClick={handleRoll} rollResult={rollResult} />
             </div>
         </div>
     );

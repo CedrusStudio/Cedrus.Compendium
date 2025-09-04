@@ -34,14 +34,15 @@ import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { talentCategories } from "@/domain/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { RowData } from "@tanstack/react-table"
 
-interface DataTableProps<TData, TValue> 
+interface DataTableProps<TData extends RowData, TValue> 
 {
   columns: ColumnDef<TData, TValue>[]
   data: TData[],
 }
 
-export function DataTable<TData, TValue>({columns, data }: DataTableProps<TData, TValue>) 
+export function DataTable<TData extends RowData, TValue>({columns, data }: DataTableProps<TData, TValue>) 
 {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

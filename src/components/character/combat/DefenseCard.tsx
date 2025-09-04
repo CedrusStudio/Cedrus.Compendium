@@ -9,14 +9,14 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 
 type DefenseCardProps = 
 {
@@ -29,7 +29,6 @@ const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
 export default function DefenseCard(input: DefenseCardProps)
 {
   const [selectedReductionType, setSelectedReductionType] = useState<ReductionType>("full");
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleOnSelectedValueChange = (value: string) => 
   {
@@ -45,18 +44,26 @@ export default function DefenseCard(input: DefenseCardProps)
 
       <CardContent className='flex flex-col gap-y-4'>
 
-      <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
+        <FieldView name={"immunity"} value={input.defense.immunity} />
+        <FieldView name={"resistance"} value={input.defense.resistance} />
 
-          <FieldView name={"immunity"} value={input.defense.immunity} />
-          <FieldView name={"resistance"} value={input.defense.resistance} />
+        <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
           <div className={'flex gap-x-10 items-center justify-around'}>
-              <SelectTrigger className='capitalize'>
-                  <SelectValue />
-              </SelectTrigger>
-              <div className="w-8">{calculateSelectedReduction(input.defense, selectedReductionType)}</div>
+            <SelectTrigger className='capitalize border-0' >
+              <HoverCard openDelay={350} closeDelay={100}>
+                <HoverCardTrigger><SelectValue /></HoverCardTrigger>
+                <HoverCardContent>
+                {
+                    Object.entries(input.defense)
+                    .filter(([name, _]) => selectFilter(selectedReductionType)(name))
+                    .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
+                }
+                </HoverCardContent>
+              </HoverCard>
+            </SelectTrigger>
+            <div className="w-8">{calculateSelectedReduction(input.defense, selectedReductionType)}</div>
           </div>
-
   
           <SelectContent>
           {
@@ -67,35 +74,8 @@ export default function DefenseCard(input: DefenseCardProps)
               ))
           }
           </SelectContent>
-
-      </Select>
-
+        </Select>
       </CardContent>
-
-        <Collapsible open={isOpen} onOpenChange={setIsOpen} className="">
-
-        <div className="flex items-center justify-center gap-4 px-4">
-          <CollapsibleTrigger asChild>
-            <Button variant="default">
-              {isOpen ? 'Show less' : 'Show more'}
-            </Button>
-          </CollapsibleTrigger>
-        </div>
-
-        <CollapsibleContent className="flex flex-col gap-2">
-
-            <CardContent className='flex flex-col gap-y-4'>
-            {
-                Object.entries(input.defense)
-                .filter(([name, _]) => name !== "immunity" && name !== "resistance")
-                .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
-            }
-            </CardContent>
-      
-        </CollapsibleContent>
-      </Collapsible>
-
-      
     </Card>
   );
 };
@@ -118,4 +98,27 @@ function calculateSelectedReduction(defense: Defense, selectedReductionType: Red
   }
 
   throw new Error("Invalid reduction type");
+}
+
+function selectFilter(selectedReductionType: ReductionType): (name: string) => boolean
+{
+  if (selectedReductionType === "full") return fullFilter;
+  if (selectedReductionType === "block") return blockFilter;
+  if (selectedReductionType === "direct") return directFilter;
+  throw new Error("Invalid reduction type");
+}
+
+function fullFilter(name: string): boolean 
+{
+  return name !== "immunity" && name !== "resistance";
+} 
+
+function blockFilter(name: string): boolean 
+{
+  return fullFilter(name) && name !== "dodge" && name !== "parry";
+} 
+
+function directFilter(name: string): boolean 
+{
+  return blockFilter(name) && name !== "block";
 }
