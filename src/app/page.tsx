@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Logo from "@/components/Logo";
 import LandingImg from "../assets/main.png";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

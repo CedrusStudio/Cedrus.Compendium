@@ -149,12 +149,12 @@ const dummyCharacter : Character =
   stances: 
   [
     {
-      name: "Defensive Stance",
+      name: "Defensive",
       grade: 3,
       description: "Increases protection by 4 and reduces damage by 3."
     },
     {
-      name: "Fencing Stance",
+      name: "Fencing",
       grade: 2,
       description: "Increases fencing by 2."
     }
@@ -273,6 +273,86 @@ const dummyCharacter : Character =
       }
     ]
   },
+  maneuvers:
+  [
+    {
+      name: "Power Attack",
+      grade: 2,
+      description: "A powerful melee attack that deals extra damage.",
+      cooldown: 1,
+      castTime: "Standard"
+    },
+    {
+      name: "Quick Shot",
+      grade: 1,
+      description: "A rapid ranged attack with reduced accuracy.",
+      cooldown: 1,
+      castTime: "Immediate"
+    },
+    {
+      name: "Distracting Strike",
+      grade: 3,
+      description: "An attack that distracts the target, reducing their next attack's accuracy.",
+      cooldown: 1,
+      castTime: "Standard"
+    },
+    {
+      name: "Knights Move",
+      grade: 2,
+      description: "Move in an L shape, like a knight in chess, ignoring difficult terrain.",
+      cooldown: null,
+      castTime: "Standard"
+    },
+    {
+      name: "Evasive Roll",
+      grade: 3,
+      description: "Perform a roll to evade an incoming attack, increasing your dodge for one round.",
+      cooldown: 1,
+      castTime: "Overimmediate"
+    },
+    {
+      name: "Shield Bash",
+      grade: 1,
+      description: "Use your shield to bash an opponent, potentially stunning them.",
+      cooldown: 3,
+      castTime: "Standard"
+    },
+    {
+      name: "Punishing Strike",
+      grade: 2,
+      description: "A powerful strike that deals extra damage to a target that has been hit multiple times.",
+      cooldown: 4,
+      castTime: "Standard"
+    },
+    {
+      name: "Whirlwind Attack",
+      grade: 4,
+      description: "Attack all adjacent enemies in a single, sweeping motion.",
+      cooldown: 3,
+      castTime: "Full"
+    },
+    { 
+      name: "Feint",
+      grade: 1,
+      description: "A deceptive move that causes your opponent to lower their guard, making them more vulnerable to your next attack.",
+      cooldown: 1,
+      castTime: "Standard"
+    },
+    {
+      name: "Disarming Strike",
+      grade: 3,
+      description: "A precise attack aimed at disarming your opponent, forcing them to drop their weapon.",
+      cooldown: 6,
+      castTime: "Standard"
+    },
+    {
+      name: "Assassin's Move",
+      grade: 4,
+      description: "Move silently and unseen, gaining advantage on your next attack if you remain undetected.",
+      cooldown: null,
+      castTime: "Standard"
+    }
+  ]
 };
 
 export default function seedDatabase() 

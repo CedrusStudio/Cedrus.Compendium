@@ -8,17 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { BsInfoCircle } from "react-icons/bs";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
-import FieldViewWithInfoIcon from '@/components/character/FieldViewWithInfoIcon';
+import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
 
 type DefenseCardProps = 
 {
@@ -51,20 +45,20 @@ export default function DefenseCard(input: DefenseCardProps)
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
-          <FieldViewWithInfoIcon 
+          <FieldViewWithInfo 
             name={<SelectTrigger className='capitalize border-0' ><SelectValue /></SelectTrigger>} 
             value={calculateSelectedReduction(input.defense, selectedReductionType)} 
             infoContent={<DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} />} 
-            valueClassName='pr-2'
+            valueClassName='pr-3'
           />
   
           <SelectContent>
           {
-              allReductionTypes.map(reductionType => (
-                  <SelectItem key={reductionType} value={reductionType}>
-                      <span className='capitalize'>{reductionType}</span>
-                  </SelectItem>
-              ))
+            allReductionTypes.map(reductionType => (
+              <SelectItem key={reductionType} value={reductionType}>
+                  <span className='capitalize'>{reductionType}</span>
+              </SelectItem>
+            ))
           }
           </SelectContent>
         </Select>

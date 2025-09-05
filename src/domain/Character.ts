@@ -12,7 +12,7 @@ export type Character =
     equipment: Equipment;
     stances: Mode[];
     states: Mode[];
-    // maneuvers: string;
+    maneuvers: Maneuver[];
 };
 
 export type Characteristics = 
@@ -255,3 +255,17 @@ export type Equipment =
   magicEquipment: MagicEquipment[];
   horse?: Horse;
 };
+
+//Maneuvers
+
+export type CastTime = "Full" | "Standard" | "Immediate" | "Overimmediate";
+
+export type Maneuver =
+{
+  name: string;
+  grade: number;
+  description: string;
+  cooldown: number | null;
+  castTime: CastTime;
+};
+

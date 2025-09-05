@@ -3,7 +3,8 @@ import HealthCard from "@/components/character/combat/HealthCard";
 import DefenseCard from "@/components/character/combat/DefenseCard";
 import OffenseCard from "@/components/character/combat/OffenseCard";
 import ModesCard from "@/components/character/combat/ModesCard";
-import BarrierCard from "./BarrierCard";
+import BarrierCard from "@/components/character/combat/BarrierCard";
+import ManeuversView from "@/components/character/combat/ManeuversView";
 
 export default function CombatView({ character }: { character: Character })
 {
@@ -16,13 +17,17 @@ export default function CombatView({ character }: { character: Character })
         <BarrierCard health={character.health} />
       </div>
 
-      <OffenseCard offense={character.offense} />
+      <div className='grid grid-cols-1 lg:grid-cols-6 gap-4'>
+        <div className='col-span-4'>
+          <OffenseCard offense={character.offense} />
+        </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
         <ModesCard name="Stances" modes={character.stances} />
         <ModesCard name="States" modes={character.states} />
       </div>
-      
+
+      <ManeuversView maneuvers={character.maneuvers} />
+
     </div>
   );
 };

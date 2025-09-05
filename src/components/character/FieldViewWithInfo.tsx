@@ -6,28 +6,27 @@ import {
 import { BsInfoCircle } from "react-icons/bs";
 import { cn } from "@/lib/utils";
 
-type FieldViewWithInfoIconProps = 
+type FieldViewWithInfoProps = 
 {
   name: string | React.ReactNode;
   value: number;
   infoContent: React.ReactNode;
+  className?: string;
+  nameClassName?: string;
   valueClassName?: string;
 };
 
-export default function FieldViewWithInfoIcon(input: FieldViewWithInfoIconProps) 
+export default function FieldViewWithInfo(input: FieldViewWithInfoProps) 
 {
   return (
-    <div className={'flex gap-x-6 items-center justify-around mx-3'}>
-      
-      <div className="w-24 pl-2 capitalize">
+    <div className={cn('flex gap-x-6 justify-around', input.className)}>
+
+      <div className={cn("w-24 capitalize", input.nameClassName)}>
         {input.name}
       </div>
 
-      <div className="flex items-center text-end gap-2">
-
-        <div className={cn("w-17", input.valueClassName)}>
-          {input.value}
-        </div>
+      <div className={cn("flex items-center gap-2", input.valueClassName)}>
+        {input.value}
 
         <HoverCard openDelay={350} closeDelay={100}>
           <HoverCardTrigger>{<BsInfoCircle />}</HoverCardTrigger>
