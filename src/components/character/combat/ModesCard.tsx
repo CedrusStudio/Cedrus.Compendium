@@ -7,13 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import FieldViewWithInfo from "@/components/character/FieldViewWithInfo";
 import { useState } from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
 {  
@@ -29,40 +34,44 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
 
       <CardContent className='flex flex-col gap-y-4 flex-1'>
 
-        <RadioGroup defaultValue="comfortable" value={selectedMode} onValueChange={setSelectedMode} >
-          <div className="flex items-center gap-3">
-            <RadioGroupItem value="None" id="None" />
-            <Label htmlFor="None">None</Label>
-          </div>
-
-          {
-            modes.map(mode => (
-              <div key={mode.name} className="flex items-center gap-3">
-                <RadioGroupItem value={mode.name} id={mode.name} />
-                <Label htmlFor={mode.name} >
-                  <div className="flex items-start text-start gap-2">
-                    <FieldViewWithInfo 
-                      name={mode.name} 
-                      value={mode.grade} 
-                      infoContent={mode.description} 
-                      className="gap-1" 
-                      nameClassName="w-4xs"
-                    />
+        <Select defaultValue="None" onValueChange={setSelectedMode}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="None">None</SelectItem>
+            {
+              modes.map(mode => (
+                <SelectItem key={mode.name} value={mode.name}>
+                  <div className="flex items-center gap-3">
+                    <Label htmlFor={mode.name} >
+                      <div className="flex items-start text-start gap-2">
+                        <FieldViewWithInfo 
+                          name={mode.name} 
+                          value={mode.grade} 
+                          infoContent={mode.description} 
+                          className="gap-1" 
+                          nameClassName="w-4xs"
+                        />
+                      </div>
+                    </Label>
                   </div>
-                </Label>
-              </div>
-            ))
-          }
-        </RadioGroup>
+                </SelectItem>
+              ))
+            }
+          </SelectContent>
+        </Select>
 
-        <div className="mt-auto">
-          {selectedModeObj && (
+        <div>
+        {
+          selectedModeObj && (
             <div className="pt-4 border-t border-border/40">
               <p className="text-sm text-muted-foreground text-center italic">
                 {selectedModeObj.description}
               </p>
             </div>
-          )}
+          )
+        }
         </div>
 
       </CardContent>
