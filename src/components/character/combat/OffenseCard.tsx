@@ -66,13 +66,13 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
     };
 
     return (
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
+        <div className={ `grid grid-cols-1 gap-4 ${secondaryOffense ? `md:grid-cols-10` : `md:grid-cols-7` }` }>
 
-            <Subcard name='Leading Arm' innerCardContent={<WeaponDamageWithCriticalAndRolls weaponOffense={leadingOffense} rolls={leadingRolls} />} />
-            { secondaryOffense && <Subcard name='Secondary Arm' innerCardContent={<WeaponDamageWithCriticalAndRolls weaponOffense={secondaryOffense} rolls={secondaryRolls} />} /> }
-            <Subcard name='Damage Bonus' className='w-full' innerCardContent={<DamageBonusWithRolls damageOffense={damageBonus} rolls={damageBonusRolls} />} />
+            <Subcard className='col-span-3' name='Leading Arm' innerCardContent={<WeaponDamageWithCriticalAndRolls weaponOffense={leadingOffense} rolls={leadingRolls} />} />
+            { secondaryOffense && <Subcard className='col-span-3' name='Secondary Arm' innerCardContent={<WeaponDamageWithCriticalAndRolls weaponOffense={secondaryOffense} rolls={secondaryRolls} />} /> }
+            <Subcard name='Damage Bonus' className='col-span-3 w-full' innerCardContent={<DamageBonusWithRolls damageOffense={damageBonus} rolls={damageBonusRolls} />} />
 
-            <div className='flex justify-center items-center'>
+            <div className='flex justify-center items-center col-span-1'>
               <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
             </div>
         </div>
