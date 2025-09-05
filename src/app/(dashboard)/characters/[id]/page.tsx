@@ -7,6 +7,10 @@ import { Separator } from '@/components/ui/separator';
 import EquipmentAccordion from '@/components/character/EquipmentAccordion';
 import CharacterHeader from "@/components/character/CharacterHeader";
 import CombatView from '@/components/character/combat/CombatView';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { TbEdit } from "react-icons/tb";
+import TabsTriggerCapitalized from '@/components/ui/TabsTriggerCapitalized';
 // import seedDatabase from '@/persistence/seed';
 
 type CharacterProps = 
@@ -37,12 +41,18 @@ export default async function CharacterPage(input: CharacterProps)
         <Tabs defaultValue="character" className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'>
 
           <div className='row-span-1'>
-            <TabsList className='mb-4'>
-              <TabsTriggerCapitalized value="character" />
-              <TabsTriggerCapitalized value="combat" />
-              <TabsTriggerCapitalized value="talents" />
-              <TabsTriggerCapitalized value="equipment" />
-            </TabsList>
+            <div className='flex flex-row justify-between items-center'>
+              <TabsList className='mb-4'>
+                <TabsTriggerCapitalized value="character" />
+                <TabsTriggerCapitalized value="combat" />
+                <TabsTriggerCapitalized value="talents" />
+                <TabsTriggerCapitalized value="equipment" />
+              </TabsList>
+
+              <Button asChild variant="edit" size="icon" className='m-4'>
+                <Link href={`/characters/${character.id}/edit`}><TbEdit /></Link>
+              </Button>
+            </div>
 
             <Separator />
           </div>
@@ -70,8 +80,3 @@ export default async function CharacterPage(input: CharacterProps)
     </div>
   );
 };
-
-function TabsTriggerCapitalized({ value }: { value: string })
-{
-  return <TabsTrigger value={value} className='capitalize'>{value}</TabsTrigger>
-}

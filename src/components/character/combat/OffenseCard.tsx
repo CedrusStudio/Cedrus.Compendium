@@ -104,7 +104,8 @@ function DamageBonusWithRolls({ damageOffense, rolls }: { damageOffense: DamageO
   )
 };
 
-function RollsView<T extends number | [number, boolean]>({ rolls }: { rolls: T[] }) {
+function RollsView<T extends number | [number, boolean]>({ rolls }: { rolls: T[] }) 
+{
   if (rolls.length === 0) return null;
 
   return (
@@ -123,7 +124,7 @@ function RollsView<T extends number | [number, boolean]>({ rolls }: { rolls: T[]
                 className={`rounded-full px-1 font-mono inline ${isCritical ? 'bg-yellow-300' : ''}`}
               >
                 <div className='flex items-center gap-x-1'>
-                  <GiRollingDices />
+                    <GiRollingDices />
                   {rollValue}
                 </div>
               </Badge>
