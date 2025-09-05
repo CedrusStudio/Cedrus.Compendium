@@ -1,5 +1,5 @@
-import IncreaseButton from '@/components/IncreaseButton';
-import DecreaseButton from '@/components/DecreaseButton';
+import IncreaseButton from '@/components/buttons/IncreaseButton';
+import DecreaseButton from '@/components/buttons/DecreaseButton';
 import { ChevronUp, ChevronDown } from "lucide-react";
 
 type VerticalChangeButtonsProps =

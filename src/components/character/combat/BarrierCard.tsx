@@ -8,7 +8,7 @@ import {
 import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
 import { Health } from '@/domain/Character';
-import ChangeButtons from '@/components/ChangeButtons';
+import ChangeButtons from '@/components/buttons/ChangeButtons';
 
 type BarrierCardProps = 
 {

@@ -10,7 +10,7 @@ import {
 import FieldView from '@/components/character/FieldView';
 import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
 import { useState } from 'react';
-import ChangeButtons from '@/components/ChangeButtons';
+import ChangeButtons from '@/components/buttons/ChangeButtons';
 
 type HealthCardProps = 
 {

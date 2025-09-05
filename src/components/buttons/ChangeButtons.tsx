@@ -1,7 +1,7 @@
-import IncreaseButton from '@/components/IncreaseButton';
-import DecreaseButton from '@/components/DecreaseButton';
-import ResetButton from '@/components/ResetButton';
-import ChangeAmountInput from '@/components/ChangeAmountInput';
+import IncreaseButton from '@/components/buttons/IncreaseButton';
+import DecreaseButton from '@/components/buttons/DecreaseButton';
+import ResetButton from '@/components/buttons/ResetButton';
+import ChangeAmountInput from '@/components/buttons/ChangeAmountInput';
 
 type ChangeButtonsProps =
 {
@@ -14,7 +14,7 @@ type ChangeButtonsProps =
 export default function ChangeButtons({ value, setValue, setChangeAmount, resetValue }: ChangeButtonsProps)
 {
   return (
-    <div className='flex gap-x-6 lg:gap-x-8 items-center justify-center'>
+    <div className='flex gap-x-4 lg:gap-x-6 items-center justify-center'>
         <ChangeAmountInput value={value} setValue={setChangeAmount} />
         <DecreaseButton value={value} setValue={setValue} />
         <IncreaseButton value={value} setValue={setValue} />

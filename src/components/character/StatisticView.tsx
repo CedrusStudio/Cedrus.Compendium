@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge";
 import RollButton from "@/components/character/RollButton";
-import VerticalChangeButtons from "@/components/VerticalChangeButtons";
-import ResetButton from "@/components/ResetButton";
+import VerticalChangeButtons from "@/components/buttons/VerticalChangeButtons";
+import ResetButton from "@/components/buttons/ResetButton";
 
 type StatisticViewProps = 
 {
