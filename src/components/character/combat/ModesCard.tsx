@@ -22,12 +22,12 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
 
 
   return (
-    <Card className='bg-muted'>
+    <Card className='bg-muted flex flex-col'>
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{name}</CardTitle>
       </CardHeader>
 
-      <CardContent className='flex flex-col gap-y-4'>
+      <CardContent className='flex flex-col gap-y-4 flex-1'>
 
         <RadioGroup defaultValue="comfortable" value={selectedMode} onValueChange={setSelectedMode} >
           <div className="flex items-center gap-3">
@@ -55,13 +55,15 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
           }
         </RadioGroup>
 
-        {selectedModeObj && (
-          <div className="mt-auto pt-4 border-t border-border/40">
-            <p className="text-sm text-muted-foreground text-center italic">
-              {selectedModeObj.description}
-            </p>
-          </div>
-        )}
+        <div className="mt-auto">
+          {selectedModeObj && (
+            <div className="pt-4 border-t border-border/40">
+              <p className="text-sm text-muted-foreground text-center italic">
+                {selectedModeObj.description}
+              </p>
+            </div>
+          )}
+        </div>
 
       </CardContent>
     </Card>

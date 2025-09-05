@@ -9,25 +9,25 @@ const dummyCharacter : Character =
   description: "Aurelia Stormborn is a seasoned adventurer whose life has been shaped by the harsh realities of the frontier. Born to a family of scholars, she quickly distinguished herself with her keen intellect and insatiable curiosity. Her early years were spent poring over ancient tomes and deciphering forgotten languages, but a tragic loss forced her to leave the safety of her home and seek answers in the wider world.",
   characteristics: 
   {
-    strength: { value: 0, grade: 3, bonus: 1, testBonus: 0 },
-    dexterity: { value: 0, grade: 4, bonus: 2, testBonus: 0 },
-    constitution: { value: 0, grade: 3, bonus: 1, testBonus: 0 },
-    mind: { value: 0, grade: 5, bonus: 3, testBonus: 0 },
-    charisma: { value: 0, grade: 2, bonus: 0, testBonus: 0 },
-    spellborn: { value: 0, grade: 1, bonus: 0, testBonus: 0 }
+    strength: { value: 2, grade: 3, bonus: 1, testBonus: 2 },
+    dexterity: { value: 1, grade: 4, bonus: 2, testBonus: 0 },
+    constitution: { value: 5, grade: 3, bonus: 1, testBonus: 4 },
+    mind: { value: 2, grade: 5, bonus: 3, testBonus: 1 },
+    charisma: { value: -2, grade: 2, bonus: 0, testBonus: 5 },
+    spellborn: { value: -1, grade: 1, bonus: 0, testBonus: -3 }
   },
   attributes: 
   {
-    fencing: { value: 1, grade: 3, bonus: 1, testBonus: 0 },
-    artifice: { value: 0, grade: 2, bonus: 0, testBonus: 0 },
-    precision: { value: 0, grade: 4, bonus: 0, testBonus: 0 },
-    initiative: { value: 0, grade: 1, bonus: 0, testBonus: 0 },
-    martialArt: { value: 0, grade: 5, bonus: 0, testBonus: 0 },
-    horsemanship: { value: 0, grade: 2, bonus: 0, testBonus: 0 },
+    fencing: { value: 1, grade: 3, bonus: 1, testBonus: 2 },
+    artifice: { value: -1, grade: 2, bonus: 4, testBonus: 1 },
+    precision: { value: 1, grade: 4, bonus: 1, testBonus: 3 },
+    initiative: { value: 5, grade: 1, bonus: -3, testBonus: 0 },
+    martialArt: { value: 3, grade: 5, bonus: 0, testBonus: -1 },
+    horsemanship: { value: 3, grade: 2, bonus: 0, testBonus: 0 },
 
-    fortitude: { value: 0, grade: 3, bonus: 0, testBonus: 0 },
-    reflex: { value: 0, grade: 4, bonus: 1, testBonus: 0 },
-    willpower: { value: 0, grade: 5, bonus: 0, testBonus: 0 }
+    fortitude: { value: 4, grade: 3, bonus: -1, testBonus: 0 },
+    reflex: { value: 2, grade: 4, bonus: 1, testBonus: 0 },
+    willpower: { value: 3, grade: 5, bonus: 0, testBonus: 0 }
   },
   talents: 
   [

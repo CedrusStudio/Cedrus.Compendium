@@ -10,13 +10,14 @@ type IncreaseButtonProps =
     setValue: React.Dispatch<React.SetStateAction<number>>;
     variant?: VariantType;
     className?: string;
+    icon?: React.ReactNode;
 }
 
-export default function IncreaseButton({ value, setValue, variant = "outline", className }: IncreaseButtonProps)
+export default function IncreaseButton({ value, setValue, variant = "outline", className, icon }: IncreaseButtonProps)
 {
   return (
-    <Button variant={variant} onClick={() => increase(value, setValue)} className={cn(`w-10`, className)}>
-        <IoAdd />
+    <Button variant={variant} onClick={() => increase(value, setValue)} className={cn(className)}>
+        {icon || <IoAdd />}
     </Button>
   );
 };

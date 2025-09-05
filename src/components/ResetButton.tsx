@@ -10,13 +10,14 @@ type ResetButtonProps =
     setValue: React.Dispatch<React.SetStateAction<number>>;
     variant?: VariantType;
     className?: string;
+    icon?: React.ReactNode;
 }
 
-export default function ResetButton({ value, setValue, variant = "outline", className }: ResetButtonProps)
+export default function ResetButton({ value, setValue, variant = "outline", className, icon }: ResetButtonProps)
 {
   return (
-    <Button variant={variant} onClick={() => reset(value, setValue)} className={cn(`w-10`, className)}>
-      <RiResetLeftFill />
+    <Button variant={variant} onClick={() => reset(value, setValue)} className={cn(className)}>
+      {icon || <RiResetLeftFill />}
     </Button>
   );
 };

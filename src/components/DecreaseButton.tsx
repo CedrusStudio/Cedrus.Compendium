@@ -10,13 +10,14 @@ type DecreaseButtonProps =
     setValue: React.Dispatch<React.SetStateAction<number>>;
     variant?: VariantType;
     className?: string;
+    icon?: React.ReactNode;
 }
 
-export default function DecreaseButton({ value, setValue, variant = "outline", className }: DecreaseButtonProps)
+export default function DecreaseButton({ value, setValue, variant = "outline", className, icon }: DecreaseButtonProps)
 {
   return (
     <Button variant={variant} onClick={() => decrease(value, setValue)} className={cn(`w-10`, className)}>
-        <FiMinus />
+        {icon || <FiMinus />}
     </Button>
   );
 };
