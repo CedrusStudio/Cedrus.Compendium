@@ -18,6 +18,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
+import FieldViewWithInfoIcon from '@/components/character/FieldViewWithInfoIcon';
 
 type DefenseCardProps = 
 {
@@ -50,22 +51,12 @@ export default function DefenseCard(input: DefenseCardProps)
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
-          <div className={'flex items-center justify-between mx-16'}>
-
-            <SelectTrigger className='capitalize border-0' >
-              <SelectValue />
-            </SelectTrigger>
-              
-            <div className='flex items-center text-center gap-0.5'>
-              <div className="w-8">{calculateSelectedReduction(input.defense, selectedReductionType)}</div>
-                <HoverCard openDelay={350} closeDelay={100}>
-                  <HoverCardTrigger><BsInfoCircle /></HoverCardTrigger>
-                  <HoverCardContent>
-                    <DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} />
-                  </HoverCardContent>
-                </HoverCard>
-            </div>
-          </div>
+          <FieldViewWithInfoIcon 
+            name={<SelectTrigger className='capitalize border-0' ><SelectValue /></SelectTrigger>} 
+            value={calculateSelectedReduction(input.defense, selectedReductionType)} 
+            infoContent={<DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} />} 
+            valueClassName='pr-2'
+          />
   
           <SelectContent>
           {

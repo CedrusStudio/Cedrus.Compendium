@@ -22,6 +22,7 @@ export default function CombatView({ character }: { character: Character })
         <ModesCard name="Stances" modes={character.stances} />
         <ModesCard name="States" modes={character.states} />
       </div>
+      
     </div>
   );
 };

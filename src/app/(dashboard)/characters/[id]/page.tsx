@@ -1,4 +1,4 @@
-import CharacterCarousel from '@/components/character/CharacterCarousel';
+import CharacterStatistics from '@/components/character/CharacterStatistics';
 import { characterRepository } from '@/persistence/characterRepository';
 import { columns } from "@/app/(dashboard)/characters/[id]/columns"
 import { DataTable } from "@/app/(dashboard)/characters/[id]/data-table"
@@ -30,8 +30,8 @@ export default async function CharacterPage(input: CharacterProps)
     <div>
       <div className='grid md:grid-cols-12'>
 
-        <div className='col-span-4 lg:col-span-2'>
-          <CharacterCarousel character={character} />
+        <div className='col-span-12 lg:col-span-2'>
+          <CharacterStatistics character={character} />
         </div>
 
         <Tabs defaultValue="character" className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'>
@@ -49,15 +49,15 @@ export default async function CharacterPage(input: CharacterProps)
 
           <div className='row-span-14 mx-4'>
             <TabsContent value="character">
-                <CharacterHeader character={character} />
+              <CharacterHeader character={character} />
             </TabsContent>
 
             <TabsContent value="combat">
-                <CombatView character={character} />
+              <CombatView character={character} />
             </TabsContent>
 
             <TabsContent value="talents">
-                <DataTable columns={columns} data={data} />
+              <DataTable columns={columns} data={data} />
             </TabsContent>
 
             <TabsContent value="equipment">

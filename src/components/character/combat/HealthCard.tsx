@@ -11,7 +11,6 @@ import FieldView from '@/components/character/FieldView';
 import FieldViewWithInfoIcon from '@/components/character/FieldViewWithInfoIcon';
 import { useState } from 'react';
 import ChangeButtons from '@/components/ChangeButtons';
-import { BsInfoCircle } from "react-icons/bs";
 
 type HealthCardProps = 
 {
@@ -31,7 +30,7 @@ export default function HealthCard(input: HealthCardProps)
         <CardContent className='flex flex-col gap-y-4'>
           <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Health</CardTitle>
 
-          <FieldViewWithInfoIcon name="Total" value={totalHealth} infoIcon={<BsInfoCircle />} infoContent={<HealthInfoContent health={input.health} />} />
+          <FieldViewWithInfoIcon name="Total" value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
           <FieldView name="Current" value={currentHealth} />
 
           <ChangeButtons value={healthChangeAmount} setValue={setCurrentHealth} setChangeAmount={setHealthChangeAmount} resetValue={totalHealth} />

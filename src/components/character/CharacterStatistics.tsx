@@ -2,7 +2,7 @@ import StatisticsCard from "@/components/character/StatisticsCard";
 import { Character } from "@/domain/Character";
 import { attributesIcons, characteristicIcons } from "@/utils/icons";
 
-export default function CharacterCarousel(input: { character: Character })
+export default function CharacterStatistics(input: { character: Character })
 {
   const { character } = input;
 
