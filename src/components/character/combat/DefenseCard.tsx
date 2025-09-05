@@ -13,6 +13,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
+import { BsInfoCircle } from "react-icons/bs";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import FieldView from '@/components/character/FieldView';
@@ -42,27 +43,28 @@ export default function DefenseCard(input: DefenseCardProps)
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Defense</CardTitle>
       </CardHeader>
 
-      <CardContent className='flex flex-col gap-y-4'>
+      <CardContent className='flex flex-col gap-y-4 -mt-4'>
 
         <FieldView name={"immunity"} value={input.defense.immunity} />
         <FieldView name={"resistance"} value={input.defense.resistance} />
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
-          <div className={'flex gap-x-10 items-center justify-around'}>
+          <div className={'flex items-center justify-between mx-16'}>
+
             <SelectTrigger className='capitalize border-0' >
-              <HoverCard openDelay={350} closeDelay={100}>
-                <HoverCardTrigger><SelectValue /></HoverCardTrigger>
-                <HoverCardContent>
-                {
-                    Object.entries(input.defense)
-                    .filter(([name, _]) => selectFilter(selectedReductionType)(name))
-                    .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
-                }
-                </HoverCardContent>
-              </HoverCard>
+              <SelectValue />
             </SelectTrigger>
-            <div className="w-8">{calculateSelectedReduction(input.defense, selectedReductionType)}</div>
+              
+            <div className='flex items-center text-center gap-0.5'>
+              <div className="w-8">{calculateSelectedReduction(input.defense, selectedReductionType)}</div>
+                <HoverCard openDelay={350} closeDelay={100}>
+                  <HoverCardTrigger><BsInfoCircle /></HoverCardTrigger>
+                  <HoverCardContent>
+                    <DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} />
+                  </HoverCardContent>
+                </HoverCard>
+            </div>
           </div>
   
           <SelectContent>
@@ -79,6 +81,19 @@ export default function DefenseCard(input: DefenseCardProps)
     </Card>
   );
 };
+
+function DefenseInfoContent(input: { defense: Defense, selectedReductionType: ReductionType })
+{
+  return (
+    <div>
+    {
+      Object.entries(input.defense)
+      .filter(([name, _]) => selectFilter(input.selectedReductionType)(name))
+      .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
+    }
+    </div>
+  );
+}
 
 function calculateSelectedReduction(defense: Defense, selectedReductionType: ReductionType): number 
 {

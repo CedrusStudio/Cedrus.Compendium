@@ -1,0 +1,1 @@
+export type VariantType = "default" | "outline" | "ghost" | "link" | "destructive" | "secondary";
