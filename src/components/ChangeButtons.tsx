@@ -16,8 +16,8 @@ export default function ChangeButtons({ value, setValue, setChangeAmount, resetV
   return (
     <div className='flex gap-x-6 lg:gap-x-8 items-center justify-center'>
         <ChangeAmountInput value={value} setValue={setChangeAmount} />
-        <IncreaseButton value={value} setValue={setValue} />
         <DecreaseButton value={value} setValue={setValue} />
+        <IncreaseButton value={value} setValue={setValue} />
         <ResetButton value={resetValue} setValue={setValue} />
     </div>
   );

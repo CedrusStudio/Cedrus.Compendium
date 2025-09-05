@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { reset } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
-import { cn } from "@/lib/utils";
 import { RiResetLeftFill } from "react-icons/ri";
 
 type ResetButtonProps =
@@ -16,7 +15,7 @@ type ResetButtonProps =
 export default function ResetButton({ value, setValue, variant = "outline", className, icon }: ResetButtonProps)
 {
   return (
-    <Button variant={variant} onClick={() => reset(value, setValue)} className={cn(className)}>
+    <Button variant={variant} size="icon" onClick={() => reset(value, setValue)} className={className}>
       {icon || <RiResetLeftFill />}
     </Button>
   );

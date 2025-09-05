@@ -36,7 +36,9 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
       <div className="capitalize">
         <Tooltip>
           <TooltipTrigger asChild>
-            <ResetButton variant='ghost' value={defaultBonus} icon={icon} setValue={setBonus} />
+            <div>
+              <ResetButton variant='ghost' value={defaultBonus} icon={icon} setValue={setBonus} />
+            </div>
           </TooltipTrigger>
           <TooltipContent>
             <p>{name}</p>
