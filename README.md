@@ -1,3 +1,4 @@
 # TODO
 
-1. is crit to results
+1. add character
+2. edit character
