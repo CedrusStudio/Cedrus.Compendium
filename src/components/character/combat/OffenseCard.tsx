@@ -41,8 +41,8 @@ export default function OffenseCard(input: OffenseCardProps)
 
 function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadingOffense: WeaponOffense, secondaryOffense?: WeaponOffense, damageBonus: DamageOffense })
 {
-    const [leadingRolls, setLeadingRolls] = useState<number[]>([]);
-    const [secondaryRolls, setSecondaryRolls] = useState<number[]>([]);
+    const [leadingRolls, setLeadingRolls] = useState<[number, boolean][]>([]);
+    const [secondaryRolls, setSecondaryRolls] = useState<[number, boolean][]>([]);
     const [damageBonusRolls, setDamageBonusRolls] = useState<number[]>([]);
     const [rollTotalResult, setRollTotalResult] = useState<number | null>(null);
 
@@ -79,7 +79,7 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
     );
 }
 
-function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls }: { weaponOffense: WeaponOffense, rolls: number[] })
+function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls }: { weaponOffense: WeaponOffense, rolls: [number, boolean][] })
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
@@ -104,38 +104,48 @@ function DamageBonusWithRolls({ damageOffense, rolls }: { damageOffense: DamageO
   )
 };
 
-function RollsView({ rolls }: { rolls: number[] })
-{
+function RollsView<T extends number | [number, boolean]>({ rolls }: { rolls: T[] }) {
+  if (rolls.length === 0) return null;
+
   return (
-    rolls.length > 0 && 
-      <div className='flex flex-col items-center'>
-        <div className='flex gap-x-1'>
+    <div className='flex flex-col items-center'>
+      <div className='flex gap-x-1'>
         {
-          rolls.map((roll, index) => (
-            <Badge key={index} className='rounded-full px-1 font-mono inline'>
-              <div className='flex items-center gap-x-1'>
-                <GiRollingDices />
-                {roll}
-              </div>
-            </Badge>
-          ))
+          rolls.map((roll, index) => 
+          {
+            const isTuple = Array.isArray(roll);
+            const rollValue = isTuple ? roll[0] : roll;
+            const isCritical = isTuple ? roll[1] : false;
+            
+            return (
+              <Badge 
+                key={index} 
+                className={`rounded-full px-1 font-mono inline ${isCritical ? 'bg-yellow-300' : ''}`}
+              >
+                <div className='flex items-center gap-x-1'>
+                  <GiRollingDices />
+                  {rollValue}
+                </div>
+              </Badge>
+            );
+          })
         }
-        </div>
       </div>
+    </div>
   );
 }
 
-function handleWeaponDamageRolls(offense: WeaponOffense) : { total: number, rolls: number[] }
+function handleWeaponDamageRolls(offense: WeaponOffense) : { total: number, rolls: [number, boolean][] }
 {
     let totalOffenseDamage = 0;
-    const rolls: number[] = [];
+    const rolls: [number, boolean][] = [];
 
     for (let i = 0; i < offense.amount; i++) 
     {
       const weaponDamageRoll = Math.floor(Math.random() * offense.grade * 2) + 1;
-      rolls.push(weaponDamageRoll);
       const weaponDiceDamageWithoutCritical = weaponDamageRoll + offense.bonus;
-      const criticalDamage = weaponDiceDamageWithoutCritical >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
+      const criticalDamage = weaponDamageRoll >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
+      rolls.push([weaponDamageRoll, criticalDamage > 0]);
       totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
     }
 
