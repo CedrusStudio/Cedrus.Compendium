@@ -8,17 +8,16 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Label } from "@/components/ui/label"
-import FieldViewWithInfo from "@/components/character/FieldViewWithInfo";
 import { useState } from "react";
 
 import {
   Select,
   SelectContent,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import FieldView from "../FieldView";
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
 {  
@@ -46,10 +45,9 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
                   <div className="flex items-center gap-3">
                     <Label htmlFor={mode.name} >
                       <div className="flex items-start text-start gap-2">
-                        <FieldViewWithInfo 
+                        <FieldView
                           name={mode.name} 
                           value={mode.grade} 
-                          infoContent={mode.description} 
                           className="gap-1" 
                           nameClassName="w-4xs"
                         />

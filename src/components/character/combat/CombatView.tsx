@@ -27,7 +27,6 @@ export default function CombatView({ character }: { character: Character })
       </div>
 
       <ManeuversView maneuvers={character.maneuvers} />
-
     </div>
   );
 };

@@ -1,15 +1,20 @@
+import { cn } from "@/lib/utils";
+
 type FieldViewProps = 
 {
   name: string;
   value: number;
+  className?: string;
+  nameClassName?: string;
+  valueClassName?: string;
 };
 
 export default function FieldView(input: FieldViewProps) 
 {
   return (
-    <div className={'flex gap-x-6 items-center justify-around'}>
-      <div className="w-24 capitalize">{input.name}</div>
-      <div className="w-8">{input.value}</div>
+    <div className={cn('flex gap-x-6 items-center justify-around', input.className)}>
+      <div className={cn("w-24 capitalize", input.nameClassName)}>{input.name}</div>
+      <div className={cn("w-8", input.valueClassName)}>{input.value}</div>
     </div>
   );
 };
