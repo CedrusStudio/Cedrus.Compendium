@@ -1,10 +1,9 @@
 "use client";
 
-import Container from "@/components/global/Container";
 import ThemeMode from "@/components/navbar/ThemeMode";
 import { Input } from "@/components/ui/input"
 import { useDebouncedCallback } from 'use-debounce';
-import { useRouter, useSearchParams, useParams, usePathname } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/persistence/store";
 import { actions } from "@/persistence/characterSlice";
@@ -20,6 +19,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import React from "react";
 
 export default function Navbar() 
 {
@@ -30,9 +30,8 @@ export default function Navbar()
     const searchQuery = useSelector((state: RootState) => state.character.characterNavbarSearch)
     const [searchTerm, setSearchTerm] = useState("");
 
-    const params = useParams<{ id?: string; characterId?: string }>(); 
     const pathname = usePathname();
-    const idFromPath = params?.id ?? ""; 
+    const segments = pathname.split("/").filter(Boolean);
 
     const debouncedSearch = useDebouncedCallback(value => 
     {
@@ -69,40 +68,37 @@ export default function Navbar()
     return (
         <nav>
             <div className="grid grid-cols-9 items-center py-4">
-            {/* <div className="flex flex-row justify-around items-center py-4"> */}
-            {/* <div className="flex flex-row justify-between items-center py-4   mx-auto max-w-6xl xl:max-w-7xl"> */}
 
                 <Breadcrumb className="col-span-2 pl-20">
-                <BreadcrumbList>
+                    <BreadcrumbList>
 
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/">home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                   
-                   {
-                        pathname.includes("/characters") && (
-                            <>
-                                <BreadcrumbSeparator />
-                                <BreadcrumbItem>
-                                    <BreadcrumbLink href="/characters">characters</BreadcrumbLink>
-                                </BreadcrumbItem>
-                            </>
-                        ) 
-                   }
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="/">home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                    
+                        {
+                            segments.map((segment, index) => 
+                            {
+                                const href = "/" + segments.slice(0, index + 1).join("/");
+                                const isLast = index === segments.length - 1;
+                                
+                                return (
+                                    <React.Fragment key={index}>
+                                        <BreadcrumbSeparator />
+                                        <BreadcrumbItem>
+                                        {
+                                            isLast 
+                                                ? <BreadcrumbPage>{segment}</BreadcrumbPage> 
+                                                : <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
+                                        }
+                                        </BreadcrumbItem>
+                                    </React.Fragment>
+                                );
+                            })
+                        }
 
-                    {
-                        idFromPath && pathname.includes(idFromPath) && (
-                            <>
-                                <BreadcrumbSeparator />
-                                <BreadcrumbItem>
-                                    <BreadcrumbPage>{idFromPath}</BreadcrumbPage>
-                                </BreadcrumbItem>
-                            </>
-                        ) 
-                   }
 
-
-                </BreadcrumbList>
+                    </BreadcrumbList>
                 </Breadcrumb>
 
                 <Input 

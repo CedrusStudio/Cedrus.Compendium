@@ -2,7 +2,7 @@ import CharacterStatistics from '@/components/character/CharacterStatistics';
 import { characterRepository } from '@/persistence/characterRepository';
 import { columns } from "@/app/(dashboard)/characters/[id]/columns"
 import { DataTable } from "@/app/(dashboard)/characters/[id]/data-table"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
 import EquipmentAccordion from '@/components/character/EquipmentAccordion';
 import CharacterHeader from "@/components/character/CharacterHeader";
