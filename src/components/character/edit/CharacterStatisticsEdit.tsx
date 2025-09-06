@@ -68,14 +68,9 @@ export default function CharacterStatisticsEdit(input: { character: Character })
         },
     });
 
-    function onSubmit(values: UpsertCharacterStatisticsType) 
-    {
-        mutate(values);
-    }
-
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(values => mutate(values))} className="space-y-8">
 
                 <div className="grid gap-3 md:grid-cols-2">
                   <StatisticsCardEdit 

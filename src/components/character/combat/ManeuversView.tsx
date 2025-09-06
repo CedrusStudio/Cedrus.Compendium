@@ -44,7 +44,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
         {
-            maneuvers.map(maneuver => <ManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} />)
+            maneuvers.map(maneuver => <ManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
         }
 
         <div className="grid grid-cols-12 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
@@ -76,7 +76,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
   );
 };
 
-function ManeuverView({ maneuver, addManeuverToUsed }: { maneuver: Maneuver, addManeuverToUsed: (maneuver: Maneuver) => void }) 
+function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver: Maneuver, addManeuverToUsed: (maneuver: Maneuver) => void, usedManeuvers: Maneuver[] }) 
 {
     return (
         <div className='flex m-1 p-1 w-full h-full'>
@@ -92,7 +92,7 @@ function ManeuverView({ maneuver, addManeuverToUsed }: { maneuver: Maneuver, add
             </div>
 
             <div className='flex items-center justify-center border rounded-r-md border-l-0'>
-                <Button variant="ghost" className="h-full w-full p-0" onClick={() => addManeuverToUsed(maneuver)}>
+                <Button variant="ghost" className="h-full w-full p-0" onClick={() => addManeuverToUsed(maneuver)} disabled={!canUseManeuver(maneuver, usedManeuvers)}>
                     <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none rounded-r-md' variant={getBadgeVariant(maneuver.castTime)}>
                         <LuRefreshCcw />
                         <span>{maneuver.cooldown ?? <GiSwordsEmblem className='bg- scale-80'/>}</span> 
@@ -113,4 +113,19 @@ function getBadgeVariant(castTime: CastTime): BadgeActionVariant
     if (castTime === "Immediate") return "immediate";
     if (castTime === "Overimmediate") return "overimmediate";
     return null;
+}
+
+function canUseManeuver(maneuver: Maneuver, usedManeuvers: Maneuver[]): boolean
+{
+    if (usedManeuvers.length === 0) return true;
+
+    if (maneuver.cooldown)
+    {
+        const lastUsedIndex = usedManeuvers.findLastIndex(x => x.name === maneuver.name);
+        if (lastUsedIndex === -1) return true;
+        const maneuversSinceLastUse = usedManeuvers.length -  lastUsedIndex;
+        return maneuversSinceLastUse >= maneuver.cooldown;
+    }
+
+    return !usedManeuvers.some(x => x.name === maneuver.name);
 }

@@ -30,6 +30,7 @@ export const reset = (defaultValue: number, setStateAction: React.Dispatch<React
     (
         previousValue => 
         {
+            if (previousValue === defaultValue) return previousValue;
             sideEffect?.(defaultValue);
             return defaultValue;
         }

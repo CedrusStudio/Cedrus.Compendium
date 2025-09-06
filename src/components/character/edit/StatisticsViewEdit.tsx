@@ -82,64 +82,28 @@ export default function StatisticViewEdit({ name, statistic, icon, control, fiel
       </div>
       
       <div className="flex items-center">
-
-        <Tooltip>
-          <TooltipTrigger>
-            1k{grade * 2}
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>grade</p>
-          </TooltipContent>
-        </Tooltip>
-
+        1k{grade * 2}
         <div className="flex items-center">
           <VerticalChangeButtons setValue={setGrade} sideEffect={gradeField.onChange} />
         </div>
       </div>
       
       <div className="flex items-center">
-
-        <Tooltip>
-          <TooltipTrigger>
-            <Badge className="rounded-full px-1 font-mono inline">{value}</Badge>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>value</p>
-          </TooltipContent>
-        </Tooltip>
-
+        <Badge className="rounded-full px-1 font-mono inline">{value}</Badge>
         <div className="flex items-center">
           <VerticalChangeButtons setValue={setValue} sideEffect={valueField.onChange} />
         </div>
       </div>
       
       <div className="flex items-center">
-
-        <Tooltip>
-          <TooltipTrigger>
-            {bonus}
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>bonus</p>
-          </TooltipContent>
-        </Tooltip>
-
+        {bonus}
         <div className="flex items-center">
           <VerticalChangeButtons setValue={setBonus} sideEffect={bonusField.onChange} />
         </div>
       </div>
       
       <div className="flex items-center">
-
-        <Tooltip>
-          <TooltipTrigger>
-            {testBonus}
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>test bonus</p>
-          </TooltipContent>
-        </Tooltip>
-
+        {testBonus}
         <div className="flex items-center">
           <VerticalChangeButtons setValue={setTestBonus} sideEffect={testBonusField.onChange} />
         </div>
