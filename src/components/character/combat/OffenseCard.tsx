@@ -65,11 +65,6 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
 
     const handleRoll = () => 
     {
-        setRollTotalResult(null);
-        setLeadingRolls([]);
-        setSecondaryRolls([]);
-        setDamageBonusRolls([]);
-
         const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageBonusRolls(damageBonus);
         const { total: leadingTotal, rolls: leadingRolls } = handleWeaponDamageRolls(leadingOffense);
         const { total: secondaryTotal, rolls: secondaryRolls } = secondaryOffense ? handleWeaponDamageRolls(secondaryOffense) : { total: 0, rolls: [] };
