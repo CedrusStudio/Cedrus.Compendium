@@ -198,7 +198,7 @@ function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { 
                 className={`flex flex-row rounded-full px-1 font-mono ${isCritical ? 'bg-yellow-300' : ''}`}
               >
                 <div className='flex items-center gap-x-1'>
-                  <Button asChild variant="ghost" className="h-full w-full p-0" onClick={() => onReroll(index)}>
+                  <Button asChild variant="ghost" className="h-full w-full p-0 hover:bg-transparent hover:text-current" onClick={() => onReroll(index)}>
                     <GiRollingDices />
                   </Button>
                 </div>
