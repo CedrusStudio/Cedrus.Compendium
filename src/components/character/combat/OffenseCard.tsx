@@ -82,7 +82,6 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
         setRollTotalResult(totalDamage);
     };
 
-    // Handler for rerolling individual weapon dice
     const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>) => 
     {
         const [damage, critical] = handleWeaponDamageRoll(offense);
@@ -95,7 +94,6 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
         });
     };
 
-    // Handler for rerolling individual damage bonus dice
     const handleDamageBonusReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
     {
         const damage = handleDamageOffenseRoll(damageOffense);
@@ -107,9 +105,6 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
             return newRolls;
         });
     };
-
-    // Helper function to recalculate total damage
-
 
     return (
         <div className={ `grid grid-cols-1 gap-4 ${secondaryOffense ? `md:grid-cols-10` : `md:grid-cols-7` }` }>
