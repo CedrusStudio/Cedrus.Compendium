@@ -49,6 +49,13 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
 
     useEffect(() => 
     {
+        const shouldNotRecalculateTotalDamage = leadingRolls.length === 0 && secondaryRolls.length === 0 && damageBonusRolls.length === 0;
+        if (shouldNotRecalculateTotalDamage)
+        {
+            setRollTotalResult(null);
+            return;
+        }
+
         const damageBonusTotal = calculateDamageBonusForRolls(damageBonus, damageBonusRolls);
         const leadingTotal = calculateWeaponDamageForRolls(leadingOffense, leadingRolls.map(r => r[0]));
         const secondaryTotal = secondaryOffense ? calculateWeaponDamageForRolls(secondaryOffense, secondaryRolls.map(r => r[0])) : 0;
