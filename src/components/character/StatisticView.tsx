@@ -51,7 +51,7 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
         <Badge className="rounded-full px-1 font-mono inline">{statistic.value}</Badge>
         <div className="flex items-center">
           {bonus >= 0 ? `+${bonus}` : bonus}
-          <VerticalChangeButtons value={1} setValue={setBonus} />
+          <VerticalChangeButtons setValue={setBonus} />
         </div>
       </div>
 

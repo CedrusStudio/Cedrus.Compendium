@@ -2,7 +2,7 @@
 
 import { Character } from "@/domain/Character";
 import fs from 'fs';
-import { UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
+import { UpsertCharacterHeaderType, UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 
 type Database = 
 {
@@ -15,6 +15,29 @@ const readDatabase = (): Database =>
 {
     const data = fs.readFileSync(dbFileName, 'utf-8');
     return JSON.parse(data);
+};
+
+export const upsertCharacterStatistics: (id: string, characterStatistics: UpsertCharacterStatisticsType) => Promise<void> = async (id, characterStatistics) =>
+{
+    const database = readDatabase();
+
+    if (!database.characters) 
+    {
+        database.characters = [];
+    }
+
+    const findCharacter = database.characters.find(c => c.id === id);
+    if (!findCharacter)
+    {
+        throw new Error("Character not found");
+    }
+
+    const allCharactersExceptSpecified = database.characters.filter(c => c.id !== id);
+
+    const characterToUpsert = { ...findCharacter, ...characterStatistics } as Character;
+    database.characters = [...allCharactersExceptSpecified, characterToUpsert];
+    const databaseAsJson = JSON.stringify(database);
+    fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 };
 
 export const upsertCharacterHeader: (id: string, characterHeader: UpsertCharacterHeaderType) => Promise<void> = async (id, characterHeader) =>

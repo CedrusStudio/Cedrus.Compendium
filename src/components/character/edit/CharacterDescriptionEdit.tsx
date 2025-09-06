@@ -1,7 +1,6 @@
 "use client";
 
 import { Character } from "@/domain/Character";
-import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -9,17 +8,17 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldPath, FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner"
-import { Control } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { upsertCharacterHeader } from "@/persistence/characterRepository";
 import { upsertCharacterHeaderSchema, UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
+import { InputFormField } from "@/components/ui/InputFormField";
+import SubmitButton from "@/components/ui/SubmitButton";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -109,36 +108,9 @@ export default function CharacterDescriptionEdit(input: { character: Character }
                     )}
                 />
 
-                <Button type="submit"  disabled={isPending}>
-                    { isPending ? "Submitting..." : "Submit" }
-                </Button>
+                <SubmitButton isPending={isPending} />
             </form>
 
         </Form>
     );
 };
-
-type CustomFormFieldProps<TFieldValues extends FieldValues> = 
-{
-  name: FieldPath<TFieldValues>;
-  control: Control<TFieldValues>;
-  inputPlaceholder?: string;
-};
-
-function InputFormField<TFieldValues extends FieldValues>(input: CustomFormFieldProps<TFieldValues>) 
-{
-  return (
-    <FormField
-      control={input.control}
-      name={input.name}
-      render={({ field }) => (
-        <FormItem>
-          <FormControl>
-            <Input placeholder={input.inputPlaceholder} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-}

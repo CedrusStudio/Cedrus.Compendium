@@ -3,6 +3,7 @@ import { increase } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
 import { cn } from "@/lib/utils";
 import { IoAdd } from "react-icons/io5";
+import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
 
 type IncreaseButtonProps =
 {
@@ -11,12 +12,18 @@ type IncreaseButtonProps =
     variant?: VariantType;
     className?: string;
     icon?: React.ReactNode;
+    sideEffect?: ChangeValueSideEffect;
 }
 
-export default function IncreaseButton({ value, setValue, variant = "outline", className, icon }: IncreaseButtonProps)
+export default function IncreaseButton({ value, setValue, variant = "outline", className, icon, sideEffect }: IncreaseButtonProps)
 {
   return (
-    <Button variant={variant} onClick={() => increase(value, setValue)} className={cn(className)}>
+    <Button 
+      type="button" 
+      variant={variant}
+      className={cn(className)} 
+      onClick={() => increase(value, setValue, sideEffect)}
+    >
         {icon || <IoAdd />}
     </Button>
   );

@@ -15,7 +15,7 @@ type ResetButtonProps =
 export default function ResetButton({ value, setValue, variant = "outline", className, icon }: ResetButtonProps)
 {
   return (
-    <Button variant={variant} size="icon" onClick={() => reset(value, setValue)} className={className}>
+    <Button type="button" variant={variant} size="icon" onClick={() => reset(value, setValue)} className={className}>
       {icon || <RiResetLeftFill />}
     </Button>
   );

@@ -3,6 +3,7 @@ import { decrease } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
 import { cn } from "@/lib/utils";
 import { FiMinus } from "react-icons/fi";
+import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
 
 type DecreaseButtonProps =
 {
@@ -11,13 +12,19 @@ type DecreaseButtonProps =
     variant?: VariantType;
     className?: string;
     icon?: React.ReactNode;
+    sideEffect?: ChangeValueSideEffect;
 }
 
-export default function DecreaseButton({ value, setValue, variant = "outline", className, icon }: DecreaseButtonProps)
+export default function DecreaseButton({ value, setValue, variant = "outline", className, icon, sideEffect }: DecreaseButtonProps)
 {
   return (
-    <Button variant={variant} onClick={() => decrease(value, setValue)} className={cn(`w-10`, className)}>
-        {icon || <FiMinus />}
+    <Button 
+      type="button" 
+      variant={variant} 
+      onClick={() => decrease(value, setValue, sideEffect)}
+      className={cn(className)}
+    >
+      {icon || <FiMinus />}
     </Button>
   );
 };
