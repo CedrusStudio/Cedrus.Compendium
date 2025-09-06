@@ -8,14 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import DamageBonusView from '@/components/character/combat/DamageBonusView';
 import RollButton from "@/components/character/RollButton";
 import Subcard from '@/components/global/Subcard';
 import WeaponDamageView from '@/components/character/combat/WeaponDamageCard';
-import CriticalView from './CriticalView';
+import CriticalView from '@/components/character/combat/CriticalView';
 import { GiRollingDices } from "react-icons/gi";
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 type OffenseCardProps = 
 {
@@ -46,6 +47,15 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
     const [damageBonusRolls, setDamageBonusRolls] = useState<number[]>([]);
     const [rollTotalResult, setRollTotalResult] = useState<number | null>(null);
 
+    useEffect(() => 
+    {
+        const damageBonusTotal = calculateDamageBonusForRolls(damageBonus, damageBonusRolls);
+        const leadingTotal = calculateWeaponDamageForRolls(leadingOffense, leadingRolls.map(r => r[0]));
+        const secondaryTotal = secondaryOffense ? calculateWeaponDamageForRolls(secondaryOffense, secondaryRolls.map(r => r[0])) : 0;
+        const totalDamage = damageBonusTotal + leadingTotal + secondaryTotal;
+        setRollTotalResult(totalDamage);
+    }, [leadingRolls, secondaryRolls, damageBonusRolls, leadingOffense, secondaryOffense, damageBonus]);
+
     const handleRoll = () => 
     {
         setRollTotalResult(null);
@@ -65,12 +75,79 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
         setRollTotalResult(totalDamage);
     };
 
+    // Handler for rerolling individual weapon dice
+    const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>) => 
+    {
+        const [damage, critical] = handleWeaponDamageRoll(offense);
+        
+        setRolls(previousRolls => 
+        {
+            const newRolls = [...previousRolls];
+            newRolls[rollIndex] = [damage, critical > 0];
+            return newRolls;
+        });
+    };
+
+    // Handler for rerolling individual damage bonus dice
+    const handleDamageBonusReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
+    {
+        const damage = handleDamageOffenseRoll(damageOffense);
+
+        setRolls(previousRolls => 
+        {
+            const newRolls = [...previousRolls];
+            newRolls[rollIndex] = damage;
+            return newRolls;
+        });
+    };
+
+    // Helper function to recalculate total damage
+
+
     return (
         <div className={ `grid grid-cols-1 gap-4 ${secondaryOffense ? `md:grid-cols-10` : `md:grid-cols-7` }` }>
 
-            <Subcard className='col-span-3' name='Leading Arm' innerCardContent={<WeaponDamageWithCriticalAndRolls weaponOffense={leadingOffense} rolls={leadingRolls} />} />
-            { secondaryOffense && <Subcard className='col-span-3' name='Secondary Arm' innerCardContent={<WeaponDamageWithCriticalAndRolls weaponOffense={secondaryOffense} rolls={secondaryRolls} />} /> }
-            <Subcard name='Damage Bonus' className='col-span-3 w-full' innerCardContent={<DamageBonusWithRolls damageOffense={damageBonus} rolls={damageBonusRolls} />} />
+            <Subcard 
+              className='col-span-3' 
+              name='Leading Arm' 
+              innerCardContent=
+              {
+                <WeaponDamageWithCriticalAndRolls 
+                  weaponOffense={leadingOffense} 
+                  rolls={leadingRolls} 
+                  onReroll={(index: number, offense: WeaponOffense) => handleWeaponReroll(index, offense, setLeadingRolls)}
+                />
+              } 
+            />
+            
+            { 
+              secondaryOffense && (
+                <Subcard 
+                  className='col-span-3' 
+                  name='Secondary Arm' 
+                  innerCardContent=
+                  {
+                    <WeaponDamageWithCriticalAndRolls 
+                      weaponOffense={secondaryOffense} 
+                      rolls={secondaryRolls} 
+                      onReroll={(index: number, offense: WeaponOffense) => handleWeaponReroll(index, offense, setSecondaryRolls)}
+                    />
+                  } 
+                />) 
+            }
+
+            <Subcard 
+              name='Damage Bonus' 
+              className='col-span-3 w-full' 
+              innerCardContent=
+              {
+                <DamageBonusWithRolls 
+                  damageOffense={damageBonus} 
+                  rolls={damageBonusRolls} 
+                  onReroll={(index: number, damageBonus: DamageOffense) => handleDamageBonusReroll(index, damageBonus, setDamageBonusRolls)}
+                />
+              } 
+            />
 
             <div className='flex justify-center items-center col-span-1'>
               <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
@@ -79,7 +156,7 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
     );
 }
 
-function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls }: { weaponOffense: WeaponOffense, rolls: [number, boolean][] })
+function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls, onReroll }: { weaponOffense: WeaponOffense, rolls: [number, boolean][], onReroll: (index: number, offense: WeaponOffense) => void  })
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
@@ -87,24 +164,24 @@ function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls }: { weaponOffe
         <WeaponDamageView weaponOffense={weaponOffense} />
         <CriticalView weaponOffense={weaponOffense} />
       </div>
-      <RollsView rolls={rolls} />
+      <RollsView rolls={rolls} onReroll={(index) => onReroll(index, weaponOffense)} />
     </div>
   )
 };
 
-function DamageBonusWithRolls({ damageOffense, rolls }: { damageOffense: DamageOffense, rolls: number[] })
+function DamageBonusWithRolls({ damageOffense, rolls, onReroll }: { damageOffense: DamageOffense, rolls: number[], onReroll: (index: number, damageBonus: DamageOffense) => void  })
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
       <div className='flex justify-center gap-x-3'>
         <DamageBonusView damageOffense={damageOffense} />
       </div>
-      <RollsView rolls={rolls} />
+      <RollsView rolls={rolls} onReroll={(index) => onReroll(index, damageOffense)} />
     </div>
   )
 };
 
-function RollsView<T extends number | [number, boolean]>({ rolls }: { rolls: T[] }) 
+function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { rolls: T[], onReroll: (index: number) => void  }) 
 {
   if (rolls.length === 0) return null;
 
@@ -121,12 +198,14 @@ function RollsView<T extends number | [number, boolean]>({ rolls }: { rolls: T[]
             return (
               <Badge 
                 key={index} 
-                className={`rounded-full px-1 font-mono inline ${isCritical ? 'bg-yellow-300' : ''}`}
+                className={`flex flex-row rounded-full px-1 font-mono ${isCritical ? 'bg-yellow-300' : ''}`}
               >
                 <div className='flex items-center gap-x-1'>
+                  <Button asChild variant="ghost" className="h-full w-full p-0" onClick={() => onReroll(index)}>
                     <GiRollingDices />
-                  {rollValue}
+                  </Button>
                 </div>
+                {rollValue}
               </Badge>
             );
           })
@@ -143,15 +222,36 @@ function handleWeaponDamageRolls(offense: WeaponOffense) : { total: number, roll
 
     for (let i = 0; i < offense.amount; i++) 
     {
-      const weaponDamageRoll = Math.floor(Math.random() * offense.grade * 2) + 1;
-      const weaponDiceDamageWithoutCritical = weaponDamageRoll + offense.bonus;
-      const criticalDamage = weaponDamageRoll >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
-      rolls.push([weaponDamageRoll, criticalDamage > 0]);
+      const [damageWithoutCritical, criticalDamage] = handleWeaponDamageRoll(offense);
+      const weaponDiceDamageWithoutCritical = damageWithoutCritical + offense.bonus;
+      rolls.push([damageWithoutCritical, criticalDamage > 0]);
       totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
     }
 
     return { total: totalOffenseDamage, rolls };
 };
+
+function calculateWeaponDamageForRolls(offense: WeaponOffense, rolls: number[]) : number
+{
+    let totalOffenseDamage = 0;
+
+    for (let i = 0; i < rolls.length; i++) 
+    {
+      const roll = rolls[i];
+      const weaponDiceDamageWithoutCritical = roll + offense.bonus;
+      const criticalDamage = handleCriticalDamage(offense, roll);
+      totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
+    }
+
+    return totalOffenseDamage;
+};
+
+function handleWeaponDamageRoll(offense: WeaponOffense) : [damage: number, critical: number]
+{
+    const weaponDamageRoll = handleWeaponOffenseRoll(offense);
+    const criticalDamage = handleCriticalDamage(offense, weaponDamageRoll);
+    return [ weaponDamageRoll, criticalDamage ];
+}
 
 function handleDamageBonusRolls(damageOffense: DamageOffense)
 {
@@ -160,10 +260,38 @@ function handleDamageBonusRolls(damageOffense: DamageOffense)
 
     for (let i = 0; i < damageOffense.amount; i++) 
     {
-      const damageBonusRoll = Math.floor(Math.random() * damageOffense.grade * 2) + 1;
+      const damageBonusRoll = handleDamageOffenseRoll(damageOffense);
       rolls.push(damageBonusRoll);
       totalDamageBonus += damageBonusRoll;
     }
 
     return { total: totalDamageBonus + damageOffense.bonus, rolls };
+}
+
+function calculateDamageBonusForRolls(damageOffense: DamageOffense, rolls: number[]): number
+{
+    let totalDamageBonus = 0;
+
+    for (let i = 0; i < rolls.length; i++) 
+    {
+      const roll = rolls[i];
+      totalDamageBonus += roll;
+    }
+
+    return totalDamageBonus + damageOffense.bonus;
+}
+
+function handleWeaponOffenseRoll(offense: WeaponOffense): number
+{
+  return Math.floor(Math.random() * offense.grade * 2) + 1;
+}
+
+function handleDamageOffenseRoll(damageOffense: DamageOffense): number
+{
+  return Math.floor(Math.random() * damageOffense.grade * 2) + 1;
+}
+
+function handleCriticalDamage(offense: WeaponOffense, roll: number): number
+{
+  return roll >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
 }
