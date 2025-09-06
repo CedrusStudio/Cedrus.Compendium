@@ -1,14 +1,19 @@
-import { characterRepository } from '@/persistence/characterRepository';
+import { getCharacter } from '@/persistence/characterRepository';
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import TabsTriggerCapitalized from '@/components/ui/TabsTriggerCapitalized';
 import { RiArrowGoBackFill } from "react-icons/ri";
-import CharacterHeaderEdit from '@/components/character/edit/CharacterHeaderEdit';
+import CharacterDescriptionEdit from '@/components/character/edit/CharacterDescriptionEdit';
 import CharacterStatisticsEdit from '@/components/character/edit/CharacterStatisticsEdit';
 import CharacterTalentsEdit from '@/components/character/edit/CharacterTalentsEdit';
 import CharacterEquipmentEdit from '@/components/character/edit/CharacterEquipmentEdit';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 
 type EditCharacterProps = 
 {
@@ -21,12 +26,14 @@ type EditCharacterProps =
 export default async function EditPage(input: EditCharacterProps)
 {
   const params = await input.params;
-  const character = characterRepository.get(params.id);
+  const character = await getCharacter(params.id);
   if (!character) throw Error("Character not found");
   const data  = character.talents ?? [];
 
+  const queryClient = new QueryClient();
+
   return (
-    <Tabs defaultValue="character" className='col-span-8 lg:col-span-10 grid grid-rows-15'>
+    <Tabs defaultValue="edit character" className='col-span-8 lg:col-span-10 grid grid-rows-15'>
 
         <div className='row-span-1'>
             <div className='flex flex-row justify-between items-center'>
@@ -47,7 +54,9 @@ export default async function EditPage(input: EditCharacterProps)
 
         <div className='row-span-14 mx-4'>
             <TabsContent value="edit character">
-                <CharacterHeaderEdit character={character} />
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                    <CharacterDescriptionEdit character={character} />
+                </HydrationBoundary>
             </TabsContent>
 
             <TabsContent value="edit statistics">

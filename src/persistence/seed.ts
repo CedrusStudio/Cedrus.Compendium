@@ -1,6 +1,6 @@
 
 import { Character } from "@/domain/Character";
-import { characterRepository } from '@/persistence/characterRepository';
+import { upsertCharacter } from '@/persistence/characterRepository';
 
 const dummyCharacter : Character = 
 {
@@ -355,8 +355,8 @@ const dummyCharacter : Character =
   ]
 };
 
-export default function seedDatabase() 
+export default async function seedDatabase() 
 {
   console.log("Database seeded!");
-  characterRepository.upsert(dummyCharacter);
+  await upsertCharacter(dummyCharacter);
 }

@@ -1,5 +1,5 @@
 import CharactersGrid from "@/components/character/CharactersGrid";
-import { characterRepository } from "@/persistence/characterRepository";
+import { searchCharacter, getAllCharacters } from "@/persistence/characterRepository";
 
 type CharactersPageProps = 
 {
@@ -12,8 +12,8 @@ export default async function CharactersPage(input: CharactersPageProps)
   const searchQuery = searchParams?.search as string | undefined;
 
   const allCharacters = searchQuery 
-    ? characterRepository.search(searchQuery!)
-    : characterRepository.getAll();
+    ? await searchCharacter(searchQuery!)
+    : await getAllCharacters();
   
   return (
     <div>

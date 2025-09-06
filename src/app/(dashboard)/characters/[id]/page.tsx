@@ -1,5 +1,5 @@
 import CharacterStatistics from '@/components/character/CharacterStatistics';
-import { characterRepository } from '@/persistence/characterRepository';
+import { getCharacter } from '@/persistence/characterRepository';
 import { columns } from "@/app/(dashboard)/characters/[id]/columns"
 import { DataTable } from "@/app/(dashboard)/characters/[id]/data-table"
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
@@ -26,7 +26,7 @@ export default async function CharacterPage(input: CharacterProps)
   // seedDatabase();
 
   const params = await input.params;
-  const character = characterRepository.get(params.id);
+  const character = await getCharacter(params.id);
   if (!character) throw Error("Character not found");
   const data  = character.talents ?? [];
 
