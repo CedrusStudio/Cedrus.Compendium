@@ -49,7 +49,7 @@ export default function CharacterView({ character, tab }: CharacterViewProps)
                     </TabsList>
 
                     <Button asChild variant="edit" size="icon" className='m-4'>
-                        <Link href={`/characters/${character.id}/edit?tab=edit-${activeTab ?? "character"}`}><TbEdit /></Link>
+                        <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? "character"}`}><TbEdit /></Link>
                     </Button>
                 </div>
 
