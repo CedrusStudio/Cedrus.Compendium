@@ -6,6 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import CharacterView from '@/components/character/CharacterView';
+import { isCharacterTab } from '@/utils/tabsUtils';
 // import seedDatabase from '@/persistence/seed';
 
 type CharacterProps = 
@@ -13,7 +14,8 @@ type CharacterProps =
     params: 
     {
         id: string;
-    };
+    },
+    searchParams: { [key: string]: string | string[] | undefined }
 };
 
 export default async function CharacterPage(input: CharacterProps)
@@ -31,9 +33,11 @@ export default async function CharacterPage(input: CharacterProps)
   const character = await getCharacter(params.id);
   if (!character) throw Error("Character not found");
 
+  const searchParams = await input.searchParams;
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CharacterView character={character} />
+      <CharacterView character={character} tab={isCharacterTab(searchParams?.tab) ? searchParams.tab : undefined} />
     </HydrationBoundary>
   );
 };

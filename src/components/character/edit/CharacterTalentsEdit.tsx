@@ -16,7 +16,6 @@ import SubmitButton from "@/components/ui/SubmitButton";
 import { columns } from "@/components/character//edit/editTalentsColumns"
 import { EditTalentsTable } from "@/components/character/edit/EditTalentsTable"
 import { Character } from "@/domain/Character";
-import { Button } from "@/components/ui/button";
 
 export default function CharacterTalentsEdit(input: { character: Character })
 {
@@ -67,9 +66,16 @@ export default function CharacterTalentsEdit(input: { character: Character })
         },
     });
 
+    const handleSubmitCapture: React.FormEventHandler<HTMLFormElement> = () =>
+    {
+        const newTalents = Object.values(form.getValues());
+        const talentsArray = character.talents.map(t => newTalents.filter(nt => nt.id === t.id)[0] ?? t);
+        form.reset(talentsArray);
+    };
+
   return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(values => mutate(values))} className="space-y-8">
+        <form onSubmit={form.handleSubmit(values => mutate(values))} onSubmitCapture={handleSubmitCapture} className="space-y-8">
 
           <EditTalentsTable 
             columns={columns} 
@@ -78,20 +84,6 @@ export default function CharacterTalentsEdit(input: { character: Character })
           />
 
           <SubmitButton isPending={isPending} />
-
-          {/* Debug button to test handleSubmit directly */}
-          <Button 
-            type="button" 
-            onClick={() => 
-            {
-                mutate(form.getValues());
-                // const newTalents: Talent[] = Object.values(form.getValues());
-                // const talentsArray = character.talents.map(t => newTalents.filter(nt => nt.id === t.id)[0] ?? t);
-                // mutate(talentsArray);
-            }}
-          >
-            Debug Submit
-          </Button>
         </form>
     </Form>
   );
