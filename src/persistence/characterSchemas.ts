@@ -50,5 +50,20 @@ export const upsertCharacterStatisticsSchema = z.object
     attributes: characterAttributesSchema,
 });
 
-// export type CharacterStatisticType = z.infer<typeof characterCharacteristicsSchema> | z.infer<typeof characterAttributesSchema>;
+//Talents
+export const talentSchema = z.object
+({
+  id: z.string().min(2, { message: "ID must be at least 2 characters." }).max(100, { message: "ID must be at most 100 characters." }),
+  category: z.string().min(2, { message: "Category must be at least 2 characters." }).max(100, { message: "Category must be at most 100 characters." }),
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }).max(100, { message: "Name must be at most 100 characters." }),
+  characteristics: z.string().min(2, { message: "Characteristics must be at least 2 characters." }).max(100, { message: "Characteristics must be at most 100 characters." }),
+  grade: z.number().min(1, { message: "Grade must be at least 1." }).max(50, { message: "Grade must be at most 50." }),
+  bonus: z.number().min(-10, { message: "Bonus must be at least -10." }).max(50, { message: "Bonus must be at most 50." }),
+  penalty: z.number().min(-10, { message: "Penalty must be at least -10." }).max(50, { message: "Penalty must be at most 50." }),
+}).required();
+
+export const upsertCharacterTalentsSchema = z.array(talentSchema);
+
+//Export types
 export type UpsertCharacterStatisticsType = z.infer<typeof upsertCharacterStatisticsSchema>;
+export type UpsertCharacterTalentsType = z.infer<typeof upsertCharacterTalentsSchema>;

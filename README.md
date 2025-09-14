@@ -1,4 +1,11 @@
 # TODO
 
-1. reroll
-3. Cache queries -> plus pagination on "characters"
+Cache queries -> plus pagination on "characters"
+
+tworzenie plusik w prawym - tworzenie bazed on
+
+====
+Micu Feedback
+
+1. defense mozna jak hp zmniejsza
+2. mozna modyfikowac zasięg i siłkę kryta (i dispy na kość i bez kości)

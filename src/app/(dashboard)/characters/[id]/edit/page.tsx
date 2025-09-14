@@ -28,7 +28,6 @@ export default async function EditPage(input: EditCharacterProps)
   const params = await input.params;
   const character = await getCharacter(params.id);
   if (!character) throw Error("Character not found");
-  const data  = character.talents ?? [];
 
   const queryClient = new QueryClient();
 
@@ -64,7 +63,7 @@ export default async function EditPage(input: EditCharacterProps)
             </TabsContent>
 
             <TabsContent value="edit talents">
-                <CharacterTalentsEdit data={data} />
+                <CharacterTalentsEdit character={character} />
             </TabsContent>
 
             <TabsContent value="edit equipment">

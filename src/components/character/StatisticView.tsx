@@ -49,8 +49,10 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
       <div className="flex items-center">
         1k{statistic.grade * 2}+
         <Badge className="rounded-full px-1 font-mono inline">{statistic.value}</Badge>
-        <div className="flex items-center">
-          {bonus >= 0 ? `+${bonus}` : bonus}
+        <div className={"flex items-center"}>
+          <span className="flex items-center">
+            {bonus >= 0 ? '+' : ''}<BonusView bonus={bonus} defaultBonus={defaultBonus} />
+          </span>
           <VerticalChangeButtons setValue={setBonus} />
         </div>
       </div>
@@ -63,4 +65,13 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
 function calculateDefaultBonus(statistic: Statistic): number
 {
   return statistic.bonus + statistic.testBonus;
+}
+
+function BonusView({ defaultBonus, bonus }: { defaultBonus: number; bonus: number })
+{
+  return (
+    <span className={`flex items-center ${bonus !== defaultBonus ? 'text-red-500' : ''}`}>
+      {bonus}
+    </span>
+  );
 }

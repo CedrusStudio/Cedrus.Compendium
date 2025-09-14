@@ -1,4 +1,3 @@
-
 import { Armor, Equipment, Shield, Weapon } from '@/domain/Character';
 import {
   Accordion,

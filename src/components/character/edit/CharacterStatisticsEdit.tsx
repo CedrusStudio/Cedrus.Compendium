@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner"
 import { useRouter } from 'next/navigation';
 import { attributesIcons, characteristicIcons } from "@/utils/icons";
-import { upsertCharacterStatisticsSchema, UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
+import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { upsertCharacterStatistics } from "@/persistence/characterRepository";
 import StatisticsCardEdit from "@/components/character/edit/StatisticsCardEdit";
 import SubmitButton from "@/components/ui/SubmitButton";

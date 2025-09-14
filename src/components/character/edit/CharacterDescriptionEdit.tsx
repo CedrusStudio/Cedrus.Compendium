@@ -89,6 +89,7 @@ export default function CharacterDescriptionEdit(input: { character: Character }
                     name="name" 
                     control={form.control} 
                     inputPlaceholder="edit name..." 
+                    inputClassName="w-xl"
                 />
     
                 <p className='text-md text-center text-primary pt-2 capitalize'>

@@ -43,6 +43,7 @@ export type Attributes =
 
 export type Talent = 
 {
+  id: string;
   category: string;
   name: string;
   characteristics: string;

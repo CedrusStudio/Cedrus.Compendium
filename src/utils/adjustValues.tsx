@@ -1,4 +1,6 @@
-export const increase = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: (value: number) => void) => 
+import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
+
+export const increase = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
 {
     setStateAction
     (
@@ -11,7 +13,7 @@ export const increase = (changeBy: number, setStateAction: React.Dispatch<React.
     );
 };
 
-export const decrease = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: (value: number) => void) => 
+export const decrease = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
 {
     setStateAction
     (
@@ -24,7 +26,7 @@ export const decrease = (changeBy: number, setStateAction: React.Dispatch<React.
     );
 };
 
-export const reset = (defaultValue: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: (value: number) => void) => 
+export const reset = (defaultValue: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
 {
     setStateAction
     (
