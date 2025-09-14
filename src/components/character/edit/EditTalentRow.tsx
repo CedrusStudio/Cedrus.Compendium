@@ -44,7 +44,7 @@ export default function EditTalentRow({ row, control }: EditTalentRow)
           {
             cell.column.id !== "grade" && cell.column.id !== "bonus"
               ? flexRender(cell.column.columnDef.cell, cell.getContext())
-              : <EditableCell name={cell.column.id} talent={talent} setTalent={setTalent} controlTalent={talentField} />
+              : <EditableCell name={cell.column.id} initialTalent={row.original} talent={talent} setTalent={setTalent} controlTalent={talentField} />
           }
           </TableCell>
         )
@@ -58,11 +58,12 @@ type EditableCellProps =
 {
   name: "grade" | "bonus";
   talent: Talent;
+  initialTalent: Talent;
   setTalent: React.Dispatch<React.SetStateAction<Talent>>;
   controlTalent?: ControllerRenderProps<UpsertCharacterTalentsType>;
 }
 
-function EditableCell({ name, talent, setTalent, controlTalent }: EditableCellProps) 
+function EditableCell({ name, initialTalent, talent, setTalent, controlTalent }: EditableCellProps) 
 {
   const setValue: React.Dispatch<React.SetStateAction<number>> = (value: number | ((prevState: number) => number)): void =>
   {
@@ -80,7 +81,7 @@ function EditableCell({ name, talent, setTalent, controlTalent }: EditableCellPr
       {talent[name]}
       <div className="flex items-center">
         <VerticalChangeButtons setValue={setValue} />
-        <ResetButton value={talent[name] as number} setValue={setValue} />
+        <ResetButton value={initialTalent[name]} setValue={setValue} />
       </div>
     </div>
   );
