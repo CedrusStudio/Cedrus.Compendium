@@ -2,7 +2,7 @@
 
 import { Character, Talent } from "@/domain/Character";
 import fs from 'fs';
-import { UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { UpsertCharacterEquipmentType, UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 
 type Database = 
 {
@@ -61,6 +61,29 @@ export const upsertCharacterTalents: (id: string, characterTalents: UpsertCharac
     const talentsArray = findCharacter.talents.map(t => newTalents.filter(nt => nt.id === t.id)[0] ?? t);
 
     const characterToUpsert = { ...findCharacter, talents: talentsArray } as Character;
+    database.characters = [...allCharactersExceptSpecified, characterToUpsert];
+    const databaseAsJson = JSON.stringify(database);
+    fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
+};
+
+export const upsertCharacterEquipment: (id: string, characterEquipment: UpsertCharacterEquipmentType) => Promise<void> = async (id, characterEquipment) =>
+{
+    const database = readDatabase();
+
+    if (!database.characters) 
+    {
+        database.characters = [];
+    }
+
+    const findCharacter = database.characters.find(c => c.id === id);
+    if (!findCharacter)
+    {
+        throw new Error("Character not found");
+    }
+
+    const allCharactersExceptSpecified = database.characters.filter(c => c.id !== id);
+
+    const characterToUpsert = { ...findCharacter, equipment: characterEquipment } as Character;
     database.characters = [...allCharactersExceptSpecified, characterToUpsert];
     const databaseAsJson = JSON.stringify(database);
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');

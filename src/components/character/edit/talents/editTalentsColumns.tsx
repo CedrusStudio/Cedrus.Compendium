@@ -1,6 +1,6 @@
 "use client"
 
-import { AccessorKeyColumnDef, Row, RowData } from "@tanstack/react-table"
+import { AccessorKeyColumnDef, RowData } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown } from "lucide-react"
 import { Talent } from "@/domain/Character"

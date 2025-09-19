@@ -16,7 +16,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner"
 import { useRouter } from 'next/navigation';
 import { upsertCharacterHeader } from "@/persistence/characterRepository";
-import { upsertCharacterHeaderSchema, UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
+import { upsertCharacterHeaderSchema, type UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/components/ui/InputFormField";
 import SubmitButton from "@/components/ui/SubmitButton";
 

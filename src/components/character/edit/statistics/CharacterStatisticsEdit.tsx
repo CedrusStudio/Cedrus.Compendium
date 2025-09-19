@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import { attributesIcons, characteristicIcons } from "@/utils/icons";
 import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { upsertCharacterStatistics } from "@/persistence/characterRepository";
-import StatisticsCardEdit from "@/components/character/edit/StatisticsCardEdit";
+import StatisticsCardEdit from "@/components/character/edit/statistics/StatisticsCardEdit";
 import SubmitButton from "@/components/ui/SubmitButton";
 
 export default function CharacterStatisticsEdit(input: { character: Character })

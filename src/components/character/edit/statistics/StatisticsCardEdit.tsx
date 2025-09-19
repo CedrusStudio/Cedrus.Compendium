@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import StatisticViewEdit from "@/components/character/edit/StatisticsViewEdit";
+import StatisticViewEdit from "@/components/character/edit/statistics/StatisticsViewEdit";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 

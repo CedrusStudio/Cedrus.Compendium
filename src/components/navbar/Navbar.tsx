@@ -20,6 +20,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import React from "react";
+import { LuPlus } from "react-icons/lu";
 
 export default function Navbar() 
 {
@@ -111,10 +112,13 @@ export default function Navbar()
                 />
 
                 <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
-                    <ThemeMode />
+                    <Button asChild variant="outline" size="icon">
+                        <Link href="/characters/add"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Link>
+                    </Button>
                     <Button asChild variant="outline" size="icon">
                         <Link href="/"><FaHome className="h-[1.2rem] w-[1.2rem]" /></Link>
                     </Button>
+                    <ThemeMode />
                 </div>
             </div>
         </nav>

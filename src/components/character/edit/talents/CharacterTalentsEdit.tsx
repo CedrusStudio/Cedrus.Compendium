@@ -13,8 +13,8 @@ import { upsertCharacterTalentsSchema, type UpsertCharacterTalentsType } from "@
 import { upsertCharacterTalents } from "@/persistence/characterRepository";
 import SubmitButton from "@/components/ui/SubmitButton";
 
-import { columns } from "@/components/character//edit/editTalentsColumns"
-import { EditTalentsTable } from "@/components/character/edit/EditTalentsTable"
+import { columns } from "@/components/character//edit/talents/editTalentsColumns"
+import { EditTalentsTable } from "@/components/character/edit/talents/EditTalentsTable"
 import { Character } from "@/domain/Character";
 
 export default function CharacterTalentsEdit(input: { character: Character })

@@ -18,16 +18,17 @@ export type SelectFormFieldProps<TFieldValues extends FieldValues> =
 {
   name: FieldPath<TFieldValues>;
   control: Control<TFieldValues>;
-  items: string[];
+  items: string[] | number[];
   labelText?: string;
+  noLabel?: boolean;
 };
 
-export function SelectFormField<TFieldValues extends FieldValues>({ name, control, items, labelText }: SelectFormFieldProps<TFieldValues>)
+export function SelectFormField<TFieldValues extends FieldValues>({ name, control, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
 {
     return (
         <FormField control={control} name={name} render={({field}) => (
             <FormItem>
-                <FormLabel className='capitalize'>{labelText || name}</FormLabel>
+                {!noLabel && <FormLabel className='capitalize'>{labelText || name}</FormLabel>}
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
 
                     <FormControl>

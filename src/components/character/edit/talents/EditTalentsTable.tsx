@@ -37,7 +37,7 @@ import { Talent, talentCategories } from "@/domain/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
 import { Control } from "react-hook-form"
-import EditTalentRow from "@/components/character/edit/EditTalentRow"
+import EditTalentRow from "@/components/character/edit/talents/EditTalentRow"
 
 interface DataTableProps
 {

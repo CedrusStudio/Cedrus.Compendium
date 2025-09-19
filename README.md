@@ -1,8 +1,6 @@
 # TODO
 
-Cache queries -> plus pagination on "characters"
-
-tworzenie plusik w prawym - tworzenie bazed on
+Cache queries -> plus pagination on "characters" -> to fix
 
 ====
 Micu Feedback
