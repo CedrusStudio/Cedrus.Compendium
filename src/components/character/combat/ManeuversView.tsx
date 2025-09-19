@@ -13,19 +13,22 @@ import { GiSwordsEmblem } from "react-icons/gi";
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RiResetLeftFill } from "react-icons/ri";
-import { FiMinus } from "react-icons/fi";
+import { RiDeleteBack2Line } from "react-icons/ri";
 import { Badge } from '@/components/ui/badge';
+import { GrNext } from "react-icons/gr";
 
 type ManeuversViewProps =
 {
     maneuvers: Maneuver[];
 }
 
+type EndTurn = "end";
+
 export default function ManeuversView({ maneuvers }: ManeuversViewProps)
 {
-  const [usedManeuvers, setUsedManeuvers] = useState<Maneuver[]>([]);
+  const [usedManeuvers, setUsedManeuvers] = useState<(Maneuver | EndTurn)[]>([]);
 
-  const addManeuverToUsed = (maneuver: Maneuver) =>
+  const addManeuverToUsed = (maneuver: Maneuver | EndTurn) =>
   {
       setUsedManeuvers(prev => [...prev, maneuver]);
   }
@@ -33,6 +36,11 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
   const removeLastManeuver = () =>
   {
       setUsedManeuvers(prev => prev.slice(0, -1));
+  }
+
+  const endTurn = () =>
+  {
+      setUsedManeuvers(prev => [...prev, "end"]);
   }
     
   return (
@@ -47,7 +55,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
             maneuvers.map(maneuver => <ManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
         }
 
-        <div className="grid grid-cols-12 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
+        <div className="grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
 
             <Button variant="default" className='col-span-1' onClick={() => setUsedManeuvers([])}>
                 <RiResetLeftFill />
@@ -56,17 +64,30 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
             <p className="text-sm col-span-10">
                 <span className='text-muted-foreground italic'>
                 {
-                    usedManeuvers.map((usedManeuver, index) => (
-                        <Badge key={index} variant={getBadgeVariant(usedManeuver.castTime)} className='m-1' >
-                            {usedManeuver.name}
-                        </Badge>
-                    ))
+                    usedManeuvers.map((usedManeuver, index) => 
+                    {
+                        if (usedManeuver === "end") return (
+                            <Badge key={index} variant="destructive" className='m-1' >
+                                <GrNext />
+                            </Badge>
+                        );;
+
+                        return (
+                            <Badge key={index} variant={getBadgeVariant(usedManeuver.castTime)} className='m-1' >
+                                {usedManeuver.name}
+                            </Badge>
+                        );
+                    })
                 }
                 </span>
             </p>
 
             <Button variant="default" className='col-span-1' onClick={removeLastManeuver}>
-                <FiMinus />
+                <RiDeleteBack2Line />
+            </Button>
+
+            <Button variant="default" className='col-span-1' onClick={endTurn}>
+                <GrNext />
             </Button>
         </div>
 
@@ -76,7 +97,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
   );
 };
 
-function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver: Maneuver, addManeuverToUsed: (maneuver: Maneuver) => void, usedManeuvers: Maneuver[] }) 
+function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver: Maneuver, addManeuverToUsed: (maneuver: Maneuver | EndTurn) => void, usedManeuvers: (Maneuver | EndTurn)[] }) 
 {
     return (
         <div className='flex m-1 p-1 w-full h-full'>
@@ -115,17 +136,61 @@ function getBadgeVariant(castTime: CastTime): BadgeActionVariant
     return null;
 }
 
-function canUseManeuver(maneuver: Maneuver, usedManeuvers: Maneuver[]): boolean
+type ActionCounts = { full: number; standard: number; immediate: number; overimmediate: number };
+type AllowedManeuverCombination = Readonly<ActionCounts>;
+
+const MANEUVER_COMBINATION_PROFILES: readonly AllowedManeuverCombination[] = 
+[
+  { full: 0, standard: 0, immediate: 0, overimmediate: 3 },
+  { full: 0, standard: 0, immediate: 2, overimmediate: 1 },
+  { full: 0, standard: 1, immediate: 1, overimmediate: 1 },
+  { full: 0, standard: 1, immediate: 0, overimmediate: 2 },
+  { full: 1, standard: 0, immediate: 0, overimmediate: 1 },
+] as const;
+
+const castKey = (ct: CastTime): keyof ActionCounts =>
+  ct === "Full" ? "full" 
+    : ct === "Standard" ? "standard" 
+        : ct === "Immediate" ? "immediate" 
+            : "overimmediate";
+
+const countActions = (maneuvers: Maneuver[]): ActionCounts => maneuvers.reduce<ActionCounts>((acc, m) => 
+{
+    acc[castKey(m.castTime)] += 1;
+    return acc;
+  }, { full: 0, standard: 0, immediate: 0, overimmediate: 0 });
+
+const fitsProfile = (c: ActionCounts, p: AllowedManeuverCombination) =>
+  c.full <= p.full && c.standard <= p.standard && c.immediate <= p.immediate && c.overimmediate <= p.overimmediate;
+
+const canUseCastTime = (used: Maneuver[], next: CastTime) => 
+{
+  const c = countActions(used);
+  const k = castKey(next);
+  return MANEUVER_COMBINATION_PROFILES.some(p => fitsProfile(c, p) && (c[k] + 1) <= p[k]);
+};
+
+function canUseManeuver(maneuver: Maneuver, usedManeuvers: (Maneuver | EndTurn)[]): boolean
 {
     if (usedManeuvers.length === 0) return true;
+    if (usedManeuvers[usedManeuvers.length - 1] === "end") return true;
 
-    if (maneuver.cooldown)
+    const maneuversInCurrentTurn = usedManeuvers
+        .slice(usedManeuvers.lastIndexOf("end") + 1) as Maneuver[];
+
+    if (!maneuver.cooldown) 
     {
-        const lastUsedIndex = usedManeuvers.findLastIndex(x => x.name === maneuver.name);
-        if (lastUsedIndex === -1) return true;
-        const maneuversSinceLastUse = usedManeuvers.length -  lastUsedIndex;
-        return maneuversSinceLastUse >= maneuver.cooldown;
+        if (maneuversInCurrentTurn.some(x => x.name === maneuver.name)) return false;
+    } 
+    else 
+    {
+        const lastUsedIndex = maneuversInCurrentTurn.findLastIndex(x => x.name === maneuver.name);
+        if (lastUsedIndex !== -1) 
+        {
+            const maneuversSinceLastUse = maneuversInCurrentTurn.length - lastUsedIndex;
+            if (maneuversSinceLastUse < maneuver.cooldown) return false;
+        }
     }
 
-    return !usedManeuvers.some(x => x.name === maneuver.name);
+    return canUseCastTime(maneuversInCurrentTurn, maneuver.castTime);
 }

@@ -15,41 +15,61 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
   return (
     <div className="grid auto-rows-min gap-3 px-4">
 
-      <Label>Penalty</Label>
+        <div className="flex flex-row gap-3 px-14">
 
-      <SelectFormField<UpsertCharacterEquipmentType> 
-          name={`${defensiveItem}.attributePenalty`}
-          control={control}
-          items={attributePenaltyValues}
-          noLabel
-        />
+            <div className="grid auto-rows-min gap-3 px-4">
 
-      <Label>Dexterity Restriction</Label>
+                <Label>Attribute Penalty</Label>
 
-      <SelectFormField<UpsertCharacterEquipmentType> 
-          name={`${defensiveItem}.dexterityRestriction`}
-          control={control}
-          items={dexterityRestrictionValues}
-          noLabel
-        />
+                <SelectFormField<UpsertCharacterEquipmentType> 
+                    name={`${defensiveItem}.attributePenalty`}
+                    control={control}
+                    items={attributePenaltyValues}
+                    noLabel
+                    />
+            </div>
 
-      <Label>Initiative Restriction</Label>
+            <div className="grid auto-rows-min gap-3 px-4">
 
-      <SelectFormField<UpsertCharacterEquipmentType> 
-          name={`${defensiveItem}.initiativeRestriction`}
-          control={control}
-          items={initiativeRestrictionValues}
-          noLabel
-        />
+                <Label>Strength Requirement</Label>
 
-      <Label>Strength Requirement</Label>
+                <SelectFormField<UpsertCharacterEquipmentType> 
+                    name={`${defensiveItem}.strengthRequirement`}
+                    control={control}
+                    items={strengthRequirementValues}
+                    noLabel
+                    />
+            </div>
+                
+        </div>
 
-      <SelectFormField<UpsertCharacterEquipmentType> 
-          name={`${defensiveItem}.strengthRequirement`}
-          control={control}
-          items={strengthRequirementValues}
-          noLabel
-        />
+        <div className="flex flex-row gap-3 px-14">
+
+            <div className="grid auto-rows-min gap-3 px-4">
+
+                <Label>Dexterity Restriction</Label>
+
+                <SelectFormField<UpsertCharacterEquipmentType> 
+                    name={`${defensiveItem}.dexterityRestriction`}
+                    control={control}
+                    items={dexterityRestrictionValues}
+                    noLabel
+                    />
+            </div>
+
+            <div className="grid auto-rows-min gap-3 px-4">
+
+                <Label>Initiative Restriction</Label>
+
+                <SelectFormField<UpsertCharacterEquipmentType> 
+                    name={`${defensiveItem}.initiativeRestriction`}
+                    control={control}
+                    items={initiativeRestrictionValues}
+                    noLabel
+                    />
+            </div>
+
+        </div>
     </div>
   )
 }

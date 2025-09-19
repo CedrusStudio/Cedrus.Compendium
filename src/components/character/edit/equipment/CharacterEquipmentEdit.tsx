@@ -20,6 +20,7 @@ import { upsertCharacterEquipment } from '@/persistence/characterRepository';
 import AccordionShieldItem from '@/components/character/edit/equipment/AccordionShieldItem';
 import AccordionWeaponItem from '@/components/character/edit/equipment/AccordionWeaponItem';
 import AccordionArmorItem from '@/components/character/edit/equipment/AccordionArmorItem';
+import { useEffect } from 'react';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -36,6 +37,11 @@ export default function CharacterEquipmentEdit(input: { character: Character })
     const queryClient = useQueryClient();
     const router = useRouter();
     
+    useEffect(() => 
+    {
+      form.reset(initialValues);
+    }, [initialValues, form]);
+
     const { mutate, isPending } = useMutation
     ({
         mutationFn: async (characterEquipment: UpsertCharacterEquipmentType) => await upsertCharacterEquipment(id, characterEquipment),
@@ -51,9 +57,9 @@ export default function CharacterEquipmentEdit(input: { character: Character })
               position: "bottom-left",
           });
 
+          queryClient.invalidateQueries({ queryKey: [`characters`] });
           queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
           queryClient.invalidateQueries({ queryKey: [`characters/${id}/edit`] });
-          form.reset(initialValues);
           router.refresh();
         },
         onError: (error) => 
