@@ -18,7 +18,7 @@ export type SelectFormFieldProps<TFieldValues extends FieldValues> =
 {
   name: FieldPath<TFieldValues>;
   control: Control<TFieldValues>;
-  items: string[] | number[];
+  items: readonly string[] | readonly number[];
   labelText?: string;
   noLabel?: boolean;
 };

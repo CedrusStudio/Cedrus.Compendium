@@ -25,23 +25,14 @@ type OffenseCardProps =
 
 export default function OffenseCard(input: OffenseCardProps)
 {
-  return (
-    <Card className='bg-muted'>
+    const leadingOffense = input.offense.leadingWeapon;
+    const secondaryOffense = input.offense.secondaryWeapon;
+    const damageBonus = input.offense.damageBonus;
 
-      <CardHeader>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Offense</CardTitle>
-      </CardHeader>
+    const [currentLeadingOffense, setCurrentLeadingOffense] = useState<WeaponOffense>(leadingOffense);
+    const [currentSecondaryOffense, setCurrentSecondaryOffense] = useState<WeaponOffense | undefined>(secondaryOffense);
+    const [currentDamageBonus, setCurrentDamageBonus] = useState<DamageOffense>(damageBonus);
 
-      <CardContent>
-        <OffenseView leadingOffense={input.offense.leadingWeapon} secondaryOffense={input.offense.secondaryWeapon} damageBonus={input.offense.damageBonus} />
-      </CardContent>
-      
-    </Card>
-  );
-};
-
-function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadingOffense: WeaponOffense, secondaryOffense?: WeaponOffense, damageBonus: DamageOffense })
-{
     const [leadingRolls, setLeadingRolls] = useState<[number, boolean][]>([]);
     const [secondaryRolls, setSecondaryRolls] = useState<[number, boolean][]>([]);
     const [damageBonusRolls, setDamageBonusRolls] = useState<number[]>([]);
@@ -56,18 +47,18 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
             return;
         }
 
-        const damageBonusTotal = calculateDamageBonusForRolls(damageBonus, damageBonusRolls);
-        const leadingTotal = calculateWeaponDamageForRolls(leadingOffense, leadingRolls.map(r => r[0]));
-        const secondaryTotal = secondaryOffense ? calculateWeaponDamageForRolls(secondaryOffense, secondaryRolls.map(r => r[0])) : 0;
+        const damageBonusTotal = calculateDamageBonusForRolls(currentDamageBonus, damageBonusRolls);
+        const leadingTotal = calculateWeaponDamageForRolls(currentLeadingOffense, leadingRolls.map(r => r[0]));
+        const secondaryTotal = currentSecondaryOffense ? calculateWeaponDamageForRolls(currentSecondaryOffense, secondaryRolls.map(r => r[0])) : 0;
         const totalDamage = damageBonusTotal + leadingTotal + secondaryTotal;
         setRollTotalResult(totalDamage);
-    }, [leadingRolls, secondaryRolls, damageBonusRolls, leadingOffense, secondaryOffense, damageBonus]);
+    }, [leadingRolls, secondaryRolls, damageBonusRolls, currentLeadingOffense, currentSecondaryOffense, currentDamageBonus]);
 
     const handleRoll = () => 
     {
-        const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageBonusRolls(damageBonus);
-        const { total: leadingTotal, rolls: leadingRolls } = handleWeaponDamageRolls(leadingOffense);
-        const { total: secondaryTotal, rolls: secondaryRolls } = secondaryOffense ? handleWeaponDamageRolls(secondaryOffense) : { total: 0, rolls: [] };
+        const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageBonusRolls(currentDamageBonus);
+        const { total: leadingTotal, rolls: leadingRolls } = handleWeaponDamageRolls(currentLeadingOffense);
+        const { total: secondaryTotal, rolls: secondaryRolls } = currentSecondaryOffense ? handleWeaponDamageRolls(currentSecondaryOffense) : { total: 0, rolls: [] };
 
         setDamageBonusRolls(damageBonusRolls);
         setLeadingRolls(leadingRolls);
@@ -77,7 +68,7 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
         setRollTotalResult(totalDamage);
     };
 
-    const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>) => 
+    const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>): void => 
     {
         const [damage, critical] = handleWeaponDamageRoll(offense);
         
@@ -102,76 +93,170 @@ function OffenseView({ leadingOffense, secondaryOffense, damageBonus }: { leadin
     };
 
     return (
-        <div className={ `grid grid-cols-1 gap-4 ${secondaryOffense ? `md:grid-cols-10` : `md:grid-cols-7` }` }>
+      <Card className='bg-muted'>
 
-            <Subcard 
-              className='col-span-3' 
-              name='Leading Arm' 
-              innerCardContent=
-              {
-                <WeaponDamageWithCriticalAndRolls 
-                  weaponOffense={leadingOffense} 
-                  rolls={leadingRolls} 
-                  onReroll={(index: number, offense: WeaponOffense) => handleWeaponReroll(index, offense, setLeadingRolls)}
-                />
-              } 
-            />
-            
-            { 
-              secondaryOffense && (
-                <Subcard 
-                  className='col-span-3' 
-                  name='Secondary Arm' 
-                  innerCardContent=
-                  {
-                    <WeaponDamageWithCriticalAndRolls 
-                      weaponOffense={secondaryOffense} 
-                      rolls={secondaryRolls} 
-                      onReroll={(index: number, offense: WeaponOffense) => handleWeaponReroll(index, offense, setSecondaryRolls)}
-                    />
-                  } 
-                />) 
-            }
+        <CardHeader>
+          <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>
+            <div className='flex justify-center items-center gap-x-4'>
+              <span>Offense</span>
+              <div className='mt-1'>
+                <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
+             </div>
+            </div>
+          </CardTitle>
+        </CardHeader>
 
-            <Subcard 
-              name='Damage Bonus' 
-              className='col-span-3 w-full' 
-              innerCardContent=
+        <CardContent>
+          <div className={ `grid grid-cols-1 gap-1 ${currentSecondaryOffense ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
+
+              <WeaponDamageWithCriticalSubcard 
+                name='Leading Arm'
+                weaponOffense={currentLeadingOffense}
+                rolls={leadingRolls}
+                setRolls={setLeadingRolls}
+                setOffense={setCurrentLeadingOffense}
+                handleWeaponReroll={handleWeaponReroll}
+                resetCallback={() => setCurrentLeadingOffense(leadingOffense)}
+              />
+              
               {
+                currentSecondaryOffense && (
+                  <WeaponDamageWithCriticalSubcard 
+                    name='Secondary Arm'
+                    weaponOffense={currentSecondaryOffense}
+                    rolls={secondaryRolls}
+                    setRolls={setSecondaryRolls}
+                    setOffense={weaponOffense => setCurrentSecondaryOffense(weaponOffense as WeaponOffense)}
+                    handleWeaponReroll={handleWeaponReroll}
+                    resetCallback={() => setCurrentSecondaryOffense(secondaryOffense)}
+                  />
+                ) 
+              }
+
+              <Subcard name='Damage Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)}> 
                 <DamageBonusWithRolls 
-                  damageOffense={damageBonus} 
+                  damageOffense={currentDamageBonus} 
                   rolls={damageBonusRolls} 
                   onReroll={(index: number, damageBonus: DamageOffense) => handleDamageBonusReroll(index, damageBonus, setDamageBonusRolls)}
+                  setAmount={action => setCurrentDamageBonus(prev => 
+                  {
+                    const nextAmount = typeof action === "function" ? action(prev.amount) : action;
+                    if (nextAmount < 0) return prev;
+                    return { ...prev, amount: nextAmount };
+                  })}
+                  setGrade={action => setCurrentDamageBonus(prev => 
+                  {
+                    const nextGrade = typeof action === "function" ? action(prev.grade) : action;
+                    if (nextGrade < 1) return prev;
+                    return { ...prev, grade: nextGrade };
+                  })}
+                  setBonus={action => setCurrentDamageBonus(prev => 
+                  {
+                    const nextBonus = typeof action === "function" ? action(prev.bonus) : action;
+                    return { ...prev, bonus: nextBonus };
+                  })}
                 />
-              } 
-            />
-
-            <div className='flex justify-center items-center col-span-1'>
-              <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
-            </div>
-        </div>
+              </Subcard>
+          </div>
+        </CardContent>
+        
+      </Card>
     );
 }
 
-function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls, onReroll }: { weaponOffense: WeaponOffense, rolls: [number, boolean][], onReroll: (index: number, offense: WeaponOffense) => void  })
+type WeaponDamageWithCriticalSubcardProps =
+{
+  name: string;
+  weaponOffense: WeaponOffense;
+  rolls: [number, boolean][];
+  setRolls: React.Dispatch<React.SetStateAction<[number, boolean][]>>;
+  setOffense: React.Dispatch<React.SetStateAction<WeaponOffense>>;
+  handleWeaponReroll: (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>) => void;
+  resetCallback: () => void;
+};
+
+function WeaponDamageWithCriticalSubcard(input: WeaponDamageWithCriticalSubcardProps)
+{
+  return (
+    <Subcard className='col-span-3' name={input.name} callback={input.resetCallback}>
+      <WeaponDamageWithCriticalAndRolls 
+        weaponOffense={input.weaponOffense} 
+        rolls={input.rolls} 
+        onReroll={(index: number, offense: WeaponOffense) => input.handleWeaponReroll(index, offense, input.setRolls)}
+        setPower={action => input.setOffense(prev => 
+        {
+          const nextPower = typeof action === "function" ? action(prev.critical.power) : action;
+          return { ...prev, critical: { ...prev.critical, power: nextPower } };
+        })}
+        setRange={action => input.setOffense(prev => 
+        {
+          const nextRange = typeof action === "function" ? action(prev.critical.range) : action;
+          if (nextRange < 0 || nextRange > prev.grade * 2) return prev;
+          return { ...prev, critical: { ...prev.critical, range: nextRange } };
+        })}
+        setAmount={action => input.setOffense(prev => 
+        {
+          const nextAmount = typeof action === "function" ? action(prev.amount) : action;
+          if (nextAmount < 0) return prev;
+          return { ...prev, amount: nextAmount };
+        })}
+        setGrade={action => input.setOffense(prev => 
+        {
+          const nextGrade = typeof action === "function" ? action(prev.grade) : action;
+          if (nextGrade < 1) return prev;
+          return { ...prev, grade: nextGrade };
+        })}
+        setBonus={action => input.setOffense(prev => 
+        {
+          const nextBonus = typeof action === "function" ? action(prev.bonus) : action;
+          return { ...prev, bonus: nextBonus };
+        })}
+      />
+  </Subcard>
+  )
+}
+
+type WeaponDamageWithCriticalAndRollsProps =
+{
+  weaponOffense: WeaponOffense;
+  rolls: [number, boolean][];
+  onReroll: (index: number, offense: WeaponOffense) => void;
+  setAmount: React.Dispatch<React.SetStateAction<number>>;
+  setGrade: React.Dispatch<React.SetStateAction<number>>;
+  setBonus: React.Dispatch<React.SetStateAction<number>>;
+  setPower: React.Dispatch<React.SetStateAction<number>>;
+  setRange: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls, onReroll, setPower, setRange, setAmount, setGrade, setBonus }: WeaponDamageWithCriticalAndRollsProps)
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
       <div className='flex justify-center gap-x-3'>
-        <WeaponDamageView weaponOffense={weaponOffense} />
-        <CriticalView weaponOffense={weaponOffense} />
+        <WeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
       </div>
+      <CriticalView weaponOffense={weaponOffense} setPower={setPower} setRange={setRange} />
       <RollsView rolls={rolls} onReroll={(index) => onReroll(index, weaponOffense)} />
     </div>
   )
 };
 
-function DamageBonusWithRolls({ damageOffense, rolls, onReroll }: { damageOffense: DamageOffense, rolls: number[], onReroll: (index: number, damageBonus: DamageOffense) => void  })
+type DamageBonusWithRollsProps =
+{
+  damageOffense: DamageOffense;
+  rolls: number[];
+  onReroll: (index: number, damageBonus: DamageOffense) => void;
+  setAmount: React.Dispatch<React.SetStateAction<number>>;
+  setGrade: React.Dispatch<React.SetStateAction<number>>;
+  setBonus: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function DamageBonusWithRolls({ damageOffense, rolls, onReroll, setAmount, setGrade, setBonus }: DamageBonusWithRollsProps)
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
       <div className='flex justify-center gap-x-3'>
-        <DamageBonusView damageOffense={damageOffense} />
+        <DamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
       </div>
       <RollsView rolls={rolls} onReroll={(index) => onReroll(index, damageOffense)} />
     </div>
