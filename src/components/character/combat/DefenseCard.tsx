@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
 import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
+import ChangeButtons from '@/components/buttons/ChangeButtons';
 
 type DefenseCardProps = 
 {
@@ -24,6 +25,8 @@ const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
 
 export default function DefenseCard(input: DefenseCardProps)
 {
+  const [defenseChangeAmount, setDefenseChangeAmount] = useState<number>(1);
+  const [currentDefenseDifference, setCurrentDefenseDifference] = useState<number>(0);
   const [selectedReductionType, setSelectedReductionType] = useState<ReductionType>("full");
 
   const handleOnSelectedValueChange = (value: string) => 
@@ -47,8 +50,8 @@ export default function DefenseCard(input: DefenseCardProps)
 
           <FieldViewWithInfo 
             name={<SelectTrigger className='capitalize border-0' ><SelectValue /></SelectTrigger>} 
-            value={calculateSelectedReduction(input.defense, selectedReductionType)} 
-            infoContent={<DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} />} 
+            value={calculateSelectedReduction(input.defense, selectedReductionType) + currentDefenseDifference} 
+            infoContent={<DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} currentDefenseDifference={currentDefenseDifference} />} 
             valueClassName='pr-3'
           />
   
@@ -62,19 +65,27 @@ export default function DefenseCard(input: DefenseCardProps)
           }
           </SelectContent>
         </Select>
+
+        <ChangeButtons value={defenseChangeAmount} setValue={setCurrentDefenseDifference} setChangeAmount={setDefenseChangeAmount} resetValue={0} />
+
       </CardContent>
     </Card>
   );
 };
 
-function DefenseInfoContent(input: { defense: Defense, selectedReductionType: ReductionType })
+function DefenseInfoContent(input: { defense: Defense, selectedReductionType: ReductionType, currentDefenseDifference: number })
 {
   return (
     <div>
     {
+      input.currentDefenseDifference === 0 ? <></>
+        : input.currentDefenseDifference > 0 ? <FieldView key="ReductionIncrease" name="ReductionIncrease" value={Math.abs(input.currentDefenseDifference)} valueClassName='text-green-600' />
+        : <FieldView key="DamageTaken" name="DamageTaken" value={Math.abs(input.currentDefenseDifference)} valueClassName='text-red-500' />
+    }
+    {
       Object.entries(input.defense)
-      .filter(([name, _]) => selectFilter(input.selectedReductionType)(name))
-      .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
+        .filter(([name, _]) => selectFilter(input.selectedReductionType)(name))
+        .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
     }
     </div>
   );
