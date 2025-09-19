@@ -92,6 +92,20 @@ export default function OffenseCard(input: OffenseCardProps)
         });
     };
 
+    // Recompute critical flags for leading weapon when crit range/grade change
+    useEffect(() => 
+    {
+      if (leadingRolls.length === 0) return;
+      setLeadingRolls(prev => prev.map(([value]) => [value, handleCriticalDamage(currentLeadingOffense, value) > 0]));
+    }, [currentLeadingOffense.critical.range, currentLeadingOffense.grade, leadingRolls.length, currentLeadingOffense]);
+
+    // Recompute critical flags for secondary weapon when crit range/grade change
+    useEffect(() => 
+    {
+      if (!currentSecondaryOffense || secondaryRolls.length === 0) return;
+      setSecondaryRolls(prev => prev.map(([value]) => [value, handleCriticalDamage(currentSecondaryOffense, value) > 0]));
+    }, [currentSecondaryOffense?.critical.range, currentSecondaryOffense?.grade, secondaryRolls.length, currentSecondaryOffense]);
+
     return (
       <Card className='bg-muted'>
 
