@@ -7,32 +7,28 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Talent } from "@/domain/Character";
-import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { type UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 
 import {
   flexRender,
   Row
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
-import { useState } from "react"
-import { Control, ControllerRenderProps, useController } from "react-hook-form"
+import { Control } from "react-hook-form";
+import { useTalentForm } from "@/components/character/edit/talents/useTalentForm";
+import { Dispatch, SetStateAction } from "react";
 
-type EditTalentRow = 
+export type AllowedTalentRoots = "grade" | "bonus";
+
+type EditTalentRowProps = 
 {
   row: Row<Talent>;
-  control?: Control<UpsertCharacterTalentsType>;
+  control: Control<UpsertCharacterTalentsType>;
 }
 
-export default function EditTalentRow({ row, control }: EditTalentRow)
+export default function EditTalentRow({ row, control }: EditTalentRowProps)
 {
-  const [talent, setTalent] = useState(row.original);
-  
-  const { field: talentField } = useController
-  ({
-    name: `${row.index}` as const,
-    control: control,
-    defaultValue: row.original,
-  });
+  const { talent, talentSetterFactory: talentSetterFactory } = useTalentForm(control, row.index, row.original);
 
   return (
     <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
@@ -44,7 +40,7 @@ export default function EditTalentRow({ row, control }: EditTalentRow)
           {
             cell.column.id !== "grade" && cell.column.id !== "bonus"
               ? flexRender(cell.column.columnDef.cell, cell.getContext())
-              : <EditableCell name={cell.column.id} initialTalent={row.original} talent={talent} setTalent={setTalent} controlTalent={talentField} />
+              : <EditableCell name={cell.column.id} initialTalent={row.original} talent={talent} setTalentValue={talentSetterFactory(cell.column.id)} />
           }
           </TableCell>
         )
@@ -56,32 +52,20 @@ export default function EditTalentRow({ row, control }: EditTalentRow)
 
 type EditableCellProps = 
 {
-  name: "grade" | "bonus";
+  name: AllowedTalentRoots;
   talent: Talent;
   initialTalent: Talent;
-  setTalent: React.Dispatch<React.SetStateAction<Talent>>;
-  controlTalent?: ControllerRenderProps<UpsertCharacterTalentsType>;
+  setTalentValue: Dispatch<SetStateAction<number>>;
 }
 
-function EditableCell({ name, initialTalent, talent, setTalent, controlTalent }: EditableCellProps) 
+function EditableCell({ name, initialTalent, talent, setTalentValue }: EditableCellProps) 
 {
-  const setValue: React.Dispatch<React.SetStateAction<number>> = (value: number | ((prevState: number) => number)): void =>
-  {
-    setTalent(prev => 
-    {
-      const newValue = typeof value === "function" ? value(prev[name]) : value;
-      const newTalent = { ...prev, [name]: newValue };
-      controlTalent?.onChange(newTalent);
-      return newTalent as Talent;
-    });
-  }
-  
   return (
     <div className="flex items-center">
       {talent[name]}
       <div className="flex items-center">
-        <VerticalChangeButtons setValue={setValue} />
-        <ResetButton value={initialTalent[name]} setValue={setValue} />
+        <VerticalChangeButtons setValue={setTalentValue} />
+        <ResetButton value={initialTalent[name]} setValue={setTalentValue} />
       </div>
     </div>
   );

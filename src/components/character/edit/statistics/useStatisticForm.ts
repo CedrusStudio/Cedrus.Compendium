@@ -1,5 +1,5 @@
 import { Statistic } from "@/domain/Character";
-import { useFormNumberField } from "@/hooks/useFormNumberField";
+import { useFormField } from "@/hooks/useFormField";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { StatisticPath } from "@/components/character/edit/statistics/StatisticsCardEdit";
@@ -18,10 +18,10 @@ export function useStatisticForm
   const [bonus, setBonus] = useState(defaults.bonus);
   const [testBonus, setTestBonus] = useState(defaults.testBonus);
 
-  const gradeField = useFormNumberField(control, `${fieldPath}.grade`, defaults.grade);
-  const valueField = useFormNumberField(control, `${fieldPath}.value`, defaults.value);
-  const bonusField = useFormNumberField(control, `${fieldPath}.bonus`, defaults.bonus);
-  const testBonusField = useFormNumberField(control, `${fieldPath}.testBonus`, defaults.testBonus);
+  const gradeField = useFormField(control, `${fieldPath}.grade`, defaults.grade);
+  const valueField = useFormField(control, `${fieldPath}.value`, defaults.value);
+  const bonusField = useFormField(control, `${fieldPath}.bonus`, defaults.bonus);
+  const testBonusField = useFormField(control, `${fieldPath}.testBonus`, defaults.testBonus);
 
   return { 
     grade,

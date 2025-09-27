@@ -51,7 +51,7 @@ export default function StatisticsCardEdit<TStats extends Record<string, Statist
 
       <div className="grid grid-rows-5 gap-y-4 items-center">
       {
-        Object.entries(statistics).map(([name, value]) => 
+        Object.entries(statistics).map(([name, value]) => (
           <StatisticViewEdit 
             key={name}
             name={name} 
@@ -59,7 +59,8 @@ export default function StatisticsCardEdit<TStats extends Record<string, Statist
             icon={icons[name]} 
             control={control}
             fieldPath={`${title}.${name}` as StatisticPath}
-          />)
+          />
+        ))
       }
       </div> 
 

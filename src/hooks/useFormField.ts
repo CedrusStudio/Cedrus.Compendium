@@ -1,15 +1,15 @@
 import { Control, FieldPath, FieldPathValue, FieldValues, useController } from "react-hook-form";
 
-type NumberFieldPathValue<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = 
-    FieldPathValue<TFieldValues, TName> extends number
+type FormFieldPathValue<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TType> = 
+    FieldPathValue<TFieldValues, TName> extends TType
         ? FieldPathValue<TFieldValues, TName>
          : never;
 
-export function useFormNumberField<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>
+export function useFormField<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TType>
 (
   control: Control<TFieldValues>,
   name: TName,
-  defaultValue: NumberFieldPathValue<TFieldValues, TName>
+  defaultValue: FormFieldPathValue<TFieldValues, TName, TType>
 ) 
 {
   const { field } = useController
