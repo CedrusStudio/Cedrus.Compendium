@@ -19,26 +19,8 @@ export function useFormNumberField<TFieldValues extends FieldValues, TName exten
     defaultValue 
   });
 
-  const current = (): number => typeof field.value === "number" 
-    ? field.value 
-    : Number(field.value ?? defaultValue) || 0;
-
-  const setValue: React.Dispatch<React.SetStateAction<number>> = (action) => 
-  {
-    const prev = current();
-    const next = typeof action === "function" 
-        ? (action as (p: number) => number)(prev) 
-        : action;
-
-    field.onChange(next);
-  };
-
-  const reset = () => field.onChange(defaultValue);
-
   return {
-    value: current(),
-    setValue,
-    onChange: field.onChange,
-    reset,
+    value: field.value,
+    onChange: field.onChange
   };
 }

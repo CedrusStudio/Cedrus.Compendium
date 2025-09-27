@@ -14,7 +14,6 @@ import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } f
 import { upsertCharacterStatistics } from "@/persistence/characterRepository";
 import StatisticsCardEdit from "@/components/character/edit/statistics/StatisticsCardEdit";
 import SubmitButton from "@/components/ui/SubmitButton";
-import { Button } from "@/components/ui/button";
 
 export default function CharacterStatisticsEdit(input: { character: Character })
 {
