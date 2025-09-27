@@ -10,17 +10,15 @@ import {
 import {
   Form,
 } from "@/components/ui/form";
-import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
 import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { upsertCharacterEquipment } from '@/persistence/characterRepository';
 import AccordionShieldItem from '@/components/character/edit/equipment/AccordionShieldItem';
 import AccordionWeaponItem from '@/components/character/edit/equipment/AccordionWeaponItem';
 import AccordionArmorItem from '@/components/character/edit/equipment/AccordionArmorItem';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useFormMutation } from '@/hooks/useFormMutation';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -34,52 +32,30 @@ export default function CharacterEquipmentEdit(input: { character: Character })
     })
 
     const id = input.character.id;
-    const queryClient = useQueryClient();
-    const router = useRouter();
     
     useEffect(() => 
     {
       form.reset(initialValues);
     }, [initialValues, form]);
 
-    const { mutate, isPending } = useMutation
-    ({
-        mutationFn: async (characterEquipment: UpsertCharacterEquipmentType) => await upsertCharacterEquipment(id, characterEquipment),
-        onSuccess: () => 
-        {
-          toast("Success", 
-          {
-              description: (
-                  <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                  <code className="text-white">{JSON.stringify("Character updated successfully", null, 2)}</code>
-                  </pre>
-              ),
-              position: "bottom-left",
-          });
+    const mutationFn = useCallback
+    (
+      async (characterEquipment: UpsertCharacterEquipmentType) => await upsertCharacterEquipment(id, characterEquipment),
+      [id]
+    );
 
-          queryClient.invalidateQueries({ queryKey: [`characters`] });
-          queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
-          queryClient.invalidateQueries({ queryKey: [`characters/${id}/edit`] });
-          router.refresh();
-        },
-        onError: (error) => 
-        {
-          toast("Error", 
-          {
-              description: (
-                  <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                  <code className="text-white">{JSON.stringify(error.message, null, 2)}</code>
-                  </pre>
-              ),
-              position: "bottom-left",
-          });
-        },
+    const { handleSubmit, isPending } = useFormMutation(mutationFn, 
+    {
+      form,
+      initialValues,
+      invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
+      toastPosition: "bottom-left",
     });
 
   return (
     <Form {...form}>
 
-        <form onSubmit={form.handleSubmit(values => mutate(values))} id={equipmentFormName} className="space-y-8">
+        <form onSubmit={form.handleSubmit(handleSubmit)} id={equipmentFormName} className="space-y-8">
 
           <Accordion type="single" collapsible>
 

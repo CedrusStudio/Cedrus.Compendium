@@ -10,78 +10,56 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from "sonner"
-import { useRouter } from 'next/navigation';
 import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persistence/characterSchemas";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { upsertCharacterCombat } from "@/persistence/characterRepository";
+import { useCallback, useEffect, useMemo } from "react";
+import { useFormMutation } from "@/hooks/useFormMutation";
 
 type EditCharacterCombatProps =
 {
     character: Character;
 }
 
-export default function EditCharacterCombat(input: EditCharacterCombatProps)
+export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
-    const initialValues: UpsertCharacterCombatType =
+    const initialValues: UpsertCharacterCombatType = useMemo(() => (
     {
-        defense: input.character.defense,
-        health: input.character.health,
-    };
-
-    console.log("Initial Values: ", initialValues);
+        defense: character.defense,
+        health: character.health,
+    }), [character.defense, character.health]);
 
     const form = useForm<UpsertCharacterCombatType>
     ({
         resolver: zodResolver(upsertCharacterCombatSchema),
         defaultValues: initialValues,
+        mode: "onBlur",
     })
-
-    const { character } = input;
-    const id = character.id;
-    const queryClient = useQueryClient();
-    const router = useRouter();
     
-    const { mutate, isPending } = useMutation
-    ({
-      mutationFn: async (characterCombat: UpsertCharacterCombatType) => await upsertCharacterCombat(id, characterCombat),
-      onSuccess: () => 
-      {
-        toast("Success", 
-        {
-            description: (
-                <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                <code className="text-white">{JSON.stringify("Character updated successfully", null, 2)}</code>
-                </pre>
-            )
-        });
+    useEffect(() => 
+    {
+      form.reset(initialValues);
+    }, [initialValues, form]);
 
-        queryClient.invalidateQueries({ queryKey: ['characters'] });
-        queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
-        form.reset(initialValues);
+    const mutationFn = useCallback
+    (
+      async (characterCombat: UpsertCharacterCombatType) => await upsertCharacterCombat(character.id, characterCombat),
+      [character.id]
+    );
 
-        router.refresh();
-      },
-      onError: (error) => 
-      {
-          toast("Error", 
-          {
-            description: (
-                <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                <code className="text-white">{JSON.stringify(error.message, null, 2)}</code>
-                </pre>
-            )
-          });
-      },
+    const { handleSubmit, isPending } = useFormMutation(mutationFn, 
+    {
+      form,
+      initialValues,
+      invalidateOnSuccess: ['characters', `characters/${character.id}`],
     });
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(values => mutate(values))} className="space-y-8">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
 
           <p className='text-xl text-center text-primary pt-2 capitalize font-semibold'>
-              {input.character.name}
+              {character.name}
           </p>
 
           <div className="grid gap-3 md:grid-cols-2">

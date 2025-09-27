@@ -7,13 +7,12 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from "sonner"
-import { useRouter } from 'next/navigation';
 import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { upsertCharacterStatistics } from "@/persistence/characterRepository";
 import StatisticsCardEdit from "@/components/character/edit/statistics/StatisticsCardEdit";
 import SubmitButton from "@/components/ui/SubmitButton";
+import { useCallback } from "react";
+import { useFormMutation } from "@/hooks/useFormMutation";
 
 export default function CharacterStatisticsEdit(input: { character: Character })
 {
@@ -31,45 +30,23 @@ export default function CharacterStatisticsEdit(input: { character: Character })
 
     const { character } = input;
     const id = character.id;
-    const queryClient = useQueryClient();
-    const router = useRouter();
-    
-    const { mutate, isPending } = useMutation
-    ({
-        mutationFn: async (characterStatistics: UpsertCharacterStatisticsType) => await upsertCharacterStatistics(id, characterStatistics),
-        onSuccess: () => 
-        {
-            toast("Success", 
-            {
-                description: (
-                    <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">{JSON.stringify("Character updated successfully", null, 2)}</code>
-                    </pre>
-                )
-            });
 
-            queryClient.invalidateQueries({ queryKey: ['characters'] });
-            queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
-            form.reset(initialValues);
+    const mutationFn = useCallback
+    (
+        async (characterStatistics: UpsertCharacterStatisticsType) => await upsertCharacterStatistics(id, characterStatistics),
+        [id]
+    );
 
-            router.refresh();
-        },
-        onError: (error) => 
-        {
-            toast("Error", 
-            {
-                description: (
-                    <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">{JSON.stringify(error.message, null, 2)}</code>
-                    </pre>
-                )
-            });
-        },
+    const { handleSubmit, isPending } = useFormMutation(mutationFn, 
+    {
+        form,
+        initialValues,
+        invalidateOnSuccess: ['characters', `characters/${id}`]
     });
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(values => mutate(values))} className="space-y-8">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
 
                 <div className="grid gap-3 md:grid-cols-2">
                   <StatisticsCardEdit 

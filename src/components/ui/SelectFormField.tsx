@@ -29,7 +29,7 @@ export function SelectFormField<TFieldValues extends FieldValues>({ name, contro
         <FormField control={control} name={name} render={({field}) => (
             <FormItem>
                 {!noLabel && <FormLabel className='capitalize'>{labelText || name}</FormLabel>}
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
 
                     <FormControl>
                         <SelectTrigger>

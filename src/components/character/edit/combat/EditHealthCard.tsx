@@ -4,6 +4,13 @@ import { Control, FieldPath } from "react-hook-form";
 import { UpsertCharacterHealthType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/components/ui/InputFormField";
 import { Health } from "@/domain/Character";
+import { Label } from "@/components/ui/label";
+
+import {
+  Card,
+  CardContent,
+  CardTitle,
+} from '@/components/ui/card';
 
 type EditHealthCardProps =
 {
@@ -18,23 +25,32 @@ export default function EditHealthCard(input: EditHealthCardProps)
     const fieldPath = `health.${healthFieldName}` as FieldPath<UpsertCharacterCombatType>;
 
     return (
-      <InputFormField<UpsertCharacterCombatType> 
-        key={healthFieldName} 
-        name={fieldPath} 
-        control={input.control} 
-        inputClassName="w-14" 
-        addLabel 
-      />
+      <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
+
+        <Label className="text-center capitalize">{healthFieldName}</Label>
+
+        <InputFormField<UpsertCharacterCombatType> 
+          name={fieldPath} 
+          control={input.control} 
+          inputClassName="w-16 h-10 text-center font-medium" 
+        />
+
+      </div>
     );
   }
 
   return (
-    <>
-      <div className="">
-      { 
-        Object.keys(input.health).map(key => InputFormWithLabel(key as keyof UpsertCharacterHealthType)) 
-      }
-      </div>
-    </>
+    <Card className='bg-muted border-2 shadow-md'>
+        <CardContent className='p-6'>
+          <CardTitle className='font-bold text-xl capitalize text-center text-primary mb-6'>
+            Health
+          </CardTitle>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          { 
+            Object.keys(input.health).map(key => InputFormWithLabel(key as keyof UpsertCharacterHealthType)) 
+          }
+          </div>
+        </CardContent>
+    </Card>
   );
 };
