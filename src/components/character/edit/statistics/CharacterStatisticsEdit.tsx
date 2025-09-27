@@ -10,11 +10,11 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner"
 import { useRouter } from 'next/navigation';
-import { attributesIcons, characteristicIcons } from "@/utils/icons";
 import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { upsertCharacterStatistics } from "@/persistence/characterRepository";
 import StatisticsCardEdit from "@/components/character/edit/statistics/StatisticsCardEdit";
 import SubmitButton from "@/components/ui/SubmitButton";
+import { Button } from "@/components/ui/button";
 
 export default function CharacterStatisticsEdit(input: { character: Character })
 {
@@ -74,14 +74,14 @@ export default function CharacterStatisticsEdit(input: { character: Character })
 
                 <div className="grid gap-3 md:grid-cols-2">
                   <StatisticsCardEdit 
-                    title="Characteristics" 
-                    statistics={Object.entries(character.characteristics).map(([name, value]) => [name, value, characteristicIcons[name]])} 
+                    title="characteristics" 
+                    statistics={character.characteristics}
                     control={form.control}
                   />
 
                   <StatisticsCardEdit 
-                    title="Attributes" 
-                    statistics={Object.entries(character.attributes).map(([name, value]) => [name, value, attributesIcons[name]])} 
+                    title="attributes" 
+                    statistics={character.attributes}
                     control={form.control}
                   />
                 </div>

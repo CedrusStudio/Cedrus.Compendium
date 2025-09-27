@@ -8,20 +8,30 @@ import {
 import StatisticViewEdit from "@/components/character/edit/statistics/StatisticsViewEdit";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
+import { PathsFrom} from "@/utils/pathTypes";
+import { attributesIcons, characteristicIcons } from "@/utils/icons";
 
-type StatisticsCardEditProps = 
+export type AllowedRoots = "characteristics" | "attributes";
+
+// Only allow paths inside these roots
+type StatsRoot = Pick<UpsertCharacterStatisticsType, AllowedRoots>;
+export type StatisticPath = PathsFrom<StatsRoot, Statistic>;
+
+type StatisticsCardEditProps<TStats extends Record<string, Statistic>> = 
 {
-  title: "Characteristics" | "Attributes"
-  statistics: [string, Statistic, React.ReactNode][];
+  title: AllowedRoots
+  statistics: TStats;
   control: Control<UpsertCharacterStatisticsType>;
 };
 
-export default function StatisticsCardEdit({ title, statistics, control }: StatisticsCardEditProps)
+export default function StatisticsCardEdit<TStats extends Record<string, Statistic>>({ title, statistics, control }: StatisticsCardEditProps<TStats>)
 {
+  const icons = title === "attributes" ? attributesIcons : characteristicIcons;
+
   return (
     <Card className="bg-muted">
       <CardHeader>
-        <CardTitle className="text-center">
+        <CardTitle className="text-center capitalize">
           {title}
         </CardTitle>
       </CardHeader>
@@ -29,7 +39,7 @@ export default function StatisticsCardEdit({ title, statistics, control }: Stati
       <CardContent className="flex flex-col gap-y-4">
 
         <div className="grid grid-cols-5 gap-5 items-center border-b border-border/50 pb-2">
-          <div className="text-sm font-semibold text-muted-foreground text-center">
+          <div className="text-sm font-semibold text-muted-foreground text-center capitalize">
             {title.slice(0, -1)}
           </div>
 
@@ -41,14 +51,14 @@ export default function StatisticsCardEdit({ title, statistics, control }: Stati
 
       <div className="grid grid-rows-5 gap-y-4 items-center">
       {
-        statistics.map(([name, value, icon]) => 
+        Object.entries(statistics).map(([name, value]) => 
           <StatisticViewEdit 
             key={name}
             name={name} 
             statistic={value} 
-            icon={icon} 
+            icon={icons[name]} 
             control={control}
-            fieldPath={`${title.toLowerCase()}.${name}`}
+            fieldPath={`${title}.${name}` as StatisticPath}
           />)
       }
       </div> 

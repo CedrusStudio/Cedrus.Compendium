@@ -6,7 +6,7 @@ import { RiResetLeftFill } from "react-icons/ri";
 
 type ResetMultipleButtonProps =
 {
-    valuesWithSetters: [number, React.Dispatch<React.SetStateAction<number>>, ChangeValueSideEffect][];
+    valuesWithSetters: [number, React.Dispatch<React.SetStateAction<number>>, ChangeValueSideEffect?][];
     variant?: VariantType;
     className?: string;
     icon?: React.ReactNode;
