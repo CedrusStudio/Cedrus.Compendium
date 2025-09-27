@@ -7,6 +7,7 @@ import {
 import { FieldPath, FieldValues } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Control } from 'react-hook-form';
+import { Label } from "@/components/ui/label";
 
 export type CustomFormFieldProps<TFieldValues extends FieldValues> = 
 {
@@ -14,12 +15,16 @@ export type CustomFormFieldProps<TFieldValues extends FieldValues> =
   control: Control<TFieldValues>;
   inputPlaceholder?: string;
   inputClassName?: string;
+  addLabel?: boolean;
 };
 
 export function InputFormField<TFieldValues extends FieldValues>(input: CustomFormFieldProps<TFieldValues>) 
 {
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center gap-2">
+      {
+        input.addLabel && <Label className="text-center capitalize">{input.name}</Label>
+      }
       <FormField
         control={input.control}
         name={input.name}

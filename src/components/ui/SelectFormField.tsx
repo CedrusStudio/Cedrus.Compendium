@@ -40,7 +40,7 @@ export function SelectFormField<TFieldValues extends FieldValues>({ name, contro
                     <SelectContent>
                     {
                         items.map(item => (
-                            <SelectItem key={item} value={item}>
+                            <SelectItem key={item} value={String(item)}>
                                 {item}
                             </SelectItem>
                         ))
