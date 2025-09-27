@@ -16,14 +16,16 @@ type EditCharacterProps =
     searchParams: { [key: string]: string | string[] | undefined }
 };
 
-export default async function EditPage(input: EditCharacterProps)
+export default async function EditPage({ params, searchParams }: EditCharacterProps)
 {
-  const params = await input.params;
-  const character = await getCharacter(params.id);
-  if (!character) throw Error("Character not found");
-
   const queryClient = new QueryClient();
-  const searchParams = await input.searchParams;
+  const character = await queryClient.ensureQueryData
+  ({
+    queryKey: ['character', params.id],
+    queryFn: () => getCharacter(params.id),
+  });
+
+  if (!character) throw Error("Character not found");
   const tab = isCharacterTab(searchParams?.tab) ? searchParams.tab : "character";
 
   return (

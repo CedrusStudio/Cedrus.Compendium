@@ -18,26 +18,23 @@ type CharacterProps =
     searchParams: { [key: string]: string | string[] | undefined }
 };
 
-export default async function CharacterPage(input: CharacterProps)
+export default async function CharacterPage({ params, searchParams }: CharacterProps)
 {
   // seedDatabase();
-  const params = await input.params;
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery
+  const character = await queryClient.ensureQueryData
   ({
     queryKey: ['character', params.id],
     queryFn: () => getCharacter(params.id),
   });
 
-  const character = await getCharacter(params.id);
   if (!character) throw Error("Character not found");
-
-  const searchParams = await input.searchParams;
+  const tab = isCharacterTab(searchParams?.tab) ? searchParams.tab : undefined;
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CharacterView character={character} tab={isCharacterTab(searchParams?.tab) ? searchParams.tab : undefined} />
+      <CharacterView character={character} tab={tab} />
     </HydrationBoundary>
   );
 };

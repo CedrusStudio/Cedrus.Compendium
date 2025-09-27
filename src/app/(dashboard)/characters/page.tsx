@@ -12,36 +12,24 @@ type CharactersPageProps =
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function CharactersPage(input: CharactersPageProps)
+export default async function CharactersPage({ searchParams }: CharactersPageProps)
 {
-  const searchParams = await input.searchParams;
-  const searchQuery = searchParams?.search as string | undefined;
+  const searchQuery = Array.isArray(searchParams?.search) ? searchParams.search[0] : searchParams?.search;
   const queryClient = new QueryClient();
 
-  if (searchQuery) 
-  {
-    await queryClient.prefetchQuery
-    ({
-      queryKey: ['characters', 'search', searchQuery],
-      queryFn: () => searchCharacter(searchQuery!),
-    });
-  }
-  else
-  {
-    await queryClient.prefetchQuery
-    ({
-      queryKey: ['characters', 'all'],
-      queryFn: () => getAllCharacters(),
-    });
-  }
+  const queryKey = searchQuery 
+    ? ['characters', 'search', searchQuery] 
+    : ['characters', 'all'];
 
-  const allCharacters = searchQuery 
-    ? queryClient.getQueryData<Character[]>(['characters', 'search', searchQuery]) ?? await searchCharacter(searchQuery)
-    : queryClient.getQueryData<Character[]>(['characters', "all"]) ?? await getAllCharacters();
+  const characters = await queryClient.ensureQueryData<Character[]>
+  ({
+      queryKey: queryKey,
+      queryFn: () => searchQuery ? searchCharacter(searchQuery) : getAllCharacters(),
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-       <CharactersGrid characters={allCharacters} />
+       <CharactersGrid characters={characters} />
     </HydrationBoundary>
   );
 };
