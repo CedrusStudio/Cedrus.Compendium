@@ -3,7 +3,7 @@ import { useFormField } from "@/hooks/useFormField";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { StatisticPath } from "@/components/character/edit/statistics/StatisticsCardEdit";
-import { setWithSideEffect } from "@/utils/setterUtils";
+import { setWithSideEffect } from "@/utils/global/setterUtils";
 import { useState } from "react";
 
 export function useStatisticForm

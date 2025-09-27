@@ -8,7 +8,7 @@ import {
 import StatisticViewEdit from "@/components/character/edit/statistics/StatisticsViewEdit";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
-import { PathsFrom} from "@/utils/pathTypes";
+import { PathsFrom} from "@/utils/global/pathTypes";
 import { attributesIcons, characteristicIcons } from "@/utils/icons";
 
 export type AllowedRoots = "characteristics" | "attributes";
@@ -19,7 +19,7 @@ export type StatisticPath = PathsFrom<StatsRoot, Statistic>;
 
 type StatisticsCardEditProps<TStats extends Record<string, Statistic>> = 
 {
-  title: AllowedRoots
+  title: AllowedRoots;
   statistics: TStats;
   control: Control<UpsertCharacterStatisticsType>;
 };

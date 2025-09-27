@@ -1,4 +1,4 @@
-import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
+import { ChangeValueSideEffect } from "@/utils/global/ChangeValueSideEffect";
 
 export const increase = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
 {

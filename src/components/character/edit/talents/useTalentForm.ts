@@ -4,7 +4,7 @@ import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { useState } from "react";
 import { AllowedTalentRoots } from "@/components/character/edit/talents/EditTalentRow";
-import { singleValueSetterWithSideEffectFactory } from "@/utils/setterUtils";
+import { singleValueSetterWithSideEffectFactory } from "@/utils/global/setterUtils";
 
 export function useTalentForm
 (
