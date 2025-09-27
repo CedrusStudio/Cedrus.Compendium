@@ -3,6 +3,7 @@
 Cache queries -> plus pagination on "characters" -> to fix
 
 ====
-Micu Feedback
 
-1. defense mozna jak hp zmniejsza
+1. Full Editing character 
+2. Adding Character
+3. Removing Character

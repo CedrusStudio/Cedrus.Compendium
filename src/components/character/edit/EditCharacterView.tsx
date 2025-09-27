@@ -13,6 +13,7 @@ import CharacterEquipmentEdit from '@/components/character/edit/equipment/Charac
 import { Character } from "@/domain/Character";
 import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/utils/tabsUtils";
+import EditCharacterCombat from "@/components/character/edit/combat/EditCharacterCombat";
 
 type EditCharacterProps =
 {
@@ -34,10 +35,11 @@ export default function EditCharacterView({ character, tab }: EditCharacterProps
         <div className='row-span-1'>
             <div className='flex flex-row justify-between items-center'>
                 <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="character" overrideValue='Edit Character' />
-                    <TabsTriggerCapitalized value="combat" overrideValue='Edit Combat' />
-                    <TabsTriggerCapitalized value="talents" overrideValue='Edit Talents' />
-                    <TabsTriggerCapitalized value="equipment" overrideValue='Edit Equipment' />
+                    <TabsTriggerCapitalized value="character" overrideValue='Character' />
+                    <TabsTriggerCapitalized value="statistics" overrideValue='Statistics' />
+                    <TabsTriggerCapitalized value="combat" overrideValue='Combat' />
+                    <TabsTriggerCapitalized value="talents" overrideValue='Talents' />
+                    <TabsTriggerCapitalized value="equipment" overrideValue='Equipment' />
                 </TabsList>
 
                 <Button asChild variant="default" size="icon" className='m-4'>
@@ -53,8 +55,12 @@ export default function EditCharacterView({ character, tab }: EditCharacterProps
                 <CharacterDescriptionEdit character={character} />
             </TabsContent>
 
-            <TabsContent value="combat">
+            <TabsContent value="statistics">
                 <CharacterStatisticsEdit character={character} />
+            </TabsContent>
+
+            <TabsContent value="combat">
+                <EditCharacterCombat character={character} />
             </TabsContent>
 
             <TabsContent value="talents">
