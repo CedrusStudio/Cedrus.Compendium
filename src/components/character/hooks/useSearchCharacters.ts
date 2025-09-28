@@ -3,7 +3,8 @@
 import { useSearchParams } from 'next/navigation';
 import { Character } from '@/domain/Character';
 import { useSuspenseQuery  } from '@tanstack/react-query';
-import { allCharactersKey, createSearchCharactersKey, getSearchQueryParam } from '@/persistence/cacheKeys';
+import { allCharactersKey, createSearchCharactersKey } from '@/persistence/cacheKeys';
+import { getSearchQueryParam  } from '@/utils/global/httpUtils';
 import bffClient from '@/infrastructure/bffClient';
 
 export const useSearchCharacters = () => 

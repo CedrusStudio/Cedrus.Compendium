@@ -1,5 +1,5 @@
 import { Character } from '@/domain/Character';
-import { setSearchQueryParam } from '@/persistence/cacheKeys';
+import { setSearchQueryParam } from '@/utils/global/httpUtils';
 import axios from 'axios';
 
 const clientBase = axios.create

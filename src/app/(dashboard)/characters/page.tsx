@@ -8,7 +8,8 @@ import {
 import { Character } from "@/domain/Character";
 import { Suspense } from 'react';
 import CharacterGridSkeleton from "@/components/character/CharacterGridSkeleton";
-import { getCharacterQueryKey, getSearchQuery } from "@/persistence/cacheKeys";
+import { getCharacterQueryKey } from "@/persistence/cacheKeys";
+import { getSearchQuery } from "@/utils/global/httpUtils";
 
 type CharactersPageProps = 
 {

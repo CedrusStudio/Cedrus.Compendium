@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAllCharacters, searchCharacter } from '@/persistence/characterRepository';
-import { getSearchParamFromRequest } from '@/persistence/cacheKeys';
+import { getSearchParamFromRequest } from '@/utils/global/httpUtils';
 
 export async function GET(request: NextRequest)
 {
