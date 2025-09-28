@@ -178,11 +178,9 @@ function canUseManeuver(maneuver: Maneuver, usedManeuvers: (Maneuver | EndTurn)[
     const maneuversInCurrentTurn = usedManeuvers
         .slice(usedManeuvers.lastIndexOf("end") + 1) as Maneuver[];
 
-    if (!maneuver.cooldown) 
-    {
-        if (maneuversInCurrentTurn.some(x => x.name === maneuver.name)) return false;
-    } 
-    else 
+    if (maneuversInCurrentTurn.some(x => x.name === maneuver.name)) return false;
+    
+    if (maneuver.cooldown) 
     {
         const lastUsedIndex = maneuversInCurrentTurn.findLastIndex(x => x.name === maneuver.name);
         if (lastUsedIndex !== -1) 
