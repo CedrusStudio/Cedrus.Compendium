@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-query';
 import { Character } from "@/domain/Character";
 import { Suspense } from 'react';
+import CharacterGridSkeleton from "@/components/character/CharacterGridSkeleton";
 
 type CharactersPageProps = 
 {
@@ -35,18 +36,9 @@ export default async function CharactersPage(input: CharactersPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<CharactersGridSkeleton />}>
+      <Suspense fallback={<CharacterGridSkeleton />}>
         <CharactersGrid />
       </Suspense>
     </HydrationBoundary>
   );
 };
-
-function CharactersGridSkeleton() 
-{
-  return (
-    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4">
-      LOADING LOADING LOADING
-    </div>
-  );
-}
