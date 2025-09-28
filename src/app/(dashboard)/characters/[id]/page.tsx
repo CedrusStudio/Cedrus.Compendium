@@ -18,8 +18,10 @@ type CharacterProps =
     searchParams: { [key: string]: string | string[] | undefined }
 };
 
-export default async function CharacterPage({ params, searchParams }: CharacterProps)
+export default async function CharacterPage(input: CharacterProps)
 {
+  const searchParams = await input.searchParams;
+  const params = await input.params;
   // seedDatabase();
   const queryClient = new QueryClient();
 

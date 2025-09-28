@@ -6,14 +6,16 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { Character } from "@/domain/Character";
+import { Suspense } from 'react';
 
 type CharactersPageProps = 
 {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function CharactersPage({ searchParams }: CharactersPageProps)
+export default async function CharactersPage(input: CharactersPageProps)
 {
+  const searchParams = await input.searchParams;
   const searchQuery = Array.isArray(searchParams?.search) ? searchParams.search[0] : searchParams?.search;
   const queryClient = new QueryClient();
 
@@ -21,15 +23,30 @@ export default async function CharactersPage({ searchParams }: CharactersPagePro
     ? ['characters', 'search', searchQuery] 
     : ['characters', 'all'];
 
-  const characters = await queryClient.ensureQueryData<Character[]>
+  await queryClient.prefetchQuery<Character[]>
   ({
       queryKey: queryKey,
-      queryFn: () => searchQuery ? searchCharacter(searchQuery) : getAllCharacters(),
+      queryFn: () => 
+      { 
+        console.log("Prefetching characters from server...");
+        return searchQuery ? searchCharacter(searchQuery) : getAllCharacters(); 
+      },
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-       <CharactersGrid characters={characters} />
+      <Suspense fallback={<CharactersGridSkeleton />}>
+        <CharactersGrid />
+      </Suspense>
     </HydrationBoundary>
   );
 };
+
+function CharactersGridSkeleton() 
+{
+  return (
+    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4">
+      LOADING LOADING LOADING
+    </div>
+  );
+}

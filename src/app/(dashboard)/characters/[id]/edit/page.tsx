@@ -16,8 +16,10 @@ type EditCharacterProps =
     searchParams: { [key: string]: string | string[] | undefined }
 };
 
-export default async function EditPage({ params, searchParams }: EditCharacterProps)
+export default async function EditPage(input: EditCharacterProps)
 {
+  const params = await input.params;
+  const searchParams = await input.searchParams;
   const queryClient = new QueryClient();
   const character = await queryClient.ensureQueryData
   ({

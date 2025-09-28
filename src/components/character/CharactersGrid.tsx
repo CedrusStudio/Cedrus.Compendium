@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import CharacterCard from '@/components/character/CharacterCard';
 import { Character } from '@/domain/Character';
 import {
@@ -10,43 +11,40 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
+import { useSuspenseQuery  } from '@tanstack/react-query';
 
 type CharactersGridParams =
 {
-  characters: Character[];
   pageSize?: number;
 }
 
-export default function CharactersGrid({ characters, pageSize = 15 }: CharactersGridParams)
+export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
 {
-  const [page, setPage] = useState(1);
-  
-  characters = 
-  [
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters, 
-    ...characters,
-    ...characters,
-    ...characters,
-    ...characters,
-    ...characters,
-    ...characters
-  ]
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search') ?? undefined;
+  const queryKey = search 
+    ? (['charactersd', 'search', search] as const) 
+    : (['charactersd', 'all'] as const);
 
+  const { data = [] } = useSuspenseQuery<Character[]>
+  ({
+    queryKey,
+    queryFn: async () => 
+    {
+      console.log("Fetching characters from API...");
+      const url = search ? `/api/characters?search=${encodeURIComponent(search)}` : `/api/characters`;
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Failed to load characters');
+      return await res.json();
+    },
+    staleTime: 11_000,
+    refetchOnWindowFocus: false,
+  });
+
+  const characters = data;
+
+  const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(characters.length / pageSize));
   const clampedPage = Math.min(Math.max(page, 1), totalPages);
 
