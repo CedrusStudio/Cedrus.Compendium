@@ -3,6 +3,7 @@ import { type NextRequest } from 'next/server';
 
 export const searchParamKey = 'search';
 export const getSearchParamFromRequest = (request: NextRequest) => request.nextUrl.searchParams.get(searchParamKey);
+export const getIdParamFromRequest = (request: NextRequest) => request.nextUrl.pathname.split('/').pop();
 
 export const createSearchCharactersKey = (search: string) => ['characters', searchParamKey, search] as const;
 export const allCharactersKey = ['characters', 'all'] as const;
@@ -15,6 +16,11 @@ export const getCharacterQueryKey = (search: string | undefined) => search
 export const getSearchQueryParam = (searchParams: ReadonlyURLSearchParams) => 
 {
     return searchParams.get(searchParamKey) ?? undefined;
+};
+
+export const getQueryByIdParam = (searchParams: ReadonlyURLSearchParams) => 
+{
+    return searchParams.get('id') ?? undefined;
 };
 
 export const setSearchQueryParam = (url: URL, search?: string) => 

@@ -10,19 +10,19 @@ import CharacterDescriptionEdit from '@/components/character/edit/CharacterDescr
 import CharacterStatisticsEdit from '@/components/character/edit/statistics/CharacterStatisticsEdit';
 import CharacterTalentsEdit from '@/components/character/edit/talents/CharacterTalentsEdit';
 import CharacterEquipmentEdit from '@/components/character/edit/equipment/CharacterEquipmentEdit';
-import { Character } from "@/domain/Character";
 import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/utils/tabsUtils";
 import EditCharacterCombat from "@/components/character/edit/combat/EditCharacterCombat";
+import { useGetCharacterById } from "../hooks/useGetCharacterById";
 
 type EditCharacterProps =
 {
-    character: Character;
     tab: CharacterTabs;
 }
 
-export default function EditCharacterView({ character, tab }: EditCharacterProps)
+export default function EditCharacterView({ tab }: EditCharacterProps)
 {
+  const { character } = useGetCharacterById();
   const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? "character");
   
   return (

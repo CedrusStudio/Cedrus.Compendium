@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { isCharacterTab } from '@/utils/tabsUtils';
 import EditCharacterView from '@/components/character/edit/EditCharacterView';
+import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 
 type EditCharacterProps = 
 {
@@ -21,18 +22,18 @@ export default async function EditPage(input: EditCharacterProps)
   const params = await input.params;
   const searchParams = await input.searchParams;
   const queryClient = new QueryClient();
-  const character = await queryClient.ensureQueryData
+
+  await queryClient.prefetchQuery
   ({
-    queryKey: ['character', params.id],
+    queryKey: createCharacterByIdKey(params.id),
     queryFn: () => getCharacter(params.id),
   });
 
-  if (!character) throw Error("Character not found");
   const tab = isCharacterTab(searchParams?.tab) ? searchParams.tab : "character";
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <EditCharacterView character={character} tab={tab} />
+      <EditCharacterView tab={tab} />
     </HydrationBoundary>
   );
 };

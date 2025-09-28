@@ -12,18 +12,18 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { TbEdit } from "react-icons/tb";
 import TabsTriggerCapitalized from '@/components/ui/TabsTriggerCapitalized';
-import { Character } from '@/domain/Character';
 import { useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/utils/tabsUtils';
+import { useGetCharacterById } from './hooks/useGetCharacterById';
 
 type CharacterViewProps = 
 {
-    character: Character;
     tab?: CharacterTabs;
 }
 
-export default function CharacterView({ character, tab }: CharacterViewProps)
+export default function CharacterView({ tab }: CharacterViewProps)
 {
+  const { character } = useGetCharacterById();
   const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? "character");
 
   return (
