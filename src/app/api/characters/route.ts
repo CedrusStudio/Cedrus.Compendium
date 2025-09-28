@@ -1,13 +1,14 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAllCharacters, searchCharacter } from '@/persistence/characterRepository';
+import { getSearchParamFromRequest } from '@/persistence/cacheKeys';
 
 export async function GET(request: NextRequest)
 {
   try 
   {
-    const search = request.nextUrl.searchParams.get('search');
-    const data = search ? await searchCharacter(search) : await getAllCharacters();
-    return NextResponse.json(data);
+    const search = getSearchParamFromRequest(request);
+    const characters = search ? await searchCharacter(search) : await getAllCharacters();
+    return NextResponse.json(characters);
   } 
   catch (error) 
   {

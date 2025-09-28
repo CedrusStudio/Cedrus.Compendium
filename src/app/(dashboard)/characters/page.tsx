@@ -8,6 +8,7 @@ import {
 import { Character } from "@/domain/Character";
 import { Suspense } from 'react';
 import CharacterGridSkeleton from "@/components/character/CharacterGridSkeleton";
+import { getCharacterQueryKey, getSearchQuery } from "@/persistence/cacheKeys";
 
 type CharactersPageProps = 
 {
@@ -16,22 +17,13 @@ type CharactersPageProps =
 
 export default async function CharactersPage(input: CharactersPageProps)
 {
-  const searchParams = await input.searchParams;
-  const searchQuery = Array.isArray(searchParams?.search) ? searchParams.search[0] : searchParams?.search;
+  const searchQuery = await getSearchQuery(input);
   const queryClient = new QueryClient();
-
-  const queryKey = searchQuery 
-    ? ['characters', 'search', searchQuery] 
-    : ['characters', 'all'];
 
   await queryClient.prefetchQuery<Character[]>
   ({
-      queryKey: queryKey,
-      queryFn: () => 
-      { 
-        console.log("Prefetching characters from server...");
-        return searchQuery ? searchCharacter(searchQuery) : getAllCharacters(); 
-      },
+      queryKey: getCharacterQueryKey(searchQuery),
+      queryFn: () => searchQuery ? searchCharacter(searchQuery) : getAllCharacters()
   });
 
   return (
