@@ -2,6 +2,10 @@
 
 import EditHealthCard from "@/components/character/edit/combat/EditHealthCard";
 import EditDefenseCard from "@/components/character/edit/combat/EditDefenseCard";
+import EditOffenseCard from "@/components/character/edit/combat/EditOffenseCard";
+import EditStancesCard from "@/components/character/edit/combat/EditStancesCard";
+import EditStatesCard from "@/components/character/edit/combat/EditStatesCard";
+import EditManeuversCard from "@/components/character/edit/combat/EditManeuversCard";
 
 import { Character } from "@/domain/Character";
 import {
@@ -56,7 +60,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
 
           <p className='text-xl text-center text-primary pt-2 capitalize font-semibold'>
               {character.name}
@@ -66,6 +70,15 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             <EditHealthCard health={character.health} control={form.control} />
             <EditDefenseCard defense={character.defense} control={form.control} />
           </div>
+
+          <EditOffenseCard offense={character.offense} control={form.control} />
+
+          <div className="grid gap-3 md:grid-cols-2">
+            <EditStancesCard stances={character.stances} control={form.control} />
+            <EditStatesCard states={character.states} control={form.control} />
+          </div>
+          
+          <EditManeuversCard maneuvers={character.maneuvers} control={form.control} />
 
           <SubmitButton isPending={isPending} />
         </form>
