@@ -14,6 +14,7 @@ import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
 import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
 import ChangeButtons from '@/components/buttons/ChangeButtons';
+import { Label } from '@/components/ui/label';
 
 type DefenseCardProps = 
 {
@@ -25,8 +26,10 @@ const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
 
 export default function DefenseCard(input: DefenseCardProps)
 {
-  const [defenseChangeAmount, setDefenseChangeAmount] = useState<number>(1);
-  const [currentDefenseDifference, setCurrentDefenseDifference] = useState<number>(0);
+  const [reductionIncreaseChangeAmount, setReductionIncreaseChangeAmount] = useState<number>(1);
+  const [damageTakenChangeAmount, setDamageTakenChangeAmount] = useState<number>(1);
+  const [reductionIncrease, setReductionIncrease] = useState<number>(0);
+  const [damageTaken, setDamageTaken] = useState<number>(0);
   const [selectedReductionType, setSelectedReductionType] = useState<ReductionType>("full");
 
   const handleOnSelectedValueChange = (value: string) => 
@@ -49,9 +52,9 @@ export default function DefenseCard(input: DefenseCardProps)
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
           <FieldViewWithInfo 
-            name={<SelectTrigger className='capitalize border-0' ><SelectValue /></SelectTrigger>} 
-            value={calculateSelectedReduction(input.defense, selectedReductionType) + currentDefenseDifference} 
-            infoContent={<DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} currentDefenseDifference={currentDefenseDifference} />} 
+            name={<SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>} 
+            value={calculateSelectedReduction(input.defense, selectedReductionType) + reductionIncrease - damageTaken} 
+            infoContent={<DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} reductionIncrease={reductionIncrease} damageTaken={damageTaken} />} 
             valueClassName='pr-3'
           />
   
@@ -66,21 +69,29 @@ export default function DefenseCard(input: DefenseCardProps)
           </SelectContent>
         </Select>
 
-        <ChangeButtons value={defenseChangeAmount} setValue={setCurrentDefenseDifference} setChangeAmount={setDefenseChangeAmount} resetValue={0} />
+        <div className='flex gap-4'>
+          <Label className='text-sm text-muted-foreground w-36'>Reduction Increase</Label>
+          <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
+        </div>
+        <div className='flex gap-4'>
+          <Label className='text-sm text-muted-foreground w-36'>Damage Taken</Label>
+          <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+        </div>
 
       </CardContent>
     </Card>
   );
 };
 
-function DefenseInfoContent(input: { defense: Defense, selectedReductionType: ReductionType, currentDefenseDifference: number })
+function DefenseInfoContent(input: { defense: Defense, selectedReductionType: ReductionType, reductionIncrease: number, damageTaken: number })
 {
   return (
     <div>
     {
-      input.currentDefenseDifference === 0 ? <></>
-        : input.currentDefenseDifference > 0 ? <FieldView key="ReductionIncrease" name="ReductionIncrease" value={Math.abs(input.currentDefenseDifference)} valueClassName='text-green-600' />
-        : <FieldView key="DamageTaken" name="DamageTaken" value={Math.abs(input.currentDefenseDifference)} valueClassName='text-red-500' />
+      <FieldView key="ReductionIncrease" name="ReductionIncrease" value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
+    }
+    {
+      <FieldView key="DamageTaken" name="DamageTaken" value={Math.abs(input.damageTaken)} valueClassName='text-red-500' />
     }
     {
       Object.entries(input.defense)

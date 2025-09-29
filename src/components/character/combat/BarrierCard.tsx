@@ -9,6 +9,8 @@ import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
 import { Health } from '@/domain/Character';
 import ChangeButtons from '@/components/buttons/ChangeButtons';
+import { Label } from '@/components/ui/label';
+import FieldViewWithInfo from '../FieldViewWithInfo';
 
 type BarrierCardProps = 
 {
@@ -17,8 +19,10 @@ type BarrierCardProps =
 
 export default function BarrierCard(input: BarrierCardProps)
 {
-  const [currentBarrier, setCurrentBarrier] = useState<number>(input.health.barrier);
-  const [barrierChangeAmount, setBarrierChangeAmount] = useState<number>(1);
+  const [barrierIncrease, setBarrierIncrease] = useState<number>(0);
+  const [barrierIncreaseChangeAmount, setBarrierIncreaseChangeAmount] = useState<number>(1);
+  const [damageTaken, setDamageTaken] = useState<number>(0);
+  const [damageTakenChangeAmount, setDamageTakenChangeAmount] = useState<number>(1);
 
   return (
     <Card className='bg-muted'>
@@ -26,10 +30,35 @@ export default function BarrierCard(input: BarrierCardProps)
             <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Barrier</CardTitle>
 
             <FieldView name="Total" value={input.health.barrier} />
-            <FieldView name="Current" value={currentBarrier} />
+            <FieldViewWithInfo name="Current" value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
             
-            <ChangeButtons value={barrierChangeAmount} setValue={setCurrentBarrier} setChangeAmount={setBarrierChangeAmount} resetValue={input.health.barrier} />
+            <div className='flex gap-4'>
+              <Label className='text-sm text-muted-foreground w-36'>Barrier Increase</Label>
+              <ChangeButtons value={barrierIncreaseChangeAmount} setValue={setBarrierIncrease} setChangeAmount={setBarrierIncreaseChangeAmount} resetValue={0} />
+            </div>
+            <div className='flex gap-4'>
+              <Label className='text-sm text-muted-foreground w-36'>Damage Taken</Label>
+              <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+            </div>
+
         </CardContent>
     </Card>
   );
 };
+
+function CurrentBarrierInfoContent(input: { totalBarrier: number, damageTaken: number, barrierIncrease: number })
+{
+  return (
+    <div>
+    {
+      <FieldView key="totalBarrier" name="TotalBarrier" value={input.totalBarrier} />
+    }
+    {
+      <FieldView key="barrierIncrease" name="BarrierIncrease" value={input.barrierIncrease} valueClassName='text-green-600' />
+    }
+    {
+      <FieldView key="damageTaken" name="DamageTaken" value={input.damageTaken}  valueClassName='text-red-500' />
+    }
+    </div>
+  );
+}

@@ -10,12 +10,13 @@ import { Maneuver, type CastTime } from '@/domain/Character';
 import FieldViewWithInfo from "@/components/character/FieldViewWithInfo";
 import { LuRefreshCcw } from "react-icons/lu";
 import { GiSwordsEmblem } from "react-icons/gi";
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RiResetLeftFill } from "react-icons/ri";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { Badge } from '@/components/ui/badge';
 import { GrNext } from "react-icons/gr";
+import { get } from 'http';
 
 type ManeuversViewProps =
 {
@@ -116,7 +117,7 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
                 <Button variant="ghost" className="h-full w-full p-0" onClick={() => addManeuverToUsed(maneuver)} disabled={!canUseManeuver(maneuver, usedManeuvers)}>
                     <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none rounded-r-md' variant={getBadgeVariant(maneuver.castTime)}>
                         <LuRefreshCcw />
-                        <span>{maneuver.cooldown ?? <GiSwordsEmblem className='bg- scale-80'/>}</span> 
+                        <span>{maneuver.cooldown || <GiSwordsEmblem className='bg- scale-80'/>}</span> 
                     </Badge>
                 </Button>
             </div>
@@ -173,22 +174,27 @@ const canUseCastTime = (used: Maneuver[], next: CastTime) =>
 function canUseManeuver(maneuver: Maneuver, usedManeuvers: (Maneuver | EndTurn)[]): boolean
 {
     if (usedManeuvers.length === 0) return true;
-    if (usedManeuvers[usedManeuvers.length - 1] === "end") return true;
-
-    const maneuversInCurrentTurn = usedManeuvers
-        .slice(usedManeuvers.lastIndexOf("end") + 1) as Maneuver[];
-
-    if (maneuversInCurrentTurn.some(x => x.name === maneuver.name)) return false;
-    
-    if (maneuver.cooldown) 
-    {
-        const lastUsedIndex = maneuversInCurrentTurn.findLastIndex(x => x.name === maneuver.name);
-        if (lastUsedIndex !== -1) 
-        {
-            const maneuversSinceLastUse = maneuversInCurrentTurn.length - lastUsedIndex;
-            if (maneuversSinceLastUse < maneuver.cooldown) return false;
-        }
-    }
-
+    const maneuversInCurrentTurn = getManeuversInCurrentTurn(usedManeuvers);
+    if (usedInCurrentTurn(maneuversInCurrentTurn, maneuver.name)) return false;
+    if (onCooldown(usedManeuvers, maneuver, maneuver.name)) return false;
     return canUseCastTime(maneuversInCurrentTurn, maneuver.castTime);
+}
+
+function getManeuversInCurrentTurn(usedManeuvers: (Maneuver | EndTurn)[]): Maneuver[]
+{
+    return usedManeuvers.slice(usedManeuvers.lastIndexOf("end") + 1) as Maneuver[];
+}
+
+function usedInCurrentTurn(maneuversInCurrentTurn: Maneuver[], name: string): boolean
+{
+    return maneuversInCurrentTurn.some(x => x.name === name);
+}
+
+function onCooldown(usedManeuvers: (Maneuver | EndTurn)[], maneuver: Maneuver, name: string): boolean
+{
+    const lastUsedIndex = usedManeuvers.findLastIndex(x => (x !== "end" && x.name === name));
+    if (lastUsedIndex === -1) return false;
+    if (!maneuver.cooldown) return true;
+    const turnCountSinceLastUse = usedManeuvers.slice(lastUsedIndex).filter(x => x === "end").length;
+    return turnCountSinceLastUse < maneuver.cooldown;
 }
