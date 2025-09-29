@@ -132,6 +132,7 @@ export function EditTalentsTable({ columns, talents, control }: DataTableProps)
         <div className="flex items-center justify-end space-x-2 py-4 ml-auto">
             <Button
               variant="outline"
+              type="button"
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
@@ -141,6 +142,7 @@ export function EditTalentsTable({ columns, talents, control }: DataTableProps)
 
             <Button
               variant="outline"
+              type="button"
               size="sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
