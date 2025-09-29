@@ -17,9 +17,11 @@ type EditStatesCardProps =
 {
     states: Mode[];
     control: Control<UpsertCharacterCombatType>;
+    isPending: boolean;
+    combatFormName: string;
 }
 
-export default function EditStatesCard({ states, control }: EditStatesCardProps)
+export default function EditStatesCard({ states, control, isPending, combatFormName }: EditStatesCardProps)
 {
   return (
     <Card className='bg-muted'>

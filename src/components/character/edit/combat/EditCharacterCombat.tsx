@@ -25,13 +25,17 @@ type EditCharacterCombatProps =
     character: Character;
 }
 
+const combatFormName = "edit-combat-form";
+
 export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
     const initialValues: UpsertCharacterCombatType = useMemo(() => (
     {
         defense: character.defense,
         health: character.health,
-    }), [character.defense, character.health]);
+        stances: character.stances,
+        states: character.states
+    }), [character.defense, character.health, character.stances, character.states]);
 
     const form = useForm<UpsertCharacterCombatType>
     ({
@@ -74,11 +78,11 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           <EditOffenseCard offense={character.offense} control={form.control} />
 
           <div className="grid gap-3 md:grid-cols-2">
-            <EditStancesCard stances={character.stances} control={form.control} />
-            <EditStatesCard states={character.states} control={form.control} />
+            <EditStancesCard stances={character.stances} control={form.control} isPending={isPending} combatFormName={combatFormName} />
+            <EditStatesCard states={character.states} control={form.control} isPending={isPending} combatFormName={combatFormName} />
           </div>
-          
-          <EditManeuversCard maneuvers={character.maneuvers} control={form.control} />
+
+          <EditManeuversCard maneuvers={character.maneuvers} control={form.control} isPending={isPending} combatFormName={combatFormName} />
 
           <SubmitButton isPending={isPending} />
         </form>

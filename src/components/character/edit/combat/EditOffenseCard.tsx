@@ -72,6 +72,7 @@ function EditWeaponOffenseView({ offense }: { offense: WeaponOffense })
     </div>
   );
 }
+
 function EditDamageBonusView({ damageBonus }: { damageBonus: DamageOffense })
 {
   return (

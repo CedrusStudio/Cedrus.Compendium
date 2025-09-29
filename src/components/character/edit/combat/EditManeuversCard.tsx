@@ -17,9 +17,11 @@ type EditManeuversCardProps =
 {
     maneuvers: Maneuver[];
     control: Control<UpsertCharacterCombatType>;
+    isPending: boolean;
+    combatFormName: string;
 }
 
-export default function EditManeuversCard({ maneuvers, control }: EditManeuversCardProps)
+export default function EditManeuversCard({ maneuvers, control, isPending, combatFormName }: EditManeuversCardProps)
 {
   return (
     <Card className='bg-muted'>

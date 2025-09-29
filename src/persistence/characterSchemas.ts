@@ -154,7 +154,6 @@ export const upsertCharacterEquipmentSchema = z.object
 export type UpsertCharacterWeaponType = z.infer<typeof upsertWeaponSchema>;
 export type UpsertCharacterEquipmentType = z.infer<typeof upsertCharacterEquipmentSchema>;
 
-
 //Health
 export const healthSchema = z.object
 ({
@@ -183,11 +182,24 @@ export const defenseSchema = z.object
 
 export type UpsertCharacterDefenseType = z.infer<typeof defenseSchema>;
 
+//Mode
+export const modeSchema = z.object
+({
+  name: z.string().min(2).max(100),
+  description: z.string().min(2).max(1000),
+  grade: z.coerce.number<number>().int().min(0)
+});
+
+export type UpsertCharacterModeType = z.infer<typeof modeSchema>;
+export const upsertCharacterModesSchema = z.array(modeSchema).max(20, { message: "You can have at most 20 modes." });
+
 //Combat
 export const upsertCharacterCombatSchema = z.object
 ({
   health: healthSchema,
   defense: defenseSchema,
+  stances: upsertCharacterModesSchema,
+  states: upsertCharacterModesSchema,
 });
 
 

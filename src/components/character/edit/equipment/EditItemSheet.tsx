@@ -17,6 +17,7 @@ import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { ItemTypes } from "@/domain/Character";
 import { Label } from "@/components/ui/label";
+import { TbEdit } from "react-icons/tb";
 
 type EditItemSheetProps = 
 {
@@ -32,7 +33,7 @@ export default function EditItemSheet({ item, control, isPending, children, equi
       <Sheet>
 
         <SheetTrigger asChild className='mt-4'>
-          <Button variant="edit">Edit</Button>
+          <Button variant="edit"><TbEdit /></Button>
         </SheetTrigger>
 
         <SheetContent>
