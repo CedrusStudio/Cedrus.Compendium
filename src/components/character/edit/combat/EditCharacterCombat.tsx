@@ -60,11 +60,12 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
       form,
       initialValues,
       invalidateOnSuccess: ['characters', `characters/${character.id}`],
+      toastPosition: "bottom-left",
     });
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4" id={combatFormName}>
 
           <p className='text-xl text-center text-primary pt-2 capitalize font-semibold'>
               {character.name}

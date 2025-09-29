@@ -45,7 +45,7 @@ function EditManeuverView({ maneuver }: { maneuver: Maneuver })
     return (
         <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2">
             
-            <div className="p-4 rounded-md w-full">
+            <div className="p-2 rounded-md w-full">
                 <h4 className="font-semibold">{maneuver.name}</h4>
                 <p className="text-sm text-muted-foreground">{maneuver.description}</p>
             </div>

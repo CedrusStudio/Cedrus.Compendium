@@ -194,6 +194,8 @@ export type Mode =
   description: string;
 }
 
+export type ModesType = "stances" | "states";
+
 //Equipment
 
 export type Item = 
@@ -295,4 +297,3 @@ export type Maneuver =
   cooldown: number | null;
   castTime: CastTime;
 };
-
