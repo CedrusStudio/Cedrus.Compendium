@@ -1,3 +1,4 @@
+import { CastTime, castTimeValues } from "@/domain/Character";
 import { z } from "zod";
 
 // Schema for character header (name and description)
@@ -193,6 +194,19 @@ export const modeSchema = z.object
 export type UpsertCharacterModeType = z.infer<typeof modeSchema>;
 export const upsertCharacterModesSchema = z.array(modeSchema).max(20, { message: "You can have at most 20 modes." });
 
+//Maneuvers
+const maneuverSchema = z.object
+({
+  name: z.string().min(2).max(100),
+  description: z.string().min(2).max(1000),
+  grade: z.coerce.number<number>().int().min(0),
+  cooldown: z.coerce.number<number>().int().min(0).max(20).optional(),
+  castTime: z.enum(castTimeValues),
+});
+
+export type UpsertCharacterManeuverType = z.infer<typeof maneuverSchema>;
+export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, { message: "You can have at most 100 maneuvers." });
+
 //Combat
 export const upsertCharacterCombatSchema = z.object
 ({
@@ -200,6 +214,7 @@ export const upsertCharacterCombatSchema = z.object
   defense: defenseSchema,
   stances: upsertCharacterModesSchema,
   states: upsertCharacterModesSchema,
+  maneuvers: upsertCharacterManeuversSchema
 });
 
 

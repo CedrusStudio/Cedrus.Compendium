@@ -288,12 +288,18 @@ export type ItemTypes = "weapon1" | "weapon2" | "weapon3" | "weapon4" | "armor" 
 //Maneuvers
 
 export type CastTime = "Full" | "Standard" | "Immediate" | "Overimmediate";
+export const castTimeValues = [
+  "Full",
+  "Standard",
+  "Immediate",
+  "Overimmediate",
+] as const satisfies readonly CastTime[];
 
 export type Maneuver =
 {
   name: string;
   grade: number;
   description: string;
-  cooldown: number | null;
+  cooldown: number | undefined;
   castTime: CastTime;
 };
