@@ -68,16 +68,21 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4" id={combatFormName}>
 
-          <p className='text-xl text-center text-primary pt-2 capitalize font-semibold'>
-              {character.name}
-          </p>
+          <div className="grid gap-3 md:grid-cols-7">
 
-          <div className="grid gap-3 md:grid-cols-2">
-            <EditHealthCard health={character.health} control={form.control} />
-            <EditDefenseCard defense={character.defense} control={form.control} />
+            <div className="md:col-span-2">
+              <EditHealthCard health={character.health} control={form.control} />
+            </div>
+            
+            <div className="md:col-span-3">
+              <EditOffenseCard offense={character.offense} control={form.control} />
+            </div>
+            
+            <div className="md:col-span-2">
+              <EditDefenseCard defense={character.defense} control={form.control} />
+            </div>
+
           </div>
-
-          <EditOffenseCard offense={character.offense} control={form.control} />
 
           <div className="grid gap-3 md:grid-cols-2">
             <EditStancesCard stances={character.stances} control={form.control} isPending={isPending} combatFormName={combatFormName} />

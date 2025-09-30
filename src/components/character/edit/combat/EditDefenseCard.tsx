@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
+  CardHeader,
   CardTitle,
 } from '@/components/ui/card';
 
@@ -38,11 +39,15 @@ export default function EditDefenseCard(input: EditDefenseCardProps)
   }
 
   return (
-    <Card className='bg-muted border-2 shadow-md'>
+    <Card className='bg-muted border shadow-md'>
         <CardContent className='p-6'>
-          <CardTitle className='font-bold text-xl capitalize text-center text-primary mb-6'>
-            Defense
-          </CardTitle>
+          
+          <CardHeader>
+            <CardTitle className='font-bold text-xl capitalize text-center text-primary mb-6'>
+              Defense
+            </CardTitle>
+          </CardHeader>
+          
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           { 
             Object.keys(input.defense).map(key => InputFormWithLabel(key as keyof UpsertCharacterDefenseType)) 
