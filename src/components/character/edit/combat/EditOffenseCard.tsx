@@ -11,6 +11,7 @@ import {
 
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
+import Subcard from '@/components/global/Subcard';
 
 type EditOffenseCardProps =
 {
@@ -29,31 +30,15 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
         </CardTitle>
       </CardHeader>
 
-      <CardContent className='grid grid-cols-1 lg:grid-cols-3 '>
-        <div>
-          <CardTitle className='font-bold text-xl capitalize text-center text-primary'>
-            Leading Arm
-          </CardTitle>
-          <EditWeaponOffenseView offense={offense.leadingWeapon} />
-        </div>
+      <CardContent className={ `grid grid-cols-1 gap-1 ${offense.secondaryWeapon ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
 
+        <EditWeaponOffenseSubcard name='Leading Arm' offense={offense.leadingWeapon} control={control} />
+        
         { 
-          offense.secondaryWeapon && (
-            <div>
-              <CardTitle className='font-bold text-xl capitalize text-center text-primary'>
-                Secondary Arm
-              </CardTitle>
-              <EditWeaponOffenseView offense={offense.secondaryWeapon} />
-            </div>
-          )
+          offense.secondaryWeapon &&  <EditWeaponOffenseSubcard name='Secondary Arm' offense={offense.secondaryWeapon} control={control} />
         }
 
-        <div>
-          <CardTitle className='font-bold text-xl capitalize text-center text-primary'>
-            Damage Bonus
-          </CardTitle>
-          <EditDamageBonusView damageBonus={offense.damageBonus} />
-        </div>
+        <EditDamageBonusSubcard damageBonus={offense.damageBonus} control={control} />
 
       </CardContent>
       
@@ -61,27 +46,33 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
   );
 };
 
-function EditWeaponOffenseView({ offense }: { offense: WeaponOffense })
+type EditWeaponOffenseSubcardProps =
+{
+  name: string;
+  offense: WeaponOffense;
+  control: Control<UpsertCharacterCombatType>;
+}
+
+function EditWeaponOffenseSubcard({ name, offense, control }: EditWeaponOffenseSubcardProps)
 {
   return (
-    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2">
+    <Subcard  name={name} className='col-span-3' callback={() => {}}>
         <div className="p-4 rounded-md w-full">
             <h4 className="font-semibold">{offense.amount}</h4>
             <p className="text-sm text-muted-foreground">{offense.bonus}</p>
         </div>
-    </div>
+    </Subcard>
   );
 }
 
-function EditDamageBonusView({ damageBonus }: { damageBonus: DamageOffense })
+function EditDamageBonusSubcard({ damageBonus, control }: { damageBonus: DamageOffense, control: Control<UpsertCharacterCombatType> })
 {
   return (
-    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2">
-
+    <Subcard name={"Damage Bonus"} className='col-span-3' callback={() => {}}>
         <div className="p-4 rounded-md w-full">
             <h4 className="font-semibold">{damageBonus.amount}</h4>
             <p className="text-sm text-muted-foreground">{damageBonus.bonus}</p>
         </div>
-    </div>
+    </Subcard>
   );
 }

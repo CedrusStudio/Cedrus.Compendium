@@ -99,7 +99,7 @@ function EditManeuverSheet({ maneuverNumber, control, isPending, combatFormName 
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Edit mode</SheetTitle>
+          <SheetTitle>Edit maneuver</SheetTitle>
           <SheetDescription>
             Click save when you&apos;re done.
           </SheetDescription>
