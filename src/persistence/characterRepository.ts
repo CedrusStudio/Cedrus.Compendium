@@ -2,9 +2,9 @@
 
 //Tip: mark your repository as server-only so it can’t be imported in client components by mistake.
 import 'server-only';
-import { Character, Talent } from "@/domain/Character";
+import { Character, emptyCharacter, Talent } from "@/domain/Character";
 import fs from 'fs';
-import { UpsertCharacterCombatType, UpsertCharacterEquipmentType, UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { AddCharacterHeaderType, UpsertCharacterCombatType, UpsertCharacterEquipmentType, UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 
 type Database = 
 {
@@ -112,6 +112,34 @@ export const upsertCharacterHeader: (id: string, characterHeader: UpsertCharacte
     database.characters = [...allCharactersExceptSpecified, characterToUpsert];
     const databaseAsJson = JSON.stringify(database);
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
+};
+
+export const addCharacter: (characterHeader: AddCharacterHeaderType) => Promise<string> = async (characterHeader) =>
+{
+    const database = readDatabase();
+
+    if (!database.characters) 
+    {
+        database.characters = [];
+    }
+
+    const findCharacter = database.characters.find(c => c.name.toLowerCase() === characterHeader.name.toLowerCase());
+    if (findCharacter)
+    {
+        throw new Error("Character with the same name already exists");
+    }
+
+    const allCharactersExceptSpecified = database.characters.filter(c => c.name.toLowerCase() !== characterHeader.name.toLowerCase());
+
+    const characterToAdd = { 
+        ...emptyCharacter,
+        ...characterHeader, 
+        id: characterHeader.name.replace(/\s+/g, '-').toLowerCase(),
+    } as Character;
+    database.characters = [...allCharactersExceptSpecified, characterToAdd];
+    const databaseAsJson = JSON.stringify(database);
+    fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
+    return characterToAdd.id;
 };
 
 export const upsertCharacterCombat: (id: string, characterCombat: UpsertCharacterCombatType) => Promise<void> = async (id, characterCombat) =>

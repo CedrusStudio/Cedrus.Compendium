@@ -1,4 +1,4 @@
-import { CastTime, castTimeValues } from "@/domain/Character";
+import { castTimeValues } from "@/domain/Character";
 import { z } from "zod";
 
 // Schema for character header (name and description)
@@ -10,7 +10,16 @@ export const upsertCharacterHeaderSchema = z.object
         .max(600, { message: "Description must not be longer than 600 characters." }),
 });
 
+export const addCharacterHeaderSchema = z.object
+({
+    name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+    description: z.string()
+        .min(2, { message: "Description must be at least 2 characters." })
+        .max(600, { message: "Description must not be longer than 600 characters." }),
+});
+
 export type UpsertCharacterHeaderType = z.infer<typeof upsertCharacterHeaderSchema>;
+export type AddCharacterHeaderType = z.infer<typeof addCharacterHeaderSchema>;
 
 // New schema for character statistics
 export const statisticSchema = z.object

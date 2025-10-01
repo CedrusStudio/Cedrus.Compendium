@@ -303,3 +303,132 @@ export type Maneuver =
   cooldown: number | undefined;
   castTime: CastTime;
 };
+
+//Empty Character
+export const emptyCharacter: Character = { 
+    // Required fields - these need to be provided when creating a character
+    id: "", // Will be set when adding the character
+    name: "", // Will be provided by characterHeader
+    description: "", // Will be provided by characterHeader
+    
+    // Characteristics - corrected to match the type definition
+    characteristics: {
+        strength: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        dexterity: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        constitution: { grade: 0, value: 0, bonus: 0, testBonus: 0 }, // Added missing field
+        mind: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        charisma: { grade: 0, value: 0, bonus: 0, testBonus: 0 }, // Corrected from fellowship
+        spellborn: { grade: 0, value: 0, bonus: 0, testBonus: 0 } // Corrected from willpower
+    },
+    
+    // Attributes - corrected to match the type definition
+    attributes: {
+        fencing: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        artifice: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        precision: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        initiative: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        martialArt: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        horsemanship: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        fortitude: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        reflex: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
+        willpower: { grade: 0, value: 0, bonus: 0, testBonus: 0 }
+    },
+
+    // Health
+    health: {
+        barrier: 0,
+        vitality: 0,
+        toughness: 0,
+        recoveryLevel: 0,
+        lethalHealth: 0,
+        lethalRounds: 0,
+        bonus: 0
+    },
+
+    // Defense - corrected to match the type definition
+    defense: {
+        immunity: 0,
+        resistance: 0,
+        protection: 0,
+        block: 0,
+        parry: 0,
+        dodge: 0,
+        bonus: 0
+    },
+
+    // Offense
+    offense: {
+        leadingWeapon: {
+            amount: 0,
+            grade: 0,
+            bonus: 0,
+            critical: {
+                power: 0,
+                range: 0
+            }
+        },
+        secondaryWeapon: undefined, // Optional field
+        damageBonus: {
+            amount: 0,
+            grade: 0,
+            bonus: 0
+        }
+    },
+
+    // Combat modes/states
+    stances: [],
+    states: [],
+    maneuvers: [],
+
+    // Talents - empty array
+    talents: [],
+
+    // Equipment - corrected to match the type definition
+    equipment: {
+        weapon1: {
+            name: "",
+            style: "",
+            offense: {
+                amount: 0,
+                grade: 0,
+                bonus: 0,
+                critical: {
+                    power: 0,
+                    range: 0
+                }
+            },
+            damageBonus: {
+                amount: 0,
+                grade: 0,
+                bonus: 0
+            },
+            range: 0,
+            description: ""
+        },
+        weapon2: undefined, // Optional
+        weapon3: undefined, // Optional
+        weapon4: undefined, // Optional
+        armor: {
+            name: "",
+            protection: 0, // Corrected from defense
+            dexterityRestriction: 0,
+            reflexRestriction: 0,
+            initiativeRestriction: 0,
+            attributePenalty: 0,
+            strengthRequirement: 0,
+            description: ""
+        },
+        shield: {
+            name: "",
+            block: 0, // Corrected from defense
+            dexterityRestriction: 0,
+            reflexRestriction: 0,
+            initiativeRestriction: 0,
+            attributePenalty: 0,
+            strengthRequirement: 0,
+            description: ""
+        },
+        magicEquipment: [],
+        horse: undefined // Optional
+    }
+};
