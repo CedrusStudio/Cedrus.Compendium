@@ -9,8 +9,10 @@ import {
 
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { type Mode } from "@/domain/Character";
-import { Control } from "react-hook-form";
+import { Control, useFieldArray } from "react-hook-form";
 import EditModeView from '@/components/character/edit/combat/EditModeView';
+import { LuPlus } from 'react-icons/lu';
+import { Button } from '@/components/ui/button';
 
 type EditStancesCardProps =
 {
@@ -22,11 +24,22 @@ type EditStancesCardProps =
 
 export default function EditStancesCard({ stances, control, isPending, combatFormName }: EditStancesCardProps)
 {
+  const { fields, append } = useFieldArray
+  ({ 
+    name: 'stances',
+    control
+  });
+
   return (
     <Card className='bg-muted'>
 
       <CardHeader>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Stances</CardTitle>
+          <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
+            <span>Stances</span>
+            <Button variant="outline" size="icon" disabled={isPending} onClick={() => { append({ name: `Stance ${fields.length + 1}`, description: 'New stance description', grade: 1 }); }}>
+              <LuPlus className="h-[1.2rem] w-[1.2rem]" />
+            </Button>
+          </CardTitle>
       </CardHeader>
 
       <CardContent className='grid grid-cols-1 sm:grid-cols-2'>

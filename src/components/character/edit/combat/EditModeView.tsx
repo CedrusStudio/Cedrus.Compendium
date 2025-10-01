@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetClose,
@@ -12,10 +14,11 @@ import SubmitButton from '@/components/ui/SubmitButton';
 import { InputFormField } from '@/components/ui/InputFormField';
 import { Button } from "@/components/ui/button"
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
+import { Control, useFieldArray } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/Character";
+import { IoTrashOutline } from "react-icons/io5";
 
 type EditModeViewProps =
 { 
@@ -28,16 +31,23 @@ type EditModeViewProps =
 }
 
 export default function EditModeView({ modeType, mode, index, control, isPending, combatFormName }: EditModeViewProps)
-{
+{  
+  const { remove } = useFieldArray
+  ({ 
+    name: modeType,
+    control
+  });
+
   return (
-    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2">
+    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2  min-h-24">
         
         <div className="p-2 rounded-md w-full">
             <h4 className="font-semibold">{mode.name}</h4>
             <p className="text-sm text-muted-foreground">{mode.description}</p>
         </div>
 
-        <div className="-mt-3">
+        <div className="flex flex-row gap-2">
+          <Button variant="destructive" size='icon' onClick={() => remove(index)}><IoTrashOutline /></Button>
           <EditModeSheet modeNumber={index} modeType={modeType} control={control} isPending={isPending} combatFormName={combatFormName} />
         </div>
     </div>
@@ -58,9 +68,9 @@ function EditModeSheet({ modeNumber, control, isPending, modeType, combatFormNam
   return (
     <Sheet>
 
-      <SheetTrigger asChild className='mt-4'>
-        <Button variant="outline" type="button"><TbEdit /></Button>
-      </SheetTrigger>
+        <SheetTrigger asChild>
+            <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
+        </SheetTrigger>
 
       <SheetContent>
         

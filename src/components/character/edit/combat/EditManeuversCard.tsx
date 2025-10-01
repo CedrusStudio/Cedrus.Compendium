@@ -19,12 +19,14 @@ import {
 } from "@/components/ui/sheet";
 import { castTimeValues, type Maneuver } from "@/domain/Character";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
+import { Control, useFieldArray } from "react-hook-form";
 import { TbEdit } from "react-icons/tb";
 import { Label } from "@/components/ui/label";
 import { InputFormField } from '@/components/ui/InputFormField';
 import SubmitButton from '@/components/ui/SubmitButton';
 import { SelectFormField } from '@/components/ui/SelectFormField';
+import { IoTrashOutline } from 'react-icons/io5';
+import { LuPlus } from 'react-icons/lu';
 
 type EditManeuversCardProps =
 {
@@ -36,12 +38,23 @@ type EditManeuversCardProps =
 
 export default function EditManeuversCard({ maneuvers, control, isPending, combatFormName }: EditManeuversCardProps)
 {
+  const { fields, append } = useFieldArray
+  ({ 
+    name: 'maneuvers',
+    control
+  });
+
   return (
     <Card className='bg-muted'>
 
-        <CardHeader>
-            <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Maneuvers</CardTitle>
-        </CardHeader>
+      <CardHeader>
+          <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
+            <span>Maneuvers</span>
+            <Button variant="outline" size="icon" disabled={isPending} onClick={() => { append({ name: `Maneuver ${fields.length + 1}`, description: 'New maneuver description', grade: 1, castTime: "Standard", cooldown: 1 }); }}>
+              <LuPlus className="h-[1.2rem] w-[1.2rem]" />
+            </Button>
+          </CardTitle>
+      </CardHeader>
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
         {
@@ -64,15 +77,22 @@ type EditManeuverViewProps =
 
 function EditManeuverView({ maneuver, index, control, isPending, combatFormName }: EditManeuverViewProps)
 {
+  const { remove } = useFieldArray
+  ({ 
+    name: 'maneuvers',
+    control
+  });
+
   return (
-    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2">
+    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2 min-h-24">
         
         <div className="p-2 rounded-md w-full">
             <h4 className="font-semibold">{maneuver.name}</h4>
             <p className="text-sm text-muted-foreground">{maneuver.description}</p>
         </div>
 
-        <div className="-mt-3">
+        <div className="flex flex-row gap-2">
+          <Button variant="destructive" size='icon' onClick={() => remove(index)}><IoTrashOutline /></Button>
           <EditManeuverSheet maneuverNumber={index} control={control} isPending={isPending} combatFormName={combatFormName} />
         </div>
     </div>
@@ -92,8 +112,8 @@ function EditManeuverSheet({ maneuverNumber, control, isPending, combatFormName 
   return (
     <Sheet>
 
-      <SheetTrigger asChild className='mt-4'>
-        <Button variant="outline" type="button"><TbEdit /></Button>
+      <SheetTrigger asChild>
+        <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
       </SheetTrigger>
 
       <SheetContent>
