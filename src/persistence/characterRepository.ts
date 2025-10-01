@@ -207,7 +207,7 @@ export const deleteCharacter: (id: string) => Promise<void> = async (id) =>
     const allCharacters = database.characters ?? [];
 
     const allCharactersExceptSpecified = allCharacters.filter(c => c.id !== id);
-    const newCharacters = [... allCharactersExceptSpecified ];
-    const charactersAsJson = JSON.stringify(newCharacters);
+    database.characters = allCharactersExceptSpecified;
+    const charactersAsJson = JSON.stringify(database);
     fs.writeFileSync(dbFileName, charactersAsJson, 'utf-8');
 };

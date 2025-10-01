@@ -29,6 +29,11 @@ const bffClient =
         const response = await clientBase.get<Character>(`${characterPathSegment}/${id}`);
         return response.data;
     },
+    deleteCharacterById: async (id: string) =>
+    {
+        const response = await clientBase.delete(`${characterPathSegment}/${id}`);
+        return response.data;
+    },
 }
 
 export default bffClient;
