@@ -207,6 +207,14 @@ const maneuverSchema = z.object
 export type UpsertCharacterManeuverType = z.infer<typeof maneuverSchema>;
 export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, { message: "You can have at most 100 maneuvers." });
 
+//Offense
+const offenseSchema = z.object
+({
+  leadingWeapon: weaponOffenseSchema,
+  secondaryWeapon: weaponOffenseSchema.optional(),
+  damageBonus: damageOffenseSchema,
+});
+
 //Combat
 export const upsertCharacterCombatSchema = z.object
 ({
@@ -214,8 +222,8 @@ export const upsertCharacterCombatSchema = z.object
   defense: defenseSchema,
   stances: upsertCharacterModesSchema,
   states: upsertCharacterModesSchema,
-  maneuvers: upsertCharacterManeuversSchema
+  maneuvers: upsertCharacterManeuversSchema,
+  offense: offenseSchema
 });
-
 
 export type UpsertCharacterCombatType = z.infer<typeof upsertCharacterCombatSchema>;

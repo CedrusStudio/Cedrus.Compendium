@@ -14,20 +14,22 @@ import { Control } from "react-hook-form";
 import Subcard from '@/components/global/Subcard';
 import { Badge } from '@/components/ui/badge';
 import VerticalChangeButtons from '@/components/buttons/VerticalChangeButtons';
-import { useState } from 'react';
+import { PathsFrom } from '@/utils/global/pathTypes';
+import { useDamageOffenseForm } from '@/components/character/edit/combat/useDamageOffenseForm';
+import { useWeaponOffenseForm } from '@/components/character/edit/combat/useWeaponOffenseForm';
+
+type StatsRoot = Pick<UpsertCharacterCombatType, "offense">;
+export type WeaponOffensePath = PathsFrom<StatsRoot, WeaponOffense | undefined>;
+export type DamageOffensePath = Exclude<PathsFrom<StatsRoot, DamageOffense>, WeaponOffensePath>;
 
 type EditOffenseCardProps =
 {
-    offense: Offense;
-    control: Control<UpsertCharacterCombatType>;
+  offense: Offense;
+  control: Control<UpsertCharacterCombatType>;
 }
 
 export default function EditOffenseCard({ offense, control }: EditOffenseCardProps)
 {
-  const [leadingOffense, setLeadingOffense] = useState<WeaponOffense>(offense.leadingWeapon);
-  const [secondaryOffense, setSecondaryOffense] = useState<WeaponOffense | undefined>(offense.secondaryWeapon);
-  const [damageBonus, setDamageBonus] = useState<DamageOffense>(offense.damageBonus);
-
   return (
     <Card className='bg-muted'>
 
@@ -39,32 +41,11 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
 
       <CardContent className={ `grid grid-cols-1 gap-1 ${offense.secondaryWeapon ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
 
-        <EditWeaponOffenseSubcard 
-          name='Leading Arm' 
-          offense={leadingOffense} 
-          control={control} 
-          resetCallback={() => setLeadingOffense(offense.leadingWeapon)}
-          setOffense={setLeadingOffense}
-        />
-        
+        <EditWeaponOffenseSubcard name='Leading Arm' defaultOffense={offense.leadingWeapon} weaponOffensePath='offense.leadingWeapon' control={control}/>
         { 
-          offense.secondaryWeapon && (
-            <EditWeaponOffenseSubcard 
-              name='Secondary Arm' 
-              offense={secondaryOffense as WeaponOffense} 
-              control={control} 
-              resetCallback={() => setSecondaryOffense(offense.secondaryWeapon)}
-              setOffense={setSecondaryOffense as React.Dispatch<React.SetStateAction<WeaponOffense>>} 
-            />
-          )
+          offense.secondaryWeapon && <EditWeaponOffenseSubcard name='Secondary Arm' defaultOffense={offense.secondaryWeapon} weaponOffensePath='offense.secondaryWeapon' control={control}/>
         }
-
-        <EditDamageBonusSubcard 
-          damageOffense={damageBonus} 
-          control={control} 
-          resetCallback={() => setDamageBonus(offense.damageBonus)}
-          setDamageBonus={setDamageBonus}
-        />
+        <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} control={control} />
 
       </CardContent>
       
@@ -75,45 +56,18 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
 type EditWeaponOffenseSubcardProps =
 {
   name: string;
-  offense: WeaponOffense;
+  defaultOffense: WeaponOffense;
+  weaponOffensePath: WeaponOffensePath;
   control: Control<UpsertCharacterCombatType>;
-  setOffense: React.Dispatch<React.SetStateAction<WeaponOffense>>;
-  resetCallback: () => void;
 };
 
-function EditWeaponOffenseSubcard({ name, offense, setOffense, control, resetCallback }: EditWeaponOffenseSubcardProps)
+function EditWeaponOffenseSubcard({ name, defaultOffense, weaponOffensePath, control }: EditWeaponOffenseSubcardProps)
 {
-  const setPower: React.Dispatch<React.SetStateAction<number>> = (action) => setOffense(prev => 
-  {
-    const nextPower = typeof action === "function" ? action(prev.critical.power) : action;
-    return { ...prev, critical: { ...prev.critical, power: nextPower } };
-  });
-  const setRange: React.Dispatch<React.SetStateAction<number>> = (action) => setOffense(prev => 
-  {
-    const nextRange = typeof action === "function" ? action(prev.critical.range) : action;
-    if (nextRange < 0 || nextRange > prev.grade * 2) return prev;
-    return { ...prev, critical: { ...prev.critical, range: nextRange } };
-  });
-  const setAmount: React.Dispatch<React.SetStateAction<number>> = (action) => setOffense(prev => 
-  {
-    const nextAmount = typeof action === "function" ? action(prev.amount) : action;
-    if (nextAmount < 0) return prev;
-    return { ...prev, amount: nextAmount };
-  });
-  const setGrade: React.Dispatch<React.SetStateAction<number>> = (action) => setOffense(prev => 
-  {
-    const nextGrade = typeof action === "function" ? action(prev.grade) : action;
-    if (nextGrade < 1) return prev;
-    return { ...prev, grade: nextGrade };
-  });
-  const setBonus: React.Dispatch<React.SetStateAction<number>> = (action) => setOffense(prev => 
-  {
-    const nextBonus = typeof action === "function" ? action(prev.bonus) : action;
-    return { ...prev, bonus: nextBonus };
-  });
+  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, defaultOffense);
+  const offense = { amount, grade, bonus, critical: { power, range } };
 
   return (
-    <Subcard name={name} className='col-span-3' callback={resetCallback}>
+    <Subcard name={name} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={offense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -187,34 +141,17 @@ function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalVie
 
 type EditDamageBonusSubcardProps =
 {
-  damageOffense: DamageOffense;
+  defaultDamageOffense: DamageOffense;
   control: Control<UpsertCharacterCombatType>;
-  setDamageBonus: React.Dispatch<React.SetStateAction<DamageOffense>>;
-  resetCallback: () => void;
 }
 
-function EditDamageBonusSubcard({ damageOffense, setDamageBonus, control, resetCallback }: EditDamageBonusSubcardProps)
+function EditDamageBonusSubcard({ defaultDamageOffense, control }: EditDamageBonusSubcardProps)
 {
-  const setAmount: React.Dispatch<React.SetStateAction<number>> = (action) => setDamageBonus(prev => 
-  {
-    const nextAmount = typeof action === "function" ? action(prev.amount) : action;
-    if (nextAmount < 0) return prev;
-    return { ...prev, amount: nextAmount };
-  });
-  const setGrade: React.Dispatch<React.SetStateAction<number>>= (action) => setDamageBonus(prev => 
-  {
-    const nextGrade = typeof action === "function" ? action(prev.grade) : action;
-    if (nextGrade < 1) return prev;
-    return { ...prev, grade: nextGrade };
-  });
-  const setBonus: React.Dispatch<React.SetStateAction<number>>= (action) => setDamageBonus(prev => 
-  {
-    const nextBonus = typeof action === "function" ? action(prev.bonus) : action;
-    return { ...prev, bonus: nextBonus };
-  });
+  const { amount, bonus, grade, resetAll, setAmount, setBonus, setGrade } = useDamageOffenseForm(control, `offense.damageBonus`, defaultDamageOffense);
+  const damageOffense = { amount, grade, bonus };
 
   return (
-    <Subcard name={"Damage Bonus"} className='col-span-3' callback={resetCallback}>
+    <Subcard name={"Damage Bonus"} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
