@@ -10,13 +10,15 @@ import {
 } from '@/components/ui/card';
 
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
+import { Control, useController } from "react-hook-form";
 import Subcard from '@/components/global/Subcard';
 import { Badge } from '@/components/ui/badge';
 import VerticalChangeButtons from '@/components/buttons/VerticalChangeButtons';
 import { PathsFrom } from '@/utils/global/pathTypes';
 import { useDamageOffenseForm } from '@/components/character/edit/combat/useDamageOffenseForm';
 import { useWeaponOffenseForm } from '@/components/character/edit/combat/useWeaponOffenseForm';
+import { Button } from '@/components/ui/button';
+import { IoTrashOutline } from "react-icons/io5";
 
 type StatsRoot = Pick<UpsertCharacterCombatType, "offense">;
 export type WeaponOffensePath = PathsFrom<StatsRoot, WeaponOffense | undefined>;
@@ -39,11 +41,13 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
         </CardTitle>
       </CardHeader>
 
-      <CardContent className={ `grid grid-cols-1 gap-1 ${offense.secondaryWeapon ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
+      <CardContent className={ 'grid grid-cols-1 gap-1 md:grid-cols-9' }>
 
-        <EditWeaponOffenseSubcard name='Leading Arm' defaultOffense={offense.leadingWeapon} weaponOffensePath='offense.leadingWeapon' control={control}/>
+        <EditWeaponOffenseSubcard name='Leading' defaultOffense={offense.leadingWeapon} weaponOffensePath='offense.leadingWeapon' control={control}/>
         { 
-          offense.secondaryWeapon && <EditWeaponOffenseSubcard name='Secondary Arm' defaultOffense={offense.secondaryWeapon} weaponOffensePath='offense.secondaryWeapon' control={control}/>
+          offense.secondaryWeapon 
+            ? <EditWeaponOffenseSubcard name='Secondary' defaultOffense={offense.secondaryWeapon} weaponOffensePath='offense.secondaryWeapon' control={control} addRemoveButton={true} />
+            : <AddWeaponSecondaryOffenseSubcard control={control} />
         }
         <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} control={control} />
 
@@ -59,15 +63,47 @@ type EditWeaponOffenseSubcardProps =
   defaultOffense: WeaponOffense;
   weaponOffensePath: WeaponOffensePath;
   control: Control<UpsertCharacterCombatType>;
+  addRemoveButton?: boolean;
 };
 
-function EditWeaponOffenseSubcard({ name, defaultOffense, weaponOffensePath, control }: EditWeaponOffenseSubcardProps)
+function EditWeaponOffenseSubcard({ name, defaultOffense, weaponOffensePath, control, addRemoveButton }: EditWeaponOffenseSubcardProps)
 {
   const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, defaultOffense);
   const offense = { amount, grade, bonus, critical: { power, range } };
 
   return (
-    <Subcard name={name} className='col-span-3' callback={resetAll}>
+    <Subcard name={name} className='col-span-3' callback={resetAll} removeButton={addRemoveButton ? <RemoveWeaponSecondaryOffenseSubcard control={control} /> : undefined}>
+      <div className='flex flex-col items-center gap-y-3'>
+        <div className='flex justify-center gap-x-3'>
+          <EditWeaponDamageView weaponOffense={offense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
+        </div>
+        <EditCriticalView weaponOffense={offense} setPower={setPower} setRange={setRange} />
+      </div>
+    </Subcard>
+  );
+}
+
+function RemoveWeaponSecondaryOffenseSubcard({ control }: { control: Control<UpsertCharacterCombatType>; })
+{
+  const { field } = useController
+  ({
+    name: 'offense.secondaryWeapon',
+    control
+  });
+
+  return (
+    <Button variant='destructive' size='icon' onClick={() => field.onChange(undefined)} >
+      <IoTrashOutline />
+    </Button>
+  );
+}
+function AddWeaponSecondaryOffenseSubcard({ control }: { control: Control<UpsertCharacterCombatType>; })
+{
+  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, 'offense.secondaryWeapon', { amount: 0, grade: 0, bonus: 0, critical: { power: 0, range: 0 } });
+  const offense = { amount, grade, bonus, critical: { power, range } };
+
+  return (
+    <Subcard name="Add Secondary" className='col-span-3 bg-secondary' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={offense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />

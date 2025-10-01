@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { RiResetLeftFill } from 'react-icons/ri';
 import { Button } from '../ui/button';
 
@@ -13,9 +13,10 @@ type SubcardProps =
     name: string;
     className?: string;
     callback: () => void;
+    removeButton?: React.ReactNode;
 }
 
-export default function Subcard({ name, className, children, callback }: PropsWithChildren<SubcardProps>)
+export default function Subcard({ name, className, children, callback, removeButton }: PropsWithChildren<SubcardProps>)
 {
   return (
     <Card className={className}>
@@ -26,6 +27,7 @@ export default function Subcard({ name, className, children, callback }: PropsWi
             <Button type="button" variant="default" size="icon" onClick={callback}>
               { <RiResetLeftFill />}
             </Button>
+            {removeButton && removeButton}
           </CardTitle>    
 
         </CardHeader>

@@ -123,7 +123,7 @@ export default function OffenseCard(input: OffenseCardProps)
       <CardContent className={ `grid grid-cols-1 gap-1 ${currentSecondaryOffense ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
 
         <WeaponDamageWithCriticalSubcard 
-          name='Leading Arm'
+          name='Leading'
           weaponOffense={currentLeadingOffense}
           rolls={leadingRolls}
           setRolls={setLeadingRolls}
@@ -135,7 +135,7 @@ export default function OffenseCard(input: OffenseCardProps)
         {
           currentSecondaryOffense && (
             <WeaponDamageWithCriticalSubcard 
-              name='Secondary Arm'
+              name='Secondary'
               weaponOffense={currentSecondaryOffense}
               rolls={secondaryRolls}
               setRolls={setSecondaryRolls}

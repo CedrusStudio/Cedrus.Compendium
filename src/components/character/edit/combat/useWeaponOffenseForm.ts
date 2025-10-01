@@ -4,7 +4,7 @@ import { type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { type WeaponOffensePath } from "@/components/character/edit/combat/EditOffenseCard";
 import { setWithSideEffect } from "@/utils/global/setterUtils";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 export function useWeaponOffenseForm
 (
