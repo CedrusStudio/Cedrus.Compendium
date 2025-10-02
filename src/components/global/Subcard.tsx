@@ -13,10 +13,10 @@ type SubcardProps =
     name: string;
     className?: string;
     callback: () => void;
-    removeButton?: React.ReactNode;
+    button?: React.ReactNode;
 }
 
-export default function Subcard({ name, className, children, callback, removeButton }: PropsWithChildren<SubcardProps>)
+export default function Subcard({ name, className, children, callback, button }: PropsWithChildren<SubcardProps>)
 {
   return (
     <Card className={className}>
@@ -27,7 +27,7 @@ export default function Subcard({ name, className, children, callback, removeBut
             <Button type="button" variant="default" size="icon" onClick={callback}>
               { <RiResetLeftFill />}
             </Button>
-            {removeButton && removeButton}
+            {button && button}
           </CardTitle>    
 
         </CardHeader>

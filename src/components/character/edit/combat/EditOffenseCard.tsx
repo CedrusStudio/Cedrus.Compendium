@@ -19,6 +19,7 @@ import { useDamageOffenseForm } from '@/components/character/edit/combat/useDama
 import { useWeaponOffenseForm } from '@/components/character/edit/combat/useWeaponOffenseForm';
 import { Button } from '@/components/ui/button';
 import { IoTrashOutline } from "react-icons/io5";
+import { use, useState } from 'react';
 
 type StatsRoot = Pick<UpsertCharacterCombatType, "offense">;
 export type WeaponOffensePath = PathsFrom<StatsRoot, WeaponOffense | undefined>;
@@ -32,6 +33,8 @@ type EditOffenseCardProps =
 
 export default function EditOffenseCard({ offense, control }: EditOffenseCardProps)
 {
+  const [showSecondary, setShowSecondary] = useState(false);
+
   return (
     <Card className='bg-muted'>
 
@@ -47,7 +50,9 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
         { 
           offense.secondaryWeapon 
             ? <EditWeaponOffenseSubcard name='Secondary' defaultOffense={offense.secondaryWeapon} weaponOffensePath='offense.secondaryWeapon' control={control} addRemoveButton={true} />
-            : <AddWeaponSecondaryOffenseSubcard control={control} />
+            : showSecondary 
+              ? <AddWeaponSecondaryOffenseSubcard control={control} setShowSecondary={setShowSecondary} /> 
+              : <ShowSecondaryOffenseSubcard> <Button variant='outline' onClick={() => setShowSecondary(true)}>Add Secondary Weapon</Button> </ShowSecondaryOffenseSubcard>
         }
         <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} control={control} />
 
@@ -72,7 +77,7 @@ function EditWeaponOffenseSubcard({ name, defaultOffense, weaponOffensePath, con
   const offense = { amount, grade, bonus, critical: { power, range } };
 
   return (
-    <Subcard name={name} className='col-span-3' callback={resetAll} removeButton={addRemoveButton ? <RemoveWeaponSecondaryOffenseSubcard control={control} /> : undefined}>
+    <Subcard name={name} className='col-span-3' callback={resetAll} button={addRemoveButton ? <RemoveWeaponSecondaryOffenseSubcard control={control} /> : undefined}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={offense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -98,13 +103,37 @@ function RemoveWeaponSecondaryOffenseSubcard({ control }: { control: Control<Ups
   );
 }
 
-function AddWeaponSecondaryOffenseSubcard({ control }: { control: Control<UpsertCharacterCombatType>; })
+function ShowSecondaryOffenseSubcard({ children }: { children: React.ReactNode; })
+{
+  return (
+    <Card className="flex items-center justify-center col-span-3 bg-secondary">
+        <CardContent className='flex items-center justify-center'>
+          {children}
+        </CardContent>
+    </Card>
+  );
+}
+
+function AddWeaponSecondaryOffenseSubcard({ control, setShowSecondary }: { control: Control<UpsertCharacterCombatType>; setShowSecondary: React.Dispatch<React.SetStateAction<boolean>>; })
 {
   const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, 'offense.secondaryWeapon', { amount: 1, grade: 3, bonus: 0, critical: { power: 0, range: 0 } });
   const offense = { amount, grade, bonus, critical: { power, range } };
 
+  const { field } = useController
+  ({
+    name: 'offense.secondaryWeapon',
+    control,
+    defaultValue: undefined
+  });
+
+  const handleOnRemoveSecondary = () =>
+  {
+    setShowSecondary(false);
+    field.onChange(undefined);
+  }
+
   return (
-    <Subcard name="Add Secondary" className='col-span-3 bg-secondary' callback={resetAll}>
+    <Subcard name="Secondary" className='col-span-3 bg-secondary' callback={resetAll} button={<Button variant='outline' size='icon' onClick={handleOnRemoveSecondary}><IoTrashOutline /></Button>}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={offense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
