@@ -97,9 +97,10 @@ function RemoveWeaponSecondaryOffenseSubcard({ control }: { control: Control<Ups
     </Button>
   );
 }
+
 function AddWeaponSecondaryOffenseSubcard({ control }: { control: Control<UpsertCharacterCombatType>; })
 {
-  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, 'offense.secondaryWeapon', { amount: 0, grade: 0, bonus: 0, critical: { power: 0, range: 0 } });
+  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, 'offense.secondaryWeapon', { amount: 1, grade: 3, bonus: 0, critical: { power: 0, range: 0 } });
   const offense = { amount, grade, bonus, critical: { power, range } };
 
   return (

@@ -304,6 +304,10 @@ export type Maneuver =
   castTime: CastTime;
 };
 
+export const defaultGrade = 3;
+export const defaultWeaponDiceAmount = 2;
+export const defaultDamageDiceAmount = 1;
+
 //Empty Character
 export const emptyCharacter: Character = { 
     // Required fields - these need to be provided when creating a character
@@ -313,33 +317,33 @@ export const emptyCharacter: Character = {
     
     // Characteristics - corrected to match the type definition
     characteristics: {
-        strength: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        dexterity: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        constitution: { grade: 0, value: 0, bonus: 0, testBonus: 0 }, // Added missing field
-        mind: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        charisma: { grade: 0, value: 0, bonus: 0, testBonus: 0 }, // Corrected from fellowship
-        spellborn: { grade: 0, value: 0, bonus: 0, testBonus: 0 } // Corrected from willpower
+        strength: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        dexterity: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        constitution: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 }, // Added missing field
+        mind: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        charisma: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 }, // Corrected from fellowship
+        spellborn: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 } // Corrected from willpower
     },
     
     // Attributes - corrected to match the type definition
     attributes: {
-        fencing: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        artifice: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        precision: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        initiative: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        martialArt: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        horsemanship: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        fortitude: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        reflex: { grade: 0, value: 0, bonus: 0, testBonus: 0 },
-        willpower: { grade: 0, value: 0, bonus: 0, testBonus: 0 }
+        fencing: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        artifice: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        precision: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        initiative: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        martialArt: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        horsemanship: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        fortitude: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        reflex: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
+        willpower: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 }
     },
 
     // Health
     health: {
         barrier: 0,
-        vitality: 0,
+        vitality: 10,
         toughness: 0,
-        recoveryLevel: 0,
+        recoveryLevel: 1,
         lethalHealth: 0,
         lethalRounds: 0,
         bonus: 0
@@ -359,8 +363,8 @@ export const emptyCharacter: Character = {
     // Offense
     offense: {
         leadingWeapon: {
-            amount: 0,
-            grade: 0,
+            amount: defaultWeaponDiceAmount,
+            grade: defaultGrade,
             bonus: 0,
             critical: {
                 power: 0,
@@ -370,7 +374,7 @@ export const emptyCharacter: Character = {
         secondaryWeapon: undefined, // Optional field
         damageBonus: {
             amount: 0,
-            grade: 0,
+            grade: defaultDamageDiceAmount,
             bonus: 0
         }
     },
@@ -386,11 +390,11 @@ export const emptyCharacter: Character = {
     // Equipment - corrected to match the type definition
     equipment: {
         weapon1: {
-            name: "",
+            name: "Weapon 1",
             style: "",
             offense: {
-                amount: 0,
-                grade: 0,
+                amount: defaultWeaponDiceAmount,
+                grade: defaultGrade,
                 bonus: 0,
                 critical: {
                     power: 0,
@@ -403,32 +407,32 @@ export const emptyCharacter: Character = {
                 bonus: 0
             },
             range: 0,
-            description: ""
+            description: "Weapon 1 description"
         },
         weapon2: undefined, // Optional
         weapon3: undefined, // Optional
         weapon4: undefined, // Optional
         armor: {
-            name: "",
+            name: "Armor",
             protection: 0, // Corrected from defense
             dexterityRestriction: 0,
             reflexRestriction: 0,
             initiativeRestriction: 0,
             attributePenalty: 0,
             strengthRequirement: 0,
-            description: ""
+            description: "Armor description"
         },
         shield: {
-            name: "",
+            name: "Shield",
             block: 0, // Corrected from defense
             dexterityRestriction: 0,
             reflexRestriction: 0,
             initiativeRestriction: 0,
             attributePenalty: 0,
             strengthRequirement: 0,
-            description: ""
+            description: "Shield description"
         },
         magicEquipment: [],
-        horse: undefined // Optional
+        horse: undefined
     }
 };
