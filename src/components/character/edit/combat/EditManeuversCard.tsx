@@ -17,50 +17,50 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { castTimeValues, type Maneuver } from "@/domain/Character";
+import { castTimeValues, CreateDefaultManeuver, type Maneuver } from "@/domain/Character";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control, useFieldArray } from "react-hook-form";
+import { Control, UseFieldArrayRemove } from "react-hook-form";
 import { TbEdit } from "react-icons/tb";
 import { Label } from "@/components/ui/label";
 import { InputFormField } from '@/components/ui/InputFormField';
-import SubmitButton from '@/components/ui/SubmitButton';
 import { SelectFormField } from '@/components/ui/SelectFormField';
-import { IoTrashOutline } from 'react-icons/io5';
-import { LuPlus } from 'react-icons/lu';
+import AppendToArrayButton from '@/components/ui/AppendToArrayButton';
+import RemoveFromArrayButton from '@/components/ui/RemoveFromArrayButton';
+import useWatchedFormArray from '@/hooks/useWatchedFormArray';
 
 type EditManeuversCardProps =
 {
-    maneuvers: Maneuver[];
-    control: Control<UpsertCharacterCombatType>;
-    isPending: boolean;
-    combatFormName: string;
+  control: Control<UpsertCharacterCombatType>;
+  isPending: boolean;
 }
 
-export default function EditManeuversCard({ maneuvers, control, isPending, combatFormName }: EditManeuversCardProps)
+export default function EditManeuversCard({ control, isPending }: EditManeuversCardProps)
 {
-  const { fields, append } = useFieldArray
-  ({ 
-    name: 'maneuvers',
-    control
-  });
+  const { append, remove, watchedArray } = useWatchedFormArray("maneuvers", control);
 
   return (
     <Card className='bg-muted'>
 
       <CardHeader>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-            <span>Maneuvers</span>
-            <Button variant="outline" size="icon" disabled={isPending} onClick={() => { append({ name: `Maneuver ${fields.length + 1}`, description: 'New maneuver description', grade: 1, castTime: "Standard", cooldown: 1 }); }}>
-              <LuPlus className="h-[1.2rem] w-[1.2rem]" />
-            </Button>
-          </CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
+          <span>Maneuvers</span>
+          <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
+        </CardTitle>
       </CardHeader>
 
-        <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
-        {
-            maneuvers.map((maneuver, index) => <EditManeuverView key={maneuver.name} maneuver={maneuver} index={index} control={control} isPending={isPending} combatFormName={combatFormName} />)
-        }
-        </CardContent>
+      <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
+      {
+        watchedArray.map((maneuver, index) => (
+          <EditManeuverView 
+            key={index} 
+            maneuver={maneuver} 
+            control={control}
+            index={index} 
+            remove={remove}
+          />
+        ))
+      }
+      </CardContent>
 
     </Card>
   );
@@ -70,44 +70,34 @@ type EditManeuverViewProps =
 {
   maneuver: Maneuver;
   index: number;
+  remove: UseFieldArrayRemove;
   control: Control<UpsertCharacterCombatType>;
-  isPending: boolean;
-  combatFormName: string;
 }
 
-function EditManeuverView({ maneuver, index, control, isPending, combatFormName }: EditManeuverViewProps)
+function EditManeuverView({ maneuver, index, remove, control }: EditManeuverViewProps)
 {
-  const { remove } = useFieldArray
-  ({ 
-    name: 'maneuvers',
-    control
-  });
-
   return (
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2 min-h-24">
-        
-        <div className="p-2 rounded-md w-full">
-            <h4 className="font-semibold">{maneuver.name}</h4>
-            <p className="text-sm text-muted-foreground">{maneuver.description}</p>
-        </div>
+      <div className="p-2 rounded-md w-full">
+          <h4 className="font-semibold">{maneuver.name}</h4>
+          <p className="text-sm text-muted-foreground">{maneuver.description}</p>
+      </div>
 
-        <div className="flex flex-row gap-2">
-          <Button variant="destructive" size='icon' onClick={() => remove(index)}><IoTrashOutline /></Button>
-          <EditManeuverSheet maneuverNumber={index} control={control} isPending={isPending} combatFormName={combatFormName} />
-        </div>
+      <div className="flex flex-row gap-2">
+        <RemoveFromArrayButton remove={remove} index={index} />
+        <EditManeuverSheet control={control} index={index} />
+      </div>
     </div>
   );
 }
 
 type EditManeuverSheetProps = 
 {
-  maneuverNumber: number;
+  index: number;
   control: Control<UpsertCharacterCombatType>;
-  isPending: boolean;
-  combatFormName: string;
 };
 
-function EditManeuverSheet({ maneuverNumber, control, isPending, combatFormName }: EditManeuverSheetProps)
+function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
 {
   return (
     <Sheet>
@@ -131,40 +121,40 @@ function EditManeuverSheet({ maneuverNumber, control, isPending, combatFormName 
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Name</Label>
-                
-                <InputFormField<UpsertCharacterCombatType> 
-                    name={`maneuvers.${maneuverNumber}.name`}
-                    control={control}
-                    inputPlaceholder="edit name..." 
-                    inputClassName='w-60'
-                />
+              <Label>Name</Label>
+              
+              <InputFormField<UpsertCharacterCombatType> 
+                  name={`maneuvers.${index}.name`}
+                  control={control}
+                  inputPlaceholder="edit name..." 
+                  inputClassName='w-60'
+              />
 
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Grade</Label>
+              <Label>Grade</Label>
 
-                <InputFormField<UpsertCharacterCombatType>
-                    name={`maneuvers.${maneuverNumber}.grade`}
-                    control={control}
-                    inputClassName="w-11 h-10 text-center font-medium" 
-                />
+              <InputFormField<UpsertCharacterCombatType>
+                  name={`maneuvers.${index}.grade`}
+                  control={control}
+                  inputClassName="w-11 h-10 text-center font-medium" 
+              />
 
             </div>
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
 
-              <Label>Description</Label>
-              
-              <InputFormField<UpsertCharacterCombatType> 
-                  name={`maneuvers.${maneuverNumber}.description`}
-                  control={control}
-                  inputPlaceholder="edit description..." 
-                  inputClassName='w-80'
-              />
+            <Label>Description</Label>
+            
+            <InputFormField<UpsertCharacterCombatType> 
+                name={`maneuvers.${index}.description`}
+                control={control}
+                inputPlaceholder="edit description..." 
+                inputClassName='w-80'
+            />
 
           </div>
 
@@ -172,24 +162,24 @@ function EditManeuverSheet({ maneuverNumber, control, isPending, combatFormName 
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label className='justify-center'>Cooldown</Label>
+              <Label className='justify-center'>Cooldown</Label>
 
-                <InputFormField<UpsertCharacterCombatType>
-                    name={`maneuvers.${maneuverNumber}.cooldown`}
-                    control={control}
-                    inputClassName='w-11 h-10 text-center font-medium'
-                />
+              <InputFormField<UpsertCharacterCombatType>
+                  name={`maneuvers.${index}.cooldown`}
+                  control={control}
+                  inputClassName='w-11 h-10 text-center font-medium'
+              />
 
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <SelectFormField<UpsertCharacterCombatType>
-                    name={`maneuvers.${maneuverNumber}.castTime`}
-                    control={control}
-                    labelText='Cast Time'
-                    items={castTimeValues}
-                />
+              <SelectFormField<UpsertCharacterCombatType>
+                name={`maneuvers.${index}.castTime`}
+                control={control}
+                labelText='Cast Time'
+                items={castTimeValues}
+              />
 
             </div>
           </div>
@@ -197,9 +187,8 @@ function EditManeuverSheet({ maneuverNumber, control, isPending, combatFormName 
         </div>
 
         <SheetFooter>
-          <SubmitButton isPending={isPending} className='w-full' formName={combatFormName} />
           <SheetClose asChild>
-            <Button variant="outline">Close</Button>
+            <Button variant="outline" type='button'>Close</Button>
           </SheetClose>
         </SheetFooter>
 

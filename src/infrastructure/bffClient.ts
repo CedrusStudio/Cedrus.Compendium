@@ -7,7 +7,7 @@ const clientBase = axios.create
   baseURL: 'http://localhost:3000/api',
   headers: 
   {
-      Accept: 'application/json',
+    Accept: 'application/json',
   },
   validateStatus: (status) => status >= 200 && status < 300,
 });
@@ -34,6 +34,11 @@ const bffClient =
         const response = await clientBase.delete(`${characterPathSegment}/${id}`);
         return response.data;
     },
+    upsertCharacter: async (id: string, characterData: Character) =>
+    {
+        const response = await clientBase.put(`${characterPathSegment}/${id}`, characterData);
+        return response.data;
+    }
 }
 
 export default bffClient;

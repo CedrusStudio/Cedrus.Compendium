@@ -3,7 +3,7 @@ import { decrease } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
 import { cn } from "@/lib/utils";
 import { FiMinus } from "react-icons/fi";
-import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
+import { ChangeValueSideEffect } from "@/utils/global/ChangeValueSideEffect";
 
 type DecreaseButtonProps =
 {

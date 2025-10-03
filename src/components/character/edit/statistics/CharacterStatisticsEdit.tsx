@@ -8,11 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
-import { upsertCharacterStatistics } from "@/persistence/characterRepository";
 import StatisticsCardEdit from "@/components/character/edit/statistics/StatisticsCardEdit";
 import SubmitButton from "@/components/ui/SubmitButton";
-import { useCallback } from "react";
 import { useFormMutation } from "@/hooks/useFormMutation";
+import bffClient from "@/infrastructure/bffClient";
 
 export default function CharacterStatisticsEdit(input: { character: Character })
 {
@@ -31,39 +30,39 @@ export default function CharacterStatisticsEdit(input: { character: Character })
   const { character } = input;
   const id = character.id;
 
-  const mutationFn = useCallback
+  const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterStatistics: UpsertCharacterStatisticsType) => await upsertCharacterStatistics(id, characterStatistics),
-    [id]
+    async (characterStatistics: UpsertCharacterStatisticsType) => await bffClient.upsertCharacter
+    (
+      id, 
+      { ...character, characteristics: characterStatistics.characteristics, attributes: characterStatistics.attributes }
+    ),
+    {
+      initialValues,
+      invalidateOnSuccess: ['characters', `characters/${id}`]
+    }
   );
-
-  const { handleSubmit, isPending } = useFormMutation(mutationFn, 
-  {
-    form,
-    initialValues,
-    invalidateOnSuccess: ['characters', `characters/${id}`]
-  });
 
   return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
 
-            <div className="grid gap-3 md:grid-cols-2">
-              <StatisticsCardEdit 
-                title="characteristics" 
-                statistics={character.characteristics}
-                control={form.control}
-              />
+        <div className="grid gap-3 md:grid-cols-2">
+          <StatisticsCardEdit 
+            title="characteristics" 
+            statistics={character.characteristics}
+            control={form.control}
+          />
 
-              <StatisticsCardEdit 
-                title="attributes" 
-                statistics={character.attributes}
-                control={form.control}
-              />
-            </div>
+          <StatisticsCardEdit 
+            title="attributes" 
+            statistics={character.attributes}
+            control={form.control}
+          />
+        </div>
 
-            <SubmitButton isPending={isPending} />
-        </form>
+        <SubmitButton isPending={isPending} />
+      </form>
     </Form>
   );
 };

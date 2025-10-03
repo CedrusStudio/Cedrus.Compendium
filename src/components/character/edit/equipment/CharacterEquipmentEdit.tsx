@@ -19,38 +19,39 @@ import AccordionWeaponItem from '@/components/character/edit/equipment/Accordion
 import AccordionArmorItem from '@/components/character/edit/equipment/AccordionArmorItem';
 import { useCallback, useEffect } from 'react';
 import { useFormMutation } from '@/hooks/useFormMutation';
+import bffClient from '@/infrastructure/bffClient';
 
 const equipmentFormName = "edit-equipment-form";
 
 export default function CharacterEquipmentEdit(input: { character: Character })
 {
-    const initialValues: UpsertCharacterEquipmentType = input.character.equipment;
-    const form = useForm<UpsertCharacterEquipmentType>
-    ({
-        resolver: zodResolver(upsertCharacterEquipmentSchema),
-        defaultValues: initialValues,
-    })
+  const initialValues: UpsertCharacterEquipmentType = input.character.equipment;
+  const form = useForm<UpsertCharacterEquipmentType>
+  ({
+      resolver: zodResolver(upsertCharacterEquipmentSchema),
+      defaultValues: initialValues,
+  })
 
-    const id = input.character.id;
-    
-    useEffect(() => 
-    {
-      form.reset(initialValues);
-    }, [initialValues, form]);
+  const id = input.character.id;
+  
+  useEffect(() => 
+  {
+    form.reset(initialValues);
+  }, [initialValues, form]);
 
-    const mutationFn = useCallback
+  const { handleSubmit, isPending } = useFormMutation
+  (
+    async (characterEquipment: UpsertCharacterEquipmentType) => await bffClient.upsertCharacter
     (
-      async (characterEquipment: UpsertCharacterEquipmentType) => await upsertCharacterEquipment(id, characterEquipment),
-      [id]
-    );
-
-    const { handleSubmit, isPending } = useFormMutation(mutationFn, 
+      id, 
+      { ...input.character, equipment: characterEquipment }
+    ),
     {
-      form,
       initialValues,
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",
-    });
+    }
+  );
 
   return (
     <Form {...form}>

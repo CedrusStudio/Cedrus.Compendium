@@ -2,33 +2,35 @@
 
 import ResetButton from "@/components/buttons/ResetButton";
 import VerticalChangeButtons from "@/components/buttons/VerticalChangeButtons";
+import RemoveFromArrayButton from "@/components/ui/RemoveFromArrayButton";
 import {
   TableCell,
   TableRow,
 } from "@/components/ui/table"
 import { Talent } from "@/domain/Character";
-import { type UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
 
 import {
   flexRender,
   Row
 } from "@tanstack/react-table";
 
-import { Control } from "react-hook-form";
-import { useTalentForm } from "@/components/character/edit/talents/useTalentForm";
-import { Dispatch, SetStateAction } from "react";
+import { type UseFieldArrayUpdate, type UseFieldArrayRemove } from "react-hook-form";
 
 export type AllowedTalentRoots = "grade" | "bonus";
 
 type EditTalentRowProps = 
 {
   row: Row<Talent>;
-  control: Control<UpsertCharacterTalentsType>;
+  formTalent: Talent;
+  index: number;
+  update: UseFieldArrayUpdate<UpsertCharacterTalentsType, "talents">;
+  remove: UseFieldArrayRemove;
 }
 
-export default function EditTalentRow({ row, control }: EditTalentRowProps)
+export default function EditTalentRow({ row, formTalent, index, update, remove }: EditTalentRowProps)
 {
-  const { talent, talentSetterFactory: talentSetterFactory } = useTalentForm(control, row.index, row.original);
+  const updateTalent = (updatedTalent: Talent) => update(index, updatedTalent);
 
   return (
     <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
@@ -39,13 +41,21 @@ export default function EditTalentRow({ row, control }: EditTalentRowProps)
           <TableCell key={cell.id} >
           {
             cell.column.id !== "grade" && cell.column.id !== "bonus"
-              ? flexRender(cell.column.columnDef.cell, cell.getContext())
-              : <EditableCell name={cell.column.id} initialTalent={row.original} talent={talent} setTalentValue={talentSetterFactory(cell.column.id)} />
+            ? flexRender(cell.column.columnDef.cell, cell.getContext())
+            : <EditableCell 
+            name={cell.column.id} 
+            initialTalent={row.original} 
+            talent={formTalent} 
+            setTalentValue={updateTalent} 
+            />
           }
           </TableCell>
         )
       })
     }
+      <TableCell className="flex items-center justify-center">
+        <RemoveFromArrayButton remove={remove} index={index} />
+      </TableCell>
     </TableRow>
   );
 };
@@ -55,17 +65,28 @@ type EditableCellProps =
   name: AllowedTalentRoots;
   talent: Talent;
   initialTalent: Talent;
-  setTalentValue: Dispatch<SetStateAction<number>>;
+  setTalentValue: (talent: Talent) => void;
 }
 
 function EditableCell({ name, initialTalent, talent, setTalentValue }: EditableCellProps) 
 {
+  const setValue: React.Dispatch<React.SetStateAction<number>> = (input: number | ((prevState: number) => number)) =>
+  {
+    const prevState = talent[name];
+    
+    const next = typeof input === "function" 
+      ? (input as (p: number) => number)(prevState) 
+      : (input as number);
+
+    setTalentValue({ ...talent, [name]: next });
+  };
+
   return (
     <div className="flex items-center">
       {talent[name]}
       <div className="flex items-center">
-        <VerticalChangeButtons setValue={setTalentValue} />
-        <ResetButton value={initialTalent[name]} setValue={setTalentValue} />
+        <VerticalChangeButtons setValue={setValue} />
+        <ResetButton value={initialTalent[name]} setValue={setValue} />
       </div>
     </div>
   );

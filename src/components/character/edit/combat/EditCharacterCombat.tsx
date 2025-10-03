@@ -8,17 +8,14 @@ import EditStatesCard from "@/components/character/edit/combat/EditStatesCard";
 import EditManeuversCard from "@/components/character/edit/combat/EditManeuversCard";
 
 import { Character } from "@/domain/Character";
-import {
-  Form
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persistence/characterSchemas";
 import SubmitButton from "@/components/ui/SubmitButton";
-import { upsertCharacterCombat } from "@/persistence/characterRepository";
-import { useCallback, useEffect, useMemo } from "react";
 import { useFormMutation } from "@/hooks/useFormMutation";
+import bffClient from "@/infrastructure/bffClient";
 
 type EditCharacterCombatProps =
 {
@@ -29,15 +26,15 @@ const combatFormName = "edit-combat-form";
 
 export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
-    const initialValues: UpsertCharacterCombatType = useMemo(() => (
+    const initialValues: UpsertCharacterCombatType = 
     {
-        defense: character.defense,
-        health: character.health,
-        stances: character.stances,
-        states: character.states,
-        maneuvers: character.maneuvers,
-        offense: character.offense,
-    }), [character.defense, character.health, character.stances, character.states, character.maneuvers, character.offense]);
+      defense: character.defense,
+      health: character.health,
+      stances: character.stances,
+      states: character.states,
+      maneuvers: character.maneuvers,
+      offense: character.offense,
+    };
 
     const form = useForm<UpsertCharacterCombatType>
     ({
@@ -45,25 +42,28 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         defaultValues: initialValues,
         mode: "onBlur",
     })
-    
-    useEffect(() => 
-    {
-      form.reset(initialValues);
-    }, [initialValues, form]);
 
-    const mutationFn = useCallback
+    const { handleSubmit, isPending } = useFormMutation
     (
-      async (characterCombat: UpsertCharacterCombatType) => await upsertCharacterCombat(character.id, characterCombat),
-      [character.id]
+      async (characterCombat: UpsertCharacterCombatType) => await bffClient.upsertCharacter
+      (
+        character.id, 
+        { 
+          ...character, 
+          offense: characterCombat.offense, 
+          defense: characterCombat.defense, 
+          health: characterCombat.health, 
+          stances: characterCombat.stances, 
+          states: characterCombat.states, 
+          maneuvers: characterCombat.maneuvers 
+        }
+      ), 
+      {
+        initialValues,
+        invalidateOnSuccess: ['characters', `characters/${character.id}`, `characters/${character.id}/edit`],
+        toastPosition: "bottom-left",
+      }
     );
-
-    const { handleSubmit, isPending } = useFormMutation(mutationFn, 
-    {
-      form,
-      initialValues,
-      invalidateOnSuccess: ['characters', `characters/${character.id}`],
-      toastPosition: "bottom-left",
-    });
 
     return (
       <Form {...form}>
@@ -86,14 +86,15 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
-            <EditStancesCard stances={character.stances} control={form.control} isPending={isPending} combatFormName={combatFormName} />
-            <EditStatesCard states={character.states} control={form.control} isPending={isPending} combatFormName={combatFormName} />
+            <EditStancesCard control={form.control} isPending={isPending} />
+            <EditStatesCard control={form.control} isPending={isPending} />
           </div>
 
-          <EditManeuversCard maneuvers={character.maneuvers} control={form.control} isPending={isPending} combatFormName={combatFormName} />
+          <EditManeuversCard control={form.control} isPending={isPending} />
 
           <SubmitButton isPending={isPending} />
         </form>
       </Form>
     );
 };
+

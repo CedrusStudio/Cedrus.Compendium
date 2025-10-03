@@ -72,7 +72,10 @@ export const talentSchema = z.object
   penalty: z.coerce.number<number>().int().min(-10, { message: "Penalty must be at least -10." }).max(50, { message: "Penalty must be at most 50." }),
 }).required();
 
-export const upsertCharacterTalentsSchema = z.array(talentSchema);
+export const upsertCharacterTalentsSchema = z.object
+({
+  talents: z.array(talentSchema)
+});
 
 //Export types
 export type UpsertCharacterStatisticsType = z.infer<typeof upsertCharacterStatisticsSchema>;

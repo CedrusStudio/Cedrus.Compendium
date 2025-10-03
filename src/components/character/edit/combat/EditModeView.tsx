@@ -10,34 +10,26 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import SubmitButton from '@/components/ui/SubmitButton';
 import { InputFormField } from '@/components/ui/InputFormField';
 import { Button } from "@/components/ui/button"
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control, useFieldArray } from "react-hook-form";
+import { Control, UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/Character";
-import { IoTrashOutline } from "react-icons/io5";
+import RemoveFromArrayButton from "@/components/ui/RemoveFromArrayButton";
 
 type EditModeViewProps =
 { 
+  mode: Mode,
   modeType: ModesType; 
-  mode: Mode; 
   index: number; 
   control: Control<UpsertCharacterCombatType>; 
-  isPending: boolean; 
-  combatFormName: string;
+  remove: UseFieldArrayRemove;
 }
 
-export default function EditModeView({ modeType, mode, index, control, isPending, combatFormName }: EditModeViewProps)
-{  
-  const { remove } = useFieldArray
-  ({ 
-    name: modeType,
-    control
-  });
-
+export default function EditModeView({ mode, modeType, index, control, remove }: EditModeViewProps)
+{ 
   return (
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2  min-h-24">
         
@@ -47,8 +39,8 @@ export default function EditModeView({ modeType, mode, index, control, isPending
         </div>
 
         <div className="flex flex-row gap-2">
-          <Button variant="destructive" size='icon' onClick={() => remove(index)}><IoTrashOutline /></Button>
-          <EditModeSheet modeNumber={index} modeType={modeType} control={control} isPending={isPending} combatFormName={combatFormName} />
+          <RemoveFromArrayButton remove={remove} index={index} />
+          <EditModeSheet index={index} modeType={modeType} control={control} />
         </div>
     </div>
   );
@@ -57,13 +49,11 @@ export default function EditModeView({ modeType, mode, index, control, isPending
 type EditModeSheetProps = 
 {
   modeType: ModesType;
-  modeNumber: number;
+  index: number;
   control: Control<UpsertCharacterCombatType>;
-  isPending: boolean;
-  combatFormName: string;
 };
 
-function EditModeSheet({ modeNumber, control, isPending, modeType, combatFormName }: EditModeSheetProps)
+function EditModeSheet({ index, control, modeType }: EditModeSheetProps)
 {
   return (
     <Sheet>
@@ -89,7 +79,7 @@ function EditModeSheet({ modeNumber, control, isPending, modeType, combatFormNam
                 <Label>Name</Label>
                 
                 <InputFormField<UpsertCharacterCombatType> 
-                    name={`${modeType}.${modeNumber}.name`}
+                    name={`${modeType}.${index}.name`}
                     control={control}
                     inputPlaceholder="edit name..." 
                     inputClassName='w-60'
@@ -102,7 +92,7 @@ function EditModeSheet({ modeNumber, control, isPending, modeType, combatFormNam
                 <Label>Grade</Label>
 
                 <InputFormField<UpsertCharacterCombatType>
-                    name={`${modeType}.${modeNumber}.grade`}
+                    name={`${modeType}.${index}.grade`}
                     control={control}
                     inputPlaceholder="edit grade..." 
                     inputClassName="w-11 h-10 text-center font-medium" 
@@ -113,20 +103,19 @@ function EditModeSheet({ modeNumber, control, isPending, modeType, combatFormNam
 
           <div className="grid auto-rows-min gap-3 px-4">
 
-              <Label>Description</Label>
-              
-              <InputFormField<UpsertCharacterCombatType> 
-                  name={`${modeType}.${modeNumber}.description`}
-                  control={control}
-                  inputPlaceholder="edit description..." 
-                  inputClassName='w-80'
-              />
+            <Label>Description</Label>
+            
+            <InputFormField<UpsertCharacterCombatType> 
+                name={`${modeType}.${index}.description`}
+                control={control}
+                inputPlaceholder="edit description..." 
+                inputClassName='w-80'
+            />
 
           </div>
         </div>
 
         <SheetFooter>
-          <SubmitButton isPending={isPending} className='w-full' formName={combatFormName} />
           <SheetClose asChild>
             <Button variant="outline">Close</Button>
           </SheetClose>

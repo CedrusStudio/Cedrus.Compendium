@@ -44,13 +44,14 @@ export const upsertCharacterStatistics: (id: string, characterStatistics: Upsert
 
 export const upsertCharacterTalents: (id: string, characterTalents: UpsertCharacterTalentsType) => Promise<void> = async (id, characterTalents) =>
 {
+    console.log("Upserting talents for character ID:", id);
+    console.log("New talents data:", characterTalents);
     const database = readDatabase();
 
     if (!database.characters) 
     {
         database.characters = [];
     }
-
     const findCharacter = database.characters.find(c => c.id === id);
     if (!findCharacter)
     {
@@ -59,9 +60,7 @@ export const upsertCharacterTalents: (id: string, characterTalents: UpsertCharac
 
     const allCharactersExceptSpecified = database.characters.filter(c => c.id !== id);
     
-    const newTalents: Talent[] = Object.values(characterTalents);
-    const talentsArray = findCharacter.talents.map(t => newTalents.filter(nt => nt.id === t.id)[0] ?? t);
-
+    const talentsArray = findCharacter.talents.map(t => characterTalents.talents.filter(nt => nt.id === t.id)[0] ?? t);
     const characterToUpsert = { ...findCharacter, talents: talentsArray } as Character;
     database.characters = [...allCharactersExceptSpecified, characterToUpsert];
     const databaseAsJson = JSON.stringify(database);

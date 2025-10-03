@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { reset } from "@/utils/adjustValues";
-import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
+import { ChangeValueSideEffect } from "@/utils/global/ChangeValueSideEffect";
 import { type VariantType } from "@/utils/VariantType";
 import { RiResetLeftFill } from "react-icons/ri";
 

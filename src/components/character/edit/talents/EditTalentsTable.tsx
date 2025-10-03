@@ -33,18 +33,12 @@ import {
 } from "@/components/ui/table"
 import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Talent, talentCategories } from "@/domain/Character"
+import { CreateDefaultTalent, Talent, talentCategories } from "@/domain/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
-import { Control } from "react-hook-form"
+import { Control, useFieldArray } from "react-hook-form"
 import EditTalentRow from "@/components/character/edit/talents/EditTalentRow"
-
-interface DataTableProps
-{
-  columns: AccessorKeyColumnDef<Talent>[]
-  talents: Talent[],
-  control: Control<UpsertCharacterTalentsType>;
-}
+import AppendToArrayButton from "@/components/ui/AppendToArrayButton"
 
 declare module '@tanstack/table-core' 
 {
@@ -54,8 +48,21 @@ declare module '@tanstack/table-core'
   }
 }
 
-export function EditTalentsTable({ columns, talents, control }: DataTableProps) 
+interface DataTableProps
 {
+  columns: AccessorKeyColumnDef<Talent>[]
+  control: Control<UpsertCharacterTalentsType>;
+  isPending: boolean;
+}
+
+export function EditTalentsTable({ columns, control, isPending }: DataTableProps) 
+{
+  const { fields, update, append, remove } = useFieldArray
+  ({
+    name: "talents",
+    control
+  });
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -80,7 +87,7 @@ export function EditTalentsTable({ columns, talents, control }: DataTableProps)
 
   const table = useReactTable<Talent>
   ({
-    data: talents,
+    data: fields,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -99,6 +106,7 @@ export function EditTalentsTable({ columns, talents, control }: DataTableProps)
   return (
     <div>
       <div className="flex items-center py-4 gap-3">
+
         <Input
           placeholder="Filter names..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -106,49 +114,51 @@ export function EditTalentsTable({ columns, talents, control }: DataTableProps)
           className="max-w-sm"
         />
 
-        <Select name='category' defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
-
+        <div className="flex items-start gap-2">
+          <Select name='category' defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
             <div className={'flex gap-x-10 items-center justify-around'}>
-                <SelectTrigger className='capitalize'>
-                    <SelectValue />
-                </SelectTrigger>
+              <SelectTrigger className='capitalize'>
+                <SelectValue />
+              </SelectTrigger>
             </div>
-    
+      
             <SelectContent>
               <SelectItem key={"all"} value={"all"}>
-                  <span className='capitalize'>All</span>
+                <span className='capitalize'>All</span>
               </SelectItem>
               {
-                  talentCategories.map(talentCategory => (
-                      <SelectItem key={talentCategory} value={talentCategory}>
-                          <span className='capitalize'>{talentCategory}</span>
-                      </SelectItem>
+                talentCategories.map(talentCategory => (
+                    <SelectItem key={talentCategory} value={talentCategory}>
+                      <span className='capitalize'>{talentCategory}</span>
+                    </SelectItem>
                   ))
-              }
+                }
             </SelectContent>
+          </Select>
 
-        </Select>
+          <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultTalent} />
+        </div>
 
         <div className="flex items-center justify-end space-x-2 py-4 ml-auto">
-            <Button
-              variant="outline"
-              type="button"
-              size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-            <ArrowLeft />
-            </Button>
+          <Button
+            variant="outline"
+            type="button"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+          <ArrowLeft />
+          </Button>
 
-            <Button
-              variant="outline"
-              type="button"
-              size="sm"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            >
-            <ArrowRight />
-            </Button>
+          <Button
+            variant="outline"
+            type="button"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+          <ArrowRight />
+          </Button>
         </div>
 
         <DropdownMenu>
@@ -159,63 +169,68 @@ export function EditTalentsTable({ columns, talents, control }: DataTableProps)
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
           {
-              table
-                  .getAllColumns()
-                  .filter(column => column.getCanHide())
-                  .map(column => (
-                      <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={value => column.toggleVisibility(!!value)}
-                      >
-                          {column.id}
-                      </DropdownMenuCheckboxItem>
-                      )
+            table
+              .getAllColumns()
+              .filter(column => column.getCanHide())
+              .map(column => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={value => column.toggleVisibility(!!value)}
+                  >
+                      {column.id}
+                  </DropdownMenuCheckboxItem>
                   )
+              )
           }
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
-        <div className="overflow-hidden rounded-md border">
-            <Table>
-                <TableHeader>
+      <div className="overflow-hidden rounded-md border">
+        <Table>
+          <TableHeader>
+          {
+            table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
                 {
-                    table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                        {
-                            headerGroup.headers.map(header => (
-                                <TableHead key={header.id} className="">
-                                {
-                                    header.isPlaceholder
-                                        ? null
-                                        : flexRender(header.column.columnDef.header, header.getContext())
-                                }
-                                </TableHead>
-                            ))
-                        }
-                        </TableRow>
-                    ))
+                  headerGroup.headers.map(header => (
+                    <TableHead key={header.id} className="">
+                    {
+                      header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())
+                    }
+                    </TableHead>
+                  ))
                 }
-                </TableHeader>
+                </TableRow>
+            ))
+          }
+          </TableHeader>
 
-                <TableBody>
-                {
-                  table.getRowModel().rows?.length > 0
-                    ? table.getRowModel().rows.map(row => <EditTalentRow key={row.original.id} row={row} control={control} />)
-                    : (
-                        <TableRow>
-                          <TableCell colSpan={columns.length} className="h-24 text-center">
-                              No results.
-                          </TableCell>
-                        </TableRow>
-                    )
-                }
-                </TableBody>
-            </Table>
-        </div>
+          <TableBody>
+          {
+            table.getRowModel().rows?.length > 0
+              ? table.getRowModel().rows.map(row => <EditTalentRow key={row.original.id} row={row} index={row.index} formTalent={fields[row.index]} update={update} remove={remove} />)
+              : <EmptyTable columns={columns} />
+          }
+          </TableBody>
+        </Table>
+      </div>
 
     </div>
+  )
+}
+
+function EmptyTable({ columns }: { columns: AccessorKeyColumnDef<Talent>[] })
+{
+  return (
+    <TableRow>
+      <TableCell colSpan={columns.length} className="h-24 text-center">
+          No results.
+      </TableCell>
+    </TableRow>
   )
 }

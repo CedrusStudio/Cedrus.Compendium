@@ -300,7 +300,7 @@ export type Maneuver =
   name: string;
   grade: number;
   description: string;
-  cooldown: number | undefined;
+  cooldown?: number;
   castTime: CastTime;
 };
 
@@ -308,8 +308,69 @@ export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;
 export const defaultDamageDiceAmount = 1;
 
+//------------------------------------------------- Defaults -------------------------------------------------
+
+export const defaultWeaponOffense: WeaponOffense = 
+{
+  amount: 1,
+  grade: 3,
+  bonus: 0,
+  critical: { power: 0, range: 0 }
+};
+
+export const defaultManeuver: Maneuver =
+{ 
+  name: `Maneuver`, 
+  description: 'Maneuver description', 
+  grade: 1, 
+  castTime: "Standard", 
+  cooldown: 1 
+};
+
+export const CreateDefaultManeuver = (): Maneuver => ({...defaultManeuver, name: `Maneuver ${crypto.randomUUID()}`});
+
+export const defaultMode: Maneuver =
+{ 
+  name: `Maneuver`, 
+  description: 'Maneuver description', 
+  grade: 1, 
+  castTime: "Standard", 
+  cooldown: 1 
+};
+
+export const defaultStance: Mode =
+{
+  name: `Stance`,
+  description: 'Stance description',
+  grade: 1
+};
+
+export const defaultState: Mode =
+{
+  name: `Stance`,
+  description: 'Stance description',
+  grade: 1
+};
+
+export const CreateDefaultStance = (): Mode => ({...defaultStance, name: `Stance ${crypto.randomUUID()}`});
+export const CreateDefaultState = (): Mode => ({...defaultState, name: `State ${crypto.randomUUID()}`});
+
+export const defaultTalent: Talent =
+{
+  name: `Talent`,
+  category: talentCategories[0],
+  characteristics: "strength",
+  id: 'dummy-id',
+  bonus: 0,
+  penalty: 0,
+  grade: 1
+};
+
+export const CreateDefaultTalent = (): Talent => ({...defaultTalent, name: `Talent ${crypto.randomUUID()}`, id: crypto.randomUUID()});
+
 //Empty Character
-export const emptyCharacter: Character = { 
+export const emptyCharacter: Character = 
+{ 
     // Required fields - these need to be provided when creating a character
     id: "", // Will be set when adding the character
     name: "", // Will be provided by characterHeader

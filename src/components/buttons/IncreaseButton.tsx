@@ -3,7 +3,7 @@ import { increase } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
 import { cn } from "@/lib/utils";
 import { IoAdd } from "react-icons/io5";
-import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
+import { ChangeValueSideEffect } from "@/utils/global/ChangeValueSideEffect";
 
 type IncreaseButtonProps =
 {

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { reset } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
 import { RiResetLeftFill } from "react-icons/ri";
-import { ChangeValueSideEffect } from "@/utils/ChangeValueSideEffect";
+import { ChangeValueSideEffect } from "@/utils/global/ChangeValueSideEffect";
 
 type ResetButtonProps =
 {
