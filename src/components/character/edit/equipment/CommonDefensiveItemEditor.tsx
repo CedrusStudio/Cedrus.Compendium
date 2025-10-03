@@ -26,7 +26,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
                     control={control}
                     items={attributePenaltyValues}
                     noLabel
-                    />
+                />
             </div>
 
             <div className="grid auto-rows-min gap-3 px-4">
@@ -38,7 +38,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
                     control={control}
                     items={strengthRequirementValues}
                     noLabel
-                    />
+                />
             </div>
                 
         </div>
@@ -54,7 +54,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
                     control={control}
                     items={dexterityRestrictionValues}
                     noLabel
-                    />
+                />
             </div>
 
             <div className="grid auto-rows-min gap-3 px-4">
@@ -66,7 +66,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
                     control={control}
                     items={initiativeRestrictionValues}
                     noLabel
-                    />
+                />
             </div>
 
         </div>

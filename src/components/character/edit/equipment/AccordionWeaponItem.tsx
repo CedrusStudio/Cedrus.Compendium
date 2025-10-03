@@ -1,16 +1,12 @@
 import { SelectFormField } from '@/components/ui/SelectFormField';
 import { Label } from "@/components/ui/label"
-import WeaponAccordionOverview from '@/components/character/WeaponAccordionOverview';
 import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/Dies';
 import { Weapon } from '@/domain/Character';
 import { Control } from 'react-hook-form';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import WeaponAccordionOverview from '@/components/character/WeaponAccordionOverview';
 import EditItemSheet from '@/components/character/edit/equipment/EditItemSheet';
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 type AccordionWeaponItemProps = 
 {
