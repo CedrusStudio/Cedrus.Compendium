@@ -16,7 +16,6 @@ import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } fro
 import AccordionShieldItem from '@/components/character/edit/equipment/AccordionShieldItem';
 import AccordionWeaponItem from '@/components/character/edit/equipment/AccordionWeaponItem';
 import AccordionArmorItem from '@/components/character/edit/equipment/AccordionArmorItem';
-import { useEffect } from 'react';
 import { useFormMutation } from '@/hooks/useFormMutation';
 import bffClient from '@/infrastructure/bffClient';
 
@@ -32,11 +31,6 @@ export default function CharacterEquipmentEdit(input: { character: Character })
   })
 
   const id = input.character.id;
-  
-  useEffect(() => 
-  {
-    form.reset(initialValues);
-  }, [initialValues, form]);
 
   const { handleSubmit, isPending } = useFormMutation
   (
