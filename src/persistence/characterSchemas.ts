@@ -107,7 +107,7 @@ const damageOffenseSchema = z.object
 const itemSchema = z.object
 ({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }).max(100, { message: "Name must be at most 100 characters." }),
-  description: z.string().max(600, { message: "Description must be at most 600 characters." }).optional(),
+  description: z.string().max(600, { message: "Description must be at most 600 characters." }),
 });
 
 export const upsertWeaponSchema = itemSchema.extend

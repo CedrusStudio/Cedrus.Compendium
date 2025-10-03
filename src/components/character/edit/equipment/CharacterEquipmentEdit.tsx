@@ -13,11 +13,10 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
 import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
-import { upsertCharacterEquipment } from '@/persistence/characterRepository';
 import AccordionShieldItem from '@/components/character/edit/equipment/AccordionShieldItem';
 import AccordionWeaponItem from '@/components/character/edit/equipment/AccordionWeaponItem';
 import AccordionArmorItem from '@/components/character/edit/equipment/AccordionArmorItem';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useFormMutation } from '@/hooks/useFormMutation';
 import bffClient from '@/infrastructure/bffClient';
 
@@ -41,11 +40,7 @@ export default function CharacterEquipmentEdit(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterEquipment: UpsertCharacterEquipmentType) => await bffClient.upsertCharacter
-    (
-      id, 
-      { ...input.character, equipment: characterEquipment }
-    ),
+    async (characterEquipment: UpsertCharacterEquipmentType) => await bffClient.upsertCharacter(id, { ...input.character, equipment: characterEquipment }),
     {
       initialValues,
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
