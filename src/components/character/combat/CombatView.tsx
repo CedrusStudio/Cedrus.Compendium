@@ -23,8 +23,8 @@ export default function CombatView({ character }: { character: Character })
           <OffenseCard offense={character.offense} />
         </div>
 
-        <ModesCard name="Stances" modes={character.stances} />
-        <ModesCard name="States" modes={character.states} />
+        <ModesCard name="Postawy" modes={character.stances} />
+        <ModesCard name="Stany" modes={character.states} />
       </div>
 
       <ManeuversView maneuvers={character.maneuvers} />

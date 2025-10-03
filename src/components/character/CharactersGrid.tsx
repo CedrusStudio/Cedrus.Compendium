@@ -69,9 +69,7 @@ export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
 
       <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
       {
-        pageItems.map(character => (
-          <CharacterCard key={character.id} character={character} />
-        ))
+        pageItems.map(character => <CharacterCard key={character.id} character={character} />)
       }
       </div>
     </>

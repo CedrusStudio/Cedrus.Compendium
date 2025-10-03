@@ -10,13 +10,12 @@ import { Maneuver, type CastTime } from '@/domain/Character';
 import FieldViewWithInfo from "@/components/character/FieldViewWithInfo";
 import { LuRefreshCcw } from "react-icons/lu";
 import { GiSwordsEmblem } from "react-icons/gi";
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RiResetLeftFill } from "react-icons/ri";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { Badge } from '@/components/ui/badge';
 import { GrNext } from "react-icons/gr";
-import { get } from 'http';
 
 type ManeuversViewProps =
 {
@@ -48,7 +47,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
     <Card className='bg-muted'>
 
         <CardHeader>
-            <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Maneuvers</CardTitle>
+            <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Manewry</CardTitle>
         </CardHeader>
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>

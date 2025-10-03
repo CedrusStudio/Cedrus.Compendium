@@ -8,21 +8,21 @@ export default function WeaponAccordionOverview({ weapon }: { weapon: Weapon })
     {
       weapon.description && (
         <div>
-          <span className="font-semibold">Description:</span> {weapon.description}
+          <span className="font-semibold">Opis:</span> {weapon.description}
         </div>
       )
     }
     {
       weapon.style && (
         <div>
-          <span className="font-semibold">Style:</span> {weapon.style}
+          <span className="font-semibold">Styl:</span> {weapon.style}
         </div>
       )
     }
     {
       weapon.range && (
         <div>
-          <span className="font-semibold">Range:</span> {weapon.range}
+          <span className="font-semibold">Zasięg:</span> {weapon.range}
         </div>
       )
     }
@@ -55,14 +55,14 @@ function WeaponOverview({ weapon }: { weapon: Weapon })
     return (
       <div className='flex flex-col'>
         <div>
-          <span className='font-semibold'>Damage: </span>
+          <span className='font-semibold'>Obrażenia: </span>
           <span>{weaponOffense}+{damageOffense}</span>
         </div>
 
         <div>
-          <span className='font-semibold'>Critical: </span>
+          <span className='font-semibold'>Krytyk: </span>
           <span>
-              range: {criticalRangeBonus}, damage: {criticalDamageBonus}
+              zasięg: {criticalRangeBonus}, obrażenia: {criticalDamageBonus}
           </span>
         </div>
       </div>

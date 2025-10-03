@@ -56,10 +56,10 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <div className='flex flex-row justify-between items-center'>
 
                     <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="character" />
-                    <TabsTriggerCapitalized value="combat" />
-                    <TabsTriggerCapitalized value="talents" />
-                    <TabsTriggerCapitalized value="equipment" />
+                    <TabsTriggerCapitalized value="postać" />
+                    <TabsTriggerCapitalized value="walka" />
+                    <TabsTriggerCapitalized value="talenty" />
+                    <TabsTriggerCapitalized value="ekwipunek" />
                     </TabsList>
 
                     <div className='flex flex-row'>
@@ -77,15 +77,15 @@ export default function CharacterView({ tab }: CharacterViewProps)
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
-                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogTitle> Czy na pewno chcesz to zrobić?</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    This action cannot be undone. This will permanently delete your character from the database at the server.
+                                    Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.
                                 </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogCancel>Anuluj</AlertDialogCancel>
                                 <AlertDialogAction disabled={isPending} onClick={() => deleteCharacter(character.id) }>
-                                    {isPending ? 'Deleting...' : 'Delete'}
+                                    {isPending ? 'Usuwanie...' : 'Usuń'}
                                 </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
@@ -101,19 +101,19 @@ export default function CharacterView({ tab }: CharacterViewProps)
             </div>
 
             <div className='row-span-14 mx-4'>
-                <TabsContent value="character">
+                <TabsContent value="postać">
                     <CharacterHeader character={character} />
                 </TabsContent>
 
-                <TabsContent value="combat">
+                <TabsContent value="walka">
                     <CombatView character={character} />
                 </TabsContent>
 
-                <TabsContent value="talents">
+                <TabsContent value="talenty">
                     <TalentsTable columns={columns} data={character.talents ?? []} />
                 </TabsContent>
 
-                <TabsContent value="equipment">
+                <TabsContent value="ekwipunek">
                     <EquipmentAccordion equipment={character.equipment} />
                 </TabsContent>
             </div>

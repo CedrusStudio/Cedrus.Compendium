@@ -31,17 +31,17 @@ export default function HealthCard(input: HealthCardProps)
   return (
     <Card className='bg-muted'>
         <CardContent className='flex flex-col gap-y-4'>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Health</CardTitle>
+          <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
 
-            <FieldViewWithInfo name="Total" value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
-            <FieldViewWithInfo name="Current" value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
+            <FieldViewWithInfo name="Suma" value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
+            <FieldViewWithInfo name="Obecne" value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
 
             <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>Health Increase</Label>
+              <Label className='text-sm text-muted-foreground w-36'>Zwiększenie zdrowia</Label>
               <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncrease} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
             </div>
             <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>Damage Taken</Label>
+              <Label className='text-sm text-muted-foreground w-36'>Obrażenia</Label>
               <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
             </div>
 
@@ -68,13 +68,13 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
   return (
     <div>
     {
-      <FieldView key="totalHealth" name="TotalHealth" value={input.totalHealth} />
+      <FieldView key="totalHealth" name="Suma" value={input.totalHealth} />
     }
     {
-      <FieldView key="healthIncrease" name="HealthIncrease" value={input.healthIncrease} valueClassName='text-green-600' />
+      <FieldView key="healthIncrease" name="Zwiększenie_Zdrowia" value={input.healthIncrease} valueClassName='text-green-600' />
     }
     {
-      <FieldView key="damageTaken" name="DamageTaken" value={input.damageTaken}  valueClassName='text-red-500' />
+      <FieldView key="damageTaken" name="Obrażenia" value={input.damageTaken}  valueClassName='text-red-500' />
     }
     </div>
   );

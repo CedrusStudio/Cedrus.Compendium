@@ -41,13 +41,13 @@ export default function DefenseCard(input: DefenseCardProps)
     <Card className='bg-muted'>
 
       <CardHeader>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Defense</CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Defensywa</CardTitle>
       </CardHeader>
 
       <CardContent className='flex flex-col gap-y-4 -mt-4'>
 
-        <FieldView name={"immunity"} value={input.defense.immunity} />
-        <FieldView name={"resistance"} value={input.defense.resistance} />
+        <FieldView name={"niewrażliwość"} value={input.defense.immunity} />
+        <FieldView name={"odporność"} value={input.defense.resistance} />
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
@@ -70,11 +70,11 @@ export default function DefenseCard(input: DefenseCardProps)
         </Select>
 
         <div className='flex gap-4'>
-          <Label className='text-sm text-muted-foreground w-36'>Reduction Increase</Label>
+          <Label className='text-sm text-muted-foreground w-36'>Zwiększenie redukcji</Label>
           <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
         </div>
         <div className='flex gap-4'>
-          <Label className='text-sm text-muted-foreground w-36'>Damage Taken</Label>
+          <Label className='text-sm text-muted-foreground w-36'>Obrażenia</Label>
           <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
         </div>
 
@@ -88,10 +88,10 @@ function DefenseInfoContent(input: { defense: Defense, selectedReductionType: Re
   return (
     <div>
     {
-      <FieldView key="ReductionIncrease" name="ReductionIncrease" value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
+      <FieldView key="ReductionIncrease" name="Zwiększenie_Redukcji" value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
     }
     {
-      <FieldView key="DamageTaken" name="DamageTaken" value={Math.abs(input.damageTaken)} valueClassName='text-red-500' />
+      <FieldView key="DamageTaken" name="Obrażenia" value={Math.abs(input.damageTaken)} valueClassName='text-red-500' />
     }
     {
       Object.entries(input.defense)

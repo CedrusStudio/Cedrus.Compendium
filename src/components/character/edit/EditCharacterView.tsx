@@ -35,11 +35,11 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
         <div className='row-span-1'>
             <div className='flex flex-row justify-between items-center'>
                 <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="statistics" overrideValue='Statistics' />
-                    <TabsTriggerCapitalized value="character" overrideValue='Character' />
-                    <TabsTriggerCapitalized value="combat" overrideValue='Combat' />
-                    <TabsTriggerCapitalized value="talents" overrideValue='Talents' />
-                    <TabsTriggerCapitalized value="equipment" overrideValue='Equipment' />
+                    <TabsTriggerCapitalized value="statistics" overrideValue='Statystyki' />
+                    <TabsTriggerCapitalized value="character" overrideValue='Postać' />
+                    <TabsTriggerCapitalized value="combat" overrideValue='Walka' />
+                    <TabsTriggerCapitalized value="talents" overrideValue='Talenty' />
+                    <TabsTriggerCapitalized value="equipment" overrideValue='Ekwipunek' />
                 </TabsList>
 
                 <Button asChild variant="default" size="icon" className='m-4'>

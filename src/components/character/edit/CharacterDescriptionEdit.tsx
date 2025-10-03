@@ -88,7 +88,7 @@ export default function CharacterDescriptionEdit(input: { character: Character }
                 <InputFormField<UpsertCharacterHeaderType> 
                     name="name" 
                     control={form.control} 
-                    inputPlaceholder="edit name..." 
+                    inputPlaceholder="zmien nazwę..." 
                     inputClassName="w-xl"
                 />
     
@@ -102,7 +102,7 @@ export default function CharacterDescriptionEdit(input: { character: Character }
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Textarea placeholder="edit description..." className="resize-none" {...field} />
+                                <Textarea placeholder="zmien opis..." className="resize-none" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

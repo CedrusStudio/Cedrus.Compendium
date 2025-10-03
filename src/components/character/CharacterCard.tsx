@@ -13,7 +13,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { useDispatch } from 'react-redux';
-import { actions } from '@/persistence/characterSlice';
+import { actions } from '@/persistence/characterSlice';import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export default function CharacterCard({ character }: { character: Character })
 {
@@ -31,8 +31,8 @@ export default function CharacterCard({ character }: { character: Character })
         <CardTitle className='text-2xl flex justify-between'>
             {character.name}
 
-            <Button asChild size="sm" className='mt-0.5' onClick={handleViewClick}>
-                <Link href={`/characters/${character.id}`}>view</Link>
+            <Button asChild size="icon" className='mt-0.5' onClick={handleViewClick}>
+                <Link href={`/characters/${character.id}`}><FaMagnifyingGlass /></Link>
             </Button>
         </CardTitle>
       </CardHeader>

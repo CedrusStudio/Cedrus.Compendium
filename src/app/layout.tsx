@@ -28,7 +28,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>)
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         <Providers>
-            {children}
+          {children}
         </Providers>
       </body>
     </html>

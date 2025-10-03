@@ -24,7 +24,6 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
   const [selectedMode, setSelectedMode] = useState<string>("None");
   const selectedModeObj = modes.find(mode => mode.name === selectedMode);
 
-
   return (
     <Card className='bg-muted flex flex-col'>
       <CardHeader>

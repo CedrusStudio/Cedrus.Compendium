@@ -8,8 +8,8 @@ export default function CharacterStatistics(input: { character: Character })
 
   return (
     <div className="flex flex-col gap-2">
-        <StatisticsCard title="Characteristics" statistics={Object.entries(character.characteristics).map(([name, value]) => [name, value, characteristicIcons[name]])} />
-        <StatisticsCard title="Attributes" statistics={Object.entries(character.attributes).map(([name, value]) => [name, value, attributesIcons[name]])} />
+        <StatisticsCard title="Cechy" statistics={Object.entries(character.characteristics).map(([name, value]) => [name, value, characteristicIcons[name]])} />
+        <StatisticsCard title="Atrybuty" statistics={Object.entries(character.attributes).map(([name, value]) => [name, value, attributesIcons[name]])} />
     </div>
   );
 };

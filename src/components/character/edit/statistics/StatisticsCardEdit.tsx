@@ -27,12 +27,14 @@ type StatisticsCardEditProps<TStats extends Record<string, Statistic>> =
 export default function StatisticsCardEdit<TStats extends Record<string, Statistic>>({ title, statistics, control }: StatisticsCardEditProps<TStats>)
 {
   const icons = title === "attributes" ? attributesIcons : characteristicIcons;
+  const overwriteTitle = title === "attributes" ? "atrybuty" : "cechy";
+  const overwriteTitleSingular = title === "attributes" ? "atrybut" : "cecha";
 
   return (
     <Card className="bg-muted">
       <CardHeader>
         <CardTitle className="text-center capitalize">
-          {title}
+          {overwriteTitle}
         </CardTitle>
       </CardHeader>
 
@@ -40,13 +42,13 @@ export default function StatisticsCardEdit<TStats extends Record<string, Statist
 
         <div className="grid grid-cols-5 gap-5 items-center border-b border-border/50 pb-2">
           <div className="text-sm font-semibold text-muted-foreground text-center capitalize">
-            {title.slice(0, -1)}
+            {overwriteTitleSingular}
           </div>
 
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-6">Grade</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center">Value</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-6">Ranga</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center">Wartość</div>
           <div className="text-sm font-semibold text-muted-foreground text-center mr-1">Bonus</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-4">Test Bonus</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-4">Bonus Testu</div>
         </div>
 
       <div className="grid grid-rows-5 gap-y-4 items-center">

@@ -74,7 +74,7 @@ export default function Navbar()
                     <BreadcrumbList>
 
                         <BreadcrumbItem>
-                            <BreadcrumbLink href="/">home</BreadcrumbLink>
+                            <BreadcrumbLink href="/">start</BreadcrumbLink>
                         </BreadcrumbItem>
                     
                         {
@@ -105,7 +105,7 @@ export default function Navbar()
                 <Input 
                     name="search" 
                     type="text" 
-                    placeholder="Search characters..."
+                    placeholder="Wyszukaj postać..."
                     value={searchTerm}
                     onChange={handleInputChange}
                     className="w-1xl md:w-2xl lg:w-3xl col-span-6 justify-self-center"

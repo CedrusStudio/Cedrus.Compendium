@@ -43,8 +43,8 @@ export default function OffenseCard(input: OffenseCardProps)
     const shouldNotRecalculateTotalDamage = leadingRolls.length === 0 && secondaryRolls.length === 0 && damageBonusRolls.length === 0;
     if (shouldNotRecalculateTotalDamage)
     {
-        setRollTotalResult(null);
-        return;
+      setRollTotalResult(null);
+      return;
     }
 
     const damageBonusTotal = calculateDamageBonusForRolls(currentDamageBonus, damageBonusRolls);
@@ -112,7 +112,7 @@ export default function OffenseCard(input: OffenseCardProps)
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>
           <div className='flex justify-center items-center gap-x-4'>
-            <span>Offense</span>
+            <span>Ofensywa</span>
             <div className='mt-1'>
               <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
             </div>
@@ -123,7 +123,7 @@ export default function OffenseCard(input: OffenseCardProps)
       <CardContent className={ `grid grid-cols-1 gap-1 ${currentSecondaryOffense ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
 
         <WeaponDamageWithCriticalSubcard 
-          name='Leading'
+          name='Wiodąca'
           weaponOffense={currentLeadingOffense}
           rolls={leadingRolls}
           setRolls={setLeadingRolls}
@@ -135,7 +135,7 @@ export default function OffenseCard(input: OffenseCardProps)
         {
           currentSecondaryOffense && (
             <WeaponDamageWithCriticalSubcard 
-              name='Secondary'
+              name='Wtórna'
               weaponOffense={currentSecondaryOffense}
               rolls={secondaryRolls}
               setRolls={setSecondaryRolls}
@@ -146,7 +146,7 @@ export default function OffenseCard(input: OffenseCardProps)
           ) 
         }
 
-        <Subcard name='Damage Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)}> 
+        <Subcard name='Bonus Obrażeń' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)}> 
           <DamageBonusWithRolls 
             damageOffense={currentDamageBonus} 
             rolls={damageBonusRolls} 

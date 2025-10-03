@@ -87,7 +87,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
     <div>
       <div className="flex items-center py-4 gap-3">
         <Input
-          placeholder="Filter names..."
+          placeholder="Szukaj po nazwie..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={event => table.getColumn("name")?.setFilterValue(event.target.value)}
           className="max-w-sm"
@@ -96,21 +96,21 @@ export function TalentsTable({ columns, data }: DataTableProps)
         <Select name='category' defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
 
             <div className={'flex gap-x-10 items-center justify-around'}>
-                <SelectTrigger className='capitalize'>
-                    <SelectValue />
-                </SelectTrigger>
+              <SelectTrigger className='capitalize'>
+                  <SelectValue />
+              </SelectTrigger>
             </div>
     
             <SelectContent>
               <SelectItem key={"all"} value={"all"}>
-                  <span className='capitalize'>All</span>
+                <span className='capitalize'>All</span>
               </SelectItem>
               {
-                  talentCategories.map(talentCategory => (
-                      <SelectItem key={talentCategory} value={talentCategory}>
-                          <span className='capitalize'>{talentCategory}</span>
-                      </SelectItem>
-                  ))
+                talentCategories.map(talentCategory => (
+                  <SelectItem key={talentCategory} value={talentCategory}>
+                      <span className='capitalize'>{talentCategory}</span>
+                  </SelectItem>
+                ))
               }
             </SelectContent>
 
@@ -139,7 +139,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns
+              Kolumny
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

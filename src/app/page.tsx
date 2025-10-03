@@ -23,7 +23,7 @@ const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
     <h1 className="capitalize text-4xl md:text-7xl font-bold">
-      Character <span className="text-primary">sheet</span> app
+      Kompendium <span className="text-primary">Cedrus</span>
     </h1>
   </div>
 );
@@ -31,8 +31,7 @@ const Heading = () =>
 const Description = () =>
 (
   <p className="leading-loose max-w-md mt-2">
-    A simple and intuitive character sheet application for your tabletop RPG adventures. 
-    Create, manage, and share your characters with ease.
+    Jest to aplikacja webowa stworzona z myślą o miłośnikach gier fabularnych, oferująca narzędzia do zarządzania postaciami, przeciwnikami i zasobami, ułatwiając prowadzenie i uczestnictwo w sesjach RPG.
   </p>
 );
 
@@ -40,7 +39,7 @@ const GetStartedButton = () =>
 (
   <Button asChild>
     <Link href="/characters">
-      Get Started
+      Zaczynam
     </Link>
   </Button>
 );
