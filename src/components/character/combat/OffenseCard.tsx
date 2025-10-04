@@ -146,7 +146,7 @@ export default function OffenseCard(input: OffenseCardProps)
           ) 
         }
 
-        <Subcard name='Bonus Obrażeń' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)}> 
+        <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)}> 
           <DamageBonusWithRolls 
             damageOffense={currentDamageBonus} 
             rolls={damageBonusRolls} 

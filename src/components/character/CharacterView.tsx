@@ -11,9 +11,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import CharacterStatistics from '@/components/character/CharacterStatistics';
-import { columns } from "@/components/character/talentsColumns"
-import { TalentsTable } from "@/components/character/TalentsTable"
+import CharacterStatistics from '@/components/character/statistics/CharacterStatistics';
+import { columns } from "@/components/character/talents/talentsColumns"
+import { TalentsTable } from "@/components/character/talents/TalentsTable"
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
 import EquipmentAccordion from '@/components/character/EquipmentAccordion';
@@ -28,16 +28,19 @@ import { CharacterTabs, isCharacterTab } from '@/utils/tabsUtils';
 import { useGetCharacterById } from './hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
+import { namingConventions } from "@/domain/data/namingConventions";
 
 type CharacterViewProps = 
 {
     tab?: CharacterTabs;
 }
 
+const defaultTab: CharacterTabs = "character";
+
 export default function CharacterView({ tab }: CharacterViewProps)
 {
   const { character } = useGetCharacterById();
-  const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? "character");
+  const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? defaultTab);
   const { deleteCharacter, isPending } = useDeleteCharacterById();
 
   return (
@@ -48,9 +51,10 @@ export default function CharacterView({ tab }: CharacterViewProps)
         </div>
 
         <Tabs 
-            defaultValue={tab ?? "character"} 
+            defaultValue={tab ?? defaultTab} 
             onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
-            className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'>
+            className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'
+        >
 
             <div className='row-span-1'>
                 <div className='flex flex-row justify-between items-center'>
@@ -58,43 +62,12 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <TabsList className='mb-4'>
                     <TabsTriggerCapitalized value="character" overrideValue="postać" />
                     <TabsTriggerCapitalized value="combat" overrideValue="walka" />
-                    <TabsTriggerCapitalized value="talents" overrideValue="talenty" />
+                    <TabsTriggerCapitalized value="talents" overrideValue="umiejętności" />
                     <TabsTriggerCapitalized value="equipment" overrideValue="ekwipunek" />
                     </TabsList>
 
-                    <div className='flex flex-row'>
+                    <DeleteCharacterDialog id={character.id} activeTab={activeTab} isPending={isPending} deleteCharacter={deleteCharacter} />
 
-                         <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                <Button 
-                                    variant="destructive" 
-                                    size='icon' 
-                                    className="my-4"
-                                    disabled={isPending}
-                                >
-                                    <IoTrashOutline />
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                <AlertDialogTitle> Czy na pewno chcesz to zrobić?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.
-                                </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                <AlertDialogCancel>Anuluj</AlertDialogCancel>
-                                <AlertDialogAction disabled={isPending} onClick={() => deleteCharacter(character.id) }>
-                                    {isPending ? 'Usuwanie...' : 'Usuń'}
-                                </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
-
-                        <Button asChild variant="edit" size="icon" className='m-4'>
-                            <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? "character"}`}><TbEdit /></Link>
-                        </Button>
-                    </div>
                 </div>
 
                 <Separator />
@@ -122,3 +95,43 @@ export default function CharacterView({ tab }: CharacterViewProps)
     </div>
   );
 };
+
+function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { id: string; activeTab: CharacterTabs | undefined; isPending: boolean; deleteCharacter: (id: string) => void })
+{
+    return (
+        <div className='flex flex-row'>
+
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button 
+                        variant="destructive" 
+                        size='icon' 
+                        className="my-4"
+                        disabled={isPending}
+                    >
+                        <IoTrashOutline />
+                    </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                    <AlertDialogTitle> Czy na pewno chcesz to zrobić?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.
+                    </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                    <AlertDialogCancel>{namingConventions.cancel}</AlertDialogCancel>
+                    <AlertDialogAction disabled={isPending} onClick={() => deleteCharacter(id) }>
+                        {isPending ? namingConventions.deleting : namingConventions.delete}
+                    </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <Button asChild variant="edit" size="icon" className='m-4'>
+                <Link href={`/characters/${id}/edit?tab=${activeTab ?? defaultTab}`}><TbEdit /></Link>
+            </Button>
+
+        </div>
+    );
+}

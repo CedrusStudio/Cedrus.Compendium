@@ -5,7 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import StatisticView from "@/components/character/StatisticView";
+import StatisticView from "@/components/character/statistics/StatisticView";
+import { translate } from "@/domain/data/translations";
 
 type StatisticsViewProps = 
 {
@@ -19,7 +20,7 @@ export default function StatisticsCard({ title, statistics }: StatisticsViewProp
     <Card className="bg-muted">
       <CardHeader>
         <CardTitle className="text-center">
-          {title}
+          {translate(title)}
         </CardTitle>
       </CardHeader>
 

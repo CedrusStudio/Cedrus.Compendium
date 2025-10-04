@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/card';
 
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { CreateDefaultStance } from "@/domain/Character";
+import { CreateDefaultStance } from "@/domain/data/defaults";
 import { Control } from "react-hook-form";
 import EditModeView from '@/components/character/edit/combat/EditModeView';
 import AppendToArrayButton from '@/components/ui/AppendToArrayButton';

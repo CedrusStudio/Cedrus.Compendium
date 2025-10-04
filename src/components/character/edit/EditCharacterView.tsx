@@ -38,7 +38,7 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
                     <TabsTriggerCapitalized value="statistics" overrideValue='Statystyki' />
                     <TabsTriggerCapitalized value="character" overrideValue='Postać' />
                     <TabsTriggerCapitalized value="combat" overrideValue='Walka' />
-                    <TabsTriggerCapitalized value="talents" overrideValue='Talenty' />
+                    <TabsTriggerCapitalized value="talents" overrideValue='Umiejętności' />
                     <TabsTriggerCapitalized value="equipment" overrideValue='Ekwipunek' />
                 </TabsList>
 

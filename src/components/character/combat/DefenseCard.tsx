@@ -15,6 +15,8 @@ import { useState } from 'react';
 import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
 import ChangeButtons from '@/components/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
+import { translateReductions } from '@/domain/data/translations';
+import { namingConventions } from '@/domain/data/namingConventions';
 
 type DefenseCardProps = 
 {
@@ -62,7 +64,7 @@ export default function DefenseCard(input: DefenseCardProps)
           {
             allReductionTypes.map(reductionType => (
               <SelectItem key={reductionType} value={reductionType}>
-                  <span className='capitalize'>{reductionType}</span>
+                <span className='capitalize'>{translateReductions(reductionType)}</span>
               </SelectItem>
             ))
           }
@@ -70,11 +72,11 @@ export default function DefenseCard(input: DefenseCardProps)
         </Select>
 
         <div className='flex gap-4'>
-          <Label className='text-sm text-muted-foreground w-36'>Przyrost</Label>
+          <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
           <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
         </div>
         <div className='flex gap-4'>
-          <Label className='text-sm text-muted-foreground w-36'>Obrażenia</Label>
+          <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
           <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
         </div>
 
@@ -88,10 +90,10 @@ function DefenseInfoContent(input: { defense: Defense, selectedReductionType: Re
   return (
     <div>
     {
-      <FieldView key="ReductionIncrease" name="Przyrost" value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
+      <FieldView key="ReductionIncrease" name={namingConventions.increase} value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
     }
     {
-      <FieldView key="DamageTaken" name="Obrażenia" value={Math.abs(input.damageTaken)} valueClassName='text-red-500' />
+      <FieldView key="DamageTaken" name={namingConventions.damage} value={Math.abs(input.damageTaken)} valueClassName='text-red-500' />
     }
     {
       Object.entries(input.defense)

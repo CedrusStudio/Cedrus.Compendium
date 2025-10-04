@@ -17,7 +17,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { castTimeValues, CreateDefaultManeuver, type Maneuver } from "@/domain/Character";
+import { castTimeValues, type Maneuver } from "@/domain/Character";
+import { CreateDefaultManeuver } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, UseFieldArrayRemove } from "react-hook-form";
 import { TbEdit } from "react-icons/tb";
@@ -109,9 +110,9 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Edit maneuver</SheetTitle>
+          <SheetTitle>Edycja manewru</SheetTitle>
           <SheetDescription>
-            Click save when you&apos;re done.
+            Kliknij zapisz, gdy skończysz.
           </SheetDescription>
         </SheetHeader>
 
@@ -121,12 +122,12 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-              <Label>Name</Label>
+              <Label>Nazwa</Label>
               
               <InputFormField<UpsertCharacterCombatType> 
                   name={`maneuvers.${index}.name`}
                   control={control}
-                  inputPlaceholder="edit name..." 
+                  inputPlaceholder="zmień nazwę..." 
                   inputClassName='w-60'
               />
 
@@ -134,7 +135,7 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
       
             <div className="grid auto-rows-min gap-3 px-4">
 
-              <Label>Grade</Label>
+              <Label>Ranga</Label>
 
               <InputFormField<UpsertCharacterCombatType>
                   name={`maneuvers.${index}.grade`}
@@ -147,12 +148,12 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
 
           <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Description</Label>
+            <Label>Opis</Label>
             
             <InputFormField<UpsertCharacterCombatType> 
                 name={`maneuvers.${index}.description`}
                 control={control}
-                inputPlaceholder="edit description..." 
+                inputPlaceholder="zmień opis..."
                 inputClassName='w-80'
             />
 
@@ -162,7 +163,7 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-              <Label className='justify-center'>Cooldown</Label>
+              <Label className='justify-center'>Odnowienie</Label>
 
               <InputFormField<UpsertCharacterCombatType>
                   name={`maneuvers.${index}.cooldown`}
@@ -177,7 +178,7 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
               <SelectFormField<UpsertCharacterCombatType>
                 name={`maneuvers.${index}.castTime`}
                 control={control}
-                labelText='Cast Time'
+                labelText='Czas Rzucania'
                 items={castTimeValues}
               />
 
@@ -188,7 +189,7 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline" type='button'>Close</Button>
+            <Button variant="outline" type='button'>Zamknij</Button>
           </SheetClose>
         </SheetFooter>
 

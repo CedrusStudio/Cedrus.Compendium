@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { upsertCharacterTalentsSchema, type UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import SubmitButton from "@/components/ui/SubmitButton";
 
-import { columns } from "@/components/character//edit/talents/editTalentsColumns"
+import { defaultColumns } from "@/components/character/talents/defaultColumns"
 import { EditTalentsTable } from "@/components/character/edit/talents/EditTalentsTable"
 import { Character } from "@/domain/Character";
 import { useFormMutation } from "@/hooks/useFormMutation";
@@ -43,7 +43,7 @@ export default function CharacterTalentsEdit(input: { character: Character })
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditTalentsTable columns={columns} control={form.control} isPending={isPending}/>
+        <EditTalentsTable columns={defaultColumns} control={form.control} isPending={isPending}/>
         <SubmitButton isPending={isPending} />
       </form>
     </Form>

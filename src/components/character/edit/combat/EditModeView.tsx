@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/Character";
 import RemoveFromArrayButton from "@/components/ui/RemoveFromArrayButton";
+import { translateToSingular } from "@/domain/data/translations";
 
 type EditModeViewProps =
 { 
@@ -65,9 +66,9 @@ function EditModeSheet({ index, control, modeType }: EditModeSheetProps)
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Edit mode</SheetTitle>
+          <SheetTitle>Edytujesz {translateToSingular(modeType)}</SheetTitle>
           <SheetDescription>
-            Click save when you&apos;re done.
+            Kliknij zapisz, gdy skończysz.
           </SheetDescription>
         </SheetHeader>
 
@@ -117,7 +118,7 @@ function EditModeSheet({ index, control, modeType }: EditModeSheetProps)
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline">Close</Button>
+            <Button variant="outline">Zamknij</Button>
           </SheetClose>
         </SheetFooter>
 

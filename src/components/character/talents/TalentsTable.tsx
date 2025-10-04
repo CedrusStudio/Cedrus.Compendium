@@ -32,8 +32,12 @@ import {
 } from "@/components/ui/table"
 import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Talent, talentCategories } from "@/domain/Character"
+import { Talent } from "@/domain/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { talentCategories } from "@/domain/data/categories"
+import { defaultColumnKeys } from "@/components/character/talents/defaultColumns"
+import { namingConventions } from "@/domain/data/namingConventions"
+import EmptyTable from "./EmptyTable"
 
 interface DataTableProps
 {
@@ -62,7 +66,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
   const handleOnSelectedValueChange = (value: string) => 
   {
     setSelectedCategory(value);
-    table.getColumn("category")?.setFilterValue(value !== "all" ? value : null);
+    table.getColumn(defaultColumnKeys.category)?.setFilterValue(value !== "all" ? value : "");
   };
 
   const table = useReactTable
@@ -76,7 +80,8 @@ export function TalentsTable({ columns, data }: DataTableProps)
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    state: {
+    state: 
+    {
       sorting,
       columnFilters,
       columnVisibility,
@@ -88,12 +93,12 @@ export function TalentsTable({ columns, data }: DataTableProps)
       <div className="flex items-center py-4 gap-3">
         <Input
           placeholder="Szukaj po nazwie..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={event => table.getColumn("name")?.setFilterValue(event.target.value)}
+          value={(table.getColumn(defaultColumnKeys.name)?.getFilterValue() as string) ?? ""}
+          onChange={event => table.getColumn(defaultColumnKeys.name)?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
 
-        <Select name='category' defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
+        <Select name={defaultColumnKeys.category} defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
 
             <div className={'flex gap-x-10 items-center justify-around'}>
               <SelectTrigger className='capitalize'>
@@ -103,12 +108,12 @@ export function TalentsTable({ columns, data }: DataTableProps)
     
             <SelectContent>
               <SelectItem key={"all"} value={"all"}>
-                <span className='capitalize'>All</span>
+                <span className='capitalize'>{namingConventions.all}</span>
               </SelectItem>
               {
                 talentCategories.map(talentCategory => (
                   <SelectItem key={talentCategory} value={talentCategory}>
-                      <span className='capitalize'>{talentCategory}</span>
+                    <span className='capitalize'>{talentCategory}</span>
                   </SelectItem>
                 ))
               }
@@ -138,26 +143,25 @@ export function TalentsTable({ columns, data }: DataTableProps)
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Kolumny
+            <Button variant="outline" className="ml-auto capitalize">
+              {namingConventions.columns}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
           {
-              table
-                  .getAllColumns()
-                  .filter(column => column.getCanHide())
-                  .map(column => (
-                      <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={value => column.toggleVisibility(!!value)}
-                      >
-                          {column.id}
-                      </DropdownMenuCheckboxItem>
-                      )
-                  )
+            table
+              .getAllColumns()
+              .filter(column => column.getCanHide())
+              .map(column => (
+                <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={value => column.toggleVisibility(!!value)}
+                >
+                  {column.id}
+                </DropdownMenuCheckboxItem>
+              ))
           }
           </DropdownMenuContent>
         </DropdownMenu>
@@ -167,50 +171,44 @@ export function TalentsTable({ columns, data }: DataTableProps)
             <Table>
                 <TableHeader>
                 {
-                    table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
+                  table.getHeaderGroups().map((headerGroup) => (
+                    <TableRow key={headerGroup.id}>
+                    {
+                      headerGroup.headers.map(header => (
+                        <TableHead key={header.id} className="">
                         {
-                            headerGroup.headers.map(header => (
-                                <TableHead key={header.id} className="">
-                                {
-                                    header.isPlaceholder
-                                        ? null
-                                        : flexRender(header.column.columnDef.header, header.getContext())
-                                }
-                                </TableHead>
-                            ))
+                          header.isPlaceholder
+                              ? null
+                              : flexRender(header.column.columnDef.header, header.getContext())
                         }
-                        </TableRow>
-                    ))
+                        </TableHead>
+                      ))
+                    }
+                    </TableRow>
+                  ))
                 }
                 </TableHeader>
 
                 <TableBody>
                 {
-                    table.getRowModel().rows?.length 
-                        ? (
-                            table.getRowModel().rows.map(row => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                >
-                                {
-                                  row.getVisibleCells().map(cell => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                  ))
-                                }
-                                </TableRow>
-                            ))
-                        ) 
-                        : (
-                            <TableRow>
-                              <TableCell colSpan={columns.length} className="h-24 text-center">
-                                  No results.
-                              </TableCell>
+                  table.getRowModel().rows?.length 
+                    ? (
+                        table.getRowModel().rows.map(row => (
+                            <TableRow
+                              key={row.id}
+                              data-state={row.getIsSelected() && "selected"}
+                            >
+                            {
+                              row.getVisibleCells().map(cell => (
+                                <TableCell key={cell.id}>
+                                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                </TableCell>
+                              ))
+                            }
                             </TableRow>
-                        )
+                        ))
+                    ) 
+                    : <EmptyTable columns={columns} />
                 }
                 </TableBody>
             </Table>

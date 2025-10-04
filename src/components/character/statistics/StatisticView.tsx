@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import RollButton from "@/components/character/RollButton";
 import VerticalChangeButtons from "@/components/buttons/VerticalChangeButtons";
 import ResetButton from "@/components/buttons/ResetButton";
+import { translate } from "@/domain/data/translations";
 
 type StatisticViewProps = 
 {
@@ -41,7 +42,7 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
             </div>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{name}</p>
+            <p>{translate(name)}</p>
           </TooltipContent>
         </Tooltip>
       </div>

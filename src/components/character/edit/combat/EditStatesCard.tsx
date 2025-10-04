@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-import { CreateDefaultState } from "@/domain/Character";
+import { CreateDefaultState } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import EditModeView from '@/components/character/edit/combat/EditModeView';

@@ -12,7 +12,8 @@ import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
 import { useState } from 'react';
 import ChangeButtons from '@/components/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
-import { translate } from '@/domain/translations';
+import { translate } from '@/domain/data/translations';
+import { namingConventions } from '@/domain/data/namingConventions';
 
 type HealthCardProps = 
 {
@@ -34,15 +35,15 @@ export default function HealthCard(input: HealthCardProps)
       <CardContent className='flex flex-col gap-y-4'>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
 
-          <FieldViewWithInfo name="Suma" value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
-          <FieldViewWithInfo name="Obecne" value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
+          <FieldViewWithInfo name={namingConventions.sum} value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
+          <FieldViewWithInfo name={namingConventions.current} value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
 
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>Przyrost</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
             <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncrease} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>Obrażenia</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
 
@@ -69,13 +70,13 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
   return (
     <div>
     {
-      <FieldView key="totalHealth" name="Suma" value={input.totalHealth} />
+      <FieldView key="totalHealth" name={namingConventions.sum} value={input.totalHealth} />
     }
     {
-      <FieldView key="healthIncrease" name="Przyrost" value={input.healthIncrease} valueClassName='text-green-600' />
+      <FieldView key="healthIncrease" name={namingConventions.increase} value={input.healthIncrease} valueClassName='text-green-600' />
     }
     {
-      <FieldView key="damageTaken" name="Obrażenia" value={input.damageTaken}  valueClassName='text-red-500' />
+      <FieldView key="damageTaken" name={namingConventions.damage} value={input.damageTaken}  valueClassName='text-red-500' />
     }
     </div>
   );

@@ -11,6 +11,7 @@ import { Health } from '@/domain/Character';
 import ChangeButtons from '@/components/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
 import FieldViewWithInfo from '../FieldViewWithInfo';
+import { namingConventions } from '@/domain/data/namingConventions';
 
 type BarrierCardProps = 
 {
@@ -29,15 +30,15 @@ export default function BarrierCard(input: BarrierCardProps)
         <CardContent className='flex flex-col gap-y-4'>
             <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Bariera</CardTitle>
 
-            <FieldView name="Suma" value={input.health.barrier} />
-            <FieldViewWithInfo name="Obecna" value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
+            <FieldView name={namingConventions.sum} value={input.health.barrier} />
+            <FieldViewWithInfo name={namingConventions.current} value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
 
             <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>Przyrost</Label>
+              <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
               <ChangeButtons value={barrierIncreaseChangeAmount} setValue={setBarrierIncrease} setChangeAmount={setBarrierIncreaseChangeAmount} resetValue={0} />
             </div>
             <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>Obrażenia</Label>
+              <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
               <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
             </div>
 
@@ -54,10 +55,10 @@ function CurrentBarrierInfoContent(input: { totalBarrier: number, damageTaken: n
       <FieldView key="totalBarrier" name="Suma" value={input.totalBarrier} />
     }
     {
-      <FieldView key="barrierIncrease" name="Przyrost" value={input.barrierIncrease} valueClassName='text-green-600' />
+      <FieldView key="barrierIncrease" name={namingConventions.increase} value={input.barrierIncrease} valueClassName='text-green-600' />
     }
     {
-      <FieldView key="damageTaken" name="Obrażenia" value={input.damageTaken}  valueClassName='text-red-500' />
+      <FieldView key="damageTaken" name={namingConventions.damage} value={input.damageTaken}  valueClassName='text-red-500' />
     }
     </div>
   );

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import React from "react";
 import { LuPlus } from "react-icons/lu";
-import { translate } from "@/domain/translations";
+import { translate } from "@/domain/data/translations";
 
 export default function Navbar() 
 {

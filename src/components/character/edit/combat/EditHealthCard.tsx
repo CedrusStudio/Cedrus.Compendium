@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { translate } from "@/domain/translations";
+import { translate } from "@/domain/data/translations";
 
 type EditHealthCardProps =
 {

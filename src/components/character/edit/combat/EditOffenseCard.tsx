@@ -1,6 +1,7 @@
 "use client";
 
-import { DamageOffense, defaultWeaponOffense, Offense, WeaponOffense } from '@/domain/Character';
+import { DamageOffense, Offense, WeaponOffense } from '@/domain/Character';
+import { defaultWeaponOffense } from '@/domain/data/defaults';
 
 import {
   Card,
@@ -204,7 +205,7 @@ function EditDamageBonusSubcard({ defaultDamageOffense, control }: EditDamageBon
   const damageOffense = { amount, grade, bonus };
 
   return (
-    <Subcard name={"Bonus obrażeń"} className='col-span-3' callback={resetAll}>
+    <Subcard name={"Bonus"} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />

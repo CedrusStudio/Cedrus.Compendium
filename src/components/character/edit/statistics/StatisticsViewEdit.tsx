@@ -13,6 +13,7 @@ import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { StatisticPath } from "@/components/character/edit/statistics/StatisticsCardEdit";
 import { useStatisticForm } from "@/components/character/edit/statistics/useStatisticForm";
+import { translate } from "@/domain/data/translations";
 
 type StatisticViewEditProps = 
 {
@@ -50,7 +51,7 @@ export default function StatisticViewEdit({ name, statistic, icon, control, fiel
             </div>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{name}</p>
+            <p>{translate(name)}</p>
           </TooltipContent>
         </Tooltip>
       </div>

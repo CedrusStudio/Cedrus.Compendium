@@ -26,19 +26,23 @@ import {
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { CreateDefaultTalent, Talent, talentCategories } from "@/domain/Character"
+import { CreateDefaultTalent } from "@/domain/data/defaults";
+import { Talent } from "@/domain/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
 import { Control, useFieldArray } from "react-hook-form"
 import EditTalentRow from "@/components/character/edit/talents/EditTalentRow"
 import AppendToArrayButton from "@/components/ui/AppendToArrayButton"
+import { talentCategories } from "@/domain/data/categories"
+import { defaultColumnKeys } from "../../talents/defaultColumns"
+import { namingConventions } from "@/domain/data/namingConventions"
+import EmptyTable from "@/components/character/talents/EmptyTable"
 
 declare module '@tanstack/table-core' 
 {
@@ -82,7 +86,7 @@ export function EditTalentsTable({ columns, control, isPending }: DataTableProps
   const handleOnSelectedValueChange = (value: string) => 
   {
     setSelectedCategory(value);
-    table.getColumn("category")?.setFilterValue(value !== "all" ? value : null);
+    table.getColumn(defaultColumnKeys.category)?.setFilterValue(value !== "all" ? value : "");
   };
 
   const table = useReactTable<Talent>
@@ -108,14 +112,14 @@ export function EditTalentsTable({ columns, control, isPending }: DataTableProps
       <div className="flex items-center py-4 gap-3">
 
         <Input
-          placeholder="Filter names..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={event => table.getColumn("name")?.setFilterValue(event.target.value)}
+          placeholder="Szukaj po nazwie..."
+          value={(table.getColumn(defaultColumnKeys.name)?.getFilterValue() as string) ?? ""}
+          onChange={event => table.getColumn(defaultColumnKeys.name)?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
 
         <div className="flex items-start gap-2">
-          <Select name='category' defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
+          <Select name={defaultColumnKeys.category} defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
             <div className={'flex gap-x-10 items-center justify-around'}>
               <SelectTrigger className='capitalize'>
                 <SelectValue />
@@ -124,7 +128,7 @@ export function EditTalentsTable({ columns, control, isPending }: DataTableProps
       
             <SelectContent>
               <SelectItem key={"all"} value={"all"}>
-                <span className='capitalize'>All</span>
+                <span className='capitalize'>{namingConventions.all}</span>
               </SelectItem>
               {
                 talentCategories.map(talentCategory => (
@@ -164,7 +168,7 @@ export function EditTalentsTable({ columns, control, isPending }: DataTableProps
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns
+              {namingConventions.columns}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -179,9 +183,9 @@ export function EditTalentsTable({ columns, control, isPending }: DataTableProps
                     checked={column.getIsVisible()}
                     onCheckedChange={value => column.toggleVisibility(!!value)}
                   >
-                      {column.id}
+                    {column.id}
                   </DropdownMenuCheckboxItem>
-                  )
+                )
               )
           }
           </DropdownMenuContent>
@@ -221,16 +225,5 @@ export function EditTalentsTable({ columns, control, isPending }: DataTableProps
       </div>
 
     </div>
-  )
-}
-
-function EmptyTable({ columns }: { columns: AccessorKeyColumnDef<Talent>[] })
-{
-  return (
-    <TableRow>
-      <TableCell colSpan={columns.length} className="h-24 text-center">
-          No results.
-      </TableCell>
-    </TableRow>
   )
 }
