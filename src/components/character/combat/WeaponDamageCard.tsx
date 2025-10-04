@@ -1,6 +1,6 @@
 import { WeaponOffense } from '@/domain/Character';
 import { Badge } from '@/components/ui/badge';
-import VerticalChangeButtons from '@/components/buttons/VerticalChangeButtons';
+import VerticalChangeButtons from '@/components/global/buttons/VerticalChangeButtons';
 
 type WeaponDamageViewProps =
 {

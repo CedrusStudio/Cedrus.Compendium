@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import DamageBonusView from '@/components/character/combat/DamageBonusView';
-import RollButton from "@/components/character/RollButton";
+import RollButton from "@/components/global/buttons/RollButton";
 import Subcard from '@/components/global/Subcard';
 import WeaponDamageView from '@/components/character/combat/WeaponDamageCard';
 import CriticalView from '@/components/character/combat/CriticalView';

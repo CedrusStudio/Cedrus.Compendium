@@ -39,7 +39,7 @@ export default function EditItemSheet({ item, control, isPending, children, equi
         <SheetContent>
           
           <SheetHeader>
-            <SheetTitle>Edytujesz {item.type}</SheetTitle>
+            <SheetTitle>Edytujesz przedmiot</SheetTitle>
             <SheetDescription>
               Kliknij zapisz, gdy skończysz.
             </SheetDescription>

@@ -1,7 +1,7 @@
-import IncreaseButton from '@/components/buttons/IncreaseButton';
-import DecreaseButton from '@/components/buttons/DecreaseButton';
-import ResetButton from '@/components/buttons/ResetButton';
-import ChangeAmountInput from '@/components/buttons/ChangeAmountInput';
+import IncreaseButton from '@/components/global/buttons/IncreaseButton';
+import DecreaseButton from '@/components/global/buttons/DecreaseButton';
+import ResetButton from '@/components/global/buttons/ResetButton';
+import ChangeAmountInput from '@/components/global/buttons/ChangeAmountInput';
 
 type ChangeButtonsProps =
 {

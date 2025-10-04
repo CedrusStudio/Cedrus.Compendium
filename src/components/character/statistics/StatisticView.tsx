@@ -8,9 +8,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge";
-import RollButton from "@/components/character/RollButton";
-import VerticalChangeButtons from "@/components/buttons/VerticalChangeButtons";
-import ResetButton from "@/components/buttons/ResetButton";
+import RollButton from "@/components/global/buttons/RollButton";
+import VerticalChangeButtons from "@/components/global/buttons/VerticalChangeButtons";
+import ResetButton from "@/components/global/buttons/ResetButton";
 import { translate } from "@/domain/data/translations";
 
 type StatisticViewProps = 

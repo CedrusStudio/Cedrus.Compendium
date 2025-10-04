@@ -10,7 +10,7 @@ import {
 import FieldView from '@/components/character/FieldView';
 import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
 import { useState } from 'react';
-import ChangeButtons from '@/components/buttons/ChangeButtons';
+import ChangeButtons from '@/components/global/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
 import { translate } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';

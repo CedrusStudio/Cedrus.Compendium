@@ -7,8 +7,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge";
-import VerticalChangeButtons from "@/components/buttons/VerticalChangeButtons";
-import ResetMultipleButton from "@/components/buttons/ResetMultipleButton";
+import VerticalChangeButtons from "@/components/global/buttons/VerticalChangeButtons";
+import ResetMultipleButton from "@/components/global/buttons/ResetMultipleButton";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { StatisticPath } from "@/components/character/edit/statistics/StatisticsCardEdit";

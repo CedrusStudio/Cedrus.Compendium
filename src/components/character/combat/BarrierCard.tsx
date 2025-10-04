@@ -8,7 +8,7 @@ import {
 import FieldView from '@/components/character/FieldView';
 import { useState } from 'react';
 import { Health } from '@/domain/Character';
-import ChangeButtons from '@/components/buttons/ChangeButtons';
+import ChangeButtons from '@/components/global/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
 import FieldViewWithInfo from '../FieldViewWithInfo';
 import { namingConventions } from '@/domain/data/namingConventions';

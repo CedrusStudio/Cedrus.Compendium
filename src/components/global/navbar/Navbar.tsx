@@ -1,6 +1,6 @@
 "use client";
 
-import ThemeMode from "@/components/navbar/ThemeMode";
+import ThemeMode from "@/components/global/navbar/ThemeMode";
 import { Input } from "@/components/ui/input"
 import { useDebouncedCallback } from 'use-debounce';
 import { useRouter, useSearchParams, usePathname } from "next/navigation";

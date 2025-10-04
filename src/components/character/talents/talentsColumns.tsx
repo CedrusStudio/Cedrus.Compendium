@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Talent } from "@/domain/Character"
 import { useState } from "react"
-import RollButton from "@/components/character/RollButton";
+import RollButton from "@/components/global/buttons/RollButton";
 import { defaultColumns } from "@/components/character/talents/defaultColumns"
 
 export const columns: ColumnDef<Talent>[] = 

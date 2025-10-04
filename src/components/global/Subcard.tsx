@@ -27,8 +27,8 @@ export default function Subcard({ name, className, children, callback, button }:
             <Button type="button" variant="default" size="icon" onClick={callback}>
               { <RiResetLeftFill />}
             </Button>
-            {button && button}
-          </CardTitle>    
+            {button}
+          </CardTitle>
 
         </CardHeader>
 

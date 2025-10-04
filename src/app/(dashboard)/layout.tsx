@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar/Navbar";
+import Navbar from "@/components/global/navbar/Navbar";
 import { Separator } from "@/components/ui/separator";
 import { PropsWithChildren } from "react";
 

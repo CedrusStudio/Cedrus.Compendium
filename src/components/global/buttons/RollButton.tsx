@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { GiRollingDices } from "react-icons/gi";
 
 export type RollButtonProps = 

@@ -14,7 +14,7 @@ import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, useController } from "react-hook-form";
 import Subcard from '@/components/global/Subcard';
 import { Badge } from '@/components/ui/badge';
-import VerticalChangeButtons from '@/components/buttons/VerticalChangeButtons';
+import VerticalChangeButtons from '@/components/global/buttons/VerticalChangeButtons';
 import { PathsFrom } from '@/utils/global/pathTypes';
 import { useDamageOffenseForm } from '@/components/character/edit/combat/useDamageOffenseForm';
 import { useWeaponOffenseForm } from '@/components/character/edit/combat/useWeaponOffenseForm';

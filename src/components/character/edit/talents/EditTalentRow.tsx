@@ -1,7 +1,7 @@
 "use client";
 
-import ResetButton from "@/components/buttons/ResetButton";
-import VerticalChangeButtons from "@/components/buttons/VerticalChangeButtons";
+import ResetButton from "@/components/global/buttons/ResetButton";
+import VerticalChangeButtons from "@/components/global/buttons/VerticalChangeButtons";
 import RemoveFromArrayButton from "@/components/ui/RemoveFromArrayButton";
 import {
   TableCell,
