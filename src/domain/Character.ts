@@ -54,77 +54,78 @@ export type Talent =
 
 export const talentCategories = 
 [
-  "sense",
-  "language",
-  "proficiency",
-  "scholarship",
-  "profession",
+  "zmysł",
+  "język",
+  "fach",
+  "wiedza",
+  "sprawność",
+  "talent"
 ];
 
 export const senseCategory = 
 [
-  "perception",
-  "listening",
-  "smell",
-  "taste",
-  "direction sense",
+  "wzrok",
+  "słuch",
+  "węch",
+  "smak",
+  "dotyk",
+  "spostrzegawczość",
+  "orientacja"
 ];
 
 export const languageCategory =
 [
-  "divine",
-  "elvish",
-  "dwarvish",
-  "fey",
+  "boski",
+  "elficki",
+  "krasnoludzki",
+  "wróżowski"
 ];
 
 export const proficiencyCategory =
 [
-  "swimming",
-  "climbing",
-  "acrobatics",
-  "stealth",
-  "pick pocketing",
-  "lock picking",
-  "rope use",
-  "escape artist",
-  "balance",
-  "sleight of hand",
-  "stillness",
-  "first aid",
-  "survival",
-  "tracking",
-  "forgery",
-  "cooking",
-  "search",
-  "hide",
-  "appraise",
-  "use device",
-  "acting",
-  "bluff",
-  "diplomacy",
-  "etiquette",
-  "musical instrument",
-  "juggling",
-  "rhetoric",
-  "singing",
-  "dancing",
-  "animal handling",
-  "performance",
-  "intimidation",
-  "gather information",
-  "animal empathy",
-  "inner power",
+  "pływanie",
+  "wspinaczka",
+  "akrobatyka",
+  "skradanie",
+  "kradzież kieszonkowa",
+  "otwieranie zamków",
+  "używanie lin",
+  "oswobodzanie się",
+  "zachowanie równowagi",
+  "zręczna dłoń",
+  "bezruch",
+  "pierwsza pomoc",
+  "sztuka przetrwania",
+  "tropienie",
+  "fałszerstwo",
+  "kulinaria",
+  "przeszukiwanie",
+  "ukrywanie",
+  "wycena",
+  "używanie urządzeń",
+  "aktorstwo",
+  "blefowanie",
+  "dyplomacja",
+  "etykieta",
+  "instrument muzyczny",
+  "kuglarstwo",
+  "retoryka",
+  "śpiew",
+  "taniec",
+  "zwierzęca empatia",
+  "występy sceniczne",
+  "zastraszanie",
+  "zbieranie informacji",
+  "kontrola mocy",
 ];
 
 export const scholarshipCategory = 
 [
-  "ancient lore",
-  "arcane knowledge",
-  "history",
-  "religion",
-  "nature",
-  "blacksmithing",
+  "wiedza tajemna",
+  "wiedza historyczna",
+  "wiedza religijna",
+  "wiedza przyrodnicza",
+  "kowalstwo",
 ];
 
 export type Health = 
@@ -287,12 +288,12 @@ export type ItemTypes = "weapon1" | "weapon2" | "weapon3" | "weapon4" | "armor" 
 
 //Maneuvers
 
-export type CastTime = "Full" | "Standard" | "Immediate" | "Overimmediate";
+export type CastTime = "Pełnorundowa" | "Standardowa" | "Natychmiastowa" | "Nadnatychmiastowa";
 export const castTimeValues = [
-  "Full",
-  "Standard",
-  "Immediate",
-  "Overimmediate",
+  "Pełnorundowa",
+  "Standardowa",
+  "Natychmiastowa",
+  "Nadnatychmiastowa",
 ] as const satisfies readonly CastTime[];
 
 export type Maneuver =
@@ -320,47 +321,38 @@ export const defaultWeaponOffense: WeaponOffense =
 
 export const defaultManeuver: Maneuver =
 { 
-  name: `Maneuver`, 
-  description: 'Maneuver description', 
+  name: `Manewr`, 
+  description: 'Opis manewru', 
   grade: 1, 
-  castTime: "Standard", 
+  castTime: "Standardowa", 
   cooldown: 1 
 };
 
 export const CreateDefaultManeuver = (): Maneuver => ({...defaultManeuver, name: `Maneuver ${crypto.randomUUID()}`});
 
-export const defaultMode: Maneuver =
-{ 
-  name: `Maneuver`, 
-  description: 'Maneuver description', 
-  grade: 1, 
-  castTime: "Standard", 
-  cooldown: 1 
-};
-
 export const defaultStance: Mode =
 {
-  name: `Stance`,
-  description: 'Stance description',
+  name: `Postawa`,
+  description: 'Opis postawy',
   grade: 1
 };
 
 export const defaultState: Mode =
 {
-  name: `Stance`,
-  description: 'Stance description',
+  name: `Stan`,
+  description: 'Opis stanu',
   grade: 1
 };
 
-export const CreateDefaultStance = (): Mode => ({...defaultStance, name: `Stance ${crypto.randomUUID()}`});
-export const CreateDefaultState = (): Mode => ({...defaultState, name: `State ${crypto.randomUUID()}`});
+export const CreateDefaultStance = (): Mode => ({...defaultStance, name: `Postawa ${crypto.randomUUID()}`});
+export const CreateDefaultState = (): Mode => ({...defaultState, name: `Stan ${crypto.randomUUID()}`});
 
 export const defaultTalent: Talent =
 {
   name: `Talent`,
   category: talentCategories[0],
-  characteristics: "strength",
-  id: 'dummy-id',
+  characteristics: "siła",
+  id: 'losowe-id',
   bonus: 0,
   penalty: 0,
   grade: 1
@@ -451,7 +443,7 @@ export const emptyCharacter: Character =
     // Equipment - corrected to match the type definition
     equipment: {
         weapon1: {
-            name: "Weapon 1",
+            name: "Broń 1",
             style: "",
             offense: {
                 amount: defaultWeaponDiceAmount,
@@ -474,24 +466,24 @@ export const emptyCharacter: Character =
         weapon3: undefined, // Optional
         weapon4: undefined, // Optional
         armor: {
-            name: "Armor",
+            name: "Pancerz",
             protection: 0, // Corrected from defense
             dexterityRestriction: 0,
             reflexRestriction: 0,
             initiativeRestriction: 0,
             attributePenalty: 0,
             strengthRequirement: 0,
-            description: "Armor description"
+            description: "Opis pancerza"
         },
         shield: {
-            name: "Shield",
+            name: "Tarcza",
             block: 0, // Corrected from defense
             dexterityRestriction: 0,
             reflexRestriction: 0,
             initiativeRestriction: 0,
             attributePenalty: 0,
             strengthRequirement: 0,
-            description: "Shield description"
+            description: "Opis tarczy"
         },
         magicEquipment: [],
         horse: undefined

@@ -16,6 +16,8 @@ const translations =
     parry: "parowanie",
     dodge: "unikanie",
     barrier: "bariera",
+    castTime: "czas rzucania",
+    cooldown: "odnowienie",
 };
 
 export type TranslationKey = keyof typeof translations;

@@ -106,7 +106,7 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
                 <FieldViewWithInfo
                     name={maneuver.name}
                     value={maneuver.grade}
-                    infoContent={`${maneuver.castTime} Action. ${maneuver.description}`}
+                    infoContent={`Akcja ${maneuver.castTime.toLowerCase()}. ${maneuver.description}`}
                     className="gap-1"
                     nameClassName='w-4xs'
                     />
@@ -129,10 +129,10 @@ type BadgeActionVariant = "full" | "standard" | "immediate" | "overimmediate" | 
 
 function getBadgeVariant(castTime: CastTime): BadgeActionVariant
 {
-    if (castTime === "Full") return "full";
-    if (castTime === "Standard") return "standard";
-    if (castTime === "Immediate") return "immediate";
-    if (castTime === "Overimmediate") return "overimmediate";
+    if (castTime === "Pełnorundowa") return "full";
+    if (castTime === "Standardowa") return "standard";
+    if (castTime === "Natychmiastowa") return "immediate";
+    if (castTime === "Nadnatychmiastowa") return "overimmediate";
     return null;
 }
 
@@ -149,9 +149,9 @@ const MANEUVER_COMBINATION_PROFILES: readonly AllowedManeuverCombination[] =
 ] as const;
 
 const castKey = (ct: CastTime): keyof ActionCounts =>
-  ct === "Full" ? "full" 
-    : ct === "Standard" ? "standard" 
-        : ct === "Immediate" ? "immediate" 
+  ct === "Pełnorundowa" ? "full" 
+    : ct === "Standardowa" ? "standard" 
+        : ct === "Natychmiastowa" ? "immediate" 
             : "overimmediate";
 
 const countActions = (maneuvers: Maneuver[]): ActionCounts => maneuvers.reduce<ActionCounts>((acc, m) => 

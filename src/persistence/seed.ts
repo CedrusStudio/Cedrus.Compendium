@@ -4,9 +4,9 @@ import { upsertCharacter } from '@/persistence/characterRepository';
 
 const dummyCharacter : Character = 
 {
-  id: "dummy",
-  name: "Dummy Character",
-  description: "Aurelia Stormborn is a seasoned adventurer whose life has been shaped by the harsh realities of the frontier. Born to a family of scholars, she quickly distinguished herself with her keen intellect and insatiable curiosity. Her early years were spent poring over ancient tomes and deciphering forgotten languages, but a tragic loss forced her to leave the safety of her home and seek answers in the wider world.",
+  id: "igar",
+  name: "Igar Potworobójca",
+  description: "Igar Potworobójca bohater wielu opowieści, znany z niezwykłej odwagi i siły. Jego przygody są legendą wśród mieszkańców krainy. Poza tym zawsze szuka zaczepki, chociaż może nawet nie jest tego świadom.",
   characteristics: 
   {
     strength: { value: 2, grade: 3, bonus: 1, testBonus: 2 },
@@ -31,69 +31,71 @@ const dummyCharacter : Character =
   },
   talents: 
   [
-    // Sense category
-    { id: "perception", name: "perception", category: "sense", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "listening", name: "listening", category: "sense", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
-    { id: "smell", name: "smell", category: "sense", characteristics: "constitution", grade: 1, bonus: 0, penalty: 0 },
-    { id: "taste", name: "taste", category: "sense", characteristics: "constitution", grade: 1, bonus: 0, penalty: 0 },
-    { id: "direction-sense", name: "direction sense", category: "sense", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    // Kategoria: zmysł
+    { id: "spostrzegawczosc", name: "spostrzegawczość", category: "zmysł", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "sluch", name: "słuch", category: "zmysł", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { id: "wech", name: "węch", category: "zmysł", characteristics: "constitution", grade: 1, bonus: 0, penalty: 0 },
+    { id: "smak", name: "smak", category: "zmysł", characteristics: "constitution", grade: 1, bonus: 0, penalty: 0 },
+    { id: "orientacja", name: "orientacja", category: "zmysł", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
 
-    // Language category
-    { id: "divine", name: "divine", category: "language", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
-    { id: "elvish", name: "elvish", category: "language", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "dwarvish", name: "dwarvish", category: "language", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
-    { id: "fey", name: "fey", category: "language", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
+    // Kategoria: język
+    { id: "boskie", name: "boskie", category: "język", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
+    { id: "elfickie", name: "elfickie", category: "język", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "krasnoludzkie", name: "krasnoludzkie", category: "język", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { id: "basniowe", name: "baśniowe", category: "język", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
 
-    // Proficiency category
-    { id: "swimming", name: "swimming", category: "proficiency", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
-    { id: "climbing", name: "climbing", category: "proficiency", characteristics: "strength", grade: 3, bonus: 0, penalty: 0 },
-    { id: "acrobatics", name: "acrobatics", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
-    { id: "stealth", name: "stealth", category: "proficiency", characteristics: "dexterity", grade: 4, bonus: 1, penalty: 0 },
-    { id: "pickpocketing", name: "pickpocketing", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
-    { id: "lockpicking", name: "lockpicking", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
-    { id: "rope-use", name: "rope use", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
-    { id: "escape-artist", name: "escape artist", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
-    { id: "balance", name: "balance", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
-    { id: "sleight-of-hand", name: "sleight of hand", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
-    { id: "stillness", name: "stillness", category: "proficiency", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
-    { id: "first-aid", name: "first aid", category: "proficiency", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "survival", name: "survival", category: "proficiency", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 },
-    { id: "tracking", name: "tracking", category: "proficiency", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "forgery", name: "forgery", category: "proficiency", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
-    { id: "cooking", name: "cooking", category: "proficiency", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
-    { id: "search", name: "search", category: "proficiency", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "hide", name: "hide", category: "proficiency", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
-    { id: "appraise", name: "appraise", category: "proficiency", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
-    { id: "use-device", name: "use device", category: "proficiency", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
-    { id: "acting", name: "acting", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
-    { id: "bluff", name: "bluff", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
-    { id: "diplomacy", name: "diplomacy", category: "proficiency", characteristics: "charisma", grade: 4, bonus: 1, penalty: 0 },
-    { id: "etiquette", name: "etiquette", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
-    { id: "musical-instrument", name: "musical instrument", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
-    { id: "juggling", name: "juggling", category: "proficiency", characteristics: "dexterity", grade: 1, bonus: 0, penalty: 0 },
-    { id: "rhetoric", name: "rhetoric", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
-    { id: "singing", name: "singing", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
-    { id: "dancing", name: "dancing", category: "proficiency", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
-    { id: "animal-handling", name: "animal handling", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
-    { id: "performance", name: "performance", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
-    { id: "intimidation", name: "intimidation", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
-    { id: "gather-information", name: "gather information", category: "proficiency", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
-    { id: "animal-empathy", name: "animal empathy", category: "proficiency", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
-    { id: "inner-power", name: "inner power", category: "proficiency", characteristics: "spellborn", grade: 1, bonus: 0, penalty: 0 },
+    // Kategoria: sprawność
+    { id: "plywanie", name: "pływanie", category: "sprawność", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
+    { id: "wspinaczka", name: "wspinaczka", category: "sprawność", characteristics: "strength", grade: 3, bonus: 0, penalty: 0 },
+    { id: "akrobatyka", name: "akrobatyka", category: "sprawność", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { id: "skradanie", name: "skradanie", category: "sprawność", characteristics: "dexterity", grade: 4, bonus: 1, penalty: 0 },
+    { id: "kieszonkarstwo", name: "kieszonkarstwo", category: "sprawność", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { id: "wlamywanie", name: "włamywanie", category: "sprawność", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { id: "poslugiwanie-lina", name: "posługiwanie liną", category: "sprawność", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { id: "ucieczka", name: "ucieczka", category: "sprawność", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { id: "rownowaga", name: "równowaga", category: "sprawność", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { id: "zrecznosc-dloni", name: "zręczność dłoni", category: "sprawność", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { id: "nieruchomosc", name: "nieruchomość", category: "sprawność", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
+    { id: "pierwsza-pomoc", name: "pierwsza pomoc", category: "sprawność", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "przetrwanie", name: "przetrwanie", category: "sprawność", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 },
+    { id: "tropienie", name: "tropienie", category: "sprawność", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "falszerstwo", name: "fałszerstwo", category: "sprawność", characteristics: "mind", grade: 1, bonus: 0, penalty: 0 },
+    { id: "gotowanie", name: "gotowanie", category: "sprawność", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { id: "przeszukiwanie", name: "przeszukiwanie", category: "sprawność", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "ukrywanie", name: "ukrywanie", category: "sprawność", characteristics: "dexterity", grade: 3, bonus: 0, penalty: 0 },
+    { id: "wycena", name: "wycena", category: "sprawność", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { id: "obsluga-urzadzenia", name: "obsługa urządzenia", category: "sprawność", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { id: "aktorstwo", name: "aktorstwo", category: "sprawność", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { id: "blef", name: "blef", category: "sprawność", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { id: "dyplomacja", name: "dyplomacja", category: "sprawność", characteristics: "charisma", grade: 4, bonus: 1, penalty: 0 },
+    { id: "etykieta", name: "etykieta", category: "sprawność", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { id: "instrument-muzyczny", name: "instrument muzyczny", category: "sprawność", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { id: "zonglerka", name: "żonglerka", category: "sprawność", characteristics: "dexterity", grade: 1, bonus: 0, penalty: 0 },
+    { id: "retoryka", name: "retoryka", category: "sprawność", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { id: "spiew", name: "śpiew", category: "sprawność", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { id: "taniec", name: "taniec", category: "sprawność", characteristics: "dexterity", grade: 2, bonus: 0, penalty: 0 },
+    { id: "tresura", name: "tresura", category: "sprawność", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { id: "wystep", name: "występ", category: "sprawność", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { id: "zastraszanie", name: "zastraszanie", category: "sprawność", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { id: "zbieranie-informacji", name: "zbieranie informacji", category: "sprawność", characteristics: "charisma", grade: 3, bonus: 0, penalty: 0 },
+    { id: "empatia-zwierzeca", name: "empatia zwierzęca", category: "sprawność", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { id: "moc-wewnetrzna", name: "moc wewnętrzna", category: "sprawność", characteristics: "spellborn", grade: 1, bonus: 0, penalty: 0 },
 
-    // Scholarship category
-    { id: "ancient-lore", name: "ancient lore", category: "scholarship", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 },
-    { id: "arcane-knowledge", name: "arcane knowledge", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "history", name: "history", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "religion", name: "religion", category: "scholarship", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
-    { id: "nature", name: "nature", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "blacksmithing", name: "blacksmithing", category: "scholarship", characteristics: "strength", grade: 1, bonus: 0, penalty: 0 },
-    { id: "carpentry", name: "carpentry", category: "scholarship", characteristics: "strength", grade: 1, bonus: 0, penalty: 0 },
-    { id: "alchemy", name: "alchemy", category: "scholarship", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
-    { id: "herbalism", name: "herbalism", category: "scholarship", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
-    { id: "merchant", name: "merchant", category: "profession", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
-    { id: "soldier", name: "soldier", category: "profession", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
-    { id: "scholar", name: "scholar", category: "profession", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 }
+    // Kategoria: wiedza
+    { id: "starozytna-wiedza", name: "starożytna wiedza", category: "wiedza", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 },
+    { id: "wiedza-tajemna", name: "wiedza tajemna", category: "wiedza", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "historia", name: "historia", category: "wiedza", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "religia", name: "religia", category: "wiedza", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { id: "natura", name: "natura", category: "wiedza", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    
+    // Kategoria: fach
+    { id: "kowalstwo", name: "kowalstwo", category: "fach", characteristics: "strength", grade: 1, bonus: 0, penalty: 0 },
+    { id: "stolarstwo", name: "stolarstwo", category: "fach", characteristics: "strength", grade: 1, bonus: 0, penalty: 0 },
+    { id: "alchemia", name: "alchemia", category: "fach", characteristics: "mind", grade: 2, bonus: 0, penalty: 0 },
+    { id: "zielarstwo", name: "zielarstwo", category: "fach", characteristics: "mind", grade: 3, bonus: 0, penalty: 0 },
+    { id: "kupiec", name: "kupiec", category: "fach", characteristics: "charisma", grade: 2, bonus: 0, penalty: 0 },
+    { id: "zolnierz", name: "żołnierz", category: "fach", characteristics: "constitution", grade: 2, bonus: 0, penalty: 0 },
+    { id: "uczony", name: "uczony", category: "fach", characteristics: "mind", grade: 4, bonus: 1, penalty: 0 }
   ],
   health: 
   { 
@@ -149,30 +151,30 @@ const dummyCharacter : Character =
   stances: 
   [
     {
-      name: "Defensive",
+      name: "Obronna",
       grade: 3,
-      description: "Increases protection by 4 and reduces damage by 3."
+      description: "Zwiększa pancerz o 4 i redukuje obrażenia o 3."
     },
     {
-      name: "Fencing",
+      name: "Fechmistrza",
       grade: 2,
-      description: "Increases fencing by 2."
+      description: "Zwiększa fechtunek o 2."
     }
   ],
   states:
   [
     {
-      name: "rage",
+      name: "szał",
       grade: 1,
-      description: "Add 3 strength and 3 constitution."
+      description: "Dodaje 3 siły i 3 kondycji."
     }
   ],
   equipment:
   {
     armor:
     {
-      name: "Leather Armor",
-      description: "A sturdy leather armor offering moderate protection.",
+      name: "Skórzana zbroja",
+      description: "Solidna skórzana zbroja oferująca umiarkowaną ochronę.",
       protection: 5,
       dexterityRestriction: 0,
       reflexRestriction: 0,
@@ -182,8 +184,8 @@ const dummyCharacter : Character =
     },
     shield:
     {
-      name: "Wooden Shield",
-      description: "A basic wooden shield offering minimal protection.",
+      name: "Drewniana tarcza",
+      description: "Podstawowa drewniana tarcza oferująca minimalną ochronę.",
       block: 2,
       dexterityRestriction: 0,
       reflexRestriction: 0,
@@ -193,9 +195,9 @@ const dummyCharacter : Character =
     },
     weapon1: 
     {
-      name: "Short Sword",
-      description: "A basic short sword.",
-      style: "One-Handed",
+      name: "Krótki miecz",
+      description: "Podstawowy krótki miecz.",
+      style: "Jednoręczna",
       offense: {
         amount: 1,
         grade: 3,
@@ -215,9 +217,9 @@ const dummyCharacter : Character =
     },
     weapon2:
     {
-      name: "Long Bow",
-      description: "A sturdy long bow.",
-      style: "Ranged",
+      name: "Długi łuk",
+      description: "Solidny długi łuk.",
+      style: "Dystansowa",
       offense: {
         amount: 1,
         grade: 2,
@@ -236,9 +238,9 @@ const dummyCharacter : Character =
     },
     weapon3:
     {
-      name: "Magic Staff",
-      description: "A staff imbued with magical properties.",
-      style: "Two-Handed",
+      name: "Magiczny kostur",
+      description: "Kostur nasycony magicznymi właściwościami.",
+      style: "Dwuręczna",
       offense: {
         amount: 1,
         grade: 4,
@@ -258,15 +260,15 @@ const dummyCharacter : Character =
     magicEquipment: 
     [
       {
-        name: "Ring of Power",
-        description: "A magical ring that grants the wearer increased strength.",
+        name: "Pierścień mocy",
+        description: "Magiczny pierścień który zwiększa siłę użytkownika.",
         immunity: 1,
         reduction: 2,
         resistance: 3,
       },
       {
-        name: "Amulet of Wisdom",
-        description: "An amulet that enhances the wearer's intellect.",
+        name: "Amulet mądrości",
+        description: "Amulet który zwiększa intelekt użytkownika.",
         immunity: 0,
         reduction: 1,
         resistance: 2
@@ -276,81 +278,81 @@ const dummyCharacter : Character =
   maneuvers:
   [
     {
-      name: "Power Attack",
+      name: "Potężny atak",
       grade: 2,
-      description: "A powerful melee attack that deals extra damage.",
+      description: "Potężny atak wręcz zadający dodatkowe obrażenia.",
       cooldown: 1,
-      castTime: "Standard"
+      castTime: "Standardowa"
     },
     {
-      name: "Quick Shot",
+      name: "Szybki strzał",
       grade: 1,
-      description: "A rapid ranged attack with reduced accuracy.",
+      description: "Szybki atak dystansowy o zmniejszonej celności.",
       cooldown: 1,
-      castTime: "Immediate"
+      castTime: "Natychmiastowa"
     },
     {
-      name: "Distracting Strike",
+      name: "Rozpraszający cios",
       grade: 3,
-      description: "An attack that distracts the target, reducing their next attack's accuracy.",
+      description: "Atak rozpraszający cel, zmniejszający celność jego następnego ataku.",
       cooldown: 1,
-      castTime: "Standard"
+      castTime: "Standardowa"
     },
     {
-      name: "Knights Move",
+      name: "Ruch skoczka",
       grade: 2,
-      description: "Move in an L shape, like a knight in chess, ignoring difficult terrain.",
-      cooldown: null,
-      castTime: "Standard"
+      description: "Poruszanie się w kształcie litery L, jak skoczek w szachach, ignorując trudny teren.",
+      cooldown: undefined,
+      castTime: "Standardowa"
     },
     {
-      name: "Evasive Roll",
+      name: "Unik toczny",
       grade: 3,
-      description: "Perform a roll to evade an incoming attack, increasing your dodge for one round.",
+      description: "Wykonaj przewrót aby uniknąć nadchodzącego ataku, zwiększając unik na jedną rundę.",
       cooldown: 1,
-      castTime: "Overimmediate"
+      castTime: "Nadnatychmiastowa"
     },
     {
-      name: "Shield Bash",
+      name: "Uderzenie tarczą",
       grade: 1,
-      description: "Use your shield to bash an opponent, potentially stunning them.",
+      description: "Użyj tarczy aby uderzyć przeciwnika, potencjalnie go ogłuszając.",
       cooldown: 3,
-      castTime: "Standard"
+      castTime: "Standardowa"
     },
     {
-      name: "Punishing Strike",
+      name: "Karząca cięcie",
       grade: 2,
-      description: "A powerful strike that deals extra damage to a target that has been hit multiple times.",
+      description: "Potężne cięcie zadające dodatkowe obrażenia celowi który był już trafiony wiele razy.",
       cooldown: 4,
-      castTime: "Standard"
+      castTime: "Standardowa"
     },
     {
-      name: "Whirlwind Attack",
+      name: "Wir ciosów",
       grade: 4,
-      description: "Attack all adjacent enemies in a single, sweeping motion.",
+      description: "Zaatakuj wszystkich przyległych wrogów w jednym, zamaszystym ruchu.",
       cooldown: 3,
-      castTime: "Full"
+      castTime: "Pełnorundowa"
     },
     { 
-      name: "Feint",
+      name: "Finta",
       grade: 1,
-      description: "A deceptive move that causes your opponent to lower their guard, making them more vulnerable to your next attack.",
+      description: "Zwodniczy ruch powodujący opuszczenie straży przez przeciwnika, czyniąc go bardziej podatnym na twój następny atak.",
       cooldown: 1,
-      castTime: "Standard"
+      castTime: "Standardowa"
     },
     {
-      name: "Disarming Strike",
+      name: "Rozbrajające uderzenie",
       grade: 3,
-      description: "A precise attack aimed at disarming your opponent, forcing them to drop their weapon.",
+      description: "Precyzyjny atak mający na celu rozbrojenie przeciwnika, zmuszający go do upuszczenia broni.",
       cooldown: 6,
-      castTime: "Standard"
+      castTime: "Standardowa"
     },
     {
-      name: "Assassin's Move",
+      name: "Ruch zabójcy",
       grade: 4,
-      description: "Move silently and unseen, gaining advantage on your next attack if you remain undetected.",
-      cooldown: null,
-      castTime: "Standard"
+      description: "Poruszaj się cicho i niewidzialnie, zyskując przewagę w następnym ataku jeśli pozostaniesz niewykryty.",
+      cooldown: undefined,
+      castTime: "Standardowa"
     }
   ]
 };
