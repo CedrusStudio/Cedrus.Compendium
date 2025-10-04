@@ -39,7 +39,7 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>
-          Offense
+          Ofensywa
         </CardTitle>
       </CardHeader>
 
@@ -66,7 +66,7 @@ function EditLeadingWeaponOffenseSubcard({ offense, control }: EditLeadingWeapon
   const weaponOffense = { amount, grade, bonus, critical: { power, range } };
 
   return (
-    <Subcard name='Leading' className='col-span-3' callback={resetAll}>
+    <Subcard name='Wiodąca' className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -120,7 +120,7 @@ function EditSecondaryWeaponOffenseSubcard({ control, offense }: EditSecondaryWe
   const removeButton = <RemoveButton name={weaponOffensePath} variant={`${secondaryOffenseExists ? 'destructive' : 'outline'}`} control={control} callback={() => setShowSecondary(false)} />;
 
   return (
-    <Subcard name="Secondary" className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
+    <Subcard name="Wtórna" className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={newOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -204,7 +204,7 @@ function EditDamageBonusSubcard({ defaultDamageOffense, control }: EditDamageBon
   const damageOffense = { amount, grade, bonus };
 
   return (
-    <Subcard name={"Damage Bonus"} className='col-span-3' callback={resetAll}>
+    <Subcard name={"Bonus obrażeń"} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />

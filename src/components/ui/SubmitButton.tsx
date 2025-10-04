@@ -5,7 +5,7 @@ export default function SubmitButton(input: { isPending: boolean, className?: st
  return (
   <div className="flex justify-center">
     <Button type="submit" className={`self ${input.className}`} disabled={input.isPending} form={input.formName}>
-      { input.isPending ? "Submitting..." : "Submit" }
+      { input.isPending ? "Zapisuję..." : "Zapisz" }
     </Button>
   </div>
  ) 

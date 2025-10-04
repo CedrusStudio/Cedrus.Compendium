@@ -19,7 +19,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Attribute Penalty</Label>
+                <Label>Kara atrybutu</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.attributePenalty`}
@@ -31,7 +31,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Strength Requirement</Label>
+                <Label>Wymaganie siły</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.strengthRequirement`}
@@ -47,7 +47,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Dexterity Restriction</Label>
+                <Label>Ograniczenie zręczności</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.dexterityRestriction`}
@@ -59,7 +59,7 @@ export default function CommonDefensiveItemEditor({ control, defensiveItem }: Co
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Initiative Restriction</Label>
+                <Label>Ograniczenie inicjatywy</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.initiativeRestriction`}

@@ -7,7 +7,7 @@ export default function HomePage()
 {
   return (
     <main>
-      <header className="max-w-6xl mx-auto px-4 sm:px-8 py-6 grid gr">
+      <header className="max-w-6xl mx-auto px-4 sm:px-8 py-1 grid gr">
         <section className="max-w-6xl mx-auto px-4 sm:px-8 h-screen grid lg:grid-cols-[1fr,400px] items-center">
           <Heading />
           <Description />

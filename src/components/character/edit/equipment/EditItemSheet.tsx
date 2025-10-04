@@ -39,9 +39,9 @@ export default function EditItemSheet({ item, control, isPending, children, equi
         <SheetContent>
           
           <SheetHeader>
-            <SheetTitle>Edit {item.type}</SheetTitle>
+            <SheetTitle>Edytujesz {item.type}</SheetTitle>
             <SheetDescription>
-              Click save when you&apos;re done.
+              Kliknij zapisz, gdy skończysz.
             </SheetDescription>
           </SheetHeader>
 
@@ -49,24 +49,24 @@ export default function EditItemSheet({ item, control, isPending, children, equi
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Name</Label>
+                <Label>Nazwa</Label>
                 
                 <InputFormField<UpsertCharacterEquipmentType> 
                     name={`${item.type}.name`}
                     control={control}
-                    inputPlaceholder="edit name..." 
+                    inputPlaceholder="edytuj nazwę..." 
                     inputClassName='w-80'
                 />
             </div>
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Description</Label>
+                <Label>Opis</Label>
                 
                 <InputFormField<UpsertCharacterEquipmentType> 
                     name={`${item.type}.description`}
                     control={control}
-                    inputPlaceholder="edit description..." 
+                    inputPlaceholder="edytuj opis..." 
                     inputClassName='w-80'
                 />
             </div>
@@ -78,7 +78,7 @@ export default function EditItemSheet({ item, control, isPending, children, equi
           <SheetFooter>
             <SubmitButton isPending={isPending} className='w-full' formName={equipmentFormName} />
             <SheetClose asChild>
-              <Button variant="outline">Close</Button>
+              <Button variant="outline">Zamknij</Button>
             </SheetClose>
           </SheetFooter>
         </SheetContent>

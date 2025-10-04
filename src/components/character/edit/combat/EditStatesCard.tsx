@@ -29,7 +29,7 @@ export default function EditStatesCard({ control, isPending }: EditStatesCardPro
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-          <span>States</span>
+          <span>Stany</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultState} />
         </CardTitle>
       </CardHeader>

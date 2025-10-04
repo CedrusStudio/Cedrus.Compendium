@@ -48,7 +48,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
         </div>
 
         <Tabs 
-            defaultValue={tab ?? "character"} 
+            defaultValue={tab ?? "postać"} 
             onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
             className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'>
 
@@ -56,10 +56,10 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <div className='flex flex-row justify-between items-center'>
 
                     <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="postać" />
-                    <TabsTriggerCapitalized value="walka" />
-                    <TabsTriggerCapitalized value="talenty" />
-                    <TabsTriggerCapitalized value="ekwipunek" />
+                    <TabsTriggerCapitalized value="character" overrideValue="postać" />
+                    <TabsTriggerCapitalized value="combat" overrideValue="walka" />
+                    <TabsTriggerCapitalized value="talents" overrideValue="talenty" />
+                    <TabsTriggerCapitalized value="equipment" overrideValue="ekwipunek" />
                     </TabsList>
 
                     <div className='flex flex-row'>
@@ -101,19 +101,19 @@ export default function CharacterView({ tab }: CharacterViewProps)
             </div>
 
             <div className='row-span-14 mx-4'>
-                <TabsContent value="postać">
+                <TabsContent value="character">
                     <CharacterHeader character={character} />
                 </TabsContent>
 
-                <TabsContent value="walka">
+                <TabsContent value="combat">
                     <CombatView character={character} />
                 </TabsContent>
 
-                <TabsContent value="talenty">
+                <TabsContent value="talents">
                     <TalentsTable columns={columns} data={character.talents ?? []} />
                 </TabsContent>
 
-                <TabsContent value="ekwipunek">
+                <TabsContent value="equipment">
                     <EquipmentAccordion equipment={character.equipment} />
                 </TabsContent>
             </div>

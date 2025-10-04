@@ -43,7 +43,7 @@ function EditArmorSheet({ equipmentFormName, armor, control, isPending }: Accord
     >
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Protection</Label>
+          <Label>Pancerz</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`armor.protection`}

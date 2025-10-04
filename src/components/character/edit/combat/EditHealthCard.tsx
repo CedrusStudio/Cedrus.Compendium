@@ -45,8 +45,8 @@ export default function EditHealthCard(input: EditHealthCardProps)
         <CardContent className='p-6'>
           
           <CardHeader>
-            <CardTitle className='font-bold text-xl capitalize text-center text-primary mb-6'>
-              Health
+            <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6'>
+              Życie
             </CardTitle>
           </CardHeader>
           

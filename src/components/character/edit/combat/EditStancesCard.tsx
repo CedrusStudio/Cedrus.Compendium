@@ -29,7 +29,7 @@ export default function EditStancesCard({ control, isPending }: EditStancesCardP
 
       <CardHeader>
           <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-            <span>Stances</span>
+            <span>Postawy</span>
             <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
           </CardTitle>
       </CardHeader>

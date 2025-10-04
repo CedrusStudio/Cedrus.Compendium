@@ -43,8 +43,8 @@ export default function EditDefenseCard(input: EditDefenseCardProps)
         <CardContent className='p-6'>
           
           <CardHeader>
-            <CardTitle className='font-bold text-xl capitalize text-center text-primary mb-6'>
-              Defense
+            <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6'>
+              Defensywa
             </CardTitle>
           </CardHeader>
           

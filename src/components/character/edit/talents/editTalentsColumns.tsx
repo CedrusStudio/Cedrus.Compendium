@@ -16,19 +16,19 @@ declare module '@tanstack/table-core'
 export const columns: AccessorKeyColumnDef<Talent>[] = 
 [
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: "nazwa",
+    header: "Nazwa",
     cell: ({ row }) => <span className="capitalize">{row.original.name}</span>
   },
   {
-    accessorKey: "category",
+    accessorKey: "kategoria",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Category
+          Kategoria
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -36,21 +36,21 @@ export const columns: AccessorKeyColumnDef<Talent>[] =
     meta: { initiallyHidden: true },
   },
   {
-    accessorKey: "characteristics",
-    header: "Characteristics",
+    accessorKey: "cechy",
+    header: "Cechy",
     meta: { initiallyHidden: true },
   },
   {
-    accessorKey: "grade",
-    header: "Grade",
+    accessorKey: "ranga",
+    header: "Ranga",
   },
   {
     accessorKey: "bonus",
     header: "Bonus",
   },
   {
-    accessorKey: "penalty",
-    header: "Penalty",
+    accessorKey: "kara",
+    header: "Kara",
     meta: { initiallyHidden: true },
   }
 ]

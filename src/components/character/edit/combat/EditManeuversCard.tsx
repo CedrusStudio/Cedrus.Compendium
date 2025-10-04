@@ -43,7 +43,7 @@ export default function EditManeuversCard({ control, isPending }: EditManeuversC
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-          <span>Maneuvers</span>
+          <span>Manewry</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
         </CardTitle>
       </CardHeader>
