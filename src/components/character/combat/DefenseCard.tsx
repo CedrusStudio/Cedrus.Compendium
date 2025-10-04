@@ -46,7 +46,7 @@ export default function DefenseCard(input: DefenseCardProps)
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Defensywa</CardTitle>
       </CardHeader>
 
-      <CardContent className='flex flex-col gap-y-4 -mt-4'>
+      <CardContent className='flex flex-col h-full gap-y-4'>
 
         <FieldView name={"niewrażliwość"} value={input.defense.immunity} />
         <FieldView name={"odporność"} value={input.defense.resistance} />
@@ -71,13 +71,15 @@ export default function DefenseCard(input: DefenseCardProps)
           </SelectContent>
         </Select>
 
-        <div className='flex gap-4'>
-          <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
-          <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
-        </div>
-        <div className='flex gap-4'>
-          <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
-          <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+        <div className='flex-1 flex flex-col justify-end gap-y-2'>
+          <div className='flex gap-4'>
+            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
+            <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
+          </div>
+          <div className='flex gap-4'>
+            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
+            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+          </div>
         </div>
 
       </CardContent>

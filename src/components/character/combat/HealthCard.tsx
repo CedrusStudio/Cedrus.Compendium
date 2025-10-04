@@ -32,12 +32,14 @@ export default function HealthCard(input: HealthCardProps)
 
   return (
     <Card className='bg-muted'>
-      <CardContent className='flex flex-col gap-y-4'>
+      <CardContent className='flex flex-col h-full gap-y-4'>
+
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
 
-          <FieldViewWithInfo name={namingConventions.sum} value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
-          <FieldViewWithInfo name={namingConventions.current} value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
+        <FieldViewWithInfo name={namingConventions.sum} value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
+        <FieldViewWithInfo name={namingConventions.current} value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
 
+        <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
             <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncrease} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
@@ -46,6 +48,7 @@ export default function HealthCard(input: HealthCardProps)
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
+        </div>
 
       </CardContent>
     </Card>

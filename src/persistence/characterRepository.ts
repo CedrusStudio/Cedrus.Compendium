@@ -45,8 +45,6 @@ export const upsertCharacterStatistics: (id: string, characterStatistics: Upsert
 
 export const upsertCharacterTalents: (id: string, characterTalents: UpsertCharacterTalentsType) => Promise<void> = async (id, characterTalents) =>
 {
-    console.log("Upserting talents for character ID:", id);
-    console.log("New talents data:", characterTalents);
     const database = readDatabase();
 
     if (!database.characters) 
@@ -136,6 +134,7 @@ export const addCharacter: (characterHeader: AddCharacterHeaderType) => Promise<
         ...characterHeader, 
         id: characterHeader.name.replace(/\s+/g, '-').toLowerCase(),
     } as Character;
+    
     database.characters = [...allCharactersExceptSpecified, characterToAdd];
     const databaseAsJson = JSON.stringify(database);
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');

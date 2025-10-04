@@ -27,20 +27,22 @@ export default function BarrierCard(input: BarrierCardProps)
 
   return (
     <Card className='bg-muted'>
-        <CardContent className='flex flex-col gap-y-4'>
-            <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Bariera</CardTitle>
+      <CardContent className='flex flex-col h-full gap-y-4'>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Bariera</CardTitle>
 
-            <FieldView name={namingConventions.sum} value={input.health.barrier} />
-            <FieldViewWithInfo name={namingConventions.current} value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
+        <FieldView name={namingConventions.sum} value={input.health.barrier} />
+        <FieldViewWithInfo name={namingConventions.current} value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
 
-            <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
-              <ChangeButtons value={barrierIncreaseChangeAmount} setValue={setBarrierIncrease} setChangeAmount={setBarrierIncreaseChangeAmount} resetValue={0} />
-            </div>
-            <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
-              <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
-            </div>
+        <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
+          <div className='flex gap-4'>
+            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
+            <ChangeButtons value={barrierIncreaseChangeAmount} setValue={setBarrierIncrease} setChangeAmount={setBarrierIncreaseChangeAmount} resetValue={0} />
+          </div>
+          <div className='flex gap-4'>
+            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
+            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+          </div>
+        </div>
 
         </CardContent>
     </Card>

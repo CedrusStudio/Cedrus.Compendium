@@ -1,9 +1,9 @@
 import { Control, FieldPath, FieldPathValue, FieldValues, useController } from "react-hook-form";
 
 type FormFieldPathValue<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TType> = 
-    FieldPathValue<TFieldValues, TName> extends TType
-        ? FieldPathValue<TFieldValues, TName>
-         : never;
+  FieldPathValue<TFieldValues, TName> extends TType
+    ? FieldPathValue<TFieldValues, TName>
+    : never;
 
 export function useFormField<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TType>
 (

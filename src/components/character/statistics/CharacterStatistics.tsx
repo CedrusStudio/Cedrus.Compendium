@@ -1,7 +1,7 @@
 import StatisticsCard from "@/components/character/statistics/StatisticsCard";
 import { Character } from "@/domain/Character";
 import { namingConventions } from "@/domain/data/namingConventions";
-import { attributesIcons, characteristicIcons } from "@/utils/icons";
+import { attributesIcons, characteristicIcons } from "@/domain/data/icons";
 
 export default function CharacterStatistics(input: { character: Character })
 {
