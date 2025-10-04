@@ -12,6 +12,7 @@ import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
 import { useState } from 'react';
 import ChangeButtons from '@/components/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
+import { translate } from '@/domain/translations';
 
 type HealthCardProps = 
 {
@@ -30,22 +31,22 @@ export default function HealthCard(input: HealthCardProps)
 
   return (
     <Card className='bg-muted'>
-        <CardContent className='flex flex-col gap-y-4'>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
+      <CardContent className='flex flex-col gap-y-4'>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
 
-            <FieldViewWithInfo name="Suma" value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
-            <FieldViewWithInfo name="Obecne" value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
+          <FieldViewWithInfo name="Suma" value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
+          <FieldViewWithInfo name="Obecne" value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
 
-            <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>Zwiększenie zdrowia</Label>
-              <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncrease} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
-            </div>
-            <div className='flex gap-4'>
-              <Label className='text-sm text-muted-foreground w-36'>Obrażenia</Label>
-              <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
-            </div>
+          <div className='flex gap-4'>
+            <Label className='text-sm text-muted-foreground w-36'>Przyrost</Label>
+            <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncrease} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
+          </div>
+          <div className='flex gap-4'>
+            <Label className='text-sm text-muted-foreground w-36'>Obrażenia</Label>
+            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+          </div>
 
-        </CardContent>
+      </CardContent>
     </Card>
   );
 };
@@ -57,7 +58,7 @@ function HealthInfoContent(input: { health: Health })
     {
       Object.entries(input.health)
         .filter(([name]) => name !== 'barrier')
-        .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
+        .map(([name, value]) => <FieldView key={name} name={translate(name)} value={value} />)
     }
     </div>
   );
@@ -71,7 +72,7 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
       <FieldView key="totalHealth" name="Suma" value={input.totalHealth} />
     }
     {
-      <FieldView key="healthIncrease" name="Zwiększenie_Zdrowia" value={input.healthIncrease} valueClassName='text-green-600' />
+      <FieldView key="healthIncrease" name="Przyrost" value={input.healthIncrease} valueClassName='text-green-600' />
     }
     {
       <FieldView key="damageTaken" name="Obrażenia" value={input.damageTaken}  valueClassName='text-red-500' />

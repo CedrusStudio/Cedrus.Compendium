@@ -48,7 +48,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
         </div>
 
         <Tabs 
-            defaultValue={tab ?? "postać"} 
+            defaultValue={tab ?? "character"} 
             onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
             className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'>
 

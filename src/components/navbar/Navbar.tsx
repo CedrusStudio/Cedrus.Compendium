@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import React from "react";
 import { LuPlus } from "react-icons/lu";
+import { translate } from "@/domain/translations";
 
 export default function Navbar() 
 {
@@ -89,8 +90,8 @@ export default function Navbar()
                                         <BreadcrumbItem>
                                         {
                                             isLast 
-                                                ? <BreadcrumbPage>{segment}</BreadcrumbPage> 
-                                                : <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
+                                                ? <BreadcrumbPage>{translate(segment)}</BreadcrumbPage> 
+                                                : <BreadcrumbLink href={href}>{translate(segment)}</BreadcrumbLink>
                                         }
                                         </BreadcrumbItem>
                                     </React.Fragment>

@@ -70,7 +70,7 @@ export default function DefenseCard(input: DefenseCardProps)
         </Select>
 
         <div className='flex gap-4'>
-          <Label className='text-sm text-muted-foreground w-36'>Zwiększenie redukcji</Label>
+          <Label className='text-sm text-muted-foreground w-36'>Przyrost</Label>
           <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
         </div>
         <div className='flex gap-4'>
@@ -88,7 +88,7 @@ function DefenseInfoContent(input: { defense: Defense, selectedReductionType: Re
   return (
     <div>
     {
-      <FieldView key="ReductionIncrease" name="Zwiększenie_Redukcji" value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
+      <FieldView key="ReductionIncrease" name="Przyrost" value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
     }
     {
       <FieldView key="DamageTaken" name="Obrażenia" value={Math.abs(input.damageTaken)} valueClassName='text-red-500' />

@@ -76,13 +76,13 @@ export default function AddCharacterView()
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 
                 <p className='text-xl text-center text-primary pt-8 font-semibold '>
-                    Create new character by providing name and description
+                    Stwórz nową postać podając nazwę i opis
                 </p>
 
                 <InputFormField<AddCharacterHeaderType> 
                     name="name" 
                     control={form.control} 
-                    inputPlaceholder="name..." 
+                    inputPlaceholder="nazwa..." 
                     inputClassName="w-xl"
                 />
 
@@ -92,7 +92,7 @@ export default function AddCharacterView()
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Textarea placeholder="description..." className="resize-none" {...field} />
+                                <Textarea placeholder="opis..." className="resize-none" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
