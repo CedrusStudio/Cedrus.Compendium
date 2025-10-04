@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/card';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import FieldView from '@/components/character/FieldView';
+import FieldView from "@/components/global/fields/FieldView";
 import { useState } from 'react';
-import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
+import FieldViewWithInfo from "@/components/global/fields/FieldViewWithInfo";
 import ChangeButtons from '@/components/global/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
 import { translateReductions } from '@/domain/data/translations';

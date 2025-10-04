@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import FieldView from "../FieldView";
+import FieldView from "@/components/global/fields/FieldView";
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
 {  

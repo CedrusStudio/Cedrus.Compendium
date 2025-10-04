@@ -5,12 +5,12 @@ import {
   CardContent,
   CardTitle,
 } from '@/components/ui/card';
-import FieldView from '@/components/character/FieldView';
+import FieldView from '@/components/global/fields/FieldView';
 import { useState } from 'react';
 import { Health } from '@/domain/Character';
 import ChangeButtons from '@/components/global/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
-import FieldViewWithInfo from '../FieldViewWithInfo';
+import FieldViewWithInfo from '@/components/global/fields/FieldViewWithInfo';
 import { namingConventions } from '@/domain/data/namingConventions';
 
 type BarrierCardProps = 

@@ -7,8 +7,8 @@ import {
   CardContent,
   CardTitle,
 } from '@/components/ui/card';
-import FieldView from '@/components/character/FieldView';
-import FieldViewWithInfo from '@/components/character/FieldViewWithInfo';
+import FieldView from '@/components/global/fields/FieldView';
+import FieldViewWithInfo from '@/components/global/fields/FieldViewWithInfo';
 import { useState } from 'react';
 import ChangeButtons from '@/components/global/buttons/ChangeButtons';
 import { Label } from '@/components/ui/label';
