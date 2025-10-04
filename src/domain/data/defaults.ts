@@ -11,7 +11,14 @@ export const defaultWeaponOffense: WeaponOffense =
   grade: 3,
   bonus: 0,
   critical: { power: 0, range: 0 }
-};
+} as const;
+
+export const CreateWeaponOffense = (): WeaponOffense => ({
+  amount: 1,
+  grade: 3,
+  bonus: 0,
+  critical: { power: 0, range: 0 }
+});
 
 export const defaultManeuver: Maneuver =
 { 

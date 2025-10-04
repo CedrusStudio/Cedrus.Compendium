@@ -13,4 +13,8 @@ export const namingConventions =
     characteristics: "Cechy",
     attributes: "Atrybuty",
     statistics: "Statystyki",
+
+    leading: "Wiodąca",
+    secondary: "Wtórna",
+    damageBonus: "Bonus"
 } as const;

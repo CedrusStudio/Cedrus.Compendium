@@ -1,7 +1,7 @@
 "use client";
 
 import { DamageOffense, Offense, WeaponOffense } from '@/domain/Character';
-import { defaultWeaponOffense } from '@/domain/data/defaults';
+import { CreateWeaponOffense, defaultWeaponOffense } from '@/domain/data/defaults';
 
 import {
   Card,
@@ -19,9 +19,10 @@ import { PathsFrom } from '@/utils/global/pathTypes';
 import { useDamageOffenseForm } from '@/components/character/edit/combat/useDamageOffenseForm';
 import { useWeaponOffenseForm } from '@/components/character/edit/combat/useWeaponOffenseForm';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import RemoveButton from '@/components/ui/RemoveButton';
 import { LuPlus } from 'react-icons/lu';
+import { resolveSetState } from '@/utils/global/resolveSetState';
 
 type StatsRoot = Pick<UpsertCharacterCombatType, "offense">;
 export type WeaponOffensePath = PathsFrom<StatsRoot, WeaponOffense | undefined>;
@@ -97,12 +98,31 @@ function EditSecondaryWeaponOffenseSubcard({ control, offense }: EditSecondaryWe
     defaultValue: offense.secondaryWeapon
   });
 
-  const weaponOffenseToUse = field.value || defaultWeaponOffense;
-  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, weaponOffenseToUse);
+  const updateField = (updater: (current: WeaponOffense) => WeaponOffense) => field.onChange(updater(field.value ?? CreateWeaponOffense()));
+
+  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = 
+  {
+    power: field.value?.critical.power,
+    setPower: (val: React.SetStateAction<number>) => updateField(current => ({...current, critical: { ...current.critical, power: resolveSetState(val, current.critical.power) }})),
+    
+    range: field.value?.critical.range,
+    setRange: (val: React.SetStateAction<number>) => updateField(current => ({...current, critical: { ...current.critical, range: resolveSetState(val, current.critical.range) }})),
+
+    amount: field.value?.amount,
+    setAmount: (val: React.SetStateAction<number>) => updateField(current => ({...current, amount: resolveSetState(val, current.amount) })),
+    
+    grade: field.value?.grade,
+    setGrade: (val: React.SetStateAction<number>) => updateField(current => ({...current, grade: resolveSetState(val, current.grade) })),
+    
+    bonus: field.value?.bonus,
+    setBonus: (val: React.SetStateAction<number>) =>  updateField(current => ({...current, bonus: resolveSetState(val, current.bonus) })),
+    
+    resetAll: () => field.onChange(offense.secondaryWeapon ?? CreateWeaponOffense())
+  };
 
   const handleAddSecondary = () => 
   {
-    field.onChange(defaultWeaponOffense);
+    field.onChange(CreateWeaponOffense());
     setShowSecondary(true);
   };
 
@@ -117,7 +137,7 @@ function EditSecondaryWeaponOffenseSubcard({ control, offense }: EditSecondaryWe
     );
   }
 
-  const newOffense = { amount, grade, bonus, critical: { power, range } };
+  const newOffense = { amount, grade, bonus, critical: { power, range } } as WeaponOffense;
   const removeButton = <RemoveButton name={weaponOffensePath} variant={`${secondaryOffenseExists ? 'destructive' : 'outline'}`} control={control} callback={() => setShowSecondary(false)} />;
 
   return (
@@ -175,7 +195,7 @@ function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalVie
 
         <div className='flex items-center'>
             <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-yellow-300">
-                {calculatedRange}
+              {calculatedRange}
             </Badge>
             <VerticalChangeButtons setValue={setRange} />
         </div>

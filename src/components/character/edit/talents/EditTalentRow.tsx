@@ -22,13 +22,14 @@ export type AllowedTalentRoots = "grade" | "bonus";
 type EditTalentRowProps = 
 {
   row: Row<Talent>;
+  initialTalent: Talent;
   formTalent: Talent;
   index: number;
   update: UseFieldArrayUpdate<UpsertCharacterTalentsType, "talents">;
   remove: UseFieldArrayRemove;
 }
 
-export default function EditTalentRow({ row, formTalent, index, update, remove }: EditTalentRowProps)
+export default function EditTalentRow({ row, formTalent, initialTalent, index, update, remove }: EditTalentRowProps)
 {
   const updateTalent = (updatedTalent: Talent) => update(index, updatedTalent);
 
@@ -41,13 +42,13 @@ export default function EditTalentRow({ row, formTalent, index, update, remove }
           <TableCell key={cell.id} >
           {
             cell.column.id !== "grade" && cell.column.id !== "bonus"
-            ? flexRender(cell.column.columnDef.cell, cell.getContext())
-            : <EditableCell 
-            name={cell.column.id} 
-            initialTalent={row.original} 
-            talent={formTalent} 
-            setTalentValue={updateTalent} 
-            />
+              ? flexRender(cell.column.columnDef.cell, cell.getContext())
+              : <EditableCell 
+                  name={cell.column.id} 
+                  initialTalent={initialTalent} 
+                  talent={formTalent} 
+                  setTalentValue={updateTalent} 
+                />
           }
           </TableCell>
         )
@@ -86,7 +87,7 @@ function EditableCell({ name, initialTalent, talent, setTalentValue }: EditableC
       {talent[name]}
       <div className="flex items-center">
         <VerticalChangeButtons setValue={setValue} />
-        <ResetButton valuesWithSetters={[[initialTalent[name], setValue]]} />
+        <ResetButton defaultValuesWithSetters={[[initialTalent[name], setValue]]} />
       </div>
     </div>
   );

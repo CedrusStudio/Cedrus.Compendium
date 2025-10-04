@@ -37,7 +37,7 @@ export default function StatisticViewEdit({ name, statistic, icon, control, fiel
             <div>
               <ResetButton 
                 variant='ghost' 
-                valuesWithSetters=
+                defaultValuesWithSetters=
                 {
                   [
                     [statistic.bonus, setBonus],

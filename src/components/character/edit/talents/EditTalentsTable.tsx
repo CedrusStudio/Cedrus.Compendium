@@ -57,9 +57,10 @@ interface DataTableProps
   columns: AccessorKeyColumnDef<Talent>[]
   control: Control<UpsertCharacterTalentsType>;
   isPending: boolean;
+  initialTalents: Talent[];
 }
 
-export function EditTalentsTable({ columns, control, isPending }: DataTableProps) 
+export function EditTalentsTable({ columns, control, isPending, initialTalents }: DataTableProps) 
 {
   const { fields, update, append, remove } = useFieldArray
   ({
@@ -217,7 +218,17 @@ export function EditTalentsTable({ columns, control, isPending }: DataTableProps
           <TableBody>
           {
             table.getRowModel().rows?.length > 0
-              ? table.getRowModel().rows.map(row => <EditTalentRow key={row.original.id} row={row} index={row.index} formTalent={fields[row.index]} update={update} remove={remove} />)
+              ? table.getRowModel().rows.map(row => 
+                  <EditTalentRow 
+                    key={row.original.id} 
+                    row={row} 
+                    index={row.index} 
+                    initialTalent={initialTalents.find(talent => talent.name === row.original.name)!} 
+                    formTalent={fields.find(talent => talent.name === row.original.name)!} 
+                    update={update} 
+                    remove={remove} 
+                  />
+                )
               : <EmptyTable columns={columns} />
           }
           </TableBody>
