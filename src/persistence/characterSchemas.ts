@@ -1,4 +1,4 @@
-import { castTimeValues } from "@/domain/Character";
+import { castTimeValues } from "@/domain/data/castTimes";
 import { z } from "zod";
 
 // Schema for character header (name and description)

@@ -17,7 +17,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { castTimeValues, type Maneuver } from "@/domain/Character";
+import { type Maneuver } from "@/domain/Character";
+import { castTimeValues } from "@/domain/data/castTimes";
 import { CreateDefaultManeuver } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, UseFieldArrayRemove } from "react-hook-form";

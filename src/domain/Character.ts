@@ -1,3 +1,5 @@
+import { CastTime } from "@/domain/data/castTimes";
+
 export type Character =
 {
     id: string;
@@ -211,14 +213,6 @@ export type Equipment =
 export type ItemTypes = "weapon1" | "weapon2" | "weapon3" | "weapon4" | "armor" | "shield" | "horse";
 
 //Maneuvers
-export type CastTime = "Pełnorundowa" | "Standardowa" | "Natychmiastowa" | "Nadnatychmiastowa";
-export const castTimeValues = [
-  "Pełnorundowa",
-  "Standardowa",
-  "Natychmiastowa",
-  "Nadnatychmiastowa",
-] as const satisfies readonly CastTime[];
-
 export type Maneuver =
 {
   name: string;

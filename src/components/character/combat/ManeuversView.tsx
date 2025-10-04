@@ -6,7 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Maneuver, type CastTime } from '@/domain/Character';
+import { Maneuver } from '@/domain/Character';
+import { castTimeColors, getColorClasses, type CastTime } from '@/domain/data/castTimes';
 import FieldViewWithInfo from "@/components/character/FieldViewWithInfo";
 import { LuRefreshCcw } from "react-icons/lu";
 import { GiSwordsEmblem } from "react-icons/gi";
@@ -106,10 +107,10 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
                 <FieldViewWithInfo
                     name={maneuver.name}
                     value={maneuver.grade}
-                    infoContent={`Akcja ${maneuver.castTime.toLowerCase()}. ${maneuver.description}`}
+                    infoContent={<span>Akcja <span className={`${getColorClasses(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
                     className="gap-1"
                     nameClassName='w-4xs'
-                    />
+                />
             </div>
 
             <div className='flex items-center justify-center border rounded-r-md border-l-0'>

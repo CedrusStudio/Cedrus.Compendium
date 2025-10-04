@@ -1,6 +1,6 @@
 import { SelectFormField } from '@/components/ui/SelectFormField';
 import { Label } from "@/components/ui/label"
-import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/Dices';
+import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
 import { Weapon } from '@/domain/Character';
 import { Control } from 'react-hook-form';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
