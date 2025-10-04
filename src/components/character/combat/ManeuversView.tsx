@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Maneuver } from '@/domain/Character';
-import { castTimeColors, getColorClasses, type CastTime } from '@/domain/data/castTimes';
+import { getColorClasses, type CastTime } from '@/domain/data/castTimes';
 import FieldViewWithInfo from "@/components/character/FieldViewWithInfo";
 import { LuRefreshCcw } from "react-icons/lu";
 import { GiSwordsEmblem } from "react-icons/gi";
