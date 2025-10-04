@@ -5,7 +5,7 @@ import { Weapon } from '@/domain/Character';
 import { Control } from 'react-hook-form';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import WeaponAccordionOverview from '@/components/character/WeaponAccordionOverview';
+import WeaponAccordionOverview from '@/components/character/equipment/WeaponAccordionOverview';
 import EditItemSheet from '@/components/character/edit/equipment/EditItemSheet';
 
 type AccordionWeaponItemProps = 

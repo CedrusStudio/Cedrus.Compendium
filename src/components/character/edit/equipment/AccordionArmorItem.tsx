@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import ArmorAccordionOverview from "@/components/character/ArmorAccordionOverview";
+import ArmorAccordionOverview from "@/components/character/equipment/ArmorAccordionOverview";
 import { SelectFormField } from "@/components/ui/SelectFormField";
 import { Armor, protectionValues } from "@/domain/Character";
 import CommonDefensiveItemEditor from "@/components/character/edit/equipment/CommonDefensiveItemEditor";

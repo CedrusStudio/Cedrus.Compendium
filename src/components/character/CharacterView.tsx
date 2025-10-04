@@ -16,7 +16,7 @@ import { columns } from "@/components/character/talents/talentsColumns"
 import { TalentsTable } from "@/components/character/talents/TalentsTable"
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
-import EquipmentAccordion from '@/components/character/EquipmentAccordion';
+import EquipmentAccordion from '@/components/character/equipment/EquipmentAccordion';
 import CharacterHeader from "@/components/character/CharacterHeader";
 import CombatView from '@/components/character/combat/CombatView';
 import Link from 'next/link';

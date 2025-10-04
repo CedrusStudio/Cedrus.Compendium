@@ -5,9 +5,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import WeaponAccordionOverview from '@/components/character/WeaponAccordionOverview';
-import ArmorAccordionOverview from '@/components/character/ArmorAccordionOverview';
-import ShieldAccordionOverview from '@/components/character/ShieldAccordionOverview';
+import WeaponAccordionOverview from '@/components/character/equipment/WeaponAccordionOverview';
+import ArmorAccordionOverview from '@/components/character/equipment/ArmorAccordionOverview';
+import ShieldAccordionOverview from '@/components/character/equipment/ShieldAccordionOverview';
 
 export default function EquipmentAccordion({ equipment }: { equipment: Equipment })
 {
