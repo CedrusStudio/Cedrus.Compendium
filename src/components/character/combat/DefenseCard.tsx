@@ -91,17 +91,13 @@ function DefenseInfoContent(input: { defense: Defense, selectedReductionType: Re
 {
   return (
     <div>
-    {
-      <FieldView key="ReductionIncrease" name={namingConventions.increase} value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' />
-    }
-    {
-      <FieldView key="DamageTaken" name={namingConventions.damage} value={Math.abs(input.damageTaken)} valueClassName='text-red-500' />
-    }
-    {
-      Object.entries(input.defense)
-        .filter(([name, _]) => selectFilter(input.selectedReductionType)(name))
-        .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
-    }
+      { <FieldView name={namingConventions.increase} value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' /> }
+      { <FieldView name={namingConventions.damage} value={Math.abs(input.damageTaken)} valueClassName='text-red-500' /> }
+      {
+        Object.entries(input.defense)
+          .filter(([name, _]) => selectFilter(input.selectedReductionType)(name))
+          .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
+      }
     </div>
   );
 }
