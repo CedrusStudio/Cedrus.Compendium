@@ -86,7 +86,7 @@ function EditableCell({ name, initialTalent, talent, setTalentValue }: EditableC
       {talent[name]}
       <div className="flex items-center">
         <VerticalChangeButtons setValue={setValue} />
-        <ResetButton value={initialTalent[name]} setValue={setValue} />
+        <ResetButton valuesWithSetters={[[initialTalent[name], setValue]]} />
       </div>
     </div>
   );

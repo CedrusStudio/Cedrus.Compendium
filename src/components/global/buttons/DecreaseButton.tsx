@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { decrease } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
 import { cn } from "@/lib/utils";
 import { FiMinus } from "react-icons/fi";
@@ -27,4 +26,17 @@ export default function DecreaseButton({ value, setValue, variant = "outline", c
       {icon || <FiMinus />}
     </Button>
   );
+};
+
+const decrease = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
+{
+    setStateAction
+    (
+        previousValue => 
+        {
+            const newValue = previousValue - changeBy;
+            sideEffect?.(newValue);
+            return newValue;
+        }
+    );
 };

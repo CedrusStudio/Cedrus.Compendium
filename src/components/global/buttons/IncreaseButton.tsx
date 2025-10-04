@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { increase } from "@/utils/adjustValues";
 import { type VariantType } from "@/utils/VariantType";
 import { cn } from "@/lib/utils";
 import { IoAdd } from "react-icons/io5";
@@ -27,4 +26,17 @@ export default function IncreaseButton({ value, setValue, variant = "outline", c
         {icon || <IoAdd />}
     </Button>
   );
+};
+
+const increase = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
+{
+    setStateAction
+    (
+        previousValue => 
+        {
+            const newValue = previousValue + changeBy;
+            sideEffect?.(newValue);
+            return newValue;
+        }
+    );
 };

@@ -18,7 +18,7 @@ export default function ChangeButtons({ value, setValue, setChangeAmount, resetV
         <ChangeAmountInput value={value} setValue={setChangeAmount} />
         <DecreaseButton value={value} setValue={setValue} />
         <IncreaseButton value={value} setValue={setValue} />
-        <ResetButton value={resetValue} setValue={setValue} />
+        <ResetButton valuesWithSetters={[[resetValue, setValue]]} />
     </div>
   );
 };

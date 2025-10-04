@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tooltip"
 import { Badge } from "@/components/ui/badge";
 import VerticalChangeButtons from "@/components/global/buttons/VerticalChangeButtons";
-import ResetMultipleButton from "@/components/global/buttons/ResetMultipleButton";
+import ResetButton from "@/components/global/buttons/ResetButton";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { StatisticPath } from "@/components/character/edit/statistics/StatisticsCardEdit";
@@ -35,7 +35,7 @@ export default function StatisticViewEdit({ name, statistic, icon, control, fiel
         <Tooltip>
           <TooltipTrigger asChild>
             <div>
-              <ResetMultipleButton 
+              <ResetButton 
                 variant='ghost' 
                 valuesWithSetters=
                 {
