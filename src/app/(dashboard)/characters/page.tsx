@@ -1,4 +1,5 @@
-import CharactersGrid from "@/components/character/CharactersGrid";
+import CharactersGrid from "@/components/character/grid/CharactersGrid";
+import CharactersGridSkeleton from "@/components/character/grid/CharactersGridSkeleton";
 import { searchCharacter, getAllCharacters } from "@/persistence/characterRepository";
 import {
   dehydrate,
@@ -7,7 +8,6 @@ import {
 } from '@tanstack/react-query';
 import { Character } from "@/domain/Character";
 import { Suspense } from 'react';
-import CharactersGridSkeleton from "@/components/character/CharactersGridSkeleton";
 import { getCharacterQueryKey } from "@/persistence/cacheKeys";
 import { getSearchQuery } from "@/utils/global/httpUtils";
 

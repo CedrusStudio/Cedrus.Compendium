@@ -7,14 +7,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
 import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { useFormMutation } from '@/hooks/useFormMutation';
-import AccordionShieldItem from '@/components/character/edit/equipment/AccordionShieldItem';
-import AccordionWeaponItem from '@/components/character/edit/equipment/AccordionWeaponItem';
-import AccordionArmorItem from '@/components/character/edit/equipment/AccordionArmorItem';
+import EditShieldView from '@/components/character/edit/equipment/EditShieldView';
+import EditWeaponView from '@/components/character/edit/equipment/EditWeaponView';
+import EditArmorView from '@/components/character/edit/equipment/EditArmorView';
 import bffClient from '@/infrastructure/bffClient';
 
 const equipmentFormName = "edit-equipment-form";
 
-export default function CharacterEquipmentEdit(input: { character: Character })
+export default function EditEquipmentView(input: { character: Character })
 {
   const initialValues: UpsertCharacterEquipmentType = input.character.equipment;
   const form = useForm<UpsertCharacterEquipmentType>
@@ -41,13 +41,13 @@ export default function CharacterEquipmentEdit(input: { character: Character })
 
         <Accordion type="single" collapsible>
 
-          <AccordionWeaponItem equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon1} control={form.control} weaponNumber={1} isPending={isPending} />
-          { input.character.equipment.weapon2 && <AccordionWeaponItem equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon2} control={form.control} weaponNumber={2} isPending={isPending} /> }
-          { input.character.equipment.weapon3 && <AccordionWeaponItem equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon3} control={form.control} weaponNumber={3} isPending={isPending} /> }
-          { input.character.equipment.weapon4 && <AccordionWeaponItem equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon4} control={form.control} weaponNumber={4} isPending={isPending} /> }
+          <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon1} control={form.control} weaponNumber={1} isPending={isPending} />
+          { input.character.equipment.weapon2 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon2} control={form.control} weaponNumber={2} isPending={isPending} /> }
+          { input.character.equipment.weapon3 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon3} control={form.control} weaponNumber={3} isPending={isPending} /> }
+          { input.character.equipment.weapon4 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon4} control={form.control} weaponNumber={4} isPending={isPending} /> }
 
-          <AccordionArmorItem equipmentFormName={equipmentFormName} armor={input.character.equipment.armor} control={form.control} isPending={isPending} />
-          <AccordionShieldItem equipmentFormName={equipmentFormName} shield={input.character.equipment.shield} control={form.control} isPending={isPending} />
+          <EditArmorView equipmentFormName={equipmentFormName} armor={input.character.equipment.armor} control={form.control} isPending={isPending} />
+          <EditShieldView equipmentFormName={equipmentFormName} shield={input.character.equipment.shield} control={form.control} isPending={isPending} />
 
           {
             input.character.equipment.magicEquipment.map(item => (

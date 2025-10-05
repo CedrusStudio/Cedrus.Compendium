@@ -13,10 +13,10 @@ import {
 } from "@/components/ui/alert-dialog"
 import CharacterStatistics from '@/components/character/statistics/CharacterStatistics';
 import { columns } from "@/components/character/talents/talentsColumns"
-import { TalentsTable } from "@/components/character/talents/TalentsTable"
+import { TalentsView } from "@/components/character/talents/TalentsView"
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
-import EquipmentAccordion from '@/components/character/equipment/EquipmentAccordion';
+import EquipmentView from '@/components/character/equipment/EquipmentView';
 import CombatView from '@/components/character/combat/CombatView';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -28,7 +28,7 @@ import { useGetCharacterById } from './hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
 import { namingConventions } from "@/domain/data/namingConventions";
-import { Character } from "@/domain/Character";
+import CharacterOverview from "@/components/character/CharacterOverview";
 
 type CharacterViewProps = 
 {
@@ -75,7 +75,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
             <div className='row-span-14 mx-4'>
                 <TabsContent value="character">
-                    <CharacterHeader character={character} />
+                    <CharacterOverview character={character} />
                 </TabsContent>
 
                 <TabsContent value="combat">
@@ -83,11 +83,11 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 </TabsContent>
 
                 <TabsContent value="talents">
-                    <TalentsTable columns={columns} data={character.talents ?? []} />
+                    <TalentsView columns={columns} data={character.talents ?? []} />
                 </TabsContent>
 
                 <TabsContent value="equipment">
-                    <EquipmentAccordion equipment={character.equipment} />
+                    <EquipmentView equipment={character.equipment} />
                 </TabsContent>
             </div>
 
@@ -95,18 +95,6 @@ export default function CharacterView({ tab }: CharacterViewProps)
     </div>
   );
 };
-
-const CharacterHeader = (input: { character: Character }) => (
-    <div className="flex flex-col justify-around">
-        <h1 className='text-xl text-center font-semibold text-primary pt-2 pb-8 capitalize'>
-            {input.character.name}
-        </h1>
-        <span className='text-md text-center text-primary pb-12 capitalize'>
-            {input.character.description}
-        </span>
-    </div>
-);
-
 
 function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { id: string; activeTab: CharacterTabs | undefined; isPending: boolean; deleteCharacter: (id: string) => void })
 {

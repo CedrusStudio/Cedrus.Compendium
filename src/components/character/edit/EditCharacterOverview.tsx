@@ -26,7 +26,7 @@ const initialValues: UpsertCharacterHeaderType =
     description: "",
 };
 
-export default function CharacterDescriptionEdit(input: { character: Character })
+export default function EditCharacterOverview(input: { character: Character })
 {
     const form = useForm<UpsertCharacterHeaderType>
     ({

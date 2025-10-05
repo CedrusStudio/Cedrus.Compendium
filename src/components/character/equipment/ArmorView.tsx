@@ -1,16 +1,16 @@
 import { Armor } from "@/domain/Character";
 import { AccordionContent } from "@radix-ui/react-accordion";
-import CommonDefensiveItemOverview from "@/components/character/equipment/CommonDefensiveItemOverview";
+import DefensiveItemView from "@/components/character/equipment/DefensiveItemView";
 
-export default function ArmorAccordionOverview({ armor }: { armor: Armor })
+export default function ArmorView({ armor }: { armor: Armor })
 {
   return (
     <AccordionContent className='flex flex-col gap-2'>
-      <CommonDefensiveItemOverview defensiveItem={armor}>
+      <DefensiveItemView defensiveItem={armor}>
         <div>
           <span className='font-semibold'>Pancerz:</span> {armor.protection}
         </div>
-    </CommonDefensiveItemOverview>
+    </DefensiveItemView>
     </AccordionContent>
   )
 }

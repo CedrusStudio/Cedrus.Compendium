@@ -45,7 +45,7 @@ interface DataTableProps
   data: Talent[],
 }
 
-export function TalentsTable({ columns, data }: DataTableProps) 
+export function TalentsView({ columns, data }: DataTableProps) 
 {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

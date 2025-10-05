@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import TabsTriggerCapitalized from '@/components/ui/TabsTriggerCapitalized';
 import { RiArrowGoBackFill } from "react-icons/ri";
-import CharacterDescriptionEdit from '@/components/character/edit/CharacterDescriptionEdit';
+import EditCharacterOverview from '@/components/character/edit/EditCharacterOverview';
 import CharacterStatisticsEdit from '@/components/character/edit/statistics/CharacterStatisticsEdit';
 import CharacterTalentsEdit from '@/components/character/edit/talents/CharacterTalentsEdit';
-import CharacterEquipmentEdit from '@/components/character/edit/equipment/CharacterEquipmentEdit';
+import EditEquipmentView from '@/components/character/edit/equipment/EditEquipmentView';
 import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/utils/tabsUtils";
 import EditCharacterCombat from "@/components/character/edit/combat/EditCharacterCombat";
@@ -56,7 +56,7 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
             </TabsContent>
 
             <TabsContent value="character">
-                <CharacterDescriptionEdit character={character} />
+                <EditCharacterOverview character={character} />
             </TabsContent>
 
             <TabsContent value="combat">
@@ -68,7 +68,7 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
             </TabsContent>
 
             <TabsContent value="equipment">
-                <CharacterEquipmentEdit character={character} />
+                <EditEquipmentView character={character} />
             </TabsContent>
         </div>
 

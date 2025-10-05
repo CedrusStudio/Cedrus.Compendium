@@ -7,10 +7,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import ArmorAccordionOverview from "@/components/character/equipment/ArmorAccordionOverview";
+import ArmorView from "@/components/character/equipment/ArmorView";
 import { SelectFormField } from "@/components/ui/SelectFormField";
 import { Armor, protectionValues } from "@/domain/Character";
-import CommonDefensiveItemEditor from "@/components/character/edit/equipment/CommonDefensiveItemEditor";
+import EditDefensiveItemView from "@/components/character/edit/equipment/EditDefensiveItemView";
 
 type AccordionWeaponItemProps = 
 {
@@ -20,13 +20,13 @@ type AccordionWeaponItemProps =
   isPending: boolean;
 };
 
-export default function AccordionArmorItem({ equipmentFormName, armor, control, isPending }: AccordionWeaponItemProps)
+export default function EditArmorView({ equipmentFormName, armor, control, isPending }: AccordionWeaponItemProps)
 {
     return (
     <AccordionItem value="armor">
         <AccordionTrigger>{armor.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
-            <ArmorAccordionOverview armor={armor} />
+            <ArmorView armor={armor} />
             <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} control={control} isPending={isPending} />
         </AccordionContent>
     </AccordionItem>
@@ -54,7 +54,7 @@ function EditArmorSheet({ equipmentFormName, armor, control, isPending }: Accord
 
         </div>
 
-      <CommonDefensiveItemEditor control={control} defensiveItem="armor" />
+      <EditDefensiveItemView control={control} defensiveItem="armor" />
     </EditItemSheet>
   )
 }

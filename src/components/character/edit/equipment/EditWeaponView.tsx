@@ -5,7 +5,7 @@ import { Weapon } from '@/domain/Character';
 import { Control } from 'react-hook-form';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import WeaponAccordionOverview from '@/components/character/equipment/WeaponAccordionOverview';
+import WeaponView from '@/components/character/equipment/WeaponView';
 import EditItemSheet from '@/components/character/edit/equipment/EditItemSheet';
 
 type AccordionWeaponItemProps = 
@@ -17,13 +17,13 @@ type AccordionWeaponItemProps =
   isPending: boolean;
 };
 
-export default function AccordionWeaponItem({ equipmentFormName, weapon, control, weaponNumber, isPending }: AccordionWeaponItemProps)
+export default function EditWeaponView({ equipmentFormName, weapon, control, weaponNumber, isPending }: AccordionWeaponItemProps)
 {
   return (
     <AccordionItem value={`weapon${weaponNumber}`}>
         <AccordionTrigger>{weapon.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
-          <WeaponAccordionOverview weapon={weapon} />
+          <WeaponView weapon={weapon} />
           <EditWeaponSheet equipmentFormName={equipmentFormName} weapon={weapon} control={control} weaponNumber={weaponNumber} isPending={isPending} />
         </AccordionContent>
     </AccordionItem>

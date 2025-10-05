@@ -10,7 +10,7 @@ type CommonDefensiveItemEditorProps =
   control: Control<UpsertCharacterEquipmentType>;
 }
 
-export default function CommonDefensiveItemEditor({ control, defensiveItem }: CommonDefensiveItemEditorProps)
+export default function EditDefensiveItemView({ control, defensiveItem }: CommonDefensiveItemEditorProps)
 {
   return (
     <div className="grid auto-rows-min gap-3 px-4">

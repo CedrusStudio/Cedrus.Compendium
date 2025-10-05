@@ -7,7 +7,7 @@ type CommonDefensiveItemOverviewProps =
   defensiveItem: Shield | Armor;
 }
 
-export default function CommonDefensiveItemOverview({ defensiveItem, children }: PropsWithChildren<CommonDefensiveItemOverviewProps>)
+export default function DefensiveItemView({ defensiveItem, children }: PropsWithChildren<CommonDefensiveItemOverviewProps>)
 {
   return (
     <AccordionContent className='flex flex-col gap-2'>

@@ -1,7 +1,7 @@
 import { Weapon } from "@/domain/Character";
 import { AccordionContent } from "@radix-ui/react-accordion";
 
-export default function WeaponAccordionOverview({ weapon }: { weapon: Weapon }) 
+export default function WeaponView({ weapon }: { weapon: Weapon }) 
 {
   return (
     <AccordionContent className='flex flex-col gap-2'>
