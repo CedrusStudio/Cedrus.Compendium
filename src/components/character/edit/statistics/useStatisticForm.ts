@@ -1,7 +1,6 @@
 import { Statistic } from "@/domain/Character";
-import { useFormField } from "@/hooks/useFormField";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
+import { Control, useController } from "react-hook-form";
 import { StatisticPath } from "@/components/character/edit/statistics/StatisticsCardEdit";
 import { setWithSideEffect } from "@/utils/global/setterUtils";
 import { useState } from "react";
@@ -18,10 +17,10 @@ export function useStatisticForm
   const [bonus, setBonus] = useState(defaults.bonus);
   const [testBonus, setTestBonus] = useState(defaults.testBonus);
 
-  const gradeField = useFormField(control, `${fieldPath}.grade`, defaults.grade);
-  const valueField = useFormField(control, `${fieldPath}.value`, defaults.value);
-  const bonusField = useFormField(control, `${fieldPath}.bonus`, defaults.bonus);
-  const testBonusField = useFormField(control, `${fieldPath}.testBonus`, defaults.testBonus);
+  const { field: gradeField } = useController({ name: `${fieldPath}.grade`, control, defaultValue: defaults.grade });
+  const { field: valueField } = useController({ name: `${fieldPath}.value`, control, defaultValue: defaults.value });
+  const { field: bonusField } = useController({ name: `${fieldPath}.bonus`, control, defaultValue: defaults.bonus });
+  const { field: testBonusField } = useController({ name: `${fieldPath}.testBonus`, control, defaultValue: defaults.testBonus });
 
   return { 
     grade,

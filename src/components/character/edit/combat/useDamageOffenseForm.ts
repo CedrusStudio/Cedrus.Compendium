@@ -1,7 +1,6 @@
 import { DamageOffense } from "@/domain/Character";
-import { useFormField } from "@/hooks/useFormField";
 import { type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
+import { Control, useController } from "react-hook-form";
 import { type DamageOffensePath } from "@/components/character/edit/combat/EditOffenseCard";
 import { setWithSideEffect } from "@/utils/global/setterUtils";
 import { useState } from "react";
@@ -17,9 +16,9 @@ export function useDamageOffenseForm
   const [grade, setGrade] = useState(defaults.grade);
   const [bonus, setBonus] = useState(defaults.bonus);
 
-  const amountField = useFormField(control, `${fieldPath}.amount`, defaults.amount);
-  const gradeField = useFormField(control, `${fieldPath}.grade`, defaults.grade);
-  const bonusField = useFormField(control, `${fieldPath}.bonus`, defaults.bonus);
+  const { field: amountField } = useController({ name: `${fieldPath}.amount`, control, defaultValue: defaults.amount });
+  const { field: gradeField } = useController({ name: `${fieldPath}.grade`, control, defaultValue: defaults.grade });
+  const { field: bonusField } = useController({ name: `${fieldPath}.bonus`, control, defaultValue: defaults.bonus });
 
   const resetAll = () =>
   {
