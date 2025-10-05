@@ -1,0 +1,77 @@
+"use client";
+
+import { Tabs, TabsContent, TabsList } from "@/ui/tabs"
+import { Separator } from '@/ui/separator';
+import Link from 'next/link';
+import { Button } from '@/ui/button';
+import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
+import { RiArrowGoBackFill } from "react-icons/ri";
+import EditCharacterOverview from '@/application/characters/edit/EditCharacterOverview';
+import CharacterStatisticsEdit from '@/application/characters/edit/statistics/CharacterStatisticsEdit';
+import CharacterTalentsEdit from '@/application/characters/edit/talents/CharacterTalentsEdit';
+import EditEquipmentView from '@/application/characters/edit/equipment/EditEquipmentView';
+import { useState } from "react";
+import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
+import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
+import { useGetCharacterById } from "../hooks/useGetCharacterById";
+
+type EditCharacterProps =
+{
+    tab: CharacterTabs;
+}
+
+export default function EditCharacterView({ tab }: EditCharacterProps)
+{
+  const { character } = useGetCharacterById();
+  const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? "character");
+  
+  return (
+    <Tabs 
+        defaultValue={tab} 
+        onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
+        className='col-span-8 lg:col-span-10 grid grid-rows-15'
+    >
+
+        <div className='row-span-1'>
+            <div className='flex flex-row justify-between items-center'>
+                <TabsList className='mb-4'>
+                    <TabsTriggerCapitalized value="statistics" overrideValue='Statystyki' />
+                    <TabsTriggerCapitalized value="character" overrideValue='Postać' />
+                    <TabsTriggerCapitalized value="combat" overrideValue='Walka' />
+                    <TabsTriggerCapitalized value="talents" overrideValue='Umiejętności' />
+                    <TabsTriggerCapitalized value="equipment" overrideValue='Ekwipunek' />
+                </TabsList>
+
+                <Button asChild variant="default" size="icon" className='m-4'>
+                    <Link href={`/characters/${character.id}?tab=${activeTab}`}><RiArrowGoBackFill /></Link>
+                </Button>
+            </div>    
+
+            <Separator />
+        </div>
+
+        <div className='row-span-14 mx-4'>
+            <TabsContent value="statistics">
+                <CharacterStatisticsEdit character={character} />
+            </TabsContent>
+
+            <TabsContent value="character">
+                <EditCharacterOverview character={character} />
+            </TabsContent>
+
+            <TabsContent value="combat">
+                <EditCharacterCombat character={character} />
+            </TabsContent>
+
+            <TabsContent value="talents">
+                <CharacterTalentsEdit character={character} />
+            </TabsContent>
+
+            <TabsContent value="equipment">
+                <EditEquipmentView character={character} />
+            </TabsContent>
+        </div>
+
+    </Tabs>
+  );
+};

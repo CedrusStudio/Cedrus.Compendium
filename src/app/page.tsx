@@ -1,6 +1,6 @@
 import Image from "next/image";
 import LandingImg from "../assets/main.png";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/button";
 import Link from "next/link";
 
 export default function HomePage() 

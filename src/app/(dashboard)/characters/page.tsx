@@ -1,5 +1,5 @@
-import CharactersGrid from "@/components/character/grid/CharactersGrid";
-import CharactersGridSkeleton from "@/components/character/grid/CharactersGridSkeleton";
+import CharactersGrid from "@/application/characters/grid/CharactersGrid";
+import CharactersGridSkeleton from "@/application/characters/grid/CharactersGridSkeleton";
 import { searchCharacter, getAllCharacters } from "@/persistence/characterRepository";
 import {
   dehydrate,

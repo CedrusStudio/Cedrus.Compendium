@@ -1,5 +1,5 @@
-import Navbar from "@/components/global/navbar/Navbar";
-import { Separator } from "@/components/ui/separator";
+import Navbar from "@/common/components/navbar/Navbar";
+import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 
 export default function layout({children}: PropsWithChildren)

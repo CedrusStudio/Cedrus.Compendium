@@ -5,7 +5,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { isCharacterTab } from '@/common/tabsUtils';
-import EditCharacterView from '@/components/character/edit/EditCharacterView';
+import EditCharacterView from '@/application/characters/edit/EditCharacterView';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 
 type EditCharacterProps = 
