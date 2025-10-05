@@ -35,7 +35,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Talent } from "@/domain/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
-import { Control, useFieldArray } from "react-hook-form"
+import { Control, useFieldArray, useFormContext } from "react-hook-form"
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow"
 import { talentCategories } from "@/domain/data/categories"
 import { defaultColumnKeys } from "../../talents/defaultColumns"
@@ -53,13 +53,13 @@ declare module '@tanstack/table-core'
 interface DataTableProps
 {
   columns: AccessorKeyColumnDef<Talent>[]
-  control: Control<UpsertCharacterTalentsType>;
   isPending: boolean;
   initialTalents: Talent[];
 }
 
-export function EditTalentsTable({ columns, control, isPending, initialTalents }: DataTableProps) 
+export function EditTalentsTable({ columns, initialTalents }: DataTableProps) 
 {
+  const { control } = useFormContext<UpsertCharacterTalentsType>();
   const { fields, update, remove } = useFieldArray
   ({
     name: "talents",
