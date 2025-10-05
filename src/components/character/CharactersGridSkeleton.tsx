@@ -19,11 +19,11 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function CharacterGridSkeleton()
+export default function CharactersGridSkeleton()
 {
   return (
     <>
-        <Pagination className='flex justify-center mt-4'>
+      <Pagination className='flex justify-center mt-4'>
 
         <PaginationContent>
           
@@ -49,29 +49,27 @@ export default function CharacterGridSkeleton()
         </PaginationContent>
       </Pagination>
 
-    <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
-    {
-      Array.from({ length: 12 }).map((_, index) => (
-        <Card className='bg-muted' key={index}>
-        <CardHeader className='-my-1.5'>
-            <CardTitle className='text-2xl flex justify-between'>
-            <Skeleton className='h-2 w-1/2 ' />
-            </CardTitle>
-        </CardHeader>
+      <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
+      {
+        Array.from({ length: 12 }).map((_, index) => (
+          <Card className='bg-muted' key={index}>
+          <CardHeader className='-my-1.5'>
+              <CardTitle className='text-2xl flex justify-between'>
+              <Skeleton className='h-2 w-1/2 ' />
+              </CardTitle>
+          </CardHeader>
 
-        <Separator />
+          <Separator />
 
-        <CardContent className='-mt-1'>
-            <CardDescription className='text-justify'>
-            <Skeleton className='h-20 w-full' />
-            </CardDescription>
-        </CardContent>
-        </Card>
-      ))
-    }
-    </div>
-
-
+          <CardContent className='-mt-1'>
+              <CardDescription className='text-justify'>
+              <Skeleton className='h-20 w-full' />
+              </CardDescription>
+          </CardContent>
+          </Card>
+        ))
+      }
+      </div>
     </>
   );
 }

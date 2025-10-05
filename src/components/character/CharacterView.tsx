@@ -17,7 +17,6 @@ import { TalentsTable } from "@/components/character/talents/TalentsTable"
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
 import { Separator } from '@/components/ui/separator';
 import EquipmentAccordion from '@/components/character/equipment/EquipmentAccordion';
-import CharacterHeader from "@/components/character/CharacterHeader";
 import CombatView from '@/components/character/combat/CombatView';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -29,6 +28,7 @@ import { useGetCharacterById } from './hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
 import { namingConventions } from "@/domain/data/namingConventions";
+import { Character } from "@/domain/Character";
 
 type CharacterViewProps = 
 {
@@ -95,6 +95,18 @@ export default function CharacterView({ tab }: CharacterViewProps)
     </div>
   );
 };
+
+const CharacterHeader = (input: { character: Character }) => (
+    <div className="flex flex-col justify-around">
+        <h1 className='text-xl text-center font-semibold text-primary pt-2 pb-8 capitalize'>
+            {input.character.name}
+        </h1>
+        <span className='text-md text-center text-primary pb-12 capitalize'>
+            {input.character.description}
+        </span>
+    </div>
+);
+
 
 function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { id: string; activeTab: CharacterTabs | undefined; isPending: boolean; deleteCharacter: (id: string) => void })
 {

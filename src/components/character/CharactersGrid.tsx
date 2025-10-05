@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo } from 'react';
-import CharacterCard from '@/components/character/CharacterCard';
 import {
   Pagination,
   PaginationContent,
@@ -12,6 +11,20 @@ import {
 } from "@/components/ui/pagination";
 import { useSearchCharacters } from '@/components/character/hooks/useSearchCharacters';
 import { usePagination } from '@/hooks/usePagination';
+import { Character } from '@/domain/Character';
+import Link from 'next/link';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { useDispatch } from 'react-redux';
+import { actions } from '@/persistence/characterSlice';
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 type CharactersGridParams =
 {
@@ -33,7 +46,7 @@ export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
 
   return (
     <>
-    <Pagination className='flex justify-center mt-4'>
+      <Pagination className='flex justify-center mt-4'>
 
         <PaginationContent>
           
@@ -43,7 +56,7 @@ export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
               onClick={(e) => { e.preventDefault(); goTo(clampedPage - 1); }}
             />
           </PaginationItem>
-          
+            
           {
             Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
               <PaginationItem key={pageNumber}>
@@ -84,3 +97,30 @@ function NoCharacters()
     </div>
   );
 }
+
+function CharacterCard({ character }: { character: Character })
+{
+  const dispatch = useDispatch()
+
+  return (
+    <Card className='bg-muted'>
+      
+      <CardHeader className='-my-1.5'>
+        <CardTitle className='text-2xl flex justify-between'>
+          {character.name}
+
+          <Button asChild size="icon" className='mt-0.5' onClick={() => dispatch(actions.clearCharacterNavbarSearch())}>
+              <Link href={`/characters/${character.id}`}><FaMagnifyingGlass /></Link>
+          </Button>
+        </CardTitle>
+      </CardHeader>
+
+      <Separator />
+
+      <CardContent className='-mt-1'>
+        <CardDescription className='text-justify'>{character.description}</CardDescription>
+      </CardContent>
+      
+    </Card>
+  );
+};
