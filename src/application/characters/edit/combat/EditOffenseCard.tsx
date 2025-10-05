@@ -1,7 +1,7 @@
 "use client";
 
 import { DamageOffense, Offense, WeaponOffense } from '@/domain/characters/Character';
-import { CreateWeaponOffense, defaultWeaponOffense } from '@/domain/data/defaults';
+import { CreateWeaponOffense } from '@/domain/data/defaults';
 
 import {
   Card,
@@ -11,7 +11,7 @@ import {
 } from '@/ui/card';
 
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control, useController } from "react-hook-form";
+import { Control, useController, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
@@ -19,7 +19,7 @@ import { PathsFrom } from '@/common/global/pathTypes';
 import { useDamageOffenseForm } from '@/application/characters/edit/combat/useDamageOffenseForm';
 import { useWeaponOffenseForm } from '@/application/characters/edit/combat/useWeaponOffenseForm';
 import { Button } from '@/ui/button';
-import { Dispatch, useState } from 'react';
+import { useState } from 'react';
 import RemoveButton from '@/ui/RemoveButton';
 import { LuPlus } from 'react-icons/lu';
 import { resolveSetState } from '@/common/global/resolveSetState';
@@ -31,10 +31,9 @@ export type DamageOffensePath = Exclude<PathsFrom<StatsRoot, DamageOffense>, Wea
 type EditOffenseCardProps =
 {
   offense: Offense;
-  control: Control<UpsertCharacterCombatType>;
 }
 
-export default function EditOffenseCard({ offense, control }: EditOffenseCardProps)
+export default function EditOffenseCard({ offense }: EditOffenseCardProps)
 {
   return (
     <Card className='bg-muted'>
@@ -46,9 +45,9 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
       </CardHeader>
 
       <CardContent className={ 'grid grid-cols-1 gap-1 md:grid-cols-9' }>
-        <EditLeadingWeaponOffenseSubcard offense={offense} control={control}/>
-        <EditSecondaryWeaponOffenseSubcard offense={offense} control={control} />
-        <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} control={control} />
+        <EditLeadingWeaponOffenseSubcard offense={offense} />
+        <EditSecondaryWeaponOffenseSubcard offense={offense} />
+        <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} />
       </CardContent>
       
     </Card>
@@ -58,12 +57,12 @@ export default function EditOffenseCard({ offense, control }: EditOffenseCardPro
 type EditLeadingWeaponOffenseSubcardProps =
 {
   offense: Offense;
-  control: Control<UpsertCharacterCombatType>;
 };
 
-function EditLeadingWeaponOffenseSubcard({ offense, control }: EditLeadingWeaponOffenseSubcardProps)
+function EditLeadingWeaponOffenseSubcard({ offense }: EditLeadingWeaponOffenseSubcardProps)
 {
   const weaponOffensePath = 'offense.leadingWeapon' as WeaponOffensePath;
+  const { control } = useFormContext<UpsertCharacterCombatType>();
   const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, offense.leadingWeapon);
   const weaponOffense = { amount, grade, bonus, critical: { power, range } };
 
@@ -82,14 +81,14 @@ function EditLeadingWeaponOffenseSubcard({ offense, control }: EditLeadingWeapon
 type EditSecondaryWeaponOffenseSubcardProps =
 {
   offense: Offense;
-  control: Control<UpsertCharacterCombatType>;
 };
 
-function EditSecondaryWeaponOffenseSubcard({ control, offense }: EditSecondaryWeaponOffenseSubcardProps)
+function EditSecondaryWeaponOffenseSubcard({ offense }: EditSecondaryWeaponOffenseSubcardProps)
 {
   const secondaryOffenseExists = offense.secondaryWeapon !== undefined;
   const [showSecondary, setShowSecondary] = useState(secondaryOffenseExists);
   const weaponOffensePath = 'offense.secondaryWeapon' as WeaponOffensePath;
+  const { control } = useFormContext<UpsertCharacterCombatType>();
 
   const { field } = useController
   ({
@@ -216,11 +215,11 @@ function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalVie
 type EditDamageBonusSubcardProps =
 {
   defaultDamageOffense: DamageOffense;
-  control: Control<UpsertCharacterCombatType>;
 }
 
-function EditDamageBonusSubcard({ defaultDamageOffense, control }: EditDamageBonusSubcardProps)
+function EditDamageBonusSubcard({ defaultDamageOffense }: EditDamageBonusSubcardProps)
 {
+  const { control } = useFormContext<UpsertCharacterCombatType>();
   const { amount, bonus, grade, resetAll, setAmount, setBonus, setGrade } = useDamageOffenseForm(control, `offense.damageBonus`, defaultDamageOffense);
   const damageOffense = { amount, grade, bonus };
 

@@ -15,7 +15,6 @@ import { translate } from '@/domain/data/translations';
 type EditDefenseCardProps =
 {
     defense: Defense;
-    control: Control<UpsertCharacterCombatType>;
 }
 
 export default function EditDefenseCard(input: EditDefenseCardProps)
@@ -28,12 +27,7 @@ export default function EditDefenseCard(input: EditDefenseCardProps)
       <div key={defenseFieldName} className={"flex flex-col items-center gap-2"}>
 
         <Label className="text-center capitalize">{translate(defenseFieldName)}</Label>
-
-        <InputFormField<UpsertCharacterCombatType> 
-          name={fieldPath} 
-          control={input.control} 
-          inputClassName="w-16 h-10 text-center font-medium" 
-        />
+        <InputFormField<UpsertCharacterCombatType> name={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
 
       </div>
     );

@@ -71,25 +71,25 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           <div className="grid gap-3 md:grid-cols-7">
 
             <div className="md:col-span-2">
-              <EditHealthCard health={character.health} control={form.control} />
+              <EditHealthCard health={character.health} />
             </div>
             
             <div className="md:col-span-3">
-              <EditOffenseCard offense={character.offenses} control={form.control} />
+              <EditOffenseCard offense={character.offenses} />
             </div>
             
             <div className="md:col-span-2">
-              <EditDefenseCard defense={character.defenses} control={form.control} />
+              <EditDefenseCard defense={character.defenses} />
             </div>
 
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
-            <EditStancesCard control={form.control} isPending={isPending} />
-            <EditStatesCard control={form.control} isPending={isPending} />
+            <EditStancesCard isPending={isPending} />
+            <EditStatesCard isPending={isPending} />
           </div>
 
-          <EditManeuversCard control={form.control} isPending={isPending} />
+          <EditManeuversCard isPending={isPending} />
 
           <SubmitButton isPending={isPending} />
         </form>

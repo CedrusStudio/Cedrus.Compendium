@@ -1,5 +1,5 @@
 import { attributePenaltyValues, dexterityRestrictionValues, initiativeRestrictionValues, strengthRequirementValues } from "@/domain/characters/Character";
-import { Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/ui/SelectFormField";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
@@ -7,11 +7,12 @@ import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 type CommonDefensiveItemEditorProps = 
 {
   defensiveItem: "armor" | "shield";
-  control: Control<UpsertCharacterEquipmentType>;
 }
 
-export default function EditDefensiveItemView({ control, defensiveItem }: CommonDefensiveItemEditorProps)
+export default function EditDefensiveItemView({ defensiveItem }: CommonDefensiveItemEditorProps)
 {
+  const { control } = useFormContext<UpsertCharacterEquipmentType>();
+  
   return (
     <div className="grid auto-rows-min gap-3 px-4">
 

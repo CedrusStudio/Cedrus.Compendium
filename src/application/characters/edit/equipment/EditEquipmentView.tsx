@@ -40,13 +40,9 @@ export default function EditEquipmentView(input: { character: Character })
 
         <Accordion type="single" collapsible>
 
-          <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapons} control={form.control} weaponNumber={1} isPending={isPending} />
-          { input.character.equipment.weapon2 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon2} control={form.control} weaponNumber={2} isPending={isPending} /> }
-          { input.character.equipment.weapon3 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon3} control={form.control} weaponNumber={3} isPending={isPending} /> }
-          { input.character.equipment.weapon4 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon4} control={form.control} weaponNumber={4} isPending={isPending} /> }
-
-          <EditArmorView equipmentFormName={equipmentFormName} armor={input.character.equipment.armors} control={form.control} isPending={isPending} />
-          <EditShieldView equipmentFormName={equipmentFormName} shield={input.character.equipment.shields} control={form.control} isPending={isPending} />
+          <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapons} weaponNumber={1} isPending={isPending} />
+          <EditArmorView equipmentFormName={equipmentFormName} armor={input.character.equipment.armors} isPending={isPending} />
+          <EditShieldView equipmentFormName={equipmentFormName} shield={input.character.equipment.shields} isPending={isPending} />
 
           {
             input.character.equipment.inventory.map(item => (

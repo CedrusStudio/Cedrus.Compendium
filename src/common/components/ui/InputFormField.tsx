@@ -4,24 +4,24 @@ import {
   FormItem,
   FormMessage,
 } from "@/ui/form";
-import { FieldPath, FieldValues } from "react-hook-form";
+import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
 import { Input } from "@/ui/input";
-import { Control } from 'react-hook-form';
 
 export type CustomFormFieldProps<TFieldValues extends FieldValues> = 
 {
   name: FieldPath<TFieldValues>;
-  control: Control<TFieldValues>;
   inputPlaceholder?: string;
   inputClassName?: string;
 };
 
 export function InputFormField<TFieldValues extends FieldValues>(input: CustomFormFieldProps<TFieldValues>) 
 {
+  const { control } = useFormContext<TFieldValues>();
+  
   return (
     <div className="w-full flex justify-center gap-2">
       <FormField
-        control={input.control}
+        control={control}
         name={input.name}
         render={({ field }) => (
           <FormItem>

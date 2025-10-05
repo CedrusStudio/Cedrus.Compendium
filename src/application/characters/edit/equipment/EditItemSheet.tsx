@@ -14,7 +14,7 @@ import { InputFormField } from '@/ui/InputFormField';
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { ItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
@@ -23,12 +23,13 @@ type EditItemSheetProps =
 {
   equipmentFormName: string;
   item: { name: string; description: string; type: ItemTypes };
-  control: Control<UpsertCharacterEquipmentType>;
   isPending: boolean;
 };
 
-export default function EditItemSheet({ item, control, isPending, children, equipmentFormName }: PropsWithChildren<EditItemSheetProps>)
+export default function EditItemSheet({ item, isPending, children, equipmentFormName }: PropsWithChildren<EditItemSheetProps>)
 {
+  const { control } = useFormContext<UpsertCharacterEquipmentType>();
+
   return (
       <Sheet>
 

@@ -7,7 +7,6 @@ import {
 } from '@/ui/card';
 import EditStatisticView from "@/application/characters/edit/statistics/EditStatisticView";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
 import { PathsFrom} from "@/common/global/pathTypes";
 import { attributesIcons, characteristicIcons } from "@/domain/data/icons";
 
@@ -21,10 +20,9 @@ type StatisticsCardEditProps<TStats extends Record<string, Statistic>> =
 {
   title: AllowedRoots;
   statistics: TStats;
-  control: Control<UpsertCharacterStatisticsType>;
 };
 
-export default function EditStatisticsCard<TStats extends Record<string, Statistic>>({ title, statistics, control }: StatisticsCardEditProps<TStats>)
+export default function EditStatisticsCard<TStats extends Record<string, Statistic>>({ title, statistics }: StatisticsCardEditProps<TStats>)
 {
   const icons = title === "attributes" ? attributesIcons : characteristicIcons;
   const overwriteTitle = title === "attributes" ? "atrybuty" : "cechy";
@@ -59,7 +57,6 @@ export default function EditStatisticsCard<TStats extends Record<string, Statist
             name={name} 
             statistic={value} 
             icon={icons[name]} 
-            control={control}
             fieldPath={`${title}.${name}` as StatisticPath}
           />
         ))

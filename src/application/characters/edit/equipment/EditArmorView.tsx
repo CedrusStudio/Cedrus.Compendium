@@ -1,5 +1,5 @@
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
+import { Control, useFormContext } from "react-hook-form";
 import { Label } from "@/ui/label"
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import {
@@ -16,24 +16,26 @@ type AccordionWeaponItemProps =
 {
   equipmentFormName: string;
   armor: Armor;
-  control: Control<UpsertCharacterEquipmentType>;
   isPending: boolean;
 };
 
-export default function EditArmorView({ equipmentFormName, armor, control, isPending }: AccordionWeaponItemProps)
+export default function EditArmorView({ equipmentFormName, armor, isPending }: AccordionWeaponItemProps)
 {
     return (
     <AccordionItem value="armor">
         <AccordionTrigger>{armor.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
             <ArmorView armor={armor} />
-            <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} control={control} isPending={isPending} />
+            <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} isPending={isPending} />
         </AccordionContent>
     </AccordionItem>
     );
 }
-function EditArmorSheet({ equipmentFormName, armor, control, isPending }: AccordionWeaponItemProps)
+
+function EditArmorSheet({ equipmentFormName, armor, isPending }: AccordionWeaponItemProps)
 {
+  const { control } = useFormContext<UpsertCharacterEquipmentType>();
+  
   return (
     <EditItemSheet 
       equipmentFormName={equipmentFormName} 

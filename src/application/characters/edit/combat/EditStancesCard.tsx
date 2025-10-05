@@ -9,19 +9,19 @@ import {
 
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { CreateDefaultStance } from "@/domain/data/defaults";
-import { Control } from "react-hook-form";
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/ui/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
+import { useFormContext } from 'react-hook-form';
 
 type EditStancesCardProps =
 {
-    control: Control<UpsertCharacterCombatType>;
     isPending: boolean;
 }
 
-export default function EditStancesCard({ control, isPending }: EditStancesCardProps)
+export default function EditStancesCard({ isPending }: EditStancesCardProps)
 {
+  const { control } = useFormContext<UpsertCharacterCombatType>();
   const { append, remove, watchedArray } = useWatchedFormArray("stances", control);
 
   return (
@@ -42,7 +42,6 @@ export default function EditStancesCard({ control, isPending }: EditStancesCardP
             key={index} 
             modeType='stances' 
             index={index} 
-            control={control} 
             remove={remove} 
           />
         ))

@@ -2,7 +2,7 @@ import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
 import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/Dices';
 import { Weapon } from '@/domain/characters/Character';
-import { Control } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import WeaponView from '@/application/characters/equipment/WeaponView';
@@ -12,26 +12,27 @@ type AccordionWeaponItemProps =
 {
   equipmentFormName: string;
   weapon: Weapon;
-  control: Control<UpsertCharacterEquipmentType>;
   weaponNumber: 1 | 2 | 3 | 4;
   isPending: boolean;
 };
 
-export default function EditWeaponView({ equipmentFormName, weapon, control, weaponNumber, isPending }: AccordionWeaponItemProps)
+export default function EditWeaponView({ equipmentFormName, weapon, weaponNumber, isPending }: AccordionWeaponItemProps)
 {
   return (
     <AccordionItem value={`weapon${weaponNumber}`}>
         <AccordionTrigger>{weapon.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
           <WeaponView weapon={weapon} />
-          <EditWeaponSheet equipmentFormName={equipmentFormName} weapon={weapon} control={control} weaponNumber={weaponNumber} isPending={isPending} />
+          <EditWeaponSheet equipmentFormName={equipmentFormName} weapon={weapon}  weaponNumber={weaponNumber} isPending={isPending} />
         </AccordionContent>
     </AccordionItem>
   )
 }
 
-function EditWeaponSheet({ equipmentFormName, weapon, control, weaponNumber, isPending }: AccordionWeaponItemProps)
+function EditWeaponSheet({ equipmentFormName, weapon, weaponNumber, isPending }: AccordionWeaponItemProps)
 {
+  const { control } = useFormContext<UpsertCharacterEquipmentType>();
+
   return (
     <EditItemSheet 
       equipmentFormName={equipmentFormName}

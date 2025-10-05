@@ -9,19 +9,19 @@ import {
 
 import { CreateDefaultState } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/ui/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
+import { useFormContext } from 'react-hook-form';
 
 type EditStatesCardProps =
 {
-    control: Control<UpsertCharacterCombatType>;
     isPending: boolean;
 }
 
-export default function EditStatesCard({ control, isPending }: EditStatesCardProps)
+export default function EditStatesCard({ isPending }: EditStatesCardProps)
 {
+  const { control } = useFormContext<UpsertCharacterCombatType>();
   const { append, remove, watchedArray } = useWatchedFormArray("states", control);
 
   return (
@@ -42,7 +42,6 @@ export default function EditStatesCard({ control, isPending }: EditStatesCardPro
             key={index} 
             modeType='states' 
             index={index} 
-            control={control} 
             remove={remove} 
           />
         ))

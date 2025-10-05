@@ -1,6 +1,6 @@
 "use client";
 
-import { Control, FieldPath } from "react-hook-form";
+import { FieldPath } from "react-hook-form";
 import { UpsertCharacterHealthType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/ui/InputFormField";
 import { Health } from "@/domain/characters/Character";
@@ -17,7 +17,6 @@ import { translate } from "@/domain/data/translations";
 type EditHealthCardProps =
 {
   health: Health;
-  control: Control<UpsertCharacterCombatType>;
 }
 
 export default function EditHealthCard(input: EditHealthCardProps)
@@ -30,12 +29,7 @@ export default function EditHealthCard(input: EditHealthCardProps)
       <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
 
         <Label className="text-center capitalize">{translate(healthFieldName)}</Label>
-
-        <InputFormField<UpsertCharacterCombatType> 
-          name={fieldPath} 
-          control={input.control} 
-          inputClassName="w-16 h-10 text-center font-medium" 
-        />
+        <InputFormField<UpsertCharacterCombatType> name={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
 
       </div>
     );

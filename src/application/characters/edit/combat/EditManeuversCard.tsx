@@ -21,7 +21,7 @@ import { type Maneuver } from "@/domain/characters/Character";
 import { castTimeValues } from "@/domain/data/castTimes";
 import { CreateDefaultManeuver } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control, UseFieldArrayRemove } from "react-hook-form";
+import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import { TbEdit } from "react-icons/tb";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/ui/InputFormField';
@@ -32,12 +32,12 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 
 type EditManeuversCardProps =
 {
-  control: Control<UpsertCharacterCombatType>;
   isPending: boolean;
 }
 
-export default function EditManeuversCard({ control, isPending }: EditManeuversCardProps)
+export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 {
+  const { control } = useFormContext<UpsertCharacterCombatType>();
   const { append, remove, watchedArray } = useWatchedFormArray("maneuvers", control);
 
   return (
@@ -52,15 +52,7 @@ export default function EditManeuversCard({ control, isPending }: EditManeuversC
 
       <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
       {
-        watchedArray.map((maneuver, index) => (
-          <EditManeuverView 
-            key={index} 
-            maneuver={maneuver} 
-            control={control}
-            index={index} 
-            remove={remove}
-          />
-        ))
+        watchedArray.map((maneuver, index) => <EditManeuverView key={index} maneuver={maneuver} index={index} remove={remove} />)
       }
       </CardContent>
 
@@ -73,10 +65,9 @@ type EditManeuverViewProps =
   maneuver: Maneuver;
   index: number;
   remove: UseFieldArrayRemove;
-  control: Control<UpsertCharacterCombatType>;
 }
 
-function EditManeuverView({ maneuver, index, remove, control }: EditManeuverViewProps)
+function EditManeuverView({ maneuver, index, remove }: EditManeuverViewProps)
 {
   return (
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2 min-h-24">
@@ -87,7 +78,7 @@ function EditManeuverView({ maneuver, index, remove, control }: EditManeuverView
 
       <div className="flex flex-row gap-2">
         <RemoveFromArrayButton remove={remove} index={index} />
-        <EditManeuverSheet control={control} index={index} />
+        <EditManeuverSheet index={index} />
       </div>
     </div>
   );
@@ -96,10 +87,9 @@ function EditManeuverView({ maneuver, index, remove, control }: EditManeuverView
 type EditManeuverSheetProps = 
 {
   index: number;
-  control: Control<UpsertCharacterCombatType>;
 };
 
-function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
+function EditManeuverSheet({ index }: EditManeuverSheetProps)
 {
   return (
     <Sheet>
@@ -122,67 +112,31 @@ function EditManeuverSheet({ control, index }: EditManeuverSheetProps)
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-
               <Label>Nazwa</Label>
-              
-              <InputFormField<UpsertCharacterCombatType> 
-                  name={`maneuvers.${index}.name`}
-                  control={control}
-                  inputPlaceholder="zmień nazwę..." 
-                  inputClassName='w-60'
-              />
-
+              <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.name`} inputPlaceholder="zmień nazwę..." inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-
               <Label>Ranga</Label>
-
-              <InputFormField<UpsertCharacterCombatType>
-                  name={`maneuvers.${index}.grade`}
-                  control={control}
-                  inputClassName="w-11 h-10 text-center font-medium" 
-              />
-
+              <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
+
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-
             <Label>Opis</Label>
-            
-            <InputFormField<UpsertCharacterCombatType> 
-                name={`maneuvers.${index}.description`}
-                control={control}
-                inputPlaceholder="zmień opis..."
-                inputClassName='w-80'
-            />
-
+            <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.description`} inputPlaceholder="zmień opis..." inputClassName='w-80' />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
-
               <Label className='justify-center'>Odnowienie</Label>
-
-              <InputFormField<UpsertCharacterCombatType>
-                  name={`maneuvers.${index}.cooldown`}
-                  control={control}
-                  inputClassName='w-11 h-10 text-center font-medium'
-              />
-
+              <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-
-              <SelectFormField<UpsertCharacterCombatType>
-                name={`maneuvers.${index}.castTime`}
-                control={control}
-                labelText='Czas Rzucania'
-                items={castTimeValues}
-              />
-
+              <SelectFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.castTime`} labelText='Czas Rzucania' items={castTimeValues} />
             </div>
           </div>
 
