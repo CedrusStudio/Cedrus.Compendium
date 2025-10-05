@@ -41,6 +41,7 @@ import { talentCategories } from "@/domain/data/categories"
 import { defaultColumnKeys } from "../../talents/defaultColumns"
 import { namingConventions } from "@/domain/data/namingConventions"
 import EmptyTable from "@/application/characters/talents/EmptyTable"
+import AddTalentView from "@/application/characters/edit/talents/AddTalentView"
 
 declare module '@tanstack/table-core' 
 {
@@ -60,7 +61,7 @@ interface DataTableProps
 export function EditTalentsTable({ columns, initialTalents }: DataTableProps) 
 {
   const { control } = useFormContext<UpsertCharacterTalentsType>();
-  const { fields, update, remove } = useFieldArray
+  const { fields, update, remove, append } = useFieldArray
   ({
     name: "talents",
     control
@@ -106,6 +107,11 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
     }
   })
 
+  const setNameFilter = (value: string) =>
+  {
+    table.getColumn(defaultColumnKeys.name)?.setFilterValue(value);
+  }
+
   return (
     <div>
       <div className="flex items-center py-4 gap-3">
@@ -113,7 +119,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
         <Input
           placeholder="Szukaj po nazwie..."
           value={(table.getColumn(defaultColumnKeys.name)?.getFilterValue() as string) ?? ""}
-          onChange={event => table.getColumn(defaultColumnKeys.name)?.setFilterValue(event.target.value)}
+          onChange={event => setNameFilter(event.target.value)}
           className="max-w-sm"
         />
 
@@ -138,6 +144,8 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
                 }
             </SelectContent>
           </Select>
+
+          <AddTalentView append={append} setNameFilter={setNameFilter} />
 
         </div>
 
@@ -164,11 +172,13 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
         </div>
 
         <DropdownMenu>
+
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
               {namingConventions.columns}
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
           {
             table
@@ -216,16 +226,22 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
           {
             table.getRowModel().rows?.length > 0
               ? table.getRowModel().rows.map(row => 
+              {
+                const currentTalent = fields.find(talent => talent.name === row.original.name)!;
+                const initialTalent = initialTalents.find(talent => talent.name === row.original.name);
+
+                return (
                   <EditTalentRow 
                     key={row.original.id} 
                     row={row} 
                     index={row.index} 
-                    initialTalent={initialTalents.find(talent => talent.name === row.original.name)!} 
-                    formTalent={fields.find(talent => talent.name === row.original.name)!} 
+                    initialTalent={initialTalent || currentTalent} 
+                    talent={currentTalent} 
                     update={update} 
                     remove={remove} 
                   />
                 )
+              })
               : <EmptyTable colSpan={columns.length} />
           }
           </TableBody>

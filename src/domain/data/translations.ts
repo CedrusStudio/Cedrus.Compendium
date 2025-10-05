@@ -36,6 +36,14 @@ const defaultTranslations =
     protection: "pancerz",
     resistance: "odporność",
     immunity: "niewrażliwość",
+
+    name: "nazwa",
+    grade: "ranga",
+    category: "kategoria",
+    characteristics: "cecha",
+    attributes: "atrybut",
+    description: "opis",
+    penalty: "kara"
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

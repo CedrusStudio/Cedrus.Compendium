@@ -23,13 +23,13 @@ type EditTalentRowProps =
 {
   row: Row<Talent>;
   initialTalent: Talent;
-  formTalent: Talent;
+  talent: Talent;
   index: number;
   update: UseFieldArrayUpdate<UpsertCharacterTalentsType, "talents">;
   remove: UseFieldArrayRemove;
 }
 
-export default function EditTalentRow({ row, formTalent, initialTalent, index, update, remove }: EditTalentRowProps)
+export default function EditTalentRow({ row, talent: formTalent, initialTalent, index, update, remove }: EditTalentRowProps)
 {
   const updateTalent = (updatedTalent: Talent) => update(index, updatedTalent);
 
