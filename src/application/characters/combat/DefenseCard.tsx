@@ -48,9 +48,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
       <CardHeader className='flex gap-4 items-center justify-center'>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Defensywa</CardTitle>
-
         <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={defenses} setIndex={setSelectedDefenseIndex} />
-
       </CardHeader>
 
       <CardContent className='flex flex-col h-full gap-y-4'>

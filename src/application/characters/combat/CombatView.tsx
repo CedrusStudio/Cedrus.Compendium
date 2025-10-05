@@ -20,7 +20,7 @@ export default function CombatView({ character }: { character: Character })
       <div className='grid grid-cols-1 lg:grid-cols-6 gap-4'>
         
         <div className='col-span-4'>
-          {/* <OffenseCard offense={character.offenses} /> */}
+          <OffenseCard offenses={character.offenses} />
         </div>
 
         <ModesCard name="Postawy" modes={character.stances} />

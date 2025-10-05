@@ -17,17 +17,21 @@ import CriticalView from '@/application/characters/combat/CriticalView';
 import { GiRollingDices } from "react-icons/gi";
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
+import SelectOneOf from '@/common/components/selects/SelectOneOf';
 
 type OffenseCardProps = 
 {
-  offense: Offense;
+  offenses: Offense[];
 };
 
-export default function OffenseCard(input: OffenseCardProps)
+export default function OffenseCard({ offenses }: OffenseCardProps)
 {
-  const leadingOffense = input.offense.leadingWeapon;
-  const secondaryOffense = input.offense.secondaryWeapon;
-  const damageBonus = input.offense.damageBonus;
+  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
+  const selectedOffense = offenses[selectedOffenseIndex];
+
+  const leadingOffense = selectedOffense.leadingWeapon;
+  const secondaryOffense = selectedOffense.secondaryWeapon;
+  const damageBonus = selectedOffense.damageBonus;
 
   const [currentLeadingOffense, setCurrentLeadingOffense] = useState<WeaponOffense>(leadingOffense);
   const [currentSecondaryOffense, setCurrentSecondaryOffense] = useState<WeaponOffense | undefined>(secondaryOffense);
@@ -37,6 +41,18 @@ export default function OffenseCard(input: OffenseCardProps)
   const [secondaryRolls, setSecondaryRolls] = useState<[number, boolean][]>([]);
   const [damageBonusRolls, setDamageBonusRolls] = useState<number[]>([]);
   const [rollTotalResult, setRollTotalResult] = useState<number | null>(null);
+
+  // Reset state when selectedOffenseIndex changes
+  useEffect(() => 
+  {
+    setCurrentLeadingOffense(leadingOffense);
+    setCurrentSecondaryOffense(secondaryOffense);
+    setCurrentDamageBonus(damageBonus);
+    setLeadingRolls([]);
+    setSecondaryRolls([]);
+    setDamageBonusRolls([]);
+    setRollTotalResult(null);
+  }, [selectedOffenseIndex, leadingOffense, secondaryOffense, damageBonus]);
 
   useEffect(() => 
   {
@@ -116,6 +132,7 @@ export default function OffenseCard(input: OffenseCardProps)
             <div className='mt-1'>
               <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
             </div>
+            <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setSelectedOffenseIndex} />
           </div>
         </CardTitle>
       </CardHeader>

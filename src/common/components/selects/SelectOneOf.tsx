@@ -40,10 +40,10 @@ export default function SelectOneOf<T extends { name: string; description?: stri
         
         <SelectContent>
         {
-        items.map((item, index) => (
-            <SelectItem key={index} value={`${index}`}>
-            <span className='capitalize'>{item.name}</span>
-            </SelectItem>
+            items.map((item, index) => (
+                <SelectItem key={index} value={`${index}`}>
+                <span className='capitalize'>{item.name}</span>
+                </SelectItem>
         ))
         }
         </SelectContent>
