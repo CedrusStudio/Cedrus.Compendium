@@ -82,6 +82,16 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     });
   };
 
+  const resetAddTalentForm = () =>
+  {
+    setNewTalentName("");
+    setNewTalentGrade(0);
+    setNewTalentBonus(0);
+    setNewTalentPenalty(0);
+    setSelectedCategory("");
+    setSelectedCharacteristics("");
+  };
+
   return (
     <Sheet open={open} onOpenChange={setOpen}>
 
@@ -171,6 +181,8 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
                     Dodaj umiejętność
                     </Button>
                 </div>
+
+                <Button type="button" variant="secondary" className="flex-1" onClick={resetAddTalentForm}>Wyczyść</Button>
 
                 <SheetClose asChild>
                     <Button type="button" variant="outline" className="flex-1">Anuluj</Button>
