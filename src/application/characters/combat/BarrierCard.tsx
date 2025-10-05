@@ -7,7 +7,7 @@ import {
 } from '@/ui/card';
 import FieldView from '@/common/components/fields/FieldView';
 import { useState } from 'react';
-import { Health } from '@/domain/Character';
+import { Health } from '@/domain/characters/Character';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';

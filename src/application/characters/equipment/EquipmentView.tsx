@@ -1,4 +1,4 @@
-import { Equipment } from '@/domain/Character';
+import { Equipment } from '@/domain/characters/Character';
 import {
   Accordion,
   AccordionContent,

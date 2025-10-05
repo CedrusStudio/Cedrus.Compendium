@@ -1,6 +1,6 @@
 "use client";
 
-import { Statistic } from "@/domain/Character";
+import { Statistic } from "@/domain/characters/Character";
 import { useState } from "react";
 import {
   Tooltip,

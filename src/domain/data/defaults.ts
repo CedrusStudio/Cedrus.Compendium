@@ -1,4 +1,4 @@
-import { Character, Maneuver, Mode, Talent, WeaponOffense } from "@/domain/Character";
+import { Character, Maneuver, Mode, Talent, WeaponOffense } from "@/domain/characters/Character";
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from 'next/navigation';
-import { Character } from '@/domain/Character';
+import { Character } from '@/domain/characters/Character';
 import { useSuspenseQuery  } from '@tanstack/react-query';
 import { allCharactersKey, createSearchCharactersKey } from '@/persistence/cacheKeys';
 import { getSearchQueryParam  } from '@/common/global/httpUtils';

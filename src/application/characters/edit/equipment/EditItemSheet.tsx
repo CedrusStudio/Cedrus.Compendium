@@ -15,7 +15,7 @@ import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
-import { ItemTypes } from "@/domain/Character";
+import { ItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 

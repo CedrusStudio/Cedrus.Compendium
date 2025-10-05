@@ -1,6 +1,6 @@
 "use client";
 
-import { Character } from '@/domain/Character';
+import { Character } from '@/domain/characters/Character';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -32,7 +32,7 @@ import {
 } from "@/ui/table"
 import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { Talent } from "@/domain/Character"
+import { Talent } from "@/domain/characters/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
 import { Control, useFieldArray, useFormContext } from "react-hook-form"

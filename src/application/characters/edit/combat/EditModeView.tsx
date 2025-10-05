@@ -16,7 +16,7 @@ import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
-import { Mode, ModesType } from "@/domain/Character";
+import { Mode, ModesType } from "@/domain/characters/Character";
 import RemoveFromArrayButton from "@/ui/RemoveFromArrayButton";
 import { translateToSingular } from "@/domain/data/translations";
 

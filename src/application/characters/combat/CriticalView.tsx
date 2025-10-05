@@ -1,4 +1,4 @@
-import { WeaponOffense } from '@/domain/Character';
+import { WeaponOffense } from '@/domain/characters/Character';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 

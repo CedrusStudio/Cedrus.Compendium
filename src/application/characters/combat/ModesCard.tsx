@@ -1,6 +1,6 @@
 "use client";
 
-import { Mode } from "@/domain/Character";
+import { Mode } from "@/domain/characters/Character";
 import {
   Card,
   CardContent,

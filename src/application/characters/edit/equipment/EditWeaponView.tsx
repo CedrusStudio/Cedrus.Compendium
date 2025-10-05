@@ -1,7 +1,7 @@
 import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
 import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
-import { Weapon } from '@/domain/Character';
+import { Weapon } from '@/domain/characters/Character';
 import { Control } from 'react-hook-form';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";

@@ -17,7 +17,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { type Maneuver } from "@/domain/Character";
+import { type Maneuver } from "@/domain/characters/Character";
 import { castTimeValues } from "@/domain/data/castTimes";
 import { CreateDefaultManeuver } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";

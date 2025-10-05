@@ -1,6 +1,6 @@
 "use client";
 
-import { Health, Statistic } from '@/domain/Character';
+import { Health, Statistic } from '@/domain/characters/Character';
 
 import {
   Card,

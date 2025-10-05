@@ -32,7 +32,7 @@ import {
 } from "@/ui/table"
 import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { Talent } from "@/domain/Character"
+import { Talent } from "@/domain/characters/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { talentCategories } from "@/domain/data/categories"
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns"

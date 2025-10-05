@@ -1,5 +1,5 @@
 import StatisticsCard from "@/application/characters/statistics/StatisticsCard";
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 import { namingConventions } from "@/domain/data/namingConventions";
 import { attributesIcons, characteristicIcons } from "@/domain/data/icons";
 

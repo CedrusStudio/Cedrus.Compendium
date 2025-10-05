@@ -3,7 +3,7 @@
 import { AccessorKeyColumnDef, RowData } from "@tanstack/react-table"
 import { Button } from "@/ui/button"
 import { ArrowUpDown } from "lucide-react"
-import { Talent } from "@/domain/Character"
+import { Talent } from "@/domain/characters/Character"
 
 declare module '@tanstack/table-core' 
 {

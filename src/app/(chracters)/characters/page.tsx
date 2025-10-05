@@ -6,7 +6,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 import { Suspense } from 'react';
 import { getCharacterQueryKey } from "@/persistence/cacheKeys";
 import { getSearchQuery } from "@/common/global/httpUtils";

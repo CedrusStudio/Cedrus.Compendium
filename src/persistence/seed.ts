@@ -1,5 +1,5 @@
 
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 import { upsertCharacter } from '@/persistence/characterRepository';
 
 const dummyCharacter : Character = 

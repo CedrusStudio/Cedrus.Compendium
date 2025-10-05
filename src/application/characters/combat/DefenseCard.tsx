@@ -1,6 +1,6 @@
 "use client";
 
-import { Defense } from '@/domain/Character';
+import { Defense } from '@/domain/characters/Character';
 
 import {
   Card,

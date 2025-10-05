@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/ui/card';
-import { Maneuver } from '@/domain/Character';
+import { Maneuver } from '@/domain/characters/Character';
 import { getColorClasses, type CastTime } from '@/domain/data/castTimes';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import { LuRefreshCcw } from "react-icons/lu";

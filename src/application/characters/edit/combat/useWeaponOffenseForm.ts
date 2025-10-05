@@ -1,4 +1,4 @@
-import { WeaponOffense } from "@/domain/Character";
+import { WeaponOffense } from "@/domain/characters/Character";
 import { type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, useController } from "react-hook-form";
 import { type WeaponOffensePath } from "@/application/characters/edit/combat/EditOffenseCard";

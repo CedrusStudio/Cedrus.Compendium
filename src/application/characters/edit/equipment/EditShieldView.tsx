@@ -1,4 +1,4 @@
-import { blockValues, Shield } from "@/domain/Character";
+import { blockValues, Shield } from "@/domain/characters/Character";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";

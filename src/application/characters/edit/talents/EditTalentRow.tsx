@@ -7,7 +7,7 @@ import {
   TableCell,
   TableRow,
 } from "@/ui/table"
-import { Talent } from "@/domain/Character";
+import { Talent } from "@/domain/characters/Character";
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
 
 import {

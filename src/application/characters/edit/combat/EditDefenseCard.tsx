@@ -1,4 +1,4 @@
-import { Defense } from '@/domain/Character';
+import { Defense } from '@/domain/characters/Character';
 import { Control, FieldPath } from "react-hook-form";
 import { UpsertCharacterDefenseType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/ui/InputFormField";

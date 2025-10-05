@@ -1,4 +1,4 @@
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 
 export default function CharacterOverview(input: { character: Character })
 {

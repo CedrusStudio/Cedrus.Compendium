@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from 'next/navigation';
-import { Character } from '@/domain/Character';
+import { Character } from '@/domain/characters/Character';
 import { useSuspenseQuery  } from '@tanstack/react-query';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 import bffClient from '@/infrastructure/bffClient';

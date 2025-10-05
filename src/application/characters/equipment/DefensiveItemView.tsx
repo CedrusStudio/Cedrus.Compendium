@@ -1,4 +1,4 @@
-import { Armor, Shield } from "@/domain/Character";
+import { Armor, Shield } from "@/domain/characters/Character";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import { PropsWithChildren } from "react";
 

@@ -11,7 +11,7 @@ import SubmitButton from "@/ui/SubmitButton";
 
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"
 import { EditTalentsTable } from "@/application/characters/edit/talents/EditTalentsTable"
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 

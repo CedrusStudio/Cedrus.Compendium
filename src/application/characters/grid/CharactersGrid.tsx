@@ -11,7 +11,7 @@ import {
 } from "@/ui/pagination";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { usePagination } from '@/infrastructure/hooks/usePagination';
-import { Character } from '@/domain/Character';
+import { Character } from '@/domain/characters/Character';
 import Link from 'next/link';
 import {
   Card,

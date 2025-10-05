@@ -7,7 +7,7 @@ import EditStancesCard from "@/application/characters/edit/combat/EditStancesCar
 import EditStatesCard from "@/application/characters/edit/combat/EditStatesCard";
 import EditManeuversCard from "@/application/characters/edit/combat/EditManeuversCard";
 
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

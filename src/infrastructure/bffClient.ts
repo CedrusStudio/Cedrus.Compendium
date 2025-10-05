@@ -1,4 +1,4 @@
-import { Character, Talent } from '@/domain/Character';
+import { Character, Talent } from '@/domain/characters/Character';
 import { setSearchQueryParam } from '@/common/global/httpUtils';
 import axios from 'axios';
 

@@ -1,4 +1,4 @@
-import { attributePenaltyValues, dexterityRestrictionValues, initiativeRestrictionValues, strengthRequirementValues } from "@/domain/Character";
+import { attributePenaltyValues, dexterityRestrictionValues, initiativeRestrictionValues, strengthRequirementValues } from "@/domain/characters/Character";
 import { Control } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/ui/SelectFormField";

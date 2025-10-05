@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Talent } from "@/domain/Character"
+import { Talent } from "@/domain/characters/Character"
 import { useState } from "react"
 import RollButton from "@/common/components/buttons/RollButton";
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"

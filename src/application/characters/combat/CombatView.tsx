@@ -1,4 +1,4 @@
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 import HealthCard from "@/application/characters/combat/HealthCard";
 import DefenseCard from "@/application/characters/combat/DefenseCard";
 import OffenseCard from "@/application/characters/combat/OffenseCard";

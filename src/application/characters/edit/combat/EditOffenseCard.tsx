@@ -1,6 +1,6 @@
 "use client";
 
-import { DamageOffense, Offense, WeaponOffense } from '@/domain/Character';
+import { DamageOffense, Offense, WeaponOffense } from '@/domain/characters/Character';
 import { CreateWeaponOffense, defaultWeaponOffense } from '@/domain/data/defaults';
 
 import {

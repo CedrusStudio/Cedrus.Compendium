@@ -9,7 +9,7 @@ import {
 } from "@/ui/accordion";
 import ArmorView from "@/application/characters/equipment/ArmorView";
 import { SelectFormField } from "@/ui/SelectFormField";
-import { Armor, protectionValues } from "@/domain/Character";
+import { Armor, protectionValues } from "@/domain/characters/Character";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 
 type AccordionWeaponItemProps = 

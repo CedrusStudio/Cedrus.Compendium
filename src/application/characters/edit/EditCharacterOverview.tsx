@@ -1,6 +1,6 @@
 "use client";
 
-import { Character } from "@/domain/Character";
+import { Character } from "@/domain/characters/Character";
 import {
   Form,
   FormControl,
