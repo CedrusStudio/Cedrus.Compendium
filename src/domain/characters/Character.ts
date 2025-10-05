@@ -41,8 +41,6 @@ export type Attributes =
   willpower: Statistic;
 };
 
-//Talents
-
 export type Talent = 
 {
   id: string;
@@ -113,7 +111,6 @@ export type Statistic =
 };
 
 //Modes
-
 export type Mode =
 {
   name: string;
@@ -124,7 +121,6 @@ export type Mode =
 export type ModesType = "stances" | "states";
 
 //Equipment
-
 export type Item = 
 {
   name: string;
