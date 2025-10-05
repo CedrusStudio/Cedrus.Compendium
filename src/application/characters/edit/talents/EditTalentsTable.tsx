@@ -235,7 +235,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
                     key={row.original.id} 
                     row={row} 
                     index={row.index} 
-                    initialTalent={initialTalent || currentTalent} 
+                    initialTalentOrNew={initialTalent || currentTalent} 
                     talent={currentTalent} 
                     update={update} 
                     remove={remove} 

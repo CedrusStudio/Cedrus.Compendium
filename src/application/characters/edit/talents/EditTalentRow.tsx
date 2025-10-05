@@ -22,14 +22,14 @@ export type AllowedTalentRoots = "grade" | "bonus";
 type EditTalentRowProps = 
 {
   row: Row<Talent>;
-  initialTalent: Talent;
+  initialTalentOrNew: Talent;
   talent: Talent;
   index: number;
   update: UseFieldArrayUpdate<UpsertCharacterTalentsType, "talents">;
   remove: UseFieldArrayRemove;
 }
 
-export default function EditTalentRow({ row, talent: formTalent, initialTalent, index, update, remove }: EditTalentRowProps)
+export default function EditTalentRow({ row, talent: formTalent, initialTalentOrNew: initialTalent, index, update, remove }: EditTalentRowProps)
 {
   const updateTalent = (updatedTalent: Talent) => update(index, updatedTalent);
 
@@ -45,7 +45,7 @@ export default function EditTalentRow({ row, talent: formTalent, initialTalent, 
               ? flexRender(cell.column.columnDef.cell, cell.getContext())
               : <EditableCell 
                   name={cell.column.id} 
-                  initialTalent={initialTalent} 
+                  initialTalentOrNew={initialTalent} 
                   talent={formTalent} 
                   setTalentValue={updateTalent} 
                 />
@@ -65,11 +65,11 @@ type EditableCellProps =
 {
   name: AllowedTalentRoots;
   talent: Talent;
-  initialTalent: Talent;
+  initialTalentOrNew: Talent;
   setTalentValue: (talent: Talent) => void;
 }
 
-function EditableCell({ name, initialTalent, talent, setTalentValue }: EditableCellProps) 
+function EditableCell({ name, initialTalentOrNew: initialTalent, talent, setTalentValue }: EditableCellProps) 
 {
   const setValue: React.Dispatch<React.SetStateAction<number>> = (input: number | ((prevState: number) => number)) =>
   {
