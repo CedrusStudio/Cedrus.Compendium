@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/ui/card';
-import StatisticViewEdit from "@/application/characters/edit/statistics/StatisticsViewEdit";
+import EditStatisticView from "@/application/characters/edit/statistics/EditStatisticView";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import { PathsFrom} from "@/common/global/pathTypes";
@@ -24,7 +24,7 @@ type StatisticsCardEditProps<TStats extends Record<string, Statistic>> =
   control: Control<UpsertCharacterStatisticsType>;
 };
 
-export default function StatisticsCardEdit<TStats extends Record<string, Statistic>>({ title, statistics, control }: StatisticsCardEditProps<TStats>)
+export default function EditStatisticsCard<TStats extends Record<string, Statistic>>({ title, statistics, control }: StatisticsCardEditProps<TStats>)
 {
   const icons = title === "attributes" ? attributesIcons : characteristicIcons;
   const overwriteTitle = title === "attributes" ? "atrybuty" : "cechy";
@@ -54,7 +54,7 @@ export default function StatisticsCardEdit<TStats extends Record<string, Statist
       <div className="grid grid-rows-5 gap-y-4 items-center">
       {
         Object.entries(statistics).map(([name, value]) => (
-          <StatisticViewEdit 
+          <EditStatisticView 
             key={name}
             name={name} 
             statistic={value} 

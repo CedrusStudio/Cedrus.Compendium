@@ -11,7 +11,7 @@ import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeBut
 import ResetButton from "@/common/components/buttons/ResetButton";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
-import { StatisticPath } from "@/application/characters/edit/statistics/StatisticsCardEdit";
+import { StatisticPath } from "@/application/characters/edit/statistics/EditStatisticsCard";
 import { useStatisticForm } from "@/application/characters/edit/statistics/useStatisticForm";
 import { translate } from "@/domain/data/translations";
 
@@ -24,7 +24,7 @@ type StatisticViewEditProps =
   fieldPath: StatisticPath;
 };
 
-export default function StatisticViewEdit({ name, statistic, icon, control, fieldPath }: StatisticViewEditProps) 
+export default function EditStatisticView({ name, statistic, icon, control, fieldPath }: StatisticViewEditProps) 
 {
   const { grade, setGrade, value, setValue, bonus, setBonus, testBonus, setTestBonus } = useStatisticForm(control, fieldPath, statistic);
 

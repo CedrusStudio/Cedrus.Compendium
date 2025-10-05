@@ -8,12 +8,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
-import StatisticsCardEdit from "@/application/characters/edit/statistics/StatisticsCardEdit";
+import EditStatisticsCard from "@/application/characters/edit/statistics/EditStatisticsCard";
 import SubmitButton from "@/ui/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 
-export default function CharacterStatisticsEdit(input: { character: Character })
+export default function EditCharacterStatistics(input: { character: Character })
 {
   const initialValues: UpsertCharacterStatisticsType =
   {
@@ -48,13 +48,13 @@ export default function CharacterStatisticsEdit(input: { character: Character })
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
 
         <div className="grid gap-3 md:grid-cols-2">
-          <StatisticsCardEdit 
+          <EditStatisticsCard 
             title="characteristics" 
             statistics={character.characteristics}
             control={form.control}
           />
 
-          <StatisticsCardEdit 
+          <EditStatisticsCard 
             title="attributes" 
             statistics={character.attributes}
             control={form.control}

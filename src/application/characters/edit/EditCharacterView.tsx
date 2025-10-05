@@ -7,8 +7,8 @@ import { Button } from '@/ui/button';
 import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
 import { RiArrowGoBackFill } from "react-icons/ri";
 import EditCharacterOverview from '@/application/characters/edit/EditCharacterOverview';
-import CharacterStatisticsEdit from '@/application/characters/edit/statistics/CharacterStatisticsEdit';
-import CharacterTalentsEdit from '@/application/characters/edit/talents/CharacterTalentsEdit';
+import EditCharacterStatistics from '@/application/characters/edit/statistics/EditCharacterStatistics';
+import EditCharacterTalents from '@/application/characters/edit/talents/EditCharacterTalents';
 import EditEquipmentView from '@/application/characters/edit/equipment/EditEquipmentView';
 import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
@@ -52,7 +52,7 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
 
         <div className='row-span-14 mx-4'>
             <TabsContent value="statistics">
-                <CharacterStatisticsEdit character={character} />
+                <EditCharacterStatistics character={character} />
             </TabsContent>
 
             <TabsContent value="character">
@@ -64,7 +64,7 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
             </TabsContent>
 
             <TabsContent value="talents">
-                <CharacterTalentsEdit character={character} />
+                <EditCharacterTalents character={character} />
             </TabsContent>
 
             <TabsContent value="equipment">

@@ -15,7 +15,7 @@ import { Character } from "@/domain/Character";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 
-export default function CharacterTalentsEdit(input: { character: Character })
+export default function EditCharacterTalents(input: { character: Character })
 {
   const initialValues: UpsertCharacterTalentsType = 
   {
