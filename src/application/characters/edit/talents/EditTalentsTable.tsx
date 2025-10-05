@@ -100,11 +100,13 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    state: {
+    state:
+    {
       sorting,
       columnFilters,
       columnVisibility,
-    }
+    },
+    autoResetPageIndex: false,
   })
 
   const setNameFilter = (value: string) =>
