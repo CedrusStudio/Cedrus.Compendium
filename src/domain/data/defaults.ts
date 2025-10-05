@@ -101,6 +101,8 @@ export const emptyCharacter: Character =
     defenses: 
     [
         {
+            name: "Domyślna",
+            description: "Opis domyślnej defensywy",
             immunity: 0,
             resistance: 0,
             protection: 0,
@@ -115,6 +117,8 @@ export const emptyCharacter: Character =
     offenses:
     [
         {
+            name: "Domyślna",
+            description: "Opis domyślnej ofensywy",
             leadingWeapon: 
             {
                 amount: defaultWeaponDiceAmount,

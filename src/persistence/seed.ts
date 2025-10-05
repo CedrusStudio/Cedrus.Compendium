@@ -110,6 +110,8 @@ const dummyCharacter : Character =
   defenses:
   [
     {
+      name: "Lekkozbrojny",
+      description: "Lekka zbroja i mała tarcza oferujące podstawową ochronę przy zachowaniu mobilności.",
       immunity: 0,
       resistance: 0,
       protection: 5,
@@ -119,6 +121,8 @@ const dummyCharacter : Character =
       bonus: 0
     },
     {
+      name: "Ciężkozbrojny",
+      description: "Ciężka zbroja i duża tarcza oferujące maksymalną ochronę.",
       immunity: 2,
       resistance: 4,
       protection: 3,
@@ -131,6 +135,8 @@ const dummyCharacter : Character =
   offenses:
   [
     {
+      name: "Duale",
+      description: "Dwa ostre miecze Kabdulu.",
       leadingWeapon: 
       {
         amount: 2,
@@ -161,6 +167,8 @@ const dummyCharacter : Character =
       }
     },
     {
+      name: "Topór archerski",
+      description: "Topór przeznaczony do walki na bliski dystans.",
       leadingWeapon: 
       {
         amount: 1,

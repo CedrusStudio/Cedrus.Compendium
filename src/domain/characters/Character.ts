@@ -65,6 +65,8 @@ export type Health =
 
 export type Defense = 
 {
+  name: string;
+  description?: string;
   immunity: number;
   resistance: number;
   protection: number;
@@ -76,6 +78,8 @@ export type Defense =
 
 export type Offense = 
 {
+  name: string;
+  description?: string;
   leadingWeapon: WeaponOffense;
   secondaryWeapon?: WeaponOffense;
   damageBonus: DamageOffense;

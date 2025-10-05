@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from '@/ui/card';
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import FieldView from "@/common/components/fields/FieldView";
 import { useState } from 'react';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
@@ -17,16 +16,18 @@ import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { translateReductions } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
+import SelectOneOf from '@/common/components/selects/SelectOneOf';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 
 type DefenseCardProps = 
 {
-  defense: Defense;
+  defenses: Defense[];
 };
 
 type ReductionType = "full" | "block" | "direct";
 const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
 
-export default function DefenseCard(input: DefenseCardProps)
+export default function DefenseCard({ defenses }: DefenseCardProps)
 {
   const [reductionIncreaseChangeAmount, setReductionIncreaseChangeAmount] = useState<number>(1);
   const [damageTakenChangeAmount, setDamageTakenChangeAmount] = useState<number>(1);
@@ -34,29 +35,35 @@ export default function DefenseCard(input: DefenseCardProps)
   const [damageTaken, setDamageTaken] = useState<number>(0);
   const [selectedReductionType, setSelectedReductionType] = useState<ReductionType>("full");
 
+  const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
+  const selectedDefense = defenses[selectedDefenseIndex];
+
   const handleOnSelectedValueChange = (value: string) => 
   {
     setSelectedReductionType(value as ReductionType);
   };
-
+  
   return (
     <Card className='bg-muted'>
 
-      <CardHeader>
+      <CardHeader className='flex gap-4 items-center justify-center'>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Defensywa</CardTitle>
+
+        <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={defenses} setIndex={setSelectedDefenseIndex} />
+
       </CardHeader>
 
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <FieldView name={"niewrażliwość"} value={input.defense.immunity} />
-        <FieldView name={"odporność"} value={input.defense.resistance} />
+        <FieldView name={"niewrażliwość"} value={selectedDefense.immunity} />
+        <FieldView name={"odporność"} value={selectedDefense.resistance} />
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
           <FieldViewWithInfo 
             name={<SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>} 
-            value={calculateSelectedReduction(input.defense, selectedReductionType) + reductionIncrease - damageTaken} 
-            infoContent={<DefenseInfoContent defense={input.defense} selectedReductionType={selectedReductionType} reductionIncrease={reductionIncrease} damageTaken={damageTaken} />} 
+            value={calculateSelectedReduction(selectedDefense, selectedReductionType) + reductionIncrease - damageTaken} 
+            infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} reductionIncrease={reductionIncrease} damageTaken={damageTaken} />} 
             valueClassName='pr-3'
           />
   
@@ -87,7 +94,7 @@ export default function DefenseCard(input: DefenseCardProps)
   );
 };
 
-function DefenseInfoContent(input: { defense: Defense, selectedReductionType: ReductionType, reductionIncrease: number, damageTaken: number })
+function DefenseReductionInfoContent(input: { defense: Defense, selectedReductionType: ReductionType, reductionIncrease: number, damageTaken: number })
 {
   return (
     <div>
@@ -95,7 +102,7 @@ function DefenseInfoContent(input: { defense: Defense, selectedReductionType: Re
       { <FieldView name={namingConventions.damage} value={Math.abs(input.damageTaken)} valueClassName='text-red-500' /> }
       {
         Object.entries(input.defense)
-          .filter(([name, _]) => selectFilter(input.selectedReductionType)(name))
+          .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
           .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
       }
     </div>
@@ -122,7 +129,7 @@ function calculateSelectedReduction(defense: Defense, selectedReductionType: Red
   throw new Error("Invalid reduction type");
 }
 
-function selectFilter(selectedReductionType: ReductionType): (name: string) => boolean
+function reductionSelectFilter(selectedReductionType: ReductionType): (name: string) => boolean
 {
   if (selectedReductionType === "full") return fullFilter;
   if (selectedReductionType === "block") return blockFilter;
@@ -132,7 +139,10 @@ function selectFilter(selectedReductionType: ReductionType): (name: string) => b
 
 function fullFilter(name: string): boolean 
 {
-  return name !== "immunity" && name !== "resistance";
+  return name !== "immunity" 
+    && name !== "resistance"
+    && name !== "name"
+    && name !== "description";
 } 
 
 function blockFilter(name: string): boolean 

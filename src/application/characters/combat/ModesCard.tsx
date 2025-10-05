@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/ui/card';
-import { Label } from "@/ui/label"
+import { Label } from "@/ui/label";
 import { useState } from "react";
 
 import {
@@ -16,7 +16,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/ui/select"
+} from "@/ui/select";
 import FieldView from "@/common/components/fields/FieldView";
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
