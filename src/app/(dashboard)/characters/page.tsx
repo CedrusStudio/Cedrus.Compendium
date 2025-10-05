@@ -9,7 +9,7 @@ import {
 import { Character } from "@/domain/Character";
 import { Suspense } from 'react';
 import { getCharacterQueryKey } from "@/persistence/cacheKeys";
-import { getSearchQuery } from "@/utils/global/httpUtils";
+import { getSearchQuery } from "@/common/global/httpUtils";
 
 type CharactersPageProps = 
 {

@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 
 import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persistence/characterSchemas";
 import SubmitButton from "@/components/ui/SubmitButton";
-import { useFormMutation } from "@/hooks/useFormMutation";
+import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 
 type EditCharacterCombatProps =

@@ -2,7 +2,7 @@ import { DamageOffense } from "@/domain/Character";
 import { type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, useController } from "react-hook-form";
 import { type DamageOffensePath } from "@/components/character/edit/combat/EditOffenseCard";
-import { setWithSideEffect } from "@/utils/global/setterUtils";
+import { setWithSideEffect } from "@/common/global/setterUtils";
 import { useState } from "react";
 
 export function useDamageOffenseForm

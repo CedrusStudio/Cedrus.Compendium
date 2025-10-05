@@ -1,5 +1,5 @@
 "use client";
-import { ThemeProvider } from '@/providers/theme-provider'
+import { ThemeProvider } from '@/infrastructure/providers/theme-provider'
 import { Toaster } from "@/components/ui/sonner"
 import { Provider } from 'react-redux';
 import { store } from '@/persistence/store';

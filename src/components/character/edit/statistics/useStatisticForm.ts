@@ -2,7 +2,7 @@ import { Statistic } from "@/domain/Character";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control, useController } from "react-hook-form";
 import { StatisticPath } from "@/components/character/edit/statistics/StatisticsCardEdit";
-import { setWithSideEffect } from "@/utils/global/setterUtils";
+import { setWithSideEffect } from "@/common/global/setterUtils";
 import { useState } from "react";
 
 export function useStatisticForm

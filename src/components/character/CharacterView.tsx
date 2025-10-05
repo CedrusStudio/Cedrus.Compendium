@@ -23,7 +23,7 @@ import { Button } from '@/components/ui/button';
 import { TbEdit } from "react-icons/tb";
 import TabsTriggerCapitalized from '@/components/ui/TabsTriggerCapitalized';
 import { useState } from 'react';
-import { CharacterTabs, isCharacterTab } from '@/utils/tabsUtils';
+import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from './hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";

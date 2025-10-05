@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { isCharacterTab } from '@/utils/tabsUtils';
+import { isCharacterTab } from '@/common/tabsUtils';
 import EditCharacterView from '@/components/character/edit/EditCharacterView';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { type VariantType } from "@/utils/VariantType";
+import { type VariantType } from "@/common/VariantType";
 import { cn } from "@/lib/utils";
 import { IoAdd } from "react-icons/io5";
-import { ChangeValueSideEffect } from "@/utils/global/ChangeValueSideEffect";
+import { ChangeValueSideEffect } from "@/common/global/ChangeValueSideEffect";
 
 type IncreaseButtonProps =
 {

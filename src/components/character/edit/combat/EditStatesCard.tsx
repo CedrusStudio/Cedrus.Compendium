@@ -12,7 +12,7 @@ import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
 import EditModeView from '@/components/character/edit/combat/EditModeView';
 import AppendToArrayButton from '@/components/ui/AppendToArrayButton';
-import useWatchedFormArray from '@/hooks/useWatchedFormArray';
+import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 
 type EditStatesCardProps =
 {

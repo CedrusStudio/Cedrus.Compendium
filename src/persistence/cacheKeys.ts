@@ -1,4 +1,4 @@
-import { searchParamKey } from "@/utils/global/httpUtils";
+import { searchParamKey } from "@/common/global/httpUtils";
 
 const characterKey = 'characters';
 

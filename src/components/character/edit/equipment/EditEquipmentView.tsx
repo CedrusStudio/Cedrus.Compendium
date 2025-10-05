@@ -6,7 +6,7 @@ import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
 import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
-import { useFormMutation } from '@/hooks/useFormMutation';
+import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/components/character/edit/equipment/EditShieldView';
 import EditWeaponView from '@/components/character/edit/equipment/EditWeaponView';
 import EditArmorView from '@/components/character/edit/equipment/EditArmorView';

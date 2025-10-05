@@ -10,7 +10,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useSearchCharacters } from '@/components/character/hooks/useSearchCharacters';
-import { usePagination } from '@/hooks/usePagination';
+import { usePagination } from '@/infrastructure/hooks/usePagination';
 import { Character } from '@/domain/Character';
 import Link from 'next/link';
 import {

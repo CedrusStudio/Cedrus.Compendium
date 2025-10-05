@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { FieldValues } from 'react-hook-form';
-import { onError, onSuccess } from "@/utils/global/onSaveCallbacks";
+import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 
 export function useFormMutation<TData extends FieldValues>
 (

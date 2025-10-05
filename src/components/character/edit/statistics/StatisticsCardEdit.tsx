@@ -8,7 +8,7 @@ import {
 import StatisticViewEdit from "@/components/character/edit/statistics/StatisticsViewEdit";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control } from "react-hook-form";
-import { PathsFrom} from "@/utils/global/pathTypes";
+import { PathsFrom} from "@/common/global/pathTypes";
 import { attributesIcons, characteristicIcons } from "@/domain/data/icons";
 
 export type AllowedRoots = "characteristics" | "attributes";

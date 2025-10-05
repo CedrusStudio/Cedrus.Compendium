@@ -15,14 +15,14 @@ import { Control, useController } from "react-hook-form";
 import Subcard from '@/components/global/Subcard';
 import { Badge } from '@/components/ui/badge';
 import VerticalChangeButtons from '@/components/global/buttons/VerticalChangeButtons';
-import { PathsFrom } from '@/utils/global/pathTypes';
+import { PathsFrom } from '@/common/global/pathTypes';
 import { useDamageOffenseForm } from '@/components/character/edit/combat/useDamageOffenseForm';
 import { useWeaponOffenseForm } from '@/components/character/edit/combat/useWeaponOffenseForm';
 import { Button } from '@/components/ui/button';
 import { Dispatch, useState } from 'react';
 import RemoveButton from '@/components/ui/RemoveButton';
 import { LuPlus } from 'react-icons/lu';
-import { resolveSetState } from '@/utils/global/resolveSetState';
+import { resolveSetState } from '@/common/global/resolveSetState';
 
 type StatsRoot = Pick<UpsertCharacterCombatType, "offense">;
 export type WeaponOffensePath = PathsFrom<StatsRoot, WeaponOffense | undefined>;

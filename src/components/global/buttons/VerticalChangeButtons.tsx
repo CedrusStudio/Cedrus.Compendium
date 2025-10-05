@@ -1,7 +1,7 @@
 import IncreaseButton from '@/components/global/buttons/IncreaseButton';
 import DecreaseButton from '@/components/global/buttons/DecreaseButton';
 import { ChevronUp, ChevronDown } from "lucide-react";
-import { ChangeValueSideEffect } from '@/utils/global/ChangeValueSideEffect';
+import { ChangeValueSideEffect } from '@/common/global/ChangeValueSideEffect';
 
 type VerticalChangeButtonsProps =
 {

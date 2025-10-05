@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import CharacterView from '@/components/character/CharacterView';
-import { isCharacterTab } from '@/utils/tabsUtils';
+import { isCharacterTab } from '@/common/tabsUtils';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 // import seedDatabase from '@/persistence/seed';
 

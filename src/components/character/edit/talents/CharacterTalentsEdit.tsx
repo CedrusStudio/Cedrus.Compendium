@@ -12,7 +12,7 @@ import SubmitButton from "@/components/ui/SubmitButton";
 import { defaultColumns } from "@/components/character/talents/defaultColumns"
 import { EditTalentsTable } from "@/components/character/edit/talents/EditTalentsTable"
 import { Character } from "@/domain/Character";
-import { useFormMutation } from "@/hooks/useFormMutation";
+import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 
 export default function CharacterTalentsEdit(input: { character: Character })

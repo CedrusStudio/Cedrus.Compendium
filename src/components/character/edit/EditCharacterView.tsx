@@ -11,7 +11,7 @@ import CharacterStatisticsEdit from '@/components/character/edit/statistics/Char
 import CharacterTalentsEdit from '@/components/character/edit/talents/CharacterTalentsEdit';
 import EditEquipmentView from '@/components/character/edit/equipment/EditEquipmentView';
 import { useState } from "react";
-import { CharacterTabs, isCharacterTab } from "@/utils/tabsUtils";
+import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/components/character/edit/combat/EditCharacterCombat";
 import { useGetCharacterById } from "../hooks/useGetCharacterById";
 

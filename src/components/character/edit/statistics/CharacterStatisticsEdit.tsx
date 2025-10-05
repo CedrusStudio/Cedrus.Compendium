@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import StatisticsCardEdit from "@/components/character/edit/statistics/StatisticsCardEdit";
 import SubmitButton from "@/components/ui/SubmitButton";
-import { useFormMutation } from "@/hooks/useFormMutation";
+import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 
 export default function CharacterStatisticsEdit(input: { character: Character })
