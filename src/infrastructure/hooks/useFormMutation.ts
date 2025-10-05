@@ -8,7 +8,6 @@ export function useFormMutation<TData extends FieldValues>
 (
   mutationFn: (data: TData) => Promise<void>,
   options: {
-    initialValues: TData;
     invalidateOnSuccess?: string[];
     toastPosition?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
   }

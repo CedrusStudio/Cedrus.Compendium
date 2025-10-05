@@ -1,4 +1,4 @@
-import { Character } from '@/domain/Character';
+import { Character, Talent } from '@/domain/Character';
 import { setSearchQueryParam } from '@/common/global/httpUtils';
 import axios from 'axios';
 
@@ -37,6 +37,11 @@ const bffClient =
     upsertCharacter: async (id: string, characterData: Character) =>
     {
         const response = await clientBase.put(`${characterPathSegment}/${id}`, characterData);
+        return response.data;
+    },
+    addTalent: async (id: string, talent: Talent) =>
+    {
+        const response = await clientBase.post(`${characterPathSegment}/${id}/talents`, talent);
         return response.data;
     }
 }

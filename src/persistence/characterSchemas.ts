@@ -61,15 +61,19 @@ export const upsertCharacterStatisticsSchema = z.object
 });
 
 //Talents
-export const talentSchema = z.object
+export const newTalentSchema = z.object
 ({
-  id: z.string().min(2, { message: "ID must be at least 2 characters." }).max(100, { message: "ID must be at most 100 characters." }),
   category: z.string().min(2, { message: "Category must be at least 2 characters." }).max(100, { message: "Category must be at most 100 characters." }),
   name: z.string().min(2, { message: "Name must be at least 2 characters." }).max(100, { message: "Name must be at most 100 characters." }),
   characteristics: z.string().min(2, { message: "Characteristics must be at least 2 characters." }).max(100, { message: "Characteristics must be at most 100 characters." }),
   grade: z.coerce.number<number>().int().min(1, { message: "Grade must be at least 1." }).max(50, { message: "Grade must be at most 50." }),
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus must be at least -10." }).max(50, { message: "Bonus must be at most 50." }),
   penalty: z.coerce.number<number>().int().min(-10, { message: "Penalty must be at least -10." }).max(50, { message: "Penalty must be at most 50." }),
+});
+
+export const talentSchema = newTalentSchema.extend
+({
+  id: z.string().min(2, { message: "ID must be at least 2 characters." }).max(100, { message: "ID must be at most 100 characters." })
 }).required();
 
 export const upsertCharacterTalentsSchema = z.object

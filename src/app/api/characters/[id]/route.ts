@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { deleteCharacter, getCharacter, upsertCharacter } from '@/persistence/characterRepository';
-import { getIdParamFromRequest as getIdParamFromLastRequestSegment } from '@/common/global/httpUtils';
+import { getIdParamFromLastRequestSegment } from '@/common/global/httpUtils';
 
 export async function GET(request: NextRequest)
 {

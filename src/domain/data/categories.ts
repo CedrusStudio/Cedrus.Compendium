@@ -73,3 +73,13 @@ export const scholarshipCategory =
   "wiedza przyrodnicza",
   "kowalstwo",
 ] as const;
+
+export const characteristicsOptions =
+[
+  "strength",
+  "dexterity",
+  "constitution",
+  "mind",
+  "charisma",
+  "spellborn"
+] as const;

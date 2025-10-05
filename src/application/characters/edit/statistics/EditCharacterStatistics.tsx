@@ -1,9 +1,7 @@
 "use client";
 
 import { Character } from "@/domain/Character";
-import {
-  Form
-} from "@/ui/form";
+import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -38,7 +36,6 @@ export default function EditCharacterStatistics(input: { character: Character })
       { ...character, characteristics: characterStatistics.characteristics, attributes: characterStatistics.attributes }
     ),
     {
-      initialValues,
       invalidateOnSuccess: ['characters', `characters/${id}`]
     }
   );

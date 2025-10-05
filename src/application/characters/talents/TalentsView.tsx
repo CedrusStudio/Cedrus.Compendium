@@ -37,7 +37,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { talentCategories } from "@/domain/data/categories"
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns"
 import { namingConventions } from "@/domain/data/namingConventions"
-import EmptyTable from "./EmptyTable"
+import EmptyTable from "@/application/characters/talents/EmptyTable"
 
 interface DataTableProps
 {
@@ -168,50 +168,50 @@ export function TalentsView({ columns, data }: DataTableProps)
       </div>
 
         <div className="overflow-hidden rounded-md border">
-            <Table>
-                <TableHeader>
-                {
-                  table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
-                    {
-                      headerGroup.headers.map(header => (
-                        <TableHead key={header.id} className="">
-                        {
-                          header.isPlaceholder
-                              ? null
-                              : flexRender(header.column.columnDef.header, header.getContext())
-                        }
-                        </TableHead>
-                      ))
-                    }
-                    </TableRow>
-                  ))
-                }
-                </TableHeader>
+          <Table>
+              <TableHeader>
+              {
+                table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                  {
+                    headerGroup.headers.map(header => (
+                      <TableHead key={header.id} className="">
+                      {
+                        header.isPlaceholder
+                            ? null
+                            : flexRender(header.column.columnDef.header, header.getContext())
+                      }
+                      </TableHead>
+                    ))
+                  }
+                  </TableRow>
+                ))
+              }
+              </TableHeader>
 
-                <TableBody>
-                {
-                  table.getRowModel().rows?.length 
-                    ? (
-                        table.getRowModel().rows.map(row => (
-                            <TableRow
-                              key={row.id}
-                              data-state={row.getIsSelected() && "selected"}
-                            >
-                            {
-                              row.getVisibleCells().map(cell => (
-                                <TableCell key={cell.id}>
-                                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </TableCell>
-                              ))
-                            }
-                            </TableRow>
-                        ))
-                    ) 
-                    : <EmptyTable columns={columns} />
-                }
-                </TableBody>
-            </Table>
+              <TableBody>
+              {
+                table.getRowModel().rows?.length 
+                  ? (
+                      table.getRowModel().rows.map(row => (
+                          <TableRow
+                            key={row.id}
+                            data-state={row.getIsSelected() && "selected"}
+                          >
+                          {
+                            row.getVisibleCells().map(cell => (
+                              <TableCell key={cell.id}>
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </TableCell>
+                            ))
+                          }
+                          </TableRow>
+                      ))
+                  ) 
+                  : <EmptyTable colSpan={columns.length} />
+              }
+              </TableBody>
+          </Table>
         </div>
 
     </div>

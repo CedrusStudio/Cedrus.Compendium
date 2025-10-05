@@ -1,5 +1,4 @@
 import { Character, Maneuver, Mode, Talent, WeaponOffense } from "@/domain/Character";
-import { talentCategories } from "@/domain/data/categories";
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;
@@ -50,16 +49,14 @@ export const CreateDefaultState = (): Mode => ({...defaultState, name: `Stan ${c
 
 export const defaultTalent: Talent =
 {
-  name: `Talent`,
-  category: talentCategories[0],
-  characteristics: "siła",
-  id: 'losowe-id',
+  name: "",
+  category: "",
+  characteristics: "",
+  id: '',
   bonus: 0,
   penalty: 0,
-  grade: 1
+  grade: 0
 };
-
-export const CreateDefaultTalent = (): Talent => ({...defaultTalent, name: `Talent ${crypto.randomUUID()}`, id: crypto.randomUUID()});
 
 export const emptyCharacter: Character = 
 { 

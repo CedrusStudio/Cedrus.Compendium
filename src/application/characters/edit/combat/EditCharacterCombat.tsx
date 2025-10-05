@@ -59,7 +59,6 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         }
       ), 
       {
-        initialValues,
         invalidateOnSuccess: ['characters', `characters/${character.id}`, `characters/${character.id}/edit`],
         toastPosition: "bottom-left",
       }

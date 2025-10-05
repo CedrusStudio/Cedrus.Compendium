@@ -29,7 +29,6 @@ export default function EditEquipmentView(input: { character: Character })
   (
     async (characterEquipment: UpsertCharacterEquipmentType) => await bffClient.upsertCharacter(id, { ...input.character, equipment: characterEquipment }),
     {
-      initialValues,
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",
     }

@@ -1,12 +1,10 @@
-import { AccessorKeyColumnDef, ColumnDef } from "@tanstack/react-table"
 import { TableCell, TableRow } from "@/ui/table"
-import { Talent } from "@/domain/Character"
 
-export default function EmptyTable({ columns }: { columns: AccessorKeyColumnDef<Talent>[] | ColumnDef<Talent>[] })
+export default function EmptyTable({ colSpan }: { colSpan: number })
 {
   return (
     <TableRow>
-      <TableCell colSpan={columns.length} className="h-24 text-center">
+      <TableCell colSpan={colSpan} className="h-24 text-center">
         Brak umiejętności.
       </TableCell>
     </TableRow>
