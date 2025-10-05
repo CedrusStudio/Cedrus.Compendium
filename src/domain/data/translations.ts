@@ -2,6 +2,7 @@ const defaultTranslations =
 {
     characters: "postacie",
     edit: "edycja",
+    add: "dodawanie",
     vitality: "żywotność",
     toughness: "twardość",
     recoveryLevel: "regeneracja",
