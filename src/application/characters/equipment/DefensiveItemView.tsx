@@ -16,6 +16,9 @@ export default function DefensiveItemView({ defensiveItem, children }: PropsWith
       </div>
       {children}
       <div>
+        <span className='font-semibold'>Odporność:</span> {defensiveItem.resistance}
+      </div>
+      <div>
         <span className='font-semibold'>Kara:</span> {defensiveItem.attributePenalty}
       </div>
       <div>

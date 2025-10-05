@@ -98,50 +98,24 @@ export const emptyCharacter: Character =
         bonus: 0
     },
 
-    defense: 
-    {
-        immunity: 0,
-        resistance: 0,
-        protection: 0,
-        block: 0,
-        parry: 0,
-        dodge: 0,
-        bonus: 0
-    },
-
-    offense: 
-    {
-        leadingWeapon: 
+    defenses: 
+    [
         {
-            amount: defaultWeaponDiceAmount,
-            grade: defaultGrade,
-            bonus: 0,
-            critical: 
-            {
-                power: 0,
-                range: 0
-            }
-        },
-        secondaryWeapon: undefined, 
-        damageBonus: 
-        {
-            amount: 0,
-            grade: defaultDamageDiceAmount,
+            immunity: 0,
+            resistance: 0,
+            protection: 0,
+            block: 0,
+            parry: 0,
+            dodge: 0,
             bonus: 0
+        
         }
-    },
+    ],
 
-    stances: [],
-    states: [],
-    maneuvers: [],
-
-    talents: [],
-
-    equipment: {
-        weapon1: {
-            name: "Broń 1",
-            style: "",
-            offense: 
+    offenses:
+    [
+        {
+            leadingWeapon: 
             {
                 amount: defaultWeaponDiceAmount,
                 grade: defaultGrade,
@@ -152,41 +126,85 @@ export const emptyCharacter: Character =
                     range: 0
                 }
             },
+            secondaryWeapon: undefined, 
             damageBonus: 
             {
                 amount: 0,
-                grade: 0,
+                grade: defaultDamageDiceAmount,
                 bonus: 0
-            },
-            range: 0,
-            description: "Weapon 1 description"
-        },
-        weapon2: undefined, 
-        weapon3: undefined,
-        weapon4: undefined,
-        armor: 
-        {
-            name: "Pancerz",
-            protection: 0,
-            dexterityRestriction: 0,
-            reflexRestriction: 0,
-            initiativeRestriction: 0,
-            attributePenalty: 0,
-            strengthRequirement: 0,
-            description: "Opis pancerza"
-        },
-        shield: 
-        {
-            name: "Tarcza",
-            block: 0,
-            dexterityRestriction: 0,
-            reflexRestriction: 0,
-            initiativeRestriction: 0,
-            attributePenalty: 0,
-            strengthRequirement: 0,
-            description: "Opis tarczy"
-        },
-        magicEquipment: [],
-        horse: undefined
+            }
+        }
+    ],
+    stances: [],
+    states: [],
+    maneuvers: [],
+
+    talents: [],
+
+    equipment: 
+    {
+        weapons: 
+        [
+            {
+                name: "Broń 1",
+                style: "",
+                offense: 
+                {
+                    amount: defaultWeaponDiceAmount,
+                    grade: defaultGrade,
+                    bonus: 0,
+                    critical: 
+                    {
+                        power: 0,
+                        range: 0
+                    }
+                },
+                damageBonus: 
+                {
+                    amount: 0,
+                    grade: 0,
+                    bonus: 0
+                },
+                range: 0,
+                description: "Weapon 1 description"
+            }
+        ],
+        armors:
+        [
+            {
+                name: "Pancerz",
+                protection: 0,
+                immunity: 0,
+                resistance: 0,
+                dexterityRestriction: 0,
+                reflexRestriction: 0,
+                initiativeRestriction: 0,
+                attributePenalty: 0,
+                strengthRequirement: 0,
+                description: "Opis pancerza"
+            }
+        ],
+        shields: 
+        [
+            {
+                name: "Tarcza",
+                block: 0,
+                resistance: 0,
+                dexterityRestriction: 0,
+                reflexRestriction: 0,
+                initiativeRestriction: 0,
+                attributePenalty: 0,
+                strengthRequirement: 0,
+                description: "Opis tarczy"
+            }
+        ],
+        inventory: 
+        [
+            {
+                name: "Przedmiot 1",
+                description: "Opis przedmiotu 1"
+            }
+        ],
+        horses: []
     }
 };

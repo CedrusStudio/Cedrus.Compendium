@@ -9,8 +9,8 @@ export type Character =
     attributes: Attributes;
     talents: Talent[];
     health: Health;
-    defense: Defense;
-    offense: Offense;
+    defenses: Defense[];
+    offenses: Offense[];
     equipment: Equipment;
     stances: Mode[];
     states: Mode[];
@@ -27,7 +27,7 @@ export type Characteristics =
   spellborn: Statistic;
 };
 
-export type Attributes = 
+export type Attributes =
 {
   fencing: Statistic;
   artifice: Statistic;
@@ -137,6 +137,8 @@ export type Weapon = Item &
 
 export type Armor = Item & 
 {
+  immunity: number;
+  resistance: number;
   protection: number;
   dexterityRestriction: number;
   reflexRestriction: number;
@@ -163,6 +165,7 @@ export const strengthRequirementValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 export type Shield = Item & 
 {
   block: number;
+  resistance: number;
   dexterityRestriction: number;
   reflexRestriction: number;
   initiativeRestriction: number;
@@ -179,13 +182,6 @@ export const blockValues =
   41, 42, 43, 44, 45, 46, 47, 48, 49, 50
 ];
 
-export type MagicEquipment = Item & 
-{
-  reduction: number;
-  resistance: number;
-  immunity: number;
-};
-
 export type Horse = Item & 
 {
   paceSpeed: number;
@@ -196,17 +192,14 @@ export type Horse = Item &
 
 export type Equipment = 
 {
-  weapon1: Weapon;
-  weapon2?: Weapon;
-  weapon3?: Weapon;
-  weapon4?: Weapon;
-  armor: Armor;
-  shield: Shield;
-  magicEquipment: MagicEquipment[];
-  horse?: Horse;
+  weapons: Weapon[];
+  armors: Armor[];
+  shields: Shield[];
+  inventory: Item[];
+  horses: Horse[];
 };
 
-export type ItemTypes = "weapon1" | "weapon2" | "weapon3" | "weapon4" | "armor" | "shield" | "horse";
+export type ItemTypes = "weapon" | "armor" | "shield" | "horse" | "inventory";
 
 //Maneuvers
 export type Maneuver =

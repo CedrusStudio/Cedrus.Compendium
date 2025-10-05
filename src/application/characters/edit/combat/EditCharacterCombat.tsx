@@ -28,12 +28,12 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 {
     const initialValues: UpsertCharacterCombatType = 
     {
-      defense: character.defense,
+      defense: character.defenses,
       health: character.health,
       stances: character.stances,
       states: character.states,
       maneuvers: character.maneuvers,
-      offense: character.offense,
+      offense: character.offenses,
     };
 
     const form = useForm<UpsertCharacterCombatType>
@@ -50,8 +50,8 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         character.id, 
         { 
           ...character, 
-          offense: characterCombat.offense, 
-          defense: characterCombat.defense, 
+          offenses: characterCombat.offense, 
+          defenses: characterCombat.defense, 
           health: characterCombat.health, 
           stances: characterCombat.stances, 
           states: characterCombat.states, 
@@ -75,11 +75,11 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             </div>
             
             <div className="md:col-span-3">
-              <EditOffenseCard offense={character.offense} control={form.control} />
+              <EditOffenseCard offense={character.offenses} control={form.control} />
             </div>
             
             <div className="md:col-span-2">
-              <EditDefenseCard defense={character.defense} control={form.control} />
+              <EditDefenseCard defense={character.defenses} control={form.control} />
             </div>
 
           </div>

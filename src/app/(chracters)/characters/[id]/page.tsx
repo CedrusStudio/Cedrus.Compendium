@@ -21,9 +21,9 @@ type CharacterProps =
 
 export default async function CharacterPage(input: CharacterProps)
 {
+  // seedDatabase();
   const searchParams = await input.searchParams;
   const params = await input.params;
-  // seedDatabase();
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery
