@@ -49,6 +49,7 @@ export const defaultColumns: AccessorKeyColumnDef<Talent>[] =
       return (
         <Button
           variant="ghost"
+          type="button"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           {defaultColumnHeaders.category}
