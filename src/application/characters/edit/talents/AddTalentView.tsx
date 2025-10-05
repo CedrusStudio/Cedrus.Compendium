@@ -98,7 +98,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
           </SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
 
             <div className="flex flex-col gap-6">
 
