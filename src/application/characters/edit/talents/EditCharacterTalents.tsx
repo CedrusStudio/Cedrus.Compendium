@@ -42,7 +42,7 @@ export default function EditCharacterTalents(input: { character: Character })
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditTalentsTable columns={defaultColumns} initialTalents={initialValues.talents} control={form.control} isPending={isPending}/>
+        <EditTalentsTable columns={defaultColumns} initialTalents={initialValues.talents} isPending={isPending}/>
         <SubmitButton isPending={isPending} />
       </form>
     </Form>
