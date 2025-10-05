@@ -32,13 +32,11 @@ import {
 } from "@/ui/table"
 import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { CreateDefaultTalent } from "@/domain/data/defaults";
 import { Talent } from "@/domain/Character"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
 import { Control, useFieldArray } from "react-hook-form"
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow"
-import AppendToArrayButton from "@/ui/AppendToArrayButton"
 import { talentCategories } from "@/domain/data/categories"
 import { defaultColumnKeys } from "../../talents/defaultColumns"
 import { namingConventions } from "@/domain/data/namingConventions"
@@ -62,7 +60,7 @@ interface DataTableProps
 
 export function EditTalentsTable({ columns, control, isPending, initialTalents }: DataTableProps) 
 {
-  const { fields, update, append, remove } = useFieldArray
+  const { fields, update, remove } = useFieldArray
   ({
     name: "talents",
     control
@@ -141,7 +139,6 @@ export function EditTalentsTable({ columns, control, isPending, initialTalents }
             </SelectContent>
           </Select>
 
-          <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultTalent} />
         </div>
 
         <div className="flex items-center justify-end space-x-2 py-4 ml-auto">
@@ -229,7 +226,7 @@ export function EditTalentsTable({ columns, control, isPending, initialTalents }
                     remove={remove} 
                   />
                 )
-              : <EmptyTable columns={columns} />
+              : <EmptyTable colSpan={columns.length} />
           }
           </TableBody>
         </Table>

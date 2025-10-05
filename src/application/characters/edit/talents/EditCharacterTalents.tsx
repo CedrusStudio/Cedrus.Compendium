@@ -35,7 +35,6 @@ export default function EditCharacterTalents(input: { character: Character })
   (
     async (characterTalents: UpsertCharacterTalentsType) => await bffClient.upsertCharacter(id, { ...character, talents: characterTalents.talents }),
     {
-      initialValues,
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`]
     }
   );

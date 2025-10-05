@@ -32,7 +32,6 @@ const reset = (defaultValue: number, setStateAction: React.Dispatch<React.SetSta
     (
         previousValue => 
         {
-          console.log("Reset from", previousValue, "to", defaultValue);
           if (previousValue === defaultValue) return previousValue;
           sideEffect?.(defaultValue);
           return defaultValue;
