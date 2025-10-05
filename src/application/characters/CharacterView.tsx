@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/ui/alert-dialog"
-import CharacterStatistics from '@/application/characters/statistics/CharacterStatistics';
+import StatisticsView from '@/application/characters/statistics/StatisticsView';
 import { columns } from "@/application/characters/talents/talentsColumns"
 import { TalentsView } from "@/application/characters/talents/TalentsView"
 import { Tabs, TabsContent, TabsList } from "@/ui/tabs"
@@ -47,7 +47,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
     <div className='grid md:grid-cols-12'>
 
         <div className='col-span-12 lg:col-span-2'>
-            <CharacterStatistics character={character} />
+            <StatisticsView character={character} />
         </div>
 
         <Tabs 

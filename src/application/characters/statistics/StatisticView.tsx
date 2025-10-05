@@ -1,7 +1,7 @@
 "use client";
 
 import { Statistic } from "@/domain/Character";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -28,7 +28,8 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
 
   const handleRoll = (statistic: Statistic) => 
   {
-    const result = Math.floor(Math.random() * statistic.grade * 2) + 1 + statistic.value + bonus;
+    const result = Math.floor(Math.random() * statistic.grade * 2) + 1
+    console.log("Base roll:", result);
     setRollResult(result);
   };
 
@@ -58,10 +59,16 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
         </div>
       </div>
 
-      <RollButton onClick={() => handleRoll(statistic)} rollResult={rollResult} />
+      <RollButton onClick={() => handleRoll(statistic)} rollResult={calculateRollResult(rollResult, statistic, bonus)} />
     </div>
   );
 };
+
+function calculateRollResult(roll: number | null, statistic: Statistic, bonus: number): number | null
+{
+  if (roll === null) return null;
+  return roll + statistic.value + bonus;
+}
 
 function calculateDefaultBonus(statistic: Statistic): number
 {
