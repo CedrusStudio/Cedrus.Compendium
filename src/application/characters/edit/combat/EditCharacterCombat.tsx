@@ -66,30 +66,30 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4" id={combatFormName}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3 -mt-11" id={combatFormName}>
 
-          <div className="grid gap-3 md:grid-cols-7">
+          <div className="md:col-span-2">
+            <EditHealthCard health={character.health} />
+          </div>
 
-            <div className="md:col-span-2">
-              <EditHealthCard health={character.health} />
-            </div>
+          <div className="grid gap-3 md:grid-cols-2">
+          {
+            character.offenses.map((offense, index) => (
+              <div key={index}>
+                <EditOffenseCard offense={offense} index={index} />
+              </div>
+            ))
+          }
+          </div>
             
-            {
-              character.offenses.map((offense, index) => (
-                <div className="md:col-span-3" key={index}>
-                  <EditOffenseCard offense={offense} index={index} />
-                </div>
-              ))
-            }
-            
-            {
-              character.defenses.map((defense, index) => (
-                <div className="md:col-span-3" key={index}>
-                  <EditDefenseCard defense={defense} index={index} />
-                </div>
-              ))
-            }
-            
+          <div className="grid gap-3  md:grid-cols-2">
+          {
+            character.defenses.map((defense, index) => (
+              <div key={index}>
+                <EditDefenseCard defense={defense} index={index} />
+              </div>
+            ))
+          }
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
