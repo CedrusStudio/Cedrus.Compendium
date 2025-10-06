@@ -16,13 +16,13 @@ import {
 
 export type SelectFormFieldProps<TFieldValues extends FieldValues> = 
 {
-  name: FieldPath<TFieldValues>;
+  path: FieldPath<TFieldValues>;
   items: readonly string[] | readonly number[];
   labelText?: string;
   noLabel?: boolean;
 };
 
-export function SelectFormField<TFieldValues extends FieldValues>({ name, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
+export function SelectFormField<TFieldValues extends FieldValues>({ path: name, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
 {
     const { control } = useFormContext<TFieldValues>();
     

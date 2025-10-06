@@ -153,11 +153,11 @@ const horseSchema = itemSchema.extend
 
 export const upsertCharacterEquipmentSchema = z.object
 ({
-  weapons: upsertWeaponSchema.array().max(10, { message: "Możesz mieć najwyżej 10 broni." }),
-  armors: armorSchema.array().max(10, { message: "Możesz mieć najwyżej 10 zbroi." }),
-  shields: shieldSchema.array().max(10, { message: "Możesz mieć najwyżej 10 tarcz." }),
+  weapons: z.array(upsertWeaponSchema).max(10, { message: "Możesz mieć najwyżej 10 broni." }),
+  armors: z.array(armorSchema).max(10, { message: "Możesz mieć najwyżej 10 zbroi." }),
+  shields: z.array(shieldSchema).max(10, { message: "Możesz mieć najwyżej 10 tarcz." }),
   inventory: z.array(itemSchema).max(100, { message: "Możesz mieć najwyżej 100 przedmiotów w ekwipunku." }),
-  horses: horseSchema.array().max(10, { message: "Możesz mieć najwyżej 10 koni." }),
+  horses: z.array(horseSchema).max(10, { message: "Możesz mieć najwyżej 10 koni." }),
 });
 
 export type UpsertCharacterWeaponType = z.infer<typeof upsertWeaponSchema>;

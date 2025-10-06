@@ -136,7 +136,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.castTime`} labelText='Czas Rzucania' items={castTimeValues} />
+              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText='Czas Rzucania' items={castTimeValues} />
             </div>
           </div>
 

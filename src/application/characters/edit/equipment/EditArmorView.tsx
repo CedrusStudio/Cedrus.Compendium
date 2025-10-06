@@ -22,14 +22,14 @@ type AccordionWeaponItemProps =
 export default function EditArmorView({ equipmentFormName, index, armor, isPending }: AccordionWeaponItemProps)
 {
     return (
-    <AccordionItem value="armor">
+    <AccordionItem value={`armors.${index}`}>
         <AccordionTrigger>{armor.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
             <ArmorView armor={armor} />
             <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} isPending={isPending} index={index} />
         </AccordionContent>
     </AccordionItem>
-    );
+  );
 }
 
 function EditArmorSheet({ equipmentFormName, armor, isPending, index }: AccordionWeaponItemProps)
@@ -45,14 +45,14 @@ function EditArmorSheet({ equipmentFormName, armor, isPending, index }: Accordio
           <Label>Pancerz</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToArmorsField(index, `protection`)}
+              path={pathToArmorsField(index, `protection`)}
               items={protectionValues}
               noLabel
-            />
+          />
 
         </div>
 
-      <EditDefensiveItemView defensiveItem="armor" />
+      <EditDefensiveItemView defensiveItem="armors" index={index} />
     </EditItemSheet>
   )
 }

@@ -16,7 +16,6 @@ import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { EquipmentItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
-import { Path } from "react-hook-form";
 
 type EditItemSheetProps = 
 {
@@ -50,10 +49,9 @@ export default function EditItemSheet({ item, isPending, children, equipmentForm
                 <Label>Nazwa</Label>
                 
                 <InputFormField<UpsertCharacterEquipmentType> 
-                    name={`weapons.${1}.name`}
-                    // name={`${item.type}.name`}
-                    inputPlaceholder="edytuj nazwę..." 
-                    inputClassName='w-80'
+                  path={`${item.type}.name`}
+                  inputPlaceholder="edytuj nazwę..." 
+                  inputClassName='w-80'
                 />
             </div>
 
@@ -62,9 +60,9 @@ export default function EditItemSheet({ item, isPending, children, equipmentForm
                 <Label>Opis</Label>
                 
                 <InputFormField<UpsertCharacterEquipmentType> 
-                    name={`${item.type}.description`}
-                    inputPlaceholder="edytuj opis..." 
-                    inputClassName='w-80'
+                  path={`${item.type}.description`}
+                  inputPlaceholder="edytuj opis..." 
+                  inputClassName='w-80'
                 />
             </div>
 

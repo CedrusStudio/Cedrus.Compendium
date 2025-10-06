@@ -5,13 +5,25 @@ import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 
 type CommonDefensiveItemEditorProps = 
 {
-  defensiveItem: "armor" | "shield";
+  defensiveItem: "armors" | "shields";
+  index: number;
 }
 
-export default function EditDefensiveItemView({ defensiveItem }: CommonDefensiveItemEditorProps)
+export default function EditDefensiveItemView({ defensiveItem, index }: CommonDefensiveItemEditorProps)
 {
   return (
     <div className="grid auto-rows-min gap-3 px-4">
+
+        <div className="grid auto-rows-min gap-3 px-4">
+
+            <Label>Kara atrybutu</Label>
+
+            <SelectFormField<UpsertCharacterEquipmentType> 
+                path={`${defensiveItem}.${index}.resistance`}
+                items={attributePenaltyValues}
+                noLabel
+            />
+        </div>
 
         <div className="flex flex-row gap-3 px-14">
 
@@ -20,7 +32,7 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
                 <Label>Kara atrybutu</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
-                    name={`${defensiveItem}.attributePenalty`}
+                    path={`${defensiveItem}.${index}.attributePenalty`}
                     items={attributePenaltyValues}
                     noLabel
                 />
@@ -31,7 +43,7 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
                 <Label>Wymaganie siły</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
-                    name={`${defensiveItem}.strengthRequirement`}
+                    path={`${defensiveItem}.${index}.strengthRequirement`}
                     items={strengthRequirementValues}
                     noLabel
                 />
@@ -46,7 +58,7 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
                 <Label>Ograniczenie zręczności</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
-                    name={`${defensiveItem}.dexterityRestriction`}
+                    path={`${defensiveItem}.${index}.dexterityRestriction`}
                     items={dexterityRestrictionValues}
                     noLabel
                 />
@@ -57,7 +69,7 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
                 <Label>Ograniczenie inicjatywy</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
-                    name={`${defensiveItem}.initiativeRestriction`}
+                    path={`${defensiveItem}.${index}.initiativeRestriction`}
                     items={initiativeRestrictionValues}
                     noLabel
                 />

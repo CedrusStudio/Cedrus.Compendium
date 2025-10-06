@@ -11,6 +11,7 @@ import EditShieldView from '@/application/characters/edit/equipment/EditShieldVi
 import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponView';
 import EditArmorView from '@/application/characters/edit/equipment/EditArmorView';
 import bffClient from '@/infrastructure/bffClient';
+import EditHorseView from './EditHorseView';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -70,13 +71,8 @@ export default function EditEquipmentView(input: { character: Character })
           }
 
           {
-            input.character.equipment.horses.map(horse => (
-              <AccordionItem key={horse.name} value={horse.name}>
-                <AccordionTrigger>{horse.name}</AccordionTrigger>
-                <AccordionContent>
-                  {horse.description}
-                </AccordionContent>
-              </AccordionItem>
+            input.character.equipment.horses.map((horse, index) => (
+              <EditHorseView key={index} index={index} equipmentFormName={equipmentFormName} horse={horse} isPending={isPending} />
             ))
           }
 

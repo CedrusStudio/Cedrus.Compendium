@@ -22,7 +22,7 @@ type AccordionWeaponItemProps =
 export default function EditShieldView({ equipmentFormName, index, shield, isPending }: AccordionWeaponItemProps)
 {
     return (
-    <AccordionItem value="shield">
+    <AccordionItem value={`shields.${index}`}>
         <AccordionTrigger>{shield.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
             <ShieldView shield={shield} />
@@ -45,14 +45,14 @@ function EditShieldSheet({ equipmentFormName, shield, isPending, index }: Accord
           <Label>Block</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToShieldsField(index, `block`)}
+              path={pathToShieldsField(index, `block`)}
               items={blockValues}
               noLabel
               />
 
         </div>
 
-      <EditDefensiveItemView defensiveItem="shield" />
+      <EditDefensiveItemView defensiveItem="shields" index={index} />
     </EditItemSheet>
   )
 }

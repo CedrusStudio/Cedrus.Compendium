@@ -202,6 +202,8 @@ export type Horse = Item &
   horsemanshipBonus: number;
 };
 
+export const pathToHorseField = <K extends keyof Horse>(index: number, field: K): `horses.${number}.${K}` => `horses.${index}.${field}`;
+
 export type Equipment = 
 {
   weapons: Weapon[];

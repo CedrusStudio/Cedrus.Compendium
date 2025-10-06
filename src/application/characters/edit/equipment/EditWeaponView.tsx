@@ -1,6 +1,6 @@
 import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
-import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
+import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/Dices';
 import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField } from '@/domain/characters/Character';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
@@ -43,7 +43,7 @@ function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: Accord
           <Label>Style</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToWeaponsField(index, `style`)}
+              path={pathToWeaponsField(index, `style`)}
               items={["None", "One-Handed", "Two-Handed", "Ranged", "Thrown"]}
               noLabel
               />
@@ -54,7 +54,7 @@ function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: Accord
           <Label>Range</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToWeaponsField(index, `range`)}
+              path={pathToWeaponsField(index, `range`)}
               items={[1,2,3,4,5]}
               noLabel
               />
@@ -83,7 +83,7 @@ function WeaponDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
           <Label>Amount</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToWeaponsWeaponOffenseField(index, `amount`)}
+              path={pathToWeaponsWeaponOffenseField(index, `amount`)}
               items={diceAmounts}
               noLabel
               />
@@ -95,7 +95,7 @@ function WeaponDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
           <Label> Grade</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToWeaponsWeaponOffenseField(index, `grade`)}
+              path={pathToWeaponsWeaponOffenseField(index, `grade`)}
               items={diceGrades}
               noLabel
           />
@@ -107,7 +107,7 @@ function WeaponDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
           <Label>Bonus</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToWeaponsWeaponOffenseField(index, `bonus`)}
+              path={pathToWeaponsWeaponOffenseField(index, `bonus`)}
               items={diceBonuses}
               noLabel
               />
@@ -131,7 +131,7 @@ function DamageDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
             <Label>Amount</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                name={pathToWeaponsDamageOffenseField(index, `amount`)}
+                path={pathToWeaponsDamageOffenseField(index, `amount`)}
                 items={diceAmounts}
                 noLabel
                 />
@@ -142,7 +142,7 @@ function DamageDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
             <Label>Grade</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                name={pathToWeaponsDamageOffenseField(index, `grade`)}
+                path={pathToWeaponsDamageOffenseField(index, `grade`)}
                 items={diceGrades}
                 noLabel
                 />
@@ -153,7 +153,7 @@ function DamageDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
             <Label>Bonus</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                name={pathToWeaponsDamageOffenseField(index, `bonus`)}
+                path={pathToWeaponsDamageOffenseField(index, `bonus`)}
                 items={diceBonuses}
                 noLabel
                 />
@@ -177,7 +177,7 @@ function CriticalEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
           <Label>Range</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToWeaponsWeaponOffenseCriticalField(index, `range`)}
+              path={pathToWeaponsWeaponOffenseCriticalField(index, `range`)}
               items={criticalRanges}
               noLabel
               />
@@ -189,7 +189,7 @@ function CriticalEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
           <Label>Power</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={pathToWeaponsWeaponOffenseCriticalField(index, `power`)}
+              path={pathToWeaponsWeaponOffenseCriticalField(index, `power`)}
               items={criticalPowers}
               noLabel
               />

@@ -7,9 +7,6 @@ export default function HorseView({ horse }: PropsWithChildren<{ horse: Horse }>
   return (
     <AccordionContent className='flex flex-col gap-2'>
       <div>
-        <span className='font-semibold'>Nazwa:</span> {horse.name}
-      </div>
-      <div>
         <span className='font-semibold'>Opis:</span> {horse.description}
       </div>
       <div>
