@@ -268,7 +268,7 @@ const dummyCharacter : Character =
       {
         name: "Krótki miecz",
         description: "Podstawowy krótki miecz.",
-        style: "Jednoręczna",
+        style: "Jednoręczny",
         offense: {
           amount: 1,
           grade: 3,
@@ -289,7 +289,7 @@ const dummyCharacter : Character =
       {
         name: "Długi łuk",
         description: "Solidny długi łuk.",
-        style: "Dystansowa",
+        style: "Dystansowy",
         offense: {
           amount: 1,
           grade: 2,
@@ -309,7 +309,7 @@ const dummyCharacter : Character =
       {
         name: "Magiczny kostur",
         description: "Kostur nasycony magicznymi właściwościami.",
-        style: "Dwuręczna",
+        style: "Dwuręczny",
         offense: {
           amount: 1,
           grade: 4,

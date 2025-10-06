@@ -110,7 +110,6 @@ export const emptyCharacter: Character =
             parry: 0,
             dodge: 0,
             bonus: 0
-        
         }
     ],
 
@@ -151,7 +150,7 @@ export const emptyCharacter: Character =
         [
             {
                 name: "Broń 1",
-                style: "",
+                style: "Jednoręczny",
                 offense: 
                 {
                     amount: defaultWeaponDiceAmount,

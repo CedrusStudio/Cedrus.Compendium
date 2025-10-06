@@ -143,11 +143,14 @@ export type Item =
 
 export type Weapon = Item & 
 {
-  style: string;
+  style: Style;
   offense: WeaponOffense;
   damageBonus: DamageOffense;
   range: number;
 };
+
+export type Style = "None" | "Jednoręczny" | "Dwuręczny" | "Dystansowy" | "Rzucony" | "Półtoraręczny";
+export const allowedStyles = ["None", "Jednoręczny", "Dwuręczny", "Dystansowy", "Rzucony", "Półtoraręczny"] as const satisfies readonly Style[];
 
 export type DefensiveItem = Item &
 {

@@ -1,3 +1,4 @@
+import { allowedStyles } from "@/domain/characters/Character";
 import { castTimeValues } from "@/domain/data/castTimes";
 import { z } from "zod";
 
@@ -116,7 +117,7 @@ const itemSchema = z.object
 
 export const upsertWeaponSchema = itemSchema.extend
 ({
-  style: z.string().min(2, { message: "ID musi mieć co najmniej 2 znaki." }).max(100, { message: "ID musi mieć najwyżej 100 znaków." }),
+  style: z.enum(allowedStyles),
   offense: weaponOffenseSchema,
   damageBonus: damageOffenseSchema,
   range: z.coerce.number<number>().int().min(-5, { message: "Zasięg Krytyka musi mieć co najmniej -5." }).max(50, { message: "Zasięg Krytyka musi mieć najwyżej 50." }),

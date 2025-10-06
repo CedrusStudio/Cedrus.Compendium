@@ -1,7 +1,7 @@
 import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
 import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/Dices';
-import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField } from '@/domain/characters/Character';
+import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField, allowedStyles } from '@/domain/characters/Character';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import WeaponView from '@/application/characters/equipment/WeaponView';
@@ -44,7 +44,7 @@ function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: Accord
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsField(index, `style`)}
-              items={["None", "One-Handed", "Two-Handed", "Ranged", "Thrown"]}
+              items={allowedStyles}
               noLabel
               />
           </div>
