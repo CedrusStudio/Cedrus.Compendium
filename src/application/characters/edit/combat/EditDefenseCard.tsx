@@ -15,13 +15,14 @@ import { translate } from '@/domain/data/translations';
 type EditDefenseCardProps =
 {
   defense: Defense;
+  index: number;
 }
 
-export default function EditDefenseCard(input: EditDefenseCardProps)
+export default function EditDefenseCard({ defense, index }: EditDefenseCardProps)
 {
   const InputFormWithLabel = (defenseFieldName: keyof UpsertCharacterDefenseType) => 
   {   
-    const fieldPath = `defense.${defenseFieldName}` as FieldPath<UpsertCharacterCombatType>;
+    const fieldPath = `defenses.${index}.${defenseFieldName}` as FieldPath<UpsertCharacterCombatType>;
 
     return (
       <div key={defenseFieldName} className={"flex flex-col items-center gap-2"}>
@@ -40,10 +41,10 @@ export default function EditDefenseCard(input: EditDefenseCardProps)
             Defensywa
           </CardTitle>
         </CardHeader>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         { 
-          Object.keys(input.defense).map(key => InputFormWithLabel(key as keyof UpsertCharacterDefenseType)) 
+          Object.keys(defense).map(key => InputFormWithLabel(key as keyof UpsertCharacterDefenseType)) 
         }
         </div>
       </CardContent>

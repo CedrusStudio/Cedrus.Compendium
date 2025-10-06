@@ -77,7 +77,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             {
               character.offenses.map((offense, index) => (
                 <div className="md:col-span-3" key={index}>
-                  <EditOffenseCard offense={offense} />
+                  <EditOffenseCard offense={offense} index={index} />
                 </div>
               ))
             }
@@ -85,7 +85,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             {
               character.defenses.map((defense, index) => (
                 <div className="md:col-span-3" key={index}>
-                  <EditDefenseCard defense={defense} />
+                  <EditDefenseCard defense={defense} index={index} />
                 </div>
               ))
             }

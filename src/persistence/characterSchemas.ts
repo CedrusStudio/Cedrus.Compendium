@@ -188,6 +188,8 @@ export type UpsertCharacterHealthType = z.infer<typeof healthSchema>;
 //Defense
 export const defenseSchema = z.object
 ({
+  name: z.string().min(2).max(100),
+  description: z.string().min(2).max(1000).optional(),
   immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(50, { message: "Niewrażliwość musi mieć najwyżej 50." }),
   resistance: z.coerce.number<number>().int().min(0, { message: "Odporność musi mieć co najmniej 0." }).max(50, { message: "Odporność musi mieć najwyżej 50." }),
   protection: z.coerce.number<number>().int().min(0, { message: "Pancerz musi mieć co najmniej 0." }).max(50, { message: "Pancerz musi mieć najwyżej 50." }),
@@ -202,9 +204,9 @@ export type UpsertCharacterDefenseType = z.infer<typeof defenseSchema>;
 //Mode
 export const modeSchema = z.object
 ({
-  name: z.string().min(2).max(100),
-  description: z.string().min(2).max(1000),
-  grade: z.coerce.number<number>().int().min(0)
+  name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
+  description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
+  grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
 });
 
 export type UpsertCharacterModeType = z.infer<typeof modeSchema>;
@@ -213,9 +215,9 @@ export const upsertCharacterModesSchema = z.array(modeSchema).max(20, { message:
 //Maneuvers
 const maneuverSchema = z.object
 ({
-  name: z.string().min(2).max(100),
-  description: z.string().min(2).max(1000),
-  grade: z.coerce.number<number>().int().min(0),
+  name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
+  description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
+  grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   cooldown: z.coerce.number<number>().int().min(0).max(20).optional(),
   castTime: z.enum(castTimeValues),
 });
@@ -226,20 +228,24 @@ export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, {
 //Offense
 const offenseSchema = z.object
 ({
+  name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
+  description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }).optional(),
   leadingWeapon: weaponOffenseSchema,
   secondaryWeapon: weaponOffenseSchema.optional(),
   damageBonus: damageOffenseSchema,
 });
 
+export type CharacterOffenseType = z.infer<typeof offenseSchema>;
+
 //Combat
 export const upsertCharacterCombatSchema = z.object
 ({
   health: healthSchema,
-  defense: defenseSchema,
+  defenses: z.array(defenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów obrony." }),
   stances: upsertCharacterModesSchema,
   states: upsertCharacterModesSchema,
   maneuvers: upsertCharacterManeuversSchema,
-  offense: offenseSchema
+  offenses: z.array(offenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów ataku." })
 });
 
 export type UpsertCharacterCombatType = z.infer<typeof upsertCharacterCombatSchema>;
