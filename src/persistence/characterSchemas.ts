@@ -124,6 +124,7 @@ export const upsertWeaponSchema = itemSchema.extend
 
 const defenseItemSchema = itemSchema.extend
 ({
+  resistance: z.coerce.number<number>().int().min(0, { message: "Odporność musi mieć co najmniej 0." }).max(100, { message: "Odporność musi mieć najwyżej 100." }),
   dexterityRestriction: z.coerce.number<number>().int().min(-10, { message: "Ograniczenie zręczności musi mieć co najmniej -10." }).max(10, { message: "Ograniczenie zręczności musi mieć najwyżej 10." }),
   reflexRestriction: z.coerce.number<number>().int().min(0, { message: "Ograniczenie refleksu musi mieć co najmniej 0." }).max(10, { message: "Ograniczenie refleksu musi mieć najwyżej 10." }),
   initiativeRestriction: z.coerce.number<number>().int().min(0, { message: "Ograniczenie inicjatywy musi mieć co najmniej 0." }).max(10, { message: "Ograniczenie inicjatywy musi mieć najwyżej 10." }),
@@ -133,19 +134,13 @@ const defenseItemSchema = itemSchema.extend
 
 const armorSchema = defenseItemSchema.extend
 ({
+  immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(10, { message: "Niewrażliwość musi mieć najwyżej 10." }),
   protection: z.coerce.number<number>().int().min(0, { message: "Pancerz musi mieć co najmniej 0." }).max(50, { message: "Pancerz musi mieć najwyżej 50." }),
 });
 
 const shieldSchema = defenseItemSchema.extend
 ({
   block: z.coerce.number<number>().int().min(0, { message: "Blokowanie musi mieć co najmniej 0." }).max(50, { message: "Blokowanie musi mieć najwyżej 50." }),
-});
-
-const magicItemSchema = itemSchema.extend
-({
-  reduction: z.coerce.number<number>().int().min(0, { message: "Redukcja musi mieć co najmniej 0." }).max(50, { message: "Redukcja musi mieć najwyżej 50." }),
-  resistance: z.coerce.number<number>().int().min(0, { message: "Odpornosc musi mieć co najmniej 0." }).max(50, { message: "Odpornosc musi mieć najwyżej 50." }),
-  immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(50, { message: "Niewrażliwość musi mieć najwyżej 50." }),
 });
 
 const horseSchema = itemSchema.extend
@@ -158,14 +153,11 @@ const horseSchema = itemSchema.extend
 
 export const upsertCharacterEquipmentSchema = z.object
 ({
-  weapon1: upsertWeaponSchema,
-  weapon2: upsertWeaponSchema.optional(),
-  weapon3: upsertWeaponSchema.optional(),
-  weapon4: upsertWeaponSchema.optional(),
-  armor: armorSchema,
-  shield: shieldSchema,
-  magicEquipment: z.array(magicItemSchema).max(10, { message: "Możesz mieć najwyżej 10 przedmiotów magicznych." }),
-  horse: horseSchema.optional(),
+  weapons: upsertWeaponSchema.array().max(10, { message: "Możesz mieć najwyżej 10 broni." }),
+  armors: armorSchema.array().max(10, { message: "Możesz mieć najwyżej 10 zbroi." }),
+  shields: shieldSchema.array().max(10, { message: "Możesz mieć najwyżej 10 tarcz." }),
+  inventory: z.array(itemSchema).max(100, { message: "Możesz mieć najwyżej 100 przedmiotów w ekwipunku." }),
+  horses: horseSchema.array().max(10, { message: "Możesz mieć najwyżej 10 koni." }),
 });
 
 export type UpsertCharacterWeaponType = z.infer<typeof upsertWeaponSchema>;

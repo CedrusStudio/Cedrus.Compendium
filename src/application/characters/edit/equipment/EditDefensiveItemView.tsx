@@ -1,5 +1,4 @@
 import { attributePenaltyValues, dexterityRestrictionValues, initiativeRestrictionValues, strengthRequirementValues } from "@/domain/characters/Character";
-import { useFormContext } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/ui/SelectFormField";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
@@ -11,8 +10,6 @@ type CommonDefensiveItemEditorProps =
 
 export default function EditDefensiveItemView({ defensiveItem }: CommonDefensiveItemEditorProps)
 {
-  const { control } = useFormContext<UpsertCharacterEquipmentType>();
-  
   return (
     <div className="grid auto-rows-min gap-3 px-4">
 
@@ -24,7 +21,6 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.attributePenalty`}
-                    control={control}
                     items={attributePenaltyValues}
                     noLabel
                 />
@@ -36,7 +32,6 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.strengthRequirement`}
-                    control={control}
                     items={strengthRequirementValues}
                     noLabel
                 />
@@ -52,7 +47,6 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.dexterityRestriction`}
-                    control={control}
                     items={dexterityRestrictionValues}
                     noLabel
                 />
@@ -64,7 +58,6 @@ export default function EditDefensiveItemView({ defensiveItem }: CommonDefensive
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     name={`${defensiveItem}.initiativeRestriction`}
-                    control={control}
                     items={initiativeRestrictionValues}
                     noLabel
                 />

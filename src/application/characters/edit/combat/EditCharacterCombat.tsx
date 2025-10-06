@@ -6,12 +6,10 @@ import EditOffenseCard from "@/application/characters/edit/combat/EditOffenseCar
 import EditStancesCard from "@/application/characters/edit/combat/EditStancesCard";
 import EditStatesCard from "@/application/characters/edit/combat/EditStatesCard";
 import EditManeuversCard from "@/application/characters/edit/combat/EditManeuversCard";
-
 import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persistence/characterSchemas";
 import SubmitButton from "@/ui/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
@@ -98,7 +96,6 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           </div>
 
           <EditManeuversCard isPending={isPending} />
-
           <SubmitButton isPending={isPending} />
         </form>
       </Form>

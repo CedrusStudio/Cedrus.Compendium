@@ -1,5 +1,4 @@
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { Control, useFormContext } from "react-hook-form";
 import { Label } from "@/ui/label"
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import {
@@ -9,7 +8,7 @@ import {
 } from "@/ui/accordion";
 import ArmorView from "@/application/characters/equipment/ArmorView";
 import { SelectFormField } from "@/ui/SelectFormField";
-import { Armor, protectionValues } from "@/domain/characters/Character";
+import { Armor, pathToArmorsField, protectionValues } from "@/domain/characters/Character";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 
 type AccordionWeaponItemProps = 
@@ -17,30 +16,28 @@ type AccordionWeaponItemProps =
   equipmentFormName: string;
   armor: Armor;
   isPending: boolean;
+  index: number;
 };
 
-export default function EditArmorView({ equipmentFormName, armor, isPending }: AccordionWeaponItemProps)
+export default function EditArmorView({ equipmentFormName, index, armor, isPending }: AccordionWeaponItemProps)
 {
     return (
     <AccordionItem value="armor">
         <AccordionTrigger>{armor.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
             <ArmorView armor={armor} />
-            <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} isPending={isPending} />
+            <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} isPending={isPending} index={index} />
         </AccordionContent>
     </AccordionItem>
     );
 }
 
-function EditArmorSheet({ equipmentFormName, armor, isPending }: AccordionWeaponItemProps)
+function EditArmorSheet({ equipmentFormName, armor, isPending, index }: AccordionWeaponItemProps)
 {
-  const { control } = useFormContext<UpsertCharacterEquipmentType>();
-  
   return (
     <EditItemSheet 
       equipmentFormName={equipmentFormName} 
-      item={{ name: armor.name, description: armor.description, type: "armor" }} 
-      control={control} 
+      item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} 
       isPending={isPending}
     >
         <div className="grid auto-rows-min gap-3 px-4">
@@ -48,15 +45,14 @@ function EditArmorSheet({ equipmentFormName, armor, isPending }: AccordionWeapon
           <Label>Pancerz</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`armor.protection`}
-              control={control}
+              name={pathToArmorsField(index, `protection`)}
               items={protectionValues}
               noLabel
-              />
+            />
 
         </div>
 
-      <EditDefensiveItemView control={control} defensiveItem="armor" />
+      <EditDefensiveItemView defensiveItem="armor" />
     </EditItemSheet>
   )
 }

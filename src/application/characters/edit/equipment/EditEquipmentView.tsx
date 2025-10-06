@@ -40,9 +40,23 @@ export default function EditEquipmentView(input: { character: Character })
 
         <Accordion type="single" collapsible>
 
-          <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapons} weaponNumber={1} isPending={isPending} />
-          <EditArmorView equipmentFormName={equipmentFormName} armor={input.character.equipment.armors} isPending={isPending} />
-          <EditShieldView equipmentFormName={equipmentFormName} shield={input.character.equipment.shields} isPending={isPending} />
+          {
+            input.character.equipment.weapons.map((weapon, index) => (
+              <EditWeaponView key={index} index={index} equipmentFormName={equipmentFormName} weapon={weapon} isPending={isPending} />
+            ))
+          }
+
+          {
+            input.character.equipment.armors.map((armor, index) => (
+              <EditArmorView key={index} index={index} equipmentFormName={equipmentFormName} armor={armor} isPending={isPending} />
+            ))
+          }
+
+          {
+            input.character.equipment.shields.map((shield, index) => (
+              <EditShieldView key={index} index={index} equipmentFormName={equipmentFormName} shield={shield} isPending={isPending} />
+            ))
+          }
 
           {
             input.character.equipment.inventory.map(item => (
@@ -50,6 +64,17 @@ export default function EditEquipmentView(input: { character: Character })
                 <AccordionTrigger>{item.name}</AccordionTrigger>
                 <AccordionContent>
                   {item.description}
+                </AccordionContent>
+              </AccordionItem>
+            ))
+          }
+
+          {
+            input.character.equipment.horses.map(horse => (
+              <AccordionItem key={horse.name} value={horse.name}>
+                <AccordionTrigger>{horse.name}</AccordionTrigger>
+                <AccordionContent>
+                  {horse.description}
                 </AccordionContent>
               </AccordionItem>
             ))

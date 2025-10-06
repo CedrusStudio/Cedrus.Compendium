@@ -1,6 +1,5 @@
-import { blockValues, Shield } from "@/domain/characters/Character";
+import { blockValues, Shield, pathToShieldsField } from "@/domain/characters/Character";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { Control, useFormContext } from "react-hook-form";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import {
   AccordionContent,
@@ -17,37 +16,28 @@ type AccordionWeaponItemProps =
   equipmentFormName: string;
   shield: Shield;
   isPending: boolean;
+  index: number;
 };
 
-export default function EditShieldView({ equipmentFormName, shield, isPending }: AccordionWeaponItemProps)
+export default function EditShieldView({ equipmentFormName, index, shield, isPending }: AccordionWeaponItemProps)
 {
     return (
     <AccordionItem value="shield">
         <AccordionTrigger>{shield.name}</AccordionTrigger>
         <AccordionContent className='flex flex-row justify-between items-start'>
             <ShieldView shield={shield} />
-            <EditShieldSheet equipmentFormName={equipmentFormName} armor={shield} isPending={isPending} />
+            <EditShieldSheet equipmentFormName={equipmentFormName} shield={shield} isPending={isPending} index={index} />
         </AccordionContent>
     </AccordionItem>
     );
 }
 
-type EditArmorSheetProps = 
+function EditShieldSheet({ equipmentFormName, shield, isPending, index }: AccordionWeaponItemProps)
 {
-  equipmentFormName: string;
-  armor: Shield;
-  isPending: boolean;
-};
-
-function EditShieldSheet({ equipmentFormName, armor, isPending }: EditArmorSheetProps)
-{
-  const { control } = useFormContext<UpsertCharacterEquipmentType>();
-
   return (
     <EditItemSheet 
       equipmentFormName={equipmentFormName} 
-      item={{ name: armor.name, description: armor.description, type: "shield" }} 
-      control={control} 
+      item={{ name: shield.name, description: shield.description, type: `shields.${index}` }} 
       isPending={isPending}
     >
         <div className="grid auto-rows-min gap-3 px-4">
@@ -55,15 +45,14 @@ function EditShieldSheet({ equipmentFormName, armor, isPending }: EditArmorSheet
           <Label>Block</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`shield.block`}
-              control={control}
+              name={pathToShieldsField(index, `block`)}
               items={blockValues}
               noLabel
               />
 
         </div>
 
-      <EditDefensiveItemView control={control} defensiveItem="shield" />
+      <EditDefensiveItemView defensiveItem="shield" />
     </EditItemSheet>
   )
 }
