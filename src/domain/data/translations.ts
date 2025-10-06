@@ -47,6 +47,13 @@ const defaultTranslations =
 
     defense: "defensywa",
     offense: "ofensywa",
+    amount: "ilość",
+    weaponDice: "kość broni",
+    damageDice: "kość obrażeń",
+    critical: "krytyk",
+    range: "zasięg",
+    power: "siła",
+    style: "styl",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

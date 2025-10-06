@@ -6,6 +6,7 @@ import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
+import { translate } from '@/domain/data/translations';
 
 type AccordionWeaponItemProps = 
 {
@@ -39,19 +40,20 @@ function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: Accord
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
-          
-          <Label>Style</Label>
+
+          <Label className='capitalize'>{translate('style')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsField(index, `style`)}
               items={allowedStyles}
               noLabel
               />
-          </div>
+              
+        </div>
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Range</Label>
+          <Label className='capitalize'>{translate('range')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsField(index, `range`)}
@@ -75,12 +77,12 @@ function WeaponDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
 {
   return (
   <>
-    <Label className='justify-center'>Weapon Dice</Label>
+    <Label className='justify-center'>{translate('weaponDice')}</Label>
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Amount</Label>
+          <Label className='capitalize'>{translate('amount')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsWeaponOffenseField(index, `amount`)}
@@ -92,7 +94,7 @@ function WeaponDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label> Grade</Label>
+          <Label className='capitalize'>{translate('grade')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsWeaponOffenseField(index, `grade`)}
@@ -122,13 +124,13 @@ function DamageDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
 {
   return (
     <>
-      <Label className='justify-center'>Damage Dice</Label>
+      <Label className='justify-center capitalize'>{translate('damageDice')}</Label>
 
         <div className="flex flex-row justify-center gap-3">
               
           <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Amount</Label>
+            <Label className='capitalize'>{translate('amount')}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 path={pathToWeaponsDamageOffenseField(index, `amount`)}
@@ -139,7 +141,7 @@ function DamageDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
           
           <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Grade</Label>
+            <Label className='capitalize'>{translate('grade')}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 path={pathToWeaponsDamageOffenseField(index, `grade`)}
@@ -168,13 +170,13 @@ function CriticalEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
 {
   return (
     <>
-      <Label className='justify-center'>Critical</Label>
+      <Label className='justify-center capitalize'>{translate('critical')}</Label>
 
       <div className="flex flex-row justify-center gap-3">
             
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Range</Label>
+          <Label className='capitalize'>{translate('range')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsWeaponOffenseCriticalField(index, `range`)}
@@ -186,7 +188,7 @@ function CriticalEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
         
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Power</Label>
+          <Label className='capitalize'>{translate('power')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsWeaponOffenseCriticalField(index, `power`)}

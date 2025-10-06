@@ -1,15 +1,8 @@
 "use client";
 
-import { DamageOffense, damageOffenseField, leadingOffenseField, Offense, secondaryOffenseField, WeaponOffense } from '@/domain/characters/Character';
+import { DamageOffense, damageOffenseField, leadingOffenseField, Offense, secondaryOffenseField, WeaponOffense, pathToOffenseField } from '@/domain/characters/Character';
 import { CreateWeaponOffense } from '@/domain/data/defaults';
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
-
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { useController, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
@@ -22,6 +15,9 @@ import { useState } from 'react';
 import RemoveButton from '@/ui/RemoveButton';
 import { LuPlus } from 'react-icons/lu';
 import { resolveSetState } from '@/common/global/resolveSetState';
+import { translate } from '@/domain/data/translations';
+import { InputFormField } from '@/common/components/ui/InputFormField';
+import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
 
 type EditOffenseCardProps =
 {
@@ -35,15 +31,27 @@ export default function EditOffenseCard({ offense, index }: EditOffenseCardProps
     <Card className='bg-muted'>
 
       <CardHeader>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>
-          Ofensywa
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6 flex items-center justify-center gap-6'>
+          {translate('offense')}
+          
+          <div key="name" className={"flex flex-col items-center gap-2"}>
+            <InputFormField<UpsertCharacterCombatType> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
+          </div>
         </CardTitle>
       </CardHeader>
 
-      <CardContent className={ 'grid grid-cols-1 gap-1 md:grid-cols-9' }>
-        <EditLeadingWeaponOffenseSubcard offense={offense} index={index} />
-        <EditSecondaryWeaponOffenseSubcard offense={offense} index={index} />
-        <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} index={index} />
+      <CardContent className='flex flex-col gap-6 -mt-8'>
+
+        <AreaInputFormField<UpsertCharacterCombatType> 
+          path={pathToOffenseField(index, 'description')}
+          inputPlaceholder="zmien opis..." 
+        />
+
+        <div className='grid grid-cols-1 gap-1 md:grid-cols-9'>
+          <EditLeadingWeaponOffenseSubcard offense={offense} index={index} />
+          <EditSecondaryWeaponOffenseSubcard offense={offense} index={index} />
+          <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} index={index} />
+        </div>
       </CardContent>
       
     </Card>
