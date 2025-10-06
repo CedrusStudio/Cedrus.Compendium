@@ -9,7 +9,7 @@ import { Input } from "@/ui/input";
 
 export type CustomFormFieldProps<TFieldValues extends FieldValues> = 
 {
-  name: FieldPath<TFieldValues>;
+  path: FieldPath<TFieldValues>;
   inputPlaceholder?: string;
   inputClassName?: string;
 };
@@ -22,7 +22,7 @@ export function InputFormField<TFieldValues extends FieldValues>(input: CustomFo
     <div className="w-full flex justify-center gap-2">
       <FormField
         control={control}
-        name={input.name}
+        name={input.path}
         render={({ field }) => (
           <FormItem>
             <FormControl>

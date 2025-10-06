@@ -13,7 +13,7 @@ import EditEquipmentView from '@/application/characters/edit/equipment/EditEquip
 import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
-import { useGetCharacterById } from "../hooks/useGetCharacterById";
+import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
 
 type EditCharacterProps =
 {

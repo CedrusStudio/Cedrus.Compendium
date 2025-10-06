@@ -75,18 +75,18 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label>Name</Label>
-              <InputFormField<UpsertCharacterCombatType> name={`${modeType}.${index}.name`} inputPlaceholder="edit name..." inputClassName='w-60' />
+              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.name`} inputPlaceholder="edit name..." inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
               <Label>Grade</Label>
-              <InputFormField<UpsertCharacterCombatType> name={`${modeType}.${index}.grade`} inputPlaceholder="edit grade..." inputClassName="w-11 h-10 text-center font-medium" />
+              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.grade`} inputPlaceholder="edit grade..." inputClassName="w-11 h-10 text-center font-medium" />
             </div>
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label>Description</Label>
-            <InputFormField<UpsertCharacterCombatType> name={`${modeType}.${index}.description`} inputPlaceholder="edit description..." inputClassName='w-80' />
+            <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.description`} inputPlaceholder="edit description..." inputClassName='w-80' />
           </div>
         </div>
 

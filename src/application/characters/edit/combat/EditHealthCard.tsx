@@ -28,7 +28,7 @@ export default function EditHealthCard(input: EditHealthCardProps)
     return (
       <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
         <Label className="text-center capitalize">{translate(healthFieldName)}</Label>
-        <InputFormField<UpsertCharacterCombatType> name={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
+        <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
       </div>
     );
   }

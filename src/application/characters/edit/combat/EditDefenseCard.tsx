@@ -1,16 +1,10 @@
-import { Defense } from '@/domain/characters/Character';
-import { FieldPath } from "react-hook-form";
+import { Defense, pathToDefenseField } from '@/domain/characters/Character';
 import { UpsertCharacterDefenseType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/ui/InputFormField";
 import { Label } from "@/ui/label";
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { translate } from '@/domain/data/translations';
+import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
 
 type EditDefenseCardProps =
 {
@@ -22,12 +16,12 @@ export default function EditDefenseCard({ defense, index }: EditDefenseCardProps
 {
   const InputFormWithLabel = (defenseFieldName: keyof UpsertCharacterDefenseType) => 
   {   
-    const fieldPath = `defenses.${index}.${defenseFieldName}` as FieldPath<UpsertCharacterCombatType>;
+    const fieldPath = pathToDefenseField(index, defenseFieldName);
 
     return (
       <div key={defenseFieldName} className={"flex flex-col items-center gap-2"}>
         <Label className="text-center capitalize">{translate(defenseFieldName)}</Label>
-        <InputFormField<UpsertCharacterCombatType> name={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
+        <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName={'w-16 h-10 text-center font-medium'} />
       </div>
     );
   }
@@ -37,17 +31,37 @@ export default function EditDefenseCard({ defense, index }: EditDefenseCardProps
       <CardContent className='p-6'>
         
         <CardHeader>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6'>
-            Defensywa
+          <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6 flex items-center justify-center gap-6'>
+            {translate('defense')}
+            
+            <div key="name" className={"flex flex-col items-center gap-2"}>
+              <InputFormField<UpsertCharacterCombatType> path={pathToDefenseField(index, 'name')} inputClassName={'w-60 h-10 text-center font-medium'} />
+            </div>
           </CardTitle>
         </CardHeader>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        { 
-          Object.keys(defense).map(key => InputFormWithLabel(key as keyof UpsertCharacterDefenseType)) 
-        }
+        <div className='flex flex-col items-center gap-6'>
+
+          <div key="description" className={"flex flex-col items-center gap-2"}>
+            <AreaInputFormField<UpsertCharacterCombatType> 
+              path={pathToDefenseField(index, 'description')}
+              inputPlaceholder="zmien opis..." 
+            />
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          { 
+            Object.keys(defense).filter(NotNameOrDescription).map(key => InputFormWithLabel(key as keyof UpsertCharacterDefenseType)) 
+          }
+          </div>
+
         </div>
       </CardContent>
     </Card>
   );
 };
+
+function NotNameOrDescription(key: string)
+{
+  return key !== 'name' && key !== 'description';
+}

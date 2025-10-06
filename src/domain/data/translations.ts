@@ -43,7 +43,10 @@ const defaultTranslations =
     characteristics: "cecha",
     attributes: "atrybut",
     description: "opis",
-    penalty: "kara"
+    penalty: "kara",
+
+    defense: "defensywa",
+    offense: "ofensywa",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

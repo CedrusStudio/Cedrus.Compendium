@@ -1,3 +1,4 @@
+import { PathsFrom } from "@/common/global/pathTypes";
 import { CastTime } from "@/domain/data/castTimes";
 
 export type Character =
@@ -90,7 +91,9 @@ export type DamageOffense =
   amount: number;
   grade: number;
   bonus: number;
-}
+};
+
+export const pathToDefenseField = <K extends keyof Defense>(index: number, field: K): `defenses.${number}.${K}` => `defenses.${index}.${field}`;
 
 export type WeaponOffense =
 {
@@ -99,6 +102,13 @@ export type WeaponOffense =
   bonus: number;
   critical: Critical;
 }
+
+export const pathToOffenseField = <K extends keyof Offense>(index: number, field: K): `offenses.${number}.${K}` => `offenses.${index}.${field}`;
+export const leadingOffenseField = (index: number) => pathToOffenseField(index, "leadingWeapon");
+export const secondaryOffenseField = (index: number) => pathToOffenseField(index, "secondaryWeapon");
+export const damageOffenseField = (index: number) => pathToOffenseField(index, "damageBonus");
+export type WeaponOffensePath =`offenses.${number}.${PathsFrom<Offense, WeaponOffense | undefined>}`;
+export type DamageOffensePath = Exclude<`offenses.${number}.${PathsFrom<Offense, DamageOffense>}`, WeaponOffensePath>;
 
 export type Critical =
 {
