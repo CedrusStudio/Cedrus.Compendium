@@ -204,7 +204,7 @@ const dummyCharacter : Character =
   states:
   [
     {
-      name: "szał",
+      name: "Szał",
       grade: 1,
       description: "Dodaje 3 siły i 3 kondycji."
     }

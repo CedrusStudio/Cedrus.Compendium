@@ -18,6 +18,7 @@ export default function RemoveFromArrayButton({ remove, index, variant = 'destru
       variant={variant} 
       type="button"
       size='icon' 
+      className=" hover:text-red-950"
       onClick={() => remove(index)}><IoTrashOutline />
     </Button>
   );
