@@ -106,7 +106,7 @@ function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { 
                     <Button 
                         variant="destructive" 
                         size='icon' 
-                        className="my-4"
+                        className="my-4 hover:text-red-950"
                         disabled={isPending}
                     >
                         <IoTrashOutline />
@@ -114,10 +114,10 @@ function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { 
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                    <AlertDialogTitle> Czy na pewno chcesz to zrobić?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.
-                    </AlertDialogDescription>
+                        <AlertDialogTitle> Czy na pewno chcesz to zrobić?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.
+                        </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                     <AlertDialogCancel>{namingConventions.cancel}</AlertDialogCancel>
