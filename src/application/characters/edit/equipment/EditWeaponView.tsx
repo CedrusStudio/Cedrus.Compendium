@@ -1,6 +1,6 @@
 import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
-import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/Dices';
+import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
 import { Weapon } from '@/domain/characters/Character';
 import { useFormContext } from 'react-hook-form';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
@@ -48,7 +48,6 @@ function EditWeaponSheet({ equipmentFormName, weapon, weaponNumber, isPending }:
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`weapon${weaponNumber}.style`}
-              control={control}
               items={["None", "One-Handed", "Two-Handed", "Ranged", "Thrown"]}
               noLabel
               />
@@ -60,7 +59,6 @@ function EditWeaponSheet({ equipmentFormName, weapon, weaponNumber, isPending }:
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`weapon${weaponNumber}.range`}
-              control={control}
               items={[1,2,3,4,5]}
               noLabel
               />
@@ -69,15 +67,15 @@ function EditWeaponSheet({ equipmentFormName, weapon, weaponNumber, isPending }:
 
       </div>
 
-      <WeaponDiceEditor control={control} weaponNumber={weaponNumber} />
-      <CriticalEditor control={control} weaponNumber={weaponNumber} />
-      <DamageDiceEditor control={control} weaponNumber={weaponNumber} />
+      <WeaponDiceEditor weaponNumber={weaponNumber} />
+      <CriticalEditor weaponNumber={weaponNumber} />
+      <DamageDiceEditor weaponNumber={weaponNumber} />
       
     </EditItemSheet>
   )
 }
 
-function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps, 'control' | 'weaponNumber'>)
+function WeaponDiceEditor({ weaponNumber }: Pick<AccordionWeaponItemProps, 'weaponNumber'>)
 {
   return (
   <>
@@ -90,7 +88,6 @@ function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`weapon${weaponNumber}.offense.amount`}
-              control={control}
               items={diceAmounts}
               noLabel
               />
@@ -103,7 +100,6 @@ function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`weapon${weaponNumber}.offense.grade`}
-              control={control}
               items={diceGrades}
               noLabel
           />
@@ -116,7 +112,6 @@ function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`weapon${weaponNumber}.offense.bonus`}
-              control={control}
               items={diceBonuses}
               noLabel
               />
@@ -127,7 +122,7 @@ function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
   );
 }
 
-function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps, 'control' | 'weaponNumber'>)
+function DamageDiceEditor({ weaponNumber }: Pick<AccordionWeaponItemProps, 'weaponNumber'>)
 {
   return (
     <>
@@ -141,7 +136,6 @@ function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 name={`weapon${weaponNumber}.damageBonus.amount`}
-                control={control}
                 items={diceAmounts}
                 noLabel
                 />
@@ -153,7 +147,6 @@ function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 name={`weapon${weaponNumber}.damageBonus.grade`}
-                control={control}
                 items={diceGrades}
                 noLabel
                 />
@@ -165,7 +158,6 @@ function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 name={`weapon${weaponNumber}.damageBonus.bonus`}
-                control={control}
                 items={diceBonuses}
                 noLabel
                 />
@@ -176,7 +168,7 @@ function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
   );
 }
 
-function CriticalEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps, 'control' | 'weaponNumber'>)
+function CriticalEditor({ weaponNumber }: Pick<AccordionWeaponItemProps, 'weaponNumber'>)
 {
   return (
     <>
@@ -190,7 +182,6 @@ function CriticalEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`weapon${weaponNumber}.offense.critical.range`}
-              control={control}
               items={criticalRanges}
               noLabel
               />
@@ -203,7 +194,6 @@ function CriticalEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps
 
           <SelectFormField<UpsertCharacterEquipmentType> 
               name={`weapon${weaponNumber}.offense.critical.power`}
-              control={control}
               items={criticalPowers}
               noLabel
               />

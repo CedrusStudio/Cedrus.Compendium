@@ -16,7 +16,7 @@ import { useFormContext } from 'react-hook-form';
 
 type EditStatesCardProps =
 {
-    isPending: boolean;
+  isPending: boolean;
 }
 
 export default function EditStatesCard({ isPending }: EditStatesCardProps)

@@ -57,9 +57,9 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
   return (
     <Sheet>
 
-        <SheetTrigger asChild>
-            <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
-        </SheetTrigger>
+      <SheetTrigger asChild>
+          <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
+      </SheetTrigger>
 
       <SheetContent>
         

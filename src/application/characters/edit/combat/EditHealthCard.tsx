@@ -27,31 +27,29 @@ export default function EditHealthCard(input: EditHealthCardProps)
 
     return (
       <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
-
         <Label className="text-center capitalize">{translate(healthFieldName)}</Label>
         <InputFormField<UpsertCharacterCombatType> name={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
-
       </div>
     );
   }
 
   return (
     <Card className='bg-muted border shadow-md'>
-        <CardContent className='p-6'>
-          
-          <CardHeader>
-            <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6'>
-              Życie
-            </CardTitle>
-          </CardHeader>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          { 
-            Object.keys(input.health).map(key => InputFormWithLabel(key as keyof UpsertCharacterHealthType)) 
-          }
-          </div>
+      <CardContent className='p-6'>
+        
+        <CardHeader>
+          <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6'>
+            Życie
+          </CardTitle>
+        </CardHeader>
+        
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        { 
+          Object.keys(input.health).map(key => InputFormWithLabel(key as keyof UpsertCharacterHealthType)) 
+        }
+        </div>
 
-        </CardContent>
+      </CardContent>
     </Card>
   );
 };

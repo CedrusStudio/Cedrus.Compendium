@@ -11,7 +11,7 @@ import {
 } from '@/ui/card';
 
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';

@@ -19,7 +19,7 @@ import bffClient from "@/infrastructure/bffClient";
 
 type EditCharacterCombatProps =
 {
-    character: Character;
+  character: Character;
 }
 
 const combatFormName = "edit-combat-form";
@@ -28,12 +28,12 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 {
     const initialValues: UpsertCharacterCombatType = 
     {
-      defense: character.defenses,
+      defenses: character.defenses,
       health: character.health,
       stances: character.stances,
       states: character.states,
       maneuvers: character.maneuvers,
-      offense: character.offenses,
+      offenses: character.offenses,
     };
 
     const form = useForm<UpsertCharacterCombatType>
@@ -50,8 +50,8 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         character.id, 
         { 
           ...character, 
-          offenses: characterCombat.offense, 
-          defenses: characterCombat.defense, 
+          offenses: characterCombat.offenses, 
+          defenses: characterCombat.defenses, 
           health: characterCombat.health, 
           stances: characterCombat.stances, 
           states: characterCombat.states, 
@@ -74,14 +74,22 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
               <EditHealthCard health={character.health} />
             </div>
             
-            <div className="md:col-span-3">
-              <EditOffenseCard offense={character.offenses} />
-            </div>
+            {
+              character.offenses.map((offense, index) => (
+                <div className="md:col-span-3" key={index}>
+                  <EditOffenseCard offense={offense} />
+                </div>
+              ))
+            }
             
-            <div className="md:col-span-2">
-              <EditDefenseCard defense={character.defenses} />
-            </div>
-
+            {
+              character.defenses.map((defense, index) => (
+                <div className="md:col-span-3" key={index}>
+                  <EditDefenseCard defense={defense} />
+                </div>
+              ))
+            }
+            
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
