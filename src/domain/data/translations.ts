@@ -54,6 +54,9 @@ const defaultTranslations =
     range: "zasięg",
     power: "siła",
     style: "styl",
+    maneuvers: "manewry",
+    stances: "postawy",
+    states: "stany",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

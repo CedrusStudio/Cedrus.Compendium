@@ -29,6 +29,7 @@ import { SelectFormField } from '@/ui/SelectFormField';
 import AppendToArrayButton from '@/ui/AppendToArrayButton';
 import RemoveFromArrayButton from '@/ui/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
+import { translate } from '@/domain/data/translations';
 
 type EditManeuversCardProps =
 {
@@ -45,7 +46,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-          <span>Manewry</span>
+          <span className='capitalize'>{translate('maneuvers')}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
         </CardTitle>
       </CardHeader>
@@ -113,26 +114,26 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label>Nazwa</Label>
-              <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.name`} inputPlaceholder="zmień nazwę..." inputClassName='w-60' />
+              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder="zmień nazwę..." inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
               <Label>Ranga</Label>
-              <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
+              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
 
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label>Opis</Label>
-            <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.description`} inputPlaceholder="zmień opis..." inputClassName='w-80' />
+            <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder="zmień opis..." inputClassName='w-80' />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='justify-center'>Odnowienie</Label>
-              <InputFormField<UpsertCharacterCombatType> name={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
+              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
