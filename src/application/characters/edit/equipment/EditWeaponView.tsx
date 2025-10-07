@@ -1,14 +1,13 @@
 import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
-import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/Dices';
+import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
 import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField, allowedStyles } from '@/domain/characters/Character';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
-import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
 import { translate } from '@/domain/data/translations';
 
-type AccordionWeaponItemProps = 
+type EditWeaponViewProps = 
 {
   equipmentFormName: string;
   weapon: Weapon;
@@ -16,20 +15,17 @@ type AccordionWeaponItemProps =
   index: number;
 };
 
-export default function EditWeaponView({ equipmentFormName, index, weapon, isPending }: AccordionWeaponItemProps)
+export default function EditWeaponView({ equipmentFormName, index, weapon, isPending }: EditWeaponViewProps)
 {
   return (
-    <AccordionItem value={`weapon${index}`}>
-        <AccordionTrigger>{weapon.name}</AccordionTrigger>
-        <AccordionContent className='flex flex-row justify-between items-start'>
-          <WeaponView weapon={weapon} />
-          <EditWeaponSheet equipmentFormName={equipmentFormName} index={index} weapon={weapon} isPending={isPending} />
-        </AccordionContent>
-    </AccordionItem>
+    <div className="flex flex-row justify-between items-start">
+      <WeaponView weapon={weapon} />
+      <EditWeaponSheet equipmentFormName={equipmentFormName} index={index} weapon={weapon} isPending={isPending} />
+    </div>
   )
 }
 
-function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: AccordionWeaponItemProps)
+function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: EditWeaponViewProps)
 {
   return (
     <EditItemSheet 
@@ -73,7 +69,7 @@ function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: Accord
   )
 }
 
-function WeaponDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
+function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
   <>
@@ -120,7 +116,7 @@ function WeaponDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
   );
 }
 
-function DamageDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
+function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
     <>
@@ -166,7 +162,7 @@ function DamageDiceEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
   );
 }
 
-function CriticalEditor({ index }: Pick<AccordionWeaponItemProps, 'index'>)
+function CriticalEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
     <>

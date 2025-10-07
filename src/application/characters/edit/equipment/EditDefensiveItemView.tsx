@@ -3,13 +3,13 @@ import { Label } from "@/ui/label";
 import { SelectFormField } from "@/ui/SelectFormField";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 
-type CommonDefensiveItemEditorProps = 
+type EditDefensiveItemViewProps = 
 {
   defensiveItem: "armors" | "shields";
   index: number;
 }
 
-export default function EditDefensiveItemView({ defensiveItem, index }: CommonDefensiveItemEditorProps)
+export default function EditDefensiveItemView({ defensiveItem, index }: EditDefensiveItemViewProps)
 {
   return (
     <div className="grid auto-rows-min gap-3 px-4">

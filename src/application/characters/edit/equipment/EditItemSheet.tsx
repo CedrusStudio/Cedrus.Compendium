@@ -16,6 +16,7 @@ import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { EquipmentItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
+import AreaInputFormField from "@/common/components/ui/AreaInputFormField";
 
 type EditItemSheetProps = 
 {
@@ -59,10 +60,9 @@ export default function EditItemSheet({ item, isPending, children, equipmentForm
 
                 <Label>Opis</Label>
                 
-                <InputFormField<UpsertCharacterEquipmentType> 
+                <AreaInputFormField<UpsertCharacterEquipmentType> 
                   path={`${item.type}.description`}
                   inputPlaceholder="edytuj opis..." 
-                  inputClassName='w-80'
                 />
             </div>
 

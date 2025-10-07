@@ -1,11 +1,6 @@
 import { Horse, pathToHorseField } from "@/domain/characters/Character";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/ui/accordion";
 import { Label } from "@/ui/label";
 import HorseView from "@/application/characters/equipment/HorseView";
 import { InputFormField } from "@/common/components/ui/InputFormField";
@@ -20,15 +15,12 @@ type EditHorseViewProps =
 
 export default function EditHorseView({ equipmentFormName, index, horse, isPending }: EditHorseViewProps)
 {
-    return (
-    <AccordionItem value={`horses.${index}`}>
-        <AccordionTrigger>{horse.name}</AccordionTrigger>
-        <AccordionContent className='flex flex-row justify-between items-start'>
-            <HorseView horse={horse} />
-            <EditHorseSheet equipmentFormName={equipmentFormName} horse={horse} isPending={isPending} index={index} />
-        </AccordionContent>
-    </AccordionItem>
-    );
+  return (
+    <div className="flex flex-row justify-between items-start">
+      <HorseView horse={horse} />
+      <EditHorseSheet equipmentFormName={equipmentFormName} horse={horse} isPending={isPending} index={index} />
+    </div>
+  );
 }
 
 function EditHorseSheet({ equipmentFormName, horse, isPending, index }: EditHorseViewProps)

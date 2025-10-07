@@ -1,17 +1,12 @@
 import { blockValues, Shield, pathToShieldsField } from "@/domain/characters/Character";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/ui/accordion";
 import ShieldView from "@/application/characters/equipment/ShieldView";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/ui/SelectFormField";
 
-type AccordionWeaponItemProps = 
+type EditShieldViewProps = 
 {
   equipmentFormName: string;
   shield: Shield;
@@ -19,20 +14,17 @@ type AccordionWeaponItemProps =
   index: number;
 };
 
-export default function EditShieldView({ equipmentFormName, index, shield, isPending }: AccordionWeaponItemProps)
+export default function EditShieldView({ equipmentFormName, index, shield, isPending }: EditShieldViewProps)
 {
-    return (
-    <AccordionItem value={`shields.${index}`}>
-        <AccordionTrigger>{shield.name}</AccordionTrigger>
-        <AccordionContent className='flex flex-row justify-between items-start'>
-            <ShieldView shield={shield} />
-            <EditShieldSheet equipmentFormName={equipmentFormName} shield={shield} isPending={isPending} index={index} />
-        </AccordionContent>
-    </AccordionItem>
-    );
+  return (
+    <div className="flex flex-row justify-between items-start">
+      <ShieldView shield={shield} />
+      <EditShieldSheet equipmentFormName={equipmentFormName} shield={shield} isPending={isPending} index={index} />
+    </div>
+  );
 }
 
-function EditShieldSheet({ equipmentFormName, shield, isPending, index }: AccordionWeaponItemProps)
+function EditShieldSheet({ equipmentFormName, shield, isPending, index }: EditShieldViewProps)
 {
   return (
     <EditItemSheet 

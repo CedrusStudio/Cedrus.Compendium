@@ -1,17 +1,12 @@
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { Label } from "@/ui/label"
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/ui/accordion";
 import ArmorView from "@/application/characters/equipment/ArmorView";
 import { SelectFormField } from "@/ui/SelectFormField";
 import { Armor, pathToArmorsField, protectionValues } from "@/domain/characters/Character";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 
-type AccordionWeaponItemProps = 
+type EditArmorViewProps = 
 {
   equipmentFormName: string;
   armor: Armor;
@@ -19,20 +14,17 @@ type AccordionWeaponItemProps =
   index: number;
 };
 
-export default function EditArmorView({ equipmentFormName, index, armor, isPending }: AccordionWeaponItemProps)
+export default function EditArmorView({ equipmentFormName, index, armor, isPending }: EditArmorViewProps)
 {
-    return (
-    <AccordionItem value={`armors.${index}`}>
-        <AccordionTrigger>{armor.name}</AccordionTrigger>
-        <AccordionContent className='flex flex-row justify-between items-start'>
-            <ArmorView armor={armor} />
-            <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} isPending={isPending} index={index} />
-        </AccordionContent>
-    </AccordionItem>
+  return (
+    <div className="flex flex-row justify-between items-start">
+      <ArmorView armor={armor} />
+      <EditArmorSheet equipmentFormName={equipmentFormName} armor={armor} isPending={isPending} index={index} />
+    </div>
   );
 }
 
-function EditArmorSheet({ equipmentFormName, armor, isPending, index }: AccordionWeaponItemProps)
+function EditArmorSheet({ equipmentFormName, armor, isPending, index }: EditArmorViewProps)
 {
   return (
     <EditItemSheet 
