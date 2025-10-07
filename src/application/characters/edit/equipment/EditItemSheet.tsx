@@ -13,11 +13,12 @@ import { InputFormField } from '@/ui/InputFormField';
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { EquipmentItemTypes } from "@/domain/characters/Character";
+import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import AreaInputFormField from "@/common/components/ui/AreaInputFormField";
-import { IoTrashOutline } from "react-icons/io5";
+import { useFieldArray } from "react-hook-form";
+import RemoveFromArrayButton from "@/common/components/ui/RemoveFromArrayButton";
 
 type EditItemSheetProps = 
 {
@@ -28,11 +29,14 @@ type EditItemSheetProps =
 
 export default function EditItemSheet({ item, isPending, children, equipmentFormName }: PropsWithChildren<EditItemSheetProps>)
 {
+  const { name, index } = splitEquipmentItemTypes(item.type);
+  const { remove } = useFieldArray<UpsertCharacterEquipmentType>({ name });
+
   return (
       <Sheet>
 
         <div className="flex justify-end items-center mt-4 gap-3">
-          <Button variant="destructive" type="button"><IoTrashOutline /></Button>
+          <RemoveFromArrayButton remove={remove} index={index} />
           <SheetTrigger asChild>
             <Button variant="edit"><TbEdit /></Button>
           </SheetTrigger>

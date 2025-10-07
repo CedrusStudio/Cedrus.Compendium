@@ -216,7 +216,17 @@ export type Equipment =
   horses: Horse[];
 };
 
+export type EquipmentItemArraysTypes = `weapons` | `armors` | `shields` | `horses` | `inventory`;
 export type EquipmentItemTypes = `weapons.${number}` | `armors.${number}` | `shields.${number}` | `horses.${number}` | `inventory.${number}`;
+
+export const splitEquipmentItemTypes = (type: EquipmentItemTypes): { name: EquipmentItemArraysTypes; index: number } => 
+{
+  const parts = type.split('.');
+  return {
+    name: parts[0] as EquipmentItemArraysTypes,
+    index: parseInt(parts[1]),
+  };
+};
 
 export const pathToWeaponsField = <K extends keyof Weapon>(index: number, field: K): `weapons.${number}.${K}` => `weapons.${index}.${field}`;
 export const pathToWeaponsWeaponOffenseField = <K extends keyof WeaponOffense>(index: number, field: K): `weapons.${number}.offense.${K}` => `weapons.${index}.offense.${field}`;

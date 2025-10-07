@@ -26,6 +26,7 @@ function EditInventorySheet({ equipmentFormName, inventory, isPending, index }: 
       equipmentFormName={equipmentFormName} 
       item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} 
       isPending={isPending}
+      index={index}
     />
   )
 }
