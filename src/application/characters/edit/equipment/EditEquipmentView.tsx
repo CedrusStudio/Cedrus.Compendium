@@ -4,7 +4,7 @@ import { Character } from '@/domain/characters/Character';
 import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
@@ -17,6 +17,7 @@ import SubmitButton from '@/common/components/ui/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from './EditInventoryItemView';
 import { CreateDefaultArmor, CreateDefaultHorse, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';
+import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -27,7 +28,14 @@ export default function EditEquipmentView(input: { character: Character })
   ({
       resolver: zodResolver(upsertCharacterEquipmentSchema),
       defaultValues: initialValues,
-  })
+  });
+
+  //Sie pojawia ale sie zmienia ciagle i sie zamyka
+  const { watchedArray: weapons } = useWatchedFormArray("weapons", form.control);
+  const { watchedArray: armors } = useWatchedFormArray("armors", form.control);
+  const { watchedArray: shields } = useWatchedFormArray("shields", form.control);
+  const { watchedArray: inventory } = useWatchedFormArray("inventory", form.control);
+  const { watchedArray: horses } = useWatchedFormArray("horses", form.control);
 
   const id = input.character.id;
 
@@ -47,7 +55,7 @@ export default function EditEquipmentView(input: { character: Character })
         <Accordion type="single" collapsible>
 
           <ItemsView
-            items={input.character.equipment.weapons}
+            items={weapons}
             label="Bronie"
             itemViewFactory={(item, index) => <EditWeaponView equipmentFormName={equipmentFormName} index={index} weapon={item} isPending={isPending} />}
           >
@@ -60,7 +68,7 @@ export default function EditEquipmentView(input: { character: Character })
           </ItemsView>
 
           <ItemsView
-            items={input.character.equipment.armors}
+            items={armors}
             label="Zbroje"
             itemViewFactory={(item, index) => <EditArmorView equipmentFormName={equipmentFormName} index={index} armor={item} isPending={isPending} />}
           >
@@ -73,7 +81,7 @@ export default function EditEquipmentView(input: { character: Character })
           </ItemsView>
 
           <ItemsView
-            items={input.character.equipment.shields}
+            items={shields}
             label="Tarcze"
             itemViewFactory={(item, index) => <EditShieldView equipmentFormName={equipmentFormName} index={index} shield={item} isPending={isPending} />}
           >
@@ -86,7 +94,7 @@ export default function EditEquipmentView(input: { character: Character })
           </ItemsView>
 
           <ItemsView
-            items={input.character.equipment.inventory}
+            items={inventory}
             label="Wyposażenie"
             itemViewFactory={(item, index) => <EditInventoryItemView equipmentFormName={equipmentFormName} index={index} inventory={item} isPending={isPending} />}
           >
@@ -99,7 +107,7 @@ export default function EditEquipmentView(input: { character: Character })
           </ItemsView>
 
           <ItemsView
-            items={input.character.equipment.horses}
+            items={horses}
             label="Konie"
             itemViewFactory={(item, index) => <EditHorseView key={index} index={index} equipmentFormName={equipmentFormName} horse={item} isPending={isPending} />}
           >
