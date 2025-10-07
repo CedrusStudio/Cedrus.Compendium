@@ -1,4 +1,4 @@
-import { Armor, Character, Horse, Item, Maneuver, Mode, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
+import { Armor, Character, Defense, Horse, Item, Maneuver, Mode, Offense, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;
@@ -116,6 +116,31 @@ export const CreateDefaultArmor = (): Armor => ({...defaultArmor, name: `Zbroja 
 export const CreateDefaultShield = (): Shield => ({...defaultShield, name: `Tarcza ${crypto.randomUUID()}`});
 export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, name: `Przedmiot ${crypto.randomUUID()}`});
 export const CreateDefaultHorse = (): Horse => ({...defaultHorse, name: `Koń ${crypto.randomUUID()}`});
+
+export const defaultOffense: Offense =
+{
+    name: "Nowa ofensywa",
+    description: "Opis ofensywy",
+    leadingWeapon: defaultWeaponOffense,
+    secondaryWeapon: undefined,
+    damageBonus: { amount: 0, grade: 0, bonus: 0 }
+};
+
+export const defaultDefense: Defense =
+{
+    name: "Nowa defensywa",
+    description: "Opis defensywy",
+    immunity: 0,
+    resistance: 0,
+    protection: 0,
+    block: 0,
+    parry: 0,
+    dodge: 0,
+    bonus: 0
+};
+
+export const CreateDefaultOffense = (): Offense => ({...defaultOffense, name: `Ofensywa ${crypto.randomUUID()}`});
+export const CreateDefaultDefense = (): Defense => ({...defaultDefense, name: `Defensywa ${crypto.randomUUID()}`});
 
 export const emptyCharacter: Character = 
 { 

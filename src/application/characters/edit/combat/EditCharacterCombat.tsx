@@ -16,6 +16,8 @@ import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 import { Label } from "@radix-ui/react-label";
 import { translate } from "@/domain/data/translations";
+import AppendToArrayButton from "@/common/components/ui/AppendToArrayButton";
+import { CreateDefaultDefense, CreateDefaultOffense } from "@/domain/data/defaults";
 
 type EditCharacterCombatProps =
 {
@@ -73,7 +75,17 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           </div>
 
           <div className="space-y-3 flex flex-col justify-center">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("offenses")}</Label>
+
+            <div className="flex justify-center items-center gap-3">
+              <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("offenses")}</Label>
+              <AppendToArrayButton<UpsertCharacterCombatType, "offenses"> 
+                isPending={isPending}
+                variant='outline'
+                name="offenses"
+                toAdd={CreateDefaultOffense}
+                />
+            </div>
+
             <div className="grid gap-3 md:grid-cols-2">
             {
               character.offenses.map((offense, index) => (
@@ -86,7 +98,17 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           </div>
             
           <div className="space-y-3 flex flex-col justify-center">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("defenses")}</Label>
+            
+            <div className="flex justify-center items-center gap-3">
+              <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("defenses")}</Label>
+              <AppendToArrayButton<UpsertCharacterCombatType, "defenses"> 
+                isPending={isPending}
+                variant='outline'
+                name="defenses"
+                toAdd={CreateDefaultDefense}
+              />
+            </div>
+            
             <div className="grid gap-3  md:grid-cols-2">
             {
               character.defenses.map((defense, index) => (
