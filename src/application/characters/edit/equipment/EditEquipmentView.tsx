@@ -1,10 +1,10 @@
 "use client";
 
-import { Character, Weapon } from '@/domain/characters/Character';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion"
+import { Character } from '@/domain/characters/Character';
+import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
@@ -15,9 +15,8 @@ import EditHorseView from './EditHorseView';
 import AppendToArrayButton from '@/common/components/ui/AppendToArrayButton';
 import SubmitButton from '@/common/components/ui/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
-import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
 import EditInventoryItemView from './EditInventoryItemView';
-import { CreateDefaultWeapon } from '@/domain/data/defaults';
+import { CreateDefaultArmor, CreateDefaultHorse, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -65,7 +64,12 @@ export default function EditEquipmentView(input: { character: Character })
             label="Zbroje"
             itemViewFactory={(item, index) => <EditArmorView equipmentFormName={equipmentFormName} index={index} armor={item} isPending={isPending} />}
           >
-            {/* <AddArmorButton isPending={isPending} /> */}
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
+              isPending={isPending}
+              variant='outline'
+              name={"armors"}
+              toAdd={CreateDefaultArmor()}
+            />
           </ItemsView>
 
           <ItemsView
@@ -73,7 +77,12 @@ export default function EditEquipmentView(input: { character: Character })
             label="Tarcze"
             itemViewFactory={(item, index) => <EditShieldView equipmentFormName={equipmentFormName} index={index} shield={item} isPending={isPending} />}
           >
-            {/* <AddArmorButton isPending={isPending} /> */}
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
+              isPending={isPending}
+              variant='outline'
+              name={"shields"}
+              toAdd={CreateDefaultShield()}
+            />
           </ItemsView>
 
           <ItemsView
@@ -81,7 +90,12 @@ export default function EditEquipmentView(input: { character: Character })
             label="Wyposażenie"
             itemViewFactory={(item, index) => <EditInventoryItemView equipmentFormName={equipmentFormName} index={index} inventory={item} isPending={isPending} />}
           >
-            {/* <AddArmorButton isPending={isPending} /> */}
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
+              isPending={isPending}
+              variant='outline'
+              name={"inventory"}
+              toAdd={CreateDefaultInventoryItem()}
+            />
           </ItemsView>
 
           <ItemsView
@@ -89,7 +103,12 @@ export default function EditEquipmentView(input: { character: Character })
             label="Konie"
             itemViewFactory={(item, index) => <EditHorseView key={index} index={index} equipmentFormName={equipmentFormName} horse={item} isPending={isPending} />}
           >
-            {/* <AddArmorButton isPending={isPending} /> */}
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "horses"> 
+              isPending={isPending}
+              variant='outline'
+              name={"horses"}
+              toAdd={CreateDefaultHorse()}
+            />
           </ItemsView>
 
         </Accordion>
