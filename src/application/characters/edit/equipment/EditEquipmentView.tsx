@@ -46,37 +46,49 @@ export default function EditEquipmentView(input: { character: Character })
 
         <Accordion type="single" collapsible>
 
-          <AddWeaponButton isPending={isPending} />
-
           <ItemsView
             items={input.character.equipment.weapons}
             label="Bronie"
             itemViewFactory={(item, index) => <EditWeaponView equipmentFormName={equipmentFormName} index={index} weapon={item} isPending={isPending} />}
-          />
+          >
+            <AddWeaponButton isPending={isPending} />
+          </ItemsView>
 
           <ItemsView
             items={input.character.equipment.armors}
             label="Zbroje"
             itemViewFactory={(item, index) => <EditArmorView equipmentFormName={equipmentFormName} index={index} armor={item} isPending={isPending} />}
-          />
+          >
+            <AddWeaponButton isPending={isPending} />
+            {/* <AddArmorButton isPending={isPending} /> */}
+          </ItemsView>
 
           <ItemsView
             items={input.character.equipment.shields}
             label="Tarcze"
             itemViewFactory={(item, index) => <EditShieldView equipmentFormName={equipmentFormName} index={index} shield={item} isPending={isPending} />}
-          />
+          >
+            <AddWeaponButton isPending={isPending} />
+            {/* <AddArmorButton isPending={isPending} /> */}
+          </ItemsView>
 
           <ItemsView
             items={input.character.equipment.inventory}
             label="Wyposażenie"
             itemViewFactory={(item, index) => <EditInventoryItemView equipmentFormName={equipmentFormName} index={index} inventory={item} isPending={isPending} />}
-          />
+          >
+            <AddWeaponButton isPending={isPending} />
+            {/* <AddArmorButton isPending={isPending} /> */}
+          </ItemsView>
 
           <ItemsView
             items={input.character.equipment.horses}
             label="Konie"
             itemViewFactory={(item, index) => <EditHorseView key={index} index={index} equipmentFormName={equipmentFormName} horse={item} isPending={isPending} />}
-          />
+          >
+            <AddWeaponButton isPending={isPending} />
+            {/* <AddArmorButton isPending={isPending} /> */}
+          </ItemsView>
 
         </Accordion>
 

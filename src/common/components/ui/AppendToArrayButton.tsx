@@ -14,6 +14,8 @@ type AppendToArrayButtonProps<TType extends FieldValues, TName extends ArrayPath
 
 export default function AppendToArrayButton<TType extends FieldValues, TName extends ArrayPath<TType>>({ isPending, append, toAdd, variant = "outline" }: AppendToArrayButtonProps<TType, TName>)
 {
+  // const { append: myAppend } = useFieldArray<TType, TName>();
+
   return (
     <Button 
       variant={variant} 

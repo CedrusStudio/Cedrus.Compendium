@@ -17,6 +17,7 @@ import { EquipmentItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import AreaInputFormField from "@/common/components/ui/AreaInputFormField";
+import { IoTrashOutline } from "react-icons/io5";
 
 type EditItemSheetProps = 
 {
@@ -30,9 +31,12 @@ export default function EditItemSheet({ item, isPending, children, equipmentForm
   return (
       <Sheet>
 
-        <SheetTrigger asChild className='mt-4'>
-          <Button variant="edit"><TbEdit /></Button>
-        </SheetTrigger>
+        <div className="flex justify-end items-center mt-4 gap-3">
+          <Button variant="destructive" type="button"><IoTrashOutline /></Button>
+          <SheetTrigger asChild>
+            <Button variant="edit"><TbEdit /></Button>
+          </SheetTrigger>
+        </div>
 
         <SheetContent>
           
