@@ -22,7 +22,7 @@ export default function ItemsView<T extends Item>({ items, itemViewFactory, labe
                 <div>
                 {
                     items.map((item, index) => (
-                        <AccordionItem key={item.name} value={item.name}>
+                        <AccordionItem key={index} value={item.name}>
                             <AccordionTrigger>{item.name}</AccordionTrigger>
                             <AccordionContent>
                                 {itemViewFactory(item, index)}

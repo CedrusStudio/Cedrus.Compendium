@@ -4,7 +4,7 @@ import { Character } from '@/domain/characters/Character';
 import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
@@ -30,7 +30,6 @@ export default function EditEquipmentView(input: { character: Character })
       defaultValues: initialValues,
   });
 
-  //Sie pojawia ale sie zmienia ciagle i sie zamyka
   const { watchedArray: weapons } = useWatchedFormArray("weapons", form.control);
   const { watchedArray: armors } = useWatchedFormArray("armors", form.control);
   const { watchedArray: shields } = useWatchedFormArray("shields", form.control);
@@ -62,7 +61,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
               isPending={isPending}
               variant='outline'
-              name={"weapons"}
+              name="weapons"
               toAdd={CreateDefaultWeapon()}
             />
           </ItemsView>
@@ -75,7 +74,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
               isPending={isPending}
               variant='outline'
-              name={"armors"}
+              name="armors"
               toAdd={CreateDefaultArmor()}
             />
           </ItemsView>
@@ -88,7 +87,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
               isPending={isPending}
               variant='outline'
-              name={"shields"}
+              name="shields"
               toAdd={CreateDefaultShield()}
             />
           </ItemsView>
@@ -101,7 +100,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
               isPending={isPending}
               variant='outline'
-              name={"inventory"}
+              name="inventory"
               toAdd={CreateDefaultInventoryItem()}
             />
           </ItemsView>
@@ -114,7 +113,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "horses"> 
               isPending={isPending}
               variant='outline'
-              name={"horses"}
+              name="horses"
               toAdd={CreateDefaultHorse()}
             />
           </ItemsView>
