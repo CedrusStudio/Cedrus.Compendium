@@ -79,7 +79,6 @@ export default function EditItemSheet({ item, isPending, children, equipmentForm
           </div>
 
           <SheetFooter>
-            <SubmitButton isPending={isPending} className='w-full' formName={equipmentFormName} />
             <SheetClose asChild>
               <Button variant="outline">Zamknij</Button>
             </SheetClose>
