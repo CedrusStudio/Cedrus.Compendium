@@ -39,7 +39,7 @@ type EditManeuversCardProps =
 export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 {
   const { control } = useFormContext<UpsertCharacterCombatType>();
-  const { append, remove, watchedArray } = useWatchedFormArray("maneuvers", control);
+  const { remove, watchedArray } = useWatchedFormArray("maneuvers", control);
 
   return (
     <Card className='bg-muted'>
@@ -47,7 +47,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
           <span className='capitalize'>{translate('maneuvers')}</span>
-          <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
+          <AppendToArrayButton name={"maneuvers"} isPending={isPending} toAdd={CreateDefaultManeuver} />
         </CardTitle>
       </CardHeader>
 

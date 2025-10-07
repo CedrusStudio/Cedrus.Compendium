@@ -17,6 +17,7 @@ import SubmitButton from '@/common/components/ui/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
 import EditInventoryItemView from './EditInventoryItemView';
+import { CreateDefaultWeapon } from '@/domain/data/defaults';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -51,7 +52,12 @@ export default function EditEquipmentView(input: { character: Character })
             label="Bronie"
             itemViewFactory={(item, index) => <EditWeaponView equipmentFormName={equipmentFormName} index={index} weapon={item} isPending={isPending} />}
           >
-            <AddWeaponButton isPending={isPending} />
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
+              isPending={isPending}
+              variant='outline'
+              name={"weapons"}
+              toAdd={CreateDefaultWeapon()}
+            />
           </ItemsView>
 
           <ItemsView
@@ -59,7 +65,6 @@ export default function EditEquipmentView(input: { character: Character })
             label="Zbroje"
             itemViewFactory={(item, index) => <EditArmorView equipmentFormName={equipmentFormName} index={index} armor={item} isPending={isPending} />}
           >
-            <AddWeaponButton isPending={isPending} />
             {/* <AddArmorButton isPending={isPending} /> */}
           </ItemsView>
 
@@ -68,7 +73,6 @@ export default function EditEquipmentView(input: { character: Character })
             label="Tarcze"
             itemViewFactory={(item, index) => <EditShieldView equipmentFormName={equipmentFormName} index={index} shield={item} isPending={isPending} />}
           >
-            <AddWeaponButton isPending={isPending} />
             {/* <AddArmorButton isPending={isPending} /> */}
           </ItemsView>
 
@@ -77,7 +81,6 @@ export default function EditEquipmentView(input: { character: Character })
             label="Wyposażenie"
             itemViewFactory={(item, index) => <EditInventoryItemView equipmentFormName={equipmentFormName} index={index} inventory={item} isPending={isPending} />}
           >
-            <AddWeaponButton isPending={isPending} />
             {/* <AddArmorButton isPending={isPending} /> */}
           </ItemsView>
 
@@ -86,7 +89,6 @@ export default function EditEquipmentView(input: { character: Character })
             label="Konie"
             itemViewFactory={(item, index) => <EditHorseView key={index} index={index} equipmentFormName={equipmentFormName} horse={item} isPending={isPending} />}
           >
-            <AddWeaponButton isPending={isPending} />
             {/* <AddArmorButton isPending={isPending} /> */}
           </ItemsView>
 
@@ -97,32 +99,3 @@ export default function EditEquipmentView(input: { character: Character })
     </Form>
   );
 };
-
-type AddWeaponButtonProps =
-{
-  isPending: boolean;
-}
-
-function AddWeaponButton({ isPending }: AddWeaponButtonProps)
-{
-  const { append } = useFieldArray<UpsertCharacterEquipmentType>({ name: "weapons" });
-
-  const defaultWeapon: Weapon =
-  {
-    name: "Nowa broń",
-    description: "",
-    style: "Jednoręczny",
-    range: 1,
-    damageBonus: { amount: 1, grade: 6, bonus: 0 },
-    offense: { amount: 1, grade: 6, bonus: 0, critical: { range: 20, power: 2 } },
-  }
-
-  return (
-    <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
-      isPending={isPending}
-      variant='outline'
-      append={append}
-      toAdd={defaultWeapon}
-    />
-  );
-}

@@ -1,20 +1,20 @@
 "use client";
 
 import { Button, ButtonVariants } from "@/ui/button";
-import { ArrayPath, FieldArray, FieldValues, UseFieldArrayAppend } from "react-hook-form";
+import { ArrayPath, FieldArray, FieldValues, useFieldArray } from "react-hook-form";
 import { LuPlus } from "react-icons/lu";
 
 type AppendToArrayButtonProps<TType extends FieldValues, TName extends ArrayPath<TType>> =
 {
-    isPending: boolean;
-    append: UseFieldArrayAppend<TType, TName>;
-    toAdd: FieldArray<TType, TName> | (() => FieldArray<TType, TName>);
-    variant?: ButtonVariants;
+  isPending: boolean;
+  name: TName;
+  toAdd: FieldArray<TType, TName> | (() => FieldArray<TType, TName>);
+  variant?: ButtonVariants;
 }
 
-export default function AppendToArrayButton<TType extends FieldValues, TName extends ArrayPath<TType>>({ isPending, append, toAdd, variant = "outline" }: AppendToArrayButtonProps<TType, TName>)
+export default function AppendToArrayButton<TType extends FieldValues, TName extends ArrayPath<TType>>({ isPending, name, toAdd, variant = "outline" }: AppendToArrayButtonProps<TType, TName>)
 {
-  // const { append: myAppend } = useFieldArray<TType, TName>();
+  const { append } = useFieldArray<TType, TName>({ name });
 
   return (
     <Button 

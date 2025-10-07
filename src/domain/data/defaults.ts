@@ -1,4 +1,4 @@
-import { Character, Maneuver, Mode, Talent, WeaponOffense } from "@/domain/characters/Character";
+import { Armor, Character, Horse, Item, Maneuver, Mode, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;
@@ -57,6 +57,65 @@ export const defaultTalent: Talent =
   penalty: 0,
   grade: 0
 };
+
+export const defaultWeapon: Weapon =
+{
+    name: "Nowa broń",
+    description: "Opis broni",
+    style: "Jednoręczny",
+    range: 1,
+    damageBonus: { amount: 1, grade: 6, bonus: 0 },
+    offense: { amount: 1, grade: 6, bonus: 0, critical: { range: 20, power: 2 } },
+};
+
+export const defaultArmor: Armor =
+{
+    name: "Nowa zbroja",
+    description: "Opis zbroi",
+    protection: 0,
+    immunity: 0,
+    resistance: 0,
+    dexterityRestriction: 0,
+    reflexRestriction: 0,
+    initiativeRestriction: 0,
+    attributePenalty: 0,
+    strengthRequirement: 0,
+};
+
+export const defaultShield: Shield =
+{
+    name: "Nowa tarcza",
+    description: "Opis tarczy",
+    block: 0,
+    resistance: 0,
+    dexterityRestriction: 0,
+    reflexRestriction: 0,
+    initiativeRestriction: 0,
+    attributePenalty: 0,
+    strengthRequirement: 0,
+};
+
+export const defaultInventoryItem: Item =
+{
+    name: "Nowy przedmiot",
+    description: "Opis przedmiotu"
+};
+
+export const defaultHorse: Horse =
+{
+    name: "Nowy koń",
+    description: "Opis konia",
+    canterSpeed: 0,
+    gallopSpeed: 0,
+    horsemanshipBonus: 0,
+    paceSpeed: 0
+};
+
+export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, name: `Broń ${crypto.randomUUID()}`});
+export const CreateDefaultArmor = (): Armor => ({...defaultArmor, name: `Zbroja ${crypto.randomUUID()}`});
+export const CreateDefaultShield = (): Shield => ({...defaultShield, name: `Tarcza ${crypto.randomUUID()}`});
+export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, name: `Przedmiot ${crypto.randomUUID()}`});
+export const CreateDefaultHorse = (): Horse => ({...defaultHorse, name: `Koń ${crypto.randomUUID()}`});
 
 export const emptyCharacter: Character = 
 { 
