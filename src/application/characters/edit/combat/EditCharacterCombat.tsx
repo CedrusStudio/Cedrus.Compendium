@@ -80,7 +80,6 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
               <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("offenses")}</Label>
               <AppendToArrayButton<UpsertCharacterCombatType, "offenses"> 
                 isPending={isPending}
-                variant='outline'
                 name="offenses"
                 toAdd={CreateDefaultOffense}
                 />
@@ -103,7 +102,6 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
               <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("defenses")}</Label>
               <AppendToArrayButton<UpsertCharacterCombatType, "defenses"> 
                 isPending={isPending}
-                variant='outline'
                 name="defenses"
                 toAdd={CreateDefaultDefense}
               />
