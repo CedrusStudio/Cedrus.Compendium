@@ -21,14 +21,17 @@ export default function ItemsView<T extends Item>({ items, itemViewFactory, labe
             items.length > 0 && (
                 <div>
                 {
-                    items.map((item, index) => (
-                        <AccordionItem key={index} value={item.name}>
-                            <AccordionTrigger>{item.name}</AccordionTrigger>
-                            <AccordionContent>
-                                {itemViewFactory(item, index)}
-                            </AccordionContent>
-                        </AccordionItem>
-                    ))
+                    items.map((item, index) => {
+                        const stableId = `${label}-${index}`;
+                        return (
+                          <AccordionItem key={stableId} value={stableId}>
+                              <AccordionTrigger>{item.name}</AccordionTrigger>
+                              <AccordionContent>
+                                  {itemViewFactory(item, index)}
+                              </AccordionContent>
+                          </AccordionItem>
+                        );
+                    })
                 }
                 </div>
             )
