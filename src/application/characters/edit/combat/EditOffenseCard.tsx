@@ -31,12 +31,8 @@ export default function EditOffenseCard({ offense, index }: EditOffenseCardProps
     <Card className='bg-muted'>
 
       <CardHeader>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6 flex items-center justify-center gap-6'>
-          {translate('offense')}
-          
-          <div key="name" className={"flex flex-col items-center gap-2"}>
-            <InputFormField<UpsertCharacterCombatType> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
-          </div>
+        <CardTitle className='mb-6'>
+          <InputFormField<UpsertCharacterCombatType> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
         </CardTitle>
       </CardHeader>
 

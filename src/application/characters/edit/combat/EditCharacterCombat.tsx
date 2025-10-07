@@ -14,6 +14,8 @@ import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persis
 import SubmitButton from "@/ui/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
+import { Label } from "@radix-ui/react-label";
+import { translate } from "@/domain/data/translations";
 
 type EditCharacterCombatProps =
 {
@@ -70,24 +72,30 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             <EditHealthCard health={character.health} />
           </div>
 
-          <div className="grid gap-3 md:grid-cols-2">
-          {
-            character.offenses.map((offense, index) => (
-              <div key={index}>
-                <EditOffenseCard offense={offense} index={index} />
-              </div>
-            ))
-          }
+          <div className="space-y-3 flex flex-col justify-center">
+            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("offenses")}</Label>
+            <div className="grid gap-3 md:grid-cols-2">
+            {
+              character.offenses.map((offense, index) => (
+                <div key={index}>
+                  <EditOffenseCard offense={offense} index={index} />
+                </div>
+              ))
+            }
+            </div>
           </div>
             
-          <div className="grid gap-3  md:grid-cols-2">
-          {
-            character.defenses.map((defense, index) => (
-              <div key={index}>
-                <EditDefenseCard defense={defense} index={index} />
-              </div>
-            ))
-          }
+          <div className="space-y-3 flex flex-col justify-center">
+            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("defenses")}</Label>
+            <div className="grid gap-3  md:grid-cols-2">
+            {
+              character.defenses.map((defense, index) => (
+                <div key={index}>
+                  <EditDefenseCard defense={defense} index={index} />
+                </div>
+              ))
+            }
+            </div>
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">

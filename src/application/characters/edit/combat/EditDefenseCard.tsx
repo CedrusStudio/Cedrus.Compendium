@@ -29,12 +29,8 @@ export default function EditDefenseCard({ defense, index }: EditDefenseCardProps
   return (
     <Card className='bg-muted border shadow-md'>
       <CardHeader>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-6'>
-          {translate('defense')}
-          
-          <div key="name" className={"flex flex-col items-center gap-2"}>
-            <InputFormField<UpsertCharacterCombatType> path={pathToDefenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
-          </div>
+        <CardTitle>
+          <InputFormField<UpsertCharacterCombatType> path={pathToDefenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
         </CardTitle>
       </CardHeader>
 

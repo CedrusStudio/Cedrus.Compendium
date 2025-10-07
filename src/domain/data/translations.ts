@@ -46,7 +46,9 @@ const defaultTranslations =
     penalty: "kara",
 
     defense: "defensywa",
+    defenses: "defensywy",
     offense: "ofensywa",
+    offenses: "ofensywy",
     amount: "ilość",
     weaponDice: "kość broni",
     damageDice: "kość obrażeń",
