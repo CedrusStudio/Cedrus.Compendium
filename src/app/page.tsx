@@ -2,6 +2,7 @@ import Image from "next/image";
 import LandingImg from "../assets/main.png";
 import { Button } from "@/ui/button";
 import Link from "next/link";
+import { translate } from "@/domain/data/translations";
 
 export default function HomePage() 
 {
@@ -41,8 +42,8 @@ const Description = () =>
 const CharactersLink = () => 
 (
   <Button asChild>
-    <Link href="/characters">
-      Zarządzaj postaciami
+    <Link href="/characters" className="capitalize">
+      {translate("characters")}
     </Link>
   </Button>
 );
@@ -50,8 +51,8 @@ const CharactersLink = () =>
 const BestiaryLink = () => 
 (
   <Button asChild>
-    <Link href="/bestiary">
-      Bestiariusz
+    <Link href="/bestiary" className="capitalize">
+      {translate("bestiary")}
     </Link>
   </Button>
 );
@@ -59,8 +60,8 @@ const BestiaryLink = () =>
 const CompendiumLink = () => 
 (
   <Button asChild>
-    <Link href="/compendium">
-      Compendium
+    <Link href="/compendium" className="capitalize">
+      {translate("compendium")}
     </Link>
   </Button>
 );
@@ -68,8 +69,8 @@ const CompendiumLink = () =>
 const RuleBookLink = () => 
 (
   <Button asChild>
-    <Link href="/rulebook">
-      Rule Book
+    <Link href="/rulebook" className="capitalize">
+      {translate("rulebook")}
     </Link>
   </Button>
 );

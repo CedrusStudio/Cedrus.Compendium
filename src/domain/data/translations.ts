@@ -59,6 +59,10 @@ const defaultTranslations =
     maneuvers: "manewry",
     stances: "postawy",
     states: "stany",
+
+    bestiary: "bestiariusz",
+    compendium: "kompendium",
+    rulebook: "podręcznik",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;
