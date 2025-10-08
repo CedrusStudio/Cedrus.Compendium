@@ -1,0 +1,16 @@
+import ThemeMode from "@/common/components/navbars/ThemeMode";
+import { FaHome } from "react-icons/fa";
+import { Button } from "@/ui/button";
+import Link from "next/link";
+
+export default function NavbarDefaultButton()
+{
+  return (
+    <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
+        <Button asChild variant="outline" size="icon">
+            <Link href="/"><FaHome className="h-[1.2rem] w-[1.2rem]" /></Link>
+        </Button>
+        <ThemeMode />
+    </div>
+  );
+};

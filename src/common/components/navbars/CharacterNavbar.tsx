@@ -1,6 +1,5 @@
 "use client";
 
-import ThemeMode from "@/common/components/navbars/ThemeMode";
 import { Input } from "@/ui/input"
 import { useDebouncedCallback } from 'use-debounce';
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -10,10 +9,10 @@ import { actions } from "@/persistence/characterSlice";
 import { useEffect, useState } from "react";
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import { FaHome } from "react-icons/fa";
 import React from "react";
 import { LuPlus } from "react-icons/lu";
 import NavbarBreadcrumb from "./NavbarBreadcrumb";
+import NavbarDefaultButton from "./NavbarDefaultButton";
 
 export default function CharacterNavbar() 
 {
@@ -75,10 +74,7 @@ export default function CharacterNavbar()
                 <Button asChild variant="outline" size="icon">
                     <Link href="/characters/add"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Link>
                 </Button>
-                <Button asChild variant="outline" size="icon">
-                    <Link href="/"><FaHome className="h-[1.2rem] w-[1.2rem]" /></Link>
-                </Button>
-                <ThemeMode />
+                <NavbarDefaultButton />
             </div>
 
         </nav>
