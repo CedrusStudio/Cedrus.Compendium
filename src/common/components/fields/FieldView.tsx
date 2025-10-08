@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 type FieldViewProps = 
 {
   name: string;
-  value: number;
+  value: number | string;
   className?: string;
   nameClassName?: string;
   valueClassName?: string;
