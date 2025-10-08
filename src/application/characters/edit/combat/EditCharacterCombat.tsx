@@ -9,7 +9,7 @@ import EditManeuversCard from "@/application/characters/edit/combat/EditManeuver
 import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persistence/characterSchemas";
 import SubmitButton from "@/ui/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
@@ -18,7 +18,6 @@ import { Label } from "@radix-ui/react-label";
 import { translate } from "@/domain/data/translations";
 import AppendToArrayButton from "@/common/components/ui/AppendToArrayButton";
 import { CreateDefaultDefense, CreateDefaultOffense } from "@/domain/data/defaults";
-import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 
 type EditCharacterCombatProps =
 {
@@ -58,12 +57,12 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
       }
     );
 
-    const { watchedArray: offenses, remove: removeOffense } = useWatchedFormArray("offenses", form.control);
-    const { watchedArray: defenses, remove: removeDefense } = useWatchedFormArray("defenses", form.control);
+    const offenses = useWatch({ control: form.control, name: "offenses" });
+    const defenses = useWatch({ control: form.control, name: "defenses" });
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3 -mt-21" id={combatFormName}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3" id={combatFormName}>
 
           <div className="md:col-span-2">
             <EditHealthCard health={character.health} />
@@ -82,7 +81,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
             <div className="grid gap-3 md:grid-cols-2">
             {
-              offenses.map((offense, index) => <EditOffenseCard key={index} offense={offense} index={index} remove={removeOffense} />)
+              offenses.map((offense, index) => <EditOffenseCard key={index} offense={offense} index={index} />)
             }
             </div>
           </div>
@@ -98,9 +97,9 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
               />
             </div>
             
-            <div className="grid gap-3  md:grid-cols-2">
+            <div className="grid gap-3 md:grid-cols-2">
             {
-              defenses.map((defense, index) => <EditDefenseCard key={index} defense={defense} index={index} remove={removeDefense} />)
+              defenses.map((defense, index) => <EditDefenseCard key={index} defense={defense} index={index} />)
             }
             </div>
           </div>
@@ -116,4 +115,3 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
       </Form>
     );
 };
-

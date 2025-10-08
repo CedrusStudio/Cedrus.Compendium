@@ -6,28 +6,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { translate } from '@/domain/data/translations';
 import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/ui/RemoveFromArrayButton';
-import { UseFieldArrayRemove } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 type EditDefenseCardProps =
 {
-  remove: UseFieldArrayRemove;
   defense: Defense;
   index: number;
 }
 
-export default function EditDefenseCard({ defense, index, remove }: EditDefenseCardProps)
+export default function EditDefenseCard({ defense, index }: EditDefenseCardProps)
 {
-  const InputFormWithLabel = (defenseFieldName: keyof UpsertCharacterDefenseType) => 
-  {   
-    const fieldPath = pathToDefenseField(index, defenseFieldName);
-
-    return (
-      <div key={defenseFieldName} className="flex flex-col items-center gap-2">
-        <Label className="text-center capitalize">{translate(defenseFieldName)}</Label>
-        <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName='w-16 h-10 text-center font-medium' />
-      </div>
-    );
-  }
+  const { control } = useFormContext();
+  const { remove } = useFieldArray({ name: "defenses", control });
 
   return (
     <Card className='bg-muted border shadow-md'>
@@ -47,7 +37,7 @@ export default function EditDefenseCard({ defense, index, remove }: EditDefenseC
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         { 
-          Object.keys(defense).filter(NotNameOrDescription).map(key => InputFormWithLabel(key as keyof UpsertCharacterDefenseType)) 
+          Object.keys(defense).filter(NotNameOrDescription).map(key => InputFormWithLabel(index, key as keyof UpsertCharacterDefenseType)) 
         }
         </div>
 
@@ -55,6 +45,18 @@ export default function EditDefenseCard({ defense, index, remove }: EditDefenseC
     </Card>
   );
 };
+
+function InputFormWithLabel(index: number, defenseFieldName: keyof UpsertCharacterDefenseType)
+{   
+  const fieldPath = pathToDefenseField(index, defenseFieldName);
+
+  return (
+    <div key={defenseFieldName} className="flex flex-col items-center gap-2">
+      <Label className="text-center capitalize">{translate(defenseFieldName)}</Label>
+      <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName='w-16 h-10 text-center font-medium' />
+    </div>
+  );
+}
 
 function NotNameOrDescription(key: string)
 {
