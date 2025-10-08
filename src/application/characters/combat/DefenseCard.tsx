@@ -140,7 +140,8 @@ function fullFilter(name: string): boolean
   return name !== "immunity" 
     && name !== "resistance"
     && name !== "name"
-    && name !== "description";
+    && name !== "description"
+    && name !== "id";
 } 
 
 function blockFilter(name: string): boolean 
