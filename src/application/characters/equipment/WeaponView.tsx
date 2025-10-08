@@ -40,14 +40,14 @@ export default function WeaponView({ weapon }: { weapon: Weapon })
 function WeaponOverview({ weapon }: { weapon: Weapon }) 
 {
    const weaponOffense = weapon.offense.amount === 1 
-            ? `(k${weapon.offense.grade * 2}+${weapon.offense.bonus})`
-            : `${weapon.offense.amount}(k${weapon.offense.grade * 2}+${weapon.offense.bonus})`
+      ? `(k${weapon.offense.grade * 2}+${weapon.offense.bonus})`
+      : `${weapon.offense.amount}(k${weapon.offense.grade * 2}+${weapon.offense.bonus})`
 
     const damageOffense = weapon.damageBonus.amount === 1 
-            ? `k${weapon.damageBonus.grade * 2}+${weapon.damageBonus.bonus}`
-            : weapon.damageBonus.amount === 0
-              ? `${weapon.damageBonus.bonus}`
-              : `${weapon.damageBonus.amount}k${weapon.damageBonus.grade * 2}+${weapon.damageBonus.bonus}`
+      ? `k${weapon.damageBonus.grade * 2}+${weapon.damageBonus.bonus}`
+      : weapon.damageBonus.amount === 0
+        ? `${weapon.damageBonus.bonus}`
+        : `${weapon.damageBonus.amount}k${weapon.damageBonus.grade * 2}+${weapon.damageBonus.bonus}`
 
     const criticalDamageBonus = weapon.offense.critical.power
     const criticalRangeBonus = weapon.offense.critical.range;

@@ -1,53 +1,35 @@
-import { blockValues, Shield } from "@/domain/characters/Character";
+import { blockValues, Shield, pathToShieldsField } from "@/domain/characters/Character";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/ui/accordion";
 import ShieldView from "@/application/characters/equipment/ShieldView";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/ui/SelectFormField";
 
-type AccordionWeaponItemProps = 
+type EditShieldViewProps = 
 {
   equipmentFormName: string;
   shield: Shield;
-  control: Control<UpsertCharacterEquipmentType>;
   isPending: boolean;
+  index: number;
 };
 
-export default function EditShieldView({ equipmentFormName, shield, control, isPending }: AccordionWeaponItemProps)
+export default function EditShieldView({ equipmentFormName, index, shield, isPending }: EditShieldViewProps)
 {
-    return (
-    <AccordionItem value="shield">
-        <AccordionTrigger>{shield.name}</AccordionTrigger>
-        <AccordionContent className='flex flex-row justify-between items-start'>
-            <ShieldView shield={shield} />
-            <EditShieldSheet equipmentFormName={equipmentFormName} armor={shield} control={control} isPending={isPending} />
-        </AccordionContent>
-    </AccordionItem>
-    );
+  return (
+    <div className="flex flex-row justify-between items-start">
+      <ShieldView shield={shield} />
+      <EditShieldSheet equipmentFormName={equipmentFormName} shield={shield} isPending={isPending} index={index} />
+    </div>
+  );
 }
 
-type EditArmorSheetProps = 
-{
-  equipmentFormName: string;
-  armor: Shield;
-  control: Control<UpsertCharacterEquipmentType>;
-  isPending: boolean;
-};
-
-function EditShieldSheet({ equipmentFormName, armor, control, isPending }: EditArmorSheetProps)
+function EditShieldSheet({ equipmentFormName, shield, isPending, index }: EditShieldViewProps)
 {
   return (
     <EditItemSheet 
       equipmentFormName={equipmentFormName} 
-      item={{ name: armor.name, description: armor.description, type: "shield" }} 
-      control={control} 
+      item={{ name: shield.name, description: shield.description, type: `shields.${index}` }} 
       isPending={isPending}
     >
         <div className="grid auto-rows-min gap-3 px-4">
@@ -55,15 +37,14 @@ function EditShieldSheet({ equipmentFormName, armor, control, isPending }: EditA
           <Label>Block</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`shield.block`}
-              control={control}
+              path={pathToShieldsField(index, `block`)}
               items={blockValues}
               noLabel
               />
 
         </div>
 
-      <EditDefensiveItemView control={control} defensiveItem="shield" />
+      <EditDefensiveItemView defensiveItem="shields" index={index} />
     </EditItemSheet>
   )
 }

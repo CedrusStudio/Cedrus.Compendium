@@ -1,83 +1,45 @@
 import { Equipment } from '@/domain/characters/Character';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/ui/accordion"
+import { Accordion } from "@/ui/accordion";
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import ArmorView from '@/application/characters/equipment/ArmorView';
 import ShieldView from '@/application/characters/equipment/ShieldView';
+import ItemsView from '@/application/characters/equipment/ItemsView';
 
 export default function EquipmentView({ equipment }: { equipment: Equipment })
 {
+  console.log(equipment);
   return (
     <Accordion type="multiple">
 
-      <AccordionItem value="weapon1">
-          <AccordionTrigger>{equipment.weapon1.name}</AccordionTrigger>
-          <AccordionContent>
-            <WeaponView weapon={equipment.weapon1} />
-          </AccordionContent>
-      </AccordionItem>
+      <ItemsView 
+        items={equipment.weapons} 
+        label='Bronie'
+        itemViewFactory={item => <WeaponView weapon={item} />} 
+      />
 
-      {
-        equipment.weapon2 && (
-          <AccordionItem value="weapon2">
-              <AccordionTrigger>{equipment.weapon2.name}</AccordionTrigger>
-              <AccordionContent>
-                <WeaponView weapon={equipment.weapon2} />
-              </AccordionContent>
-          </AccordionItem>
-        )
-      }
+      <ItemsView 
+        items={equipment.armors} 
+        label='Zbroje'
+        itemViewFactory={item => <ArmorView armor={item} />} 
+      />
 
-      {
-        equipment.weapon3 && (
-          <AccordionItem value="weapon3">
-              <AccordionTrigger>{equipment.weapon3.name}</AccordionTrigger>
-              <AccordionContent>
-                <WeaponView weapon={equipment.weapon3} />
-              </AccordionContent>
-          </AccordionItem>
-        )
-      }
+      <ItemsView 
+        items={equipment.shields} 
+        label='Tarcze'
+        itemViewFactory={item => <ShieldView shield={item} />} 
+      />
 
-      {
-        equipment.weapon4 && (
-          <AccordionItem value="weapon4">
-              <AccordionTrigger>{equipment.weapon4.name}</AccordionTrigger>
-              <AccordionContent>
-                <WeaponView weapon={equipment.weapon4} />
-              </AccordionContent>
-          </AccordionItem>
-        )
-      }
+      <ItemsView 
+        items={equipment.inventory} 
+        label='Wyposarzenie'
+        itemViewFactory={item => <span>{item.description}</span>} 
+      />
 
-      <AccordionItem value="armor">
-          <AccordionTrigger>{equipment.armor.name}</AccordionTrigger>
-          <AccordionContent>
-            <ArmorView armor={equipment.armor} />
-          </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="shield">
-          <AccordionTrigger>{equipment.shield.name}</AccordionTrigger>
-          <AccordionContent>
-            <ShieldView shield={equipment.shield} />
-          </AccordionContent>
-      </AccordionItem>
-
-      {
-        equipment.magicEquipment.map(item => (
-          <AccordionItem key={item.name} value={item.name}>
-            <AccordionTrigger>{item.name}</AccordionTrigger>
-            <AccordionContent>
-              {item.description}
-            </AccordionContent>
-          </AccordionItem>
-        ))
-      }
+      <ItemsView 
+        items={equipment.horses} 
+        label='Konie'
+        itemViewFactory={item => <span>{item.description}</span>} 
+      />
 
     </Accordion>
   );

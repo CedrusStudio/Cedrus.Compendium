@@ -43,7 +43,22 @@ const defaultTranslations =
     characteristics: "cecha",
     attributes: "atrybut",
     description: "opis",
-    penalty: "kara"
+    penalty: "kara",
+
+    defense: "defensywa",
+    defenses: "defensywy",
+    offense: "ofensywa",
+    offenses: "ofensywy",
+    amount: "ilość",
+    weaponDice: "kość broni",
+    damageDice: "kość obrażeń",
+    critical: "krytyk",
+    range: "zasięg",
+    power: "siła",
+    style: "styl",
+    maneuvers: "manewry",
+    stances: "postawy",
+    states: "stany",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

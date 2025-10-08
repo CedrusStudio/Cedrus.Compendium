@@ -1,4 +1,3 @@
-
 import {
   Sheet,
   SheetClose,
@@ -14,27 +13,34 @@ import { InputFormField } from '@/ui/InputFormField';
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { Control } from "react-hook-form";
-import { ItemTypes } from "@/domain/characters/Character";
+import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
+import AreaInputFormField from "@/common/components/ui/AreaInputFormField";
+import { useFieldArray } from "react-hook-form";
+import RemoveFromArrayButton from "@/common/components/ui/RemoveFromArrayButton";
 
 type EditItemSheetProps = 
 {
   equipmentFormName: string;
-  item: { name: string; description: string; type: ItemTypes };
-  control: Control<UpsertCharacterEquipmentType>;
+  item: { name: string; description: string; type: EquipmentItemTypes };
   isPending: boolean;
 };
 
-export default function EditItemSheet({ item, control, isPending, children, equipmentFormName }: PropsWithChildren<EditItemSheetProps>)
+export default function EditItemSheet({ item, isPending, children, equipmentFormName }: PropsWithChildren<EditItemSheetProps>)
 {
+  const { name, index } = splitEquipmentItemTypes(item.type);
+  const { remove } = useFieldArray<UpsertCharacterEquipmentType>({ name });
+
   return (
       <Sheet>
 
-        <SheetTrigger asChild className='mt-4'>
-          <Button variant="edit"><TbEdit /></Button>
-        </SheetTrigger>
+        <div className="flex justify-end items-center mt-4 gap-3">
+          <RemoveFromArrayButton remove={remove} index={index} />
+          <SheetTrigger asChild>
+            <Button variant="edit"><TbEdit /></Button>
+          </SheetTrigger>
+        </div>
 
         <SheetContent>
           
@@ -52,10 +58,9 @@ export default function EditItemSheet({ item, control, isPending, children, equi
                 <Label>Nazwa</Label>
                 
                 <InputFormField<UpsertCharacterEquipmentType> 
-                    name={`${item.type}.name`}
-                    control={control}
-                    inputPlaceholder="edytuj nazwę..." 
-                    inputClassName='w-80'
+                  path={`${item.type}.name`}
+                  inputPlaceholder="edytuj nazwę..." 
+                  inputClassName='w-80'
                 />
             </div>
 
@@ -63,11 +68,9 @@ export default function EditItemSheet({ item, control, isPending, children, equi
 
                 <Label>Opis</Label>
                 
-                <InputFormField<UpsertCharacterEquipmentType> 
-                    name={`${item.type}.description`}
-                    control={control}
-                    inputPlaceholder="edytuj opis..." 
-                    inputClassName='w-80'
+                <AreaInputFormField<UpsertCharacterEquipmentType> 
+                  path={`${item.type}.description`}
+                  inputPlaceholder="edytuj opis..." 
                 />
             </div>
 
@@ -76,7 +79,6 @@ export default function EditItemSheet({ item, control, isPending, children, equi
           </div>
 
           <SheetFooter>
-            <SubmitButton isPending={isPending} className='w-full' formName={equipmentFormName} />
             <SheetClose asChild>
               <Button variant="outline">Zamknij</Button>
             </SheetClose>

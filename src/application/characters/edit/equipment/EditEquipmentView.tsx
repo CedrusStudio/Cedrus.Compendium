@@ -1,7 +1,7 @@
 "use client";
 
 import { Character } from '@/domain/characters/Character';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion"
+import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,13 @@ import EditShieldView from '@/application/characters/edit/equipment/EditShieldVi
 import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponView';
 import EditArmorView from '@/application/characters/edit/equipment/EditArmorView';
 import bffClient from '@/infrastructure/bffClient';
+import EditHorseView from './EditHorseView';
+import AppendToArrayButton from '@/common/components/ui/AppendToArrayButton';
+import SubmitButton from '@/common/components/ui/SubmitButton';
+import ItemsView from '@/application/characters/equipment/ItemsView';
+import EditInventoryItemView from './EditInventoryItemView';
+import { CreateDefaultArmor, CreateDefaultHorse, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';
+import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -21,7 +28,13 @@ export default function EditEquipmentView(input: { character: Character })
   ({
       resolver: zodResolver(upsertCharacterEquipmentSchema),
       defaultValues: initialValues,
-  })
+  });
+
+  const { watchedArray: weapons, append: appendWeapon } = useWatchedFormArray("weapons", form.control);
+  const { watchedArray: armors, append: appendArmor } = useWatchedFormArray("armors", form.control);
+  const { watchedArray: shields, append: appendShield } = useWatchedFormArray("shields", form.control);
+  const { watchedArray: inventory, append: appendInventory } = useWatchedFormArray("inventory", form.control);
+  const { watchedArray: horses, append: appendHorse } = useWatchedFormArray("horses", form.control);
 
   const id = input.character.id;
 
@@ -40,26 +53,69 @@ export default function EditEquipmentView(input: { character: Character })
 
         <Accordion type="single" collapsible>
 
-          <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon1} control={form.control} weaponNumber={1} isPending={isPending} />
-          { input.character.equipment.weapon2 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon2} control={form.control} weaponNumber={2} isPending={isPending} /> }
-          { input.character.equipment.weapon3 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon3} control={form.control} weaponNumber={3} isPending={isPending} /> }
-          { input.character.equipment.weapon4 && <EditWeaponView equipmentFormName={equipmentFormName} weapon={input.character.equipment.weapon4} control={form.control} weaponNumber={4} isPending={isPending} /> }
+          <ItemsView
+            items={weapons}
+            label="Bronie"
+            itemViewFactory={(item, index) => <EditWeaponView equipmentFormName={equipmentFormName} index={index} weapon={item} isPending={isPending} />}
+          >
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
+              isPending={isPending}
+              append={appendWeapon}
+              toAdd={CreateDefaultWeapon}
+            />
+          </ItemsView>
 
-          <EditArmorView equipmentFormName={equipmentFormName} armor={input.character.equipment.armor} control={form.control} isPending={isPending} />
-          <EditShieldView equipmentFormName={equipmentFormName} shield={input.character.equipment.shield} control={form.control} isPending={isPending} />
+          <ItemsView
+            items={armors}
+            label="Zbroje"
+            itemViewFactory={(item, index) => <EditArmorView equipmentFormName={equipmentFormName} index={index} armor={item} isPending={isPending} />}
+          >
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
+              isPending={isPending}
+              append={appendArmor}
+              toAdd={CreateDefaultArmor}
+            />
+          </ItemsView>
 
-          {
-            input.character.equipment.magicEquipment.map(item => (
-              <AccordionItem key={item.name} value={item.name}>
-                <AccordionTrigger>{item.name}</AccordionTrigger>
-                <AccordionContent>
-                  {item.description}
-                </AccordionContent>
-              </AccordionItem>
-            ))
-          }
+          <ItemsView
+            items={shields}
+            label="Tarcze"
+            itemViewFactory={(item, index) => <EditShieldView equipmentFormName={equipmentFormName} index={index} shield={item} isPending={isPending} />}
+          >
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
+              isPending={isPending}
+              append={appendShield}
+              toAdd={CreateDefaultShield}
+            />
+          </ItemsView>
 
-        </Accordion>      
+          <ItemsView
+            items={inventory}
+            label="Wyposażenie"
+            itemViewFactory={(item, index) => <EditInventoryItemView equipmentFormName={equipmentFormName} index={index} inventory={item} isPending={isPending} />}
+          >
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
+              isPending={isPending}
+              append={appendInventory}
+              toAdd={CreateDefaultInventoryItem}
+            />
+          </ItemsView>
+
+          <ItemsView
+            items={horses}
+            label="Konie"
+            itemViewFactory={(item, index) => <EditHorseView key={index} index={index} equipmentFormName={equipmentFormName} horse={item} isPending={isPending} />}
+          >
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "horses"> 
+              isPending={isPending}
+              append={appendHorse}
+              toAdd={CreateDefaultHorse}
+            />
+          </ItemsView>
+
+        </Accordion>
+
+        <SubmitButton isPending={isPending} />
       </form>
     </Form>
   );

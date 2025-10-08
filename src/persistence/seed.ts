@@ -107,47 +107,91 @@ const dummyCharacter : Character =
     barrier: 5,
     bonus: 2
   },
-  defense: 
-  {
-    immunity: 0,
-    resistance: 0,
-    protection: 5,
-    block: 2,
-    parry: 1,
-    dodge: 0,
-    bonus: 0
-  },
-  offense:
-  {
-    leadingWeapon: 
+  defenses:
+  [
     {
-      amount: 2,
-      grade: 3,
-      bonus: 1,
-      critical: 
-      {
-        power: 2,
-        range: 1
-      }
+      id: '30c1e249-c421-4a7c-9235-2d825f84cd91',
+      name: "Lekkozbrojny",
+      description: "Lekka zbroja i mała tarcza oferujące podstawową ochronę przy zachowaniu mobilności.",
+      immunity: 0,
+      resistance: 0,
+      protection: 5,
+      block: 2,
+      parry: 1,
+      dodge: 0,
+      bonus: 0
     },
-    secondaryWeapon:
     {
-      amount: 1,
-      grade: 2,
-      bonus: 2,
-      critical: 
-      {
-        power: 3,
-        range: 5
-      }
-    },
-    damageBonus: 
-    {
-      amount: 1,
-      grade: 3,
-      bonus: 5
+      id: 'b1f3e8d2-1f4c-4e2e-9f4a-3c6e9f8b7a2d',
+      name: "Ciężkozbrojny",
+      description: "Ciężka zbroja i duża tarcza oferujące maksymalną ochronę.",
+      immunity: 2,
+      resistance: 4,
+      protection: 3,
+      block: 5,
+      parry: 2,
+      dodge: 3,
+      bonus: 1
     }
-  },
+  ],
+  offenses:
+  [
+    {
+      id: 'a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6',
+      name: "Duale",
+      description: "Dwa ostre miecze Kabdulu.",
+      leadingWeapon: 
+      {
+        amount: 2,
+        grade: 3,
+        bonus: 1,
+        critical: 
+        {
+          power: 2,
+          range: 1
+        }
+      },
+      secondaryWeapon:
+      {
+        amount: 1,
+        grade: 2,
+        bonus: 2,
+        critical: 
+        {
+          power: 3,
+          range: 5
+        }
+      },
+      damageBonus: 
+      {
+        amount: 1,
+        grade: 3,
+        bonus: 5
+      }
+    },
+    {
+      id: 'f1e2d3c4-b5a6-7h8g-9i0j-k1l2m3n4o5p6',
+      name: "Topór archerski",
+      description: "Topór przeznaczony do walki na bliski dystans.",
+      leadingWeapon: 
+      {
+        amount: 1,
+        grade: 8,
+        bonus: 3,
+        critical: 
+        {
+          power: 2,
+          range: 3
+        }
+      },
+      damageBonus: 
+      {
+        amount: 1,
+        grade: 5,
+        bonus: 2
+      }
+    }
+  ],
   stances: 
   [
     {
@@ -164,114 +208,149 @@ const dummyCharacter : Character =
   states:
   [
     {
-      name: "szał",
+      name: "Szał",
       grade: 1,
       description: "Dodaje 3 siły i 3 kondycji."
     }
   ],
   equipment:
   {
-    armor:
-    {
-      name: "Skórzana zbroja",
-      description: "Solidna skórzana zbroja oferująca umiarkowaną ochronę.",
-      protection: 5,
-      dexterityRestriction: 0,
-      reflexRestriction: 0,
-      initiativeRestriction: 0,
-      attributePenalty: 0,
-      strengthRequirement: 0
-    },
-    shield:
-    {
-      name: "Drewniana tarcza",
-      description: "Podstawowa drewniana tarcza oferująca minimalną ochronę.",
-      block: 2,
-      dexterityRestriction: 0,
-      reflexRestriction: 0,
-      initiativeRestriction: 0,
-      attributePenalty: 0,
-      strengthRequirement: 0
-    },
-    weapon1: 
-    {
-      name: "Krótki miecz",
-      description: "Podstawowy krótki miecz.",
-      style: "Jednoręczna",
-      offense: {
-        amount: 1,
-        grade: 3,
-        bonus: 1,
-        critical: {
-          power: 1,
-          range: 1
-        },
-      },
-      damageBonus:
+    armors:
+    [
       {
-        amount: 1,
-        grade: 3,
-        bonus: 5
+        name: "Skórzana zbroja",
+        description: "Solidna skórzana zbroja oferująca umiarkowaną ochronę.",
+        protection: 5,
+        immunity: 0,
+        resistance: 2,
+        dexterityRestriction: 0,
+        reflexRestriction: 0,
+        initiativeRestriction: 0,
+        attributePenalty: 0,
+        strengthRequirement: 0
       },
-      range: 1
-    },
-    weapon2:
-    {
-      name: "Długi łuk",
-      description: "Solidny długi łuk.",
-      style: "Dystansowa",
-      offense: {
-        amount: 1,
-        grade: 2,
-        bonus: 0,
-        critical: {
-          power: 2,
-          range: 5
-        }
+      {
+        name: "Płytowa zbroja",
+        description: "Solidna skórzana zbroja oferująca umiarkowaną ochronę.",
+        protection: 5,
+        immunity: 2,
+        resistance: 5,
+        dexterityRestriction: 0,
+        reflexRestriction: 0,
+        initiativeRestriction: 0,
+        attributePenalty: 0,
+        strengthRequirement: 0
       },
-      damageBonus: {
-        amount: 1,
-        grade: 2,
-        bonus: 0
+    ],
+    shields:
+    [
+      {
+        name: "Drewniana tarcza",
+        description: "Podstawowa drewniana tarcza oferująca minimalną ochronę.",
+        block: 2,
+        resistance: 1,
+        dexterityRestriction: 0,
+        reflexRestriction: 0,
+        initiativeRestriction: 0,
+        attributePenalty: 0,
+        strengthRequirement: 0
       },
-      range: 5
-    },
-    weapon3:
-    {
-      name: "Magiczny kostur",
-      description: "Kostur nasycony magicznymi właściwościami.",
-      style: "Dwuręczna",
-      offense: {
-        amount: 1,
-        grade: 4,
-        bonus: 2,
-        critical: {
-          power: 3,
-          range: 10
-        }
+      {
+        name: "Skórzana tarcza",
+        description: "Podstawowa skórzana tarcza oferująca minimalną ochronę.",
+        block: 2,
+        resistance: 0,
+        dexterityRestriction: 0,
+        reflexRestriction: 0,
+        initiativeRestriction: 0,
+        attributePenalty: 0,
+        strengthRequirement: 0
+      }
+    ],
+    weapons: 
+    [
+      {
+        name: "Krótki miecz",
+        description: "Podstawowy krótki miecz.",
+        style: "Jednoręczny",
+        offense: {
+          amount: 1,
+          grade: 3,
+          bonus: 1,
+          critical: {
+            power: 1,
+            range: 1
+          },
+        },
+        damageBonus:
+        {
+          amount: 1,
+          grade: 3,
+          bonus: 5
+        },
+        range: 1
       },
-      damageBonus: {
-        amount: 1,
-        grade: 4,
-        bonus: 2
+      {
+        name: "Długi łuk",
+        description: "Solidny długi łuk.",
+        style: "Dystansowy",
+        offense: {
+          amount: 1,
+          grade: 2,
+          bonus: 0,
+          critical: {
+            power: 2,
+            range: 5
+          }
+        },
+        damageBonus: {
+          amount: 1,
+          grade: 2,
+          bonus: 0
+        },
+        range: 5
       },
-      range: 10
-    },
-    magicEquipment: 
+      {
+        name: "Magiczny kostur",
+        description: "Kostur nasycony magicznymi właściwościami.",
+        style: "Dwuręczny",
+        offense: {
+          amount: 1,
+          grade: 4,
+          bonus: 2,
+          critical: {
+            power: 3,
+            range: 10
+          }
+        },
+        damageBonus: {
+          amount: 1,
+          grade: 4,
+          bonus: 2
+        },
+        range: 10
+      }
+    ],
+    inventory: 
     [
       {
         name: "Pierścień mocy",
         description: "Magiczny pierścień który zwiększa siłę użytkownika.",
-        immunity: 1,
-        reduction: 2,
-        resistance: 3,
       },
       {
         name: "Amulet mądrości",
-        description: "Amulet który zwiększa intelekt użytkownika.",
-        immunity: 0,
-        reduction: 1,
-        resistance: 2
+        description: "Amulet który zwiększa intelekt użytkownika."
+      }
+    ],
+    horses: 
+    [
+      {
+        name: "Czarny ogier",
+        description: "Silny i szybki koń bojowy.",
+        canterSpeed: 6,
+        gallopSpeed: 12,
+        paceSpeed: 3,
+        horsemanshipBonus: 2
       }
     ]
   },

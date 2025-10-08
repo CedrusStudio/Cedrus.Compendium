@@ -1,0 +1,41 @@
+import { Item } from '@/domain/characters/Character';
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
+import { PropsWithChildren } from 'react';
+
+type ItemsViewProps<T extends Item> = 
+{
+  label: string;
+  items: T[];
+  itemViewFactory: (item: T, index: number) => React.ReactNode;
+}
+
+export default function ItemsView<T extends Item>({ items, itemViewFactory, label, children }: PropsWithChildren<ItemsViewProps<T>>)
+{
+  return (
+    <>
+        <div className="flex items-center justify-center gap-2">
+            <h3 className="text-lg font-semibold">{label}</h3>
+            {children}
+        </div>
+        {
+            items.length > 0 && (
+                <div>
+                {
+                    items.map((item, index) => {
+                        const stableId = `${label}-${index}`;
+                        return (
+                          <AccordionItem key={stableId} value={stableId}>
+                              <AccordionTrigger>{item.name}</AccordionTrigger>
+                              <AccordionContent>
+                                  {itemViewFactory(item, index)}
+                              </AccordionContent>
+                          </AccordionItem>
+                        );
+                    })
+                }
+                </div>
+            )
+        }
+    </>
+  )
+}

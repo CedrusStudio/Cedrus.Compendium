@@ -13,7 +13,7 @@ import {
 import { InputFormField } from '@/ui/InputFormField';
 import { Button } from "@/ui/button"
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { Control, UseFieldArrayRemove } from "react-hook-form";
+import { UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/characters/Character";
@@ -25,11 +25,10 @@ type EditModeViewProps =
   mode: Mode,
   modeType: ModesType; 
   index: number; 
-  control: Control<UpsertCharacterCombatType>; 
   remove: UseFieldArrayRemove;
 }
 
-export default function EditModeView({ mode, modeType, index, control, remove }: EditModeViewProps)
+export default function EditModeView({ mode, modeType, index, remove }: EditModeViewProps)
 { 
   return (
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2  min-h-24">
@@ -41,7 +40,7 @@ export default function EditModeView({ mode, modeType, index, control, remove }:
 
         <div className="flex flex-row gap-2">
           <RemoveFromArrayButton remove={remove} index={index} />
-          <EditModeSheet index={index} modeType={modeType} control={control} />
+          <EditModeSheet index={index} modeType={modeType} />
         </div>
     </div>
   );
@@ -51,17 +50,16 @@ type EditModeSheetProps =
 {
   modeType: ModesType;
   index: number;
-  control: Control<UpsertCharacterCombatType>;
 };
 
-function EditModeSheet({ index, control, modeType }: EditModeSheetProps)
+function EditModeSheet({ index, modeType }: EditModeSheetProps)
 {
   return (
     <Sheet>
 
-        <SheetTrigger asChild>
-            <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
-        </SheetTrigger>
+      <SheetTrigger asChild>
+          <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
+      </SheetTrigger>
 
       <SheetContent>
         
@@ -76,43 +74,19 @@ function EditModeSheet({ index, control, modeType }: EditModeSheetProps)
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-
-                <Label>Name</Label>
-                
-                <InputFormField<UpsertCharacterCombatType> 
-                    name={`${modeType}.${index}.name`}
-                    control={control}
-                    inputPlaceholder="edit name..." 
-                    inputClassName='w-60'
-                />
-
+              <Label>Name</Label>
+              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.name`} inputPlaceholder="edit name..." inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-
-                <Label>Grade</Label>
-
-                <InputFormField<UpsertCharacterCombatType>
-                    name={`${modeType}.${index}.grade`}
-                    control={control}
-                    inputPlaceholder="edit grade..." 
-                    inputClassName="w-11 h-10 text-center font-medium" 
-                />
-
+              <Label>Grade</Label>
+              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.grade`} inputPlaceholder="edit grade..." inputClassName="w-11 h-10 text-center font-medium" />
             </div>
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-
             <Label>Description</Label>
-            
-            <InputFormField<UpsertCharacterCombatType> 
-                name={`${modeType}.${index}.description`}
-                control={control}
-                inputPlaceholder="edit description..." 
-                inputClassName='w-80'
-            />
-
+            <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.description`} inputPlaceholder="edit description..." inputClassName='w-80' />
           </div>
         </div>
 

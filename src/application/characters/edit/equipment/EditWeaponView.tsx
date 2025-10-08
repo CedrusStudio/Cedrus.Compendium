@@ -1,65 +1,58 @@
 import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
 import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
-import { Weapon } from '@/domain/characters/Character';
-import { Control } from 'react-hook-form';
+import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField, allowedStyles } from '@/domain/characters/Character';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
-import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
+import { translate } from '@/domain/data/translations';
 
-type AccordionWeaponItemProps = 
+type EditWeaponViewProps = 
 {
   equipmentFormName: string;
   weapon: Weapon;
-  control: Control<UpsertCharacterEquipmentType>;
-  weaponNumber: 1 | 2 | 3 | 4;
   isPending: boolean;
+  index: number;
 };
 
-export default function EditWeaponView({ equipmentFormName, weapon, control, weaponNumber, isPending }: AccordionWeaponItemProps)
+export default function EditWeaponView({ equipmentFormName, index, weapon, isPending }: EditWeaponViewProps)
 {
   return (
-    <AccordionItem value={`weapon${weaponNumber}`}>
-        <AccordionTrigger>{weapon.name}</AccordionTrigger>
-        <AccordionContent className='flex flex-row justify-between items-start'>
-          <WeaponView weapon={weapon} />
-          <EditWeaponSheet equipmentFormName={equipmentFormName} weapon={weapon} control={control} weaponNumber={weaponNumber} isPending={isPending} />
-        </AccordionContent>
-    </AccordionItem>
+    <div className="flex flex-row justify-between items-start">
+      <WeaponView weapon={weapon} />
+      <EditWeaponSheet equipmentFormName={equipmentFormName} index={index} weapon={weapon} isPending={isPending} />
+    </div>
   )
 }
 
-function EditWeaponSheet({ equipmentFormName, weapon, control, weaponNumber, isPending }: AccordionWeaponItemProps)
+function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: EditWeaponViewProps)
 {
   return (
     <EditItemSheet 
       equipmentFormName={equipmentFormName}
-      item={{ name: weapon.name, description: weapon.description, type: `weapon${weaponNumber}` }} 
-      control={control} 
+      item={{ name: weapon.name, description: weapon.description, type: `weapons.${index}` }} 
       isPending={isPending}
     >
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
-          
-          <Label>Style</Label>
+
+          <Label className='capitalize'>{translate('style')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`weapon${weaponNumber}.style`}
-              control={control}
-              items={["None", "One-Handed", "Two-Handed", "Ranged", "Thrown"]}
+              path={pathToWeaponsField(index, `style`)}
+              items={allowedStyles}
               noLabel
               />
-          </div>
+              
+        </div>
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Range</Label>
+          <Label className='capitalize'>{translate('range')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`weapon${weaponNumber}.range`}
-              control={control}
+              path={pathToWeaponsField(index, `range`)}
               items={[1,2,3,4,5]}
               noLabel
               />
@@ -68,28 +61,27 @@ function EditWeaponSheet({ equipmentFormName, weapon, control, weaponNumber, isP
 
       </div>
 
-      <WeaponDiceEditor control={control} weaponNumber={weaponNumber} />
-      <CriticalEditor control={control} weaponNumber={weaponNumber} />
-      <DamageDiceEditor control={control} weaponNumber={weaponNumber} />
+      <WeaponDiceEditor index={index} />
+      <CriticalEditor index={index} />
+      <DamageDiceEditor index={index} />
       
     </EditItemSheet>
   )
 }
 
-function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps, 'control' | 'weaponNumber'>)
+function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
   <>
-    <Label className='justify-center'>Weapon Dice</Label>
+    <Label className='justify-center'>{translate('weaponDice')}</Label>
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Amount</Label>
+          <Label className='capitalize'>{translate('amount')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`weapon${weaponNumber}.offense.amount`}
-              control={control}
+              path={pathToWeaponsWeaponOffenseField(index, `amount`)}
               items={diceAmounts}
               noLabel
               />
@@ -98,11 +90,10 @@ function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label> Grade</Label>
+          <Label className='capitalize'>{translate('grade')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`weapon${weaponNumber}.offense.grade`}
-              control={control}
+              path={pathToWeaponsWeaponOffenseField(index, `grade`)}
               items={diceGrades}
               noLabel
           />
@@ -114,8 +105,7 @@ function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
           <Label>Bonus</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`weapon${weaponNumber}.offense.bonus`}
-              control={control}
+              path={pathToWeaponsWeaponOffenseField(index, `bonus`)}
               items={diceBonuses}
               noLabel
               />
@@ -126,21 +116,20 @@ function WeaponDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
   );
 }
 
-function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps, 'control' | 'weaponNumber'>)
+function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
     <>
-      <Label className='justify-center'>Damage Dice</Label>
+      <Label className='justify-center capitalize'>{translate('damageDice')}</Label>
 
         <div className="flex flex-row justify-center gap-3">
               
           <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Amount</Label>
+            <Label className='capitalize'>{translate('amount')}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                name={`weapon${weaponNumber}.damageBonus.amount`}
-                control={control}
+                path={pathToWeaponsDamageOffenseField(index, `amount`)}
                 items={diceAmounts}
                 noLabel
                 />
@@ -148,11 +137,10 @@ function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
           
           <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Grade</Label>
+            <Label className='capitalize'>{translate('grade')}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                name={`weapon${weaponNumber}.damageBonus.grade`}
-                control={control}
+                path={pathToWeaponsDamageOffenseField(index, `grade`)}
                 items={diceGrades}
                 noLabel
                 />
@@ -163,8 +151,7 @@ function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
             <Label>Bonus</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                name={`weapon${weaponNumber}.damageBonus.bonus`}
-                control={control}
+                path={pathToWeaponsDamageOffenseField(index, `bonus`)}
                 items={diceBonuses}
                 noLabel
                 />
@@ -175,21 +162,20 @@ function DamageDiceEditor({ control, weaponNumber }: Pick<AccordionWeaponItemPro
   );
 }
 
-function CriticalEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps, 'control' | 'weaponNumber'>)
+function CriticalEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
     <>
-      <Label className='justify-center'>Critical</Label>
+      <Label className='justify-center capitalize'>{translate('critical')}</Label>
 
       <div className="flex flex-row justify-center gap-3">
             
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Range</Label>
+          <Label className='capitalize'>{translate('range')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`weapon${weaponNumber}.offense.critical.range`}
-              control={control}
+              path={pathToWeaponsWeaponOffenseCriticalField(index, `range`)}
               items={criticalRanges}
               noLabel
               />
@@ -198,11 +184,10 @@ function CriticalEditor({ control, weaponNumber }: Pick<AccordionWeaponItemProps
         
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Power</Label>
+          <Label className='capitalize'>{translate('power')}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              name={`weapon${weaponNumber}.offense.critical.power`}
-              control={control}
+              path={pathToWeaponsWeaponOffenseCriticalField(index, `power`)}
               items={criticalPowers}
               noLabel
               />

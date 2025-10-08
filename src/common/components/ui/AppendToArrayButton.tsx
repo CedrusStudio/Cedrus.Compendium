@@ -6,13 +6,13 @@ import { LuPlus } from "react-icons/lu";
 
 type AppendToArrayButtonProps<TType extends FieldValues, TName extends ArrayPath<TType>> =
 {
-    isPending: boolean;
-    append: UseFieldArrayAppend<TType, TName>;
-    toAdd: FieldArray<TType, TName> | (() => FieldArray<TType, TName>);
-    variant?: ButtonVariants;
+  isPending: boolean;
+  toAdd: FieldArray<TType, TName> | (() => FieldArray<TType, TName>);
+  variant?: ButtonVariants;
+  append: UseFieldArrayAppend<TType, TName>;
 }
 
-export default function AppendToArrayButton<TType extends FieldValues, TName extends ArrayPath<TType>>({ isPending, append, toAdd, variant = "outline" }: AppendToArrayButtonProps<TType, TName>)
+export default function AppendToArrayButton<TType extends FieldValues, TName extends ArrayPath<TType>>({ isPending, toAdd, variant = "outline", append }: AppendToArrayButtonProps<TType, TName>)
 {
   return (
     <Button 

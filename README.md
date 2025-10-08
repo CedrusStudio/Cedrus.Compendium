@@ -1,37 +1,6 @@
 # TODO
 
-Cache queries -> plus pagination on "characters" -> to fix
+Adding new offensives and defectives
 
-====
-
-1. Equipment is:
-
-```js
-export type Ekwipunek = 
-{
-  bronie: Bron[];
-  zbroje: Zbroja[];
-  tarcze: Tarcza[];
-  przedmioty: Przedmiot[]
-  konie: Kon[];
-};
-```
-
-```js
-export type Character =
-{
-    id: string;
-    imie: string;
-    opis: string;
-    cechy: Cechy;
-    atrybuty: Atrybuty;
-    talenty: Talent[];
-    zycie: Zycie;
-    defensywy: Defensywa[];
-    ofensywy: Ofensywa[];
-    equipment: Equipment;
-    stances: Mode[];
-    states: Mode[];
-    maneuvers: Maneuver[];
-};
-```
+https://ui.shadcn.com/docs/components/button-group
+button group dla tych strzałek w gore i dol do zwiekszania i zmniejszania

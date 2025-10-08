@@ -1,4 +1,4 @@
-import { Character, Maneuver, Mode, Talent, WeaponOffense } from "@/domain/characters/Character";
+import { Armor, Character, Defense, Horse, Item, Maneuver, Mode, Offense, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;
@@ -58,12 +58,95 @@ export const defaultTalent: Talent =
   grade: 0
 };
 
-export const emptyCharacter: Character = 
+export const defaultWeapon: Weapon =
+{
+    name: "Nowa broń",
+    description: "Opis broni",
+    style: "Jednoręczny",
+    range: 1,
+    damageBonus: { amount: 1, grade: 6, bonus: 0 },
+    offense: { amount: 1, grade: 6, bonus: 0, critical: { range: 20, power: 2 } },
+};
+
+export const defaultArmor: Armor =
+{
+    name: "Nowa zbroja",
+    description: "Opis zbroi",
+    protection: 0,
+    immunity: 0,
+    resistance: 0,
+    dexterityRestriction: 0,
+    reflexRestriction: 0,
+    initiativeRestriction: 0,
+    attributePenalty: 0,
+    strengthRequirement: 0,
+};
+
+export const defaultShield: Shield =
+{
+    name: "Nowa tarcza",
+    description: "Opis tarczy",
+    block: 0,
+    resistance: 0,
+    dexterityRestriction: 0,
+    reflexRestriction: 0,
+    initiativeRestriction: 0,
+    attributePenalty: 0,
+    strengthRequirement: 0,
+};
+
+export const defaultInventoryItem: Item =
+{
+    name: "Nowy przedmiot",
+    description: "Opis przedmiotu"
+};
+
+export const defaultHorse: Horse =
+{
+    name: "Nowy koń",
+    description: "Opis konia",
+    canterSpeed: 1,
+    gallopSpeed: 1,
+    horsemanshipBonus: 0,
+    paceSpeed: 1
+};
+
+export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, name: `Broń ${crypto.randomUUID()}`});
+export const CreateDefaultArmor = (): Armor => ({...defaultArmor, name: `Zbroja ${crypto.randomUUID()}`});
+export const CreateDefaultShield = (): Shield => ({...defaultShield, name: `Tarcza ${crypto.randomUUID()}`});
+export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, name: `Przedmiot ${crypto.randomUUID()}`});
+export const CreateDefaultHorse = (): Horse => ({...defaultHorse, name: `Koń ${crypto.randomUUID()}`});
+
+const defaultOffense: Omit<Offense, "id"> =
+{
+    name: "Nowa Ofensywa",
+    description: "Opis ofensywy",
+    leadingWeapon: defaultWeaponOffense,
+    secondaryWeapon: undefined,
+    damageBonus: { amount: 1, grade: 3, bonus: 0 }
+};
+
+const defaultDefense: Omit<Defense, "id"> =
+{
+    name: "Nowa Defensywa",
+    description: "Opis defensywy",
+    immunity: 0,
+    resistance: 0,
+    protection: 0,
+    block: 0,
+    parry: 0,
+    dodge: 0,
+    bonus: 0
+};
+
+export const CreateDefaultOffense = (): Offense => ({...defaultOffense, id: crypto.randomUUID()});
+export const CreateDefaultDefense = (): Defense => ({...defaultDefense, id: crypto.randomUUID()});
+
+const emptyCharacter: Character = 
 { 
-    id: "", // Will be set when adding the character
-    name: "", // Will be provided by characterHeader
-    description: "", // Will be provided by characterHeader
-    
+    id: '',
+    name: "Nowa postać",
+    description: "Opis postaci",
     characteristics: 
     {
         strength: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
@@ -98,95 +181,90 @@ export const emptyCharacter: Character =
         bonus: 0
     },
 
-    defense: 
-    {
-        immunity: 0,
-        resistance: 0,
-        protection: 0,
-        block: 0,
-        parry: 0,
-        dodge: 0,
-        bonus: 0
-    },
-
-    offense: 
-    {
-        leadingWeapon: 
-        {
-            amount: defaultWeaponDiceAmount,
-            grade: defaultGrade,
-            bonus: 0,
-            critical: 
-            {
-                power: 0,
-                range: 0
-            }
-        },
-        secondaryWeapon: undefined, 
-        damageBonus: 
-        {
-            amount: 0,
-            grade: defaultDamageDiceAmount,
-            bonus: 0
-        }
-    },
-
+    defenses: [],
+    offenses: [],
     stances: [],
     states: [],
     maneuvers: [],
 
     talents: [],
 
-    equipment: {
-        weapon1: {
-            name: "Broń 1",
-            style: "",
-            offense: 
+    equipment: 
+    {
+        weapons: 
+        [
             {
-                amount: defaultWeaponDiceAmount,
-                grade: defaultGrade,
-                bonus: 0,
-                critical: 
+                name: "Broń 1",
+                style: "Jednoręczny",
+                offense: 
                 {
-                    power: 0,
-                    range: 0
-                }
-            },
-            damageBonus: 
+                    amount: defaultWeaponDiceAmount,
+                    grade: defaultGrade,
+                    bonus: 0,
+                    critical: 
+                    {
+                        power: 0,
+                        range: 0
+                    }
+                },
+                damageBonus: 
+                {
+                    amount: 0,
+                    grade: 0,
+                    bonus: 0
+                },
+                range: 0,
+                description: "Weapon 1 description"
+            }
+        ],
+        armors:
+        [
             {
-                amount: 0,
-                grade: 0,
-                bonus: 0
-            },
-            range: 0,
-            description: "Weapon 1 description"
-        },
-        weapon2: undefined, 
-        weapon3: undefined,
-        weapon4: undefined,
-        armor: 
-        {
-            name: "Pancerz",
-            protection: 0,
-            dexterityRestriction: 0,
-            reflexRestriction: 0,
-            initiativeRestriction: 0,
-            attributePenalty: 0,
-            strengthRequirement: 0,
-            description: "Opis pancerza"
-        },
-        shield: 
-        {
-            name: "Tarcza",
-            block: 0,
-            dexterityRestriction: 0,
-            reflexRestriction: 0,
-            initiativeRestriction: 0,
-            attributePenalty: 0,
-            strengthRequirement: 0,
-            description: "Opis tarczy"
-        },
-        magicEquipment: [],
-        horse: undefined
+                name: "Pancerz",
+                protection: 0,
+                immunity: 0,
+                resistance: 0,
+                dexterityRestriction: 0,
+                reflexRestriction: 0,
+                initiativeRestriction: 0,
+                attributePenalty: 0,
+                strengthRequirement: 0,
+                description: "Opis pancerza"
+            }
+        ],
+        shields: 
+        [
+            {
+                name: "Tarcza",
+                block: 0,
+                resistance: 0,
+                dexterityRestriction: 0,
+                reflexRestriction: 0,
+                initiativeRestriction: 0,
+                attributePenalty: 0,
+                strengthRequirement: 0,
+                description: "Opis tarczy"
+            }
+        ],
+        inventory: 
+        [
+            {
+                name: "Przedmiot 1",
+                description: "Opis przedmiotu 1"
+            }
+        ],
+        horses: []
     }
 };
+
+export function CreateEmptyCharacter(name: string, description: string): Character
+{
+    const newCharacter = { ...emptyCharacter, id: crypto.randomUUID(), name, description };
+    newCharacter.offenses = [CreateDefaultOffense()];
+    newCharacter.defenses = [CreateDefaultDefense()];
+    newCharacter.maneuvers = [CreateDefaultManeuver()];
+    newCharacter.stances = [CreateDefaultStance()];
+    newCharacter.states = [CreateDefaultState()];
+    newCharacter.talents = [{...defaultTalent, id: crypto.randomUUID(), name: 'Talent 1', category: 'Kategoria', characteristics: 'Charakterystyka'}];
+    return newCharacter;
+}

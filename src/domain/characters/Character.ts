@@ -1,16 +1,17 @@
+import { PathsFrom } from "@/common/global/pathTypes";
 import { CastTime } from "@/domain/data/castTimes";
 
 export type Character =
 {
-    id: string;
+    readonly id: string;
     name: string;
     description: string;
     characteristics: Characteristics;
     attributes: Attributes;
     talents: Talent[];
     health: Health;
-    defense: Defense;
-    offense: Offense;
+    defenses: Defense[];
+    offenses: Offense[];
     equipment: Equipment;
     stances: Mode[];
     states: Mode[];
@@ -27,7 +28,7 @@ export type Characteristics =
   spellborn: Statistic;
 };
 
-export type Attributes = 
+export type Attributes =
 {
   fencing: Statistic;
   artifice: Statistic;
@@ -65,6 +66,9 @@ export type Health =
 
 export type Defense = 
 {
+  readonly id: string;
+  name: string;
+  description?: string;
   immunity: number;
   resistance: number;
   protection: number;
@@ -76,6 +80,9 @@ export type Defense =
 
 export type Offense = 
 {
+  readonly id: string;
+  name: string;
+  description?: string;
   leadingWeapon: WeaponOffense;
   secondaryWeapon?: WeaponOffense;
   damageBonus: DamageOffense;
@@ -86,7 +93,9 @@ export type DamageOffense =
   amount: number;
   grade: number;
   bonus: number;
-}
+};
+
+export const pathToDefenseField = <K extends keyof Defense>(index: number, field: K): `defenses.${number}.${K}` => `defenses.${index}.${field}`;
 
 export type WeaponOffense =
 {
@@ -95,6 +104,13 @@ export type WeaponOffense =
   bonus: number;
   critical: Critical;
 }
+
+export const pathToOffenseField = <K extends keyof Offense>(index: number, field: K): `offenses.${number}.${K}` => `offenses.${index}.${field}`;
+export const leadingOffenseField = (index: number) => pathToOffenseField(index, "leadingWeapon");
+export const secondaryOffenseField = (index: number) => pathToOffenseField(index, "secondaryWeapon");
+export const damageOffenseField = (index: number) => pathToOffenseField(index, "damageBonus");
+export type WeaponOffensePath =`offenses.${number}.${PathsFrom<Offense, WeaponOffense | undefined>}`;
+export type DamageOffensePath = Exclude<`offenses.${number}.${PathsFrom<Offense, DamageOffense>}`, WeaponOffensePath>;
 
 export type Critical =
 {
@@ -129,20 +145,35 @@ export type Item =
 
 export type Weapon = Item & 
 {
-  style: string;
+  style: Style;
   offense: WeaponOffense;
   damageBonus: DamageOffense;
   range: number;
 };
 
-export type Armor = Item & 
+export type Style = "None" | "Jednoręczny" | "Dwuręczny" | "Dystansowy" | "Rzucony" | "Półtoraręczny";
+export const allowedStyles = ["None", "Jednoręczny", "Dwuręczny", "Dystansowy", "Rzucony", "Półtoraręczny"] as const satisfies readonly Style[];
+
+export type DefensiveItem = Item &
 {
-  protection: number;
+  resistance: number;
   dexterityRestriction: number;
   reflexRestriction: number;
   initiativeRestriction: number;
   attributePenalty: number;
   strengthRequirement: number;
+};
+
+export const penaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+export const attributePenaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+export const dexterityRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+export const initiativeRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+export const strengthRequirementValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+
+export type Armor = DefensiveItem & 
+{
+  immunity: number;
+  protection: number;
 };
 
 export const protectionValues = 
@@ -154,20 +185,9 @@ export const protectionValues =
   41, 42, 43, 44, 45, 46, 47, 48, 49, 50
 ];
 
-export const penaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const attributePenaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const dexterityRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const initiativeRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const strengthRequirementValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-
-export type Shield = Item & 
+export type Shield = DefensiveItem & 
 {
   block: number;
-  dexterityRestriction: number;
-  reflexRestriction: number;
-  initiativeRestriction: number;
-  attributePenalty: number;
-  strengthRequirement: number;
 };
 
 export const blockValues = 
@@ -179,13 +199,6 @@ export const blockValues =
   41, 42, 43, 44, 45, 46, 47, 48, 49, 50
 ];
 
-export type MagicEquipment = Item & 
-{
-  reduction: number;
-  resistance: number;
-  immunity: number;
-};
-
 export type Horse = Item & 
 {
   paceSpeed: number;
@@ -194,19 +207,38 @@ export type Horse = Item &
   horsemanshipBonus: number;
 };
 
+export const pathToHorseField = <K extends keyof Horse>(index: number, field: K): `horses.${number}.${K}` => `horses.${index}.${field}`;
+
 export type Equipment = 
 {
-  weapon1: Weapon;
-  weapon2?: Weapon;
-  weapon3?: Weapon;
-  weapon4?: Weapon;
-  armor: Armor;
-  shield: Shield;
-  magicEquipment: MagicEquipment[];
-  horse?: Horse;
+  weapons: Weapon[];
+  armors: Armor[];
+  shields: Shield[];
+  inventory: Item[];
+  horses: Horse[];
 };
 
-export type ItemTypes = "weapon1" | "weapon2" | "weapon3" | "weapon4" | "armor" | "shield" | "horse";
+export type EquipmentItemArraysTypes = `weapons` | `armors` | `shields` | `horses` | `inventory`;
+export type EquipmentItemTypes = `weapons.${number}` | `armors.${number}` | `shields.${number}` | `horses.${number}` | `inventory.${number}`;
+
+export const splitEquipmentItemTypes = (type: EquipmentItemTypes): { name: EquipmentItemArraysTypes; index: number } => 
+{
+  const parts = type.split('.');
+  return {
+    name: parts[0] as EquipmentItemArraysTypes,
+    index: parseInt(parts[1]),
+  };
+};
+
+export const pathToWeaponsField = <K extends keyof Weapon>(index: number, field: K): `weapons.${number}.${K}` => `weapons.${index}.${field}`;
+export const pathToWeaponsWeaponOffenseField = <K extends keyof WeaponOffense>(index: number, field: K): `weapons.${number}.offense.${K}` => `weapons.${index}.offense.${field}`;
+export const pathToWeaponsWeaponOffenseCriticalField = <K extends keyof Critical>(index: number, field: K): `weapons.${number}.offense.critical.${K}` => `weapons.${index}.offense.critical.${field}`;
+export const pathToWeaponsDamageOffenseField = <K extends keyof DamageOffense>(index: number, field: K): `weapons.${number}.damageBonus.${K}` => `weapons.${index}.damageBonus.${field}`;
+
+export const pathToArmorsField = <K extends keyof Armor>(index: number, field: K): `armors.${number}.${K}` => `armors.${index}.${field}`;
+export const pathToShieldsField = <K extends keyof Shield>(index: number, field: K): `shields.${number}.${K}` => `shields.${index}.${field}`;
+export const pathToHorsesField = <K extends keyof Horse>(index: number, field: K): `horses.${number}.${K}` => `horses.${index}.${field}`;
+export const pathToInventoryField = <K extends keyof Item>(index: number, field: K): `inventory.${number}.${K}` => `inventory.${index}.${field}`;
 
 //Maneuvers
 export type Maneuver =

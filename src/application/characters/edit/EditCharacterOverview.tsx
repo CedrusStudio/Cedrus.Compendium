@@ -1,17 +1,9 @@
 "use client";
 
 import { Character } from "@/domain/characters/Character";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/ui/form";
+import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Textarea } from "@/ui/textarea";
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner"
 import { useRouter } from 'next/navigation';
@@ -19,6 +11,7 @@ import { upsertCharacterHeader } from "@/persistence/characterRepository";
 import { upsertCharacterHeaderSchema, type UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/ui/InputFormField";
 import SubmitButton from "@/ui/SubmitButton";
+import AreaInputFormField from "@/common/components/ui/AreaInputFormField";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -55,7 +48,6 @@ export default function EditCharacterOverview(input: { character: Character })
             queryClient.invalidateQueries({ queryKey: ['characters'] });
             queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
             form.reset(initialValues);
-
             router.refresh();
         },
         onError: (error) => 
@@ -86,8 +78,7 @@ export default function EditCharacterOverview(input: { character: Character })
                 </p>
 
                 <InputFormField<UpsertCharacterHeaderType> 
-                    name="name" 
-                    control={form.control} 
+                    path="name" 
                     inputPlaceholder="zmien nazwę..." 
                     inputClassName="w-xl"
                 />
@@ -96,17 +87,9 @@ export default function EditCharacterOverview(input: { character: Character })
                     {input.character.description}
                 </p>
 
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormControl>
-                                <Textarea placeholder="zmien opis..." className="resize-none" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+                <AreaInputFormField<UpsertCharacterHeaderType> 
+                    path="description" 
+                    inputPlaceholder="zmien opis..." 
                 />
 
                 <SubmitButton isPending={isPending} />

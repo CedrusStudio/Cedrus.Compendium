@@ -1,4 +1,4 @@
-import { Control, FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 import {
   Select,
   SelectContent,
@@ -16,15 +16,16 @@ import {
 
 export type SelectFormFieldProps<TFieldValues extends FieldValues> = 
 {
-  name: FieldPath<TFieldValues>;
-  control: Control<TFieldValues>;
+  path: FieldPath<TFieldValues>;
   items: readonly string[] | readonly number[];
   labelText?: string;
   noLabel?: boolean;
 };
 
-export function SelectFormField<TFieldValues extends FieldValues>({ name, control, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
+export function SelectFormField<TFieldValues extends FieldValues>({ path: name, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
 {
+    const { control } = useFormContext<TFieldValues>();
+    
     return (
         <FormField control={control} name={name} render={({field}) => (
             <FormItem>

@@ -48,13 +48,11 @@ export default function EditCharacterStatistics(input: { character: Character })
           <EditStatisticsCard 
             title="characteristics" 
             statistics={character.characteristics}
-            control={form.control}
           />
 
           <EditStatisticsCard 
             title="attributes" 
             statistics={character.attributes}
-            control={form.control}
           />
         </div>
 
