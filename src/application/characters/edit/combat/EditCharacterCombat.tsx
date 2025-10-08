@@ -18,6 +18,7 @@ import { Label } from "@radix-ui/react-label";
 import { translate } from "@/domain/data/translations";
 import AppendToArrayButton from "@/common/components/ui/AppendToArrayButton";
 import { CreateDefaultDefense, CreateDefaultOffense } from "@/domain/data/defaults";
+import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 
 type EditCharacterCombatProps =
 {
@@ -40,25 +41,16 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
     const form = useForm<UpsertCharacterCombatType>
     ({
-        resolver: zodResolver(upsertCharacterCombatSchema),
-        defaultValues: initialValues,
-        mode: "onBlur",
-    })
+      resolver: zodResolver(upsertCharacterCombatSchema),
+      defaultValues: initialValues,
+      mode: "onBlur",
+    });
 
     const { handleSubmit, isPending } = useFormMutation
     (
       async (characterCombat: UpsertCharacterCombatType) => await bffClient.upsertCharacter
       (
-        character.id, 
-        { 
-          ...character, 
-          offenses: characterCombat.offenses, 
-          defenses: characterCombat.defenses, 
-          health: characterCombat.health, 
-          stances: characterCombat.stances, 
-          states: characterCombat.states, 
-          maneuvers: characterCombat.maneuvers 
-        }
+        character.id, { ...character, ...characterCombat }
       ), 
       {
         invalidateOnSuccess: ['characters', `characters/${character.id}`, `characters/${character.id}/edit`],
@@ -66,9 +58,12 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
       }
     );
 
+    const { watchedArray: offenses, remove: removeOffense } = useWatchedFormArray("offenses", form.control);
+    const { watchedArray: defenses, remove: removeDefense } = useWatchedFormArray("defenses", form.control);
+
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3 -mt-11" id={combatFormName}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3 -mt-21" id={combatFormName}>
 
           <div className="md:col-span-2">
             <EditHealthCard health={character.health} />
@@ -87,11 +82,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
             <div className="grid gap-3 md:grid-cols-2">
             {
-              character.offenses.map((offense, index) => (
-                <div key={index}>
-                  <EditOffenseCard offense={offense} index={index} />
-                </div>
-              ))
+              offenses.map((offense, index) => <EditOffenseCard key={index} offense={offense} index={index} remove={removeOffense} />)
             }
             </div>
           </div>
@@ -109,11 +100,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             
             <div className="grid gap-3  md:grid-cols-2">
             {
-              character.defenses.map((defense, index) => (
-                <div key={index}>
-                  <EditDefenseCard defense={defense} index={index} />
-                </div>
-              ))
+              defenses.map((defense, index) => <EditDefenseCard key={index} defense={defense} index={index} remove={removeDefense} />)
             }
             </div>
           </div>

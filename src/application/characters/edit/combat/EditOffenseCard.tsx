@@ -4,7 +4,7 @@ import { DamageOffense, damageOffenseField, leadingOffenseField, Offense, second
 import { CreateWeaponOffense } from '@/domain/data/defaults';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { useController, useFormContext } from "react-hook-form";
+import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
@@ -15,24 +15,26 @@ import { useState } from 'react';
 import RemoveButton from '@/ui/RemoveButton';
 import { LuPlus } from 'react-icons/lu';
 import { resolveSetState } from '@/common/global/resolveSetState';
-import { translate } from '@/domain/data/translations';
 import { InputFormField } from '@/common/components/ui/InputFormField';
 import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
+import RemoveFromArrayButton from '@/common/components/ui/RemoveFromArrayButton';
 
 type EditOffenseCardProps =
 {
+  remove: UseFieldArrayRemove;
   offense: Offense;
   index: number;
 }
 
-export default function EditOffenseCard({ offense, index }: EditOffenseCardProps)
+export default function EditOffenseCard({ offense, index, remove }: EditOffenseCardProps)
 {
   return (
     <Card className='bg-muted'>
 
       <CardHeader>
-        <CardTitle className='mb-6'>
+        <CardTitle className='mb-6 flex justify-between items-center'>
           <InputFormField<UpsertCharacterCombatType> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
+          <RemoveFromArrayButton index={index} remove={remove} />
         </CardTitle>
       </CardHeader>
 

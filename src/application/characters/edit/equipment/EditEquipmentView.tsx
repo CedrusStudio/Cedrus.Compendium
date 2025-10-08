@@ -61,7 +61,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
               isPending={isPending}
               name="weapons"
-              toAdd={CreateDefaultWeapon()}
+              toAdd={CreateDefaultWeapon}
             />
           </ItemsView>
 
@@ -73,7 +73,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
               isPending={isPending}
               name="armors"
-              toAdd={CreateDefaultArmor()}
+              toAdd={CreateDefaultArmor}
             />
           </ItemsView>
 
@@ -85,7 +85,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
               isPending={isPending}
               name="shields"
-              toAdd={CreateDefaultShield()}
+              toAdd={CreateDefaultShield}
             />
           </ItemsView>
 
@@ -97,7 +97,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
               isPending={isPending}
               name="inventory"
-              toAdd={CreateDefaultInventoryItem()}
+              toAdd={CreateDefaultInventoryItem}
             />
           </ItemsView>
 
@@ -109,7 +109,7 @@ export default function EditEquipmentView(input: { character: Character })
             <AppendToArrayButton<UpsertCharacterEquipmentType, "horses"> 
               isPending={isPending}
               name="horses"
-              toAdd={CreateDefaultHorse()}
+              toAdd={CreateDefaultHorse}
             />
           </ItemsView>
 

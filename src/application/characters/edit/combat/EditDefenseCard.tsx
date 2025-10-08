@@ -5,14 +5,17 @@ import { Label } from "@/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { translate } from '@/domain/data/translations';
 import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
+import RemoveFromArrayButton from '@/common/components/ui/RemoveFromArrayButton';
+import { UseFieldArrayRemove } from 'react-hook-form';
 
 type EditDefenseCardProps =
 {
+  remove: UseFieldArrayRemove;
   defense: Defense;
   index: number;
 }
 
-export default function EditDefenseCard({ defense, index }: EditDefenseCardProps)
+export default function EditDefenseCard({ defense, index, remove }: EditDefenseCardProps)
 {
   const InputFormWithLabel = (defenseFieldName: keyof UpsertCharacterDefenseType) => 
   {   
@@ -29,8 +32,9 @@ export default function EditDefenseCard({ defense, index }: EditDefenseCardProps
   return (
     <Card className='bg-muted border shadow-md'>
       <CardHeader>
-        <CardTitle>
+        <CardTitle className='flex justify-between items-center'>
           <InputFormField<UpsertCharacterCombatType> path={pathToDefenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
+          <RemoveFromArrayButton index={index} remove={remove} />
         </CardTitle>
       </CardHeader>
 

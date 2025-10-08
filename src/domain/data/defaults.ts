@@ -123,7 +123,7 @@ export const defaultOffense: Offense =
     description: "Opis ofensywy",
     leadingWeapon: defaultWeaponOffense,
     secondaryWeapon: undefined,
-    damageBonus: { amount: 0, grade: 0, bonus: 0 }
+    damageBonus: { amount: 1, grade: 3, bonus: 0 }
 };
 
 export const defaultDefense: Defense =
