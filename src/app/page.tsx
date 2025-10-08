@@ -27,7 +27,7 @@ const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
     <h1 className="capitalize text-4xl md:text-7xl font-bold">
-      Must have <span className="text-primary">Cedrus</span>
+      Uniwersum <span className="text-primary">Cedrus</span>
     </h1>
   </div>
 );
