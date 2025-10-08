@@ -37,7 +37,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { talentCategories } from "@/domain/data/categories"
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns"
 import { namingConventions } from "@/domain/data/namingConventions"
-import EmptyTable from "@/application/characters/talents/EmptyTable"
+import EmptyTable from "@/common/components/EmptyTable"
 
 interface DataTableProps
 {

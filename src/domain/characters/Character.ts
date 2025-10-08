@@ -3,19 +3,19 @@ import { CastTime } from "@/domain/data/castTimes";
 
 export type Character =
 {
-    readonly id: string;
-    name: string;
-    description: string;
-    characteristics: Characteristics;
-    attributes: Attributes;
-    talents: Talent[];
-    health: Health;
-    defenses: Defense[];
-    offenses: Offense[];
-    equipment: Equipment;
-    stances: Mode[];
-    states: Mode[];
-    maneuvers: Maneuver[];
+  readonly id: string;
+  name: string;
+  description: string;
+  characteristics: Characteristics;
+  attributes: Attributes;
+  talents: Talent[];
+  health: Health;
+  defenses: Defense[];
+  offenses: Offense[];
+  equipment: Equipment;
+  stances: Mode[];
+  states: Mode[];
+  maneuvers: Maneuver[];
 };
 
 export type Characteristics = 

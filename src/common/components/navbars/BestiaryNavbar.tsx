@@ -13,6 +13,7 @@ import React from "react";
 import { LuPlus } from "react-icons/lu";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
+import { GiSwordsEmblem } from "react-icons/gi";
 
 export default function BestiaryNavbar() 
 {
@@ -73,6 +74,9 @@ export default function BestiaryNavbar()
             <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
                 <Button asChild variant="outline" size="icon">
                     <Link href="/bestiary/add"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Link>
+                </Button>
+                <Button asChild variant="outline" size="icon">
+                    <Link href="/bestiary/combat"><GiSwordsEmblem className="h-[1.2rem] w-[1.2rem]" /></Link>
                 </Button>
                 <NavbarDefaultButton />
             </div>

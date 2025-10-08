@@ -40,7 +40,7 @@ import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow"
 import { talentCategories } from "@/domain/data/categories"
 import { defaultColumnKeys } from "../../talents/defaultColumns"
 import { namingConventions } from "@/domain/data/namingConventions"
-import EmptyTable from "@/application/characters/talents/EmptyTable"
+import EmptyTable from "@/common/components/EmptyTable"
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView"
 
 declare module '@tanstack/table-core' 
