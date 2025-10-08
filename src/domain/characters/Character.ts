@@ -3,7 +3,7 @@ import { CastTime } from "@/domain/data/castTimes";
 
 export type Character =
 {
-    id: string;
+    readonly id: string;
     name: string;
     description: string;
     characteristics: Characteristics;
@@ -66,6 +66,7 @@ export type Health =
 
 export type Defense = 
 {
+  readonly id: string;
   name: string;
   description?: string;
   immunity: number;
@@ -79,6 +80,7 @@ export type Defense =
 
 export type Offense = 
 {
+  readonly id: string;
   name: string;
   description?: string;
   leadingWeapon: WeaponOffense;

@@ -22,7 +22,7 @@ type EditStancesCardProps =
 export default function EditStancesCard({ isPending }: EditStancesCardProps)
 {
   const { control } = useFormContext<UpsertCharacterCombatType>();
-  const { remove, watchedArray } = useWatchedFormArray("stances", control);
+  const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
 
   return (
     <Card className='bg-muted'>
@@ -30,7 +30,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
       <CardHeader>
           <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
             <span>Postawy</span>
-            <AppendToArrayButton name={"stances"} isPending={isPending} toAdd={CreateDefaultStance} />
+            <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
           </CardTitle>
       </CardHeader>
 

@@ -105,10 +105,10 @@ export const defaultHorse: Horse =
 {
     name: "Nowy koń",
     description: "Opis konia",
-    canterSpeed: 0,
-    gallopSpeed: 0,
+    canterSpeed: 1,
+    gallopSpeed: 1,
     horsemanshipBonus: 0,
-    paceSpeed: 0
+    paceSpeed: 1
 };
 
 export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, name: `Broń ${crypto.randomUUID()}`});
@@ -117,18 +117,18 @@ export const CreateDefaultShield = (): Shield => ({...defaultShield, name: `Tarc
 export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, name: `Przedmiot ${crypto.randomUUID()}`});
 export const CreateDefaultHorse = (): Horse => ({...defaultHorse, name: `Koń ${crypto.randomUUID()}`});
 
-export const defaultOffense: Offense =
+const defaultOffense: Omit<Offense, "id"> =
 {
-    name: "Nowa ofensywa",
+    name: "Nowa Ofensywa",
     description: "Opis ofensywy",
     leadingWeapon: defaultWeaponOffense,
     secondaryWeapon: undefined,
     damageBonus: { amount: 1, grade: 3, bonus: 0 }
 };
 
-export const defaultDefense: Defense =
+const defaultDefense: Omit<Defense, "id"> =
 {
-    name: "Nowa defensywa",
+    name: "Nowa Defensywa",
     description: "Opis defensywy",
     immunity: 0,
     resistance: 0,
@@ -139,15 +139,14 @@ export const defaultDefense: Defense =
     bonus: 0
 };
 
-export const CreateDefaultOffense = (): Offense => ({...defaultOffense, name: `Ofensywa ${crypto.randomUUID()}`});
-export const CreateDefaultDefense = (): Defense => ({...defaultDefense, name: `Defensywa ${crypto.randomUUID()}`});
+export const CreateDefaultOffense = (): Offense => ({...defaultOffense, id: crypto.randomUUID()});
+export const CreateDefaultDefense = (): Defense => ({...defaultDefense, id: crypto.randomUUID()});
 
-export const emptyCharacter: Character = 
+const emptyCharacter: Character = 
 { 
-    id: "", // Will be set when adding the character
-    name: "", // Will be provided by characterHeader
-    description: "", // Will be provided by characterHeader
-    
+    id: '',
+    name: "Nowa postać",
+    description: "Opis postaci",
     characteristics: 
     {
         strength: { grade: defaultGrade, value: 0, bonus: 0, testBonus: 0 },
@@ -182,46 +181,8 @@ export const emptyCharacter: Character =
         bonus: 0
     },
 
-    defenses: 
-    [
-        {
-            name: "Domyślna",
-            description: "Opis domyślnej defensywy",
-            immunity: 0,
-            resistance: 0,
-            protection: 0,
-            block: 0,
-            parry: 0,
-            dodge: 0,
-            bonus: 0
-        }
-    ],
-
-    offenses:
-    [
-        {
-            name: "Domyślna",
-            description: "Opis domyślnej ofensywy",
-            leadingWeapon: 
-            {
-                amount: defaultWeaponDiceAmount,
-                grade: defaultGrade,
-                bonus: 0,
-                critical: 
-                {
-                    power: 0,
-                    range: 0
-                }
-            },
-            secondaryWeapon: undefined, 
-            damageBonus: 
-            {
-                amount: 0,
-                grade: defaultDamageDiceAmount,
-                bonus: 0
-            }
-        }
-    ],
+    defenses: [],
+    offenses: [],
     stances: [],
     states: [],
     maneuvers: [],
@@ -295,3 +256,15 @@ export const emptyCharacter: Character =
         horses: []
     }
 };
+
+export function CreateEmptyCharacter(name: string, description: string): Character
+{
+    const newCharacter = { ...emptyCharacter, id: crypto.randomUUID(), name, description };
+    newCharacter.offenses = [CreateDefaultOffense()];
+    newCharacter.defenses = [CreateDefaultDefense()];
+    newCharacter.maneuvers = [CreateDefaultManeuver()];
+    newCharacter.stances = [CreateDefaultStance()];
+    newCharacter.states = [CreateDefaultState()];
+    newCharacter.talents = [{...defaultTalent, id: crypto.randomUUID(), name: 'Talent 1', category: 'Kategoria', characteristics: 'Charakterystyka'}];
+    return newCharacter;
+}

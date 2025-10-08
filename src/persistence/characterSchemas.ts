@@ -181,6 +181,7 @@ export type UpsertCharacterHealthType = z.infer<typeof healthSchema>;
 //Defense
 export const defenseSchema = z.object
 ({
+  id: z.string().min(2).max(100, { message: "ID musi mieć najwyżej 100 znaków." }),
   name: z.string().min(2).max(100),
   description: z.string().min(2).max(1000).optional(),
   immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(50, { message: "Niewrażliwość musi mieć najwyżej 50." }),
@@ -221,6 +222,7 @@ export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, {
 //Offense
 const offenseSchema = z.object
 ({
+  id: z.string().min(2).max(100, { message: "ID musi mieć najwyżej 100 znaków." }),
   name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }).optional(),
   leadingWeapon: weaponOffenseSchema,

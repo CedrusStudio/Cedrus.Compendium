@@ -30,11 +30,11 @@ export default function EditEquipmentView(input: { character: Character })
       defaultValues: initialValues,
   });
 
-  const { watchedArray: weapons } = useWatchedFormArray("weapons", form.control);
-  const { watchedArray: armors } = useWatchedFormArray("armors", form.control);
-  const { watchedArray: shields } = useWatchedFormArray("shields", form.control);
-  const { watchedArray: inventory } = useWatchedFormArray("inventory", form.control);
-  const { watchedArray: horses } = useWatchedFormArray("horses", form.control);
+  const { watchedArray: weapons, append: appendWeapon } = useWatchedFormArray("weapons", form.control);
+  const { watchedArray: armors, append: appendArmor } = useWatchedFormArray("armors", form.control);
+  const { watchedArray: shields, append: appendShield } = useWatchedFormArray("shields", form.control);
+  const { watchedArray: inventory, append: appendInventory } = useWatchedFormArray("inventory", form.control);
+  const { watchedArray: horses, append: appendHorse } = useWatchedFormArray("horses", form.control);
 
   const id = input.character.id;
 
@@ -60,7 +60,7 @@ export default function EditEquipmentView(input: { character: Character })
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
               isPending={isPending}
-              name="weapons"
+              append={appendWeapon}
               toAdd={CreateDefaultWeapon}
             />
           </ItemsView>
@@ -72,7 +72,7 @@ export default function EditEquipmentView(input: { character: Character })
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
               isPending={isPending}
-              name="armors"
+              append={appendArmor}
               toAdd={CreateDefaultArmor}
             />
           </ItemsView>
@@ -84,7 +84,7 @@ export default function EditEquipmentView(input: { character: Character })
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
               isPending={isPending}
-              name="shields"
+              append={appendShield}
               toAdd={CreateDefaultShield}
             />
           </ItemsView>
@@ -96,7 +96,7 @@ export default function EditEquipmentView(input: { character: Character })
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
               isPending={isPending}
-              name="inventory"
+              append={appendInventory}
               toAdd={CreateDefaultInventoryItem}
             />
           </ItemsView>
@@ -108,7 +108,7 @@ export default function EditEquipmentView(input: { character: Character })
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "horses"> 
               isPending={isPending}
-              name="horses"
+              append={appendHorse}
               toAdd={CreateDefaultHorse}
             />
           </ItemsView>

@@ -6,19 +6,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { translate } from '@/domain/data/translations';
 import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/ui/RemoveFromArrayButton';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { UseFieldArrayRemove } from 'react-hook-form';
 
 type EditDefenseCardProps =
 {
-  defense: Defense;
   index: number;
+  defense: Defense;
+  remove: UseFieldArrayRemove
 }
 
-export default function EditDefenseCard({ defense, index }: EditDefenseCardProps)
+export default function EditDefenseCard({ index, defense, remove }: EditDefenseCardProps)
 {
-  const { control } = useFormContext();
-  const { remove } = useFieldArray({ name: "defenses", control });
-
   return (
     <Card className='bg-muted border shadow-md'>
       <CardHeader>

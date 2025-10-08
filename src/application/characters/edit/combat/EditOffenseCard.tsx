@@ -4,7 +4,7 @@ import { DamageOffense, damageOffenseField, leadingOffenseField, Offense, second
 import { CreateWeaponOffense } from '@/domain/data/defaults';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { useController, useFieldArray, useFormContext } from "react-hook-form";
+import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
@@ -23,13 +23,11 @@ type EditOffenseCardProps =
 {
   offense: Offense;
   index: number;
+  remove: UseFieldArrayRemove;
 }
 
-export default function EditOffenseCard({ offense, index }: EditOffenseCardProps)
+export default function EditOffenseCard({ offense, index, remove }: EditOffenseCardProps)
 {
-  const { control } = useFormContext();
-  const { remove } = useFieldArray({ name: "offenses", control });
-
   return (
     <Card className='bg-muted'>
 
