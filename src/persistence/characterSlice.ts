@@ -14,8 +14,8 @@ const characterSlice = createSlice
 ({
   name: 'character',
   initialState,
-  reducers: {
-
+  reducers: 
+  {
     setCharacterNavbarSearch(state, action: PayloadAction<string>) 
     {
       state.characterNavbarSearch = action.payload;

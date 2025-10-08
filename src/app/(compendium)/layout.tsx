@@ -1,4 +1,4 @@
-import CharacterNavbar from "@/common/components/navbars/CharacterNavbar";
+import CompendiumNavbar from "@/common/components/navbars/CompendiumNavbar";
 import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 
@@ -6,7 +6,7 @@ export default function layout({children}: PropsWithChildren)
 {
   return (
     <>
-      <CharacterNavbar />
+      <CompendiumNavbar />
       <Separator />
       {children}
     </>

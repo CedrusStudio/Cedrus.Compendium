@@ -11,8 +11,8 @@ import { Button } from "@/ui/button";
 import Link from "next/link";
 import React from "react";
 import { LuPlus } from "react-icons/lu";
-import NavbarBreadcrumb from "./NavbarBreadcrumb";
-import NavbarDefaultButton from "./NavbarDefaultButton";
+import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
+import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
 
 export default function CharacterNavbar() 
 {
