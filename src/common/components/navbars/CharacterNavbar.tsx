@@ -11,17 +11,9 @@ import { useEffect, useState } from "react";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { FaHome } from "react-icons/fa";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/ui/breadcrumb"
 import React from "react";
 import { LuPlus } from "react-icons/lu";
-import { translate } from "@/domain/data/translations";
+import NavbarBreadcrumb from "./NavbarBreadcrumb";
 
 export default function CharacterNavbar() 
 {
@@ -31,9 +23,7 @@ export default function CharacterNavbar()
     const dispatch = useDispatch()
     const searchQuery = useSelector((state: RootState) => state.character.characterNavbarSearch)
     const [searchTerm, setSearchTerm] = useState("");
-
     const pathname = usePathname();
-    const segments = pathname.split("/").filter(Boolean);
 
     const debouncedSearch = useDebouncedCallback(value => 
     {
@@ -68,60 +58,29 @@ export default function CharacterNavbar()
     }, [searchQuery]);
 
     return (
-        <nav>
-            <div className="grid grid-cols-9 items-center py-4">
+        <nav className="grid grid-cols-9 items-center py-4">
 
-                <Breadcrumb className="col-span-2 pl-20">
-                    <BreadcrumbList>
+            <NavbarBreadcrumb pathname={pathname} />
 
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href="/">start</BreadcrumbLink>
-                        </BreadcrumbItem>
-                    
-                        {
-                            segments.map((segment, index) => 
-                            {
-                                const href = "/" + segments.slice(0, index + 1).join("/");
-                                const isLast = index === segments.length - 1;
-                                
-                                return (
-                                    <React.Fragment key={index}>
-                                        <BreadcrumbSeparator />
-                                        <BreadcrumbItem>
-                                        {
-                                            isLast 
-                                                ? <BreadcrumbPage>{translate(segment)}</BreadcrumbPage> 
-                                                : <BreadcrumbLink href={href}>{translate(segment)}</BreadcrumbLink>
-                                        }
-                                        </BreadcrumbItem>
-                                    </React.Fragment>
-                                );
-                            })
-                        }
+            <Input 
+                name="search" 
+                type="text" 
+                placeholder="Wyszukaj postać..."
+                value={searchTerm}
+                onChange={handleInputChange}
+                className="w-1xl md:w-2xl lg:w-3xl col-span-6 justify-self-center"
+            />
 
-
-                    </BreadcrumbList>
-                </Breadcrumb>
-
-                <Input 
-                    name="search" 
-                    type="text" 
-                    placeholder="Wyszukaj postać..."
-                    value={searchTerm}
-                    onChange={handleInputChange}
-                    className="w-1xl md:w-2xl lg:w-3xl col-span-6 justify-self-center"
-                />
-
-                <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
-                    <Button asChild variant="outline" size="icon">
-                        <Link href="/characters/add"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Link>
-                    </Button>
-                    <Button asChild variant="outline" size="icon">
-                        <Link href="/"><FaHome className="h-[1.2rem] w-[1.2rem]" /></Link>
-                    </Button>
-                    <ThemeMode />
-                </div>
+            <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
+                <Button asChild variant="outline" size="icon">
+                    <Link href="/characters/add"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Link>
+                </Button>
+                <Button asChild variant="outline" size="icon">
+                    <Link href="/"><FaHome className="h-[1.2rem] w-[1.2rem]" /></Link>
+                </Button>
+                <ThemeMode />
             </div>
+
         </nav>
     );
 }
