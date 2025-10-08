@@ -23,7 +23,7 @@ export default function HomePage()
   );
 }
 
-const Heading = () => 
+const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
     <h1 className="capitalize text-4xl md:text-7xl font-bold">
