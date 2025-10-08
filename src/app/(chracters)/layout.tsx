@@ -1,4 +1,4 @@
-import Navbar from "@/common/components/navbar/Navbar";
+import CharacterNavbar from "@/common/components/navbars/CharacterNavbar";
 import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 
@@ -6,7 +6,7 @@ export default function layout({children}: PropsWithChildren)
 {
   return (
     <>
-      <Navbar />
+      <CharacterNavbar />
       <Separator />
       {children}
     </>

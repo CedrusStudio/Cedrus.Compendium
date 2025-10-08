@@ -8,10 +8,13 @@ export default function HomePage()
   return (
     <main>
       <header className="max-w-6xl mx-auto px-4 sm:px-8 py-1 grid gr">
-        <section className="max-w-6xl mx-auto px-4 sm:px-8 h-screen grid lg:grid-cols-[1fr,400px] items-center">
+        <section className="sm:px-8 h-screen grid lg:grid-cols-[1fr,400px] gap-3">
           <Heading />
           <Description />
-          <GetStartedButton />
+          <CharactersLink />
+          <BestiaryLink />
+          <CompendiumLink />
+          <RuleBookLink />
           <Image className="hidden lg:block rounded-4xl" src={LandingImg} alt="Landing" priority />
         </section>
       </header>
@@ -23,7 +26,7 @@ const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
     <h1 className="capitalize text-4xl md:text-7xl font-bold">
-      Kompendium <span className="text-primary">Cedrus</span>
+      Must have <span className="text-primary">Cedrus</span>
     </h1>
   </div>
 );
@@ -35,11 +38,38 @@ const Description = () =>
   </p>
 );
 
-const GetStartedButton = () => 
+const CharactersLink = () => 
 (
   <Button asChild>
     <Link href="/characters">
-      Zaczynam
+      Zarządzaj postaciami
+    </Link>
+  </Button>
+);
+
+const BestiaryLink = () => 
+(
+  <Button asChild>
+    <Link href="/bestiary">
+      Bestiariusz
+    </Link>
+  </Button>
+);
+
+const CompendiumLink = () => 
+(
+  <Button asChild>
+    <Link href="/compendium">
+      Compendium
+    </Link>
+  </Button>
+);
+
+const RuleBookLink = () => 
+(
+  <Button asChild>
+    <Link href="/rulebook">
+      Rule Book
     </Link>
   </Button>
 );

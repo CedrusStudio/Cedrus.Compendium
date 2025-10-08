@@ -1,6 +1,6 @@
 "use client";
 
-import ThemeMode from "@/common/components/navbar/ThemeMode";
+import ThemeMode from "@/common/components/navbars/ThemeMode";
 import { Input } from "@/ui/input"
 import { useDebouncedCallback } from 'use-debounce';
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -23,7 +23,7 @@ import React from "react";
 import { LuPlus } from "react-icons/lu";
 import { translate } from "@/domain/data/translations";
 
-export default function Navbar() 
+export default function CharacterNavbar() 
 {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
