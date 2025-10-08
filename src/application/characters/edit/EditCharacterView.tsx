@@ -29,7 +29,7 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
     <Tabs 
         defaultValue={tab} 
         onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
-        className='col-span-8 lg:col-span-10 grid grid-rows-15'
+        className='col-span-8 lg:col-span-10 grid'
     >
 
         <div className='row-span-1'>
