@@ -12,10 +12,10 @@ export default function HomePage()
         <section className="sm:px-8 h-screen grid lg:grid-cols-[1fr,400px] gap-3">
           <Heading />
           <Description />
-          <CharactersLink />
-          <BestiaryLink />
-          <CompendiumLink />
-          <RuleBookLink />
+          <StartButtonLink name="characters" />
+          <StartButtonLink name="bestiary" />
+          <StartButtonLink name="compendium" />
+          <StartButtonLink name="rulebook" />
           <Image className="hidden lg:block rounded-4xl" src={LandingImg} alt="Landing" priority />
         </section>
       </header>
@@ -39,38 +39,11 @@ const Description = () =>
   </p>
 );
 
-const CharactersLink = () => 
+const StartButtonLink = ({ name }: { name: string }) => 
 (
   <Button asChild>
-    <Link href="/characters" className="capitalize">
-      {translate("characters")}
-    </Link>
-  </Button>
-);
-
-const BestiaryLink = () => 
-(
-  <Button asChild>
-    <Link href="/bestiary" className="capitalize">
-      {translate("bestiary")}
-    </Link>
-  </Button>
-);
-
-const CompendiumLink = () => 
-(
-  <Button asChild>
-    <Link href="/compendium" className="capitalize">
-      {translate("compendium")}
-    </Link>
-  </Button>
-);
-
-const RuleBookLink = () => 
-(
-  <Button asChild>
-    <Link href="/rulebook" className="capitalize">
-      {translate("rulebook")}
+    <Link href={`/${name}`} className="capitalize">
+      {translate(name)}
     </Link>
   </Button>
 );
