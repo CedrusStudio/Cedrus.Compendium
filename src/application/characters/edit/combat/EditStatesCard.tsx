@@ -39,7 +39,7 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
         watchedArray.map((state, index) => (
           <EditModeView 
             mode={state}
-            key={index} 
+            key={state.id} 
             modeType='states' 
             index={index} 
             remove={remove} 

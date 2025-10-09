@@ -44,7 +44,7 @@ export type Attributes =
 
 export type Talent = 
 {
-  id: string;
+  readonly id: string;
   category: string;
   name: string;
   characteristics: string;
@@ -129,6 +129,7 @@ export type Statistic =
 //Modes
 export type Mode =
 {
+  readonly id: string;
   name: string;
   grade: number;
   description: string;
@@ -139,6 +140,7 @@ export type ModesType = "stances" | "states";
 //Equipment
 export type Item = 
 {
+  readonly id: string;
   name: string;
   description: string;
 };
@@ -243,6 +245,7 @@ export const pathToInventoryField = <K extends keyof Item>(index: number, field:
 //Maneuvers
 export type Maneuver =
 {
+  readonly id: string;
   name: string;
   grade: number;
   description: string;

@@ -35,7 +35,7 @@ export default function EditDefenseCard({ index, defense, remove }: EditDefenseC
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         { 
-          Object.keys(defense).filter(NotNameOrDescription).map(key => InputFormWithLabel(index, key as keyof UpsertCharacterDefenseType)) 
+          Object.keys(defense).filter(NotNameOrDescriptionOrId).map(key => InputFormWithLabel(index, key as keyof UpsertCharacterDefenseType)) 
         }
         </div>
 
@@ -56,7 +56,7 @@ function InputFormWithLabel(index: number, defenseFieldName: keyof UpsertCharact
   );
 }
 
-function NotNameOrDescription(key: string)
+function NotNameOrDescriptionOrId(key: string)
 {
-  return key !== 'name' && key !== 'description';
+  return key !== 'name' && key !== 'description' && key !== 'id';
 }

@@ -14,11 +14,12 @@ import { characteristicsOptions, talentCategories } from "@/domain/data/categori
 import { UseFieldArrayAppend } from "react-hook-form";
 import { talentSchema, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useState } from "react";
-import { toast } from "sonner";
 import LabeledFormInput from "@/common/components/inputs/LabeledFormInput";
 import { translate } from "@/domain/data/translations";
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
+import { ulid } from "ulid";
+import { defaultTalent } from "@/domain/data/defaults";
 
 type AddTalentViewProps =
 {
@@ -42,9 +43,9 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
   {
     const newTalent = 
     {
-      id: newTalentName.toLowerCase().replace(/\s+/g, '-') + newTalentGrade,
+      id: ulid(),
       name: newTalentName,
-      grade: newTalentGrade,
+      grade: newTalentGrade || defaultTalent.grade,
       category: selectedCategory,
       characteristics: selectedCharacteristics,
       bonus: newTalentBonus,
@@ -69,17 +70,8 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     setNewTalentPenalty(0);
     setSelectedCategory("");
     setSelectedCharacteristics("");
-
     setErrors({});
     setOpen(false);
-    toast("Success", {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-            <code className="text-white">Character updated successfully</code>
-        </pre>
-      ),
-      position: "top-right"
-    });
   };
 
   const resetAddTalentForm = () =>
@@ -126,7 +118,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
               <LabeledFormInput 
                   name="grade" 
                   label={translate("grade")}
-                  value={newTalentGrade} 
+                  value={newTalentGrade || defaultTalent.grade} 
                   onChange={(e) => setNewTalentGrade(Number(e.target.value))}
                   errors={errors} 
               />

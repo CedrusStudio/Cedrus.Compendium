@@ -1,3 +1,4 @@
+import { ulid } from 'ulid';
 import { Armor, Character, Defense, Horse, Item, Maneuver, Mode, Offense, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
 
 export const defaultGrade = 3;
@@ -19,7 +20,7 @@ export const CreateWeaponOffense = (): WeaponOffense => ({
   critical: { power: 0, range: 0 }
 });
 
-export const defaultManeuver: Maneuver =
+export const defaultManeuver: Omit<Maneuver, "id"> =
 { 
   name: `Manewr`, 
   description: 'Opis manewru', 
@@ -28,37 +29,38 @@ export const defaultManeuver: Maneuver =
   cooldown: 1 
 };
 
-export const CreateDefaultManeuver = (): Maneuver => ({...defaultManeuver, name: `Maneuver ${crypto.randomUUID()}`});
+export const CreateDefaultManeuver = (): Maneuver => ({...defaultManeuver, id: ulid()});
 
-export const defaultStance: Mode =
+export const defaultStance: Omit<Mode, "id"> =
 {
   name: `Postawa`,
   description: 'Opis postawy',
   grade: 1
 };
 
-export const defaultState: Mode =
+export const defaultState: Omit<Mode, "id"> =
 {
   name: `Stan`,
   description: 'Opis stanu',
   grade: 1
 };
 
-export const CreateDefaultStance = (): Mode => ({...defaultStance, name: `Postawa ${crypto.randomUUID()}`});
-export const CreateDefaultState = (): Mode => ({...defaultState, name: `Stan ${crypto.randomUUID()}`});
+export const CreateDefaultStance = (): Mode => ({...defaultStance, id: ulid()});
+export const CreateDefaultState = (): Mode => ({...defaultState, id: ulid()});
 
-export const defaultTalent: Talent =
+export const defaultTalent: Omit<Talent, "id"> =
 {
-  name: "",
-  category: "",
-  characteristics: "",
-  id: '',
+  name: "Talent 1",
+  category: "Kategoria",
+  characteristics: "siła",
   bonus: 0,
   penalty: 0,
-  grade: 0
+  grade: 3
 };
 
-export const defaultWeapon: Weapon =
+export const CreateDefaultTalent = (): Talent => ({...defaultTalent, id: ulid()});
+
+export const defaultWeapon: Omit<Weapon, "id"> =
 {
     name: "Nowa broń",
     description: "Opis broni",
@@ -68,7 +70,7 @@ export const defaultWeapon: Weapon =
     offense: { amount: 1, grade: 6, bonus: 0, critical: { range: 20, power: 2 } },
 };
 
-export const defaultArmor: Armor =
+export const defaultArmor: Omit<Armor, "id"> =
 {
     name: "Nowa zbroja",
     description: "Opis zbroi",
@@ -82,7 +84,7 @@ export const defaultArmor: Armor =
     strengthRequirement: 0,
 };
 
-export const defaultShield: Shield =
+export const defaultShield: Omit<Shield, "id"> =
 {
     name: "Nowa tarcza",
     description: "Opis tarczy",
@@ -95,13 +97,13 @@ export const defaultShield: Shield =
     strengthRequirement: 0,
 };
 
-export const defaultInventoryItem: Item =
+export const defaultInventoryItem: Omit<Item, "id"> =
 {
     name: "Nowy przedmiot",
     description: "Opis przedmiotu"
 };
 
-export const defaultHorse: Horse =
+export const defaultHorse: Omit<Horse, "id"> =
 {
     name: "Nowy koń",
     description: "Opis konia",
@@ -111,11 +113,11 @@ export const defaultHorse: Horse =
     paceSpeed: 1
 };
 
-export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, name: `Broń ${crypto.randomUUID()}`});
-export const CreateDefaultArmor = (): Armor => ({...defaultArmor, name: `Zbroja ${crypto.randomUUID()}`});
-export const CreateDefaultShield = (): Shield => ({...defaultShield, name: `Tarcza ${crypto.randomUUID()}`});
-export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, name: `Przedmiot ${crypto.randomUUID()}`});
-export const CreateDefaultHorse = (): Horse => ({...defaultHorse, name: `Koń ${crypto.randomUUID()}`});
+export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, id: ulid()});
+export const CreateDefaultArmor = (): Armor => ({...defaultArmor, id: ulid()});
+export const CreateDefaultShield = (): Shield => ({...defaultShield, id: ulid()});
+export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, id: ulid()});
+export const CreateDefaultHorse = (): Horse => ({...defaultHorse, id: ulid()});
 
 const defaultOffense: Omit<Offense, "id"> =
 {
@@ -139,8 +141,8 @@ const defaultDefense: Omit<Defense, "id"> =
     bonus: 0
 };
 
-export const CreateDefaultOffense = (): Offense => ({...defaultOffense, id: crypto.randomUUID()});
-export const CreateDefaultDefense = (): Defense => ({...defaultDefense, id: crypto.randomUUID()});
+export const CreateDefaultOffense = (): Offense => ({...defaultOffense, id: ulid()});
+export const CreateDefaultDefense = (): Defense => ({...defaultDefense, id: ulid()});
 
 const emptyCharacter: Character = 
 { 
@@ -194,6 +196,7 @@ const emptyCharacter: Character =
         weapons: 
         [
             {
+                id: '01K744HGM39X4G9ZKYPGK71SJA',
                 name: "Broń 1",
                 style: "Jednoręczny",
                 offense: 
@@ -220,6 +223,7 @@ const emptyCharacter: Character =
         armors:
         [
             {
+                id: '01K744HSNEXYQ4Z28XE6VWEBA5',
                 name: "Pancerz",
                 protection: 0,
                 immunity: 0,
@@ -235,6 +239,7 @@ const emptyCharacter: Character =
         shields: 
         [
             {
+                id: '01K744J34AYVN6JASDVQEMNEBD',
                 name: "Tarcza",
                 block: 0,
                 resistance: 0,
@@ -249,6 +254,7 @@ const emptyCharacter: Character =
         inventory: 
         [
             {
+                id: '01K744JA13TJNPNR3S6SYQE87E',
                 name: "Przedmiot 1",
                 description: "Opis przedmiotu 1"
             }
@@ -259,12 +265,12 @@ const emptyCharacter: Character =
 
 export function CreateEmptyCharacter(name: string, description: string): Character
 {
-    const newCharacter = { ...emptyCharacter, id: crypto.randomUUID(), name, description };
+    const newCharacter = { ...emptyCharacter, id: ulid(), name, description };
     newCharacter.offenses = [CreateDefaultOffense()];
     newCharacter.defenses = [CreateDefaultDefense()];
     newCharacter.maneuvers = [CreateDefaultManeuver()];
     newCharacter.stances = [CreateDefaultStance()];
     newCharacter.states = [CreateDefaultState()];
-    newCharacter.talents = [{...defaultTalent, id: crypto.randomUUID(), name: 'Talent 1', category: 'Kategoria', characteristics: 'Charakterystyka'}];
+    newCharacter.talents = [CreateDefaultTalent()];
     return newCharacter;
-}
+};

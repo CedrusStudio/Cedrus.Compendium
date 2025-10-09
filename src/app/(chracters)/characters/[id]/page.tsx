@@ -12,11 +12,11 @@ import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 
 type CharacterProps = 
 {
-    params: 
-    {
-        id: string;
-    },
-    searchParams: { [key: string]: string | string[] | undefined }
+  params: 
+  {
+      id: string;
+  },
+  searchParams: { [key: string]: string | string[] | undefined }
 };
 
 export default async function CharacterPage(input: CharacterProps)

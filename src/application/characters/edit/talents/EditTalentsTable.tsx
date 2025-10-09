@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { Button } from "@/ui/button"
-import { Input } from "@/ui/input"
+import { Button } from "@/ui/button";
+import { Input } from "@/ui/input";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/ui/dropdown-menu"
+} from "@/ui/dropdown-menu";
 
 import {
   AccessorKeyColumnDef,
@@ -21,7 +21,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -29,19 +29,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/ui/table"
-import { useState, useEffect } from "react"
+} from "@/ui/table";
+import { useState, useEffect } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { Talent } from "@/domain/characters/Character"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas"
-import { Control, useFieldArray, useFormContext } from "react-hook-form"
-import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow"
-import { talentCategories } from "@/domain/data/categories"
-import { defaultColumnKeys } from "../../talents/defaultColumns"
-import { namingConventions } from "@/domain/data/namingConventions"
-import EmptyTable from "@/common/components/EmptyTable"
-import AddTalentView from "@/application/characters/edit/talents/AddTalentView"
+import { Talent } from "@/domain/characters/Character";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { Control, useFieldArray, useFormContext } from "react-hook-form";
+import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
+import { talentCategories } from "@/domain/data/categories";
+import { defaultColumnKeys } from "../../talents/defaultColumns";
+import { namingConventions } from "@/domain/data/namingConventions";
+import EmptyTable from "@/common/components/EmptyTable";
+import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 
 declare module '@tanstack/table-core' 
 {
@@ -64,7 +64,8 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
   const { fields, update, remove, append } = useFieldArray
   ({
     name: "talents",
-    control
+    control,
+    keyName: "_rhfId" // Preserves your original id field
   });
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -187,16 +188,15 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
               .getAllColumns()
               .filter(column => column.getCanHide())
               .map(column => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={value => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              )
+                <DropdownMenuCheckboxItem
+                  key={column.id}
+                  className="capitalize"
+                  checked={column.getIsVisible()}
+                  onCheckedChange={value => column.toggleVisibility(!!value)}
+                >
+                  {column.id}
+                </DropdownMenuCheckboxItem>
+              ))
           }
           </DropdownMenuContent>
         </DropdownMenu>
@@ -207,44 +207,42 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
           <TableHeader>
           {
             table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                {
-                  headerGroup.headers.map(header => (
-                    <TableHead key={header.id} className="">
-                    {
-                      header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())
-                    }
-                    </TableHead>
-                  ))
-                }
-                </TableRow>
+              <TableRow key={headerGroup.id}>
+              {
+                headerGroup.headers.map(header => (
+                  <TableHead key={header.id} className="">
+                  {
+                    header.isPlaceholder
+                      ? null
+                      : flexRender(header.column.columnDef.header, header.getContext())
+                  }
+                  </TableHead>
+                ))
+              }
+              </TableRow>
             ))
           }
           </TableHeader>
 
           <TableBody>
           {
-            table.getRowModel().rows?.length > 0
-              ? table.getRowModel().rows.map(row => 
-              {
-                const currentTalent = fields.find(talent => talent.name === row.original.name)!;
-                const initialTalent = initialTalents.find(talent => talent.name === row.original.name);
-
-                return (
-                  <EditTalentRow 
-                    key={row.original.id} 
-                    row={row} 
-                    index={row.index} 
-                    initialTalentOrNew={initialTalent || currentTalent} 
-                    talent={currentTalent} 
-                    update={update} 
-                    remove={remove} 
-                  />
-                )
-              })
-              : <EmptyTable colSpan={columns.length} />
+            table.getRowModel().rows?.length <= 0
+              ? <EmptyTable colSpan={columns.length} />
+              : table.getRowModel().rows.map(row => 
+                {
+                  const initialTalent = initialTalents.find(talent => talent.id === row.original.id);
+                  console.log("initialTalent for row:", initialTalent, row.index);
+                  return (
+                    <EditTalentRow 
+                      key={row.original.id} 
+                      row={row} 
+                      index={row.index} 
+                      initialTalent={initialTalent} 
+                      update={update} 
+                      remove={remove} 
+                    />
+                  )
+                })
           }
           </TableBody>
         </Table>

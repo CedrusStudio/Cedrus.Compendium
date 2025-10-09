@@ -53,7 +53,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 
       <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
       {
-        watchedArray.map((maneuver, index) => <EditManeuverView key={index} maneuver={maneuver} index={index} remove={remove} />)
+        watchedArray.map((maneuver, index) => <EditManeuverView key={maneuver.id} maneuver={maneuver} index={index} remove={remove} />)
       }
       </CardContent>
 

@@ -74,7 +74,7 @@ export const newTalentSchema = z.object
 
 export const talentSchema = newTalentSchema.extend
 ({
-  id: z.string().min(2, { message: "ID musi mieć co najmniej 2 znaki." }).max(100, { message: "ID musi mieć najwyżej 100 znaków." })
+  id: z.ulid()
 }).required();
 
 export const upsertCharacterTalentsSchema = z.object
@@ -111,6 +111,7 @@ const damageOffenseSchema = z.object
 
 const itemSchema = z.object
 ({
+  id: z.ulid(),
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().max(2000, { message: "Opis musi mieć najwyżej 2000 znaków." }),
 });
@@ -181,7 +182,7 @@ export type UpsertCharacterHealthType = z.infer<typeof healthSchema>;
 //Defense
 export const defenseSchema = z.object
 ({
-  id: z.string().min(2).max(100, { message: "ID musi mieć najwyżej 100 znaków." }),
+  id: z.ulid(),
   name: z.string().min(2).max(100),
   description: z.string().min(2).max(1000).optional(),
   immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(50, { message: "Niewrażliwość musi mieć najwyżej 50." }),
@@ -198,6 +199,7 @@ export type UpsertCharacterDefenseType = z.infer<typeof defenseSchema>;
 //Mode
 export const modeSchema = z.object
 ({
+  id: z.ulid(),
   name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
   grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
@@ -209,6 +211,7 @@ export const upsertCharacterModesSchema = z.array(modeSchema).max(20, { message:
 //Maneuvers
 const maneuverSchema = z.object
 ({
+  id: z.ulid(),
   name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
   grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
@@ -222,7 +225,7 @@ export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, {
 //Offense
 const offenseSchema = z.object
 ({
-  id: z.string().min(2).max(100, { message: "ID musi mieć najwyżej 100 znaków." }),
+  id: z.ulid(),
   name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }).optional(),
   leadingWeapon: weaponOffenseSchema,
