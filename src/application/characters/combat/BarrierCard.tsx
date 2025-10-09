@@ -12,6 +12,9 @@ import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { namingConventions } from '@/domain/data/namingConventions';
+import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
+import { currentValueIcon, sumIcon } from '@/domain/data/icons';
+import { translate } from '@/domain/data/translations';
 
 type BarrierCardProps = 
 {
@@ -30,8 +33,8 @@ export default function BarrierCard(input: BarrierCardProps)
       <CardContent className='flex flex-col h-full gap-y-4'>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Bariera</CardTitle>
 
-        <FieldView name={namingConventions.sum} value={input.health.barrier} />
-        <FieldViewWithInfo name={namingConventions.current} value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
+        <FieldView name={<IconWithTooltip icon={sumIcon} name={translate("sum")}/>} value={input.health.barrier}/>
+        <FieldViewWithInfo name={<IconWithTooltip icon={currentValueIcon} name={namingConventions.current}/>} value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>

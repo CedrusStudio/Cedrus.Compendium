@@ -65,6 +65,8 @@ const defaultTranslations =
     rulebook: "podręcznik",
 
     battle: "bitwa",
+    sum: "suma",
+    current: "obecne",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

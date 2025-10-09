@@ -14,11 +14,13 @@ import { useState } from 'react';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translateReductions } from '@/domain/data/translations';
+import { translate, translateReductions } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
+import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
+import { immunityIcon, reductionIcons, resistanceIcon } from '@/domain/data/icons';
 
 type DefenseCardProps = 
 {
@@ -51,8 +53,8 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <FieldView name={"niewrażliwość"} value={selectedDefense.immunity} />
-        <FieldView name={"odporność"} value={selectedDefense.resistance} />
+        <FieldView name={<IconWithTooltip icon={immunityIcon} name={translate("immunity")}/>} value={selectedDefense.immunity} />
+        <FieldView name={<IconWithTooltip icon={resistanceIcon} name={translate("resistance")}/>} value={selectedDefense.resistance} />
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
@@ -67,7 +69,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
           {
             allReductionTypes.map(reductionType => (
               <SelectItem key={reductionType} value={reductionType}>
-                <span className='capitalize'>{translateReductions(reductionType)}</span>
+                <span className='capitalize'>{reductionIcons[reductionType]}</span>
               </SelectItem>
             ))
           }

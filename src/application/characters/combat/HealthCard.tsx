@@ -14,6 +14,8 @@ import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { translate } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
+import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
+import { currentValueIcon, sumIcon } from '@/domain/data/icons';
 
 type HealthCardProps = 
 {
@@ -36,8 +38,8 @@ export default function HealthCard(input: HealthCardProps)
 
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
 
-        <FieldViewWithInfo name={namingConventions.sum} value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
-        <FieldViewWithInfo name={namingConventions.current} value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
+        <FieldViewWithInfo name={<IconWithTooltip icon={sumIcon} name={translate("sum")}/>} value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
+        <FieldViewWithInfo name={<IconWithTooltip icon={currentValueIcon} name={namingConventions.current}/>} value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>

@@ -4,16 +4,18 @@ import { Button } from "@/common/components/ui/button";
 import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react";
-import { attributesIcons, characteristicIcons } from "@/domain/data/icons";
+import { attributesIcons, characteristicIcons, immunityIcon, resistanceIcon } from "@/domain/data/icons";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { translateReductions } from "@/domain/data/translations";
+import { translate, translateReductions } from "@/domain/data/translations";
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
-import { IoShieldHalfOutline } from "react-icons/io5";
-import { GiCrenulatedShield } from "react-icons/gi";
+
 import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
+import { reductionIcons } from "@/domain/data/icons";
+import FieldView from "@/common/components/fields/FieldView";
+import IconWithTooltip from "@/common/components/fields/IconWithTooltip";
 
 export const columnKeys =
 {
@@ -147,21 +149,20 @@ function CharacterDefensesBattleView(character: Character)
       <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={character.defenses} setIndex={setSelectedDefenseIndex} disableInfo />
 
       <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
-          <FieldWithIconView icon={<GiCrenulatedShield />} value={selectedDefense.immunity} />
-          <FieldWithIconView icon={<IoShieldHalfOutline />} value={selectedDefense.resistance} />
+          <FieldWithIconView icon={<IconWithTooltip icon={immunityIcon} name={translate("immunity")}/>} value={selectedDefense.immunity} />
+          <FieldWithIconView icon={<IconWithTooltip icon={resistanceIcon} name={translate("resistance")}/>} value={selectedDefense.resistance} />
 
           <FieldViewWithInfo
             name={<SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>} 
             value={calculateSelectedReduction(selectedDefense, selectedReductionType)} 
             infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} />}
-            valueClassName='pl-6'
           />
           
           <SelectContent>
           {
             allReductionTypes.map(reductionType => (
               <SelectItem key={reductionType} value={reductionType}>
-                <span className='capitalize'>{translateReductions(reductionType)}</span>
+                <span className='capitalize'>{reductionIcons[reductionType]}</span>
               </SelectItem>
             ))
           }

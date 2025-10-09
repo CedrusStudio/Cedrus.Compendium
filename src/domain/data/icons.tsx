@@ -18,6 +18,18 @@ import { GiChessKnight } from "react-icons/gi";
 import { GiMeditation } from "react-icons/gi";
 import { ReactNode } from "react";
 
+import { IoShieldOutline } from "react-icons/io5";
+import { IoShieldHalfOutline } from "react-icons/io5";
+import { IoShield } from "react-icons/io5";
+
+import { GiDiceShield } from "react-icons/gi";
+import { GiCrenulatedShield } from "react-icons/gi";
+
+import { TbSum } from "react-icons/tb";
+import { MdPublishedWithChanges } from "react-icons/md";
+
+import { MdOutlineHealthAndSafety } from "react-icons/md";
+
 export const characteristicIcons: Record<string, ReactNode> = 
 {
   strength: <LuBicepsFlexed className="w-5 h-5" />,
@@ -41,3 +53,18 @@ export const attributesIcons: Record<string, ReactNode> =
   reflex: <GiDodging className="w-5 h-5" />,
   willpower: <GiMeditation className="w-5 h-5" />
 };
+
+export const reductionIcons: Record<string, ReactNode> = 
+{
+  full: <IoShield className="w-5 h-5" />,
+  block: <IoShieldHalfOutline className="w-5 h-5" />,
+  direct: <IoShieldOutline className="w-5 h-5" />
+};
+
+export const immunityIcon = <GiDiceShield className="w-5 h-5" />;
+export const resistanceIcon = <GiCrenulatedShield className="w-5 h-5" />;
+
+export const sumIcon = <TbSum className="w-5 h-5" />;
+export const currentValueIcon = <MdPublishedWithChanges className="w-5 h-5" />;
+
+export const healthIcon = <MdOutlineHealthAndSafety className="w-5 h-5" />;

@@ -21,7 +21,7 @@ export default function FieldViewWithInfo(input: FieldViewWithInfoProps)
   return (
     <div className={cn('flex gap-x-6 justify-around', input.className)}>
 
-      <div className={cn("w-24 capitalize", input.nameClassName)}>
+      <div className={cn("capitalize", input.nameClassName)}>
         {input.name}
       </div>
 
