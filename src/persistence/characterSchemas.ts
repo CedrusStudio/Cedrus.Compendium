@@ -5,18 +5,18 @@ import { z } from "zod";
 // Schema for character header (name and description)
 export const upsertCharacterHeaderSchema = z.object
 ({
-    name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
-    description: z.string()
-        .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
-        .max(600, { message: "Opis nie może być dłuższy niż 600 znaków." }),
+  name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
+  description: z.string()
+      .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
+      .max(600, { message: "Opis nie może być dłuższy niż 600 znaków." }),
 });
 
 export const addCharacterHeaderSchema = z.object
 ({
-    name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
-    description: z.string()
-        .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
-        .max(10_000, { message: "Opis nie może być dłuższy niż 10 000 znaków." }),
+  name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
+  description: z.string()
+      .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
+      .max(10_000, { message: "Opis nie może być dłuższy niż 10 000 znaków." }),
 });
 
 export type UpsertCharacterHeaderType = z.infer<typeof upsertCharacterHeaderSchema>;
