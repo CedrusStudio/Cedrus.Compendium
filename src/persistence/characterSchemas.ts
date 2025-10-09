@@ -2,7 +2,6 @@ import { allowedStyles } from "@/domain/characters/Character";
 import { castTimeValues } from "@/domain/data/castTimes";
 import { z } from "zod";
 
-// Schema for character header (name and description)
 export const upsertCharacterHeaderSchema = z.object
 ({
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),

@@ -1,12 +1,19 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getCharacter, upsertCharacter } from '@/persistence/characterRepository';
-import { getIdParamFromAlmostLastRequestSegment } from '@/common/global/httpUtils';
 
-export async function POST(request: NextRequest)
+type RouteParams = 
+{
+  params: 
+  {
+    id: string;
+  };
+};
+
+export async function POST(request: NextRequest, { params }: RouteParams)
 {
   try 
   {
-    const id = getIdParamFromAlmostLastRequestSegment(request, 1);
+    const id = params.id;
     if (!id) return NextResponse.json({ message: 'Character ID is required' }, { status: 400 });
     const character = await getCharacter(id);
     if (!character) return NextResponse.json({ message: 'Character not found' }, { status: 404 });
