@@ -76,7 +76,7 @@ export default function BestiaryNavbar()
                     <Link href="/bestiary/add"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Link>
                 </Button>
                 <Button asChild variant="outline" size="icon">
-                    <Link href="/bestiary/combat"><GiSwordsEmblem className="h-[1.2rem] w-[1.2rem]" /></Link>
+                    <Link href="/bestiary/battle"><GiSwordsEmblem className="h-[1.2rem] w-[1.2rem]" /></Link>
                 </Button>
                 <NavbarDefaultButton />
             </div>

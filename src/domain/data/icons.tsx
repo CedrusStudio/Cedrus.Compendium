@@ -1,5 +1,3 @@
-
-//strength
 import { LuBicepsFlexed } from "react-icons/lu";
 import { GiRun } from "react-icons/gi";
 import { GiAbdominalArmor } from "react-icons/gi";

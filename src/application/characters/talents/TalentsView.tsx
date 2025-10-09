@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { Button } from "@/ui/button"
-import { Input } from "@/ui/input"
+import { Button } from "@/ui/button";
+import { Input } from "@/ui/input";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/ui/dropdown-menu"
+} from "@/ui/dropdown-menu";
 
 import {
   ColumnDef,
@@ -20,7 +20,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -29,15 +29,17 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/ui/table"
-import { useState, useEffect } from "react"
+} from "@/ui/table";
+import { useState, useEffect } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { Talent } from "@/domain/characters/Character"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-import { talentCategories } from "@/domain/data/categories"
-import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns"
-import { namingConventions } from "@/domain/data/namingConventions"
-import EmptyTable from "@/common/components/EmptyTable"
+import { Talent } from "@/domain/characters/Character";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { talentCategories } from "@/domain/data/categories";
+import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
+import { namingConventions } from "@/domain/data/namingConventions";
+import EmptyTable from "@/common/components/EmptyTable";
+import NameInputSearch from "@/common/components/table/NameInputSearch";
+import { translate } from "@/domain/data/translations";
 
 interface DataTableProps
 {
@@ -91,12 +93,7 @@ export function TalentsView({ columns, data }: DataTableProps)
   return (
     <div>
       <div className="flex items-center py-4 gap-3">
-        <Input
-          placeholder="Szukaj po nazwie..."
-          value={(table.getColumn(defaultColumnKeys.name)?.getFilterValue() as string) ?? ""}
-          onChange={event => table.getColumn(defaultColumnKeys.name)?.setFilterValue(event.target.value)}
-          className="max-w-sm"
-        />
+        <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
 
         <Select name={defaultColumnKeys.category} defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
 
@@ -159,7 +156,7 @@ export function TalentsView({ columns, data }: DataTableProps)
                     checked={column.getIsVisible()}
                     onCheckedChange={value => column.toggleVisibility(!!value)}
                 >
-                  {column.id}
+                  {translate(column.id)}
                 </DropdownMenuCheckboxItem>
               ))
           }

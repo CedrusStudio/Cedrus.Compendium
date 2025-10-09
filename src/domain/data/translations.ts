@@ -63,6 +63,8 @@ const defaultTranslations =
     bestiary: "bestiariusz",
     compendium: "kompendium",
     rulebook: "podręcznik",
+
+    battle: "bitwa",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

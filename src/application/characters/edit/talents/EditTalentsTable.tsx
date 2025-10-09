@@ -42,6 +42,8 @@ import { defaultColumnKeys } from "../../talents/defaultColumns";
 import { namingConventions } from "@/domain/data/namingConventions";
 import EmptyTable from "@/common/components/EmptyTable";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
+import NameInputSearch from "@/common/components/table/NameInputSearch";
+import { translate } from "@/domain/data/translations";
 
 declare module '@tanstack/table-core' 
 {
@@ -118,13 +120,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
   return (
     <div>
       <div className="flex items-center py-4 gap-3">
-
-        <Input
-          placeholder="Szukaj po nazwie..."
-          value={(table.getColumn(defaultColumnKeys.name)?.getFilterValue() as string) ?? ""}
-          onChange={event => setNameFilter(event.target.value)}
-          className="max-w-sm"
-        />
+        <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
 
         <div className="flex items-start gap-2">
           <Select name={defaultColumnKeys.category} defaultValue={"all"} value={selectedCategory} onValueChange={handleOnSelectedValueChange}>
@@ -194,7 +190,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
                   checked={column.getIsVisible()}
                   onCheckedChange={value => column.toggleVisibility(!!value)}
                 >
-                  {column.id}
+                  {translate(column.id)}
                 </DropdownMenuCheckboxItem>
               ))
           }
