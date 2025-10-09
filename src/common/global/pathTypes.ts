@@ -2,7 +2,7 @@
 type Keys<T> = Extract<keyof T, string>; 
 
 // Produces the string literal type ${K}.${P}.
-export type Join<K extends string, P extends string> = `${K}.${P}`;
+type Join<K extends string, P extends string> = `${K}.${P}`;
 
 // Recursively find all paths in GetKeysFrom that lead to a type assignable to IfKeyExtends
 export type PathsFrom<GetKeysFrom, IfKeyExtends> = 
