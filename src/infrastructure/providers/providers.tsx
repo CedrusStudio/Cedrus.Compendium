@@ -2,7 +2,7 @@
 import { ThemeProvider } from '@/infrastructure/providers/theme-provider'
 import { Toaster } from "@/ui/sonner"
 import { Provider } from 'react-redux';
-import { store } from '@/persistence/store';
+import { store } from '@/persistence/slices/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';

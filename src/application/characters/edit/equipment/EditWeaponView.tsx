@@ -1,6 +1,6 @@
 import { SelectFormField } from '@/ui/SelectFormField';
 import { Label } from "@/ui/label"
-import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/Dices';
+import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
 import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField, allowedStyles } from '@/domain/characters/Character';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import WeaponView from '@/application/characters/equipment/WeaponView';

@@ -23,7 +23,7 @@ import {
 import { Separator } from '@/ui/separator';
 import { Button } from '@/ui/button';
 import { useDispatch } from 'react-redux';
-import { actions } from '@/persistence/characterSlice';
+import { actions } from '@/persistence/slices/characterSlice';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 type CharactersGridParams =
