@@ -3,34 +3,28 @@ import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import { Label } from "@/ui/label";
 import HorseView from "@/application/characters/equipment/HorseView";
-import { InputFormField } from "@/common/components/ui/InputFormField";
+import { InputFormField } from "@/common/components/form/InputFormField";
 
 type EditHorseViewProps = 
 {
-  equipmentFormName: string;
   horse: Horse;
-  isPending: boolean;
   index: number;
 };
 
-export default function EditHorseView({ equipmentFormName, index, horse, isPending }: EditHorseViewProps)
+export default function EditHorseView({ index, horse}: EditHorseViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
       <HorseView horse={horse} />
-      <EditHorseSheet equipmentFormName={equipmentFormName} horse={horse} isPending={isPending} index={index} />
+      <EditHorseSheet horse={horse} index={index} />
     </div>
   );
 }
 
-function EditHorseSheet({ equipmentFormName, horse, isPending, index }: EditHorseViewProps)
+function EditHorseSheet({ horse, index }: EditHorseViewProps)
 {
   return (
-    <EditItemSheet 
-      equipmentFormName={equipmentFormName} 
-      item={{ name: horse.name, description: horse.description, type: `horses.${index}` }} 
-      isPending={isPending}
-    >
+    <EditItemSheet item={{ name: horse.name, description: horse.description, type: `horses.${index}` }} >
         <div className="grid auto-rows-min gap-3 px-4">
 
           <Label>Kłus</Label>

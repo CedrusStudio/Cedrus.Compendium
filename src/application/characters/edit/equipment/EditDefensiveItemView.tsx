@@ -1,6 +1,6 @@
 import { attributePenaltyValues, dexterityRestrictionValues, initiativeRestrictionValues, strengthRequirementValues } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
-import { SelectFormField } from "@/ui/SelectFormField";
+import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 
 type EditDefensiveItemViewProps = 

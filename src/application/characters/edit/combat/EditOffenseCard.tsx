@@ -12,12 +12,12 @@ import { useDamageOffenseForm } from '@/application/characters/edit/combat/useDa
 import { useWeaponOffenseForm } from '@/application/characters/edit/combat/useWeaponOffenseForm';
 import { Button } from '@/ui/button';
 import { useState } from 'react';
-import RemoveButton from '@/ui/RemoveButton';
+import RemoveButton from '@/common/components/form/RemoveButton';
 import { LuPlus } from 'react-icons/lu';
 import { resolveSetState } from '@/common/global/resolveSetState';
-import { InputFormField } from '@/common/components/ui/InputFormField';
-import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
-import RemoveFromArrayButton from '@/common/components/ui/RemoveFromArrayButton';
+import { InputFormField } from '@/common/components/form/InputFormField';
+import AreaInputFormField from '@/common/components/form/AreaInputFormField';
+import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 
 type EditOffenseCardProps =
 {

@@ -2,7 +2,7 @@
 
 import { FieldPath } from "react-hook-form";
 import { UpsertCharacterHealthType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { InputFormField } from "@/ui/InputFormField";
+import { InputFormField } from "@/common/components/form/InputFormField";
 import { Health } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 
@@ -21,18 +21,6 @@ type EditHealthCardProps =
 
 export default function EditHealthCard(input: EditHealthCardProps)
 {
-  const InputFormWithLabel = (healthFieldName: keyof UpsertCharacterHealthType) => 
-  {   
-    const fieldPath = `health.${healthFieldName}` as FieldPath<UpsertCharacterCombatType>;
-
-    return (
-      <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
-        <Label className="text-center capitalize">{translate(healthFieldName)}</Label>
-        <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
-      </div>
-    );
-  }
-
   return (
     <Card className='bg-muted border shadow-md'>
       <CardContent >
@@ -53,3 +41,15 @@ export default function EditHealthCard(input: EditHealthCardProps)
     </Card>
   );
 };
+
+function InputFormWithLabel(healthFieldName: keyof UpsertCharacterHealthType)
+{   
+  const fieldPath = `health.${healthFieldName}` as FieldPath<UpsertCharacterCombatType>;
+
+  return (
+    <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
+      <Label className="text-center capitalize">{translate(healthFieldName)}</Label>
+      <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
+    </div>
+  );
+}

@@ -1,4 +1,4 @@
-import { SelectFormField } from '@/ui/SelectFormField';
+import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { Label } from "@/ui/label"
 import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
 import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField, allowedStyles } from '@/domain/characters/Character';
@@ -9,30 +9,24 @@ import { translate } from '@/domain/data/translations';
 
 type EditWeaponViewProps = 
 {
-  equipmentFormName: string;
   weapon: Weapon;
-  isPending: boolean;
   index: number;
 };
 
-export default function EditWeaponView({ equipmentFormName, index, weapon, isPending }: EditWeaponViewProps)
+export default function EditWeaponView({ index, weapon }: EditWeaponViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
       <WeaponView weapon={weapon} />
-      <EditWeaponSheet equipmentFormName={equipmentFormName} index={index} weapon={weapon} isPending={isPending} />
+      <EditWeaponSheet index={index} weapon={weapon} />
     </div>
   )
 }
 
-function EditWeaponSheet({ equipmentFormName, weapon, index, isPending }: EditWeaponViewProps)
+function EditWeaponSheet({ weapon, index }: EditWeaponViewProps)
 {
   return (
-    <EditItemSheet 
-      equipmentFormName={equipmentFormName}
-      item={{ name: weapon.name, description: weapon.description, type: `weapons.${index}` }} 
-      isPending={isPending}
-    >
+    <EditItemSheet item={{ name: weapon.name, description: weapon.description, type: `weapons.${index}` }} >
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">

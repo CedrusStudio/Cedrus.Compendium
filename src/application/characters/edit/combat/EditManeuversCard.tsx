@@ -24,10 +24,10 @@ import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import { TbEdit } from "react-icons/tb";
 import { Label } from "@/ui/label";
-import { InputFormField } from '@/ui/InputFormField';
-import { SelectFormField } from '@/ui/SelectFormField';
-import AppendToArrayButton from '@/ui/AppendToArrayButton';
-import RemoveFromArrayButton from '@/ui/RemoveFromArrayButton';
+import { InputFormField } from '@/common/components/form/InputFormField';
+import { SelectFormField } from '@/common/components/form/SelectFormField';
+import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
+import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { translate } from '@/domain/data/translations';
 

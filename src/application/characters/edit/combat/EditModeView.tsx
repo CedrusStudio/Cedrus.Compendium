@@ -10,14 +10,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { InputFormField } from '@/ui/InputFormField';
+import { InputFormField } from '@/common/components/form/InputFormField';
 import { Button } from "@/ui/button"
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/characters/Character";
-import RemoveFromArrayButton from "@/ui/RemoveFromArrayButton";
+import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { translateToSingular } from "@/domain/data/translations";
 
 type EditModeViewProps =

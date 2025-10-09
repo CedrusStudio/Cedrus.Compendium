@@ -12,8 +12,8 @@ import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponVi
 import EditArmorView from '@/application/characters/edit/equipment/EditArmorView';
 import bffClient from '@/infrastructure/bffClient';
 import EditHorseView from './EditHorseView';
-import AppendToArrayButton from '@/common/components/ui/AppendToArrayButton';
-import SubmitButton from '@/common/components/ui/SubmitButton';
+import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
+import SubmitButton from '@/common/components/form/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from './EditInventoryItemView';
 import { CreateDefaultArmor, CreateDefaultHorse, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';

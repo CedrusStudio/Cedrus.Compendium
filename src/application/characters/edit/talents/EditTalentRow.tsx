@@ -2,7 +2,7 @@
 
 import ResetButton from "@/common/components/buttons/ResetButton";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
-import RemoveFromArrayButton from "@/ui/RemoveFromArrayButton";
+import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import {
   TableCell,
   TableRow,

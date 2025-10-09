@@ -10,7 +10,7 @@ import {
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { CreateDefaultStance } from "@/domain/data/defaults";
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
-import AppendToArrayButton from '@/ui/AppendToArrayButton';
+import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 

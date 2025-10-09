@@ -1,11 +1,11 @@
 import { Defense, pathToDefenseField } from '@/domain/characters/Character';
 import { UpsertCharacterDefenseType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { InputFormField } from "@/ui/InputFormField";
+import { InputFormField } from "@/common/components/form/InputFormField";
 import { Label } from "@/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { translate } from '@/domain/data/translations';
-import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
-import RemoveFromArrayButton from '@/common/components/ui/RemoveFromArrayButton';
+import AreaInputFormField from '@/common/components/form/AreaInputFormField';
+import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { UseFieldArrayRemove } from 'react-hook-form';
 
 type EditDefenseCardProps =

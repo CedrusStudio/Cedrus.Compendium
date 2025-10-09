@@ -1,14 +1,10 @@
 "use client";
 
-import {
-  Form
-} from "@/ui/form";
+import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { upsertCharacterTalentsSchema, type UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
-import SubmitButton from "@/ui/SubmitButton";
-
+import SubmitButton from "@/common/components/form/SubmitButton";
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"
 import { EditTalentsTable } from "@/application/characters/edit/talents/EditTalentsTable"
 import { Character } from "@/domain/characters/Character";

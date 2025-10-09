@@ -9,9 +9,9 @@ import { toast } from "sonner"
 import { useRouter } from 'next/navigation';
 import { upsertCharacterHeader } from "@/persistence/characterRepository";
 import { upsertCharacterHeaderSchema, type UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
-import { InputFormField } from "@/ui/InputFormField";
-import SubmitButton from "@/ui/SubmitButton";
-import AreaInputFormField from "@/common/components/ui/AreaInputFormField";
+import { InputFormField } from "@/common/components/form/InputFormField";
+import SubmitButton from "@/common/components/form/SubmitButton";
+import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 
 const initialValues: UpsertCharacterHeaderType =
 {

@@ -8,26 +8,23 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import SubmitButton from '@/ui/SubmitButton';
-import { InputFormField } from '@/ui/InputFormField';
+import { InputFormField } from '@/common/components/form/InputFormField';
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/Character";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
-import AreaInputFormField from "@/common/components/ui/AreaInputFormField";
+import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import { useFieldArray } from "react-hook-form";
-import RemoveFromArrayButton from "@/common/components/ui/RemoveFromArrayButton";
+import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 
 type EditItemSheetProps = 
 {
-  equipmentFormName: string;
   item: { name: string; description: string; type: EquipmentItemTypes };
-  isPending: boolean;
 };
 
-export default function EditItemSheet({ item, isPending, children, equipmentFormName }: PropsWithChildren<EditItemSheetProps>)
+export default function EditItemSheet({ item, children }: PropsWithChildren<EditItemSheetProps>)
 {
   const { name, index } = splitEquipmentItemTypes(item.type);
   const { remove } = useFieldArray<UpsertCharacterEquipmentType>({ name });

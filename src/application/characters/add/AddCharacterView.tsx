@@ -10,14 +10,13 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Textarea } from "@/ui/textarea";
-
 import { useMutation } from '@tanstack/react-query';
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
 import { addCharacter } from "@/persistence/characterRepository";
 import { AddCharacterHeaderType, addCharacterHeaderSchema } from "@/persistence/characterSchemas";
-import { InputFormField } from "@/ui/InputFormField";
-import SubmitButton from "@/ui/SubmitButton";
+import { InputFormField } from "@/common/components/form/InputFormField";
+import SubmitButton from "@/common/components/form/SubmitButton";
 
 const initialValues: AddCharacterHeaderType =
 {
@@ -80,8 +79,7 @@ export default function AddCharacterView()
                 </p>
 
                 <InputFormField<AddCharacterHeaderType> 
-                    name="name" 
-                    control={form.control} 
+                    path="name" 
                     inputPlaceholder="nazwa..." 
                     inputClassName="w-xl"
                 />
