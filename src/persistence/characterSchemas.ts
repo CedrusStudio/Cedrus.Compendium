@@ -8,6 +8,7 @@ export const upsertCharacterHeaderSchema = z.object
   description: z.string()
       .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
       .max(600, { message: "Opis nie może być dłuższy niż 600 znaków." }),
+  category: z.string().min(2, { message: "Kategoria musi mieć co najmniej 2 znaki." }).max(100, { message: "Kategoria nie może być dłuższa niż 100 znaków." }).optional(),
 });
 
 export const addCharacterHeaderSchema = z.object

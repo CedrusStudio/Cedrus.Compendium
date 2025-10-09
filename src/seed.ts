@@ -6,6 +6,7 @@ const dummyCharacter : Character =
 {
   id: "igar",
   name: "Igar Potworobójca",
+  category: "Bohater",
   description: "Igar Potworobójca bohater wielu opowieści, znany z niezwykłej odwagi i siły. Jego przygody są legendą wśród mieszkańców krainy. Poza tym zawsze szuka zaczepki, chociaż może nawet nie jest tego świadom.",
   characteristics: 
   {

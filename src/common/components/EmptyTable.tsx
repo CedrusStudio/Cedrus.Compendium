@@ -5,7 +5,7 @@ export default function EmptyTable({ colSpan }: { colSpan: number })
   return (
     <TableRow>
       <TableCell colSpan={colSpan} className="h-24 text-center">
-        Brak umiejętności.
+        Brak wyników
       </TableCell>
     </TableRow>
   )

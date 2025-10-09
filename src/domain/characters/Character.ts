@@ -6,6 +6,7 @@ export type Character =
   readonly id: string;
   name: string;
   description: string;
+  category?: string;
   characteristics: Characteristics;
   attributes: Attributes;
   talents: Talent[];

@@ -82,6 +82,16 @@ export default function EditCharacterOverview(input: { character: Character })
                     inputPlaceholder="zmien nazwę..." 
                     inputClassName="w-xl"
                 />
+                
+                <p className='text-xl text-center text-primary pt-2 capitalize font-semibold '>
+                    {input.character.category}
+                </p>
+
+                <InputFormField<UpsertCharacterHeaderType> 
+                    path="category" 
+                    inputPlaceholder="zmien kategorię..." 
+                    inputClassName="w-xl"
+                />
     
                 <p className='text-md text-center text-primary pt-2 capitalize'>
                     {input.character.description}

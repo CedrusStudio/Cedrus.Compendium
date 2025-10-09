@@ -1,3 +1,10 @@
+export const characterCategories = 
+[
+  "bohater",
+  "wojak",
+  "monstrum"
+] as const;
+
 export const talentCategories = 
 [
   "zmysł",

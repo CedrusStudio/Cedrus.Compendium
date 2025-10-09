@@ -148,6 +148,7 @@ const emptyCharacter: Character =
 { 
     id: '',
     name: "Nowa postać",
+    category: "Nowa",
     description: "Opis postaci",
     characteristics: 
     {
