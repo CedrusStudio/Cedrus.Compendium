@@ -1,6 +1,6 @@
 "use client";
 
-import { Health, Statistic } from '@/domain/characters/Character';
+import { calculateTotalHealth, Health, Statistic } from '@/domain/characters/Character';
 
 import {
   Card,
@@ -83,13 +83,4 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
     }
     </div>
   );
-}
-
-function calculateTotalHealth(health: Health, constitution: Statistic, fortitude: Statistic): number
-{
-  return health.vitality 
-    + health.toughness * constitution.value
-    + constitution.testBonus 
-    + fortitude.value
-    + health.bonus;
 }

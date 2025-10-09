@@ -14,9 +14,10 @@ type SelectOneOfProps<T> =
   items: T[];
   index: number;
   setIndex: Dispatch<SetStateAction<number>>;
+  disableInfo?: boolean;
 };
 
-export default function SelectOneOf<T extends { name: string; description?: string }>({ name, defaultValue, items, index, setIndex }: SelectOneOfProps<T>)
+export default function SelectOneOf<T extends { name: string; description?: string }>({ name, defaultValue, items, index, setIndex, disableInfo }: SelectOneOfProps<T>)
 {
   const handleOnSelectedChange = (value: string) => 
   {
@@ -27,23 +28,28 @@ export default function SelectOneOf<T extends { name: string; description?: stri
     <Select name={name} defaultValue={defaultValue} value={`${index}`} onValueChange={handleOnSelectedChange} >
 
         <div className={"capitalize"}>
-        <SelectTrigger className='capitalize border-0'>
-            <SelectValue>{items[index].name}</SelectValue>
-        </SelectTrigger>
+          <SelectTrigger className='capitalize border-0'>
+              <SelectValue>{items[index].name}</SelectValue>
+          </SelectTrigger>
         </div>
-        <HoverCard openDelay={350} closeDelay={100}>
-        <HoverCardTrigger>{<BsInfoCircle />}</HoverCardTrigger>
-        <HoverCardContent>
-            <span className={"text-sm"}>{items[index].description}</span>
-        </HoverCardContent>
-        </HoverCard>
-        
+
+        {
+          disableInfo ? <></> : (
+            <HoverCard openDelay={350} closeDelay={100}>
+              <HoverCardTrigger>{<BsInfoCircle />}</HoverCardTrigger>
+              <HoverCardContent>
+                  <span className={"text-sm"}>{items[index].description}</span>
+              </HoverCardContent>
+            </HoverCard>
+          )
+        }
+
         <SelectContent>
         {
-            items.map((item, index) => (
-                <SelectItem key={index} value={`${index}`}>
-                <span className='capitalize'>{item.name}</span>
-                </SelectItem>
+          items.map((item, index) => (
+              <SelectItem key={index} value={`${index}`}>
+              <span className='capitalize'>{item.name}</span>
+              </SelectItem>
         ))
         }
         </SelectContent>

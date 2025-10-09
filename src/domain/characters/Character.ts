@@ -65,6 +65,24 @@ export type Health =
   bonus: number;
 };
 
+export function calculateTotalHealthForCharacter(character: Character): number
+{
+  return character.health.vitality 
+    + character.health.toughness * character.characteristics.constitution.value
+    + character.characteristics.constitution.bonus 
+    + character.attributes.fortitude.value
+    + character.health.bonus;
+}
+
+export function calculateTotalHealth(health: Health, constitution: Statistic, fortitude: Statistic): number
+{
+  return health.vitality 
+    + health.toughness * constitution.value
+    + constitution.bonus 
+    + fortitude.value
+    + health.bonus;
+}
+
 export type Defense = 
 {
   readonly id: string;
@@ -78,6 +96,56 @@ export type Defense =
   dodge: number;
   bonus: number;
 };
+
+export type ReductionType = "full" | "block" | "direct";
+export const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
+
+export function calculateSelectedReduction(defense: Defense, selectedReductionType: ReductionType): number 
+{
+  if (selectedReductionType === "full") 
+  {
+    return defense.block + defense.parry + defense.dodge + defense.bonus + defense.protection;
+  }
+
+  if (selectedReductionType === "block") 
+  {
+    return defense.block + defense.bonus + defense.protection;
+  }
+
+  if (selectedReductionType === "direct") 
+  {
+    return defense.bonus + defense.protection;
+  }
+
+  throw new Error("Invalid reduction type");
+}
+
+export function reductionSelectFilter(selectedReductionType: ReductionType): (name: string) => boolean
+{
+  if (selectedReductionType === "full") return fullFilter;
+  if (selectedReductionType === "block") return blockFilter;
+  if (selectedReductionType === "direct") return directFilter;
+  throw new Error("Invalid reduction type");
+}
+
+function fullFilter(name: string): boolean 
+{
+  return name !== "immunity" 
+    && name !== "resistance"
+    && name !== "name"
+    && name !== "description"
+    && name !== "id";
+} 
+
+function blockFilter(name: string): boolean 
+{
+  return fullFilter(name) && name !== "dodge" && name !== "parry";
+} 
+
+function directFilter(name: string): boolean 
+{
+  return blockFilter(name) && name !== "block";
+}
 
 export type Offense = 
 {
@@ -126,6 +194,11 @@ export type Statistic =
   bonus: number;
   testBonus: number;
 };
+
+export function getStatisticTotalTestValue(statistic: Statistic): number
+{
+  return statistic.value + statistic.bonus + statistic.testBonus;
+}
 
 //Modes
 export type Mode =

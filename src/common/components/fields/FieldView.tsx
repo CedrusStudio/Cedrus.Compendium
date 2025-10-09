@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 type FieldViewProps = 
 {
-  name: string;
+  name: string | React.ReactNode;
   value: number | string;
   className?: string;
   nameClassName?: string;

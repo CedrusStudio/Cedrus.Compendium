@@ -1,6 +1,6 @@
 "use client";
 
-import { Defense } from '@/domain/characters/Character';
+import { allReductionTypes, calculateSelectedReduction, Defense, reductionSelectFilter, ReductionType } from '@/domain/characters/Character';
 
 import {
   Card,
@@ -18,14 +18,12 @@ import { translateReductions } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
+import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
 
 type DefenseCardProps = 
 {
   defenses: Defense[];
 };
-
-type ReductionType = "full" | "block" | "direct";
-const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
 
 export default function DefenseCard({ defenses }: DefenseCardProps)
 {
@@ -91,65 +89,3 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
     </Card>
   );
 };
-
-function DefenseReductionInfoContent(input: { defense: Defense, selectedReductionType: ReductionType, reductionIncrease: number, damageTaken: number })
-{
-  return (
-    <div>
-      { <FieldView name={namingConventions.increase} value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' /> }
-      { <FieldView name={namingConventions.damage} value={Math.abs(input.damageTaken)} valueClassName='text-red-500' /> }
-      {
-        Object.entries(input.defense)
-          .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
-          .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
-      }
-    </div>
-  );
-}
-
-function calculateSelectedReduction(defense: Defense, selectedReductionType: ReductionType): number 
-{
-  if (selectedReductionType === "full") 
-  {
-    return defense.block + defense.parry + defense.dodge + defense.bonus + defense.protection;
-  }
-
-  if (selectedReductionType === "block") 
-  {
-    return defense.block + defense.bonus + defense.protection;
-  }
-
-  if (selectedReductionType === "direct") 
-  {
-    return defense.bonus + defense.protection;
-  }
-
-  throw new Error("Invalid reduction type");
-}
-
-function reductionSelectFilter(selectedReductionType: ReductionType): (name: string) => boolean
-{
-  if (selectedReductionType === "full") return fullFilter;
-  if (selectedReductionType === "block") return blockFilter;
-  if (selectedReductionType === "direct") return directFilter;
-  throw new Error("Invalid reduction type");
-}
-
-function fullFilter(name: string): boolean 
-{
-  return name !== "immunity" 
-    && name !== "resistance"
-    && name !== "name"
-    && name !== "description"
-    && name !== "id";
-} 
-
-function blockFilter(name: string): boolean 
-{
-  return fullFilter(name) && name !== "dodge" && name !== "parry";
-} 
-
-function directFilter(name: string): boolean 
-{
-  return blockFilter(name) && name !== "block";
-}
