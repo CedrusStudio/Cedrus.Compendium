@@ -17,6 +17,7 @@ import { RiResetLeftFill } from "react-icons/ri";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { Badge } from '@/ui/badge';
 import { GrNext } from "react-icons/gr";
+import { battleIcon } from "@/domain/data/icons";
 
 type ManeuversViewProps =
 {
@@ -117,7 +118,7 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
                 <Button variant="ghost" className="h-full w-full p-0" onClick={() => addManeuverToUsed(maneuver)} disabled={!canUseManeuver(maneuver, usedManeuvers)}>
                     <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none rounded-r-md' variant={getBadgeVariant(maneuver.castTime)}>
                         <LuRefreshCcw />
-                        <span>{maneuver.cooldown || <GiSwordsEmblem className='scale-80'/>}</span> 
+                        <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
                     </Badge>
                 </Button>
             </div>

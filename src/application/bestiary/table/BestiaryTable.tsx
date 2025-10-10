@@ -29,6 +29,8 @@ import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import { characterCategories } from "@/domain/data/categories";
+import { Button } from "@/common/components/ui/button";
+import { addIcon, battleIcon } from "@/domain/data/icons";
 
 export default function BestiaryTable()
 {
@@ -86,6 +88,14 @@ export default function BestiaryTable()
           defaultColumnKeys={columnKeys}
           allCategory={namingConventions.all}
         />
+
+        <Button variant="outline" size="sm" onClick={() => 
+        { 
+          const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
+          console.log(selectedCharacterIds);
+        }}>
+          {addIcon("scale-85")}{battleIcon("scale-95")}
+        </Button>
 
         <PaginationButtons table={table} />
         <ColumnFilter table={table} />

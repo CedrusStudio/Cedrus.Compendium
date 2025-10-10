@@ -1,5 +1,5 @@
-import { LuBicepsFlexed } from "react-icons/lu";
-import { GiRollingDices, GiRun } from "react-icons/gi";
+import { LuBicepsFlexed, LuPlus } from "react-icons/lu";
+import { GiRollingDices, GiRun, GiSwordsEmblem } from "react-icons/gi";
 import { GiAbdominalArmor } from "react-icons/gi";
 
 import { LuBrain } from "react-icons/lu";
@@ -70,3 +70,7 @@ export const currentValueIcon = <MdPublishedWithChanges className="w-5 h-5" />;
 export const healthIcon = <MdOutlineHealthAndSafety className="w-5 h-5" />;
 
 export const rollIcon = <GiRollingDices className="w-5 h-5" />;
+
+export const battleIcon = (className: string) => <GiSwordsEmblem className={className} />;
+
+export const addIcon = (className: string) => <LuPlus className={className} />;
