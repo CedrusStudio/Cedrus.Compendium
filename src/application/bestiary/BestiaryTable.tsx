@@ -11,27 +11,21 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import {
-  Table,
-  TableBody,
-} from "@/ui/table";
 import { useState, useEffect } from "react";
 import { namingConventions } from "@/domain/data/namingConventions";
-import EmptyTable from "@/common/components/EmptyTable";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
-import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import { characterCategories } from "@/domain/data/categories";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/domain/data/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
-import BestiaryTableRow from "./BestiaryTableRow";
+import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
 
 export default function BestiaryTable()
 {
@@ -104,20 +98,7 @@ export default function BestiaryTable()
         <ColumnFilter table={table} />
       </div>
 
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-            <DefaultTableHeader table={table} addBorders className="text-center" />
-
-            <TableBody>
-            {
-              table.getRowModel().rows?.length <= 0
-                ? <EmptyTable colSpan={columns.length} />
-                : table.getRowModel().rows.map(row => <BestiaryTableRow key={row.id} row={row} /> )
-            }
-            </TableBody>
-        </Table>
-
-      </div>
+      <BestiaryTableBody table={table} columns={columns} />
 
       <div className="text-muted-foreground flex-1 text-sm mt-2">
         Zaznaczono {table.getFilteredSelectedRowModel().rows.length} z{" "} {table.getFilteredRowModel().rows.length}.

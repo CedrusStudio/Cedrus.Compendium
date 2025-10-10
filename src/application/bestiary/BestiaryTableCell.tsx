@@ -5,9 +5,9 @@ export default function BestiaryTableCell<TData>({ cell }: { cell: Cell<TData, u
 {
   return (
     <TableCell className="border-r first:border-r-0 last:border-r-0 [&:nth-last-child(2)]:border-r-0">
-        <div className="flex justify-center text-center">
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </div>
+      <div className="flex justify-center text-center">
+        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+      </div>
     </TableCell>
   );
 };

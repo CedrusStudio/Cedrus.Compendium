@@ -1,20 +1,11 @@
 "use client";
 
-import { Button } from "@/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/ui/dropdown-menu";
-
 import {
   AccessorKeyColumnDef,
   ColumnFiltersState,
   RowData,
   SortingState,
   VisibilityState,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -25,9 +16,6 @@ import {
 import {
   Table,
   TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
 } from "@/ui/table";
 import { useState, useEffect } from "react";
 import { Talent } from "@/domain/characters/Character";
@@ -40,7 +28,6 @@ import { namingConventions } from "@/domain/data/namingConventions";
 import EmptyTable from "@/common/components/EmptyTable";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
-import { translate } from "@/domain/data/translations";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";

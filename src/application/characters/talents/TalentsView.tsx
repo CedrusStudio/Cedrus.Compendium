@@ -1,13 +1,5 @@
 "use client";
 
-import { Button } from "@/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/ui/dropdown-menu";
-
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -25,8 +17,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableHeader,
   TableRow,
 } from "@/ui/table";
 import { useState, useEffect } from "react";
