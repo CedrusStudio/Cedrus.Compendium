@@ -31,10 +31,10 @@ function EditShieldSheet({ shield, index }: EditShieldViewProps)
           <Label>Block</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
-              path={pathToShieldsField(index, `block`)}
-              items={blockValues}
-              noLabel
-              />
+            path={pathToShieldsField(index, `block`)}
+            items={blockValues}
+            noLabel
+          />
 
         </div>
 

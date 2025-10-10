@@ -30,42 +30,42 @@ function EditHorseSheet({ horse, index }: EditHorseViewProps)
           <Label>Kłus</Label>
 
           <InputFormField<UpsertCharacterEquipmentType> 
-              path={pathToHorseField(index, `paceSpeed`)}
-              inputPlaceholder="edytuj kłus..."
+            path={pathToHorseField(index, `paceSpeed`)}
+            inputPlaceholder="edytuj kłus..."
           />
 
         </div>
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Galop</Label>
+          <Label>Galop</Label>
 
-            <InputFormField<UpsertCharacterEquipmentType> 
-                path={pathToHorseField(index, `gallopSpeed`)}
-                inputPlaceholder="edytuj galop..."
-            />
+          <InputFormField<UpsertCharacterEquipmentType> 
+            path={pathToHorseField(index, `gallopSpeed`)}
+            inputPlaceholder="edytuj galop..."
+          />
             
         </div>
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Cwał</Label>
+          <Label>Cwał</Label>
 
-            <InputFormField<UpsertCharacterEquipmentType> 
-                path={pathToHorseField(index, `canterSpeed`)}
-                inputPlaceholder="edytuj cwał..."
-            />
+          <InputFormField<UpsertCharacterEquipmentType> 
+              path={pathToHorseField(index, `canterSpeed`)}
+              inputPlaceholder="edytuj cwał..."
+          />
             
         </div>
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Bonus do jeździectwa</Label>
+          <Label>Bonus do jeździectwa</Label>
 
-            <InputFormField<UpsertCharacterEquipmentType> 
-                path={pathToHorseField(index, `horsemanshipBonus`)}
-                inputPlaceholder="edytuj bonus do jeździectwa..."
-            />
+          <InputFormField<UpsertCharacterEquipmentType> 
+              path={pathToHorseField(index, `horsemanshipBonus`)}
+              inputPlaceholder="edytuj bonus do jeździectwa..."
+          />
             
         </div>
 

@@ -23,6 +23,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
                 items={attributePenaltyValues}
                 noLabel
             />
+
         </div>
 
         <div className="flex flex-row gap-3 px-14">
@@ -36,6 +37,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
                     items={attributePenaltyValues}
                     noLabel
                 />
+
             </div>
 
             <div className="grid auto-rows-min gap-3 px-4">
@@ -47,6 +49,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
                     items={strengthRequirementValues}
                     noLabel
                 />
+
             </div>
                 
         </div>
@@ -62,6 +65,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
                     items={dexterityRestrictionValues}
                     noLabel
                 />
+
             </div>
 
             <div className="grid auto-rows-min gap-3 px-4">
@@ -73,6 +77,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
                     items={initiativeRestrictionValues}
                     noLabel
                 />
+                
             </div>
 
         </div>

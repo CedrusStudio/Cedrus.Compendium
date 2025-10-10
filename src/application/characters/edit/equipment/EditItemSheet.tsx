@@ -50,24 +50,25 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label className="px-6">Nazwa</Label>
-                
-                <InputFormField<UpsertCharacterEquipmentType> 
-                  path={`${item.type}.name`}
-                  inputPlaceholder="edytuj nazwę..." 
-                  inputClassName='w-80'
-                />
+              <Label className="px-6">Nazwa</Label>
+              
+              <InputFormField<UpsertCharacterEquipmentType> 
+                path={`${item.type}.name`}
+                inputPlaceholder="edytuj nazwę..." 
+                inputClassName='w-80'
+              />
                 
             </div>
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Opis</Label>
-                
-                <AreaInputFormField<UpsertCharacterEquipmentType> 
-                  path={`${item.type}.description`}
-                  inputPlaceholder="edytuj opis..." 
-                />
+              <Label>Opis</Label>
+              
+              <AreaInputFormField<UpsertCharacterEquipmentType> 
+                path={`${item.type}.description`}
+                inputPlaceholder="edytuj opis..." 
+              />
+              
             </div>
 
             {children}

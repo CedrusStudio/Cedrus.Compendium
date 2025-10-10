@@ -110,7 +110,7 @@ function CharacterCard({ character }: { character: Character })
           {character.name}
 
           <Button asChild size="icon" className='mt-0.5' onClick={() => dispatch(actions.clearCharacterNavbarSearch())}>
-              <Link href={`/characters/${character.id}`}><FaMagnifyingGlass /></Link>
+            <Link href={`/characters/${character.id}`}><FaMagnifyingGlass /></Link>
           </Button>
         </CardTitle>
       </CardHeader>

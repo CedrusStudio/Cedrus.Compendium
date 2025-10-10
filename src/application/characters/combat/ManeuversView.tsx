@@ -10,7 +10,6 @@ import { Maneuver } from '@/domain/characters/Character';
 import { getColorClasses, type CastTime } from '@/domain/data/castTimes';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import { LuRefreshCcw } from "react-icons/lu";
-import { GiSwordsEmblem } from "react-icons/gi";
 import { useState } from 'react';
 import { Button } from '@/ui/button';
 import { RiResetLeftFill } from "react-icons/ri";

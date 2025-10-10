@@ -41,18 +41,16 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
             {
               modes.map(mode => (
                 <SelectItem key={mode.name} value={mode.name}>
-                  <div className="flex items-center gap-3">
-                    <Label htmlFor={mode.name} >
-                      <div className="flex items-start text-start gap-2">
-                        <FieldView
-                          name={mode.name} 
-                          value={mode.grade} 
-                          className="gap-1" 
-                          nameClassName="w-4xs"
-                        />
-                      </div>
-                    </Label>
-                  </div>
+                  <Label htmlFor={mode.name} className="flex items-center gap-3" >
+                    <div className="flex items-start text-start gap-2">
+                      <FieldView
+                        name={mode.name} 
+                        value={mode.grade} 
+                        className="gap-1" 
+                        nameClassName="w-4xs"
+                      />
+                    </div>
+                  </Label>
                 </SelectItem>
               ))
             }

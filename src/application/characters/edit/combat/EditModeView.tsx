@@ -33,15 +33,16 @@ export default function EditModeView({ mode, modeType, index, remove }: EditMode
   return (
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2  min-h-24">
         
-        <div className="p-2 rounded-md w-full">
-            <h4 className="font-semibold">{mode.name}</h4>
-            <p className="text-sm text-muted-foreground">{mode.description}</p>
-        </div>
+      <div className="p-2 rounded-md w-full">
+          <h4 className="font-semibold">{mode.name}</h4>
+          <p className="text-sm text-muted-foreground">{mode.description}</p>
+      </div>
 
-        <div className="flex flex-row gap-2">
-          <RemoveFromArrayButton remove={remove} index={index} />
-          <EditModeSheet index={index} modeType={modeType} />
-        </div>
+      <div className="flex flex-row gap-2">
+        <RemoveFromArrayButton remove={remove} index={index} />
+        <EditModeSheet index={index} modeType={modeType} />
+      </div>
+      
     </div>
   );
 }

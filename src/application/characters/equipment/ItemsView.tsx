@@ -14,23 +14,23 @@ export default function ItemsView<T extends Item>({ items, itemViewFactory, labe
   return (
     <>
       <div className="flex items-center justify-center gap-2">
-          <h3 className="text-lg font-semibold">{label}</h3>
-          {children}
+        <h3 className="text-lg font-semibold">{label}</h3>
+        {children}
       </div>
       {
         items.length > 0 && (
-            <div>
-            {
-                items.map((item, index) => (
-                  <AccordionItem key={item.id} value={item.id}>
-                      <AccordionTrigger>{item.name}</AccordionTrigger>
-                      <AccordionContent>
-                          {itemViewFactory(item, index)}
-                      </AccordionContent>
-                  </AccordionItem>
-                ))
-            }
-            </div>
+          <div>
+          {
+            items.map((item, index) => (
+              <AccordionItem key={item.id} value={item.id}>
+                  <AccordionTrigger>{item.name}</AccordionTrigger>
+                  <AccordionContent>
+                      {itemViewFactory(item, index)}
+                  </AccordionContent>
+              </AccordionItem>
+            ))
+          }
+          </div>
         )
       }
     </>

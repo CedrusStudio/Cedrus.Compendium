@@ -19,7 +19,5 @@ export default function EditInventoryItemView({ index, inventory }: EditInventor
 
 function EditInventorySheet({ inventory, index }: EditInventoryItemViewProps)
 {
-  return (
-    <EditItemSheet item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} />
-  )
+  return <EditItemSheet item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} />;
 }

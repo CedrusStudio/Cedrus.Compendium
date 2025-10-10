@@ -50,6 +50,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
           <EditSecondaryWeaponOffenseSubcard offense={offense} index={index} />
           <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} index={index} />
         </div>
+        
       </CardContent>
       
     </Card>

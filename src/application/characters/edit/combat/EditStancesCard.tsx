@@ -28,10 +28,10 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
     <Card className='bg-muted'>
 
       <CardHeader>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-            <span>Postawy</span>
-            <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
-          </CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
+          <span>Postawy</span>
+          <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
+        </CardTitle>
       </CardHeader>
 
       <CardContent className='grid grid-cols-1 sm:grid-cols-2'>

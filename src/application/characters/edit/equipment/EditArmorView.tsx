@@ -26,17 +26,17 @@ function EditArmorSheet({ armor, index }: EditArmorViewProps)
 {
   return (
     <EditItemSheet item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} >
-        <div className="grid auto-rows-min gap-3 px-4">
+      <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Pancerz</Label>
+        <Label>Pancerz</Label>
 
-          <SelectFormField<UpsertCharacterEquipmentType> 
-              path={pathToArmorsField(index, `protection`)}
-              items={protectionValues}
-              noLabel
-          />
+        <SelectFormField<UpsertCharacterEquipmentType> 
+          path={pathToArmorsField(index, `protection`)}
+          items={protectionValues}
+          noLabel
+        />
 
-        </div>
+      </div>
 
       <EditDefensiveItemView defensiveItem="armors" index={index} />
     </EditItemSheet>

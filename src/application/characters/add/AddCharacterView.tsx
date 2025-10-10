@@ -71,7 +71,6 @@ export default function AddCharacterView()
 
     return (
         <Form {...form}>
-
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 
                 <p className='text-xl text-center text-primary pt-8 font-semibold '>
@@ -99,7 +98,6 @@ export default function AddCharacterView()
 
                 <SubmitButton isPending={isPending} />
             </form>
-
         </Form>
     );
 };
