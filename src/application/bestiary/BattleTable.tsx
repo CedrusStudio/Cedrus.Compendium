@@ -4,7 +4,6 @@ import {
   ColumnFiltersState,
   SortingState,
   VisibilityState,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -15,7 +14,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCell,
   TableRow,
 } from "@/ui/table";
 import { useState, useEffect, useMemo } from "react";
@@ -35,6 +33,7 @@ import { Button } from "@/common/components/ui/button";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import { removeIcon } from "@/domain/data/icons";
+import BestiaryTableCell from "@/application/bestiary/BestiaryTableCell";
 
 export default function BattleTable()
 {
@@ -117,7 +116,7 @@ export default function BattleTable()
 
       <div className="overflow-hidden rounded-md border">
         <Table>
-            <DefaultTableHeader table={table} />
+            <DefaultTableHeader table={table} addBorders className="text-center" />
 
             <TableBody>
             {
@@ -127,11 +126,7 @@ export default function BattleTable()
                     table.getRowModel().rows.map(row => (
                       <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                       {
-                        row.getVisibleCells().map(cell => (
-                          <TableCell key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          </TableCell>
-                        ))
+                        row.getVisibleCells().map(cell => <BestiaryTableCell key={cell.id} cell={cell} />)
                       }
                       </TableRow>
                   ))

@@ -34,6 +34,7 @@ import { addIcon } from "@/domain/data/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
+import BestiaryTableCell from "./BestiaryTableCell";
 
 export default function BestiaryTable()
 {
@@ -118,13 +119,7 @@ export default function BestiaryTable()
                     table.getRowModel().rows.map(row => (
                       <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                       {
-                        row.getVisibleCells().map(cell => (
-                          <TableCell key={cell.id} className="border-r first:border-r-0 last:border-r-0 [&:nth-last-child(2)]:border-r-0">
-                            <div className="flex justify-center text-center">
-                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </div>
-                          </TableCell>
-                        ))
+                        row.getVisibleCells().map(cell => <BestiaryTableCell key={cell.id} cell={cell} />)
                       }
                       </TableRow>
                   ))
