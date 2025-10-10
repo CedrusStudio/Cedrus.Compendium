@@ -1,4 +1,4 @@
-import { searchCharacter, getAllCharacters } from "@/persistence/characterRepository";
+import { getAllCharacters } from "@/persistence/characterRepository";
 import {
   dehydrate,
   HydrationBoundary,
@@ -6,25 +6,18 @@ import {
 } from '@tanstack/react-query';
 import { Character } from "@/domain/characters/Character";
 import { Suspense } from 'react';
-import { getCharacterQueryKey } from "@/persistence/cacheKeys";
-import { getSearchQuery } from "@/common/global/httpUtils";
 import BestiaryTable from "@/application/bestiary/table/BestiaryTable";
 import BestiaryGridSkeleton from "@/application/bestiary/table/BestiaryTableSkeleton";
+import { allCharactersKey } from "@/persistence/cacheKeys";
 
-type CharactersPageProps = 
+export default async function BestiaryPage()
 {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export default async function BestiaryPage(input: CharactersPageProps)
-{
-  const searchQuery = await getSearchQuery(input);
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery<Character[]>
   ({
-    queryKey: getCharacterQueryKey(searchQuery),
-    queryFn: () => searchQuery ? searchCharacter(searchQuery) : getAllCharacters()
+    queryKey: allCharactersKey,
+    queryFn: () => getAllCharacters()
   });
 
   return (

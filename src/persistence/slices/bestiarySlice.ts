@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type BestiarySliceState = 
 {
-  bestiaryNavbarSearch: string;
+  addedToBattle: string[];
 };
 
 const initialState: BestiarySliceState = 
 {
-    bestiaryNavbarSearch: '' 
+  addedToBattle: [] 
 };
 
 const bestiarySlice = createSlice
@@ -16,13 +16,21 @@ const bestiarySlice = createSlice
   initialState,
   reducers: 
   {
-    setBestiaryNavbarSearch(state, action: PayloadAction<string>) 
+    addToBattle(state, action: PayloadAction<string>) 
     {
-      state.bestiaryNavbarSearch = action.payload;
+      state.addedToBattle.push(action.payload);
     },
-    clearBestiaryNavbarSearch(state) 
+    addMultipleToBattle(state, action: PayloadAction<string[]>) 
     {
-      state.bestiaryNavbarSearch = '';
+      state.addedToBattle.push(...action.payload);
+    },
+    removeSelectedFromBattle(state, action: PayloadAction<string[]>) 
+    {
+      state.addedToBattle = state.addedToBattle.filter(id => !action.payload.includes(id));
+    },
+    clearBattle(state) 
+    {
+      state.addedToBattle = [];
     }
   },
 });

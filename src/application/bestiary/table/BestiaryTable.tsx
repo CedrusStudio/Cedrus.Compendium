@@ -31,6 +31,9 @@ import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import { characterCategories } from "@/domain/data/categories";
 import { Button } from "@/common/components/ui/button";
 import { addIcon, battleIcon } from "@/domain/data/icons";
+import { useDispatch } from "react-redux";
+import { actions } from "@/persistence/slices/bestiarySlice";
+import { toast } from "sonner";
 
 export default function BestiaryTable()
 {
@@ -39,6 +42,7 @@ export default function BestiaryTable()
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const dispatch = useDispatch();
 
   useEffect(() => 
   {
@@ -89,12 +93,13 @@ export default function BestiaryTable()
           allCategory={namingConventions.all}
         />
 
-        <Button variant="outline" size="sm" onClick={() => 
+        <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
-          console.log(selectedCharacterIds);
+          dispatch(actions.addMultipleToBattle(selectedCharacterIds));
+          toast.success("Dodano do walki zaznaczone postacie.");
         }}>
-          {addIcon("scale-85")}{battleIcon("scale-95")}
+          {addIcon("scale-90")}{battleIcon("scale-95")}
         </Button>
 
         <PaginationButtons table={table} />
