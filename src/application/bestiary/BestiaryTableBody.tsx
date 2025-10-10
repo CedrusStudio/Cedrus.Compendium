@@ -14,10 +14,10 @@ export default function BestiaryTableBody<TData>({ table, columns }: BestiaryTab
 {
   return (
     <div className="overflow-hidden rounded-md border">
-        <Table>
-            <DefaultTableHeader table={table} addBorders className="text-center" />
-            <DefaultTableBody table={table} columns={columns} tableRowFactory={row => <BestiaryTableRow key={row.id} row={row} />} />
-        </Table>
+      <Table>
+        <DefaultTableHeader table={table} addBorders className="text-center" />
+        <DefaultTableBody table={table} columns={columns} tableRowFactory={row => <BestiaryTableRow key={row.id} row={row} />} />
+      </Table>
     </div>
   );
 };

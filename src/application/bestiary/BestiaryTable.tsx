@@ -73,7 +73,7 @@ export default function BestiaryTable()
   })
 
   return (
-    <div>
+    <div className="mx-3">
       <div className="flex items-center py-4 gap-3">
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 
@@ -95,7 +95,7 @@ export default function BestiaryTable()
         </Button>
 
         <PaginationButtons table={table} />
-        <ColumnFilter table={table} />k
+        <ColumnFilter table={table} />
       </div>
 
       <BestiaryTableBody table={table} columns={columns} />

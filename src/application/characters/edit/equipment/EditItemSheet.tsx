@@ -43,22 +43,21 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
           
           <SheetHeader>
             <SheetTitle>Edytujesz przedmiot</SheetTitle>
-            <SheetDescription>
-              Kliknij zapisz, gdy skończysz.
-            </SheetDescription>
+            <SheetDescription>Kliknij zapisz, gdy skończysz.</SheetDescription>
           </SheetHeader>
 
           <div className="grid gap-6">
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Nazwa</Label>
+                <Label className="px-6">Nazwa</Label>
                 
                 <InputFormField<UpsertCharacterEquipmentType> 
                   path={`${item.type}.name`}
                   inputPlaceholder="edytuj nazwę..." 
                   inputClassName='w-80'
                 />
+                
             </div>
 
             <div className="grid auto-rows-min gap-3 px-4">

@@ -102,65 +102,65 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
 
         <div className="flex flex-col flex-1">
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 px-4">
 
             <div className="flex grid-cols justify-center gap-4">
 
               <LabeledFormInput 
-                  name="name" 
-                  label={translate("name")}
-                  value={newTalentName} 
-                  placeholder="Nazwa umiejętności"
-                  onChange={(e) => setNewTalentName(e.target.value)} 
-                  errors={errors} 
+                name="name" 
+                label={translate("name")}
+                value={newTalentName} 
+                placeholder="Nazwa umiejętności"
+                onChange={(e) => setNewTalentName(e.target.value)} 
+                errors={errors} 
               />
 
               <LabeledFormInput 
-                  name="grade" 
-                  label={translate("grade")}
-                  value={newTalentGrade || defaultTalent.grade} 
-                  onChange={(e) => setNewTalentGrade(Number(e.target.value))}
-                  errors={errors} 
+                name="grade" 
+                label={translate("grade")}
+                value={newTalentGrade || defaultTalent.grade} 
+                onChange={(e) => setNewTalentGrade(Number(e.target.value))}
+                errors={errors} 
               />
 
             </div>
 
             <LabeledFormSelectInput
-                name="category"
-                label={translate("category")}
-                collectionToSelectFrom={talentCategories}
-                value={selectedCategory}
-                placeholder="Wybierz kategorię"
-                onChange={setSelectedCategory}
-                errors={errors}
+              name="category"
+              label={translate("category")}
+              collectionToSelectFrom={talentCategories}
+              value={selectedCategory}
+              placeholder="Wybierz kategorię"
+              onChange={setSelectedCategory}
+              errors={errors}
             />
 
             <LabeledFormSelectInput
-                name="characteristics"
-                label={translate("characteristics")}
-                collectionToSelectFrom={characteristicsOptions}
-                value={selectedCharacteristics}
-                placeholder="Wybierz cechę"
-                onChange={setSelectedCharacteristics}
-                errors={errors}
+              name="characteristics"
+              label={translate("characteristics")}
+              collectionToSelectFrom={characteristicsOptions}
+              value={selectedCharacteristics}
+              placeholder="Wybierz cechę"
+              onChange={setSelectedCharacteristics}
+              errors={errors}
             />
 
             <div className="grid grid-cols-2 gap-3">
 
               <LabeledFormInput 
-                  name="bonus" 
-                  label={translate("bonus")}
-                  value={newTalentBonus} 
-                  onChange={(e) => setNewTalentBonus(Number(e.target.value))}
-                  errors={errors} 
+                name="bonus" 
+                label={translate("bonus")}
+                value={newTalentBonus} 
+                onChange={(e) => setNewTalentBonus(Number(e.target.value))}
+                errors={errors} 
               />
 
               <LabeledFormInput 
-                  name="penalty" 
-                  label={translate("penalty")}
-                  value={newTalentPenalty} 
-                  onChange={(e) => setNewTalentPenalty(Number(e.target.value))}
-                  errors={errors} 
+                name="penalty" 
+                label={translate("penalty")}
+                value={newTalentPenalty} 
+                onChange={(e) => setNewTalentPenalty(Number(e.target.value))}
+                errors={errors} 
               />
 
             </div>
@@ -168,12 +168,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
           </div>
 
           <SheetFooter>
-            <div className="flex justify-center">
-              <Button type="button" className="flex-1" onClick={addNewTalent} >
-              Dodaj umiejętność
-              </Button>
-            </div>
-
+            <Button type="button" className="flex justify-center flex-1" onClick={addNewTalent}>Dodaj umiejętność</Button>
             <Button type="button" variant="secondary" className="flex-1" onClick={resetAddTalentForm}>Wyczyść</Button>
 
             <SheetClose asChild>

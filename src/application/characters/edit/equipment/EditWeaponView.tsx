@@ -67,7 +67,7 @@ function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
   <>
-    <Label className='justify-center'>{translate('weaponDice')}</Label>
+    <Label className='justify-center capitalize'>{translate('weaponDice')}</Label>
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
