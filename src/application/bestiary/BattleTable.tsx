@@ -14,7 +14,6 @@ import {
 import {
   Table,
   TableBody,
-  TableRow,
 } from "@/ui/table";
 import { useState, useEffect, useMemo } from "react";
 import { namingConventions } from "@/domain/data/namingConventions";
@@ -33,7 +32,7 @@ import { Button } from "@/common/components/ui/button";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import { removeIcon } from "@/domain/data/icons";
-import BestiaryTableCell from "@/application/bestiary/BestiaryTableCell";
+import BestiaryTableRow from "./BestiaryTableRow";
 
 export default function BattleTable()
 {
@@ -122,15 +121,7 @@ export default function BattleTable()
             {
               table.getRowModel().rows?.length <= 0
                 ? <EmptyTable colSpan={columns.length} />
-                : (
-                    table.getRowModel().rows.map(row => (
-                      <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                      {
-                        row.getVisibleCells().map(cell => <BestiaryTableCell key={cell.id} cell={cell} />)
-                      }
-                      </TableRow>
-                  ))
-                )
+                : table.getRowModel().rows.map(row => <BestiaryTableRow key={row.id} row={row} /> )
             }
             </TableBody>
         </Table>

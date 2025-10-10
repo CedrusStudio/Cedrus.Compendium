@@ -4,7 +4,6 @@ import {
   ColumnFiltersState,
   SortingState,
   VisibilityState,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -15,8 +14,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCell,
-  TableRow,
 } from "@/ui/table";
 import { useState, useEffect } from "react";
 import { namingConventions } from "@/domain/data/namingConventions";
@@ -34,7 +31,7 @@ import { addIcon } from "@/domain/data/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
-import BestiaryTableCell from "./BestiaryTableCell";
+import BestiaryTableRow from "./BestiaryTableRow";
 
 export default function BestiaryTable()
 {
@@ -115,15 +112,7 @@ export default function BestiaryTable()
             {
               table.getRowModel().rows?.length <= 0
                 ? <EmptyTable colSpan={columns.length} />
-                : (
-                    table.getRowModel().rows.map(row => (
-                      <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                      {
-                        row.getVisibleCells().map(cell => <BestiaryTableCell key={cell.id} cell={cell} />)
-                      }
-                      </TableRow>
-                  ))
-                )
+                : table.getRowModel().rows.map(row => <BestiaryTableRow key={row.id} row={row} /> )
             }
             </TableBody>
         </Table>
