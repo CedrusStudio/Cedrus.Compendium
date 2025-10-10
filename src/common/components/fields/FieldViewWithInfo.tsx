@@ -14,6 +14,7 @@ type FieldViewWithInfoProps =
   className?: string;
   nameClassName?: string;
   valueClassName?: string;
+  infoTriggerClassName?: string;
 };
 
 export default function FieldViewWithInfo(input: FieldViewWithInfoProps) 
@@ -29,7 +30,7 @@ export default function FieldViewWithInfo(input: FieldViewWithInfoProps)
         {input.value}
 
         <HoverCard openDelay={350} closeDelay={100}>
-          <HoverCardTrigger>{<BsInfoCircle />}</HoverCardTrigger>
+          <HoverCardTrigger className={input.infoTriggerClassName}>{<BsInfoCircle />}</HoverCardTrigger>
           <HoverCardContent>
             {input.infoContent}
           </HoverCardContent>

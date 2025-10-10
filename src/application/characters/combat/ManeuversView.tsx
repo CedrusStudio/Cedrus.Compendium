@@ -51,7 +51,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
             <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Manewry</CardTitle>
         </CardHeader>
 
-        <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
+        <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
         {
             maneuvers.map(maneuver => <ManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
         }

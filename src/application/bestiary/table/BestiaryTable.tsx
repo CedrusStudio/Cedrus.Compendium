@@ -46,7 +46,7 @@ export default function BestiaryTable()
       return acc;
     }, {});
     setColumnVisibility(initialVisibility);
-  }, [columns]);
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const handleOnSelectedValueChange = (value: string) => 
@@ -115,8 +115,12 @@ export default function BestiaryTable()
             }
             </TableBody>
         </Table>
+
       </div>
 
+      <div className="text-muted-foreground flex-1 text-sm mt-2">
+        Zaznaczono {table.getFilteredSelectedRowModel().rows.length} z{" "} {table.getFilteredRowModel().rows.length}.
+      </div>
     </div>
   );
 };

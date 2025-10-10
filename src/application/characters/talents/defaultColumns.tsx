@@ -39,7 +39,8 @@ export const defaultColumns: AccessorKeyColumnDef<Talent>[] =
     id: defaultColumnKeys.name,
     accessorKey: defaultColumnKeys.name,
     header: defaultColumnHeaders.name,
-    cell: ({ row }) => <span className="capitalize">{row.original.name}</span>
+    cell: ({ row }) => <span className="capitalize">{row.original.name}</span>,
+    enableHiding: false
   },
   {
     id: defaultColumnKeys.category,
