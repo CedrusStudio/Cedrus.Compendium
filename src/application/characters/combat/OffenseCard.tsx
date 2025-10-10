@@ -90,9 +90,9 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
     
     setRolls(previousRolls => 
     {
-        const newRolls = [...previousRolls];
-        newRolls[rollIndex] = [damage, critical > 0];
-        return newRolls;
+      const newRolls = [...previousRolls];
+      newRolls[rollIndex] = [damage, critical > 0];
+      return newRolls;
     });
   };
 

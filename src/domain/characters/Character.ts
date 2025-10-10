@@ -187,6 +187,11 @@ export type Critical =
   range: number;
 }
 
+export function calculateRange(weaponOffense: WeaponOffense): string
+{
+  return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
+}
+
 export type Statistic = 
 {
   grade: number;

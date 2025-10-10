@@ -1,4 +1,4 @@
-import { WeaponOffense } from '@/domain/characters/Character';
+import { calculateRange, WeaponOffense } from '@/domain/characters/Character';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 
@@ -11,14 +11,12 @@ type CriticalViewProps =
 
 export default function CriticalView({ weaponOffense, setRange, setPower }: CriticalViewProps) 
 {
-    const calculatedRange = `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
-
     return (
         <div className='flex gap-x-1'>
 
             <div className='flex items-center'>
                 <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-yellow-300">
-                    {calculatedRange}
+                    {calculateRange(weaponOffense)}
                 </Badge>
                 <VerticalChangeButtons setValue={setRange} />
             </div>

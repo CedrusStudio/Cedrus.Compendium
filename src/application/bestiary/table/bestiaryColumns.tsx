@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/common/components/ui/button";
-import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes, Mode, Maneuver } from "@/domain/characters/Character";
+import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes, Mode, Maneuver, calculateRange } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { attributesIcons, characteristicIcons, immunityIcon, resistanceIcon } from "@/domain/data/icons";
@@ -27,13 +27,9 @@ import {
 import { useRouter } from "next/navigation";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/ui/drawer";
 import { getColorClasses } from "@/domain/data/castTimes";
 
@@ -62,8 +58,8 @@ export const columnHeaders =
   name: "Nazwa",
   health: "Zdrowie",
   barrier: "Bariera",
-  defenses: "Obrony",
-  offenses: "Ataki",
+  defenses: "Defensywy",
+  offenses: "Ofensywy",
   attributes: "Atrybuty",
   characteristics: "Cechy",
   maneuvers: "Manewry",
@@ -108,39 +104,35 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     id: columnKeys.category,
     accessorKey: columnKeys.category,
     cell: ({ row }) => <span className="capitalize">{row.original.category}</span>,
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          {columnHeaders.category}
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        type="button"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        {columnHeaders.category}
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     meta: { initiallyHidden: true },
   },
   {
     id: columnKeys.health,
     accessorKey: columnKeys.health,
-    cell: ({ row }) => (
-      <div className="flex flex-wrap gap-2">
-        <div className="flex flex-wrap gap-2">{CharacterHealthBattleView(row.original)}</div>
-      </div>
-    ),
+    cell: ({ row }) => <div className="flex flex-wrap gap-2">{CharacterHealthBattleView(row.original)}</div>,
     header: columnHeaders.health,
   },
   {
     id: columnKeys.defenses,
     accessorKey: columnKeys.defenses,
-    cell: ({ row }) => (
-      <div className="flex flex-wrap gap-2">
-        <div className="flex flex-wrap gap-2">{CharacterDefensesBattleView(row.original)}</div>
-      </div>
-    ),
+    cell: ({ row }) => <div className="flex flex-wrap gap-2">{CharacterDefensesBattleView(row.original)}</div>,
     header: columnHeaders.defenses
+  },
+  {
+    id: columnKeys.offenses,
+    accessorKey: columnKeys.offenses,
+    cell: ({ row }) => <div className="flex flex-wrap gap-2">{CharacterOffensesBattleView(row.original)}</div>,
+    header: columnHeaders.offenses
   },
   {
     id: columnKeys.characteristics,
@@ -165,7 +157,6 @@ export const columns: AccessorKeyColumnDef<Character>[] =
         <div className="flex flex-wrap gap-2">{attributesIcons.artifice} {getStatisticTotalTestValue(row.original.attributes.artifice)}</div>
         <div className="flex flex-wrap gap-2">{attributesIcons.martialArt} {getStatisticTotalTestValue(row.original.attributes.martialArt)}</div>
         <div className="flex flex-wrap gap-2">{attributesIcons.precision} {getStatisticTotalTestValue(row.original.attributes.precision)}</div>
-        <div className="flex flex-wrap gap-2">{attributesIcons.horsemanship} {getStatisticTotalTestValue(row.original.attributes.horsemanship)}</div>
         <div className="flex flex-wrap gap-2 ml-5">{attributesIcons.fortitude} {getStatisticTotalTestValue(row.original.attributes.fortitude)}</div>
         <div className="flex flex-wrap gap-2">{attributesIcons.reflex} {getStatisticTotalTestValue(row.original.attributes.reflex)}</div>
         <div className="flex flex-wrap gap-2">{attributesIcons.willpower} {getStatisticTotalTestValue(row.original.attributes.willpower)}</div>
@@ -330,6 +321,30 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
           nameClassName='w-4xs'
           infoTriggerClassName={`${getColorClasses(maneuver.castTime).text}`}
       />
+    </div>
+  );
+}
+
+function CharacterOffensesBattleView(character: Character)
+{
+  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
+  const selectedOffense = character.offenses[selectedOffenseIndex];
+
+  return (
+    <div className="flex flex-row gap-4 items-center">
+      <SelectOneOf name='offense' defaultValue='0' index={selectedOffenseIndex} items={character.offenses} setIndex={setSelectedOffenseIndex} disableInfo />
+
+      <p>
+        {selectedOffense.leadingWeapon.amount}(k{selectedOffense.leadingWeapon.grade * 2}+{selectedOffense.leadingWeapon.bonus})
+        {selectedOffense.secondaryWeapon && <>+{selectedOffense.secondaryWeapon.amount}(k{selectedOffense.secondaryWeapon.grade * 2}+{selectedOffense.secondaryWeapon.bonus})</>}
+        +{selectedOffense.damageBonus.amount}k{selectedOffense.damageBonus.grade * 2}+{selectedOffense.damageBonus.bonus}
+      </p>
+
+      <p>
+        {`${calculateRange(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}
+        {selectedOffense.secondaryWeapon && ` / ${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}
+      </p>
+
     </div>
   );
 }
