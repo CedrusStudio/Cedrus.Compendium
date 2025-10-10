@@ -167,7 +167,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
 
 function CharacterHealthBattleView(character: Character)
 {
-  return <div>{calculateTotalHealthForCharacter(character)} {character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth && `(-${character.health.lethalHealth})`} [{character.health.recoveryLevel}]</div>;
+  return <div>{calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth && `(-${character.health.lethalHealth})`} [{character.health.recoveryLevel}]</div>;
 }
 
 function CharacterDefensesBattleView(character: Character)
