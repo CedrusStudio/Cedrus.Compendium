@@ -88,13 +88,13 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     id: columnKeys.name,
     accessorKey: columnKeys.name,
     header: columnHeaders.name,
-    cell: ({ row }) => <span className="capitalize">{row.original.name}</span>,
+    cell: ({ row }) => row.original.name,
     enableHiding: false
   },
   {
     id: columnKeys.category,
     accessorKey: columnKeys.category,
-    cell: ({ row }) => <span className="capitalize">{row.original.category}</span>,
+    cell: ({ row }) => row.original.category,
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -110,19 +110,19 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   {
     id: columnKeys.health,
     accessorKey: columnKeys.health,
-    cell: ({ row }) => <div className="flex flex-wrap gap-2">{CharacterHealthBattleView(row.original)}</div>,
+    cell: ({ row }) => <CharacterHealthBattleView character={row.original} />,
     header: columnHeaders.health,
   },
   {
     id: columnKeys.defenses,
     accessorKey: columnKeys.defenses,
-    cell: ({ row }) => <div className="flex flex-wrap gap-2">{CharacterDefensesBattleView(row.original)}</div>,
+    cell: ({ row }) => <CharacterDefensesBattleView character={row.original} />,
     header: columnHeaders.defenses
   },
   {
     id: columnKeys.offenses,
     accessorKey: columnKeys.offenses,
-    cell: ({ row }) => <div className="flex flex-wrap gap-2">{CharacterOffensesBattleView(row.original)}</div>,
+    cell: ({ row }) => <CharacterOffensesBattleView character={row.original} />,
     header: columnHeaders.offenses
   },
   {
@@ -165,12 +165,16 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   },
 ];
 
-function CharacterHealthBattleView(character: Character)
+function CharacterHealthBattleView({ character }: {character: Character})
 {
-  return <div>{calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth && `(-${character.health.lethalHealth})`} [{character.health.recoveryLevel}]</div>;
+  return (
+    <div>
+      {calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth && `(-${character.health.lethalHealth})`} [{character.health.recoveryLevel}]
+    </div>
+  );
 }
 
-function CharacterDefensesBattleView(character: Character)
+function CharacterDefensesBattleView({ character }: { character : Character })
 {
   const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
   const [selectedReductionType, setSelectedReductionType] = useState<ReductionType>("full");
@@ -316,7 +320,7 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
   );
 }
 
-function CharacterOffensesBattleView(character: Character)
+function CharacterOffensesBattleView({ character }: { character: Character })
 {
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
   const [rollTotalResult, setRollTotalResult] = useState<number>(0);

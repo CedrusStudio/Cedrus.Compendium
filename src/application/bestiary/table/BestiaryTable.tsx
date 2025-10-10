@@ -30,7 +30,7 @@ import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import { characterCategories } from "@/domain/data/categories";
 import { Button } from "@/common/components/ui/button";
-import { addIcon, battleIcon } from "@/domain/data/icons";
+import { addIcon } from "@/domain/data/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
@@ -108,7 +108,7 @@ export default function BestiaryTable()
 
       <div className="overflow-hidden rounded-md border">
         <Table>
-            <DefaultTableHeader table={table} />
+            <DefaultTableHeader table={table} addBorders />
 
             <TableBody>
             {
@@ -119,7 +119,7 @@ export default function BestiaryTable()
                       <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                       {
                         row.getVisibleCells().map(cell => (
-                          <TableCell key={cell.id}>
+                          <TableCell key={cell.id} className="border-r first:border-r-0 last:border-r-0 [&:nth-last-child(2)]:border-r-0">
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </TableCell>
                         ))
