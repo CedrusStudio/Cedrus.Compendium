@@ -3,7 +3,6 @@
 import {
   AccessorKeyColumnDef,
   ColumnFiltersState,
-  RowData,
   SortingState,
   VisibilityState,
   getCoreRowModel,
@@ -20,7 +19,7 @@ import {
 import { useState, useEffect } from "react";
 import { Talent } from "@/domain/characters/Character";
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
-import { Control, useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { talentCategories } from "@/domain/data/categories";
 import { defaultColumnKeys } from "../../talents/defaultColumns";
@@ -32,14 +31,8 @@ import CategorySelectFilter from "@/common/components/table/CategorySelectFilter
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
+import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 
-declare module '@tanstack/table-core' 
-{
-  interface TableMeta<TData extends RowData>
-  {
-    control?: Control<UpsertCharacterTalentsType>;
-  }
-}
 
 interface DataTableProps
 {
@@ -133,22 +126,19 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
         <Table>
           <DefaultTableHeader table={table} />
 
-          <TableBody>
+          <DefaultTableBody table={table} columns={columns} tableRowFactory=
           {
-            table.getRowModel().rows?.length <= 0
-              ? <EmptyTable colSpan={columns.length} />
-              : table.getRowModel().rows.map(row => (
-                  <EditTalentRow 
-                    key={row.original.id} 
-                    row={row} 
-                    index={row.index} 
-                    initialTalent={initialTalents.find(talent => talent.id === row.original.id)} 
-                    update={update} 
-                    remove={remove} 
-                  />
-                ))
-          }
-          </TableBody>
+            row => (
+              <EditTalentRow 
+                key={row.original.id} 
+                row={row} 
+                index={row.index} 
+                initialTalent={initialTalents.find(talent => talent.id === row.original.id)} 
+                update={update} 
+                remove={remove} 
+              />
+            )
+          } />
         </Table>
       </div>
     </div>

@@ -95,7 +95,7 @@ export default function BestiaryTable()
         </Button>
 
         <PaginationButtons table={table} />
-        <ColumnFilter table={table} />
+        <ColumnFilter table={table} />k
       </div>
 
       <BestiaryTableBody table={table} columns={columns} />

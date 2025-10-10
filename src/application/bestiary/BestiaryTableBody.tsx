@@ -1,8 +1,8 @@
-import { Table, TableBody } from "@/ui/table";
-import EmptyTable from "@/common/components/EmptyTable";
+import { Table } from "@/ui/table";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import BestiaryTableRow from "@/application/bestiary/BestiaryTableRow";
 import { Table as TableType } from "@tanstack/react-table";
+import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 
 type BestiaryTableBodyProps<TData> = 
 {
@@ -16,14 +16,7 @@ export default function BestiaryTableBody<TData>({ table, columns }: BestiaryTab
     <div className="overflow-hidden rounded-md border">
         <Table>
             <DefaultTableHeader table={table} addBorders className="text-center" />
-
-            <TableBody>
-            {
-                table.getRowModel().rows?.length <= 0
-                    ? <EmptyTable colSpan={columns.length} />
-                    : table.getRowModel().rows.map(row => <BestiaryTableRow key={row.id} row={row} /> )
-            }
-            </TableBody>
+            <DefaultTableBody table={table} columns={columns} tableRowFactory={row => <BestiaryTableRow key={row.id} row={row} />} />
         </Table>
     </div>
   );

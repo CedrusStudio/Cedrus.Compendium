@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  ColumnDef,
+  AccessorKeyColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -15,7 +15,6 @@ import {
 
 import {
   Table,
-  TableBody,
   TableCell,
   TableRow,
 } from "@/ui/table";
@@ -24,20 +23,20 @@ import { Talent } from "@/domain/characters/Character";
 import { talentCategories } from "@/domain/data/categories";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
 import { namingConventions } from "@/domain/data/namingConventions";
-import EmptyTable from "@/common/components/EmptyTable";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
+import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 
 interface DataTableProps
-{
-  columns: ColumnDef<Talent>[]
+{ 
+  columns: AccessorKeyColumnDef<Talent>[]
   data: Talent[],
 }
 
-export function TalentsView({ columns, data }: DataTableProps) 
+export function TalentsTable({ columns, data }: DataTableProps) 
 {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -98,31 +97,26 @@ export function TalentsView({ columns, data }: DataTableProps)
         <ColumnFilter table={table} />
       </div>
 
-        <div className="overflow-hidden rounded-md border">
-          <Table>
-            <DefaultTableHeader table={table} />
+      <div className="overflow-hidden rounded-md border">
+        <Table>
+          <DefaultTableHeader table={table} />
 
-            <TableBody>
-            {
-              table.getRowModel().rows?.length <= 0
-                ? <EmptyTable colSpan={columns.length} /> 
-                : (
-                    table.getRowModel().rows.map(row => (
-                      <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                      {
-                        row.getVisibleCells().map(cell => (
-                          <TableCell key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          </TableCell>
-                        ))
-                      }
-                      </TableRow>
-                    ))
-                )
-            }
-            </TableBody>
-          </Table>
-        </div>
+          <DefaultTableBody table={table} columns={columns} tableRowFactory=
+          {
+            row => (
+              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+              {
+                row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))
+              }
+              </TableRow>
+            )
+          } />
+        </Table>
+      </div>
 
     </div>
   )
