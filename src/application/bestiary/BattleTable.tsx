@@ -22,7 +22,7 @@ import { useState, useEffect, useMemo } from "react";
 import { namingConventions } from "@/domain/data/namingConventions";
 import EmptyTable from "@/common/components/EmptyTable";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
-import { columnKeys, columns } from "@/application/bestiary/bestiaryColumns";
+import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
