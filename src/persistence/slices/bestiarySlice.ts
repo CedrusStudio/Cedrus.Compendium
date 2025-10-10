@@ -16,21 +16,13 @@ const bestiarySlice = createSlice
   initialState,
   reducers: 
   {
-    addToBattle(state, action: PayloadAction<string>) 
-    {
-      state.addedToBattle.push(action.payload);
-    },
-    addMultipleToBattle(state, action: PayloadAction<string[]>) 
+    addSelectedToBattle(state, action: PayloadAction<string[]>) 
     {
       state.addedToBattle.push(...action.payload);
     },
     removeSelectedFromBattle(state, action: PayloadAction<string[]>) 
     {
       state.addedToBattle = state.addedToBattle.filter(id => !action.payload.includes(id));
-    },
-    clearBattle(state) 
-    {
-      state.addedToBattle = [];
     }
   },
 });

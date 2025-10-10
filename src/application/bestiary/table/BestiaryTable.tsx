@@ -96,10 +96,10 @@ export default function BestiaryTable()
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
-          dispatch(actions.addMultipleToBattle(selectedCharacterIds));
+          dispatch(actions.addSelectedToBattle(selectedCharacterIds));
           toast.success("Dodano do walki zaznaczone postacie.");
         }}>
-          {addIcon("scale-90")}{battleIcon("scale-95")}
+          {addIcon("scale-90")}
         </Button>
 
         <PaginationButtons table={table} />

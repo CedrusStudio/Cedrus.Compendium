@@ -55,16 +55,10 @@ export default function BarrierCard(input: BarrierCardProps)
 function CurrentBarrierInfoContent(input: { totalBarrier: number, damageTaken: number, barrierIncrease: number })
 {
   return (
-    <div>
-    {
-      <FieldView key="totalBarrier" name="Suma" value={input.totalBarrier} />
-    }
-    {
-      <FieldView key="barrierIncrease" name={namingConventions.increase} value={input.barrierIncrease} valueClassName='text-green-600' />
-    }
-    {
-      <FieldView key="damageTaken" name={namingConventions.damage} value={input.damageTaken}  valueClassName='text-red-500' />
-    }
+    <div className='flex flex-wrap flex-col items-center'>
+    { <FieldView key="totalBarrier" name="Suma" value={input.totalBarrier} nameClassName="w-24" /> }
+    { <FieldView key="barrierIncrease" name={namingConventions.increase} value={input.barrierIncrease} valueClassName='text-green-600' nameClassName="w-24" /> }
+    { <FieldView key="damageTaken" name={namingConventions.damage} value={input.damageTaken}  valueClassName='text-red-500' nameClassName="w-24" /> }
     </div>
   );
 }

@@ -29,6 +29,7 @@ import { TbSum } from "react-icons/tb";
 import { MdPublishedWithChanges } from "react-icons/md";
 
 import { MdOutlineHealthAndSafety } from "react-icons/md";
+import { LuMinus } from "react-icons/lu";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -74,3 +75,4 @@ export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 export const battleIcon = (className: string) => <GiSwordsEmblem className={className} />;
 
 export const addIcon = (className: string) => <LuPlus className={className} />;
+export const removeIcon = (className: string) => <LuMinus className={className} />;

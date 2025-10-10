@@ -34,6 +34,7 @@ import { RootState } from "@/persistence/slices/store";
 import { Button } from "@/common/components/ui/button";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
+import { removeIcon } from "@/domain/data/icons";
 
 export default function BattleTable()
 {
@@ -107,7 +108,7 @@ export default function BattleTable()
           dispatch(actions.removeSelectedFromBattle(selectedCharacterIds));
           toast.success("Usunięto z walki zaznaczone postacie.");
         }}>
-          Remove Selected
+          {removeIcon("scale-90")}
         </Button>
 
         <PaginationButtons table={table} />
