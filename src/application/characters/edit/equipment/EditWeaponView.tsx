@@ -67,7 +67,7 @@ function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
   <>
-    <Label className='justify-center capitalize'>{translate('weaponDice')}</Label>
+    <Label className='justify-center capitalize text-yellow-600'>{translate('weaponDice')}</Label>
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
@@ -114,7 +114,7 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
     <>
-      <Label className='justify-center capitalize'>{translate('damageDice')}</Label>
+      <Label className='justify-center capitalize text-yellow-600'>{translate('damageDice')}</Label>
 
         <div className="flex flex-row justify-center gap-3">
               
@@ -123,10 +123,11 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
             <Label className='capitalize'>{translate('amount')}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                path={pathToWeaponsDamageOffenseField(index, `amount`)}
-                items={diceAmounts}
-                noLabel
-                />
+              path={pathToWeaponsDamageOffenseField(index, `amount`)}
+              items={diceAmounts}
+              noLabel
+            />
+
           </div>
           
           <div className="grid auto-rows-min gap-3 px-4">
@@ -134,10 +135,11 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
             <Label className='capitalize'>{translate('grade')}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                path={pathToWeaponsDamageOffenseField(index, `grade`)}
-                items={diceGrades}
-                noLabel
-                />
+              path={pathToWeaponsDamageOffenseField(index, `grade`)}
+              items={diceGrades}
+              noLabel
+            />
+
           </div>
           
           <div className="grid auto-rows-min gap-3 px-4">
@@ -145,10 +147,11 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
             <Label>Bonus</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
-                path={pathToWeaponsDamageOffenseField(index, `bonus`)}
-                items={diceBonuses}
-                noLabel
-                />
+              path={pathToWeaponsDamageOffenseField(index, `bonus`)}
+              items={diceBonuses}
+              noLabel
+            />
+            
           </div>
           
         </div>
