@@ -13,11 +13,11 @@ import { useWeaponOffenseForm } from '@/application/characters/edit/combat/useWe
 import { Button } from '@/ui/button';
 import { useState } from 'react';
 import RemoveButton from '@/common/components/form/RemoveButton';
-import { LuPlus } from 'react-icons/lu';
 import { resolveSetState } from '@/common/global/resolveSetState';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
+import { addIcon } from '@/domain/data/icons';
 
 type EditOffenseCardProps =
 {
@@ -134,7 +134,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
     return (
       <Card className="flex items-center justify-center col-span-3 bg-secondary">
         <CardContent className='flex items-center justify-center'>
-          <Button variant='outline' onClick={handleAddSecondary}><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Button>
+          <Button variant='outline' onClick={handleAddSecondary}>{addIcon("h-[1.2rem] w-[1.2rem]")}</Button>
         </CardContent>
     </Card>
     );

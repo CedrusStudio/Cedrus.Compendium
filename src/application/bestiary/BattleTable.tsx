@@ -36,7 +36,7 @@ export default function BattleTable()
 
   // Memoize filtered data to prevent recalculation on every render
   const data = useMemo(() => 
-{
+  {
     const battleIdsSet = new Set(charactersInBattle);
     return characters.filter(character => battleIdsSet.has(character.id));
   }, [characters, charactersInBattle]);

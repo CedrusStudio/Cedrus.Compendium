@@ -1,8 +1,8 @@
 "use client";
 
+import { addIcon } from "@/domain/data/icons";
 import { Button, ButtonVariants } from "@/ui/button";
 import { ArrayPath, FieldArray, FieldValues, UseFieldArrayAppend } from "react-hook-form";
-import { LuPlus } from "react-icons/lu";
 
 type AppendToArrayButtonProps<TType extends FieldValues, TName extends ArrayPath<TType>> =
 {
@@ -27,7 +27,7 @@ export default function AppendToArrayButton<TType extends FieldValues, TName ext
           : toAdd
       )}
     >
-      <LuPlus className="h-[1.2rem] w-[1.2rem]" />
+      {addIcon("h-[1.2rem] w-[1.2rem]")}
     </Button>
   );
 };

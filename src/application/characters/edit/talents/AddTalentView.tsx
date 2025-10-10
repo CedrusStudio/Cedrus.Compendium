@@ -8,8 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { Button } from "@/ui/button"
-import { LuPlus } from "react-icons/lu";
+import { Button } from "@/ui/button";
 import { characteristicsOptions, talentCategories } from "@/domain/data/categories";
 import { UseFieldArrayAppend } from "react-hook-form";
 import { talentSchema, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
@@ -20,6 +19,7 @@ import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { ulid } from "ulid";
 import { defaultTalent } from "@/domain/data/defaults";
+import { addIcon } from "@/domain/data/icons";
 
 type AddTalentViewProps =
 {
@@ -88,7 +88,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     <Sheet open={open} onOpenChange={setOpen}>
 
       <SheetTrigger asChild>
-        <Button variant="outline"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Button>
+        <Button variant="outline">{addIcon("h-[1.2rem] w-[1.2rem]")}</Button>
       </SheetTrigger>
 
       <SheetContent>
