@@ -294,11 +294,11 @@ function ModeView({ mode }: { mode: Mode })
   return (
     <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
       <FieldViewWithInfo
-          name={mode.name}
-          value={mode.grade}
-          infoContent={<span>{mode.description}</span>}
-          className="gap-1"
-          nameClassName='w-4xs'
+        name={mode.name}
+        value={mode.grade}
+        infoContent={<span>{mode.description}</span>}
+        className="gap-1"
+        nameClassName='w-4xs'
       />
     </div>
   );
@@ -309,12 +309,12 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
   return (
     <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
       <FieldViewWithInfo
-          name={maneuver.name}
-          value={maneuver.grade}
-          infoContent={<span>Akcja <span className={`${getColorClasses(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
-          className="gap-1"
-          nameClassName='w-4xs'
-          infoTriggerClassName={`${getColorClasses(maneuver.castTime).text}`}
+        name={maneuver.name}
+        value={maneuver.grade}
+        infoContent={<span>Akcja <span className={`${getColorClasses(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
+        className="gap-1"
+        nameClassName='w-4xs'
+        infoTriggerClassName={`${getColorClasses(maneuver.castTime).text}`}
       />
     </div>
   );

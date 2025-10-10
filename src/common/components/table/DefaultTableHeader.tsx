@@ -24,13 +24,13 @@ export default function DefaultTableHeader<TData>({ table, className, addBorders
         <TableRow key={headerGroup.id}>
         {
           headerGroup.headers.map(header => (
-              <TableHead key={header.id} className={cn(borderClass, className)}>
-              {
-                header.isPlaceholder
-                    ? null
-                    : flexRender(header.column.columnDef.header, header.getContext())
-              }
-              </TableHead>
+            <TableHead key={header.id} className={cn(borderClass, className)}>
+            {
+              header.isPlaceholder
+                ? null
+                : flexRender(header.column.columnDef.header, header.getContext())
+            }
+            </TableHead>
         ))
         }
         </TableRow>

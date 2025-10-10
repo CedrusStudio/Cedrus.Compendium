@@ -6,8 +6,8 @@ import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 
 type BestiaryTableBodyProps<TData> = 
 {
-    table: TableType<TData>;
-    columns: { accessorKey: string }[];
+  table: TableType<TData>;
+  columns: { accessorKey: string }[];
 }
 
 export default function BestiaryTableBody<TData>({ table, columns }: BestiaryTableBodyProps<TData>)
