@@ -12,10 +12,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import {
-  Table,
-  TableBody,
-} from "@/ui/table";
+import { Table } from "@/ui/table";
 import { useState, useEffect } from "react";
 import { Talent } from "@/domain/characters/Character";
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
@@ -24,7 +21,6 @@ import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { talentCategories } from "@/domain/data/categories";
 import { defaultColumnKeys } from "../../talents/defaultColumns";
 import { namingConventions } from "@/domain/data/namingConventions";
-import EmptyTable from "@/common/components/EmptyTable";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
@@ -118,29 +114,26 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
         </div>
 
         <PaginationButtons table={table} />
-
         <ColumnFilter table={table} />
       </div>
 
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-          <DefaultTableHeader table={table} />
+      <Table className="overflow-hidden rounded-md border">
+        <DefaultTableHeader table={table} />
 
-          <DefaultTableBody table={table} columns={columns} tableRowFactory=
-          {
-            row => (
-              <EditTalentRow 
-                key={row.original.id} 
-                row={row} 
-                index={row.index} 
-                initialTalent={initialTalents.find(talent => talent.id === row.original.id)} 
-                update={update} 
-                remove={remove} 
-              />
-            )
-          } />
-        </Table>
-      </div>
+        <DefaultTableBody table={table} columns={columns} tableRowFactory=
+        {
+          row => (
+            <EditTalentRow 
+              key={row.original.id} 
+              row={row} 
+              index={row.index} 
+              initialTalent={initialTalents.find(talent => talent.id === row.original.id)} 
+              update={update} 
+              remove={remove} 
+            />
+          )
+        } />
+      </Table>
     </div>
   )
 }
