@@ -6,8 +6,8 @@ import {
 } from '@tanstack/react-query';
 import { Character } from "@/domain/characters/Character";
 import { Suspense } from 'react';
-import BestiaryGridSkeleton from "@/application/bestiary/table/BestiaryTableSkeleton";
-import BattleTable from "@/application/bestiary/battle/BattleTable";
+import BestiaryGridSkeleton from "@/application/bestiary/BestiaryTableSkeleton";
+import BattleTable from "@/application/bestiary/BattleTable";
 import { allCharactersKey } from "@/persistence/cacheKeys";
 
 export default async function BattlePage()
