@@ -1,6 +1,6 @@
 "use client";
 
-import { DamageOffense, Offense, WeaponOffense } from '@/domain/characters/Character';
+import { DamageOffense, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/Character';
 
 import {
   Card,
@@ -307,10 +307,7 @@ function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { 
             const isCritical = isTuple ? roll[1] : false;
             
             return (
-              <Badge 
-                key={index} 
-                className={`flex flex-row rounded-full px-1 font-mono ${isCritical ? 'bg-yellow-300' : ''}`}
-              >
+              <Badge key={index} className={`flex flex-row rounded-full px-1 font-mono ${isCritical ? 'bg-yellow-300' : ''}`}>
                 <div className='flex items-center gap-x-1'>
                   <Button asChild variant="ghost" className="h-full w-full p-0 hover:bg-transparent hover:text-current" onClick={() => onReroll(index)}>
                     <GiRollingDices />
@@ -325,22 +322,6 @@ function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { 
     </div>
   );
 }
-
-function handleWeaponDamageRolls(offense: WeaponOffense) : { total: number, rolls: [number, boolean][] }
-{
-  let totalOffenseDamage = 0;
-  const rolls: [number, boolean][] = [];
-
-  for (let i = 0; i < offense.amount; i++) 
-  {
-    const [damageWithoutCritical, criticalDamage] = handleWeaponDamageRoll(offense);
-    const weaponDiceDamageWithoutCritical = damageWithoutCritical + offense.bonus;
-    rolls.push([damageWithoutCritical, criticalDamage > 0]);
-    totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
-  }
-
-  return { total: totalOffenseDamage, rolls };
-};
 
 function calculateWeaponDamageForRolls(offense: WeaponOffense, rolls: number[]) : number
 {
@@ -357,28 +338,6 @@ function calculateWeaponDamageForRolls(offense: WeaponOffense, rolls: number[]) 
   return totalOffenseDamage;
 };
 
-function handleWeaponDamageRoll(offense: WeaponOffense) : [damage: number, critical: number]
-{
-  const weaponDamageRoll = handleWeaponOffenseRoll(offense);
-  const criticalDamage = handleCriticalDamage(offense, weaponDamageRoll);
-  return [ weaponDamageRoll, criticalDamage ];
-}
-
-function handleDamageBonusRolls(damageOffense: DamageOffense)
-{
-  let totalDamageBonus = 0;
-  const rolls: number[] = [];
-
-  for (let i = 0; i < damageOffense.amount; i++) 
-  {
-    const damageBonusRoll = handleDamageOffenseRoll(damageOffense);
-    rolls.push(damageBonusRoll);
-    totalDamageBonus += damageBonusRoll;
-  }
-
-  return { total: totalDamageBonus + damageOffense.bonus, rolls };
-}
-
 function calculateDamageBonusForRolls(damageOffense: DamageOffense, rolls: number[]): number
 {
   let totalDamageBonus = 0;
@@ -390,19 +349,4 @@ function calculateDamageBonusForRolls(damageOffense: DamageOffense, rolls: numbe
   }
 
   return totalDamageBonus + damageOffense.bonus;
-}
-
-function handleWeaponOffenseRoll(offense: WeaponOffense): number
-{
-  return Math.floor(Math.random() * offense.grade * 2) + 1;
-}
-
-function handleDamageOffenseRoll(damageOffense: DamageOffense): number
-{
-  return Math.floor(Math.random() * damageOffense.grade * 2) + 1;
-}
-
-function handleCriticalDamage(offense: WeaponOffense, roll: number): number
-{
-  return roll >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
 }

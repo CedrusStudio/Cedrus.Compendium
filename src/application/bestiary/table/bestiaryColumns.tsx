@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/common/components/ui/button";
-import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes, Mode, Maneuver, calculateRange } from "@/domain/characters/Character";
+import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes, Mode, Maneuver, calculateRange, rollDamage } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { attributesIcons, characteristicIcons, immunityIcon, resistanceIcon } from "@/domain/data/icons";
@@ -32,11 +32,11 @@ import {
   DrawerTitle,
 } from "@/ui/drawer";
 import { getColorClasses } from "@/domain/data/castTimes";
+import RollButton from "@/common/components/buttons/RollButton";
 
 export const columnKeys =
 {
   select: "select",
-  addToBattle: "addToBattle",
   name: "name",
   category: "category",
   health: "health",
@@ -45,16 +45,11 @@ export const columnKeys =
   offenses: "offenses",
   attributes: "attributes",
   characteristics: "characteristics",
-  maneuvers: "maneuvers",
-  stances: "stances",
-  states: "states",
-  characterView: "characterView",
   actions: "actions",
 } as const;
 
 export const columnHeaders =
 {
-  addToBattle: "Dodaj do walki",
   name: "Nazwa",
   health: "Zdrowie",
   barrier: "Bariera",
@@ -62,11 +57,7 @@ export const columnHeaders =
   offenses: "Ofensywy",
   attributes: "Atrybuty",
   characteristics: "Cechy",
-  maneuvers: "Manewry",
-  stances: "Postawy",
-  states: "Stany",
   category: "Kategoria",
-  characterView: "Widok postaci",
 } as const;
 
 export const columns: AccessorKeyColumnDef<Character>[] = 
@@ -328,7 +319,14 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
 function CharacterOffensesBattleView(character: Character)
 {
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
+  const [rollTotalResult, setRollTotalResult] = useState<number>(0);
   const selectedOffense = character.offenses[selectedOffenseIndex];
+
+  const handleRollClick = () =>
+  {
+    const totalRoll = rollDamage(selectedOffense);
+    setRollTotalResult(totalRoll);
+  }
 
   return (
     <div className="flex flex-row gap-4 items-center">
@@ -344,6 +342,8 @@ function CharacterOffensesBattleView(character: Character)
         {`${calculateRange(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}
         {selectedOffense.secondaryWeapon && ` / ${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}
       </p>
+
+      <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />
 
     </div>
   );

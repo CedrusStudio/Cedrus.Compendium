@@ -192,6 +192,68 @@ export function calculateRange(weaponOffense: WeaponOffense): string
   return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
 }
 
+export function rollDamage(offense: Offense)
+{
+  const rollForLeadingWeapon = handleWeaponDamageRolls(offense.leadingWeapon);
+  const rollForSecondaryWeapon = offense.secondaryWeapon ? handleWeaponDamageRolls(offense.secondaryWeapon).total : 0;
+  const rollForDamageBonus = handleDamageBonusRolls(offense.damageBonus);
+
+  return rollForLeadingWeapon.total + rollForSecondaryWeapon + rollForDamageBonus.total;
+}
+
+export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: number, rolls: [number, boolean][] }
+{
+  let totalOffenseDamage = 0;
+  const rolls: [number, boolean][] = [];
+
+  for (let i = 0; i < offense.amount; i++) 
+  {
+    const [damageWithoutCritical, criticalDamage] = handleWeaponDamageRoll(offense);
+    const weaponDiceDamageWithoutCritical = damageWithoutCritical + offense.bonus;
+    rolls.push([damageWithoutCritical, criticalDamage > 0]);
+    totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
+  }
+
+  return { total: totalOffenseDamage, rolls };
+};
+
+export function handleWeaponDamageRoll(offense: WeaponOffense) : [damage: number, critical: number]
+{
+  const weaponDamageRoll = handleWeaponOffenseRoll(offense);
+  const criticalDamage = handleCriticalDamage(offense, weaponDamageRoll);
+  return [ weaponDamageRoll, criticalDamage ];
+}
+
+export function handleDamageBonusRolls(damageOffense: DamageOffense)
+{
+  let totalDamageBonus = 0;
+  const rolls: number[] = [];
+
+  for (let i = 0; i < damageOffense.amount; i++) 
+  {
+    const damageBonusRoll = handleDamageOffenseRoll(damageOffense);
+    rolls.push(damageBonusRoll);
+    totalDamageBonus += damageBonusRoll;
+  }
+
+  return { total: totalDamageBonus + damageOffense.bonus, rolls };
+}
+
+function handleWeaponOffenseRoll(offense: WeaponOffense): number
+{
+  return Math.floor(Math.random() * offense.grade * 2) + 1;
+}
+
+export function handleDamageOffenseRoll(damageOffense: DamageOffense): number
+{
+  return Math.floor(Math.random() * damageOffense.grade * 2) + 1;
+}
+
+export function handleCriticalDamage(offense: WeaponOffense, roll: number): number
+{
+  return roll >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
+}
+
 export type Statistic = 
 {
   grade: number;
