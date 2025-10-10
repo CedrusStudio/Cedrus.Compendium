@@ -108,7 +108,7 @@ export default function BestiaryTable()
 
       <div className="overflow-hidden rounded-md border">
         <Table>
-            <DefaultTableHeader table={table} addBorders />
+            <DefaultTableHeader table={table} addBorders className="text-center" />
 
             <TableBody>
             {
@@ -120,7 +120,9 @@ export default function BestiaryTable()
                       {
                         row.getVisibleCells().map(cell => (
                           <TableCell key={cell.id} className="border-r first:border-r-0 last:border-r-0 [&:nth-last-child(2)]:border-r-0">
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            <div className="flex justify-center text-center">
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </div>
                           </TableCell>
                         ))
                       }

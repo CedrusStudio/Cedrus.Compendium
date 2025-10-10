@@ -41,8 +41,8 @@ export const columnKeys =
   category: "category",
   health: "health",
   barrier: "barrier",
-  defenses: "defenses",
-  offenses: "offenses",
+  defense: "defense",
+  offense: "offense",
   attributes: "attributes",
   characteristics: "characteristics",
   actions: "actions",
@@ -53,8 +53,8 @@ export const columnHeaders =
   name: "Nazwa",
   health: "Zdrowie",
   barrier: "Bariera",
-  defenses: "Defensywy",
-  offenses: "Ofensywy",
+  defense: "Defensywa",
+  offense: "Ofensywa",
   attributes: "Atrybuty",
   characteristics: "Cechy",
   category: "Kategoria",
@@ -114,16 +114,16 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     header: columnHeaders.health,
   },
   {
-    id: columnKeys.defenses,
-    accessorKey: columnKeys.defenses,
+    id: columnKeys.defense,
+    accessorKey: columnKeys.defense,
     cell: ({ row }) => <CharacterDefensesBattleView character={row.original} />,
-    header: columnHeaders.defenses
+    header: columnHeaders.defense
   },
   {
-    id: columnKeys.offenses,
-    accessorKey: columnKeys.offenses,
+    id: columnKeys.offense,
+    accessorKey: columnKeys.offense,
     cell: ({ row }) => <CharacterOffensesBattleView character={row.original} />,
-    header: columnHeaders.offenses
+    header: columnHeaders.offense
   },
   {
     id: columnKeys.characteristics,
@@ -344,7 +344,7 @@ function CharacterOffensesBattleView({ character }: { character: Character })
 
       <p>
         {`${calculateRange(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}
-        {selectedOffense.secondaryWeapon && ` / ${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}
+        {selectedOffense.secondaryWeapon && ` | ${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}
       </p>
 
       <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />

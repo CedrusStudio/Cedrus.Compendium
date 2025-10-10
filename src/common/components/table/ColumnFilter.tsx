@@ -15,26 +15,26 @@ export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
     <DropdownMenu>
 
         <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-                {namingConventions.columns}
-            </Button>
+          <Button variant="outline" className="ml-auto">
+            {namingConventions.columns}
+          </Button>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
         {
-            table
-                .getAllColumns()
-                .filter(column => column.getCanHide())
-                .map(column => (
-                <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={value => column.toggleVisibility(!!value)}
-                >
-                    {translate(column.id)}
-                </DropdownMenuCheckboxItem>
-                ))
+          table
+            .getAllColumns()
+            .filter(column => column.getCanHide())
+            .map(column => (
+              <DropdownMenuCheckboxItem
+                  key={column.id}
+                  className="capitalize"
+                  checked={column.getIsVisible()}
+                  onCheckedChange={value => column.toggleVisibility(!!value)}
+              >
+                {translate(column.id)}
+              </DropdownMenuCheckboxItem>
+            ))
         }
         </DropdownMenuContent>
     </DropdownMenu>
