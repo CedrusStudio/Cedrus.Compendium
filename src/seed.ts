@@ -4,9 +4,10 @@ import { upsertCharacter } from '@/persistence/characterRepository';
 
 const dummyCharacter : Character = 
 {
-  id: "igar",
+  id: "01K79QFH0ZD99MSBV4ACKFBZYN",
+  shortName: "Igar",
   name: "Igar Potworobójca",
-  category: "Bohater",
+  category: "bohater",
   description: "Igar Potworobójca bohater wielu opowieści, znany z niezwykłej odwagi i siły. Jego przygody są legendą wśród mieszkańców krainy. Poza tym zawsze szuka zaczepki, chociaż może nawet nie jest tego świadom.",
   characteristics: 
   {

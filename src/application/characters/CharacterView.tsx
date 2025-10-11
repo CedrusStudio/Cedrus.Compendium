@@ -22,13 +22,15 @@ import Link from 'next/link';
 import { Button } from '@/ui/button';
 import { TbEdit } from "react-icons/tb";
 import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from './hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
 import { namingConventions } from "@/domain/data/namingConventions";
 import CharacterOverview from "@/application/characters/CharacterOverview";
+import { useDispatch } from "react-redux";
+import { actions } from "@/persistence/slices/characterSlice";
 
 type CharacterViewProps = 
 {
@@ -42,6 +44,14 @@ export default function CharacterView({ tab }: CharacterViewProps)
   const { character } = useGetCharacterById();
   const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? defaultTab);
   const { deleteCharacter, isPending } = useDeleteCharacterById();
+  const dispatch = useDispatch();
+
+  useEffect(() => 
+  {
+    dispatch(actions.setCharacterShortName({ id: character.id, shortName: character.shortName }));
+  }, [character.id, character.shortName, dispatch]);               
+
+  if (!character) return <div>Character not found</div>;
 
   return (
     <div className='grid md:grid-cols-12'>

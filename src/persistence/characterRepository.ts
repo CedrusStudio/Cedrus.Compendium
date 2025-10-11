@@ -5,7 +5,8 @@ import 'server-only';
 import { Character } from "@/domain/characters/Character";
 import { CreateEmptyCharacter } from "@/domain/data/defaults";
 import fs from 'fs';
-import { AddCharacterHeaderType, UpsertCharacterCombatType, UpsertCharacterEquipmentType, UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { UpsertCharacterCombatType, UpsertCharacterEquipmentType, UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { ulid } from 'ulid';
 
 type Database = 
 {
@@ -112,7 +113,7 @@ export const upsertCharacterHeader: (id: string, characterHeader: UpsertCharacte
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 };
 
-export const addCharacter: (characterHeader: AddCharacterHeaderType) => Promise<string> = async (characterHeader) =>
+export const addCharacter: (characterHeader: UpsertCharacterHeaderType) => Promise<string> = async (characterHeader) =>
 {
     const database = readDatabase();
 
@@ -130,8 +131,8 @@ export const addCharacter: (characterHeader: AddCharacterHeaderType) => Promise<
     const allCharactersExceptSpecified = database.characters.filter(c => c.name.toLowerCase() !== characterHeader.name.toLowerCase());
 
     const characterToAdd = { 
-        ...CreateEmptyCharacter(characterHeader.name, characterHeader.description),
-        id: characterHeader.name.replace(/\s+/g, '-').toLowerCase(),
+        ...CreateEmptyCharacter(characterHeader),
+        id: ulid(),
     } as Character;
     
     database.characters = [...allCharactersExceptSpecified, characterToAdd];

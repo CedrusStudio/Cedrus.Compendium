@@ -3,11 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type CharacterSliceState = 
 {
   characterNavbarSearch: string;
+  characterShortNameMapping: IdToShortNameMapping;
 };
+
+type IdToShortNameMapping = Record<string, string>;
 
 const initialState: CharacterSliceState = 
 {
-    characterNavbarSearch: '' 
+    characterNavbarSearch: '',
+    characterShortNameMapping: {}
 };
 
 const characterSlice = createSlice
@@ -23,6 +27,14 @@ const characterSlice = createSlice
     clearCharacterNavbarSearch(state) 
     {
       state.characterNavbarSearch = '';
+    },
+    setCharacterShortName(state, action: PayloadAction<{ id: string, shortName: string }>) 
+    {
+      state.characterShortNameMapping[action.payload.id] = action.payload.shortName;
+    },
+    clearCharacterShortName(state) 
+    {
+      state.characterShortNameMapping = {};
     }
   },
 });
