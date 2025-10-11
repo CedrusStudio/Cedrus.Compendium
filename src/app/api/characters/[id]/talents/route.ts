@@ -13,7 +13,7 @@ export async function POST(request: NextRequest, { params }: RouteParams)
 {
   try 
   {
-    const id = await params.id;
+    const { id } = await params;
     if (!id) return NextResponse.json({ message: 'Character ID is required' }, { status: 400 });
     const character = await getCharacter(id);
     if (!character) return NextResponse.json({ message: 'Character not found' }, { status: 404 });

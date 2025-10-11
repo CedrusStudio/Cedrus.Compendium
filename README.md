@@ -24,7 +24,4 @@ buffy -
 zakęcia
 
 ---
-dodawnie odejmowanie nieworzliwosci i odpornosci
-
----
 Na karcie wojny atak ze zmeniszona koscia

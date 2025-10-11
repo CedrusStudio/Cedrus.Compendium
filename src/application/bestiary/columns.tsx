@@ -34,6 +34,7 @@ import {
 import { getCastTimeColors } from "@/domain/data/castTimes";
 import RollButton from "@/common/components/buttons/RollButton";
 import { colors } from "@/domain/data/colors";
+import RollWithImmunityButton from "@/common/components/buttons/RollWithImmunityButton";
 
 export const columnKeys =
 {
@@ -340,13 +341,27 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
 function CharacterOffensesBattleView({ character }: { character: Character })
 {
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
-  const [rollTotalResult, setRollTotalResult] = useState<number>(0);
   const selectedOffense = character.offenses[selectedOffenseIndex];
+  const [rollTotalResult, setRollTotalResult] = useState<number>(0);
+  const [rollTotalWithOneImmunityResult, setRollTotalWithOneImmunityResult] = useState<number>(0);
+  const [rollTotalWithTwoImmunityResult, setRollTotalWithTwoImmunityResult] = useState<number>(0);
 
   const handleRollClick = () =>
   {
     const totalRoll = rollDamage(selectedOffense);
     setRollTotalResult(totalRoll);
+  }
+
+  const handleRollWithOneImmunityClick = () =>
+  {
+    const totalRollWithOneImmunity = rollDamage(selectedOffense, 1);
+    setRollTotalWithOneImmunityResult(totalRollWithOneImmunity);
+  }
+
+  const handleRollWithTwoImmunityClick = () =>
+  {
+    const totalRollWithTwoImmunity = rollDamage(selectedOffense, 2);
+    setRollTotalWithTwoImmunityResult(totalRollWithTwoImmunity);
   }
 
   return (
@@ -366,6 +381,8 @@ function CharacterOffensesBattleView({ character }: { character: Character })
 
       <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />
 
+      <RollWithImmunityButton onClick={handleRollWithOneImmunityClick} rollWithImmunityResult={rollTotalWithOneImmunityResult} immunity={1} />
+      <RollWithImmunityButton onClick={handleRollWithTwoImmunityClick} rollWithImmunityResult={rollTotalWithTwoImmunityResult} immunity={2} />
     </div>
   );
 }

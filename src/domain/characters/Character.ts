@@ -204,11 +204,39 @@ export function calculateRange(weaponOffense: WeaponOffense): string
   return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
 }
 
-export function rollDamage(offense: Offense)
+export function rollDamage(offense: Offense, targetImmunity: number = 0): number
 {
-  const rollForLeadingWeapon = handleWeaponDamageRolls(offense.leadingWeapon);
-  const rollForSecondaryWeapon = offense.secondaryWeapon ? handleWeaponDamageRolls(offense.secondaryWeapon).total : 0;
-  const rollForDamageBonus = handleDamageBonusRolls(offense.damageBonus);
+  if (targetImmunity < 0 || targetImmunity > 2) throw new Error("Invalid target immunity");
+
+  const currentDamageOffenseAmount = offense.damageBonus.amount;
+  const damageOffenseAmountAfterImmunity = Math.max(currentDamageOffenseAmount - targetImmunity, 0);
+  const immunityAfterDecreasingTheDamageOffense = Math.max(0, targetImmunity - currentDamageOffenseAmount);
+
+  const damageOffenseAfterImmunity: DamageOffense = 
+  {
+    ...offense.damageBonus,
+    amount: damageOffenseAmountAfterImmunity,
+  };
+
+  const takeOneFromSecondary = offense.secondaryWeapon && immunityAfterDecreasingTheDamageOffense > 0 && offense.secondaryWeapon.amount >= offense.leadingWeapon.amount;
+  const immunityAfterDecreasingSecondaryByOne = Math.max(immunityAfterDecreasingTheDamageOffense - (takeOneFromSecondary ? 1 : 0), 0);
+
+  const leadingOffenseAfterImmunity = 
+  {
+    ...offense.leadingWeapon,
+    amount: takeOneFromSecondary ? offense.leadingWeapon.amount : Math.max(offense.leadingWeapon.amount - immunityAfterDecreasingSecondaryByOne, 0),
+  };
+
+  const rollForDamageBonus = handleDamageBonusRolls(damageOffenseAfterImmunity);
+  const rollForLeadingWeapon = handleWeaponDamageRolls(leadingOffenseAfterImmunity);
+
+  const rollForSecondaryWeapon = !offense.secondaryWeapon 
+    ? 0 
+    : handleWeaponDamageRolls
+    ({
+      ...offense.secondaryWeapon,
+      amount: takeOneFromSecondary ? Math.max(offense.secondaryWeapon.amount - 1, 0) : offense.secondaryWeapon.amount,
+    }).total;
 
   return rollForLeadingWeapon.total + rollForSecondaryWeapon + rollForDamageBonus.total;
 }

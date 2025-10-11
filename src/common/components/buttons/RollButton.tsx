@@ -7,7 +7,7 @@ export type RollButtonProps =
   rollResult: number | null;
 };
 
-export default function RollButton({ onClick, rollResult }: RollButtonProps)
+export default function RollButton({ onClick, rollResult}: RollButtonProps)
 {
   return (
     <Button variant='outline' onClick={onClick} className="w-14 flex justify-center">
