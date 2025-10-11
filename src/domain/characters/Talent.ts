@@ -1,11 +1,37 @@
-export const characterCategories = 
-[
-  "bohater",
-  "wojak",
-  "monstrum"
-] as const;
+export type Talent = 
+{
+  readonly id: string;
+  category: string;
+  name: string;
+  characteristics: string;
+  grade: number;
+  bonus: number;
+  penalty?: TalentPenalty;
+};
 
-export const talentCategories = 
+export type TalentPenalty = typeof allowedTalentPenalties[number];
+
+export const allowedTalentPenalties = [ 
+  "0",
+  "x1", 
+  "x1-1", 
+  "x1-2", 
+  "x1-3", 
+  "x1+1", 
+  "x1+2", 
+  "x1+3", 
+  "x2", 
+  "x2-1", 
+  "x2-2", 
+  "x2-3", 
+  "x2+1", 
+  "x2+2", 
+  "x2+3", 
+  "x3", 
+  "x4"
+] as const satisfies readonly string[];
+
+export const allowedTalentCategories = 
 [
   "zmysł",
   "język",
@@ -13,9 +39,9 @@ export const talentCategories =
   "wiedza",
   "sprawność",
   "talent"
-] as const;
+] as const satisfies readonly string[];
 
-export const senseCategory = 
+export const allowedTalentSenses = 
 [
   "wzrok",
   "słuch",
@@ -24,17 +50,17 @@ export const senseCategory =
   "dotyk",
   "spostrzegawczość",
   "orientacja"
-] as const;
+] as const satisfies readonly string[];
 
-export const languageCategory =
+export const allowedTalentLanguages =
 [
   "boski",
   "elficki",
   "krasnoludzki",
   "wróżowski"
-] as const;
+] as const satisfies readonly string[];
 
-export const proficiencyCategory =
+export const allowedTaletProficiencies =
 [
   "pływanie",
   "wspinaczka",
@@ -70,23 +96,13 @@ export const proficiencyCategory =
   "zastraszanie",
   "zbieranie informacji",
   "kontrola mocy",
-] as const;
+] as const satisfies readonly string[];
 
-export const scholarshipCategory = 
+export const allowedTalentScholarshipies = 
 [
   "wiedza tajemna",
   "wiedza historyczna",
   "wiedza religijna",
   "wiedza przyrodnicza",
   "kowalstwo",
-] as const;
-
-export const characteristicsOptions =
-[
-  "siła",
-  "zręczność",
-  "budowa",
-  "umysł",
-  "charyzma",
-  "czarokrwistość"
-] as const;
+] as const satisfies readonly string[];

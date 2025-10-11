@@ -1,5 +1,15 @@
 import { ulid } from 'ulid';
-import { Armor, Character, CharacterCategory, Defense, Horse, Item, Maneuver, Mode, Offense, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
+import { Character, CharacterCategory } from "@/domain/characters/Character";
+import { Mode } from '../characters/combat/Mode';
+import { Talent } from '../characters/Talent';
+import { Weapon } from '../characters/equipment/Weapon';
+import { Armor } from '../characters/equipment/Armor';
+import { Shield } from '../characters/equipment/Shield';
+import { Item } from '../characters/equipment/Item';
+import { Mount } from '../characters/equipment/Mount';
+import { Offense, WeaponOffense } from '../characters/combat/Offense';
+import { Defense } from '../characters/combat/Defense';
+import { Maneuver } from '../characters/combat/Maneuver';
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;
@@ -102,7 +112,7 @@ export const defaultInventoryItem: Omit<Item, "id"> =
     description: "Opis przedmiotu"
 };
 
-export const defaultHorse: Omit<Horse, "id"> =
+export const defaultHorse: Omit<Mount, "id"> =
 {
     name: "Nowy koń",
     description: "Opis konia",
@@ -116,7 +126,7 @@ export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, id: ulid()}
 export const CreateDefaultArmor = (): Armor => ({...defaultArmor, id: ulid()});
 export const CreateDefaultShield = (): Shield => ({...defaultShield, id: ulid()});
 export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, id: ulid()});
-export const CreateDefaultHorse = (): Horse => ({...defaultHorse, id: ulid()});
+export const CreateDefaultHorse = (): Mount => ({...defaultHorse, id: ulid()});
 
 const defaultOffense: Omit<Offense, "id"> =
 {
@@ -260,7 +270,7 @@ const emptyCharacter: Character =
                 description: "Opis przedmiotu 1"
             }
         ],
-        horses: []
+        mounts: []
     }
 };
 

@@ -1,3 +1,5 @@
+import { CastTime } from "../characters/combat/Maneuver";
+
 const defaultTranslations = 
 {
     characters: "postacie",
@@ -98,4 +100,12 @@ const reductionTranslations =
 export function translateReductions(key: string): string 
 {
     return reductionTranslations[key as keyof typeof reductionTranslations] || key;
+};
+
+export const castTimeTranslations: Record<CastTime, string> = 
+{
+  "Pełnorundowa": "full",
+  "Standardowa": "standard",
+  "Natychmiastowa": "immediate",
+  "Nadnatychmiastowa": "overimmediate",
 };

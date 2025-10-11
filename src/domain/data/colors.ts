@@ -1,3 +1,5 @@
+import { CastTime } from "../characters/combat/Maneuver";
+
 export const colors = 
 {
   text: {
@@ -14,3 +16,16 @@ export const getColorTextChange = (value: number, defaultValue: number) => value
   ? colors.text.below 
   : value > defaultValue 
     ? colors.text.above : '';
+
+export const castTimeColorClasses: Record<CastTime, { text: string; bg: string }> = 
+{
+  "Pełnorundowa": { text: "text-blue-400", bg: "bg-blue-600" },
+  "Standardowa": { text: "text-green-500", bg: "bg-green-700" },
+  "Natychmiastowa": { text: "text-gray-400", bg: "bg-gray-600" },
+  "Nadnatychmiastowa": { text: "text-rose-400", bg: "bg-rose-600" },
+};
+
+export const getCastTimeColors = (castTime: CastTime) => 
+{
+  return castTimeColorClasses[castTime] ?? { text: "text-gray-500", bg: "bg-gray-500" };
+};

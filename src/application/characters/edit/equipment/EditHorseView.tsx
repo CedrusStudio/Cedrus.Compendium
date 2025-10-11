@@ -1,4 +1,4 @@
-import { Horse, pathToHorseField } from "@/domain/characters/Character";
+import { Mount, pathToMountField } from "@/domain/characters/Character";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import { Label } from "@/ui/label";
@@ -7,7 +7,7 @@ import { InputFormField } from "@/common/components/form/InputFormField";
 
 type EditHorseViewProps = 
 {
-  horse: Horse;
+  horse: Mount;
   index: number;
 };
 
@@ -30,7 +30,7 @@ function EditHorseSheet({ horse, index }: EditHorseViewProps)
           <Label>Kłus</Label>
 
           <InputFormField<UpsertCharacterEquipmentType> 
-            path={pathToHorseField(index, `paceSpeed`)}
+            path={pathToMountField(index, `paceSpeed`)}
             inputPlaceholder="edytuj kłus..."
           />
 
@@ -41,7 +41,7 @@ function EditHorseSheet({ horse, index }: EditHorseViewProps)
           <Label>Galop</Label>
 
           <InputFormField<UpsertCharacterEquipmentType> 
-            path={pathToHorseField(index, `gallopSpeed`)}
+            path={pathToMountField(index, `gallopSpeed`)}
             inputPlaceholder="edytuj galop..."
           />
             
@@ -52,7 +52,7 @@ function EditHorseSheet({ horse, index }: EditHorseViewProps)
           <Label>Cwał</Label>
 
           <InputFormField<UpsertCharacterEquipmentType> 
-              path={pathToHorseField(index, `canterSpeed`)}
+              path={pathToMountField(index, `canterSpeed`)}
               inputPlaceholder="edytuj cwał..."
           />
             
@@ -63,7 +63,7 @@ function EditHorseSheet({ horse, index }: EditHorseViewProps)
           <Label>Bonus do jeździectwa</Label>
 
           <InputFormField<UpsertCharacterEquipmentType> 
-              path={pathToHorseField(index, `horsemanshipBonus`)}
+              path={pathToMountField(index, `horsemanshipBonus`)}
               inputPlaceholder="edytuj bonus do jeździectwa..."
           />
             

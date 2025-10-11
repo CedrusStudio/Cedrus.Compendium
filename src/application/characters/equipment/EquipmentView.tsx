@@ -35,7 +35,7 @@ export default function EquipmentView({ equipment }: { equipment: Equipment })
       />
 
       <ItemsView 
-        items={equipment.horses} 
+        items={equipment.mounts} 
         label='Konie'
         itemViewFactory={item => <span>{item.description}</span>} 
       />

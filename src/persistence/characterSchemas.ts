@@ -1,6 +1,7 @@
-import { allowedStyles, penaltyValues } from "@/domain/characters/Character";
-import { castTimeValues } from "@/domain/data/castTimes";
-import { characterCategories } from "@/domain/data/categories";
+import { allowedCharacterCategories } from "@/domain/characters/Character";
+import { allowedCastTimes } from "@/domain/characters/combat/Maneuver";
+import { allowedStyles } from "@/domain/characters/equipment/Weapon";
+import { allowedTalentPenalties } from "@/domain/characters/Talent";
 import { z } from "zod";
 
 const shortNameSchema = z
@@ -9,7 +10,7 @@ const shortNameSchema = z
   .min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." })
   .max(15, { message: "Nazwa musi mieć co najwyżej 15 znaków." });
 
-const characterCategorySchema = z.enum(characterCategories, { message: "Nieprawidłowa kategoria." });
+const characterCategorySchema = z.enum(allowedCharacterCategories, { message: "Nieprawidłowa kategoria." });
 
 export const upsertCharacterHeaderSchema = z.object
 ({
@@ -68,7 +69,7 @@ export const newTalentSchema = z.object
   characteristics: z.string().min(2, { message: "Cecha musi mieć co najmniej 2 znaki." }).max(100, { message: "Cecha musi mieć najwyżej 100 znaków." }),
   grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi mieć co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
-  penalty: z.enum(penaltyValues).optional(),
+  penalty: z.enum(allowedTalentPenalties).optional(),
 });
 
 export const talentSchema = newTalentSchema.extend
@@ -215,7 +216,7 @@ const maneuverSchema = z.object
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
   grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   cooldown: z.coerce.number<number>().int().min(0).max(20).optional(),
-  castTime: z.enum(castTimeValues),
+  castTime: z.enum(allowedCastTimes),
 });
 
 export type UpsertCharacterManeuverType = z.infer<typeof maneuverSchema>;

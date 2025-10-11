@@ -1,4 +1,3 @@
-
 import { Character } from "@/domain/characters/Character";
 import { upsertCharacter } from '@/persistence/characterRepository';
 
@@ -356,7 +355,7 @@ const dummyCharacter : Character =
         description: "Amulet który zwiększa intelekt użytkownika."
       }
     ],
-    horses: 
+    mounts: 
     [
       {
         id: '01K7448JKAACX01W42XJY0FF2Y',

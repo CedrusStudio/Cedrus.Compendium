@@ -1,8 +1,8 @@
-import { Horse } from "@/domain/characters/Character";
+import { Mount } from "@/domain/characters/Character";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import { PropsWithChildren } from "react";
 
-export default function HorseView({ horse }: PropsWithChildren<{ horse: Horse }>)
+export default function HorseView({ horse }: PropsWithChildren<{ horse: Mount }>)
 {
   return (
     <AccordionContent className='flex flex-col gap-2'>
