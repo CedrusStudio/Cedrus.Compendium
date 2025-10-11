@@ -233,7 +233,7 @@ function MoreBattleActions({ character }: { character: Character })
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}>Wyświetl postawy, stany i manewry</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}`)}>Przejdź do widoku postaci</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}>Przejdź do widoku postaci</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 

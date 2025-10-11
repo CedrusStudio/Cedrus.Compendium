@@ -1,6 +1,6 @@
 "use client";
 
-import { allReductionTypes, calculateSelectedReduction, Defense, reductionSelectFilter, ReductionType } from '@/domain/characters/Character';
+import { allReductionTypes, calculateSelectedReduction, Defense, ReductionType } from '@/domain/characters/Character';
 
 import {
   Card,
@@ -14,13 +14,14 @@ import { useState } from 'react';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translate, translateReductions } from '@/domain/data/translations';
+import { translate } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
 import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
 import { immunityIcon, reductionIcons, resistanceIcon } from '@/domain/data/icons';
+import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type DefenseCardProps = 
 {
@@ -37,6 +38,16 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
   const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
   const selectedDefense = defenses[selectedDefenseIndex];
+
+  function setReductionIncreaseIfPositive(dispatchInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, (value) => setReductionIncrease(value), dispatchInput, reductionIncrease);
+  }
+
+  function setDamageTakenIfPositive(dispatchInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, (value) => setDamageTaken(value), dispatchInput, damageTaken);
+  }
 
   const handleOnSelectedValueChange = (value: string) => 
   {
@@ -79,11 +90,11 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
         <div className='flex-1 flex flex-col justify-end gap-y-2'>
           <div className='flex gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
-            <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
+            <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncreaseIfPositive} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
-            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>
 

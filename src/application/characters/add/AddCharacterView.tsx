@@ -71,7 +71,7 @@ export default function AddCharacterView()
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mx-4">
                 
                 <p className='text-xl text-center text-primary pt-8 font-semibold '>
                     Stwórz nową postać podając nazwę i opis

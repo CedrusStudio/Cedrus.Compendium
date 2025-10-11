@@ -16,6 +16,7 @@ import { translate } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
 import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
 import { currentValueIcon, sumIcon } from '@/domain/data/icons';
+import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type HealthCardProps = 
 {
@@ -32,6 +33,16 @@ export default function HealthCard(input: HealthCardProps)
   const [damageTaken, setDamageTaken] = useState<number>(0);
   const [damageTakenChangeAmount, setDamageTakenChangeAmount] = useState<number>(1);
 
+  function setHealthIncreaseIfPositive(dispatchInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, (value) => setHealthIncrease(value), dispatchInput, healthIncrease);
+  }
+
+  function setDamageTakenIfPositive(dispatchInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, (value) => setDamageTaken(value), dispatchInput, damageTaken);
+  }
+
   return (
     <Card className='bg-muted'>
       <CardContent className='flex flex-col h-full gap-y-4'>
@@ -44,11 +55,11 @@ export default function HealthCard(input: HealthCardProps)
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
-            <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncrease} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
+            <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncreaseIfPositive} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
-            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>
 
