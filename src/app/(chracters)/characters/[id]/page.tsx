@@ -8,15 +8,15 @@ import {
 import CharacterView from '@/application/characters/CharacterView';
 import { isCharacterTab } from '@/common/tabsUtils';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
-// import seedDatabase from '@/persistence/seed';
+// import seedDatabase from '@/seed';
 
 type CharacterProps = 
 {
-    params: 
-    {
-        id: string;
-    },
-    searchParams: { [key: string]: string | string[] | undefined }
+  params: 
+  {
+      id: string;
+  },
+  searchParams: { [key: string]: string | string[] | undefined }
 };
 
 export default async function CharacterPage(input: CharacterProps)

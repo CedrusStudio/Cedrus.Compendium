@@ -8,17 +8,19 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { Button } from "@/ui/button"
-import { LuPlus } from "react-icons/lu";
+import { Button } from "@/ui/button";
 import { characteristicsOptions, talentCategories } from "@/domain/data/categories";
 import { UseFieldArrayAppend } from "react-hook-form";
 import { talentSchema, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useState } from "react";
-import { toast } from "sonner";
 import LabeledFormInput from "@/common/components/inputs/LabeledFormInput";
 import { translate } from "@/domain/data/translations";
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
+import { ulid } from "ulid";
+import { defaultTalent } from "@/domain/data/defaults";
+import { addIcon } from "@/domain/data/icons";
+import { Penalty, penaltyValues } from "@/domain/characters/Character";
 
 type AddTalentViewProps =
 {
@@ -34,7 +36,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
   const [newTalentName, setNewTalentName] = useState<string>("");
   const [newTalentGrade, setNewTalentGrade] = useState<number>(0);
   const [newTalentBonus, setNewTalentBonus] = useState<number>(0);
-  const [newTalentPenalty, setNewTalentPenalty] = useState<number>(0);
+  const [newTalentPenalty, setNewTalentPenalty] = useState<Penalty>("0");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedCharacteristics, setSelectedCharacteristics] = useState<string>("");
 
@@ -42,9 +44,9 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
   {
     const newTalent = 
     {
-      id: newTalentName.toLowerCase().replace(/\s+/g, '-') + newTalentGrade,
+      id: ulid(),
       name: newTalentName,
-      grade: newTalentGrade,
+      grade: newTalentGrade || defaultTalent.grade,
       category: selectedCategory,
       characteristics: selectedCharacteristics,
       bonus: newTalentBonus,
@@ -66,20 +68,11 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     setNewTalentName("");
     setNewTalentGrade(0);
     setNewTalentBonus(0);
-    setNewTalentPenalty(0);
+    setNewTalentPenalty("0");
     setSelectedCategory("");
     setSelectedCharacteristics("");
-
     setErrors({});
     setOpen(false);
-    toast("Success", {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-            <code className="text-white">Character updated successfully</code>
-        </pre>
-      ),
-      position: "top-right"
-    });
   };
 
   const resetAddTalentForm = () =>
@@ -87,7 +80,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     setNewTalentName("");
     setNewTalentGrade(0);
     setNewTalentBonus(0);
-    setNewTalentPenalty(0);
+    setNewTalentPenalty("0");
     setSelectedCategory("");
     setSelectedCharacteristics("");
   };
@@ -96,7 +89,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     <Sheet open={open} onOpenChange={setOpen}>
 
       <SheetTrigger asChild>
-        <Button variant="outline"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Button>
+        <Button variant="outline">{addIcon("h-[1.2rem] w-[1.2rem]")}</Button>
       </SheetTrigger>
 
       <SheetContent>
@@ -110,65 +103,68 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
 
         <div className="flex flex-col flex-1">
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 px-4">
 
             <div className="flex grid-cols justify-center gap-4">
 
               <LabeledFormInput 
-                  name="name" 
-                  label={translate("name")}
-                  value={newTalentName} 
-                  placeholder="Nazwa umiejętności"
-                  onChange={(e) => setNewTalentName(e.target.value)} 
-                  errors={errors} 
+                name="name" 
+                label={translate("name")}
+                value={newTalentName} 
+                placeholder="Nazwa umiejętności"
+                onChange={(e) => setNewTalentName(e.target.value)} 
+                errors={errors} 
               />
 
               <LabeledFormInput 
-                  name="grade" 
-                  label={translate("grade")}
-                  value={newTalentGrade} 
-                  onChange={(e) => setNewTalentGrade(Number(e.target.value))}
-                  errors={errors} 
+                name="grade" 
+                label={translate("grade")}
+                value={newTalentGrade || defaultTalent.grade} 
+                onChange={(e) => setNewTalentGrade(Number(e.target.value))}
+                errors={errors} 
               />
 
             </div>
 
             <LabeledFormSelectInput
-                name="category"
-                label={translate("category")}
-                collectionToSelectFrom={talentCategories}
-                value={selectedCategory}
-                placeholder="Wybierz kategorię"
-                onChange={setSelectedCategory}
-                errors={errors}
+              name="category"
+              label={translate("category")}
+              collectionToSelectFrom={talentCategories}
+              value={selectedCategory}
+              placeholder="Wybierz kategorię"
+              onChange={setSelectedCategory}
+              errors={errors}
             />
 
             <LabeledFormSelectInput
-                name="characteristics"
-                label={translate("characteristics")}
-                collectionToSelectFrom={characteristicsOptions}
-                value={selectedCharacteristics}
-                placeholder="Wybierz cechę"
-                onChange={setSelectedCharacteristics}
-                errors={errors}
+              name="characteristics"
+              label={translate("characteristics")}
+              collectionToSelectFrom={characteristicsOptions}
+              value={selectedCharacteristics}
+              placeholder="Wybierz cechę"
+              onChange={setSelectedCharacteristics}
+              errors={errors}
             />
 
             <div className="grid grid-cols-2 gap-3">
 
               <LabeledFormInput 
-                  name="bonus" 
-                  label={translate("bonus")}
-                  value={newTalentBonus} 
-                  onChange={(e) => setNewTalentBonus(Number(e.target.value))}
-                  errors={errors} 
+                name="bonus" 
+                label={translate("bonus")}
+                value={newTalentBonus} 
+                onChange={(e) => setNewTalentBonus(Number(e.target.value))}
+                errors={errors} 
               />
 
-              <LabeledFormInput 
-                  name="penalty" 
-                  label={translate("penalty")}
-                  value={newTalentPenalty} 
-                  onChange={(e) => setNewTalentPenalty(Number(e.target.value))}
-                  errors={errors} 
+              <LabeledFormSelectInput
+                name="penalty"
+                label={translate("penalty")}
+                collectionToSelectFrom={penaltyValues}
+                value={newTalentPenalty}
+                placeholder="Wybierz karę"
+                onChange={setNewTalentPenalty}
+                errors={errors}
+                isValueCapitalized={false}
               />
 
             </div>
@@ -176,12 +172,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
           </div>
 
           <SheetFooter>
-            <div className="flex justify-center">
-              <Button type="button" className="flex-1" onClick={addNewTalent} >
-              Dodaj umiejętność
-              </Button>
-            </div>
-
+            <Button type="button" className="flex justify-center flex-1" onClick={addNewTalent}>Dodaj umiejętność</Button>
             <Button type="button" variant="secondary" className="flex-1" onClick={resetAddTalentForm}>Wyczyść</Button>
 
             <SheetClose asChild>

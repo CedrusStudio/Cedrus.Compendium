@@ -3,8 +3,6 @@ import { type NextRequest } from 'next/server';
 
 export const searchParamKey = 'search';
 export const getSearchParamFromRequest = (request: NextRequest) => request.nextUrl.searchParams.get(searchParamKey);
-export const getIdParamFromLastRequestSegment = (request: NextRequest) => request.nextUrl.pathname.split('/').pop();
-export const getIdParamFromAlmostLastRequestSegment = (request: NextRequest, fromEnd: number) => request.nextUrl.pathname.split('/')[request.nextUrl.pathname.split('/').length - fromEnd -1];
 
 export const getSearchQueryParam = (searchParams: ReadonlyURLSearchParams) => 
 {

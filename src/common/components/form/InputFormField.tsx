@@ -12,6 +12,7 @@ export type CustomFormFieldProps<TFieldValues extends FieldValues> =
   path: FieldPath<TFieldValues>;
   inputPlaceholder?: string;
   inputClassName?: string;
+  defaultValue?: string;
 };
 
 export function InputFormField<TFieldValues extends FieldValues>(input: CustomFormFieldProps<TFieldValues>) 

@@ -2,16 +2,12 @@
 
 import { Statistic } from "@/domain/characters/Character";
 import { useState } from "react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/ui/tooltip"
 import { Badge } from "@/ui/badge";
 import RollButton from "@/common/components/buttons/RollButton";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import ResetButton from "@/common/components/buttons/ResetButton";
-import { translate } from "@/domain/data/translations";
+import { getColorTextChange } from "@/domain/data/colors";
+import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 
 type StatisticViewProps = 
 {
@@ -29,25 +25,18 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
   const handleRoll = (statistic: Statistic) => 
   {
     const result = Math.floor(Math.random() * statistic.grade * 2) + 1
-    console.log("Base roll:", result);
     setRollResult(result);
   };
 
   return (
     <div className={'flex gap-x-2 items-center justify-around'}>
-      <div className="capitalize">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div>
-              <ResetButton variant='ghost' defaultValuesWithSetters={[[defaultBonus, setBonus]]} icon={icon} />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{translate(name)}</p>
-          </TooltipContent>
-        </Tooltip>
-      </div>
-      
+
+      <FieldWithTooltip name={name} >
+        <ResetButton variant='ghost' defaultValuesWithSetters={[[defaultBonus, setBonus]]}>
+          {icon}
+        </ResetButton>
+      </FieldWithTooltip>
+
       <div className="flex items-center">
         1k{statistic.grade * 2}+
         <Badge className="rounded-full px-1 font-mono inline">{statistic.value}</Badge>
@@ -78,7 +67,7 @@ function calculateDefaultBonus(statistic: Statistic): number
 function BonusView({ defaultBonus, bonus }: { defaultBonus: number; bonus: number })
 {
   return (
-    <span className={`flex items-center ${bonus !== defaultBonus ? 'text-red-500' : ''}`}>
+    <span className={`flex items-center ${getColorTextChange(bonus, defaultBonus)}`}>
       {bonus}
     </span>
   );

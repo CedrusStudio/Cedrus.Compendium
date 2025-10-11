@@ -1,3 +1,10 @@
+export const characterCategories = 
+[
+  "bohater",
+  "wojak",
+  "monstrum"
+] as const;
+
 export const talentCategories = 
 [
   "zmysł",
@@ -76,10 +83,10 @@ export const scholarshipCategory =
 
 export const characteristicsOptions =
 [
-  "strength",
-  "dexterity",
-  "constitution",
-  "mind",
-  "charisma",
-  "spellborn"
+  "siła",
+  "zręczność",
+  "budowa",
+  "umysł",
+  "charyzma",
+  "czarokrwistość"
 ] as const;

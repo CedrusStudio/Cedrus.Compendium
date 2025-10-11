@@ -46,8 +46,9 @@ export default function EditStatisticView({ name, statistic, icon, fieldPath }: 
                     [statistic.testBonus, setTestBonus]
                   ]
                 }
-                icon={icon}
-              />
+              >
+                {icon}
+              </ResetButton>
             </div>
           </TooltipTrigger>
           <TooltipContent>

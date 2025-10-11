@@ -25,4 +25,5 @@ function onSuccess(sideEffect: () => void, position?: "top-left" | "top-center" 
 
     sideEffect();
 }
+
 export { onError, onSuccess };

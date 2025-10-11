@@ -1,19 +1,19 @@
 import { cn } from "@/lib/utils";
+import { PropsWithChildren } from "react";
 
 type FieldViewProps = 
 {
-  name: string;
-  value: number;
+  value: number | string;
   className?: string;
-  nameClassName?: string;
+  childrenClassName?: string;
   valueClassName?: string;
 };
 
-export default function FieldView(input: FieldViewProps) 
+export default function FieldView(input: PropsWithChildren<FieldViewProps>) 
 {
   return (
     <div className={cn('flex gap-x-6 items-center justify-around', input.className)}>
-      <div className={cn("w-24 capitalize", input.nameClassName)}>{input.name}</div>
+      <div className={cn("capitalize", input.childrenClassName)}>{input.children}</div>
       <div className={cn("w-8", input.valueClassName)}>{input.value}</div>
     </div>
   );

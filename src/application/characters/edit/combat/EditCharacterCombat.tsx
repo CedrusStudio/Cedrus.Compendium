@@ -11,12 +11,12 @@ import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persistence/characterSchemas";
-import SubmitButton from "@/ui/SubmitButton";
+import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 import { Label } from "@radix-ui/react-label";
 import { translate } from "@/domain/data/translations";
-import AppendToArrayButton from "@/common/components/ui/AppendToArrayButton";
+import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { CreateDefaultDefense, CreateDefaultOffense } from "@/domain/data/defaults";
 
 type EditCharacterCombatProps =

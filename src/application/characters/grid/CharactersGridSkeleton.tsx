@@ -53,19 +53,19 @@ export default function CharactersGridSkeleton()
       {
         Array.from({ length: 12 }).map((_, index) => (
           <Card className='bg-muted' key={index}>
-          <CardHeader className='-my-1.5'>
+            <CardHeader className='-my-1.5'>
               <CardTitle className='text-2xl flex justify-between'>
-              <Skeleton className='h-2 w-1/2 ' />
+                <Skeleton className='h-2 w-1/2 ' />
               </CardTitle>
-          </CardHeader>
+            </CardHeader>
 
-          <Separator />
+            <Separator />
 
-          <CardContent className='-mt-1'>
+            <CardContent className='-mt-1'>
               <CardDescription className='text-justify'>
-              <Skeleton className='h-20 w-full' />
+                <Skeleton className='h-20 w-full' />
               </CardDescription>
-          </CardContent>
+            </CardContent>
           </Card>
         ))
       }

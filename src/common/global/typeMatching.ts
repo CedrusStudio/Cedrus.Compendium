@@ -1,4 +1,4 @@
-export function isAllowedValue<T extends readonly string[]>(value: string, allowedValues: T): value is T[number] 
+function isAllowedValue<T extends readonly string[]>(value: string, allowedValues: T): value is T[number] 
 {
   return allowedValues.includes(value as T[number]);
 }

@@ -23,7 +23,7 @@ export const castTimeColorClasses: Record<CastTime, { text: string; bg: string }
   "Nadnatychmiastowa": { text: "text-rose-400", bg: "bg-rose-600" },
 };
 
-export const getColorClasses = (castTime: CastTime) => 
+export const getCastTimeColors = (castTime: CastTime) => 
 {
   return castTimeColorClasses[castTime] ?? { text: "text-gray-500", bg: "bg-gray-500" };
 };

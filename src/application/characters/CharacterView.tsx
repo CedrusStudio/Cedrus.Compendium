@@ -13,7 +13,7 @@ import {
 } from "@/ui/alert-dialog"
 import StatisticsView from '@/application/characters/statistics/StatisticsView';
 import { columns } from "@/application/characters/talents/talentsColumns"
-import { TalentsView } from "@/application/characters/talents/TalentsView"
+import { TalentsTable } from "@/application/characters/talents/TalentsTable"
 import { Tabs, TabsContent, TabsList } from "@/ui/tabs"
 import { Separator } from '@/ui/separator';
 import EquipmentView from '@/application/characters/equipment/EquipmentView';
@@ -83,7 +83,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 </TabsContent>
 
                 <TabsContent value="talents">
-                    <TalentsView columns={columns} data={character.talents ?? []} />
+                    <TalentsTable columns={columns} data={character.talents ?? []} />
                 </TabsContent>
 
                 <TabsContent value="equipment">

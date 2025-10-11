@@ -21,8 +21,7 @@ export const useDeleteCharacterById = () =>
         {
             console.error('Error deleting character:', error);
         }
-  });
-
+    });
 
     return { deleteCharacter: mutate, isPending }
 };

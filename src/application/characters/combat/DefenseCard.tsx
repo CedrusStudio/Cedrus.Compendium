@@ -1,6 +1,6 @@
 "use client";
 
-import { Defense } from '@/domain/characters/Character';
+import { allReductionTypes, calculateSelectedReduction, Defense, ReductionType } from '@/domain/characters/Character';
 
 import {
   Card,
@@ -10,22 +10,25 @@ import {
 } from '@/ui/card';
 
 import FieldView from "@/common/components/fields/FieldView";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translateReductions } from '@/domain/data/translations';
+import { translate } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
+import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
+import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
+import { immunityIcon, reductionIcons, resistanceIcon } from '@/domain/data/icons';
+import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
+import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
+import ResetButton from '@/common/components/buttons/ResetButton';
 
 type DefenseCardProps = 
 {
   defenses: Defense[];
 };
-
-type ReductionType = "full" | "block" | "direct";
-const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
 
 export default function DefenseCard({ defenses }: DefenseCardProps)
 {
@@ -37,11 +40,29 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
   const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
   const selectedDefense = defenses[selectedDefenseIndex];
+  const [immunity, setImmunity] = useState<number>(selectedDefense.immunity);
+  const [resistance, setResistance] = useState<number>(selectedDefense.resistance);
+
+  function setReductionIncreaseIfPositive(setInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, (value) => setReductionIncrease(value), setInput, reductionIncrease);
+  }
+
+  function setDamageTakenIfPositive(setInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, value => setDamageTaken(value), setInput, damageTaken, newValue => Math.max(0, newValue - resistance));
+  }
 
   const handleOnSelectedValueChange = (value: string) => 
   {
     setSelectedReductionType(value as ReductionType);
   };
+
+  useEffect(() => 
+  {
+    setImmunity(selectedDefense.immunity);
+    setResistance(selectedDefense.resistance);
+  }, [selectedDefense]);
   
   return (
     <Card className='bg-muted'>
@@ -53,23 +74,39 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <FieldView name={"niewrażliwość"} value={selectedDefense.immunity} />
-        <FieldView name={"odporność"} value={selectedDefense.resistance} />
+        <FieldView value={immunity} childrenClassName='flex items-center gap-1'>
+            <FieldWithTooltip name={translate("immunity")}>
+              <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]}>
+                {immunityIcon()}
+              </ResetButton>
+            </FieldWithTooltip>
+            <VerticalChangeButtons setValue={setImmunity} />
+        </FieldView>
+
+        <FieldView value={resistance} childrenClassName='flex items-center gap-1'>
+            <FieldWithTooltip name={translate("resistance")}>
+              <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]}>
+                {resistanceIcon()}
+              </ResetButton>
+            </FieldWithTooltip>
+            <VerticalChangeButtons setValue={setResistance} />
+        </FieldView>
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
           <FieldViewWithInfo 
-            name={<SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>} 
             value={calculateSelectedReduction(selectedDefense, selectedReductionType) + reductionIncrease - damageTaken} 
             infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} reductionIncrease={reductionIncrease} damageTaken={damageTaken} />} 
             valueClassName='pr-3'
-          />
+          >
+            <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
+          </FieldViewWithInfo>
   
           <SelectContent>
           {
             allReductionTypes.map(reductionType => (
               <SelectItem key={reductionType} value={reductionType}>
-                <span className='capitalize'>{translateReductions(reductionType)}</span>
+                <span className='capitalize'>{reductionIcons[reductionType]}</span>
               </SelectItem>
             ))
           }
@@ -79,11 +116,11 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
         <div className='flex-1 flex flex-col justify-end gap-y-2'>
           <div className='flex gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
-            <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncrease} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
+            <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncreaseIfPositive} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
-            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTaken} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
+            <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>
 
@@ -91,64 +128,3 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
     </Card>
   );
 };
-
-function DefenseReductionInfoContent(input: { defense: Defense, selectedReductionType: ReductionType, reductionIncrease: number, damageTaken: number })
-{
-  return (
-    <div>
-      { <FieldView name={namingConventions.increase} value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' /> }
-      { <FieldView name={namingConventions.damage} value={Math.abs(input.damageTaken)} valueClassName='text-red-500' /> }
-      {
-        Object.entries(input.defense)
-          .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
-          .map(([name, value]) => <FieldView key={name} name={name} value={value} />)
-      }
-    </div>
-  );
-}
-
-function calculateSelectedReduction(defense: Defense, selectedReductionType: ReductionType): number 
-{
-  if (selectedReductionType === "full") 
-  {
-    return defense.block + defense.parry + defense.dodge + defense.bonus + defense.protection;
-  }
-
-  if (selectedReductionType === "block") 
-  {
-    return defense.block + defense.bonus + defense.protection;
-  }
-
-  if (selectedReductionType === "direct") 
-  {
-    return defense.bonus + defense.protection;
-  }
-
-  throw new Error("Invalid reduction type");
-}
-
-function reductionSelectFilter(selectedReductionType: ReductionType): (name: string) => boolean
-{
-  if (selectedReductionType === "full") return fullFilter;
-  if (selectedReductionType === "block") return blockFilter;
-  if (selectedReductionType === "direct") return directFilter;
-  throw new Error("Invalid reduction type");
-}
-
-function fullFilter(name: string): boolean 
-{
-  return name !== "immunity" 
-    && name !== "resistance"
-    && name !== "name"
-    && name !== "description";
-} 
-
-function blockFilter(name: string): boolean 
-{
-  return fullFilter(name) && name !== "dodge" && name !== "parry";
-} 
-
-function directFilter(name: string): boolean 
-{
-  return blockFilter(name) && name !== "block";
-}

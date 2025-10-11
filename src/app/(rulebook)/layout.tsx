@@ -1,4 +1,4 @@
-import RuleBookNavbar from "@/common/components/navbars/RuleBookNavbar";
+import RuleBookNavbar from "@/application/rulebook/RuleBookNavbar";
 import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 

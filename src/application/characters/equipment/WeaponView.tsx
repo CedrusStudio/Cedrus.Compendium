@@ -62,7 +62,7 @@ function WeaponOverview({ weapon }: { weapon: Weapon })
         <div>
           <span className='font-semibold'>Krytyk: </span>
           <span>
-              zasięg: {criticalRangeBonus}, obrażenia: {criticalDamageBonus}
+            zasięg: {criticalRangeBonus}, obrażenia: {criticalDamageBonus}
           </span>
         </div>
       </div>

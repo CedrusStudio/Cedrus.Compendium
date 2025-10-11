@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/ui/form';
+import { translate } from '@/domain/data/translations';
 
 export type SelectFormFieldProps<TFieldValues extends FieldValues> = 
 {
@@ -22,14 +23,14 @@ export type SelectFormFieldProps<TFieldValues extends FieldValues> =
   noLabel?: boolean;
 };
 
-export function SelectFormField<TFieldValues extends FieldValues>({ path: name, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
+export function SelectFormField<TFieldValues extends FieldValues>({ path, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
 {
     const { control } = useFormContext<TFieldValues>();
     
     return (
-        <FormField control={control} name={name} render={({field}) => (
+        <FormField control={control} name={path} render={({field}) => (
             <FormItem>
-                {!noLabel && <FormLabel className='capitalize'>{labelText || name}</FormLabel>}
+                {!noLabel && <FormLabel className='capitalize'>{translate(labelText || path)}</FormLabel>}
                 <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
 
                     <FormControl>

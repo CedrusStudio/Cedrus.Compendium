@@ -1,4 +1,4 @@
-import CompendiumNavbar from "@/common/components/navbars/CompendiumNavbar";
+import CompendiumNavbar from "@/application/compendium/CompendiumNavbar";
 import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 

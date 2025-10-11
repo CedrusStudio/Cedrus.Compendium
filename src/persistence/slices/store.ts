@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer as characterReducer } from '@/persistence/characterSlice';
-import { reducer as bestiaryReducer } from '@/persistence/bestiarySlice';
+import { reducer as characterReducer } from '@/persistence/slices/characterSlice';
+import { reducer as bestiaryReducer } from '@/persistence/slices/bestiarySlice';
 
 export const store = configureStore
 ({

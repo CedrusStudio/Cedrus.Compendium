@@ -10,7 +10,7 @@ import {
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { CreateDefaultStance } from "@/domain/data/defaults";
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
-import AppendToArrayButton from '@/ui/AppendToArrayButton';
+import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 
@@ -28,10 +28,10 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
     <Card className='bg-muted'>
 
       <CardHeader>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-            <span>Postawy</span>
-            <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
-          </CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
+          <span>Postawy</span>
+          <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
+        </CardTitle>
       </CardHeader>
 
       <CardContent className='grid grid-cols-1 sm:grid-cols-2'>
@@ -39,7 +39,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
         watchedArray.map((stance, index) => (
           <EditModeView 
             mode={stance}
-            key={index} 
+            key={stance.id} 
             modeType='stances' 
             index={index} 
             remove={remove} 

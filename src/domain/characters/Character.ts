@@ -3,19 +3,20 @@ import { CastTime } from "@/domain/data/castTimes";
 
 export type Character =
 {
-    readonly id: string;
-    name: string;
-    description: string;
-    characteristics: Characteristics;
-    attributes: Attributes;
-    talents: Talent[];
-    health: Health;
-    defenses: Defense[];
-    offenses: Offense[];
-    equipment: Equipment;
-    stances: Mode[];
-    states: Mode[];
-    maneuvers: Maneuver[];
+  readonly id: string;
+  name: string;
+  description: string;
+  category?: string;
+  characteristics: Characteristics;
+  attributes: Attributes;
+  talents: Talent[];
+  health: Health;
+  defenses: Defense[];
+  offenses: Offense[];
+  equipment: Equipment;
+  stances: Mode[];
+  states: Mode[];
+  maneuvers: Maneuver[];
 };
 
 export type Characteristics = 
@@ -44,14 +45,16 @@ export type Attributes =
 
 export type Talent = 
 {
-  id: string;
+  readonly id: string;
   category: string;
   name: string;
   characteristics: string;
   grade: number;
   bonus: number;
-  penalty: number;
+  penalty?: Penalty;
 };
+
+export type Penalty = typeof penaltyValues[number];
 
 export type Health = 
 {
@@ -63,6 +66,24 @@ export type Health =
   lethalRounds: number;
   bonus: number;
 };
+
+export function calculateTotalHealthForCharacter(character: Character): number
+{
+  return character.health.vitality 
+    + character.health.toughness * character.characteristics.constitution.value
+    + character.characteristics.constitution.bonus 
+    + character.attributes.fortitude.value
+    + character.health.bonus;
+}
+
+export function calculateTotalHealth(health: Health, constitution: Statistic, fortitude: Statistic): number
+{
+  return health.vitality 
+    + health.toughness * constitution.value
+    + constitution.bonus 
+    + fortitude.value
+    + health.bonus;
+}
 
 export type Defense = 
 {
@@ -77,6 +98,56 @@ export type Defense =
   dodge: number;
   bonus: number;
 };
+
+export type ReductionType = "full" | "block" | "direct";
+export const allReductionTypes: ReductionType[] = ["full", "block", "direct"];
+
+export function calculateSelectedReduction(defense: Defense, selectedReductionType: ReductionType): number 
+{
+  if (selectedReductionType === "full") 
+  {
+    return defense.block + defense.parry + defense.dodge + defense.bonus + defense.protection;
+  }
+
+  if (selectedReductionType === "block") 
+  {
+    return defense.block + defense.bonus + defense.protection;
+  }
+
+  if (selectedReductionType === "direct") 
+  {
+    return defense.bonus + defense.protection;
+  }
+
+  throw new Error("Invalid reduction type");
+}
+
+export function reductionSelectFilter(selectedReductionType: ReductionType): (name: string) => boolean
+{
+  if (selectedReductionType === "full") return fullFilter;
+  if (selectedReductionType === "block") return blockFilter;
+  if (selectedReductionType === "direct") return directFilter;
+  throw new Error("Invalid reduction type");
+}
+
+function fullFilter(name: string): boolean 
+{
+  return name !== "immunity" 
+    && name !== "resistance"
+    && name !== "name"
+    && name !== "description"
+    && name !== "id";
+} 
+
+function blockFilter(name: string): boolean 
+{
+  return fullFilter(name) && name !== "dodge" && name !== "parry";
+} 
+
+function directFilter(name: string): boolean 
+{
+  return blockFilter(name) && name !== "block";
+}
 
 export type Offense = 
 {
@@ -118,6 +189,111 @@ export type Critical =
   range: number;
 }
 
+export function getDamageOffenseString(damageOffense: DamageOffense): string
+{
+  return `${damageOffense.amount}k${damageOffense.grade * 2}+${damageOffense.bonus}`;
+}
+
+export function getWeaponDamageString(weaponOffense: WeaponOffense): string
+{
+  return `${weaponOffense.amount}(k${weaponOffense.grade * 2}+${weaponOffense.bonus})`;
+}
+
+export function calculateRange(weaponOffense: WeaponOffense): string
+{
+  return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
+}
+
+export function rollDamage(offense: Offense, targetImmunity: number = 0): number
+{
+  if (targetImmunity < 0 || targetImmunity > 2) throw new Error("Invalid target immunity");
+
+  const currentDamageOffenseAmount = offense.damageBonus.amount;
+  const damageOffenseAmountAfterImmunity = Math.max(currentDamageOffenseAmount - targetImmunity, 0);
+  const immunityAfterDecreasingTheDamageOffense = Math.max(0, targetImmunity - currentDamageOffenseAmount);
+
+  const damageOffenseAfterImmunity: DamageOffense = 
+  {
+    ...offense.damageBonus,
+    amount: damageOffenseAmountAfterImmunity,
+  };
+
+  const takeOneFromSecondary = offense.secondaryWeapon && immunityAfterDecreasingTheDamageOffense > 0 && offense.secondaryWeapon.amount >= offense.leadingWeapon.amount;
+  const immunityAfterDecreasingSecondaryByOne = Math.max(immunityAfterDecreasingTheDamageOffense - (takeOneFromSecondary ? 1 : 0), 0);
+
+  const leadingOffenseAfterImmunity = 
+  {
+    ...offense.leadingWeapon,
+    amount: takeOneFromSecondary ? offense.leadingWeapon.amount : Math.max(offense.leadingWeapon.amount - immunityAfterDecreasingSecondaryByOne, 0),
+  };
+
+  const rollForDamageBonus = handleDamageBonusRolls(damageOffenseAfterImmunity);
+  const rollForLeadingWeapon = handleWeaponDamageRolls(leadingOffenseAfterImmunity);
+
+  const rollForSecondaryWeapon = !offense.secondaryWeapon 
+    ? 0 
+    : handleWeaponDamageRolls
+    ({
+      ...offense.secondaryWeapon,
+      amount: takeOneFromSecondary ? Math.max(offense.secondaryWeapon.amount - 1, 0) : offense.secondaryWeapon.amount,
+    }).total;
+
+  return rollForLeadingWeapon.total + rollForSecondaryWeapon + rollForDamageBonus.total;
+}
+
+export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: number, rolls: [number, boolean][] }
+{
+  let totalOffenseDamage = 0;
+  const rolls: [number, boolean][] = [];
+
+  for (let i = 0; i < offense.amount; i++) 
+  {
+    const [damageWithoutCritical, criticalDamage] = handleWeaponDamageRoll(offense);
+    const weaponDiceDamageWithoutCritical = damageWithoutCritical + offense.bonus;
+    rolls.push([damageWithoutCritical, criticalDamage > 0]);
+    totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
+  }
+
+  return { total: totalOffenseDamage, rolls };
+};
+
+export function handleWeaponDamageRoll(offense: WeaponOffense) : [damage: number, critical: number]
+{
+  const weaponDamageRoll = handleWeaponOffenseRoll(offense);
+  const criticalDamage = handleCriticalDamage(offense, weaponDamageRoll);
+  return [ weaponDamageRoll, criticalDamage ];
+}
+
+export function handleDamageBonusRolls(damageOffense: DamageOffense)
+{
+  let totalDamageBonus = 0;
+  const rolls: number[] = [];
+
+  for (let i = 0; i < damageOffense.amount; i++) 
+  {
+    const damageBonusRoll = handleDamageOffenseRoll(damageOffense);
+    rolls.push(damageBonusRoll);
+    totalDamageBonus += damageBonusRoll;
+  }
+
+  return { total: totalDamageBonus + damageOffense.bonus, rolls };
+}
+
+function handleWeaponOffenseRoll(offense: WeaponOffense): number
+{
+  return Math.floor(Math.random() * offense.grade * 2) + 1;
+}
+
+export function handleDamageOffenseRoll(damageOffense: DamageOffense): number
+{
+  return Math.floor(Math.random() * damageOffense.grade * 2) + 1;
+}
+
+export function handleCriticalDamage(offense: WeaponOffense, roll: number): number
+{
+  return roll >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
+}
+
 export type Statistic = 
 {
   grade: number;
@@ -126,9 +302,15 @@ export type Statistic =
   testBonus: number;
 };
 
+export function getStatisticTotalTestValue(statistic: Statistic): number
+{
+  return statistic.value + statistic.bonus + statistic.testBonus;
+}
+
 //Modes
 export type Mode =
 {
+  readonly id: string;
   name: string;
   grade: number;
   description: string;
@@ -139,6 +321,7 @@ export type ModesType = "stances" | "states";
 //Equipment
 export type Item = 
 {
+  readonly id: string;
   name: string;
   description: string;
 };
@@ -164,11 +347,30 @@ export type DefensiveItem = Item &
   strengthRequirement: number;
 };
 
-export const penaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const attributePenaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const dexterityRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const initiativeRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const strengthRequirementValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+export const penaltyValues = [ 
+  "0",
+  "x1", 
+  "x1-1", 
+  "x1-2", 
+  "x1-3", 
+  "x1+1", 
+  "x1+2", 
+  "x1+3", 
+  "x2", 
+  "x2-1", 
+  "x2-2", 
+  "x2-3", 
+  "x2+1", 
+  "x2+2", 
+  "x2+3", 
+  "x3", 
+  "x4"
+] as const satisfies readonly string[];
+
+export const attributePenaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
+export const dexterityRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
+export const initiativeRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
+export const strengthRequirementValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
 
 export type Armor = DefensiveItem & 
 {
@@ -243,6 +445,7 @@ export const pathToInventoryField = <K extends keyof Item>(index: number, field:
 //Maneuvers
 export type Maneuver =
 {
+  readonly id: string;
   name: string;
   grade: number;
   description: string;

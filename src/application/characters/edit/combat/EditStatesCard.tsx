@@ -10,7 +10,7 @@ import {
 import { CreateDefaultState } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
-import AppendToArrayButton from '@/ui/AppendToArrayButton';
+import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 
@@ -39,7 +39,7 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
         watchedArray.map((state, index) => (
           <EditModeView 
             mode={state}
-            key={index} 
+            key={state.id} 
             modeType='states' 
             index={index} 
             remove={remove} 

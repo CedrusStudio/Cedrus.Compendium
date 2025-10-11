@@ -12,12 +12,14 @@ import { useDamageOffenseForm } from '@/application/characters/edit/combat/useDa
 import { useWeaponOffenseForm } from '@/application/characters/edit/combat/useWeaponOffenseForm';
 import { Button } from '@/ui/button';
 import { useState } from 'react';
-import RemoveButton from '@/ui/RemoveButton';
-import { LuPlus } from 'react-icons/lu';
+import RemoveButton from '@/common/components/form/RemoveButton';
 import { resolveSetState } from '@/common/global/resolveSetState';
-import { InputFormField } from '@/common/components/ui/InputFormField';
-import AreaInputFormField from '@/common/components/ui/AreaInputFormField';
-import RemoveFromArrayButton from '@/common/components/ui/RemoveFromArrayButton';
+import { InputFormField } from '@/common/components/form/InputFormField';
+import AreaInputFormField from '@/common/components/form/AreaInputFormField';
+import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
+import { addIcon, leftIcon, rightIcon } from '@/domain/data/icons';
+import IncreaseButton from '@/common/components/buttons/IncreaseButton';
+import DecreaseButton from '@/common/components/buttons/DecreaseButton';
 
 type EditOffenseCardProps =
 {
@@ -50,6 +52,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
           <EditSecondaryWeaponOffenseSubcard offense={offense} index={index} />
           <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} index={index} />
         </div>
+        
       </CardContent>
       
     </Card>
@@ -134,7 +137,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
     return (
       <Card className="flex items-center justify-center col-span-3 bg-secondary">
         <CardContent className='flex items-center justify-center'>
-          <Button variant='outline' onClick={handleAddSecondary}><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Button>
+          <Button variant='outline' onClick={handleAddSecondary}>{addIcon("h-[1.2rem] w-[1.2rem]")}</Button>
         </CardContent>
     </Card>
     );
@@ -197,10 +200,11 @@ function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalVie
     <div className='flex gap-x-1'>
 
         <div className='flex items-center'>
+          <IncreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={leftIcon} />
             <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-yellow-300">
               {calculatedRange}
             </Badge>
-            <VerticalChangeButtons setValue={setRange} />
+          <DecreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={rightIcon} />
         </div>
         
         <div className='flex items-center'>

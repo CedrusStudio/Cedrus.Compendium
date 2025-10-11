@@ -4,23 +4,23 @@ import { Input } from "@/ui/input"
 import { useDebouncedCallback } from 'use-debounce';
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/persistence/store";
-import { actions } from "@/persistence/bestiarySlice";
+import { RootState } from "@/persistence/slices/store";
+import { actions } from "@/persistence/slices/characterSlice";
 import { useEffect, useState } from "react";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import React from "react";
-import { LuPlus } from "react-icons/lu";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
+import { addIcon } from "@/domain/data/icons";
 
-export default function BestiaryNavbar() 
+export default function CharacterNavbar() 
 {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
 
     const dispatch = useDispatch()
-    const searchQuery = useSelector((state: RootState) => state.bestiary.bestiaryNavbarSearch)
+    const searchQuery = useSelector((state: RootState) => state.character.characterNavbarSearch)
     const [searchTerm, setSearchTerm] = useState("");
     const pathname = usePathname();
 
@@ -33,18 +33,18 @@ export default function BestiaryNavbar()
         } 
         else 
         {
-            replace(`/bestiary`);
+            replace(`/characters`);
             return;
         }
 
-        replace(`/bestiary?${params.toString()}`);
+        replace(`/characters?${params.toString()}`);
     }, 300);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
     {
         const value = e.target.value;
         setSearchTerm(value);
-        dispatch(actions.setBestiaryNavbarSearch(value));
+        dispatch(actions.setCharacterNavbarSearch(value));
         debouncedSearch(value);
     };
 
@@ -64,7 +64,7 @@ export default function BestiaryNavbar()
             <Input 
                 name="search" 
                 type="text" 
-                placeholder="Wyszukaj bestię..."
+                placeholder="Wyszukaj postać..."
                 value={searchTerm}
                 onChange={handleInputChange}
                 className="w-1xl md:w-2xl lg:w-3xl col-span-6 justify-self-center"
@@ -72,7 +72,7 @@ export default function BestiaryNavbar()
 
             <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
                 <Button asChild variant="outline" size="icon">
-                    <Link href="/bestiary/add"><LuPlus className="h-[1.2rem] w-[1.2rem]" /></Link>
+                    <Link href="/characters/add">{addIcon("h-[1.2rem] w-[1.2rem]")}</Link>
                 </Button>
                 <NavbarDefaultButton />
             </div>

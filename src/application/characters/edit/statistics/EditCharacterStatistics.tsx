@@ -4,10 +4,9 @@ import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import EditStatisticsCard from "@/application/characters/edit/statistics/EditStatisticsCard";
-import SubmitButton from "@/ui/SubmitButton";
+import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 

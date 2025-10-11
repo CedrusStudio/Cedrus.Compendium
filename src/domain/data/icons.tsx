@@ -1,7 +1,5 @@
-
-//strength
-import { LuBicepsFlexed } from "react-icons/lu";
-import { GiRun } from "react-icons/gi";
+import { LuBicepsFlexed, LuPlus } from "react-icons/lu";
+import { GiRollingDices, GiRun, GiSwordsEmblem } from "react-icons/gi";
 import { GiAbdominalArmor } from "react-icons/gi";
 
 import { LuBrain } from "react-icons/lu";
@@ -19,6 +17,21 @@ import { GiDodging } from "react-icons/gi";
 import { GiChessKnight } from "react-icons/gi";
 import { GiMeditation } from "react-icons/gi";
 import { ReactNode } from "react";
+
+import { IoShieldOutline } from "react-icons/io5";
+import { IoShieldHalfOutline } from "react-icons/io5";
+import { IoShield } from "react-icons/io5";
+
+import { GiDiceShield } from "react-icons/gi";
+import { GiCrenulatedShield } from "react-icons/gi";
+
+import { TbSum } from "react-icons/tb";
+import { MdPublishedWithChanges } from "react-icons/md";
+
+import { MdOutlineHealthAndSafety } from "react-icons/md";
+import { LuMinus } from "react-icons/lu";
+import { IoMdCopy } from "react-icons/io";
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -43,3 +56,33 @@ export const attributesIcons: Record<string, ReactNode> =
   reflex: <GiDodging className="w-5 h-5" />,
   willpower: <GiMeditation className="w-5 h-5" />
 };
+
+export const reductionIcons: Record<string, ReactNode> = 
+{
+  full: <IoShield className="w-5 h-5" />,
+  block: <IoShieldHalfOutline className="w-5 h-5" />,
+  direct: <IoShieldOutline className="w-5 h-5" />
+};
+
+export const immunityIcon = (className?: string) => <GiDiceShield className={className} />;
+export const resistanceIcon = (className?: string) => <GiCrenulatedShield className={className} />;
+
+export const sumIcon = <TbSum className="w-5 h-5" />;
+export const currentValueIcon = <MdPublishedWithChanges className="w-5 h-5" />;
+
+export const healthIcon = <MdOutlineHealthAndSafety className="w-5 h-5" />;
+
+export const rollIcon = <GiRollingDices className="w-5 h-5" />;
+
+export const battleIcon = (className: string) => <GiSwordsEmblem className={className} />;
+
+export const addIcon = (className: string) => <LuPlus className={className} />;
+export const removeIcon = (className: string) => <LuMinus className={className} />;
+
+export const copyIcon = <IoMdCopy className="w-5 h-5" />;
+
+export const upIcon = <ChevronUp />;
+export const downIcon = <ChevronDown />;
+
+export const leftIcon = <ChevronLeft />;
+export const rightIcon = <ChevronRight />;

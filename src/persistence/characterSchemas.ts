@@ -1,22 +1,22 @@
-import { allowedStyles } from "@/domain/characters/Character";
+import { allowedStyles, penaltyValues } from "@/domain/characters/Character";
 import { castTimeValues } from "@/domain/data/castTimes";
 import { z } from "zod";
 
-// Schema for character header (name and description)
 export const upsertCharacterHeaderSchema = z.object
 ({
-    name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
-    description: z.string()
-        .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
-        .max(600, { message: "Opis nie może być dłuższy niż 600 znaków." }),
+  name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
+  description: z.string()
+      .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
+      .max(600, { message: "Opis nie może być dłuższy niż 600 znaków." }),
+  category: z.string().min(2, { message: "Kategoria musi mieć co najmniej 2 znaki." }).max(100, { message: "Kategoria nie może być dłuższa niż 100 znaków." }).optional(),
 });
 
 export const addCharacterHeaderSchema = z.object
 ({
-    name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
-    description: z.string()
-        .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
-        .max(10_000, { message: "Opis nie może być dłuższy niż 10 000 znaków." }),
+  name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
+  description: z.string()
+      .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
+      .max(10_000, { message: "Opis nie może być dłuższy niż 10 000 znaków." }),
 });
 
 export type UpsertCharacterHeaderType = z.infer<typeof upsertCharacterHeaderSchema>;
@@ -69,13 +69,13 @@ export const newTalentSchema = z.object
   characteristics: z.string().min(2, { message: "Cecha musi mieć co najmniej 2 znaki." }).max(100, { message: "Cecha musi mieć najwyżej 100 znaków." }),
   grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi mieć co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
-  penalty: z.coerce.number<number>().int().min(0, { message: "Kara musi być co najmniej 0." }).max(50, { message: "Kara musi być najwyżej 50." }),
+  penalty: z.enum(penaltyValues).optional(),
 });
 
 export const talentSchema = newTalentSchema.extend
 ({
-  id: z.string().min(2, { message: "ID musi mieć co najmniej 2 znaki." }).max(100, { message: "ID musi mieć najwyżej 100 znaków." })
-}).required();
+  id: z.ulid()
+});
 
 export const upsertCharacterTalentsSchema = z.object
 ({
@@ -111,6 +111,7 @@ const damageOffenseSchema = z.object
 
 const itemSchema = z.object
 ({
+  id: z.ulid(),
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().max(2000, { message: "Opis musi mieć najwyżej 2000 znaków." }),
 });
@@ -181,7 +182,7 @@ export type UpsertCharacterHealthType = z.infer<typeof healthSchema>;
 //Defense
 export const defenseSchema = z.object
 ({
-  id: z.string().min(2).max(100, { message: "ID musi mieć najwyżej 100 znaków." }),
+  id: z.ulid(),
   name: z.string().min(2).max(100),
   description: z.string().min(2).max(1000).optional(),
   immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(50, { message: "Niewrażliwość musi mieć najwyżej 50." }),
@@ -198,6 +199,7 @@ export type UpsertCharacterDefenseType = z.infer<typeof defenseSchema>;
 //Mode
 export const modeSchema = z.object
 ({
+  id: z.ulid(),
   name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
   grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
@@ -209,6 +211,7 @@ export const upsertCharacterModesSchema = z.array(modeSchema).max(20, { message:
 //Maneuvers
 const maneuverSchema = z.object
 ({
+  id: z.ulid(),
   name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
   grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
@@ -222,7 +225,7 @@ export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, {
 //Offense
 const offenseSchema = z.object
 ({
-  id: z.string().min(2).max(100, { message: "ID musi mieć najwyżej 100 znaków." }),
+  id: z.ulid(),
   name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }).optional(),
   leadingWeapon: weaponOffenseSchema,

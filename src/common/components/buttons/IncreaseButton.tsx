@@ -6,12 +6,12 @@ import { ChangeValueSideEffect } from "@/common/global/ChangeValueSideEffect";
 
 type IncreaseButtonProps =
 {
-    value: number;
-    setValue: React.Dispatch<React.SetStateAction<number>>;
-    variant?: VariantType;
-    className?: string;
-    icon?: React.ReactNode;
-    sideEffect?: ChangeValueSideEffect;
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+  variant?: VariantType;
+  className?: string;
+  icon?: React.ReactNode;
+  sideEffect?: ChangeValueSideEffect;
 }
 
 export default function IncreaseButton({ value, setValue, variant = "outline", className, icon, sideEffect }: IncreaseButtonProps)
@@ -23,7 +23,7 @@ export default function IncreaseButton({ value, setValue, variant = "outline", c
       className={cn(className)} 
       onClick={() => increase(value, setValue, sideEffect)}
     >
-        {icon || <IoAdd />}
+      {icon || <IoAdd />}
     </Button>
   );
 };
@@ -32,11 +32,11 @@ const increase = (changeBy: number, setStateAction: React.Dispatch<React.SetStat
 {
     setStateAction
     (
-        previousValue => 
-        {
-            const newValue = previousValue + changeBy;
-            sideEffect?.(newValue);
-            return newValue;
-        }
+      previousValue => 
+      {
+        const newValue = previousValue + changeBy;
+        sideEffect?.(newValue);
+        return newValue;
+      }
     );
 };

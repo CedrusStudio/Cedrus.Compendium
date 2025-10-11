@@ -13,7 +13,7 @@ export default function ArmorView({ armor }: { armor: Armor })
         <div>
           <span className='font-semibold'>Pancerz:</span> {armor.protection}
         </div>
-    </DefensiveItemView>
+      </DefensiveItemView>
     </AccordionContent>
   )
 }

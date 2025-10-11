@@ -23,7 +23,7 @@ import {
 import { Separator } from '@/ui/separator';
 import { Button } from '@/ui/button';
 import { useDispatch } from 'react-redux';
-import { actions } from '@/persistence/characterSlice';
+import { actions } from '@/persistence/slices/characterSlice';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 type CharactersGridParams =
@@ -110,7 +110,7 @@ function CharacterCard({ character }: { character: Character })
           {character.name}
 
           <Button asChild size="icon" className='mt-0.5' onClick={() => dispatch(actions.clearCharacterNavbarSearch())}>
-              <Link href={`/characters/${character.id}`}><FaMagnifyingGlass /></Link>
+            <Link href={`/characters/${character.id}`}><FaMagnifyingGlass /></Link>
           </Button>
         </CardTitle>
       </CardHeader>
