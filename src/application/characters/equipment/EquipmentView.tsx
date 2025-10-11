@@ -7,7 +7,6 @@ import ItemsView from '@/application/characters/equipment/ItemsView';
 
 export default function EquipmentView({ equipment }: { equipment: Equipment })
 {
-  console.log(equipment);
   return (
     <Accordion type="multiple">
 

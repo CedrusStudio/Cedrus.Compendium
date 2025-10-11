@@ -68,15 +68,11 @@ function EditableCell({ name, initialTalent, currentTalent, setTalentValue }: Ed
   const setValue: React.Dispatch<React.SetStateAction<number>> = (input: number | ((prevState: number) => number)) =>
   {
     const prevState = currentTalent[name];
-      console.log("prevState:", prevState);
-      console.log("initialOrDefaultTalent:", initialOrDefaultTalent);
     
     const next = typeof input === "function" 
       ? (input as (p: number) => number)(prevState) 
       : (input as number);
 
-      const talentX = { ...currentTalent, [name]: next };
-      console.log("Setting talent value:", talentX);
     setTalentValue({ ...currentTalent, [name]: next });
   };
 

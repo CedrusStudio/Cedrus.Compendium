@@ -18,8 +18,6 @@ export default function EditCharacterTalents(input: { character: Character })
     talents: input.character.talents
   };
 
-  console.log("Initial form values:", initialValues);
-
   const form = useForm<UpsertCharacterTalentsType>
   ({
     resolver: zodResolver(upsertCharacterTalentsSchema),

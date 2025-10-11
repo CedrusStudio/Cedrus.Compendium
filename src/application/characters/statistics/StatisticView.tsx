@@ -25,7 +25,6 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
   const handleRoll = (statistic: Statistic) => 
   {
     const result = Math.floor(Math.random() * statistic.grade * 2) + 1
-    console.log("Base roll:", result);
     setRollResult(result);
   };
 
