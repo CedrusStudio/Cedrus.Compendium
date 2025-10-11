@@ -67,6 +67,7 @@ const defaultTranslations =
     battle: "bitwa",
     sum: "suma",
     current: "obecne",
+    health: "zdrowie",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;
