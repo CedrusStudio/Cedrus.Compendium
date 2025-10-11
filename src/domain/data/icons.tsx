@@ -30,6 +30,7 @@ import { MdPublishedWithChanges } from "react-icons/md";
 
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { LuMinus } from "react-icons/lu";
+import { IoMdCopy } from "react-icons/io";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -76,3 +77,5 @@ export const battleIcon = (className: string) => <GiSwordsEmblem className={clas
 
 export const addIcon = (className: string) => <LuPlus className={className} />;
 export const removeIcon = (className: string) => <LuMinus className={className} />;
+
+export const copyIcon = <IoMdCopy className="w-5 h-5" />;

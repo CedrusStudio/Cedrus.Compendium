@@ -4,7 +4,7 @@ import { Button } from "@/common/components/ui/button";
 import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes, Mode, Maneuver, calculateRange, rollDamage } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons, immunityIcon, resistanceIcon } from "@/domain/data/icons";
+import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/domain/data/icons";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
@@ -89,7 +89,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     id: columnKeys.name,
     accessorKey: columnKeys.name,
     header: columnHeaders.name,
-    cell: ({ row }) => row.original.name,
+    cell: ({ row }) => <CharacterNameView character={row.original} />,
     enableHiding: false
   },
   {
@@ -166,6 +166,16 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   },
 ];
 
+function CharacterNameView({ character }: {character: Character})
+{
+  return (
+    <div className="flex flex-row justify-center items-center gap-1">
+      {character.name}
+      <Button variant="ghost" size="icon" onClick={() => navigator.clipboard.writeText(character.name)}>{copyIcon}</Button>
+    </div>
+  );
+}
+
 function CharacterHealthBattleView({ character }: {character: Character})
 {
   return (
@@ -229,9 +239,6 @@ function MoreBattleActions({ character }: { character: Character })
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Akcje</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(character.name)}>
-            Skopiuj nazwę postaci
-          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}>Wyświetl postawy, stany i manewry</DropdownMenuItem>
           <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}>Przejdź do widoku postaci</DropdownMenuItem>
