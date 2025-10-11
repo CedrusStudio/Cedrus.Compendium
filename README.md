@@ -12,7 +12,6 @@ wiele kategorii jak Bohater
 
 soft delete
 
-
 tworzenie postacie na podstawie innej.
 
 importy

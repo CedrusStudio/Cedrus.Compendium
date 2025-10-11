@@ -1,4 +1,4 @@
-import { allowedStyles } from "@/domain/characters/Character";
+import { allowedStyles, penaltyValues } from "@/domain/characters/Character";
 import { castTimeValues } from "@/domain/data/castTimes";
 import { z } from "zod";
 
@@ -69,13 +69,13 @@ export const newTalentSchema = z.object
   characteristics: z.string().min(2, { message: "Cecha musi mieć co najmniej 2 znaki." }).max(100, { message: "Cecha musi mieć najwyżej 100 znaków." }),
   grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi mieć co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
-  penalty: z.coerce.number<number>().int().min(0, { message: "Kara musi być co najmniej 0." }).max(50, { message: "Kara musi być najwyżej 50." }),
+  penalty: z.enum(penaltyValues).optional(),
 });
 
 export const talentSchema = newTalentSchema.extend
 ({
   id: z.ulid()
-}).required();
+});
 
 export const upsertCharacterTalentsSchema = z.object
 ({

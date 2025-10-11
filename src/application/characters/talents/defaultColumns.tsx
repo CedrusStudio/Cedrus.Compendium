@@ -82,7 +82,7 @@ export const defaultColumns: AccessorKeyColumnDef<Talent>[] =
   {
     id: defaultColumnKeys.penalty,
     accessorKey: defaultColumnKeys.penalty,
-    cell: ({ row }) => <span className="capitalize">{row.original.penalty}</span>,
+    cell: ({ row }) => <span>{row.original.penalty}</span>,
     header: defaultColumnHeaders.penalty,
     meta: { initiallyHidden: true },
   }

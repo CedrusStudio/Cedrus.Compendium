@@ -51,7 +51,7 @@ export type Talent =
   characteristics: string;
   grade: number;
   bonus: number;
-  penalty: number;
+  penalty?: string;
 };
 
 export type Health = 
@@ -307,11 +307,29 @@ export type DefensiveItem = Item &
   strengthRequirement: number;
 };
 
-export const penaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const attributePenaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const dexterityRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const initiativeRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-export const strengthRequirementValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+export const penaltyValues = [ 
+  "x1", 
+  "x1-1", 
+  "x1-2", 
+  "x1-3", 
+  "x1+1", 
+  "x1+2", 
+  "x1+3", 
+  "x2", 
+  "x2-1", 
+  "x2-2", 
+  "x2-3", 
+  "x2+1", 
+  "x2+2", 
+  "x2+3", 
+  "x3", 
+  "x4"
+] as const satisfies readonly string[];
+
+export const attributePenaltyValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
+export const dexterityRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
+export const initiativeRestrictionValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
+export const strengthRequirementValues = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const;
 
 export type Armor = DefensiveItem & 
 {

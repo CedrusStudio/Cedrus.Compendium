@@ -54,7 +54,6 @@ export const defaultTalent: Omit<Talent, "id"> =
   category: "Kategoria",
   characteristics: "siła",
   bonus: 0,
-  penalty: 0,
   grade: 3
 };
 
