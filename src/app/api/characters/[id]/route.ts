@@ -48,7 +48,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams)
 {
   try 
   {
-    const id = params.id;
+    const id = await params.id;
     if (!id) return NextResponse.json({ message: 'Character ID is required' }, { status: 400 });
     const characterData = await request.json();
     await upsertCharacter(characterData);
