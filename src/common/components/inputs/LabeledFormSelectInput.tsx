@@ -7,44 +7,45 @@ import {
   SelectValue,
 } from "@/ui/select";
 
-type LabeledFormSelectInputProps =
+type LabeledFormSelectInputProps<TValue> =
 {
   name: string;
   label: string;
-  value: string;
+  value: TValue;
   placeholder?: string;
-  collectionToSelectFrom: readonly string[];
-  onChange: (e: string) => void;
+  collectionToSelectFrom: readonly TValue[];
+  onChange: (e: TValue) => void;
   errors?: { [key: string]: string };
   type?: string;
+  isValueCapitalized?: boolean;
 }
 
-export default function LabeledFormSelectInput({ name, label, placeholder, collectionToSelectFrom, value, onChange, errors }: LabeledFormSelectInputProps)
+export default function LabeledFormSelectInput<TValue extends string>({ name, label, placeholder, collectionToSelectFrom, value, onChange, errors, isValueCapitalized = true }: LabeledFormSelectInputProps<TValue>)
 {
   return (
     <div className="grid gap-3 justify-center">
-        <Label htmlFor={name} className="capitalize">{label}</Label>
-        <Select value={value} onValueChange={onChange}>
-        <SelectTrigger>
-            <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectContent>
-        {   
-            collectionToSelectFrom.map(item => (
-                <SelectItem key={item} value={item}>
-                    <span className="capitalize">{item}</span>
-                </SelectItem>
-            ))
-        }
-        </SelectContent>
-        </Select>
-        {
-          errors?.[name] && (
-            <p id={`${name}-error`} className="text-sm font-medium text-destructive">
-                {errors[name]}
-            </p>
-          )
-        }
+      <Label htmlFor={name} className="capitalize">{label}</Label>
+      <Select value={value} onValueChange={onChange}>
+      <SelectTrigger>
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+      {   
+        collectionToSelectFrom.map(item => (
+          <SelectItem key={item} value={item}>
+            <span className={isValueCapitalized ? "capitalize" : ""}>{item}</span>
+          </SelectItem>
+        ))
+      }
+      </SelectContent>
+      </Select>
+      {
+        errors?.[name] && (
+          <p id={`${name}-error`} className="text-sm font-medium text-destructive">
+            {errors[name]}
+          </p>
+        )
+      }
     </div>
   );
 };

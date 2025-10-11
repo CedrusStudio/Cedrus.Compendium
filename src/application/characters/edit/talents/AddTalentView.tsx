@@ -20,6 +20,7 @@ import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelect
 import { ulid } from "ulid";
 import { defaultTalent } from "@/domain/data/defaults";
 import { addIcon } from "@/domain/data/icons";
+import { Penalty, penaltyValues } from "@/domain/characters/Character";
 
 type AddTalentViewProps =
 {
@@ -35,7 +36,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
   const [newTalentName, setNewTalentName] = useState<string>("");
   const [newTalentGrade, setNewTalentGrade] = useState<number>(0);
   const [newTalentBonus, setNewTalentBonus] = useState<number>(0);
-  const [newTalentPenalty, setNewTalentPenalty] = useState<number>(0);
+  const [newTalentPenalty, setNewTalentPenalty] = useState<Penalty>("0");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedCharacteristics, setSelectedCharacteristics] = useState<string>("");
 
@@ -67,7 +68,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     setNewTalentName("");
     setNewTalentGrade(0);
     setNewTalentBonus(0);
-    setNewTalentPenalty(0);
+    setNewTalentPenalty("0");
     setSelectedCategory("");
     setSelectedCharacteristics("");
     setErrors({});
@@ -79,7 +80,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     setNewTalentName("");
     setNewTalentGrade(0);
     setNewTalentBonus(0);
-    setNewTalentPenalty(0);
+    setNewTalentPenalty("0");
     setSelectedCategory("");
     setSelectedCharacteristics("");
   };
@@ -155,12 +156,15 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
                 errors={errors} 
               />
 
-              <LabeledFormInput 
-                name="penalty" 
+              <LabeledFormSelectInput
+                name="penalty"
                 label={translate("penalty")}
-                value={newTalentPenalty} 
-                onChange={(e) => setNewTalentPenalty(Number(e.target.value))}
-                errors={errors} 
+                collectionToSelectFrom={penaltyValues}
+                value={newTalentPenalty}
+                placeholder="Wybierz karę"
+                onChange={setNewTalentPenalty}
+                errors={errors}
+                isValueCapitalized={false}
               />
 
             </div>

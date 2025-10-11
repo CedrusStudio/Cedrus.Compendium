@@ -51,8 +51,10 @@ export type Talent =
   characteristics: string;
   grade: number;
   bonus: number;
-  penalty?: string;
+  penalty?: Penalty;
 };
+
+export type Penalty = typeof penaltyValues[number];
 
 export type Health = 
 {
@@ -318,6 +320,7 @@ export type DefensiveItem = Item &
 };
 
 export const penaltyValues = [ 
+  "0",
   "x1", 
   "x1-1", 
   "x1-2", 
