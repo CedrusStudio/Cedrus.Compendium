@@ -26,9 +26,5 @@ zakęcia
 ---
 dodawnie odejmowanie nieworzliwosci i odpornosci
 
-----
-
-Jeśli dodajesz obraznia to zawsze pomniejszone o odpornosc
-
 ---
 Na karcie wojny atak ze zmeniszona koscia

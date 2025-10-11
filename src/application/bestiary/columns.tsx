@@ -14,7 +14,7 @@ import DefenseReductionInfoContent from "@/application/characters/combat/Defense
 
 import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
 import { reductionIcons } from "@/domain/data/icons";
-import IconWithTooltip from "@/common/components/fields/IconWithTooltip";
+import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 import { Checkbox } from "@/common/components/ui/checkbox";
 import {
   DropdownMenu,
@@ -200,14 +200,21 @@ function CharacterDefensesBattleView({ character }: { character : Character })
       <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={character.defenses} setIndex={setSelectedDefenseIndex} disableInfo />
 
       <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
-        <FieldWithIconView icon={<IconWithTooltip icon={immunityIcon} name={translate("immunity")}/>} value={selectedDefense.immunity} />
-        <FieldWithIconView icon={<IconWithTooltip icon={resistanceIcon} name={translate("resistance")}/>} value={selectedDefense.resistance} />
+        
+        <FieldWithIconView value={selectedDefense.immunity} >
+          <FieldWithTooltip name={translate("immunity")}>{immunityIcon("w-5 h-5")}</FieldWithTooltip>
+        </FieldWithIconView>
+
+        <FieldWithIconView value={selectedDefense.resistance} >
+          <FieldWithTooltip name={translate("resistance")}>{resistanceIcon("w-5 h-5")}</FieldWithTooltip>
+        </FieldWithIconView>
 
         <FieldViewWithInfo
-          name={<SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>} 
           value={calculateSelectedReduction(selectedDefense, selectedReductionType)} 
           infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} />}
-        />
+        >
+          <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
+        </FieldViewWithInfo>
         
         <SelectContent>
         {
@@ -302,12 +309,13 @@ function ModeView({ mode }: { mode: Mode })
   return (
     <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
       <FieldViewWithInfo
-        name={mode.name}
         value={mode.grade}
         infoContent={<span>{mode.description}</span>}
         className="gap-1"
         nameClassName='w-4xs'
-      />
+      >
+        {mode.name}
+      </FieldViewWithInfo>
     </div>
   );
 }
@@ -317,13 +325,14 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
   return (
     <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
       <FieldViewWithInfo
-        name={maneuver.name}
         value={maneuver.grade}
         infoContent={<span>Akcja <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
         className="gap-1"
         nameClassName='w-4xs'
         infoTriggerClassName={`${getCastTimeColors(maneuver.castTime).text}`}
-      />
+      >
+        {maneuver.name}
+      </FieldViewWithInfo>
     </div>
   );
 }

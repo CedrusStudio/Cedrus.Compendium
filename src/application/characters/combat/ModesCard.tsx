@@ -43,12 +43,9 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
                 <SelectItem key={mode.name} value={mode.name}>
                   <Label htmlFor={mode.name} className="flex items-center gap-3" >
                     <div className="flex items-start text-start gap-2">
-                      <FieldView
-                        name={mode.name} 
-                        value={mode.grade} 
-                        className="gap-1" 
-                        nameClassName="w-4xs"
-                      />
+                      <FieldView value={mode.grade} className="gap-1" nameClassName="w-4xs">
+                        {mode.name}
+                      </FieldView>
                     </div>
                   </Label>
                 </SelectItem>

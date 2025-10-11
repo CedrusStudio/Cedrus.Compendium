@@ -15,13 +15,25 @@ export default function DefenseReductionInfoContent(input: DefenseReductionInfoC
 {
   return (
     <div className="flex flex-wrap flex-col items-center">
-      { input.reductionIncrease ? <FieldView name={namingConventions.increase} value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' nameClassName="w-24" /> : null }
-      { input.damageTaken ? <FieldView name={namingConventions.damage} value={Math.abs(input.damageTaken)} valueClassName='text-red-500' nameClassName="w-24" /> : null }
-      {
-        Object.entries(input.defense)
-          .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
-          .map(([name, value]) => <FieldView key={name} name={translate(name)} value={value} nameClassName="w-24" />)
-      }
+
+    { 
+      input.reductionIncrease 
+        ? <FieldView value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' nameClassName="w-24">{namingConventions.increase}</FieldView>  
+        : null
+    }
+      
+    { 
+      input.damageTaken 
+        ? <FieldView value={Math.abs(input.damageTaken)} valueClassName='text-red-500' nameClassName="w-24">{namingConventions.damage}</FieldView> 
+        : null 
+    }
+
+    {
+      Object.entries(input.defense)
+        .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
+        .map(([name, value]) => <FieldView key={name} value={value} nameClassName="w-24">{translate(name)}</FieldView>)
+    }
+
     </div>
   );
 }

@@ -5,10 +5,10 @@ import {
 } from "@/ui/hover-card";
 import { BsInfoCircle } from "react-icons/bs";
 import { cn } from "@/lib/utils";
+import { PropsWithChildren } from "react";
 
 type FieldViewWithInfoProps = 
 {
-  name: string | React.ReactNode;
   value: number;
   infoContent: React.ReactNode;
   className?: string;
@@ -17,13 +17,13 @@ type FieldViewWithInfoProps =
   infoTriggerClassName?: string;
 };
 
-export default function FieldViewWithInfo(input: FieldViewWithInfoProps) 
+export default function FieldViewWithInfo(input: PropsWithChildren<FieldViewWithInfoProps>) 
 {
   return (
     <div className={cn('flex gap-x-6 justify-around', input.className)}>
 
       <div className={cn("capitalize", input.nameClassName)}>
-        {input.name}
+        {input.children}
       </div>
 
       <div className={cn("flex items-center gap-2", input.valueClassName)}>

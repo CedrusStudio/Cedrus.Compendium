@@ -14,7 +14,7 @@ import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { translate } from '@/domain/data/translations';
 import { namingConventions } from '@/domain/data/namingConventions';
-import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
+import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { currentValueIcon, sumIcon } from '@/domain/data/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
@@ -49,8 +49,16 @@ export default function HealthCard(input: HealthCardProps)
 
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
 
-        <FieldViewWithInfo name={<IconWithTooltip icon={sumIcon} name={translate("sum")}/>} value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} />
-        <FieldViewWithInfo name={<IconWithTooltip icon={currentValueIcon} name={namingConventions.current}/>} value={totalHealth + healthIncrease - damageTaken} infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} />
+        <FieldViewWithInfo value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} >
+          <FieldWithTooltip name={translate("sum")}>{sumIcon}</FieldWithTooltip>
+        </FieldViewWithInfo>
+
+        <FieldViewWithInfo 
+          value={totalHealth + healthIncrease - damageTaken} 
+          infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} 
+        >
+          <FieldWithTooltip name={namingConventions.current}>{currentValueIcon}</FieldWithTooltip>
+        </FieldViewWithInfo>
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>
@@ -75,7 +83,7 @@ function HealthInfoContent(input: { health: Health })
     {
       Object.entries(input.health)
         .filter(([name]) => name !== 'barrier')
-        .map(([name, value]) => <FieldView key={name} name={translate(name)} value={value} nameClassName="w-24" />)
+        .map(([name, value]) => <FieldView key={name} value={value} nameClassName="w-24">{translate(name)}</FieldView>)
     }
     </div>
   );
@@ -85,9 +93,9 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
 {
   return (
     <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalHealth" name={namingConventions.sum} value={input.totalHealth} nameClassName="w-24" /> }
-    { <FieldView key="healthIncrease" name={namingConventions.increase} value={input.healthIncrease} valueClassName='text-green-600' nameClassName="w-24" /> }
-    { <FieldView key="damageTaken" name={namingConventions.damage} value={input.damageTaken}  valueClassName='text-red-500' nameClassName="w-24"  /> }
+    { <FieldView key="totalHealth" value={input.totalHealth} nameClassName="w-24">{namingConventions.sum}</FieldView> }
+    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' nameClassName="w-24">{namingConventions.increase}</FieldView> }
+    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' nameClassName="w-24">{namingConventions.damage}</FieldView> }
     </div>
   );
 };

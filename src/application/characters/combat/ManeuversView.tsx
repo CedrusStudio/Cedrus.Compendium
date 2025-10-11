@@ -105,12 +105,13 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
 
             <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
                 <FieldViewWithInfo
-                    name={maneuver.name}
                     value={maneuver.grade}
                     infoContent={<span>Akcja <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
                     className="gap-1"
                     nameClassName='w-4xs'
-                />
+                >
+                    {maneuver.name}
+                </FieldViewWithInfo>
             </div>
 
             <div className='flex items-center justify-center border rounded-r-md border-l-0'>

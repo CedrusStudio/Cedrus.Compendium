@@ -10,7 +10,7 @@ import {
 } from '@/ui/card';
 
 import FieldView from "@/common/components/fields/FieldView";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
@@ -19,9 +19,11 @@ import { namingConventions } from '@/domain/data/namingConventions';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
-import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
+import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { immunityIcon, reductionIcons, resistanceIcon } from '@/domain/data/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
+import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
+import ResetButton from '@/common/components/buttons/ResetButton';
 
 type DefenseCardProps = 
 {
@@ -38,6 +40,8 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
   const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
   const selectedDefense = defenses[selectedDefenseIndex];
+  const [immunity, setImmunity] = useState<number>(selectedDefense.immunity);
+  const [resistance, setResistance] = useState<number>(selectedDefense.resistance);
 
   function setReductionIncreaseIfPositive(setInput: DispatchSetInput<number>) 
   {
@@ -46,13 +50,19 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
   function setDamageTakenIfPositive(setInput: DispatchSetInput<number>) 
   {
-    setIf(newValue => newValue >= 0, value => setDamageTaken(value), setInput, damageTaken, newValue => Math.max(0, newValue - selectedDefense.resistance));
+    setIf(newValue => newValue >= 0, value => setDamageTaken(value), setInput, damageTaken, newValue => Math.max(0, newValue - resistance));
   }
 
   const handleOnSelectedValueChange = (value: string) => 
   {
     setSelectedReductionType(value as ReductionType);
   };
+
+  useEffect(() => 
+  {
+    setImmunity(selectedDefense.immunity);
+    setResistance(selectedDefense.resistance);
+  }, [selectedDefense]);
   
   return (
     <Card className='bg-muted'>
@@ -64,17 +74,33 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <FieldView name={<IconWithTooltip icon={immunityIcon} name={translate("immunity")}/>} value={selectedDefense.immunity} />
-        <FieldView name={<IconWithTooltip icon={resistanceIcon} name={translate("resistance")}/>} value={selectedDefense.resistance} />
+        <FieldView value={immunity}>
+          <FieldWithTooltip name={translate("immunity")}>
+            <div className='flex items-center gap-1'>
+              <ResetButton variant='ghost' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]} icon={immunityIcon("w-5 h-5")} />
+              <VerticalChangeButtons setValue={setImmunity} />
+            </div>
+          </FieldWithTooltip>
+        </FieldView>
+
+        <FieldView value={resistance}>
+          <FieldWithTooltip name={translate("resistance")}>
+            <div className='flex items-center gap-1'>
+              <ResetButton variant='ghost' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]} icon={resistanceIcon("w-5 h-5")} />
+              <VerticalChangeButtons setValue={setResistance} />
+            </div>
+          </FieldWithTooltip>
+        </FieldView>
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
           <FieldViewWithInfo 
-            name={<SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>} 
             value={calculateSelectedReduction(selectedDefense, selectedReductionType) + reductionIncrease - damageTaken} 
             infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} reductionIncrease={reductionIncrease} damageTaken={damageTaken} />} 
             valueClassName='pr-3'
-          />
+          >
+            <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
+          </FieldViewWithInfo>
   
           <SelectContent>
           {

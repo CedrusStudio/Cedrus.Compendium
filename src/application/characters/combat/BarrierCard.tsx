@@ -12,7 +12,7 @@ import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { namingConventions } from '@/domain/data/namingConventions';
-import IconWithTooltip from '@/common/components/fields/IconWithTooltip';
+import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { currentValueIcon, sumIcon } from '@/domain/data/icons';
 import { translate } from '@/domain/data/translations';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
@@ -44,8 +44,16 @@ export default function BarrierCard(input: BarrierCardProps)
       <CardContent className='flex flex-col h-full gap-y-4'>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Bariera</CardTitle>
 
-        <FieldView name={<IconWithTooltip icon={sumIcon} name={translate("sum")}/>} value={input.health.barrier}/>
-        <FieldViewWithInfo name={<IconWithTooltip icon={currentValueIcon} name={namingConventions.current}/>} value={input.health.barrier + barrierIncrease - damageTaken} infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} />
+        <FieldView value={input.health.barrier}>
+          <FieldWithTooltip name={translate("sum")}>{sumIcon}</FieldWithTooltip>
+        </FieldView>
+
+        <FieldViewWithInfo 
+          value={input.health.barrier + barrierIncrease - damageTaken} 
+          infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} 
+        >
+          <FieldWithTooltip name={namingConventions.current}>{currentValueIcon}</FieldWithTooltip>
+        </FieldViewWithInfo>
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>
@@ -67,9 +75,9 @@ function CurrentBarrierInfoContent(input: { totalBarrier: number, damageTaken: n
 {
   return (
     <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalBarrier" name="Suma" value={input.totalBarrier} nameClassName="w-24" /> }
-    { <FieldView key="barrierIncrease" name={namingConventions.increase} value={input.barrierIncrease} valueClassName='text-green-600' nameClassName="w-24" /> }
-    { <FieldView key="damageTaken" name={namingConventions.damage} value={input.damageTaken}  valueClassName='text-red-500' nameClassName="w-24" /> }
+    { <FieldView key="totalBarrier" value={input.totalBarrier} nameClassName="w-24">{translate("sum")}</FieldView> }
+    { <FieldView key="barrierIncrease" value={input.barrierIncrease} valueClassName='text-green-600' nameClassName="w-24">{namingConventions.increase}</FieldView> }
+    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' nameClassName="w-24">{namingConventions.damage}</FieldView> }
     </div>
   );
 }
