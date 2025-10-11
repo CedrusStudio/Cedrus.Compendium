@@ -22,5 +22,5 @@ buffy -
 zakęcia
 
 ------
+
 wiele kategorii jak Bohater
-short name and keep id as ulid (shortName "igar" long "Igar Potworobójca" => fullName, shortName)

@@ -18,12 +18,18 @@ const bestiarySlice = createSlice
   {
     addSelectedToBattle(state, action: PayloadAction<string[]>) 
     {
-      state.addedToBattle.push(...action.payload);
+      const set = new Set(state.addedToBattle);
+      for (const id of action.payload) set.add(id);
+      state.addedToBattle = Array.from(set);
     },
     removeSelectedFromBattle(state, action: PayloadAction<string[]>) 
     {
-      state.addedToBattle = state.addedToBattle.filter(id => !action.payload.includes(id));
-    }
+      const toRemove = new Set(action.payload);
+      state.addedToBattle = state.addedToBattle.filter(id => !toRemove.has(id));
+    },
+    clearBattle(state) {
+      state.addedToBattle = [];
+    },
   },
 });
 
