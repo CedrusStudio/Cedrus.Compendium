@@ -12,6 +12,8 @@ import { upsertCharacterHeaderSchema, type UpsertCharacterHeaderType } from "@/p
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
+import { SelectFormField } from "@/common/components/form/SelectFormField";
+import { characterCategories } from "@/domain/data/categories";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -73,27 +75,33 @@ export default function EditCharacterOverview(input: { character: Character })
 
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 
-                <p className='text-xl text-center text-primary pt-2 capitalize font-semibold '>
-                    {input.character.name}
-                </p>
+                <div className="flex flex-row items-center justify-center gap-6">
+                    <div className="flex flex-col justify-center items-center gap-6">
+                        <p className='text-xl text-center text-primary pt-2 capitalize font-semibold '>
+                            {input.character.name}
+                        </p>
 
-                <InputFormField<UpsertCharacterHeaderType> 
-                    path="name" 
-                    inputPlaceholder="zmien nazwę..." 
-                    inputClassName="w-xl"
-                />
-                
-                <p className='text-xl text-center text-primary pt-2 capitalize font-semibold '>
-                    {input.character.category}
-                </p>
+                        <InputFormField<UpsertCharacterHeaderType> 
+                            path="name" 
+                            inputPlaceholder="zmien nazwę..." 
+                            inputClassName="w-xl"
+                            />
+                    </div>
 
-                <InputFormField<UpsertCharacterHeaderType> 
-                    path="category" 
-                    inputPlaceholder="zmien kategorię..." 
-                    inputClassName="w-xl"
-                />
+                    <div className="flex flex-col justify-center items-center gap-6">
+                        <p className='text-xl text-center text-primary pt-2 capitalize font-semibold '>
+                            {input.character.category}
+                        </p>
+
+                        <SelectFormField<UpsertCharacterHeaderType>
+                            path="category"
+                            items={characterCategories}
+                            noLabel
+                            />
+                    </div>
+                </div>
     
-                <p className='text-md text-center text-primary pt-2 capitalize'>
+                <p className='text-md text-center text-primary pt-2'>
                     {input.character.description}
                 </p>
 

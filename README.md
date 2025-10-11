@@ -8,14 +8,10 @@ button group dla tych strzałek w gore i dol do zwiekszania i zmniejszania
 enable two languages = select in configuration
 
 ---
-
 wiele kategorii jak Bohater
-
-capitalize tooltips
 
 soft delete
 
-Kategoria do wyboru
 
 tworzenie postacie na podstawie innej.
 
