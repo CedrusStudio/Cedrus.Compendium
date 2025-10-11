@@ -17,7 +17,9 @@ import { resolveSetState } from '@/common/global/resolveSetState';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
-import { addIcon } from '@/domain/data/icons';
+import { addIcon, leftIcon, rightIcon } from '@/domain/data/icons';
+import IncreaseButton from '@/common/components/buttons/IncreaseButton';
+import DecreaseButton from '@/common/components/buttons/DecreaseButton';
 
 type EditOffenseCardProps =
 {
@@ -198,10 +200,11 @@ function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalVie
     <div className='flex gap-x-1'>
 
         <div className='flex items-center'>
+          <IncreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={leftIcon} />
             <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-yellow-300">
               {calculatedRange}
             </Badge>
-            <VerticalChangeButtons setValue={setRange} />
+          <DecreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={rightIcon} />
         </div>
         
         <div className='flex items-center'>
