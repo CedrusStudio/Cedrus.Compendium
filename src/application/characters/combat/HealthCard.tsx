@@ -83,7 +83,7 @@ function HealthInfoContent(input: { health: Health })
     {
       Object.entries(input.health)
         .filter(([name]) => name !== 'barrier')
-        .map(([name, value]) => <FieldView key={name} value={value} nameClassName="w-24">{translate(name)}</FieldView>)
+        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{translate(name)}</FieldView>)
     }
     </div>
   );
@@ -93,9 +93,9 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
 {
   return (
     <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalHealth" value={input.totalHealth} nameClassName="w-24">{namingConventions.sum}</FieldView> }
-    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' nameClassName="w-24">{namingConventions.increase}</FieldView> }
-    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' nameClassName="w-24">{namingConventions.damage}</FieldView> }
+    { <FieldView key="totalHealth" value={input.totalHealth} childrenClassName="w-24">{namingConventions.sum}</FieldView> }
+    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' childrenClassName="w-24">{namingConventions.increase}</FieldView> }
+    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{namingConventions.damage}</FieldView> }
     </div>
   );
 };

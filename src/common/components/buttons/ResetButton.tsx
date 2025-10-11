@@ -2,17 +2,17 @@ import { Button } from "@/ui/button";
 import { type VariantType } from "@/common/VariantType";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ChangeValueSideEffect } from "@/common/global/ChangeValueSideEffect";
+import { PropsWithChildren } from "react";
 
 type ResetButtonProps =
 {
-    defaultValuesWithSetters: [number, React.Dispatch<React.SetStateAction<number>>, ChangeValueSideEffect?][];
-    variant?: VariantType;
-    className?: string;
-    icon?: React.ReactNode;
-    asChild?: boolean;
+  defaultValuesWithSetters: [number, React.Dispatch<React.SetStateAction<number>>, ChangeValueSideEffect?][];
+  variant?: VariantType;
+  className?: string;
+  asChild?: boolean;
 }
 
-export default function ResetButton({ defaultValuesWithSetters: valuesWithSetters, variant = "outline", className, icon, asChild = false }: ResetButtonProps)
+export default function ResetButton({ defaultValuesWithSetters: valuesWithSetters, variant = "outline", className, children, asChild = false }: PropsWithChildren<ResetButtonProps>)
 {
   return (
     <Button 
@@ -23,7 +23,7 @@ export default function ResetButton({ defaultValuesWithSetters: valuesWithSetter
       onClick={() => valuesWithSetters.forEach(([defaultValue, setValue, sideEffect]) => reset(defaultValue, setValue, sideEffect))}
       className={className}
     >
-      {icon || <RiResetLeftFill />}
+      {children || <RiResetLeftFill />}
     </Button>
   );
 };

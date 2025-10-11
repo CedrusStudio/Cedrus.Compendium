@@ -18,20 +18,20 @@ export default function DefenseReductionInfoContent(input: DefenseReductionInfoC
 
     { 
       input.reductionIncrease 
-        ? <FieldView value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' nameClassName="w-24">{namingConventions.increase}</FieldView>  
+        ? <FieldView value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' childrenClassName="w-24">{namingConventions.increase}</FieldView>  
         : null
     }
       
     { 
       input.damageTaken 
-        ? <FieldView value={Math.abs(input.damageTaken)} valueClassName='text-red-500' nameClassName="w-24">{namingConventions.damage}</FieldView> 
+        ? <FieldView value={Math.abs(input.damageTaken)} valueClassName='text-red-500' childrenClassName="w-24">{namingConventions.damage}</FieldView> 
         : null 
     }
 
     {
       Object.entries(input.defense)
         .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
-        .map(([name, value]) => <FieldView key={name} value={value} nameClassName="w-24">{translate(name)}</FieldView>)
+        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{translate(name)}</FieldView>)
     }
 
     </div>

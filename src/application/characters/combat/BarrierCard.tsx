@@ -75,9 +75,9 @@ function CurrentBarrierInfoContent(input: { totalBarrier: number, damageTaken: n
 {
   return (
     <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalBarrier" value={input.totalBarrier} nameClassName="w-24">{translate("sum")}</FieldView> }
-    { <FieldView key="barrierIncrease" value={input.barrierIncrease} valueClassName='text-green-600' nameClassName="w-24">{namingConventions.increase}</FieldView> }
-    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' nameClassName="w-24">{namingConventions.damage}</FieldView> }
+    { <FieldView key="totalBarrier" value={input.totalBarrier} childrenClassName="w-24">{translate("sum")}</FieldView> }
+    { <FieldView key="barrierIncrease" value={input.barrierIncrease} valueClassName='text-green-600' childrenClassName="w-24">{namingConventions.increase}</FieldView> }
+    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{namingConventions.damage}</FieldView> }
     </div>
   );
 }

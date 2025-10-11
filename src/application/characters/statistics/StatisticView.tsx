@@ -33,7 +33,9 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
     <div className={'flex gap-x-2 items-center justify-around'}>
 
       <FieldWithTooltip name={name} >
-        <ResetButton variant='ghost' defaultValuesWithSetters={[[defaultBonus, setBonus]]} icon={icon} />
+        <ResetButton variant='ghost' defaultValuesWithSetters={[[defaultBonus, setBonus]]}>
+          {icon}
+        </ResetButton>
       </FieldWithTooltip>
 
       <div className="flex items-center">

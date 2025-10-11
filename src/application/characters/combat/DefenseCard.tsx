@@ -74,22 +74,22 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <FieldView value={immunity}>
-          <div className='flex items-center gap-1'>
+        <FieldView value={immunity} childrenClassName='flex items-center gap-1'>
             <FieldWithTooltip name={translate("immunity")}>
-              <ResetButton asChild variant='ghost' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]} icon={immunityIcon("w-[1.2rem] h-[1.2rem]")} />
+              <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]}>
+                {immunityIcon()}
+              </ResetButton>
             </FieldWithTooltip>
             <VerticalChangeButtons setValue={setImmunity} />
-          </div>
         </FieldView>
 
-        <FieldView value={resistance}>
-          <div className='flex items-center gap-1'>
+        <FieldView value={resistance} childrenClassName='flex items-center gap-1'>
             <FieldWithTooltip name={translate("resistance")}>
-              <ResetButton asChild variant='ghost' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]} icon={resistanceIcon("w-[1.2rem] h-[1.2rem]")} />
+              <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]}>
+                {resistanceIcon()}
+              </ResetButton>
             </FieldWithTooltip>
             <VerticalChangeButtons setValue={setResistance} />
-          </div>
         </FieldView>
 
         <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>

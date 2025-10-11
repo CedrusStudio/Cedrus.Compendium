@@ -64,8 +64,8 @@ export const reductionIcons: Record<string, ReactNode> =
   direct: <IoShieldOutline className="w-5 h-5" />
 };
 
-export const immunityIcon = (className: string) => <GiDiceShield className={className} />;
-export const resistanceIcon = (className: string) => <GiCrenulatedShield className={className} />;
+export const immunityIcon = (className?: string) => <GiDiceShield className={className} />;
+export const resistanceIcon = (className?: string) => <GiCrenulatedShield className={className} />;
 
 export const sumIcon = <TbSum className="w-5 h-5" />;
 export const currentValueIcon = <MdPublishedWithChanges className="w-5 h-5" />;
