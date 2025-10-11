@@ -23,15 +23,8 @@ paginacja ile na strone
 buffy -
 zakęcia
 
---
-info o ofensywy
-
 ---
-
-przyrost sie rozjechal
-
----
-dodawniie odejmowanie nieworzliwosci i odpornosci
+dodawnie odejmowanie nieworzliwosci i odpornosci
 
 ----
 

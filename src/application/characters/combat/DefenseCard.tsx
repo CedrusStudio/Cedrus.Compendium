@@ -39,14 +39,14 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
   const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
   const selectedDefense = defenses[selectedDefenseIndex];
 
-  function setReductionIncreaseIfPositive(dispatchInput: DispatchSetInput<number>) 
+  function setReductionIncreaseIfPositive(setInput: DispatchSetInput<number>) 
   {
-    setIf(newValue => newValue >= 0, (value) => setReductionIncrease(value), dispatchInput, reductionIncrease);
+    setIf(newValue => newValue >= 0, (value) => setReductionIncrease(value), setInput, reductionIncrease);
   }
 
-  function setDamageTakenIfPositive(dispatchInput: DispatchSetInput<number>) 
+  function setDamageTakenIfPositive(setInput: DispatchSetInput<number>) 
   {
-    setIf(newValue => newValue >= 0, (value) => setDamageTaken(value), dispatchInput, damageTaken);
+    setIf(newValue => newValue >= 0, value => setDamageTaken(value), setInput, damageTaken, newValue => Math.max(0, newValue - selectedDefense.resistance));
   }
 
   const handleOnSelectedValueChange = (value: string) => 
