@@ -187,6 +187,16 @@ export type Critical =
   range: number;
 }
 
+export function getDamageOffenseString(damageOffense: DamageOffense): string
+{
+  return `${damageOffense.amount}k${damageOffense.grade * 2}+${damageOffense.bonus}`;
+}
+
+export function getWeaponDamageString(weaponOffense: WeaponOffense): string
+{
+  return `${weaponOffense.amount}(k${weaponOffense.grade * 2}+${weaponOffense.bonus})`;
+}
+
 export function calculateRange(weaponOffense: WeaponOffense): string
 {
   return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;

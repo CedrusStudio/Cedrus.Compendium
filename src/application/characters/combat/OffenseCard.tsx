@@ -1,6 +1,6 @@
 "use client";
 
-import { DamageOffense, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/Character';
+import { calculateRange, DamageOffense, getDamageOffenseString, getWeaponDamageString, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/Character';
 
 import {
   Card,
@@ -143,6 +143,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
         <WeaponDamageWithCriticalSubcard 
           name='Wiodąca'
           weaponOffense={currentLeadingOffense}
+          baseWeaponOffense={leadingOffense}
           rolls={leadingRolls}
           setRolls={setLeadingRolls}
           setOffense={setCurrentLeadingOffense}
@@ -155,6 +156,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
             <WeaponDamageWithCriticalSubcard 
               name='Wtórna'
               weaponOffense={currentSecondaryOffense}
+              baseWeaponOffense={secondaryOffense as WeaponOffense}
               rolls={secondaryRolls}
               setRolls={setSecondaryRolls}
               setOffense={weaponOffense => setCurrentSecondaryOffense(weaponOffense as WeaponOffense)}
@@ -164,7 +166,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           ) 
         }
 
-        <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)}> 
+        <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)} childrenInfo={<span>{getDamageOffenseString(damageBonus)}</span> } > 
           <DamageBonusWithRolls 
             damageOffense={currentDamageBonus} 
             rolls={damageBonusRolls} 
@@ -198,6 +200,7 @@ type WeaponDamageWithCriticalSubcardProps =
 {
   name: string;
   weaponOffense: WeaponOffense;
+  baseWeaponOffense: WeaponOffense;
   rolls: [number, boolean][];
   setRolls: React.Dispatch<React.SetStateAction<[number, boolean][]>>;
   setOffense: React.Dispatch<React.SetStateAction<WeaponOffense>>;
@@ -208,7 +211,7 @@ type WeaponDamageWithCriticalSubcardProps =
 function WeaponDamageWithCriticalSubcard(input: WeaponDamageWithCriticalSubcardProps)
 {
   return (
-    <Subcard className='col-span-3' name={input.name} callback={input.resetCallback}>
+    <Subcard className='col-span-3' name={input.name} callback={input.resetCallback} childrenInfo={<BaseWeaponDamageInfoView weaponOffense={input.baseWeaponOffense} />}>
       <WeaponDamageWithCriticalAndRolls 
         weaponOffense={input.weaponOffense} 
         rolls={input.rolls} 
@@ -244,6 +247,16 @@ function WeaponDamageWithCriticalSubcard(input: WeaponDamageWithCriticalSubcardP
       />
   </Subcard>
   )
+}
+
+function BaseWeaponDamageInfoView({ weaponOffense }: { weaponOffense: WeaponOffense })
+{
+  return (
+    <div className='flex flex-row gap-3'>
+      <span>{getWeaponDamageString(weaponOffense)}</span> 
+      <span>{calculateRange(weaponOffense)}, +{weaponOffense.critical.power}</span>
+    </div>
+  );
 }
 
 type WeaponDamageWithCriticalAndRollsProps =

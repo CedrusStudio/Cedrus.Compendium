@@ -18,15 +18,10 @@ importy
 
 short name and keep id as ulid (shortName "igar" long "Igar Potworobójca" => fullName, shortName)
 
-ikonka copy przy nazwie postaci
-
 paginacja ile na strone
-
-
 
 buffy -
 zakęcia
-
 
 --
 info o ofensywy
