@@ -1,4 +1,4 @@
-import { Mount } from "@/domain/characters/Character";
+import { Mount } from "@/domain/characters/equipment/Mount";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import { PropsWithChildren } from "react";
 

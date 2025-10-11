@@ -1,6 +1,6 @@
 "use client";
 
-import { allReductionTypes, calculateSelectedReduction, Defense, ReductionType } from '@/domain/characters/Character';
+import { allowedReductionTypes, calculateSelectedReduction, Defense, ReductionType } from '@/domain/characters/combat/Defense';
 
 import {
   Card,
@@ -104,7 +104,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
   
           <SelectContent>
           {
-            allReductionTypes.map(reductionType => (
+            allowedReductionTypes.map(reductionType => (
               <SelectItem key={reductionType} value={reductionType}>
                 <span className='capitalize'>{reductionIcons[reductionType]}</span>
               </SelectItem>

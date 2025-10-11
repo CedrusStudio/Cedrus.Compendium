@@ -1,5 +1,5 @@
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
-import { Item } from "@/domain/characters/Character";
+import { Item } from "@/domain/characters/equipment/Item";
 
 type EditInventoryItemViewProps = 
 {

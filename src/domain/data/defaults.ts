@@ -126,7 +126,7 @@ export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, id: ulid()}
 export const CreateDefaultArmor = (): Armor => ({...defaultArmor, id: ulid()});
 export const CreateDefaultShield = (): Shield => ({...defaultShield, id: ulid()});
 export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, id: ulid()});
-export const CreateDefaultHorse = (): Mount => ({...defaultHorse, id: ulid()});
+export const CreateDefaultMount = (): Mount => ({...defaultHorse, id: ulid()});
 
 const defaultOffense: Omit<Offense, "id"> =
 {

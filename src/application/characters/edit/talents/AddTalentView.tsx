@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@/ui/sheet";
 import { Button } from "@/ui/button";
-import { characteristicsOptions, talentCategories } from "@/domain/data/categories";
+import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { UseFieldArrayAppend } from "react-hook-form";
 import { talentSchema, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useState } from "react";
@@ -20,7 +20,7 @@ import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelect
 import { ulid } from "ulid";
 import { defaultTalent } from "@/domain/data/defaults";
 import { addIcon } from "@/domain/data/icons";
-import { Penalty, penaltyValues } from "@/domain/characters/Character";
+import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories } from "@/domain/characters/Talent";
 
 type AddTalentViewProps =
 {
@@ -36,7 +36,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
   const [newTalentName, setNewTalentName] = useState<string>("");
   const [newTalentGrade, setNewTalentGrade] = useState<number>(0);
   const [newTalentBonus, setNewTalentBonus] = useState<number>(0);
-  const [newTalentPenalty, setNewTalentPenalty] = useState<Penalty>("0");
+  const [newTalentPenalty, setNewTalentPenalty] = useState<TalentPenalty>("0");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedCharacteristics, setSelectedCharacteristics] = useState<string>("");
 
@@ -129,7 +129,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
             <LabeledFormSelectInput
               name="category"
               label={translate("category")}
-              collectionToSelectFrom={talentCategories}
+              collectionToSelectFrom={allowedTalentCategories}
               value={selectedCategory}
               placeholder="Wybierz kategorię"
               onChange={setSelectedCategory}
@@ -139,7 +139,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
             <LabeledFormSelectInput
               name="characteristics"
               label={translate("characteristics")}
-              collectionToSelectFrom={characteristicsOptions}
+              collectionToSelectFrom={allowedCharacterCategories}
               value={selectedCharacteristics}
               placeholder="Wybierz cechę"
               onChange={setSelectedCharacteristics}
@@ -159,7 +159,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
               <LabeledFormSelectInput
                 name="penalty"
                 label={translate("penalty")}
-                collectionToSelectFrom={penaltyValues}
+                collectionToSelectFrom={allowedTalentPenalties}
                 value={newTalentPenalty}
                 placeholder="Wybierz karę"
                 onChange={setNewTalentPenalty}

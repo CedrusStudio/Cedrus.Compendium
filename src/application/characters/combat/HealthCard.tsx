@@ -1,6 +1,7 @@
 "use client";
 
-import { calculateTotalHealth, Health, Statistic } from '@/domain/characters/Character';
+import { calculateTotalHealth, Health } from '@/domain/characters/combat/Health';
+import { Statistic } from '@/domain/characters/statistics/Statistic';
 
 import {
   Card,

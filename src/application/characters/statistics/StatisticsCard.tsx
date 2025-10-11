@@ -1,4 +1,4 @@
-import { Statistic } from "@/domain/characters/Character";
+import { Statistic } from "@/domain/characters/statistics/Statistic";
 import {
   Card,
   CardContent,

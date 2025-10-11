@@ -15,7 +15,7 @@ import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { translate } from "@/domain/data/translations";
-import { characterCategories } from "@/domain/data/categories";
+import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
@@ -104,7 +104,7 @@ export default function AddCharacterView()
                 <LabeledFormSelectInput
                     name="category"
                     label={translate("category")}
-                    collectionToSelectFrom={characterCategories}
+                    collectionToSelectFrom={allowedCharacterCategories}
                     value={selectedCategory}
                     placeholder="Wybierz kategorię"
                     onChange={setSelectedCategory}

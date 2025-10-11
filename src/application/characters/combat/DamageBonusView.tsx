@@ -1,4 +1,4 @@
-import { DamageOffense, getDamageOffenseString } from '@/domain/characters/Character';
+import { DamageOffense, getDamageOffenseString } from '@/domain/characters/combat/Offense';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 

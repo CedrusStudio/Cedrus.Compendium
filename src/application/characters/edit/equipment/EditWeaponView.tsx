@@ -1,7 +1,9 @@
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { Label } from "@/ui/label"
-import { criticalPowers, criticalRanges, diceAmounts, diceBonuses, diceGrades } from '@/domain/data/dices';
-import { Weapon, pathToWeaponsDamageOffenseField, pathToWeaponsField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField, allowedStyles } from '@/domain/characters/Character';
+import { allowedCriticalPowers, allowedCriticalRanges, allowedDiceAmounts, allowedDiceBonuses, allowedDiceGrades } from '@/domain/characters/combat/Offense';
+import { pathToWeaponsDamageOffenseField, pathToWeaponsWeaponOffenseCriticalField, pathToWeaponsWeaponOffenseField, allowedStyles } from '@/domain/characters/equipment/Weapon';
+import { pathToWeaponsField } from '@/domain/characters/equipment/Equipment';
+import { Weapon } from '@/domain/characters/equipment/Weapon';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
@@ -76,7 +78,7 @@ function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseField(index, `amount`)}
-            items={diceAmounts}
+            items={allowedDiceAmounts}
             noLabel
             />
             
@@ -88,7 +90,7 @@ function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseField(index, `grade`)}
-            items={diceGrades}
+            items={allowedDiceGrades}
             noLabel
           />
             
@@ -100,7 +102,7 @@ function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseField(index, `bonus`)}
-            items={diceBonuses}
+            items={allowedDiceBonuses}
             noLabel
           />
 
@@ -125,7 +127,7 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
             <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsDamageOffenseField(index, `amount`)}
-              items={diceAmounts}
+              items={allowedDiceAmounts}
               noLabel
             />
 
@@ -137,7 +139,7 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
             <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsDamageOffenseField(index, `grade`)}
-              items={diceGrades}
+              items={allowedDiceGrades}
               noLabel
             />
 
@@ -149,7 +151,7 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
             <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsDamageOffenseField(index, `bonus`)}
-              items={diceBonuses}
+              items={allowedDiceBonuses}
               noLabel
             />
 
@@ -174,7 +176,7 @@ function CriticalEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseCriticalField(index, `range`)}
-            items={criticalRanges}
+            items={allowedCriticalRanges}
             noLabel
           />
 
@@ -186,7 +188,7 @@ function CriticalEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseCriticalField(index, `power`)}
-            items={criticalPowers}
+            items={allowedCriticalPowers}
             noLabel
           />
 

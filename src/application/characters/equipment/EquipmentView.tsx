@@ -1,4 +1,4 @@
-import { Equipment } from '@/domain/characters/Character';
+import { Equipment } from '@/domain/characters/equipment/Equipment';
 import { Accordion } from "@/ui/accordion";
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import ArmorView from '@/application/characters/equipment/ArmorView';

@@ -1,5 +1,6 @@
-import { attributePenaltyValues, dexterityRestrictionValues, initiativeRestrictionValues, strengthRequirementValues } from "@/domain/characters/Character";
+import { allowedResistances, allowedDexterityRestrictions, allowedInitiativeRestrictions, allowedStrengthRequirements } from "@/domain/characters/equipment/Item";
 import { Label } from "@/ui/label";
+import { allowedItemAttributePenalties } from "@/domain/characters/equipment/Item";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 
@@ -16,11 +17,11 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Kara atrybutu</Label>
+            <Label>Odporność</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 path={`${defensiveItem}.${index}.resistance`}
-                items={attributePenaltyValues}
+                items={allowedResistances}
                 noLabel
             />
 
@@ -34,7 +35,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.attributePenalty`}
-                    items={attributePenaltyValues}
+                    items={allowedItemAttributePenalties}
                     noLabel
                 />
 
@@ -46,7 +47,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.strengthRequirement`}
-                    items={strengthRequirementValues}
+                    items={allowedStrengthRequirements}
                     noLabel
                 />
 
@@ -62,7 +63,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.dexterityRestriction`}
-                    items={dexterityRestrictionValues}
+                    items={allowedDexterityRestrictions}
                     noLabel
                 />
 
@@ -74,7 +75,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.initiativeRestriction`}
-                    items={initiativeRestrictionValues}
+                    items={allowedInitiativeRestrictions}
                     noLabel
                 />
                 

@@ -1,4 +1,4 @@
-import { Statistic } from "@/domain/characters/Character";
+import { Statistic } from "@/domain/characters/statistics/Statistic";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { Control, useController } from "react-hook-form";
 import { StatisticPath } from "@/application/characters/edit/statistics/EditStatisticsCard";

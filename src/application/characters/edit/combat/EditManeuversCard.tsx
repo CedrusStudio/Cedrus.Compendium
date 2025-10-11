@@ -17,8 +17,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { type Maneuver } from "@/domain/characters/Character";
-import { castTimeValues } from "@/domain/data/castTimes";
+import { type Maneuver, allowedCastTimes } from "@/domain/characters/combat/Maneuver";
 import { CreateDefaultManeuver } from "@/domain/data/defaults";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
@@ -137,7 +136,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText='Czas Rzucania' items={castTimeValues} />
+              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText='Czas Rzucania' items={allowedCastTimes} />
             </div>
           </div>
 

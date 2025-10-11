@@ -1,4 +1,4 @@
-import { Item } from '@/domain/characters/Character';
+import { Item } from '@/domain/characters/equipment/Item';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import { PropsWithChildren } from 'react';
 

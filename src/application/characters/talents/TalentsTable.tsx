@@ -19,8 +19,8 @@ import {
   TableRow,
 } from "@/ui/table";
 import { useState, useEffect } from "react";
-import { Talent } from "@/domain/characters/Character";
-import { talentCategories } from "@/domain/data/categories";
+import { Talent } from "@/domain/characters/Talent";
+import { allowedTalentCategories } from "@/domain/characters/Talent";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
 import { namingConventions } from "@/domain/data/namingConventions";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
@@ -89,7 +89,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
           handleOnSelectedValueChange={handleOnSelectedValueChange}
           defaultColumnKeys={defaultColumnKeys}
           allCategory={namingConventions.all}
-          categories={talentCategories}
+          categories={allowedTalentCategories}
         />
 
         <PaginationButtons table={table} />

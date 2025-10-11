@@ -12,7 +12,7 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/Character";
+import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
 import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";

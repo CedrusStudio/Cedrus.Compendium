@@ -11,12 +11,12 @@ import EditShieldView from '@/application/characters/edit/equipment/EditShieldVi
 import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponView';
 import EditArmorView from '@/application/characters/edit/equipment/EditArmorView';
 import bffClient from '@/infrastructure/bffClient';
-import EditHorseView from './EditHorseView';
+import EditMountView from '@/application/characters/edit/equipment/EditMountView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import SubmitButton from '@/common/components/form/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from '@/application/characters/edit/equipment/EditInventoryItemView';
-import { CreateDefaultArmor, CreateDefaultHorse, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';
+import { CreateDefaultArmor, CreateDefaultMount, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 
 const equipmentFormName = "edit-equipment-form";
@@ -34,7 +34,7 @@ export default function EditEquipmentView(input: { character: Character })
   const { watchedArray: armors, append: appendArmor } = useWatchedFormArray("armors", form.control);
   const { watchedArray: shields, append: appendShield } = useWatchedFormArray("shields", form.control);
   const { watchedArray: inventory, append: appendInventory } = useWatchedFormArray("inventory", form.control);
-  const { watchedArray: horses, append: appendHorse } = useWatchedFormArray("horses", form.control);
+  const { watchedArray: mounts, append: appendMount } = useWatchedFormArray("mounts", form.control);
 
   const id = input.character.id;
 
@@ -102,14 +102,14 @@ export default function EditEquipmentView(input: { character: Character })
           </ItemsView>
 
           <ItemsView
-            items={horses}
-            label="Konie"
-            itemViewFactory={(item, index) => <EditHorseView key={index} index={index} horse={item} />}
+            items={mounts}
+            label="Wierzchowce"
+            itemViewFactory={(item, index) => <EditMountView key={index} index={index} mount={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "horses"> 
+            <AppendToArrayButton<UpsertCharacterEquipmentType, "mounts"> 
               isPending={isPending}
-              append={appendHorse}
-              toAdd={CreateDefaultHorse}
+              append={appendMount}
+              toAdd={CreateDefaultMount}
             />
           </ItemsView>
 

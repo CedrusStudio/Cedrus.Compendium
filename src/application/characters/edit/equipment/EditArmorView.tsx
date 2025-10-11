@@ -3,7 +3,8 @@ import { Label } from "@/ui/label"
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import ArmorView from "@/application/characters/equipment/ArmorView";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
-import { Armor, pathToArmorsField, protectionValues } from "@/domain/characters/Character";
+import { Armor, allowedProtections } from "@/domain/characters/equipment/Armor";
+import { pathToArmorsField } from "@/domain/characters/equipment/Equipment";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 
 type EditArmorViewProps = 
@@ -32,7 +33,7 @@ function EditArmorSheet({ armor, index }: EditArmorViewProps)
 
         <SelectFormField<UpsertCharacterEquipmentType> 
           path={pathToArmorsField(index, `protection`)}
-          items={protectionValues}
+          items={allowedProtections}
           noLabel
         />
 

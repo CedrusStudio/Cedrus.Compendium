@@ -1,4 +1,4 @@
-import { Defense, pathToDefenseField } from '@/domain/characters/Character';
+import { Defense, pathToDefenseField } from '@/domain/characters/combat/Defense';
 import { UpsertCharacterDefenseType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import { Label } from "@/ui/label";

@@ -1,4 +1,4 @@
-import { Shield } from "@/domain/characters/Character";
+import { Shield } from "@/domain/characters/equipment/Shield";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import DefensiveItemView from "@/application/characters/equipment/DefensiveItemView";
 

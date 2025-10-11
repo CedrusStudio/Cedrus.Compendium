@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/common/components/ui/button";
-import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes, Mode, Maneuver, calculateRange, rollDamage } from "@/domain/characters/Character";
+import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/domain/data/icons";
@@ -31,10 +31,16 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/ui/drawer";
-import { getCastTimeColors } from "@/domain/data/castTimes";
+import { getCastTimeColors } from "@/domain/data/colors";
 import RollButton from "@/common/components/buttons/RollButton";
 import { colors } from "@/domain/data/colors";
 import RollWithImmunityButton from "@/common/components/buttons/RollWithImmunityButton";
+import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
+import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
+import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
+import { Mode } from "@/domain/characters/combat/Mode";
+import { Maneuver } from "@/domain/characters/combat/Maneuver";
+import { calculateRange, rollDamage } from "@/domain/characters/combat/Offense";
 
 export const columnKeys =
 {
@@ -219,7 +225,7 @@ function CharacterDefensesBattleView({ character }: { character : Character })
         
         <SelectContent>
         {
-          allReductionTypes.map(reductionType => (
+          allowedReductionTypes.map(reductionType => (
             <SelectItem key={reductionType} value={reductionType}>
               <span className='capitalize'>{reductionIcons[reductionType]}</span>
             </SelectItem>

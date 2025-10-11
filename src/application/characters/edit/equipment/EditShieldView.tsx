@@ -1,4 +1,5 @@
-import { blockValues, Shield, pathToShieldsField } from "@/domain/characters/Character";
+import { pathToShieldsField } from "@/domain/characters/equipment/Equipment";
+import { allowedBlocks, Shield } from "@/domain/characters/equipment/Shield";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import ShieldView from "@/application/characters/equipment/ShieldView";
@@ -32,7 +33,7 @@ function EditShieldSheet({ shield, index }: EditShieldViewProps)
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToShieldsField(index, `block`)}
-            items={blockValues}
+            items={allowedBlocks}
             noLabel
           />
 

@@ -3,7 +3,7 @@
 import { FieldPath } from "react-hook-form";
 import { UpsertCharacterHealthType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/common/components/form/InputFormField";
-import { Health } from "@/domain/characters/Character";
+import { Health } from "@/domain/characters/combat/Health";
 import { Label } from "@/ui/label";
 
 import {

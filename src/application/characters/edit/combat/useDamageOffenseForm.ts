@@ -1,7 +1,6 @@
-import { DamageOffense } from "@/domain/characters/Character";
+import { type DamageOffensePath, DamageOffense } from "@/domain/characters/combat/Offense";
 import { type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, useController } from "react-hook-form";
-import { type DamageOffensePath } from "@/application/characters/edit/combat/EditOffenseCard";
 import { setWithSideEffect } from "@/common/global/setterUtils";
 import { useState } from "react";
 

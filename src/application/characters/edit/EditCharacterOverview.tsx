@@ -13,7 +13,7 @@ import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
-import { characterCategories } from "@/domain/data/categories";
+import { allowedCharacterCategories } from "@/domain/characters/Character";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -109,7 +109,7 @@ export default function EditCharacterOverview(input: { character: Character })
 
                         <SelectFormField<UpsertCharacterHeaderType>
                             path="category"
-                            items={characterCategories}
+                            items={allowedCharacterCategories}
                             noLabel
                             />
                     </div>

@@ -1,5 +1,5 @@
 import FieldView from "@/common/components/fields/FieldView";
-import { Defense, reductionSelectFilter, ReductionType } from "@/domain/characters/Character";
+import { Defense, reductionSelectFilter, ReductionType } from "@/domain/characters/combat/Defense";
 import { namingConventions } from "@/domain/data/namingConventions";
 import { translate } from "@/domain/data/translations";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { calculateRange, DamageOffense, getDamageOffenseString, getWeaponDamageString, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/Character';
+import { calculateRange, DamageOffense, getDamageOffenseString, getWeaponDamageString, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 
 import {
   Card,

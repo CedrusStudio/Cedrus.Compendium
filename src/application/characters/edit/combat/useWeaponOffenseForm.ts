@@ -1,7 +1,6 @@
-import { WeaponOffense } from "@/domain/characters/Character";
+import { type WeaponOffensePath, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { Control, useController } from "react-hook-form";
-import { type WeaponOffensePath } from "@/domain/characters/Character";
 import { setWithSideEffect } from "@/common/global/setterUtils";
 import { useState } from "react";
 

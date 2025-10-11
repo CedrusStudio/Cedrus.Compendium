@@ -57,8 +57,8 @@ export const characterAttributesSchema = z.object
 
 export const upsertCharacterStatisticsSchema = z.object
 ({
-    characteristics: characterCharacteristicsSchema,
-    attributes: characterAttributesSchema,
+  characteristics: characterCharacteristicsSchema,
+  attributes: characterAttributesSchema,
 });
 
 //Talents
@@ -87,7 +87,6 @@ export type UpsertCharacterStatisticsType = z.infer<typeof upsertCharacterStatis
 export type UpsertCharacterTalentsType = z.infer<typeof upsertCharacterTalentsSchema>;
 
 // New schema for character statistics
-
 const criticalSchema = z.object
 ({
   power: z.coerce.number<number>().int().min(-5, { message: "Sia Krytyka musi mieć co najmniej -5." }).max(50, { message: "Sia Krytyka musi mieć najwyżej 50." }),
@@ -145,7 +144,7 @@ const shieldSchema = defenseItemSchema.extend
   block: z.coerce.number<number>().int().min(0, { message: "Blokowanie musi mieć co najmniej 0." }).max(50, { message: "Blokowanie musi mieć najwyżej 50." }),
 });
 
-const horseSchema = itemSchema.extend
+const mountSchema = itemSchema.extend
 ({
   paceSpeed: z.coerce.number<number>().int().min(1, { message: "Prędkość cwału musi mieć co najmniej 1." }).max(50, { message: "Prędkość cwału musi mieć najwyżej 50." }),
   gallopSpeed: z.coerce.number<number>().int().min(1, { message: "Prędkość galopu musi mieć co najmniej 1." }).max(100, { message: "Prędkość galopu musi mieć najwyżej 100." }),
@@ -159,7 +158,7 @@ export const upsertCharacterEquipmentSchema = z.object
   armors: z.array(armorSchema).max(10, { message: "Możesz mieć najwyżej 10 zbroi." }),
   shields: z.array(shieldSchema).max(10, { message: "Możesz mieć najwyżej 10 tarcz." }),
   inventory: z.array(itemSchema).max(100, { message: "Możesz mieć najwyżej 100 przedmiotów w ekwipunku." }),
-  horses: z.array(horseSchema).max(10, { message: "Możesz mieć najwyżej 10 koni." }),
+  mounts: z.array(mountSchema).max(10, { message: "Możesz mieć najwyżej 10 wierzchowców." }),
 });
 
 export type UpsertCharacterWeaponType = z.infer<typeof upsertWeaponSchema>;

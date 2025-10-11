@@ -1,6 +1,6 @@
 "use client";
 
-import { DamageOffense, damageOffenseField, leadingOffenseField, Offense, secondaryOffenseField, WeaponOffense, pathToOffenseField } from '@/domain/characters/Character';
+import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField } from '@/domain/characters/combat/Offense';
 import { CreateWeaponOffense } from '@/domain/data/defaults';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
