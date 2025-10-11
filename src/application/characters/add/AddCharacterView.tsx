@@ -17,6 +17,8 @@ import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelect
 import { translate } from "@/domain/data/translations";
 import { characterCategories } from "@/domain/data/categories";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { actions } from "@/persistence/slices/characterSlice";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -29,6 +31,7 @@ const initialValues: UpsertCharacterHeaderType =
 export default function AddCharacterView()
 {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const dispatch = useDispatch();
 
     const form = useForm<UpsertCharacterHeaderType>
     ({
@@ -40,7 +43,11 @@ export default function AddCharacterView()
     
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (characterHeader: UpsertCharacterHeaderType) => await addCharacter(characterHeader),
+        mutationFn: async (characterHeader: UpsertCharacterHeaderType) => 
+        {
+            const id = await addCharacter(characterHeader);
+            return { id, shortName: characterHeader.shortName };
+        },
         onSuccess: (data) => 
         {
             toast("Success", 
@@ -52,8 +59,9 @@ export default function AddCharacterView()
                 )
             });
 
+            dispatch(actions.setCharacterShortName({ id: data.id, shortName: data.shortName }));
             form.reset(initialValues);
-            router.push(`/characters/${data}/edit?tab=character`);
+            router.push(`/characters/${data.id}/edit?tab=character`);
         },
         onError: (error) => 
         {
