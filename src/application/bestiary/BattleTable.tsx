@@ -19,7 +19,7 @@ import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
-import { characterCategories } from "@/domain/data/categories";
+import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";
 import { Button } from "@/common/components/ui/button";
@@ -88,7 +88,7 @@ export default function BattleTable()
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 
         <CategorySelectFilter 
-          categories={characterCategories}
+          categories={allowedCharacterCategories}
           selectedCategory={selectedCategory}
           handleOnSelectedValueChange={handleOnSelectedValueChange}
           defaultColumnKeys={columnKeys}

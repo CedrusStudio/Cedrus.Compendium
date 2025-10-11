@@ -19,7 +19,7 @@ import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
-import { characterCategories } from "@/domain/data/categories";
+import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/domain/data/icons";
 import { useDispatch } from "react-redux";
@@ -79,7 +79,7 @@ export default function BestiaryTable()
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 
         <CategorySelectFilter 
-          categories={characterCategories}
+          categories={allowedCharacterCategories}
           selectedCategory={selectedCategory}
           handleOnSelectedValueChange={handleOnSelectedValueChange}
           defaultColumnKeys={columnKeys}

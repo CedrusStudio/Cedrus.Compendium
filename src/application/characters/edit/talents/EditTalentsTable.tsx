@@ -14,11 +14,10 @@ import {
 
 import { Table } from "@/ui/table";
 import { useState, useEffect } from "react";
-import { Talent } from "@/domain/characters/Character";
+import { allowedTalentCategories, Talent } from "@/domain/characters/Talent";
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
-import { talentCategories } from "@/domain/data/categories";
 import { defaultColumnKeys } from "../../talents/defaultColumns";
 import { namingConventions } from "@/domain/data/namingConventions";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
@@ -106,7 +105,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
             handleOnSelectedValueChange={handleOnSelectedValueChange}
             defaultColumnKeys={defaultColumnKeys}
             allCategory={namingConventions.all}
-            categories={talentCategories}
+            categories={allowedTalentCategories}
           />
 
           <AddTalentView append={append} setNameFilter={setNameFilter} />
