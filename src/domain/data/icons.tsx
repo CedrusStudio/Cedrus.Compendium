@@ -31,6 +31,7 @@ import { MdPublishedWithChanges } from "react-icons/md";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { LuMinus } from "react-icons/lu";
 import { IoMdCopy } from "react-icons/io";
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -79,3 +80,9 @@ export const addIcon = (className: string) => <LuPlus className={className} />;
 export const removeIcon = (className: string) => <LuMinus className={className} />;
 
 export const copyIcon = <IoMdCopy className="w-5 h-5" />;
+
+export const upIcon = <ChevronUp />;
+export const downIcon = <ChevronDown />;
+
+export const leftIcon = <ChevronLeft />;
+export const rightIcon = <ChevronRight />;
