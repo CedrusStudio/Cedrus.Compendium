@@ -79,6 +79,7 @@ export default function BattleTable()
       columnFilters,
       columnVisibility,
     },
+    autoResetPageIndex: false,
   })
 
   return (

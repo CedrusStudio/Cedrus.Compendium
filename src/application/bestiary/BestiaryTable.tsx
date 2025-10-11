@@ -70,7 +70,8 @@ export default function BestiaryTable()
       columnFilters,
       columnVisibility,
     },
-  })
+    autoResetPageIndex: false,
+  });
 
   return (
     <div className="mx-3">
