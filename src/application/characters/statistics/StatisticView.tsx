@@ -12,7 +12,7 @@ import RollButton from "@/common/components/buttons/RollButton";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import ResetButton from "@/common/components/buttons/ResetButton";
 import { translate } from "@/domain/data/translations";
-import { colorTextChange } from "@/domain/data/colors";
+import { getColorTextChange } from "@/domain/data/colors";
 
 type StatisticViewProps = 
 {
@@ -79,7 +79,7 @@ function calculateDefaultBonus(statistic: Statistic): number
 function BonusView({ defaultBonus, bonus }: { defaultBonus: number; bonus: number })
 {
   return (
-    <span className={`flex items-center ${colorTextChange(bonus, defaultBonus)}`}>
+    <span className={`flex items-center ${getColorTextChange(bonus, defaultBonus)}`}>
       {bonus}
     </span>
   );

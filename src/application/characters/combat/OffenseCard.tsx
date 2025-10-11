@@ -18,6 +18,7 @@ import { GiRollingDices } from "react-icons/gi";
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
+import { resolveSetState } from '@/common/global/resolveSetState';
 
 type OffenseCardProps = 
 {
@@ -170,19 +171,19 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
             onReroll={(index: number, damageBonus: DamageOffense) => handleDamageBonusReroll(index, damageBonus, setDamageBonusRolls)}
             setAmount={action => setCurrentDamageBonus(prev => 
             {
-              const nextAmount = typeof action === "function" ? action(prev.amount) : action;
+              const nextAmount = resolveSetState(action, prev.amount);
               if (nextAmount < 0) return prev;
               return { ...prev, amount: nextAmount };
             })}
             setGrade={action => setCurrentDamageBonus(prev => 
             {
-              const nextGrade = typeof action === "function" ? action(prev.grade) : action;
+              const nextGrade = resolveSetState(action, prev.grade);
               if (nextGrade < 1) return prev;
               return { ...prev, grade: nextGrade };
             })}
             setBonus={action => setCurrentDamageBonus(prev => 
             {
-              const nextBonus = typeof action === "function" ? action(prev.bonus) : action;
+              const nextBonus = resolveSetState(action, prev.bonus);
               return { ...prev, bonus: nextBonus };
             })}
           />
@@ -214,30 +215,30 @@ function WeaponDamageWithCriticalSubcard(input: WeaponDamageWithCriticalSubcardP
         onReroll={(index: number, offense: WeaponOffense) => input.handleWeaponReroll(index, offense, input.setRolls)}
         setPower={action => input.setOffense(prev => 
         {
-          const nextPower = typeof action === "function" ? action(prev.critical.power) : action;
+          const nextPower = resolveSetState(action, prev.critical.power);
           return { ...prev, critical: { ...prev.critical, power: nextPower } };
         })}
         setRange={action => input.setOffense(prev => 
         {
-          const nextRange = typeof action === "function" ? action(prev.critical.range) : action;
-          if (nextRange < 0 || nextRange > prev.grade * 2) return prev;
+          const nextRange = resolveSetState(action, prev.critical.range);
+          if (nextRange < -1 || nextRange > prev.grade * 2) return prev;
           return { ...prev, critical: { ...prev.critical, range: nextRange } };
         })}
         setAmount={action => input.setOffense(prev => 
         {
-          const nextAmount = typeof action === "function" ? action(prev.amount) : action;
+          const nextAmount = resolveSetState(action, prev.amount);
           if (nextAmount < 0) return prev;
           return { ...prev, amount: nextAmount };
         })}
         setGrade={action => input.setOffense(prev => 
         {
-          const nextGrade = typeof action === "function" ? action(prev.grade) : action;
+          const nextGrade = resolveSetState(action, prev.grade);
           if (nextGrade < 1) return prev;
           return { ...prev, grade: nextGrade };
         })}
         setBonus={action => input.setOffense(prev => 
         {
-          const nextBonus = typeof action === "function" ? action(prev.bonus) : action;
+          const nextBonus = resolveSetState(action, prev.bonus);
           return { ...prev, bonus: nextBonus };
         })}
       />

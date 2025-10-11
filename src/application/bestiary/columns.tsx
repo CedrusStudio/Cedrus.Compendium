@@ -31,8 +31,9 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/ui/drawer";
-import { getColorClasses } from "@/domain/data/castTimes";
+import { getCastTimeColors } from "@/domain/data/castTimes";
 import RollButton from "@/common/components/buttons/RollButton";
+import { colors } from "@/domain/data/colors";
 
 export const columnKeys =
 {
@@ -311,10 +312,10 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
       <FieldViewWithInfo
         name={maneuver.name}
         value={maneuver.grade}
-        infoContent={<span>Akcja <span className={`${getColorClasses(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
+        infoContent={<span>Akcja <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
         className="gap-1"
         nameClassName='w-4xs'
-        infoTriggerClassName={`${getColorClasses(maneuver.castTime).text}`}
+        infoTriggerClassName={`${getCastTimeColors(maneuver.castTime).text}`}
       />
     </div>
   );
@@ -337,14 +338,14 @@ function CharacterOffensesBattleView({ character }: { character: Character })
       <SelectOneOf name='offense' defaultValue='0' index={selectedOffenseIndex} items={character.offenses} setIndex={setSelectedOffenseIndex} disableInfo />
 
       <p>
-        {selectedOffense.leadingWeapon.amount}(k{selectedOffense.leadingWeapon.grade * 2}+{selectedOffense.leadingWeapon.bonus})
-        {selectedOffense.secondaryWeapon && <>+{selectedOffense.secondaryWeapon.amount}(k{selectedOffense.secondaryWeapon.grade * 2}+{selectedOffense.secondaryWeapon.bonus})</>}
+        <span className={`${colors.offense.leading}`}>{selectedOffense.leadingWeapon.amount}(k{selectedOffense.leadingWeapon.grade * 2}+{selectedOffense.leadingWeapon.bonus})</span>
+        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}>+{selectedOffense.secondaryWeapon.amount}(k{selectedOffense.secondaryWeapon.grade * 2}+{selectedOffense.secondaryWeapon.bonus})</span>}
         +{selectedOffense.damageBonus.amount}k{selectedOffense.damageBonus.grade * 2}+{selectedOffense.damageBonus.bonus}
       </p>
 
       <p>
-        {`${calculateRange(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}
-        {selectedOffense.secondaryWeapon && ` | ${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}
+        <span className={`${colors.offense.leading}`}>{`${calculateRange(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}</span>
+        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}> | {`${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}</span>}
       </p>
 
       <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />

@@ -16,15 +16,12 @@ tworzenie postacie na podstawie innej.
 
 importy
 
-Kary na string
-
-(K12 w kolorze -> bieżące w konkretnym kolorze i wtórna w kolor)
+short name and keep id as ulid (shortName "igar" long "Igar Potworobójca" => fullName, shortName)
 
 ikonka copy przy nazwie postaci
 
 paginacja ile na strone
 
-krytyk na -1 (szansa)
 
 
 buffy -
