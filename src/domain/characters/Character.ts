@@ -1,12 +1,14 @@
 import { PathsFrom } from "@/common/global/pathTypes";
 import { CastTime } from "@/domain/data/castTimes";
+import { characterCategories } from "../data/categories";
 
 export type Character =
 {
   readonly id: string;
+  shortName: string;
   name: string;
   description: string;
-  category?: string;
+  category: CharacterCategory;
   characteristics: Characteristics;
   attributes: Attributes;
   talents: Talent[];
@@ -18,6 +20,8 @@ export type Character =
   states: Mode[];
   maneuvers: Maneuver[];
 };
+
+export type CharacterCategory = typeof characterCategories[number];
 
 export type Characteristics = 
 {

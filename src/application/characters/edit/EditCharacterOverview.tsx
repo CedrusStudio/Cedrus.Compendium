@@ -18,6 +18,8 @@ import { characterCategories } from "@/domain/data/categories";
 const initialValues: UpsertCharacterHeaderType =
 {
     name: "",
+    shortName: "",
+    category: "bohater",
     description: "",
 };
 
@@ -85,6 +87,18 @@ export default function EditCharacterOverview(input: { character: Character })
                             path="name" 
                             inputPlaceholder="zmien nazwę..." 
                             inputClassName="w-xl"
+                            />
+                    </div>
+
+                    <div className="flex flex-col justify-center items-center gap-6">
+                        <p className='text-xl text-center text-primary pt-2 capitalize font-semibold '>
+                            {input.character.shortName}
+                        </p>
+
+                        <InputFormField<UpsertCharacterHeaderType> 
+                            path="shortName" 
+                            inputPlaceholder="zmien krótką nazwę..." 
+                            inputClassName="w-l"
                             />
                     </div>
 

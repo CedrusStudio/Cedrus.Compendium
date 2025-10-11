@@ -1,34 +1,41 @@
 "use client";
 
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
+  Form
 } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Textarea } from "@/ui/textarea";
 import { useMutation } from '@tanstack/react-query';
 import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
 import { addCharacter } from "@/persistence/characterRepository";
-import { AddCharacterHeaderType, addCharacterHeaderSchema } from "@/persistence/characterSchemas";
+import { UpsertCharacterHeaderType, upsertCharacterHeaderSchema } from "@/persistence/characterSchemas";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
+import AreaInputFormField from "@/common/components/form/AreaInputFormField";
+import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
+import { translate } from "@/domain/data/translations";
+import { characterCategories } from "@/domain/data/categories";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { actions } from "@/persistence/slices/characterSlice";
 
-const initialValues: AddCharacterHeaderType =
+const initialValues: UpsertCharacterHeaderType =
 {
     name: "",
+    shortName: "",
+    category: "bohater",
     description: "",
 };
 
 export default function AddCharacterView()
 {
-    const form = useForm<AddCharacterHeaderType>
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const dispatch = useDispatch();
+
+    const form = useForm<UpsertCharacterHeaderType>
     ({
-        resolver: zodResolver(addCharacterHeaderSchema),
+        resolver: zodResolver(upsertCharacterHeaderSchema),
         defaultValues: initialValues,
     })
     
@@ -36,7 +43,11 @@ export default function AddCharacterView()
     
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (characterHeader: AddCharacterHeaderType) => await addCharacter(characterHeader),
+        mutationFn: async (characterHeader: UpsertCharacterHeaderType) => 
+        {
+            const id = await addCharacter(characterHeader);
+            return { id, shortName: characterHeader.shortName };
+        },
         onSuccess: (data) => 
         {
             toast("Success", 
@@ -48,8 +59,9 @@ export default function AddCharacterView()
                 )
             });
 
+            dispatch(actions.setCharacterShortName({ id: data.id, shortName: data.shortName }));
             form.reset(initialValues);
-            router.push(`/characters/${data}/edit?tab=character`);
+            router.push(`/characters/${data.id}/edit?tab=character`);
         },
         onError: (error) => 
         {
@@ -64,7 +76,7 @@ export default function AddCharacterView()
         },
     });
 
-    function onSubmit(values: AddCharacterHeaderType) 
+    function onSubmit(values: UpsertCharacterHeaderType) 
     {
         mutate(values);
     }
@@ -77,23 +89,30 @@ export default function AddCharacterView()
                     Stwórz nową postać podając nazwę i opis
                 </p>
 
-                <InputFormField<AddCharacterHeaderType> 
+                <InputFormField<UpsertCharacterHeaderType> 
                     path="name" 
                     inputPlaceholder="nazwa..." 
                     inputClassName="w-xl"
                 />
 
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormControl>
-                                <Textarea placeholder="opis..." className="resize-none" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+                <InputFormField<UpsertCharacterHeaderType> 
+                    path="shortName" 
+                    inputPlaceholder="krótka nazwa bez spacji..." 
+                    inputClassName="w-xl"
+                />
+
+                <LabeledFormSelectInput
+                    name="category"
+                    label={translate("category")}
+                    collectionToSelectFrom={characterCategories}
+                    value={selectedCategory}
+                    placeholder="Wybierz kategorię"
+                    onChange={setSelectedCategory}
+                />
+
+                <AreaInputFormField<UpsertCharacterHeaderType> 
+                    path="description" 
+                    inputPlaceholder="opis..." 
                 />
 
                 <SubmitButton isPending={isPending} />

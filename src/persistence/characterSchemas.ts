@@ -1,26 +1,25 @@
 import { allowedStyles, penaltyValues } from "@/domain/characters/Character";
 import { castTimeValues } from "@/domain/data/castTimes";
+import { characterCategories } from "@/domain/data/categories";
 import { z } from "zod";
+
+const shortNameSchema = z
+  .string()
+  .regex(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9]+$/, { message: "Pole może zawierać tylko litery, cyfry i polskie znaki."})
+  .min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." })
+  .max(15, { message: "Nazwa musi mieć co najwyżej 15 znaków." });
+
+const characterCategorySchema = z.enum(characterCategories, { message: "Nieprawidłowa kategoria." });
 
 export const upsertCharacterHeaderSchema = z.object
 ({
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
-  description: z.string()
-      .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
-      .max(600, { message: "Opis nie może być dłuższy niż 600 znaków." }),
-  category: z.string().min(2, { message: "Kategoria musi mieć co najmniej 2 znaki." }).max(100, { message: "Kategoria nie może być dłuższa niż 100 znaków." }).optional(),
-});
-
-export const addCharacterHeaderSchema = z.object
-({
-  name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
-  description: z.string()
-      .min(2, { message: "Opis musi mieć co najmniej 2 znaki." })
-      .max(10_000, { message: "Opis nie może być dłuższy niż 10 000 znaków." }),
+  shortName: shortNameSchema,
+  description: z.string().min(2, { message: "Opis musi mieć co najmniej 2 znaki." }).max(10_000, { message: "Opis nie może być dłuższy niż 10 000 znaków." }),
+  category: characterCategorySchema,
 });
 
 export type UpsertCharacterHeaderType = z.infer<typeof upsertCharacterHeaderSchema>;
-export type AddCharacterHeaderType = z.infer<typeof addCharacterHeaderSchema>;
 
 // New schema for character statistics
 export const statisticSchema = z.object

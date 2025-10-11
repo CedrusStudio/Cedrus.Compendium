@@ -1,5 +1,5 @@
 import { ulid } from 'ulid';
-import { Armor, Character, Defense, Horse, Item, Maneuver, Mode, Offense, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
+import { Armor, Character, CharacterCategory, Defense, Horse, Item, Maneuver, Mode, Offense, Shield, Talent, Weapon, WeaponOffense } from "@/domain/characters/Character";
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;
@@ -147,7 +147,8 @@ const emptyCharacter: Character =
 { 
     id: '',
     name: "Nowa postać",
-    category: "Nowa",
+    shortName: "Nowa",
+    category: "bohater",
     description: "Opis postaci",
     characteristics: 
     {
@@ -263,9 +264,9 @@ const emptyCharacter: Character =
     }
 };
 
-export function CreateEmptyCharacter(name: string, description: string): Character
+export function CreateEmptyCharacter({name, shortName, category, description}: {name: string, shortName: string, category: CharacterCategory, description: string}): Character
 {
-    const newCharacter = { ...emptyCharacter, id: ulid(), name, description };
+    const newCharacter = { ...emptyCharacter, id: ulid(), name, shortName, category, description };
     newCharacter.offenses = [CreateDefaultOffense()];
     newCharacter.defenses = [CreateDefaultDefense()];
     newCharacter.maneuvers = [CreateDefaultManeuver()];
