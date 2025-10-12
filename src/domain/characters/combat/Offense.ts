@@ -29,6 +29,7 @@ export const pathToOffenseField = <K extends keyof Offense>(index: number, field
 export const leadingOffenseField = (index: number) => pathToOffenseField(index, "leadingWeapon");
 export const secondaryOffenseField = (index: number) => pathToOffenseField(index, "secondaryWeapon");
 export const damageOffenseField = (index: number) => pathToOffenseField(index, "damageBonus");
+
 export type WeaponOffensePath =`offenses.${number}.${PathsFrom<Offense, WeaponOffense | undefined>}`;
 export type DamageOffensePath = Exclude<`offenses.${number}.${PathsFrom<Offense, DamageOffense>}`, WeaponOffensePath>;
 
