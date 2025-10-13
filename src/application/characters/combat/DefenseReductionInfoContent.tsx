@@ -1,14 +1,14 @@
 import FieldView from "@/common/components/fields/FieldView";
-import { Defense, reductionSelectFilter, ReductionType } from "@/domain/characters/combat/Defense";
+import { Defense, filteredDefenseKeys, ReductionType } from "@/domain/characters/combat/Defense";
 import { namingConventions } from "@/domain/data/namingConventions";
 import { translate } from "@/domain/data/translations";
 
 type DefenseReductionInfoContentProps =
 {
-    defense: Defense;
-    selectedReductionType: ReductionType;
-    reductionIncrease?: number;
-    damageTaken?: number;
+  defense: Defense;
+  selectedReductionType: ReductionType;
+  reductionIncrease?: number;
+  damageTaken?: number;
 }
 
 export default function DefenseReductionInfoContent(input: DefenseReductionInfoContentProps)
@@ -29,9 +29,8 @@ export default function DefenseReductionInfoContent(input: DefenseReductionInfoC
     }
 
     {
-      Object.entries(input.defense)
-        .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
-        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{translate(name)}</FieldView>)
+      filteredDefenseKeys(input.defense, input.selectedReductionType)
+        .map(name => <FieldView key={name} value={input.defense[name] as number} childrenClassName="w-24">{translate(name)}</FieldView>)
     }
 
     </div>

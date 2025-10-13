@@ -14,6 +14,7 @@ export type Defense =
 
 export type ReductionType = typeof allowedReductionTypes[number];
 export const allowedReductionTypes = ["full", "block", "direct"] as const satisfies readonly string[];
+export const pathToDefenseField = <K extends keyof Defense>(index: number, field: K): `defenses.${number}.${K}` => `defenses.${index}.${field}`;
 
 export function calculateSelectedReduction(defense: Defense, selectedReductionType: ReductionType): number 
 {
@@ -35,7 +36,13 @@ export function calculateSelectedReduction(defense: Defense, selectedReductionTy
   throw new Error("Invalid reduction type");
 }
 
-export function reductionSelectFilter(selectedReductionType: ReductionType): (name: string) => boolean
+export function filteredDefenseKeys(defense: Defense, selectedReductionType: ReductionType): (keyof Defense)[]
+{
+  return (Object.keys(defense) as (keyof Defense)[])
+    .filter(name => reductionSelectFilter(selectedReductionType)(name));
+}
+
+function reductionSelectFilter(selectedReductionType: ReductionType): (name: keyof Defense) => boolean
 {
   if (selectedReductionType === "full") return fullFilter;
   if (selectedReductionType === "block") return blockFilter;
@@ -43,7 +50,7 @@ export function reductionSelectFilter(selectedReductionType: ReductionType): (na
   throw new Error("Invalid reduction type");
 }
 
-function fullFilter(name: string): boolean 
+function fullFilter(name: keyof Defense): boolean 
 {
   return name !== "immunity" 
     && name !== "resistance"
@@ -52,14 +59,12 @@ function fullFilter(name: string): boolean
     && name !== "id";
 } 
 
-function blockFilter(name: string): boolean 
+function blockFilter(name: keyof Defense): boolean 
 {
   return fullFilter(name) && name !== "dodge" && name !== "parry";
 } 
 
-function directFilter(name: string): boolean 
+function directFilter(name: keyof Defense): boolean 
 {
   return blockFilter(name) && name !== "block";
 }
-
-export const pathToDefenseField = <K extends keyof Defense>(index: number, field: K): `defenses.${number}.${K}` => `defenses.${index}.${field}`;
