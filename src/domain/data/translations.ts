@@ -70,6 +70,9 @@ const defaultTranslations =
     sum: "suma",
     current: "obecne",
     health: "zdrowie",
+
+    dark: 'ciemny',
+    light: 'jasny',
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

@@ -23,12 +23,12 @@ export default function AreaInputFormField<TFieldValues extends FieldValues>(inp
         control={control}
         name={input.path}
         render={({ field }) => (
-            <FormItem>
-                <FormControl>
-                    <Textarea placeholder={input.inputPlaceholder} className={`resize-none ${input.inputClassName}`} {...field} />
-                </FormControl>
-                <FormMessage />
-            </FormItem>
+          <FormItem>
+              <FormControl>
+                  <Textarea placeholder={input.inputPlaceholder} className={`resize-none ${input.inputClassName}`} {...field} />
+              </FormControl>
+              <FormMessage />
+          </FormItem>
         )}
     />
   );

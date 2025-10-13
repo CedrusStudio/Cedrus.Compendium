@@ -10,7 +10,7 @@ export const colors =
     leading: 'text-yellow-400',
     secondary: 'text-blue-400',
   }
-};
+} as const;
 
 export const getColorTextChange = (value: number, defaultValue: number) => value < defaultValue 
   ? colors.text.below 

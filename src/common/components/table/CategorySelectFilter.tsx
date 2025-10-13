@@ -29,7 +29,7 @@ export default function CategorySelectFilter({ selectedCategory, handleOnSelecte
                     <SelectItem key={category} value={category}>
                         <span className='capitalize'>{category}</span>
                     </SelectItem>
-            ))
+                ))
             }
         </SelectContent>
 

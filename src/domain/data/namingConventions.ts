@@ -16,5 +16,9 @@ export const namingConventions =
 
     leading: "Wiodąca",
     secondary: "Wtórna",
-    damageBonus: "Bonus"
+    damageBonus: "Bonus",
+
+    searchByName: "Szukaj po nazwie...",
+    saving: "Zapisuję...",
+    save: "Zapisz",
 } as const;
