@@ -13,6 +13,7 @@ import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
+import { translate } from '@/domain/data/translations';
 
 type EditStancesCardProps =
 {
@@ -29,7 +30,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-          <span>Postawy</span>
+          <span>{translate("stances")}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
         </CardTitle>
       </CardHeader>

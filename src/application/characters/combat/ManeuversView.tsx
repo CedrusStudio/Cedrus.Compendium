@@ -17,6 +17,7 @@ import { RiDeleteBack2Line } from "react-icons/ri";
 import { Badge } from '@/ui/badge';
 import { GrNext } from "react-icons/gr";
 import { battleIcon } from "@/domain/data/icons";
+import { translate } from '@/domain/data/translations';
 
 type ManeuversViewProps =
 {
@@ -48,7 +49,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
     <Card className='bg-muted'>
 
         <CardHeader>
-            <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Manewry</CardTitle>
+            <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{translate("maneuvers")}</CardTitle>
         </CardHeader>
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
@@ -106,7 +107,7 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
             <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
                 <FieldViewWithInfo
                     value={maneuver.grade}
-                    infoContent={<span>Akcja <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
+                    infoContent={<span className='capitalize'>{translate("action")} <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
                     className="gap-1"
                     nameClassName='w-4xs'
                 >

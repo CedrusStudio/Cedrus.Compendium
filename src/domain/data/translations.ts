@@ -40,6 +40,7 @@ const defaultTranslations =
     immunity: "niewrażliwość",
 
     name: "nazwa",
+    short_name: "krótka nazwa",
     grade: "ranga",
     bonus: "bonus",
     category: "kategoria",
@@ -91,6 +92,7 @@ const defaultTranslations =
 
     dark: 'ciemny',
     light: 'jasny',
+    action: 'akcja',
 
     roll: "rzut",
     dexterityRestriction: "ograniczenie zręczności",
@@ -102,10 +104,12 @@ const defaultTranslations =
     clickSave: "kliknij zapisz, gdy skończysz.",
 
     changeName: "zmień nazwę...",
+    changeGrade: "zmień rangę...",
     addTalent: "dodaj umiejętność",
     clear: "wyczyść",
     cancel: "anuluj",
     close: "zamknij",
+    create_new_character: "Stwórz nową postać podając nazwę i opis",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

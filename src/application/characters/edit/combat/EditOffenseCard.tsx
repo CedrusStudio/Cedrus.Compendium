@@ -20,6 +20,8 @@ import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButto
 import { addIcon, leftIcon, rightIcon } from '@/domain/data/icons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
+import { translate } from '@/domain/data/translations';
+import { namingConventions } from '@/domain/data/namingConventions';
 
 type EditOffenseCardProps =
 {
@@ -44,7 +46,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
 
         <AreaInputFormField<UpsertCharacterCombatType> 
           path={pathToOffenseField(index, 'description')}
-          inputPlaceholder="zmien opis..." 
+          inputPlaceholder={translate("changeDescription")}
         />
 
         <div className='grid grid-cols-1 gap-1 md:grid-cols-9'>
@@ -73,7 +75,7 @@ function EditLeadingWeaponOffenseSubcard({ offense, index }: EditLeadingWeaponOf
   const weaponOffense = { amount, grade, bonus, critical: { power, range } };
 
   return (
-    <Subcard name='Wiodąca' className='col-span-3' callback={resetAll}>
+    <Subcard name={namingConventions.leading} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -147,7 +149,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
   const removeButton = <RemoveButton name={weaponOffensePath} variant={`${secondaryOffenseExists ? 'destructive' : 'outline'}`} control={control} callback={() => setShowSecondary(false)} />;
 
   return (
-    <Subcard name="Wtórna" className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
+    <Subcard name={namingConventions.secondary} className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={newOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -233,7 +235,7 @@ function EditDamageBonusSubcard({ defaultDamageOffense, index }: EditDamageBonus
   const damageOffense = { amount, grade, bonus };
 
   return (
-    <Subcard name={"Bonus"} className='col-span-3' callback={resetAll}>
+    <Subcard name={translate("bonus")} className='col-span-3 capitalize' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />

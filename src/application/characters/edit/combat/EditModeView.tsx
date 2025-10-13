@@ -18,7 +18,7 @@ import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/characters/combat/Mode";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
-import { translateToSingular } from "@/domain/data/translations";
+import { translate, translateToSingular } from "@/domain/data/translations";
 
 type EditModeViewProps =
 { 
@@ -67,7 +67,7 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
         <SheetHeader>
           <SheetTitle>Edytujesz {translateToSingular(modeType)}</SheetTitle>
           <SheetDescription>
-            Kliknij zapisz, gdy skończysz.
+            {translate("clickSave")}
           </SheetDescription>
         </SheetHeader>
 
@@ -75,25 +75,25 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Name</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.name`} inputPlaceholder="edit name..." inputClassName='w-60' />
+              <Label className="capitalize">{translate("name")}</Label>
+              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.name`} inputPlaceholder={translate("changeName")} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Grade</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.grade`} inputPlaceholder="edit grade..." inputClassName="w-11 h-10 text-center font-medium" />
+              <Label className="capitalize">{translate("grade")}</Label>
+              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.grade`} inputPlaceholder={translate("changeGrade")} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label>Description</Label>
-            <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.description`} inputPlaceholder="edit description..." inputClassName='w-80' />
+            <Label className="capitalize">{translate("description")}</Label>
+            <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.description`} inputPlaceholder={translate("changeDescription")} inputClassName='w-80' />
           </div>
         </div>
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline">Zamknij</Button>
+            <Button variant="outline">{translate("close")}</Button>
           </SheetClose>
         </SheetFooter>
 

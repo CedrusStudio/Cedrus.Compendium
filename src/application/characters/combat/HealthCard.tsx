@@ -48,7 +48,7 @@ export default function HealthCard(input: HealthCardProps)
     <Card className='bg-muted'>
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{translate("health")}</CardTitle>
 
         <FieldViewWithInfo value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} >
           <FieldWithTooltip name={translate("sum")}>{sumIcon}</FieldWithTooltip>

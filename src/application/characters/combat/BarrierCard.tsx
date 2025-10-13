@@ -42,7 +42,7 @@ export default function BarrierCard(input: BarrierCardProps)
   return (
     <Card className='bg-muted'>
       <CardContent className='flex flex-col h-full gap-y-4'>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Bariera</CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{translate("barrier")}</CardTitle>
 
         <FieldView value={input.health.barrier}>
           <FieldWithTooltip name={translate("sum")}>{sumIcon}</FieldWithTooltip>

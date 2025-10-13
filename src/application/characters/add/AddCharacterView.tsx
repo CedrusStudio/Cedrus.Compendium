@@ -86,18 +86,18 @@ export default function AddCharacterView()
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mx-4">
                 
                 <p className='text-xl text-center text-primary pt-8 font-semibold '>
-                    Stwórz nową postać podając nazwę i opis
+                    {translate("create_new_character")} 
                 </p>
 
                 <InputFormField<UpsertCharacterHeaderType> 
                     path="name" 
-                    inputPlaceholder="nazwa..." 
+                    inputPlaceholder={translate("name")} 
                     inputClassName="w-xl"
                 />
 
                 <InputFormField<UpsertCharacterHeaderType> 
                     path="shortName" 
-                    inputPlaceholder="krótka nazwa bez spacji..." 
+                    inputPlaceholder={translate("short_name")} 
                     inputClassName="w-xl"
                 />
 
@@ -106,13 +106,13 @@ export default function AddCharacterView()
                     label={translate("category")}
                     collectionToSelectFrom={allowedCharacterCategories}
                     value={selectedCategory}
-                    placeholder="Wybierz kategorię"
+                    placeholder={translate("selectCategory")}
                     onChange={setSelectedCategory}
                 />
 
                 <AreaInputFormField<UpsertCharacterHeaderType> 
                     path="description" 
-                    inputPlaceholder="opis..." 
+                    inputPlaceholder={translate("description")} 
                 />
 
                 <SubmitButton isPending={isPending} />
