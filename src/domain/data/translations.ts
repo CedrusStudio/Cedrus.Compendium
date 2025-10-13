@@ -41,8 +41,10 @@ const defaultTranslations =
 
     name: "nazwa",
     grade: "ranga",
+    bonus: "bonus",
     category: "kategoria",
-    characteristics: "cecha",
+    characteristic: "cecha",
+    characteristics: "cechy",
     attributes: "atrybut",
     description: "opis",
     penalty: "kara",
@@ -55,6 +57,7 @@ const defaultTranslations =
     weaponDice: "kość broni",
     damageDice: "kość obrażeń",
     critical: "krytyk",
+    damage: "obrażenia",
     range: "zasięg",
     power: "siła",
     style: "styl",
@@ -73,6 +76,8 @@ const defaultTranslations =
 
     dark: 'ciemny',
     light: 'jasny',
+
+    roll: "rzut",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

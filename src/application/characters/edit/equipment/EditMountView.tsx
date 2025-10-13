@@ -3,7 +3,7 @@ import { Mount } from "@/domain/characters/equipment/Mount";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import { Label } from "@/ui/label";
-import HorseView from "@/application/characters/equipment/HorseView";
+import MountView from "@/application/characters/equipment/MountView";
 import { InputFormField } from "@/common/components/form/InputFormField";
 
 type EditMountViewProps = 
@@ -16,7 +16,7 @@ export default function EditMountView({ index, mount}: EditMountViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
-      <HorseView horse={mount} />
+      <MountView horse={mount} />
       <EditMountSheet mount={mount} index={index} />
     </div>
   );

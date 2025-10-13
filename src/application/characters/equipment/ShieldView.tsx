@@ -1,6 +1,7 @@
 import { Shield } from "@/domain/characters/equipment/Shield";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import DefensiveItemView from "@/application/characters/equipment/DefensiveItemView";
+import { translate } from "@/domain/data/translations";
 
 export default function ShieldView({ shield }: { shield: Shield })
 {
@@ -8,7 +9,7 @@ export default function ShieldView({ shield }: { shield: Shield })
     <AccordionContent className='flex flex-col gap-2'>
       <DefensiveItemView defensiveItem={shield}>
         <div>
-          <span className='font-semibold'>Blok:</span> {shield.block}
+          <span className='font-semibold capitalize'>{translate("block")}:</span> {shield.block}
         </div>
       </DefensiveItemView>
     </AccordionContent>

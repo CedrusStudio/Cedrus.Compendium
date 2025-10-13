@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import { AccessorKeyColumnDef, RowData } from "@tanstack/react-table"
-import { Button } from "@/ui/button"
-import { ArrowUpDown } from "lucide-react"
-import { Talent } from "@/domain/characters/Talent"
+import { AccessorKeyColumnDef, RowData } from "@tanstack/react-table";
+import { Button } from "@/ui/button";
+import { ArrowUpDown } from "lucide-react";
+import { Talent } from "@/domain/characters/Talent";
+import { translate } from "@/domain/data/translations";
 
 declare module '@tanstack/table-core' 
 {
@@ -17,20 +18,10 @@ export const defaultColumnKeys =
 {
   name: "name",
   category: "category",
-  characteristic: "characteristics",
+  characteristics: "characteristics",
   grade: "grade",
   bonus: "bonus",
   penalty: "penalty",
-} as const;
-
-export const defaultColumnHeaders =
-{
-  name: "Nazwa",
-  category: "Kategoria",
-  characteristic: "Cechy",
-  grade: "Ranga",
-  bonus: "Bonus",
-  penalty: "Kara",
 } as const;
 
 export const defaultColumns: AccessorKeyColumnDef<Talent>[] = 
@@ -38,7 +29,7 @@ export const defaultColumns: AccessorKeyColumnDef<Talent>[] =
   {
     id: defaultColumnKeys.name,
     accessorKey: defaultColumnKeys.name,
-    header: defaultColumnHeaders.name,
+    header: () => <span className="capitalize">{translate(defaultColumnKeys.name)}</span>,
     cell: ({ row }) => <span className="capitalize">{row.original.name}</span>,
     enableHiding: false
   },
@@ -53,7 +44,7 @@ export const defaultColumns: AccessorKeyColumnDef<Talent>[] =
           type="button"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {defaultColumnHeaders.category}
+          <span className="capitalize">{translate(defaultColumnKeys.category)}</span>
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -61,29 +52,29 @@ export const defaultColumns: AccessorKeyColumnDef<Talent>[] =
     meta: { initiallyHidden: true },
   },
   {
-    id: defaultColumnKeys.characteristic,
-    accessorKey: defaultColumnKeys.characteristic,
+    id: defaultColumnKeys.characteristics,
+    accessorKey: defaultColumnKeys.characteristics,
     cell: ({ row }) => <span className="capitalize">{row.original.characteristics}</span>,
-    header: defaultColumnHeaders.characteristic,
+    header: () => <span className="capitalize">{translate(defaultColumnKeys.characteristics)}</span>,
     meta: { initiallyHidden: true },
   },
   {
     id: defaultColumnKeys.grade,
     accessorKey: defaultColumnKeys.grade,
     cell: ({ row }) => <span className="capitalize">{row.original.grade}</span>,
-    header: defaultColumnHeaders.grade,
+    header: () => <span className="capitalize">{translate(defaultColumnKeys.grade)}</span>,
   },
   {
     id: defaultColumnKeys.bonus,
     accessorKey: defaultColumnKeys.bonus,
     cell: ({ row }) => <span className="capitalize">{row.original.bonus}</span>,
-    header: defaultColumnHeaders.bonus,
+    header: () => <span className="capitalize">{translate(defaultColumnKeys.bonus)}</span>,
   },
   {
     id: defaultColumnKeys.penalty,
     accessorKey: defaultColumnKeys.penalty,
     cell: ({ row }) => <span>{row.original.penalty}</span>,
-    header: defaultColumnHeaders.penalty,
+    header: () => <span className="capitalize">{translate(defaultColumnKeys.penalty)}</span>,
     meta: { initiallyHidden: true },
   }
 ]

@@ -19,6 +19,14 @@ export const namingConventions =
     damageBonus: "Bonus",
 
     searchByName: "Szukaj po nazwie...",
+    searchCharacter: "Wyszukaj postać...",
     saving: "Zapisuję...",
     save: "Zapisz",
+    deleteConfirmation: "Czy na pewno chcesz to zrobić?",
+    deleteConfirmationDescription: "Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.",
+
+    paceSpeed: "Prędkość kłusa",
+    canterSpeed: "Prędkość cwału",
+    gallopSpeed: "Prędkość galopu",
+    horsemanshipBonus: "Bonus jeździectwa",
 } as const;

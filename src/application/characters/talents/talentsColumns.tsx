@@ -5,12 +5,13 @@ import { Talent } from "@/domain/characters/Talent"
 import { useState } from "react"
 import RollButton from "@/common/components/buttons/RollButton";
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"
+import { translate } from "@/domain/data/translations";
 
 export const columns: AccessorKeyColumnDef<Talent>[] = 
 [
   ...defaultColumns,
   {
-    id: "rzut",
+    id: translate("roll"),
     cell: ({ row }) => <RollCell talent={row.original} />
   },
 ] as AccessorKeyColumnDef<Talent>[];

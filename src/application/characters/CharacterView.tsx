@@ -124,10 +124,8 @@ function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { 
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle> Czy na pewno chcesz to zrobić?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.
-                        </AlertDialogDescription>
+                        <AlertDialogTitle>{namingConventions.deleteConfirmation}</AlertDialogTitle>
+                        <AlertDialogDescription>{namingConventions.deleteConfirmationDescription}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                     <AlertDialogCancel>{namingConventions.cancel}</AlertDialogCancel>
