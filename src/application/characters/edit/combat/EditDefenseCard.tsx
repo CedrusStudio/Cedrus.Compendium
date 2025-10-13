@@ -30,7 +30,7 @@ export default function EditDefenseCard({ index, defense, remove }: EditDefenseC
 
         <AreaInputFormField<UpsertCharacterCombatType> 
           path={pathToDefenseField(index, 'description')}
-          inputPlaceholder="zmien opis..." 
+          inputPlaceholder={translate("changeDescription")}
         />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

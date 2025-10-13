@@ -111,7 +111,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
                 name="name" 
                 label={translate("name")}
                 value={newTalentName} 
-                placeholder="Nazwa umiejętności"
+                placeholder={translate("name")}
                 onChange={(e) => setNewTalentName(e.target.value)} 
                 errors={errors} 
               />
@@ -131,7 +131,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
               label={translate("category")}
               collectionToSelectFrom={allowedTalentCategories}
               value={selectedCategory}
-              placeholder="Wybierz kategorię"
+              placeholder={translate("selectCategory")}
               onChange={setSelectedCategory}
               errors={errors}
             />
@@ -141,7 +141,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
               label={translate("characteristics")}
               collectionToSelectFrom={allowedCharacterCategories}
               value={selectedCharacteristics}
-              placeholder="Wybierz cechę"
+              placeholder={translate("selectCharacteristic")}
               onChange={setSelectedCharacteristics}
               errors={errors}
             />
@@ -161,7 +161,6 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
                 label={translate("penalty")}
                 collectionToSelectFrom={allowedTalentPenalties}
                 value={newTalentPenalty}
-                placeholder="Wybierz karę"
                 onChange={setNewTalentPenalty}
                 errors={errors}
                 isValueCapitalized={false}
@@ -172,11 +171,11 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
           </div>
 
           <SheetFooter>
-            <Button type="button" className="flex justify-center flex-1" onClick={addNewTalent}>Dodaj umiejętność</Button>
-            <Button type="button" variant="secondary" className="flex-1" onClick={resetAddTalentForm}>Wyczyść</Button>
+            <Button type="button" className="flex justify-center flex-1 capitalize" onClick={addNewTalent}>{translate("addTalent")}</Button>
+            <Button type="button" variant="secondary" className="flex-1 capitalize" onClick={resetAddTalentForm}>{translate("clear")}</Button>
 
             <SheetClose asChild>
-              <Button type="button" variant="outline" className="flex-1">Anuluj</Button>
+              <Button type="button" variant="outline" className="flex-1 capitalize">{translate("cancel")}</Button>
             </SheetClose>
           </SheetFooter>
 

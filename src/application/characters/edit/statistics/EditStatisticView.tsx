@@ -5,7 +5,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/ui/tooltip"
+} from "@/ui/tooltip";
 import { Badge } from "@/ui/badge";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import ResetButton from "@/common/components/buttons/ResetButton";

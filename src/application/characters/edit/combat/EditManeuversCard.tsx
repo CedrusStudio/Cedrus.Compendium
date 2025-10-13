@@ -103,7 +103,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
         <SheetHeader>
           <SheetTitle>Edycja manewru</SheetTitle>
           <SheetDescription>
-            Kliknij zapisz, gdy skończysz.
+           {translate("clickSave")}
           </SheetDescription>
         </SheetHeader>
 

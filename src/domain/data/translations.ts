@@ -1,4 +1,4 @@
-import { CastTime } from "../characters/combat/Maneuver";
+import { CastTime } from "@/domain/characters/combat/Maneuver";
 
 const defaultTranslations = 
 {
@@ -43,12 +43,21 @@ const defaultTranslations =
     grade: "ranga",
     bonus: "bonus",
     category: "kategoria",
+    statistics: "statystyki",
     characteristic: "cecha",
     characteristics: "cechy",
-    attributes: "atrybut",
+    attribute: "atrybut",
+    attributes: "atrybuty",
     description: "opis",
     penalty: "kara",
-
+    character: "postać",
+    combat: "walka",
+    talents: "umiejętności",
+    equipment: "ekwipunek",
+    testBonus: "bonus testu",
+    value: "wartość",
+    values: "wartości",
+    
     defense: "defensywa",
     defenses: "defensywy",
     offense: "ofensywa",
@@ -64,6 +73,12 @@ const defaultTranslations =
     maneuvers: "manewry",
     stances: "postawy",
     states: "stany",
+    weapons: "bronie",
+    armor: "zbroja",
+    armors: "zbroje",
+    shields: "tarcze",
+    inventory: "wyposażenie",
+    mounts: "wierzchowce",
 
     bestiary: "bestiariusz",
     compendium: "kompendium",
@@ -78,6 +93,17 @@ const defaultTranslations =
     light: 'jasny',
 
     roll: "rzut",
+    dexterityRestriction: "ograniczenie zręczności",
+    initiativeRestriction: "ograniczenie inicjatywy",
+    strengthRequirement: "wymaganie siły",
+    selectCategory: "wybierz kategorię",
+    selectCharacteristic: "wybierz cechę",
+    changeDescription: "zmień opis...",
+    clickSave: "kliknij zapisz, gdy skończysz.",
+
+    addTalent: "dodaj umiejętność",
+    clear: "wyczyść",
+    cancel: "anuluj",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

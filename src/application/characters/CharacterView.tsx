@@ -24,13 +24,14 @@ import { TbEdit } from "react-icons/tb";
 import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
 import { useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
-import { useGetCharacterById } from './hooks/useGetCharacterById';
+import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
 import { namingConventions } from "@/domain/data/namingConventions";
 import CharacterOverview from "@/application/characters/CharacterOverview";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
+import { translate } from "@/domain/data/translations";
 
 type CharacterViewProps = 
 {
@@ -70,10 +71,10 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <div className='flex flex-row justify-between items-center'>
 
                     <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="character" overrideValue="postać" />
-                    <TabsTriggerCapitalized value="combat" overrideValue="walka" />
-                    <TabsTriggerCapitalized value="talents" overrideValue="umiejętności" />
-                    <TabsTriggerCapitalized value="equipment" overrideValue="ekwipunek" />
+                    <TabsTriggerCapitalized value="character" overrideValue={translate('character')} />
+                    <TabsTriggerCapitalized value="combat" overrideValue={translate('combat')} />
+                    <TabsTriggerCapitalized value="talents" overrideValue={translate('talents')} />
+                    <TabsTriggerCapitalized value="equipment" overrideValue={translate('equipment')} />
                     </TabsList>
 
                     <DeleteCharacterDialog id={character.id} activeTab={activeTab} isPending={isPending} deleteCharacter={deleteCharacter} />

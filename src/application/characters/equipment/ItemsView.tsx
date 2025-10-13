@@ -15,7 +15,7 @@ export default function ItemsView<T extends Item>({ items, itemViewFactory, labe
   return (
     <>
       <div className="flex items-center justify-center gap-2">
-        <h3 className="text-lg font-semibold">{label}</h3>
+        <h3 className="text-lg font-semibold capitalize">{label}</h3>
         {children}
       </div>
       {

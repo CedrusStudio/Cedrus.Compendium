@@ -4,7 +4,7 @@ import ResetButton from "@/common/components/buttons/ResetButton";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { TableCell, TableRow } from "@/ui/table";
-import { Talent } from "@/domain/characters/Character";
+import { Talent } from "@/domain/characters/Talent";
 import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { flexRender, Row } from "@tanstack/react-table";
 import { type UseFieldArrayUpdate, type UseFieldArrayRemove } from "react-hook-form";
