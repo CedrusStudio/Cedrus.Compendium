@@ -101,9 +101,11 @@ const defaultTranslations =
     changeDescription: "zmień opis...",
     clickSave: "kliknij zapisz, gdy skończysz.",
 
+    changeName: "zmień nazwę...",
     addTalent: "dodaj umiejętność",
     clear: "wyczyść",
     cancel: "anuluj",
+    close: "zamknij",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

@@ -113,7 +113,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label>Nazwa</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder="zmień nazwę..." inputClassName='w-60' />
+              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder={translate("changeName")} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
@@ -125,18 +125,18 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label>Opis</Label>
-            <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder="zmień opis..." inputClassName='w-80' />
+            <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder={translate("changeDescription")} inputClassName='w-80' />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center'>Odnowienie</Label>
+              <Label className='justify-center'>{translate("cooldown")}</Label>
               <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText='Czas Rzucania' items={allowedCastTimes} />
+              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText={translate("castTime")} items={allowedCastTimes} />
             </div>
           </div>
 
@@ -144,7 +144,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline" type='button'>Zamknij</Button>
+            <Button variant="outline" type='button'>{translate("close")}</Button>
           </SheetClose>
         </SheetFooter>
 
