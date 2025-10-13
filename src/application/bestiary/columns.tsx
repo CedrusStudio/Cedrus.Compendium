@@ -40,7 +40,7 @@ import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Hea
 import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
 import { Mode } from "@/domain/characters/combat/Mode";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
-import { calculateRange, rollDamage } from "@/domain/characters/combat/Offense";
+import { toCriticalRangeString, rollDamage } from "@/domain/characters/combat/Offense";
 
 export const columnKeys =
 {
@@ -381,8 +381,8 @@ function CharacterOffensesBattleView({ character }: { character: Character })
       </p>
 
       <p>
-        <span className={`${colors.offense.leading}`}>{`${calculateRange(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}</span>
-        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}> | {`${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}</span>}
+        <span className={`${colors.offense.leading}`}>{`${toCriticalRangeString(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}</span>
+        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}> | {`${toCriticalRangeString(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}</span>}
       </p>
 
       <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />

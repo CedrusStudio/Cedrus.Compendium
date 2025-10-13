@@ -1,6 +1,6 @@
 "use client";
 
-import { calculateRange, DamageOffense, getDamageOffenseString, getWeaponDamageString, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { toCriticalRangeString, DamageOffense, toOffenseString, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 
 import {
   Card,
@@ -166,7 +166,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           ) 
         }
 
-        <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)} childrenInfo={<span>{getDamageOffenseString(damageBonus)}</span> } > 
+        <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)} childrenInfo={<span>{toOffenseString(damageBonus)}</span> } > 
           <DamageBonusWithRolls 
             damageOffense={currentDamageBonus} 
             rolls={damageBonusRolls} 
@@ -253,8 +253,8 @@ function BaseWeaponDamageInfoView({ weaponOffense }: { weaponOffense: WeaponOffe
 {
   return (
     <div className='flex flex-row gap-3'>
-      <span>{getWeaponDamageString(weaponOffense)}</span> 
-      <span>{calculateRange(weaponOffense)}, +{weaponOffense.critical.power}</span>
+      <span>{toOffenseString(weaponOffense)}</span> 
+      <span>{toCriticalRangeString(weaponOffense)}, +{weaponOffense.critical.power}</span>
     </div>
   );
 }

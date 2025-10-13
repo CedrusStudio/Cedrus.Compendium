@@ -1,4 +1,4 @@
-import { calculateRange, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { toCriticalRangeString, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
@@ -20,7 +20,7 @@ export default function CriticalView({ weaponOffense, setRange, setPower }: Crit
             <div className='flex items-center'>
                 <IncreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={leftIcon} />
                 <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-yellow-300">
-                    {calculateRange(weaponOffense)}
+                    {toCriticalRangeString(weaponOffense)}
                 </Badge>
                 <DecreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={rightIcon} />
             </div>
