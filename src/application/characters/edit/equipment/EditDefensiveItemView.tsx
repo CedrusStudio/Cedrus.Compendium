@@ -16,7 +16,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
   return (
     <div className="grid auto-rows-min gap-3 px-4">
 
-        <div className="grid auto-rows-min gap-3 px-4">
+        <div className="grid auto-rows-min gap-3 px-4 items-center justify-center">
 
             <Label className="capitalize">{translate("resistance")}</Label>
 

@@ -28,9 +28,9 @@ function EditArmorSheet({ armor, index }: EditArmorViewProps)
 {
   return (
     <EditItemSheet item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} >
-      <div className="grid auto-rows-min gap-3 px-4">
+      <div className="grid auto-rows-min gap-3 justify-center items-center">
 
-        <Label className="capitalize">{translate("armor")}</Label>
+        <Label className="capitalize">{translate("protection")}</Label>
 
         <SelectFormField<UpsertCharacterEquipmentType> 
           path={pathToArmorsField(index, `protection`)}

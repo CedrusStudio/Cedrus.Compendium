@@ -29,7 +29,7 @@ function EditShieldSheet({ shield, index }: EditShieldViewProps)
   return (
     <EditItemSheet item={{ name: shield.name, description: shield.description, type: `shields.${index}` }} >
 
-        <div className="grid auto-rows-min gap-3 px-4">
+        <div className="grid auto-rows-min gap-3 justify-center items-center">
 
           <Label className="capitalize">{translate("block")}</Label>
 

@@ -220,8 +220,6 @@ function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalVie
   );
 }
 
-// -----------------------------------------------------------------
-
 type EditDamageBonusSubcardProps =
 {
   defaultDamageOffense: DamageOffense;
@@ -256,17 +254,13 @@ type EditDamageBonusViewProps =
 function EditDamageBonusView({ damageOffense, setAmount, setGrade, setBonus }: EditDamageBonusViewProps) 
 {
   return (
-    <div className='flex gap-x-1'>
-
-      <div className='flex items-center'>
-        <VerticalChangeButtons setValue={setAmount} />
-          <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-            {damageOffense.amount}k{damageOffense.grade * 2}+{damageOffense.bonus}
-          </Badge>
-        <VerticalChangeButtons setValue={setGrade} />
-        <VerticalChangeButtons setValue={setBonus} />
-      </div>
-        
-    </div>
+    <div className='flex items-center'>
+      <VerticalChangeButtons setValue={setAmount} />
+        <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
+          {damageOffense.amount}k{damageOffense.grade * 2}+{damageOffense.bonus}
+        </Badge>
+      <VerticalChangeButtons setValue={setGrade} />
+      <VerticalChangeButtons setValue={setBonus} />
+  </div>
   );
 }
