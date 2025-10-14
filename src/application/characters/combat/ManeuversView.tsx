@@ -1,14 +1,9 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
-import { type CastTime, Maneuver } from '@/domain/characters/combat/Maneuver';
-import { getCastTimeColors } from '@/domain/data/colors';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { canUseManeuver, type CastTime, EndTurn, Maneuver } from '@/domain/characters/combat/Maneuver';
+import { getCastTimeColors } from '@/domain/data/colors';
 import { LuRefreshCcw } from "react-icons/lu";
 import { useState } from 'react';
 import { Button } from '@/ui/button';
@@ -24,25 +19,23 @@ type ManeuversViewProps =
     maneuvers: Maneuver[];
 }
 
-type EndTurn = "end";
-
 export default function ManeuversView({ maneuvers }: ManeuversViewProps)
 {
   const [usedManeuvers, setUsedManeuvers] = useState<(Maneuver | EndTurn)[]>([]);
 
   const addManeuverToUsed = (maneuver: Maneuver | EndTurn) =>
   {
-      setUsedManeuvers(prev => [...prev, maneuver]);
+    setUsedManeuvers(prev => [...prev, maneuver]);
   }
 
   const removeLastManeuver = () =>
   {
-      setUsedManeuvers(prev => prev.slice(0, -1));
+    setUsedManeuvers(prev => prev.slice(0, -1));
   }
 
   const endTurn = () =>
   {
-      setUsedManeuvers(prev => [...prev, "end"]);
+    setUsedManeuvers(prev => [...prev, "end"]);
   }
     
   return (
@@ -137,66 +130,4 @@ function getBadgeVariant(castTime: CastTime): BadgeActionVariant
     if (castTime === "Natychmiastowa") return "immediate";
     if (castTime === "Nadnatychmiastowa") return "overimmediate";
     return null;
-}
-
-type ActionCounts = { full: number; standard: number; immediate: number; overimmediate: number };
-type AllowedManeuverCombination = Readonly<ActionCounts>;
-
-const MANEUVER_COMBINATION_PROFILES: readonly AllowedManeuverCombination[] = 
-[
-  { full: 0, standard: 0, immediate: 0, overimmediate: 3 },
-  { full: 0, standard: 0, immediate: 2, overimmediate: 1 },
-  { full: 0, standard: 1, immediate: 1, overimmediate: 1 },
-  { full: 0, standard: 1, immediate: 0, overimmediate: 2 },
-  { full: 1, standard: 0, immediate: 0, overimmediate: 1 },
-] as const;
-
-const castKey = (ct: CastTime): keyof ActionCounts =>
-  ct === "Pełnorundowa" ? "full" 
-    : ct === "Standardowa" ? "standard" 
-        : ct === "Natychmiastowa" ? "immediate" 
-            : "overimmediate";
-
-const countActions = (maneuvers: Maneuver[]): ActionCounts => maneuvers.reduce<ActionCounts>((acc, m) => 
-{
-    acc[castKey(m.castTime)] += 1;
-    return acc;
-  }, { full: 0, standard: 0, immediate: 0, overimmediate: 0 });
-
-const fitsProfile = (c: ActionCounts, p: AllowedManeuverCombination) =>
-  c.full <= p.full && c.standard <= p.standard && c.immediate <= p.immediate && c.overimmediate <= p.overimmediate;
-
-const canUseCastTime = (used: Maneuver[], next: CastTime) => 
-{
-  const c = countActions(used);
-  const k = castKey(next);
-  return MANEUVER_COMBINATION_PROFILES.some(p => fitsProfile(c, p) && (c[k] + 1) <= p[k]);
-};
-
-function canUseManeuver(maneuver: Maneuver, usedManeuvers: (Maneuver | EndTurn)[]): boolean
-{
-    if (usedManeuvers.length === 0) return true;
-    const maneuversInCurrentTurn = getManeuversInCurrentTurn(usedManeuvers);
-    if (usedInCurrentTurn(maneuversInCurrentTurn, maneuver.name)) return false;
-    if (onCooldown(usedManeuvers, maneuver, maneuver.name)) return false;
-    return canUseCastTime(maneuversInCurrentTurn, maneuver.castTime);
-}
-
-function getManeuversInCurrentTurn(usedManeuvers: (Maneuver | EndTurn)[]): Maneuver[]
-{
-    return usedManeuvers.slice(usedManeuvers.lastIndexOf("end") + 1) as Maneuver[];
-}
-
-function usedInCurrentTurn(maneuversInCurrentTurn: Maneuver[], name: string): boolean
-{
-    return maneuversInCurrentTurn.some(x => x.name === name);
-}
-
-function onCooldown(usedManeuvers: (Maneuver | EndTurn)[], maneuver: Maneuver, name: string): boolean
-{
-    const lastUsedIndex = usedManeuvers.findLastIndex(x => (x !== "end" && x.name === name));
-    if (lastUsedIndex === -1) return false;
-    if (!maneuver.cooldown) return true;
-    const turnCountSinceLastUse = usedManeuvers.slice(lastUsedIndex).filter(x => x === "end").length;
-    return turnCountSinceLastUse < maneuver.cooldown;
 }
