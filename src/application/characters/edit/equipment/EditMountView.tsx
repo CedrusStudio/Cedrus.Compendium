@@ -5,6 +5,7 @@ import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet
 import { Label } from "@/ui/label";
 import MountView from "@/application/characters/equipment/MountView";
 import { InputFormField } from "@/common/components/form/InputFormField";
+import { translate } from "@/domain/data/translations";
 
 type EditMountViewProps = 
 {
@@ -26,49 +27,50 @@ function EditMountSheet({ mount, index }: EditMountViewProps)
 {
   return (
     <EditItemSheet item={{ name: mount.name, description: mount.description, type: `mounts.${index}` }} >
-        <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Kłus</Label>
+      <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-          <InputFormField<UpsertCharacterEquipmentType> 
-            path={pathToMountsField(index, `paceSpeed`)}
-            inputPlaceholder="edytuj kłus..."
-          />
+        <Label className="capitalize">{translate("pace")}</Label>
 
-        </div>
+        <InputFormField<UpsertCharacterEquipmentType> 
+          path={pathToMountsField(index, `paceSpeed`)}
+          inputPlaceholder={translate("changePace")}
+        />
 
-        <div className="grid auto-rows-min gap-3 px-4">
+      </div>
 
-          <Label>Galop</Label>
+      <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-          <InputFormField<UpsertCharacterEquipmentType> 
-            path={pathToMountsField(index, `gallopSpeed`)}
-            inputPlaceholder="edytuj galop..."
-          />
-            
-        </div>
+        <Label className="capitalize">{translate("gallop")}</Label>
 
-        <div className="grid auto-rows-min gap-3 px-4">
+        <InputFormField<UpsertCharacterEquipmentType> 
+          path={pathToMountsField(index, `gallopSpeed`)}
+          inputPlaceholder={translate("changeGallop")}
+        />
+          
+      </div>
 
-          <Label>Cwał</Label>
+      <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-          <InputFormField<UpsertCharacterEquipmentType> 
-              path={pathToMountsField(index, `canterSpeed`)}
-              inputPlaceholder="edytuj cwał..."
-          />
-            
-        </div>
+        <Label className="capitalize">{translate("canter")}</Label>
 
-        <div className="grid auto-rows-min gap-3 px-4">
+        <InputFormField<UpsertCharacterEquipmentType> 
+            path={pathToMountsField(index, `canterSpeed`)}
+            inputPlaceholder={translate("changeCanter")}
+        />
+          
+      </div>
 
-          <Label>Bonus do jeździectwa</Label>
+      <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-          <InputFormField<UpsertCharacterEquipmentType> 
-              path={pathToMountsField(index, `horsemanshipBonus`)}
-              inputPlaceholder="edytuj bonus do jeździectwa..."
-          />
-            
-        </div>
+        <Label className="first-letter:capitalize">{translate("horsemanshipBonus")}</Label>
+
+        <InputFormField<UpsertCharacterEquipmentType> 
+          path={pathToMountsField(index, `horsemanshipBonus`)}
+          inputPlaceholder={translate("changeHorsemanshipBonus")}
+        />
+          
+      </div>
 
     </EditItemSheet>
   )

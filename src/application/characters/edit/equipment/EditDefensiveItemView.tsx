@@ -3,6 +3,7 @@ import { Label } from "@/ui/label";
 import { allowedItemAttributePenalties } from "@/domain/characters/equipment/Item";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
+import { translate } from "@/domain/data/translations";
 
 type EditDefensiveItemViewProps = 
 {
@@ -17,7 +18,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label>Odporność</Label>
+            <Label className="capitalize">{translate("resistance")}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 path={`${defensiveItem}.${index}.resistance`}
@@ -31,7 +32,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Kara atrybutu</Label>
+                <Label className="capitalize">{translate("attributePenalty")}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.attributePenalty`}
@@ -43,7 +44,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Wymaganie siły</Label>
+                <Label className="capitalize">{translate("strengthRequirement")}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.strengthRequirement`}
@@ -59,7 +60,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Ograniczenie zręczności</Label>
+                <Label className="capitalize">{translate("dexterityRestriction")}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.dexterityRestriction`}
@@ -71,7 +72,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Ograniczenie inicjatywy</Label>
+                <Label className="capitalize">{translate("initiativeRestriction")}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.initiativeRestriction`}

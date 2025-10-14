@@ -6,6 +6,7 @@ import ShieldView from "@/application/characters/equipment/ShieldView";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
+import { translate } from "@/domain/data/translations";
 
 type EditShieldViewProps = 
 {
@@ -27,15 +28,16 @@ function EditShieldSheet({ shield, index }: EditShieldViewProps)
 {
   return (
     <EditItemSheet item={{ name: shield.name, description: shield.description, type: `shields.${index}` }} >
+
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label>Block</Label>
+          <Label className="capitalize">{translate("block")}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToShieldsField(index, `block`)}
             items={allowedBlocks}
             noLabel
-          />
+            />
 
         </div>
 

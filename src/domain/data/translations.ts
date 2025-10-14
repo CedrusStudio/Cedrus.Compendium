@@ -95,6 +95,7 @@ const defaultTranslations =
     action: 'akcja',
 
     roll: "rzut",
+    attributePenalty: "kara atrybutu",
     dexterityRestriction: "ograniczenie zręczności",
     initiativeRestriction: "ograniczenie inicjatywy",
     strengthRequirement: "wymaganie siły",
@@ -113,6 +114,12 @@ const defaultTranslations =
 
     selected: "zaznaczono",
     from: "z",
+
+    editingItem: "edytujesz przedmiot",
+    pace: "kłus",
+    gallop: "galop",
+    canter: "cwał",
+    horsemanshipBonus: "bonus do jeździectwa",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

@@ -18,6 +18,7 @@ import { TbEdit } from "react-icons/tb";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import { useFieldArray } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
+import { translate } from "@/domain/data/translations";
 
 type EditItemSheetProps = 
 {
@@ -42,19 +43,19 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
         <SheetContent>
           
           <SheetHeader>
-            <SheetTitle>Edytujesz przedmiot</SheetTitle>
-            <SheetDescription>Kliknij zapisz, gdy skończysz.</SheetDescription>
+            <SheetTitle className="capitalize">{translate("editingItem")}</SheetTitle>
+            <SheetDescription>{translate("clickSave")}</SheetDescription>
           </SheetHeader>
 
           <div className="grid gap-6">
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-              <Label className="px-6">Nazwa</Label>
+              <Label className="px-6 capitalize">{translate("name")}</Label>
               
               <InputFormField<UpsertCharacterEquipmentType> 
                 path={`${item.type}.name`}
-                inputPlaceholder="edytuj nazwę..." 
+                inputPlaceholder={translate("changeName")}
                 inputClassName='w-80'
               />
                 
@@ -62,11 +63,11 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-              <Label>Opis</Label>
+              <Label className="capitalize">{translate("description")}</Label>
               
               <AreaInputFormField<UpsertCharacterEquipmentType> 
                 path={`${item.type}.description`}
-                inputPlaceholder="edytuj opis..." 
+                inputPlaceholder={translate("changeDescription")}
               />
               
             </div>
@@ -77,7 +78,7 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
 
           <SheetFooter>
             <SheetClose asChild>
-              <Button variant="outline">Zamknij</Button>
+              <Button variant="outline" className="capitalize">{translate("close")}</Button>
             </SheetClose>
           </SheetFooter>
         </SheetContent>
