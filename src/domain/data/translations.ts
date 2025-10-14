@@ -110,6 +110,9 @@ const defaultTranslations =
     cancel: "anuluj",
     close: "zamknij",
     create_new_character: "Stwórz nową postać podając nazwę i opis",
+
+    selected: "zaznaczono",
+    from: "z",
 } as const;
 
 export type TranslationKey = keyof typeof defaultTranslations;

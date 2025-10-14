@@ -26,6 +26,7 @@ import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
+import { translate } from "@/domain/data/translations";
 
 export default function BestiaryTable()
 {
@@ -90,7 +91,7 @@ export default function BestiaryTable()
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
           dispatch(actions.addSelectedToBattle(selectedCharacterIds));
-          toast.success("Dodano do walki zaznaczone postacie.");
+          toast.success(namingConventions.addedToBattle);
         }}>
           {addIcon("scale-90")}
         </Button>
@@ -102,7 +103,7 @@ export default function BestiaryTable()
       <BestiaryTableBody table={table} columns={columns} />
 
       <div className="text-muted-foreground flex-1 text-sm mt-2">
-        Zaznaczono {table.getFilteredSelectedRowModel().rows.length} z{" "} {table.getFilteredRowModel().rows.length}.
+        <span className="capitalize">{translate("selected")}</span> {table.getFilteredSelectedRowModel().rows.length} {translate("from")} {table.getFilteredRowModel().rows.length}.
       </div>
     </div>
   );

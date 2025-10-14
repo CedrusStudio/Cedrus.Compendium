@@ -29,4 +29,7 @@ export const namingConventions =
     canterSpeed: "Prędkość cwału",
     gallopSpeed: "Prędkość galopu",
     horsemanshipBonus: "Bonus jeździectwa",
+
+    addedToBattle: "Dodano do walki zaznaczone postacie.",
+    removedFromBattle: "Usunięto z walki zaznaczone postacie.",
 } as const;

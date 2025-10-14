@@ -27,6 +27,7 @@ import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import { removeIcon } from "@/domain/data/icons";
 import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
+import { translate } from "@/domain/data/translations";
 
 export default function BattleTable()
 {
@@ -99,7 +100,7 @@ export default function BattleTable()
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
           dispatch(actions.removeSelectedFromBattle(selectedCharacterIds));
-          toast.success("Usunięto z walki zaznaczone postacie.");
+          toast.success(namingConventions.removedFromBattle);
         }}>
           {removeIcon("scale-90")}
         </Button>
@@ -111,7 +112,7 @@ export default function BattleTable()
       <BestiaryTableBody table={table} columns={columns} />
 
       <div className="text-muted-foreground flex-1 text-sm mt-2">
-        Zaznaczono {table.getFilteredSelectedRowModel().rows.length} z{" "} {table.getFilteredRowModel().rows.length}.
+        <span className="capitalize">{translate("selected")}</span> {table.getFilteredSelectedRowModel().rows.length} {translate("from")} {table.getFilteredRowModel().rows.length}.
       </div>
     </div>
   );

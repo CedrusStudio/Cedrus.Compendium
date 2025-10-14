@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
@@ -56,18 +56,6 @@ export const columnKeys =
   actions: "actions",
 } as const;
 
-export const columnHeaders =
-{
-  name: "Nazwa",
-  health: "Zdrowie",
-  barrier: "Bariera",
-  defense: "Defensywa",
-  offense: "Ofensywa",
-  attributes: "Atrybuty",
-  characteristics: "Cechy",
-  category: "Kategoria",
-} as const;
-
 export const columns: AccessorKeyColumnDef<Character>[] = 
 [
   {
@@ -95,7 +83,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   {
     id: columnKeys.name,
     accessorKey: columnKeys.name,
-    header: columnHeaders.name,
+    header: translate(columnKeys.name),
     cell: ({ row }) => <CharacterNameView character={row.original} />,
     enableHiding: false
   },
@@ -109,7 +97,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
         type="button"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        {columnHeaders.category}
+        <span className="capitalize">{translate(columnKeys.category)}</span>
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -119,19 +107,19 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     id: columnKeys.health,
     accessorKey: columnKeys.health,
     cell: ({ row }) => <CharacterHealthBattleView character={row.original} />,
-    header: columnHeaders.health,
+    header: () => <span className="capitalize">{translate(columnKeys.health)}</span>
   },
   {
     id: columnKeys.defense,
     accessorKey: columnKeys.defense,
     cell: ({ row }) => <CharacterDefensesBattleView character={row.original} />,
-    header: columnHeaders.defense
+    header: () => <span className="capitalize">{translate(columnKeys.defense)}</span>
   },
   {
     id: columnKeys.offense,
     accessorKey: columnKeys.offense,
     cell: ({ row }) => <CharacterOffensesBattleView character={row.original} />,
-    header: columnHeaders.offense
+    header: () => <span className="capitalize">{translate(columnKeys.offense)}</span>
   },
   {
     id: columnKeys.characteristics,
@@ -143,7 +131,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
         <div className="flex flex-wrap gap-2">{characteristicIcons.constitution} {getStatisticTotalTestValue(row.original.characteristics.constitution)}</div>
       </div>
     ),
-    header: columnHeaders.characteristics,
+    header: () => <span className="capitalize">{translate(columnKeys.characteristics)}</span>,
     meta: { initiallyHidden: true },
   },
   {
@@ -161,7 +149,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
         <div className="flex flex-wrap gap-2">{attributesIcons.willpower} {getStatisticTotalTestValue(row.original.attributes.willpower)}</div>
       </div>
     ),
-    header: columnHeaders.attributes,
+    header: () => <span className="capitalize">{translate(columnKeys.attributes)}</span>,
     meta: { initiallyHidden: true },
   },
   {
