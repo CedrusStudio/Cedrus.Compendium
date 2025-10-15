@@ -1,15 +1,15 @@
 import { ulid } from 'ulid';
 import { Character, CharacterCategory } from "@/domain/characters/Character";
-import { Mode } from '../characters/combat/Mode';
-import { Talent } from '../characters/Talent';
-import { Weapon } from '../characters/equipment/Weapon';
-import { Armor } from '../characters/equipment/Armor';
-import { Shield } from '../characters/equipment/Shield';
-import { Item } from '../characters/equipment/Item';
-import { Mount } from '../characters/equipment/Mount';
-import { Offense, WeaponOffense } from '../characters/combat/Offense';
-import { Defense } from '../characters/combat/Defense';
-import { Maneuver } from '../characters/combat/Maneuver';
+import { Mode } from '@/domain/characters/combat/Mode';
+import { Talent } from '@/domain/characters/Talent';
+import { Weapon } from '@/domain/characters/equipment/Weapon';
+import { Armor } from '@/domain/characters/equipment/Armor';
+import { Shield } from '@/domain/characters/equipment/Shield';
+import { Item } from '@/domain/characters/equipment/Item';
+import { Mount } from '@/domain/characters/equipment/Mount';
+import { Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { Defense } from '@/domain/characters/combat/Defense';
+import { Maneuver } from '@/domain/characters/combat/Maneuver';
 
 export const defaultGrade = 3;
 export const defaultWeaponDiceAmount = 2;

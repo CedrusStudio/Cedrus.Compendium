@@ -1,4 +1,4 @@
-import { CastTime } from "../characters/combat/Maneuver";
+import { CastTime } from "@/domain/characters/combat/Maneuver";
 
 export const colors = 
 {
