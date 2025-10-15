@@ -19,7 +19,7 @@ export default function FieldWithTooltip({ children, name }: PropsWithChildren<F
       <div>{children}</div>
       </TooltipTrigger>
       <TooltipContent>
-      <p className="capitalize">{displayedText[name as keyof typeof displayedText]}</p>
+      <p className="capitalize">{displayedText[name as keyof typeof displayedText] || name}</p>
       </TooltipContent>
     </Tooltip>
   );
