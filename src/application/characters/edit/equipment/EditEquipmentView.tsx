@@ -16,8 +16,13 @@ import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import SubmitButton from '@/common/components/form/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from '@/application/characters/edit/equipment/EditInventoryItemView';
-import { CreateDefaultArmor, CreateDefaultMount, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
+import { CreateDefaultWeapon } from '@/domain/characters/equipment/Weapon';
+import { translate } from '@/domain/data/translations';
+import { CreateDefaultArmor } from '@/domain/characters/equipment/Armor';
+import { CreateDefaultShield } from '@/domain/characters/equipment/Shield';
+import { CreateDefaultInventoryItem } from '@/domain/characters/equipment/Item';
+import { CreateDefaultMount } from '@/domain/characters/equipment/Mount';
 
 const equipmentFormName = "edit-equipment-form";
 
@@ -55,7 +60,7 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={weapons}
-            label="Bronie"
+            label={translate("weapons")}
             itemViewFactory={(item, index) => <EditWeaponView index={index} weapon={item} />}
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
@@ -67,7 +72,7 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={armors}
-            label="Zbroje"
+            label={translate("armors")}
             itemViewFactory={(item, index) => <EditArmorView index={index} armor={item} />}
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
@@ -79,7 +84,7 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={shields}
-            label="Tarcze"
+            label={translate("shields")}
             itemViewFactory={(item, index) => <EditShieldView index={index} shield={item} />}
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
@@ -91,7 +96,7 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={inventory}
-            label="Wyposażenie"
+            label={translate("inventory")}
             itemViewFactory={(item, index) => <EditInventoryItemView index={index} inventory={item} />}
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
@@ -103,7 +108,7 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={mounts}
-            label="Wierzchowce"
+            label={translate("mounts")}
             itemViewFactory={(item, index) => <EditMountView key={index} index={index} mount={item} />}
           >
             <AppendToArrayButton<UpsertCharacterEquipmentType, "mounts"> 

@@ -18,9 +18,8 @@ import { translate } from "@/domain/data/translations";
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { ulid } from "ulid";
-import { defaultTalent } from "@/domain/data/defaults";
 import { addIcon } from "@/domain/data/icons";
-import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories } from "@/domain/characters/Talent";
+import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories, defaultTalent } from "@/domain/characters/Talent";
 
 type AddTalentViewProps =
 {
@@ -95,10 +94,8 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Dodaj nową umiejętność</SheetTitle>
-          <SheetDescription>
-            Kliknij zapisz, gdy skończysz.
-          </SheetDescription>
+          <SheetTitle>{translate("addNewTalent")}</SheetTitle>
+          <SheetDescription>{translate("clickSave")}</SheetDescription>
         </SheetHeader>
 
         <div className="flex flex-col flex-1">

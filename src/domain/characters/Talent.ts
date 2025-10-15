@@ -1,3 +1,6 @@
+import { defaultDiceGrade } from "@/domain/characters/diceDefaults";
+import { ulid } from "ulid";
+
 export type Talent = 
 {
   readonly id: string;
@@ -106,3 +109,14 @@ export const allowedTalentScholarshipies =
   "wiedza przyrodnicza",
   "kowalstwo",
 ] as const satisfies readonly string[];
+
+export const defaultTalent: Omit<Talent, "id"> =
+{
+  name: "Talent 1",
+  category: "Kategoria",
+  characteristics: "siła",
+  bonus: 0,
+  grade: defaultDiceGrade
+};
+
+export const CreateDefaultTalent = (): Talent => ({...defaultTalent, id: ulid()});

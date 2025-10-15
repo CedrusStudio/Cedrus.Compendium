@@ -17,7 +17,8 @@ import bffClient from "@/infrastructure/bffClient";
 import { Label } from "@radix-ui/react-label";
 import { translate } from "@/domain/data/translations";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
-import { CreateDefaultDefense, CreateDefaultOffense } from "@/domain/data/defaults";
+import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
+import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
 
 type EditCharacterCombatProps =
 {

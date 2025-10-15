@@ -17,8 +17,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { type Maneuver, allowedCastTimes } from "@/domain/characters/combat/Maneuver";
-import { CreateDefaultManeuver } from "@/domain/data/defaults";
+import { CreateDefaultManeuver, type Maneuver, allowedCastTimes } from "@/domain/characters/combat/Maneuver";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import { TbEdit } from "react-icons/tb";
@@ -101,7 +100,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Edycja manewru</SheetTitle>
+          <SheetTitle>{translate("editManeuver")}</SheetTitle>
           <SheetDescription>
            {translate("clickSave")}
           </SheetDescription>
@@ -112,19 +111,19 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Nazwa</Label>
+              <Label className='capitalize'>{translate("name")}</Label>
               <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder={translate("changeName")} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Ranga</Label>
+              <Label className='capitalize'>{translate("grade")}</Label>
               <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
 
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label>Opis</Label>
+            <Label className='capitalize'>{translate("description")}</Label>
             <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder={translate("changeDescription")} inputClassName='w-80' />
           </div>
 

@@ -1,3 +1,5 @@
+import { ulid } from "ulid";
+
 export type Item = 
 {
   readonly id: string;
@@ -27,3 +29,11 @@ export const allowedItemAttributePenalties = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 
 export const allowedDexterityRestrictions = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
 export const allowedInitiativeRestrictions = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
 export const allowedStrengthRequirements = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
+
+export const defaultInventoryItem: Omit<Item, "id"> =
+{
+  name: "Nowy przedmiot",
+  description: "Opis przedmiotu"
+};
+
+export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, id: ulid()});

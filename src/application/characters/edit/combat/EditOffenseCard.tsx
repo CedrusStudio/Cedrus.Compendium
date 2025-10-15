@@ -1,7 +1,6 @@
 "use client";
 
-import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField } from '@/domain/characters/combat/Offense';
-import { CreateWeaponOffense } from '@/domain/data/defaults';
+import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";

@@ -115,6 +115,8 @@ const defaultTranslations =
     selected: "zaznaczono",
     from: "z",
 
+    addNewTalent: "dodaj nową umiejętność",
+    editManeuver: "edycja manewru",
     editingItem: "edytujesz przedmiot",
     pace: "kłus",
     gallop: "galop",

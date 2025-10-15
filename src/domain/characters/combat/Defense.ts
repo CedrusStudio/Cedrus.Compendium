@@ -1,3 +1,5 @@
+import { ulid } from "ulid";
+
 export type Defense = 
 {
   readonly id: string;
@@ -68,3 +70,18 @@ function directFilter(name: keyof Defense): boolean
 {
   return blockFilter(name) && name !== "block";
 }
+
+const defaultDefense: Omit<Defense, "id"> =
+{
+  name: "Nowa Defensywa",
+  description: "Opis defensywy",
+  immunity: 0,
+  resistance: 0,
+  protection: 0,
+  block: 0,
+  parry: 0,
+  dodge: 0,
+  bonus: 0
+};
+
+export const CreateDefaultDefense = (): Defense => ({...defaultDefense, id: ulid()});

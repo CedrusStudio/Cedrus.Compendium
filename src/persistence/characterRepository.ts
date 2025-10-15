@@ -2,8 +2,7 @@
 
 //Tip: mark your repository as server-only so it can’t be imported in client components by mistake.
 import 'server-only';
-import { Character } from "@/domain/characters/Character";
-import { CreateEmptyCharacter } from "@/domain/data/defaults";
+import { Character, CreateEmptyCharacter } from "@/domain/characters/Character";
 import fs from 'fs';
 import { UpsertCharacterCombatType, UpsertCharacterEquipmentType, UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { ulid } from 'ulid';

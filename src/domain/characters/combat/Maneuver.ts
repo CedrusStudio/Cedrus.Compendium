@@ -1,3 +1,5 @@
+import { ulid } from "ulid";
+
 export type Maneuver =
 {
   readonly id: string;
@@ -82,3 +84,14 @@ const castKey = (ct: CastTime): keyof ActionCounts =>
     ? "full" : ct === "Standardowa" 
       ? "standard" : ct === "Natychmiastowa" 
         ? "immediate" : "overimmediate";
+
+export const defaultManeuver: Omit<Maneuver, "id"> =
+{ 
+  name: 'Manewr', 
+  description: 'Opis manewru', 
+  grade: 1, 
+  castTime: "Standardowa", 
+  cooldown: 1 
+};
+
+export const CreateDefaultManeuver = (): Maneuver => ({...defaultManeuver, id: ulid()});

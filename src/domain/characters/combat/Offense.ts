@@ -1,4 +1,6 @@
 import { PathsFrom } from "@/common/global/pathTypes";
+import { defaultDiceGrade } from "@/domain/characters/diceDefaults";
+import { ulid } from "ulid";
 
 export type Offense = 
 {
@@ -145,3 +147,30 @@ export const allowedDiceAmounts = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
 export const allowedCriticalRanges = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] as const satisfies readonly number[];
 
 export const allowedCriticalPowers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] as const satisfies readonly number[];
+
+export const defaultWeaponOffense: WeaponOffense = 
+{
+  amount: 1,
+  grade: defaultDiceGrade,
+  bonus: 0,
+  critical: { power: 0, range: 0 }
+} as const;
+
+export const CreateWeaponOffense = (): WeaponOffense => 
+({
+  amount: 1,
+  grade: defaultDiceGrade,
+  bonus: 0,
+  critical: { power: 0, range: 0 }
+});
+
+const defaultOffense: Omit<Offense, "id"> =
+{
+  name: "Nowa Ofensywa",
+  description: "Opis ofensywy",
+  leadingWeapon: defaultWeaponOffense,
+  secondaryWeapon: undefined,
+  damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0 }
+};
+
+export const CreateDefaultOffense = (): Offense => ({...defaultOffense, id: ulid()});
