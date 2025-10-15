@@ -1,5 +1,5 @@
 import { Mount } from "@/domain/characters/equipment/Mount";
-import { namingConventions } from "@/presentation/namingConventions";
+import { namingConventions } from "@/presentation/translations";
 import { translate } from "@/presentation/translations";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import { PropsWithChildren } from "react";

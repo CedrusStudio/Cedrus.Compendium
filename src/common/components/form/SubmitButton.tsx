@@ -1,4 +1,4 @@
-import { namingConventions } from "@/presentation/namingConventions";
+import { namingConventions } from "@/presentation/translations";
 import { Button } from "@/ui/button"
 
 type SubmitButtonProps =

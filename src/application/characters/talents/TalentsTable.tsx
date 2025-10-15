@@ -22,7 +22,7 @@ import { useState, useEffect } from "react";
 import { Talent } from "@/domain/characters/Talent";
 import { allowedTalentCategories } from "@/domain/characters/Talent";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
-import { namingConventions } from "@/presentation/namingConventions";
+import { namingConventions } from "@/presentation/translations";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";

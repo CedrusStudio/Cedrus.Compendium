@@ -11,7 +11,7 @@ import { Health } from '@/domain/characters/combat/Health';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
-import { namingConventions } from '@/presentation/namingConventions';
+import { namingConventions } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { currentValueIcon, sumIcon } from '@/presentation/icons';
 import { translate } from '@/presentation/translations';

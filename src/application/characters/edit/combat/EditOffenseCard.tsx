@@ -20,7 +20,7 @@ import { addIcon, leftIcon, rightIcon } from '@/presentation/icons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
 import { translate } from '@/presentation/translations';
-import { namingConventions } from '@/presentation/namingConventions';
+import { namingConventions } from '@/presentation/translations';
 
 type EditOffenseCardProps =
 {

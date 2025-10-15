@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 
 import { useState, useEffect, useMemo } from "react";
-import { namingConventions } from "@/presentation/namingConventions";
+import { namingConventions } from "@/presentation/translations";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";

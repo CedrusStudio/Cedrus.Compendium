@@ -1,6 +1,6 @@
 import StatisticsCard from "@/application/characters/statistics/StatisticsCard";
 import { Character } from "@/domain/characters/Character";
-import { namingConventions } from "@/presentation/namingConventions";
+import { namingConventions } from "@/presentation/translations";
 import { attributesIcons, characteristicIcons } from "@/presentation/icons";
 
 export default function StatisticsView(input: { character: Character })

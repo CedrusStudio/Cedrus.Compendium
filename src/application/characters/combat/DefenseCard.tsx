@@ -15,7 +15,7 @@ import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { translate } from '@/presentation/translations';
-import { namingConventions } from '@/presentation/namingConventions';
+import { namingConventions } from '@/presentation/translations';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';

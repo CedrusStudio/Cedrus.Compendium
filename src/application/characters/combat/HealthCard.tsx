@@ -14,7 +14,7 @@ import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { translate } from '@/presentation/translations';
-import { namingConventions } from '@/presentation/namingConventions';
+import { namingConventions } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { currentValueIcon, sumIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';

@@ -13,7 +13,7 @@ import React from "react";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
 import { addIcon } from "@/presentation/icons";
-import { namingConventions } from "@/presentation/namingConventions";
+import { namingConventions } from "@/presentation/translations";
 
 export default function CharacterNavbar() 
 {

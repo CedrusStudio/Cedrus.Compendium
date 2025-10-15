@@ -3,7 +3,7 @@ import LandingImg from "../assets/main.png";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { translate } from "@/presentation/translations";
-import { namingConventions } from "@/presentation/namingConventions";
+import { namingConventions } from "@/presentation/translations";
 
 export default function HomePage() 
 {
