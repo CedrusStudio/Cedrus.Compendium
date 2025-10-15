@@ -19,7 +19,7 @@ import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
-import { namingConventions } from "@/domain/data/namingConventions";
+import { namingConventions } from "@/presentation/namingConventions";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";

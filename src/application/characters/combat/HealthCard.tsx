@@ -13,10 +13,10 @@ import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translate } from '@/domain/data/translations';
-import { namingConventions } from '@/domain/data/namingConventions';
+import { translate } from '@/presentation/translations';
+import { namingConventions } from '@/presentation/namingConventions';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { currentValueIcon, sumIcon } from '@/domain/data/icons';
+import { currentValueIcon, sumIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type HealthCardProps = 

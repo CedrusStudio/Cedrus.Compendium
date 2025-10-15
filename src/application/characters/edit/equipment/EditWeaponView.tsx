@@ -7,7 +7,7 @@ import { Weapon } from '@/domain/characters/equipment/Weapon';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 
 type EditWeaponViewProps = 
 {

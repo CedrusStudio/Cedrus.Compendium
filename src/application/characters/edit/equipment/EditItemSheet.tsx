@@ -18,7 +18,7 @@ import { TbEdit } from "react-icons/tb";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import { useFieldArray } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type EditItemSheetProps = 
 {

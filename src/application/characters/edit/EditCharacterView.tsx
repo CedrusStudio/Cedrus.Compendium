@@ -14,7 +14,7 @@ import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type EditCharacterProps =
 {

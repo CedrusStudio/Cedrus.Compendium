@@ -2,8 +2,8 @@ import Image from "next/image";
 import LandingImg from "../assets/main.png";
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import { translate } from "@/domain/data/translations";
-import { namingConventions } from "@/domain/data/namingConventions";
+import { translate } from "@/presentation/translations";
+import { namingConventions } from "@/presentation/namingConventions";
 
 export default function HomePage() 
 {

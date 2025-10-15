@@ -3,7 +3,7 @@
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { canUseManeuver, type CastTime, EndTurn, Maneuver } from '@/domain/characters/combat/Maneuver';
-import { getCastTimeColors } from '@/domain/data/colors';
+import { getCastTimeColors } from '@/presentation/colors';
 import { LuRefreshCcw } from "react-icons/lu";
 import { useState } from 'react';
 import { Button } from '@/ui/button';
@@ -11,8 +11,8 @@ import { RiResetLeftFill } from "react-icons/ri";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { Badge } from '@/ui/badge';
 import { GrNext } from "react-icons/gr";
-import { battleIcon } from "@/domain/data/icons";
-import { translate } from '@/domain/data/translations';
+import { battleIcon } from "@/presentation/icons";
+import { translate } from '@/presentation/translations';
 
 type ManeuversViewProps =
 {

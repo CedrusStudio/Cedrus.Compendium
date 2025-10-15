@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/ui/form';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 
 export type SelectFormFieldProps<TFieldValues extends FieldValues> = 
 {

@@ -18,7 +18,7 @@ import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/characters/combat/Mode";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
-import { translate, translateToSingular } from "@/domain/data/translations";
+import { translate, translateToSingular } from "@/presentation/translations";
 
 type EditModeViewProps =
 { 

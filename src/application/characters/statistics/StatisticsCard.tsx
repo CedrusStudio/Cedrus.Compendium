@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from '@/ui/card';
 import StatisticView from "@/application/characters/statistics/StatisticView";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type StatisticsViewProps = 
 {

@@ -12,7 +12,7 @@ import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 import { CreateDefaultState } from '@/domain/characters/combat/Mode';
 
 type EditStatesCardProps =

@@ -3,7 +3,7 @@ import { UpsertCharacterDefenseType, type UpsertCharacterCombatType } from "@/pe
 import { InputFormField } from "@/common/components/form/InputFormField";
 import { Label } from "@/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { UseFieldArrayRemove } from 'react-hook-form';

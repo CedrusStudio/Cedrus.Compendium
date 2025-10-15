@@ -15,7 +15,7 @@ import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 import { Label } from "@radix-ui/react-label";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";

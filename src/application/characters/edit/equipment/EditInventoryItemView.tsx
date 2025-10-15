@@ -1,6 +1,6 @@
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import { Item } from "@/domain/characters/equipment/Item";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type EditInventoryItemViewProps = 
 {

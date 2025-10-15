@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/ui/dropdown-menu';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 
 export default function ThemeMode() 
 {

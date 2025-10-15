@@ -27,7 +27,7 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 
 type EditManeuversCardProps =
 {

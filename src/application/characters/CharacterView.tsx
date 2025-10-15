@@ -27,11 +27,11 @@ import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
-import { namingConventions } from "@/domain/data/namingConventions";
+import { namingConventions } from "@/presentation/namingConventions";
 import CharacterOverview from "@/application/characters/CharacterOverview";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type CharacterViewProps = 
 {

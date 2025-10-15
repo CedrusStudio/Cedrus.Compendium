@@ -1,4 +1,4 @@
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import {
   Tooltip,
   TooltipContent,

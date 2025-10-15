@@ -6,7 +6,7 @@ import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { Armor, allowedProtections } from "@/domain/characters/equipment/Armor";
 import { pathToArmorsField } from "@/domain/characters/equipment/Equipment";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type EditArmorViewProps = 
 {

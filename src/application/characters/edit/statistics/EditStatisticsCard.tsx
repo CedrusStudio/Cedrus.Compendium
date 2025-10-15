@@ -8,8 +8,8 @@ import {
 import EditStatisticView from "@/application/characters/edit/statistics/EditStatisticView";
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { PathsFrom} from "@/common/global/pathTypes";
-import { attributesIcons, characteristicIcons } from "@/domain/data/icons";
-import { translate } from "@/domain/data/translations";
+import { attributesIcons, characteristicIcons } from "@/presentation/icons";
+import { translate } from "@/presentation/translations";
 
 export type AllowedRoots = "characteristics" | "attributes";
 

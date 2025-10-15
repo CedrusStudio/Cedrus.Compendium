@@ -6,7 +6,7 @@ import Link from "next/link";
 import React from "react";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
-import { battleIcon } from "@/domain/data/icons";
+import { battleIcon } from "@/presentation/icons";
 
 export default function BestiaryNavbar() 
 {

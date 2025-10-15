@@ -4,7 +4,7 @@ import WeaponView from '@/application/characters/equipment/WeaponView';
 import ArmorView from '@/application/characters/equipment/ArmorView';
 import ShieldView from '@/application/characters/equipment/ShieldView';
 import ItemsView from '@/application/characters/equipment/ItemsView';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 
 export default function EquipmentView({ equipment }: { equipment: Equipment })
 {

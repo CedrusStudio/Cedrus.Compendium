@@ -4,16 +4,16 @@ import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/domain/data/icons";
+import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/presentation/icons";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
 
 import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
-import { reductionIcons } from "@/domain/data/icons";
+import { reductionIcons } from "@/presentation/icons";
 import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 import { Checkbox } from "@/common/components/ui/checkbox";
 import {
@@ -31,9 +31,9 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/ui/drawer";
-import { getCastTimeColors } from "@/domain/data/colors";
+import { getCastTimeColors } from "@/presentation/colors";
 import RollButton from "@/common/components/buttons/RollButton";
-import { colors } from "@/domain/data/colors";
+import { colors } from "@/presentation/colors";
 import RollWithImmunityButton from "@/common/components/buttons/RollWithImmunityButton";
 import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";

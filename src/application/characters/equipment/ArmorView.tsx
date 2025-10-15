@@ -1,7 +1,7 @@
 import { Armor } from "@/domain/characters/equipment/Armor";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import DefensiveItemView from "@/application/characters/equipment/DefensiveItemView";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 export default function ArmorView({ armor }: { armor: Armor })
 {

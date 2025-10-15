@@ -6,8 +6,8 @@ import {
 } from "@/ui/dropdown-menu";
 import { Button } from "@/ui/button";
 import { Table } from "@tanstack/react-table";
-import { namingConventions } from "@/domain/data/namingConventions";
-import { translate } from "@/domain/data/translations";
+import { namingConventions } from "@/presentation/namingConventions";
+import { translate } from "@/presentation/translations";
 
 export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
 {

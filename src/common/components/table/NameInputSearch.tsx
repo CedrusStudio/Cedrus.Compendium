@@ -1,4 +1,4 @@
-import { namingConventions } from "@/domain/data/namingConventions";
+import { namingConventions } from "@/presentation/namingConventions";
 import { Input } from "@/ui/input";
 import { Table } from "@tanstack/react-table";
 

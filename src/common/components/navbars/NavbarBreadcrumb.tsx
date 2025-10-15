@@ -1,5 +1,5 @@
 import React from "react";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import { Breadcrumb,  BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/ui/breadcrumb";
 import { useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";

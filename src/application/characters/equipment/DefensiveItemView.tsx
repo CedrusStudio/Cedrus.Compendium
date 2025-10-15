@@ -1,6 +1,6 @@
 import { Armor } from "@/domain/characters/equipment/Armor";
 import { Shield } from "@/domain/characters/equipment/Shield";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import { AccordionContent } from "@radix-ui/react-accordion";
 import { PropsWithChildren } from "react";
 

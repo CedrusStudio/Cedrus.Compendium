@@ -18,7 +18,7 @@ import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from '@/application/characters/edit/equipment/EditInventoryItemView';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { CreateDefaultWeapon } from '@/domain/characters/equipment/Weapon';
-import { translate } from '@/domain/data/translations';
+import { translate } from '@/presentation/translations';
 import { CreateDefaultArmor } from '@/domain/characters/equipment/Armor';
 import { CreateDefaultShield } from '@/domain/characters/equipment/Shield';
 import { CreateDefaultInventoryItem } from '@/domain/characters/equipment/Item';

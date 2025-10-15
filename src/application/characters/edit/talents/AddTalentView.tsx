@@ -14,11 +14,11 @@ import { UseFieldArrayAppend } from "react-hook-form";
 import { talentSchema, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useState } from "react";
 import LabeledFormInput from "@/common/components/inputs/LabeledFormInput";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { ulid } from "ulid";
-import { addIcon } from "@/domain/data/icons";
+import { addIcon } from "@/presentation/icons";
 import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories, defaultTalent } from "@/domain/characters/Talent";
 
 type AddTalentViewProps =

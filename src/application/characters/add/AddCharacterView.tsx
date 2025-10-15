@@ -14,7 +14,7 @@ import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { useState } from "react";
 import { useDispatch } from "react-redux";

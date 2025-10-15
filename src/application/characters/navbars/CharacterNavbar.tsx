@@ -12,8 +12,8 @@ import Link from "next/link";
 import React from "react";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
-import { addIcon } from "@/domain/data/icons";
-import { namingConventions } from "@/domain/data/namingConventions";
+import { addIcon } from "@/presentation/icons";
+import { namingConventions } from "@/presentation/namingConventions";
 
 export default function CharacterNavbar() 
 {

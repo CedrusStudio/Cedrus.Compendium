@@ -6,7 +6,7 @@ import { Badge } from "@/ui/badge";
 import RollButton from "@/common/components/buttons/RollButton";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import ResetButton from "@/common/components/buttons/ResetButton";
-import { getColorTextChange } from "@/domain/data/colors";
+import { getColorTextChange } from "@/presentation/colors";
 import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 
 type StatisticViewProps = 

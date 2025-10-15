@@ -6,7 +6,7 @@ import ShieldView from "@/application/characters/equipment/ShieldView";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type EditShieldViewProps = 
 {

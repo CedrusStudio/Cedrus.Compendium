@@ -5,7 +5,7 @@ import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet
 import { Label } from "@/ui/label";
 import MountView from "@/application/characters/equipment/MountView";
 import { InputFormField } from "@/common/components/form/InputFormField";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type EditMountViewProps = 
 {

@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 
 import { useState, useEffect } from "react";
-import { namingConventions } from "@/domain/data/namingConventions";
+import { namingConventions } from "@/presentation/namingConventions";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
@@ -21,12 +21,12 @@ import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/domain/data/icons";
+import { addIcon } from "@/presentation/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 export default function BestiaryTable()
 {

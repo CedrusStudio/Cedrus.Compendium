@@ -16,11 +16,11 @@ import { resolveSetState } from '@/common/global/resolveSetState';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
-import { addIcon, leftIcon, rightIcon } from '@/domain/data/icons';
+import { addIcon, leftIcon, rightIcon } from '@/presentation/icons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
-import { translate } from '@/domain/data/translations';
-import { namingConventions } from '@/domain/data/namingConventions';
+import { translate } from '@/presentation/translations';
+import { namingConventions } from '@/presentation/namingConventions';
 
 type EditOffenseCardProps =
 {

@@ -13,7 +13,7 @@ import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { useFormContext } from "react-hook-form";
 import { StatisticPath } from "@/application/characters/edit/statistics/EditStatisticsCard";
 import { useStatisticForm } from "@/application/characters/edit/statistics/useStatisticForm";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 
 type StatisticViewEditProps = 
 {

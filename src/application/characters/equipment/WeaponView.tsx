@@ -1,5 +1,5 @@
 import { Weapon } from "@/domain/characters/equipment/Weapon";
-import { translate } from "@/domain/data/translations";
+import { translate } from "@/presentation/translations";
 import { AccordionContent } from "@radix-ui/react-accordion";
 
 export default function WeaponView({ weapon }: { weapon: Weapon }) 
