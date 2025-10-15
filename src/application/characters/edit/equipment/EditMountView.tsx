@@ -5,7 +5,7 @@ import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet
 import { Label } from "@/ui/label";
 import MountView from "@/application/characters/equipment/MountView";
 import { InputFormField } from "@/common/components/form/InputFormField";
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 
 type EditMountViewProps = 
 {
@@ -30,44 +30,44 @@ function EditMountSheet({ mount, index }: EditMountViewProps)
 
       <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-        <Label className="capitalize">{translate("pace")}</Label>
+        <Label className="capitalize">{displayedText.pace}</Label>
 
         <InputFormField<UpsertCharacterEquipmentType> 
           path={pathToMountsField(index, `paceSpeed`)}
-          inputPlaceholder={translate("changePace")}
+          inputPlaceholder={displayedText.changePace}
         />
 
       </div>
 
       <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-        <Label className="capitalize">{translate("gallop")}</Label>
+        <Label className="capitalize">{displayedText.gallop}</Label>
 
         <InputFormField<UpsertCharacterEquipmentType> 
           path={pathToMountsField(index, `gallopSpeed`)}
-          inputPlaceholder={translate("changeGallop")}
+          inputPlaceholder={displayedText.changeGallop}
         />
           
       </div>
 
       <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-        <Label className="capitalize">{translate("canter")}</Label>
+        <Label className="capitalize">{displayedText.canter}</Label>
 
         <InputFormField<UpsertCharacterEquipmentType> 
             path={pathToMountsField(index, `canterSpeed`)}
-            inputPlaceholder={translate("changeCanter")}
+            inputPlaceholder={displayedText.changeCanter}
         />
           
       </div>
 
       <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
-        <Label className="first-letter:capitalize">{translate("horsemanshipBonus")}</Label>
+        <Label className="first-letter:capitalize">{displayedText.horsemanshipBonus}</Label>
 
         <InputFormField<UpsertCharacterEquipmentType> 
           path={pathToMountsField(index, `horsemanshipBonus`)}
-          inputPlaceholder={translate("changeHorsemanshipBonus")}
+          inputPlaceholder={displayedText.changeHorsemanshipBonus}
         />
           
       </div>

@@ -13,7 +13,8 @@ import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { useFormContext } from "react-hook-form";
 import { StatisticPath } from "@/application/characters/edit/statistics/EditStatisticsCard";
 import { useStatisticForm } from "@/application/characters/edit/statistics/useStatisticForm";
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
+
 
 type StatisticViewEditProps = 
 {
@@ -52,7 +53,7 @@ export default function EditStatisticView({ name, statistic, icon, fieldPath }: 
             </div>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{translate(name)}</p>
+            <p>{displayedText[name as keyof typeof displayedText]}</p>
           </TooltipContent>
         </Tooltip>
       </div>

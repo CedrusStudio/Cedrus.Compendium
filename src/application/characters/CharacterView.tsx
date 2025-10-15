@@ -31,7 +31,6 @@ import { displayedText } from "@/presentation/translations";
 import CharacterOverview from "@/application/characters/CharacterOverview";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
-import { translate } from "@/presentation/translations";
 
 type CharacterViewProps = 
 {
@@ -71,10 +70,10 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <div className='flex flex-row justify-between items-center'>
 
                     <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="character" overrideValue={translate('character')} />
-                    <TabsTriggerCapitalized value="combat" overrideValue={translate('combat')} />
-                    <TabsTriggerCapitalized value="talents" overrideValue={translate('talents')} />
-                    <TabsTriggerCapitalized value="equipment" overrideValue={translate('equipment')} />
+                    <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
+                    <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
+                    <TabsTriggerCapitalized value="talents" overrideValue={displayedText.talents} />
+                    <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                     </TabsList>
 
                     <DeleteCharacterDialog id={character.id} activeTab={activeTab} isPending={isPending} deleteCharacter={deleteCharacter} />

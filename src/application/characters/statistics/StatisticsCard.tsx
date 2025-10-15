@@ -6,7 +6,8 @@ import {
   CardTitle,
 } from '@/ui/card';
 import StatisticView from "@/application/characters/statistics/StatisticView";
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
+
 
 type StatisticsViewProps = 
 {
@@ -20,7 +21,7 @@ export default function StatisticsCard({ title, statistics }: StatisticsViewProp
     <Card className="bg-muted">
       <CardHeader>
         <CardTitle className="text-center">
-          {translate(title)}
+          {displayedText[title as keyof typeof displayedText]}
         </CardTitle>
       </CardHeader>
 

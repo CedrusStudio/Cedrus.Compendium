@@ -9,7 +9,7 @@ import EditStatisticView from "@/application/characters/edit/statistics/EditStat
 import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
 import { PathsFrom} from "@/common/global/pathTypes";
 import { attributesIcons, characteristicIcons } from "@/presentation/icons";
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 
 export type AllowedRoots = "characteristics" | "attributes";
 
@@ -26,8 +26,8 @@ type StatisticsCardEditProps<TStats extends Record<string, Statistic>> =
 export default function EditStatisticsCard<TStats extends Record<string, Statistic>>({ title, statistics }: StatisticsCardEditProps<TStats>)
 {
   const icons = title === "attributes" ? attributesIcons : characteristicIcons;
-  const overwriteTitle = title === "attributes" ? translate("attributes") : translate("characteristics");
-  const overwriteTitleSingular = title === "attributes" ? translate("attribute") : translate("characteristic");
+  const overwriteTitle = title === "attributes" ? displayedText.attributes : displayedText.characteristics;
+  const overwriteTitleSingular = title === "attributes" ? displayedText.attribute : displayedText.characteristic;
 
   return (
     <Card className="bg-muted">
@@ -44,10 +44,10 @@ export default function EditStatisticsCard<TStats extends Record<string, Statist
             {overwriteTitleSingular}
           </div>
 
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-6 capitalize">{translate("grade")}</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center capitalize">{translate("value")}</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-1 capitalize">{translate("bonus")}</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-4 capitalize">{translate("testBonus")}</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-6 capitalize">{displayedText.grade}</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center capitalize">{displayedText.value}</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-1 capitalize">{displayedText.bonus}</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-4 capitalize">{displayedText.testBonus}</div>
         </div>
 
       <div className="grid grid-rows-5 gap-y-4 items-center">

@@ -1,5 +1,5 @@
 import { Weapon } from "@/domain/characters/equipment/Weapon";
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import { AccordionContent } from "@radix-ui/react-accordion";
 
 export default function WeaponView({ weapon }: { weapon: Weapon }) 
@@ -9,21 +9,21 @@ export default function WeaponView({ weapon }: { weapon: Weapon })
     {
       weapon.description && (
         <div>
-          <span className="font-semibold capitalize">{translate("description")}:</span> {weapon.description}
+          <span className="font-semibold capitalize">{displayedText.description}:</span> {weapon.description}
         </div>
       )
     }
     {
       weapon.style && (
         <div>
-          <span className="font-semibold capitalize">{translate("style")}:</span> {weapon.style}
+          <span className="font-semibold capitalize">{displayedText.style}:</span> {weapon.style}
         </div>
       )
     }
     {
       weapon.range && (
         <div>
-          <span className="font-semibold capitalize">{translate("range")}:</span> {weapon.range}
+          <span className="font-semibold capitalize">{displayedText.range}:</span> {weapon.range}
         </div>
       )
     }
@@ -56,14 +56,14 @@ function WeaponOverview({ weapon }: { weapon: Weapon })
     return (
       <div className='flex flex-col'>
         <div>
-          <span className='font-semibold capitalize'>{translate("damage")}: </span>
+          <span className='font-semibold capitalize'>{displayedText.damage}: </span>
           <span>{weaponOffense}+{damageOffense}</span>
         </div>
 
         <div>
-          <span className='font-semibold capitalize'>{translate("critical")}: </span>
+          <span className='font-semibold capitalize'>{displayedText.critical}: </span>
           <span>
-            {translate("range")}: {criticalRangeBonus}, {translate("damage")}: {criticalDamageBonus}
+            {displayedText.range}: {criticalRangeBonus}, {displayedText.damage}: {criticalDamageBonus}
           </span>
         </div>
       </div>

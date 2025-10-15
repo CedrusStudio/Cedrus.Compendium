@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/ui/dropdown-menu';
-import { translate } from '@/presentation/translations';
+import { displayedText } from '@/presentation/translations';
 
 export default function ThemeMode() 
 {
@@ -28,10 +28,10 @@ export default function ThemeMode()
 
       <DropdownMenuContent align='end'>
         <DropdownMenuItem onClick={() => setTheme('light')} className='capitalize'>
-          {translate("light")}
+          {displayedText.light}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')} className='capitalize'>
-          {translate("dark")}
+          {displayedText.dark}
         </DropdownMenuItem>
       </DropdownMenuContent>
 

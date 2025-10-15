@@ -3,10 +3,10 @@ import { UpsertCharacterDefenseType, type UpsertCharacterCombatType } from "@/pe
 import { InputFormField } from "@/common/components/form/InputFormField";
 import { Label } from "@/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { translate } from '@/presentation/translations';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { UseFieldArrayRemove } from 'react-hook-form';
+import { displayedText } from '@/presentation/translations';
 
 type EditDefenseCardProps =
 {
@@ -30,7 +30,7 @@ export default function EditDefenseCard({ index, defense, remove }: EditDefenseC
 
         <AreaInputFormField<UpsertCharacterCombatType> 
           path={pathToDefenseField(index, 'description')}
-          inputPlaceholder={translate("changeDescription")}
+          inputPlaceholder={displayedText.changeDescription}
         />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -50,7 +50,7 @@ function InputFormWithLabel(index: number, defenseFieldName: keyof UpsertCharact
 
   return (
     <div key={defenseFieldName} className="flex flex-col items-center gap-2">
-      <Label className="text-center capitalize">{translate(defenseFieldName)}</Label>
+      <Label className="text-center capitalize">{displayedText[defenseFieldName as keyof typeof displayedText]}</Label>
       <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName='w-16 h-10 text-center font-medium' />
     </div>
   );

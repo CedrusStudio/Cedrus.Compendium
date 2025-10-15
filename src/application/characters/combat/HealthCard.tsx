@@ -13,7 +13,6 @@ import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translate } from '@/presentation/translations';
 import { displayedText } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { currentValueIcon, sumIcon } from '@/presentation/icons';
@@ -48,10 +47,10 @@ export default function HealthCard(input: HealthCardProps)
     <Card className='bg-muted'>
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{translate("health")}</CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.health}</CardTitle>
 
         <FieldViewWithInfo value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} >
-          <FieldWithTooltip name={translate("sum")}>{sumIcon}</FieldWithTooltip>
+          <FieldWithTooltip name={displayedText.sum}>{sumIcon}</FieldWithTooltip>
         </FieldViewWithInfo>
 
         <FieldViewWithInfo 
@@ -84,7 +83,7 @@ function HealthInfoContent(input: { health: Health })
     {
       Object.entries(input.health)
         .filter(([name]) => name !== 'barrier')
-        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{translate(name)}</FieldView>)
+        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{displayedText[name as keyof typeof displayedText]}</FieldView>)
     }
     </div>
   );

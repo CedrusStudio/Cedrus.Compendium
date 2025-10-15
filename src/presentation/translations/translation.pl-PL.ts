@@ -151,6 +151,14 @@ export const translations_plPL =
     applicationHeading: "Uniwersum Cedrus",
 
     editingMode: "edytujesz tryb",
+    actions: "akcje",
+    showStancesStatesManeuvers: "wyświetl postawy, stany i manewry",
+    goToCharacterView: "przejdź do widoku postaci",
+    
+    changeGallop: "zmień galop",
+    changePace: "zmień kłus",
+    changeCanter: "zmień cwał",
+    changeHorsemanshipBonus: "zmień bonus do jeździectwa",
 } as const;
 
 const pluralToSingularTranslations = 

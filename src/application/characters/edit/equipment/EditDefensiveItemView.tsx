@@ -3,7 +3,7 @@ import { Label } from "@/ui/label";
 import { allowedItemAttributePenalties } from "@/domain/characters/equipment/Item";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 
 type EditDefensiveItemViewProps = 
 {
@@ -18,7 +18,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
         <div className="grid auto-rows-min gap-3 px-4 items-center justify-center">
 
-            <Label className="capitalize">{translate("resistance")}</Label>
+            <Label className="capitalize">{displayedText.resistance}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
                 path={`${defensiveItem}.${index}.resistance`}
@@ -32,7 +32,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label className="capitalize">{translate("attributePenalty")}</Label>
+                <Label className="capitalize">{displayedText.attributePenalty}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.attributePenalty`}
@@ -44,7 +44,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label className="capitalize">{translate("strengthRequirement")}</Label>
+                <Label className="capitalize">{displayedText.strengthRequirement}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.strengthRequirement`}
@@ -60,7 +60,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label className="capitalize">{translate("dexterityRestriction")}</Label>
+                <Label className="capitalize">{displayedText.dexterityRestriction}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.dexterityRestriction`}
@@ -72,7 +72,7 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label className="capitalize">{translate("initiativeRestriction")}</Label>
+                <Label className="capitalize">{displayedText.initiativeRestriction}</Label>
 
                 <SelectFormField<UpsertCharacterEquipmentType> 
                     path={`${defensiveItem}.${index}.initiativeRestriction`}

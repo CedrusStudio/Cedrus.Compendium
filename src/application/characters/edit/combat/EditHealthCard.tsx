@@ -12,7 +12,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/ui/card';
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
+
 
 type EditHealthCardProps =
 {
@@ -27,7 +28,7 @@ export default function EditHealthCard(input: EditHealthCardProps)
         
         <CardHeader>
           <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6'>
-            {translate("health")}
+            {displayedText.health}
           </CardTitle>
         </CardHeader>
         
@@ -48,7 +49,7 @@ function InputFormWithLabel(healthFieldName: keyof UpsertCharacterHealthType)
 
   return (
     <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
-      <Label className="text-center capitalize">{translate(healthFieldName)}</Label>
+      <Label className="text-center capitalize">{displayedText[healthFieldName as keyof typeof displayedText]}</Label>
       <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
     </div>
   );

@@ -26,7 +26,8 @@ import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
-import { translate } from "@/presentation/translations";
+import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";
+
 
 export default function BestiaryTable()
 {
@@ -101,10 +102,8 @@ export default function BestiaryTable()
       </div>
 
       <BestiaryTableBody table={table} columns={columns} />
+      <BestiaryTableFooter table={table} />
 
-      <div className="text-muted-foreground flex-1 text-sm mt-2">
-        <span className="capitalize">{translate("selected")}</span> {table.getFilteredSelectedRowModel().rows.length} {translate("from")} {table.getFilteredRowModel().rows.length}.
-      </div>
     </div>
   );
 };

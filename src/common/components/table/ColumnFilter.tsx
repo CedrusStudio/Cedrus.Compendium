@@ -7,7 +7,6 @@ import {
 import { Button } from "@/ui/button";
 import { Table } from "@tanstack/react-table";
 import { displayedText } from "@/presentation/translations";
-import { translate } from "@/presentation/translations";
 
 export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
 {
@@ -31,7 +30,7 @@ export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
               checked={column.getIsVisible()}
               onCheckedChange={value => column.toggleVisibility(!!value)}
             >
-              {translate(column.id)}
+              {displayedText[column.id as keyof typeof displayedText]}
             </DropdownMenuCheckboxItem>
           ))
       }

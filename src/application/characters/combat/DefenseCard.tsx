@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translate } from '@/presentation/translations';
 import { displayedText } from '@/presentation/translations';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
@@ -75,7 +74,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
       <CardContent className='flex flex-col h-full gap-y-4'>
 
         <FieldView value={immunity} childrenClassName='flex items-center gap-1'>
-            <FieldWithTooltip name={translate("immunity")}>
+            <FieldWithTooltip name={displayedText.immunity}>
               <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]}>
                 {immunityIcon()}
               </ResetButton>
@@ -84,7 +83,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
         </FieldView>
 
         <FieldView value={resistance} childrenClassName='flex items-center gap-1'>
-            <FieldWithTooltip name={translate("resistance")}>
+            <FieldWithTooltip name={displayedText.resistance}>
               <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]}>
                 {resistanceIcon()}
               </ResetButton>

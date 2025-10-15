@@ -14,11 +14,12 @@ import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
-import { translate } from "@/presentation/translations";
+
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
+import { displayedText } from "@/presentation/translations";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -86,33 +87,33 @@ export default function AddCharacterView()
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mx-4">
                 
                 <p className='text-xl text-center text-primary pt-8 font-semibold '>
-                    {translate("create_new_character")} 
+                    {displayedText.create_new_character} 
                 </p>
 
                 <InputFormField<UpsertCharacterHeaderType> 
                     path="name" 
-                    inputPlaceholder={translate("name")} 
+                    inputPlaceholder={displayedText.name} 
                     inputClassName="w-xl"
                 />
 
                 <InputFormField<UpsertCharacterHeaderType> 
                     path="shortName" 
-                    inputPlaceholder={translate("short_name")} 
+                    inputPlaceholder={displayedText.short_name} 
                     inputClassName="w-xl"
                 />
 
                 <LabeledFormSelectInput
                     name="category"
-                    label={translate("category")}
+                    label={displayedText.category}
                     collectionToSelectFrom={allowedCharacterCategories}
                     value={selectedCategory}
-                    placeholder={translate("selectCategory")}
+                    placeholder={displayedText.selectCategory}
                     onChange={setSelectedCategory}
                 />
 
                 <AreaInputFormField<UpsertCharacterHeaderType> 
                     path="description" 
-                    inputPlaceholder={translate("description")} 
+                    inputPlaceholder={displayedText.description} 
                 />
 
                 <SubmitButton isPending={isPending} />

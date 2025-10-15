@@ -1,7 +1,7 @@
 import { translations_plPL } from "./translations/translation.pl-PL";
 import { languageSettings } from "@/lib/env";
 
-export function translate(key: string): string 
+function translate(key: string): string 
 {
     if (languageSettings.NEXT_LANGUAGE === 'pl-PL' && key in translations_plPL)
     {
@@ -164,4 +164,12 @@ export const displayedText =
     applicationHeading: translate("applicationHeading"),
 
     editingMode: translate("editingMode"),
+    actions: translate("actions"),
+    showStancesStatesManeuvers: translate("showStancesStatesManeuvers"),
+    goToCharacterView: translate("goToCharacterView"),
+
+    changeGallop: translate("changeGallop"),
+    changePace: translate("changePace"),
+    changeCanter: translate("changeCanter"),
+    changeHorsemanshipBonus: translate("changeHorsemanshipBonus"),
 } as const;

@@ -27,7 +27,7 @@ import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import { removeIcon } from "@/presentation/icons";
 import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
-import { translate } from "@/presentation/translations";
+import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";
 
 export default function BattleTable()
 {
@@ -110,10 +110,7 @@ export default function BattleTable()
       </div>
 
       <BestiaryTableBody table={table} columns={columns} />
-
-      <div className="text-muted-foreground flex-1 text-sm mt-2">
-        <span className="capitalize">{translate("selected")}</span> {table.getFilteredSelectedRowModel().rows.length} {translate("from")} {table.getFilteredRowModel().rows.length}.
-      </div>
+      <BestiaryTableFooter table={table} />
     </div>
   );
 };

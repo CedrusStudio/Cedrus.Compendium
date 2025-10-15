@@ -1,4 +1,4 @@
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import {
   Tooltip,
   TooltipContent,
@@ -19,7 +19,7 @@ export default function FieldWithTooltip({ children, name }: PropsWithChildren<F
       <div>{children}</div>
       </TooltipTrigger>
       <TooltipContent>
-      <p className="capitalize">{translate(name)}</p>
+      <p className="capitalize">{displayedText[name as keyof typeof displayedText]}</p>
       </TooltipContent>
     </Tooltip>
   );

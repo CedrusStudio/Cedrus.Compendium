@@ -14,12 +14,13 @@ import { UseFieldArrayAppend } from "react-hook-form";
 import { talentSchema, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useState } from "react";
 import LabeledFormInput from "@/common/components/inputs/LabeledFormInput";
-import { translate } from "@/presentation/translations";
+
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { ulid } from "ulid";
 import { addIcon } from "@/presentation/icons";
 import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories, defaultTalent } from "@/domain/characters/Talent";
+import { displayedText } from "@/presentation/translations";
 
 type AddTalentViewProps =
 {
@@ -94,8 +95,8 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>{translate("addNewTalent")}</SheetTitle>
-          <SheetDescription>{translate("clickSave")}</SheetDescription>
+          <SheetTitle>{displayedText.addNewTalent}</SheetTitle>
+          <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
         <div className="flex flex-col flex-1">
@@ -106,17 +107,17 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
 
               <LabeledFormInput 
                 name="name" 
-                label={translate("name")}
+                label={displayedText.name}
                 value={newTalentName} 
-                placeholder={translate("name")}
+                placeholder={displayedText.name}
                 onChange={(e) => setNewTalentName(e.target.value)} 
                 errors={errors} 
               />
 
               <LabeledFormInput 
-                name="grade" 
-                label={translate("grade")}
-                value={newTalentGrade || defaultTalent.grade} 
+                name="grade"
+                label={displayedText.grade}
+                value={newTalentGrade || defaultTalent.grade}
                 onChange={(e) => setNewTalentGrade(Number(e.target.value))}
                 errors={errors} 
               />
@@ -125,20 +126,20 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
 
             <LabeledFormSelectInput
               name="category"
-              label={translate("category")}
+              label={displayedText.category}
               collectionToSelectFrom={allowedTalentCategories}
               value={selectedCategory}
-              placeholder={translate("selectCategory")}
+              placeholder={displayedText.selectCategory}
               onChange={setSelectedCategory}
               errors={errors}
             />
 
             <LabeledFormSelectInput
               name="characteristics"
-              label={translate("characteristics")}
+              label={displayedText.characteristics}
               collectionToSelectFrom={allowedCharacterCategories}
               value={selectedCharacteristics}
-              placeholder={translate("selectCharacteristic")}
+              placeholder={displayedText.selectCharacteristic}
               onChange={setSelectedCharacteristics}
               errors={errors}
             />
@@ -147,7 +148,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
 
               <LabeledFormInput 
                 name="bonus" 
-                label={translate("bonus")}
+                label={displayedText.bonus}
                 value={newTalentBonus} 
                 onChange={(e) => setNewTalentBonus(Number(e.target.value))}
                 errors={errors} 
@@ -155,7 +156,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
 
               <LabeledFormSelectInput
                 name="penalty"
-                label={translate("penalty")}
+                label={displayedText.penalty}
                 collectionToSelectFrom={allowedTalentPenalties}
                 value={newTalentPenalty}
                 onChange={setNewTalentPenalty}
@@ -168,11 +169,11 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
           </div>
 
           <SheetFooter>
-            <Button type="button" className="flex justify-center flex-1 capitalize" onClick={addNewTalent}>{translate("addTalent")}</Button>
-            <Button type="button" variant="secondary" className="flex-1 capitalize" onClick={resetAddTalentForm}>{translate("clear")}</Button>
+            <Button type="button" className="flex justify-center flex-1 capitalize" onClick={addNewTalent}>{displayedText.addTalent}</Button>
+            <Button type="button" variant="secondary" className="flex-1 capitalize" onClick={resetAddTalentForm}>{displayedText.clear}</Button>
 
             <SheetClose asChild>
-              <Button type="button" variant="outline" className="flex-1 capitalize">{translate("cancel")}</Button>
+              <Button type="button" variant="outline" className="flex-1 capitalize">{displayedText.cancel}</Button>
             </SheetClose>
           </SheetFooter>
 

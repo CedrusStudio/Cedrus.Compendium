@@ -27,7 +27,7 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
-import { translate } from '@/presentation/translations';
+import { displayedText } from '@/presentation/translations';
 
 type EditManeuversCardProps =
 {
@@ -44,7 +44,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-          <span className='capitalize'>{translate('maneuvers')}</span>
+          <span className='capitalize'>{displayedText.maneuvers}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
         </CardTitle>
       </CardHeader>
@@ -100,9 +100,9 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>{translate("editManeuver")}</SheetTitle>
+          <SheetTitle>{displayedText.editManeuver}</SheetTitle>
           <SheetDescription>
-           {translate("clickSave")}
+           {displayedText.clickSave}
           </SheetDescription>
         </SheetHeader>
 
@@ -111,31 +111,31 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{translate("name")}</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder={translate("changeName")} inputClassName='w-60' />
+              <Label className='capitalize'>{displayedText.name}</Label>
+              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{translate("grade")}</Label>
+              <Label className='capitalize'>{displayedText.grade}</Label>
               <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
 
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{translate("description")}</Label>
-            <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder={translate("changeDescription")} inputClassName='w-80' />
+            <Label className='capitalize'>{displayedText.description}</Label>
+            <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center'>{translate("cooldown")}</Label>
+              <Label className='justify-center'>{displayedText.cooldown}</Label>
               <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText={translate("castTime")} items={allowedCastTimes} />
+              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText={displayedText.castTime} items={allowedCastTimes} />
             </div>
           </div>
 
@@ -143,7 +143,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline" type='button'>{translate("close")}</Button>
+            <Button variant="outline" type='button'>{displayedText.close}</Button>
           </SheetClose>
         </SheetFooter>
 

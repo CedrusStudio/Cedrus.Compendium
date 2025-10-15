@@ -19,7 +19,6 @@ import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButto
 import { addIcon, leftIcon, rightIcon } from '@/presentation/icons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
-import { translate } from '@/presentation/translations';
 import { displayedText } from '@/presentation/translations';
 
 type EditOffenseCardProps =
@@ -45,7 +44,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
 
         <AreaInputFormField<UpsertCharacterCombatType> 
           path={pathToOffenseField(index, 'description')}
-          inputPlaceholder={translate("changeDescription")}
+          inputPlaceholder={displayedText.changeDescription}
         />
 
         <div className='grid grid-cols-1 gap-1 md:grid-cols-9'>
@@ -170,18 +169,14 @@ type EditWeaponDamageViewProps =
 function EditWeaponDamageView({ weaponOffense, setAmount, setGrade, setBonus }: EditWeaponDamageViewProps) 
 {
   return (
-    <div className='flex gap-x-1'>
+    <div className='flex items-center'>
+      <VerticalChangeButtons setValue={setAmount} />
+      <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
+        {weaponOffense.amount}(k{weaponOffense.grade * 2}+{weaponOffense.bonus})
+      </Badge>
 
-      <div className='flex items-center'>
-        <VerticalChangeButtons setValue={setAmount} />
-        <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-          {weaponOffense.amount}(k{weaponOffense.grade * 2}+{weaponOffense.bonus})
-        </Badge>
-
-        <VerticalChangeButtons setValue={setGrade} />
-        <VerticalChangeButtons setValue={setBonus} />
-      </div>
-        
+      <VerticalChangeButtons setValue={setGrade} />
+      <VerticalChangeButtons setValue={setBonus} />
     </div>
   );
 }
@@ -232,7 +227,7 @@ function EditDamageBonusSubcard({ defaultDamageOffense, index }: EditDamageBonus
   const damageOffense = { amount, grade, bonus };
 
   return (
-    <Subcard name={translate("bonus")} className='col-span-3 capitalize' callback={resetAll}>
+    <Subcard name={displayedText.bonus} className='col-span-3 capitalize' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />

@@ -15,10 +15,11 @@ import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 import { Label } from "@radix-ui/react-label";
-import { translate } from "@/presentation/translations";
+
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
+import { displayedText } from "@/presentation/translations";
 
 type EditCharacterCombatProps =
 {
@@ -81,7 +82,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         <div className="space-y-3 flex flex-col justify-center">
 
           <div className="flex justify-center items-center gap-3">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("offenses")}</Label>
+            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.offenses}</Label>
             <AppendToArrayButton<UpsertCharacterCombatType, "offenses"> 
               isPending={isPending}
               toAdd={CreateDefaultOffense}
@@ -99,7 +100,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         <div className="space-y-3 flex flex-col justify-center">
           
           <div className="flex justify-center items-center gap-3">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("defenses")}</Label>
+            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.defenses}</Label>
             <AppendToArrayButton<UpsertCharacterCombatType, "defenses"> 
               isPending={isPending}
               toAdd={CreateDefaultDefense}

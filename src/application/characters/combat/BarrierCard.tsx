@@ -14,7 +14,6 @@ import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { displayedText } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { currentValueIcon, sumIcon } from '@/presentation/icons';
-import { translate } from '@/presentation/translations';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type BarrierCardProps = 
@@ -42,10 +41,10 @@ export default function BarrierCard(input: BarrierCardProps)
   return (
     <Card className='bg-muted'>
       <CardContent className='flex flex-col h-full gap-y-4'>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{translate("barrier")}</CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.barrier}</CardTitle>
 
         <FieldView value={input.health.barrier}>
-          <FieldWithTooltip name={translate("sum")}>{sumIcon}</FieldWithTooltip>
+          <FieldWithTooltip name={displayedText.sum}>{sumIcon}</FieldWithTooltip>
         </FieldView>
 
         <FieldViewWithInfo 
@@ -75,7 +74,7 @@ function CurrentBarrierInfoContent(input: { totalBarrier: number, damageTaken: n
 {
   return (
     <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalBarrier" value={input.totalBarrier} childrenClassName="w-24">{translate("sum")}</FieldView> }
+    { <FieldView key="totalBarrier" value={input.totalBarrier} childrenClassName="w-24">{displayedText.sum}</FieldView> }
     { <FieldView key="barrierIncrease" value={input.barrierIncrease} valueClassName='text-green-600' childrenClassName="w-24">{displayedText.increase}</FieldView> }
     { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{displayedText.damage}</FieldView> }
     </div>

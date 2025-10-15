@@ -2,7 +2,7 @@ import Image from "next/image";
 import LandingImg from "../assets/main.png";
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import { translate } from "@/presentation/translations";
+
 import { displayedText } from "@/presentation/translations";
 
 export default function HomePage() 
@@ -40,11 +40,11 @@ const Description = () =>
   </p>
 );
 
-const StartButtonLink = ({ name }: { name: string }) => 
+const StartButtonLink = ({ name }: { name: keyof typeof displayedText }) => 
 (
   <Button asChild>
     <Link href={`/${name}`} className="capitalize">
-      {translate(name)}
+      {displayedText[name]}
     </Link>
   </Button>
 );

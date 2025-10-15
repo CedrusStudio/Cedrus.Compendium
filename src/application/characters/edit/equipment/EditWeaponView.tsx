@@ -7,7 +7,7 @@ import { Weapon } from '@/domain/characters/equipment/Weapon';
 import { UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
-import { translate } from '@/presentation/translations';
+import { displayedText } from '@/presentation/translations';
 
 type EditWeaponViewProps = 
 {
@@ -33,7 +33,7 @@ function EditWeaponSheet({ weapon, index }: EditWeaponViewProps)
         
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label className='capitalize'>{translate('style')}</Label>
+          <Label className='capitalize'>{displayedText.style}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsField(index, `style`)}
@@ -45,7 +45,7 @@ function EditWeaponSheet({ weapon, index }: EditWeaponViewProps)
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label className='capitalize'>{translate('range')}</Label>
+          <Label className='capitalize'>{displayedText.range}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsField(index, `range`)}
@@ -69,12 +69,12 @@ function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
   <>
-    <Label className='justify-center capitalize text-yellow-600'>{translate('weaponDice')}</Label>
+    <Label className='justify-center capitalize text-yellow-600'>{displayedText.weaponDice}</Label>
       <div className="flex flex-row gap-3 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label className='capitalize'>{translate('amount')}</Label>
+          <Label className='capitalize'>{displayedText.amount}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseField(index, `amount`)}
@@ -86,7 +86,7 @@ function WeaponDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label className='capitalize'>{translate('grade')}</Label>
+          <Label className='capitalize'>{displayedText.grade}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseField(index, `grade`)}
@@ -117,13 +117,13 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
     <>
-      <Label className='justify-center capitalize text-yellow-600'>{translate('damageDice')}</Label>
+      <Label className='justify-center capitalize text-yellow-600'>{displayedText.damageDice}</Label>
 
         <div className="flex flex-row justify-center gap-3">
               
           <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label className='capitalize'>{translate('amount')}</Label>
+            <Label className='capitalize'>{displayedText.amount}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsDamageOffenseField(index, `amount`)}
@@ -135,7 +135,7 @@ function DamageDiceEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
           
           <div className="grid auto-rows-min gap-3 px-4">
 
-            <Label className='capitalize'>{translate('grade')}</Label>
+            <Label className='capitalize'>{displayedText.grade}</Label>
 
             <SelectFormField<UpsertCharacterEquipmentType> 
               path={pathToWeaponsDamageOffenseField(index, `grade`)}
@@ -166,13 +166,13 @@ function CriticalEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
 {
   return (
     <>
-      <Label className='justify-center capitalize'>{translate('critical')}</Label>
+      <Label className='justify-center capitalize'>{displayedText.critical}</Label>
 
       <div className="flex flex-row justify-center gap-3">
             
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label className='capitalize'>{translate('range')}</Label>
+          <Label className='capitalize'>{displayedText.range}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseCriticalField(index, `range`)}
@@ -184,7 +184,7 @@ function CriticalEditor({ index }: Pick<EditWeaponViewProps, 'index'>)
         
         <div className="grid auto-rows-min gap-3 px-4">
 
-          <Label className='capitalize'>{translate('power')}</Label>
+          <Label className='capitalize'>{displayedText.power}</Label>
 
           <SelectFormField<UpsertCharacterEquipmentType> 
             path={pathToWeaponsWeaponOffenseCriticalField(index, `power`)}

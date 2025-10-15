@@ -6,7 +6,7 @@ import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { Armor, allowedProtections } from "@/domain/characters/equipment/Armor";
 import { pathToArmorsField } from "@/domain/characters/equipment/Equipment";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
-import { translate } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 
 type EditArmorViewProps = 
 {
@@ -30,7 +30,7 @@ function EditArmorSheet({ armor, index }: EditArmorViewProps)
     <EditItemSheet item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} >
       <div className="grid auto-rows-min gap-3 justify-center items-center">
 
-        <Label className="capitalize">{translate("protection")}</Label>
+        <Label className="capitalize">{displayedText.protection}</Label>
 
         <SelectFormField<UpsertCharacterEquipmentType> 
           path={pathToArmorsField(index, `protection`)}
