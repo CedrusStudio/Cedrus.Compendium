@@ -83,7 +83,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   {
     id: columnKeys.name,
     accessorKey: columnKeys.name,
-    header: translate(columnKeys.name),
+    header: () => <span className="capitalize">{translate(columnKeys.name)}</span>,
     cell: ({ row }) => <CharacterNameView character={row.original} />,
     enableHiding: false
   },
