@@ -32,4 +32,8 @@ export const namingConventions =
 
     addedToBattle: "Dodano do walki zaznaczone postacie.",
     removedFromBattle: "Usunięto z walki zaznaczone postacie.",
+
+    applicationDescription: "Jest to aplikacja webowa stworzona z myślą o miłośnikach gier fabularnych, oferująca narzędzia do zarządzania postaciami, przeciwnikami i zasobami, ułatwiając prowadzenie i uczestnictwo w sesjach RPG.",
+    applicationHeading: "Uniwersum Cedrus"
 } as const;
+

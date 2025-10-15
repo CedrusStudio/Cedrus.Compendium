@@ -3,6 +3,7 @@ import LandingImg from "../assets/main.png";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { translate } from "@/domain/data/translations";
+import { namingConventions } from "@/domain/data/namingConventions";
 
 export default function HomePage() 
 {
@@ -27,7 +28,7 @@ const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
     <h1 className="capitalize text-4xl md:text-7xl font-bold">
-      Uniwersum <span className="text-primary">Cedrus</span>
+      {namingConventions.applicationHeading}
     </h1>
   </div>
 );
@@ -35,7 +36,7 @@ const Heading = () =>
 const Description = () =>
 (
   <p className="leading-loose max-w-md mt-2">
-    Jest to aplikacja webowa stworzona z myślą o miłośnikach gier fabularnych, oferująca narzędzia do zarządzania postaciami, przeciwnikami i zasobami, ułatwiając prowadzenie i uczestnictwo w sesjach RPG.
+    {namingConventions.applicationDescription}
   </p>
 );
 
