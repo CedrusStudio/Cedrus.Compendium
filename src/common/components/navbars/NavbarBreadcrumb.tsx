@@ -34,8 +34,8 @@ export default function NavbarBreadcrumb({ pathname }: { pathname: string })
                             <BreadcrumbItem>
                             {
                                 isLast 
-                                    ? <BreadcrumbPage>{displayedText[segment as keyof typeof displayedText]}</BreadcrumbPage> 
-                                    : <BreadcrumbLink href={href}>{displayedText[segment as keyof typeof displayedText]}</BreadcrumbLink>
+                                    ? <BreadcrumbPage>{displayedText[segment as keyof typeof displayedText] || segment}</BreadcrumbPage> 
+                                    : <BreadcrumbLink href={href}>{displayedText[segment as keyof typeof displayedText] || segment}</BreadcrumbLink>
                             }
                             </BreadcrumbItem>
                         </React.Fragment>

@@ -1,5 +1,3 @@
-import { CastTime } from "@/domain/characters/combat/Maneuver";
-
 export const translations_plPL = 
 {
     characters: "postacie",
@@ -161,33 +159,3 @@ export const translations_plPL =
     changeHorsemanshipBonus: "zmień bonus do jeździectwa",
 } as const;
 
-const pluralToSingularTranslations = 
-{
-    stances: "postawę",
-    states: "stan",
-};
-
-export function translateToSingular(key: string): string 
-{
-    return pluralToSingularTranslations[key as keyof typeof pluralToSingularTranslations] || key;
-};
-
-const reductionTranslations = 
-{
-    full: "pełna",
-    block: "blokowalna",
-    direct: "bezpośrednia",
-};
-
-export function translateReductions(key: string): string 
-{
-    return reductionTranslations[key as keyof typeof reductionTranslations] || key;
-};
-
-export const castTimeTranslations: Record<CastTime, string> = 
-{
-  "Pełnorundowa": "full",
-  "Standardowa": "standard",
-  "Natychmiastowa": "immediate",
-  "Nadnatychmiastowa": "overimmediate",
-};
