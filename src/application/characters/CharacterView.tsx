@@ -27,7 +27,7 @@ import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import CharacterOverview from "@/application/characters/CharacterOverview";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
@@ -125,13 +125,13 @@ function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { 
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>{namingConventions.deleteConfirmation}</AlertDialogTitle>
-                        <AlertDialogDescription>{namingConventions.deleteConfirmationDescription}</AlertDialogDescription>
+                        <AlertDialogTitle>{displayedText.deleteConfirmation}</AlertDialogTitle>
+                        <AlertDialogDescription>{displayedText.deleteConfirmationDescription}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                    <AlertDialogCancel>{namingConventions.cancel}</AlertDialogCancel>
+                    <AlertDialogCancel>{displayedText.cancel}</AlertDialogCancel>
                     <AlertDialogAction disabled={isPending} onClick={() => deleteCharacter(id) }>
-                        {isPending ? namingConventions.deleting : namingConventions.delete}
+                        {isPending ? displayedText.deleting : displayedText.delete}
                     </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

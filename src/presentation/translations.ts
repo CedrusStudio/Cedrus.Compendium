@@ -1,202 +1,167 @@
-import { CastTime } from "@/domain/characters/combat/Maneuver";
-
-export const namingConventions =
-{
-    increase: "Przyrost",
-    damage: "Obrażenia",
-    sum: "Suma",
-    current: "Obecne",
-    all: "Wszystkie",
-    columns: "Kolumny",
-    cancel: "Anuluj",
-    delete: "Usuń",
-    deleting: "Usuwanie...",
-
-    characteristics: "Cechy",
-    attributes: "Atrybuty",
-    statistics: "Statystyki",
-
-    leading: "Wiodąca",
-    secondary: "Wtórna",
-    damageBonus: "Bonus",
-
-    searchByName: "Szukaj po nazwie...",
-    searchCharacter: "Wyszukaj postać...",
-    saving: "Zapisuję...",
-    save: "Zapisz",
-    deleteConfirmation: "Czy na pewno chcesz to zrobić?",
-    deleteConfirmationDescription: "Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.",
-
-    paceSpeed: "Prędkość kłusa",
-    canterSpeed: "Prędkość cwału",
-    gallopSpeed: "Prędkość galopu",
-    horsemanshipBonus: "Bonus jeździectwa",
-
-    addedToBattle: "Dodano do walki zaznaczone postacie.",
-    removedFromBattle: "Usunięto z walki zaznaczone postacie.",
-
-    applicationDescription: "Jest to aplikacja webowa stworzona z myślą o miłośnikach gier fabularnych, oferująca narzędzia do zarządzania postaciami, przeciwnikami i zasobami, ułatwiając prowadzenie i uczestnictwo w sesjach RPG.",
-    applicationHeading: "Uniwersum Cedrus"
-} as const;
-
-const defaultTranslations = 
-{
-    characters: "postacie",
-    edit: "edycja",
-    add: "dodawanie",
-    vitality: "żywotność",
-    toughness: "twardość",
-    recoveryLevel: "regeneracja",
-    lethalHealth: "przeżywalność",
-    lethalRounds: "determinacja",
-
-    strength: "siła",
-    constitution: "kondycja",
-    dexterity: "zręczność",
-    mind: "umysł",
-    charisma: "charyzma",
-    spellborn: "czarokrwistość",
-
-    fencing: "fechtunek",
-    artifice: "fortel",
-    precision: "precyzja",
-    initiative: "inicjatywa",
-    martialArt: "walka wręcz",
-    horsemanship: "jeździectwo",
-
-    fortitude: "wytrzymałość",
-    reflex: "refleks",
-    willpower: "wola",
-
-    block: "blokowanie",
-    parry: "parowanie",
-    dodge: "unikanie",
-    barrier: "bariera",
-    castTime: "czas rzucania",
-    cooldown: "odnowienie",
-    protection: "pancerz",
-    resistance: "odporność",
-    immunity: "niewrażliwość",
-
-    name: "nazwa",
-    short_name: "krótka nazwa",
-    grade: "ranga",
-    bonus: "bonus",
-    category: "kategoria",
-    statistics: "statystyki",
-    characteristic: "cecha",
-    characteristics: "cechy",
-    attribute: "atrybut",
-    attributes: "atrybuty",
-    description: "opis",
-    penalty: "kara",
-    character: "postać",
-    combat: "walka",
-    talents: "umiejętności",
-    equipment: "ekwipunek",
-    testBonus: "bonus testu",
-    value: "wartość",
-    values: "wartości",
-    
-    defense: "defensywa",
-    defenses: "defensywy",
-    offense: "ofensywa",
-    offenses: "ofensywy",
-    amount: "ilość",
-    weaponDice: "kość broni",
-    damageDice: "kość obrażeń",
-    critical: "krytyk",
-    damage: "obrażenia",
-    range: "zasięg",
-    power: "siła",
-    style: "styl",
-    maneuvers: "manewry",
-    stances: "postawy",
-    states: "stany",
-    weapons: "bronie",
-    armor: "zbroja",
-    armors: "zbroje",
-    shields: "tarcze",
-    inventory: "wyposażenie",
-    mounts: "wierzchowce",
-
-    bestiary: "bestiariusz",
-    compendium: "kompendium",
-    rulebook: "podręcznik",
-
-    battle: "bitwa",
-    sum: "suma",
-    current: "obecne",
-    health: "zdrowie",
-
-    dark: 'ciemny',
-    light: 'jasny',
-    action: 'akcja',
-
-    roll: "rzut",
-    attributePenalty: "kara atrybutu",
-    dexterityRestriction: "ograniczenie zręczności",
-    initiativeRestriction: "ograniczenie inicjatywy",
-    strengthRequirement: "wymaganie siły",
-    selectCategory: "wybierz kategorię",
-    selectCharacteristic: "wybierz cechę",
-    changeDescription: "zmień opis...",
-    clickSave: "kliknij zapisz, gdy skończysz.",
-
-    changeName: "zmień nazwę...",
-    changeGrade: "zmień rangę...",
-    addTalent: "dodaj umiejętność",
-    clear: "wyczyść",
-    cancel: "anuluj",
-    close: "zamknij",
-    create_new_character: "Stwórz nową postać podając nazwę i opis",
-
-    selected: "zaznaczono",
-    from: "z",
-
-    addNewTalent: "dodaj nową umiejętność",
-    editManeuver: "edycja manewru",
-    editingItem: "edytujesz przedmiot",
-    pace: "kłus",
-    gallop: "galop",
-    canter: "cwał",
-    horsemanshipBonus: "bonus do jeździectwa",
-} as const;
-
-export type TranslationKey = keyof typeof defaultTranslations;
+import { translations_plPL } from "./translations/translation.pl-PL";
+import { languageSettings } from "@/lib/env";
 
 export function translate(key: string): string 
 {
-    return defaultTranslations[key as TranslationKey] || key;
+    if (languageSettings.NEXT_LANGUAGE === 'pl-PL' && key in translations_plPL)
+    {
+        return translations_plPL[key as TranslationKey];
+    }
+
+    return key;
 };
 
-const pluralToSingularTranslations = 
-{
-    stances: "postawę",
-    states: "stan",
-};
+export type TranslationKey = keyof typeof displayedText;
 
-export function translateToSingular(key: string): string 
+export const displayedText = 
 {
-    return pluralToSingularTranslations[key as keyof typeof pluralToSingularTranslations] || key;
-};
+    characters: translate("characters"),
+    edit: translate("edit"),
+    add: translate("add"),
+    vitality: translate("vitality"),
+    toughness: translate("toughness"),
+    recoveryLevel: translate("recoveryLevel"),
+    lethalHealth: translate("lethalHealth"),
+    lethalRounds: translate("lethalRounds"),
 
-const reductionTranslations = 
-{
-    full: "pełna",
-    block: "blokowalna",
-    direct: "bezpośrednia",
-};
+    strength: translate("strength"),
+    constitution: translate("constitution"),
+    dexterity: translate("dexterity"),
+    mind: translate("mind"),
+    charisma: translate("charisma"),
+    spellborn: translate("spellborn"),
 
-export function translateReductions(key: string): string 
-{
-    return reductionTranslations[key as keyof typeof reductionTranslations] || key;
-};
+    fencing: translate("fencing"),
+    artifice: translate("artifice"),
+    precision: translate("precision"),
+    initiative: translate("initiative"),
+    martialArt: translate("martialArt"),
+    horsemanship: translate("horsemanship"),
 
-export const castTimeTranslations: Record<CastTime, string> = 
-{
-  "Pełnorundowa": "full",
-  "Standardowa": "standard",
-  "Natychmiastowa": "immediate",
-  "Nadnatychmiastowa": "overimmediate",
-};
+    fortitude: translate("fortitude"),
+    reflex: translate("reflex"),
+    willpower: translate("willpower"),
+
+    block: translate("block"),
+    parry: translate("parry"),
+    dodge: translate("dodge"),
+    barrier: translate("barrier"),
+    castTime: translate("castTime"),
+    cooldown: translate("cooldown"),
+    protection: translate("protection"),
+    resistance: translate("resistance"),
+    immunity: translate("immunity"),
+
+    name: translate("name"),
+    short_name: translate("short_name"),
+    grade: translate("grade"),
+    bonus: translate("bonus"),
+    category: translate("category"),
+    statistics: translate("statistics"),
+    characteristic: translate("characteristic"),
+    characteristics: translate("characteristics"),
+    attribute: translate("attribute"),
+    attributes: translate("attributes"),
+    description: translate("description"),
+    penalty: translate("penalty"),
+    character: translate("character"),
+    combat: translate("combat"),
+    talents: translate("talents"),
+    equipment: translate("equipment"),
+    testBonus: translate("testBonus"),
+    value: translate("value"),
+    values: translate("values"),
+    
+    defense: translate("defense"),
+    defenses: translate("defenses"),
+    offense: translate("offense"),
+    offenses: translate("offenses"),
+    amount: translate("amount"),
+    weaponDice: translate("weaponDice"),
+    damageDice: translate("damageDice"),
+    critical: translate("critical"),
+    damage: translate("damage"),
+    range: translate("range"),
+    power: translate("power"),
+    style: translate("style"),
+    maneuvers: translate("maneuvers"),
+    stances: translate("stances"),
+    states: translate("states"),
+    weapons: translate("weapons"),
+    armor: translate("armor"),
+    armors: translate("armors"),
+    shields: translate("shields"),
+    inventory: translate("inventory"),
+    mounts: translate("mounts"),
+
+    bestiary: translate("bestiary"),
+    compendium: translate("compendium"),
+    rulebook: translate("rulebook"),
+
+    battle: translate("battle"),
+    sum: translate("sum"),
+    current: translate("current"),
+    health: translate("health"),
+
+    dark: translate("dark"),
+    light: translate("light"),
+    action: translate("action"),
+
+    roll: translate("roll"),
+    attributePenalty: translate("attributePenalty"),
+    dexterityRestriction: translate("dexterityRestriction"),
+    initiativeRestriction: translate("initiativeRestriction"),
+    strengthRequirement: translate("strengthRequirement"),
+    selectCategory: translate("selectCategory"),
+    selectCharacteristic: translate("selectCharacteristic"),
+    changeDescription: translate("changeDescription"),
+    clickSave: translate("clickSave"),
+
+    changeName: translate("changeName"),
+    changeGrade: translate("changeGrade"),
+    addTalent: translate("addTalent"),
+    clear: translate("clear"),
+    cancel: translate("cancel"),
+    close: translate("close"),
+    create_new_character: translate("create_new_character"),
+
+    selected: translate("selected"),
+    from: translate("from"),
+
+    addNewTalent: translate("addNewTalent"),
+    editManeuver: translate("editManeuver"),
+    editingItem: translate("editingItem"),
+    pace: translate("pace"),
+    gallop: translate("gallop"),
+    canter: translate("canter"),
+    horsemanshipBonus: translate("horsemanshipBonus"),
+
+    increase: translate("increase"),
+    all: translate("all"),
+    columns: translate("columns"),
+    delete: translate("delete"),
+    deleting: translate("deleting"),
+
+    leading: translate("leading"),
+    secondary: translate("secondary"),
+    damageBonus: translate("damageBonus"),
+
+    searchByName: translate("searchByName"),
+    searchCharacter: translate("searchCharacter"),
+    saving: translate("saving"),
+    save: translate("save"),
+    deleteConfirmation: translate("deleteConfirmation"),
+    deleteConfirmationDescription: translate("deleteConfirmationDescription"),
+
+    paceSpeed: translate("paceSpeed"),
+    canterSpeed: translate("canterSpeed"),
+    gallopSpeed: translate("gallopSpeed"),
+
+    addedToBattle: translate("addedToBattle"),
+    removedFromBattle: translate("removedFromBattle"),
+
+    applicationDescription: translate("applicationDescription"),
+    applicationHeading: translate("applicationHeading"),
+
+    editingMode: translate("editingMode"),
+} as const;

@@ -13,7 +13,7 @@ import React from "react";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
 import { addIcon } from "@/presentation/icons";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 
 export default function CharacterNavbar() 
 {
@@ -65,7 +65,7 @@ export default function CharacterNavbar()
             <Input 
                 name="search" 
                 type="text" 
-                placeholder={namingConventions.searchCharacter}
+                placeholder={displayedText.searchCharacter}
                 value={searchTerm}
                 onChange={handleInputChange}
                 className="w-1xl md:w-2xl lg:w-3xl col-span-6 justify-self-center"

@@ -6,7 +6,7 @@ import {
 } from "@/ui/dropdown-menu";
 import { Button } from "@/ui/button";
 import { Table } from "@tanstack/react-table";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import { translate } from "@/presentation/translations";
 
 export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
@@ -15,7 +15,7 @@ export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="ml-auto">
-          {namingConventions.columns}
+          {displayedText.columns}
         </Button>
       </DropdownMenuTrigger>
 

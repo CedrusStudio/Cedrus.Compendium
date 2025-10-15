@@ -20,7 +20,7 @@ import { addIcon, leftIcon, rightIcon } from '@/presentation/icons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
 import { translate } from '@/presentation/translations';
-import { namingConventions } from '@/presentation/translations';
+import { displayedText } from '@/presentation/translations';
 
 type EditOffenseCardProps =
 {
@@ -74,7 +74,7 @@ function EditLeadingWeaponOffenseSubcard({ offense, index }: EditLeadingWeaponOf
   const weaponOffense = { amount, grade, bonus, critical: { power, range } };
 
   return (
-    <Subcard name={namingConventions.leading} className='col-span-3' callback={resetAll}>
+    <Subcard name={displayedText.leading} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -148,7 +148,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
   const removeButton = <RemoveButton name={weaponOffensePath} variant={`${secondaryOffenseExists ? 'destructive' : 'outline'}`} control={control} callback={() => setShowSecondary(false)} />;
 
   return (
-    <Subcard name={namingConventions.secondary} className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
+    <Subcard name={displayedText.secondary} className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={newOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />

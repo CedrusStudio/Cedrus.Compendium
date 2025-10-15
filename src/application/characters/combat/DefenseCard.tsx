@@ -15,7 +15,7 @@ import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { translate } from '@/presentation/translations';
-import { namingConventions } from '@/presentation/translations';
+import { displayedText } from '@/presentation/translations';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
@@ -115,11 +115,11 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
         <div className='flex-1 flex flex-col justify-end gap-y-2'>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
             <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncreaseIfPositive} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>

@@ -22,7 +22,7 @@ import { useState, useEffect } from "react";
 import { Talent } from "@/domain/characters/Talent";
 import { allowedTalentCategories } from "@/domain/characters/Talent";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
@@ -88,7 +88,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
           selectedCategory={selectedCategory}
           handleOnSelectedValueChange={handleOnSelectedValueChange}
           defaultColumnKeys={defaultColumnKeys}
-          allCategory={namingConventions.all}
+          allCategory={displayedText.all}
           categories={allowedTalentCategories}
         />
 

@@ -1,6 +1,6 @@
 import FieldView from "@/common/components/fields/FieldView";
 import { Defense, filteredDefenseKeys, ReductionType } from "@/domain/characters/combat/Defense";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import { translate } from "@/presentation/translations";
 
 type DefenseReductionInfoContentProps =
@@ -18,13 +18,13 @@ export default function DefenseReductionInfoContent(input: DefenseReductionInfoC
 
     { 
       input.reductionIncrease 
-        ? <FieldView value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' childrenClassName="w-24">{namingConventions.increase}</FieldView>  
+        ? <FieldView value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' childrenClassName="w-24">{displayedText.increase}</FieldView>  
         : null
     }
       
     { 
       input.damageTaken 
-        ? <FieldView value={Math.abs(input.damageTaken)} valueClassName='text-red-500' childrenClassName="w-24">{namingConventions.damage}</FieldView> 
+        ? <FieldView value={Math.abs(input.damageTaken)} valueClassName='text-red-500' childrenClassName="w-24">{displayedText.damage}</FieldView> 
         : null 
     }
 

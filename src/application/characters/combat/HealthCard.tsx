@@ -14,7 +14,7 @@ import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { translate } from '@/presentation/translations';
-import { namingConventions } from '@/presentation/translations';
+import { displayedText } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
 import { currentValueIcon, sumIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
@@ -58,16 +58,16 @@ export default function HealthCard(input: HealthCardProps)
           value={totalHealth + healthIncrease - damageTaken} 
           infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} 
         >
-          <FieldWithTooltip name={namingConventions.current}>{currentValueIcon}</FieldWithTooltip>
+          <FieldWithTooltip name={displayedText.current}>{currentValueIcon}</FieldWithTooltip>
         </FieldViewWithInfo>
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
             <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncreaseIfPositive} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>
@@ -94,9 +94,9 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
 {
   return (
     <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalHealth" value={input.totalHealth} childrenClassName="w-24">{namingConventions.sum}</FieldView> }
-    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' childrenClassName="w-24">{namingConventions.increase}</FieldView> }
-    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{namingConventions.damage}</FieldView> }
+    { <FieldView key="totalHealth" value={input.totalHealth} childrenClassName="w-24">{displayedText.sum}</FieldView> }
+    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' childrenClassName="w-24">{displayedText.increase}</FieldView> }
+    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{displayedText.damage}</FieldView> }
     </div>
   );
 };

@@ -19,7 +19,7 @@ import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
@@ -104,7 +104,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
             selectedCategory={selectedCategory}
             handleOnSelectedValueChange={handleOnSelectedValueChange}
             defaultColumnKeys={defaultColumnKeys}
-            allCategory={namingConventions.all}
+            allCategory={displayedText.all}
             categories={allowedTalentCategories}
           />
 

@@ -3,7 +3,7 @@ import LandingImg from "../assets/main.png";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { translate } from "@/presentation/translations";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 
 export default function HomePage() 
 {
@@ -28,7 +28,7 @@ const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
     <h1 className="capitalize text-4xl md:text-7xl font-bold">
-      {namingConventions.applicationHeading}
+      {displayedText.applicationHeading}
     </h1>
   </div>
 );
@@ -36,7 +36,7 @@ const Heading = () =>
 const Description = () =>
 (
   <p className="leading-loose max-w-md mt-2">
-    {namingConventions.applicationDescription}
+    {displayedText.applicationDescription}
   </p>
 );
 

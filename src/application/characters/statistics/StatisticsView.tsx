@@ -1,6 +1,6 @@
 import StatisticsCard from "@/application/characters/statistics/StatisticsCard";
 import { Character } from "@/domain/characters/Character";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import { attributesIcons, characteristicIcons } from "@/presentation/icons";
 
 export default function StatisticsView(input: { character: Character })
@@ -10,12 +10,12 @@ export default function StatisticsView(input: { character: Character })
   return (
     <div className="flex flex-col gap-2">
         <StatisticsCard 
-          title={namingConventions.characteristics} 
+          title={displayedText.characteristics} 
           statistics={Object.entries(character.characteristics).map(([name, value]) => [name, value, characteristicIcons[name]])} 
         />
 
         <StatisticsCard 
-          title={namingConventions.attributes} 
+          title={displayedText.attributes} 
           statistics={Object.entries(character.attributes).map(([name, value]) => [name, value, attributesIcons[name]])} 
         />
     </div>

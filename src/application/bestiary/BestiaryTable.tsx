@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 
 import { useState, useEffect } from "react";
-import { namingConventions } from "@/presentation/translations";
+import { displayedText } from "@/presentation/translations";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
@@ -84,14 +84,14 @@ export default function BestiaryTable()
           selectedCategory={selectedCategory}
           handleOnSelectedValueChange={handleOnSelectedValueChange}
           defaultColumnKeys={columnKeys}
-          allCategory={namingConventions.all}
+          allCategory={displayedText.all}
         />
 
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
           dispatch(actions.addSelectedToBattle(selectedCharacterIds));
-          toast.success(namingConventions.addedToBattle);
+          toast.success(displayedText.addedToBattle);
         }}>
           {addIcon("scale-90")}
         </Button>

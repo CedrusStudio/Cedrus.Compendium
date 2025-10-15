@@ -18,7 +18,7 @@ import { Label } from "@/ui/label";
 import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/characters/combat/Mode";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
-import { translate, translateToSingular } from "@/presentation/translations";
+import { translate } from "@/presentation/translations";
 
 type EditModeViewProps =
 { 
@@ -65,10 +65,8 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Edytujesz {translateToSingular(modeType)}</SheetTitle>
-          <SheetDescription>
-            {translate("clickSave")}
-          </SheetDescription>
+          <SheetTitle>{translate("editingMode")}</SheetTitle>
+          <SheetDescription>{translate("clickSave")}</SheetDescription>
         </SheetHeader>
 
         <div className="grid auto-rows-min gap-3 px-4">
