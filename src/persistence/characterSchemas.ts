@@ -98,7 +98,10 @@ export const newTalentSchema = z.object
   penalty: z.enum(allowedTalentPenalties).optional(),
 });
 
-export const talentSchema = newTalentSchema.and(idSchema);
+export const talentSchema = newTalentSchema.extend
+({
+  ...idSchema.shape
+});
 
 export const upsertCharacterTalentsSchema = z.object
 ({
@@ -220,7 +223,11 @@ export type UpsertCharacterModeType = z.infer<typeof modeSchema>;
 export const upsertCharacterModesSchema = z.array(modeSchema).max(20, { message: "Możesz mieć najwyżej 20 trybów." });
 
 //Maneuvers
-const maneuverSchema = perkSchema.and(castableSchema);
+const maneuverSchema = perkSchema.extend
+({
+  ...castableSchema.shape
+});
+
 export type UpsertCharacterManeuverType = z.infer<typeof maneuverSchema>;
 export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, { message: "Możesz mieć najwyżej 100 manewrów." });
 
@@ -236,10 +243,11 @@ const offenseSchema = entitySchema.extend
 export type CharacterOffenseType = z.infer<typeof offenseSchema>;
 
 //Powers
-export const spellSchema = perkSchema.and(castableSchema).and(z.object
+export const spellSchema = perkSchema.extend
 ({
+  ...castableSchema.shape,
   cost: z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." })
-}));
+})
 
 export const powerSchema = entitySchema.extend
 ({
