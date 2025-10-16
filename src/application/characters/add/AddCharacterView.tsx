@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
 import { displayedText } from "@/presentation/translations";
+import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -49,32 +50,14 @@ export default function AddCharacterView()
             const id = await addCharacter(characterHeader);
             return { id, shortName: characterHeader.shortName };
         },
-        onSuccess: (data) => 
+        onSuccess: (data) => onSuccess(() =>
         {
-            toast("Success", 
-            {
-                description: (
-                    <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">{JSON.stringify("Character updated successfully", null, 2)}</code>
-                    </pre>
-                )
-            });
 
             dispatch(actions.setCharacterShortName({ id: data.id, shortName: data.shortName }));
             form.reset(initialValues);
             router.push(`/characters/${data.id}/edit?tab=character`);
-        },
-        onError: (error) => 
-        {
-            toast("Error", 
-            {
-                description: (
-                    <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">{JSON.stringify(error.message, null, 2)}</code>
-                    </pre>
-                )
-            });
-        },
+        }),
+        onError: (error) => onError(error)
     });
 
     function onSubmit(values: UpsertCharacterHeaderType) 

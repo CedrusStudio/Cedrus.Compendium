@@ -103,6 +103,7 @@ export const translations_plPL =
     clickSave: "kliknij zapisz, gdy skończysz.",
 
     changeName: "zmień nazwę...",
+    changeShortName: "zmień krótką nazwę...",
     changeGrade: "zmień rangę...",
     addTalent: "dodaj umiejętność",
     clear: "wyczyść",
@@ -157,5 +158,9 @@ export const translations_plPL =
     changePace: "zmień kłus",
     changeCanter: "zmień cwał",
     changeHorsemanshipBonus: "zmień bonus do jeździectwa",
+    
+    characterUpdatedSuccessfully: "Postać została pomyślnie zaktualizowana",
+    success: "Sukces",
+    error: "Błąd",
 } as const;
 

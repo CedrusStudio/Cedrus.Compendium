@@ -2,16 +2,13 @@
 
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { canUseManeuver, type CastTime, EndTurn, Maneuver } from '@/domain/characters/combat/Maneuver';
-import { getCastTimeColors } from '@/presentation/colors';
-import { LuRefreshCcw } from "react-icons/lu";
+import { Maneuver } from '@/domain/characters/combat/Maneuver';
+import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
+import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
 import { useState } from 'react';
 import { Button } from '@/ui/button';
-import { RiResetLeftFill } from "react-icons/ri";
-import { RiDeleteBack2Line } from "react-icons/ri";
 import { Badge } from '@/ui/badge';
-import { GrNext } from "react-icons/gr";
-import { battleIcon } from "@/presentation/icons";
+import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from "@/presentation/icons";
 import { displayedText } from "@/presentation/translations";
 
 type ManeuversViewProps =
@@ -19,7 +16,7 @@ type ManeuversViewProps =
     maneuvers: Maneuver[];
 }
 
-export default function ManeuversView({ maneuvers }: ManeuversViewProps)
+export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
 {
   const [usedManeuvers, setUsedManeuvers] = useState<(Maneuver | EndTurn)[]>([]);
 
@@ -53,7 +50,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
         <div className="grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
 
             <Button variant="default" className='col-span-1' onClick={() => setUsedManeuvers([])}>
-                <RiResetLeftFill />
+                {resetIcon()}
             </Button>
 
             <p className="text-sm col-span-10">
@@ -63,7 +60,7 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
                     {
                         if (usedManeuver === "end") return (
                             <Badge key={index} variant="destructive" className='m-1' >
-                                <GrNext />
+                                {nextIcon()}
                             </Badge>
                         );;
 
@@ -78,11 +75,11 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
             </p>
 
             <Button variant="default" className='col-span-1' onClick={removeLastManeuver}>
-                <RiDeleteBack2Line />
+                {removePreviousIcon()}
             </Button>
 
             <Button variant="default" className='col-span-1' onClick={endTurn}>
-                <GrNext />
+                {nextIcon()}
             </Button>
         </div>
 
@@ -92,7 +89,14 @@ export default function ManeuversView({ maneuvers }: ManeuversViewProps)
   );
 };
 
-function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver: Maneuver, addManeuverToUsed: (maneuver: Maneuver | EndTurn) => void, usedManeuvers: (Maneuver | EndTurn)[] }) 
+type ManeuverViewProps =
+{
+    maneuver: Maneuver;
+    addManeuverToUsed: (maneuver: Maneuver | EndTurn) => void;
+    usedManeuvers: (Maneuver | EndTurn)[];
+}
+
+function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: ManeuverViewProps) 
 {
     return (
         <div className='flex m-1 p-1 w-full h-full'>
@@ -100,7 +104,7 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
             <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
                 <FieldViewWithInfo
                     value={maneuver.grade}
-                    infoContent={<span className='capitalize'>{displayedText.action} <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
+                    infoContent={<div> <span className='capitalize'>{displayedText.action}</span>  <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</div>}
                     className="gap-1"
                     nameClassName='w-4xs'
                 >
@@ -109,9 +113,9 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
             </div>
 
             <div className='flex items-center justify-center border rounded-r-md border-l-0'>
-                <Button variant="ghost" className="h-full w-full p-0" onClick={() => addManeuverToUsed(maneuver)} disabled={!canUseManeuver(maneuver, usedManeuvers)}>
+                <Button variant="ghost" className="h-full w-full p-0" onClick={() => addManeuverToUsed(maneuver)} disabled={!canUseCastable(maneuver, usedManeuvers)}>
                     <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none rounded-r-md' variant={getBadgeVariant(maneuver.castTime)}>
-                        <LuRefreshCcw />
+                        {cooldownIcon()}
                         <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
                     </Badge>
                 </Button>
@@ -119,15 +123,4 @@ function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: { maneuver
 
         </div>
     );
-}
-
-type BadgeActionVariant = "full" | "standard" | "immediate" | "overimmediate" | null | undefined
-
-function getBadgeVariant(castTime: CastTime): BadgeActionVariant
-{
-    if (castTime === "Pełnorundowa") return "full";
-    if (castTime === "Standardowa") return "standard";
-    if (castTime === "Natychmiastowa") return "immediate";
-    if (castTime === "Nadnatychmiastowa") return "overimmediate";
-    return null;
 }

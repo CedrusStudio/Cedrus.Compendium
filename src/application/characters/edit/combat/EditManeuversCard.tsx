@@ -17,10 +17,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { CreateDefaultManeuver, type Maneuver, allowedCastTimes } from "@/domain/characters/combat/Maneuver";
+import { CreateDefaultManeuver, type Maneuver } from "@/domain/characters/combat/Maneuver";
+import { allowedCastTimes } from "@/domain/characters/Castable";
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
-import { TbEdit } from "react-icons/tb";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
@@ -28,6 +28,7 @@ import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { displayedText } from '@/presentation/translations';
+import { editIcon } from '@/presentation/icons';
 
 type EditManeuversCardProps =
 {
@@ -94,13 +95,13 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
     <Sheet>
 
       <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
+        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
       </SheetTrigger>
 
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>{displayedText.editManeuver}</SheetTitle>
+          <SheetTitle className='first-letter:uppercase'>{displayedText.editManeuver}</SheetTitle>
           <SheetDescription>
            {displayedText.clickSave}
           </SheetDescription>
@@ -142,7 +143,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
         </div>
 
         <SheetFooter>
-          <SheetClose asChild>
+          <SheetClose className="capitalize" asChild>
             <Button variant="outline" type='button'>{displayedText.close}</Button>
           </SheetClose>
         </SheetFooter>

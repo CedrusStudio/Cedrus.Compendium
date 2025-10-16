@@ -1,13 +1,12 @@
-import { defaultDiceGrade } from "@/domain/characters/diceDefaults";
+import { defaultDiceGrade } from "@/domain/diceDefaults";
 import { ulid } from "ulid";
+import { Entity } from "@/domain/Entity";
 
-export type Talent = 
+export type Talent = Entity &
 {
-  readonly id: string;
-  category: string;
-  name: string;
-  characteristics: string;
   grade: number;
+  category: string;
+  characteristics: string;
   bonus: number;
   penalty?: TalentPenalty;
 };

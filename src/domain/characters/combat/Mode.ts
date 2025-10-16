@@ -1,27 +1,25 @@
 import { ulid } from "ulid";
+import { Perk } from "@/domain/characters/Perk";
 
-export type Mode =
-{
-  readonly id: string;
-  name: string;
-  grade: number;
-  description: string;
-}
-
+export type Mode = Perk;
 export type ModesType = "stances" | "states";
 
 export const defaultStance: Omit<Mode, "id"> =
 {
   name: 'Postawa',
   description: 'Opis postawy',
-  grade: 1
+  grade: 1,
+  requirements: 'Brak',
+  price: 0
 };
 
 export const defaultState: Omit<Mode, "id"> =
 {
   name: 'Stan',
   description: 'Opis stanu',
-  grade: 1
+  grade: 1,
+  requirements: 'Brak',
+  price: 0
 };
 
 export const CreateDefaultStance = (): Mode => ({...defaultStance, id: ulid()});

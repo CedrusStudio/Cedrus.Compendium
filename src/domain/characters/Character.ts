@@ -1,3 +1,4 @@
+import { ulid } from "ulid";
 import { Health } from "@/domain/characters/combat/Health";
 import { CreateDefaultDefense, Defense } from "@/domain/characters/combat/Defense";
 import { CreateDefaultOffense, Offense } from "@/domain/characters/combat/Offense";
@@ -7,8 +8,8 @@ import { CreateDefaultTalent, Talent } from "@/domain/characters/Talent";
 import { Equipment } from "@/domain/characters/equipment/Equipment";
 import { CreateDefaultStance, CreateDefaultState, Mode } from "@/domain/characters/combat/Mode";
 import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Maneuver";
-import { defaultDiceGrade, defaultWeaponDiceAmount } from "@/domain/characters/diceDefaults";
-import { ulid } from "ulid";
+import { defaultDiceGrade, defaultWeaponDiceAmount } from "@/domain/diceDefaults";
+import { CreateDefaultPower, Power } from "@/domain/characters/combat/Power";
 
 export type Character =
 {
@@ -27,6 +28,7 @@ export type Character =
   stances: Mode[];
   states: Mode[];
   maneuvers: Maneuver[];
+  powers: Power[];
 };
 
 export type CharacterCategory = typeof allowedCharacterCategories[number];
@@ -156,7 +158,8 @@ const emptyCharacter: Character =
       }
     ],
     mounts: []
-  }
+  },
+  powers: []
 };
 
 export function CreateEmptyCharacter({name, shortName, category, description}: {name: string, shortName: string, category: CharacterCategory, description: string}): Character
@@ -168,5 +171,6 @@ export function CreateEmptyCharacter({name, shortName, category, description}: {
   newCharacter.stances = [CreateDefaultStance()];
   newCharacter.states = [CreateDefaultState()];
   newCharacter.talents = [CreateDefaultTalent()];
+  newCharacter.powers = [CreateDefaultPower()];
   return newCharacter;
 };

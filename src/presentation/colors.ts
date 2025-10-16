@@ -1,4 +1,4 @@
-import { CastTime } from "@/domain/characters/combat/Maneuver";
+import { type CastTime } from '@/domain/characters/Castable';
 
 export const colors = 
 {
@@ -29,3 +29,14 @@ export const getCastTimeColors = (castTime: CastTime) =>
 {
   return castTimeColorClasses[castTime] ?? { text: "text-gray-500", bg: "bg-gray-500" };
 };
+
+type BadgeActionVariant = "full" | "standard" | "immediate" | "overimmediate" | null | undefined
+
+export function getBadgeVariant(castTime: CastTime): BadgeActionVariant
+{
+  if (castTime === "Pełnorundowa") return "full";
+  if (castTime === "Standardowa") return "standard";
+  if (castTime === "Natychmiastowa") return "immediate";
+  if (castTime === "Nadnatychmiastowa") return "overimmediate";
+  return null;
+}

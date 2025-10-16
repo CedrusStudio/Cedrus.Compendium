@@ -1,7 +1,7 @@
 import { Item } from "@/domain/characters/equipment/Item";
 import { Critical, DamageOffense, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { pathToWeaponsField } from "@/domain/characters/equipment/Equipment";
-import { defaultDiceGrade } from "@/domain/characters/diceDefaults";
+import { defaultDiceGrade } from "@/domain/diceDefaults";
 import { ulid } from "ulid";
 
 export type Weapon = Item & 

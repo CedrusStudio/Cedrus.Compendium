@@ -14,11 +14,11 @@ import { Button } from "@/ui/button"
 import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
 import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
 import { Label } from "@/ui/label";
-import { TbEdit } from "react-icons/tb";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import { useFieldArray } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
+import { editIcon } from "@/presentation/icons";
 
 
 type EditItemSheetProps = 
@@ -37,14 +37,14 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
       <div className="flex justify-end items-center mt-4 gap-3">
         <RemoveFromArrayButton remove={remove} index={index} />
         <SheetTrigger asChild>
-          <Button variant="edit"><TbEdit /></Button>
+          <Button variant="edit">{editIcon}</Button>
         </SheetTrigger>
       </div>
 
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle className="capitalize">{displayedText.editingItem}</SheetTitle>
+          <SheetTitle className="first-letter:uppercase">{displayedText.editingItem}</SheetTitle>
           <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 

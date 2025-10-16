@@ -1,9 +1,8 @@
+import { Entity } from "@/domain/Entity";
 import { ulid } from "ulid";
 
-export type Item = 
+export type Item = Entity & 
 {
-  readonly id: string;
-  name: string;
   description: string;
 };
 

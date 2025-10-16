@@ -1,11 +1,10 @@
 import { PathsFrom } from "@/common/global/pathTypes";
-import { defaultDiceGrade } from "@/domain/characters/diceDefaults";
+import { defaultDiceGrade } from "@/domain/diceDefaults";
 import { ulid } from "ulid";
+import { Entity } from "@/domain/Entity";
 
-export type Offense = 
+export type Offense = Entity &
 {
-  readonly id: string;
-  name: string;
   description?: string;
   leadingWeapon: WeaponOffense;
   secondaryWeapon?: WeaponOffense;

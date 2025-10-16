@@ -5,7 +5,6 @@ import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from "sonner"
 import { useRouter } from 'next/navigation';
 import { upsertCharacterHeader } from "@/persistence/characterRepository";
 import { upsertCharacterHeaderSchema, type UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
@@ -14,6 +13,8 @@ import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
+import { displayedText } from "@/presentation/translations";
+import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 
 const initialValues: UpsertCharacterHeaderType =
 {
@@ -38,33 +39,14 @@ export default function EditCharacterOverview(input: { character: Character })
     const { mutate, isPending } = useMutation
     ({
         mutationFn: async (characterHeader: UpsertCharacterHeaderType) => await upsertCharacterHeader(id, characterHeader),
-        onSuccess: () => 
+        onSuccess: () => onSuccess(() =>
         {
-            toast("Success", 
-            {
-                description: (
-                    <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">{JSON.stringify("Character updated successfully", null, 2)}</code>
-                    </pre>
-                )
-            });
-
             queryClient.invalidateQueries({ queryKey: ['characters'] });
             queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
             form.reset(initialValues);
             router.refresh();
-        },
-        onError: (error) => 
-        {
-            toast("Error", 
-            {
-                description: (
-                    <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                    <code className="text-white">{JSON.stringify(error.message, null, 2)}</code>
-                    </pre>
-                )
-            });
-        },
+        }),
+        onError: (error) => onError(error)
     });
 
     function onSubmit(values: UpsertCharacterHeaderType) 
@@ -85,7 +67,7 @@ export default function EditCharacterOverview(input: { character: Character })
 
                         <InputFormField<UpsertCharacterHeaderType> 
                             path="name" 
-                            inputPlaceholder="zmien nazwę..." 
+                            inputPlaceholder={displayedText.changeName} 
                             inputClassName="w-xl"
                             />
                     </div>
@@ -97,9 +79,9 @@ export default function EditCharacterOverview(input: { character: Character })
 
                         <InputFormField<UpsertCharacterHeaderType> 
                             path="shortName" 
-                            inputPlaceholder="zmien krótką nazwę..." 
+                            inputPlaceholder={displayedText.changeShortName} 
                             inputClassName="w-l"
-                            />
+                        />
                     </div>
 
                     <div className="flex flex-col justify-center items-center gap-6">
@@ -111,7 +93,7 @@ export default function EditCharacterOverview(input: { character: Character })
                             path="category"
                             items={allowedCharacterCategories}
                             noLabel
-                            />
+                        />
                     </div>
                 </div>
     
@@ -121,7 +103,7 @@ export default function EditCharacterOverview(input: { character: Character })
 
                 <AreaInputFormField<UpsertCharacterHeaderType> 
                     path="description" 
-                    inputPlaceholder="zmien opis..." 
+                    inputPlaceholder={displayedText.changeDescription} 
                 />
 
                 <SubmitButton isPending={isPending} />

@@ -11,7 +11,6 @@ type ItemsViewProps<T extends Item> =
 
 export default function ItemsView<T extends Item>({ items, itemViewFactory, label, children }: PropsWithChildren<ItemsViewProps<T>>)
 {
-  console.log(items);
   return (
     <>
       <div className="flex items-center justify-center gap-2">

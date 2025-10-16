@@ -1,9 +1,8 @@
+import { Entity } from "@/domain/Entity";
 import { ulid } from "ulid";
 
-export type Defense = 
+export type Defense = Entity &
 {
-  readonly id: string;
-  name: string;
   description?: string;
   immunity: number;
   resistance: number;

@@ -1,4 +1,4 @@
-import { LuBicepsFlexed, LuPlus } from "react-icons/lu";
+import { LuBicepsFlexed, LuPlus, LuRefreshCcw } from "react-icons/lu";
 import { GiRollingDices, GiRun, GiSwordsEmblem } from "react-icons/gi";
 import { GiAbdominalArmor } from "react-icons/gi";
 
@@ -25,13 +25,15 @@ import { IoShield } from "react-icons/io5";
 import { GiDiceShield } from "react-icons/gi";
 import { GiCrenulatedShield } from "react-icons/gi";
 
-import { TbSum } from "react-icons/tb";
+import { TbEdit, TbSum } from "react-icons/tb";
 import { MdPublishedWithChanges } from "react-icons/md";
 
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { LuMinus } from "react-icons/lu";
 import { IoMdCopy } from "react-icons/io";
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
+import { RiDeleteBack2Line, RiResetLeftFill } from "react-icons/ri";
+import { GrNext } from "react-icons/gr";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -78,6 +80,10 @@ export const battleIcon = (className: string) => <GiSwordsEmblem className={clas
 
 export const addIcon = (className: string) => <LuPlus className={className} />;
 export const removeIcon = (className: string) => <LuMinus className={className} />;
+export const cooldownIcon = (className?: string) => <LuRefreshCcw className={className} />;
+export const resetIcon = (className?: string) => <RiResetLeftFill className={className} />;
+export const nextIcon = (className?: string) => <GrNext className={className} />;
+export const removePreviousIcon = (className?: string) => <RiDeleteBack2Line className={className} />;
 
 export const copyIcon = <IoMdCopy className="w-5 h-5" />;
 
@@ -86,3 +92,7 @@ export const downIcon = <ChevronDown />;
 
 export const leftIcon = <ChevronLeft />;
 export const rightIcon = <ChevronRight />;
+
+export const editIcon = <TbEdit />
+
+export const spellIcon = (className: string) => <LuPlus className={className} />;

@@ -1,9 +1,11 @@
 import { allowedCharacterCategories } from "@/domain/characters/Character";
-import { allowedCastTimes } from "@/domain/characters/combat/Maneuver";
+import { allowedCastTimes } from "@/domain/characters/Castable";
 import { allowedStyles } from "@/domain/characters/equipment/Weapon";
 import { allowedTalentPenalties } from "@/domain/characters/Talent";
 import { z } from "zod";
+import { allowedPowerTypes } from "@/domain/characters/combat/Power";
 
+//Common Schemas
 const shortNameSchema = z
   .string()
   .regex(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9]+$/, { message: "Pole może zawierać tylko litery, cyfry i polskie znaki."})
@@ -12,6 +14,39 @@ const shortNameSchema = z
 
 const characterCategorySchema = z.enum(allowedCharacterCategories, { message: "Nieprawidłowa kategoria." });
 
+const idSchema = z.object
+({
+  id: z.ulid()
+});
+
+const entitySchema = idSchema.extend
+({
+  name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }).max(100, { message: "Nazwa nie może być dłuższa niż 100 znaków." }),
+});
+
+export const perkSchema = entitySchema.extend
+({
+  grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(20, { message: "Ranga musi być najwyżej 20." }),
+  description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
+  requirements: z.string().max(1000, { message: "Wymagania muszą mieć najwyżej 1000 znaków." }).optional(),
+  price: z.coerce.number<number>().int().min(0, { message: "Cena musi mieć co najmniej 0." }).max(180, { message: "Cena musi być najwyżej 180." }),
+});
+
+export const castableSchema = entitySchema.extend
+({
+  castTime: z.enum(allowedCastTimes),
+  cooldown: z.coerce.number<number>().int().min(0).max(20).optional()
+});
+
+export const statisticSchema = z.object
+({
+  grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi mieć co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
+  value: z.coerce.number<number>().int().min(-10, { message: "Wartość musi być co najmniej -10." }).max(25, { message: "Wartość musi być najwyżej 25." }),
+  bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(20, { message: "Bonus musi być najwyżej 20." }),
+  testBonus: z.coerce.number<number>().int().min(-10, { message: "Bonus testowy musi być co najmniej -10." }).max(20, { message: "Bonus testowy musi być najwyżej 20." }),
+});
+
+//Specific schemas
 export const upsertCharacterHeaderSchema = z.object
 ({
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
@@ -21,15 +56,6 @@ export const upsertCharacterHeaderSchema = z.object
 });
 
 export type UpsertCharacterHeaderType = z.infer<typeof upsertCharacterHeaderSchema>;
-
-// New schema for character statistics
-export const statisticSchema = z.object
-({
-  grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi mieć co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
-  value: z.coerce.number<number>().int().min(-10, { message: "Wartość musi być co najmniej -10." }).max(25, { message: "Wartość musi być najwyżej 25." }),
-  bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(20, { message: "Bonus musi być najwyżej 20." }),
-  testBonus: z.coerce.number<number>().int().min(-10, { message: "Bonus testowy musi być co najmniej -10." }).max(20, { message: "Bonus testowy musi być najwyżej 20." }),
-});
 
 export const characterCharacteristicsSchema = z.object
 ({
@@ -72,10 +98,7 @@ export const newTalentSchema = z.object
   penalty: z.enum(allowedTalentPenalties).optional(),
 });
 
-export const talentSchema = newTalentSchema.extend
-({
-  id: z.ulid()
-});
+export const talentSchema = newTalentSchema.and(idSchema);
 
 export const upsertCharacterTalentsSchema = z.object
 ({
@@ -108,10 +131,8 @@ const damageOffenseSchema = z.object
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
 });
 
-const itemSchema = z.object
+const itemSchema = entitySchema.extend
 ({
-  id: z.ulid(),
-  name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().max(2000, { message: "Opis musi mieć najwyżej 2000 znaków." }),
 });
 
@@ -179,10 +200,8 @@ export const healthSchema = z.object
 export type UpsertCharacterHealthType = z.infer<typeof healthSchema>;
 
 //Defense
-export const defenseSchema = z.object
+export const defenseSchema = entitySchema.extend
 ({
-  id: z.ulid(),
-  name: z.string().min(2).max(100),
   description: z.string().min(2).max(1000).optional(),
   immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(50, { message: "Niewrażliwość musi mieć najwyżej 50." }),
   resistance: z.coerce.number<number>().int().min(0, { message: "Odporność musi mieć co najmniej 0." }).max(50, { message: "Odporność musi mieć najwyżej 50." }),
@@ -196,43 +215,44 @@ export const defenseSchema = z.object
 export type UpsertCharacterDefenseType = z.infer<typeof defenseSchema>;
 
 //Mode
-export const modeSchema = z.object
-({
-  id: z.ulid(),
-  name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
-  description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
-  grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
-});
-
+export const modeSchema = perkSchema;
 export type UpsertCharacterModeType = z.infer<typeof modeSchema>;
 export const upsertCharacterModesSchema = z.array(modeSchema).max(20, { message: "Możesz mieć najwyżej 20 trybów." });
 
 //Maneuvers
-const maneuverSchema = z.object
-({
-  id: z.ulid(),
-  name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
-  description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
-  grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(50, { message: "Ranga musi być najwyżej 50." }),
-  cooldown: z.coerce.number<number>().int().min(0).max(20).optional(),
-  castTime: z.enum(allowedCastTimes),
-});
-
+const maneuverSchema = perkSchema.and(castableSchema);
 export type UpsertCharacterManeuverType = z.infer<typeof maneuverSchema>;
 export const upsertCharacterManeuversSchema = z.array(maneuverSchema).max(100, { message: "Możesz mieć najwyżej 100 manewrów." });
 
 //Offense
-const offenseSchema = z.object
+const offenseSchema = entitySchema.extend
 ({
-  id: z.ulid(),
-  name: z.string().min(2).max(100, { message: "Nazwa musi mieć najwyżej 100 znaków." }),
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }).optional(),
   leadingWeapon: weaponOffenseSchema,
   secondaryWeapon: weaponOffenseSchema.optional(),
-  damageBonus: damageOffenseSchema,
+  damageBonus: damageOffenseSchema
 });
 
 export type CharacterOffenseType = z.infer<typeof offenseSchema>;
+
+//Powers
+export const spellSchema = perkSchema.and(castableSchema).and(z.object
+({
+  cost: z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." })
+}));
+
+export const powerSchema = entitySchema.extend
+({
+  type: z.enum(allowedPowerTypes),
+  level: z.coerce.number<number>().int().min(0, { message: "Poziom musi mieć co najmniej 0." }).max(20, { message: "Poziom musi być najwyżej 20." }),
+  bonus: z.coerce.number<number>().int().min(0, { message: "Bonus musi mieć co najmniej 0." }).max(10, { message: "Bonus musi mieć najwyżej 10." }),
+  essence: z.coerce.number<number>().int().min(0, { message: "Esencja musi mieć co najmniej 0." }).max(15_000, { message: "Esencja musi mieć najwyżej 15000." }),
+  spells: z.array(spellSchema).max(100, { message: "Możesz mieć najwyżej 100 zaklęć." }),
+});
+
+export type spellSchemarType = z.infer<typeof spellSchema>;
+export type UpsertCharacterPowerType = z.infer<typeof powerSchema>;
+export const upsertCharacterPowersSchema = z.array(powerSchema).max(100, { message: "Możesz mieć najwyżej 100 mocy." });
 
 //Combat
 export const upsertCharacterCombatSchema = z.object
@@ -242,7 +262,8 @@ export const upsertCharacterCombatSchema = z.object
   stances: upsertCharacterModesSchema,
   states: upsertCharacterModesSchema,
   maneuvers: upsertCharacterManeuversSchema,
-  offenses: z.array(offenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów ataku." })
+  offenses: z.array(offenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów ataku." }),
+  powers: upsertCharacterPowersSchema
 });
 
 export type UpsertCharacterCombatType = z.infer<typeof upsertCharacterCombatSchema>;

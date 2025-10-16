@@ -2,7 +2,6 @@ import FieldView from "@/common/components/fields/FieldView";
 import { Defense, filteredDefenseKeys, ReductionType } from "@/domain/characters/combat/Defense";
 import { displayedText } from "@/presentation/translations";
 
-
 type DefenseReductionInfoContentProps =
 {
   defense: Defense;

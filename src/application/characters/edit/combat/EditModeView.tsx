@@ -15,10 +15,10 @@ import { Button } from "@/ui/button"
 import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
 import { UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/ui/label";
-import { TbEdit } from "react-icons/tb";
 import { Mode, ModesType } from "@/domain/characters/combat/Mode";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
+import { editIcon } from "@/presentation/icons";
 
 type EditModeViewProps =
 { 
@@ -59,13 +59,13 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
     <Sheet>
 
       <SheetTrigger asChild>
-          <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
+          <Button variant="outline" size='icon' type="button">{editIcon}</Button>
       </SheetTrigger>
 
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>{displayedText.editingMode}</SheetTitle>
+          <SheetTitle className="first-letter:uppercase">{displayedText.editingMode}</SheetTitle>
           <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
@@ -90,7 +90,7 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
         </div>
 
         <SheetFooter>
-          <SheetClose asChild>
+          <SheetClose className="capitalize" asChild>
             <Button variant="outline">{displayedText.close}</Button>
           </SheetClose>
         </SheetFooter>

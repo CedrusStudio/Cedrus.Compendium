@@ -4,7 +4,8 @@ import DefenseCard from "@/application/characters/combat/DefenseCard";
 import OffenseCard from "@/application/characters/combat/OffenseCard";
 import ModesCard from "@/application/characters/combat/ModesCard";
 import BarrierCard from "@/application/characters/combat/BarrierCard";
-import ManeuversView from "@/application/characters/combat/ManeuversView";
+import ManeuversCard from "@/application/characters/combat/ManeuversCard";
+import PowerCard from "@/application/characters/combat/PowerCard";
 
 export default function CombatView({ character }: { character: Character })
 {
@@ -27,7 +28,12 @@ export default function CombatView({ character }: { character: Character })
         <ModesCard name="Stany" modes={character.states} />
       </div>
 
-      <ManeuversView maneuvers={character.maneuvers} />
+      <ManeuversCard maneuvers={character.maneuvers} />
+
+      {
+        character.powers.map(power => <PowerCard power={power} key={power.id} />)
+      }
+
     </div>
   );
 };

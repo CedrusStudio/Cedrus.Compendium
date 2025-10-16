@@ -20,7 +20,6 @@ import EquipmentView from '@/application/characters/equipment/EquipmentView';
 import CombatView from '@/application/characters/combat/CombatView';
 import Link from 'next/link';
 import { Button } from '@/ui/button';
-import { TbEdit } from "react-icons/tb";
 import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
 import { useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
@@ -31,6 +30,7 @@ import { displayedText } from "@/presentation/translations";
 import CharacterOverview from "@/application/characters/CharacterOverview";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
+import { editIcon } from "@/presentation/icons";
 
 type CharacterViewProps = 
 {
@@ -76,8 +76,13 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                     </TabsList>
 
-                    <DeleteCharacterDialog id={character.id} activeTab={activeTab} isPending={isPending} deleteCharacter={deleteCharacter} />
+                    <div className='flex flex-row'>
+                        <DeleteCharacterDialog id={character.id} isPending={isPending} deleteCharacter={deleteCharacter} />
 
+                        <Button asChild variant="edit" size="icon" className='m-4'>
+                            <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? defaultTab}`}>{editIcon}</Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <Separator />
@@ -106,40 +111,39 @@ export default function CharacterView({ tab }: CharacterViewProps)
   );
 };
 
-function DeleteCharacterDialog({ id, activeTab, isPending, deleteCharacter }: { id: string; activeTab: CharacterTabs | undefined; isPending: boolean; deleteCharacter: (id: string) => void })
+type DeleteCharacterDialogProps =
+{
+    id: string;
+    isPending: boolean;
+    deleteCharacter: (id: string) => void;
+}
+
+function DeleteCharacterDialog({ id, isPending, deleteCharacter }: DeleteCharacterDialogProps)
 {
     return (
-        <div className='flex flex-row'>
-
-            <AlertDialog>
-                <AlertDialogTrigger asChild>
-                    <Button 
-                        variant="destructive" 
-                        size='icon' 
-                        className="my-4 hover:text-red-950"
-                        disabled={isPending}
-                    >
-                        <IoTrashOutline />
-                    </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>{displayedText.deleteConfirmation}</AlertDialogTitle>
-                        <AlertDialogDescription>{displayedText.deleteConfirmationDescription}</AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                    <AlertDialogCancel>{displayedText.cancel}</AlertDialogCancel>
-                    <AlertDialogAction disabled={isPending} onClick={() => deleteCharacter(id) }>
-                        {isPending ? displayedText.deleting : displayedText.delete}
-                    </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-
-            <Button asChild variant="edit" size="icon" className='m-4'>
-                <Link href={`/characters/${id}/edit?tab=${activeTab ?? defaultTab}`}><TbEdit /></Link>
-            </Button>
-
-        </div>
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button 
+                    variant="destructive" 
+                    size='icon' 
+                    className="my-4 hover:text-red-950"
+                    disabled={isPending}
+                >
+                    <IoTrashOutline />
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>{displayedText.deleteConfirmation}</AlertDialogTitle>
+                    <AlertDialogDescription>{displayedText.deleteConfirmationDescription}</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                <AlertDialogCancel className="capitalize">{displayedText.cancel}</AlertDialogCancel>
+                <AlertDialogAction disabled={isPending} onClick={() => deleteCharacter(id) }>
+                    {isPending ? displayedText.deleting : displayedText.delete}
+                </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     );
 }

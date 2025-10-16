@@ -118,6 +118,7 @@ export const displayedText =
     clickSave: translate("clickSave"),
 
     changeName: translate("changeName"),
+    changeShortName: translate("changeShortName"),
     changeGrade: translate("changeGrade"),
     addTalent: translate("addTalent"),
     clear: translate("clear"),
@@ -172,4 +173,8 @@ export const displayedText =
     changePace: translate("changePace"),
     changeCanter: translate("changeCanter"),
     changeHorsemanshipBonus: translate("changeHorsemanshipBonus"),
+
+    characterUpdatedSuccessfully: translate("characterUpdatedSuccessfully"),
+    success: translate("success"),
+    error: translate("error"),
 } as const;
