@@ -95,7 +95,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>{displayedText.addNewTalent}</SheetTitle>
+          <SheetTitle className="first-letter:uppercase">{displayedText.addNewTalent}</SheetTitle>
           <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
@@ -169,7 +169,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
           </div>
 
           <SheetFooter>
-            <Button type="button" className="flex justify-center flex-1 capitalize" onClick={addNewTalent}>{displayedText.addTalent}</Button>
+            <Button type="button" className="flex justify-center flex-1" onClick={addNewTalent}><span className="first-letter:uppercase">{displayedText.addTalent}</span></Button>
             <Button type="button" variant="secondary" className="flex-1 capitalize" onClick={resetAddTalentForm}>{displayedText.clear}</Button>
 
             <SheetClose asChild>

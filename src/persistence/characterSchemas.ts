@@ -88,7 +88,7 @@ export const upsertCharacterStatisticsSchema = z.object
 });
 
 //Talents
-export const newTalentSchema = z.object
+export const talentSchema = z.object
 ({
   category: z.string().min(2, { message: "Kategoria musi mieć co najmniej 2 znaki." }).max(100, { message: "Kategoria nie może być dłuższa niż 100 znaków." }),
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }).max(100, { message: "Nazwa nie może być dłuższa niż 100 znaków." }),
@@ -96,10 +96,6 @@ export const newTalentSchema = z.object
   grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi mieć co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
   penalty: z.enum(allowedTalentPenalties).optional(),
-});
-
-export const talentSchema = newTalentSchema.extend
-({
   ...idSchema.shape
 });
 
