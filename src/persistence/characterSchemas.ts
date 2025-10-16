@@ -115,19 +115,16 @@ const criticalSchema = z.object
   range: z.coerce.number<number>().int().min(-5, { message: "Zasięg Krytyka musi mieć co najmniej -5." }).max(50, { message: "Zasięg Krytyka musi mieć najwyżej 50." }),
 });
 
-const weaponOffenseSchema = z.object
-({
-  amount: z.coerce.number<number>().int().min(1, { message: "Ilość musi być co najmniej 1." }).max(10, { message: "Ilość nie może być większa niż 10." }),
-  grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi być co najmniej 1." }).max(50, { message: "Ranga nie może być większa niż 50." }),
-  bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus nie może być większy niż 50." }),
-  critical: criticalSchema,
-});
-
 const damageOffenseSchema = z.object
 ({ 
   amount: z.coerce.number<number>().int().min(0, { message: "Ilość musi być co najmniej 0." }).max(10, { message: "Ilość musi być najwyżej 10." }),
   grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi być co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
+});
+
+const weaponOffenseSchema = damageOffenseSchema.extend
+({
+  ...criticalSchema.shape
 });
 
 const itemSchema = entitySchema.extend
