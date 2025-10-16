@@ -6,7 +6,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query';
-import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
 import { addCharacter } from "@/persistence/characterRepository";
 import { UpsertCharacterHeaderType, upsertCharacterHeaderSchema } from "@/persistence/characterSchemas";

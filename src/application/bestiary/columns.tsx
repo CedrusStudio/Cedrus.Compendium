@@ -243,8 +243,8 @@ function MoreBattleActions({ character }: { character: Character })
         <DropdownMenuContent align="end">
           <DropdownMenuLabel className="capitalize">{displayedText.actions}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}>{displayedText.showStancesStatesManeuvers}</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}>{displayedText.goToCharacterView}</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStatesManeuvers}</span></DropdownMenuItem>
+          <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}><span className="first-letter:uppercase">{displayedText.goToCharacterView}</span></DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
