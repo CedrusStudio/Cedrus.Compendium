@@ -38,7 +38,8 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
     states: character.states,
     maneuvers: character.maneuvers,
     offenses: character.offenses,
-    powers: character.powers
+    powers: character.powers,
+    perks: character.perks
   };
 
   const form = useForm<UpsertCharacterCombatType>

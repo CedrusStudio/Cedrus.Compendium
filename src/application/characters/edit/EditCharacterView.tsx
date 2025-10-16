@@ -16,7 +16,6 @@ import EditCharacterCombat from "@/application/characters/edit/combat/EditCharac
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
 import { displayedText } from "@/presentation/translations";
 
-
 type EditCharacterProps =
 {
     tab: CharacterTabs;

@@ -263,7 +263,8 @@ export const upsertCharacterCombatSchema = z.object
   states: upsertCharacterModesSchema,
   maneuvers: upsertCharacterManeuversSchema,
   offenses: z.array(offenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów ataku." }),
-  powers: upsertCharacterPowersSchema
+  powers: upsertCharacterPowersSchema,
+  perks: z.array(perkSchema).max(300, { message: "Możesz mieć najwyżej 300 perków." })
 });
 
 export type UpsertCharacterCombatType = z.infer<typeof upsertCharacterCombatSchema>;

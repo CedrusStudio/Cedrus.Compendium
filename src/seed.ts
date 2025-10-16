@@ -555,6 +555,41 @@ const dummyCharacter : Character =
         }
       ]
     }
+  ],
+  perks:
+  [
+    {
+      id: '01K7QBPPMV75XF8BM164F5FGJK',
+      name: "Nieustraszony",
+      description: "Odporność na strach i efekty zastraszania.",
+      price: 3,
+      requirements: "Charyzma 3, Siła Woli 3.",
+      grade: 2
+    },
+    {
+      id: '01K7QBQD019HCMK48X7VCVEAXS',
+      name: "Mocarność",
+      description: "Dodaje 2 do twardości.",
+      price: 6,
+      requirements: "Budowa 3.",
+      grade: 3
+    },
+    {
+      id: '01K7QBREAHB6NTEC55DPHV55PV',
+      name: "Szybka regeneracja",
+      description: "Regeneruje dodatkowe 2 punkty życia na rundę.",
+      price: 4,
+      requirements: "Budowa 4.",
+      grade: 2
+    },
+    {
+      id: '01K7QBRQXNT0T64NF434PK32N0',
+      name: "Zadziorność",
+      description: "Zwiększa szansę na krytyczny hit o 5%.",
+      price: 5,
+      requirements: "Zręczność 4.",
+      grade: 2
+    }
   ]
 };
 

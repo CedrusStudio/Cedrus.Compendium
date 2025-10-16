@@ -10,6 +10,7 @@ import { CreateDefaultStance, CreateDefaultState, Mode } from "@/domain/characte
 import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Maneuver";
 import { defaultDiceGrade, defaultWeaponDiceAmount } from "@/domain/diceDefaults";
 import { CreateDefaultPower, Power } from "@/domain/characters/combat/Power";
+import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
 
 export type Character =
 {
@@ -29,6 +30,7 @@ export type Character =
   states: Mode[];
   maneuvers: Maneuver[];
   powers: Power[];
+  perks: Perk[];
 };
 
 export type CharacterCategory = typeof allowedCharacterCategories[number];
@@ -159,7 +161,18 @@ const emptyCharacter: Character =
     ],
     mounts: []
   },
-  powers: []
+  powers: [],
+  perks: 
+  [
+    {
+      id: '01K7QBNAVF1VY58R2G1ASKYMZG',
+      name: "Perk 1",
+      description: "Opis perku 1",
+      grade: 1,
+      requirements: "Wymagania Walki",
+      price: 2
+    }
+  ]
 };
 
 export function CreateEmptyCharacter({name, shortName, category, description}: {name: string, shortName: string, category: CharacterCategory, description: string}): Character
@@ -172,5 +185,6 @@ export function CreateEmptyCharacter({name, shortName, category, description}: {
   newCharacter.states = [CreateDefaultState()];
   newCharacter.talents = [CreateDefaultTalent()];
   newCharacter.powers = [CreateDefaultPower()];
+  newCharacter.perks = [CreateDefaultPerk()];
   return newCharacter;
 };
