@@ -1,7 +1,7 @@
 import { Character } from "@/domain/characters/Character";
 import { upsertCharacter } from '@/persistence/characterRepository';
 
-export const dummyCharacter : Character = 
+const dummyCharacter : Character = 
 {
   id: "01K79QFH0ZD99MSBV4ACKFBZYN",
   shortName: "Igar",
