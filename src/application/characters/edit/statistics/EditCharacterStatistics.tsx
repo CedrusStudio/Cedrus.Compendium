@@ -4,7 +4,7 @@ import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { upsertCharacterStatisticsSchema, type UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
+import { statisticsSchema, type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import EditStatisticsCard from "@/application/characters/edit/statistics/EditStatisticsCard";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
@@ -12,15 +12,15 @@ import bffClient from "@/infrastructure/bffClient";
 
 export default function EditCharacterStatistics(input: { character: Character })
 {
-  const initialValues: UpsertCharacterStatisticsType =
+  const initialValues: StatisticsDto =
   {
     characteristics: input.character.characteristics,
     attributes: input.character.attributes,
   };
 
-  const form = useForm<UpsertCharacterStatisticsType>
+  const form = useForm<StatisticsDto>
   ({
-    resolver: zodResolver(upsertCharacterStatisticsSchema),
+    resolver: zodResolver(statisticsSchema),
     defaultValues: initialValues,
   })
 
@@ -29,7 +29,7 @@ export default function EditCharacterStatistics(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterStatistics: UpsertCharacterStatisticsType) => await bffClient.upsertCharacter
+    async (characterStatistics: StatisticsDto) => await bffClient.upsertCharacter
     (
       id, 
       { ...character, characteristics: characterStatistics.characteristics, attributes: characterStatistics.attributes }

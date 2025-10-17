@@ -1,4 +1,4 @@
-import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
+import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
 import { Label } from "@/ui/label";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import ArmorView from "@/application/characters/equipment/ArmorView";
@@ -32,7 +32,7 @@ function EditArmorSheet({ armor, index }: EditArmorViewProps)
 
         <Label className="capitalize">{displayedText.protection}</Label>
 
-        <SelectFormField<UpsertCharacterEquipmentType> 
+        <SelectFormField<EquipmentDto> 
           path={pathToArmorsField(index, `protection`)}
           items={allowedProtections}
           noLabel

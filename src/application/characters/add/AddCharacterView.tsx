@@ -1,19 +1,16 @@
 "use client";
 
-import {
-  Form
-} from "@/ui/form";
+import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { addCharacter } from "@/persistence/characterRepository";
-import { UpsertCharacterHeaderType, upsertCharacterHeaderSchema } from "@/persistence/characterSchemas";
+import { type  HeaderDto, headerSchema, initialHeaderValues } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
-
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -21,30 +18,22 @@ import { actions } from "@/persistence/slices/characterSlice";
 import { displayedText } from "@/presentation/translations";
 import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 
-const initialValues: UpsertCharacterHeaderType =
-{
-    name: "",
-    shortName: "",
-    category: "bohater",
-    description: "",
-};
-
 export default function AddCharacterView()
 {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const dispatch = useDispatch();
 
-    const form = useForm<UpsertCharacterHeaderType>
+    const form = useForm<HeaderDto>
     ({
-        resolver: zodResolver(upsertCharacterHeaderSchema),
-        defaultValues: initialValues,
+        resolver: zodResolver(headerSchema),
+        defaultValues: initialHeaderValues,
     })
     
     const router = useRouter();
     
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (characterHeader: UpsertCharacterHeaderType) => 
+        mutationFn: async (characterHeader: HeaderDto) => 
         {
             const id = await addCharacter(characterHeader);
             return { id, shortName: characterHeader.shortName };
@@ -53,13 +42,13 @@ export default function AddCharacterView()
         {
 
             dispatch(actions.setCharacterShortName({ id: data.id, shortName: data.shortName }));
-            form.reset(initialValues);
+            form.reset(initialHeaderValues);
             router.push(`/characters/${data.id}/edit?tab=character`);
         }),
         onError: (error) => onError(error)
     });
 
-    function onSubmit(values: UpsertCharacterHeaderType) 
+    function onSubmit(values: HeaderDto) 
     {
         mutate(values);
     }
@@ -72,13 +61,13 @@ export default function AddCharacterView()
                     {displayedText.create_new_character} 
                 </p>
 
-                <InputFormField<UpsertCharacterHeaderType> 
+                <InputFormField<HeaderDto> 
                     path="name" 
                     inputPlaceholder={displayedText.name} 
                     inputClassName="w-xl"
                 />
 
-                <InputFormField<UpsertCharacterHeaderType> 
+                <InputFormField<HeaderDto> 
                     path="shortName" 
                     inputPlaceholder={displayedText.short_name} 
                     inputClassName="w-xl"
@@ -93,7 +82,7 @@ export default function AddCharacterView()
                     onChange={setSelectedCategory}
                 />
 
-                <AreaInputFormField<UpsertCharacterHeaderType> 
+                <AreaInputFormField<HeaderDto> 
                     path="description" 
                     inputPlaceholder={displayedText.description} 
                 />

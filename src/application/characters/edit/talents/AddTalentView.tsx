@@ -11,10 +11,9 @@ import {
 import { Button } from "@/ui/button";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { UseFieldArrayAppend } from "react-hook-form";
-import { talentSchema, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { talentsSchema, type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import { useState } from "react";
 import LabeledFormInput from "@/common/components/inputs/LabeledFormInput";
-
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { ulid } from "ulid";
@@ -24,7 +23,7 @@ import { displayedText } from "@/presentation/translations";
 
 type AddTalentViewProps =
 {
-  append: UseFieldArrayAppend<UpsertCharacterTalentsType, "talents">;
+  append: UseFieldArrayAppend<TalentsDto, "talents">;
   setNameFilter: (value: string) => void;
 }
 
@@ -53,7 +52,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
       penalty: newTalentPenalty,
     };
 
-    const result = talentSchema.safeParse(newTalent);
+    const result = talentsSchema.safeParse(newTalent);
 
     if (!result.success) 
     {

@@ -6,7 +6,6 @@ import { ArrowUpDown } from "lucide-react";
 import { Talent } from "@/domain/characters/Talent";
 import { displayedText } from "@/presentation/translations";
 
-
 declare module '@tanstack/table-core' 
 {
   interface ColumnMeta<TData extends RowData, TValue>

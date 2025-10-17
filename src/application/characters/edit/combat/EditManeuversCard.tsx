@@ -1,25 +1,11 @@
 "use client";
 
 import { Button } from '@/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/ui/sheet";
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { CreateDefaultManeuver, type Maneuver } from "@/domain/characters/combat/Maneuver";
 import { allowedCastTimes } from "@/domain/characters/Castable";
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
@@ -37,7 +23,7 @@ type EditManeuversCardProps =
 
 export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 {
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
 
   return (
@@ -113,30 +99,30 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
+              <InputFormField<CombatDto> path={`maneuvers.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
+              <InputFormField<CombatDto> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
 
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
+            <InputFormField<CombatDto> path={`maneuvers.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='justify-center'>{displayedText.cooldown}</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
+              <InputFormField<CombatDto> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText={displayedText.castTime} items={allowedCastTimes} />
+              <SelectFormField<CombatDto> path={`maneuvers.${index}.castTime`} labelText={displayedText.castTime} items={allowedCastTimes} />
             </div>
           </div>
 

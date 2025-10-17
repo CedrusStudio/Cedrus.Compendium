@@ -9,12 +9,11 @@ import {
 import { Badge } from "@/ui/badge";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import ResetButton from "@/common/components/buttons/ResetButton";
-import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
+import { type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { useFormContext } from "react-hook-form";
 import { StatisticPath } from "@/application/characters/edit/statistics/EditStatisticsCard";
 import { useStatisticForm } from "@/application/characters/edit/statistics/useStatisticForm";
 import { displayedText } from "@/presentation/translations";
-
 
 type StatisticViewEditProps = 
 {
@@ -26,7 +25,7 @@ type StatisticViewEditProps =
 
 export default function EditStatisticView({ name, statistic, icon, fieldPath }: StatisticViewEditProps) 
 {
-  const { control } = useFormContext<UpsertCharacterStatisticsType>();
+  const { control } = useFormContext<StatisticsDto>();
   const { grade, setGrade, value, setValue, bonus, setBonus, testBonus, setTestBonus } = useStatisticForm(control, fieldPath, statistic);
 
   return (

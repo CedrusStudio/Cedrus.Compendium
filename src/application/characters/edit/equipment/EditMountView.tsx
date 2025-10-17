@@ -1,6 +1,6 @@
 import { pathToMountsField } from "@/domain/characters/equipment/Equipment";
 import { Mount } from "@/domain/characters/equipment/Mount";
-import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
+import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import { Label } from "@/ui/label";
 import MountView from "@/application/characters/equipment/MountView";
@@ -32,7 +32,7 @@ function EditMountSheet({ mount, index }: EditMountViewProps)
 
         <Label className="capitalize">{displayedText.pace}</Label>
 
-        <InputFormField<UpsertCharacterEquipmentType> 
+        <InputFormField<EquipmentDto> 
           path={pathToMountsField(index, `paceSpeed`)}
           inputPlaceholder={displayedText.changePace}
         />
@@ -43,7 +43,7 @@ function EditMountSheet({ mount, index }: EditMountViewProps)
 
         <Label className="capitalize">{displayedText.gallop}</Label>
 
-        <InputFormField<UpsertCharacterEquipmentType> 
+        <InputFormField<EquipmentDto> 
           path={pathToMountsField(index, `gallopSpeed`)}
           inputPlaceholder={displayedText.changeGallop}
         />
@@ -54,7 +54,7 @@ function EditMountSheet({ mount, index }: EditMountViewProps)
 
         <Label className="capitalize">{displayedText.canter}</Label>
 
-        <InputFormField<UpsertCharacterEquipmentType> 
+        <InputFormField<EquipmentDto> 
             path={pathToMountsField(index, `canterSpeed`)}
             inputPlaceholder={displayedText.changeCanter}
         />
@@ -65,7 +65,7 @@ function EditMountSheet({ mount, index }: EditMountViewProps)
 
         <Label className="first-letter:capitalize">{displayedText.horsemanshipBonus}</Label>
 
-        <InputFormField<UpsertCharacterEquipmentType> 
+        <InputFormField<EquipmentDto> 
           path={pathToMountsField(index, `horsemanshipBonus`)}
           inputPlaceholder={displayedText.changeHorsemanshipBonus}
         />

@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from '@/ui/card';
 import EditStatisticView from "@/application/characters/edit/statistics/EditStatisticView";
-import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
+import { type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { PathsFrom} from "@/common/global/pathTypes";
 import { attributesIcons, characteristicIcons } from "@/presentation/icons";
 import { displayedText } from "@/presentation/translations";
@@ -14,7 +14,7 @@ import { displayedText } from "@/presentation/translations";
 export type AllowedRoots = "characteristics" | "attributes";
 
 // Only allow paths inside these roots
-type StatsRoot = Pick<UpsertCharacterStatisticsType, AllowedRoots>;
+type StatsRoot = Pick<StatisticsDto, AllowedRoots>;
 export type StatisticPath = PathsFrom<StatsRoot, Statistic>;
 
 type StatisticsCardEditProps<TStats extends Record<string, Statistic>> = 

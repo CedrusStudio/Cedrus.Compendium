@@ -5,7 +5,7 @@ import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeBut
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { TableCell, TableRow } from "@/ui/table";
 import { defaultTalent, Talent } from "@/domain/characters/Talent";
-import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import { flexRender, Row } from "@tanstack/react-table";
 import { type UseFieldArrayUpdate, type UseFieldArrayRemove } from "react-hook-form";
 
@@ -16,7 +16,7 @@ type EditTalentRowProps =
   row: Row<Talent>;
   initialTalent: Talent | undefined;
   index: number;
-  update: UseFieldArrayUpdate<UpsertCharacterTalentsType, "talents">;
+  update: UseFieldArrayUpdate<TalentsDto, "talents">;
   remove: UseFieldArrayRemove;
 }
 

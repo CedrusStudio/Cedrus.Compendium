@@ -1,12 +1,12 @@
 import { type DamageOffensePath, DamageOffense } from "@/domain/characters/combat/Offense";
-import { type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { Control, useController } from "react-hook-form";
 import { setWithSideEffect } from "@/common/global/setterUtils";
 import { useState } from "react";
 
 export function useDamageOffenseForm
 (
-  control: Control<UpsertCharacterCombatType>,
+  control: Control<CombatDto>,
   fieldPath: DamageOffensePath,
   defaults: DamageOffense
 ) 

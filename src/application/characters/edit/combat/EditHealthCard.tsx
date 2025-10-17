@@ -1,11 +1,5 @@
 "use client";
 
-import { FieldPath } from "react-hook-form";
-import { UpsertCharacterHealthType, type UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { InputFormField } from "@/common/components/form/InputFormField";
-import { Health } from "@/domain/characters/combat/Health";
-import { Label } from "@/ui/label";
-
 import {
   Card,
   CardContent,
@@ -13,7 +7,12 @@ import {
   CardTitle,
 } from '@/ui/card';
 import { displayedText } from "@/presentation/translations";
-
+import { FieldPath } from "react-hook-form";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
+import { type HealthDto } from "@/persistence/schemas/characters/combat/healthSchema";
+import { InputFormField } from "@/common/components/form/InputFormField";
+import { Health } from "@/domain/characters/combat/Health";
+import { Label } from "@/ui/label";
 
 type EditHealthCardProps =
 {
@@ -34,7 +33,7 @@ export default function EditHealthCard(input: EditHealthCardProps)
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         { 
-          Object.keys(input.health).map(key => InputFormWithLabel(key as keyof UpsertCharacterHealthType)) 
+          Object.keys(input.health).map(key => InputFormWithLabel(key as keyof HealthDto)) 
         }
         </div>
 
@@ -43,14 +42,14 @@ export default function EditHealthCard(input: EditHealthCardProps)
   );
 };
 
-function InputFormWithLabel(healthFieldName: keyof UpsertCharacterHealthType)
+function InputFormWithLabel(healthFieldName: keyof HealthDto)
 {   
-  const fieldPath = `health.${healthFieldName}` as FieldPath<UpsertCharacterCombatType>;
+  const fieldPath = `health.${healthFieldName}` as FieldPath<CombatDto>;
 
   return (
     <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
       <Label className="text-center capitalize">{displayedText[healthFieldName as keyof typeof displayedText]}</Label>
-      <InputFormField<UpsertCharacterCombatType> path={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
+      <InputFormField<CombatDto> path={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
     </div>
   );
 }

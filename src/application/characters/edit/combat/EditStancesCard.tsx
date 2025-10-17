@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
-
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
@@ -17,12 +11,12 @@ import { displayedText } from '@/presentation/translations';
 
 type EditStancesCardProps =
 {
-    isPending: boolean;
+  isPending: boolean;
 }
 
 export default function EditStancesCard({ isPending }: EditStancesCardProps)
 {
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
 
   return (

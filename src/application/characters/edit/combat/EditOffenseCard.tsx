@@ -2,7 +2,7 @@
 
 import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
 import { Badge } from '@/ui/badge';
@@ -35,14 +35,14 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
 
       <CardHeader>
         <CardTitle className='mb-6 flex justify-between items-center'>
-          <InputFormField<UpsertCharacterCombatType> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
+          <InputFormField<CombatDto> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
           <RemoveFromArrayButton index={index} remove={remove} />
         </CardTitle>
       </CardHeader>
 
       <CardContent className='flex flex-col gap-6 -mt-8'>
 
-        <AreaInputFormField<UpsertCharacterCombatType> 
+        <AreaInputFormField<CombatDto> 
           path={pathToOffenseField(index, 'description')}
           inputPlaceholder={displayedText.changeDescription}
         />
@@ -68,7 +68,7 @@ type EditLeadingWeaponOffenseSubcardProps =
 function EditLeadingWeaponOffenseSubcard({ offense, index }: EditLeadingWeaponOffenseSubcardProps)
 {
   const weaponOffensePath = leadingOffenseField(index);
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, offense.leadingWeapon);
   const weaponOffense = { amount, grade, bonus, critical: { power, range } };
 
@@ -95,7 +95,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
   const secondaryOffenseExists = offense.secondaryWeapon !== undefined;
   const [showSecondary, setShowSecondary] = useState(secondaryOffenseExists);
   const weaponOffensePath = secondaryOffenseField(index);
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
 
   const { field } = useController
   ({
@@ -222,7 +222,7 @@ type EditDamageBonusSubcardProps =
 
 function EditDamageBonusSubcard({ defaultDamageOffense, index }: EditDamageBonusSubcardProps)
 {
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { amount, bonus, grade, resetAll, setAmount, setBonus, setGrade } = useDamageOffenseForm(control, damageOffenseField(index), defaultDamageOffense);
   const damageOffense = { amount, grade, bonus };
 

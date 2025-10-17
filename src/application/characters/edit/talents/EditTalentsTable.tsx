@@ -15,7 +15,7 @@ import {
 import { Table } from "@/ui/table";
 import { useState, useEffect } from "react";
 import { allowedTalentCategories, Talent } from "@/domain/characters/Talent";
-import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
@@ -28,7 +28,6 @@ import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 
-
 interface DataTableProps
 {
   columns: AccessorKeyColumnDef<Talent>[]
@@ -38,7 +37,7 @@ interface DataTableProps
 
 export function EditTalentsTable({ columns, initialTalents }: DataTableProps) 
 {
-  const { control } = useFormContext<UpsertCharacterTalentsType>();
+  const { control } = useFormContext<TalentsDto>();
   const { fields, update, remove, append } = useFieldArray
   ({
     name: "talents",

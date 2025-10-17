@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { upsertCharacterHeader } from "@/persistence/characterRepository";
-import { upsertCharacterHeaderSchema, type UpsertCharacterHeaderType } from "@/persistence/characterSchemas";
+import { type  HeaderDto, headerSchema, initialHeaderValues } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
@@ -16,20 +16,12 @@ import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { displayedText } from "@/presentation/translations";
 import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 
-const initialValues: UpsertCharacterHeaderType =
-{
-    name: "",
-    shortName: "",
-    category: "bohater",
-    description: "",
-};
-
 export default function EditCharacterOverview(input: { character: Character })
 {
-    const form = useForm<UpsertCharacterHeaderType>
+    const form = useForm<HeaderDto>
     ({
-        resolver: zodResolver(upsertCharacterHeaderSchema),
-        defaultValues: initialValues,
+        resolver: zodResolver(headerSchema),
+        defaultValues: initialHeaderValues,
     })
     
     const id = input.character.id;
@@ -38,18 +30,18 @@ export default function EditCharacterOverview(input: { character: Character })
     
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (characterHeader: UpsertCharacterHeaderType) => await upsertCharacterHeader(id, characterHeader),
+        mutationFn: async (characterHeader: HeaderDto) => await upsertCharacterHeader(id, characterHeader),
         onSuccess: () => onSuccess(() =>
         {
             queryClient.invalidateQueries({ queryKey: ['characters'] });
             queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
-            form.reset(initialValues);
+            form.reset(initialHeaderValues);
             router.refresh();
         }),
         onError: (error) => onError(error)
     });
 
-    function onSubmit(values: UpsertCharacterHeaderType) 
+    function onSubmit(values: HeaderDto) 
     {
         mutate(values);
     }
@@ -65,7 +57,7 @@ export default function EditCharacterOverview(input: { character: Character })
                             {input.character.name}
                         </p>
 
-                        <InputFormField<UpsertCharacterHeaderType> 
+                        <InputFormField<HeaderDto> 
                             path="name" 
                             inputPlaceholder={displayedText.changeName} 
                             inputClassName="w-xl"
@@ -77,7 +69,7 @@ export default function EditCharacterOverview(input: { character: Character })
                             {input.character.shortName}
                         </p>
 
-                        <InputFormField<UpsertCharacterHeaderType> 
+                        <InputFormField<HeaderDto> 
                             path="shortName" 
                             inputPlaceholder={displayedText.changeShortName} 
                             inputClassName="w-l"
@@ -89,7 +81,7 @@ export default function EditCharacterOverview(input: { character: Character })
                             {input.character.category}
                         </p>
 
-                        <SelectFormField<UpsertCharacterHeaderType>
+                        <SelectFormField<HeaderDto>
                             path="category"
                             items={allowedCharacterCategories}
                             noLabel
@@ -101,7 +93,7 @@ export default function EditCharacterOverview(input: { character: Character })
                     {input.character.description}
                 </p>
 
-                <AreaInputFormField<UpsertCharacterHeaderType> 
+                <AreaInputFormField<HeaderDto> 
                     path="description" 
                     inputPlaceholder={displayedText.changeDescription} 
                 />

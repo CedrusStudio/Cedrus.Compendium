@@ -12,7 +12,7 @@ import {
 } from "@/ui/sheet";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { Button } from "@/ui/button"
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { Mode, ModesType } from "@/domain/characters/combat/Mode";
@@ -74,18 +74,18 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className="capitalize">{displayedText.name}</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
+              <InputFormField<CombatDto> path={`${modeType}.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className="capitalize">{displayedText.grade}</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.grade`} inputPlaceholder={displayedText.changeGrade} inputClassName="w-11 h-10 text-center font-medium" />
+              <InputFormField<CombatDto> path={`${modeType}.${index}.grade`} inputPlaceholder={displayedText.changeGrade} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className="capitalize">{displayedText.description}</Label>
-            <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
+            <InputFormField<CombatDto> path={`${modeType}.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
         </div>
 

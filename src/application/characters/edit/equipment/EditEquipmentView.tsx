@@ -5,7 +5,7 @@ import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
+import { equipmentSchema, type EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
 import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponView';
@@ -28,10 +28,10 @@ const equipmentFormName = "edit-equipment-form";
 
 export default function EditEquipmentView(input: { character: Character })
 {
-  const initialValues: UpsertCharacterEquipmentType = input.character.equipment;
-  const form = useForm<UpsertCharacterEquipmentType>
+  const initialValues: EquipmentDto = input.character.equipment;
+  const form = useForm<EquipmentDto>
   ({
-    resolver: zodResolver(upsertCharacterEquipmentSchema),
+    resolver: zodResolver(equipmentSchema),
     defaultValues: initialValues,
   });
 
@@ -45,7 +45,7 @@ export default function EditEquipmentView(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterEquipment: UpsertCharacterEquipmentType) => await bffClient.upsertCharacter(id, { ...input.character, equipment: characterEquipment }),
+    async (characterEquipment: EquipmentDto) => await bffClient.upsertCharacter(id, { ...input.character, equipment: characterEquipment }),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",
@@ -63,7 +63,7 @@ export default function EditEquipmentView(input: { character: Character })
             label={displayedText.weapons}
             itemViewFactory={(item, index) => <EditWeaponView index={index} weapon={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
+            <AppendToArrayButton<EquipmentDto, "weapons"> 
               isPending={isPending}
               append={appendWeapon}
               toAdd={CreateDefaultWeapon}
@@ -75,7 +75,7 @@ export default function EditEquipmentView(input: { character: Character })
             label={displayedText.armors}
             itemViewFactory={(item, index) => <EditArmorView index={index} armor={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
+            <AppendToArrayButton<EquipmentDto, "armors"> 
               isPending={isPending}
               append={appendArmor}
               toAdd={CreateDefaultArmor}
@@ -87,7 +87,7 @@ export default function EditEquipmentView(input: { character: Character })
             label={displayedText.shields}
             itemViewFactory={(item, index) => <EditShieldView index={index} shield={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
+            <AppendToArrayButton<EquipmentDto, "shields"> 
               isPending={isPending}
               append={appendShield}
               toAdd={CreateDefaultShield}
@@ -99,7 +99,7 @@ export default function EditEquipmentView(input: { character: Character })
             label={displayedText.inventory}
             itemViewFactory={(item, index) => <EditInventoryItemView index={index} inventory={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
+            <AppendToArrayButton<EquipmentDto, "inventory"> 
               isPending={isPending}
               append={appendInventory}
               toAdd={CreateDefaultInventoryItem}
@@ -111,7 +111,7 @@ export default function EditEquipmentView(input: { character: Character })
             label={displayedText.mounts}
             itemViewFactory={(item, index) => <EditMountView key={index} index={index} mount={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "mounts"> 
+            <AppendToArrayButton<EquipmentDto, "mounts"> 
               isPending={isPending}
               append={appendMount}
               toAdd={CreateDefaultMount}

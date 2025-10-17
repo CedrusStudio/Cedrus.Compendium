@@ -11,7 +11,7 @@ import {
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
-import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
+import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
 import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
 import { Label } from "@/ui/label";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
@@ -29,7 +29,7 @@ type EditItemSheetProps =
 export default function EditItemSheet({ item, children }: PropsWithChildren<EditItemSheetProps>)
 {
   const { name, index } = splitEquipmentItemTypes(item.type);
-  const { remove } = useFieldArray<UpsertCharacterEquipmentType>({ name });
+  const { remove } = useFieldArray<EquipmentDto>({ name });
 
   return (
     <Sheet>
@@ -54,7 +54,7 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
 
             <Label className="px-6 capitalize">{displayedText.name}</Label>
             
-            <InputFormField<UpsertCharacterEquipmentType> 
+            <InputFormField<EquipmentDto> 
               path={`${item.type}.name`}
               inputPlaceholder={displayedText.changeName}
               inputClassName='w-80'
@@ -66,7 +66,7 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
 
             <Label className="capitalize">{displayedText.description}</Label>
             
-            <AreaInputFormField<UpsertCharacterEquipmentType> 
+            <AreaInputFormField<EquipmentDto> 
               path={`${item.type}.description`}
               inputPlaceholder={displayedText.changeDescription}
             />
