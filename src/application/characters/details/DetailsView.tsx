@@ -1,11 +1,10 @@
-import { Item, ItemContent, ItemDescription, ItemTitle } from "@/ui/item";
 import { Badge } from "@/common/components/ui/badge";
 import { Separator } from "@/common/components/ui/separator";
 import { Character } from "@/domain/characters/Character";
-import { Perk } from "@/domain/characters/Perk";
 import { displayedText } from "@/presentation/translations";
+import PerksList from "@/application/characters/details/PerksList";
 
-export default function CharacterDetails({ character }: { character: Character }) 
+export default function DetailsView({ character }: { character: Character }) 
 {
   return (
     <section className="flex flex-col justify-around">
@@ -43,34 +42,5 @@ export default function CharacterDetails({ character }: { character: Character }
       </article>
 
     </section>
-  );
-}
-
-function PerksList({ perks }: { perks: Perk[] })
-{
-  return (
-    <ul className="list-inside grid grid-cols-2 gap-2">
-    {
-      perks.map((perk, index) => (
-        <li key={index} className="text-md text-primary">
-          <PerkView perk={perk} />
-        </li>
-      ))
-    }
-    </ul>
-  );
-}
-
-function PerkView({ perk }: { perk: Perk })
-{
-  return (
-    <Item variant="muted">
-      <ItemContent>
-        <ItemTitle>{perk.name} {perk.grade}</ItemTitle>
-        <ItemDescription className="first-letter:uppercase">
-          <p>{perk.description}</p>
-        </ItemDescription>
-      </ItemContent>
-    </Item>
   );
 }

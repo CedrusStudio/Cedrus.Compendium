@@ -27,7 +27,7 @@ import { useGetCharacterById } from '@/application/characters/hooks/useGetCharac
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
 import { displayedText } from "@/presentation/translations";
-import CharacterDetails from "@/application/characters/CharacterDetails";
+import DetailsView from "@/application/characters/details/DetailsView";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
 import { editIcon } from "@/presentation/icons";
@@ -90,7 +90,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
             <div className='row-span-14 mx-4'>
                 <TabsContent value="character">
-                    <CharacterDetails character={character} />
+                    <DetailsView character={character} />
                 </TabsContent>
 
                 <TabsContent value="combat">

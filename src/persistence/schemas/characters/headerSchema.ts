@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 
-//Header schemas
 const shortNameSchema = z
   .string()
   .regex(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9]+$/, { message: "Pole może zawierać tylko litery, cyfry i polskie znaki."})
@@ -19,11 +18,3 @@ export const headerSchema = z.object
 });
 
 export type HeaderDto = z.infer<typeof headerSchema>;
-
-export const initialHeaderValues: HeaderDto =
-{
-  name: "",
-  shortName: "",
-  category: "bohater",
-  description: "",
-};

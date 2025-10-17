@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { addCharacter } from "@/persistence/characterRepository";
-import { type  HeaderDto, headerSchema, initialHeaderValues } from "@/persistence/schemas/characters/headerSchema";
+import { type  HeaderDto, headerSchema } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
@@ -22,6 +22,14 @@ export default function AddCharacterView()
 {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const dispatch = useDispatch();
+
+    const initialHeaderValues: HeaderDto =
+    {
+        name: "",
+        shortName: "",
+        category: "bohater",
+        description: "",
+    };
 
     const form = useForm<HeaderDto>
     ({
