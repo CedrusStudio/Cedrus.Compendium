@@ -70,6 +70,7 @@ export const translations_deDE =
     power: "kraft",
     style: "stil",
     maneuvers: "manöver",
+    powers: "kräfte",
     stances: "haltungen",
     states: "zustände",
     weapons: "waffen",
@@ -116,6 +117,8 @@ export const translations_deDE =
 
     addNewTalent: "neue fähigkeit hinzufügen",
     editManeuver: "manöver bearbeiten",
+    editPower: "kraft bearbeiten",
+    editSpell: "zauber bearbeiten",
     editingItem: "gegenstand bearbeiten",
     pace: "trab",
     gallop: "galopp",
@@ -164,4 +167,13 @@ export const translations_deDE =
     error: "fehler",
     perk: "vorteil",
     perks: "vorteile",
+
+    type: "typ",
+    level: "stufe",
+    essence: "essenz",
+    spells: "zauber",
+    
+    cost: "kosten",
+    price: "preis",
+    requirements: "anforderungen",
 } as const;

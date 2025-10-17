@@ -16,7 +16,7 @@ import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { displayedText } from "@/presentation/translations";
 import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 
-export default function EditCharacterOverview(input: { character: Character })
+export default function EditCharacterDetails(input: { character: Character })
 {
     const form = useForm<HeaderDto>
     ({

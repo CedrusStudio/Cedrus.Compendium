@@ -2,14 +2,12 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Button } from '@/ui/button';
-import { RiResetLeftFill } from "react-icons/ri";
 import { Badge } from '@/ui/badge';
-import { GrNext } from "react-icons/gr";
 import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
-import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon } from '@/presentation/icons';
+import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from '@/presentation/icons';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
 import { useState } from 'react';
 
@@ -41,7 +39,35 @@ export default function PowerCard({ power }: PowerCardProps)
     <Card className='bg-muted'>
 
         <CardHeader>
-            <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{power.name}</CardTitle>
+            <CardTitle className="flex flex-row items-center justify-between">
+
+                <div className="flex justify-center items-center pl-65 mx-auto">
+                    <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
+                </div>
+
+                <div className='flex flex-row justify-center items-center gap-6'>
+                    <div className="grid grid-cols-3 gap-6 justify-center items-center">
+                        <div className="flex flex-col items-center">
+                            <span className="text-xs text-muted-foreground mb-1">{displayedText.level}</span>
+                            <span className="font-bold text-lg text-primary">{power.level}</span>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <span className="text-xs text-muted-foreground mb-1">{displayedText.bonus}</span>
+                            <span className="font-bold text-lg text-primary">{power.bonus}</span>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <span className="text-xs text-muted-foreground mb-1">{displayedText.essence}</span>
+                            <span className="font-bold text-lg text-primary">{power.essence}</span>
+                        </div>
+                    </div>
+                    <Badge variant="outline" className="px-4 py-2 mt-1 text-base capitalize">
+                        {power.type}
+                    </Badge>
+                </div>
+
+            </CardTitle>
         </CardHeader>
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
@@ -52,7 +78,7 @@ export default function PowerCard({ power }: PowerCardProps)
         <div className="grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
 
             <Button variant="default" className='col-span-1' onClick={() => setUsedSpells([])}>
-                <RiResetLeftFill />
+                {resetIcon()}
             </Button>
 
             <p className="text-sm col-span-10">
@@ -62,7 +88,7 @@ export default function PowerCard({ power }: PowerCardProps)
                     {
                         if (usedSpell === "end") return (
                             <Badge key={index} variant="destructive" className='m-1' >
-                                <GrNext />
+                                {nextIcon()}
                             </Badge>
                         );
 

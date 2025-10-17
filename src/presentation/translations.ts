@@ -97,6 +97,7 @@ export const displayedText =
     power: translate("power"),
     style: translate("style"),
     maneuvers: translate("maneuvers"),
+    powers: translate("powers"),
     stances: translate("stances"),
     states: translate("states"),
     weapons: translate("weapons"),
@@ -143,6 +144,8 @@ export const displayedText =
 
     addNewTalent: translate("addNewTalent"),
     editManeuver: translate("editManeuver"),
+    editPower: translate("editPower"),
+    editSpell: translate("editSpell"),
     editingItem: translate("editingItem"),
     pace: translate("pace"),
     gallop: translate("gallop"),
@@ -191,4 +194,13 @@ export const displayedText =
     error: translate("error"),
     perk: translate("perk"),
     perks: translate("perks"),
+
+    type: translate("type"),
+    level: translate("level"),
+    essence: translate("essence"),
+    spells: translate("spells"),
+
+    cost: translate("cost"),
+    price: translate("price"),
+    requirements: translate("requirements"),
 } as const;

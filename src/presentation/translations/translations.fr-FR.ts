@@ -70,6 +70,7 @@ export const translations_frFR =
     power: "puissance",
     style: "style",
     maneuvers: "manœuvres",
+    powers: "pouvoirs",
     stances: "postures",
     states: "états",
     weapons: "armes",
@@ -116,6 +117,8 @@ export const translations_frFR =
 
     addNewTalent: "ajouter un nouveau talent",
     editManeuver: "modifier la manœuvre",
+    editPower: "modifier la puissance",
+    editSpell: "modifier le sort",
     editingItem: "modifier l'objet",
     pace: "allure",
     gallop: "galop",
@@ -164,4 +167,13 @@ export const translations_frFR =
     error: "erreur",
     perk: "avantage",
     perks: "avantages",
+
+    type: "type",
+    level: "niveau",
+    essence: "essence",
+    spells: "sorts",
+
+    cost: "coût",
+    price: "prix",
+    requirements: "exigences",
 } as const;

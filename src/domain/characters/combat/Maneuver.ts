@@ -16,3 +16,5 @@ export const defaultManeuver: Omit<Maneuver, "id"> =
 };
 
 export const CreateDefaultManeuver = (): Maneuver => ({...defaultManeuver, id: ulid()});
+
+export const pathToManeuverField = <K extends keyof Maneuver>(index: number, field: K): `maneuvers.${number}.${K}` => `maneuvers.${index}.${field}`;

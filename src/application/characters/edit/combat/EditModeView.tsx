@@ -34,7 +34,7 @@ export default function EditModeView({ mode, modeType, index, remove }: EditMode
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2  min-h-24">
         
       <div className="p-2 rounded-md w-full">
-        <h4 className="font-semibold">{mode.name}</h4>
+        <h4 className="font-semibold">{mode.name} {mode.grade}</h4>
         <p className="text-sm text-muted-foreground">{mode.description}</p>
       </div>
 
