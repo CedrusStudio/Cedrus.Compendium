@@ -13,7 +13,7 @@ import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { displayedText } from '@/presentation/translations';
 import { editIcon } from '@/presentation/icons';
-import { CreateDefaultSpell, pathToPowerField, pathToSpellField, Spell, type Power } from '@/domain/characters/combat/Power';
+import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpellField, Spell, type Power } from '@/domain/characters/combat/Power';
 import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
@@ -38,8 +38,9 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
         <CardTitle className='flex flex-row items-center justify-between gap-3'>
           <div className='flex flex-row gap-10 mx-auto'>
 
-            <div className='flex justify-center items-center'>
-              <span className='capitalize font-bold text-2xl text-primary'>{power.name}</span>
+            <div key={power.name} className="flex flex-col items-center gap-2">
+              <Label className="text-center capitalize">{displayedText.name}</Label>
+              <InputFormField<CombatDto> path={pathToPowerField(index, "name")} inputClassName='w-full h-10 text-center font-medium' />
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 justify-center items-center gap-3">
@@ -51,7 +52,8 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
             </div>
           </div>
 
-          <div className='flex items-end'>
+          <div className='flex items-end justify-center gap-6'>
+            <SelectFormField<CombatDto> path={pathToPowerField(index, "type")} items={allowedPowerTypes} />
             <RemoveFromArrayButton remove={remove} index={index} />
           </div>
 
@@ -59,7 +61,6 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
       </CardHeader>
 
       <CardContent>
-
 
         <Separator className='mb-5 col-span-full' />
 
