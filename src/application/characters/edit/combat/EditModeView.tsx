@@ -12,13 +12,13 @@ import {
 } from "@/ui/sheet";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { Button } from "@/ui/button"
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/ui/label";
-import { TbEdit } from "react-icons/tb";
-import { Mode, ModesType } from "@/domain/characters/Character";
+import { Mode, ModesType } from "@/domain/characters/combat/Mode";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
-import { translateToSingular } from "@/domain/data/translations";
+import { displayedText } from "@/presentation/translations";
+import { editIcon } from "@/presentation/icons";
 
 type EditModeViewProps =
 { 
@@ -34,8 +34,8 @@ export default function EditModeView({ mode, modeType, index, remove }: EditMode
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2  min-h-24">
         
       <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">{mode.name}</h4>
-          <p className="text-sm text-muted-foreground">{mode.description}</p>
+        <h4 className="font-semibold">{mode.name}</h4>
+        <p className="text-sm text-muted-foreground">{mode.description}</p>
       </div>
 
       <div className="flex flex-row gap-2">
@@ -59,41 +59,39 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
     <Sheet>
 
       <SheetTrigger asChild>
-          <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
+          <Button variant="outline" size='icon' type="button">{editIcon}</Button>
       </SheetTrigger>
 
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Edytujesz {translateToSingular(modeType)}</SheetTitle>
-          <SheetDescription>
-            Kliknij zapisz, gdy skończysz.
-          </SheetDescription>
+          <SheetTitle className="first-letter:uppercase">{displayedText.editingMode}</SheetTitle>
+          <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
         <div className="grid auto-rows-min gap-3 px-4">
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Name</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.name`} inputPlaceholder="edit name..." inputClassName='w-60' />
+              <Label className="capitalize">{displayedText.name}</Label>
+              <InputFormField<CombatDto> path={`${modeType}.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Grade</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.grade`} inputPlaceholder="edit grade..." inputClassName="w-11 h-10 text-center font-medium" />
+              <Label className="capitalize">{displayedText.grade}</Label>
+              <InputFormField<CombatDto> path={`${modeType}.${index}.grade`} inputPlaceholder={displayedText.changeGrade} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label>Description</Label>
-            <InputFormField<UpsertCharacterCombatType> path={`${modeType}.${index}.description`} inputPlaceholder="edit description..." inputClassName='w-80' />
+            <Label className="capitalize">{displayedText.description}</Label>
+            <InputFormField<CombatDto> path={`${modeType}.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
         </div>
 
         <SheetFooter>
-          <SheetClose asChild>
-            <Button variant="outline">Zamknij</Button>
+          <SheetClose className="capitalize" asChild>
+            <Button variant="outline">{displayedText.close}</Button>
           </SheetClose>
         </SheetFooter>
 

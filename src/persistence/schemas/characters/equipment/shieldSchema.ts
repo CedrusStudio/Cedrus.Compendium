@@ -1,0 +1,7 @@
+import { z } from "zod";
+import { defenseItemSchema } from "@/persistence/schemas/characters/equipment/defenseItemSchema";
+
+export const shieldSchema = defenseItemSchema.extend
+({
+  block: z.coerce.number<number>().int().min(0, { message: "Blokowanie musi mieć co najmniej 0." }).max(50, { message: "Blokowanie musi mieć najwyżej 50." }),
+});

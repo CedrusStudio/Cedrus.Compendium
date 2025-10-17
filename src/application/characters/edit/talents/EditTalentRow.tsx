@@ -4,11 +4,10 @@ import ResetButton from "@/common/components/buttons/ResetButton";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { TableCell, TableRow } from "@/ui/table";
-import { Talent } from "@/domain/characters/Character";
-import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { defaultTalent, Talent } from "@/domain/characters/Talent";
+import { type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import { flexRender, Row } from "@tanstack/react-table";
 import { type UseFieldArrayUpdate, type UseFieldArrayRemove } from "react-hook-form";
-import { defaultTalent } from "@/domain/data/defaults";
 
 export type AllowedTalentRoots = "grade" | "bonus";
 
@@ -17,7 +16,7 @@ type EditTalentRowProps =
   row: Row<Talent>;
   initialTalent: Talent | undefined;
   index: number;
-  update: UseFieldArrayUpdate<UpsertCharacterTalentsType, "talents">;
+  update: UseFieldArrayUpdate<TalentsDto, "talents">;
   remove: UseFieldArrayRemove;
 }
 

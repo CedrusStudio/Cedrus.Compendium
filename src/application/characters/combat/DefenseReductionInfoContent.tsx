@@ -1,14 +1,13 @@
 import FieldView from "@/common/components/fields/FieldView";
-import { Defense, reductionSelectFilter, ReductionType } from "@/domain/characters/Character";
-import { namingConventions } from "@/domain/data/namingConventions";
-import { translate } from "@/domain/data/translations";
+import { Defense, filteredDefenseKeys, ReductionType } from "@/domain/characters/combat/Defense";
+import { displayedText } from "@/presentation/translations";
 
 type DefenseReductionInfoContentProps =
 {
-    defense: Defense;
-    selectedReductionType: ReductionType;
-    reductionIncrease?: number;
-    damageTaken?: number;
+  defense: Defense;
+  selectedReductionType: ReductionType;
+  reductionIncrease?: number;
+  damageTaken?: number;
 }
 
 export default function DefenseReductionInfoContent(input: DefenseReductionInfoContentProps)
@@ -18,20 +17,19 @@ export default function DefenseReductionInfoContent(input: DefenseReductionInfoC
 
     { 
       input.reductionIncrease 
-        ? <FieldView value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' childrenClassName="w-24">{namingConventions.increase}</FieldView>  
+        ? <FieldView value={Math.abs(input.reductionIncrease)} valueClassName='text-green-600' childrenClassName="w-24">{displayedText.increase}</FieldView>  
         : null
     }
       
     { 
       input.damageTaken 
-        ? <FieldView value={Math.abs(input.damageTaken)} valueClassName='text-red-500' childrenClassName="w-24">{namingConventions.damage}</FieldView> 
+        ? <FieldView value={Math.abs(input.damageTaken)} valueClassName='text-red-500' childrenClassName="w-24">{displayedText.damage}</FieldView> 
         : null 
     }
 
     {
-      Object.entries(input.defense)
-        .filter(([name, _]) => reductionSelectFilter(input.selectedReductionType)(name))
-        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{translate(name)}</FieldView>)
+      filteredDefenseKeys(input.defense, input.selectedReductionType)
+        .map(name => <FieldView key={name} value={input.defense[name] as number} childrenClassName="w-24">{displayedText[name as keyof typeof displayedText]}</FieldView>)
     }
 
     </div>

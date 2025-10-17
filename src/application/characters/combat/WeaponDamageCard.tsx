@@ -1,4 +1,4 @@
-import { getWeaponDamageString, WeaponOffense } from '@/domain/characters/Character';
+import { toOffenseString, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 
@@ -16,7 +16,7 @@ export default function WeaponDamageView({ weaponOffense, setAmount, setGrade, s
     <div className='flex items-center'>
       <VerticalChangeButtons setValue={setAmount} />
       <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-        {getWeaponDamageString(weaponOffense)}
+        {toOffenseString(weaponOffense)}
       </Badge>
       <VerticalChangeButtons setValue={setGrade} />
       <VerticalChangeButtons setValue={setBonus} />

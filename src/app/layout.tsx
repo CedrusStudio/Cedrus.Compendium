@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Providers from '@/infrastructure/providers/providers';
 import "./globals.css";
 import { type PropsWithChildren } from "react";
+import { languageSettings } from "@/lib/env";
 
 const geistSans = Geist
 ({
@@ -25,7 +26,7 @@ export const metadata: Metadata =
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) 
 {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={languageSettings.NEXT_LANGUAGE} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         <Providers>
           {children}

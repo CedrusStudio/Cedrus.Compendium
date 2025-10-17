@@ -1,4 +1,4 @@
-import { Statistic } from "@/domain/characters/Character";
+import { Statistic } from "@/domain/characters/statistics/Statistic";
 import {
   Card,
   CardContent,
@@ -6,14 +6,15 @@ import {
   CardTitle,
 } from '@/ui/card';
 import EditStatisticView from "@/application/characters/edit/statistics/EditStatisticView";
-import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
+import { type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { PathsFrom} from "@/common/global/pathTypes";
-import { attributesIcons, characteristicIcons } from "@/domain/data/icons";
+import { attributesIcons, characteristicIcons } from "@/presentation/icons";
+import { displayedText } from "@/presentation/translations";
 
 export type AllowedRoots = "characteristics" | "attributes";
 
 // Only allow paths inside these roots
-type StatsRoot = Pick<UpsertCharacterStatisticsType, AllowedRoots>;
+type StatsRoot = Pick<StatisticsDto, AllowedRoots>;
 export type StatisticPath = PathsFrom<StatsRoot, Statistic>;
 
 type StatisticsCardEditProps<TStats extends Record<string, Statistic>> = 
@@ -25,8 +26,8 @@ type StatisticsCardEditProps<TStats extends Record<string, Statistic>> =
 export default function EditStatisticsCard<TStats extends Record<string, Statistic>>({ title, statistics }: StatisticsCardEditProps<TStats>)
 {
   const icons = title === "attributes" ? attributesIcons : characteristicIcons;
-  const overwriteTitle = title === "attributes" ? "atrybuty" : "cechy";
-  const overwriteTitleSingular = title === "attributes" ? "atrybut" : "cecha";
+  const overwriteTitle = title === "attributes" ? displayedText.attributes : displayedText.characteristics;
+  const overwriteTitleSingular = title === "attributes" ? displayedText.attribute : displayedText.characteristic;
 
   return (
     <Card className="bg-muted">
@@ -43,10 +44,10 @@ export default function EditStatisticsCard<TStats extends Record<string, Statist
             {overwriteTitleSingular}
           </div>
 
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-6">Ranga</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center">Wartość</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-1">Bonus</div>
-          <div className="text-sm font-semibold text-muted-foreground text-center mr-4">Bonus Testu</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-6 capitalize">{displayedText.grade}</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center capitalize">{displayedText.value}</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-1 capitalize">{displayedText.bonus}</div>
+          <div className="text-sm font-semibold text-muted-foreground text-center mr-4 capitalize">{displayedText.testBonus}</div>
         </div>
 
       <div className="grid grid-rows-5 gap-y-4 items-center">

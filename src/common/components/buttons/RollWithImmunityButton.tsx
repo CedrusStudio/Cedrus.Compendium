@@ -1,4 +1,4 @@
-import { immunityIcon, rollIcon } from "@/domain/data/icons";
+import { immunityIcon, rollIcon } from "@/presentation/icons";
 import { Button } from "@/ui/button";
 
 export type RollButtonProps = 

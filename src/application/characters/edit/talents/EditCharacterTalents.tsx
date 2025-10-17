@@ -3,7 +3,7 @@
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { upsertCharacterTalentsSchema, type UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { talentsSchema, type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"
 import { EditTalentsTable } from "@/application/characters/edit/talents/EditTalentsTable"
@@ -13,15 +13,15 @@ import bffClient from "@/infrastructure/bffClient";
 
 export default function EditCharacterTalents(input: { character: Character })
 {
-  const initialValues: UpsertCharacterTalentsType = 
+  const initialValues: TalentsDto = 
   {
     talents: input.character.talents
   };
 
-  const form = useForm<UpsertCharacterTalentsType>
+  const form = useForm<TalentsDto>
   ({
-    resolver: zodResolver(upsertCharacterTalentsSchema),
-    defaultValues: initialValues
+    resolver: zodResolver(talentsSchema),
+    defaultValues: initialValues,
   });
   
   const { character } = input;
@@ -29,7 +29,7 @@ export default function EditCharacterTalents(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterTalents: UpsertCharacterTalentsType) => await bffClient.upsertCharacter(id, { ...character, talents: characterTalents.talents }),
+    async (characterTalents: TalentsDto) => await bffClient.upsertCharacter(id, { ...character, talents: characterTalents.talents }),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`]
     }

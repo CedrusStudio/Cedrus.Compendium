@@ -1,4 +1,7 @@
-import { Armor, Shield } from "@/domain/characters/Character";
+import { Armor } from "@/domain/characters/equipment/Armor";
+import { Shield } from "@/domain/characters/equipment/Shield";
+import { displayedText } from "@/presentation/translations";
+
 import { AccordionContent } from "@radix-ui/react-accordion";
 import { PropsWithChildren } from "react";
 
@@ -12,23 +15,23 @@ export default function DefensiveItemView({ defensiveItem, children }: PropsWith
   return (
     <AccordionContent className='flex flex-col gap-2'>
       <div>
-        <span className='font-semibold'>Opis:</span> {defensiveItem.description}
+        <span className='font-semibold capitalize'>{displayedText.description}:</span> {defensiveItem.description}
       </div>
       {children}
       <div>
-        <span className='font-semibold'>Odporność:</span> {defensiveItem.resistance}
+        <span className='font-semibold capitalize'>{displayedText.resistance}:</span> {defensiveItem.resistance}
       </div>
       <div>
-        <span className='font-semibold'>Kara:</span> {defensiveItem.attributePenalty}
+        <span className='font-semibold capitalize'>{displayedText.penalty}:</span> {defensiveItem.attributePenalty}
       </div>
       <div>
-        <span className='font-semibold'>Ograniczenie Zręczności:</span> {defensiveItem.dexterityRestriction}
+        <span className='font-semibold capitalize'>{displayedText.dexterityRestriction}:</span> {defensiveItem.dexterityRestriction}
       </div>
       <div>
-        <span className='font-semibold'>Ograniczenie Inicjatywy:</span> {defensiveItem.initiativeRestriction}
+        <span className='font-semibold capitalize'>{displayedText.initiativeRestriction}:</span> {defensiveItem.initiativeRestriction}
       </div>
       <div>
-        <span className='font-semibold'>Wymaganie Siły:</span> {defensiveItem.strengthRequirement}
+        <span className='font-semibold capitalize'>{displayedText.strengthRequirement}:</span> {defensiveItem.strengthRequirement}
       </div>
     </AccordionContent>
   )

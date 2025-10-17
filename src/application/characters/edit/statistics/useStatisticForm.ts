@@ -1,5 +1,5 @@
-import { Statistic } from "@/domain/characters/Character";
-import { UpsertCharacterStatisticsType } from "@/persistence/characterSchemas";
+import { Statistic } from "@/domain/characters/statistics/Statistic";
+import { type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { Control, useController } from "react-hook-form";
 import { StatisticPath } from "@/application/characters/edit/statistics/EditStatisticsCard";
 import { setWithSideEffect } from "@/common/global/setterUtils";
@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export function useStatisticForm
 (
-  control: Control<UpsertCharacterStatisticsType>,
+  control: Control<StatisticsDto>,
   fieldPath: StatisticPath,
   defaults: Statistic
 ) 

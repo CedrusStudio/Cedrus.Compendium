@@ -1,9 +1,8 @@
 "use client";
 
-import { DamageOffense, damageOffenseField, leadingOffenseField, Offense, secondaryOffenseField, WeaponOffense, pathToOffenseField } from '@/domain/characters/Character';
-import { CreateWeaponOffense } from '@/domain/data/defaults';
+import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
 import { Badge } from '@/ui/badge';
@@ -17,9 +16,10 @@ import { resolveSetState } from '@/common/global/resolveSetState';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
-import { addIcon, leftIcon, rightIcon } from '@/domain/data/icons';
+import { addIcon, leftIcon, rightIcon } from '@/presentation/icons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
+import { displayedText } from '@/presentation/translations';
 
 type EditOffenseCardProps =
 {
@@ -35,16 +35,16 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
 
       <CardHeader>
         <CardTitle className='mb-6 flex justify-between items-center'>
-          <InputFormField<UpsertCharacterCombatType> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
+          <InputFormField<CombatDto> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
           <RemoveFromArrayButton index={index} remove={remove} />
         </CardTitle>
       </CardHeader>
 
       <CardContent className='flex flex-col gap-6 -mt-8'>
 
-        <AreaInputFormField<UpsertCharacterCombatType> 
+        <AreaInputFormField<CombatDto> 
           path={pathToOffenseField(index, 'description')}
-          inputPlaceholder="zmien opis..." 
+          inputPlaceholder={displayedText.changeDescription}
         />
 
         <div className='grid grid-cols-1 gap-1 md:grid-cols-9'>
@@ -68,12 +68,12 @@ type EditLeadingWeaponOffenseSubcardProps =
 function EditLeadingWeaponOffenseSubcard({ offense, index }: EditLeadingWeaponOffenseSubcardProps)
 {
   const weaponOffensePath = leadingOffenseField(index);
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, offense.leadingWeapon);
   const weaponOffense = { amount, grade, bonus, critical: { power, range } };
 
   return (
-    <Subcard name='Wiodąca' className='col-span-3' callback={resetAll}>
+    <Subcard name={displayedText.leading} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -95,7 +95,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
   const secondaryOffenseExists = offense.secondaryWeapon !== undefined;
   const [showSecondary, setShowSecondary] = useState(secondaryOffenseExists);
   const weaponOffensePath = secondaryOffenseField(index);
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
 
   const { field } = useController
   ({
@@ -147,7 +147,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
   const removeButton = <RemoveButton name={weaponOffensePath} variant={`${secondaryOffenseExists ? 'destructive' : 'outline'}`} control={control} callback={() => setShowSecondary(false)} />;
 
   return (
-    <Subcard name="Wtórna" className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
+    <Subcard name={displayedText.secondary} className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditWeaponDamageView weaponOffense={newOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -169,18 +169,14 @@ type EditWeaponDamageViewProps =
 function EditWeaponDamageView({ weaponOffense, setAmount, setGrade, setBonus }: EditWeaponDamageViewProps) 
 {
   return (
-    <div className='flex gap-x-1'>
+    <div className='flex items-center'>
+      <VerticalChangeButtons setValue={setAmount} />
+      <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
+        {weaponOffense.amount}(k{weaponOffense.grade * 2}+{weaponOffense.bonus})
+      </Badge>
 
-      <div className='flex items-center'>
-        <VerticalChangeButtons setValue={setAmount} />
-        <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-          {weaponOffense.amount}(k{weaponOffense.grade * 2}+{weaponOffense.bonus})
-        </Badge>
-
-        <VerticalChangeButtons setValue={setGrade} />
-        <VerticalChangeButtons setValue={setBonus} />
-      </div>
-        
+      <VerticalChangeButtons setValue={setGrade} />
+      <VerticalChangeButtons setValue={setBonus} />
     </div>
   );
 }
@@ -218,8 +214,6 @@ function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalVie
   );
 }
 
-// -----------------------------------------------------------------
-
 type EditDamageBonusSubcardProps =
 {
   defaultDamageOffense: DamageOffense;
@@ -228,12 +222,12 @@ type EditDamageBonusSubcardProps =
 
 function EditDamageBonusSubcard({ defaultDamageOffense, index }: EditDamageBonusSubcardProps)
 {
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { amount, bonus, grade, resetAll, setAmount, setBonus, setGrade } = useDamageOffenseForm(control, damageOffenseField(index), defaultDamageOffense);
   const damageOffense = { amount, grade, bonus };
 
   return (
-    <Subcard name={"Bonus"} className='col-span-3' callback={resetAll}>
+    <Subcard name={displayedText.bonus} className='col-span-3 capitalize' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
@@ -254,17 +248,13 @@ type EditDamageBonusViewProps =
 function EditDamageBonusView({ damageOffense, setAmount, setGrade, setBonus }: EditDamageBonusViewProps) 
 {
   return (
-    <div className='flex gap-x-1'>
-
-      <div className='flex items-center'>
-        <VerticalChangeButtons setValue={setAmount} />
-          <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-            {damageOffense.amount}k{damageOffense.grade * 2}+{damageOffense.bonus}
-          </Badge>
-        <VerticalChangeButtons setValue={setGrade} />
-        <VerticalChangeButtons setValue={setBonus} />
-      </div>
-        
-    </div>
+    <div className='flex items-center'>
+      <VerticalChangeButtons setValue={setAmount} />
+        <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
+          {damageOffense.amount}k{damageOffense.grade * 2}+{damageOffense.bonus}
+        </Badge>
+      <VerticalChangeButtons setValue={setGrade} />
+      <VerticalChangeButtons setValue={setBonus} />
+  </div>
   );
 }

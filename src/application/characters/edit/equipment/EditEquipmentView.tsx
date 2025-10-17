@@ -5,28 +5,33 @@ import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { upsertCharacterEquipmentSchema, type UpsertCharacterEquipmentType } from '@/persistence/characterSchemas';
+import { equipmentSchema, type EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
 import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponView';
 import EditArmorView from '@/application/characters/edit/equipment/EditArmorView';
 import bffClient from '@/infrastructure/bffClient';
-import EditHorseView from './EditHorseView';
+import EditMountView from '@/application/characters/edit/equipment/EditMountView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import SubmitButton from '@/common/components/form/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from '@/application/characters/edit/equipment/EditInventoryItemView';
-import { CreateDefaultArmor, CreateDefaultHorse, CreateDefaultInventoryItem, CreateDefaultShield, CreateDefaultWeapon } from '@/domain/data/defaults';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
+import { CreateDefaultWeapon } from '@/domain/characters/equipment/Weapon';
+import { CreateDefaultArmor } from '@/domain/characters/equipment/Armor';
+import { CreateDefaultShield } from '@/domain/characters/equipment/Shield';
+import { CreateDefaultInventoryItem } from '@/domain/characters/equipment/Item';
+import { CreateDefaultMount } from '@/domain/characters/equipment/Mount';
+import { displayedText } from '@/presentation/translations';
 
 const equipmentFormName = "edit-equipment-form";
 
 export default function EditEquipmentView(input: { character: Character })
 {
-  const initialValues: UpsertCharacterEquipmentType = input.character.equipment;
-  const form = useForm<UpsertCharacterEquipmentType>
+  const initialValues: EquipmentDto = input.character.equipment;
+  const form = useForm<EquipmentDto>
   ({
-    resolver: zodResolver(upsertCharacterEquipmentSchema),
+    resolver: zodResolver(equipmentSchema),
     defaultValues: initialValues,
   });
 
@@ -34,13 +39,13 @@ export default function EditEquipmentView(input: { character: Character })
   const { watchedArray: armors, append: appendArmor } = useWatchedFormArray("armors", form.control);
   const { watchedArray: shields, append: appendShield } = useWatchedFormArray("shields", form.control);
   const { watchedArray: inventory, append: appendInventory } = useWatchedFormArray("inventory", form.control);
-  const { watchedArray: horses, append: appendHorse } = useWatchedFormArray("horses", form.control);
+  const { watchedArray: mounts, append: appendMount } = useWatchedFormArray("mounts", form.control);
 
   const id = input.character.id;
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterEquipment: UpsertCharacterEquipmentType) => await bffClient.upsertCharacter(id, { ...input.character, equipment: characterEquipment }),
+    async (characterEquipment: EquipmentDto) => await bffClient.upsertCharacter(id, { ...input.character, equipment: characterEquipment }),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",
@@ -55,10 +60,10 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={weapons}
-            label="Bronie"
+            label={displayedText.weapons}
             itemViewFactory={(item, index) => <EditWeaponView index={index} weapon={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "weapons"> 
+            <AppendToArrayButton<EquipmentDto, "weapons"> 
               isPending={isPending}
               append={appendWeapon}
               toAdd={CreateDefaultWeapon}
@@ -67,10 +72,10 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={armors}
-            label="Zbroje"
+            label={displayedText.armors}
             itemViewFactory={(item, index) => <EditArmorView index={index} armor={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "armors"> 
+            <AppendToArrayButton<EquipmentDto, "armors"> 
               isPending={isPending}
               append={appendArmor}
               toAdd={CreateDefaultArmor}
@@ -79,10 +84,10 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={shields}
-            label="Tarcze"
+            label={displayedText.shields}
             itemViewFactory={(item, index) => <EditShieldView index={index} shield={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "shields"> 
+            <AppendToArrayButton<EquipmentDto, "shields"> 
               isPending={isPending}
               append={appendShield}
               toAdd={CreateDefaultShield}
@@ -91,10 +96,10 @@ export default function EditEquipmentView(input: { character: Character })
 
           <ItemsView
             items={inventory}
-            label="Wyposażenie"
+            label={displayedText.inventory}
             itemViewFactory={(item, index) => <EditInventoryItemView index={index} inventory={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "inventory"> 
+            <AppendToArrayButton<EquipmentDto, "inventory"> 
               isPending={isPending}
               append={appendInventory}
               toAdd={CreateDefaultInventoryItem}
@@ -102,14 +107,14 @@ export default function EditEquipmentView(input: { character: Character })
           </ItemsView>
 
           <ItemsView
-            items={horses}
-            label="Konie"
-            itemViewFactory={(item, index) => <EditHorseView key={index} index={index} horse={item} />}
+            items={mounts}
+            label={displayedText.mounts}
+            itemViewFactory={(item, index) => <EditMountView key={index} index={index} mount={item} />}
           >
-            <AppendToArrayButton<UpsertCharacterEquipmentType, "horses"> 
+            <AppendToArrayButton<EquipmentDto, "mounts"> 
               isPending={isPending}
-              append={appendHorse}
-              toAdd={CreateDefaultHorse}
+              append={appendMount}
+              toAdd={CreateDefaultMount}
             />
           </ItemsView>
 

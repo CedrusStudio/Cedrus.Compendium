@@ -1,6 +1,6 @@
 "use client";
 
-import { addIcon } from "@/domain/data/icons";
+import { addIcon } from "@/presentation/icons";
 import { Button, ButtonVariants } from "@/ui/button";
 import { ArrayPath, FieldArray, FieldValues, UseFieldArrayAppend } from "react-hook-form";
 

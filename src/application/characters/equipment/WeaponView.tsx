@@ -1,4 +1,5 @@
-import { Weapon } from "@/domain/characters/Character";
+import { Weapon } from "@/domain/characters/equipment/Weapon";
+import { displayedText } from "@/presentation/translations";
 import { AccordionContent } from "@radix-ui/react-accordion";
 
 export default function WeaponView({ weapon }: { weapon: Weapon }) 
@@ -8,21 +9,21 @@ export default function WeaponView({ weapon }: { weapon: Weapon })
     {
       weapon.description && (
         <div>
-          <span className="font-semibold">Opis:</span> {weapon.description}
+          <span className="font-semibold capitalize">{displayedText.description}:</span> {weapon.description}
         </div>
       )
     }
     {
       weapon.style && (
         <div>
-          <span className="font-semibold">Styl:</span> {weapon.style}
+          <span className="font-semibold capitalize">{displayedText.style}:</span> {weapon.style}
         </div>
       )
     }
     {
       weapon.range && (
         <div>
-          <span className="font-semibold">Zasięg:</span> {weapon.range}
+          <span className="font-semibold capitalize">{displayedText.range}:</span> {weapon.range}
         </div>
       )
     }
@@ -55,14 +56,14 @@ function WeaponOverview({ weapon }: { weapon: Weapon })
     return (
       <div className='flex flex-col'>
         <div>
-          <span className='font-semibold'>Obrażenia: </span>
+          <span className='font-semibold capitalize'>{displayedText.damage}: </span>
           <span>{weaponOffense}+{damageOffense}</span>
         </div>
 
         <div>
-          <span className='font-semibold'>Krytyk: </span>
+          <span className='font-semibold capitalize'>{displayedText.critical}: </span>
           <span>
-            zasięg: {criticalRangeBonus}, obrażenia: {criticalDamageBonus}
+            {displayedText.range}: {criticalRangeBonus}, {displayedText.damage}: {criticalDamageBonus}
           </span>
         </div>
       </div>

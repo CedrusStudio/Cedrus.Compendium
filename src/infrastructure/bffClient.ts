@@ -1,6 +1,7 @@
-import { Character, Talent } from '@/domain/characters/Character';
+import { Character } from '@/domain/characters/Character';
 import { setSearchQueryParam } from '@/common/global/httpUtils';
 import axios from 'axios';
+import { Talent } from '@/domain/characters/Talent';
 
 const clientBase = axios.create
 ({

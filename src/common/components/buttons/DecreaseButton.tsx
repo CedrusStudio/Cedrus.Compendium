@@ -6,12 +6,12 @@ import { ChangeValueSideEffect } from "@/common/global/ChangeValueSideEffect";
 
 type DecreaseButtonProps =
 {
-    value: number;
-    setValue: React.Dispatch<React.SetStateAction<number>>;
-    variant?: VariantType;
-    className?: string;
-    icon?: React.ReactNode;
-    sideEffect?: ChangeValueSideEffect;
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+  variant?: VariantType;
+  className?: string;
+  icon?: React.ReactNode;
+  sideEffect?: ChangeValueSideEffect;
 }
 
 export default function DecreaseButton({ value, setValue, variant = "outline", className, icon, sideEffect }: DecreaseButtonProps)
@@ -30,13 +30,13 @@ export default function DecreaseButton({ value, setValue, variant = "outline", c
 
 const decrease = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
 {
-    setStateAction
-    (
-        previousValue => 
-        {
-            const newValue = previousValue - changeBy;
-            sideEffect?.(newValue);
-            return newValue;
-        }
-    );
+  setStateAction
+  (
+    previousValue => 
+    {
+        const newValue = previousValue - changeBy;
+        sideEffect?.(newValue);
+        return newValue;
+    }
+  );
 };

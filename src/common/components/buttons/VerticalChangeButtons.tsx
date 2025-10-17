@@ -1,7 +1,7 @@
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
 import { ChangeValueSideEffect } from '@/common/global/ChangeValueSideEffect';
-import { downIcon, upIcon } from '@/domain/data/icons';
+import { downIcon, upIcon } from '@/presentation/icons';
 
 type VerticalChangeButtonsProps =
 {

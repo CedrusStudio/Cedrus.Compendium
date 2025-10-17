@@ -1,27 +1,22 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
-
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
-import { CreateDefaultStance } from "@/domain/data/defaults";
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
+import { CreateDefaultStance } from '@/domain/characters/combat/Mode';
+import { displayedText } from '@/presentation/translations';
 
 type EditStancesCardProps =
 {
-    isPending: boolean;
+  isPending: boolean;
 }
 
 export default function EditStancesCard({ isPending }: EditStancesCardProps)
 {
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
 
   return (
@@ -29,7 +24,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-          <span>Postawy</span>
+          <span>{displayedText.stances}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
         </CardTitle>
       </CardHeader>

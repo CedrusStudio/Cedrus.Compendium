@@ -1,9 +1,10 @@
 import React from "react";
-import { translate } from "@/domain/data/translations";
+
 import { Breadcrumb,  BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/ui/breadcrumb";
 import { useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";
 import { isValid } from 'ulid';
+import { displayedText } from "@/presentation/translations";
 
 export default function NavbarBreadcrumb({ pathname }: { pathname: string })
 {
@@ -33,8 +34,8 @@ export default function NavbarBreadcrumb({ pathname }: { pathname: string })
                             <BreadcrumbItem>
                             {
                                 isLast 
-                                    ? <BreadcrumbPage>{translate(segment)}</BreadcrumbPage> 
-                                    : <BreadcrumbLink href={href}>{translate(segment)}</BreadcrumbLink>
+                                    ? <BreadcrumbPage>{displayedText[segment as keyof typeof displayedText] || segment}</BreadcrumbPage> 
+                                    : <BreadcrumbLink href={href}>{displayedText[segment as keyof typeof displayedText] || segment}</BreadcrumbLink>
                             }
                             </BreadcrumbItem>
                         </React.Fragment>

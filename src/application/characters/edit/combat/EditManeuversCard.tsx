@@ -1,35 +1,20 @@
 "use client";
 
 import { Button } from '@/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/ui/sheet";
-import { type Maneuver } from "@/domain/characters/Character";
-import { castTimeValues } from "@/domain/data/castTimes";
-import { CreateDefaultManeuver } from "@/domain/data/defaults";
-import { UpsertCharacterCombatType } from "@/persistence/characterSchemas";
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
+import { CreateDefaultManeuver, type Maneuver } from "@/domain/characters/combat/Maneuver";
+import { allowedCastTimes } from "@/domain/characters/Castable";
+import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
-import { TbEdit } from "react-icons/tb";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
-import { translate } from '@/domain/data/translations';
+import { displayedText } from '@/presentation/translations';
+import { editIcon } from '@/presentation/icons';
 
 type EditManeuversCardProps =
 {
@@ -38,7 +23,7 @@ type EditManeuversCardProps =
 
 export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 {
-  const { control } = useFormContext<UpsertCharacterCombatType>();
+  const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
 
   return (
@@ -46,7 +31,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-          <span className='capitalize'>{translate('maneuvers')}</span>
+          <span className='capitalize'>{displayedText.maneuvers}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
         </CardTitle>
       </CardHeader>
@@ -96,15 +81,15 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
     <Sheet>
 
       <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button"><TbEdit /></Button>
+        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
       </SheetTrigger>
 
       <SheetContent>
         
         <SheetHeader>
-          <SheetTitle>Edycja manewru</SheetTitle>
+          <SheetTitle className='first-letter:uppercase'>{displayedText.editManeuver}</SheetTitle>
           <SheetDescription>
-            Kliknij zapisz, gdy skończysz.
+           {displayedText.clickSave}
           </SheetDescription>
         </SheetHeader>
 
@@ -113,39 +98,39 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Nazwa</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.name`} inputPlaceholder="zmień nazwę..." inputClassName='w-60' />
+              <Label className='capitalize'>{displayedText.name}</Label>
+              <InputFormField<CombatDto> path={`maneuvers.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label>Ranga</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
+              <Label className='capitalize'>{displayedText.grade}</Label>
+              <InputFormField<CombatDto> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
 
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label>Opis</Label>
-            <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.description`} inputPlaceholder="zmień opis..." inputClassName='w-80' />
+            <Label className='capitalize'>{displayedText.description}</Label>
+            <InputFormField<CombatDto> path={`maneuvers.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center'>Odnowienie</Label>
-              <InputFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
+              <Label className='justify-center'>{displayedText.cooldown}</Label>
+              <InputFormField<CombatDto> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<UpsertCharacterCombatType> path={`maneuvers.${index}.castTime`} labelText='Czas Rzucania' items={castTimeValues} />
+              <SelectFormField<CombatDto> path={`maneuvers.${index}.castTime`} labelText={displayedText.castTime} items={allowedCastTimes} />
             </div>
           </div>
 
         </div>
 
         <SheetFooter>
-          <SheetClose asChild>
-            <Button variant="outline" type='button'>Zamknij</Button>
+          <SheetClose className="capitalize" asChild>
+            <Button variant="outline" type='button'>{displayedText.close}</Button>
           </SheetClose>
         </SheetFooter>
 

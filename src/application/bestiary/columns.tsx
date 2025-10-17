@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
 import { Button } from "@/common/components/ui/button";
-import { Character, getStatisticTotalTestValue, calculateTotalHealthForCharacter, calculateSelectedReduction, ReductionType, allReductionTypes, Mode, Maneuver, calculateRange, rollDamage } from "@/domain/characters/Character";
+import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/domain/data/icons";
+import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/presentation/icons";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { translate } from "@/domain/data/translations";
+
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
 
 import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
-import { reductionIcons } from "@/domain/data/icons";
+import { reductionIcons } from "@/presentation/icons";
 import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 import { Checkbox } from "@/common/components/ui/checkbox";
 import {
@@ -31,10 +31,17 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/ui/drawer";
-import { getCastTimeColors } from "@/domain/data/castTimes";
+import { getCastTimeColors } from "@/presentation/colors";
 import RollButton from "@/common/components/buttons/RollButton";
-import { colors } from "@/domain/data/colors";
+import { colors } from "@/presentation/colors";
 import RollWithImmunityButton from "@/common/components/buttons/RollWithImmunityButton";
+import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
+import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
+import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
+import { Mode } from "@/domain/characters/combat/Mode";
+import { Maneuver } from "@/domain/characters/combat/Maneuver";
+import { toCriticalRangeString, rollDamage } from "@/domain/characters/combat/Offense";
+import { displayedText } from "@/presentation/translations";
 
 export const columnKeys =
 {
@@ -48,18 +55,6 @@ export const columnKeys =
   attributes: "attributes",
   characteristics: "characteristics",
   actions: "actions",
-} as const;
-
-export const columnHeaders =
-{
-  name: "Nazwa",
-  health: "Zdrowie",
-  barrier: "Bariera",
-  defense: "Defensywa",
-  offense: "Ofensywa",
-  attributes: "Atrybuty",
-  characteristics: "Cechy",
-  category: "Kategoria",
 } as const;
 
 export const columns: AccessorKeyColumnDef<Character>[] = 
@@ -89,7 +84,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   {
     id: columnKeys.name,
     accessorKey: columnKeys.name,
-    header: columnHeaders.name,
+    header: () => <span className="capitalize">{displayedText[columnKeys.name]}</span>,
     cell: ({ row }) => <CharacterNameView character={row.original} />,
     enableHiding: false
   },
@@ -103,7 +98,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
         type="button"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        {columnHeaders.category}
+        <span className="capitalize">{displayedText[columnKeys.category]}</span>
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -113,19 +108,19 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     id: columnKeys.health,
     accessorKey: columnKeys.health,
     cell: ({ row }) => <CharacterHealthBattleView character={row.original} />,
-    header: columnHeaders.health,
+    header: () => <span className="capitalize">{displayedText[columnKeys.health]}</span>
   },
   {
     id: columnKeys.defense,
     accessorKey: columnKeys.defense,
     cell: ({ row }) => <CharacterDefensesBattleView character={row.original} />,
-    header: columnHeaders.defense
+    header: () => <span className="capitalize">{displayedText[columnKeys.defense]}</span>
   },
   {
     id: columnKeys.offense,
     accessorKey: columnKeys.offense,
     cell: ({ row }) => <CharacterOffensesBattleView character={row.original} />,
-    header: columnHeaders.offense
+    header: () => <span className="capitalize">{displayedText[columnKeys.offense]}</span>
   },
   {
     id: columnKeys.characteristics,
@@ -137,7 +132,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
         <div className="flex flex-wrap gap-2">{characteristicIcons.constitution} {getStatisticTotalTestValue(row.original.characteristics.constitution)}</div>
       </div>
     ),
-    header: columnHeaders.characteristics,
+    header: () => <span className="capitalize">{displayedText[columnKeys.characteristics]}</span>,
     meta: { initiallyHidden: true },
   },
   {
@@ -155,7 +150,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
         <div className="flex flex-wrap gap-2">{attributesIcons.willpower} {getStatisticTotalTestValue(row.original.attributes.willpower)}</div>
       </div>
     ),
-    header: columnHeaders.attributes,
+    header: () => <span className="capitalize">{displayedText[columnKeys.attributes]}</span>,
     meta: { initiallyHidden: true },
   },
   {
@@ -203,11 +198,11 @@ function CharacterDefensesBattleView({ character }: { character : Character })
       <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
         
         <FieldWithIconView value={selectedDefense.immunity} >
-          <FieldWithTooltip name={translate("immunity")}>{immunityIcon("w-5 h-5")}</FieldWithTooltip>
+          <FieldWithTooltip name={displayedText.immunity}>{immunityIcon("w-5 h-5")}</FieldWithTooltip>
         </FieldWithIconView>
 
         <FieldWithIconView value={selectedDefense.resistance} >
-          <FieldWithTooltip name={translate("resistance")}>{resistanceIcon("w-5 h-5")}</FieldWithTooltip>
+          <FieldWithTooltip name={displayedText.resistance}>{resistanceIcon("w-5 h-5")}</FieldWithTooltip>
         </FieldWithIconView>
 
         <FieldViewWithInfo
@@ -219,7 +214,7 @@ function CharacterDefensesBattleView({ character }: { character : Character })
         
         <SelectContent>
         {
-          allReductionTypes.map(reductionType => (
+          allowedReductionTypes.map(reductionType => (
             <SelectItem key={reductionType} value={reductionType}>
               <span className='capitalize'>{reductionIcons[reductionType]}</span>
             </SelectItem>
@@ -246,10 +241,10 @@ function MoreBattleActions({ character }: { character: Character })
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Akcje</DropdownMenuLabel>
+          <DropdownMenuLabel className="capitalize">{displayedText.actions}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}>Wyświetl postawy, stany i manewry</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}>Przejdź do widoku postaci</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStatesManeuvers}</span></DropdownMenuItem>
+          <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}><span className="first-letter:uppercase">{displayedText.goToCharacterView}</span></DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -273,7 +268,7 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
 
             <div className="flex flex-col gap-4 items-center col-span-2">
 
-              <DrawerTitle>Postawy</DrawerTitle>
+              <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
               
               <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
               { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
@@ -283,7 +278,7 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
 
             <div className="flex flex-col gap-4 items-center col-span-1">
 
-              <DrawerTitle>Stany</DrawerTitle>
+              <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
               <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
               { character.states.map(state => <ModeView mode={state} key={state.id} />) }
               </div>
@@ -291,7 +286,7 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
             </div>
 
             <div className="flex flex-col gap-4 items-center col-span-6">
-              <DrawerTitle>Manewry</DrawerTitle>
+              <DrawerTitle className="capitalize">{displayedText.maneuvers}</DrawerTitle>
               
               <div className="grid grid-cols-4 gap-3 items-center justify-center">
               { character.maneuvers.map(maneuver => <ManeuverView maneuver={maneuver} key={maneuver.id} />) }
@@ -327,7 +322,7 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
     <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
       <FieldViewWithInfo
         value={maneuver.grade}
-        infoContent={<span>Akcja <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
+        infoContent={<span className="capitalize">{displayedText.action} <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
         className="gap-1"
         nameClassName='w-4xs'
         infoTriggerClassName={`${getCastTimeColors(maneuver.castTime).text}`}
@@ -375,8 +370,8 @@ function CharacterOffensesBattleView({ character }: { character: Character })
       </p>
 
       <p>
-        <span className={`${colors.offense.leading}`}>{`${calculateRange(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}</span>
-        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}> | {`${calculateRange(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}</span>}
+        <span className={`${colors.offense.leading}`}>{`${toCriticalRangeString(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}</span>
+        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}> | {`${toCriticalRangeString(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}</span>}
       </p>
 
       <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />

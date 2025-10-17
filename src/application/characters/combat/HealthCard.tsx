@@ -1,6 +1,7 @@
 "use client";
 
-import { calculateTotalHealth, Health, Statistic } from '@/domain/characters/Character';
+import { calculateTotalHealth, Health } from '@/domain/characters/combat/Health';
+import { Statistic } from '@/domain/characters/statistics/Statistic';
 
 import {
   Card,
@@ -12,10 +13,9 @@ import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translate } from '@/domain/data/translations';
-import { namingConventions } from '@/domain/data/namingConventions';
+import { displayedText } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { currentValueIcon, sumIcon } from '@/domain/data/icons';
+import { currentValueIcon, sumIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type HealthCardProps = 
@@ -47,26 +47,26 @@ export default function HealthCard(input: HealthCardProps)
     <Card className='bg-muted'>
       <CardContent className='flex flex-col h-full gap-y-4'>
 
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>Życie</CardTitle>
+        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.health}</CardTitle>
 
         <FieldViewWithInfo value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} >
-          <FieldWithTooltip name={translate("sum")}>{sumIcon}</FieldWithTooltip>
+          <FieldWithTooltip name={displayedText.sum}>{sumIcon}</FieldWithTooltip>
         </FieldViewWithInfo>
 
         <FieldViewWithInfo 
           value={totalHealth + healthIncrease - damageTaken} 
           infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} 
         >
-          <FieldWithTooltip name={namingConventions.current}>{currentValueIcon}</FieldWithTooltip>
+          <FieldWithTooltip name={displayedText.current}>{currentValueIcon}</FieldWithTooltip>
         </FieldViewWithInfo>
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
             <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncreaseIfPositive} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>
@@ -83,7 +83,7 @@ function HealthInfoContent(input: { health: Health })
     {
       Object.entries(input.health)
         .filter(([name]) => name !== 'barrier')
-        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{translate(name)}</FieldView>)
+        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{displayedText[name as keyof typeof displayedText]}</FieldView>)
     }
     </div>
   );
@@ -93,9 +93,9 @@ function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: num
 {
   return (
     <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalHealth" value={input.totalHealth} childrenClassName="w-24">{namingConventions.sum}</FieldView> }
-    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' childrenClassName="w-24">{namingConventions.increase}</FieldView> }
-    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{namingConventions.damage}</FieldView> }
+    { <FieldView key="totalHealth" value={input.totalHealth} childrenClassName="w-24">{displayedText.sum}</FieldView> }
+    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' childrenClassName="w-24">{displayedText.increase}</FieldView> }
+    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{displayedText.damage}</FieldView> }
     </div>
   );
 };

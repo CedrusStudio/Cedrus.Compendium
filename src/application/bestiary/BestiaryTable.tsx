@@ -12,20 +12,22 @@ import {
 } from "@tanstack/react-table";
 
 import { useState, useEffect } from "react";
-import { namingConventions } from "@/domain/data/namingConventions";
+import { displayedText } from "@/presentation/translations";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
-import { characterCategories } from "@/domain/data/categories";
+import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/domain/data/icons";
+import { addIcon } from "@/presentation/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
+import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";
+
 
 export default function BestiaryTable()
 {
@@ -79,18 +81,18 @@ export default function BestiaryTable()
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 
         <CategorySelectFilter 
-          categories={characterCategories}
+          categories={allowedCharacterCategories}
           selectedCategory={selectedCategory}
           handleOnSelectedValueChange={handleOnSelectedValueChange}
           defaultColumnKeys={columnKeys}
-          allCategory={namingConventions.all}
+          allCategory={displayedText.all}
         />
 
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
           dispatch(actions.addSelectedToBattle(selectedCharacterIds));
-          toast.success("Dodano do walki zaznaczone postacie.");
+          toast.success(displayedText.addedToBattle);
         }}>
           {addIcon("scale-90")}
         </Button>
@@ -100,10 +102,8 @@ export default function BestiaryTable()
       </div>
 
       <BestiaryTableBody table={table} columns={columns} />
+      <BestiaryTableFooter table={table} />
 
-      <div className="text-muted-foreground flex-1 text-sm mt-2">
-        Zaznaczono {table.getFilteredSelectedRowModel().rows.length} z{" "} {table.getFilteredRowModel().rows.length}.
-      </div>
     </div>
   );
 };

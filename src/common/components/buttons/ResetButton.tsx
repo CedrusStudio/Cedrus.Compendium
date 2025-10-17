@@ -30,13 +30,13 @@ export default function ResetButton({ defaultValuesWithSetters: valuesWithSetter
 
 const reset = (defaultValue: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
 {
-    setStateAction
-    (
-        previousValue => 
-        {
-          if (previousValue === defaultValue) return previousValue;
-          sideEffect?.(defaultValue);
-          return defaultValue;
-        }
-    );
+  setStateAction
+  (
+    previousValue => 
+    {
+      if (previousValue === defaultValue) return previousValue;
+      sideEffect?.(defaultValue);
+      return defaultValue;
+    }
+  );
 };

@@ -14,6 +14,7 @@ import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
+import { displayedText } from "@/presentation/translations";
 
 type EditCharacterProps =
 {
@@ -35,11 +36,11 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
         <div className='row-span-1'>
             <div className='flex flex-row justify-between items-center'>
                 <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="statistics" overrideValue='Statystyki' />
-                    <TabsTriggerCapitalized value="character" overrideValue='Postać' />
-                    <TabsTriggerCapitalized value="combat" overrideValue='Walka' />
-                    <TabsTriggerCapitalized value="talents" overrideValue='Umiejętności' />
-                    <TabsTriggerCapitalized value="equipment" overrideValue='Ekwipunek' />
+                    <TabsTriggerCapitalized value="statistics" overrideValue={displayedText.statistics} />
+                    <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
+                    <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
+                    <TabsTriggerCapitalized value="talents" overrideValue={displayedText.talents} />
+                    <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                 </TabsList>
 
                 <Button asChild variant="default" size="icon" className='m-4'>

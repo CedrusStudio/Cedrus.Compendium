@@ -1,7 +1,9 @@
-import { attributePenaltyValues, dexterityRestrictionValues, initiativeRestrictionValues, strengthRequirementValues } from "@/domain/characters/Character";
+import { allowedResistances, allowedDexterityRestrictions, allowedInitiativeRestrictions, allowedStrengthRequirements } from "@/domain/characters/equipment/Item";
 import { Label } from "@/ui/label";
+import { allowedItemAttributePenalties } from "@/domain/characters/equipment/Item";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
-import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
+import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
+import { displayedText } from "@/presentation/translations";
 
 type EditDefensiveItemViewProps = 
 {
@@ -14,13 +16,13 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
   return (
     <div className="grid auto-rows-min gap-3 px-4">
 
-        <div className="grid auto-rows-min gap-3 px-4">
+        <div className="grid auto-rows-min gap-3 px-4 items-center justify-center">
 
-            <Label>Kara atrybutu</Label>
+            <Label className="capitalize">{displayedText.resistance}</Label>
 
-            <SelectFormField<UpsertCharacterEquipmentType> 
+            <SelectFormField<EquipmentDto> 
                 path={`${defensiveItem}.${index}.resistance`}
-                items={attributePenaltyValues}
+                items={allowedResistances}
                 noLabel
             />
 
@@ -30,11 +32,11 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Kara atrybutu</Label>
+                <Label className="capitalize">{displayedText.attributePenalty}</Label>
 
-                <SelectFormField<UpsertCharacterEquipmentType> 
+                <SelectFormField<EquipmentDto> 
                     path={`${defensiveItem}.${index}.attributePenalty`}
-                    items={attributePenaltyValues}
+                    items={allowedItemAttributePenalties}
                     noLabel
                 />
 
@@ -42,11 +44,11 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Wymaganie siły</Label>
+                <Label className="capitalize">{displayedText.strengthRequirement}</Label>
 
-                <SelectFormField<UpsertCharacterEquipmentType> 
+                <SelectFormField<EquipmentDto> 
                     path={`${defensiveItem}.${index}.strengthRequirement`}
-                    items={strengthRequirementValues}
+                    items={allowedStrengthRequirements}
                     noLabel
                 />
 
@@ -58,11 +60,11 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Ograniczenie zręczności</Label>
+                <Label className="capitalize">{displayedText.dexterityRestriction}</Label>
 
-                <SelectFormField<UpsertCharacterEquipmentType> 
+                <SelectFormField<EquipmentDto> 
                     path={`${defensiveItem}.${index}.dexterityRestriction`}
-                    items={dexterityRestrictionValues}
+                    items={allowedDexterityRestrictions}
                     noLabel
                 />
 
@@ -70,11 +72,11 @@ export default function EditDefensiveItemView({ defensiveItem, index }: EditDefe
 
             <div className="grid auto-rows-min gap-3 px-4">
 
-                <Label>Ograniczenie inicjatywy</Label>
+                <Label className="capitalize">{displayedText.initiativeRestriction}</Label>
 
-                <SelectFormField<UpsertCharacterEquipmentType> 
+                <SelectFormField<EquipmentDto> 
                     path={`${defensiveItem}.${index}.initiativeRestriction`}
-                    items={initiativeRestrictionValues}
+                    items={allowedInitiativeRestrictions}
                     noLabel
                 />
                 

@@ -1,6 +1,6 @@
 "use client";
 
-import { allReductionTypes, calculateSelectedReduction, Defense, ReductionType } from '@/domain/characters/Character';
+import { allowedReductionTypes, calculateSelectedReduction, Defense, ReductionType } from '@/domain/characters/combat/Defense';
 
 import {
   Card,
@@ -14,13 +14,12 @@ import { useEffect, useState } from 'react';
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { translate } from '@/domain/data/translations';
-import { namingConventions } from '@/domain/data/namingConventions';
+import { displayedText } from '@/presentation/translations';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { immunityIcon, reductionIcons, resistanceIcon } from '@/domain/data/icons';
+import { immunityIcon, reductionIcons, resistanceIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 import ResetButton from '@/common/components/buttons/ResetButton';
@@ -75,7 +74,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
       <CardContent className='flex flex-col h-full gap-y-4'>
 
         <FieldView value={immunity} childrenClassName='flex items-center gap-1'>
-            <FieldWithTooltip name={translate("immunity")}>
+            <FieldWithTooltip name={displayedText.immunity}>
               <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]}>
                 {immunityIcon()}
               </ResetButton>
@@ -84,7 +83,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
         </FieldView>
 
         <FieldView value={resistance} childrenClassName='flex items-center gap-1'>
-            <FieldWithTooltip name={translate("resistance")}>
+            <FieldWithTooltip name={displayedText.resistance}>
               <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]}>
                 {resistanceIcon()}
               </ResetButton>
@@ -104,7 +103,7 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
   
           <SelectContent>
           {
-            allReductionTypes.map(reductionType => (
+            allowedReductionTypes.map(reductionType => (
               <SelectItem key={reductionType} value={reductionType}>
                 <span className='capitalize'>{reductionIcons[reductionType]}</span>
               </SelectItem>
@@ -115,11 +114,11 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
         <div className='flex-1 flex flex-col justify-end gap-y-2'>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.increase}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
             <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncreaseIfPositive} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
           </div>
           <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{namingConventions.damage}</Label>
+            <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>

@@ -14,13 +14,12 @@ import {
 
 import { Table } from "@/ui/table";
 import { useState, useEffect } from "react";
-import { Talent } from "@/domain/characters/Character";
-import { UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
+import { allowedTalentCategories, Talent } from "@/domain/characters/Talent";
+import { type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
-import { talentCategories } from "@/domain/data/categories";
-import { defaultColumnKeys } from "../../talents/defaultColumns";
-import { namingConventions } from "@/domain/data/namingConventions";
+import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
+import { displayedText } from "@/presentation/translations";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
@@ -28,7 +27,6 @@ import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
-
 
 interface DataTableProps
 {
@@ -39,7 +37,7 @@ interface DataTableProps
 
 export function EditTalentsTable({ columns, initialTalents }: DataTableProps) 
 {
-  const { control } = useFormContext<UpsertCharacterTalentsType>();
+  const { control } = useFormContext<TalentsDto>();
   const { fields, update, remove, append } = useFieldArray
   ({
     name: "talents",
@@ -105,8 +103,8 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
             selectedCategory={selectedCategory}
             handleOnSelectedValueChange={handleOnSelectedValueChange}
             defaultColumnKeys={defaultColumnKeys}
-            allCategory={namingConventions.all}
-            categories={talentCategories}
+            allCategory={displayedText.all}
+            categories={allowedTalentCategories}
           />
 
           <AddTalentView append={append} setNameFilter={setNameFilter} />

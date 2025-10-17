@@ -1,10 +1,12 @@
-import { UpsertCharacterEquipmentType } from "@/persistence/characterSchemas";
-import { Label } from "@/ui/label"
+import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
+import { Label } from "@/ui/label";
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import ArmorView from "@/application/characters/equipment/ArmorView";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
-import { Armor, pathToArmorsField, protectionValues } from "@/domain/characters/Character";
+import { Armor, allowedProtections } from "@/domain/characters/equipment/Armor";
+import { pathToArmorsField } from "@/domain/characters/equipment/Equipment";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
+import { displayedText } from "@/presentation/translations";
 
 type EditArmorViewProps = 
 {
@@ -26,13 +28,13 @@ function EditArmorSheet({ armor, index }: EditArmorViewProps)
 {
   return (
     <EditItemSheet item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} >
-      <div className="grid auto-rows-min gap-3 px-4">
+      <div className="grid auto-rows-min gap-3 justify-center items-center">
 
-        <Label>Pancerz</Label>
+        <Label className="capitalize">{displayedText.protection}</Label>
 
-        <SelectFormField<UpsertCharacterEquipmentType> 
+        <SelectFormField<EquipmentDto> 
           path={pathToArmorsField(index, `protection`)}
-          items={protectionValues}
+          items={allowedProtections}
           noLabel
         />
 

@@ -1,5 +1,6 @@
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
-import { Item } from "@/domain/characters/Character";
+import { Item } from "@/domain/characters/equipment/Item";
+import { displayedText } from "@/presentation/translations";
 
 type EditInventoryItemViewProps = 
 {
@@ -11,7 +12,7 @@ export default function EditInventoryItemView({ index, inventory }: EditInventor
 {
   return (
     <div className="flex flex-row justify-between items-start">
-      <span>Opis: {inventory.description}</span>
+      <span>{displayedText.description}: {inventory.description}</span>
       <EditInventorySheet inventory={inventory} index={index} />
     </div>
   );

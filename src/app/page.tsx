@@ -2,7 +2,8 @@ import Image from "next/image";
 import LandingImg from "../assets/main.png";
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import { translate } from "@/domain/data/translations";
+
+import { displayedText } from "@/presentation/translations";
 
 export default function HomePage() 
 {
@@ -27,7 +28,7 @@ const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
     <h1 className="capitalize text-4xl md:text-7xl font-bold">
-      Uniwersum <span className="text-primary">Cedrus</span>
+      {displayedText.applicationHeading}
     </h1>
   </div>
 );
@@ -35,15 +36,15 @@ const Heading = () =>
 const Description = () =>
 (
   <p className="leading-loose max-w-md mt-2">
-    Jest to aplikacja webowa stworzona z myślą o miłośnikach gier fabularnych, oferująca narzędzia do zarządzania postaciami, przeciwnikami i zasobami, ułatwiając prowadzenie i uczestnictwo w sesjach RPG.
+    {displayedText.applicationDescription}
   </p>
 );
 
-const StartButtonLink = ({ name }: { name: string }) => 
+const StartButtonLink = ({ name }: { name: keyof typeof displayedText }) => 
 (
   <Button asChild>
     <Link href={`/${name}`} className="capitalize">
-      {translate(name)}
+      {displayedText[name]}
     </Link>
   </Button>
 );

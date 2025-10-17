@@ -10,14 +10,15 @@ import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { UpsertCharacterCombatType, upsertCharacterCombatSchema } from "@/persistence/characterSchemas";
+import { combatSchema, type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import bffClient from "@/infrastructure/bffClient";
 import { Label } from "@radix-ui/react-label";
-import { translate } from "@/domain/data/translations";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
-import { CreateDefaultDefense, CreateDefaultOffense } from "@/domain/data/defaults";
+import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
+import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
+import { displayedText } from "@/presentation/translations";
 
 type EditCharacterCombatProps =
 {
@@ -28,7 +29,7 @@ const combatFormName = "edit-combat-form";
 
 export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
-  const initialValues: UpsertCharacterCombatType = 
+  const initialValues: CombatDto = 
   {
     defenses: character.defenses,
     health: character.health,
@@ -36,18 +37,20 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
     states: character.states,
     maneuvers: character.maneuvers,
     offenses: character.offenses,
+    powers: character.powers,
+    perks: character.perks
   };
 
-  const form = useForm<UpsertCharacterCombatType>
+  const form = useForm<CombatDto>
   ({
-    resolver: zodResolver(upsertCharacterCombatSchema),
+    resolver: zodResolver(combatSchema),
     defaultValues: initialValues,
     mode: "onBlur",
   });
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterCombat: UpsertCharacterCombatType) => await bffClient.upsertCharacter
+    async (characterCombat: CombatDto) => await bffClient.upsertCharacter
     (
       character.id, { ...character, ...characterCombat }
     ), 
@@ -57,13 +60,13 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
     }
   );
 
-  const { fields: offenses, append: appendOffense, remove: removeOffense } = useFieldArray<UpsertCharacterCombatType, "offenses">
+  const { fields: offenses, append: appendOffense, remove: removeOffense } = useFieldArray<CombatDto, "offenses">
   ({
       name: "offenses",
       control: form.control
   });
 
-  const { fields: defenses, append: appendDefense, remove: removeDefense } = useFieldArray<UpsertCharacterCombatType, "defenses">
+  const { fields: defenses, append: appendDefense, remove: removeDefense } = useFieldArray<CombatDto, "defenses">
   ({
       name: "defenses",
       control: form.control
@@ -80,8 +83,8 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         <div className="space-y-3 flex flex-col justify-center">
 
           <div className="flex justify-center items-center gap-3">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("offenses")}</Label>
-            <AppendToArrayButton<UpsertCharacterCombatType, "offenses"> 
+            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.offenses}</Label>
+            <AppendToArrayButton<CombatDto, "offenses"> 
               isPending={isPending}
               toAdd={CreateDefaultOffense}
               append={appendOffense}
@@ -98,8 +101,8 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         <div className="space-y-3 flex flex-col justify-center">
           
           <div className="flex justify-center items-center gap-3">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{translate("defenses")}</Label>
-            <AppendToArrayButton<UpsertCharacterCombatType, "defenses"> 
+            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.defenses}</Label>
+            <AppendToArrayButton<CombatDto, "defenses"> 
               isPending={isPending}
               toAdd={CreateDefaultDefense}
               append={appendDefense}

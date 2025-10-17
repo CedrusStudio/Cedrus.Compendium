@@ -14,7 +14,7 @@ type CharacterProps =
 {
   params: 
   {
-      id: string;
+    id: string;
   },
   searchParams: { [key: string]: string | string[] | undefined }
 };

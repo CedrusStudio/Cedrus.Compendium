@@ -30,13 +30,13 @@ export default function IncreaseButton({ value, setValue, variant = "outline", c
 
 const increase = (changeBy: number, setStateAction: React.Dispatch<React.SetStateAction<number>>, sideEffect?: ChangeValueSideEffect) => 
 {
-    setStateAction
-    (
-      previousValue => 
-      {
-        const newValue = previousValue + changeBy;
-        sideEffect?.(newValue);
-        return newValue;
-      }
-    );
+  setStateAction
+  (
+    previousValue => 
+    {
+      const newValue = previousValue + changeBy;
+      sideEffect?.(newValue);
+      return newValue;
+    }
+  );
 };
