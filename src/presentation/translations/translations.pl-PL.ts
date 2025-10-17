@@ -162,5 +162,7 @@ export const translations_plPL =
     characterUpdatedSuccessfully: "Postać została pomyślnie zaktualizowana",
     success: "Sukces",
     error: "Błąd",
+    perk: "atut",
+    perks: "atuty",
 } as const;
 
