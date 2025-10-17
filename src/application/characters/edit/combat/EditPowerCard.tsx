@@ -13,7 +13,7 @@ import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { displayedText } from '@/presentation/translations';
 import { editIcon } from '@/presentation/icons';
-import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpellField, Spell, type Power } from '@/domain/characters/combat/Power';
+import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpellField, powerFieldOrder, Spell, type Power } from '@/domain/characters/combat/Power';
 import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
@@ -47,6 +47,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
             { 
               (Object.keys(power) as (keyof PowerDto)[])
                 .filter(NotNameOrTypeOrId)
+                .sort(powerFieldOrder)
                 .map(key => InputFormWithLabel(index, key as keyof PowerDto)) 
             }
             </div>

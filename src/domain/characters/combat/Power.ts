@@ -49,3 +49,22 @@ export const defaultPower: Omit<Power, "id"> =
 };
 
 export const CreateDefaultPower = (): Power => ({...defaultPower, id: ulid()});
+
+const powerFieldOrderArray: (keyof Power)[] = [
+  'name',
+  'type',
+  'level',
+  'bonus',
+  'essence',
+  'spells'
+];
+
+export const powerFieldOrder = (a: keyof Power, b: keyof Power) => 
+{
+  const indexA = powerFieldOrderArray.indexOf(a);
+  const indexB = powerFieldOrderArray.indexOf(b);
+  if (indexA === -1 && indexB === -1) return String(a).localeCompare(String(b));
+  if (indexA === -1) return 1;
+  if (indexB === -1) return -1;
+  return indexA - indexB;
+}
