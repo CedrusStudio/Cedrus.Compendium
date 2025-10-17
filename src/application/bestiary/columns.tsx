@@ -271,37 +271,37 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
 {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-        <DrawerContent>
-          <DrawerHeader className="grid grid-cols-9">
+      <DrawerContent>
+        <DrawerHeader className="grid grid-cols-9">
 
-            <div className="flex flex-col gap-4 items-center col-span-2">
+          <div className="flex flex-col gap-4 items-center col-span-2">
 
-              <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
-              
-              <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-              { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
-              </div>
-
+            <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
+            
+            <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
+            { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
             </div>
 
-            <div className="flex flex-col gap-4 items-center col-span-1">
+          </div>
 
-              <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
-              <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-              { character.states.map(state => <ModeView mode={state} key={state.id} />) }
-              </div>
+          <div className="flex flex-col gap-4 items-center col-span-1">
 
+            <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
+            <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
+            { character.states.map(state => <ModeView mode={state} key={state.id} />) }
             </div>
 
-            <div className="flex flex-col gap-4 items-center col-span-6">
-              <DrawerTitle className="capitalize">{displayedText.maneuvers}</DrawerTitle>
-              
-              <div className="grid grid-cols-4 gap-3 items-center justify-center">
-              { character.maneuvers.map(maneuver => <ManeuverView maneuver={maneuver} key={maneuver.id} />) }
-              </div>
-            </div>
+          </div>
 
-          </DrawerHeader>
+          <div className="flex flex-col gap-4 items-center col-span-6">
+            <DrawerTitle className="capitalize">{displayedText.maneuvers}</DrawerTitle>
+            
+            <div className="grid grid-cols-4 gap-3 items-center justify-center">
+            { character.maneuvers.map(maneuver => <ManeuverView maneuver={maneuver} key={maneuver.id} />) }
+            </div>
+          </div>
+
+        </DrawerHeader>
       </DrawerContent>
     </Drawer>
   );
@@ -358,7 +358,7 @@ function CharacterPowersViewDrawer({ character, open, onOpenChange }: { characte
 function PowerView({ power }: { power: Power })
 {
   return (
-    <div className="flex flex-col gap-4 items-center col-span-3 border-1 rounded-md p-4 m-2">
+    <div className="flex flex-col gap-4 items-center border-1 rounded-md p-4 m-2">
 
       <DrawerTitle className="flex flex-row gap-3">
 
@@ -381,9 +381,10 @@ function PowerView({ power }: { power: Power })
 
       </DrawerTitle>
 
-      <div className="grid grid-cols-4 gap-3 items-center justify-center">
+      <div className="flex flex-row items-center justify-center flex-wrap gap-3">
         {power.spells.map(spell => <SpellView spell={spell} key={spell.id} />)}
       </div>
+      
     </div>
   );
 }
@@ -391,7 +392,7 @@ function PowerView({ power }: { power: Power })
 function SpellView({ spell }: { spell: Spell })
 {
   return (
-    <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
+    <div className='flex items-center justify-center p-2 border rounded-md min-w-50'>
       <FieldViewWithInfo
         value={spell.grade}
         infoContent={<span className="capitalize">{displayedText.action} <span className={`${getCastTimeColors(spell.castTime).text}`}>{spell.castTime.toLowerCase()}</span>. {spell.description}</span>}
