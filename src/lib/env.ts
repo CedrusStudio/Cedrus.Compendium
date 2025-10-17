@@ -31,3 +31,4 @@ const parseLanguageEnvironmentVariables = () =>
 };
 
 export const languageSettings = parseLanguageEnvironmentVariables();
+export const databaseConnectionString = process.env.DATABASE_CONNECTION_STRING as string;

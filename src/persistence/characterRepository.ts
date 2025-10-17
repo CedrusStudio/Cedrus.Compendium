@@ -4,8 +4,12 @@
 import 'server-only';
 import { Character, CreateEmptyCharacter } from "@/domain/characters/Character";
 import fs from 'fs';
-import { UpsertCharacterCombatType, UpsertCharacterEquipmentType, UpsertCharacterHeaderType, UpsertCharacterStatisticsType, UpsertCharacterTalentsType } from "@/persistence/characterSchemas";
 import { ulid } from 'ulid';
+import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
+import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
+import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
+import { DetailsDto } from '@/persistence/schemas/characters/headerSchema';
+import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 
 type Database = 
 {
@@ -20,7 +24,7 @@ const readDatabase = (): Database =>
     return JSON.parse(data);
 };
 
-export const upsertCharacterStatistics: (id: string, characterStatistics: UpsertCharacterStatisticsType) => Promise<void> = async (id, characterStatistics) =>
+export const upsertCharacterStatistics: (id: string, characterStatistics: StatisticsDto) => Promise<void> = async (id, characterStatistics) =>
 {
     const database = readDatabase();
 
@@ -43,7 +47,7 @@ export const upsertCharacterStatistics: (id: string, characterStatistics: Upsert
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 };
 
-export const upsertCharacterTalents: (id: string, characterTalents: UpsertCharacterTalentsType) => Promise<void> = async (id, characterTalents) =>
+export const upsertCharacterTalents: (id: string, characterTalents: TalentsDto) => Promise<void> = async (id, characterTalents) =>
 {
     const database = readDatabase();
 
@@ -66,7 +70,7 @@ export const upsertCharacterTalents: (id: string, characterTalents: UpsertCharac
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 };
 
-export const upsertCharacterEquipment: (id: string, characterEquipment: UpsertCharacterEquipmentType) => Promise<void> = async (id, characterEquipment) =>
+export const upsertCharacterEquipment: (id: string, characterEquipment: EquipmentDto) => Promise<void> = async (id, characterEquipment) =>
 {
     const database = readDatabase();
 
@@ -89,7 +93,7 @@ export const upsertCharacterEquipment: (id: string, characterEquipment: UpsertCh
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 };
 
-export const upsertCharacterHeader: (id: string, characterHeader: UpsertCharacterHeaderType) => Promise<void> = async (id, characterHeader) =>
+export const upsertCharacterHeader: (id: string, characterHeader: DetailsDto) => Promise<void> = async (id, characterHeader) =>
 {
     const database = readDatabase();
 
@@ -112,7 +116,7 @@ export const upsertCharacterHeader: (id: string, characterHeader: UpsertCharacte
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 };
 
-export const addCharacter: (characterHeader: UpsertCharacterHeaderType) => Promise<string> = async (characterHeader) =>
+export const addCharacter: (characterHeader: DetailsDto) => Promise<string> = async (characterHeader) =>
 {
     const database = readDatabase();
 
@@ -140,7 +144,7 @@ export const addCharacter: (characterHeader: UpsertCharacterHeaderType) => Promi
     return characterToAdd.id;
 };
 
-export const upsertCharacterCombat: (id: string, characterCombat: UpsertCharacterCombatType) => Promise<void> = async (id, characterCombat) =>
+export const upsertCharacterCombat: (id: string, characterCombat: CombatDto) => Promise<void> = async (id, characterCombat) =>
 {
     const database = readDatabase();
 

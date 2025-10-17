@@ -23,8 +23,8 @@ export default async function CharactersPage(input: CharactersPageProps)
 
   await queryClient.prefetchQuery<Character[]>
   ({
-      queryKey: getCharacterQueryKey(searchQuery),
-      queryFn: () => searchQuery ? searchCharacter(searchQuery) : getAllCharacters()
+    queryKey: getCharacterQueryKey(searchQuery),
+    queryFn: () => searchQuery ? searchCharacter(searchQuery) : getAllCharacters()
   });
 
   return (
