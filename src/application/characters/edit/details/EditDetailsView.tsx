@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { upsertCharacterHeader } from "@/persistence/characterRepository";
-import { type  DetailsDto, detailsSchema } from "@/persistence/schemas/characters/headerSchema";
+import { type DetailsDto, detailsSchema } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
@@ -15,9 +15,9 @@ import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { displayedText } from "@/presentation/translations";
 import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import EditPerksList from "@/application/characters/edit/details/EditPerksList";
 import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
+import { Separator } from "@/common/components/ui/separator";
 
 export default function EditDetailsView(input: { character: Character })
 {
@@ -64,6 +64,7 @@ export default function EditDetailsView(input: { character: Character })
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <EditHeader />
+                <Separator className="my-4" />
                 <EditPerksList isPending={isPending} perks={perks} append={appendPerk} remove={removePerk} />
                 <SubmitButton isPending={isPending} />
             </form>
@@ -74,47 +75,39 @@ export default function EditDetailsView(input: { character: Character })
 function EditHeader()
 {
     return (
-        <Card className='bg-muted'>
-            <CardHeader>
-                <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
+        <div className="flex flex-col gap-6 pt-2">
+            <div className="flex flex-row justify-center items-center gap-6 flex-1">
 
-                    <div className="flex flex-row justify-center items-center gap-6 flex-1">
+                <div className="flex flex-col justify-center items-center gap-6">
+                    <InputFormField<DetailsDto> 
+                        path="name" 
+                        inputPlaceholder={displayedText.changeName} 
+                        inputClassName="w-lg"
+                        />
+                </div>
 
-                        <div className="flex flex-col justify-center items-center gap-6">
-                            <InputFormField<DetailsDto> 
-                                path="name" 
-                                inputPlaceholder={displayedText.changeName} 
-                                inputClassName="w-lg"
-                            />
-                        </div>
+                <div className="flex flex-col justify-center items-center gap-6">
+                    <InputFormField<DetailsDto> 
+                        path="shortName" 
+                        inputPlaceholder={displayedText.changeShortName} 
+                        inputClassName="w-30"
+                        />
+                </div>
 
-                        <div className="flex flex-col justify-center items-center gap-6">
-                            <InputFormField<DetailsDto> 
-                                path="shortName" 
-                                inputPlaceholder={displayedText.changeShortName} 
-                                inputClassName="w-30"
-                            />
-                        </div>
+                <div className="flex flex-col justify-center items-center gap-6">
+                    <SelectFormField<DetailsDto>
+                        path="category"
+                        items={allowedCharacterCategories}
+                        noLabel
+                        />
+                </div>
 
-                        <div className="flex flex-col justify-center items-center gap-6">
-                            <SelectFormField<DetailsDto>
-                                path="category"
-                                items={allowedCharacterCategories}
-                                noLabel
-                            />
-                        </div>
-
-                    </div>
-
-                </CardTitle>
-            </CardHeader>
-
-            <CardContent>
-                <AreaInputFormField<DetailsDto> 
-                    path="description" 
-                    inputPlaceholder={displayedText.changeDescription} 
+            </div>
+    
+            <AreaInputFormField<DetailsDto> 
+                path="description" 
+                inputPlaceholder={displayedText.changeDescription} 
                 />
-            </CardContent>
-        </Card>
+        </div>
     )
 }
