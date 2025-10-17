@@ -82,19 +82,16 @@ function EditHeader({ isPending }: EditHeaderProps)
         <Card className='bg-muted'>
             <CardHeader>
                 <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
-                    <div className="grid grid-cols-3 items-center">
-                        <div className="row-span-1" />
-                        
-                        <div className="col-span-1 flex flex-row justify-center items-center gap-6">
-                            
+                    <div className="flex flex-row items-center gap-8 w-full">
+
+                        <div className="flex flex-row justify-center items-center gap-6 flex-1">
                             <div className="flex flex-col justify-center items-center gap-6">
                                 <InputFormField<HeaderDto> 
                                     path="name" 
                                     inputPlaceholder={displayedText.changeName} 
                                     inputClassName="w-lg"
-                                    />
+                                />
                             </div>
-
                             <div className="flex flex-col justify-center items-center gap-6">
                                 <InputFormField<HeaderDto> 
                                     path="shortName" 
@@ -102,7 +99,6 @@ function EditHeader({ isPending }: EditHeaderProps)
                                     inputClassName="w-30"
                                 />
                             </div>
-
                             <div className="flex flex-col justify-center items-center gap-6">
                                 <SelectFormField<HeaderDto>
                                     path="category"
@@ -110,10 +106,9 @@ function EditHeader({ isPending }: EditHeaderProps)
                                     noLabel
                                 />
                             </div>
-
                         </div>
-
-                        <div className="row-span-1 flex justify-end">
+                        
+                        <div className="flex justify-end items-center">
                             <SubmitButton isPending={isPending} />
                         </div>
                     </div>
@@ -126,7 +121,6 @@ function EditHeader({ isPending }: EditHeaderProps)
                     inputPlaceholder={displayedText.changeDescription} 
                 />
             </CardContent>
-
         </Card>
     )
 }
