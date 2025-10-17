@@ -183,6 +183,7 @@ export const displayedText =
     editingMode: translate("editingMode"),
     actions: translate("actions"),
     showStancesStatesManeuvers: translate("showStancesStatesManeuvers"),
+    showPowers: translate("showPowers"),
     goToCharacterView: translate("goToCharacterView"),
 
     changeGallop: translate("changeGallop"),

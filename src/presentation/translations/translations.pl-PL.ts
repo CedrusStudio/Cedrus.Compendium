@@ -156,6 +156,7 @@ export const translations_plPL =
     editingMode: "edytujesz tryb",
     actions: "akcje",
     showStancesStatesManeuvers: "wyświetl postawy, stany i manewry",
+    showPowers: "wyświetl moce",
     goToCharacterView: "przejdź do widoku postaci",
     
     changeGallop: "zmień galop",
