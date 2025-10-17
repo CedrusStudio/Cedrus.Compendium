@@ -11,7 +11,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from '@/ui/form';
 import { displayedText } from '@/presentation/translations';
 
@@ -31,6 +30,7 @@ export function SelectFormField<TFieldValues extends FieldValues>({ path, items,
         <FormField control={control} name={path} render={({field}) => (
             <FormItem>
                 {!noLabel && <FormLabel className='capitalize'>{displayedText[(labelText || path) as keyof typeof displayedText] }</FormLabel>}
+                
                 <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
 
                     <FormControl>
@@ -50,7 +50,6 @@ export function SelectFormField<TFieldValues extends FieldValues>({ path, items,
                     </SelectContent>
                 </Select>
 
-                <FormMessage />
             </FormItem>
             )}
         />

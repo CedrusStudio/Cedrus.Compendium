@@ -70,6 +70,7 @@ export const translations_plPL =
     power: "siła",
     style: "styl",
     maneuvers: "manewry",
+    powers: "moce",
     stances: "postawy",
     states: "stany",
     weapons: "bronie",
@@ -116,6 +117,9 @@ export const translations_plPL =
 
     addNewTalent: "dodaj nową umiejętność",
     editManeuver: "edycja manewru",
+    editPower: "edycja mocy",
+    editSpell: "edycja zaklęcia",
+    editPerk: "edycja atutu",
     editingItem: "edytujesz przedmiot",
     pace: "kłus",
     gallop: "galop",
@@ -152,6 +156,7 @@ export const translations_plPL =
     editingMode: "edytujesz tryb",
     actions: "akcje",
     showStancesStatesManeuvers: "wyświetl postawy, stany i manewry",
+    showPowers: "wyświetl moce",
     goToCharacterView: "przejdź do widoku postaci",
     
     changeGallop: "zmień galop",
@@ -162,5 +167,16 @@ export const translations_plPL =
     characterUpdatedSuccessfully: "Postać została pomyślnie zaktualizowana",
     success: "Sukces",
     error: "Błąd",
+    perk: "atut",
+    perks: "atuty",
+
+    type: "rodzaj",
+    level: "poziom",
+    essence: "esencja",
+    spells: "zaklęcia",
+
+    cost: "koszt",
+    price: "cena",
+    requirements: "wymagania",
 } as const;
 

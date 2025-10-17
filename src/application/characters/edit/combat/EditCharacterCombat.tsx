@@ -6,6 +6,7 @@ import EditOffenseCard from "@/application/characters/edit/combat/EditOffenseCar
 import EditStancesCard from "@/application/characters/edit/combat/EditStancesCard";
 import EditStatesCard from "@/application/characters/edit/combat/EditStatesCard";
 import EditManeuversCard from "@/application/characters/edit/combat/EditManeuversCard";
+import EditPowerCard from "@/application/characters/edit/combat/EditPowerCard";
 import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +20,7 @@ import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
 import { displayedText } from "@/presentation/translations";
+import { CreateDefaultPower } from "@/domain/characters/combat/Power";
 
 type EditCharacterCombatProps =
 {
@@ -62,14 +64,20 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
   const { fields: offenses, append: appendOffense, remove: removeOffense } = useFieldArray<CombatDto, "offenses">
   ({
-      name: "offenses",
-      control: form.control
+    name: "offenses",
+    control: form.control
   });
 
   const { fields: defenses, append: appendDefense, remove: removeDefense } = useFieldArray<CombatDto, "defenses">
   ({
-      name: "defenses",
-      control: form.control
+    name: "defenses",
+    control: form.control
+  });
+
+  const { fields: powers, append: appendPower, remove: removePower } = useFieldArray<CombatDto, "powers">
+  ({
+    name: "powers",
+    control: form.control
   });
 
   return (
@@ -122,6 +130,25 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         </div>
 
         <EditManeuversCard isPending={isPending} />
+
+        <div className="space-y-3 flex flex-col justify-center">
+          
+          <div className="flex justify-center items-center gap-3">
+            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.powers}</Label>
+            <AppendToArrayButton<CombatDto, "powers"> 
+              isPending={isPending}
+              toAdd={CreateDefaultPower}
+              append={appendPower}
+            />
+          </div>
+          
+          <div className="grid gap-3">
+          {
+            powers.map((power, index) => <EditPowerCard key={power.id} power={power} isPending={isPending} index={index} remove={removePower} />)
+          }
+          </div>
+        </div>
+
         <SubmitButton isPending={isPending} />
       </form>
     </Form>

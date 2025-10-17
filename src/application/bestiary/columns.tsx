@@ -42,6 +42,8 @@ import { Mode } from "@/domain/characters/combat/Mode";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
 import { toCriticalRangeString, rollDamage } from "@/domain/characters/combat/Offense";
 import { displayedText } from "@/presentation/translations";
+import { Power, Spell } from "@/domain/characters/combat/Power";
+import { Badge } from "@/common/components/ui/badge";
 
 export const columnKeys =
 {
@@ -231,6 +233,7 @@ function MoreBattleActions({ character }: { character: Character })
 {
   const route = useRouter();
   const [isModesAndManeuversDrawerOpen, setIsModesAndManeuversDrawerOpen] = useState(false);
+  const [isPowersDrawerOpen, setIsPowersDrawerOpen] = useState(false);
 
   return (
     <>
@@ -244,6 +247,7 @@ function MoreBattleActions({ character }: { character: Character })
           <DropdownMenuLabel className="capitalize">{displayedText.actions}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStatesManeuvers}</span></DropdownMenuItem>
+          { character.powers.length > 0 && <DropdownMenuItem onClick={() => setIsPowersDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPowers}</span></DropdownMenuItem>}
           <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}><span className="first-letter:uppercase">{displayedText.goToCharacterView}</span></DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -253,6 +257,12 @@ function MoreBattleActions({ character }: { character: Character })
         open={isModesAndManeuversDrawerOpen}
         onOpenChange={setIsModesAndManeuversDrawerOpen}
       />
+
+      <CharacterPowersViewDrawer
+        character={character}
+        open={isPowersDrawerOpen}
+        onOpenChange={setIsPowersDrawerOpen}
+      />
     </>
   );
 }
@@ -261,40 +271,37 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
 {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
+      <DrawerContent>
+        <DrawerHeader className="grid grid-cols-9">
 
-        <DrawerContent>
+          <div className="flex flex-col gap-4 items-center col-span-2">
 
-          <DrawerHeader className="grid grid-cols-9">
-
-            <div className="flex flex-col gap-4 items-center col-span-2">
-
-              <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
-              
-              <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-              { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
-              </div>
-
+            <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
+            
+            <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
+            { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
             </div>
 
-            <div className="flex flex-col gap-4 items-center col-span-1">
+          </div>
 
-              <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
-              <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-              { character.states.map(state => <ModeView mode={state} key={state.id} />) }
-              </div>
+          <div className="flex flex-col gap-4 items-center col-span-1">
 
+            <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
+            <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
+            { character.states.map(state => <ModeView mode={state} key={state.id} />) }
             </div>
 
-            <div className="flex flex-col gap-4 items-center col-span-6">
-              <DrawerTitle className="capitalize">{displayedText.maneuvers}</DrawerTitle>
-              
-              <div className="grid grid-cols-4 gap-3 items-center justify-center">
-              { character.maneuvers.map(maneuver => <ManeuverView maneuver={maneuver} key={maneuver.id} />) }
-              </div>
+          </div>
+
+          <div className="flex flex-col gap-4 items-center col-span-6">
+            <DrawerTitle className="capitalize">{displayedText.maneuvers}</DrawerTitle>
+            
+            <div className="grid grid-cols-4 gap-3 items-center justify-center">
+            { character.maneuvers.map(maneuver => <ManeuverView maneuver={maneuver} key={maneuver.id} />) }
             </div>
+          </div>
 
-          </DrawerHeader>
-
+        </DrawerHeader>
       </DrawerContent>
     </Drawer>
   );
@@ -328,6 +335,72 @@ function ManeuverView({ maneuver }: { maneuver: Maneuver })
         infoTriggerClassName={`${getCastTimeColors(maneuver.castTime).text}`}
       >
         {maneuver.name}
+      </FieldViewWithInfo>
+    </div>
+  );
+}
+
+function CharacterPowersViewDrawer({ character, open, onOpenChange }: { character: Character, open: boolean, onOpenChange: (open: boolean) => void })
+{
+  return (
+    <Drawer open={open} onOpenChange={onOpenChange}>
+      <DrawerContent>
+        <DrawerHeader className="flex flex-row items-center justify-center">
+        {
+          character.powers.map(power => <PowerView power={power} key={power.id} />)
+        }
+        </DrawerHeader>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
+function PowerView({ power }: { power: Power })
+{
+  return (
+    <div className="flex flex-col gap-4 items-center border-1 rounded-md p-4 m-2">
+
+      <DrawerTitle className="flex flex-row gap-3">
+
+        <FieldViewWithInfo
+          value={power.level + power.bonus}
+          infoContent=
+          {
+            <>
+              <div className="capitalize">{displayedText.level} {power.level}</div>
+              <div className="capitalize">{displayedText.bonus} {power.bonus}</div>
+            </>
+          }
+          className="gap-1"
+          nameClassName='w-4xs'
+        >
+          {power.name} 
+        </FieldViewWithInfo>
+        
+        <Badge variant="default" className="capitalize">{power.essence}</Badge>
+
+      </DrawerTitle>
+
+      <div className="flex flex-row items-center justify-center flex-wrap gap-3">
+        {power.spells.map(spell => <SpellView spell={spell} key={spell.id} />)}
+      </div>
+      
+    </div>
+  );
+}
+
+function SpellView({ spell }: { spell: Spell })
+{
+  return (
+    <div className='flex items-center justify-center p-2 border rounded-md min-w-50'>
+      <FieldViewWithInfo
+        value={spell.grade}
+        infoContent={<span className="capitalize">{displayedText.action} <span className={`${getCastTimeColors(spell.castTime).text}`}>{spell.castTime.toLowerCase()}</span>. {spell.description}</span>}
+        className="gap-1"
+        nameClassName='w-4xs'
+        infoTriggerClassName={`${getCastTimeColors(spell.castTime).text}`}
+      >
+        {spell.name}
       </FieldViewWithInfo>
     </div>
   );

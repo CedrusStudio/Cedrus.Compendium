@@ -10,11 +10,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/ui/alert-dialog"
+} from "@/ui/alert-dialog";
 import StatisticsView from '@/application/characters/statistics/StatisticsView';
-import { columns } from "@/application/characters/talents/talentsColumns"
-import { TalentsTable } from "@/application/characters/talents/TalentsTable"
-import { Tabs, TabsContent, TabsList } from "@/ui/tabs"
+import { columns } from "@/application/characters/talents/talentsColumns";
+import { TalentsTable } from "@/application/characters/talents/TalentsTable";
+import { Tabs, TabsContent, TabsList } from "@/ui/tabs";
 import { Separator } from '@/ui/separator';
 import EquipmentView from '@/application/characters/equipment/EquipmentView';
 import CombatView from '@/application/characters/combat/CombatView';
@@ -27,7 +27,7 @@ import { useGetCharacterById } from '@/application/characters/hooks/useGetCharac
 import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
 import { displayedText } from "@/presentation/translations";
-import CharacterOverview from "@/application/characters/CharacterOverview";
+import DetailsView from "@/application/characters/details/DetailsView";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
 import { editIcon } from "@/presentation/icons";
@@ -90,7 +90,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
             <div className='row-span-14 mx-4'>
                 <TabsContent value="character">
-                    <CharacterOverview character={character} />
+                    <DetailsView character={character} />
                 </TabsContent>
 
                 <TabsContent value="combat">

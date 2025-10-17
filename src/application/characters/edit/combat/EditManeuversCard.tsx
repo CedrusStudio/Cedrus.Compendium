@@ -15,6 +15,7 @@ import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButto
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { displayedText } from '@/presentation/translations';
 import { editIcon } from '@/presentation/icons';
+import { pathToManeuverField } from '@/domain/characters/combat/Maneuver';
 
 type EditManeuversCardProps =
 {
@@ -58,8 +59,8 @@ function EditManeuverView({ maneuver, index, remove }: EditManeuverViewProps)
   return (
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2 min-h-24">
       <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">{maneuver.name}</h4>
-          <p className="text-sm text-muted-foreground">{maneuver.description}</p>
+        <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
+        <p className="text-sm text-muted-foreground">{maneuver.description}</p>
       </div>
 
       <div className="flex flex-row gap-2">
@@ -99,30 +100,30 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<CombatDto> path={`maneuvers.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
+              <InputFormField<CombatDto> path={pathToManeuverField(index, 'name')} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<CombatDto> path={`maneuvers.${index}.grade`} inputClassName="w-11 h-10 text-center font-medium" />
+              <InputFormField<CombatDto> path={pathToManeuverField(index, 'grade')} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
 
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<CombatDto> path={`maneuvers.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
+            <InputFormField<CombatDto> path={pathToManeuverField(index, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='justify-center'>{displayedText.cooldown}</Label>
-              <InputFormField<CombatDto> path={`maneuvers.${index}.cooldown`} inputClassName='w-11 h-10 text-center font-medium' />
+              <InputFormField<CombatDto> path={pathToManeuverField(index, 'cooldown')} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<CombatDto> path={`maneuvers.${index}.castTime`} labelText={displayedText.castTime} items={allowedCastTimes} />
+              <SelectFormField<CombatDto> path={pathToManeuverField(index, 'castTime')} labelText={displayedText.castTime} items={allowedCastTimes} />
             </div>
           </div>
 

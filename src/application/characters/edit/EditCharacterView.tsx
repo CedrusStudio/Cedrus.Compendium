@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/ui/button';
 import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
 import { RiArrowGoBackFill } from "react-icons/ri";
-import EditCharacterOverview from '@/application/characters/edit/EditCharacterOverview';
+import EditDetailsView from '@/application/characters/edit/details/EditDetailsView';
 import EditCharacterStatistics from '@/application/characters/edit/statistics/EditCharacterStatistics';
 import EditCharacterTalents from '@/application/characters/edit/talents/EditCharacterTalents';
 import EditEquipmentView from '@/application/characters/edit/equipment/EditEquipmentView';
@@ -57,7 +57,7 @@ export default function EditCharacterView({ tab }: EditCharacterProps)
             </TabsContent>
 
             <TabsContent value="character">
-                <EditCharacterOverview character={character} />
+                <EditDetailsView character={character} />
             </TabsContent>
 
             <TabsContent value="combat">

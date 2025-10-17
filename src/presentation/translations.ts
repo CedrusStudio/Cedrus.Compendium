@@ -1,4 +1,6 @@
-import { translations_plPL } from "./translations/translation.pl-PL";
+import { translations_deDE } from "@/presentation/translations/translations.de-DE";
+import { translations_plPL } from "@/presentation/translations/translations.pl-PL";
+import { translations_frFR } from "@/presentation/translations/translations.fr-FR";
 import { languageSettings } from "@/lib/env";
 
 function translate(key: string): string 
@@ -6,6 +8,16 @@ function translate(key: string): string
     if (languageSettings.NEXT_LANGUAGE === 'pl-PL' && key in translations_plPL)
     {
         return translations_plPL[key as TranslationKey];
+    }
+
+    if (languageSettings.NEXT_LANGUAGE === 'de-DE' && key in translations_deDE)
+    {
+        return translations_deDE[key as TranslationKey];
+    }
+
+    if (languageSettings.NEXT_LANGUAGE === 'fr-FR' && key in translations_frFR)
+    {
+        return translations_frFR[key as TranslationKey];
     }
 
     return key;
@@ -85,6 +97,7 @@ export const displayedText =
     power: translate("power"),
     style: translate("style"),
     maneuvers: translate("maneuvers"),
+    powers: translate("powers"),
     stances: translate("stances"),
     states: translate("states"),
     weapons: translate("weapons"),
@@ -131,6 +144,9 @@ export const displayedText =
 
     addNewTalent: translate("addNewTalent"),
     editManeuver: translate("editManeuver"),
+    editPower: translate("editPower"),
+    editSpell: translate("editSpell"),
+    editPerk: translate("editPerk"),
     editingItem: translate("editingItem"),
     pace: translate("pace"),
     gallop: translate("gallop"),
@@ -167,6 +183,7 @@ export const displayedText =
     editingMode: translate("editingMode"),
     actions: translate("actions"),
     showStancesStatesManeuvers: translate("showStancesStatesManeuvers"),
+    showPowers: translate("showPowers"),
     goToCharacterView: translate("goToCharacterView"),
 
     changeGallop: translate("changeGallop"),
@@ -177,4 +194,15 @@ export const displayedText =
     characterUpdatedSuccessfully: translate("characterUpdatedSuccessfully"),
     success: translate("success"),
     error: translate("error"),
+    perk: translate("perk"),
+    perks: translate("perks"),
+
+    type: translate("type"),
+    level: translate("level"),
+    essence: translate("essence"),
+    spells: translate("spells"),
+
+    cost: translate("cost"),
+    price: translate("price"),
+    requirements: translate("requirements"),
 } as const;
