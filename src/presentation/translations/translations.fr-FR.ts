@@ -119,6 +119,7 @@ export const translations_frFR =
     editManeuver: "modifier la manœuvre",
     editPower: "modifier la puissance",
     editSpell: "modifier le sort",
+    editPerk: "modifier l'atout",
     editingItem: "modifier l'objet",
     pace: "allure",
     gallop: "galop",

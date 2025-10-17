@@ -119,6 +119,7 @@ export const translations_deDE =
     editManeuver: "manöver bearbeiten",
     editPower: "kraft bearbeiten",
     editSpell: "zauber bearbeiten",
+    editPerk: "attribut bearbeiten",
     editingItem: "gegenstand bearbeiten",
     pace: "trab",
     gallop: "galopp",

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
+import { perksSchema } from "@/persistence/schemas/characters/perkSchema";
 
 const shortNameSchema = z
   .string()
@@ -9,7 +10,7 @@ const shortNameSchema = z
 
 const characterCategorySchema = z.enum(allowedCharacterCategories, { message: "Nieprawidłowa kategoria." });
 
-export const headerSchema = z.object
+const headerSchema = z.object
 ({
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
   shortName: shortNameSchema,
@@ -17,4 +18,9 @@ export const headerSchema = z.object
   category: characterCategorySchema,
 });
 
-export type HeaderDto = z.infer<typeof headerSchema>;
+export const detailsSchema = headerSchema.extend
+({
+  perks: perksSchema
+});
+
+export type DetailsDto = z.infer<typeof detailsSchema>;

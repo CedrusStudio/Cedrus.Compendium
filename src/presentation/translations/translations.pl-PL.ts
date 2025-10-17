@@ -119,6 +119,7 @@ export const translations_plPL =
     editManeuver: "edycja manewru",
     editPower: "edycja mocy",
     editSpell: "edycja zaklęcia",
+    editPerk: "edycja atutu",
     editingItem: "edytujesz przedmiot",
     pace: "kłus",
     gallop: "galop",

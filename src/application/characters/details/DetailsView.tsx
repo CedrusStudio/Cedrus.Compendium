@@ -1,7 +1,6 @@
 import { Badge } from "@/common/components/ui/badge";
 import { Separator } from "@/common/components/ui/separator";
 import { Character } from "@/domain/characters/Character";
-import { displayedText } from "@/presentation/translations";
 import PerksList from "@/application/characters/details/PerksList";
 
 export default function DetailsView({ character }: { character: Character }) 
@@ -32,11 +31,6 @@ export default function DetailsView({ character }: { character: Character })
         </p>
 
         <Separator className="mb-6" />
-
-        <h3 className="text-lg font-semibold text-center text-primary pb-4 capitalize">
-          {displayedText.perks}
-        </h3>
-
         <PerksList perks={character.perks} />
 
       </article>

@@ -146,6 +146,7 @@ export const displayedText =
     editManeuver: translate("editManeuver"),
     editPower: translate("editPower"),
     editSpell: translate("editSpell"),
+    editPerk: translate("editPerk"),
     editingItem: translate("editingItem"),
     pace: translate("pace"),
     gallop: translate("gallop"),
