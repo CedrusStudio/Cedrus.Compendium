@@ -58,14 +58,6 @@ export default function EditDetailsView(input: { character: Character })
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <EditHeader isPending={isPending} />
-
-                    {/* <div className="flex flex-col justify-center items-center gap-6">
-                            <SelectFormField<HeaderDto>
-                                path="category"
-                                items={allowedCharacterCategories}
-                                noLabel
-                            />
-                    </div> */}
             </form>
         </Form>
     );
@@ -107,7 +99,7 @@ function EditHeader({ isPending }: EditHeaderProps)
                                 />
                             </div>
                         </div>
-                        
+
                         <div className="flex justify-end items-center">
                             <SubmitButton isPending={isPending} />
                         </div>
