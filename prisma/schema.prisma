@@ -4,8 +4,10 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// Prisma Configuration
+
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../src/generated/prisma"
 }
 
@@ -14,25 +16,245 @@ datasource db {
   url      = env("DATABASE_CONNECTION_STRING")
 }
 
-model characters {
-  mongoId      String   @id @default(auto()) @map("_id") @db.ObjectId
-  id           String   @unique @default(ulid())
-  name         String
-  shortName    String
-  description  String
-  category     String
+// Entities
 
-  // Complex/nested structures stored as JSON to match domain shape (characteristics, attributes, arrays of objects, etc.)
-  characteristics Json
-  attributes      Json
-  talents         Json
-  health          Json
-  defenses        Json
-  offenses        Json
-  equipment       Json
-  stances         Json
-  states          Json
-  maneuvers       Json
-  powers          Json
-  perks           Json
+model Character {
+  mongoId     String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String @unique
+  name        String @unique
+  shortName   String @unique
+  description String
+  category    String
+
+  characteristics Characteristics
+  attributes      Attributes
+  talents         Talent[] //The generic talent should be in separate collection, but the particular character's talents are referenced here (grade etc.). For now kept simple.
+  health          Health
+  defenses        Defense[]
+  offenses        Offense[]
+  equipment       Equipment
+
+  // stancesIds String[]
+  // stances    Stance[] @relation(fields: [stancesIds], references: [id])
+  stances    Json
+
+  // statesIds String[]
+  // states    State[]  @relation(fields: [statesIds], references: [id])
+  states    Json
+
+  maneuvers Json
+  powers    Json
+  perks     Json
+
+  @@map("characters") // Map to existing collection name in MongoDB
+}
+
+model Stance {
+  mongoId      String  @id @default(auto()) @map("_id") @db.ObjectId
+  id           String  @unique @default(ulid())
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+
+  // characterIds String[]
+  // characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Desc)])
+  @@map("stances")
+}
+
+model State {
+  mongoId          String     @id @default(auto()) @map("_id") @db.ObjectId
+  id               String     @unique @default(ulid())
+  name             String
+  grade            Int
+  description      String
+  requirements     String?
+  price            Int
+
+  // characterIds String[]
+  // characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Desc)])
+  @@map("states")
+}
+
+model Post {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  categoryIDs String[]   @db.ObjectId
+  categories  Category[] @relation(fields: [categoryIDs], references: [id])
+}
+
+model Category {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  postIDs String[] @db.ObjectId
+  posts   Post[]   @relation(fields: [postIDs], references: [id])
+}
+
+// Temporary Value Objects  
+
+type Talent {
+  // mongoId         String @id @default(auto()) @map("_id") @db.ObjectId
+  // id              String @unique @default(ulid())
+  id              String @default(ulid())
+  name            String
+  grade           Int
+  description     String
+  category        String
+  characteristics String
+  bonus           Int
+  penalty         String
+  // @@map("talents")
+}
+
+// Value Objects
+
+type Characteristics {
+  strength     Statistic
+  dexterity    Statistic
+  constitution Statistic
+  mind         Statistic
+  charisma     Statistic
+  spellborn    Statistic
+}
+
+type Attributes {
+  fencing      Statistic
+  artifice     Statistic
+  precision    Statistic
+  initiative   Statistic
+  martialArt   Statistic
+  horsemanship Statistic
+
+  fortitude Statistic
+  reflex    Statistic
+  willpower Statistic
+}
+
+type Statistic {
+  grade     Int
+  value     Int
+  bonus     Int
+  testBonus Int
+}
+
+type Health {
+  barrier       Int
+  vitality      Int
+  toughness     Int
+  recoveryLevel Int
+  lethalHealth  Int
+  lethalRounds  Int
+  bonus         Int
+}
+
+type Defense {
+  id          String
+  name        String
+  description String?
+  immunity    Int
+  resistance  Int
+  protection  Int
+  block       Int
+  parry       Int
+  dodge       Int
+  bonus       Int
+}
+
+type Offense {
+  id              String
+  name            String
+  description     String?
+  leadingWeapon   WeaponOffense
+  secondaryWeapon WeaponOffense?
+  damageBonus     DamageOffense
+}
+
+type WeaponOffense {
+  amount   Int
+  grade    Int
+  bonus    Int
+  critical Critical
+}
+
+type DamageOffense {
+  amount Int
+  grade  Int
+  bonus  Int
+}
+
+type Critical {
+  power Int
+  range Int
+}
+
+type Equipment {
+  weapons   Weapon[]
+  armors    Armor[]
+  shields   Shield[]
+  inventory Item[]
+  mounts    Mount[]
+}
+
+//Think should it be embedded in Character or separate collection?
+
+type Weapon {
+  id          String
+  name        String
+  description String
+  style       String
+  offense     WeaponOffense
+  damageBonus DamageOffense
+  range       Int
+}
+
+type Armor {
+  id          String
+  name        String
+  description String
+
+  resistance            Int
+  dexterityRestriction  Int
+  reflexRestriction     Int
+  initiativeRestriction Int
+  attributePenalty      Int
+  strengthRequirement   Int
+
+  immunity   Int
+  protection Int
+}
+
+type Shield {
+  id          String
+  name        String
+  description String
+
+  resistance            Int
+  dexterityRestriction  Int
+  reflexRestriction     Int
+  initiativeRestriction Int
+  attributePenalty      Int
+  strengthRequirement   Int
+
+  block Int
+}
+
+type Item {
+  id          String
+  name        String
+  description String
+}
+
+type Mount {
+  id          String
+  name        String
+  description String
+
+  paceSpeed         Int
+  gallopSpeed       Int
+  canterSpeed       Int
+  horsemanshipBonus Int
 }

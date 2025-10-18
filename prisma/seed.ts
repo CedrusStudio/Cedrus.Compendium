@@ -594,7 +594,7 @@ export const igar =
   ]
 };
 
-const characters: Prisma.charactersCreateInput[] = 
+const characters: Prisma.CharacterCreateInput[] = 
 [
   igar
 ]
@@ -606,7 +606,7 @@ export async function seed()
   for (const character of characters) 
   {
     console.log(`Seeding character: ${character.name} with id ${character.id}`);
-    const result = await prisma.characters.upsert({ where: { id: character.id }, create: character, update: character });
+    const result = await prisma.character.upsert({ where: { id: character.id }, create: character, update: character });
     console.log(`Upserted character with id: ${result.id}`);
   }
 

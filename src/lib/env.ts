@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-export const supportedLanguages = [
+export const supportedLanguages = 
+[
   'pl-PL',
   'en-US', 
   'fr-FR',
