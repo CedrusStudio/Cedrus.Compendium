@@ -6,12 +6,18 @@ import prisma from '@/lib/prisma';
 import { Character } from '@/domain/characters/Character';
 import { Character as CharacterPersistenceModel } from '@/generated/prisma/client';
 
-export async function getCharacters() : Promise<Character[]>
+export async function getCharacterById(id: string)
+  : Promise<CharacterPersistenceModel | null>
+  // : Promise<Character | null>
 {
   try 
   {
-    const characters = await prisma.character.findMany();
-    return characters.map(mapToDomain);
+    const character = await prisma.character.findUnique({
+      where: { id }
+    });
+
+    return character;
+    // return character ? mapToDomain(character) : null;
   } 
   catch (error) 
   {

@@ -19,8 +19,7 @@ datasource db {
 // Entities
 
 model Character {
-  mongoId     String @id @default(auto()) @map("_id") @db.ObjectId
-  id          String @unique
+  id          String @id @default(ulid()) @map("_id")
   name        String @unique
   shortName   String @unique
   description String
@@ -28,86 +27,114 @@ model Character {
 
   characteristics Characteristics
   attributes      Attributes
-  talents         Talent[] //The generic talent should be in separate collection, but the particular character's talents are referenced here (grade etc.). For now kept simple.
+  talents         Talent[]
   health          Health
   defenses        Defense[]
   offenses        Offense[]
   equipment       Equipment
 
-  // stancesIds String[]
-  // stances    Stance[] @relation(fields: [stancesIds], references: [id])
-  stances    Json
+  stancesIds String[]
+  stances    Stance[] @relation(fields: [stancesIds], references: [id])
 
-  // statesIds String[]
-  // states    State[]  @relation(fields: [statesIds], references: [id])
-  states    Json
+  statesIds String[]
+  states    State[]  @relation(fields: [statesIds], references: [id])
 
-  maneuvers Json
-  powers    Json
-  perks     Json
+  maneuversIds String[]
+  maneuvers    Maneuver[] @relation(fields: [maneuversIds], references: [id])
+
+  powers    Power[]
+  spellsIds String[]
+  spells    Spell[]  @relation(fields: [spellsIds], references: [id])
+
+  perksIds String[]
+  perks    Perk[]   @relation(fields: [perksIds], references: [id])
 
   @@map("characters") // Map to existing collection name in MongoDB
 }
 
 model Stance {
-  mongoId      String  @id @default(auto()) @map("_id") @db.ObjectId
-  id           String  @unique @default(ulid())
+  id           String  @id @default(ulid()) @map("_id")
   name         String
   grade        Int
   description  String
   requirements String?
   price        Int
 
-  // characterIds String[]
-  // characters   Character[] @relation(fields: [characterIds], references: [id])
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
 
-  @@unique([name, grade(sort: Desc)])
+  @@unique([name, grade(sort: Asc)])
   @@map("stances")
 }
 
 model State {
-  mongoId          String     @id @default(auto()) @map("_id") @db.ObjectId
-  id               String     @unique @default(ulid())
-  name             String
-  grade            Int
-  description      String
-  requirements     String?
-  price            Int
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
 
-  // characterIds String[]
-  // characters   Character[] @relation(fields: [characterIds], references: [id])
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
 
-  @@unique([name, grade(sort: Desc)])
+  @@unique([name, grade(sort: Asc)])
   @@map("states")
 }
 
-model Post {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  categoryIDs String[]   @db.ObjectId
-  categories  Category[] @relation(fields: [categoryIDs], references: [id])
+model Maneuver {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+  castTime     String
+  cooldown     Int?
+
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("maneuvers")
 }
 
-model Category {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  postIDs String[] @db.ObjectId
-  posts   Post[]   @relation(fields: [postIDs], references: [id])
+model Perk {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("perks")
 }
 
-// Temporary Value Objects  
+model Spell {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+  castTime     String
+  cooldown     Int?
+  cost         Int
 
-type Talent {
-  // mongoId         String @id @default(auto()) @map("_id") @db.ObjectId
-  // id              String @unique @default(ulid())
-  id              String @default(ulid())
-  name            String
-  grade           Int
-  description     String
-  category        String
-  characteristics String
-  bonus           Int
-  penalty         String
-  // @@map("talents")
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("spells")
 }
 
 // Value Objects
@@ -139,6 +166,26 @@ type Statistic {
   value     Int
   bonus     Int
   testBonus Int
+}
+
+type Talent {
+  id              String         @default(ulid())
+  name            String
+  grade           Int
+  category        String
+  // category        TalentCategory
+  characteristics String
+  bonus           Int
+  penalty         String?
+}
+
+enum TalentCategory {
+  zmysł
+  język
+  fach
+  wiedza
+  sprawność
+  talent
 }
 
 type Health {
@@ -257,4 +304,23 @@ type Mount {
   gallopSpeed       Int
   canterSpeed       Int
   horsemanshipBonus Int
+}
+
+type Power {
+  id      String
+  name    String
+  type    String
+  // type    PowerType
+  level   Int
+  bonus   Int
+  essence Int
+
+  spellsIds String[]
+}
+
+enum PowerType {
+  arkana
+  wiara
+  moc
+  natura
 }
