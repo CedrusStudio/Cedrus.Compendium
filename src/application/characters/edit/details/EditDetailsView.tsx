@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { upsertCharacterHeader } from "@/persistence/characterRepository";
+import { updateCharacterDetails } from "@/persistence/charactersRepository";
 import { type DetailsDto, detailsSchema } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
@@ -42,7 +42,7 @@ export default function EditDetailsView(input: { character: Character })
     
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (characterHeader: DetailsDto) => await upsertCharacterHeader(id, characterHeader),
+        mutationFn: async (characterDetails: DetailsDto) => await updateCharacterDetails(id, characterDetails),
         onSuccess: () => onSuccess(() =>
         {
             queryClient.invalidateQueries({ queryKey: ['characters'] });

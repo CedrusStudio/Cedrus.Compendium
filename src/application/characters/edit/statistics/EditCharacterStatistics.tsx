@@ -29,11 +29,7 @@ export default function EditCharacterStatistics(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterStatistics: StatisticsDto) => await bffClient.upsertCharacter
-    (
-      id, 
-      { ...character, characteristics: characterStatistics.characteristics, attributes: characterStatistics.attributes }
-    ),
+    async (characterStatistics: StatisticsDto) => await bffClient.updateStatistics(id, characterStatistics),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`]
     }

@@ -1,6 +1,6 @@
 import CharactersGrid from "@/application/characters/grid/CharactersGrid";
 import CharactersGridSkeleton from "@/application/characters/grid/CharactersGridSkeleton";
-import { searchCharacter, getAllCharacters } from "@/persistence/characterRepository";
+import { searchCharacters, getAllCharacters } from "@/persistence/charactersRepository";
 import {
   dehydrate,
   HydrationBoundary,
@@ -24,7 +24,7 @@ export default async function CharactersPage(input: CharactersPageProps)
   await queryClient.prefetchQuery<Character[]>
   ({
     queryKey: getCharacterQueryKey(searchQuery),
-    queryFn: () => searchQuery ? searchCharacter(searchQuery) : getAllCharacters()
+    queryFn: () => searchQuery ? searchCharacters(searchQuery) : getAllCharacters()
   });
 
   return (

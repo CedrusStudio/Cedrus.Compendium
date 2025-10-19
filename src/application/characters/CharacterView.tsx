@@ -25,7 +25,7 @@ import { useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
 import { IoTrashOutline } from 'react-icons/io5';
-import { useDeleteCharacterById } from "./hooks/useDeleteCharacterById";
+import { useDeleteCharacterById } from "@/application/characters/hooks/useDeleteCharacterById";
 import { displayedText } from "@/presentation/translations";
 import DetailsView from "@/application/characters/details/DetailsView";
 import { useDispatch } from "react-redux";

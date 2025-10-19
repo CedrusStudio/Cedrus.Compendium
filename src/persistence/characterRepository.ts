@@ -8,7 +8,7 @@ import { ulid } from 'ulid';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
-import { DetailsDto } from '@/persistence/schemas/characters/headerSchema';
+import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 
 type Database = 
@@ -22,6 +22,67 @@ const readDatabase = (): Database =>
 {
     const data = fs.readFileSync(dbFileName, 'utf-8');
     return JSON.parse(data);
+};
+
+//Queries
+export const getCharacterById: (id: string) => Promise<Character | null> = async (id) =>
+{
+    const database = readDatabase();
+    const characters: Character[] = database.characters ?? [];
+    return characters.find(character => character.id === id) || null;
+};
+
+export const getAllCharacters: () => Promise<Character[]> = async () =>
+{
+    const database = readDatabase();
+    return database.characters ?? [];
+};
+
+export const searchCharacters: (query: string) => Promise<Character[]> = async (query) =>
+{
+    const database = readDatabase();
+    const characters: Character[] = database.characters ?? [];
+    return characters.filter(character => character.name.toLowerCase().includes(query.toLowerCase()));
+};
+
+//Commands
+export const addCharacter: (characterHeader: HeaderDto) => Promise<string> = async (characterHeader) =>
+{
+    const database = readDatabase();
+
+    if (!database.characters) 
+    {
+        database.characters = [];
+    }
+
+    const findCharacter = database.characters.find(c => c.name.toLowerCase() === characterHeader.name.toLowerCase());
+    if (findCharacter)
+    {
+        throw new Error("Character with the same name already exists");
+    }
+
+    const allCharactersExceptSpecified = database.characters.filter(c => c.name.toLowerCase() !== characterHeader.name.toLowerCase());
+
+    const characterToAdd = { 
+        ...CreateEmptyCharacter(characterHeader),
+        id: ulid(),
+    } as Character;
+    
+    database.characters = [...allCharactersExceptSpecified, characterToAdd];
+    const databaseAsJson = JSON.stringify(database);
+    fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
+    return characterToAdd.id;
+};
+
+export const deleteCharacter: (id: string) => Promise<void> = async (id) =>
+{
+    const database = readDatabase();
+    const allCharacters = database.characters ?? [];
+
+    const allCharactersExceptSpecified = allCharacters.filter(c => c.id !== id);
+    database.characters = allCharactersExceptSpecified;
+    const charactersAsJson = JSON.stringify(database);
+    fs.writeFileSync(dbFileName, charactersAsJson, 'utf-8');
 };
 
 export const upsertCharacterStatistics: (id: string, characterStatistics: StatisticsDto) => Promise<void> = async (id, characterStatistics) =>
@@ -93,7 +154,7 @@ export const upsertCharacterEquipment: (id: string, characterEquipment: Equipmen
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 };
 
-export const upsertCharacterHeader: (id: string, characterHeader: DetailsDto) => Promise<void> = async (id, characterHeader) =>
+export const updateCharacterDetails: (id: string, characterHeader: DetailsDto) => Promise<void> = async (id, characterHeader) =>
 {
     const database = readDatabase();
 
@@ -114,34 +175,6 @@ export const upsertCharacterHeader: (id: string, characterHeader: DetailsDto) =>
     database.characters = [...allCharactersExceptSpecified, characterToUpsert];
     const databaseAsJson = JSON.stringify(database);
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
-};
-
-export const addCharacter: (characterHeader: DetailsDto) => Promise<string> = async (characterHeader) =>
-{
-    const database = readDatabase();
-
-    if (!database.characters) 
-    {
-        database.characters = [];
-    }
-
-    const findCharacter = database.characters.find(c => c.name.toLowerCase() === characterHeader.name.toLowerCase());
-    if (findCharacter)
-    {
-        throw new Error("Character with the same name already exists");
-    }
-
-    const allCharactersExceptSpecified = database.characters.filter(c => c.name.toLowerCase() !== characterHeader.name.toLowerCase());
-
-    const characterToAdd = { 
-        ...CreateEmptyCharacter(characterHeader),
-        id: ulid(),
-    } as Character;
-    
-    database.characters = [...allCharactersExceptSpecified, characterToAdd];
-    const databaseAsJson = JSON.stringify(database);
-    fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
-    return characterToAdd.id;
 };
 
 export const upsertCharacterCombat: (id: string, characterCombat: CombatDto) => Promise<void> = async (id, characterCombat) =>
@@ -182,34 +215,3 @@ export const upsertCharacter: (character: Character) => Promise<void> = async (c
     const databaseAsJson = JSON.stringify(database);
     fs.writeFileSync(dbFileName, databaseAsJson, 'utf-8');
 }
-
-export const getAllCharacters: () => Promise<Character[]> = async () =>
-{
-    const database = readDatabase();
-    return database.characters ?? [];
-};
-
-export const searchCharacter: (query: string) => Promise<Character[]> = async (query) =>
-{
-    const database = readDatabase();
-    const characters: Character[] = database.characters ?? [];
-    return characters.filter(character => character.name.toLowerCase().includes(query.toLowerCase()));
-};
-
-export const getCharacter: (id: string) => Promise<Character | null> = async (id) =>
-{
-    const database = readDatabase();
-    const characters: Character[] = database.characters ?? [];
-    return characters.find(character => character.id === id) || null;
-};
-
-export const deleteCharacter: (id: string) => Promise<void> = async (id) =>
-{
-    const database = readDatabase();
-    const allCharacters = database.characters ?? [];
-
-    const allCharactersExceptSpecified = allCharacters.filter(c => c.id !== id);
-    database.characters = allCharactersExceptSpecified;
-    const charactersAsJson = JSON.stringify(database);
-    fs.writeFileSync(dbFileName, charactersAsJson, 'utf-8');
-};

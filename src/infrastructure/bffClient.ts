@@ -1,7 +1,11 @@
 import { Character } from '@/domain/characters/Character';
 import { setSearchQueryParam } from '@/common/global/httpUtils';
 import axios from 'axios';
-import { Talent } from '@/domain/characters/Talent';
+import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
+import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
+import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
+import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
+import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 
 const clientBase = axios.create
 ({
@@ -17,6 +21,12 @@ const characterPathSegment = '/characters';
 
 const bffClient = 
 {
+    //Queries
+    getCharacterById: async (id: string) =>
+    {
+        const response = await clientBase.get<Character>(`${characterPathSegment}/${id}`);
+        return response.data;
+    },
     searchCharacters: async (search?: string) =>
     {
         const url = new URL(characterPathSegment, window.location.origin);
@@ -25,9 +35,10 @@ const bffClient =
         const response = await clientBase.get<Character[]>(finalUrl);
         return response.data;
     },
-    getCharacterById: async (id: string) =>
+    //Commands
+    addCharacter: async (characterHeader: HeaderDto) =>
     {
-        const response = await clientBase.get<Character>(`${characterPathSegment}/${id}`);
+        const response = await clientBase.post(characterPathSegment, characterHeader);
         return response.data;
     },
     deleteCharacterById: async (id: string) =>
@@ -35,14 +46,29 @@ const bffClient =
         const response = await clientBase.delete(`${characterPathSegment}/${id}`);
         return response.data;
     },
-    upsertCharacter: async (id: string, characterData: Character) =>
+    updateDetails: async (id: string, characterData: DetailsDto) =>
     {
-        const response = await clientBase.put(`${characterPathSegment}/${id}`, characterData);
+        const response = await clientBase.put(`${characterPathSegment}/${id}/details`, characterData);
         return response.data;
     },
-    addTalent: async (id: string, talent: Talent) =>
+    updateCombat: async (id: string, characterData: CombatDto) =>
     {
-        const response = await clientBase.post(`${characterPathSegment}/${id}/talents`, talent);
+        const response = await clientBase.put(`${characterPathSegment}/${id}/combat`, characterData);
+        return response.data;
+    },
+    updateStatistics: async (id: string, characterData: StatisticsDto) =>
+    {
+        const response = await clientBase.put(`${characterPathSegment}/${id}/statistics`, characterData);
+        return response.data;
+    },
+    updateEquipment: async (id: string, characterData: EquipmentDto) =>
+    {
+        const response = await clientBase.put(`${characterPathSegment}/${id}/equipment`, characterData);
+        return response.data;
+    },
+    updateTalents: async (id: string, talent: TalentsDto) =>
+    {
+        const response = await clientBase.put(`${characterPathSegment}/${id}/talents`, talent);
         return response.data;
     }
 }

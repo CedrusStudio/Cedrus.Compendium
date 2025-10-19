@@ -10,7 +10,7 @@ const shortNameSchema = z
 
 const characterCategorySchema = z.enum(allowedCharacterCategories, { message: "Nieprawidłowa kategoria." });
 
-const headerSchema = z.object
+export const headerSchema = z.object
 ({
   name: z.string().min(2, { message: "Nazwa musi mieć co najmniej 2 znaki." }),
   shortName: shortNameSchema,
@@ -24,3 +24,4 @@ export const detailsSchema = headerSchema.extend
 });
 
 export type DetailsDto = z.infer<typeof detailsSchema>;
+export type HeaderDto = z.infer<typeof headerSchema>;

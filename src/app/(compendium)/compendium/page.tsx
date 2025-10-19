@@ -10,7 +10,6 @@ export default async function CompendiumPage()
 
   if (!igar) return <div>Character not found</div>; 
 
-  console.log(igar);
   return (
     <div>
       <h1>Compendium Page</h1>
@@ -19,8 +18,9 @@ export default async function CompendiumPage()
       <h3>Details:</h3>
       <ul>
       {
-        Object.keys(igar).map(key =>
-          <li key={key}>{key}: </li>
+        (
+          Object.keys(igar) as (keyof typeof igar)[]).map(key =>
+            <li key={key}>{key}: [ {JSON.stringify(igar[key])} ]</li>
         )
       }
       </ul>
