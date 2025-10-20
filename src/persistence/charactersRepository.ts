@@ -109,7 +109,10 @@ export async function updateCharacterEquipment(id: string, characterEquipment: E
   await prisma.character.update
   ({
     where: { id },
-    data: characterEquipment
+    data: 
+    {
+      equipment: characterEquipment
+    }
   });
 }
 
