@@ -126,6 +126,8 @@ type SpellViewProps =
 
 function SpellView({ spell, addSpellToUsed, usedSpells }: SpellViewProps) 
 {
+    console.log("spell:", spell);
+
     return (
         <div className='flex m-1 p-1 w-full h-full'>
 

@@ -251,7 +251,7 @@ function toPower(powerPersistenceModel: Prisma.PowerModel, spellPersistenceModel
 function toSpell(spellPersistenceModel: Prisma.SpellModel): Spell
 {
   return {
-    ...toPerk<Spell>(spellPersistenceModel),
+    ...toCastablePerk<Spell>(spellPersistenceModel),
     cost: spellPersistenceModel.cost
   };
 }
