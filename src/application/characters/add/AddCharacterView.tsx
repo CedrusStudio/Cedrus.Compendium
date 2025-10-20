@@ -48,7 +48,6 @@ export default function AddCharacterView()
         },
         onSuccess: (data) => onSuccess(() =>
         {
-
             dispatch(actions.setCharacterShortName({ id: data.id, shortName: data.shortName }));
             form.reset(initialHeaderValues);
             router.push(`/characters/${data.id}/edit?tab=character`);

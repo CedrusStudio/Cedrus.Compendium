@@ -1,9 +1,9 @@
-import { seed } from "@/../prisma/seed";
+// import { seed } from "@/../prisma/seed";
 import { getCharacterById } from "@/persistence/charactersRepository";
 
 export default async function CompendiumPage()
 {
-  await seed();
+  // await seed();
 
   const igarId = "01K79QFH0ZD99MSBV4ACKFBZYN";
   const igar = await getCharacterById(igarId);

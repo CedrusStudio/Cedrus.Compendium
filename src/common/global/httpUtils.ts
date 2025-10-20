@@ -19,13 +19,7 @@ export const setSearchQueryParam = (url: URL, search?: string) =>
     if (search) url.searchParams.set(searchParamKey, search);
 };
 
-type SearchQueryWrapper = 
+export async function getSearchQuery(searchParams: { [key: string]: string | string[] | undefined })
 {
-  searchParams: { [key: string]: string | string[] | undefined }
-};
-
-export async function getSearchQuery(input: SearchQueryWrapper)
-{
-    const searchParams = await input.searchParams;
     return Array.isArray(searchParams?.search) ? searchParams.search[0] : searchParams?.search;
 };

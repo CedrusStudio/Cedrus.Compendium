@@ -13,12 +13,13 @@ import { getSearchQuery } from "@/common/global/httpUtils";
 
 type CharactersPageProps = 
 {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+};
 
 export default async function CharactersPage(input: CharactersPageProps)
 {
-  const searchQuery = await getSearchQuery(input);
+  const searchParams = await input.searchParams;
+  const searchQuery = await getSearchQuery(searchParams);
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery<Character[]>

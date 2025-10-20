@@ -9,19 +9,13 @@ import CharacterView from '@/application/characters/CharacterView';
 import { isCharacterTab } from '@/common/tabsUtils';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 
-type CharacterProps = 
-{
-  params: 
-  {
-    id: string;
-  },
-  searchParams: { [key: string]: string | string[] | undefined }
-};
+type Params = Promise<{ id: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
-export default async function CharacterPage(input: CharacterProps)
+export default async function CharacterPage(props: {params: Params, searchParams: SearchParams})
 {
-  const searchParams = input.searchParams;
-  const params = input.params;
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery
@@ -30,7 +24,7 @@ export default async function CharacterPage(input: CharacterProps)
     queryFn: () => getCharacterById(params.id),
   });
 
-  const tab = isCharacterTab(searchParams?.tab) ? searchParams.tab : undefined;
+  const tab = isCharacterTab(searchParams.tab) ? searchParams.tab : undefined;
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
