@@ -10,17 +10,17 @@ import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 
 type EditCharacterProps = 
 {
-    params: 
-    {
-        id: string;
-    },
-    searchParams: { [key: string]: string | string[] | undefined }
+  params: 
+  {
+    id: string;
+  },
+  searchParams: { [key: string]: string | string[] | undefined }
 };
 
 export default async function EditPage(input: EditCharacterProps)
 {
-  const params = await input.params;
-  const searchParams = await input.searchParams;
+  const params = input.params;
+  const searchParams = input.searchParams;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery

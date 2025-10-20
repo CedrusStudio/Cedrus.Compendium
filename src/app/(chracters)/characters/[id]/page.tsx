@@ -8,7 +8,6 @@ import {
 import CharacterView from '@/application/characters/CharacterView';
 import { isCharacterTab } from '@/common/tabsUtils';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
-// import seedDatabase from '@/seed';
 
 type CharacterProps = 
 {
@@ -21,9 +20,8 @@ type CharacterProps =
 
 export default async function CharacterPage(input: CharacterProps)
 {
-  // seedDatabase();
-  const searchParams = await input.searchParams;
-  const params = await input.params;
+  const searchParams = input.searchParams;
+  const params = input.params;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery
