@@ -1,4 +1,4 @@
-import { getCharacter } from '@/persistence/characterRepository';
+import { getCharacterById } from '@/persistence/charactersRepository';
 
 import {
   dehydrate,
@@ -29,7 +29,7 @@ export default async function CharacterPage(input: CharacterProps)
   await queryClient.prefetchQuery
   ({
     queryKey: createCharacterByIdKey(params.id),
-    queryFn: () => getCharacter(params.id),
+    queryFn: () => getCharacterById(params.id),
   });
 
   const tab = isCharacterTab(searchParams?.tab) ? searchParams.tab : undefined;

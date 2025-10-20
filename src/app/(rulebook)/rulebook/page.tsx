@@ -1,8 +1,8 @@
-export default function RulebookPage()
+export default async function RulebookPage()
 {
   return (
     <div>
-      RulebookPage
+      Rulebook Page
     </div>
   );
 };

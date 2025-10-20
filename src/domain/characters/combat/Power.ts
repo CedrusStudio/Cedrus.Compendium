@@ -12,7 +12,7 @@ export type Power = Entity &
   spells: Spell[];
 };
 
-type PowerType = "arkana" | "wiara" | "moc" | "natura";
+export type PowerType = "arkana" | "wiara" | "moc" | "natura";
 export const allowedPowerTypes: PowerType[] = ["arkana", "wiara", "moc", "natura"];
 
 export const pathToPowerField = <K extends keyof Power>(index: number, field: K): `powers.${number}.${K}` => `powers.${index}.${field}`;

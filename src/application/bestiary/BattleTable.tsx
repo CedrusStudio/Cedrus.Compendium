@@ -85,7 +85,7 @@ export default function BattleTable()
 
   return (
     <div className="mx-3">
-      <div className="flex items-center py-4 gap-3">
+      <div className="flex flex-wrap items-center justify-center py-4 gap-3">
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 
         <CategorySelectFilter 

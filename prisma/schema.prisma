@@ -1,0 +1,326 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// Prisma Configuration
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_CONNECTION_STRING")
+}
+
+// Entities
+
+model Character {
+  id          String @id @default(ulid()) @map("_id")
+  name        String @unique
+  shortName   String @unique
+  description String
+  category    String
+
+  characteristics Characteristics
+  attributes      Attributes
+  talents         Talent[]
+  health          Health
+  defenses        Defense[]
+  offenses        Offense[]
+  equipment       Equipment
+
+  stancesIds String[]
+  stances    Stance[] @relation(fields: [stancesIds], references: [id])
+
+  statesIds String[]
+  states    State[]  @relation(fields: [statesIds], references: [id])
+
+  maneuversIds String[]
+  maneuvers    Maneuver[] @relation(fields: [maneuversIds], references: [id])
+
+  powers    Power[]
+  spellsIds String[]
+  spells    Spell[]  @relation(fields: [spellsIds], references: [id])
+
+  perksIds String[]
+  perks    Perk[]   @relation(fields: [perksIds], references: [id])
+
+  @@map("characters") // Map to existing collection name in MongoDB
+}
+
+model Stance {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("stances")
+}
+
+model State {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("states")
+}
+
+model Maneuver {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+  castTime     String
+  cooldown     Int?
+
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("maneuvers")
+}
+
+model Perk {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("perks")
+}
+
+model Spell {
+  id           String  @id @default(ulid()) @map("_id")
+  name         String
+  grade        Int
+  description  String
+  requirements String?
+  price        Int
+  castTime     String
+  cooldown     Int?
+  cost         Int
+
+  // Required by prisma, can be null
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@unique([name, grade(sort: Asc)])
+  @@map("spells")
+}
+
+// Value Objects
+
+type Characteristics {
+  strength     Statistic
+  dexterity    Statistic
+  constitution Statistic
+  mind         Statistic
+  charisma     Statistic
+  spellborn    Statistic
+}
+
+type Attributes {
+  fencing      Statistic
+  artifice     Statistic
+  precision    Statistic
+  initiative   Statistic
+  martialArt   Statistic
+  horsemanship Statistic
+
+  fortitude Statistic
+  reflex    Statistic
+  willpower Statistic
+}
+
+type Statistic {
+  grade     Int
+  value     Int
+  bonus     Int
+  testBonus Int
+}
+
+type Talent {
+  id              String         @default(ulid())
+  name            String
+  grade           Int
+  category        String
+  // category        TalentCategory
+  characteristics String
+  bonus           Int
+  penalty         String?
+}
+
+enum TalentCategory {
+  zmysł
+  język
+  fach
+  wiedza
+  sprawność
+  talent
+}
+
+type Health {
+  barrier       Int
+  vitality      Int
+  toughness     Int
+  recoveryLevel Int
+  lethalHealth  Int
+  lethalRounds  Int
+  bonus         Int
+}
+
+type Defense {
+  id          String
+  name        String
+  description String?
+  immunity    Int
+  resistance  Int
+  protection  Int
+  block       Int
+  parry       Int
+  dodge       Int
+  bonus       Int
+}
+
+type Offense {
+  id              String
+  name            String
+  description     String?
+  leadingWeapon   WeaponOffense
+  secondaryWeapon WeaponOffense?
+  damageBonus     DamageOffense
+}
+
+type WeaponOffense {
+  amount   Int
+  grade    Int
+  bonus    Int
+  critical Critical
+}
+
+type DamageOffense {
+  amount Int
+  grade  Int
+  bonus  Int
+}
+
+type Critical {
+  power Int
+  range Int
+}
+
+type Equipment {
+  weapons   Weapon[]
+  armors    Armor[]
+  shields   Shield[]
+  inventory Item[]
+  mounts    Mount[]
+}
+
+//Think should it be embedded in Character or separate collection?
+
+type Weapon {
+  id          String
+  name        String
+  description String
+  style       String
+  offense     WeaponOffense
+  damageBonus DamageOffense
+  range       Int
+}
+
+type Armor {
+  id          String
+  name        String
+  description String
+
+  resistance            Int
+  dexterityRestriction  Int
+  reflexRestriction     Int
+  initiativeRestriction Int
+  attributePenalty      Int
+  strengthRequirement   Int
+
+  immunity   Int
+  protection Int
+}
+
+type Shield {
+  id          String
+  name        String
+  description String
+
+  resistance            Int
+  dexterityRestriction  Int
+  reflexRestriction     Int
+  initiativeRestriction Int
+  attributePenalty      Int
+  strengthRequirement   Int
+
+  block Int
+}
+
+type Item {
+  id          String
+  name        String
+  description String
+}
+
+type Mount {
+  id          String
+  name        String
+  description String
+
+  paceSpeed         Int
+  gallopSpeed       Int
+  canterSpeed       Int
+  horsemanshipBonus Int
+}
+
+type Power {
+  id      String
+  name    String
+  type    String
+  // type    PowerType
+  level   Int
+  bonus   Int
+  essence Int
+
+  spellsIds String[]
+}
+
+enum PowerType {
+  arkana
+  wiara
+  moc
+  natura
+}

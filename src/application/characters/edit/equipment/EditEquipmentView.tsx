@@ -45,7 +45,7 @@ export default function EditEquipmentView(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterEquipment: EquipmentDto) => await bffClient.upsertCharacter(id, { ...input.character, equipment: characterEquipment }),
+    async (characterEquipment: EquipmentDto) => await bffClient.updateEquipment(id, characterEquipment),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",

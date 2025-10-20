@@ -11,8 +11,9 @@ export const columns: AccessorKeyColumnDef<Talent>[] =
 [
   ...defaultColumns,
   {
-    id: displayedText.roll,
-    cell: ({ row }) => <RollCell talent={row.original} />
+    id: "roll",
+    cell: ({ row }) => <RollCell talent={row.original} />,
+    header: () => <span className="capitalize">{displayedText.roll}</span>,
   },
 ] as AccessorKeyColumnDef<Talent>[];
 

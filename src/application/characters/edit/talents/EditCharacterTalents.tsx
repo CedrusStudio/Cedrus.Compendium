@@ -29,7 +29,7 @@ export default function EditCharacterTalents(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterTalents: TalentsDto) => await bffClient.upsertCharacter(id, { ...character, talents: characterTalents.talents }),
+    async (characterTalents: TalentsDto) => await bffClient.updateTalents(id, characterTalents),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`]
     }

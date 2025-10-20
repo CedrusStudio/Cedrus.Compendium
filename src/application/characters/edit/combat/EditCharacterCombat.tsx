@@ -50,14 +50,12 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
     mode: "onBlur",
   });
 
+  const id = character.id;
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterCombat: CombatDto) => await bffClient.upsertCharacter
-    (
-      character.id, { ...character, ...characterCombat }
-    ), 
+    async (characterCombat: CombatDto) => await bffClient.updateCombat(id, characterCombat),
     {
-      invalidateOnSuccess: ['characters', `characters/${character.id}`, `characters/${character.id}/edit`],
+      invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",
     }
   );

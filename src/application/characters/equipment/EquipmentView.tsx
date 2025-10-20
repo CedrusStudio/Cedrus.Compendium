@@ -11,35 +11,55 @@ export default function EquipmentView({ equipment }: { equipment: Equipment })
   return (
     <Accordion type="multiple">
 
-      <ItemsView 
-        items={equipment.weapons} 
-        label={displayedText.weapons}
-        itemViewFactory={item => <WeaponView weapon={item} />} 
-      />
+      {
+        equipment.weapons.length > 0 && (
+          <ItemsView 
+            items={equipment.weapons} 
+            label={displayedText.weapons}
+            itemViewFactory={item => <WeaponView weapon={item} />} 
+          />
+        )
+      }
 
-      <ItemsView 
-        items={equipment.armors} 
-        label={displayedText.armors}
-        itemViewFactory={item => <ArmorView armor={item} />} 
-      />
+      {
+        equipment.armors.length > 0 && (
+          <ItemsView 
+            items={equipment.armors} 
+            label={displayedText.armors}
+            itemViewFactory={item => <ArmorView armor={item} />} 
+          />
+        )
+      }
 
-      <ItemsView 
-        items={equipment.shields} 
-        label={displayedText.shields}
-        itemViewFactory={item => <ShieldView shield={item} />} 
-      />
+      {
+        equipment.shields.length > 0 && (
+          <ItemsView 
+            items={equipment.shields} 
+            label={displayedText.shields}
+            itemViewFactory={item => <ShieldView shield={item} />} 
+          />
+        )
+      }
 
-      <ItemsView 
-        items={equipment.inventory} 
-        label={displayedText.inventory}
-        itemViewFactory={item => <span>{item.description}</span>} 
-      />
+      {
+        equipment.inventory.length > 0 && (
+          <ItemsView 
+            items={equipment.inventory} 
+            label={displayedText.inventory}
+            itemViewFactory={item => <span>{item.description}</span>} 
+          />
+        )
+      }
 
-      <ItemsView 
-        items={equipment.mounts} 
-        label={displayedText.mounts}
-        itemViewFactory={item => <span>{item.description}</span>} 
-      />
+      {
+        equipment.mounts.length > 0 && (
+          <ItemsView 
+            items={equipment.mounts} 
+            label={displayedText.mounts}
+            itemViewFactory={item => <span>{item.description}</span>} 
+          />
+        )
+      }
 
     </Accordion>
   );

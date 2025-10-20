@@ -2,8 +2,8 @@ import { Entity } from "@/domain/Entity";
 
 export type Castable = Entity &
 {
-    castTime: CastTime;
-    cooldown?: number;
+  castTime: CastTime;
+  cooldown?: number;
 }
 
 export type CastTime = "Pełnorundowa" | "Standardowa" | "Natychmiastowa" | "Nadnatychmiastowa";

@@ -19,6 +19,7 @@ import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { resolveSetState } from '@/common/global/resolveSetState';
+import { displayedText } from '@/presentation/translations';
 
 type OffenseCardProps = 
 {
@@ -129,7 +130,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>
           <div className='flex justify-center items-center gap-x-4'>
-            <span>Ofensywa</span>
+            <span className='capitalize'>{displayedText.offense}</span>
             <div className='mt-1'>
               <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
             </div>
@@ -141,7 +142,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
       <CardContent className={ `grid grid-cols-1 gap-1 ${currentSecondaryOffense ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
 
         <WeaponDamageWithCriticalSubcard 
-          name='Wiodąca'
+          name={displayedText.leading}
           weaponOffense={currentLeadingOffense}
           baseWeaponOffense={leadingOffense}
           rolls={leadingRolls}
@@ -154,7 +155,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
         {
           currentSecondaryOffense && (
             <WeaponDamageWithCriticalSubcard 
-              name='Wtórna'
+              name={displayedText.secondary}
               weaponOffense={currentSecondaryOffense}
               baseWeaponOffense={secondaryOffense as WeaponOffense}
               rolls={secondaryRolls}

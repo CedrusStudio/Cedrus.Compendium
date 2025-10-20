@@ -1,11 +1,16 @@
 import { Character } from '@/domain/characters/Character';
 import { setSearchQueryParam } from '@/common/global/httpUtils';
 import axios from 'axios';
-import { Talent } from '@/domain/characters/Talent';
+import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
+import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
+import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
+import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
+import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
+import { nextApiUrl } from '@/lib/env';
 
 const clientBase = axios.create
 ({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: nextApiUrl,
   headers: 
   {
     Accept: 'application/json',
@@ -17,7 +22,13 @@ const characterPathSegment = '/characters';
 
 const bffClient = 
 {
-    searchCharacters: async (search?: string) =>
+    //Queries
+    getCharacterById: async (id: string): Promise<Character> =>
+    {
+        const response = await clientBase.get<Character>(`${characterPathSegment}/${id}`);
+        return response.data;
+    },
+    searchCharacters: async (search?: string): Promise<Character[]> =>
     {
         const url = new URL(characterPathSegment, window.location.origin);
         setSearchQueryParam(url, search);
@@ -25,25 +36,35 @@ const bffClient =
         const response = await clientBase.get<Character[]>(finalUrl);
         return response.data;
     },
-    getCharacterById: async (id: string) =>
+    //Commands
+    addCharacter: async (characterHeader: HeaderDto): Promise<string> =>
     {
-        const response = await clientBase.get<Character>(`${characterPathSegment}/${id}`);
+        const response = await clientBase.post(characterPathSegment, characterHeader);
         return response.data;
     },
-    deleteCharacterById: async (id: string) =>
+    deleteCharacterById: async (id: string) : Promise<void> =>
     {
-        const response = await clientBase.delete(`${characterPathSegment}/${id}`);
-        return response.data;
+        await clientBase.delete(`${characterPathSegment}/${id}`);
     },
-    upsertCharacter: async (id: string, characterData: Character) =>
+    updateDetails: async (id: string, characterData: DetailsDto): Promise<void> =>
     {
-        const response = await clientBase.put(`${characterPathSegment}/${id}`, characterData);
-        return response.data;
+        await clientBase.put(`${characterPathSegment}/${id}/details`, characterData);
     },
-    addTalent: async (id: string, talent: Talent) =>
+    updateCombat: async (id: string, characterData: CombatDto): Promise<void>  =>
     {
-        const response = await clientBase.post(`${characterPathSegment}/${id}/talents`, talent);
-        return response.data;
+        await clientBase.put(`${characterPathSegment}/${id}/combat`, characterData);
+    },
+    updateStatistics: async (id: string, characterData: StatisticsDto): Promise<void> =>
+    {
+        await clientBase.put(`${characterPathSegment}/${id}/statistics`, characterData);
+    },
+    updateEquipment: async (id: string, characterData: EquipmentDto): Promise<void> =>
+    {
+        await clientBase.put(`${characterPathSegment}/${id}/equipment`, characterData);
+    },
+    updateTalents: async (id: string, talent: TalentsDto): Promise<void> =>
+    {
+        await clientBase.put(`${characterPathSegment}/${id}/talents`, talent);
     }
 }
 

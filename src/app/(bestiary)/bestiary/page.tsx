@@ -1,4 +1,4 @@
-import { getAllCharacters } from "@/persistence/characterRepository";
+import { getAllCharacters } from "@/persistence/charactersRepository";
 import {
   dehydrate,
   HydrationBoundary,
@@ -17,7 +17,7 @@ export default async function BestiaryPage()
   await queryClient.prefetchQuery<Character[]>
   ({
     queryKey: allCharactersKey,
-    queryFn: () => getAllCharacters()
+    queryFn: async () => await getAllCharacters()
   });
 
   return (

@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { addCharacter } from "@/persistence/characterRepository";
-import { type  DetailsDto, headerSchema } from "@/persistence/schemas/characters/headerSchema";
+import { addCharacter } from "@/persistence/charactersRepository";
+import { type HeaderDto, headerSchema } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
@@ -23,7 +23,7 @@ export default function AddCharacterView()
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const dispatch = useDispatch();
 
-    const initialHeaderValues: DetailsDto =
+    const initialHeaderValues: HeaderDto =
     {
         name: "",
         shortName: "",
@@ -31,7 +31,7 @@ export default function AddCharacterView()
         description: "",
     };
 
-    const form = useForm<DetailsDto>
+    const form = useForm<HeaderDto>
     ({
         resolver: zodResolver(headerSchema),
         defaultValues: initialHeaderValues,
@@ -41,7 +41,7 @@ export default function AddCharacterView()
     
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (characterHeader: DetailsDto) => 
+        mutationFn: async (characterHeader: HeaderDto) => 
         {
             const id = await addCharacter(characterHeader);
             return { id, shortName: characterHeader.shortName };
@@ -56,7 +56,7 @@ export default function AddCharacterView()
         onError: (error) => onError(error)
     });
 
-    function onSubmit(values: DetailsDto) 
+    function onSubmit(values: HeaderDto) 
     {
         mutate(values);
     }
@@ -69,13 +69,13 @@ export default function AddCharacterView()
                     {displayedText.create_new_character} 
                 </p>
 
-                <InputFormField<DetailsDto> 
+                <InputFormField<HeaderDto> 
                     path="name" 
                     inputPlaceholder={displayedText.name} 
                     inputClassName="w-xl"
                 />
 
-                <InputFormField<DetailsDto> 
+                <InputFormField<HeaderDto> 
                     path="shortName" 
                     inputPlaceholder={displayedText.short_name} 
                     inputClassName="w-xl"
@@ -90,7 +90,7 @@ export default function AddCharacterView()
                     onChange={setSelectedCategory}
                 />
 
-                <AreaInputFormField<DetailsDto> 
+                <AreaInputFormField<HeaderDto> 
                     path="description" 
                     inputPlaceholder={displayedText.description} 
                 />

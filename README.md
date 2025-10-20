@@ -18,3 +18,15 @@ buffy
 zakęcia
 
 wiele kategorii jak Bohater
+
+Generate clients:
+
+> npx prisma generate
+
+Seeding data:
+
+> npx prisma db seed
+
+For multiple .env.local
+
+> npm install -g dotenv-cli

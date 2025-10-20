@@ -115,13 +115,13 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   {
     id: columnKeys.defense,
     accessorKey: columnKeys.defense,
-    cell: ({ row }) => <CharacterDefensesBattleView character={row.original} />,
+    cell: ({ row }) => row.original.defenses.length > 0 ? <CharacterDefensesBattleView character={row.original} /> : null,
     header: () => <span className="capitalize">{displayedText[columnKeys.defense]}</span>
   },
   {
     id: columnKeys.offense,
     accessorKey: columnKeys.offense,
-    cell: ({ row }) => <CharacterOffensesBattleView character={row.original} />,
+    cell: ({ row }) => row.original.offenses.length > 0 ? <CharacterOffensesBattleView character={row.original} /> : null,
     header: () => <span className="capitalize">{displayedText[columnKeys.offense]}</span>
   },
   {
@@ -168,7 +168,8 @@ function CharacterNameView({ character }: {character: Character})
 {
   return (
     <div className="flex flex-row justify-center items-center gap-1">
-      {character.name}
+      <span className="block lg:hidden">{character.shortName}</span>
+      <span className="hidden lg:block">{character.name}</span>
       <Button variant="ghost" size="icon" onClick={() => navigator.clipboard.writeText(character.name)}>{copyIcon}</Button>
     </div>
   );
@@ -178,7 +179,7 @@ function CharacterHealthBattleView({ character }: {character: Character})
 {
   return (
     <div>
-      {calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth && `(-${character.health.lethalHealth})`} [{character.health.recoveryLevel}]
+      {calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth > 0 ? `(-${character.health.lethalHealth})` : null} [{character.health.recoveryLevel}]
     </div>
   );
 }
@@ -272,7 +273,8 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent>
-        <DrawerHeader className="grid grid-cols-9">
+        <div className="overflow-y-auto">
+        <DrawerHeader className="flex flex-col justify-center items-center flex-wrap lg:grid lg:grid-cols-9">
 
           <div className="flex flex-col gap-4 items-center col-span-2">
 
@@ -302,6 +304,7 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
           </div>
 
         </DrawerHeader>
+        </div>
       </DrawerContent>
     </Drawer>
   );

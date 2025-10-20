@@ -19,13 +19,16 @@ export type Character =
   name: string;
   description: string;
   category: CharacterCategory;
+
   characteristics: Characteristics;
   attributes: Attributes;
   talents: Talent[];
+  
   health: Health;
   defenses: Defense[];
   offenses: Offense[];
   equipment: Equipment;
+  
   stances: Mode[];
   states: Mode[];
   maneuvers: Maneuver[];
