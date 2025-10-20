@@ -141,7 +141,11 @@ export function toCharacterCombatPersistenceModel(combat: CombatDto)
       connect: combat.maneuvers.map(m => ({ id: m.id }))
     },
     offenses: combat.offenses,
-    powers: combat.powers,
+    powers: combat.powers.map(power => ({
+      ...power,
+      spells: undefined,
+      spellsIds: power.spells.map(spell => spell.id)
+    })),
     perks: {
       connect: combat.perks.map(p => ({ id: p.id }))
     }
