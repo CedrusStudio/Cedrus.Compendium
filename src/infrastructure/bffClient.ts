@@ -22,12 +22,12 @@ const characterPathSegment = '/characters';
 const bffClient = 
 {
     //Queries
-    getCharacterById: async (id: string) =>
+    getCharacterById: async (id: string): Promise<Character> =>
     {
         const response = await clientBase.get<Character>(`${characterPathSegment}/${id}`);
         return response.data;
     },
-    searchCharacters: async (search?: string) =>
+    searchCharacters: async (search?: string): Promise<Character[]> =>
     {
         const url = new URL(characterPathSegment, window.location.origin);
         setSearchQueryParam(url, search);
@@ -36,40 +36,34 @@ const bffClient =
         return response.data;
     },
     //Commands
-    addCharacter: async (characterHeader: HeaderDto) =>
+    addCharacter: async (characterHeader: HeaderDto): Promise<string> =>
     {
         const response = await clientBase.post(characterPathSegment, characterHeader);
         return response.data;
     },
-    deleteCharacterById: async (id: string) =>
+    deleteCharacterById: async (id: string) : Promise<void> =>
     {
-        const response = await clientBase.delete(`${characterPathSegment}/${id}`);
-        return response.data;
+        await clientBase.delete(`${characterPathSegment}/${id}`);
     },
-    updateDetails: async (id: string, characterData: DetailsDto) =>
+    updateDetails: async (id: string, characterData: DetailsDto): Promise<void> =>
     {
-        const response = await clientBase.put(`${characterPathSegment}/${id}/details`, characterData);
-        return response.data;
+        await clientBase.put(`${characterPathSegment}/${id}/details`, characterData);
     },
-    updateCombat: async (id: string, characterData: CombatDto) =>
+    updateCombat: async (id: string, characterData: CombatDto): Promise<void>  =>
     {
-        const response = await clientBase.put(`${characterPathSegment}/${id}/combat`, characterData);
-        return response.data;
+        await clientBase.put(`${characterPathSegment}/${id}/combat`, characterData);
     },
-    updateStatistics: async (id: string, characterData: StatisticsDto) =>
+    updateStatistics: async (id: string, characterData: StatisticsDto): Promise<void> =>
     {
-        const response = await clientBase.put(`${characterPathSegment}/${id}/statistics`, characterData);
-        return response.data;
+        await clientBase.put(`${characterPathSegment}/${id}/statistics`, characterData);
     },
-    updateEquipment: async (id: string, characterData: EquipmentDto) =>
+    updateEquipment: async (id: string, characterData: EquipmentDto): Promise<void> =>
     {
-        const response = await clientBase.put(`${characterPathSegment}/${id}/equipment`, characterData);
-        return response.data;
+        await clientBase.put(`${characterPathSegment}/${id}/equipment`, characterData);
     },
-    updateTalents: async (id: string, talent: TalentsDto) =>
+    updateTalents: async (id: string, talent: TalentsDto): Promise<void> =>
     {
-        const response = await clientBase.put(`${characterPathSegment}/${id}/talents`, talent);
-        return response.data;
+        await clientBase.put(`${characterPathSegment}/${id}/talents`, talent);
     }
 }
 

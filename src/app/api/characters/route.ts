@@ -22,8 +22,8 @@ export async function POST(request: NextRequest)
   try 
   {
     const characterData = await request.json();
-    const character = await addCharacter(characterData);
-    return NextResponse.json(character);
+    const id = await addCharacter(characterData);
+    return NextResponse.json(id, { status: 201 });
   } 
   catch (error) 
   {

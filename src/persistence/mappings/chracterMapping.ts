@@ -1,9 +1,9 @@
 import { Castable } from '@/domain/characters/Castable';
 import { Character, CharacterCategory } from '@/domain/characters/Character';
-import { Defense } from '@/domain/characters/combat/Defense';
+import { CreateDefaultDefense, Defense } from '@/domain/characters/combat/Defense';
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { Mode } from '@/domain/characters/combat/Mode';
-import { Offense } from '@/domain/characters/combat/Offense';
+import { CreateDefaultOffense, Offense } from '@/domain/characters/combat/Offense';
 import { Power, PowerType, Spell } from '@/domain/characters/combat/Power';
 import { Perk } from '@/domain/characters/Perk';
 import { Talent, TalentPenalty } from '@/domain/characters/Talent';
@@ -95,8 +95,8 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
       bonus: 0
     },
 
-    defenses: [],
-    offenses: [],
+    defenses: [ CreateDefaultDefense() ],
+    offenses: [ CreateDefaultOffense() ],
     talents: [],
 
     equipment: 

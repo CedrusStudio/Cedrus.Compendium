@@ -19,7 +19,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams)
     if (!character) return NextResponse.json({ message: 'Character not found' }, { status: 404 });
 
     await updateCharacterStatistics(id, await request.json());
-    return NextResponse.json(character);
+    return NextResponse.json({ status: 200 });
   } 
   catch (error) 
   {
