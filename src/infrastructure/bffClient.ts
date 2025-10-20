@@ -6,10 +6,11 @@ import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema'
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
+import { nextApiUrl } from '@/lib/env';
 
 const clientBase = axios.create
 ({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: nextApiUrl,
   headers: 
   {
     Accept: 'application/json',
