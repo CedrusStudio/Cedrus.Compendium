@@ -77,7 +77,7 @@ export default function BestiaryTable()
 
   return (
     <div className="mx-3">
-      <div className="flex items-center py-4 gap-3">
+      <div className="flex flex-wrap items-center justify-center py-4 gap-3">
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 
         <CategorySelectFilter 
@@ -95,7 +95,7 @@ export default function BestiaryTable()
           toast.success(displayedText.addedToBattle);
         }}>
           {addIcon("scale-90")}
-        </Button>
+        </Button> 
 
         <PaginationButtons table={table} />
         <ColumnFilter table={table} />

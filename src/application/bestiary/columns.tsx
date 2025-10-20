@@ -168,7 +168,8 @@ function CharacterNameView({ character }: {character: Character})
 {
   return (
     <div className="flex flex-row justify-center items-center gap-1">
-      {character.name}
+      <span className="block lg:hidden">{character.shortName}</span>
+      <span className="hidden lg:block">{character.name}</span>
       <Button variant="ghost" size="icon" onClick={() => navigator.clipboard.writeText(character.name)}>{copyIcon}</Button>
     </div>
   );
@@ -272,7 +273,8 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent>
-        <DrawerHeader className="grid grid-cols-9">
+        <div className="overflow-y-auto">
+        <DrawerHeader className="flex flex-col justify-center items-center flex-wrap lg:grid lg:grid-cols-9">
 
           <div className="flex flex-col gap-4 items-center col-span-2">
 
@@ -302,6 +304,7 @@ function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }:
           </div>
 
         </DrawerHeader>
+        </div>
       </DrawerContent>
     </Drawer>
   );
