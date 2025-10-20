@@ -229,7 +229,7 @@ function toCastablePerk<TCastablePerk extends (Perk & Castable)>(castablePersist
   return {
     ...toPerk<TCastablePerk>(castablePersistenceModel),
     castTime: castablePersistenceModel.castTime,
-    cooldown: castablePersistenceModel.cooldown,
+    cooldown: castablePersistenceModel.cooldown
   };
 }
 
@@ -244,6 +244,14 @@ function toPower(powerPersistenceModel: Prisma.PowerModel, spellPersistenceModel
     level: powerPersistenceModel.level,
     essence: powerPersistenceModel.essence,
     type: powerPersistenceModel.type as PowerType,
-    spells: relatedSpell.map(toCastablePerk<Spell>),
+    spells: relatedSpell.map(toSpell),
+  };
+}
+
+function toSpell(spellPersistenceModel: Prisma.SpellModel): Spell
+{
+  return {
+    ...toPerk<Spell>(spellPersistenceModel),
+    cost: spellPersistenceModel.cost
   };
 }
