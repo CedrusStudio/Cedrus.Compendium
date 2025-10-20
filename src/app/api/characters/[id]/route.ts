@@ -1,19 +1,13 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { deleteCharacter, getCharacterById } from '@/persistence/charactersRepository';
 
-type RouteParams = 
-{
-  params: 
-  {
-    id: string;
-  };
-};
+type RouteParams = Promise<{ id: string }>
 
-export async function GET(request: NextRequest, { params }: RouteParams)
+export async function GET(request: NextRequest, segmentData: { params: RouteParams })
 {
   try 
   {
-    const { id } = await params;
+    const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Character ID is required' }, { status: 400 });
     const character = await getCharacterById(id);
     if (!character) return NextResponse.json({ message: 'Character not found' }, { status: 404 });
@@ -26,11 +20,11 @@ export async function GET(request: NextRequest, { params }: RouteParams)
   }
 };
 
-export async function DELETE(request: NextRequest, { params }: RouteParams)
+export async function DELETE(request: NextRequest, segmentData: { params: RouteParams })
 {
   try 
   {
-    const { id } = await params;
+    const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Character ID is required' }, { status: 400 });
     const character = await getCharacterById(id);
     if (!character) return NextResponse.json({ message: 'Character not found' }, { status: 404 });

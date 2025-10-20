@@ -1,19 +1,13 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getCharacterById, updateCharacterEquipment } from '@/persistence/charactersRepository';
 
-type RouteParams = 
-{
-  params: 
-  {
-    id: string;
-  };
-};
+type RouteParams = Promise<{ id: string }>
 
-export async function PUT(request: NextRequest, { params }: RouteParams)
+export async function PUT(request: NextRequest, segmentData: { params: RouteParams })
 {
   try 
   {
-    const { id } = await params;
+    const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Character ID is required' }, { status: 400 });
     const character = await getCharacterById(id);
     if (!character) return NextResponse.json({ message: 'Character not found' }, { status: 404 });
