@@ -16,12 +16,12 @@ import EditCharacterCombat from "@/application/characters/edit/combat/EditCharac
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
 import { displayedText } from "@/presentation/translations";
 
-type EditCharacterProps =
+type EditCharacterViewProps =
 {
     tab: CharacterTabs;
 }
 
-export default function EditCharacterView({ tab }: EditCharacterProps)
+export default function EditCharacterView({ tab }: EditCharacterViewProps)
 {
   const { character } = useGetCharacterById();
   const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? "character");
