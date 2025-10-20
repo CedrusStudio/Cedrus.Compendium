@@ -115,13 +115,13 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   {
     id: columnKeys.defense,
     accessorKey: columnKeys.defense,
-    cell: ({ row }) => <CharacterDefensesBattleView character={row.original} />,
+    cell: ({ row }) => row.original.defenses.length > 0 ? <CharacterDefensesBattleView character={row.original} /> : null,
     header: () => <span className="capitalize">{displayedText[columnKeys.defense]}</span>
   },
   {
     id: columnKeys.offense,
     accessorKey: columnKeys.offense,
-    cell: ({ row }) => <CharacterOffensesBattleView character={row.original} />,
+    cell: ({ row }) => row.original.offenses.length > 0 ? <CharacterOffensesBattleView character={row.original} /> : null,
     header: () => <span className="capitalize">{displayedText[columnKeys.offense]}</span>
   },
   {
@@ -178,7 +178,7 @@ function CharacterHealthBattleView({ character }: {character: Character})
 {
   return (
     <div>
-      {calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth && `(-${character.health.lethalHealth})`} [{character.health.recoveryLevel}]
+      {calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth > 0 ? `(-${character.health.lethalHealth})` : null} [{character.health.recoveryLevel}]
     </div>
   );
 }
