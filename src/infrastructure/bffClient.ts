@@ -35,6 +35,11 @@ const bffClient =
         const response = await clientBase.get<Character[]>(finalUrl);
         return response.data;
     },
+    getAllCharacters: async (): Promise<Character[]> =>
+    {
+        const response = await clientBase.get<Character[]>(characterPathSegment);
+        return response.data;
+    },
     //Commands
     addCharacter: async (characterHeader: HeaderDto): Promise<string> =>
     {

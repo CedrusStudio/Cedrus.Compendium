@@ -19,7 +19,7 @@ export const useSearchCharacters = () =>
     const { data = [] } = useSuspenseQuery<Character[]>
     ({
         queryKey,
-        queryFn: async () => await bffClient.searchCharacters(search),
+        queryFn: async () => search ? await bffClient.searchCharacters(search) : await bffClient.getAllCharacters(),
         staleTime: 5_000,
         refetchOnWindowFocus: true,
     });
