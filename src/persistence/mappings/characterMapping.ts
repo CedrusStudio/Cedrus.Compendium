@@ -8,7 +8,7 @@ import { Power, PowerType, Spell } from '@/domain/characters/combat/Power';
 import { Perk } from '@/domain/characters/Perk';
 import { Talent, TalentPenalty } from '@/domain/characters/Talent';
 import { Entity } from '@/domain/Entity';
-import {  Prisma } from '@/generated/prisma/client';
+import { Prisma } from '@prisma/client';
 import { toEquipment } from '@/persistence/mappings/equipmentMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { ulid } from 'ulid';
@@ -165,7 +165,9 @@ export function toEntity<TEntity extends Entity>(entityPersistenceModel: EntityP
   } as TEntity;
 }
 
-function toTalents(talentPersistenceModel: Prisma.TalentModel): Talent
+type TalentModel = Prisma.CharacterGetPayload<{select: { talents: true }}>['talents'][number];
+
+function toTalents(talentPersistenceModel: TalentModel): Talent
 {
   return {
     ...toEntity(talentPersistenceModel),
@@ -178,7 +180,9 @@ function toTalents(talentPersistenceModel: Prisma.TalentModel): Talent
   };
 }
 
-function toDefense(defensePersistenceModel: Prisma.DefenseModel): Defense
+type DefenseModel = Prisma.CharacterGetPayload<{select: { defenses: true }}>['defenses'][number];
+
+function toDefense(defensePersistenceModel: DefenseModel): Defense
 {
   return {
     ...toEntity(defensePersistenceModel),
@@ -194,7 +198,9 @@ function toDefense(defensePersistenceModel: Prisma.DefenseModel): Defense
   };
 }
 
-function toOffense(offensePersistenceModel: Prisma.OffenseModel): Offense
+type OffenseModel = Prisma.CharacterGetPayload<{select: { offenses: true }}>['offenses'][number];
+
+function toOffense(offensePersistenceModel: OffenseModel): Offense
 {
   return {
     ...toEntity(offensePersistenceModel),
@@ -205,7 +211,6 @@ function toOffense(offensePersistenceModel: Prisma.OffenseModel): Offense
     damageBonus: offensePersistenceModel.damageBonus,
   };
 }
-
 
 type PerkPersistenceParams = {
   id: string;
@@ -228,7 +233,9 @@ function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistenceParams)
   } as TPerk;
 }
 
-function toCastablePerk<TCastablePerk extends (Perk & Castable)>(castablePersistenceModel: Prisma.ManeuverModel): TCastablePerk
+type ManeuverModel = Prisma.CharacterGetPayload<{select: { maneuvers: true }}>['maneuvers'][number];
+
+function toCastablePerk<TCastablePerk extends (Perk & Castable)>(castablePersistenceModel: ManeuverModel): TCastablePerk
 {
   return {
     ...toPerk<TCastablePerk>(castablePersistenceModel),
@@ -237,7 +244,10 @@ function toCastablePerk<TCastablePerk extends (Perk & Castable)>(castablePersist
   };
 }
 
-function toPower(powerPersistenceModel: Prisma.PowerModel, spellPersistenceModels: Prisma.SpellModel[]) : Power
+type PowerModel = Prisma.CharacterGetPayload<{select: { powers: true }}>['powers'][number];
+type SpellModel = Prisma.CharacterGetPayload<{select: { spells: true }}>['spells'][number];
+
+function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: SpellModel[]) : Power
 {
   const relatedSpell = spellPersistenceModels
     .filter(spell => powerPersistenceModel.spellsIds.includes(spell.id));
@@ -252,7 +262,7 @@ function toPower(powerPersistenceModel: Prisma.PowerModel, spellPersistenceModel
   };
 }
 
-function toSpell(spellPersistenceModel: Prisma.SpellModel): Spell
+function toSpell(spellPersistenceModel: SpellModel): Spell
 {
   return {
     ...toCastablePerk<Spell>(spellPersistenceModel),

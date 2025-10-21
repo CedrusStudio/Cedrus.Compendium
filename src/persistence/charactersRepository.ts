@@ -3,7 +3,7 @@
 //Tip: mark your repository as server-only so it can’t be imported in client components by mistake.
 import 'server-only';
 import prisma from '@/lib/prisma';
-import { toCharacter, toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/chracterMapping';
+import { toCharacter, toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { Character } from '@/domain/characters/Character';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
