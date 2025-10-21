@@ -2,7 +2,8 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 import { type NextRequest } from 'next/server';
 
 export const searchParamKey = 'search';
-export const getSearchParamFromRequest = (request: NextRequest) => request.nextUrl.searchParams.get(searchParamKey);
+export const getSearchParamFromRequest = (request: NextRequest) => 
+    request.nextUrl.searchParams.get(searchParamKey);
 
 export const getSearchQueryParam = (searchParams: ReadonlyURLSearchParams) => 
 {
