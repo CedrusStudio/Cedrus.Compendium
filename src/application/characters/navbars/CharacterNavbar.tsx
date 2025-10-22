@@ -58,9 +58,11 @@ export default function CharacterNavbar()
     }, [searchQuery]);
 
     return (
-        <nav className="grid grid-cols-9 items-center py-4">
+        <nav className="flex items-center justify-between py-4 px-10 gap-3">
 
-            <NavbarBreadcrumb pathname={pathname} />
+            <div className="hidden lg:block">
+                <NavbarBreadcrumb pathname={pathname} />
+            </div>
 
             <Input 
                 name="search" 
@@ -68,10 +70,10 @@ export default function CharacterNavbar()
                 placeholder={displayedText.searchCharacter}
                 value={searchTerm}
                 onChange={handleInputChange}
-                className="w-1xl md:w-2xl lg:w-3xl col-span-6 justify-self-center"
+                className="w-xl md:w-1xl lg:w-2xl"
             />
 
-            <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
+            <div className="flex flex-row items-center gap-2 justify-self-center">
                 <Button asChild variant="outline" size="icon">
                     <Link href="/characters/add">{addIcon("h-[1.2rem] w-[1.2rem]")}</Link>
                 </Button>
