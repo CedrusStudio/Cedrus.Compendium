@@ -8,24 +8,20 @@ export default function DetailsView({ character }: { character: Character })
   return (
     <section className="flex flex-col justify-around">
 
-      <header className="grid grid-cols-3 items-center mb-6 mt-4">
+      <header className="flex flex-row items-center justify-center mb-4 md:mb-6 mt-2 gap-3">
 
-        <div className="col-span-1" />
+        <h1 className="font-semibold text-primary capitalize text-lg hidden sm:block">
+          {character.name}
+        </h1>
 
-        <div className="col-span-1 flex items-center justify-center">
-          <h1 className="font-semibold text-primary capitalize text-lg">
-            {character.name}
-          </h1>
-        </div>
+        <Badge variant="secondary" className="text-md text-primary capitalize">
+          {character.category} {character.shortName}
+        </Badge>
 
-        <div className="col-span-1 flex justify-end">
-          <Badge variant="secondary" className="text-md text-right text-primary capitalize">
-            {character.category} {character.shortName}
-          </Badge>
-        </div>
       </header>
 
       <article>
+
         <p className="text-md text-center text-primary pb-8 first-letter:uppercase">
           {character.description}
         </p>

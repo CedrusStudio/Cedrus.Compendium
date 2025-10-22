@@ -65,7 +65,7 @@ export default function HealthCard(input: HealthCardProps)
             <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
             <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncreaseIfPositive} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
           </div>
-          <div className='flex gap-4'>
+          <div className='flex sm:gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>

@@ -18,10 +18,11 @@ import {
   SelectValue,
 } from "@/ui/select";
 import FieldView from "@/common/components/fields/FieldView";
+import { displayedText } from "@/presentation/translations";
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
 {  
-  const [selectedMode, setSelectedMode] = useState<string>("None");
+  const [selectedMode, setSelectedMode] = useState<string>(displayedText.none);
   const selectedModeObj = modes.find(mode => mode.name === selectedMode);
 
   return (
@@ -32,12 +33,12 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
 
       <CardContent className='flex flex-col gap-y-4 flex-1'>
 
-        <Select defaultValue="None" onValueChange={setSelectedMode}>
-          <SelectTrigger className="w-[180px]">
+        <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
+          <SelectTrigger className="w-[180px] capitalize">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="None">None</SelectItem>
+            <SelectItem value={displayedText.none}>{displayedText.none}</SelectItem>
             {
               modes.map(mode => (
                 <SelectItem key={mode.name} value={mode.name}>

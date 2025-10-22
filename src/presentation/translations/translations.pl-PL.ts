@@ -1,5 +1,6 @@
 export const translations_plPL = 
 {
+    none: "brak",
     characters: "postacie",
     edit: "edycja",
     add: "dodawanie",

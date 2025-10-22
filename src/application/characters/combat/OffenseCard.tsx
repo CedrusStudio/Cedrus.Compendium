@@ -129,12 +129,14 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
 
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>
-          <div className='flex justify-center items-center gap-x-4'>
-            <span className='capitalize'>{displayedText.offense}</span>
-            <div className='mt-1'>
+          <div className='flex flex-col sm:flex-row justify-center items-center gap-4'>
+            <div className='flex flex-row gap-x-4 items-center justify-center'>
+              <span className='capitalize'>{displayedText.offense}</span>
               <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
             </div>
-            <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setSelectedOffenseIndex} />
+            <div className='flex flex-row items-center justify-center gap-4'>
+              <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setSelectedOffenseIndex} />
+            </div>
           </div>
         </CardTitle>
       </CardHeader>

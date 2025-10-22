@@ -59,7 +59,7 @@ export default function BarrierCard(input: BarrierCardProps)
             <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
             <ChangeButtons value={barrierIncreaseChangeAmount} setValue={setBarrierIncreaseIfPositive} setChangeAmount={setBarrierIncreaseChangeAmount} resetValue={0} />
           </div>
-          <div className='flex gap-4'>
+          <div className='flex sm:gap-4'>
             <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>

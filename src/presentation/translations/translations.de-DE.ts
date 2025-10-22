@@ -1,5 +1,6 @@
 export const translations_deDE = 
 {
+    none: "keiner",
     characters: "charaktere",
     edit: "bearbeiten",
     add: "hinzufügen",

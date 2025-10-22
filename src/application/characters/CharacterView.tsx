@@ -63,11 +63,11 @@ export default function CharacterView({ tab }: CharacterViewProps)
         <Tabs 
             defaultValue={tab ?? defaultTab} 
             onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
-            className='md:col-span-10 md:ml-6 grid grid-rows-15'
+            className='md:col-span-10 md:ml-6 flex flex-col md:grid md:grid-rows-15'
         >
 
             <div className='md:row-span-1'>
-                <div className='flex flex-row justify-between items-center'>
+                <div className='flex flex-col mt-4 sm:mt-0 sm:flex-row justify-between items-center'>
 
                     <TabsList>
                         <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
@@ -88,12 +88,12 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <Separator />
             </div>
 
-            <div className='row-span-14'>
+            <div className='mt-1 md:row-span-14'>
                 <TabsContent value="character">
                     <DetailsView character={character} />
                 </TabsContent>
 
-                <TabsContent value="combat">
+                <TabsContent value="combat" className="md:-mt-7">
                     <CombatView character={character} />
                 </TabsContent>
 
