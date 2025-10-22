@@ -75,38 +75,48 @@ export async function addCharacter(characterHeader: HeaderDto)
 }
 
 export async function deleteCharacter(id: string)
-  : Promise<void>
+  : Promise<boolean>
 {
-  await prisma.character.delete
+  const deleted = await prisma.character.delete
   ({
     where: { id }
   });
+
+  return !!deleted;
 }
 
 export async function updateCharacterStatistics(id: string, characterStatistics: StatisticsDto)
-  : Promise<void>
+  : Promise<boolean>
 {
-  await prisma.character.update
+  const updatedCharacter = await prisma.character.update
   ({
     where: { id },
     data: characterStatistics
   });
+
+  return !!updatedCharacter;
 }
 
 export async function updateCharacterTalents(id: string, characterTalents: TalentsDto)
-  : Promise<void>
+  : Promise<boolean>
 {
-  await prisma.character.update
+  const updatedCharacter = await prisma.character.update
   ({
     where: { id },
     data: characterTalents
   });
+
+  return !!updatedCharacter;
 }
 
 export async function updateCharacterEquipment(id: string, characterEquipment: EquipmentDto)
-  : Promise<void>
+  : Promise<boolean>
 {
-  await prisma.character.update
+  //WHEN THE EQUIPMENT HAS RELATIONS, UPDATE LOGIC MUST BE ADDED HERE
+  const characterToUpdate = await prisma.character.findUnique({ where: { id } });
+  if (!characterToUpdate) return false;
+
+  const updatedCharacter = await prisma.character.update
   ({
     where: { id },
     data: 
@@ -114,26 +124,53 @@ export async function updateCharacterEquipment(id: string, characterEquipment: E
       equipment: characterEquipment
     }
   });
+
+  return !!updatedCharacter;
 }
 
 export async function updateCharacterDetails(id: string, characterDetails: DetailsDto)
-  : Promise<void>
+  : Promise<boolean>
 {
-  const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel(characterDetails);
-  await prisma.character.update
+  const existingPerkIdsResponse = await prisma.character.findUnique
+  ({ 
+    where: { id },
+    select: { perksIds: true }
+  });
+
+  if (!existingPerkIdsResponse) return false;
+
+  const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel(characterDetails, existingPerkIdsResponse.perksIds);
+  const updatedCharacter = await prisma.character.update
   ({
     where: { id },
     data: characterDetailsPersistenceModel
   });
+
+  return !!updatedCharacter;
 }
 
 export async function updateCharacterCombat(id: string, characterCombat: CombatDto)
-  : Promise<void>
+  : Promise<boolean>
 {
-  const characterCombatPersistenceModel = toCharacterCombatPersistenceModel(characterCombat);
-  await prisma.character.update
+  const idsToUpdate = await prisma.character.findUnique
+  ({ 
+    where: { id },
+    select: { 
+      stancesIds: true,
+      statesIds: true,
+      maneuversIds: true,
+      spellsIds: true
+    }
+  });
+
+  if (!idsToUpdate) return false;
+
+  const characterCombatPersistenceModel = toCharacterCombatPersistenceModel(characterCombat, idsToUpdate.stancesIds, idsToUpdate.statesIds, idsToUpdate.maneuversIds, idsToUpdate.spellsIds);
+  const updatedCharacter = await prisma.character.update
   ({
     where: { id },
     data: characterCombatPersistenceModel
   });
+
+  return !!updatedCharacter;
 }
