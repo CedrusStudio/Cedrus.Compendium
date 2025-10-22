@@ -20,7 +20,7 @@ export default function CombatView({ character }: { character: Character })
         <BarrierCard health={character.health} />
       </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-6 gap-4'>
+      <div className='flex flex-col md:grid md:grid-cols-1 lg:grid-cols-6 gap-4'>
         
         {
           character.offenses.length > 0 && (

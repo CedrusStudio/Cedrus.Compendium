@@ -26,17 +26,19 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
   const selectedModeObj = modes.find(mode => mode.name === selectedMode);
 
   return (
-    <Card className='bg-muted flex flex-col'>
+    <Card className='bg-muted flex flex-col w-full '>
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{name}</CardTitle>
       </CardHeader>
 
-      <CardContent className='flex flex-col gap-y-4 flex-1'>
+      <CardContent className='flex flex-col items-center justify-center md:items-start md:justify-start gap-y-4 flex-1'>
 
         <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
+          
           <SelectTrigger className="w-[180px] capitalize">
             <SelectValue />
           </SelectTrigger>
+
           <SelectContent>
             <SelectItem value={displayedText.none}>{displayedText.none}</SelectItem>
             {
