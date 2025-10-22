@@ -13,6 +13,7 @@ import { toEquipment } from '@/persistence/mappings/equipmentMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { ulid } from 'ulid';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
+import { createUpsertPayload } from '@/persistence/mappings/createUpsertPayload';
 
 type CharacterWithRelations = Prisma.CharacterGetPayload<{
   include: {
@@ -111,7 +112,7 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
   };
 }
 
-export function toCharacterDetailsPersistenceModel(details: DetailsDto)
+export function toCharacterDetailsPersistenceModel(details: DetailsDto, existingPerkIds: string[])
   : Prisma.CharacterUpdateInput
 {
   return {
@@ -119,36 +120,33 @@ export function toCharacterDetailsPersistenceModel(details: DetailsDto)
     shortName: details.shortName,
     description: details.description,
     category: details.category,
-    perks: {
-      connect: details.perks.map(p => ({ id: p.id }))
-    }
+    perks: createUpsertPayload(existingPerkIds, details.perks)
   };
 }
 
-export function toCharacterCombatPersistenceModel(combat: CombatDto)
+export function toCharacterCombatPersistenceModel
+(
+  combat: CombatDto,
+  existingStancesIds: string[],
+  existingStatesIds: string[],
+  existingManeuversIds: string[],
+  existingSpellsIds: string[]
+)
   : Prisma.CharacterUpdateInput
 {
   return {
     health: combat.health,
     defenses: combat.defenses,
-    stances: {
-      connect: combat.stances.map(s => ({ id: s.id }))
-    },
-    states: {
-      connect: combat.states.map(s => ({ id: s.id }))
-    },
-    maneuvers: {
-      connect: combat.maneuvers.map(m => ({ id: m.id }))
-    },
+    stances: createUpsertPayload(existingStancesIds, combat.stances),
+    states: createUpsertPayload(existingStatesIds, combat.states),
+    maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers),
     offenses: combat.offenses,
     powers: combat.powers.map(power => ({
       ...power,
       spells: undefined,
       spellsIds: power.spells.map(spell => spell.id)
     })),
-    perks: {
-      connect: combat.perks.map(p => ({ id: p.id }))
-    }
+    spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells)),
   };
 }
 
