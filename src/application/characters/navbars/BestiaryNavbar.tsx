@@ -13,9 +13,11 @@ export default function BestiaryNavbar()
     const pathname = usePathname();
 
     return (
-        <nav className="flex items-center justify-between py-4 pr-10">
+        <nav className="flex items-center justify-end lg:justify-between py-4 px-10">
 
-            <NavbarBreadcrumb pathname={pathname} />
+            <div className="hidden lg:block">
+                <NavbarBreadcrumb pathname={pathname} />
+            </div>
 
             <div className="flex flex-row items-center gap-2 col-span-1 justify-self-center">
                 <Button asChild variant="outline" size="icon">

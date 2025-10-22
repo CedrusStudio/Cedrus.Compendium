@@ -45,8 +45,15 @@ export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
   if (characters?.length < 1) return <NoCharacters />;
 
   return (
-    <>
-      <Pagination className='flex justify-center mt-4'>
+    <div className='flex flex-col items-center justify-end'>
+
+      <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
+      {
+        pageItems.map(character => <CharacterCard key={character.id} character={character} />)
+      }
+      </div>
+
+      <Pagination className='fixed bottom-10 z-1'>
 
         <PaginationContent>
           
@@ -80,12 +87,7 @@ export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
         </PaginationContent>
       </Pagination>
 
-      <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
-      {
-        pageItems.map(character => <CharacterCard key={character.id} character={character} />)
-      }
-      </div>
-    </>
+    </div>
   );
 };
 
