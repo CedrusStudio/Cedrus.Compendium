@@ -9,16 +9,15 @@ import {
   SheetTrigger,
 } from "@/ui/sheet";
 import { Button } from "@/ui/button";
-import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { UseFieldArrayAppend } from "react-hook-form";
-import { talentsSchema, type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
+import { talentSchema, type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import { useState } from "react";
 import LabeledFormInput from "@/common/components/inputs/LabeledFormInput";
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { ulid } from "ulid";
 import { addIcon } from "@/presentation/icons";
-import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories, defaultTalent } from "@/domain/characters/Talent";
+import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories, defaultTalent, allowedTalentCharacteristics } from "@/domain/characters/Talent";
 import { displayedText } from "@/presentation/translations";
 
 type AddTalentViewProps =
@@ -52,8 +51,9 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
       penalty: newTalentPenalty,
     };
 
-    const result = talentsSchema.safeParse(newTalent);
+    const result = talentSchema.safeParse(newTalent);
 
+    console.log("New Talent to add:", result);
     if (!result.success) 
     {
       const fieldErrors = getErrors(result);
@@ -136,7 +136,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
             <LabeledFormSelectInput
               name="characteristics"
               label={displayedText.characteristics}
-              collectionToSelectFrom={allowedCharacterCategories}
+              collectionToSelectFrom={allowedTalentCharacteristics}
               value={selectedCharacteristics}
               placeholder={displayedText.selectCharacteristic}
               onChange={setSelectedCharacteristics}

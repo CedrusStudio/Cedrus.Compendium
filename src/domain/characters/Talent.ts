@@ -8,7 +8,7 @@ export type Talent = Entity &
   category: string;
   characteristics: string;
   bonus: number;
-  penalty?: TalentPenalty;
+  penalty: TalentPenalty | null;
 };
 
 export type TalentPenalty = typeof allowedTalentPenalties[number];
@@ -43,6 +43,17 @@ export const allowedTalentCategories =
   "talent"
 ] as const satisfies readonly string[];
 
+export const allowedTalentCharacteristics = 
+[
+  "siła",
+  "zręczność",
+  "wytrzymałość",
+  "inteligencja",
+  "umysł",
+  "charyzma",
+  "czarokrwistość"
+] as const satisfies readonly string[];
+
 export const allowedTalentSenses = 
 [
   "wzrok",
@@ -62,7 +73,7 @@ export const allowedTalentLanguages =
   "wróżowski"
 ] as const satisfies readonly string[];
 
-export const allowedTaletProficiencies =
+export const allowedTalentProficiencies =
 [
   "pływanie",
   "wspinaczka",
@@ -115,7 +126,8 @@ export const defaultTalent: Omit<Talent, "id"> =
   category: "Kategoria",
   characteristics: "siła",
   bonus: 0,
-  grade: defaultDiceGrade
+  grade: defaultDiceGrade,
+  penalty: null
 };
 
 export const CreateDefaultTalent = (): Talent => ({...defaultTalent, id: ulid()});
