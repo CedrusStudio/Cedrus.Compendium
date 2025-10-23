@@ -23,7 +23,7 @@ type LabeledFormSelectInputProps<TValue> =
 export default function LabeledFormSelectInput<TValue extends string>({ name, label, placeholder, collectionToSelectFrom, value, onChange, errors, isValueCapitalized = true }: LabeledFormSelectInputProps<TValue>)
 {
   return (
-    <div className="grid gap-3 justify-center">
+    <div className="flex flex-col items-center flex-1 gap-3 justify-center">
       <Label htmlFor={name} className="capitalize">{label}</Label>
       <Select value={value} onValueChange={onChange}>
       <SelectTrigger>
