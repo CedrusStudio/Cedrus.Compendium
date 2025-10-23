@@ -68,44 +68,41 @@ function SmallUsedManeuversView({ usedManeuvers, removeLastManeuver, setUsedMane
     return (
         <div className="md:grid-cols-13 col-span-full md:hidden">
             
-            <div className="flex flex-row flex-wrap md:grid items-center justify-center gap-3 mt-3 py-4 border-t border-border/40">
-
-                <p className="text-sm md:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 md:gap-2">
+            <div className="text-sm md:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 md:gap-2 py-2">
+            {
+                usedManeuvers.map((usedManeuver, index) => 
                 {
-                    usedManeuvers.map((usedManeuver, index) => 
-                    {
-                        if (usedManeuver === "end") return (
-                            <Badge
-                                key={index}
-                                variant="destructive"
-                                className="m-0.5 px-1 py-0.5 text-xs leading-tight h-auto min-w-0"
-                            >
-                                {nextIcon()}
-                            </Badge>
-                        );
+                    if (usedManeuver === "end") return (
+                        <Badge
+                            key={index}
+                            variant="destructive"
+                            className="m-0.5 px-1 py-0.5 text-xs leading-tight h-auto min-w-0"
+                        >
+                            {nextIcon()}
+                        </Badge>
+                    );
 
-                        return (
-                            <Badge
-                                key={index}
-                                variant={getBadgeVariant(usedManeuver.castTime)}
-                                className="m-0.5 px-1 py-0.5 text-xs leading-tight h-auto min-w-0"
-                            >
-                                {usedManeuver.name}
-                            </Badge>
-                        );
-                    })
-                }
-                </p>
-
+                    return (
+                        <Badge
+                            key={index}
+                            variant={getBadgeVariant(usedManeuver.castTime)}
+                            className="m-0.5 px-1 py-0.5 text-xs leading-tight h-auto min-w-0"
+                        >
+                            {usedManeuver.name}
+                        </Badge>
+                    );
+                })
+            }
             </div>
 
-            <div className="flex gap-4 justify-center items-center">
-                <Button variant="default" className='flex-1 md:flex-0' onClick={removeLastManeuver}>
-                    {removePreviousIcon()}
-                </Button>
 
+            <div className="flex gap-4 justify-center items-center">
                 <Button variant="default" className='flex-1 md:flex-0' onClick={() => setUsedManeuvers([])}>
                     {resetIcon()}
+                </Button>
+
+                <Button variant="default" className='flex-1 md:flex-0' onClick={removeLastManeuver}>
+                    {removePreviousIcon()}
                 </Button>
 
                 <Button variant="default" className='flex-1 md:flex-0' onClick={endTurn}>
