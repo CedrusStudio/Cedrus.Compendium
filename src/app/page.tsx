@@ -27,7 +27,7 @@ export default function HomePage()
 const Heading = () =>
 (
   <div className="flex flex-row justify-around items-center">
-    <h1 className="capitalize text-4xl md:text-7xl font-bold">
+    <h1 className="capitalize text-4xl lg:text-7xl font-bold">
       {displayedText.applicationHeading}
     </h1>
   </div>

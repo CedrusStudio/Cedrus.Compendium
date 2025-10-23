@@ -15,7 +15,7 @@ import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { displayedText } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { currentValueIcon, sumIcon } from '@/presentation/icons';
+import { currentValueIcon, gainIcon, lossIcon, sumIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type HealthCardProps = 
@@ -61,12 +61,12 @@ export default function HealthCard(input: HealthCardProps)
         </FieldViewWithInfo>
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
-          <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
+          <div className='flex gap-4 items-center justify-center'>
+            <Label className='text-sm text-muted-foreground'>{gainIcon("size-10")}</Label>
             <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncreaseIfPositive} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />
           </div>
-          <div className='flex sm:gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
+          <div className='flex gap-4 items-center justify-center'>
+            <Label className='text-sm text-muted-foreground'>{lossIcon("size-10")}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>

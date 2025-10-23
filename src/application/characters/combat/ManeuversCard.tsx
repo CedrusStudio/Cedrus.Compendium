@@ -66,9 +66,9 @@ type UsedManeuversViewProps =
 function SmallUsedManeuversView({ usedManeuvers, removeLastManeuver, setUsedManeuvers, endTurn }: UsedManeuversViewProps)
 {
     return (
-        <div className="md:grid-cols-13 col-span-full md:hidden">
+        <div className="lg:grid-cols-13 col-span-full lg:hidden">
             
-            <div className="text-sm md:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 md:gap-2 py-2">
+            <div className="text-sm lg:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 lg:gap-2 py-2">
             {
                 usedManeuvers.map((usedManeuver, index) => 
                 {
@@ -97,15 +97,15 @@ function SmallUsedManeuversView({ usedManeuvers, removeLastManeuver, setUsedMane
 
 
             <div className="flex gap-4 justify-center items-center">
-                <Button variant="default" className='flex-1 md:flex-0' onClick={() => setUsedManeuvers([])}>
+                <Button variant="default" className='flex-1 lg:flex-0' onClick={() => setUsedManeuvers([])}>
                     {resetIcon()}
                 </Button>
 
-                <Button variant="default" className='flex-1 md:flex-0' onClick={removeLastManeuver}>
+                <Button variant="default" className='flex-1 lg:flex-0' onClick={removeLastManeuver}>
                     {removePreviousIcon()}
                 </Button>
 
-                <Button variant="default" className='flex-1 md:flex-0' onClick={endTurn}>
+                <Button variant="default" className='flex-1 lg:flex-0' onClick={endTurn}>
                     {nextIcon()}
                 </Button>
             </div>
@@ -116,7 +116,7 @@ function SmallUsedManeuversView({ usedManeuvers, removeLastManeuver, setUsedMane
 function MediumUsedManeuversView({ usedManeuvers, removeLastManeuver, setUsedManeuvers, endTurn }: UsedManeuversViewProps)
 {
     return (
-        <div className="md:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full hidden">
+        <div className="lg:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full hidden">
 
             <Button variant="default" className='col-span-1' onClick={() => setUsedManeuvers([])}>
                 {resetIcon()}

@@ -47,7 +47,7 @@ export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
   return (
     <div className='flex flex-col items-center justify-end'>
 
-      <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
+      <div className='grid lg:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
       {
         pageItems.map(character => <CharacterCard key={character.id} character={character} />)
       }

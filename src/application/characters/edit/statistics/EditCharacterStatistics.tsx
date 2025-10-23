@@ -39,7 +39,7 @@ export default function EditCharacterStatistics(input: { character: Character })
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
 
-        <div className="flex flex-col md:grid gap-3 md:grid-cols-2">
+        <div className="flex flex-col lg:grid gap-3 lg:grid-cols-2">
           <EditStatisticsCard 
             title="characteristics" 
             statistics={character.characteristics}

@@ -19,7 +19,7 @@ import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import DefenseReductionInfoContent from '@/application/characters/combat/DefenseReductionInfoContent';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { immunityIcon, reductionIcons, resistanceIcon } from '@/presentation/icons';
+import { gainIcon, immunityIcon, lossIcon, reductionIcons, resistanceIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 import ResetButton from '@/common/components/buttons/ResetButton';
@@ -113,12 +113,12 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
         </Select>
 
         <div className='flex-1 flex flex-col justify-end gap-y-2'>
-          <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
+          <div className='flex gap-4 items-center justify-center'>
+            <Label className='text-sm text-muted-foreground'>{gainIcon("size-10")}</Label>
             <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncreaseIfPositive} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />
           </div>
-          <div className='flex sm:gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
+          <div className='flex gap-4 items-center justify-center'>
+            <Label className='text-sm text-muted-foreground'>{lossIcon("size-10")}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>

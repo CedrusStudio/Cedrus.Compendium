@@ -13,7 +13,7 @@ import { Label } from '@/ui/label';
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { displayedText } from '@/presentation/translations';
 import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { currentValueIcon, sumIcon } from '@/presentation/icons';
+import { currentValueIcon, gainIcon, lossIcon, sumIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type BarrierCardProps = 
@@ -55,12 +55,12 @@ export default function BarrierCard(input: BarrierCardProps)
         </FieldViewWithInfo>
 
         <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
-          <div className='flex gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{displayedText.increase}</Label>
+          <div className='flex gap-4 items-center justify-center'>
+            <Label className='text-sm text-muted-foreground'>{gainIcon("size-10")}</Label>
             <ChangeButtons value={barrierIncreaseChangeAmount} setValue={setBarrierIncreaseIfPositive} setChangeAmount={setBarrierIncreaseChangeAmount} resetValue={0} />
           </div>
-          <div className='flex sm:gap-4'>
-            <Label className='text-sm text-muted-foreground w-36'>{displayedText.damage}</Label>
+          <div className='flex gap-4 items-center justify-center'>
+            <Label className='text-sm text-muted-foreground'>{lossIcon("size-10")}</Label>
             <ChangeButtons value={damageTakenChangeAmount} setValue={setDamageTakenIfPositive} setChangeAmount={setDamageTakenChangeAmount} resetValue={0} />
           </div>
         </div>

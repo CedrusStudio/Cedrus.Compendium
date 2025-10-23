@@ -30,10 +30,10 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
     <Tabs 
         defaultValue={tab} 
         onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
-        className='flex flex-col justify-center items-center md:justify-stretch md:grid md:col-span-8 lg:col-span-10 -mt-4'
+        className='flex flex-col justify-center items-center lg:justify-stretch lg:grid lg:col-span-10 -mt-4'
     >
 
-        <div className='md:row-span-1'>
+        <div className='lg:row-span-1'>
             <div className='flex flex-row flex-wrap justify-between items-center'>
                 <TabsList className='flex scale-95 m-1 sm:m-0 sm:scale-100'>
                     <TabsTriggerCapitalized value="statistics" overrideValue={displayedText.statistics} />
@@ -43,7 +43,7 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
                     <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                 </TabsList>
 
-                <Button asChild variant="default" size="icon" className='m-2 flex-1 md:m-4 md:flex-initial'>
+                <Button asChild variant="default" size="icon" className='m-2 flex-1 lg:m-4 lg:flex-initial'>
                     <Link href={`/characters/${character.id}?tab=${activeTab}`}><RiArrowGoBackFill /></Link>
                 </Button>
             </div>    

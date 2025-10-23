@@ -71,13 +71,13 @@ export default function AddCharacterView()
                 <InputFormField<HeaderDto> 
                     path="name" 
                     inputPlaceholder={displayedText.name} 
-                    inputClassName="md:w-xl"
+                    inputClassName="lg:w-xl"
                 />
 
                 <InputFormField<HeaderDto> 
                     path="shortName" 
                     inputPlaceholder={displayedText.short_name} 
-                    inputClassName="md:w-xl"
+                    inputClassName="lg:w-xl"
                 />
 
                 <FormSelectInput

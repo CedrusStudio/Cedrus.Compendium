@@ -25,7 +25,7 @@ export default function StatisticsCard({ title, statistics }: StatisticsViewProp
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex flex-col gap-y-3 md:gap-y-4">
+      <CardContent className="flex flex-col gap-y-3 lg:gap-y-4">
       {
         statistics.map(([name, value, icon]) => <StatisticView key={name} name={name} statistic={value} icon={icon} />)
       }

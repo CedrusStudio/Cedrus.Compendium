@@ -47,7 +47,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
           inputPlaceholder={displayedText.changeDescription}
         />
 
-        <div className='grid grid-cols-1 gap-1 md:grid-cols-9'>
+        <div className='grid grid-cols-1 gap-1 lg:grid-cols-9'>
           <EditLeadingWeaponOffenseSubcard offense={offense} index={index} />
           <EditSecondaryWeaponOffenseSubcard offense={offense} index={index} />
           <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} index={index} />

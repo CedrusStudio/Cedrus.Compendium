@@ -70,7 +70,7 @@ export default function CharacterNavbar()
                 placeholder={displayedText.searchCharacter}
                 value={searchTerm}
                 onChange={handleInputChange}
-                className="w-xl md:w-1xl lg:w-2xl"
+                className="w-xl lg:w-1xl lg:w-2xl"
             />
 
             <div className="flex flex-row items-center gap-2 justify-self-center">
