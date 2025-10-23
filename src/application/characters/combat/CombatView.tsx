@@ -30,8 +30,10 @@ export default function CombatView({ character }: { character: Character })
           )
         }
 
-        <ModesCard name="Postawy" modes={character.stances} />
-        <ModesCard name="Stany" modes={character.states} />
+        <div className="flex flex-col sm:flex-row gap-4 lg:grid lg:grid-cols-2 lg:col-span-2">
+          <ModesCard name="Postawy" modes={character.stances} />
+          <ModesCard name="Stany" modes={character.states} />
+        </div>
       </div>
 
       <ManeuversCard maneuvers={character.maneuvers} />
