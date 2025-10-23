@@ -29,7 +29,7 @@ export default function EditStatisticView({ name, statistic, icon, fieldPath }: 
   const { grade, setGrade, value, setValue, bonus, setBonus, testBonus, setTestBonus } = useStatisticForm(control, fieldPath, statistic);
 
   return (
-    <div className={'flex gap-x-2 items-center justify-around'}>
+    <div className={'flex gap-x-3.5 items-center justify-around'}>
 
       <div className="capitalize">
         <Tooltip>
