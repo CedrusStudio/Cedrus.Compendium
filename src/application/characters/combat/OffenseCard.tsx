@@ -141,7 +141,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
         </CardTitle>
       </CardHeader>
 
-      <CardContent className={ `grid grid-cols-1 gap-1 ${currentSecondaryOffense ? `md:grid-cols-9` : `md:grid-cols-6` }` }>
+      <CardContent className={ `grid grid-cols-1 gap-1 ${currentSecondaryOffense ? `lg:grid-cols-9` : `lg:grid-cols-6` }` }>
 
         <WeaponDamageWithCriticalSubcard 
           name={displayedText.leading}

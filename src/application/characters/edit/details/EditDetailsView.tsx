@@ -82,7 +82,7 @@ function EditHeader()
                     <InputFormField<DetailsDto> 
                         path="name" 
                         inputPlaceholder={displayedText.changeName} 
-                        inputClassName="md:w-lg"
+                        inputClassName="lg:w-lg"
                         />
                 </div>
 

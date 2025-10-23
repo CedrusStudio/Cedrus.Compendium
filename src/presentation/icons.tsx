@@ -34,6 +34,8 @@ import { IoMdCopy } from "react-icons/io";
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { RiDeleteBack2Line, RiResetLeftFill } from "react-icons/ri";
 import { GrNext } from "react-icons/gr";
+import { GiHealthIncrease } from "react-icons/gi";
+import { GiHealthDecrease } from "react-icons/gi";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -96,3 +98,6 @@ export const rightIcon = <ChevronRight />;
 export const editIcon = <TbEdit />
 
 export const spellIcon = (className: string) => <LuPlus className={className} />;
+
+export const gainIcon = (className?: string) => <GiHealthIncrease className={className} />;
+export const lossIcon = (className?: string) => <GiHealthDecrease className={className} />;

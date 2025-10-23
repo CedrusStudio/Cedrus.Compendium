@@ -31,7 +31,7 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{name}</CardTitle>
       </CardHeader>
 
-      <CardContent className='flex flex-col items-center justify-center md:items-start md:justify-start gap-y-4 flex-1'>
+      <CardContent className='flex flex-col items-center justify-center lg:items-start lg:justify-start gap-y-4 flex-1'>
 
         <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
           

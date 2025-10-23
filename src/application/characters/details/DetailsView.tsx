@@ -8,7 +8,7 @@ export default function DetailsView({ character }: { character: Character })
   return (
     <section className="flex flex-col justify-around">
 
-      <header className="flex flex-row items-center justify-center mb-4 md:mb-6 mt-2 gap-3">
+      <header className="flex flex-row items-center justify-center mb-4 lg:mb-6 mt-2 gap-3">
 
         <h1 className="font-semibold text-primary capitalize text-lg hidden sm:block">
           {character.name}

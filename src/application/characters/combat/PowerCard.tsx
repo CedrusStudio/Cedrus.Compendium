@@ -95,9 +95,9 @@ type UsedSpellsViewProps =
 function SmallUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn }: UsedSpellsViewProps)
 {
     return (
-        <div className="md:grid-cols-13 col-span-full md:hidden">
+        <div className="lg:grid-cols-13 col-span-full lg:hidden">
 
-            <div className="text-sm md:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 md:gap-2 py-3">
+            <div className="text-sm lg:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 lg:gap-2 py-3">
             {
                 usedSpells.map((usedSpell, index) => 
                 {
@@ -117,15 +117,15 @@ function SmallUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTu
             </div>
 
             <div className="flex gap-4 justify-center items-center">
-                <Button variant="default" className='flex-1 md:flex-0' onClick={() => setUsedSpells([])}>
+                <Button variant="default" className='flex-1 lg:flex-0' onClick={() => setUsedSpells([])}>
                     {resetIcon()}
                 </Button>
 
-                <Button variant="default" className='flex-1 md:flex-0' onClick={removeLastSpell}>
+                <Button variant="default" className='flex-1 lg:flex-0' onClick={removeLastSpell}>
                     {removePreviousIcon()}
                 </Button>
 
-                <Button variant="default" className='flex-1 md:flex-0' onClick={endTurn}>
+                <Button variant="default" className='flex-1 lg:flex-0' onClick={endTurn}>
                     {nextIcon()}
                 </Button>
             </div>
@@ -136,7 +136,7 @@ function SmallUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTu
 function MediumUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn }: UsedSpellsViewProps)
 {
     return (
-        <div className="hidden md:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
+        <div className="hidden lg:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
 
             <Button variant="default" className='col-span-1' onClick={() => setUsedSpells([])}>
                 {resetIcon()}

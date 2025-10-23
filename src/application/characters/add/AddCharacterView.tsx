@@ -10,13 +10,13 @@ import { type HeaderDto, headerSchema } from "@/persistence/schemas/characters/h
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
 import { displayedText } from "@/presentation/translations";
 import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
+import FormSelectInput from "@/common/components/inputs/FormSelectInput";
 
 export default function AddCharacterView()
 {
@@ -64,25 +64,24 @@ export default function AddCharacterView()
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mx-4">
                 
-                <p className='text-xl text-center text-primary pt-8 font-semibold '>
+                <p className='text-xl text-center text-primary pt-8 font-semibold'>
                     {displayedText.create_new_character} 
                 </p>
 
                 <InputFormField<HeaderDto> 
                     path="name" 
                     inputPlaceholder={displayedText.name} 
-                    inputClassName="w-xl"
+                    inputClassName="lg:w-xl"
                 />
 
                 <InputFormField<HeaderDto> 
                     path="shortName" 
                     inputPlaceholder={displayedText.short_name} 
-                    inputClassName="w-xl"
+                    inputClassName="lg:w-xl"
                 />
 
-                <LabeledFormSelectInput
+                <FormSelectInput
                     name="category"
-                    label={displayedText.category}
                     collectionToSelectFrom={allowedCharacterCategories}
                     value={selectedCategory}
                     placeholder={displayedText.selectCategory}

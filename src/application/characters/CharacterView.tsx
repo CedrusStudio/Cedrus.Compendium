@@ -54,19 +54,19 @@ export default function CharacterView({ tab }: CharacterViewProps)
   if (!character) return <div>Character not found</div>;
 
   return (
-    <div className='flex flex-col md:grid md:grid-cols-12'>
+    <div className='flex flex-col lg:grid lg:grid-cols-12'>
 
-        <div className='md:col-span-2'>
+        <div className='lg:col-span-2'>
             <StatisticsView character={character} />
         </div>
 
         <Tabs 
             defaultValue={tab ?? defaultTab} 
             onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
-            className='md:col-span-10 md:ml-6 flex flex-col md:grid md:grid-rows-15'
+            className='lg:col-span-10 lg:ml-6 flex flex-col lg:grid lg:grid-rows-15'
         >
 
-            <div className='md:row-span-1'>
+            <div className='lg:row-span-1'>
                 <div className='flex flex-col mt-4 sm:mt-0 sm:flex-row justify-between items-center'>
 
                     <TabsList>
@@ -88,12 +88,12 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <Separator />
             </div>
 
-            <div className='mt-1 md:row-span-14'>
+            <div className='mt-1 lg:row-span-14'>
                 <TabsContent value="character">
                     <DetailsView character={character} />
                 </TabsContent>
 
-                <TabsContent value="combat" className="md:-mt-7">
+                <TabsContent value="combat" className="lg:-mt-7">
                     <CombatView character={character} />
                 </TabsContent>
 

@@ -31,7 +31,7 @@ export default function EditHealthCard(input: EditHealthCardProps)
           </CardTitle>
         </CardHeader>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         { 
           Object.keys(input.health).map(key => InputFormWithLabel(key as keyof HealthDto)) 
         }

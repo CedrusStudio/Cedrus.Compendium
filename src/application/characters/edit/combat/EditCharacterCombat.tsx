@@ -82,7 +82,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3" id={combatFormName}>
 
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <EditHealthCard health={character.health} />
         </div>
 
@@ -97,7 +97,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             />
           </div>
 
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="grid gap-3 lg:grid-cols-2">
           {
             offenses.map((offense, index) => (<EditOffenseCard key={offense.id} offense={offense} index={index} remove={removeOffense} />))
           }
@@ -115,14 +115,14 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
             />
           </div>
           
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="grid gap-3 lg:grid-cols-2">
           {
             defenses.map((defense, index) => <EditDefenseCard key={defense.id} defense={defense} index={index} remove={removeDefense} />)
           }
           </div>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-2">
           <EditStancesCard isPending={isPending} />
           <EditStatesCard isPending={isPending} />
         </div>
