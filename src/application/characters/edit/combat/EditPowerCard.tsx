@@ -35,15 +35,16 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
     <Card className='bg-muted'>
 
       <CardHeader>
-        <CardTitle className='flex flex-row items-center justify-between gap-3'>
-          <div className='flex flex-row gap-10 mx-auto'>
+        <CardTitle className='flex flex-col sm:flex-row flex-wrap items-center justify-between gap-3'>
+          
+          <div className='flex flex-row flex-wrap item-center justify-center gap-4 mx-auto'>
 
             <div key={power.name} className="flex flex-col items-center gap-2">
               <Label className="text-center capitalize">{displayedText.name}</Label>
               <InputFormField<CombatDto> path={pathToPowerField(index, "name")} inputClassName='w-full h-10 text-center font-medium' />
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 justify-center items-center gap-3">
+            <div className="grid grid-cols-3 justify-center items-center gap-3">
             { 
               (Object.keys(power) as (keyof PowerDto)[])
                 .filter(NotNameOrTypeOrId)
@@ -51,9 +52,10 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
                 .map(key => InputFormWithLabel(index, key as keyof PowerDto)) 
             }
             </div>
+
           </div>
 
-          <div className='flex items-end justify-center gap-6'>
+          <div className='flex items-end justify-center gap-6 sm:mt-4'>
             <SelectFormField<CombatDto> path={pathToPowerField(index, "type")} items={allowedPowerTypes} />
             <RemoveFromArrayButton remove={remove} index={index} />
           </div>
@@ -65,7 +67,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
         <Separator className='mb-5 col-span-full' />
 
-        <div className='flex flex-row gap-6'>
+        <div className='flex flex-col sm:flex-row items-center justify-center gap-6'>
 
           <div className='flex flex-row items-center gap-3'>
             <h2 className='text-2xl font-semibold text-primary capitalize'>{displayedText.spells}</h2>

@@ -76,13 +76,13 @@ function EditHeader()
 {
     return (
         <div className="flex flex-col gap-6 pt-2">
-            <div className="flex flex-row justify-center items-center gap-6 flex-1">
+            <div className="flex flex-row flex-wrap justify-center items-center gap-6 flex-1">
 
                 <div className="flex flex-col justify-center items-center gap-6">
                     <InputFormField<DetailsDto> 
                         path="name" 
                         inputPlaceholder={displayedText.changeName} 
-                        inputClassName="w-lg"
+                        inputClassName="md:w-lg"
                         />
                 </div>
 
@@ -107,7 +107,7 @@ function EditHeader()
             <AreaInputFormField<DetailsDto> 
                 path="description" 
                 inputPlaceholder={displayedText.changeDescription} 
-                />
+            />
         </div>
     )
 }
