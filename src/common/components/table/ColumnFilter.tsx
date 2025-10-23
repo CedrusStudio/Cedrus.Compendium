@@ -12,7 +12,7 @@ export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
 {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild className="hidden sm:block">
         <Button variant="outline" className="ml-auto capitalize">
           {displayedText.columns}
         </Button>

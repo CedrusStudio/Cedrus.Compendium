@@ -54,32 +54,32 @@ export default function CharacterView({ tab }: CharacterViewProps)
   if (!character) return <div>Character not found</div>;
 
   return (
-    <div className='grid md:grid-cols-12'>
+    <div className='flex flex-col md:grid md:grid-cols-12'>
 
-        <div className='col-span-12 lg:col-span-2'>
+        <div className='md:col-span-2'>
             <StatisticsView character={character} />
         </div>
 
         <Tabs 
             defaultValue={tab ?? defaultTab} 
             onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
-            className='col-span-8 lg:col-span-10 ml-15 grid grid-rows-15'
+            className='md:col-span-10 md:ml-6 flex flex-col md:grid md:grid-rows-15'
         >
 
-            <div className='row-span-1'>
-                <div className='flex flex-row justify-between items-center'>
+            <div className='md:row-span-1'>
+                <div className='flex flex-col mt-4 sm:mt-0 sm:flex-row justify-between items-center'>
 
-                    <TabsList className='mb-4'>
-                    <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
-                    <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
-                    <TabsTriggerCapitalized value="talents" overrideValue={displayedText.talents} />
-                    <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
+                    <TabsList>
+                        <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
+                        <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
+                        <TabsTriggerCapitalized value="talents" overrideValue={displayedText.talents} />
+                        <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                     </TabsList>
 
-                    <div className='flex flex-row'>
+                    <div className='flex flex-row gap-3'>
                         <DeleteCharacterDialog id={character.id} isPending={isPending} deleteCharacter={deleteCharacter} />
 
-                        <Button asChild variant="edit" size="icon" className='m-4'>
+                        <Button asChild variant="edit" size="icon" className='my-4'>
                             <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? defaultTab}`}>{editIcon}</Link>
                         </Button>
                     </div>
@@ -88,12 +88,12 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <Separator />
             </div>
 
-            <div className='row-span-14 mx-4'>
+            <div className='mt-1 md:row-span-14'>
                 <TabsContent value="character">
                     <DetailsView character={character} />
                 </TabsContent>
 
-                <TabsContent value="combat">
+                <TabsContent value="combat" className="md:-mt-7">
                     <CombatView character={character} />
                 </TabsContent>
 

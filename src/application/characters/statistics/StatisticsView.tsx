@@ -8,7 +8,7 @@ export default function StatisticsView(input: { character: Character })
   const { character } = input;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
         <StatisticsCard 
           title={displayedText.characteristics} 
           statistics={Object.entries(character.characteristics).map(([name, value]) => [name, value, characteristicIcons[name]])} 

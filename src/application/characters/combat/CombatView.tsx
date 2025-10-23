@@ -20,7 +20,7 @@ export default function CombatView({ character }: { character: Character })
         <BarrierCard health={character.health} />
       </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-6 gap-4'>
+      <div className='flex flex-col md:grid md:grid-cols-1 lg:grid-cols-6 gap-4'>
         
         {
           character.offenses.length > 0 && (
@@ -30,8 +30,10 @@ export default function CombatView({ character }: { character: Character })
           )
         }
 
-        <ModesCard name="Postawy" modes={character.stances} />
-        <ModesCard name="Stany" modes={character.states} />
+        <div className="flex flex-col sm:flex-row gap-4 lg:grid lg:grid-cols-2 lg:col-span-2">
+          <ModesCard name="Postawy" modes={character.stances} />
+          <ModesCard name="Stany" modes={character.states} />
+        </div>
       </div>
 
       <ManeuversCard maneuvers={character.maneuvers} />

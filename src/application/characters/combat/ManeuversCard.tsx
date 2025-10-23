@@ -43,11 +43,80 @@ export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
         </CardHeader>
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
-        {
-            maneuvers.map(maneuver => <ManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
-        }
+            {
+                maneuvers.map(maneuver => <ManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
+            }
 
-        <div className="grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
+            <SmallUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />
+            <MediumUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />
+        </CardContent>
+
+    </Card>
+  );
+};
+
+type UsedManeuversViewProps =
+{
+    usedManeuvers: (Maneuver | EndTurn)[];
+    removeLastManeuver: () => void;
+    setUsedManeuvers: (usedManeuvers: (Maneuver | EndTurn)[]) => void;
+    endTurn: () => void;
+}
+
+function SmallUsedManeuversView({ usedManeuvers, removeLastManeuver, setUsedManeuvers, endTurn }: UsedManeuversViewProps)
+{
+    return (
+        <div className="md:grid-cols-13 col-span-full md:hidden">
+            
+            <div className="text-sm md:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 md:gap-2 py-2">
+            {
+                usedManeuvers.map((usedManeuver, index) => 
+                {
+                    if (usedManeuver === "end") return (
+                        <Badge
+                            key={index}
+                            variant="destructive"
+                            className="m-0.5 px-1 py-0.5 text-xs leading-tight h-auto min-w-0"
+                        >
+                            {nextIcon()}
+                        </Badge>
+                    );
+
+                    return (
+                        <Badge
+                            key={index}
+                            variant={getBadgeVariant(usedManeuver.castTime)}
+                            className="m-0.5 px-1 py-0.5 text-xs leading-tight h-auto min-w-0"
+                        >
+                            {usedManeuver.name}
+                        </Badge>
+                    );
+                })
+            }
+            </div>
+
+
+            <div className="flex gap-4 justify-center items-center">
+                <Button variant="default" className='flex-1 md:flex-0' onClick={() => setUsedManeuvers([])}>
+                    {resetIcon()}
+                </Button>
+
+                <Button variant="default" className='flex-1 md:flex-0' onClick={removeLastManeuver}>
+                    {removePreviousIcon()}
+                </Button>
+
+                <Button variant="default" className='flex-1 md:flex-0' onClick={endTurn}>
+                    {nextIcon()}
+                </Button>
+            </div>
+        </div>
+    );
+}
+
+function MediumUsedManeuversView({ usedManeuvers, removeLastManeuver, setUsedManeuvers, endTurn }: UsedManeuversViewProps)
+{
+    return (
+        <div className="md:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full hidden">
 
             <Button variant="default" className='col-span-1' onClick={() => setUsedManeuvers([])}>
                 {resetIcon()}
@@ -62,7 +131,7 @@ export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
                             <Badge key={index} variant="destructive" className='m-1' >
                                 {nextIcon()}
                             </Badge>
-                        );;
+                        );
 
                         return (
                             <Badge key={index} variant={getBadgeVariant(usedManeuver.castTime)} className='m-1' >
@@ -82,12 +151,8 @@ export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
                 {nextIcon()}
             </Button>
         </div>
-
-        </CardContent>
-
-    </Card>
-  );
-};
+    );
+}
 
 type ManeuverViewProps =
 {

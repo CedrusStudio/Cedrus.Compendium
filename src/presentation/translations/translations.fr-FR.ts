@@ -1,5 +1,6 @@
 export const translations_frFR = 
 {
+    none: "aucun",
     characters: "personnages",
     edit: "modifier",
     add: "ajouter",

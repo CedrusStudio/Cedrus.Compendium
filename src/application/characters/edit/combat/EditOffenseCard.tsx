@@ -35,7 +35,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
 
       <CardHeader>
         <CardTitle className='mb-6 flex justify-between items-center'>
-          <InputFormField<CombatDto> path={pathToOffenseField(index, 'name')} inputClassName='w-60 h-10 text-center font-medium' />
+          <InputFormField<CombatDto> path={pathToOffenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
           <RemoveFromArrayButton index={index} remove={remove} />
         </CardTitle>
       </CardHeader>

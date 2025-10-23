@@ -27,6 +27,7 @@ export type TranslationKey = keyof typeof displayedText;
 
 export const displayedText = 
 {
+    none: translate("none"),
     characters: translate("characters"),
     edit: translate("edit"),
     add: translate("add"),

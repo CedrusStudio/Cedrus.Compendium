@@ -81,7 +81,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
 
   return (
     <div>
-      <div className="flex items-center py-4 gap-3">
+      <div className="flex items-center -mt-2 lg:pb-1 gap-3">
         <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
 
         <CategorySelectFilter  

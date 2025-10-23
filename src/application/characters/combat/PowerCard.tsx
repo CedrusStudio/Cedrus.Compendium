@@ -39,9 +39,9 @@ export default function PowerCard({ power }: PowerCardProps)
     <Card className='bg-muted'>
 
         <CardHeader>
-            <CardTitle className="flex flex-row items-center justify-between">
+            <CardTitle className="flex flex-col sm:flex-row items-center justify-between">
 
-                <div className="flex justify-center items-center pl-65 mx-auto">
+                <div className="flex justify-center items-center mx-auto mb-4 sm:mb-0 lg:pl-65">
                     <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
                 </div>
 
@@ -75,7 +75,68 @@ export default function PowerCard({ power }: PowerCardProps)
             power.spells.map(spell => <SpellView key={spell.name} spell={spell} addSpellToUsed={addSpellToUsed} usedSpells={usedSpells} />)
         }
 
-        <div className="grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
+        <MediumUsedSpellsView usedSpells={usedSpells} removeLastSpell={removeLastSpell} setUsedSpells={setUsedSpells} endTurn={endTurn} />
+        <SmallUsedSpellsView usedSpells={usedSpells} removeLastSpell={removeLastSpell} setUsedSpells={setUsedSpells} endTurn={endTurn} />
+
+        </CardContent>
+
+    </Card>
+  );
+};
+
+type UsedSpellsViewProps =
+{
+    usedSpells: (Spell | EndTurn)[];
+    removeLastSpell: () => void;
+    setUsedSpells: (usedSpells: (Spell | EndTurn)[]) => void;
+    endTurn: () => void;
+}
+
+function SmallUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn }: UsedSpellsViewProps)
+{
+    return (
+        <div className="md:grid-cols-13 col-span-full md:hidden">
+
+            <div className="text-sm md:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 md:gap-2 py-3">
+            {
+                usedSpells.map((usedSpell, index) => 
+                {
+                    if (usedSpell === "end") return (
+                        <Badge key={index} variant="destructive" className='m-1' >
+                            {nextIcon()}
+                        </Badge>
+                    );
+
+                    return (
+                        <Badge key={index} variant={getBadgeVariant(usedSpell.castTime)} className='m-1' >
+                            {usedSpell.name}
+                        </Badge>
+                    );
+                })
+            }
+            </div>
+
+            <div className="flex gap-4 justify-center items-center">
+                <Button variant="default" className='flex-1 md:flex-0' onClick={() => setUsedSpells([])}>
+                    {resetIcon()}
+                </Button>
+
+                <Button variant="default" className='flex-1 md:flex-0' onClick={removeLastSpell}>
+                    {removePreviousIcon()}
+                </Button>
+
+                <Button variant="default" className='flex-1 md:flex-0' onClick={endTurn}>
+                    {nextIcon()}
+                </Button>
+            </div>
+        </div>
+    );
+}
+
+function MediumUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn }: UsedSpellsViewProps)
+{
+    return (
+        <div className="hidden md:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
 
             <Button variant="default" className='col-span-1' onClick={() => setUsedSpells([])}>
                 {resetIcon()}
@@ -110,12 +171,8 @@ export default function PowerCard({ power }: PowerCardProps)
                 {nextIcon()}
             </Button>
         </div>
-
-        </CardContent>
-
-    </Card>
-  );
-};
+    );
+}
 
 type SpellViewProps =
 {
