@@ -56,7 +56,7 @@ export default function EditEquipmentView(input: { character: Character })
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} id={equipmentFormName} className="space-y-8">
 
-        <Accordion type="single" collapsible>
+        <Accordion type="single" collapsible className='w-90 sm:w-160 md:w-full'>
 
           <ItemsView
             items={weapons}
