@@ -47,8 +47,7 @@ export const allowedTalentCharacteristics =
 [
   "siła",
   "zręczność",
-  "wytrzymałość",
-  "inteligencja",
+  "budowa",
   "umysł",
   "charyzma",
   "czarokrwistość"
