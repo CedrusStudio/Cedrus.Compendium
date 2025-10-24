@@ -14,7 +14,7 @@ export default function HomePage()
           <LinkButton name="characters" />
           <LinkButton name="bestiary" />
           <LinkButton name="compendium" />
-          <LinkButton name="rulebook" />
+          {/* <LinkButton name="rulebook" /> */}
           <Image className="hidden lg:block rounded-4xl" src={LandingImg} alt="Landing" priority />
         </section>
       </header>
