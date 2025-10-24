@@ -33,6 +33,30 @@ export async function getCharacterById(id: string)
   return character ? toCharacter(character) : null;
 }
 
+export type CharacterSummary = ({id: string} & Omit<HeaderDto, 'category'>);
+
+export async function getAllCharactersSummary(name: string | undefined | null)
+  : Promise<CharacterSummary[]>
+{
+  const characterHeaders = await prisma.character.findMany
+  ({
+    where: {
+      name: name ? {
+        contains: name,
+        mode: 'insensitive'
+      } : undefined
+    },
+    select: {
+      id: true,
+      name: true,
+      shortName: true,
+      description: true,
+    }
+  });
+
+  return characterHeaders;
+}
+
 export async function getAllCharacters()
   : Promise<Character[]>
 {

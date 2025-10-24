@@ -6,6 +6,7 @@ import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema'
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
+import { CharacterSummary } from '@/persistence/charactersRepository';
 
 const clientBase = axios.create
 ({
@@ -38,6 +39,14 @@ const bffClient =
     getAllCharacters: async (): Promise<Character[]> =>
     {
         const response = await clientBase.get<Character[]>(characterPathSegment);
+        return response.data;
+    },
+    searchCharactersSummary: async (search?: string): Promise<CharacterSummary[]> =>
+    {
+        const url = new URL(`${characterPathSegment}/headers`, window.location.origin);
+        setSearchQueryParam(url, search);
+        const finalUrl = url.pathname + url.search;
+        const response = await clientBase.get<CharacterSummary[]>(finalUrl);
         return response.data;
     },
     //Commands
