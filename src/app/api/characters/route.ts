@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { addCharacter, getAllCharacters, searchCharacters } from '@/persistence/charactersRepository';
+import { addCharacter, searchCharacters } from '@/persistence/charactersRepository';
 import { getSearchParamFromRequest } from '@/common/global/httpUtils';
 
 export async function GET(request: NextRequest)
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest)
   try 
   {
     const search = getSearchParamFromRequest(request);
-    const characters = search ? await searchCharacters(search) : await getAllCharacters();
+    const characters = await searchCharacters(search);
     return NextResponse.json(characters);
   } 
   catch (error) 

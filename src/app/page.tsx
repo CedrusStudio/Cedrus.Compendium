@@ -1,22 +1,20 @@
 import Image from "next/image";
 import LandingImg from "../assets/main.png";
-import { Button } from "@/ui/button";
-import Link from "next/link";
-
 import { displayedText } from "@/presentation/translations";
+import LinkButton from "@/common/components/buttons/LinkButton";
 
 export default function HomePage() 
 {
   return (
     <main>
       <header className="max-w-6xl mx-auto px-4 sm:px-8 py-1 grid gr">
-        <section className="sm:px-8 h-screen grid lg:grid-cols-[1fr,400px] gap-3">
+        <section className="sm:px-8 h-screen flex flex-col gap-3">
           <Heading />
           <Description />
-          <StartButtonLink name="characters" />
-          <StartButtonLink name="bestiary" />
-          <StartButtonLink name="compendium" />
-          <StartButtonLink name="rulebook" />
+          <LinkButton name="characters" />
+          <LinkButton name="bestiary" />
+          <LinkButton name="compendium" />
+          <LinkButton name="rulebook" />
           <Image className="hidden lg:block rounded-4xl" src={LandingImg} alt="Landing" priority />
         </section>
       </header>
@@ -38,13 +36,4 @@ const Description = () =>
   <p className="leading-loose max-w-md mt-2">
     {displayedText.applicationDescription}
   </p>
-);
-
-const StartButtonLink = ({ name }: { name: keyof typeof displayedText }) => 
-(
-  <Button asChild>
-    <Link href={`/${name}`} className="capitalize">
-      {displayedText[name]}
-    </Link>
-  </Button>
 );

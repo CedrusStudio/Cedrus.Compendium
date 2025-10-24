@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSuspenseQuery  } from '@tanstack/react-query';
 import { allCharactersKey, createSearchCharactersKey } from '@/persistence/cacheKeys';
 import { getSearchQueryParam  } from '@/common/global/httpUtils';
-import bffClient from '@/infrastructure/bffClient';
+import { charactersClient } from "@/infrastructure/bffClients";
 import { CharacterSummary } from '@/persistence/charactersRepository';
 
 export const useSearchCharactersSummary = () => 
@@ -19,7 +19,7 @@ export const useSearchCharactersSummary = () =>
     const { data = [] } = useSuspenseQuery<CharacterSummary[]>
     ({
         queryKey,
-        queryFn: async () => await bffClient.searchCharactersSummary(search),
+        queryFn: async () => await charactersClient.searchSummaries(search),
         staleTime: 5_000,
         refetchOnWindowFocus: true,
     });

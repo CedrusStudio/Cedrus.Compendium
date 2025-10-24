@@ -14,8 +14,10 @@ import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
+import { battleIcon, cooldownIcon, editIcon } from '@/presentation/icons';
 import { pathToManeuverField } from '@/domain/characters/combat/Maneuver';
+import { Badge } from '@/common/components/ui/badge';
+import { getBadgeVariant } from '@/presentation/colors';
 
 type EditManeuversCardProps =
 {
@@ -58,15 +60,21 @@ function EditManeuverView({ maneuver, index, remove }: EditManeuverViewProps)
 {
   return (
     <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2 min-h-24">
+
       <div className="p-2 rounded-md w-full">
         <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
         <p className="text-sm text-muted-foreground">{maneuver.description}</p>
       </div>
 
       <div className="flex flex-row gap-2">
+        <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
+            {cooldownIcon()}
+            <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
+        </Badge>
         <RemoveFromArrayButton remove={remove} index={index} />
         <EditManeuverSheet index={index} />
       </div>
+
     </div>
   );
 }
@@ -118,13 +126,24 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center'>{displayedText.cooldown}</Label>
+              <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
               <InputFormField<CombatDto> path={pathToManeuverField(index, 'cooldown')} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
     
             <div className="grid auto-rows-min gap-3 px-4">
-              <SelectFormField<CombatDto> path={pathToManeuverField(index, 'castTime')} labelText={displayedText.castTime} items={allowedCastTimes} />
+              <Label className='justify-center capitalize'>{displayedText.price}</Label>
+              <InputFormField<CombatDto> path={pathToManeuverField(index, 'price')} inputClassName='w-11 h-10 text-center font-medium'  />
             </div>
+          </div>
+
+          <div className="flex flex-col gap-3 px-4 pb-4">
+            <Label className='justify-center capitalize'>{displayedText.requirements}</Label>
+            <InputFormField<CombatDto> path={pathToManeuverField(index, 'requirements')} inputClassName='h-10 text-center font-medium' />
+          </div>
+  
+          <div className="flex flex-col items-center gap-3 px-4">
+            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
+            <SelectFormField<CombatDto> path={pathToManeuverField(index, 'castTime')} labelText={displayedText.castTime} items={allowedCastTimes} />
           </div>
 
         </div>

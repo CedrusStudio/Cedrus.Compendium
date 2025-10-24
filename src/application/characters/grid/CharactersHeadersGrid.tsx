@@ -26,12 +26,12 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSearchCharactersSummary } from '../hooks/useSearchCharactersSummary';
 import { CharacterSummary } from '@/persistence/charactersRepository';
 
-type CharactersGridParams =
+type CharactersHeadersGridParams =
 {
   pageSize?: number;
 }
 
-export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
+export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeadersGridParams)
 {
   const { characters: summaries } = useSearchCharactersSummary();
   const { goTo, totalPages, clampedPage } = usePagination(summaries.length, pageSize);

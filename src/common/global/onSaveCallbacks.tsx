@@ -5,8 +5,8 @@ function onError(error: Error, position?: "top-left" | "top-center" | "top-right
 {
     toast(displayedText.error, {
         description: (
-            <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-                <code className="text-white">{error.message}</code>
+            <pre className="mt-2 w-[320px] rounded-md bg-secondary p-4 text-primary">
+                <code>{error.message}</code>
             </pre>
         ),
         position
@@ -17,7 +17,7 @@ function onSuccess(sideEffect: () => void, position?: "top-left" | "top-center" 
 {
     toast(displayedText.success, {
         description: (
-            <p className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4 text-primary">
+            <p className="mt-2 w-[320px] rounded-md bg-secondary p-4 text-primary">
                 {displayedText.characterUpdatedSuccessfully}
             </p>
         ),

@@ -44,7 +44,7 @@ export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
             {
-                maneuvers.map(maneuver => <ManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
+                maneuvers.map(maneuver => <CombatManeuverView key={maneuver.name} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
             }
 
             <SmallUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />
@@ -161,7 +161,7 @@ type ManeuverViewProps =
     usedManeuvers: (Maneuver | EndTurn)[];
 }
 
-function ManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: ManeuverViewProps) 
+function CombatManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: ManeuverViewProps) 
 {
     return (
         <div className='flex m-1 p-1 w-full h-full'>

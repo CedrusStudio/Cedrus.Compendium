@@ -142,7 +142,7 @@ export const translations_frFR =
     saving: "enregistrement...",
     save: "enregistrer",
     deleteConfirmation: "êtes-vous sûr de vouloir faire cela ?",
-    deleteConfirmationDescription: "cette action est irréversible. elle supprimera définitivement votre personnage de la base de données sur le serveur.",
+    deleteConfirmationDescription: "Cette action est irréversible. Elle entraînera la suppression définitive de la ressource dans la base de données du serveur.",
 
     paceSpeed: "vitesse d'allure",
     canterSpeed: "vitesse de petit galop",

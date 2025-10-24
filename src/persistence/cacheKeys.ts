@@ -9,3 +9,12 @@ export const createCharacterByIdKey = (id: string) => [characterKey, id] as cons
 export const getCharacterQueryKey = (search: string | undefined) => search 
     ? createSearchCharactersKey(search)
     : allCharactersKey;
+
+const maneuverKey = 'maneuvers';
+export const createSearchManeuversKey = (search: string) => [maneuverKey, searchParamKey, search] as const;
+export const allManeuversKey = [maneuverKey, 'all'] as const;
+export const createManeuverByIdKey = (id: string) => [maneuverKey, id] as const;
+
+export const getManeuverQueryKey = (search: string | undefined) => search 
+    ? createSearchManeuversKey(search)
+    : allManeuversKey;

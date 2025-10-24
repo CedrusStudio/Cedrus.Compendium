@@ -231,9 +231,9 @@ function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistenceParams)
   } as TPerk;
 }
 
-type ManeuverModel = Prisma.CharacterGetPayload<{select: { maneuvers: true }}>['maneuvers'][number];
+type CastablePerkModel = Prisma.CharacterGetPayload<{select: { maneuvers: true }}>['maneuvers'][number];
 
-function toCastablePerk<TCastablePerk extends (Perk & Castable)>(castablePersistenceModel: ManeuverModel): TCastablePerk
+export function toCastablePerk<TCastablePerk extends (Perk & Castable)>(castablePersistenceModel: CastablePerkModel): TCastablePerk
 {
   return {
     ...toPerk<TCastablePerk>(castablePersistenceModel),

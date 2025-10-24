@@ -36,6 +36,7 @@ import { RiDeleteBack2Line, RiResetLeftFill } from "react-icons/ri";
 import { GrNext } from "react-icons/gr";
 import { GiHealthIncrease } from "react-icons/gi";
 import { GiHealthDecrease } from "react-icons/gi";
+import { GiReceiveMoney } from "react-icons/gi";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -78,7 +79,7 @@ export const healthIcon = <MdOutlineHealthAndSafety className="w-5 h-5" />;
 
 export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 
-export const battleIcon = (className: string) => <GiSwordsEmblem className={className} />;
+export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
 
 export const addIcon = (className: string) => <LuPlus className={className} />;
 export const removeIcon = (className: string) => <LuMinus className={className} />;
@@ -101,3 +102,5 @@ export const spellIcon = (className: string) => <LuPlus className={className} />
 
 export const gainIcon = (className?: string) => <GiHealthIncrease className={className} />;
 export const lossIcon = (className?: string) => <GiHealthDecrease className={className} />;
+
+export const priceIcon = <GiReceiveMoney className="w-5 h-5" />;

@@ -19,7 +19,7 @@ import {
 import { Separator } from '@/ui/separator';
 import { Skeleton } from '@/ui/skeleton';
 
-export default function CharactersGridSkeleton()
+export default function CharactersHeadersGridSkeleton()
 {
   return (
     <>

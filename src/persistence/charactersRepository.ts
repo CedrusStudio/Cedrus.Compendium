@@ -57,27 +57,16 @@ export async function getAllCharactersSummary(name: string | undefined | null)
   return characterHeaders;
 }
 
-export async function getAllCharacters()
-  : Promise<Character[]>
-{
-  const characters = await prisma.character.findMany
-  ({
-    include: includeAllRelations
-  });
-
-  return characters.map(toCharacter);
-}
-
-export async function searchCharacters(name: string)
+export async function searchCharacters(name: string | undefined | null)
   : Promise<Character[]>
 {
   const characters = await prisma.character.findMany
   ({
     where: {
-      name: {
+      name: name ? {
         contains: name,
         mode: 'insensitive'
-      }
+      } : undefined
     },
     include: includeAllRelations
   });
@@ -99,14 +88,12 @@ export async function addCharacter(characterHeader: HeaderDto)
 }
 
 export async function deleteCharacter(id: string)
-  : Promise<boolean>
+  : Promise<void>
 {
-  const deleted = await prisma.character.delete
+  await prisma.character.delete
   ({
     where: { id }
   });
-
-  return !!deleted;
 }
 
 export async function updateCharacterStatistics(id: string, characterStatistics: StatisticsDto)

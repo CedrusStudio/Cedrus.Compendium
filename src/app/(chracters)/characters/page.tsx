@@ -1,5 +1,5 @@
-import CharactersGrid from "@/application/characters/grid/CharactersGrid";
-import CharactersGridSkeleton from "@/application/characters/grid/CharactersGridSkeleton";
+import CharactersHeadersGrid from "@/application/characters/grid/CharactersHeadersGrid";
+import CharactersHeadersGridSkeleton from "@/application/characters/grid/CharactersHeadersGridSkeleton";
 import { getAllCharactersSummary, CharacterSummary } from "@/persistence/charactersRepository";
 import {
   dehydrate,
@@ -29,8 +29,8 @@ export default async function CharactersPage(input: CharactersPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<CharactersGridSkeleton />}>
-        <CharactersGrid />
+      <Suspense fallback={<CharactersHeadersGridSkeleton />}>
+        <CharactersHeadersGrid />
       </Suspense>
     </HydrationBoundary>
   );
