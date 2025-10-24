@@ -14,7 +14,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { combatSchema, type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
-import bffClient from "@/infrastructure/bffClient";
+import { charactersClient } from "@/infrastructure/bffClients";
 import { Label } from "@radix-ui/react-label";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
@@ -53,7 +53,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
   const id = character.id;
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterCombat: CombatDto) => await bffClient.updateCombat(id, characterCombat),
+    async (characterCombat: CombatDto) => await charactersClient.updateCombat(id, characterCombat),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",

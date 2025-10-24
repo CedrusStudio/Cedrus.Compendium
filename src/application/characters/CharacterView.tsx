@@ -1,16 +1,5 @@
 "use client";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/ui/alert-dialog";
 import StatisticsView from '@/application/characters/statistics/StatisticsView';
 import { columns } from "@/application/characters/talents/talentsColumns";
 import { TalentsTable } from "@/application/characters/talents/TalentsTable";
@@ -24,13 +13,13 @@ import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
 import { useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
-import { IoTrashOutline } from 'react-icons/io5';
 import { useDeleteCharacterById } from "@/application/characters/hooks/useDeleteCharacterById";
 import { displayedText } from "@/presentation/translations";
 import DetailsView from "@/application/characters/details/DetailsView";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
 import { editIcon } from "@/presentation/icons";
+import DeleteButton from "@/common/components/buttons/DeleteButton";
 
 type CharacterViewProps = 
 {
@@ -77,7 +66,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     </TabsList>
 
                     <div className='flex flex-row gap-3'>
-                        <DeleteCharacterDialog id={character.id} isPending={isPending} deleteCharacter={deleteCharacter} />
+                        <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
                         <Button asChild variant="edit" size="icon" className='my-4'>
                             <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? defaultTab}`}>{editIcon}</Link>
@@ -93,7 +82,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <DetailsView character={character} />
                 </TabsContent>
 
-                <TabsContent value="combat" className="lg:-mt-7">
+                <TabsContent value="combat">
                     <CombatView character={character} />
                 </TabsContent>
 
@@ -110,40 +99,3 @@ export default function CharacterView({ tab }: CharacterViewProps)
     </div>
   );
 };
-
-type DeleteCharacterDialogProps =
-{
-    id: string;
-    isPending: boolean;
-    deleteCharacter: (id: string) => void;
-}
-
-function DeleteCharacterDialog({ id, isPending, deleteCharacter }: DeleteCharacterDialogProps)
-{
-    return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
-                <Button 
-                    variant="destructive" 
-                    size='icon' 
-                    className="my-4 hover:text-red-950"
-                    disabled={isPending}
-                >
-                    <IoTrashOutline />
-                </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>{displayedText.deleteConfirmation}</AlertDialogTitle>
-                    <AlertDialogDescription>{displayedText.deleteConfirmationDescription}</AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                <AlertDialogCancel className="capitalize">{displayedText.cancel}</AlertDialogCancel>
-                <AlertDialogAction disabled={isPending} onClick={() => deleteCharacter(id) }>
-                    {isPending ? displayedText.deleting : displayedText.delete}
-                </AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
-    );
-}

@@ -33,27 +33,40 @@ export async function getCharacterById(id: string)
   return character ? toCharacter(character) : null;
 }
 
-export async function getAllCharacters()
-  : Promise<Character[]>
+export type CharacterSummary = ({id: string} & Omit<HeaderDto, 'category'>);
+
+export async function getAllCharactersSummary(name: string | undefined | null)
+  : Promise<CharacterSummary[]>
 {
-  const characters = await prisma.character.findMany
+  const characterHeaders = await prisma.character.findMany
   ({
-    include: includeAllRelations
+    where: {
+      name: name ? {
+        contains: name,
+        mode: 'insensitive'
+      } : undefined
+    },
+    select: {
+      id: true,
+      name: true,
+      shortName: true,
+      description: true,
+    }
   });
 
-  return characters.map(toCharacter);
+  return characterHeaders;
 }
 
-export async function searchCharacters(name: string)
+export async function searchCharacters(name: string | undefined | null)
   : Promise<Character[]>
 {
   const characters = await prisma.character.findMany
   ({
     where: {
-      name: {
+      name: name ? {
         contains: name,
         mode: 'insensitive'
-      }
+      } : undefined
     },
     include: includeAllRelations
   });
@@ -75,14 +88,12 @@ export async function addCharacter(characterHeader: HeaderDto)
 }
 
 export async function deleteCharacter(id: string)
-  : Promise<boolean>
+  : Promise<void>
 {
-  const deleted = await prisma.character.delete
+  await prisma.character.delete
   ({
     where: { id }
   });
-
-  return !!deleted;
 }
 
 export async function updateCharacterStatistics(id: string, characterStatistics: StatisticsDto)

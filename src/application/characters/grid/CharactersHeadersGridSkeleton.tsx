@@ -19,7 +19,7 @@ import {
 import { Separator } from '@/ui/separator';
 import { Skeleton } from '@/ui/skeleton';
 
-export default function CharactersGridSkeleton()
+export default function CharactersHeadersGridSkeleton()
 {
   return (
     <>
@@ -49,7 +49,7 @@ export default function CharactersGridSkeleton()
         </PaginationContent>
       </Pagination>
 
-      <div className='grid lg:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
+      <div className='grid lg:grid-cols-4 gap-4 mt-6 m-4'>
       {
         Array.from({ length: 12 }).map((_, index) => (
           <Card className='bg-muted' key={index}>

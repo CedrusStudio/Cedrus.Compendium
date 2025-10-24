@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient  } from '@tanstack/react-query';
-import bffClient from '@/infrastructure/bffClient';
+import { charactersClient } from "@/infrastructure/bffClients";
 import { useRouter } from 'next/navigation';
 
 export const useDeleteCharacterById = () => 
@@ -11,7 +11,7 @@ export const useDeleteCharacterById = () =>
 
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (characterId: string) => await bffClient.deleteCharacterById(characterId),
+        mutationFn: async (characterId: string) => await charactersClient.delete(characterId),
         onSuccess: () => 
         {
             queryClient.invalidateQueries({ queryKey: ['characters'] });

@@ -6,6 +6,9 @@ import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema'
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
+import { CharacterSummary } from '@/persistence/charactersRepository';
+import { Maneuver } from '@/domain/characters/combat/Maneuver';
+import { ManeuverDto } from '@/persistence/schemas/characters/combat/maneuverSchema';
 
 const clientBase = axios.create
 ({
@@ -19,15 +22,15 @@ const clientBase = axios.create
 
 const characterPathSegment = '/characters';
 
-const bffClient = 
+export const charactersClient = 
 {
     //Queries
-    getCharacterById: async (id: string): Promise<Character> =>
+    getById: async (id: string): Promise<Character> =>
     {
         const response = await clientBase.get<Character>(`${characterPathSegment}/${id}`);
         return response.data;
     },
-    searchCharacters: async (search?: string): Promise<Character[]> =>
+    search: async (search?: string): Promise<Character[]> =>
     {
         const url = new URL(characterPathSegment, window.location.origin);
         setSearchQueryParam(url, search);
@@ -35,18 +38,26 @@ const bffClient =
         const response = await clientBase.get<Character[]>(finalUrl);
         return response.data;
     },
-    getAllCharacters: async (): Promise<Character[]> =>
+    getAll: async (): Promise<Character[]> =>
     {
         const response = await clientBase.get<Character[]>(characterPathSegment);
         return response.data;
     },
+    searchSummaries: async (search?: string): Promise<CharacterSummary[]> =>
+    {
+        const url = new URL(`${characterPathSegment}/headers`, window.location.origin);
+        setSearchQueryParam(url, search);
+        const finalUrl = url.pathname + url.search;
+        const response = await clientBase.get<CharacterSummary[]>(finalUrl);
+        return response.data;
+    },
     //Commands
-    addCharacter: async (characterHeader: HeaderDto): Promise<string> =>
+    add: async (characterHeader: HeaderDto): Promise<string> =>
     {
         const response = await clientBase.post(characterPathSegment, characterHeader);
         return response.data;
     },
-    deleteCharacterById: async (id: string) : Promise<void> =>
+    delete: async (id: string) : Promise<void> =>
     {
         await clientBase.delete(`${characterPathSegment}/${id}`);
     },
@@ -72,4 +83,36 @@ const bffClient =
     }
 }
 
-export default bffClient;
+const maneuverPathSegment = '/maneuvers';
+
+export const maneuversClient = 
+{
+    //Queries
+    getById: async (id: string): Promise<Maneuver> =>
+    {
+        const response = await clientBase.get<Maneuver>(`${maneuverPathSegment}/${id}`);
+        return response.data;
+    },
+    search: async (search?: string): Promise<Maneuver[]> =>
+    {
+        const url = new URL(maneuverPathSegment, window.location.origin);
+        setSearchQueryParam(url, search);
+        const finalUrl = url.pathname + url.search;
+        const response = await clientBase.get<Maneuver[]>(finalUrl);
+        return response.data;
+    },
+    //Commands
+    add: async (maneuver: ManeuverDto): Promise<string> =>
+    {
+        const response = await clientBase.post(maneuverPathSegment, maneuver);
+        return response.data;
+    },
+    delete: async (id: string) : Promise<void> =>
+    {
+        await clientBase.delete(`${maneuverPathSegment}/${id}`);
+    },
+    update: async (id: string, maneuverData: ManeuverDto): Promise<void> =>
+    {
+        await clientBase.put(`${maneuverPathSegment}/${id}`, maneuverData);
+    },
+}

@@ -9,9 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/ui/pagination";
-import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { usePagination } from '@/infrastructure/hooks/usePagination';
-import { Character } from '@/domain/characters/Character';
 import Link from 'next/link';
 import {
   Card,
@@ -25,31 +23,33 @@ import { Button } from '@/ui/button';
 import { useDispatch } from 'react-redux';
 import { actions } from '@/persistence/slices/characterSlice';
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useSearchCharactersSummary } from '../hooks/useSearchCharactersSummary';
+import { CharacterSummary } from '@/persistence/charactersRepository';
 
-type CharactersGridParams =
+type CharactersHeadersGridParams =
 {
   pageSize?: number;
 }
 
-export default function CharactersGrid({ pageSize = 15 }: CharactersGridParams)
+export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeadersGridParams)
 {
-  const { characters } = useSearchCharacters();
-  const { goTo, totalPages, clampedPage } = usePagination(characters.length, pageSize);
+  const { characters: summaries } = useSearchCharactersSummary();
+  const { goTo, totalPages, clampedPage } = usePagination(summaries.length, pageSize);
 
   const pageItems = useMemo(() =>
   {
     const start = (clampedPage - 1) * pageSize;
-    return characters.slice(start, start + pageSize);
-  }, [characters, clampedPage, pageSize]);
+    return summaries.slice(start, start + pageSize);
+  }, [summaries, clampedPage, pageSize]);
   
-  if (characters?.length < 1) return <NoCharacters />;
+  if (summaries?.length < 1) return <NoCharacters />;
 
   return (
     <div className='flex flex-col items-center justify-end'>
 
-      <div className='grid lg:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 m-4'>
+      <div className='grid lg:grid-cols-4 gap-4 mt-6 m-4'>
       {
-        pageItems.map(character => <CharacterCard key={character.id} character={character} />)
+        pageItems.map(summary => <CharacterCard key={summary.id} summary={summary} />)
       }
       </div>
 
@@ -100,7 +100,7 @@ function NoCharacters()
   );
 }
 
-function CharacterCard({ character }: { character: Character })
+function CharacterCard({ summary }: { summary: CharacterSummary })
 {
   const dispatch = useDispatch()
 
@@ -109,10 +109,10 @@ function CharacterCard({ character }: { character: Character })
       
       <CardHeader className='-my-1.5'>
         <CardTitle className='text-2xl flex justify-between'>
-          {character.name}
+          {summary.name}
 
           <Button asChild size="icon" className='mt-0.5' onClick={() => dispatch(actions.clearCharacterNavbarSearch())}>
-            <Link href={`/characters/${character.id}`}><FaMagnifyingGlass /></Link>
+            <Link href={`/characters/${summary.id}`}><FaMagnifyingGlass /></Link>
           </Button>
         </CardTitle>
       </CardHeader>
@@ -120,7 +120,7 @@ function CharacterCard({ character }: { character: Character })
       <Separator />
 
       <CardContent className='-mt-1'>
-        <CardDescription className='text-justify'>{character.description}</CardDescription>
+        <CardDescription className='text-justify'>{summary.description}</CardDescription>
       </CardContent>
       
     </Card>

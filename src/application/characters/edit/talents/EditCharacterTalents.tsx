@@ -9,7 +9,7 @@ import { defaultColumns } from "@/application/characters/talents/defaultColumns"
 import { EditTalentsTable } from "@/application/characters/edit/talents/EditTalentsTable"
 import { Character } from "@/domain/characters/Character";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
-import bffClient from "@/infrastructure/bffClient";
+import { charactersClient } from "@/infrastructure/bffClients";
 
 export default function EditCharacterTalents(input: { character: Character })
 {
@@ -29,7 +29,7 @@ export default function EditCharacterTalents(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterTalents: TalentsDto) => await bffClient.updateTalents(id, characterTalents),
+    async (characterTalents: TalentsDto) => await charactersClient.updateTalents(id, characterTalents),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`]
     }

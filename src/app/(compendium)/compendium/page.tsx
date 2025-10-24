@@ -1,26 +1,25 @@
-import { getCharacterById } from "@/persistence/charactersRepository";
+import LinkButton from "@/common/components/buttons/LinkButton";
 
 export default async function CompendiumPage()
 {
-  const igarId = "01K79QFH0ZD99MSBV4ACKFBZYN";
-  const igar = await getCharacterById(igarId);
-
-  if (!igar) return <div>Character not found</div>; 
+  const basePath = "/compendium";
 
   return (
-    <div>
-      <h1>Compendium Page</h1>
-      <h2>{igar.name}</h2>
-      <p>{igar.description}</p>
-      <h3>Details:</h3>
-      <ul>
-      {
-        (
-          Object.keys(igar) as (keyof typeof igar)[]).map(key =>
-            <li key={key}>{key}: [ {JSON.stringify(igar[key])} ]</li>
-        )
-      }
-      </ul>
-    </div>
+    <section className="sm:px-8 h-screen flex flex-col items-center gap-3 mt-12">
+
+      <div className="flex gap-3">
+        <LinkButton name="maneuvers" basePath={basePath} />
+        {/* <LinkButton name="perks" basePath={basePath} />
+        <LinkButton name="stances" basePath={basePath} />
+        <LinkButton name="states" basePath={basePath} /> */}
+      </div>
+
+      {/* <div className="flex gap-3">
+        <LinkButton name="powers" basePath={basePath} />
+        <LinkButton name="equipment" basePath={basePath} />
+        <LinkButton name="talents" basePath={basePath} />
+      </div> */}
+
+    </section>
   );
 };

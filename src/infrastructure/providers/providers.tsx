@@ -33,15 +33,15 @@ export default function Providers({ children }: ProvidersProps)
 
         <ThemeProvider 
           attribute='class'
-          defaultTheme='system' 
+          defaultTheme='dark' 
           enableSystem
           disableTransitionOnChange
         >
         <QueryClientProvider client={queryClient}>
-            <Provider store={store}>
-              {children}
-              <ReactQueryDevtools initialIsOpen={false} />
-            </Provider>
+          <Provider store={store}>
+            {children}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Provider>
         </QueryClientProvider>
       </ThemeProvider>
     </>

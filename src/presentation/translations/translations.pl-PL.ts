@@ -142,7 +142,7 @@ export const translations_plPL =
     saving: "Zapisuję...",
     save: "Zapisz",
     deleteConfirmation: "Czy na pewno chcesz to zrobić?",
-    deleteConfirmationDescription: "Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie twojej postaci z bazy danych na serwerze.",
+    deleteConfirmationDescription: "Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie zasobu z bazy danych na serwerze.",
 
     paceSpeed: "Prędkość kłusa",
     canterSpeed: "Prędkość cwału",

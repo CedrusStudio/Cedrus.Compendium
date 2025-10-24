@@ -142,7 +142,7 @@ export const translations_deDE =
     saving: "speichern...",
     save: "speichern",
     deleteConfirmation: "bist du sicher, dass du das tun möchtest?",
-    deleteConfirmationDescription: "diese aktion ist unwiderruflich. sie entfernt deinen charakter dauerhaft aus der datenbank auf dem server.",
+    deleteConfirmationDescription: "Diese Aktion ist unwiderruflich. Dadurch wird die Ressource dauerhaft aus der Datenbank auf dem Server gelöscht.",
 
     paceSpeed: "trabschnelligkeit",
     canterSpeed: "galoppschnelligkeit",

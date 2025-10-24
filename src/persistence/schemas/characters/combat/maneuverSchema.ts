@@ -2,7 +2,7 @@ import { z } from "zod";
 import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { castableSchema } from "@/persistence/schemas/characters/castableSchema";
 
-const maneuverSchema = perkSchema.extend
+export const maneuverSchema = perkSchema.extend
 ({
   ...castableSchema.shape
 });

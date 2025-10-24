@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { Character } from '@/domain/characters/Character';
 import { useSuspenseQuery  } from '@tanstack/react-query';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
-import bffClient from '@/infrastructure/bffClient';
+import { charactersClient } from "@/infrastructure/bffClients";
 
 export const useGetCharacterById = () => 
 {
@@ -16,7 +16,7 @@ export const useGetCharacterById = () =>
     const { data } = useSuspenseQuery<Character>
     ({
         queryKey,
-        queryFn: async () => await bffClient.getCharacterById(characterId),
+        queryFn: async () => await charactersClient.getById(characterId),
         staleTime: 5_000,
         refetchOnWindowFocus: true,
     });
