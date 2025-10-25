@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSuspenseQuery  } from '@tanstack/react-query';
 import { allManeuversKey, createSearchManeuversKey } from '@/persistence/cacheKeys';
 import { getSearchQueryParam, getSortQueryParam  } from '@/common/global/httpUtils';
-import { maneuversClient } from "@/infrastructure/bffClients";
+import client from "@/infrastructure/clients/maneuversClient";
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 
 export const useSearchManeuvers = () => 
@@ -20,7 +20,7 @@ export const useSearchManeuvers = () =>
     const { data = [] } = useSuspenseQuery<Maneuver[]>
     ({
         queryKey,
-        queryFn: async () => maneuversClient.search(search, sort),
+        queryFn: async () => client.search(search, sort),
         staleTime: 5_000,
         refetchOnWindowFocus: true,
     });

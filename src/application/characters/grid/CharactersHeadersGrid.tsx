@@ -9,7 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/ui/pagination";
-import { usePagination } from '@/infrastructure/hooks/usePagination';
+import { useOffsetPagination } from '@/infrastructure/hooks/useOffsetPagination';
 import Link from 'next/link';
 import {
   Card,
@@ -34,7 +34,7 @@ type CharactersHeadersGridParams =
 export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeadersGridParams)
 {
   const { characters: summaries } = useSearchCharactersSummary();
-  const { goTo, totalPages, clampedPage } = usePagination(summaries.length, pageSize);
+  const { goTo, totalPages, clampedPage } = useOffsetPagination(summaries.length, pageSize);
 
   const pageItems = useMemo(() =>
   {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient  } from '@tanstack/react-query';
-import { maneuversClient } from "@/infrastructure/bffClients";
+import client from "@/infrastructure/clients/maneuversClient";
 import { useRouter } from 'next/navigation';
 
 export const useDeleteManeuverById = () => 
@@ -11,7 +11,7 @@ export const useDeleteManeuverById = () =>
 
     const { mutate, isPending } = useMutation
     ({
-        mutationFn: async (maneuverId: string) => await maneuversClient.delete(maneuverId),
+        mutationFn: async (maneuverId: string) => await client.delete(maneuverId),
         onSuccess: () =>
         {
             queryClient.invalidateQueries({ queryKey: ['maneuvers'] });

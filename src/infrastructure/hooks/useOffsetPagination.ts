@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { getClampedPage, getTotalPages } from '@/common/global/paginationUtils';
 
-export function usePagination(itemsTotalCount: number, pageSize: number) 
+export function useOffsetPagination(itemsTotalCount: number, pageSize: number) 
 {
     const [page, setPage] = useState(1);
     
