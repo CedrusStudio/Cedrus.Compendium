@@ -1,5 +1,5 @@
 import { Character } from '@/domain/characters/Character';
-import { setSearchQueryParam } from '@/common/global/httpUtils';
+import { setSearchQueryParam, setSortQueryParam } from '@/common/global/httpUtils';
 import axios from 'axios';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
@@ -93,10 +93,11 @@ export const maneuversClient =
         const response = await clientBase.get<Maneuver>(`${maneuverPathSegment}/${id}`);
         return response.data;
     },
-    search: async (search?: string): Promise<Maneuver[]> =>
+    search: async (search?: string, sort?: string): Promise<Maneuver[]> =>
     {
         const url = new URL(maneuverPathSegment, window.location.origin);
         setSearchQueryParam(url, search);
+        setSortQueryParam(url, sort);
         const finalUrl = url.pathname + url.search;
         const response = await clientBase.get<Maneuver[]>(finalUrl);
         return response.data;

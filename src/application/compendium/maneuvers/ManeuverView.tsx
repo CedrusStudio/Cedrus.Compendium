@@ -19,7 +19,7 @@ import { battleIcon, cooldownIcon, editIcon, priceIcon } from '@/presentation/ic
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteManeuverById } from '@/application/compendium/hooks/useDeleteManeuverById';
+import { useDeleteManeuverById } from '@/application/compendium/maneuvers/hooks/useDeleteManeuverById';
 import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
 
 type ManeuverViewProps =

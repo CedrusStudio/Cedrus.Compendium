@@ -81,7 +81,7 @@ export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 
 export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
 
-export const addIcon = (className: string) => <LuPlus className={className} />;
+export const addIcon = (className?: string) => <LuPlus className={className} />;
 export const removeIcon = (className: string) => <LuMinus className={className} />;
 export const cooldownIcon = (className?: string) => <LuRefreshCcw className={className} />;
 export const resetIcon = (className?: string) => <RiResetLeftFill className={className} />;

@@ -34,7 +34,7 @@ export default function EditDefenseCard({ index, defense, remove }: EditDefenseC
           inputPlaceholder={displayedText.changeDescription}
         />
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         { 
           (Object.keys(defense) as (keyof DefenseDto)[])
             .filter(NotNameOrDescriptionOrId)

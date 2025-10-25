@@ -144,6 +144,7 @@ export const displayedText =
     from: translate("from"),
 
     addNewTalent: translate("addNewTalent"),
+    addManeuver: translate("addManeuver"),
     editManeuver: translate("editManeuver"),
     editPower: translate("editPower"),
     editSpell: translate("editSpell"),
