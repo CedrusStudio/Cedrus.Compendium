@@ -10,6 +10,8 @@ import { StatisticsDto } from '@/persistence/schemas/characters/statistics/stati
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
+import { SearchPayload, Select } from '@/common/global/SearchPayload';
+import { CharacterFindManyArgs } from '@/generated/prisma/models';
 
 //Queries
 const includeAllRelations =
@@ -72,6 +74,88 @@ export async function searchCharacters(name: string | undefined | null)
   });
 
   return characters.map(toCharacter);
+}
+
+export async function searchCharactersWithPayload(payload: SearchPayload)
+  : Promise<any[]>
+{
+  const filters = !payload.search
+    ? {}
+    : Object.fromEntries(
+        Object.entries(payload.search)
+          .filter(([_, value]) => !!value)
+          .map(([key, value]) => [
+            key,
+            { contains: value, mode: "insensitive" }
+          ])
+      );
+
+  const sorting = payload.sort || {};
+
+  const mapping = payload.select ? createMapping(payload.select) : {};
+
+  function createMapping(select: Select)
+  {
+    const mapping: any = {};
+
+    for (const [key, value] of Object.entries(select))
+    {
+      if (typeof value === 'object')
+      {
+        mapping[key] = { select: createMapping(value) };
+      }
+      
+      mapping[key] = value;
+    }
+    
+    return mapping;
+  }
+
+  let findInput: CharacterFindManyArgs = {
+    where: filters,
+    orderBy: sorting,
+  };
+
+  if (payload.select)
+  {
+    findInput = {
+      ...findInput,
+      select: mapping
+    };
+  }
+  else
+  {
+    findInput = {
+      ...findInput,
+      include: includeAllRelations
+    };
+  }
+
+  if (payload.pagination)
+  {
+    const { pageSize, pageNumber, cursor } = payload.pagination;
+
+    // findInput = {
+    //   ...findInput,
+    //   take: pageSize,
+    //   skip: pageSize * (pageNumber - 1)
+    // };
+
+    const newfilters =
+    {
+      ...filters,
+      id: cursor ? { gt: cursor } : undefined
+    }
+    findInput.where = newfilters;
+
+    findInput = {
+      ...findInput,
+      take: pageSize
+    };
+  }
+
+  console.log(findInput);
+  return await prisma.character.findMany(findInput);
 }
 
 //Commands

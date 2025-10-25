@@ -1,11 +1,11 @@
 export type SearchPayload = {
   search?: { [key: string]: string | number | boolean };
-  sort?: { [key: string]: { order: 'asc' | 'desc' } };
+  sort?: [string, 'asc' | 'desc'];
   pagination?: OffsetPagination | KeysetPagination;
   select: Select;
 };
 
-type Select = { [key: string]: boolean | Select };
+export type Select = { [key: string]: boolean | Select };
 
 type OffsetPagination = {
   pageNumber: number;
@@ -13,6 +13,6 @@ type OffsetPagination = {
 };
 
 type KeysetPagination = {
-  cursor: { [key: string]: string | number | boolean };
+  cursor: string;
   pageSize: number;
 };

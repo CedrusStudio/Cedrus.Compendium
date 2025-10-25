@@ -7,6 +7,7 @@ import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipme
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { CharacterSummary } from '@/persistence/charactersRepository';
 import client from '@/infrastructure/clients/baseClient';
+import { SearchPayload } from '@/common/global/SearchPayload';
 
 const characterPathSegment = '/characters';
 
@@ -24,6 +25,11 @@ const charactersClient =
         setSearchQueryParam(url, search);
         const finalUrl = url.pathname + url.search;
         const response = await client.get<Character[]>(finalUrl);
+        return response.data;
+    },
+    searchWithPayload: async (payload: SearchPayload): Promise<Character[]> =>
+    {
+        const response = await client.post<Character[]>(`${characterPathSegment}/search`, payload);
         return response.data;
     },
     searchSummaries: async (search?: string): Promise<CharacterSummary[]> =>

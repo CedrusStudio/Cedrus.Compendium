@@ -1,0 +1,102 @@
+POST http://localhost:3000/api/characters
+Content-Type: application/json
+
+
+### Get Chracters
+
+GET http://localhost:3000/api/characters
+Content-Type: application/json
+
+### Search Without Select
+
+POST http://localhost:3000/api/characters/search
+Content-Type: application/json
+
+{
+    "search": {
+        "name": "igar"
+    },
+    "sort": [
+        {
+            "name": "asc"
+        }
+    ],
+    "pagination": {
+        "pageNumber": 1,
+        "pageSize": 10
+    }
+}
+
+### Search Chracters with Select
+
+POST http://localhost:3000/api/characters/search
+Content-Type: application/json
+
+{
+    "search": {
+        "name": ""
+    },
+    "sort": [
+        {
+            "name": "asc"
+        }
+    ],
+    "select": {
+        "id": true,
+        "name": true,
+        "perks": {
+            "select": {
+                "id": true,
+                "name": true
+            }
+        }
+    }
+}
+
+### Search Chracters with Offset Pagination
+
+POST http://localhost:3000/api/characters/search
+Content-Type: application/json
+
+{
+    "search": {
+        "name": ""
+    },
+    "sort": [
+        {
+            "name": "asc"
+        }
+    ],
+    "pagination": {
+        "pageNumber": 1,
+        "pageSize": 2
+    },
+    "select": {
+        "id": true,
+        "name": true
+    }
+}
+
+### Search Chracters with Keyset Pagination
+
+POST http://localhost:3000/api/characters/search
+Content-Type: application/json
+
+{
+    "search": {
+        "name": ""
+    },
+    "sort": [
+        {
+            "name": "asc"
+        }
+    ],
+    "select": {
+        "id": true,
+        "name": true
+    },
+    "pagination": {
+        "cursor": "01K79QFH0ZD99MSBV4ACKFBZYN",
+        "pageSize": 2
+    }
+}
