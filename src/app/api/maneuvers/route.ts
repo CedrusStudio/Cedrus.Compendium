@@ -6,11 +6,8 @@ export async function GET(request: NextRequest)
 {
   try 
   {
-    console.error("Request", request);
-    console.error('HELLO');
     const search = getSearchParamFromRequest(request);
     const sort = getSortParamFromRequest(request);
-    console.error('Search:', search, 'Sort:', sort);
     const maneuvers = await searchManeuvers(search, sort);
     return NextResponse.json(maneuvers);
   } 
