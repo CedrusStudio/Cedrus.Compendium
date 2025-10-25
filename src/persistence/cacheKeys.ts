@@ -11,7 +11,7 @@ export const getCharacterQueryKey = (search: string | undefined) => search
     : allCharactersKey;
 
 const maneuverKey = 'maneuvers';
-export const createSearchManeuversKey = (search: string, sort: string) => [maneuverKey, searchParamKey, search, sort] as const;
+export const createSearchManeuversKey = (search: string, sort?: string) => [maneuverKey, searchParamKey, search, sort] as const;
 export const allManeuversKey = [maneuverKey, 'all'] as const;
 export const createManeuverByIdKey = (id: string) => [maneuverKey, id] as const;
 
