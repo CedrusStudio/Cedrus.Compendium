@@ -117,6 +117,7 @@ export const translations_plPL =
     from: "z",
 
     addNewTalent: "dodaj nową umiejętność",
+    addManeuver: "dodaj manewr",
     editManeuver: "edycja manewru",
     editPower: "edycja mocy",
     editSpell: "edycja zaklęcia",

@@ -28,17 +28,9 @@ export default function CharacterNavbar()
     const debouncedSearch = useDebouncedCallback(value => 
     {
         const params = new URLSearchParams(searchParams);
-        if (value) 
-        {
-            params.set('search', value);
-        } 
-        else 
-        {
-            replace(`/characters`);
-            return;
-        }
-
-        replace(`/characters?${params.toString()}`);
+        if (value) params.set('search', value);
+        else params.delete('search');
+        replace(`/characters?${params}`);
     }, 300);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 

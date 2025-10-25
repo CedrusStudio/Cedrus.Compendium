@@ -19,17 +19,20 @@ export async function getManeuverById(id: string)
   return maneuver ? toCastablePerk(maneuver) : null;
 }
 
-export async function searchManeuvers(name: string | undefined | null)
+export async function searchManeuvers(search: string | undefined | null, sort: string | undefined | null)
   : Promise<Maneuver[]>
 {
   const maneuvers = await prisma.maneuver.findMany
   ({
     where: {
-      name: name ? {
-        contains: name,
+      name: search ? {
+        contains: search,
         mode: 'insensitive'
       } : undefined
     },
+    orderBy: sort ? {
+      [sort]: 'asc'
+    } : undefined
   });
 
   return maneuvers.map(toCastablePerk);
@@ -44,10 +47,22 @@ export async function deleteManeuver(id: string)
     where: { id }
   });
 }
-export async function updateManeuver(id: string, maneuver: ManeuverDto)
+
+export async function addManeuver(maneuver: ManeuverDto)
+  : Promise<string>
+{
+  const added = await prisma.maneuver.create
+  ({
+    data: maneuver
+  });
+
+  return added.id;
+}
+
+export async function updateManeuver(maneuver: ManeuverDto)
   : Promise<boolean>
 {
-  const { id: _, ...maneuverWithoutId } = maneuver;
+  const { id: id, ...maneuverWithoutId } = maneuver;
 
   const updatedManeuver = await prisma.maneuver.update
   ({

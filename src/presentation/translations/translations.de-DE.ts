@@ -117,6 +117,7 @@ export const translations_deDE =
     from: "von",
 
     addNewTalent: "neue fähigkeit hinzufügen",
+    addManeuver: "manöver hinzufügen",
     editManeuver: "manöver bearbeiten",
     editPower: "kraft bearbeiten",
     editSpell: "zauber bearbeiten",
