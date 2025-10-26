@@ -10,9 +10,8 @@ import { StatisticsDto } from '@/persistence/schemas/characters/statistics/stati
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
-import { createFiltering, createMapping, createSorting, SearchPayload } from '@/common/global/SearchPayload';
-import { CharacterFindManyArgs } from '@/generated/prisma/models';
-import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
+import { SearchEntityPayload, SearchPayload } from '@/common/global/SearchPayload';
+import { createSearchInput } from './createSearchInput';
 
 //Queries
 const includeAllRelations =
@@ -55,41 +54,18 @@ export async function searchCharacters(name: string | undefined | null)
   return characters.map(toCharacter);
 }
 
-export async function searchCharactersWithPayload(payload: SearchPayload)
-  : Promise<any[]>
+export async function searchCharactersWithPayload<TMappedResult>(payload: SearchPayload): Promise<TMappedResult[]>
 {
-  const filters = createFiltering(payload);
-  const sorting = createSorting(payload);
-  const mapping = createMapping(payload, includeAllRelations);
-  
-  let findInput: CharacterFindManyArgs = {
-    where: filters,
-    orderBy: sorting,
-    ...mapping
-  };
-  
-  if (isOffsetPagination(payload.pagination)) 
-  {
-    findInput = { 
-      ...findInput,
-      ...createOffsetPagination(payload.pagination)
-    };
-  }   
-
-  if (isKeysetPagination(payload.pagination)) 
-  {
-    const { where, take } = createKeysetPagination(payload.pagination);
-
-    findInput = { 
-      ...findInput,
-      where: { ...findInput.where, ...where },
-      take
-    };
-  }
-
-  const result = await prisma.character.findMany(findInput);
-  return result;
+  const findInput = createSearchInput(payload, includeAllRelations);
+  return await prisma.character.findMany(findInput) as TMappedResult[];
 }
+
+// export async function searchEntity<TMappedResult>(payload: SearchEntityPayload): Promise<TMappedResult[]>
+// {
+//   const findInput = createSearchInput(payload, includeAllRelations);
+//   const entity = payload.entity as keyof typeof prisma;
+//   return await prisma[entity].findMany(findInput) as TMappedResult[];
+// }
 
 //Commands
 export async function addCharacter(characterHeader: HeaderDto)

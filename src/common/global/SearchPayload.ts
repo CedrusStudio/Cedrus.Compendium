@@ -1,5 +1,10 @@
 import { OffsetPagination, KeysetPagination } from "@/common/global/pagination";
 
+export type SearchEntityPayload = SearchPayload &
+{
+  entity: string;
+};
+
 export type SearchPayload = 
 {
   search?: { [key: string]: string | number | boolean | undefined };
@@ -10,9 +15,9 @@ export type SearchPayload =
 
 export type Select = { [key: string]: boolean | Select };
 
-export function createFiltering(payload: SearchPayload)
+export function createFiltering(payload: SearchPayload): Record<string, { contains: string | number | boolean; mode: string }> | undefined
 {
-  if (!payload.search) return null;
+  if (!payload.search) return undefined;
   
   const filters = Object.entries(payload.search)
     .filter(([, value]) => !!value)
