@@ -10,8 +10,9 @@ import { StatisticsDto } from '@/persistence/schemas/characters/statistics/stati
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
-import { SearchPayload, Select } from '@/common/global/SearchPayload';
+import { createFiltering, createMapping, createSorting, SearchPayload } from '@/common/global/SearchPayload';
 import { CharacterFindManyArgs } from '@/generated/prisma/models';
+import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 
 //Queries
 const includeAllRelations =
@@ -37,28 +38,6 @@ export async function getCharacterById(id: string)
 
 export type CharacterSummary = ({id: string} & Omit<HeaderDto, 'category'>);
 
-export async function getAllCharactersSummary(name: string | undefined | null)
-  : Promise<CharacterSummary[]>
-{
-  const characterHeaders = await prisma.character.findMany
-  ({
-    where: {
-      name: name ? {
-        contains: name,
-        mode: 'insensitive'
-      } : undefined
-    },
-    select: {
-      id: true,
-      name: true,
-      shortName: true,
-      description: true,
-    }
-  });
-
-  return characterHeaders;
-}
-
 export async function searchCharacters(name: string | undefined | null)
   : Promise<Character[]>
 {
@@ -79,83 +58,37 @@ export async function searchCharacters(name: string | undefined | null)
 export async function searchCharactersWithPayload(payload: SearchPayload)
   : Promise<any[]>
 {
-  const filters = !payload.search
-    ? {}
-    : Object.fromEntries(
-        Object.entries(payload.search)
-          .filter(([_, value]) => !!value)
-          .map(([key, value]) => [
-            key,
-            { contains: value, mode: "insensitive" }
-          ])
-      );
-
-  const sorting = payload.sort || {};
-
-  const mapping = payload.select ? createMapping(payload.select) : {};
-
-  function createMapping(select: Select)
-  {
-    const mapping: any = {};
-
-    for (const [key, value] of Object.entries(select))
-    {
-      if (typeof value === 'object')
-      {
-        mapping[key] = { select: createMapping(value) };
-      }
-      
-      mapping[key] = value;
-    }
-    
-    return mapping;
-  }
-
+  const filters = createFiltering(payload);
+  const sorting = createSorting(payload);
+  const mapping = createMapping(payload, includeAllRelations);
+  
   let findInput: CharacterFindManyArgs = {
     where: filters,
     orderBy: sorting,
+    ...mapping
   };
-
-  if (payload.select)
+  
+  if (isOffsetPagination(payload.pagination)) 
   {
-    findInput = {
+    findInput = { 
       ...findInput,
-      select: mapping
+      ...createOffsetPagination(payload.pagination)
     };
-  }
-  else
+  }   
+
+  if (isKeysetPagination(payload.pagination)) 
   {
-    findInput = {
+    const { where, take } = createKeysetPagination(payload.pagination);
+
+    findInput = { 
       ...findInput,
-      include: includeAllRelations
-    };
-  }
-
-  if (payload.pagination)
-  {
-    const { pageSize, pageNumber, cursor } = payload.pagination;
-
-    // findInput = {
-    //   ...findInput,
-    //   take: pageSize,
-    //   skip: pageSize * (pageNumber - 1)
-    // };
-
-    const newfilters =
-    {
-      ...filters,
-      id: cursor ? { gt: cursor } : undefined
-    }
-    findInput.where = newfilters;
-
-    findInput = {
-      ...findInput,
-      take: pageSize
+      where: { ...findInput.where, ...where },
+      take
     };
   }
 
-  console.log(findInput);
-  return await prisma.character.findMany(findInput);
+  const result = await prisma.character.findMany(findInput);
+  return result;
 }
 
 //Commands

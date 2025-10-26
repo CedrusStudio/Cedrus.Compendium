@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { getClampedPage, getTotalPages } from '@/common/global/paginationUtils';
+import { getClampedPage, getTotalPages } from '@/common/global/pagination';
 
 export function useOffsetPagination(itemsTotalCount: number, pageSize: number) 
 {

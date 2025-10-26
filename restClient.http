@@ -2,7 +2,7 @@ POST http://localhost:3000/api/characters
 Content-Type: application/json
 
 
-### Get Chracters
+### Get Characters
 
 GET http://localhost:3000/api/characters
 Content-Type: application/json
@@ -27,7 +27,7 @@ Content-Type: application/json
     }
 }
 
-### Search Chracters with Select
+### Search Characters with Select
 
 POST http://localhost:3000/api/characters/search
 Content-Type: application/json
@@ -53,7 +53,7 @@ Content-Type: application/json
     }
 }
 
-### Search Chracters with Offset Pagination
+### Search Characters with Offset Pagination
 
 POST http://localhost:3000/api/characters/search
 Content-Type: application/json
@@ -77,7 +77,7 @@ Content-Type: application/json
     }
 }
 
-### Search Chracters with Keyset Pagination
+### Search Characters with Keyset Pagination
 
 POST http://localhost:3000/api/characters/search
 Content-Type: application/json

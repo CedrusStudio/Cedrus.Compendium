@@ -49,7 +49,7 @@ export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeade
 
       <div className='grid lg:grid-cols-4 gap-4 mt-6 m-4'>
       {
-        pageItems.map(summary => <CharacterCard key={summary.id} summary={summary} />)
+        pageItems.map(summary => <CharactersSummaryCard key={summary.id} summary={summary} />)
       }
       </div>
 
@@ -100,7 +100,7 @@ function NoCharacters()
   );
 }
 
-function CharacterCard({ summary }: { summary: CharacterSummary })
+function CharactersSummaryCard({ summary }: { summary: CharacterSummary })
 {
   const dispatch = useDispatch()
 
