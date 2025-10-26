@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { updateCharacterDetails } from "@/persistence/charactersRepository";
+import { updateCharacterDetails } from "@/persistence/characters/charactersRepository";
 import { type DetailsDto, detailsSchema } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";

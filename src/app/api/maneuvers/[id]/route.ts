@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { deleteManeuver, getManeuverById, updateManeuver } from '@/persistence/maneuversRepository';
+import { deleteManeuver, getManeuverById, updateManeuver } from '@/persistence/maneuvers/maneuversRepository';
 
 type RouteParams = Promise<{ id: string }>
 

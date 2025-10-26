@@ -6,10 +6,11 @@ import {
 import { Suspense } from 'react';
 import { getManeuverQueryKey } from "@/persistence/cacheKeys";
 import { getSearchQuery, getSortQuery } from "@/common/global/httpUtils";
-import { searchManeuvers } from "@/persistence/maneuversRepository";
+import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import ManeuversList from "@/application/compendium/maneuvers/ManeuversList";
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
+import { createManeuverQuery } from '@/persistence/maneuvers/createManeuverQuery';
 
 type ManeuversPageProps = 
 {
@@ -26,7 +27,7 @@ export default async function ManeuversPage(input: ManeuversPageProps)
   await queryClient.prefetchQuery<Maneuver[]>
   ({
     queryKey: getManeuverQueryKey(searchQuery, sortQuery),
-    queryFn: () => searchManeuvers(searchQuery, sortQuery)
+    queryFn: () => searchEntity<Maneuver>(createManeuverQuery())
   });
 
   return (

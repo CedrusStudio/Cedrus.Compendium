@@ -1,4 +1,4 @@
-import { getCharacterById } from '@/persistence/charactersRepository';
+import { getCharacterById } from '@/persistence/characters/charactersRepository';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { isCharacterTab } from '@/common/tabsUtils';
 import EditCharacterView from '@/application/characters/edit/EditCharacterView';

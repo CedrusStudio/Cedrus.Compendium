@@ -24,7 +24,7 @@ import { useDispatch } from 'react-redux';
 import { actions } from '@/persistence/slices/characterSlice';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSearchCharactersSummary } from '../hooks/useSearchCharactersSummary';
-import { CharacterSummary } from '@/persistence/charactersRepository';
+import { CharacterSummary } from '@/persistence/characters/createCharacterSummaryQuery';
 
 type CharactersHeadersGridParams =
 {

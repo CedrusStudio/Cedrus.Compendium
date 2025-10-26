@@ -1,13 +1,10 @@
 import { Character } from '@/domain/characters/Character';
-import { setSearchQueryParam, } from '@/common/global/httpUtils';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
-import { CharacterSummary } from '@/persistence/charactersRepository';
 import client from '@/infrastructure/clients/baseClient';
-import { SearchPayload } from '@/common/global/SearchPayload';
 
 const characterPathSegment = '/characters';
 
@@ -17,27 +14,6 @@ const charactersClient =
     getById: async (id: string): Promise<Character> =>
     {
         const response = await client.get<Character>(`${characterPathSegment}/${id}`);
-        return response.data;
-    },
-    search: async (search?: string): Promise<Character[]> =>
-    {
-        const url = new URL(characterPathSegment, window.location.origin);
-        setSearchQueryParam(url, search);
-        const finalUrl = url.pathname + url.search;
-        const response = await client.get<Character[]>(finalUrl);
-        return response.data;
-    },
-    searchWithPayload: async (payload: SearchPayload): Promise<Character[]> =>
-    {
-        const response = await client.post<Character[]>(`${characterPathSegment}/search`, payload);
-        return response.data;
-    },
-    searchSummaries: async (search?: string): Promise<CharacterSummary[]> =>
-    {
-        const url = new URL(`${characterPathSegment}/headers`, window.location.origin);
-        setSearchQueryParam(url, search);
-        const finalUrl = url.pathname + url.search;
-        const response = await client.get<CharacterSummary[]>(finalUrl);
         return response.data;
     },
     

@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { updateCharacterEquipment } from '@/persistence/charactersRepository';
+import { updateCharacterEquipment } from '@/persistence/characters/charactersRepository';
 
 type RouteParams = Promise<{ id: string }>
 

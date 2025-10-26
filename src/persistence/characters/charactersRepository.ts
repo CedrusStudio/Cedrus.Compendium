@@ -10,19 +10,9 @@ import { StatisticsDto } from '@/persistence/schemas/characters/statistics/stati
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
-import { SearchEntityPayload, SearchPayload } from '@/common/global/SearchPayload';
-import { createSearchInput } from './createSearchInput';
+import { includeAllRelations } from '@/persistence/characters/createCharacterQuery';
 
 //Queries
-const includeAllRelations =
-{
-  stances: true,
-  states: true,
-  maneuvers: true,
-  spells: true,
-  perks: true
-};
-
 export async function getCharacterById(id: string)
   : Promise<Character | null>
 {
@@ -34,38 +24,6 @@ export async function getCharacterById(id: string)
 
   return character ? toCharacter(character) : null;
 }
-
-export type CharacterSummary = ({id: string} & Omit<HeaderDto, 'category'>);
-
-export async function searchCharacters(name: string | undefined | null)
-  : Promise<Character[]>
-{
-  const characters = await prisma.character.findMany
-  ({
-    where: {
-      name: name ? {
-        contains: name,
-        mode: 'insensitive'
-      } : undefined
-    },
-    include: includeAllRelations
-  });
-
-  return characters.map(toCharacter);
-}
-
-export async function searchCharactersWithPayload<TMappedResult>(payload: SearchPayload): Promise<TMappedResult[]>
-{
-  const findInput = createSearchInput(payload, includeAllRelations);
-  return await prisma.character.findMany(findInput) as TMappedResult[];
-}
-
-// export async function searchEntity<TMappedResult>(payload: SearchEntityPayload): Promise<TMappedResult[]>
-// {
-//   const findInput = createSearchInput(payload, includeAllRelations);
-//   const entity = payload.entity as keyof typeof prisma;
-//   return await prisma[entity].findMany(findInput) as TMappedResult[];
-// }
 
 //Commands
 export async function addCharacter(characterHeader: HeaderDto)

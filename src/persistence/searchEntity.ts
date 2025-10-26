@@ -1,5 +1,15 @@
+import { SearchEntityPayload } from '@/common/global/SearchPayload';
 import { createFiltering, createMapping, createSorting, SearchPayload, Select } from '@/common/global/SearchPayload';
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
+import prisma from '@/lib/prisma';
+
+//TODO: perform mapping here based on payload.mapping
+export async function searchEntity<TMappedResult>(payload: SearchEntityPayload): Promise<TMappedResult[]>
+{
+  const findInput = createSearchInput(payload, payload.include);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await (prisma[payload.entity as any] as any).findMany(findInput) as TMappedResult[];
+}
 
 type FindInput = 
 {
@@ -11,7 +21,7 @@ type FindInput =
   skip?: number;
 };
 
-export function createSearchInput(payload: SearchPayload, includeFallback: Record<string, boolean> = {}): FindInput
+function createSearchInput(payload: SearchPayload, includeFallback: Record<string, boolean> = {}): FindInput
 {
   const filters = createFiltering(payload);
   const sorting = createSorting(payload);

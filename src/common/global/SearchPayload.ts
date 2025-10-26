@@ -1,16 +1,17 @@
 import { OffsetPagination, KeysetPagination } from "@/common/global/pagination";
 
-export type SearchEntityPayload = SearchPayload &
-{
-  entity: string;
-};
+export type SearchEntityPayload =
+  | (SearchPayload & { entity: string; include: Record<string, boolean>; select?: undefined })
+  | (SearchPayload & { entity: string; select: Select; include?: undefined })
+  | (SearchPayload & { entity: string; include?: undefined; select?: undefined });
+
 
 export type SearchPayload = 
 {
   search?: { [key: string]: string | number | boolean | undefined };
   sort?: { [key: string]: 'asc' | 'desc' }[] | undefined;
   pagination?: OffsetPagination | KeysetPagination;
-  select: Select;
+  select?: Select;
 };
 
 export type Select = { [key: string]: boolean | Select };

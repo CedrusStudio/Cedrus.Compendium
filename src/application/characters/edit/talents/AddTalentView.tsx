@@ -53,7 +53,6 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
 
     const result = talentSchema.safeParse(newTalent);
 
-    console.log("New Talent to add:", result);
     if (!result.success) 
     {
       const fieldErrors = getErrors(result);

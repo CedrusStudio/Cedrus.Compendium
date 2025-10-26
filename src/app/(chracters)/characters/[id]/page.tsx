@@ -1,4 +1,4 @@
-import { getCharacterById } from '@/persistence/charactersRepository';
+import { getCharacterById } from '@/persistence/characters/charactersRepository';
 
 import {
   dehydrate,

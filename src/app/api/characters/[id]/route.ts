@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { deleteCharacter, getCharacterById } from '@/persistence/charactersRepository';
+import { deleteCharacter, getCharacterById } from '@/persistence/characters/charactersRepository';
 
 type RouteParams = Promise<{ id: string }>
 

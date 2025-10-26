@@ -19,25 +19,6 @@ export async function getManeuverById(id: string)
   return maneuver ? toCastablePerk(maneuver) : null;
 }
 
-export async function searchManeuvers(search: string | undefined | null, sort: string | undefined | null)
-  : Promise<Maneuver[]>
-{
-  const maneuvers = await prisma.maneuver.findMany
-  ({
-    where: {
-      name: search ? {
-        contains: search,
-        mode: 'insensitive'
-      } : undefined
-    },
-    orderBy: sort ? {
-      [sort]: 'asc'
-    } : undefined
-  });
-
-  return maneuvers.map(toCastablePerk);
-}
-
 //Commands
 export async function deleteManeuver(id: string)
   : Promise<void>
