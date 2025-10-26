@@ -10,7 +10,7 @@ import { StatisticsDto } from '@/persistence/schemas/characters/statistics/stati
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
-import { includeAllRelations } from '@/persistence/characters/createCharacterQuery';
+import { includeAllRelations } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
 
 //Queries
 export async function getCharacterById(id: string)

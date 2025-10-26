@@ -9,7 +9,7 @@ import {
 import { Suspense } from 'react';
 import { getCharacterQueryKey } from "@/persistence/cacheKeys";
 import { getSearchQuery } from "@/common/global/httpUtils";
-import { CharacterSummary, createCharacterSummaryQuery } from "@/persistence/characters/createCharacterSummaryQuery";
+import { CharacterSummary, createCharacterSummaryQuery } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 
 type CharactersPageProps = 
 {

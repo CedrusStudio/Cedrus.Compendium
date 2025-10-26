@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 import BestiaryGridSkeleton from "@/application/bestiary/BestiaryTableSkeleton";
 import BattleTable from "@/application/bestiary/BattleTable";
 import { allCharactersKey } from "@/persistence/cacheKeys";
-import { createCharacterQuery } from "@/persistence/characters/createCharacterQuery";
+import { createCharacterQuery } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
 
 export default async function BattlePage()
 {

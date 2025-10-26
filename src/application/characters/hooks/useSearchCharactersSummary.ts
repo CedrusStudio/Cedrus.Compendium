@@ -5,7 +5,7 @@ import { useSuspenseQuery  } from '@tanstack/react-query';
 import { allCharactersKey, createSearchCharactersKey } from '@/persistence/cacheKeys';
 import { getSearchQueryParam  } from '@/common/global/httpUtils';
 import client from "@/infrastructure/clients/searchClient";
-import { CharacterSummary, createCharacterSummaryQuery } from '@/persistence/characters/createCharacterSummaryQuery';
+import { CharacterSummary, createCharacterSummaryQuery } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 
 export const useSearchCharactersSummary = () => 
 {

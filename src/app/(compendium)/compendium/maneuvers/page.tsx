@@ -10,7 +10,7 @@ import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import ManeuversList from "@/application/compendium/maneuvers/ManeuversList";
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
-import { createManeuverQuery } from '@/persistence/maneuvers/createManeuverQuery';
+import { createManeuverQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverQuery';
 
 type ManeuversPageProps = 
 {
