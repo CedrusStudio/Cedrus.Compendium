@@ -19,7 +19,7 @@ type CharactersPageProps =
 export default async function CharactersPage(input: CharactersPageProps)
 {
   const searchParams = await input.searchParams;
-  const searchQuery = await getSearchQuery(searchParams);
+  const searchQuery = getSearchQuery(searchParams);
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery<CharacterSummary[]>

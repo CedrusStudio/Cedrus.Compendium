@@ -13,6 +13,8 @@ export type KeysetPagination =
   pageSize: number;
 };
 
+export const DEFAULT_PAGE_SIZE = 10;
+
 export function isOffsetPagination(pagination: OffsetPagination | KeysetPagination | undefined): pagination is OffsetPagination 
 {
   return !!pagination && 'pageNumber' in pagination;

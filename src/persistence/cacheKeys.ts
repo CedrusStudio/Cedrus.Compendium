@@ -11,10 +11,11 @@ export const getCharacterQueryKey = (search: string | undefined) => search
     : allCharactersKey;
 
 const maneuverKey = 'maneuvers';
-export const createSearchManeuversKey = (search: string, sort?: string) => [maneuverKey, searchParamKey, search, sort] as const;
+const createSearchManeuversKey = (search?: string, sort?: string, sortDirection?: "asc" | "desc") => [maneuverKey, searchParamKey, search, sort, sortDirection] as const;
 export const allManeuversKey = [maneuverKey, 'all'] as const;
 export const createManeuverByIdKey = (id: string) => [maneuverKey, id] as const;
 
-export const getManeuverQueryKey = (search: string | undefined, sort: string | undefined) => search 
-    ? createSearchManeuversKey(search, sort)
-    : allManeuversKey;
+export const createSearchManeuversKeyWithFallback = (search: string | undefined, sort: string | undefined, sortDirection: "asc" | "desc" | undefined) => 
+    (search || sort)
+        ? createSearchManeuversKey(search, sort, sortDirection)
+        : allManeuversKey;

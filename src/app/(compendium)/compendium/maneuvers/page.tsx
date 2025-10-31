@@ -4,8 +4,8 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import { getManeuverQueryKey } from "@/persistence/cacheKeys";
-import { getSearchQuery, getSortQuery } from "@/common/global/httpUtils";
+import { createSearchManeuversKeyWithFallback } from "@/persistence/cacheKeys";
+import { getSearchQuery, getSortDirectionQuery, getSortQuery } from "@/common/global/httpUtils";
 import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import ManeuversList from "@/application/compendium/maneuvers/ManeuversList";
@@ -20,14 +20,15 @@ type ManeuversPageProps =
 export default async function ManeuversPage(input: ManeuversPageProps)
 {
   const searchParams = await input.searchParams;
-  const searchQuery = await getSearchQuery(searchParams);
-  const sortQuery = await getSortQuery(searchParams);
+  const searchQuery = getSearchQuery(searchParams);
+  const sortQuery = getSortQuery(searchParams);
+  const sortDirectionQuery = getSortDirectionQuery(searchParams);
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery<Maneuver[]>
   ({
-    queryKey: getManeuverQueryKey(searchQuery, sortQuery),
-    queryFn: () => searchEntity<Maneuver>(createManeuverQuery())
+    queryKey: createSearchManeuversKeyWithFallback(searchQuery, sortQuery, sortDirectionQuery),
+    queryFn: () => searchEntity<Maneuver>(createManeuverQuery(searchQuery, sortQuery, sortDirectionQuery)),
   });
 
   return (

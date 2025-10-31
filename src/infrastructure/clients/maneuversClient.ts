@@ -1,4 +1,3 @@
-import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { ManeuverDto } from '@/persistence/schemas/characters/combat/maneuverSchema';
 import client from '@/infrastructure/clients/baseClient';
 
@@ -6,13 +5,6 @@ const maneuverPathSegment = '/maneuvers';
 
 const maneuversClient = 
 {
-    //Queries
-    getById: async (id: string): Promise<Maneuver> =>
-    {
-        const response = await client.get<Maneuver>(`${maneuverPathSegment}/${id}`);
-        return response.data;
-    },
-
     //Commands
     add: async (maneuver: ManeuverDto): Promise<string> =>
     {

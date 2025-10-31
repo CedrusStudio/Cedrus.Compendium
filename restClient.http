@@ -114,11 +114,11 @@ Content-Type: application/json
 {
     "entity": "maneuver",
     "search": {
-        "name": "Karząca cięcie"
+        "name": ""
     },
     "sort": [
         {
-            "name": "asc"
+            "price": "desc"
         }
     ],
     "pagination": {

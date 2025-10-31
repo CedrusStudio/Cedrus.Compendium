@@ -12,7 +12,6 @@ export type SearchEntityPayload =
   | (SearchPayload & { entity: string; select: Select; include?: undefined })
   | (SearchPayload & { entity: string; include?: undefined; select?: undefined });
 
-
 export type SearchPayload = 
 {
   search?: { [key: string]: SearchValueInput };

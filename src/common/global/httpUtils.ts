@@ -6,6 +6,7 @@ export const getSearchParamFromRequest = (request: NextRequest) =>
     request.nextUrl.searchParams.get(searchParamKey);
 
 export const sortParamKey = 'sort';
+export const sortDirectionParamKey = 'sortDirection';
 export const getSortParamFromRequest = (request: NextRequest) => 
     request.nextUrl.searchParams.get(sortParamKey);
 
@@ -17,6 +18,13 @@ export const getSearchQueryParam = (searchParams: ReadonlyURLSearchParams) =>
 export const getSortQueryParam = (searchParams: ReadonlyURLSearchParams) => 
 {
     return searchParams.get(sortParamKey) ?? undefined;
+};
+
+export const getSortDirectionQueryParam = (searchParams: ReadonlyURLSearchParams): "asc" | "desc" => 
+{
+    const direction = searchParams.get(sortDirectionParamKey);
+    if (direction !== "asc" && direction !== "desc") return "asc";
+    return direction;
 };
 
 export const getIdQueryParam = (searchParams: ReadonlyURLSearchParams) => 
@@ -34,12 +42,19 @@ export const setSortQueryParam = (url: URL, sort?: string) =>
     if (sort) url.searchParams.set(sortParamKey, sort);
 };
 
-export async function getSearchQuery(searchParams: { [key: string]: string | string[] | undefined })
+export function getSearchQuery(searchParams: { [key: string]: string | string[] | undefined })
 {
     return Array.isArray(searchParams?.search) ? searchParams.search[0] : searchParams?.search;
 };
 
-export async function getSortQuery(searchParams: { [key: string]: string | string[] | undefined })
+export function getSortQuery(searchParams: { [key: string]: string | string[] | undefined })
 {
     return Array.isArray(searchParams?.sort) ? searchParams.sort[0] : searchParams?.sort;
+};
+
+export function getSortDirectionQuery(searchParams: { [key: string]: string | string[] | undefined }): "asc" | "desc"
+{
+    const direction = Array.isArray(searchParams?.sortDirection) ? searchParams.sortDirection[0] : searchParams?.sortDirection
+    if (direction !== "asc" && direction !== "desc") return "asc";
+    return direction as "asc" | "desc";
 };
