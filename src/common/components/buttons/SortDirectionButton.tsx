@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/common/components/ui/button";
 import { arrowDownIcon, arrowUpIcon } from "@/presentation/icons";
 import { useState } from "react";
