@@ -15,7 +15,7 @@ import { ulid } from 'ulid';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 import { createUpsertPayload } from '@/persistence/mappings/createUpsertPayload';
 
-type CharacterWithRelations = Prisma.CharacterGetPayload<{
+export type CharacterWithRelations = Prisma.CharacterGetPayload<{
   include: {
     stances: true;
     states: true;

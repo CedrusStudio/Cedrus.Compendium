@@ -1,13 +1,5 @@
 import { SearchEntityPayload } from "@/common/global/SearchPayloads";
-
-export const includeAllRelations =
-{
-  stances: true,
-  states: true,
-  maneuvers: true,
-  spells: true,
-  perks: true
-};
+import { includeAllRelations } from "@/infrastructure/searchQueries/characters/allCharacterRelations";
 
 export const createCharacterQuery = (searchQuery?: string | undefined): SearchEntityPayload => 
 { 

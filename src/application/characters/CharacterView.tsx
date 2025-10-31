@@ -37,8 +37,9 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
   useEffect(() => 
   {
+    if (!character?.id || !character?.shortName) return;
     dispatch(actions.setCharacterShortName({ id: character.id, shortName: character.shortName }));
-  }, [character.id, character.shortName, dispatch]);               
+  }, [character?.id, character?.shortName, dispatch]);               
 
   if (!character) return <div>Character not found</div>;
 

@@ -3,27 +3,12 @@
 //Tip: mark your repository as server-only so it can’t be imported in client components by mistake.
 import 'server-only';
 import prisma from '@/lib/prisma';
-import { toCharacter, toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
-import { Character } from '@/domain/characters/Character';
+import { toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
-import { includeAllRelations } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
-
-//Queries
-export async function getCharacterById(id: string)
-  : Promise<Character | null>
-{
-  const character = await prisma.character.findUnique
-  ({ 
-    where: { id },
-    include: includeAllRelations
-  });
-
-  return character ? toCharacter(character) : null;
-}
 
 //Commands
 export async function addCharacter(characterHeader: HeaderDto)

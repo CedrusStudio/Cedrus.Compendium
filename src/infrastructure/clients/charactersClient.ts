@@ -1,4 +1,3 @@
-import { Character } from '@/domain/characters/Character';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
@@ -10,13 +9,6 @@ const characterPathSegment = '/characters';
 
 const charactersClient = 
 {
-    //Queries
-    getById: async (id: string): Promise<Character> =>
-    {
-        const response = await client.get<Character>(`${characterPathSegment}/${id}`);
-        return response.data;
-    },
-    
     //Commands
     add: async (characterHeader: HeaderDto): Promise<string> =>
     {

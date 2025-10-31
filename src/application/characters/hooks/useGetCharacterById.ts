@@ -1,10 +1,11 @@
 "use client";
 
 import { useParams } from 'next/navigation';
-import { Character } from '@/domain/characters/Character';
 import { useSuspenseQuery  } from '@tanstack/react-query';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
-import client from "@/infrastructure/clients/charactersClient";
+import client from "@/infrastructure/clients/searchClient";
+import { characterQueryById } from '@/infrastructure/searchQueries/characters/characterQueryById';
+import { CharacterWithRelations, toCharacter } from '@/persistence/mappings/characterMapping';
 
 export const useGetCharacterById = () => 
 {
@@ -13,13 +14,14 @@ export const useGetCharacterById = () =>
     if (!characterId) throw new Error("Character ID is required");
     const queryKey = createCharacterByIdKey(characterId);
 
-    const { data } = useSuspenseQuery<Character>
+    const { data } = useSuspenseQuery<CharacterWithRelations>
     ({
         queryKey,
-        queryFn: async () => await client.getById(characterId),
+        queryFn: async () => await client.searchById(characterId, characterQueryById),
         staleTime: 5_000,
         refetchOnWindowFocus: true,
     });
 
-    return { character: data }
+    if (!data) return { character: null };
+    return { character: toCharacter(data) };
 };

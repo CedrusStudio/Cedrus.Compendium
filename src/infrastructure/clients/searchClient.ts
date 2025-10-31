@@ -2,7 +2,6 @@ import { SearchEntityPayload, SearchByIdEntityPayload } from '@/common/global/Se
 import client from '@/infrastructure/clients/baseClient';
 
 const searchPathSegment = '/search';
-const searchByIdPathSegment = '/search/:id';
 
 const searchClient = 
 {
@@ -11,9 +10,9 @@ const searchClient =
         const response = await client.post<TResponse>(searchPathSegment, payload);
         return response.data;
     },    
-    searchById: async <TResponse>(payload?: SearchByIdEntityPayload): Promise<TResponse> =>
+    searchById: async <TResponse>(id: string, payload?: SearchByIdEntityPayload): Promise<TResponse> =>
     {
-        const response = await client.post<TResponse>(searchByIdPathSegment, payload);
+        const response = await client.post<TResponse>(`${searchPathSegment}/${id}`, payload);
         return response.data;
     }
 };
