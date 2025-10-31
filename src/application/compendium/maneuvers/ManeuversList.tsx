@@ -26,12 +26,14 @@ import { useDebouncedCallback } from "use-debounce";
 import { useState } from "react";
 import SelectOneOfStrings from "@/common/components/selects/SelectOneOfStrings";
 import { useQuerySearchAndSortParamsChange } from "@/common/hooks/useQueryParamChange";
+import SortDirectionButton from "@/common/components/buttons/SortDirectionButton";
 
 export default function ManeuversList()
 {
   const { maneuvers } = useSearchManeuvers();
   const [searchTerm, setSearchTerm] = useState("");
-  const { searchQueryParamChange, sortQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
+  const [sortDirection, setSortDirection] = useState("asc");
+  const { searchQueryParamChange, sortQueryParamChange, sortDirectionQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
 
   const debouncedSearch = useDebouncedCallback(value => searchQueryParamChange(value), 300);
 
@@ -62,11 +64,19 @@ export default function ManeuversList()
         />
         {/* infinite scroll */}
 
-        <SelectOneOfStrings
-          defaultValue={displayedText.name}
-          items={allowedSortOptions}
-          onChange={value => sortQueryParamChange(value)}
-        />
+        <div className="flex gap-1 items-center">
+          <SelectOneOfStrings
+            defaultValue={displayedText.name}
+            items={allowedSortOptions}
+            onChange={value => sortQueryParamChange(value)}
+          />
+
+          <SortDirectionButton 
+            sortDirection={sortDirection}
+            setSortDirection={setSortDirection}
+            sortDirectionQueryParamChange={sortDirectionQueryParamChange}
+          />
+        </div>
 
         <AddManeuverForm />
       </div>
