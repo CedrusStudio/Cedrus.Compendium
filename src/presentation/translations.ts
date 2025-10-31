@@ -207,4 +207,6 @@ export const displayedText =
     cost: translate("cost"),
     price: translate("price"),
     requirements: translate("requirements"),
+
+    notFound: translate("notFound"),
 } as const;

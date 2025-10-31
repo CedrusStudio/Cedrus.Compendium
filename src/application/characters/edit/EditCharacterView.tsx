@@ -15,6 +15,7 @@ import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
 import { displayedText } from "@/presentation/translations";
+import NotFound from "@/common/components/NotFound";
 
 type EditCharacterViewProps =
 {
@@ -25,6 +26,8 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
 {
   const { character } = useGetCharacterById();
   const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? "character");
+
+  if (!character) return <NotFound subject={displayedText.character} />;
   
   return (
     <Tabs 

@@ -180,4 +180,6 @@ export const translations_frFR =
     cost: "coût",
     price: "prix",
     requirements: "exigences",
+
+    notFound: "non trouvé",
 } as const;

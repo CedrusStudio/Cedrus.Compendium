@@ -180,5 +180,7 @@ export const translations_plPL =
     cost: "koszt",
     price: "cena",
     requirements: "wymagania",
+
+    notFound: "nie znaleziono",
 } as const;
 
