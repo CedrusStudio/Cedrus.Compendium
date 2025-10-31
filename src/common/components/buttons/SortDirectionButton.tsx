@@ -1,15 +1,16 @@
 import { Button } from "@/common/components/ui/button";
 import { arrowDownIcon, arrowUpIcon } from "@/presentation/icons";
+import { useState } from "react";
 
 type SortDirectionButtonProps =
 {
-    sortDirection: string;
-    setSortDirection: (direction: string) => void;
-    sortDirectionQueryParamChange: (paramValue: string) => void;
+    sideEffect: (paramValue: string) => void;
 }
 
-export default function SortDirectionButton({ sortDirection, setSortDirection, sortDirectionQueryParamChange }: SortDirectionButtonProps)
+export default function SortDirectionButton({ sideEffect }: SortDirectionButtonProps)
 {
+  const [sortDirection, setSortDirection] = useState("asc");
+
   return (
     <Button
         variant="outline"
@@ -17,7 +18,7 @@ export default function SortDirectionButton({ sortDirection, setSortDirection, s
         onClick={() => {
             const newDirection = sortDirection === "asc" ? "desc" : "asc";
             setSortDirection(newDirection);
-            sortDirectionQueryParamChange(newDirection);
+            sideEffect(newDirection);
         }}
     >
         { sortDirection === "desc" ? arrowDownIcon : arrowUpIcon }

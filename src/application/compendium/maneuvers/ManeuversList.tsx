@@ -32,7 +32,6 @@ export default function ManeuversList()
 {
   const { maneuvers } = useSearchManeuvers();
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortDirection, setSortDirection] = useState("asc");
   const { searchQueryParamChange, sortQueryParamChange, sortDirectionQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
 
   const debouncedSearch = useDebouncedCallback(value => searchQueryParamChange(value), 300);
@@ -72,9 +71,7 @@ export default function ManeuversList()
           />
 
           <SortDirectionButton 
-            sortDirection={sortDirection}
-            setSortDirection={setSortDirection}
-            sortDirectionQueryParamChange={sortDirectionQueryParamChange}
+            sideEffect={sortDirectionQueryParamChange}
           />
         </div>
 
