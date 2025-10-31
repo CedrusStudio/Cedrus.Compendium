@@ -58,3 +58,8 @@ export function getSortDirectionQuery(searchParams: { [key: string]: string | st
     if (direction !== "asc" && direction !== "desc") return "asc";
     return direction as "asc" | "desc";
 };
+
+export const getCursorQueryParam = (searchParams: { [key: string]: string | string[] | undefined }) => 
+{
+    return Array.isArray(searchParams?.cursor) ? searchParams.cursor[0] : searchParams?.cursor;
+};

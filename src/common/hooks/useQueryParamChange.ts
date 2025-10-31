@@ -23,6 +23,7 @@ export function useQuerySearchAndSortParamsChange(path: string)
   return {
     searchQueryParamChange: (paramValue: string) => queryParamChange('search', paramValue),
     sortQueryParamChange: (paramValue: string) => queryParamChange('sort', paramValue),
-    sortDirectionQueryParamChange: (paramValue: string) => queryParamChange('sortDirection', paramValue)
+    sortDirectionQueryParamChange: (paramValue: string) => queryParamChange('sortDirection', paramValue),
+    cursorQueryParamChange: (paramValue: string) => queryParamChange('cursor', paramValue)
   };
 };

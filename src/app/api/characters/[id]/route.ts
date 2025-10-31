@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { deleteCharacter } from '@/persistence/characters/charactersRepository';
 
 type RouteParams = Promise<{ id: string }>
 
-export async function DELETE(segmentData: { params: RouteParams })
+export async function DELETE(request: NextRequest, segmentData: { params: RouteParams })
 {
   try 
   {

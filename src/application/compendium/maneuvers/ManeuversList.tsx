@@ -20,19 +20,32 @@ import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
-import { CreateDefaultManeuver } from "@/domain/characters/combat/Maneuver";
+import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Maneuver";
 import { Input } from "@/common/components/ui/input";
 import { useDebouncedCallback } from "use-debounce";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectOneOfStrings from "@/common/components/selects/SelectOneOfStrings";
 import { useQuerySearchAndSortParamsChange } from "@/common/hooks/useQueryParamChange";
 import SortDirectionButton from "@/common/components/buttons/SortDirectionButton";
+import { WithReactScroll } from "@/common/components/WithScroll";
+import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 
 export default function ManeuversList()
 {
-  const { maneuvers } = useSearchManeuvers();
+  const pageSize = DEFAULT_PAGE_SIZE;
+  const { maneuvers, cursor } = useSearchManeuvers(pageSize);
+  const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>([]);
+
+useEffect(() => {
+  setDisplayedManeuvers(prev => {
+    const newManeuvers = maneuvers.filter(m => !prev.some(pm => pm.id === m.id));
+    if (newManeuvers.length === 0) return prev;
+    return [...prev, ...newManeuvers];
+  });
+}, [maneuvers, cursor]);
+
   const [searchTerm, setSearchTerm] = useState("");
-  const { searchQueryParamChange, sortQueryParamChange, sortDirectionQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
+  const { searchQueryParamChange, sortQueryParamChange, sortDirectionQueryParamChange, cursorQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
 
   const debouncedSearch = useDebouncedCallback(value => searchQueryParamChange(value), 300);
 
@@ -78,11 +91,19 @@ export default function ManeuversList()
         <AddManeuverForm />
       </div>
 
-      <div className="flex flex-col gap-2">
-      {
-        maneuvers.map(maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} />)
-      }
-      </div>
+      <WithReactScroll<Maneuver>
+        parentClassName="flex flex-col gap-2"
+        items={displayedManeuvers}
+        triggerNext={() => 
+        {
+          if (cursor)
+          {
+            cursorQueryParamChange(cursor as string);
+          }
+        }}
+        hasMore={!!cursor}
+        renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} />}
+      />
     </>
   );
 };

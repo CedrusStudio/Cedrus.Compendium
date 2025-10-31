@@ -127,6 +127,28 @@ Content-Type: application/json
     }
 }
 
+
+### Maneuvers search
+
+POST http://localhost:3000/api/search
+Content-Type: application/json
+
+{
+    "entity": "maneuver",
+    "search": {
+        "name": ""
+    },
+    "sort": [
+        {
+            "price": "desc"
+        }
+    ],
+    "pagination": {
+        "cursor": "01K744AKB7F7NAR6E4EZM4ND29",
+        "pageSize": 10
+    }
+}
+
 ### Search ById 
 
 POST http://localhost:3000/api/search/01K79QFH0ZD99MSBV4ACKFBZYN
