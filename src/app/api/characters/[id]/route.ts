@@ -1,9 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { deleteCharacter, getCharacterById } from '@/persistence/characters/charactersRepository';
 
 type RouteParams = Promise<{ id: string }>
 
-export async function GET(request: NextRequest, segmentData: { params: RouteParams })
+export async function GET(segmentData: { params: RouteParams })
 {
   try 
   {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest, segmentData: { params: RoutePara
   }
 };
 
-export async function DELETE(request: NextRequest, segmentData: { params: RouteParams })
+export async function DELETE(segmentData: { params: RouteParams })
 {
   try 
   {

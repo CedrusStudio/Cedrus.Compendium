@@ -1,4 +1,4 @@
-import { SearchEntityPayload } from "@/common/global/SearchPayload";
+import { SearchEntityPayload } from "@/common/global/SearchPayloads";
 
 export const includeAllRelations =
 {

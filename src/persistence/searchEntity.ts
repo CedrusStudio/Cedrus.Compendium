@@ -1,9 +1,33 @@
-import { SearchEntityPayload } from '@/common/global/SearchPayload';
-import { createFiltering, createMapping, createSorting, SearchPayload, Select } from '@/common/global/SearchPayload';
+import { type SearchEntityPayload, type SearchByIdEntityPayload, SearchValueOutputs } from '@/common/global/SearchPayloads';
+import { createFiltering, createMapping, createSorting, SearchPayload, Select } from '@/common/global/SearchPayloads';
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 import prisma from '@/lib/prisma';
 
 //TODO: perform mapping here based on payload.mapping
+export async function searchEntityById<TMappedResult>(id: string, payload: SearchByIdEntityPayload): Promise<TMappedResult[]>
+{
+  const findByIdInput = createSearchByIdInput(id, payload, payload.include);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await (prisma[payload.entity as any] as any).findUnique(findByIdInput) as TMappedResult[];
+}
+
+type FindByIdInput = 
+{
+  include?: Record<string, boolean>;
+  select?: Select;
+  where: { id: string };
+};
+
+function createSearchByIdInput(id: string, payload: SearchByIdEntityPayload, includeFallback: Record<string, boolean> = {}): FindByIdInput
+{
+  const mapping = createMapping(payload, includeFallback);
+
+  return {
+    where: { id },
+    ...mapping
+  };
+}
+
 export async function searchEntity<TMappedResult>(payload: SearchEntityPayload): Promise<TMappedResult[]>
 {
   const findInput = createSearchInput(payload, payload.include);
@@ -15,7 +39,7 @@ type FindInput =
 {
   include?: Record<string, boolean>;
   select?: Select;
-  where: Record<string, { contains: string | number | boolean; mode: string }> | { id: { gt: string; }; } | undefined;
+  where: Record<string, SearchValueOutputs> | { id: { gt: string; }; } | undefined;
   orderBy?: { [key: string]: "asc" | "desc" }[];
   take?: number;
   skip?: number;

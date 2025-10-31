@@ -1,4 +1,4 @@
-import { SearchEntityPayload } from "@/common/global/SearchPayload";
+import { SearchEntityPayload } from "@/common/global/SearchPayloads";
 import { HeaderDto } from "@/persistence/schemas/characters/headerSchema";
 
 export const createCharacterSummaryQuery = (searchQuery: string | undefined): SearchEntityPayload => 

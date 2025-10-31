@@ -10,10 +10,11 @@ Content-Type: application/json
 
 ### Search Without Select
 
-POST http://localhost:3000/api/characters/search
+POST http://localhost:3000/api/search
 Content-Type: application/json
 
 {
+    "entity": "character",
     "search": {
         "name": "igar"
     },
@@ -30,10 +31,11 @@ Content-Type: application/json
 
 ### Search Characters with Select
 
-POST http://localhost:3000/api/characters/search
+POST http://localhost:3000/api/search
 Content-Type: application/json
 
 {
+    "entity": "character",
     "search": {
         "name": ""
     },
@@ -56,10 +58,11 @@ Content-Type: application/json
 
 ### Search Characters with Offset Pagination
 
-POST http://localhost:3000/api/characters/search
+POST http://localhost:3000/api/search
 Content-Type: application/json
 
 {
+    "entity": "character",
     "search": {
         "name": ""
     },
@@ -80,10 +83,11 @@ Content-Type: application/json
 
 ### Search Characters with Keyset Pagination
 
-POST http://localhost:3000/api/characters/search
+POST http://localhost:3000/api/search
 Content-Type: application/json
 
 {
+    "entity": "character",
     "search": {
         "name": ""
     },
@@ -99,5 +103,39 @@ Content-Type: application/json
     "pagination": {
         "cursor": "01K79QFH0ZD99MSBV4ACKFBZYN",
         "pageSize": 2
+    }
+}
+
+### Maneuvers search
+
+POST http://localhost:3000/api/search
+Content-Type: application/json
+
+{
+    "entity": "maneuver",
+    "search": {
+        "name": "Karząca cięcie"
+    },
+    "sort": [
+        {
+            "name": "asc"
+        }
+    ],
+    "pagination": {
+        "pageNumber": 1,
+        "pageSize": 10
+    }
+}
+
+### Search ById 
+
+POST http://localhost:3000/api/search/01K79QFH0ZD99MSBV4ACKFBZYN
+Content-Type: application/json
+
+{
+    "entity": "character",
+    "select": {
+        "id": true,
+        "name": true
     }
 }

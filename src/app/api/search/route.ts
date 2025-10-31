@@ -1,10 +1,15 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { searchEntity } from "@/persistence/searchEntity";
-import { type SearchEntityPayload } from '@/common/global/SearchPayload';
+import { isAllowedSearchEntity, type SearchEntityPayload } from '@/common/global/SearchPayloads';
 
 export async function POST(request: NextRequest)
 {
   const searchEntityPayload: SearchEntityPayload = await request.json();
+
+  if (!isAllowedSearchEntity(searchEntityPayload.entity))
+  {
+    return NextResponse.json({ message: 'Entity is missing or invalid' }, { status: 400 });
+  }
 
   try 
   {
