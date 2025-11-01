@@ -7,6 +7,7 @@ import { getSearchQueryParam  } from '@/common/global/httpUtils';
 import client from "@/infrastructure/clients/searchClient";
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverQuery';
+import { DEFAULT_PAGE_SIZE } from '@/common/global/pagination';
 
 export const useInitialKeysetSearchManeuvers = () => 
 {
@@ -23,5 +24,7 @@ export const useInitialKeysetSearchManeuvers = () =>
         refetchOnWindowFocus: true,
     });
 
-    return { maneuvers: data };
+
+    const initialCursor = data.length === (maneuversQuery.pagination?.pageSize ?? DEFAULT_PAGE_SIZE) ? data[data.length - 1]?.id : undefined;
+    return { maneuvers: data, initialCursor };
 };

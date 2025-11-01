@@ -26,21 +26,20 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithReactScroll } from "@/common/components/WithScroll";
-import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverQuery";
 import { useQuery } from "@tanstack/react-query";
 import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
 
 export default function ManeuversList()
 {
-  const { maneuvers } = useInitialKeysetSearchManeuvers();
+  const { maneuvers, initialCursor } = useInitialKeysetSearchManeuvers();
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>([]);
 
   useEffect(() =>   
   {
     setDisplayedManeuvers(maneuvers);
-    setCursor(maneuvers.length === DEFAULT_PAGE_SIZE ? maneuvers[maneuvers.length - 1]?.id : undefined);
-  }, [maneuvers]);
+    setCursor(initialCursor);
+  }, [maneuvers, initialCursor]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [cursor, setCursor] = useState<string | undefined>(undefined);
