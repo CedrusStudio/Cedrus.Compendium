@@ -25,7 +25,7 @@ import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Mane
 import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
-import { WithReactScroll } from "@/common/components/WithScroll";
+import { WithScroll } from "@/common/components/WithScroll";
 import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverQuery";
 import { useQuery } from "@tanstack/react-query";
 import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
@@ -79,7 +79,7 @@ export default function ManeuversList()
         <AddManeuverForm />
       </div>
 
-      <WithReactScroll<Maneuver>
+      <WithScroll<Maneuver>
         parentClassName="flex flex-col gap-2"
         items={displayedManeuvers}
         triggerNext={async () => 

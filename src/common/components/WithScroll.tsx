@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingSpinner from "@/common/components/LoadingSpinner";
 import { Separator } from "@/ui/separator";
 
-type WithReactScrollProps<TItem> =
+type WithScrollProps<TItem> =
 {
   items: TItem[];
   triggerNext: () => void;
@@ -13,7 +13,7 @@ type WithReactScrollProps<TItem> =
   parentClassName?: string | undefined;
 }
 
-export function WithReactScroll<TItem>({ items, triggerNext, currentCursor, renderItem, parentClassName }: WithReactScrollProps<TItem>)
+export function WithScroll<TItem>({ items, triggerNext, currentCursor, renderItem, parentClassName }: WithScrollProps<TItem>)
 {
   return (
     <InfiniteScroll
