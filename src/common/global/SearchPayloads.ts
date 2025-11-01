@@ -1,4 +1,4 @@
-import { OffsetPagination, KeysetPagination } from "@/common/global/pagination";
+import { OffsetPagination, KeysetPagination, isKeysetPagination } from "@/common/global/pagination";
 
 export function isAllowedSearchEntity(entity: string): boolean
 {
@@ -84,5 +84,9 @@ function createMappingRecursive(select: Select)
 export function createSorting(payload: SearchPayload)
 {
   if (!payload.sort) return undefined;
+  if (isKeysetPagination(payload.pagination))
+  {
+    return [ { id: 'asc' }, ...payload.sort ] as const satisfies { [key: string]: 'asc' | 'desc' }[];
+  }
   return payload.sort;
 }

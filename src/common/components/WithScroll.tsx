@@ -1,30 +1,49 @@
 "use client";
 
 import InfiniteScroll from "react-infinite-scroll-component";
+import LoadingSpinner from "@/common/components/LoadingSpinner";
+import { Separator } from "@/ui/separator";
 
 type WithReactScrollProps<TItem> =
 {
   items: TItem[];
   triggerNext: () => void;
-  hasMore: boolean;
+  currentCursor: string | undefined;
   renderItem: (item: TItem, index: number) => React.ReactNode;
   parentClassName?: string | undefined;
 }
 
-export function WithReactScroll<TItem>({ items, triggerNext, hasMore, renderItem, parentClassName }: WithReactScrollProps<TItem>)
+export function WithReactScroll<TItem>({ items, triggerNext, currentCursor, renderItem, parentClassName }: WithReactScrollProps<TItem>)
 {
   return (
     <InfiniteScroll
       dataLength={items.length}
       next={triggerNext}
-      hasMore={hasMore}
-      loader={<p>Loading...</p>}
-      endMessage={<p>No more data to load.</p>}
-      
+      hasMore={!!currentCursor}
+      loader={<Loader />}
+      endMessage={<EndSeparator />}
     >
       <div className={parentClassName || "flex flex-col gap-2"}>
-        { items.map(renderItem) }
+        {items.map(renderItem)}
       </div>
     </InfiniteScroll>
   );
 };
+
+function Loader()
+{
+  return (
+    <div className="mb-4 flex flex-col items-center text-sm text-muted-foreground">
+      <LoadingSpinner />
+    </div>
+  );
+}
+
+function EndSeparator()
+{
+  return (
+    <div className="mt-6 flex flex-col items-center text-sm text-muted-foreground">
+      <Separator className="mb-4" />
+    </div>
+  );
+}

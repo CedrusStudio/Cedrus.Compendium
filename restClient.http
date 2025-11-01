@@ -161,3 +161,47 @@ Content-Type: application/json
         "name": true
     }
 }
+
+################## 
+
+### Maneuvers initial search
+
+POST http://localhost:3000/api/search
+Content-Type: application/json
+
+{
+    "entity": "maneuver",
+    "search": {
+        "price": 1
+    },
+    "sort": [
+        {
+            "name": "asc"
+        }
+    ],
+    "pagination": {
+        "pageNumber": 1,
+        "pageSize": 11
+    }
+}
+
+### Maneuvers initial search
+
+POST http://localhost:3000/api/search
+Content-Type: application/json
+
+{
+    "entity": "maneuver",
+    "search": {
+        "name": ""
+    },
+    "sort": [
+        {
+            "name": "asc"
+        }
+    ],
+    "pagination": {
+        "cursor": "01K744AKB7F7NAR6E4EZM4ND29",
+        "pageSize": 11
+    }
+}

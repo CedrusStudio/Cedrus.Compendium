@@ -14,7 +14,7 @@ export const createManeuverQuery =
 
   return {
     entity: 'maneuver',
-    search: { name: searchQuery },
+    search: searchQuery ? { name: searchQuery } : undefined,
     sort: sortWithDirection || [{ name: 'asc' }],
     pagination: pagination || { pageNumber: 1, pageSize: DEFAULT_PAGE_SIZE }
   };

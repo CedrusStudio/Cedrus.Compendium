@@ -6,12 +6,12 @@ import { useState } from "react";
 
 type SortDirectionButtonProps =
 {
-    sideEffect: (paramValue: string) => void;
+  sideEffect: (paramValue: "asc" | "desc") => void;
 }
 
 export default function SortDirectionButton({ sideEffect }: SortDirectionButtonProps)
 {
-  const [sortDirection, setSortDirection] = useState("asc");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   return (
     <Button

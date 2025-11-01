@@ -19,3 +19,17 @@ export const createSearchManeuversKeyWithFallback = (search: string | undefined,
     (search || sort)
         ? createSearchManeuversKey(search, sort, sortDirection)
         : allManeuversKey;
+
+export function createSearchManeuversKeyWithFallbackTEST
+(
+    search: string | undefined, 
+    sort: string | undefined, 
+    sortDirection: string | undefined, 
+    currentCursor: string | undefined, 
+    pageSize: number
+) 
+{
+    return (search || sort)
+        ? [maneuverKey, searchParamKey, search, sort, sortDirection, currentCursor, pageSize] as const
+        : allManeuversKey;
+}

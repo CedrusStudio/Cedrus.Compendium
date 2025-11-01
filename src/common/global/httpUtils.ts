@@ -27,6 +27,11 @@ export const getSortDirectionQueryParam = (searchParams: ReadonlyURLSearchParams
     return direction;
 };
 
+export const getCursorQueryParam = (searchParams: ReadonlyURLSearchParams) => 
+{
+    return searchParams.get('cursor') || "0000WZXVD68PVAE7QCBNH45B8F";
+};
+
 export const getIdQueryParam = (searchParams: ReadonlyURLSearchParams) => 
 {
     return searchParams.get('id') ?? undefined;
@@ -59,7 +64,7 @@ export function getSortDirectionQuery(searchParams: { [key: string]: string | st
     return direction as "asc" | "desc";
 };
 
-export const getCursorQueryParam = (searchParams: { [key: string]: string | string[] | undefined }) => 
+export const getCursorQuery = (searchParams: { [key: string]: string | string[] | undefined }) => 
 {
     return Array.isArray(searchParams?.cursor) ? searchParams.cursor[0] : searchParams?.cursor;
 };

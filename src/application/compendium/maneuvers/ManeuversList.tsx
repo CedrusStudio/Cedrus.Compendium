@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/maneuversClient";
+import searchClient from "@/infrastructure/clients/searchClient";
 
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { allowedCastTimes } from "@/domain/characters/Castable";
@@ -24,30 +25,42 @@ import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Mane
 import { Input } from "@/common/components/ui/input";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
-import SelectOneOfStrings from "@/common/components/selects/SelectOneOfStrings";
 import { useQuerySearchAndSortParamsChange } from "@/common/hooks/useQueryParamChange";
-import SortDirectionButton from "@/common/components/buttons/SortDirectionButton";
 import { WithReactScroll } from "@/common/components/WithScroll";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
+import { createManeuverQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverQuery";
+import { useQuery } from "@tanstack/react-query";
+import { createSearchManeuversKeyWithFallbackTEST } from "@/persistence/cacheKeys";
 
 export default function ManeuversList()
 {
-  const pageSize = DEFAULT_PAGE_SIZE;
-  const { maneuvers, cursor } = useSearchManeuvers(pageSize);
+  const { maneuvers } = useSearchManeuvers(DEFAULT_PAGE_SIZE);
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>([]);
 
-useEffect(() => {
-  setDisplayedManeuvers(prev => {
-    const newManeuvers = maneuvers.filter(m => !prev.some(pm => pm.id === m.id));
-    if (newManeuvers.length === 0) return prev;
-    return [...prev, ...newManeuvers];
-  });
-}, [maneuvers, cursor]);
+  useEffect(() =>   
+  {
+    setDisplayedManeuvers(maneuvers);
+    setCursor(maneuvers.length === DEFAULT_PAGE_SIZE ? maneuvers[maneuvers.length - 1]?.id : undefined);
+  }, [maneuvers]);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const { searchQueryParamChange, sortQueryParamChange, sortDirectionQueryParamChange, cursorQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
-
+  const [cursor, setCursor] = useState<string | undefined>(undefined);
+  const { searchQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
   const debouncedSearch = useDebouncedCallback(value => searchQueryParamChange(value), 300);
+
+  const queryKey = createSearchManeuversKeyWithFallbackTEST(searchTerm, "next", undefined, undefined, undefined, DEFAULT_PAGE_SIZE);
+  const query = useQuery
+  ({ 
+    queryKey, 
+    queryFn: async () => 
+    {
+      if (!cursor) return [];
+      const pagination = { cursor: cursor, pageSize: DEFAULT_PAGE_SIZE };
+      const maneuversQuery = createManeuverQuery(searchTerm, undefined, undefined, pagination);
+      return await searchClient.search<Maneuver[]>(maneuversQuery);
+    },
+    enabled: false
+  });
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
@@ -55,13 +68,6 @@ useEffect(() => {
     setSearchTerm(value);
     debouncedSearch(value);
   };
-
-  const allowedSortOptions = 
-  [
-    { label: displayedText.name, value: 'name' },
-    { label: displayedText.price, value: 'price' },
-    { label: displayedText.castTime, value: 'castTime' }
-  ];
 
   return (
     <>
@@ -74,19 +80,6 @@ useEffect(() => {
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
-        {/* infinite scroll */}
-
-        <div className="flex gap-1 items-center">
-          <SelectOneOfStrings
-            defaultValue={displayedText.name}
-            items={allowedSortOptions}
-            onChange={value => sortQueryParamChange(value)}
-          />
-
-          <SortDirectionButton 
-            sideEffect={sortDirectionQueryParamChange}
-          />
-        </div>
 
         <AddManeuverForm />
       </div>
@@ -94,14 +87,21 @@ useEffect(() => {
       <WithReactScroll<Maneuver>
         parentClassName="flex flex-col gap-2"
         items={displayedManeuvers}
-        triggerNext={() => 
+        triggerNext={async () => 
         {
-          if (cursor)
+          const { data: newData } = await query.refetch();
+
+          if (newData)
           {
-            cursorQueryParamChange(cursor as string);
+            setDisplayedManeuvers(prev => 
+            {
+              if (newData.length === 0) return prev;
+              return [...prev, ...newData];
+            });
+            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
           }
         }}
-        hasMore={!!cursor}
+        currentCursor={cursor}
         renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} />}
       />
     </>
