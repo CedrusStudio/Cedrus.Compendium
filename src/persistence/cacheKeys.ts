@@ -1,4 +1,5 @@
 import { searchParamKey } from "@/common/global/httpUtils";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 
 const characterKey = 'characters';
 
@@ -11,25 +12,25 @@ export const getCharacterQueryKey = (search: string | undefined) => search
     : allCharactersKey;
 
 const maneuverKey = 'maneuvers';
-const createSearchManeuversKey = (search?: string, sort?: string, sortDirection?: "asc" | "desc") => [maneuverKey, searchParamKey, search, sort, sortDirection] as const;
-export const allManeuversKey = [maneuverKey, 'all'] as const;
 export const createManeuverByIdKey = (id: string) => [maneuverKey, id] as const;
 
-export const createSearchManeuversKeyWithFallback = (search: string | undefined, sort: string | undefined, sortDirection: "asc" | "desc" | undefined) => 
-    (search || sort)
-        ? createSearchManeuversKey(search, sort, sortDirection)
-        : allManeuversKey;
-
-export function createSearchManeuversKeyWithFallbackTEST
+export function createSearchManeuversKey
 (
     search: string | undefined, 
     sort: string | undefined, 
-    sortDirection: string | undefined, 
-    currentCursor: string | undefined, 
-    pageSize: number
+    sortDirection: "asc" | "desc" | undefined, 
+    pageSize: number | undefined = DEFAULT_PAGE_SIZE
 ) 
 {
-    return (search || sort)
-        ? [maneuverKey, searchParamKey, search, sort, sortDirection, currentCursor, pageSize] as const
-        : allManeuversKey;
+    return [maneuverKey, searchParamKey, search, sort, sortDirection, pageSize] as const;
+}
+
+export function createKeysetSearchManeuversKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    pageSize: number = DEFAULT_PAGE_SIZE
+) 
+{
+    return [maneuverKey, searchParamKey, search, cursor, pageSize] as const;
 }

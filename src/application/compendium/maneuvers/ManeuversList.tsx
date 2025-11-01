@@ -16,25 +16,24 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddManeuverDto, addManeuverSchema, ManeuverDto } from "@/persistence/schemas/characters/combat/maneuverSchema";
 
-import { useSearchManeuvers } from "@/application/compendium/maneuvers/hooks/useSearchManeuvers";
+import { useInitialKeysetSearchManeuvers } from "@/application/compendium/maneuvers/hooks/useInitialKeysetSearchManeuvers";
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Maneuver";
 import { Input } from "@/common/components/ui/input";
-import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
-import { useQuerySearchAndSortParamsChange } from "@/common/hooks/useQueryParamChange";
+import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithReactScroll } from "@/common/components/WithScroll";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
-import { createManeuverQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverQuery";
+import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createSearchManeuversKeyWithFallbackTEST } from "@/persistence/cacheKeys";
+import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
 
 export default function ManeuversList()
 {
-  const { maneuvers } = useSearchManeuvers(DEFAULT_PAGE_SIZE);
+  const { maneuvers } = useInitialKeysetSearchManeuvers();
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>([]);
 
   useEffect(() =>   
@@ -45,21 +44,18 @@ export default function ManeuversList()
 
   const [searchTerm, setSearchTerm] = useState("");
   const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const { searchQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
-  const debouncedSearch = useDebouncedCallback(value => searchQueryParamChange(value), 300);
+  const debouncedSearch = useSearchParamChangeWithDebounce();
 
-  const queryKey = createSearchManeuversKeyWithFallbackTEST(searchTerm, "next", undefined, undefined, undefined, DEFAULT_PAGE_SIZE);
+  const queryKey = createKeysetSearchManeuversKey(searchTerm, cursor);
   const query = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       if (!cursor) return [];
-      const pagination = { cursor: cursor, pageSize: DEFAULT_PAGE_SIZE };
-      const maneuversQuery = createManeuverQuery(searchTerm, undefined, undefined, pagination);
+      const maneuversQuery = createManeuverKeysetQuery(searchTerm, cursor);
       return await searchClient.search<Maneuver[]>(maneuversQuery);
-    },
-    enabled: false
+    }
   });
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 

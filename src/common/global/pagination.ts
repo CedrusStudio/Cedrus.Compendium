@@ -13,6 +13,8 @@ export type KeysetPagination =
   pageSize: number;
 };
 
+export const emptyUlid = '00000000000000000000000000' as const;
+
 export const DEFAULT_PAGE_SIZE = 10;
 
 export function isOffsetPagination(pagination: OffsetPagination | KeysetPagination | undefined): pagination is OffsetPagination 
