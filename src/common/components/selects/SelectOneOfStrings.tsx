@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 
-type SelectOneOfProps = 
+type SelectOneOfStringsProps = 
 {
   defaultValue: string;
   items: {label: string, value: string}[];
   onChange: (value: string) => void;
 };
 
-export default function SelectOneOfStrings({ defaultValue, items, onChange }: SelectOneOfProps)
+export default function SelectOneOfStrings({ defaultValue, items, onChange }: SelectOneOfStringsProps)
 {
   const [currentValue, setCurrentValue] = useState(defaultValue);
   const handleOnSelectedChange = (value: string) => 
