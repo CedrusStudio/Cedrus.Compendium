@@ -180,4 +180,6 @@ export const translations_deDE =
     cost: "kosten",
     price: "preis",
     requirements: "anforderungen",
+    
+    notFound: "nicht gefunden",
 } as const;

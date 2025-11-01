@@ -6,7 +6,7 @@ import { Mount } from '@/domain/characters/equipment/Mount';
 import { Shield } from '@/domain/characters/equipment/Shield';
 import { Style, Weapon } from '@/domain/characters/equipment/Weapon';
 import { Prisma } from '@prisma/client';
-import { toEntity } from '@/persistence/mappings/characterMapping';
+import { toEntity } from '@/persistence/mappings/entityMapping';
 
 type EquipmentModel = Prisma.CharacterGetPayload<{select: { equipment: true }}>['equipment'];
 

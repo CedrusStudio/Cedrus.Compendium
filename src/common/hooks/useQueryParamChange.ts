@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 export function useQueryParamChange(path: string)
 {
@@ -16,12 +17,23 @@ export function useQueryParamChange(path: string)
   }
 };
 
-export function useQuerySearchAndSortParamsChange(path: string)
+export function useSearchParamChangeWithDebounce(debounce: number = 300)
 {
+  const path = usePathname();
+  const queryParamChange = useQueryParamChange(path);
+  const searchParamsChange = (paramValue: string) => queryParamChange('search', paramValue);
+  return useDebouncedCallback(searchParamsChange, debounce);
+};
+
+export function useParamsChange()
+{
+  const path = usePathname();
   const queryParamChange = useQueryParamChange(path);
 
   return {
     searchQueryParamChange: (paramValue: string) => queryParamChange('search', paramValue),
-    sortQueryParamChange: (paramValue: string) => queryParamChange('sort', paramValue)
+    sortQueryParamChange: (paramValue: string) => queryParamChange('sort', paramValue),
+    sortDirectionQueryParamChange: (paramValue: string) => queryParamChange('sortDirection', paramValue),
+    cursorQueryParamChange: (paramValue: string) => queryParamChange('cursor', paramValue)
   };
 };

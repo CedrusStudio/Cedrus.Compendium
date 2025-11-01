@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { addCharacter } from "@/persistence/charactersRepository";
+import { addCharacter } from "@/persistence/characters/charactersRepository";
 import { type HeaderDto, headerSchema } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";

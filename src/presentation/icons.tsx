@@ -38,6 +38,9 @@ import { GiHealthIncrease } from "react-icons/gi";
 import { GiHealthDecrease } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 
+import { IoIosArrowRoundUp } from "react-icons/io";
+import { IoIosArrowRoundDown } from "react-icons/io";
+
 export const characteristicIcons: Record<string, ReactNode> = 
 {
   strength: <LuBicepsFlexed className="w-5 h-5" />,
@@ -104,3 +107,6 @@ export const gainIcon = (className?: string) => <GiHealthIncrease className={cla
 export const lossIcon = (className?: string) => <GiHealthDecrease className={className} />;
 
 export const priceIcon = <GiReceiveMoney className="w-5 h-5" />;
+
+export const arrowUpIcon = <IoIosArrowRoundUp className="w-4 h-4" />;
+export const arrowDownIcon = <IoIosArrowRoundDown className="w-4 h-4" />;

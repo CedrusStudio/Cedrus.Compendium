@@ -10,7 +10,7 @@ import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
 import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponView';
 import EditArmorView from '@/application/characters/edit/equipment/EditArmorView';
-import { charactersClient } from "@/infrastructure/bffClients";
+import client from "@/infrastructure/clients/charactersClient";
 import EditMountView from '@/application/characters/edit/equipment/EditMountView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import SubmitButton from '@/common/components/form/SubmitButton';
@@ -45,7 +45,7 @@ export default function EditEquipmentView(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterEquipment: EquipmentDto) => await charactersClient.updateEquipment(id, characterEquipment),
+    async (characterEquipment: EquipmentDto) => await client.updateEquipment(id, characterEquipment),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
       toastPosition: "bottom-left",

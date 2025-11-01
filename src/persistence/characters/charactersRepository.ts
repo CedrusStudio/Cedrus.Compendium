@@ -3,76 +3,12 @@
 //Tip: mark your repository as server-only so it can’t be imported in client components by mistake.
 import 'server-only';
 import prisma from '@/lib/prisma';
-import { toCharacter, toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
-import { Character } from '@/domain/characters/Character';
+import { toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
-
-//Queries
-const includeAllRelations =
-{
-  stances: true,
-  states: true,
-  maneuvers: true,
-  spells: true,
-  perks: true
-};
-
-export async function getCharacterById(id: string)
-  : Promise<Character | null>
-{
-  const character = await prisma.character.findUnique
-  ({ 
-    where: { id },
-    include: includeAllRelations
-  });
-
-  return character ? toCharacter(character) : null;
-}
-
-export type CharacterSummary = ({id: string} & Omit<HeaderDto, 'category'>);
-
-export async function getAllCharactersSummary(name: string | undefined | null)
-  : Promise<CharacterSummary[]>
-{
-  const characterHeaders = await prisma.character.findMany
-  ({
-    where: {
-      name: name ? {
-        contains: name,
-        mode: 'insensitive'
-      } : undefined
-    },
-    select: {
-      id: true,
-      name: true,
-      shortName: true,
-      description: true,
-    }
-  });
-
-  return characterHeaders;
-}
-
-export async function searchCharacters(name: string | undefined | null)
-  : Promise<Character[]>
-{
-  const characters = await prisma.character.findMany
-  ({
-    where: {
-      name: name ? {
-        contains: name,
-        mode: 'insensitive'
-      } : undefined
-    },
-    include: includeAllRelations
-  });
-
-  return characters.map(toCharacter);
-}
 
 //Commands
 export async function addCharacter(characterHeader: HeaderDto)

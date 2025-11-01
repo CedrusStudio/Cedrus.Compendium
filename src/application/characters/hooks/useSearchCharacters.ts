@@ -5,7 +5,8 @@ import { Character } from '@/domain/characters/Character';
 import { useSuspenseQuery  } from '@tanstack/react-query';
 import { allCharactersKey, createSearchCharactersKey } from '@/persistence/cacheKeys';
 import { getSearchQueryParam  } from '@/common/global/httpUtils';
-import { charactersClient } from "@/infrastructure/bffClients";
+import client from "@/infrastructure/clients/searchClient";
+import { createCharacterQuery } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
 
 export const useSearchCharacters = () => 
 {
@@ -19,10 +20,10 @@ export const useSearchCharacters = () =>
     const { data = [] } = useSuspenseQuery<Character[]>
     ({
         queryKey,
-        queryFn: async () => await charactersClient.search(search),
+        queryFn: async () => await client.search(createCharacterQuery(search)),
         staleTime: 5_000,
         refetchOnWindowFocus: true,
     });
-
+    
     return { characters: data }
 };

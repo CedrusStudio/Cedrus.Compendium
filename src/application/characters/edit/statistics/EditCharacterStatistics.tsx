@@ -8,7 +8,7 @@ import { statisticsSchema, type StatisticsDto } from "@/persistence/schemas/char
 import EditStatisticsCard from "@/application/characters/edit/statistics/EditStatisticsCard";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
-import { charactersClient } from "@/infrastructure/bffClients";
+import client from "@/infrastructure/clients/charactersClient";
 
 export default function EditCharacterStatistics(input: { character: Character })
 {
@@ -29,7 +29,7 @@ export default function EditCharacterStatistics(input: { character: Character })
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (characterStatistics: StatisticsDto) => await charactersClient.updateStatistics(id, characterStatistics),
+    async (characterStatistics: StatisticsDto) => await client.updateStatistics(id, characterStatistics),
     {
       invalidateOnSuccess: ['characters', `characters/${id}`]
     }

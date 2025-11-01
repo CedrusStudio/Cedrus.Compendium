@@ -1,29 +1,23 @@
-import { Castable } from '@/domain/characters/Castable';
 import { Character, CharacterCategory } from '@/domain/characters/Character';
 import { CreateDefaultDefense, Defense } from '@/domain/characters/combat/Defense';
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { Mode } from '@/domain/characters/combat/Mode';
 import { CreateDefaultOffense, Offense } from '@/domain/characters/combat/Offense';
-import { Power, PowerType, Spell } from '@/domain/characters/combat/Power';
+import { Power, PowerType } from '@/domain/characters/combat/Power';
 import { Perk } from '@/domain/characters/Perk';
 import { Talent, TalentPenalty } from '@/domain/characters/Talent';
-import { Entity } from '@/domain/Entity';
 import { Prisma } from '@prisma/client';
 import { toEquipment } from '@/persistence/mappings/equipmentMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { ulid } from 'ulid';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 import { createUpsertPayload } from '@/persistence/mappings/createUpsertPayload';
+import { toEntity } from '@/persistence/mappings/entityMapping';
+import { SpellModel, toSpell } from '@/persistence/mappings/spellMappings';
+import { CharacterIncludeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
+import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
 
-type CharacterWithRelations = Prisma.CharacterGetPayload<{
-  include: {
-    stances: true;
-    states: true;
-    maneuvers: true;
-    spells: true;
-    perks: true;
-  }
-}>;
+export type CharacterWithRelations = Prisma.CharacterGetPayload<{ include: CharacterIncludeAllRelations }>;
 
 export function toCharacter(characterPersistenceModel: CharacterWithRelations): Character
 {
@@ -150,18 +144,6 @@ export function toCharacterCombatPersistenceModel
   };
 }
 
-type EntityPersistenceParams = {
-  id: string;
-  name: string;
-};
-
-export function toEntity<TEntity extends Entity>(entityPersistenceModel: EntityPersistenceParams): TEntity
-{
-  return {
-    id: entityPersistenceModel.id,
-    name: entityPersistenceModel.name,
-  } as TEntity;
-}
 
 type TalentModel = Prisma.CharacterGetPayload<{select: { talents: true }}>['talents'][number];
 
@@ -210,40 +192,7 @@ function toOffense(offensePersistenceModel: OffenseModel): Offense
   };
 }
 
-type PerkPersistenceParams = {
-  id: string;
-  name: string;
-  grade: number;
-  description: string;
-  requirements: string | null;
-  price: number;
-};
-
-function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistenceParams): TPerk
-{
-  return {
-    ...toEntity(perkPersistenceModel),
-
-    grade: perkPersistenceModel.grade,
-    description: perkPersistenceModel.description,
-    requirements: perkPersistenceModel.requirements ?? undefined,
-    price: perkPersistenceModel.price,
-  } as TPerk;
-}
-
-type CastablePerkModel = Prisma.CharacterGetPayload<{select: { maneuvers: true }}>['maneuvers'][number];
-
-export function toCastablePerk<TCastablePerk extends (Perk & Castable)>(castablePersistenceModel: CastablePerkModel): TCastablePerk
-{
-  return {
-    ...toPerk<TCastablePerk>(castablePersistenceModel),
-    castTime: castablePersistenceModel.castTime,
-    cooldown: castablePersistenceModel.cooldown
-  };
-}
-
 type PowerModel = Prisma.CharacterGetPayload<{select: { powers: true }}>['powers'][number];
-type SpellModel = Prisma.CharacterGetPayload<{select: { spells: true }}>['spells'][number];
 
 function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: SpellModel[]) : Power
 {
@@ -257,13 +206,5 @@ function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: Spel
     essence: powerPersistenceModel.essence,
     type: powerPersistenceModel.type as PowerType,
     spells: relatedSpell.map(toSpell),
-  };
-}
-
-function toSpell(spellPersistenceModel: SpellModel): Spell
-{
-  return {
-    ...toCastablePerk<Spell>(spellPersistenceModel),
-    cost: spellPersistenceModel.cost
   };
 }

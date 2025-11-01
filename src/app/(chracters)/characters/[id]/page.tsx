@@ -1,5 +1,3 @@
-import { getCharacterById } from '@/persistence/charactersRepository';
-
 import {
   dehydrate,
   HydrationBoundary,
@@ -8,6 +6,8 @@ import {
 import CharacterView from '@/application/characters/CharacterView';
 import { isCharacterTab } from '@/common/tabsUtils';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
+import { searchEntityById } from '@/persistence/searchEntity';
+import { characterQueryById } from '@/infrastructure/searchQueries/characters/characterQueryById';
 
 type Params = Promise<{ id: string }>
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
@@ -21,7 +21,7 @@ export default async function CharacterPage(props: {params: Params, searchParams
   await queryClient.prefetchQuery
   ({
     queryKey: createCharacterByIdKey(params.id),
-    queryFn: () => getCharacterById(params.id),
+    queryFn: () => searchEntityById(params.id, characterQueryById),
   });
 
   const tab = isCharacterTab(searchParams.tab) ? searchParams.tab : undefined;

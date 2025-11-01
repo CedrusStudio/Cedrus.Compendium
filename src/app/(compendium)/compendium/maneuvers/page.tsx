@@ -4,12 +4,13 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import { getManeuverQueryKey } from "@/persistence/cacheKeys";
-import { getSearchQuery, getSortQuery } from "@/common/global/httpUtils";
-import { searchManeuvers } from "@/persistence/maneuversRepository";
+import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
+import { getSearchQuery } from "@/common/global/httpUtils";
+import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import ManeuversList from "@/application/compendium/maneuvers/ManeuversList";
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
+import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverQuery';
 
 type ManeuversPageProps = 
 {
@@ -19,14 +20,15 @@ type ManeuversPageProps =
 export default async function ManeuversPage(input: ManeuversPageProps)
 {
   const searchParams = await input.searchParams;
-  const searchQuery = await getSearchQuery(searchParams);
-  const sortQuery = await getSortQuery(searchParams);
-  const queryClient = new QueryClient();
+  const searchQuery = getSearchQuery(searchParams);
+  const maneuversQuery = createManeuverKeysetQuery(searchQuery);
+  const queryKey = createKeysetSearchManeuversKey(searchQuery);
 
+  const queryClient = new QueryClient();
   await queryClient.prefetchQuery<Maneuver[]>
   ({
-    queryKey: getManeuverQueryKey(searchQuery, sortQuery),
-    queryFn: () => searchManeuvers(searchQuery, sortQuery)
+    queryKey: queryKey,
+    queryFn: () => searchEntity<Maneuver>(maneuversQuery),
   });
 
   return (

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
-import { maneuversClient } from "@/infrastructure/bffClients";
+import client from "@/infrastructure/clients/maneuversClient";
 
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
@@ -78,7 +78,7 @@ function EditManeuverForm(input: EditManeuverFormProps)
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (maneuver: ManeuverDto) => await maneuversClient.update(input.maneuver.id, maneuver),
+    async (maneuver: ManeuverDto) => await client.update(input.maneuver.id, maneuver),
     {
       invalidateOnSuccess: ['maneuvers'],
       toastPosition: "bottom-left"

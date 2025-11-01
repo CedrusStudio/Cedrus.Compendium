@@ -1,4 +1,5 @@
 import { searchParamKey } from "@/common/global/httpUtils";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 
 const characterKey = 'characters';
 
@@ -11,10 +12,25 @@ export const getCharacterQueryKey = (search: string | undefined) => search
     : allCharactersKey;
 
 const maneuverKey = 'maneuvers';
-export const createSearchManeuversKey = (search: string, sort?: string) => [maneuverKey, searchParamKey, search, sort] as const;
-export const allManeuversKey = [maneuverKey, 'all'] as const;
 export const createManeuverByIdKey = (id: string) => [maneuverKey, id] as const;
 
-export const getManeuverQueryKey = (search: string | undefined, sort: string | undefined) => search 
-    ? createSearchManeuversKey(search, sort)
-    : allManeuversKey;
+export function createSearchManeuversKey
+(
+    search: string | undefined, 
+    sort: string | undefined, 
+    sortDirection: "asc" | "desc" | undefined, 
+    pageSize: number | undefined = DEFAULT_PAGE_SIZE
+) 
+{
+    return [maneuverKey, searchParamKey, search, sort, sortDirection, pageSize] as const;
+}
+
+export function createKeysetSearchManeuversKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    pageSize: number = DEFAULT_PAGE_SIZE
+) 
+{
+    return [maneuverKey, searchParamKey, search, cursor, pageSize] as const;
+}

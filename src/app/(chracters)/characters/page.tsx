@@ -1,6 +1,6 @@
 import CharactersHeadersGrid from "@/application/characters/grid/CharactersHeadersGrid";
 import CharactersHeadersGridSkeleton from "@/application/characters/grid/CharactersHeadersGridSkeleton";
-import { getAllCharactersSummary, CharacterSummary } from "@/persistence/charactersRepository";
+import { searchEntity } from "@/persistence/searchEntity";
 import {
   dehydrate,
   HydrationBoundary,
@@ -9,6 +9,7 @@ import {
 import { Suspense } from 'react';
 import { getCharacterQueryKey } from "@/persistence/cacheKeys";
 import { getSearchQuery } from "@/common/global/httpUtils";
+import { CharacterSummary, createCharacterSummaryQuery } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 
 type CharactersPageProps = 
 {
@@ -18,13 +19,13 @@ type CharactersPageProps =
 export default async function CharactersPage(input: CharactersPageProps)
 {
   const searchParams = await input.searchParams;
-  const searchQuery = await getSearchQuery(searchParams);
+  const searchQuery = getSearchQuery(searchParams);
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery<CharacterSummary[]>
   ({
     queryKey: getCharacterQueryKey(searchQuery),
-    queryFn: () => getAllCharactersSummary(searchQuery)
+    queryFn: () => searchEntity<CharacterSummary>(createCharacterSummaryQuery(searchQuery))
   });
 
   return (

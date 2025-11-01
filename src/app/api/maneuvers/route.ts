@@ -1,22 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { addManeuver, searchManeuvers } from '@/persistence/maneuversRepository';
-import { getSearchParamFromRequest, getSortParamFromRequest } from '@/common/global/httpUtils';
-
-export async function GET(request: NextRequest)
-{
-  try 
-  {
-    const search = getSearchParamFromRequest(request);
-    const sort = getSortParamFromRequest(request);
-    const maneuvers = await searchManeuvers(search, sort);
-    return NextResponse.json(maneuvers);
-  } 
-  catch (error) 
-  {
-    console.error('Error fetching maneuvers:', error);
-    return NextResponse.json({ message: 'Server error' }, { status: 500 });
-  }
-};
+import { addManeuver } from '@/persistence/maneuvers/maneuversRepository';
 
 export async function POST(request: NextRequest)
 {

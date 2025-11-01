@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
 import { editIcon } from "@/presentation/icons";
 import DeleteButton from "@/common/components/buttons/DeleteButton";
+import NotFound from '@/common/components/NotFound';
 
 type CharacterViewProps = 
 {
@@ -37,10 +38,11 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
   useEffect(() => 
   {
+    if (!character?.id || !character?.shortName) return;
     dispatch(actions.setCharacterShortName({ id: character.id, shortName: character.shortName }));
-  }, [character.id, character.shortName, dispatch]);               
+  }, [character?.id, character?.shortName, dispatch]);               
 
-  if (!character) return <div>Character not found</div>;
+  if (!character) return <NotFound subject={displayedText.character} />;
 
   return (
     <div className='flex flex-col lg:grid lg:grid-cols-12'>

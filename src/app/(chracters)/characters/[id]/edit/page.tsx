@@ -1,8 +1,9 @@
-import { getCharacterById } from '@/persistence/charactersRepository';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { isCharacterTab } from '@/common/tabsUtils';
 import EditCharacterView from '@/application/characters/edit/EditCharacterView';
 import { createCharacterByIdKey } from '@/persistence/cacheKeys';
+import { searchEntityById } from '@/persistence/searchEntity';
+import { characterQueryById } from '@/infrastructure/searchQueries/characters/characterQueryById';
 
 type Params = Promise<{ id: string }>
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
@@ -16,7 +17,7 @@ export default async function EditPage(props: { params: Params, searchParams: Se
   await queryClient.prefetchQuery 
   ({
     queryKey: createCharacterByIdKey(params.id),
-    queryFn: () => getCharacterById(params.id),
+    queryFn: () => searchEntityById(params.id, characterQueryById),
   });
 
   const tab = isCharacterTab(searchParams.tab) ? searchParams.tab : "character";

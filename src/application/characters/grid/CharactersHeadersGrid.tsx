@@ -9,7 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/ui/pagination";
-import { usePagination } from '@/infrastructure/hooks/usePagination';
+import { useOffsetPagination } from '@/infrastructure/hooks/useOffsetPagination';
 import Link from 'next/link';
 import {
   Card,
@@ -24,7 +24,7 @@ import { useDispatch } from 'react-redux';
 import { actions } from '@/persistence/slices/characterSlice';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSearchCharactersSummary } from '../hooks/useSearchCharactersSummary';
-import { CharacterSummary } from '@/persistence/charactersRepository';
+import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 
 type CharactersHeadersGridParams =
 {
@@ -34,7 +34,7 @@ type CharactersHeadersGridParams =
 export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeadersGridParams)
 {
   const { characters: summaries } = useSearchCharactersSummary();
-  const { goTo, totalPages, clampedPage } = usePagination(summaries.length, pageSize);
+  const { goTo, totalPages, clampedPage } = useOffsetPagination(summaries.length, pageSize);
 
   const pageItems = useMemo(() =>
   {
@@ -49,7 +49,7 @@ export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeade
 
       <div className='grid lg:grid-cols-4 gap-4 mt-6 m-4'>
       {
-        pageItems.map(summary => <CharacterCard key={summary.id} summary={summary} />)
+        pageItems.map(summary => <CharactersSummaryCard key={summary.id} summary={summary} />)
       }
       </div>
 
@@ -100,7 +100,7 @@ function NoCharacters()
   );
 }
 
-function CharacterCard({ summary }: { summary: CharacterSummary })
+function CharactersSummaryCard({ summary }: { summary: CharacterSummary })
 {
   const dispatch = useDispatch()
 

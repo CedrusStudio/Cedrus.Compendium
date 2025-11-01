@@ -5,7 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
-import { maneuversClient } from "@/infrastructure/bffClients";
+import client from "@/infrastructure/clients/maneuversClient";
+import searchClient from "@/infrastructure/clients/searchClient";
 
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { allowedCastTimes } from "@/domain/characters/Castable";
@@ -15,25 +16,46 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddManeuverDto, addManeuverSchema, ManeuverDto } from "@/persistence/schemas/characters/combat/maneuverSchema";
 
-import { useSearchManeuvers } from "@/application/compendium/maneuvers/hooks/useSearchManeuvers";
+import { useInitialKeysetSearchManeuvers } from "@/application/compendium/maneuvers/hooks/useInitialKeysetSearchManeuvers";
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
-import { CreateDefaultManeuver } from "@/domain/characters/combat/Maneuver";
+import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Maneuver";
 import { Input } from "@/common/components/ui/input";
-import { useDebouncedCallback } from "use-debounce";
-import { useState } from "react";
-import SelectOneOfStrings from "@/common/components/selects/SelectOneOfStrings";
-import { useQuerySearchAndSortParamsChange } from "@/common/hooks/useQueryParamChange";
+import { useEffect, useState } from "react";
+import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { WithScroll } from "@/common/components/WithScroll";
+import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverQuery";
+import { useQuery } from "@tanstack/react-query";
+import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
 
 export default function ManeuversList()
 {
-  const { maneuvers } = useSearchManeuvers();
-  const [searchTerm, setSearchTerm] = useState("");
-  const { searchQueryParamChange, sortQueryParamChange } = useQuerySearchAndSortParamsChange("/compendium/maneuvers");
+  const { maneuvers, initialCursor } = useInitialKeysetSearchManeuvers();
+  const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>([]);
 
-  const debouncedSearch = useDebouncedCallback(value => searchQueryParamChange(value), 300);
+  useEffect(() =>   
+  {
+    setDisplayedManeuvers(maneuvers);
+    setCursor(initialCursor);
+  }, [maneuvers, initialCursor]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [cursor, setCursor] = useState<string | undefined>(undefined);
+  const debouncedSearch = useSearchParamChangeWithDebounce();
+
+  const queryKey = createKeysetSearchManeuversKey(searchTerm, cursor);
+  const query = useQuery
+  ({ 
+    queryKey, 
+    queryFn: async () => 
+    {
+      if (!cursor) return [];
+      const maneuversQuery = createManeuverKeysetQuery(searchTerm, cursor);
+      return await searchClient.search<Maneuver[]>(maneuversQuery);
+    }
+  });
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
@@ -41,13 +63,6 @@ export default function ManeuversList()
     setSearchTerm(value);
     debouncedSearch(value);
   };
-
-  const allowedSortOptions = 
-  [
-    { label: displayedText.name, value: 'name' },
-    { label: displayedText.price, value: 'price' },
-    { label: displayedText.castTime, value: 'castTime' }
-  ];
 
   return (
     <>
@@ -60,22 +75,30 @@ export default function ManeuversList()
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
-        {/* infinite scroll */}
-
-        <SelectOneOfStrings
-          defaultValue={displayedText.name}
-          items={allowedSortOptions}
-          onChange={value => sortQueryParamChange(value)}
-        />
 
         <AddManeuverForm />
       </div>
 
-      <div className="flex flex-col gap-2">
-      {
-        maneuvers.map(maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} />)
-      }
-      </div>
+      <WithScroll<Maneuver>
+        parentClassName="flex flex-col gap-2"
+        items={displayedManeuvers}
+        triggerNext={async () => 
+        {
+          const { data: newData } = await query.refetch();
+
+          if (newData)
+          {
+            setDisplayedManeuvers(prev => 
+            {
+              if (newData.length === 0) return prev;
+              return [...prev, ...newData];
+            });
+            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
+          }
+        }}
+        currentCursor={cursor}
+        renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} />}
+      />
     </>
   );
 };
@@ -93,7 +116,7 @@ function AddManeuverForm()
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (maneuver: AddManeuverDto) => { await maneuversClient.add({ ...maneuver, id: ulid() }) },
+    async (maneuver: AddManeuverDto) => { await client.add({ ...maneuver, id: ulid() }) },
     {
       invalidateOnSuccess: ['maneuvers'],
       toastPosition: "bottom-left"

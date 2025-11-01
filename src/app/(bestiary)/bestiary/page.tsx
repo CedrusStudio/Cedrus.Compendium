@@ -1,4 +1,4 @@
-import { searchCharacters } from "@/persistence/charactersRepository";
+import { searchEntity } from "@/persistence/searchEntity";
 import {
   dehydrate,
   HydrationBoundary,
@@ -9,6 +9,7 @@ import { Suspense } from 'react';
 import BestiaryTable from "@/application/bestiary/BestiaryTable";
 import BestiaryGridSkeleton from "@/application/bestiary/BestiaryTableSkeleton";
 import { allCharactersKey } from "@/persistence/cacheKeys";
+import { createCharacterQuery } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
 
 export default async function BestiaryPage()
 {
@@ -17,7 +18,7 @@ export default async function BestiaryPage()
   await queryClient.prefetchQuery<Character[]>
   ({
     queryKey: allCharactersKey,
-    queryFn: async () => await searchCharacters(null)
+    queryFn: () => searchEntity<Character>(createCharacterQuery())
   });
 
   return (
