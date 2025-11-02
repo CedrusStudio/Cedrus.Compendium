@@ -6,7 +6,7 @@ import { createKeysetSearchManeuversKey } from '@/persistence/cacheKeys';
 import { getSearchQueryParam  } from '@/common/global/httpUtils';
 import client from "@/infrastructure/clients/searchClient";
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
-import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverQuery';
+import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery';
 import { DEFAULT_PAGE_SIZE } from '@/common/global/pagination';
 
 export const useInitialKeysetSearchManeuvers = () => 

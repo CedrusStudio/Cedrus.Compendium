@@ -26,7 +26,7 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverQuery";
+import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
 import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
 
