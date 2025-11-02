@@ -153,27 +153,6 @@ export class SearchQueryBuilder<TEntity>
     throw new Error('Unexpected error in build method.');
   }
 
-  reset(): this 
-  {
-    this._search = undefined;
-    this._sort = undefined;
-    this._pagination = undefined;
-    this._select = undefined;
-    this._include = undefined;
-    return this;
-  }
-
-  clone(): SearchQueryBuilder<TEntity> 
-  {
-    const cloned = new SearchQueryBuilder<TEntity>(this._entity);
-    cloned._search = this._search ? { ...this._search } : undefined;
-    cloned._sort = this._sort ? [...this._sort] : undefined;
-    cloned._pagination = this._pagination ? { ...this._pagination } : undefined;
-    cloned._select = this._select ? this.deepCloneSelect(this._select) : undefined;
-    cloned._include = this._include ? { ...this._include } : undefined;
-    return cloned;
-  }
-
   private mergeSelect(target: Select | undefined, source: Select): Select 
   {
     if (!target) return { ...source };
@@ -195,26 +174,6 @@ export class SearchQueryBuilder<TEntity>
     }
 
     return result;
-  }
-
-  private deepCloneSelect(select: Select): Select 
-  {
-    const cloned: Select = {};
-
-    for (const key in select) 
-    {
-      const value = select[key];
-
-      if (typeof value === 'object' && value !== null) 
-      {
-        cloned[key] = this.deepCloneSelect(value as Select);
-        continue;
-      } 
-
-      cloned[key] = value;
-    }
-
-    return cloned;
   }
 
   private validatePagination(): void 
