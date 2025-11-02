@@ -1,4 +1,9 @@
 import { OffsetPagination, KeysetPagination, isKeysetPagination } from "@/common/global/pagination";
+import { Character } from "@/domain/characters/Character";
+import { Maneuver } from "@/domain/characters/combat/Maneuver";
+import { Mode } from "@/domain/characters/combat/Mode";
+import { Spell } from "@/domain/characters/combat/Power";
+import { Perk } from "@/domain/characters/Perk";
 
 export function isAllowedSearchEntity(entity: string): boolean
 {
@@ -6,6 +11,16 @@ export function isAllowedSearchEntity(entity: string): boolean
 }
 
 const allowedSearchEntities = ['character', 'maneuver', 'spell', 'perk', 'stance', 'state'] as const satisfies readonly string[];
+export type EntityName = typeof allowedSearchEntities[number];
+export type EntityTypeMap = 
+{
+  'character': Character;
+  'maneuver': Maneuver;
+  'spell': Spell;
+  'perk': Perk;
+  'stance': Mode;
+  'state': Mode;
+};
 
 export type SearchEntityPayload =
   | (SearchPayload & { entity: string; include: Record<string, boolean>; select?: undefined })

@@ -1,16 +1,21 @@
 import { SearchEntityPayload } from "@/common/global/SearchPayloads";
 import { HeaderDto } from "@/persistence/schemas/characters/headerSchema";
-import { DEFAULT_PAGE_SIZE, KeysetPagination, OffsetPagination } from "@/common/global/pagination";
+import { KeysetPagination, OffsetPagination } from "@/common/global/pagination";
+import { SearchQueryBuilder } from "@/infrastructure/searchQueries/SearchQueryBuilder";
 
-export const createCharacterSummaryQuery = (searchQuery: string | undefined, pagination?: OffsetPagination | KeysetPagination | undefined): SearchEntityPayload => 
+export function createCharacterSummaryQuery
+(
+  searchQuery: string | undefined, 
+  pagination?: OffsetPagination | KeysetPagination | undefined
+)
+  : SearchEntityPayload
 { 
-  return {
-    entity: 'character',
-    search: { name: searchQuery },
-    select: { id: true, name: true, shortName: true, description: true },
-    sort: [{ name: 'asc' }],
-    pagination: pagination || { pageNumber: 1, pageSize: DEFAULT_PAGE_SIZE }
-  };
+  return SearchQueryBuilder.for("character")
+    .searchFilter("name", searchQuery)
+    .sort('name', 'asc')
+    .pagination(pagination)
+    .select({ id: true, name: true, shortName: true, description: true })
+    .build(); 
 };
 
 export type CharacterSummary = ({id: string} & Omit<HeaderDto, 'category'>);
