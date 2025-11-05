@@ -1,9 +1,11 @@
 import { Entity } from "@/domain/Entity";
+import { Tag } from "@/domain/Tag";
 import { ulid } from "ulid";
 
 export type Item = Entity & 
 {
   description: string;
+  tags: Tag[];
 };
 
 export type DefensiveItem = Item &
@@ -32,7 +34,8 @@ export const allowedStrengthRequirements = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] 
 export const defaultInventoryItem: Omit<Item, "id"> =
 {
   name: "Nowy przedmiot",
-  description: "Opis przedmiotu"
+  description: "Opis przedmiotu",
+  tags: []
 };
 
 export const CreateDefaultInventoryItem = (): Item => ({...defaultInventoryItem, id: ulid()});

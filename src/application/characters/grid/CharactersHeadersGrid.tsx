@@ -25,6 +25,7 @@ import { actions } from '@/persistence/slices/characterSlice';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSearchCharactersSummary } from '../hooks/useSearchCharactersSummary';
 import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
+import TagsView from '@/common/components/TagsView';
 
 type CharactersHeadersGridParams =
 {
@@ -108,8 +109,8 @@ function CharactersSummaryCard({ summary }: { summary: CharacterSummary })
     <Card className='bg-muted'>
       
       <CardHeader className='-my-1.5'>
-        <CardTitle className='text-2xl flex justify-between'>
-          {summary.name}
+        <CardTitle className='text-2xl flex justify-between items-center'>
+          <span className='text-primary'>{summary.name}</span>
 
           <Button asChild size="icon" className='mt-0.5' onClick={() => dispatch(actions.clearCharacterNavbarSearch())}>
             <Link href={`/characters/${summary.id}`}><FaMagnifyingGlass /></Link>
@@ -118,6 +119,7 @@ function CharactersSummaryCard({ summary }: { summary: CharacterSummary })
       </CardHeader>
 
       <Separator />
+      <TagsView tags={summary.tags} variant="outline" />
 
       <CardContent className='-mt-1'>
         <CardDescription className='text-justify'>{summary.description}</CardDescription>

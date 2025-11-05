@@ -28,6 +28,7 @@ export const defaultArmor: Omit<Armor, "id"> =
   initiativeRestriction: 0,
   attributePenalty: 0,
   strengthRequirement: 0,
+  tags: []
 };
 
 export const CreateDefaultArmor = (): Armor => ({...defaultArmor, id: ulid()});

@@ -49,7 +49,7 @@ export const columnKeys =
 {
   select: "select",
   name: "name",
-  category: "category",
+  tags: "tags",
   health: "health",
   barrier: "barrier",
   defense: "defense",
@@ -91,16 +91,16 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     enableHiding: false
   },
   {
-    id: columnKeys.category,
-    accessorKey: columnKeys.category,
-    cell: ({ row }) => row.original.category,
+    id: columnKeys.tags,
+    accessorKey: columnKeys.tags,
+    cell: ({ row }) => row.original.tags,
     header: ({ column }) => (
       <Button
         variant="ghost"
         type="button"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        <span className="capitalize">{displayedText[columnKeys.category]}</span>
+        <span className="capitalize">{displayedText[columnKeys.tags]}</span>
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),

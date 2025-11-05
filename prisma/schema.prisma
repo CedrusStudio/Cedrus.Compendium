@@ -23,7 +23,7 @@ model Character {
   name        String @unique
   shortName   String @unique
   description String
-  category    String
+  tags        String[]
 
   characteristics Characteristics
   attributes      Attributes
@@ -59,6 +59,7 @@ model Stance {
   description  String
   requirements String?
   price        Int
+  tags         String[]
 
   // Required by prisma, can be null
   characterIds String[]
@@ -75,6 +76,7 @@ model State {
   description  String
   requirements String?
   price        Int
+  tags         String[]
 
   // Required by prisma, can be null
   characterIds String[]
@@ -93,6 +95,7 @@ model Maneuver {
   price        Int
   castTime     String
   cooldown     Int?
+  tags         String[]
 
   // Required by prisma, can be null
   characterIds String[]
@@ -109,6 +112,7 @@ model Perk {
   description  String
   requirements String?
   price        Int
+  tags         String[]
 
   // Required by prisma, can be null
   characterIds String[]
@@ -128,6 +132,7 @@ model Spell {
   castTime     String
   cooldown     Int?
   cost         Int
+  tags         String[]
 
   // Required by prisma, can be null
   characterIds String[]
@@ -252,6 +257,7 @@ type Weapon {
   id          String
   name        String
   description String
+  tags        String[]
   style       String
   offense     WeaponOffense
   damageBonus DamageOffense
@@ -262,6 +268,7 @@ type Armor {
   id          String
   name        String
   description String
+  tags        String[]
 
   resistance            Int
   dexterityRestriction  Int
@@ -278,6 +285,7 @@ type Shield {
   id          String
   name        String
   description String
+  tags        String[]
 
   resistance            Int
   dexterityRestriction  Int
@@ -293,12 +301,14 @@ type Item {
   id          String
   name        String
   description String
+  tags        String[]
 }
 
 type Mount {
   id          String
   name        String
   description String
+  tags        String[]
 
   paceSpeed         Int
   gallopSpeed       Int

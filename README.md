@@ -1,34 +1,35 @@
 # TODO
 
-https://ui.shadcn.com/docs/components/button-group
-button group dla tych strzałek w gore i dol do zwiekszania i zmniejszania
-enable two languages = select in configuration
+Bestiary + Battle + Edit Talents Table + Talents Table
 
--------------------------
-Dodac kategorie do manewrów/postaw/stanów/zaklęć/atuty/postacie -> lista stringów
-Dodac wymagania do manewrów/postaw/stanów/zaklęć/atuty -> lista stringów
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const handleOnSelectedValueChange = (value: string) => 
+  {
+    setSelectedCategory(value);
+    table.getColumn(columnKeys.tags)?.setFilterValue(value !== "all" ? value : "");
+  };
 
--> castTime przetłumaczyć na czas aktywacji
+    <SelectFilter 
+        options={["rogal", "bohater"]}
+        selectedOption={selectedCategory}
+        handleOnSelectedValueChange={handleOnSelectedValueChange}
+        columnKey={columnKeys.tags}
+        allOption={displayedText.all}
+    />
 
-search -> with tag - without tag (dodawanie tagów i sie pojawia i tak samo)
+## Prioritized
 
-zmiany opisy jako text area
+1. Dodac kategorie do manewrów/postaw/stanów/zaklęć/atuty/postacie -> lista stringów
+2. Dodac wymagania do manewrów/postaw/stanów/zaklęć/atuty -> lista stringów
 
-szukania po: postaci, categorii (check boxy)
----
+4. importy
+5. tworzenie postacie na podstawie innej.
 
 soft delete
 
-tworzenie postacie na podstawie innej.
-
-importy
-
 paginacja ile na strone
 
-buffy
-zakęcia
-
-wiele kategorii jak Bohater
+## Commands
 
 Generate clients:
 
@@ -41,3 +42,19 @@ Seeding data:
 For multiple .env.local
 
 > npm install -g dotenv-cli
+
+### Other
+
+https://ui.shadcn.com/docs/components/button-group
+button group dla tych strzałek w gore i dol do zwiekszania i zmniejszania
+enable two languages = select in configuration
+
+-------------------------
+-> castTime przetłumaczyć na czas aktywacji
+
+search -> with tag - without tag (dodawanie tagów i sie pojawia i tak samo)
+
+zmiany opisu jako text area
+
+szukania po: postaci, categorii (check boxy)
+

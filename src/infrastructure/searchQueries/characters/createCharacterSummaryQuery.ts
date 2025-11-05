@@ -14,8 +14,8 @@ export function createCharacterSummaryQuery
     .searchFilter("name", searchQuery)
     .sort('name', 'asc')
     .pagination(pagination)
-    .select({ id: true, name: true, shortName: true, description: true })
+    .select({ id: true, name: true, shortName: true, description: true, tags: true })
     .build(); 
 };
 
-export type CharacterSummary = ({id: string} & Omit<HeaderDto, 'category'>);
+export type CharacterSummary = ({id: string} & HeaderDto);

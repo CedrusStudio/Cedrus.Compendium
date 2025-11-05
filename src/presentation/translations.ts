@@ -127,6 +127,12 @@ export const displayedText =
     initiativeRestriction: translate("initiativeRestriction"),
     strengthRequirement: translate("strengthRequirement"),
     selectCategory: translate("selectCategory"),
+    addTag: translate("addTag"),
+    tagCannotBeEmpty: translate("tagCannotBeEmpty"),
+    tagMustBeLowercaseAndSingleWord: translate("tagMustBeLowercaseAndSingleWord"),
+    tagAlreadyExists: translate("tagAlreadyExists"),
+    maximum: translate("maximum"),
+    tagsAllowed: translate("tagsAllowed"),
     selectCharacteristic: translate("selectCharacteristic"),
     changeDescription: translate("changeDescription"),
     clickSave: translate("clickSave"),
@@ -207,6 +213,8 @@ export const displayedText =
     cost: translate("cost"),
     price: translate("price"),
     requirements: translate("requirements"),
+    tags: translate("tags"),
+    tag: translate("tag"),
 
     notFound: translate("notFound"),
 } as const;

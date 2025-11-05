@@ -10,7 +10,8 @@ export const defaultStance: Omit<Mode, "id"> =
   description: 'Opis postawy',
   grade: 1,
   requirements: 'Brak',
-  price: 0
+  price: 0,
+  tags: []
 };
 
 export const defaultState: Omit<Mode, "id"> =
@@ -19,7 +20,8 @@ export const defaultState: Omit<Mode, "id"> =
   description: 'Opis stanu',
   grade: 1,
   requirements: 'Brak',
-  price: 0
+  price: 0,
+  tags: []
 };
 
 export const CreateDefaultStance = (): Mode => ({...defaultStance, id: ulid()});

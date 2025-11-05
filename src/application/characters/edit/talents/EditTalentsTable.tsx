@@ -20,9 +20,9 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
 import { displayedText } from "@/presentation/translations";
+import SelectFilter from "@/common/components/table/SelectFilter";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
-import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
@@ -99,12 +99,12 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
 
         <div className="flex items-start gap-2">
 
-          <CategorySelectFilter  
-            selectedCategory={selectedCategory}
+          <SelectFilter  
+            selectedOption={selectedCategory}
             handleOnSelectedValueChange={handleOnSelectedValueChange}
-            defaultColumnKeys={defaultColumnKeys}
-            allCategory={displayedText.all}
-            categories={allowedTalentCategories}
+            columnKey={defaultColumnKeys.category}
+            options={allowedTalentCategories}
+            allOption={displayedText.all}
           />
 
           <AddTalentView append={append} setNameFilter={setNameFilter} />

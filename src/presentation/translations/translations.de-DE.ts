@@ -100,6 +100,12 @@ export const translations_deDE =
     initiativeRestriction: "initiativebeschränkung",
     strengthRequirement: "stärkeanforderung",
     selectCategory: "kategorie auswählen",
+    addTag: "tag hinzufügen",
+    tagCannotBeEmpty: "tag darf nicht leer sein",
+    tagMustBeLowercaseAndSingleWord: "tag muss kleingeschrieben und ein einzelnes wort sein (ohne leerzeichen)",
+    tagAlreadyExists: "tag existiert bereits",
+    maximum: "maximal",
+    tagsAllowed: "tags erlaubt",
     selectCharacteristic: "eigenschaft auswählen",
     changeDescription: "beschreibung ändern...",
     clickSave: "klicke auf speichern, wenn du fertig bist.",
@@ -179,7 +185,9 @@ export const translations_deDE =
     
     cost: "kosten",
     price: "preis",
-    requirements: "anforderungen",
+    requirements: "anforderungen",    
+    tags: "schlagwörter",
+    tag: "schlagwort",
     
     notFound: "nicht gefunden",
 } as const;
