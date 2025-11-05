@@ -21,9 +21,7 @@ export default function DetailsView({ character }: { character: Character })
           </Badge>
         </div>
 
-        <div>
-          <TagsView tags={character.tags} />
-        </div>
+        <TagsView tags={character.tags} />
 
       </header>
 

@@ -95,9 +95,7 @@ function EditHeader()
 
             </div>
 
-            <div className="flex flex-col place-content-center gap-6">
-                <FormTagsInput<DetailsDto> path="tags" />
-            </div>
+            <FormTagsInput<DetailsDto> path="tags" />
     
             <AreaInputFormField<DetailsDto> 
                 path="description" 
