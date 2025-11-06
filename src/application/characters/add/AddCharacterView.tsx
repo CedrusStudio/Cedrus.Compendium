@@ -24,7 +24,7 @@ export default function AddCharacterView()
     {
         name: "",
         shortName: "",
-        tags: ["bohater"],
+        tags: [],
         description: "",
     };
 

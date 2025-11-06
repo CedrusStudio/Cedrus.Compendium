@@ -19,7 +19,6 @@ export type FormTagsInputProps<TFieldValues extends FieldValues> =
 {
   path: FieldPath<TFieldValues>;
   placeholder?: string;
-  labelText?: string;
   maxTags?: number;
 };
 
@@ -35,7 +34,7 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
       name={path}
       render={({ field }) => 
       {
-        const tags = (field.value as string[]) || [];
+        const tags = (Array.isArray(field.value) ? field.value : []) as string[];
 
         const handleAddTag = () => 
         {

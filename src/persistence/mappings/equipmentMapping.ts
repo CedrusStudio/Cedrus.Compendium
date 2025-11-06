@@ -28,7 +28,7 @@ function toItem(itemPersistenceModel: ItemModel): Item
   return {
     ...toEntity(itemPersistenceModel),
     description: itemPersistenceModel.description,
-    tags: itemPersistenceModel.tags
+    tags: itemPersistenceModel.tags ?? []
   }
 };
 

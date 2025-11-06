@@ -41,7 +41,7 @@ const emptyCharacter: Character =
   id: '',
   name: "Nowa postać",
   shortName: "Nowa",
-  tags: ["bohater"],
+  tags: [],
   description: "Opis postaci",
   characteristics: 
   {
