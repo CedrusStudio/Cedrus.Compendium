@@ -10,6 +10,7 @@ type PerkPersistenceParams = {
   description: string;
   requirements: string | null;
   price: number;
+  tags: string[];
 };
 
 export function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistenceParams): TPerk
@@ -21,6 +22,7 @@ export function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistence
     description: perkPersistenceModel.description,
     requirements: perkPersistenceModel.requirements ?? undefined,
     price: perkPersistenceModel.price,
+    tags: perkPersistenceModel.tags
   } as TPerk;
 }
 

@@ -16,8 +16,8 @@ export async function POST(request: NextRequest, segmentData: { params: RoutePar
 
   try 
   {
-    const characters = await searchEntityById(id, searchEntityPayload);
-    return NextResponse.json(characters);
+    const character = await searchEntityById(id, searchEntityPayload);
+    return NextResponse.json(character);
   } 
   catch (error) 
   {

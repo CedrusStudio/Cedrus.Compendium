@@ -19,6 +19,7 @@ import {
 } from "@/ui/select";
 import FieldView from "@/common/components/fields/FieldView";
 import { displayedText } from "@/presentation/translations";
+import TagsView from "@/common/components/TagsView";
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
 {  
@@ -60,10 +61,11 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
         <div>
         {
           selectedModeObj && (
-            <div className="pt-4 border-t border-border/40">
+            <div className="pt-4 border-t border-border/40 flex flex-col place-items-center gap-2">
               <p className="text-sm text-muted-foreground text-center italic">
                 {selectedModeObj.description}
               </p>
+              <TagsView tags={selectedModeObj.tags} variant="outline" />
             </div>
           )
         }

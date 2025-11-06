@@ -21,6 +21,9 @@ import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteManeuverById } from '@/application/compendium/maneuvers/hooks/useDeleteManeuverById';
 import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
+import TagsView from "@/common/components/TagsView";
+import AreaInputFormField from "@/common/components/form/AreaInputFormField";
+import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 type ManeuverViewProps =
 {
@@ -35,8 +38,12 @@ export default function ManeuverView({ maneuver }: ManeuverViewProps)
     <div className="flex flex-row items-center border rounded-md p-2">
 
       <div className="p-2 rounded-md w-full">
-        <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
-        <p className="text-sm text-muted-foreground">{maneuver.description}</p>
+          <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
+          <p className="text-sm text-muted-foreground">{maneuver.description}</p>
+      </div>
+
+      <div className="flex shrink-0">
+        <TagsView tags={maneuver.tags} />
       </div>
 
       <div className="p-2 rounded-md w-full">
@@ -44,6 +51,7 @@ export default function ManeuverView({ maneuver }: ManeuverViewProps)
       </div>
 
       <div className="flex flex-row items-center gap-2">
+
         <Badge variant="secondary" className="h-9 w-10 capitalize">
           <div>{priceIcon}</div>
           <div>{maneuver.price}</div>
@@ -132,8 +140,10 @@ function EditManeuverSheet({ isPending, formId }: { isPending: boolean, formId: 
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<ManeuverDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
+            <AreaInputFormField<ManeuverDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
+
+          <FormTagsInput<ManeuverDto> path='tags' />
 
           <div className="grid grid-cols-2 gap-4">
 

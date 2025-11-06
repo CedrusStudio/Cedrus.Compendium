@@ -12,7 +12,8 @@ export const defaultManeuver: Omit<Maneuver, "id"> =
   castTime: "Standardowa", 
   cooldown: 1,
   price: 1,
-  requirements: "Brak"
+  requirements: "Brak",
+  tags: []
 };
 
 export const CreateDefaultManeuver = (): Maneuver => ({...defaultManeuver, id: ulid()});

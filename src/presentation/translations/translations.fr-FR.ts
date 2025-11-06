@@ -100,6 +100,12 @@ export const translations_frFR =
     initiativeRestriction: "restriction d'initiative",
     strengthRequirement: "exigence de force",
     selectCategory: "sélectionner une catégorie",
+    addTag: "ajouter un tag",
+    tagCannotBeEmpty: "le tag ne peut pas être vide",
+    tagMustBeLowercaseAndSingleWord: "le tag doit être en minuscules et un seul mot (sans espaces)",
+    tagAlreadyExists: "le tag existe déjà",
+    maximum: "maximum",
+    tagsAllowed: "tags autorisés",
     selectCharacteristic: "sélectionner une caractéristique",
     changeDescription: "modifier la description...",
     clickSave: "cliquez sur enregistrer lorsque vous avez terminé.",
@@ -179,7 +185,9 @@ export const translations_frFR =
 
     cost: "coût",
     price: "prix",
-    requirements: "exigences",
+    requirements: "exigences",    
+    tags: "étiquettes",
+    tag: "étiquette",
 
     notFound: "non trouvé",
 } as const;

@@ -1,0 +1,142 @@
+"use client";
+
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/ui/form";
+import { useState } from "react";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import { Badge } from "@/ui/badge";
+import { isValidTag } from "@/domain/Tag";
+import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
+import { displayedText } from "@/presentation/translations";
+import { addIcon } from "@/presentation/icons";
+
+export type FormTagsInputProps<TFieldValues extends FieldValues> = 
+{
+  path: FieldPath<TFieldValues>;
+  placeholder?: string;
+  maxTags?: number;
+};
+
+export function FormTagsInput<TFieldValues extends FieldValues>({ path, placeholder = displayedText.addTag, maxTags = 15 }: FormTagsInputProps<TFieldValues>) 
+{
+  const { control } = useFormContext<TFieldValues>();
+  const [inputValue, setInputValue] = useState("");
+  const [validationError, setValidationError] = useState<string | null>(null);
+
+  return (
+    <FormField
+      control={control}
+      name={path}
+      render={({ field }) => 
+      {
+        const tags = (Array.isArray(field.value) ? field.value : []) as string[];
+
+        const handleAddTag = () => 
+        {
+          const trimmedValue = inputValue.trim();
+          setValidationError(null); // Clear previous validation error
+          
+          if (!trimmedValue) 
+          {
+            setValidationError(displayedText.tagCannotBeEmpty);
+            return;
+          }
+
+          if (!isValidTag(trimmedValue)) 
+          {
+            setValidationError(displayedText.tagMustBeLowercaseAndSingleWord);
+            return;
+          }
+
+          if (tags.includes(trimmedValue)) 
+          {
+            setValidationError(displayedText.tagAlreadyExists);
+            return;
+          }
+
+          if (tags.length >= maxTags) 
+          {
+            setValidationError(`${displayedText.maximum} ${maxTags} ${displayedText.tagsAllowed}`);
+            return;
+          }
+
+          field.onChange([...tags, trimmedValue]);
+          setInputValue("");
+        };
+
+        const handleRemoveTag = (tagToRemove: string) => 
+        {
+          field.onChange(tags.filter((tag) => tag !== tagToRemove));
+        };
+
+        const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => 
+        {
+          if (e.key === "Enter") 
+          {
+            e.preventDefault();
+            handleAddTag();
+          }
+        };
+
+        return (
+          <FormItem>
+            <FormControl>
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-2 items-center justify-center">
+                  <Input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => 
+                    {
+                      setInputValue(e.target.value);
+                      setValidationError(null);
+                    }}
+                    onKeyDown={handleKeyDown}
+                    placeholder={placeholder}
+                    className="w-46"
+                  />
+
+                  <Button type="button" onClick={handleAddTag} variant="outline">
+                    {addIcon("scale-90")}
+                  </Button>
+                  
+                </div>
+
+                { validationError && <p className="text-sm font-medium text-destructive flex place-content-center">{validationError}</p> }
+
+                {
+                    tags.length > 0 && (
+                        <div className="flex flex-wrap items-center justify-center gap-2">
+                        {
+                            tags.map((tag) => (
+                                <Badge key={tag} variant="secondary" className="flex items-center gap-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveTag(tag)}
+                                        className="hover:text-destructive"
+                                        aria-label={`Remove ${tag}`}
+                                    >
+                                    {tag}
+                                    </button>
+                                </Badge>
+                            ))
+                        }
+                        </div>
+                    )
+                }
+              </div>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
+    />
+  );
+}
+
+export default FormTagsInput;

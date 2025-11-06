@@ -11,14 +11,14 @@ import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Mane
 import { defaultDiceGrade, defaultWeaponDiceAmount } from "@/domain/diceDefaults";
 import { CreateDefaultPower, Power } from "@/domain/characters/combat/Power";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
+import { Tag } from "@/domain/Tag";
+import { Entity } from "@/domain/Entity";
 
-export type Character =
+export type Character = Entity &
 {
-  readonly id: string;
   shortName: string;
-  name: string;
   description: string;
-  category: CharacterCategory;
+  tags: Tag[];
 
   characteristics: Characteristics;
   attributes: Attributes;
@@ -36,21 +36,12 @@ export type Character =
   perks: Perk[];
 };
 
-export type CharacterCategory = typeof allowedCharacterCategories[number];
-
-export const allowedCharacterCategories = 
-[
-  "bohater",
-  "wojak",
-  "monstrum"
-] as const satisfies readonly string[];
-
 const emptyCharacter: Character = 
 { 
   id: '',
   name: "Nowa postać",
   shortName: "Nowa",
-  category: "bohater",
+  tags: [],
   description: "Opis postaci",
   characteristics: 
   {
@@ -120,7 +111,8 @@ const emptyCharacter: Character =
           bonus: 0
         },
         range: 0,
-        description: "Weapon 1 description"
+        description: "Weapon 1 description",
+        tags: []
       }
     ],
     armors:
@@ -136,7 +128,8 @@ const emptyCharacter: Character =
         initiativeRestriction: 0,
         attributePenalty: 0,
         strengthRequirement: 0,
-        description: "Opis pancerza"
+        description: "Opis pancerza",
+        tags: []
       }
     ],
     shields: 
@@ -151,7 +144,8 @@ const emptyCharacter: Character =
         initiativeRestriction: 0,
         attributePenalty: 0,
         strengthRequirement: 0,
-        description: "Opis tarczy"
+        description: "Opis tarczy",
+        tags: []
       }
     ],
     inventory: 
@@ -159,7 +153,8 @@ const emptyCharacter: Character =
       {
         id: '01K744JA13TJNPNR3S6SYQE87E',
         name: "Przedmiot 1",
-        description: "Opis przedmiotu 1"
+        description: "Opis przedmiotu 1",
+        tags: []
       }
     ],
     mounts: []
@@ -173,14 +168,15 @@ const emptyCharacter: Character =
       description: "Opis perku 1",
       grade: 1,
       requirements: "Wymagania Walki",
-      price: 2
+      price: 2,
+      tags: []
     }
   ]
 };
 
-export function CreateEmptyCharacter({name, shortName, category, description}: {name: string, shortName: string, category: CharacterCategory, description: string}): Character
+export function CreateEmptyCharacter({name, shortName, tags, description}: {name: string, shortName: string, tags: Tag[], description: string}): Character
 {
-  const newCharacter = { ...emptyCharacter, id: ulid(), name, shortName, category, description };
+  const newCharacter = { ...emptyCharacter, id: ulid(), name, shortName, tags, description };
   newCharacter.offenses = [CreateDefaultOffense()];
   newCharacter.defenses = [CreateDefaultDefense()];
   newCharacter.maneuvers = [CreateDefaultManeuver()];

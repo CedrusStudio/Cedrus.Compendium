@@ -19,7 +19,7 @@ import { useFieldArray } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
-
+import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 type EditItemSheetProps = 
 {
@@ -70,6 +70,8 @@ export default function EditItemSheet({ item, children }: PropsWithChildren<Edit
               path={`${item.type}.description`}
               inputPlaceholder={displayedText.changeDescription}
             />
+            
+            <FormTagsInput<EquipmentDto> path={`${item.type}.tags`} />
             
           </div>
 

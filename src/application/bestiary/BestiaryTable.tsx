@@ -16,10 +16,8 @@ import { displayedText } from "@/presentation/translations";
 import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
-import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
-import { allowedCharacterCategories } from "@/domain/characters/Character";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { useDispatch } from "react-redux";
@@ -48,13 +46,6 @@ export default function BestiaryTable()
     setColumnVisibility(initialVisibility);
   }, []);
 
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const handleOnSelectedValueChange = (value: string) => 
-  {
-    setSelectedCategory(value);
-    table.getColumn(columnKeys.category)?.setFilterValue(value !== "all" ? value : "");
-  };
-
   const table = useReactTable
   ({
     data,
@@ -79,14 +70,6 @@ export default function BestiaryTable()
     <div className="mx-3">
       <div className="flex flex-wrap items-center justify-center py-4 gap-3">
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
-
-        <CategorySelectFilter 
-          categories={allowedCharacterCategories}
-          selectedCategory={selectedCategory}
-          handleOnSelectedValueChange={handleOnSelectedValueChange}
-          defaultColumnKeys={columnKeys}
-          allCategory={displayedText.all}
-        />
 
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
         { 

@@ -11,8 +11,7 @@ import { type DetailsDto, detailsSchema } from "@/persistence/schemas/characters
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import { SelectFormField } from "@/common/components/form/SelectFormField";
-import { allowedCharacterCategories } from "@/domain/characters/Character";
+import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { displayedText } from "@/presentation/translations";
 import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 import EditPerksList from "@/application/characters/edit/details/EditPerksList";
@@ -25,7 +24,7 @@ export default function EditDetailsView(input: { character: Character })
     {
         name: input.character.name,
         shortName: input.character.shortName,
-        category: input.character.category,
+        tags: input.character.tags,
         description: input.character.description,
         perks: input.character.perks
     };
@@ -94,15 +93,9 @@ function EditHeader()
                         />
                 </div>
 
-                <div className="flex flex-col justify-center items-center gap-6">
-                    <SelectFormField<DetailsDto>
-                        path="category"
-                        items={allowedCharacterCategories}
-                        noLabel
-                        />
-                </div>
-
             </div>
+
+            <FormTagsInput<DetailsDto> path="tags" />
     
             <AreaInputFormField<DetailsDto> 
                 path="description" 

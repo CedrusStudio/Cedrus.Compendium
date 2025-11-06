@@ -1,4 +1,4 @@
-import { Character, CharacterCategory } from '@/domain/characters/Character';
+import { Character } from '@/domain/characters/Character';
 import { CreateDefaultDefense, Defense } from '@/domain/characters/combat/Defense';
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { Mode } from '@/domain/characters/combat/Mode';
@@ -25,7 +25,7 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     ...toEntity(characterPersistenceModel),
     shortName: characterPersistenceModel.shortName,
     description: characterPersistenceModel.description,
-    category: characterPersistenceModel.category as CharacterCategory,
+    tags: characterPersistenceModel.tags,
 
     characteristics: characterPersistenceModel.characteristics,
     attributes: characterPersistenceModel.attributes,
@@ -54,7 +54,7 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
     name: header.name,
     shortName: header.shortName,
     description: header.description,
-    category: header.category,
+    tags: header.tags,
 
     characteristics: 
     {
@@ -113,7 +113,7 @@ export function toCharacterDetailsPersistenceModel(details: DetailsDto, existing
     name: details.name,
     shortName: details.shortName,
     description: details.description,
-    category: details.category,
+    tags: details.tags,
     perks: createUpsertPayload(existingPerkIds, details.perks)
   };
 }

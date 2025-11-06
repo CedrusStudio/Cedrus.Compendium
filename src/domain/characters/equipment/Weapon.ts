@@ -27,6 +27,7 @@ export const defaultWeapon: Omit<Weapon, "id"> =
   range: 1,
   damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0 },
   offense: { amount: 1, grade: defaultDiceGrade, bonus: 0, critical: { range: 0, power: 0 } },
+  tags: []
 };
 
 export const CreateDefaultWeapon = (): Weapon => ({...defaultWeapon, id: ulid()});

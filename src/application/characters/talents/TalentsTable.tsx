@@ -24,7 +24,7 @@ import { allowedTalentCategories } from "@/domain/characters/Talent";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
 import { displayedText } from "@/presentation/translations";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
-import CategorySelectFilter from "@/common/components/table/CategorySelectFilter";
+import SelectFilter from "@/common/components/table/SelectFilter";
 import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
@@ -84,12 +84,12 @@ export function TalentsTable({ columns, data }: DataTableProps)
       <div className="flex items-center -mt-2 lg:pb-1 gap-3">
         <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
 
-        <CategorySelectFilter  
-          selectedCategory={selectedCategory}
+        <SelectFilter  
+          selectedOption={selectedCategory}
           handleOnSelectedValueChange={handleOnSelectedValueChange}
-          defaultColumnKeys={defaultColumnKeys}
-          allCategory={displayedText.all}
-          categories={allowedTalentCategories}
+          columnKey={defaultColumnKeys.category}
+          options={allowedTalentCategories}
+          allOption={displayedText.all}
         />
 
         <PaginationButtons table={table} />

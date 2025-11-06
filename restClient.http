@@ -1,13 +1,3 @@
-### Get Characters
-
-GET http://localhost:3000/api/characters
-Content-Type: application/json
-
-### Get Characters
-
-GET http://localhost:3000/api/characters
-Content-Type: application/json
-
 ### Search Without Select
 
 POST http://localhost:3000/api/search
@@ -159,6 +149,25 @@ Content-Type: application/json
     "select": {
         "id": true,
         "name": true
+    }
+}
+
+### Search ById 
+
+POST http://localhost:3000/api/search/01K79QFH0ZD99MSBV4ACKFBZYN
+Content-Type: application/json
+
+{
+    "entity": "character",
+    "select": {
+        "id": true,
+        "name": true,
+        "equipment": 
+        {
+            "select": {
+                "armors": true
+            }
+        }
     }
 }
 

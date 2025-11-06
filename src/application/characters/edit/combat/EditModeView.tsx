@@ -19,6 +19,9 @@ import { Mode, ModesType } from "@/domain/characters/combat/Mode";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
+import { Separator } from "@/common/components/ui/separator";
+import TagsView from "@/common/components/TagsView";
+import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 type EditModeViewProps =
 { 
@@ -31,18 +34,22 @@ type EditModeViewProps =
 export default function EditModeView({ mode, modeType, index, remove }: EditModeViewProps)
 { 
   return (
-    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2  min-h-24">
-        
-      <div className="p-2 rounded-md w-full">
-        <h4 className="font-semibold">{mode.name} {mode.grade}</h4>
-        <p className="text-sm text-muted-foreground">{mode.description}</p>
+    <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
+
+      <div className="flex flex-row place-items-center p-2 rounded-md w-full">
+        <div className="p-2 rounded-md w-full">
+          <h4 className="font-semibold">{mode.name} {mode.grade}</h4>
+          <p className="text-sm text-muted-foreground">{mode.description}</p>
+        </div>
+
+        <div className="flex flex-row gap-2">
+          <RemoveFromArrayButton remove={remove} index={index} />
+          <EditModeSheet index={index} modeType={modeType} />
+        </div>
       </div>
 
-      <div className="flex flex-row gap-2">
-        <RemoveFromArrayButton remove={remove} index={index} />
-        <EditModeSheet index={index} modeType={modeType} />
-      </div>
-      
+      <Separator className='mb-2' />
+      <TagsView tags={mode.tags} variant="outline" />
     </div>
   );
 }
@@ -87,6 +94,8 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
             <Label className="capitalize">{displayedText.description}</Label>
             <InputFormField<CombatDto> path={`${modeType}.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
+
+          <FormTagsInput<CombatDto> path={`${modeType}.${index}.tags`} />
         </div>
 
         <SheetFooter>

@@ -26,6 +26,7 @@ export const defaultShield: Omit<Shield, "id"> =
   initiativeRestriction: 0,
   attributePenalty: 0,
   strengthRequirement: 0,
+  tags: []
 };
 
 export const CreateDefaultShield = (): Shield => ({...defaultShield, id: ulid()});

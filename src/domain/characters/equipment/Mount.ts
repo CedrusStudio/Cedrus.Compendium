@@ -16,7 +16,8 @@ export const defaultMount: Omit<Mount, "id"> =
   canterSpeed: 1,
   gallopSpeed: 1,
   horsemanshipBonus: 0,
-  paceSpeed: 1
+  paceSpeed: 1,
+  tags: []
 };
 
 export const CreateDefaultMount = (): Mount => ({...defaultMount, id: ulid()});

@@ -6,10 +6,11 @@ import { Badge } from '@/ui/badge';
 import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
-import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
+import { getBadgeVariant } from '@/presentation/colors';
 import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from '@/presentation/icons';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
 import { useState } from 'react';
+import InfoContentWithTags from '@/common/components/InfoContentWithTags';
 
 type PowerCardProps =
 {
@@ -189,7 +190,7 @@ function SpellView({ spell, addSpellToUsed, usedSpells }: SpellViewProps)
             <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
                 <FieldViewWithInfo
                     value={spell.grade}
-                    infoContent={<div> <span className='capitalize'>{displayedText.action}</span>  <span className={`${getCastTimeColors(spell.castTime).text}`}>{spell.castTime.toLowerCase()}</span>. {spell.description}</div>}
+                    infoContent={<InfoContentWithTags castable={spell} />}
                     className="gap-1"
                     nameClassName='w-4xs'
                 >

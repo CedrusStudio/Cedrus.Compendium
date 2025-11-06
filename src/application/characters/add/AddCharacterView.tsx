@@ -10,24 +10,21 @@ import { type HeaderDto, headerSchema } from "@/persistence/schemas/characters/h
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import { allowedCharacterCategories } from "@/domain/characters/Character";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
 import { displayedText } from "@/presentation/translations";
 import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
-import FormSelectInput from "@/common/components/inputs/FormSelectInput";
+import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function AddCharacterView()
 {
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
     const dispatch = useDispatch();
 
     const initialHeaderValues: HeaderDto =
     {
         name: "",
         shortName: "",
-        category: "bohater",
+        tags: [],
         description: "",
     };
 
@@ -80,13 +77,7 @@ export default function AddCharacterView()
                     inputClassName="lg:w-xl"
                 />
 
-                <FormSelectInput
-                    name="category"
-                    collectionToSelectFrom={allowedCharacterCategories}
-                    value={selectedCategory}
-                    placeholder={displayedText.selectCategory}
-                    onChange={setSelectedCategory}
-                />
+                <FormTagsInput<HeaderDto> path="tags" />
 
                 <AreaInputFormField<HeaderDto> 
                     path="description" 
