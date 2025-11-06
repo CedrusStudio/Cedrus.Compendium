@@ -17,6 +17,8 @@ import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpellFie
 import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
+import TagsView from '@/common/components/TagsView';
+import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 
 type EditPowersCardProps =
 {
@@ -114,16 +116,22 @@ type EditSpellViewProps =
 function EditSpellView({ spell, powerIndex, spellIndex, remove }: EditSpellViewProps)
 {
   return (
-    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2 min-h-24">
-      <div className="p-2 rounded-md w-full">
-        <h4 className="font-semibold">{spell.name} {spell.grade}</h4>
-        <p className="text-sm text-muted-foreground">{spell.description}</p>
+    <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
+
+      <div className="flex flex-row gap-2 items-center min-h-24">
+        <div className="p-2 rounded-md w-full">
+          <h4 className="font-semibold">{spell.name} {spell.grade}</h4>
+          <p className="text-sm text-muted-foreground">{spell.description}</p>
+        </div>
+
+        <div className="flex flex-row gap-2">
+          <RemoveFromArrayButton remove={remove} index={spellIndex} />
+          <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />
+        </div>
       </div>
 
-      <div className="flex flex-row gap-2">
-        <RemoveFromArrayButton remove={remove} index={spellIndex} />
-        <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />
-      </div>
+      <Separator className='mb-2' />
+      <TagsView tags={spell.tags} variant="outline" />
     </div>
   );
 }
@@ -172,6 +180,8 @@ function EditSpellSheet({ powerIndex, spellIndex }: EditSpellSheetProps)
             <Label className='capitalize'>{displayedText.description}</Label>
             <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
+
+          <FormTagsInput<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'tags')} />
 
           <div className="grid grid-cols-2 gap-4">
 

@@ -4,12 +4,13 @@ import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
-import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
+import { getBadgeVariant } from '@/presentation/colors';
 import { useState } from 'react';
 import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
 import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from "@/presentation/icons";
 import { displayedText } from "@/presentation/translations";
+import InfoContentWithTags from "@/common/components/InfoContentWithTags";
 
 type ManeuversViewProps =
 {
@@ -169,7 +170,7 @@ function CombatManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: Mane
             <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
                 <FieldViewWithInfo
                     value={maneuver.grade}
-                    infoContent={<div> <span className='capitalize'>{displayedText.action}</span>  <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</div>}
+                    infoContent={<InfoContentWithTags castable={maneuver} />}
                     className="gap-1"
                     nameClassName='w-4xs'
                 >

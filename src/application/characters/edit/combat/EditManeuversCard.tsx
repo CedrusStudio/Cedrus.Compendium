@@ -18,6 +18,10 @@ import { battleIcon, cooldownIcon, editIcon } from '@/presentation/icons';
 import { pathToManeuverField } from '@/domain/characters/combat/Maneuver';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
+import FormTagsInput from '@/common/components/inputs/FormTagsInput';
+import AreaInputFormField from '@/common/components/form/AreaInputFormField';
+import TagsView from '@/common/components/TagsView';
+import { Separator } from '@/common/components/ui/separator';
 
 type EditManeuversCardProps =
 {
@@ -59,22 +63,26 @@ type EditManeuverViewProps =
 function EditManeuverView({ maneuver, index, remove }: EditManeuverViewProps)
 {
   return (
-    <div className="flex flex-row gap-4 m-1 items-center border rounded-md p-2 min-h-24">
+    <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
 
-      <div className="p-2 rounded-md w-full">
-        <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
-        <p className="text-sm text-muted-foreground">{maneuver.description}</p>
+      <div className="flex flex-row gap-2 items-center min-h-24">
+        <div className="p-2 rounded-md w-full">
+          <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
+          <p className="text-sm text-muted-foreground">{maneuver.description}</p>
+        </div>
+
+        <div className="flex flex-row gap-2">
+          <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
+              {cooldownIcon()}
+              <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
+          </Badge>
+          <RemoveFromArrayButton remove={remove} index={index} />
+          <EditManeuverSheet index={index} />
+        </div>
       </div>
 
-      <div className="flex flex-row gap-2">
-        <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
-            {cooldownIcon()}
-            <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
-        </Badge>
-        <RemoveFromArrayButton remove={remove} index={index} />
-        <EditManeuverSheet index={index} />
-      </div>
-
+      <Separator className='mb-2' />
+      <TagsView tags={maneuver.tags} variant="outline" />
     </div>
   );
 }
@@ -120,8 +128,10 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<CombatDto> path={pathToManeuverField(index, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
+            <AreaInputFormField<CombatDto> path={pathToManeuverField(index, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
+          
+          <FormTagsInput<CombatDto> path={pathToManeuverField(index, 'tags')} />
 
           <div className="grid grid-cols-2 gap-4">
 
