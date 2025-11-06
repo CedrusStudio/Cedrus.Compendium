@@ -3,7 +3,7 @@
 import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/presentation/icons";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
@@ -44,6 +44,7 @@ import { toCriticalRangeString, rollDamage } from "@/domain/characters/combat/Of
 import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import { Badge } from "@/common/components/ui/badge";
+import TagsView from "@/common/components/TagsView";
 
 export const columnKeys =
 {
@@ -93,17 +94,8 @@ export const columns: AccessorKeyColumnDef<Character>[] =
   {
     id: columnKeys.tags,
     accessorKey: columnKeys.tags,
-    cell: ({ row }) => row.original.tags,
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        type="button"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        <span className="capitalize">{displayedText[columnKeys.tags]}</span>
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    cell: ({ row }) => <TagsView tags={row.original.tags} />,
+    header: () => <span className="capitalize">{displayedText[columnKeys.tags]}</span>,
     meta: { initiallyHidden: true },
   },
   {
