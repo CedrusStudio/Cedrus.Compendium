@@ -1,20 +1,33 @@
 'use server';
 
-//Tip: mark your repository as server-only so it can’t be imported in client components by mistake.
+//Tip: mark your repository as server-only so it can't be imported in client components by mistake.
 import 'server-only';
 import prisma from '@/lib/prisma';
-import { toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
+import { toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterFromCopyPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
+import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 
 //Commands
 export async function addCharacter(characterHeader: HeaderDto)
   : Promise<string>
 {
   const characterHeaderPersistenceModel = toCharacterHeaderPersistenceModel(characterHeader);
+  const character = await prisma.character.create
+  ({
+    data: characterHeaderPersistenceModel
+  });
+
+  return character.id;
+}
+
+export async function copyCreateCharacter(copyCreateCharacterData: CopyCreateCharacterDto)
+  : Promise<string>
+{
+  const characterHeaderPersistenceModel = toCharacterFromCopyPersistenceModel(copyCreateCharacterData);
   const character = await prisma.character.create
   ({
     data: characterHeaderPersistenceModel

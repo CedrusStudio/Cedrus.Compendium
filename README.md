@@ -51,7 +51,4 @@ enable two languages = select in configuration
 
 search -> with tag - without tag (dodawanie tagów i sie pojawia i tak samo)
 
-zmiany opisu jako text area
-
-szukania po: postaci, categorii (check boxy)
-
+szukania po: postaci, tagu (check boxy)

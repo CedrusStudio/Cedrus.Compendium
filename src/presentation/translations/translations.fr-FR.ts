@@ -201,5 +201,10 @@ export const translations_frFR =
     tags: "étiquettes",
     tag: "étiquette",
 
+    select_base_character: "sélectionner un personnage de base",
+    select_character_to_base_new_one: "Sélectionnez un personnage sur lequel baser le nouveau",
+    no_characters_found: "Aucun personnage trouvé",
+    create_from_template: "créer à partir d'un autre personnage",
+
     notFound: "non trouvé",
 } as const;

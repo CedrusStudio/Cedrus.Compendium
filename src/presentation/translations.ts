@@ -228,5 +228,10 @@ export const displayedText =
     tags: translate("tags"),
     tag: translate("tag"),
 
+    select_base_character: translate("select_base_character"),
+    select_character_to_base_new_one: translate("select_character_to_base_new_one"),
+    no_characters_found: translate("no_characters_found"),
+    create_from_template: translate("create_from_template"),
+
     notFound: translate("notFound"),
 } as const;
