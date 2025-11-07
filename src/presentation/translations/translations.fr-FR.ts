@@ -202,8 +202,8 @@ export const translations_frFR =
     tag: "étiquette",
 
     select_base_character: "sélectionner un personnage de base",
-    select_character_to_base_new_one: "Sélectionnez un personnage sur lequel baser le nouveau",
-    no_characters_found: "Aucun personnage trouvé",
+    select_character_to_base_new_one: "sélectionnez un personnage sur lequel baser le nouveau",
+    no_characters_found: "aucun personnage trouvé",
     create_from_template: "créer à partir d'un autre personnage",
 
     notFound: "non trouvé",

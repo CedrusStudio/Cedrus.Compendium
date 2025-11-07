@@ -202,8 +202,8 @@ export const translations_deDE =
     tag: "schlagwort",
 
     select_base_character: "basischarakter auswählen",
-    select_character_to_base_new_one: "Wählen Sie einen Charakter aus, auf dem Sie einen neuen basieren möchten",
-    no_characters_found: "Keine Charaktere gefunden",
+    select_character_to_base_new_one: "wählen Sie einen Charakter aus, auf dem Sie einen neuen basieren möchten",
+    no_characters_found: "keine Charaktere gefunden",
     create_from_template: "aus anderem Charakter erstellen",
     
     notFound: "nicht gefunden",
