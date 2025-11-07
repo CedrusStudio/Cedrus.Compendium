@@ -19,8 +19,6 @@ Bestiary + Battle + Edit Talents Table + Talents Table
 
 ## Prioritized
 
-2. Dodac wymagania do manewrów/postaw/stanów/zaklęć/atuty -> lista stringów
-
 4. importy
 5. tworzenie postacie na podstawie innej.
 

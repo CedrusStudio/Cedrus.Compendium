@@ -29,6 +29,8 @@ import { WithScroll } from "@/common/components/WithScroll";
 import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
 import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
+import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function ManeuversList()
 {
@@ -171,6 +173,9 @@ function AddManeuverSheet({ isPending, formId }: { isPending: boolean, formId: s
             <InputFormField<ManeuverDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
+          <FormTagsInput<ManeuverDto> path='tags' />
+          <FormStringsInput<ManeuverDto> path='requirements' placeholder={displayedText.addRequirement} />
+
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">
@@ -182,11 +187,6 @@ function AddManeuverSheet({ isPending, formId }: { isPending: boolean, formId: s
               <Label className='justify-center capitalize'>{displayedText.price}</Label>
               <InputFormField<ManeuverDto> path='price' inputClassName='w-11 h-10 text-center font-medium'  />
             </div>
-          </div>
-
-          <div className="flex flex-col gap-3 px-4 pb-4">
-            <Label className='justify-center capitalize'>{displayedText.requirements}</Label>
-            <InputFormField<ManeuverDto> path='requirements' inputClassName='h-10 text-center font-medium' />
           </div>
   
           <div className="flex flex-col items-center gap-3 px-4">

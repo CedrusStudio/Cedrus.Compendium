@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 type ProvidersProps = 
 {
-    children: React.ReactNode;
+  children: React.ReactNode;
 };
 
 export default function Providers({ children }: ProvidersProps)
@@ -30,11 +30,9 @@ export default function Providers({ children }: ProvidersProps)
   return (
     <>
       <Toaster />
-
         <ThemeProvider 
           attribute='class'
           defaultTheme='dark' 
-          enableSystem
           disableTransitionOnChange
         >
         <QueryClientProvider client={queryClient}>

@@ -27,6 +27,7 @@ import { GiCrenulatedShield } from "react-icons/gi";
 
 import { TbEdit, TbSum } from "react-icons/tb";
 import { MdPublishedWithChanges } from "react-icons/md";
+import { GiMagicSwirl } from "react-icons/gi";
 
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { LuMinus } from "react-icons/lu";
@@ -107,6 +108,7 @@ export const gainIcon = (className?: string) => <GiHealthIncrease className={cla
 export const lossIcon = (className?: string) => <GiHealthDecrease className={className} />;
 
 export const priceIcon = <GiReceiveMoney className="w-5 h-5" />;
+export const costIcon = <GiMagicSwirl className="w-5 h-5" />;
 
 export const arrowUpIcon = <IoIosArrowRoundUp className="w-4 h-4" />;
 export const arrowDownIcon = <IoIosArrowRoundDown className="w-4 h-4" />;

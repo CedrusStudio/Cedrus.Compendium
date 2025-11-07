@@ -18,6 +18,7 @@ const badgeVariants = cva(
         standard: `border-transparent ${getCastTimeColors("Standardowa").bg} text-white hover:bg-green-900`,
         immediate: `text-foreground ${getCastTimeColors("Natychmiastowa").bg} hover:bg-gray-700`,
         overimmediate: `text-foreground ${getCastTimeColors("Nadnatychmiastowa").bg} hover:bg-rose-900`,
+        cost: `border-transparent bg-purple-900 text-white`,
       },
     },
     defaultVariants: {

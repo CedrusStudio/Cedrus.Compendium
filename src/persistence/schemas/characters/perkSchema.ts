@@ -11,6 +11,9 @@ export const perkSchema = entitySchema.extend
   tags: tagsSchema
 });
 
+export const addPerkSchema = perkSchema.omit({ id: true });
+
 export const perksSchema = z.array(perkSchema).max(500, { message: "Możesz mieć najwyżej 500 manewrów." });
 
 export type PerkDto = z.infer<typeof perkSchema>;
+export type AddPerkDto = z.infer<typeof addPerkSchema>;

@@ -4,11 +4,13 @@ import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { castableSchema } from "@/persistence/schemas/characters/castableSchema";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
 
-const spellSchema = perkSchema.extend
+export const spellSchema = perkSchema.extend
 ({
   ...castableSchema.shape,
   cost: z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." })
 });
+
+export const addSpellSchema = spellSchema.omit({ id: true });
 
 export const powerSchema = entitySchema.extend
 ({
@@ -22,4 +24,5 @@ export const powerSchema = entitySchema.extend
 export const powersSchema = z.array(powerSchema).max(100, { message: "Możesz mieć najwyżej 100 mocy." });
 
 export type SpellDto = z.infer<typeof spellSchema>;
+export type AddSpellDto = z.infer<typeof addSpellSchema>;
 export type PowerDto = z.infer<typeof powerSchema>;

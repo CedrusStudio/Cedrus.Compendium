@@ -160,11 +160,6 @@ function EditManeuverSheet({ isPending, formId }: { isPending: boolean, formId: 
               <InputFormField<ManeuverDto> path='price' inputClassName='w-11 h-10 text-center font-medium'  />
             </div>
           </div>
-
-          <div className="flex flex-col gap-3 px-4 pb-4">
-            <Label className='justify-center capitalize'>{displayedText.requirements}</Label>
-            <InputFormField<ManeuverDto> path='requirements' inputClassName='h-10 text-center font-medium' />
-          </div>
   
           <div className="flex flex-col items-center gap-3 px-4">
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>

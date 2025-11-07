@@ -18,7 +18,7 @@ function onSuccess(sideEffect: () => void, position?: "top-left" | "top-center" 
     toast(displayedText.success, {
         description: (
             <p className="mt-2 w-[320px] rounded-md bg-secondary p-4 text-primary">
-                {displayedText.characterUpdatedSuccessfully}
+                {displayedText.updatedSuccessfully}
             </p>
         ),
         position

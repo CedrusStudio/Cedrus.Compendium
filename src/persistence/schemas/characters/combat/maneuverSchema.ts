@@ -7,10 +7,7 @@ export const maneuverSchema = perkSchema.extend
   ...castableSchema.shape
 });
 
-export const addManeuverSchema = perkSchema.extend
-({
-  ...castableSchema.shape
-}).omit({ id: true });
+export const addManeuverSchema = maneuverSchema.omit({ id: true });
 
 export const maneuversSchema = z.array(maneuverSchema).max(100, { message: "Możesz mieć najwyżej 100 manewrów." });
 
