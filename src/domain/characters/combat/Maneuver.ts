@@ -12,7 +12,7 @@ export const defaultManeuver: Omit<Maneuver, "id"> =
   castTime: "Standardowa", 
   cooldown: 1,
   price: 1,
-  requirements: "Brak",
+  requirements: [],
   tags: []
 };
 

@@ -20,6 +20,7 @@ import {
 import FieldView from "@/common/components/fields/FieldView";
 import { displayedText } from "@/presentation/translations";
 import TagsView from "@/common/components/TagsView";
+import { Separator } from "@/common/components/ui/separator";
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
 {  
@@ -58,10 +59,11 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
           </SelectContent>
         </Select>
 
-        <div>
+        <div className="w-full pr-4">
         {
           selectedModeObj && (
-            <div className="pt-4 border-t border-border/40 flex flex-col place-items-center gap-2">
+            <div className="pt-0.5 flex flex-col place-items-center gap-2">
+              <Separator />
               <p className="text-sm text-muted-foreground text-center italic">
                 {selectedModeObj.description}
               </p>

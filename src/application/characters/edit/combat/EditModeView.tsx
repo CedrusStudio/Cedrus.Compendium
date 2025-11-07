@@ -15,13 +15,14 @@ import { Button } from "@/ui/button"
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { UseFieldArrayRemove } from "react-hook-form";
 import { Label } from "@/ui/label";
-import { Mode, ModesType } from "@/domain/characters/combat/Mode";
+import { Mode, ModesType, pathToModeField } from "@/domain/characters/combat/Mode";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
 import { Separator } from "@/common/components/ui/separator";
 import TagsView from "@/common/components/TagsView";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 
 type EditModeViewProps =
 { 
@@ -81,21 +82,22 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className="capitalize">{displayedText.name}</Label>
-              <InputFormField<CombatDto> path={`${modeType}.${index}.name`} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
+              <InputFormField<CombatDto> path={pathToModeField(index, modeType, 'name')} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className="capitalize">{displayedText.grade}</Label>
-              <InputFormField<CombatDto> path={`${modeType}.${index}.grade`} inputPlaceholder={displayedText.changeGrade} inputClassName="w-11 h-10 text-center font-medium" />
+              <InputFormField<CombatDto> path={pathToModeField(index, modeType, 'grade')} inputPlaceholder={displayedText.changeGrade} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className="capitalize">{displayedText.description}</Label>
-            <InputFormField<CombatDto> path={`${modeType}.${index}.description`} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
+            <InputFormField<CombatDto> path={pathToModeField(index, modeType, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
-          <FormTagsInput<CombatDto> path={`${modeType}.${index}.tags`} />
+          <FormTagsInput<CombatDto> path={pathToModeField(index, modeType, 'tags')} />
+          <FormStringsInput<CombatDto> path={pathToModeField(index, modeType, 'requirements')} placeholder={displayedText.addRequirement} />
         </div>
 
         <SheetFooter>

@@ -167,7 +167,7 @@ const emptyCharacter: Character =
       name: "Perk 1",
       description: "Opis perku 1",
       grade: 1,
-      requirements: "Wymagania Walki",
+      requirements: [],
       price: 2,
       tags: []
     }

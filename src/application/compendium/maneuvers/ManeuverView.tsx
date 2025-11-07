@@ -24,6 +24,8 @@ import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/co
 import TagsView from "@/common/components/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import RequirementsView from "@/application/common/RequirementsView";
+import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 
 type ManeuverViewProps =
 {
@@ -37,19 +39,19 @@ export default function ManeuverView({ maneuver }: ManeuverViewProps)
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
+
       <div className="p-2 rounded-md w-full">
+        <div className="flex flex-row gap-2">
           <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
+          <TagsView tags={maneuver.tags} />
+        </div>
           <p className="text-sm text-muted-foreground">{maneuver.description}</p>
       </div>
 
-      <div className="flex shrink-0">
-        <TagsView tags={maneuver.tags} />
-      </div>
-
       <div className="p-2 rounded-md w-full">
-        <p className="text-sm text-muted-foreground capitalize">{displayedText.requirements}: {maneuver.requirements}</p>
+        <RequirementsView entityWithRequirements={maneuver} />
       </div>
-
+      
       <div className="flex flex-row items-center gap-2">
 
         <Badge variant="secondary" className="h-9 w-10 capitalize">
@@ -144,6 +146,7 @@ function EditManeuverSheet({ isPending, formId }: { isPending: boolean, formId: 
           </div>
 
           <FormTagsInput<ManeuverDto> path='tags' />
+          <FormStringsInput<ManeuverDto> path='requirements' placeholder={displayedText.addRequirement} />
 
           <div className="grid grid-cols-2 gap-4">
 

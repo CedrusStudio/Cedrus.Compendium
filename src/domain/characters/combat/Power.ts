@@ -33,7 +33,7 @@ export const defaultSpell: Omit<Spell, "id"> =
   cost: 20,
   price: 9,
   cooldown: 1,
-  requirements: "wymagania zaklęcia",
+  requirements: [],
   tags: []
 };
 

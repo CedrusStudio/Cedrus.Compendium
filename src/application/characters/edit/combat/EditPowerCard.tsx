@@ -19,6 +19,7 @@ import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import TagsView from '@/common/components/TagsView';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
+import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
 
 type EditPowersCardProps =
 {
@@ -182,6 +183,7 @@ function EditSpellSheet({ powerIndex, spellIndex }: EditSpellSheetProps)
           </div>
 
           <FormTagsInput<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'tags')} />
+          <FormStringsInput<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'requirements')} placeholder={displayedText.addRequirement} />
 
           <div className="grid grid-cols-2 gap-4">
 
@@ -209,11 +211,6 @@ function EditSpellSheet({ powerIndex, spellIndex }: EditSpellSheetProps)
               <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'price')} inputClassName='w-11 h-10 text-center font-medium' />
             </div>
             
-          </div>
-        
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize justify-center'>{displayedText.requirements}</Label>
-            <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'requirements')} inputClassName='w-80' />
           </div>
 
         </div>
