@@ -9,8 +9,8 @@ import { getSearchQuery } from "@/common/global/httpUtils";
 import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import { createStanceKeysetQuery } from '@/infrastructure/searchQueries/stances/createStanceKeysetQuery';
-import { Stance } from '@/generated/prisma/client';
 import StancesList from '@/application/compendium/stances/StancesList';
+import { Mode } from '@/domain/characters/combat/Mode';
 
 type StancesPageProps = 
 {
@@ -25,10 +25,10 @@ export default async function StancesPage(input: StancesPageProps)
   const queryKey = createKeysetSearchStancesKey(searchQuery);
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery<Stance[]>
+  await queryClient.prefetchQuery<Mode[]>
   ({
     queryKey: queryKey,
-    queryFn: () => searchEntity<Stance>(stancesQuery),
+    queryFn: () => searchEntity<Mode>(stancesQuery),
   });
 
   return (

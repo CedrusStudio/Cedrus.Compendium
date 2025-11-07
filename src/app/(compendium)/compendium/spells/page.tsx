@@ -9,8 +9,8 @@ import { getSearchQuery } from "@/common/global/httpUtils";
 import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import { createSpellKeysetQuery } from '@/infrastructure/searchQueries/spells/createSpellKeysetQuery';
-import { Spell } from '@/generated/prisma/client';
 import SpellsList from '@/application/compendium/spells/SpellsList';
+import { Spell } from '@/domain/characters/combat/Power';
 
 type SpellsPageProps = 
 {

@@ -9,8 +9,8 @@ import { getSearchQuery } from "@/common/global/httpUtils";
 import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import { createStateKeysetQuery } from '@/infrastructure/searchQueries/states/createStateKeysetQuery';
-import { State } from '@/generated/prisma/client';
 import StatesList from '@/application/compendium/states/StatesList';
+import { Mode } from '@/domain/characters/combat/Mode';
 
 type StatesPageProps = 
 {
@@ -25,10 +25,10 @@ export default async function StatesPage(input: StatesPageProps)
   const queryKey = createKeysetSearchStatesKey(searchQuery);
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery<State[]>
+  await queryClient.prefetchQuery<Mode[]>
   ({
     queryKey: queryKey,
-    queryFn: () => searchEntity<State>(statesQuery),
+    queryFn: () => searchEntity<Mode>(statesQuery),
   });
 
   return (

@@ -9,8 +9,8 @@ import { getSearchQuery } from "@/common/global/httpUtils";
 import { searchEntity } from "@/persistence/searchEntity";
 import ItemListSkeleton from "@/common/components/skeletons/ItemListSkeleton";
 import { createPerkKeysetQuery } from '@/infrastructure/searchQueries/perks/createPerkKeysetQuery';
-import { Perk } from '@/generated/prisma/client';
 import PerksList from '@/application/compendium/perks/PerksList';
+import { Perk } from '@/domain/characters/Perk';
 
 type PerksPageProps = 
 {
