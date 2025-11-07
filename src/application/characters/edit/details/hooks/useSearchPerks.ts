@@ -15,7 +15,7 @@ type UseSearchPerksParams =
 
 type UseSearchPerksReturn = 
 {
-  perks: Perk[];
+  data: Perk[];
   isLoading: boolean;
   error: Error | null;
 };
@@ -35,7 +35,7 @@ export const useSearchPerks = ({ searchTerm, enabled = true }: UseSearchPerksPar
   });
 
   return { 
-    perks: data, 
+    data, 
     isLoading, 
     error 
   };

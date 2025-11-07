@@ -206,12 +206,29 @@ export const translations_plPL =
     no_characters_found: "nie znaleziono postaci",
     create_from_template: "stwórz na podstawie innej postaci",
 
-    import_perks: "importuj atuty",
-    select_perks_to_import: "wybierz atuty do zaimportowania",
     select_all: "zaznacz wszystkie",
     deselect_all: "odznacz wszystkie",
     import: "importuj",
+
+    import_perks: "importuj atuty",
+    select_perks_to_import: "wybierz atuty do zaimportowania",
     no_perks_found: "nie znaleziono atutów",
+
+    import_stances: "importuj postawy",
+    select_stances_to_import: "wybierz postawy do zaimportowania",
+    no_stances_found: "nie znaleziono postaw",
+
+    import_states: "importuj stany",
+    select_states_to_import: "wybierz stany do zaimportowania",
+    no_states_found: "nie znaleziono stanów",
+
+    import_maneuvers: "importuj manewry",
+    select_maneuvers_to_import: "wybierz manewry do zaimportowania",
+    no_maneuvers_found: "nie znaleziono manewrów",
+
+    import_spells: "importuj zaklęcia",
+    select_spells_to_import: "wybierz zaklęcia do zaimportowania",
+    no_spells_found: "nie znaleziono zaklęć",
 
     notFound: "nie znaleziono",
 } as const;

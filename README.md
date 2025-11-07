@@ -17,6 +17,9 @@ Bestiary + Battle + Edit Talents Table + Talents Table
         allOption={displayedText.all}
     />
 
+(when the perkable is from import it  -is readonly - before update - handle it)
+----- Comon useSearch ??
+
 ## Prioritized
 
 4. importy

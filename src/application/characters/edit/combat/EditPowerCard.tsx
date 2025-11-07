@@ -20,6 +20,8 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import TagsView from '@/common/components/TagsView';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
+import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
+import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
 
 type EditPowersCardProps =
 {
@@ -33,6 +35,27 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 {
   const { control } = useFormContext<CombatDto>();
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
+
+  const handleImportSpells = (importedSpells: Spell[]) => 
+  {
+    importedSpells.forEach(spell => 
+    {
+      appendSpell({ 
+        id: spell.id,
+        name: spell.name,
+        grade: spell.grade,
+        description: spell.description,
+        requirements: [...spell.requirements],
+        price: spell.price,
+        tags: [...spell.tags],
+
+        castTime: spell.castTime,
+        cooldown: spell.cooldown,
+
+        cost: spell.cost
+      });
+    });
+  };
 
   return (
     <Card className='bg-muted'>
@@ -75,6 +98,17 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
           <div className='flex flex-row items-center gap-3'>
             <h2 className='text-2xl font-semibold text-primary capitalize'>{displayedText.spells}</h2>
             <AppendToArrayButton append={appendSpell} isPending={isPending} toAdd={CreateDefaultSpell} />
+
+            <ImportPerkableSheet
+              importTitle={displayedText.import_maneuvers}
+              importDescription={displayedText.select_maneuvers_to_import}
+              notFoundText={displayedText.no_maneuvers_found}
+              onImport={handleImportSpells}
+              isPending={isPending}
+              currentPerkableIds={spells.map(spell => spell.id)}
+              useSearchPerkables={useSearchSpells}
+            />
+
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>

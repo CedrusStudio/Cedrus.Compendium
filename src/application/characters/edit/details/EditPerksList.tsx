@@ -15,7 +15,8 @@ import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { FormTagsInput } from "@/common/components/inputs/FormTagsInput";
 import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 import TagsView from "@/common/components/TagsView";
-import ImportPerksSheet from "@/application/characters/edit/details/ImportPerksSheet";
+import ImportPerkableSheet from "@/application/characters/edit/ImportPerkableSheet";
+import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
 
 type EditPerksListProps =
 {
@@ -58,10 +59,14 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
             toAdd={CreateDefaultPerk}
           />
 
-          <ImportPerksSheet 
-            onImportPerks={handleImportPerks}
+          <ImportPerkableSheet
+            importTitle={displayedText.import_perks}
+            importDescription={displayedText.select_perks_to_import}
+            notFoundText={displayedText.no_perks_found}
+            onImport={handleImportPerks}
             isPending={isPending}
-            currentPerkIds={perks.map(perk => perk.id)}
+            currentPerkableIds={perks.map(perk => perk.id)}
+            useSearchPerkables={useSearchPerks}
           />
         </div>
         

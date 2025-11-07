@@ -169,25 +169,29 @@ export function toCharacterCombatPersistenceModel
 (
   combat: CombatDto,
   existingStancesIds: string[],
+  stancesIdsToConnect: string[] = [],
   existingStatesIds: string[],
+  statesIdsToConnect: string[] = [],
   existingManeuversIds: string[],
-  existingSpellsIds: string[]
+  maneuversIdsToConnect: string[] = [],
+  existingSpellsIds: string[],
+  spellsIdsToConnect: string[] = []
 )
   : Prisma.CharacterUpdateInput
 {
   return {
     health: combat.health,
     defenses: combat.defenses,
-    stances: createUpsertPayload(existingStancesIds, combat.stances),
-    states: createUpsertPayload(existingStatesIds, combat.states),
-    maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers),
+    stances: createUpsertPayload(existingStancesIds, combat.stances, stancesIdsToConnect),
+    states: createUpsertPayload(existingStatesIds, combat.states, statesIdsToConnect),
+    maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers, maneuversIdsToConnect),
     offenses: combat.offenses,
     powers: combat.powers.map(power => ({
       ...power,
       spells: undefined,
       spellsIds: power.spells.map(spell => spell.id)
     })),
-    spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells)),
+    spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells), spellsIdsToConnect),
   };
 }
 

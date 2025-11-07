@@ -23,6 +23,8 @@ import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import TagsView from '@/common/components/TagsView';
 import { Separator } from '@/common/components/ui/separator';
 import FormStringsInput from '@/common/components/inputs/FormStringsInput';
+import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
+import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
 
 type EditManeuversCardProps =
 {
@@ -34,6 +36,25 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
 
+  const handleImportManeuvers = (importedManeuvers: Maneuver[]) => 
+  {
+    importedManeuvers.forEach(maneuver => 
+    {
+      append({ 
+        id: maneuver.id,
+        name: maneuver.name,
+        grade: maneuver.grade,
+        description: maneuver.description,
+        requirements: [...maneuver.requirements],
+        price: maneuver.price,
+        tags: [...maneuver.tags],
+
+        castTime: maneuver.castTime,
+        cooldown: maneuver.cooldown
+      });
+    });
+  };
+
   return (
     <Card className='bg-muted'>
 
@@ -41,6 +62,16 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
           <span className='capitalize'>{displayedText.maneuvers}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
+
+          <ImportPerkableSheet
+            importTitle={displayedText.import_maneuvers}
+            importDescription={displayedText.select_maneuvers_to_import}
+            notFoundText={displayedText.no_maneuvers_found}
+            onImport={handleImportManeuvers}
+            isPending={isPending}
+            currentPerkableIds={watchedArray.map(maneuver => maneuver.id)}
+            useSearchPerkables={useSearchManeuvers}
+          />
         </CardTitle>
       </CardHeader>
 

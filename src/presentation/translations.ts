@@ -233,12 +233,29 @@ export const displayedText =
     no_characters_found: translate("no_characters_found"),
     create_from_template: translate("create_from_template"),
 
-    import_perks: translate("import_perks"),
-    select_perks_to_import: translate("select_perks_to_import"),
     select_all: translate("select_all"),
     deselect_all: translate("deselect_all"),
     import: translate("import"),
+
+    import_perks: translate("import_perks"),
+    select_perks_to_import: translate("select_perks_to_import"),
     no_perks_found: translate("no_perks_found"),
+
+    import_stances: translate("import_stances"),
+    select_stances_to_import: translate("select_stances_to_import"),
+    no_stances_found: translate("no_stances_found"),
+
+    import_states: translate("import_states"),
+    select_states_to_import: translate("select_states_to_import"),
+    no_states_found: translate("no_states_found"),
+
+    import_maneuvers: translate("import_maneuvers"),
+    select_maneuvers_to_import: translate("select_maneuvers_to_import"),
+    no_maneuvers_found: translate("no_maneuvers_found"),
+
+    import_spells: translate("import_spells"),
+    select_spells_to_import: translate("select_spells_to_import"),
+    no_spells_found: translate("no_spells_found"),
 
     notFound: translate("notFound"),
 } as const;
