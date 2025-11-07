@@ -201,6 +201,11 @@ export const translations_plPL =
     tags: "tagi",
     tag: "tag",
 
+    select_base_character: "wybierz postać bazową",
+    select_character_to_base_new_one: "wybierz postać, na podstawie której chcesz stworzyć nową",
+    no_characters_found: "nie znaleziono postaci",
+    create_from_template: "stwórz na podstawie innej postaci",
+
     notFound: "nie znaleziono",
 } as const;
 

@@ -16,8 +16,50 @@ import { toEntity } from '@/persistence/mappings/entityMapping';
 import { SpellModel, toSpell } from '@/persistence/mappings/spellMappings';
 import { CharacterIncludeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
+import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 
 export type CharacterWithRelations = Prisma.CharacterGetPayload<{ include: CharacterIncludeAllRelations }>;
+export type CharacterWithoutRelations = Prisma.CharacterGetPayload<null>;
+
+export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCreateCharacterDto)
+  : Prisma.CharacterCreateInput
+{
+  return {
+    id: ulid(),
+    name: copyCreateCharacter.name,
+    shortName: copyCreateCharacter.shortName,
+    description: copyCreateCharacter.description,
+    tags: copyCreateCharacter.tags,
+
+    characteristics: copyCreateCharacter.characteristics,
+    attributes: copyCreateCharacter.attributes,
+    talents: copyCreateCharacter.talents,
+    health: copyCreateCharacter.health,
+    defenses: copyCreateCharacter.defenses,
+    offenses: copyCreateCharacter.offenses,
+    equipment: copyCreateCharacter.equipment,
+    powers: copyCreateCharacter.powers.map(power => ({
+      ...power,
+      spells: undefined,
+      spellsIds: power.spells.map(spell => spell.id)
+    })),
+    maneuvers: {
+      connect: copyCreateCharacter.maneuversIds.map(id => ({ id }))
+    },
+    states: {
+      connect: copyCreateCharacter.statesIds.map(id => ({ id }))
+    },
+    stances: {
+      connect: copyCreateCharacter.stancesIds.map(id => ({ id }))
+    },
+    perks: {
+      connect: copyCreateCharacter.perksIds.map(id => ({ id }))
+    },
+    spells: {
+      connect: copyCreateCharacter.spellsIds.map(id => ({ id }))
+    },
+  };
+}
 
 export function toCharacter(characterPersistenceModel: CharacterWithRelations): Character
 {

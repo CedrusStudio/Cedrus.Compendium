@@ -200,6 +200,11 @@ export const translations_deDE =
     requirements: "anforderungen",    
     tags: "schlagwörter",
     tag: "schlagwort",
+
+    select_base_character: "basischarakter auswählen",
+    select_character_to_base_new_one: "wählen Sie einen Charakter aus, auf dem Sie einen neuen basieren möchten",
+    no_characters_found: "keine Charaktere gefunden",
+    create_from_template: "aus anderem Charakter erstellen",
     
     notFound: "nicht gefunden",
 } as const;

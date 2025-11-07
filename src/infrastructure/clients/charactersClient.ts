@@ -3,6 +3,7 @@ import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema'
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
+import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 import client from '@/infrastructure/clients/baseClient';
 
 const characterPathSegment = '/characters';
@@ -13,6 +14,11 @@ const charactersClient =
     add: async (characterHeader: HeaderDto): Promise<string> =>
     {
         const response = await client.post(characterPathSegment, characterHeader);
+        return response.data;
+    },
+    copyCreate: async (copyCreateData: CopyCreateCharacterDto): Promise<string> =>
+    {
+        const response = await client.post(`${characterPathSegment}/copy`, copyCreateData);
         return response.data;
     },
     delete: async (id: string) : Promise<void> =>
