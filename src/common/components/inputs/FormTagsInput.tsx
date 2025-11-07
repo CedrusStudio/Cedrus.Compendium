@@ -110,24 +110,24 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
                 { validationError && <p className="text-sm font-medium text-destructive flex place-content-center">{validationError}</p> }
 
                 {
-                    tags.length > 0 && (
-                        <div className="flex flex-wrap items-center justify-center gap-2">
-                        {
-                            tags.map((tag) => (
-                                <Badge key={tag} variant="secondary" className="flex items-center gap-1">
-                                    <button
-                                        type="button"
-                                        onClick={() => handleRemoveTag(tag)}
-                                        className="hover:text-destructive"
-                                        aria-label={`Remove ${tag}`}
-                                    >
-                                    {tag}
-                                    </button>
-                                </Badge>
-                            ))
-                        }
-                        </div>
-                    )
+                  tags.length > 0 && (
+                    <div className="flex flex-wrap items-center justify-center gap-2">
+                    {
+                      tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="flex items-center gap-1">
+                            <button
+                                type="button"
+                                onClick={() => handleRemoveTag(tag)}
+                                className="hover:text-destructive"
+                                aria-label={`Remove ${tag}`}
+                            >
+                            {tag}
+                            </button>
+                        </Badge>
+                      ))
+                    }
+                    </div>
+                  )
                 }
               </div>
             </FormControl>

@@ -19,7 +19,6 @@ Bestiary + Battle + Edit Talents Table + Talents Table
 
 ## Prioritized
 
-1. Dodac kategorie do manewrów/postaw/stanów/zaklęć/atuty/postacie -> lista stringów
 2. Dodac wymagania do manewrów/postaw/stanów/zaklęć/atuty -> lista stringów
 
 4. importy

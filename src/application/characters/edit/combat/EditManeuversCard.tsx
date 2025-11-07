@@ -22,6 +22,7 @@ import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import TagsView from '@/common/components/TagsView';
 import { Separator } from '@/common/components/ui/separator';
+import FormStringsInput from '@/common/components/inputs/FormStringsInput';
 
 type EditManeuversCardProps =
 {
@@ -132,6 +133,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
           </div>
           
           <FormTagsInput<CombatDto> path={pathToManeuverField(index, 'tags')} />
+          <FormStringsInput<CombatDto> path={pathToManeuverField(index, 'requirements')} placeholder={displayedText.addRequirement} />
 
           <div className="grid grid-cols-2 gap-4">
 
@@ -144,11 +146,6 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
               <Label className='justify-center capitalize'>{displayedText.price}</Label>
               <InputFormField<CombatDto> path={pathToManeuverField(index, 'price')} inputClassName='w-11 h-10 text-center font-medium'  />
             </div>
-          </div>
-
-          <div className="flex flex-col gap-3 px-4 pb-4">
-            <Label className='justify-center capitalize'>{displayedText.requirements}</Label>
-            <InputFormField<CombatDto> path={pathToManeuverField(index, 'requirements')} inputClassName='h-10 text-center font-medium' />
           </div>
   
           <div className="flex flex-col items-center gap-3 px-4">

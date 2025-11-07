@@ -12,6 +12,9 @@ import { Label } from "@/common/components/ui/label";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
+import { FormTagsInput } from "@/common/components/inputs/FormTagsInput";
+import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
+import TagsView from "@/common/components/TagsView";
 
 type EditPerksListProps =
 {
@@ -28,7 +31,7 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
       <div className="flex flex-row justify-center items-center gap-4">
 
         <h3 className="text-lg font-semibold text-primary capitalize">
-        {displayedText.perks}
+          {displayedText.perks}
         </h3>
 
         <AppendToArrayButton<DetailsDto, "perks"> 
@@ -64,7 +67,7 @@ function EditPerkView({ perk, index, remove }: EditPerkViewProps)
   return (
     <Item variant="muted">
       <ItemContent>
-        <ItemTitle>{perk.name} {perk.grade}</ItemTitle>
+        <ItemTitle>{perk.name} {perk.grade} <TagsView tags={perk.tags} /></ItemTitle>
         <ItemDescription>
             {perk.description}
         </ItemDescription>
@@ -122,6 +125,9 @@ function EditPerkSheet({ index }: EditPerkSheetProps)
             <Label className='capitalize'>{displayedText.description}</Label>
             <InputFormField<DetailsDto> path={pathToPerkField(index, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
+
+          <FormTagsInput<DetailsDto> path={pathToPerkField(index, 'tags')} />
+          <FormStringsInput<DetailsDto> path={pathToPerkField(index, 'requirements')} placeholder={displayedText.addRequirement} />
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className='justify-center capitalize'>{displayedText.price}</Label>

@@ -9,7 +9,7 @@ export const defaultStance: Omit<Mode, "id"> =
   name: 'Postawa',
   description: 'Opis postawy',
   grade: 1,
-  requirements: 'Brak',
+  requirements: [],
   price: 0,
   tags: []
 };
@@ -19,10 +19,12 @@ export const defaultState: Omit<Mode, "id"> =
   name: 'Stan',
   description: 'Opis stanu',
   grade: 1,
-  requirements: 'Brak',
+  requirements: [],
   price: 0,
   tags: []
 };
 
 export const CreateDefaultStance = (): Mode => ({...defaultStance, id: ulid()});
 export const CreateDefaultState = (): Mode => ({...defaultState, id: ulid()});
+
+export const pathToModeField = <K extends keyof Mode>(index: number, modeType: ModesType, field: K): `${ModesType}.${number}.${K}` => `${modeType}.${index}.${field}`;

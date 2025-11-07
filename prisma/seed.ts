@@ -10,7 +10,8 @@ const igarStances =
     grade: 3,
     description: "Zwiększa pancerz o 4 i redukuje obrażenia o 3.",
     price: 2,
-    requirements: "Blokowanie 1.",
+    requirements: [],
+    tags: []
   },
   {
     id: '01K7445QFVSXXW7QR4VJFM2G9F',
@@ -18,7 +19,8 @@ const igarStances =
     grade: 2,
     description: "Zwiększa fechtunek o 2.",
     price: 1,
-    requirements: "Fechtunek 2.",
+    requirements: ["Fechtunek 2."],
+    tags: []
   }
 ];
 
@@ -30,7 +32,8 @@ const igarStates =
     grade: 1,
     description: "Dodaje 3 siły i 3 kondycji.",
     price: 2,
-    requirements: "Siła 3, Kondycja 3."
+    requirements: ["Siła 3", "Kondycja 3"],
+    tags: []
   }
 ];
 
@@ -47,7 +50,8 @@ const igarArmors =
     reflexRestriction: 0,
     initiativeRestriction: 0,
     attributePenalty: 0,
-    strengthRequirement: 0
+    strengthRequirement: 0,
+    tags: []
   },
   {
     id: '01K7446JMED4FDXT8P2HJN24R7',
@@ -60,7 +64,8 @@ const igarArmors =
     reflexRestriction: 0,
     initiativeRestriction: 0,
     attributePenalty: 0,
-    strengthRequirement: 0
+    strengthRequirement: 0,
+    tags: []
   }
 ];
 
@@ -76,7 +81,8 @@ const igarShields =
     reflexRestriction: 0,
     initiativeRestriction: 0,
     attributePenalty: 0,
-    strengthRequirement: 0
+    strengthRequirement: 0,
+    tags: []
   },
   {
     id: '01K74472BA6RE2ZQPW7DW3YB59',
@@ -88,7 +94,8 @@ const igarShields =
     reflexRestriction: 0,
     initiativeRestriction: 0,
     attributePenalty: 0,
-    strengthRequirement: 0
+    strengthRequirement: 0,
+    tags: []
   }
 ];
 
@@ -114,7 +121,8 @@ const igarWeapons =
       grade: 3,
       bonus: 5
     },
-    range: 1
+    range: 1,
+    tags: []
   },
   {
     id: '01K7447J0QZAS6DC6200B6ZT8J',
@@ -135,7 +143,8 @@ const igarWeapons =
       grade: 2,
       bonus: 0
     },
-    range: 5
+    range: 5,
+    tags: []
   },
   {
     id: '01K7447RTBKVXSATM8SSG08G9F',
@@ -156,7 +165,8 @@ const igarWeapons =
       grade: 4,
       bonus: 2
     },
-    range: 10
+    range: 10,
+    tags: []
   }
 ];
 
@@ -166,11 +176,13 @@ const igarInventory =
     id: '01K7447ZQHM520R1MJX74J0FZ9',
     name: "Pierścień mocy",
     description: "Magiczny pierścień który zwiększa siłę użytkownika.",
+    tags: []
   },
   {
     id: '01K74488VYD3MCD6MYV6FEQY0B',
     name: "Amulet mądrości",
-    description: "Amulet który zwiększa intelekt użytkownika."
+    description: "Amulet który zwiększa intelekt użytkownika.",
+    tags: []
   }
 ];
 
@@ -183,7 +195,8 @@ const igarMounts =
     canterSpeed: 6,
     gallopSpeed: 12,
     paceSpeed: 3,
-    horsemanshipBonus: 2
+    horsemanshipBonus: 2,
+    tags: []
   }
 ];
 
@@ -198,7 +211,8 @@ const igarAllSpells =
     castTime: "Standardowa",
     cooldown: 1,
     price: 2,
-    requirements: "Czarokrwistość 2.",
+    requirements: ["Czarokrwistość 2."],
+    tags: []
   },
   {
     id: '01K7PXV3A6VHQR0J17SV42SC6V',
@@ -209,7 +223,8 @@ const igarAllSpells =
     castTime: "Standardowa",
     cooldown: 3,
     price: 4,
-    requirements: "Czarokrwistość 2.",
+    requirements: ["Czarokrwistość 2."],
+    tags: []
   },
   {
     id: '01K7PXXAFBE3FNS370D2SACZ3F',
@@ -220,7 +235,8 @@ const igarAllSpells =
     castTime: "Natychmiastowa",
     cooldown: 1,
     price: 2,
-    requirements: "Czarokrwistość 4.",
+    requirements: ["Czarokrwistość 4."],
+    tags: []
   },
   {
     id: '01K7PXXE59XP9PD2S4EKGWPCS2',
@@ -231,7 +247,8 @@ const igarAllSpells =
     castTime: "Standardowa",
     cooldown: 3,
     price: 4,
-    requirements: "Czarokrwistość 2.",
+    requirements: ["Czarokrwistość 2."],
+    tags: []
   }
 ]
 
@@ -275,7 +292,8 @@ const igarManeuvers =
     cooldown: 1,
     castTime: "Standardowa",
     price: 2,
-    requirements: "Siła 3."
+    requirements: ["Siła 3."],
+    tags: []
   },
   {
     id: '01K74494WXSM8H9HCB0S5DZ812',
@@ -285,7 +303,8 @@ const igarManeuvers =
     cooldown: 1,
     castTime: "Natychmiastowa",
     price: 1,
-    requirements: "Zręczność 2."
+    requirements: ["Zręczność 2."],
+    tags: []
   },
   {
     id: '01K7449C9HW968KT4AAEF9NJD6',
@@ -295,7 +314,8 @@ const igarManeuvers =
     cooldown: 1,
     castTime: "Standardowa",
     price: 2,
-    requirements: "Fechtunek 3."
+    requirements: ["Fechtunek 3."],
+    tags: []
   },
   {
     id: '01K7449MEABF3JMDTHMGY8JZK1',
@@ -305,7 +325,8 @@ const igarManeuvers =
     cooldown: undefined,
     castTime: "Standardowa",
     price: 1,
-    requirements: "Zręczność 3."
+    requirements: ["Zręczność 3."],
+    tags: []
   },
   {
     id: '01K7449WNVWTCG7HG81Q6VHVRH',
@@ -315,7 +336,8 @@ const igarManeuvers =
     cooldown: 1,
     castTime: "Nadnatychmiastowa",
     price: 2,
-    requirements: "Zręczność 4."
+    requirements: ["Zręczność 4."],
+    tags: []
   },
   {
     id: '01K744A431BWP2P047GKCCQ04Z',
@@ -325,7 +347,8 @@ const igarManeuvers =
     cooldown: 3,
     castTime: "Standardowa",
     price: 1,
-    requirements: "Blokowanie 1."
+    requirements: ["Blokowanie 1."],
+    tags: []
   },
   {
     id: '01K744ACFM6GMECG1CA36W2WCB',
@@ -335,7 +358,8 @@ const igarManeuvers =
     cooldown: 4,
     castTime: "Standardowa",
     price: 2,
-    requirements: "Fechtunek 4."
+    requirements: ["Fechtunek 4."],
+    tags: []
   },
   {
     id: '01K744AKB7F7NAR6E4EZM4ND29',
@@ -345,7 +369,8 @@ const igarManeuvers =
     cooldown: 3,
     castTime: "Pełnorundowa",
     price: 3,
-    requirements: "Fechtunek 5, Siła 4."
+    requirements: ["Fechtunek 5.", "Siła 4."],
+    tags: []
   },
   { 
     id: '01K744ASTGM6HM5XP0RJSS73BE',
@@ -355,7 +380,8 @@ const igarManeuvers =
     cooldown: 1,
     castTime: "Standardowa",
     price: 1,
-    requirements: "Fortel 5, Szybki Cios 3."
+    requirements: ["Fortel 5.", "Szybki Cios 3."],
+    tags: []
   },
   {
     id: '01K744B0NR4015W4HHJF459RA2',
@@ -365,7 +391,8 @@ const igarManeuvers =
     cooldown: 6,
     castTime: "Standardowa",
     price: 3,
-    requirements: "Fechtunek 4, Siła 3."
+    requirements: ["Fechtunek 4.", "Siła 3."],
+    tags: []
   },
   {
     id: '01K744B6AGRV911646MSVPPV42',
@@ -375,7 +402,8 @@ const igarManeuvers =
     cooldown: undefined,
     castTime: "Standardowa",
     price: 2,
-    requirements: "Skradanie 4, Zręczność 4."
+    requirements: ["Skradanie 4.", "Zręczność 4."],
+    tags: []
   }
 ];
 
@@ -386,32 +414,36 @@ const igarPerks =
     name: "Nieustraszony",
     description: "Odporność na strach i efekty zastraszania.",
     price: 3,
-    requirements: "Charyzma 3, Siła Woli 3.",
-    grade: 2
+    grade: 2,
+    requirements: ["Charyzma 3.", "Siła Woli 3."],
+    tags: []
   },
   {
     id: '01K7QBQD019HCMK48X7VCVEAXS',
     name: "Mocarność",
     description: "Dodaje 2 do twardości.",
     price: 6,
-    requirements: "Budowa 3.",
-    grade: 3
+    grade: 3,
+    requirements: ["Budowa 3."],
+    tags: []
   },
   {
     id: '01K7QBREAHB6NTEC55DPHV55PV',
     name: "Szybka regeneracja",
     description: "Regeneruje dodatkowe 2 punkty życia na rundę.",
     price: 4,
-    requirements: "Budowa 4.",
-    grade: 2
+    grade: 2,
+    requirements: ["Budowa 4."],
+    tags: []
   },
   {
     id: '01K7QBRQXNT0T64NF434PK32N0',
     name: "Zadziorność",
     description: "Zwiększa szansę na krytyczny hit o 5%.",
     price: 5,
-    requirements: "Zręczność 4.",
-    grade: 2
+    grade: 2,
+    requirements: ["Zręczność 4."],
+    tags: []
   }
 ];
 
@@ -420,7 +452,7 @@ export const igar =
   id: "01K79QFH0ZD99MSBV4ACKFBZYN",
   shortName: "Igar",
   name: "Igar Potworobójca",
-  category: "bohater",
+  tags: ["bohater", "waleczny", "denerwujacy"],
   description: "Igar Potworobójca bohater wielu opowieści, znany z niezwykłej odwagi i siły. Jego przygody są legendą wśród mieszkańców krainy. Poza tym zawsze szuka zaczepki, chociaż może nawet nie jest tego świadom.",
   characteristics: 
   {

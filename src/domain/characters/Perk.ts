@@ -6,7 +6,7 @@ export type Perk = Entity &
 {
   grade: number;
   description: string;
-  requirements?: string;
+  requirements: string[];
   price: number;
   tags: Tag[];
 };
@@ -18,7 +18,7 @@ export const defaultPerk: Omit<Perk, "id"> =
   name: "Perk",
   description: "Opis perku",
   grade: 1,
-  requirements: "Wymagania",
+  requirements: [],
   price: 1,
   tags: []
 };
