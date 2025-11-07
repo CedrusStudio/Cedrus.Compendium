@@ -206,6 +206,13 @@ export const translations_plPL =
     no_characters_found: "nie znaleziono postaci",
     create_from_template: "stwórz na podstawie innej postaci",
 
+    import_perks: "importuj atuty",
+    select_perks_to_import: "wybierz atuty do zaimportowania",
+    select_all: "zaznacz wszystkie",
+    deselect_all: "odznacz wszystkie",
+    import: "importuj",
+    no_perks_found: "nie znaleziono atutów",
+
     notFound: "nie znaleziono",
 } as const;
 

@@ -15,6 +15,7 @@ import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { FormTagsInput } from "@/common/components/inputs/FormTagsInput";
 import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 import TagsView from "@/common/components/TagsView";
+import ImportPerksSheet from "@/application/characters/edit/details/ImportPerksSheet";
 
 type EditPerksListProps =
 {
@@ -26,6 +27,22 @@ type EditPerksListProps =
 
 export default function EditPerksList({ isPending, perks, append, remove }: EditPerksListProps)
 {
+  const handleImportPerks = (importedPerks: Perk[]) => 
+  {
+    importedPerks.forEach(perk => 
+    {
+      append({ 
+        id: perk.id,
+        name: perk.name,
+        grade: perk.grade,
+        description: perk.description,
+        requirements: [...perk.requirements],
+        price: perk.price,
+        tags: [...perk.tags]
+      });
+    });
+  };
+
   return (
     <>
       <div className="flex flex-row justify-center items-center gap-4">
@@ -34,11 +51,19 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
           {displayedText.perks}
         </h3>
 
-        <AppendToArrayButton<DetailsDto, "perks"> 
-          isPending={isPending}
-          append={append}
-          toAdd={CreateDefaultPerk}
-        />
+        <div className="flex gap-2">
+          <AppendToArrayButton<DetailsDto, "perks"> 
+            isPending={isPending}
+            append={append}
+            toAdd={CreateDefaultPerk}
+          />
+
+          <ImportPerksSheet 
+            onImportPerks={handleImportPerks}
+            isPending={isPending}
+            currentPerkIds={perks.map(perk => perk.id)}
+          />
+        </div>
         
       </div>
 

@@ -148,7 +148,12 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
   };
 }
 
-export function toCharacterDetailsPersistenceModel(details: DetailsDto, existingPerkIds: string[])
+export function toCharacterDetailsPersistenceModel
+(
+  details: DetailsDto, 
+  existingOnCharacterPerkIds: string[],
+  idsToConnect: string[] = []
+)
   : Prisma.CharacterUpdateInput
 {
   return {
@@ -156,7 +161,7 @@ export function toCharacterDetailsPersistenceModel(details: DetailsDto, existing
     shortName: details.shortName,
     description: details.description,
     tags: details.tags,
-    perks: createUpsertPayload(existingPerkIds, details.perks)
+    perks: createUpsertPayload(existingOnCharacterPerkIds, details.perks, idsToConnect)
   };
 }
 

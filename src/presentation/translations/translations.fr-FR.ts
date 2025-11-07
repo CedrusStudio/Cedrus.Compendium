@@ -206,5 +206,12 @@ export const translations_frFR =
     no_characters_found: "aucun personnage trouvé",
     create_from_template: "créer à partir d'un autre personnage",
 
+    import_perks: "importer des avantages",
+    select_perks_to_import: "sélectionnez les avantages à importer",
+    select_all: "tout sélectionner",
+    deselect_all: "tout désélectionner",
+    import: "importer",
+    no_perks_found: "aucun avantage trouvé",
+
     notFound: "non trouvé",
 } as const;

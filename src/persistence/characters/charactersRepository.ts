@@ -91,15 +91,31 @@ export async function updateCharacterEquipment(id: string, characterEquipment: E
 export async function updateCharacterDetails(id: string, characterDetails: DetailsDto)
   : Promise<boolean>
 {
-  const existingPerkIdsResponse = await prisma.character.findUnique
+  const existingOnCharacterPerkIdsResponse = await prisma.character.findUnique
   ({ 
     where: { id },
     select: { perksIds: true }
   });
 
+  if (!existingOnCharacterPerkIdsResponse) return false;
+
+  const existingPerkIdsResponse = await prisma.perk.findMany
+  ({ 
+    where: { id: {
+      in: characterDetails.perks.map(perk => perk.id).filter(id => !existingOnCharacterPerkIdsResponse.perksIds.includes(id))
+    } },
+    select: { id: true }
+  });
+
   if (!existingPerkIdsResponse) return false;
 
-  const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel(characterDetails, existingPerkIdsResponse.perksIds);
+  const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel
+  (
+    characterDetails, 
+    existingOnCharacterPerkIdsResponse.perksIds,
+    existingPerkIdsResponse.map(perk => perk.id)
+  );
+  
   const updatedCharacter = await prisma.character.update
   ({
     where: { id },

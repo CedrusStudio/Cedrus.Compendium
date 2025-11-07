@@ -233,5 +233,12 @@ export const displayedText =
     no_characters_found: translate("no_characters_found"),
     create_from_template: translate("create_from_template"),
 
+    import_perks: translate("import_perks"),
+    select_perks_to_import: translate("select_perks_to_import"),
+    select_all: translate("select_all"),
+    deselect_all: translate("deselect_all"),
+    import: translate("import"),
+    no_perks_found: translate("no_perks_found"),
+
     notFound: translate("notFound"),
 } as const;

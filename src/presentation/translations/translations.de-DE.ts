@@ -206,5 +206,12 @@ export const translations_deDE =
     no_characters_found: "keine Charaktere gefunden",
     create_from_template: "aus anderem Charakter erstellen",
     
+    import_perks: "vorteile importieren",
+    select_perks_to_import: "wählen Sie vorteile zum importieren",
+    select_all: "alle auswählen",
+    deselect_all: "alle abwählen",
+    import: "importieren",
+    no_perks_found: "keine vorteile gefunden",
+    
     notFound: "nicht gefunden",
 } as const;
