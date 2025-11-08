@@ -13,16 +13,16 @@ export default function SelectableItemWrapper({ isSelected, onToggle, children }
 {
   return (
     <div 
-      className={`relative cursor-pointer transition-colors border rounded-md ${
+      className={`relative cursor-pointer transition-colors rounded-md ${
         isSelected ? 'border-primary bg-primary/10' : 'hover:bg-muted/50'
       }`}
       onClick={onToggle}
     >
-      <div className="absolute top-2 left-2 z-10">
+      <div className="absolute top-7 left-3">
         <Checkbox 
           checked={isSelected}
           onCheckedChange={onToggle}
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
         />
       </div>
       <div className="pl-10">
