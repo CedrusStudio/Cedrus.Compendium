@@ -23,8 +23,7 @@ import { CreateDefaultShield } from '@/domain/characters/equipment/Shield';
 import { CreateDefaultInventoryItem } from '@/domain/characters/equipment/Item';
 import { CreateDefaultMount } from '@/domain/characters/equipment/Mount';
 import { displayedText } from '@/presentation/translations';
-
-const equipmentFormName = "edit-equipment-form";
+import { FORM_IDS, createCharacterCacheKeys } from '@/application/characters/edit/editFormConstants';
 
 export default function EditEquipmentView(input: { character: Character })
 {
@@ -47,14 +46,14 @@ export default function EditEquipmentView(input: { character: Character })
   (
     async (characterEquipment: EquipmentDto) => await client.updateEquipment(id, characterEquipment),
     {
-      invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
+      invalidateOnSuccess: createCharacterCacheKeys(id),
       toastPosition: "bottom-left",
     }
   );
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} id={equipmentFormName} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} id={FORM_IDS.EQUIPMENT} className="space-y-8">
 
         <Accordion type="single" collapsible className='w-90 sm:w-160 lg:w-full'>
 

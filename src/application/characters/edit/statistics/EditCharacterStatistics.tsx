@@ -9,6 +9,7 @@ import EditStatisticsCard from "@/application/characters/edit/statistics/EditSta
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/charactersClient";
+import { createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
 
 export default function EditCharacterStatistics(input: { character: Character })
 {
@@ -31,7 +32,7 @@ export default function EditCharacterStatistics(input: { character: Character })
   (
     async (characterStatistics: StatisticsDto) => await client.updateStatistics(id, characterStatistics),
     {
-      invalidateOnSuccess: ['characters', `characters/${id}`]
+      invalidateOnSuccess: createCharacterCacheKeys(id)
     }
   );
 

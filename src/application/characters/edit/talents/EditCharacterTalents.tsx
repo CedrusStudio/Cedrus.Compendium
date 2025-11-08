@@ -10,6 +10,7 @@ import { EditTalentsTable } from "@/application/characters/edit/talents/EditTale
 import { Character } from "@/domain/characters/Character";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/charactersClient";
+import { createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
 
 export default function EditCharacterTalents(input: { character: Character })
 {
@@ -31,7 +32,7 @@ export default function EditCharacterTalents(input: { character: Character })
   (
     async (characterTalents: TalentsDto) => await client.updateTalents(id, characterTalents),
     {
-      invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`]
+      invalidateOnSuccess: createCharacterCacheKeys(id)
     }
   );
 

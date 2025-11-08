@@ -21,13 +21,12 @@ import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
 import { displayedText } from "@/presentation/translations";
 import { CreateDefaultPower } from "@/domain/characters/combat/Power";
+import { FORM_IDS, createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
 
 type EditCharacterCombatProps =
 {
   character: Character;
 }
-
-const combatFormName = "edit-combat-form";
 
 export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
@@ -55,7 +54,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
   (
     async (characterCombat: CombatDto) => await client.updateCombat(id, characterCombat),
     {
-      invalidateOnSuccess: ['characters', `characters/${id}`, `characters/${id}/edit`],
+      invalidateOnSuccess: createCharacterCacheKeys(id),
       toastPosition: "bottom-left",
     }
   );
@@ -80,7 +79,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3" id={combatFormName}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3" id={FORM_IDS.COMBAT}>
 
         <div className="lg:col-span-2">
           <EditHealthCard health={character.health} />
