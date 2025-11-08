@@ -13,11 +13,15 @@ import { useSearchStates } from '@/application/characters/edit/combat/hooks/useS
 import StateView from "@/application/compendium/states/StateView";
 import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
-export default function EditStatesCard() 
+type EditStatesCardProps = 
+{
+  isPending: boolean;
+}
+
+export default function EditStatesCard({ isPending }: EditStatesCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("states", control);
-  const isPending = false;
 
   const handleImportStates = (importedStates: Mode[]) => 
   {

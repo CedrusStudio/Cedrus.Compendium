@@ -28,11 +28,15 @@ import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/u
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
-export default function EditManeuversCard() 
+type EditManeuversCardProps = 
+{
+  isPending: boolean;
+}
+
+export default function EditManeuversCard({ isPending }: EditManeuversCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
-  const isPending = false;
 
   const handleImportManeuvers = (importedManeuvers: Maneuver[]) => 
   {

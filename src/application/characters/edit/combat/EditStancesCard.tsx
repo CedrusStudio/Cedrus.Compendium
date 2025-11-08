@@ -13,11 +13,15 @@ import { useSearchStances } from '@/application/characters/edit/combat/hooks/use
 import StanceView from "@/application/compendium/stances/StanceView";
 import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
-export default function EditStancesCard() 
+type EditStancesCardProps = 
+{
+  isPending: boolean;
+}
+
+export default function EditStancesCard({ isPending }: EditStancesCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
-  const isPending = false;
 
   const handleImportStances = (importedStances: Mode[]) => 
   {
