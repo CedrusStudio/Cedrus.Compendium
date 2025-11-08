@@ -2,39 +2,27 @@
 
 import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { statisticsSchema, type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import EditStatisticsCard from "@/application/characters/edit/statistics/EditStatisticsCard";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/charactersClient";
-import { createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
+import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
 
 export default function EditCharacterStatistics(input: { character: Character })
 {
-  const initialValues: StatisticsDto =
-  {
-    characteristics: input.character.characteristics,
-    attributes: input.character.attributes,
-  };
-
-  const form = useForm<StatisticsDto>
-  ({
-    resolver: zodResolver(statisticsSchema),
-    defaultValues: initialValues,
-  })
-
   const { character } = input;
-  const id = character.id;
 
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (characterStatistics: StatisticsDto) => await client.updateStatistics(id, characterStatistics),
+  const { form, handleSubmit, isPending } = useCharacterForm<StatisticsDto>
+  ({
+    characterId: character.id,
+    schema: statisticsSchema,
+    defaultValues: 
     {
-      invalidateOnSuccess: createCharacterCacheKeys(id)
-    }
-  );
+      characteristics: character.characteristics,
+      attributes: character.attributes,
+    },
+    updateFn: client.updateStatistics,
+  });
 
   return (
     <Form {...form}>

@@ -5,7 +5,6 @@ import { modesSchema } from "@/persistence/schemas/characters/combat/modeSchema"
 import { maneuversSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
 import { offenseSchema } from "@/persistence/schemas/characters/combat/offenseSchema";
 import { powersSchema } from "@/persistence/schemas/characters/combat/powerSchema";
-import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 
 export const combatSchema = z.object
 ({
@@ -15,8 +14,7 @@ export const combatSchema = z.object
   states: modesSchema,
   maneuvers: maneuversSchema,
   offenses: z.array(offenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów ataku." }),
-  powers: powersSchema,
-  perks: z.array(perkSchema).max(300, { message: "Możesz mieć najwyżej 300 perków." })
+  powers: powersSchema
 });
 
 export type CombatDto = z.infer<typeof combatSchema>;
