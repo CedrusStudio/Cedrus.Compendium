@@ -9,18 +9,17 @@ import EditManeuversCard from "@/application/characters/edit/combat/EditManeuver
 import EditPowerCard from "@/application/characters/edit/combat/EditPowerCard";
 import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
 import { combatSchema, type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/charactersClient";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
 import { displayedText } from "@/presentation/translations";
 import { CreateDefaultPower } from "@/domain/characters/combat/Power";
-import { FORM_IDS, createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
+import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 import EditArraySection from "@/common/components/form/EditArraySection";
+import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
 
 type EditCharacterCombatProps =
 {
@@ -29,38 +28,28 @@ type EditCharacterCombatProps =
 
 export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
-  const initialValues: CombatDto = 
-  {
-    defenses: character.defenses,
-    health: character.health,
-    stances: character.stances,
-    states: character.states,
-    maneuvers: character.maneuvers,
-    offenses: character.offenses,
-    powers: character.powers,
-    perks: character.perks
-  };
-
-  const form = useForm<CombatDto>
+  const { form, handleSubmit, isPending, formId } = useCharacterForm<CombatDto>
   ({
-    resolver: zodResolver(combatSchema),
-    defaultValues: initialValues,
-    mode: "onBlur",
-  });
-
-  const id = character.id;
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (characterCombat: CombatDto) => await client.updateCombat(id, characterCombat),
+    characterId: character.id,
+    schema: combatSchema,
+    defaultValues: 
     {
-      invalidateOnSuccess: createCharacterCacheKeys(id),
-      toastPosition: "bottom-left",
-    }
-  );
+      defenses: character.defenses,
+      health: character.health,
+      stances: character.stances,
+      states: character.states,
+      maneuvers: character.maneuvers,
+      offenses: character.offenses,
+      powers: character.powers
+    },
+    updateFn: client.updateCombat,
+    formId: FORM_IDS.COMBAT,
+    toastPosition: "bottom-left",
+  });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3" id={FORM_IDS.COMBAT}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3" id={formId}>
 
         <div className="lg:col-span-2">
           <EditHealthCard health={character.health} />

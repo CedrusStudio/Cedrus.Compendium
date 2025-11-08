@@ -3,10 +3,7 @@
 import { Character } from '@/domain/characters/Character';
 import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from 'react-hook-form';
 import { equipmentSchema, type EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
-import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
 import EditWeaponView from '@/application/characters/edit/equipment/EditWeaponView';
 import EditArmorView from '@/application/characters/edit/equipment/EditArmorView';
@@ -23,15 +20,20 @@ import { CreateDefaultShield } from '@/domain/characters/equipment/Shield';
 import { CreateDefaultInventoryItem } from '@/domain/characters/equipment/Item';
 import { CreateDefaultMount } from '@/domain/characters/equipment/Mount';
 import { displayedText } from '@/presentation/translations';
-import { FORM_IDS, createCharacterCacheKeys } from '@/application/characters/edit/editFormConstants';
+import { FORM_IDS } from '@/application/characters/edit/editFormConstants';
+import { useCharacterForm } from '@/application/characters/edit/hooks/useCharacterForm';
 
 export default function EditEquipmentView(input: { character: Character })
 {
-  const initialValues: EquipmentDto = input.character.equipment;
-  const form = useForm<EquipmentDto>
+  const { character } = input;
+
+  const { form, handleSubmit, isPending, formId } = useCharacterForm<EquipmentDto>
   ({
-    resolver: zodResolver(equipmentSchema),
-    defaultValues: initialValues,
+    characterId: character.id,
+    schema: equipmentSchema,
+    defaultValues: character.equipment,
+    updateFn: client.updateEquipment,
+    formId: FORM_IDS.EQUIPMENT,
   });
 
   const { watchedArray: weapons, append: appendWeapon } = useWatchedFormArray("weapons", form.control);
@@ -40,20 +42,9 @@ export default function EditEquipmentView(input: { character: Character })
   const { watchedArray: inventory, append: appendInventory } = useWatchedFormArray("inventory", form.control);
   const { watchedArray: mounts, append: appendMount } = useWatchedFormArray("mounts", form.control);
 
-  const id = input.character.id;
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (characterEquipment: EquipmentDto) => await client.updateEquipment(id, characterEquipment),
-    {
-      invalidateOnSuccess: createCharacterCacheKeys(id),
-      toastPosition: "bottom-left",
-    }
-  );
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} id={FORM_IDS.EQUIPMENT} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} id={formId} className="space-y-8">
 
         <Accordion type="single" collapsible className='w-90 sm:w-160 lg:w-full'>
 
