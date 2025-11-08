@@ -105,7 +105,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   const allSelected = filteredItems.length > 0 && selectedItemsIds.size === filteredItems.length;
   const visibleSelectedCount = filteredItems.filter(p => selectedItemsIds.has(p.id)).length;
   const hiddenSelectedCount = selectedCount - visibleSelectedCount;
-  const gridColsClass = `grid-cols-${gridColumns}`;
+  const gridColsClass = `grid-cols-1 lg:grid-cols-${gridColumns}`;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
