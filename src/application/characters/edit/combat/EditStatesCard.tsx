@@ -8,7 +8,7 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
-import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
+import ImportItemsSheet from '@/application/characters/edit/ImportItemSheet';
 import { useSearchStates } from '@/application/characters/edit/combat/hooks/useSearchStates';
 import StateView from "@/application/compendium/states/StateView";
 import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
@@ -56,14 +56,14 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
           <span>{displayedText.states}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultState} />
 
-          <ImportPerkableSheet
+          <ImportItemsSheet
             importTitle={displayedText.import_states}
             importDescription={displayedText.select_states_to_import}
             notFoundText={displayedText.no_states_found}
             onImport={handleImportStates}
             isPending={isPending}
-            currentPerkableIds={watchedArray.map(state => state.id)}
-            useSearchPerkables={useSearchStates}
+            currentItemsIds={watchedArray.map(state => state.id)}
+            useSearchItems={useSearchStates}
             renderItem={renderStateItem}
           />
         </CardTitle>

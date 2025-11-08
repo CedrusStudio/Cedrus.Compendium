@@ -236,6 +236,7 @@ export const displayedText =
     select_all: translate("select_all"),
     deselect_all: translate("deselect_all"),
     import: translate("import"),
+    selected_items_hidden_by_filter: translate("selected_items_hidden_by_filter"),
 
     import_perks: translate("import_perks"),
     select_perks_to_import: translate("select_perks_to_import"),

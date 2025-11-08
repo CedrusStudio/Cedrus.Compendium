@@ -8,7 +8,7 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 import { CreateDefaultStance, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
-import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
+import ImportItemsSheet from '@/application/characters/edit/ImportItemSheet';
 import { useSearchStances } from '@/application/characters/edit/combat/hooks/useSearchStances';
 import StanceView from "@/application/compendium/stances/StanceView";
 import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
@@ -56,14 +56,14 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
           <span>{displayedText.stances}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />
 
-          <ImportPerkableSheet
+          <ImportItemsSheet
             importTitle={displayedText.import_stances}
             importDescription={displayedText.select_stances_to_import}
             notFoundText={displayedText.no_stances_found}
             onImport={handleImportStances}
             isPending={isPending}
-            currentPerkableIds={watchedArray.map(stance => stance.id)}
-            useSearchPerkables={useSearchStances}
+            currentItemsIds={watchedArray.map(stance => stance.id)}
+            useSearchItems={useSearchStances}
             renderItem={renderStanceItem}
           />
         </CardTitle>

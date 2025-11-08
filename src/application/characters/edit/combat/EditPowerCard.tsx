@@ -20,7 +20,7 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import TagsView from '@/common/components/TagsView';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
-import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
+import ImportItemsSheet from '@/application/characters/edit/ImportItemSheet';
 import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
 import SpellView from "@/application/compendium/spells/SpellView";
 import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
@@ -110,14 +110,14 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
             <h2 className='text-2xl font-semibold text-primary capitalize'>{displayedText.spells}</h2>
             <AppendToArrayButton append={appendSpell} isPending={isPending} toAdd={CreateDefaultSpell} />
 
-            <ImportPerkableSheet
+            <ImportItemsSheet
               importTitle={displayedText.import_spells}
               importDescription={displayedText.select_spells_to_import}
               notFoundText={displayedText.no_spells_found}
               onImport={handleImportSpells}
               isPending={isPending}
-              currentPerkableIds={spells.map(spell => spell.id)}
-              useSearchPerkables={useSearchSpells}
+              currentItemsIds={spells.map(spell => spell.id)}
+              useSearchItems={useSearchSpells}
               renderItem={renderSpellItem}
             />
 

@@ -23,7 +23,7 @@ import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import TagsView from '@/common/components/TagsView';
 import { Separator } from '@/common/components/ui/separator';
 import FormStringsInput from '@/common/components/inputs/FormStringsInput';
-import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
+import ImportItemsSheet from '@/application/characters/edit/ImportItemSheet';
 import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
@@ -74,14 +74,14 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
           <span className='capitalize'>{displayedText.maneuvers}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
 
-          <ImportPerkableSheet
+          <ImportItemsSheet
             importTitle={displayedText.import_maneuvers}
             importDescription={displayedText.select_maneuvers_to_import}
             notFoundText={displayedText.no_maneuvers_found}
             onImport={handleImportManeuvers}
             isPending={isPending}
-            currentPerkableIds={watchedArray.map(maneuver => maneuver.id)}
-            useSearchPerkables={useSearchManeuvers}
+            currentItemsIds={watchedArray.map(maneuver => maneuver.id)}
+            useSearchItems={useSearchManeuvers}
             renderItem={renderManeuverItem}
           />
         </CardTitle>

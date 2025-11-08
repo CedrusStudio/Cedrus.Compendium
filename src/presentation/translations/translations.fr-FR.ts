@@ -209,6 +209,7 @@ export const translations_frFR =
     select_all: "tout sélectionner",
     deselect_all: "tout désélectionner",
     import: "importer",
+    selected_items_hidden_by_filter: "éléments sélectionnés masqués par le filtre de recherche",
 
     import_perks: "importer des avantages",
     select_perks_to_import: "sélectionnez les avantages à importer",

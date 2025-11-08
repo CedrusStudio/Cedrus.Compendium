@@ -209,6 +209,7 @@ export const translations_deDE =
     select_all: "alle auswählen",
     deselect_all: "alle abwählen",
     import: "importieren",
+    selected_items_hidden_by_filter: "ausgewählte Elemente durch Suchfilter ausgeblendet",
 
     import_perks: "vorteile importieren",
     select_perks_to_import: "wählen Sie vorteile zum importieren",

@@ -209,6 +209,7 @@ export const translations_plPL =
     select_all: "zaznacz wszystkie",
     deselect_all: "odznacz wszystkie",
     import: "importuj",
+    selected_items_hidden_by_filter: "zaznaczone elementy ukryte przez filtr wyszukiwania",
 
     import_perks: "importuj atuty",
     select_perks_to_import: "wybierz atuty do zaimportowania",
