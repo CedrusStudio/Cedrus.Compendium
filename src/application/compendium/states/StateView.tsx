@@ -23,13 +23,15 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 
 type StateViewProps =
 {
   state: Mode;
+  disableEdit?: boolean;
 }
 
-export default function StateView({ state }: StateViewProps)
+export default function StateView({ state, disableEdit = false }: StateViewProps)
 {
   const { deleteState, isPending } = useDeleteStateById();
 
@@ -55,8 +57,14 @@ export default function StateView({ state }: StateViewProps)
           <div>{priceIcon}</div>
           <div>{state.price}</div>
         </Badge>
-        <DeleteButton id={state.id} isPending={isPending} deleteAction={deleteState} />
-        <EditStateForm state={state} />
+        {
+          !disableEdit && (
+            <>
+              <DeleteButton id={state.id} isPending={isPending} deleteAction={deleteState} />
+              <EditStateForm state={state} />
+            </>
+          )
+        }
       </div>
 
     </div>
@@ -88,7 +96,7 @@ function EditStateForm(input: EditStateFormProps)
     }
   );
 
-  const formId = `edit-state-${input.state.id}`;
+  const formId = createCompendiumFormId.state(input.state.id);
   
   return (
     <Form {...form}>

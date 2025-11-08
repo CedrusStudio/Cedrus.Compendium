@@ -62,7 +62,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(stance.id)}>
-        <StanceView stance={stance} />
+        <StanceView stance={stance} disableEdit={true} />
       </SelectableItemWrapper>
     );
   };
@@ -84,6 +84,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
             currentItemsIds={watchedArray.map(stance => stance.id)}
             useSearchItems={useSearchStances}
             renderItem={renderStanceItem}
+            gridColumns={2}
           />
         </CardTitle>
       </CardHeader>

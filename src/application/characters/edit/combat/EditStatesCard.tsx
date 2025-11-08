@@ -62,7 +62,7 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(state.id)}>
-        <StateView state={state} />
+        <StateView state={state} disableEdit={true} />
       </SelectableItemWrapper>
     );
   };
@@ -84,6 +84,7 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
             currentItemsIds={watchedArray.map(state => state.id)}
             useSearchItems={useSearchStates}
             renderItem={renderStateItem}
+            gridColumns={2}
           />
         </CardTitle>
       </CardHeader>

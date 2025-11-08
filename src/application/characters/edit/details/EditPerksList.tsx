@@ -73,7 +73,7 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(perk.id)}>
-        <PerkView perk={perk} />
+        <PerkView perk={perk} disableEdit={true} />
       </SelectableItemWrapper>
     );
   };
@@ -149,7 +149,6 @@ function EditPerkView({ perk, index, remove, isImported }: EditPerkViewProps)
     </Item>
   );
 };
-
 
 type EditPerkSheetProps = 
 {

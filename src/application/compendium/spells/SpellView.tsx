@@ -26,19 +26,20 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 
 type SpellViewProps =
 {
   spell: Spell;
+  disableEdit?: boolean;
 }
 
-export default function SpellView({ spell }: SpellViewProps)
+export default function SpellView({ spell, disableEdit = false }: SpellViewProps)
 {
   const { deleteSpell, isPending } = useDeleteSpellById();
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
-
 
       <div className="p-2 rounded-md w-full">
         <div className="flex flex-row gap-2">
@@ -67,8 +68,14 @@ export default function SpellView({ spell }: SpellViewProps)
             <div>{cooldownIcon()}</div>
             <div>{spell.cooldown || battleIcon("scale-90")}</div>
         </Badge>
-        <DeleteButton id={spell.id} isPending={isPending} deleteAction={deleteSpell} />
-        <EditSpellForm spell={spell} />
+        {
+          !disableEdit && (
+            <>
+              <DeleteButton id={spell.id} isPending={isPending} deleteAction={deleteSpell} />
+              <EditSpellForm spell={spell} />
+            </>
+          )
+        }
       </div>
 
     </div>
@@ -100,7 +107,7 @@ function EditSpellForm(input: EditSpellFormProps)
     }
   );
 
-  const formId = `edit-spell-${input.spell.id}`;
+  const formId = createCompendiumFormId.spell(input.spell.id);
   
   return (
     <Form {...form}>

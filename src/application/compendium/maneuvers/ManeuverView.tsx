@@ -26,19 +26,20 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 
 type ManeuverViewProps =
 {
   maneuver: Maneuver;
+  disableEdit?: boolean;
 }
 
-export default function ManeuverView({ maneuver }: ManeuverViewProps)
+export default function ManeuverView({ maneuver, disableEdit = false }: ManeuverViewProps)
 {
   const { deleteManeuver, isPending } = useDeleteManeuverById();
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
-
 
       <div className="p-2 rounded-md w-full">
         <div className="flex flex-row gap-2">
@@ -62,8 +63,14 @@ export default function ManeuverView({ maneuver }: ManeuverViewProps)
             <div>{cooldownIcon()}</div>
             <div>{maneuver.cooldown || battleIcon("scale-90")}</div>
         </Badge>
-        <DeleteButton id={maneuver.id} isPending={isPending} deleteAction={deleteManeuver} />
-        <EditManeuverForm maneuver={maneuver} />
+        {
+          !disableEdit && (
+            <>
+              <DeleteButton id={maneuver.id} isPending={isPending} deleteAction={deleteManeuver} />
+              <EditManeuverForm maneuver={maneuver} />
+            </>
+          )
+        }
       </div>
 
     </div>
@@ -95,7 +102,7 @@ function EditManeuverForm(input: EditManeuverFormProps)
     }
   );
 
-  const formId = `edit-maneuver-${input.maneuver.id}`;
+  const formId = createCompendiumFormId.maneuver(input.maneuver.id);
   
   return (
     <Form {...form}>

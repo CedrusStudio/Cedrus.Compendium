@@ -13,12 +13,13 @@ import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 import { Separator } from "@/common/components/ui/separator";
 import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
 import { updateCharacterDetails } from "@/persistence/characters/charactersRepository";
+import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 
 export default function EditDetailsView(input: { character: Character })
 {
     const { character } = input;
 
-    const { form, handleSubmit, isPending } = useCharacterForm<DetailsDto>({
+    const { form, handleSubmit, isPending, formId } = useCharacterForm<DetailsDto>({
         characterId: character.id,
         schema: detailsSchema,
         defaultValues: {
@@ -29,17 +30,18 @@ export default function EditDetailsView(input: { character: Character })
             perks: character.perks
         },
         updateFn: async (id, data) => { await updateCharacterDetails(id, data); },
+        formId: FORM_IDS.DETAILS,
     });
 
     const { watchedArray: perks, append: appendPerk, remove: removePerk } = useWatchedFormArray("perks", form.control);
     
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+            <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
                 <EditHeader />
                 <Separator className="my-4" />
                 <EditPerksList isPending={isPending} perks={perks} append={appendPerk} remove={removePerk} />
-                <SubmitButton isPending={isPending} />
+                <SubmitButton isPending={isPending} formName={formId} />
             </form>
         </Form>
     );
