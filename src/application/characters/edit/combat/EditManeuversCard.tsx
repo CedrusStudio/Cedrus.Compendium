@@ -27,6 +27,8 @@ import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
+import { useState, useEffect, useRef } from 'react';
+import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditManeuversCardProps = 
 {
@@ -37,6 +39,18 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
+  const [importedManeuverIds, setImportedManeuverIds] = useState<Set<string>>(new Set());
+  const prevIsPendingRef = useRef(isPending);
+
+  useEffect(() =>
+  {
+    // Clear imported IDs when submission completes (isPending: true → false)
+    if (prevIsPendingRef.current && !isPending)
+    {
+      setImportedManeuverIds(new Set());
+    }
+    prevIsPendingRef.current = isPending;
+  }, [isPending]);
 
   const handleImportManeuvers = (importedManeuvers: Maneuver[]) => 
   {
@@ -54,6 +68,12 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
         castTime: maneuver.castTime,
         cooldown: maneuver.cooldown
       });
+    });
+    
+    setImportedManeuverIds(prev => {
+      const newSet = new Set(prev);
+      importedManeuvers.forEach(maneuver => newSet.add(maneuver.id));
+      return newSet;
     });
   };
 
@@ -89,7 +109,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 
       <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
       {
-        watchedArray.map((maneuver, index) => <EditManeuverView key={maneuver.id} maneuver={maneuver} index={index} remove={remove} />)
+        watchedArray.map((maneuver, index) => <EditManeuverView key={maneuver.id} maneuver={maneuver} index={index} remove={remove} isImported={importedManeuverIds.has(maneuver.id)} />)
       }
       </CardContent>
 
@@ -102,16 +122,20 @@ type EditManeuverViewProps =
   maneuver: Maneuver;
   index: number;
   remove: UseFieldArrayRemove;
+  isImported: boolean;
 }
 
-function EditManeuverView({ maneuver, index, remove }: EditManeuverViewProps)
+function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverViewProps)
 {
   return (
     <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
 
       <div className="flex flex-row gap-2 items-center min-h-24">
         <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
+          <h4 className="font-semibold">
+            {maneuver.name} {maneuver.grade}
+            <ImportedBadge isImported={isImported} />
+          </h4>
           <p className="text-sm text-muted-foreground">{maneuver.description}</p>
         </div>
 
@@ -121,7 +145,7 @@ function EditManeuverView({ maneuver, index, remove }: EditManeuverViewProps)
               <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
           </Badge>
           <RemoveFromArrayButton remove={remove} index={index} />
-          <EditManeuverSheet index={index} />
+          {!isImported && <EditManeuverSheet index={index}/>}
         </div>
       </div>
 
@@ -136,7 +160,7 @@ type EditManeuverSheetProps =
   index: number;
 };
 
-function EditManeuverSheet({ index }: EditManeuverSheetProps)
+function EditManeuverSheet({ index}: EditManeuverSheetProps)
 {
   return (
     <Sheet>
