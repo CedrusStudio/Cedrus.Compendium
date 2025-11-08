@@ -15,13 +15,12 @@ import { combatSchema, type CombatDto } from "@/persistence/schemas/characters/c
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/charactersClient";
-import { Label } from "@radix-ui/react-label";
-import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
 import { displayedText } from "@/presentation/translations";
 import { CreateDefaultPower } from "@/domain/characters/combat/Power";
 import { FORM_IDS, createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
+import EditArraySection from "@/common/components/form/EditArraySection";
 
 type EditCharacterCombatProps =
 {
@@ -59,24 +58,6 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
     }
   );
 
-  const { fields: offenses, append: appendOffense, remove: removeOffense } = useFieldArray<CombatDto, "offenses">
-  ({
-    name: "offenses",
-    control: form.control
-  });
-
-  const { fields: defenses, append: appendDefense, remove: removeDefense } = useFieldArray<CombatDto, "defenses">
-  ({
-    name: "defenses",
-    control: form.control
-  });
-
-  const { fields: powers, append: appendPower, remove: removePower } = useFieldArray<CombatDto, "powers">
-  ({
-    name: "powers",
-    control: form.control
-  });
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3" id={FORM_IDS.COMBAT}>
@@ -85,41 +66,21 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           <EditHealthCard health={character.health} />
         </div>
 
-        <div className="space-y-3 flex flex-col justify-center">
-
-          <div className="flex justify-center items-center gap-3">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.offenses}</Label>
-            <AppendToArrayButton<CombatDto, "offenses"> 
-              isPending={isPending}
-              toAdd={CreateDefaultOffense}
-              append={appendOffense}
-            />
-          </div>
-
-          <div className="grid gap-3 lg:grid-cols-2">
-          {
-            offenses.map((offense, index) => (<EditOffenseCard key={offense.id} offense={offense} index={index} remove={removeOffense} />))
-          }
-          </div>
-        </div>
+        <EditArraySection<CombatDto, "offenses">
+          title={displayedText.offenses}
+          fieldArray={useFieldArray({ name: "offenses", control: form.control })}
+          createDefault={CreateDefaultOffense}
+          isPending={isPending}
+          renderItem={(offense, index, remove) => <EditOffenseCard key={offense.id} offense={offense} index={index} remove={remove} /> }
+        />
           
-        <div className="space-y-3 flex flex-col justify-center">
-          
-          <div className="flex justify-center items-center gap-3">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.defenses}</Label>
-            <AppendToArrayButton<CombatDto, "defenses"> 
-              isPending={isPending}
-              toAdd={CreateDefaultDefense}
-              append={appendDefense}
-            />
-          </div>
-          
-          <div className="grid gap-3 lg:grid-cols-2">
-          {
-            defenses.map((defense, index) => <EditDefenseCard key={defense.id} defense={defense} index={index} remove={removeDefense} />)
-          }
-          </div>
-        </div>
+        <EditArraySection<CombatDto, "defenses">
+          title={displayedText.defenses}
+          fieldArray={useFieldArray({ name: "defenses", control: form.control })}
+          createDefault={CreateDefaultDefense}
+          isPending={isPending}
+          renderItem={(defense, index, remove) => <EditDefenseCard key={defense.id} defense={defense} index={index} remove={remove} />}
+        />
 
         <div className="grid gap-3 lg:grid-cols-2">
           <EditStancesCard isPending={isPending} />
@@ -128,23 +89,14 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
 
         <EditManeuversCard isPending={isPending} />
 
-        <div className="space-y-3 flex flex-col justify-center">
-          
-          <div className="flex justify-center items-center gap-3">
-            <Label className="font-bold text-2xl text-primary text-center capitalize">{displayedText.powers}</Label>
-            <AppendToArrayButton<CombatDto, "powers"> 
-              isPending={isPending}
-              toAdd={CreateDefaultPower}
-              append={appendPower}
-            />
-          </div>
-          
-          <div className="grid gap-3">
-          {
-            powers.map((power, index) => <EditPowerCard key={power.id} power={power} isPending={isPending} index={index} remove={removePower} />)
-          }
-          </div>
-        </div>
+        <EditArraySection<CombatDto, "powers">
+          title={displayedText.powers}
+          fieldArray={useFieldArray({ name: "powers", control: form.control })}
+          createDefault={CreateDefaultPower}
+          isPending={isPending}
+          renderItem={(power, index, remove) => <EditPowerCard key={power.id} power={power} isPending={isPending} index={index} remove={remove} /> }
+          gridCols={1}
+        />
 
         <SubmitButton isPending={isPending} />
       </form>
