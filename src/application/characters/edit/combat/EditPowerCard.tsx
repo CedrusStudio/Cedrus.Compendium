@@ -24,6 +24,8 @@ import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
 import SpellView from "@/application/compendium/spells/SpellView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
+import { useState } from 'react';
+import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditPowersCardProps =
 {
@@ -37,6 +39,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 {
   const { control } = useFormContext<CombatDto>();
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
+  const [importedSpellIds, setImportedSpellIds] = useState<Set<string>>(new Set());
 
   const handleImportSpells = (importedSpells: Spell[]) => 
   {
@@ -56,6 +59,12 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
         cost: spell.cost
       });
+    });
+    
+    setImportedSpellIds(prev => {
+      const newSet = new Set(prev);
+      importedSpells.forEach(spell => newSet.add(spell.id));
+      return newSet;
     });
   };
 
@@ -125,7 +134,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
           {
-            spells.map((spell, spellIndex) => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={spellIndex} remove={removeSpell} />) 
+            spells.map((spell, spellIndex) => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={spellIndex} remove={removeSpell} isImported={importedSpellIds.has(spell.id)} />) 
           }
           </div>
         </div>
@@ -158,22 +167,26 @@ type EditSpellViewProps =
   powerIndex: number;
   spellIndex: number;
   remove: UseFieldArrayRemove;
+  isImported: boolean;
 }
 
-function EditSpellView({ spell, powerIndex, spellIndex, remove }: EditSpellViewProps)
+function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: EditSpellViewProps)
 {
   return (
     <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
 
       <div className="flex flex-row gap-2 items-center min-h-24">
         <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">{spell.name} {spell.grade}</h4>
+          <h4 className="font-semibold">
+            {spell.name} {spell.grade}
+            <ImportedBadge isImported={isImported} />
+          </h4>
           <p className="text-sm text-muted-foreground">{spell.description}</p>
         </div>
 
         <div className="flex flex-row gap-2">
           <RemoveFromArrayButton remove={remove} index={spellIndex} />
-          <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />
+          {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
         </div>
       </div>
 

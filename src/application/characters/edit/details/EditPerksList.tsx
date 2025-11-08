@@ -19,6 +19,8 @@ import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
 import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
 import PerkView from "@/application/compendium/perks/PerkView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
+import { useState } from "react";
+import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditPerksListProps =
 {
@@ -30,6 +32,8 @@ type EditPerksListProps =
 
 export default function EditPerksList({ isPending, perks, append, remove }: EditPerksListProps)
 {
+  const [importedPerkIds, setImportedPerkIds] = useState<Set<string>>(new Set());
+
   const handleImportPerks = (importedPerks: Perk[]) => 
   {
     importedPerks.forEach(perk => 
@@ -43,6 +47,12 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
         price: perk.price,
         tags: [...perk.tags]
       });
+    });
+    
+    setImportedPerkIds(prev => {
+      const newSet = new Set(prev);
+      importedPerks.forEach(perk => newSet.add(perk.id));
+      return newSet;
     });
   };
 
@@ -88,7 +98,7 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
       {
         perks.map((perk, index) => (
           <li key={index} className="text-md text-primary">
-            <EditPerkView perk={perk} index={index} remove={remove} />
+            <EditPerkView perk={perk} index={index} remove={remove} isImported={importedPerkIds.has(perk.id)} />
           </li>
         ))
       }
@@ -102,14 +112,18 @@ type EditPerkViewProps =
   perk: Perk;
   index: number;
   remove: UseFieldArrayRemove;
+  isImported: boolean;
 };
 
-function EditPerkView({ perk, index, remove }: EditPerkViewProps)
+function EditPerkView({ perk, index, remove, isImported }: EditPerkViewProps)
 {
   return (
     <Item variant="muted">
       <ItemContent>
-        <ItemTitle>{perk.name} {perk.grade} <TagsView tags={perk.tags} /></ItemTitle>
+        <ItemTitle>
+          {perk.name} {perk.grade} <TagsView tags={perk.tags} />
+          <ImportedBadge isImported={isImported} />
+        </ItemTitle>
         <ItemDescription>
             {perk.description}
         </ItemDescription>
@@ -117,7 +131,7 @@ function EditPerkView({ perk, index, remove }: EditPerkViewProps)
 
       <ItemActions>
         <RemoveFromArrayButton remove={remove} index={index} />
-        <EditPerkSheet index={index} />
+        {!isImported && <EditPerkSheet index={index} />}
       </ItemActions>
     </Item>
   );
