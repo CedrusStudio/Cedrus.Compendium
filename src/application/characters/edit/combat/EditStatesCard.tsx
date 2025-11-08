@@ -8,10 +8,10 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
-import ImportItemsSheet from '@/application/characters/edit/ImportItemSheet';
+import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchStates } from '@/application/characters/edit/combat/hooks/useSearchStates';
 import StateView from "@/application/compendium/states/StateView";
-import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
 type EditStatesCardProps = 
 {

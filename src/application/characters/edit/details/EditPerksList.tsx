@@ -15,10 +15,10 @@ import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { FormTagsInput } from "@/common/components/inputs/FormTagsInput";
 import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 import TagsView from "@/common/components/TagsView";
-import ImportItemsSheet from "@/application/characters/edit/ImportItemSheet";
+import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
 import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
 import PerkView from "@/application/compendium/perks/PerkView";
-import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
 type EditPerksListProps =
 {

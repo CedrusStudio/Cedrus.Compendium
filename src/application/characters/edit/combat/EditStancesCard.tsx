@@ -8,10 +8,10 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 import { CreateDefaultStance, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
-import ImportItemsSheet from '@/application/characters/edit/ImportItemSheet';
+import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchStances } from '@/application/characters/edit/combat/hooks/useSearchStances';
 import StanceView from "@/application/compendium/stances/StanceView";
-import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
 type EditStancesCardProps = 
 {

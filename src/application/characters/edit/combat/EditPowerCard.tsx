@@ -20,10 +20,10 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import TagsView from '@/common/components/TagsView';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
-import ImportItemsSheet from '@/application/characters/edit/ImportItemSheet';
+import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
 import SpellView from "@/application/compendium/spells/SpellView";
-import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
 type EditPowersCardProps =
 {
