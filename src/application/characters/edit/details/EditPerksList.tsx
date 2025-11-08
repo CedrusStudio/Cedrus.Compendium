@@ -19,7 +19,7 @@ import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
 import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
 import PerkView from "@/application/compendium/perks/PerkView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditPerksListProps =
@@ -33,12 +33,24 @@ type EditPerksListProps =
 export default function EditPerksList({ isPending, perks, append, remove }: EditPerksListProps)
 {
   const [importedPerkIds, setImportedPerkIds] = useState<Set<string>>(new Set());
+  const prevIsPendingRef = useRef(isPending);
+
+  useEffect(() =>
+  {
+    // Clear imported IDs when submission completes (isPending: true → false)
+    if (prevIsPendingRef.current && !isPending)
+    {
+      setImportedPerkIds(new Set());
+    }
+    prevIsPendingRef.current = isPending;
+  }, [isPending]);
 
   const handleImportPerks = (importedPerks: Perk[]) => 
   {
     importedPerks.forEach(perk => 
     {
-      append({ 
+      append
+      ({ 
         id: perk.id,
         name: perk.name,
         grade: perk.grade,
@@ -49,7 +61,8 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
       });
     });
     
-    setImportedPerkIds(prev => {
+    setImportedPerkIds(prev => 
+    {
       const newSet = new Set(prev);
       importedPerks.forEach(perk => newSet.add(perk.id));
       return newSet;

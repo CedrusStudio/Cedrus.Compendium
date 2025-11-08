@@ -12,7 +12,7 @@ import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchStances } from '@/application/characters/edit/combat/hooks/useSearchStances';
 import StanceView from "@/application/compendium/stances/StanceView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 type EditStancesCardProps = 
 {
@@ -24,6 +24,17 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
   const [importedStanceIds, setImportedStanceIds] = useState<Set<string>>(new Set());
+  const prevIsPendingRef = useRef(isPending);
+
+  useEffect(() =>
+  {
+    // Clear imported IDs when submission completes (isPending: true → false)
+    if (prevIsPendingRef.current && !isPending)
+    {
+      setImportedStanceIds(new Set());
+    }
+    prevIsPendingRef.current = isPending;
+  }, [isPending]);
 
   const handleImportStances = (importedStances: Mode[]) => 
   {

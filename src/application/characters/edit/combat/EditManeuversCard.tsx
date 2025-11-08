@@ -27,7 +27,7 @@ import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditManeuversCardProps = 
@@ -40,6 +40,17 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
   const [importedManeuverIds, setImportedManeuverIds] = useState<Set<string>>(new Set());
+  const prevIsPendingRef = useRef(isPending);
+
+  useEffect(() =>
+  {
+    // Clear imported IDs when submission completes (isPending: true → false)
+    if (prevIsPendingRef.current && !isPending)
+    {
+      setImportedManeuverIds(new Set());
+    }
+    prevIsPendingRef.current = isPending;
+  }, [isPending]);
 
   const handleImportManeuvers = (importedManeuvers: Maneuver[]) => 
   {

@@ -96,7 +96,6 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     onImport(selectedItems);
     setSelectedItemsIds(new Set());
     setSearchTerm("");
-    itemsCache.current.clear();
     setOpen(false);
   };
 

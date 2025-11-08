@@ -12,7 +12,7 @@ import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchStates } from '@/application/characters/edit/combat/hooks/useSearchStates';
 import StateView from "@/application/compendium/states/StateView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 type EditStatesCardProps = 
 {
@@ -24,6 +24,17 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("states", control);
   const [importedStateIds, setImportedStateIds] = useState<Set<string>>(new Set());
+  const prevIsPendingRef = useRef(isPending);
+
+  useEffect(() =>
+  {
+    // Clear imported IDs when submission completes (isPending: true → false)
+    if (prevIsPendingRef.current && !isPending)
+    {
+      setImportedStateIds(new Set());
+    }
+    prevIsPendingRef.current = isPending;
+  }, [isPending]);
 
   const handleImportStates = (importedStates: Mode[]) => 
   {

@@ -24,7 +24,7 @@ import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
 import SpellView from "@/application/compendium/spells/SpellView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditPowersCardProps =
@@ -40,6 +40,17 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
   const { control } = useFormContext<CombatDto>();
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
   const [importedSpellIds, setImportedSpellIds] = useState<Set<string>>(new Set());
+  const prevIsPendingRef = useRef(isPending);
+
+  useEffect(() =>
+  {
+    // Clear imported IDs when submission completes (isPending: true → false)
+    if (prevIsPendingRef.current && !isPending)
+    {
+      setImportedSpellIds(new Set());
+    }
+    prevIsPendingRef.current = isPending;
+  }, [isPending]);
 
   const handleImportSpells = (importedSpells: Spell[]) => 
   {
