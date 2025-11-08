@@ -13,19 +13,17 @@ export default function SelectableItemWrapper({ isSelected, onToggle, children }
 {
   return (
     <div 
-      className={`relative cursor-pointer transition-colors rounded-md ${
-        isSelected ? 'border-primary bg-primary/10' : 'hover:bg-muted/50'
-      }`}
+      className="flex flex-row place-items-center cursor-pointer transition-colors"
       onClick={onToggle}
     >
-      <div className="absolute top-7 left-3">
-        <Checkbox 
-          checked={isSelected}
-          onCheckedChange={onToggle}
-          onClick={e => e.stopPropagation()}
-        />
-      </div>
-      <div className="pl-10">
+        <div className='m-4'>
+            <Checkbox 
+                checked={isSelected}
+                onCheckedChange={onToggle}
+                onClick={e => e.stopPropagation()}
+            />
+        </div>
+      <div className={`flex-1 mr-1 rounded-md ${isSelected ? 'border-primary bg-primary/10' : 'hover:bg-muted/50'}`}>
         {children}
       </div>
     </div>
