@@ -206,5 +206,30 @@ export const translations_deDE =
     no_characters_found: "keine Charaktere gefunden",
     create_from_template: "aus anderem Charakter erstellen",
     
+    select_all: "alle auswählen",
+    deselect_all: "alle abwählen",
+    import: "importieren",
+    selected_items_hidden_by_filter: "ausgewählte Elemente durch Suchfilter ausgeblendet",
+
+    import_perks: "vorteile importieren",
+    select_perks_to_import: "wählen Sie vorteile zum importieren",
+    no_perks_found: "keine vorteile gefunden",
+    
+    import_stances: "haltungen importieren",
+    select_stances_to_import: "wählen Sie haltungen zum importieren",
+    no_stances_found: "keine haltungen gefunden",
+
+    import_states: "zustände importieren",
+    select_states_to_import: "wählen Sie zustände zum importieren",
+    no_states_found: "keine zustände gefunden",
+
+    import_maneuvers: "manöver importieren",
+    select_maneuvers_to_import: "wählen Sie manöver zum importieren",
+    no_maneuvers_found: "keine manöver gefunden",
+
+    import_spells: "zauber importieren",
+    select_spells_to_import: "wählen Sie zauber zum importieren",
+    no_spells_found: "keine zauber gefunden",
+
     notFound: "nicht gefunden",
 } as const;

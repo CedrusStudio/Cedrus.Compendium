@@ -14,7 +14,11 @@ import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import { FormTagsInput } from "@/common/components/inputs/FormTagsInput";
 import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
+import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
+import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
+import PerkView from "@/application/compendium/perks/PerkView";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
 type EditPerksListProps =
 {
@@ -26,6 +30,31 @@ type EditPerksListProps =
 
 export default function EditPerksList({ isPending, perks, append, remove }: EditPerksListProps)
 {
+  const handleImportPerks = (importedPerks: Perk[]) => 
+  {
+    importedPerks.forEach(perk => 
+    {
+      append({ 
+        id: perk.id,
+        name: perk.name,
+        grade: perk.grade,
+        description: perk.description,
+        requirements: [...perk.requirements],
+        price: perk.price,
+        tags: [...perk.tags]
+      });
+    });
+  };
+
+  const renderPerkItem = (perk: Perk, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(perk.id)}>
+        <PerkView perk={perk} />
+      </SelectableItemWrapper>
+    );
+  };
+
   return (
     <>
       <div className="flex flex-row justify-center items-center gap-4">
@@ -34,11 +63,24 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
           {displayedText.perks}
         </h3>
 
-        <AppendToArrayButton<DetailsDto, "perks"> 
-          isPending={isPending}
-          append={append}
-          toAdd={CreateDefaultPerk}
-        />
+        <div className="flex gap-2">
+          <AppendToArrayButton<DetailsDto, "perks"> 
+            isPending={isPending}
+            append={append}
+            toAdd={CreateDefaultPerk}
+          />
+
+          <ImportItemsSheet
+            importTitle={displayedText.import_perks}
+            importDescription={displayedText.select_perks_to_import}
+            notFoundText={displayedText.no_perks_found}
+            onImport={handleImportPerks}
+            isPending={isPending}
+            currentItemsIds={perks.map(perk => perk.id)}
+            useSearchItems={useSearchPerks}
+            renderItem={renderPerkItem}
+          />
+        </div>
         
       </div>
 

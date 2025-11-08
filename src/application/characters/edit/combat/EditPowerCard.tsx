@@ -17,9 +17,13 @@ import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpellFie
 import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
-import TagsView from '@/common/components/TagsView';
+import TagsView from '@/common/components/tags/TagsView';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
+import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
+import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
+import SpellView from "@/application/compendium/spells/SpellView";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
 type EditPowersCardProps =
 {
@@ -33,6 +37,36 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 {
   const { control } = useFormContext<CombatDto>();
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
+
+  const handleImportSpells = (importedSpells: Spell[]) => 
+  {
+    importedSpells.forEach(spell => 
+    {
+      appendSpell({ 
+        id: spell.id,
+        name: spell.name,
+        grade: spell.grade,
+        description: spell.description,
+        requirements: [...spell.requirements],
+        price: spell.price,
+        tags: [...spell.tags],
+
+        castTime: spell.castTime,
+        cooldown: spell.cooldown,
+
+        cost: spell.cost
+      });
+    });
+  };
+
+  const renderSpellItem = (spell: Spell, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(spell.id)}>
+        <SpellView spell={spell} />
+      </SelectableItemWrapper>
+    );
+  };
 
   return (
     <Card className='bg-muted'>
@@ -75,6 +109,18 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
           <div className='flex flex-row items-center gap-3'>
             <h2 className='text-2xl font-semibold text-primary capitalize'>{displayedText.spells}</h2>
             <AppendToArrayButton append={appendSpell} isPending={isPending} toAdd={CreateDefaultSpell} />
+
+            <ImportItemsSheet
+              importTitle={displayedText.import_spells}
+              importDescription={displayedText.select_spells_to_import}
+              notFoundText={displayedText.no_spells_found}
+              onImport={handleImportSpells}
+              isPending={isPending}
+              currentItemsIds={spells.map(spell => spell.id)}
+              useSearchItems={useSearchSpells}
+              renderItem={renderSpellItem}
+            />
+
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>

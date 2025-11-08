@@ -91,15 +91,31 @@ export async function updateCharacterEquipment(id: string, characterEquipment: E
 export async function updateCharacterDetails(id: string, characterDetails: DetailsDto)
   : Promise<boolean>
 {
-  const existingPerkIdsResponse = await prisma.character.findUnique
+  const existingOnCharacterPerkIdsResponse = await prisma.character.findUnique
   ({ 
     where: { id },
     select: { perksIds: true }
   });
 
+  if (!existingOnCharacterPerkIdsResponse) return false;
+
+  const existingPerkIdsResponse = await prisma.perk.findMany
+  ({ 
+    where: { id: {
+      in: characterDetails.perks.map(perk => perk.id).filter(id => !existingOnCharacterPerkIdsResponse.perksIds.includes(id))
+    } },
+    select: { id: true }
+  });
+
   if (!existingPerkIdsResponse) return false;
 
-  const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel(characterDetails, existingPerkIdsResponse.perksIds);
+  const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel
+  (
+    characterDetails, 
+    existingOnCharacterPerkIdsResponse.perksIds,
+    existingPerkIdsResponse.map(perk => perk.id)
+  );
+
   const updatedCharacter = await prisma.character.update
   ({
     where: { id },
@@ -112,7 +128,7 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
 export async function updateCharacterCombat(id: string, characterCombat: CombatDto)
   : Promise<boolean>
 {
-  const idsToUpdate = await prisma.character.findUnique
+  const idsOnCharacter = await prisma.character.findUnique
   ({ 
     where: { id },
     select: { 
@@ -123,9 +139,65 @@ export async function updateCharacterCombat(id: string, characterCombat: CombatD
     }
   });
 
-  if (!idsToUpdate) return false;
+  if (!idsOnCharacter) return false;
 
-  const characterCombatPersistenceModel = toCharacterCombatPersistenceModel(characterCombat, idsToUpdate.stancesIds, idsToUpdate.statesIds, idsToUpdate.maneuversIds, idsToUpdate.spellsIds);
+  //Maneuvers
+  const existingManeuverIdsResponse = await prisma.maneuver.findMany
+  ({ 
+    where: { id: {
+      in: characterCombat.maneuvers.map(maneuver => maneuver.id).filter(id => !idsOnCharacter.maneuversIds.includes(id))
+    } },
+    select: { id: true }
+  });
+
+  if (!existingManeuverIdsResponse) return false;
+
+  //Stances
+  const existingStanceIdsResponse = await prisma.stance.findMany
+  ({ 
+    where: { id: {
+      in: characterCombat.stances.map(stance => stance.id).filter(id => !idsOnCharacter.stancesIds.includes(id))
+    } },
+    select: { id: true }
+  });
+
+  if (!existingStanceIdsResponse) return false;
+
+  //States
+  const existingStateIdsResponse = await prisma.state.findMany
+  ({ 
+    where: { id: {
+      in: characterCombat.states.map(state => state.id).filter(id => !idsOnCharacter.statesIds.includes(id))
+    } },
+    select: { id: true }
+  });
+
+  if (!existingStateIdsResponse) return false;
+
+  //Spells
+  const existingSpellIdsResponse = await prisma.spell.findMany
+  ({ 
+    where: { id: {
+      in: characterCombat.powers.flatMap(power => power.spells.map(spell => spell.id)).filter(id => !idsOnCharacter.spellsIds.includes(id))
+    } },
+    select: { id: true }
+  });
+
+  if (!existingSpellIdsResponse) return false;
+
+  const characterCombatPersistenceModel = toCharacterCombatPersistenceModel
+  (
+    characterCombat, 
+    idsOnCharacter.stancesIds,
+    existingStanceIdsResponse.map(perk => perk.id),
+    idsOnCharacter.statesIds, 
+    existingStateIdsResponse.map(maneuver => maneuver.id),
+    idsOnCharacter.maneuversIds, 
+    existingManeuverIdsResponse.map(maneuver => maneuver.id),
+    idsOnCharacter.spellsIds,
+    existingSpellIdsResponse.map(maneuver => maneuver.id)
+  );
+
   const updatedCharacter = await prisma.character.update
   ({
     where: { id },

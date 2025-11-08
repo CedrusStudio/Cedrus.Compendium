@@ -2,7 +2,7 @@ import { Badge } from "@/common/components/ui/badge";
 import { Separator } from "@/common/components/ui/separator";
 import { Character } from "@/domain/characters/Character";
 import PerksList from "@/application/characters/details/PerksList";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 
 export default function DetailsView({ character }: { character: Character }) 
 {

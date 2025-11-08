@@ -15,7 +15,7 @@ import { Separator } from '@/ui/separator';
 import { displayedText } from '@/presentation/translations';
 import { useSearchCharactersSummary } from '@/application/characters/hooks/useSearchCharactersSummary';
 import { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
-import TagsView from '@/common/components/TagsView';
+import TagsView from '@/common/components/tags/TagsView';
 import { Input } from '@/ui/input';
 
 type SelectBaseCharacterDialogProps = {

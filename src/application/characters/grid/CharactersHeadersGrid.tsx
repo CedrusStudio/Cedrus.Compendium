@@ -25,7 +25,7 @@ import { actions } from '@/persistence/slices/characterSlice';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSearchCharactersSummary } from '../hooks/useSearchCharactersSummary';
 import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
-import TagsView from '@/common/components/TagsView';
+import TagsView from '@/common/components/tags/TagsView';
 
 type CharactersHeadersGridParams =
 {

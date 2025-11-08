@@ -20,19 +20,51 @@ import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
-import TagsView from '@/common/components/TagsView';
+import TagsView from '@/common/components/tags/TagsView';
 import { Separator } from '@/common/components/ui/separator';
 import FormStringsInput from '@/common/components/inputs/FormStringsInput';
+import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
+import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
+import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
-type EditManeuversCardProps =
+type EditManeuversCardProps = 
 {
   isPending: boolean;
 }
 
-export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
+export default function EditManeuversCard({ isPending }: EditManeuversCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
+
+  const handleImportManeuvers = (importedManeuvers: Maneuver[]) => 
+  {
+    importedManeuvers.forEach(maneuver => 
+    {
+      append({ 
+        id: maneuver.id,
+        name: maneuver.name,
+        grade: maneuver.grade,
+        description: maneuver.description,
+        requirements: [...maneuver.requirements],
+        price: maneuver.price,
+        tags: [...maneuver.tags],
+
+        castTime: maneuver.castTime,
+        cooldown: maneuver.cooldown
+      });
+    });
+  };
+
+  const renderManeuverItem = (maneuver: Maneuver, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(maneuver.id)}>
+        <ManeuverView maneuver={maneuver} />
+      </SelectableItemWrapper>
+    );
+  };
 
   return (
     <Card className='bg-muted'>
@@ -41,6 +73,17 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
           <span className='capitalize'>{displayedText.maneuvers}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
+
+          <ImportItemsSheet
+            importTitle={displayedText.import_maneuvers}
+            importDescription={displayedText.select_maneuvers_to_import}
+            notFoundText={displayedText.no_maneuvers_found}
+            onImport={handleImportManeuvers}
+            isPending={isPending}
+            currentItemsIds={watchedArray.map(maneuver => maneuver.id)}
+            useSearchItems={useSearchManeuvers}
+            renderItem={renderManeuverItem}
+          />
         </CardTitle>
       </CardHeader>
 

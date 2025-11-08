@@ -20,9 +20,10 @@ import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButto
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
 import { Separator } from "@/common/components/ui/separator";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
+import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 
 type EditModeViewProps =
 { 
@@ -93,7 +94,7 @@ function EditModeSheet({ index, modeType }: EditModeSheetProps)
 
           <div className="grid auto-rows-min gap-3 px-4">
             <Label className="capitalize">{displayedText.description}</Label>
-            <InputFormField<CombatDto> path={pathToModeField(index, modeType, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
+            <AreaInputFormField<CombatDto> path={pathToModeField(index, modeType, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
           <FormTagsInput<CombatDto> path={pathToModeField(index, modeType, 'tags')} />

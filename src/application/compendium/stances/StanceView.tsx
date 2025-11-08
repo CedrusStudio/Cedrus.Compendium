@@ -18,7 +18,7 @@ import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteStanceById } from '@/application/compendium/stances/hooks/useDeleteStanceById';
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";

@@ -10,7 +10,7 @@ import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
 import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from "@/presentation/icons";
 import { displayedText } from "@/presentation/translations";
-import InfoContentWithTags from "@/common/components/InfoContentWithTags";
+import InfoContentWithTags from "@/common/components/tags/InfoContentWithTags";
 
 type ManeuversViewProps =
 {

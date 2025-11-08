@@ -6,18 +6,47 @@ import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
-import { CreateDefaultState } from '@/domain/characters/combat/Mode';
+import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
+import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
+import { useSearchStates } from '@/application/characters/edit/combat/hooks/useSearchStates';
+import StateView from "@/application/compendium/states/StateView";
+import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 
-type EditStatesCardProps =
+type EditStatesCardProps = 
 {
   isPending: boolean;
 }
 
-export default function EditStatesCard({ isPending }: EditStatesCardProps)
+export default function EditStatesCard({ isPending }: EditStatesCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("states", control);
+
+  const handleImportStates = (importedStates: Mode[]) => 
+  {
+    importedStates.forEach(state => 
+    {
+      append({ 
+        id: state.id,
+        name: state.name,
+        grade: state.grade,
+        description: state.description,
+        requirements: [...state.requirements],
+        price: state.price,
+        tags: [...state.tags]
+      });
+    });
+  };
+
+  const renderStateItem = (state: Mode, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(state.id)}>
+        <StateView state={state} />
+      </SelectableItemWrapper>
+    );
+  };
 
   return (
     <Card className='bg-muted'>
@@ -26,6 +55,17 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
           <span>{displayedText.states}</span>
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultState} />
+
+          <ImportItemsSheet
+            importTitle={displayedText.import_states}
+            importDescription={displayedText.select_states_to_import}
+            notFoundText={displayedText.no_states_found}
+            onImport={handleImportStates}
+            isPending={isPending}
+            currentItemsIds={watchedArray.map(state => state.id)}
+            useSearchItems={useSearchStates}
+            renderItem={renderStateItem}
+          />
         </CardTitle>
       </CardHeader>
 

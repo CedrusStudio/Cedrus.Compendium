@@ -21,7 +21,7 @@ import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteSpellById } from '@/application/compendium/spells/hooks/useDeleteSpellById';
 import { SpellDto, spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";

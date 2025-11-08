@@ -17,6 +17,7 @@ import { onError, onSuccess } from "@/common/global/onSaveCallbacks";
 import EditPerksList from "@/application/characters/edit/details/EditPerksList";
 import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 import { Separator } from "@/common/components/ui/separator";
+import { createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
 
 export default function EditDetailsView(input: { character: Character })
 {
@@ -44,9 +45,8 @@ export default function EditDetailsView(input: { character: Character })
         mutationFn: async (characterDetails: DetailsDto) => await updateCharacterDetails(id, characterDetails),
         onSuccess: () => onSuccess(() =>
         {
-            queryClient.invalidateQueries({ queryKey: ['characters'] });
-            queryClient.invalidateQueries({ queryKey: [`characters/${id}`] });
-            queryClient.invalidateQueries({ queryKey: [`characters/${id}/edit`] });
+            const cacheKeys = createCharacterCacheKeys(id);
+            cacheKeys.forEach(key => queryClient.invalidateQueries({ queryKey: [key] }));
             router.refresh();
         }),
         onError: (error) => onError(error)

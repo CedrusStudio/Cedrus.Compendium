@@ -206,5 +206,30 @@ export const translations_frFR =
     no_characters_found: "aucun personnage trouvé",
     create_from_template: "créer à partir d'un autre personnage",
 
+    select_all: "tout sélectionner",
+    deselect_all: "tout désélectionner",
+    import: "importer",
+    selected_items_hidden_by_filter: "éléments sélectionnés masqués par le filtre de recherche",
+
+    import_perks: "importer des avantages",
+    select_perks_to_import: "sélectionnez les avantages à importer",
+    no_perks_found: "aucun avantage trouvé",
+
+    import_stances: "importer des postures",
+    select_stances_to_import: "sélectionnez les postures à importer",
+    no_stances_found: "aucune posture trouvée",
+
+    import_states: "importer des états",
+    select_states_to_import: "sélectionnez les états à importer",
+    no_states_found: "aucun état trouvé",
+
+    import_maneuvers: "importer des manœuvres",
+    select_maneuvers_to_import: "sélectionnez les manœuvres à importer",
+    no_maneuvers_found: "aucune manœuvre trouvée",
+
+    import_spells: "importer des sorts",
+    select_spells_to_import: "sélectionnez les sorts à importer",
+    no_spells_found: "aucun sort trouvé",
+
     notFound: "non trouvé",
 } as const;
