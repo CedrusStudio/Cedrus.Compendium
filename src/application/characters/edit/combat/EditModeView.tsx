@@ -20,7 +20,7 @@ import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButto
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
 import { Separator } from "@/common/components/ui/separator";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";

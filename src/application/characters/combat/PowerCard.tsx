@@ -10,7 +10,7 @@ import { getBadgeVariant } from '@/presentation/colors';
 import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, resetIcon } from '@/presentation/icons';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
 import { useState } from 'react';
-import InfoContentWithTags from '@/common/components/InfoContentWithTags';
+import InfoContentWithTags from '@/common/components/tags/InfoContentWithTags';
 
 type PowerCardProps =
 {

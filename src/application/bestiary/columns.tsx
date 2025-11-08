@@ -44,7 +44,7 @@ import { toCriticalRangeString, rollDamage } from "@/domain/characters/combat/Of
 import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import { Badge } from "@/common/components/ui/badge";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 
 export const columnKeys =
 {

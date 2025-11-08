@@ -19,7 +19,7 @@ import {
 } from "@/ui/select";
 import FieldView from "@/common/components/fields/FieldView";
 import { displayedText } from "@/presentation/translations";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 import { Separator } from "@/common/components/ui/separator";
 
 export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})

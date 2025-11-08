@@ -20,7 +20,7 @@ import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
-import TagsView from '@/common/components/TagsView';
+import TagsView from '@/common/components/tags/TagsView';
 import { Separator } from '@/common/components/ui/separator';
 import FormStringsInput from '@/common/components/inputs/FormStringsInput';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';

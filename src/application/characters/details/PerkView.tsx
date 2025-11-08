@@ -1,6 +1,6 @@
 import { Item, ItemContent, ItemDescription, ItemTitle } from "@/ui/item";
 import { Perk } from "@/domain/characters/Perk";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 
 export default function PerkView({ perk }: { perk: Perk })
 {

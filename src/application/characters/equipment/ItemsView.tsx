@@ -1,4 +1,4 @@
-import TagsView from '@/common/components/TagsView';
+import TagsView from '@/common/components/tags/TagsView';
 import { Item } from '@/domain/characters/equipment/Item';
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import { PropsWithChildren } from 'react';

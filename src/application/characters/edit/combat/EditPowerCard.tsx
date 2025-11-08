@@ -17,7 +17,7 @@ import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpellFie
 import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
-import TagsView from '@/common/components/TagsView';
+import TagsView from '@/common/components/tags/TagsView';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';

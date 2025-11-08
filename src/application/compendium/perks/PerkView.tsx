@@ -18,7 +18,7 @@ import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeletePerkById } from '@/application/compendium/perks/hooks/useDeletePerkById';
 import { PerkDto, perkSchema } from "@/persistence/schemas/characters/perkSchema";
-import TagsView from "@/common/components/TagsView";
+import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
