@@ -22,6 +22,8 @@ import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
 import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
 import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
+import SpellView from "@/application/compendium/spells/SpellView";
+import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
 type EditPowersCardProps =
 {
@@ -55,6 +57,15 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
         cost: spell.cost
       });
     });
+  };
+
+  const renderSpellItem = (spell: Spell, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(spell.id)}>
+        <SpellView spell={spell} />
+      </SelectableItemWrapper>
+    );
   };
 
   return (
@@ -100,13 +111,14 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
             <AppendToArrayButton append={appendSpell} isPending={isPending} toAdd={CreateDefaultSpell} />
 
             <ImportPerkableSheet
-              importTitle={displayedText.import_maneuvers}
-              importDescription={displayedText.select_maneuvers_to_import}
-              notFoundText={displayedText.no_maneuvers_found}
+              importTitle={displayedText.import_spells}
+              importDescription={displayedText.select_spells_to_import}
+              notFoundText={displayedText.no_spells_found}
               onImport={handleImportSpells}
               isPending={isPending}
               currentPerkableIds={spells.map(spell => spell.id)}
               useSearchPerkables={useSearchSpells}
+              renderItem={renderSpellItem}
             />
 
           </div>

@@ -17,6 +17,8 @@ import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 import TagsView from "@/common/components/TagsView";
 import ImportPerkableSheet from "@/application/characters/edit/ImportPerkableSheet";
 import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
+import PerkView from "@/application/compendium/perks/PerkView";
+import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
 type EditPerksListProps =
 {
@@ -44,6 +46,15 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
     });
   };
 
+  const renderPerkItem = (perk: Perk, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(perk.id)}>
+        <PerkView perk={perk} />
+      </SelectableItemWrapper>
+    );
+  };
+
   return (
     <>
       <div className="flex flex-row justify-center items-center gap-4">
@@ -67,6 +78,7 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
             isPending={isPending}
             currentPerkableIds={perks.map(perk => perk.id)}
             useSearchPerkables={useSearchPerks}
+            renderItem={renderPerkItem}
           />
         </div>
         

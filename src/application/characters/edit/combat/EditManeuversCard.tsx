@@ -25,16 +25,14 @@ import { Separator } from '@/common/components/ui/separator';
 import FormStringsInput from '@/common/components/inputs/FormStringsInput';
 import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
 import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
+import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
+import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
-type EditManeuversCardProps =
-{
-  isPending: boolean;
-}
-
-export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
+export default function EditManeuversCard() 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
+  const isPending = false;
 
   const handleImportManeuvers = (importedManeuvers: Maneuver[]) => 
   {
@@ -55,6 +53,15 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
     });
   };
 
+  const renderManeuverItem = (maneuver: Maneuver, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(maneuver.id)}>
+        <ManeuverView maneuver={maneuver} />
+      </SelectableItemWrapper>
+    );
+  };
+
   return (
     <Card className='bg-muted'>
 
@@ -71,6 +78,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
             isPending={isPending}
             currentPerkableIds={watchedArray.map(maneuver => maneuver.id)}
             useSearchPerkables={useSearchManeuvers}
+            renderItem={renderManeuverItem}
           />
         </CardTitle>
       </CardHeader>

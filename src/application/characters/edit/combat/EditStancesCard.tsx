@@ -10,16 +10,14 @@ import { CreateDefaultStance, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
 import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
 import { useSearchStances } from '@/application/characters/edit/combat/hooks/useSearchStances';
+import StanceView from "@/application/compendium/stances/StanceView";
+import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
-type EditStancesCardProps =
-{
-  isPending: boolean;
-}
-
-export default function EditStancesCard({ isPending }: EditStancesCardProps)
+export default function EditStancesCard() 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
+  const isPending = false;
 
   const handleImportStances = (importedStances: Mode[]) => 
   {
@@ -35,6 +33,15 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
         tags: [...stance.tags]
       });
     });
+  };
+
+  const renderStanceItem = (stance: Mode, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(stance.id)}>
+        <StanceView stance={stance} />
+      </SelectableItemWrapper>
+    );
   };
 
   return (
@@ -53,6 +60,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
             isPending={isPending}
             currentPerkableIds={watchedArray.map(stance => stance.id)}
             useSearchPerkables={useSearchStances}
+            renderItem={renderStanceItem}
           />
         </CardTitle>
       </CardHeader>

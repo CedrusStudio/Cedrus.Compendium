@@ -10,16 +10,14 @@ import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
 import ImportPerkableSheet from '@/application/characters/edit/ImportPerkableSheet';
 import { useSearchStates } from '@/application/characters/edit/combat/hooks/useSearchStates';
+import StateView from "@/application/compendium/states/StateView";
+import SelectableItemWrapper from "@/application/characters/edit/SelectableItemWrapper";
 
-type EditStatesCardProps =
-{
-  isPending: boolean;
-}
-
-export default function EditStatesCard({ isPending }: EditStatesCardProps)
+export default function EditStatesCard() 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("states", control);
+  const isPending = false;
 
   const handleImportStates = (importedStates: Mode[]) => 
   {
@@ -35,6 +33,15 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
         tags: [...state.tags]
       });
     });
+  };
+
+  const renderStateItem = (state: Mode, isSelected: boolean, onToggle: (id: string) => void) => 
+  {
+    return (
+      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(state.id)}>
+        <StateView state={state} />
+      </SelectableItemWrapper>
+    );
   };
 
   return (
@@ -53,6 +60,7 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
             isPending={isPending}
             currentPerkableIds={watchedArray.map(state => state.id)}
             useSearchPerkables={useSearchStates}
+            renderItem={renderStateItem}
           />
         </CardTitle>
       </CardHeader>

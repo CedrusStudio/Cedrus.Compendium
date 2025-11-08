@@ -31,6 +31,7 @@ type ImportPerksSheetProps<TPerkable extends Perk> =
   isPending: boolean;
   currentPerkableIds: string[];
   useSearchPerkables: (params: { searchTerm: string, enabled: boolean }) => { data: TPerkable[]; isLoading: boolean; error: Error | null };
+  renderItem?: (perkable: TPerkable, isSelected: boolean, onToggle: (id: string) => void) => React.ReactNode;
 };
 
 export default function ImportPerkableSheet<TPerkable extends Perk>
@@ -42,7 +43,8 @@ export default function ImportPerkableSheet<TPerkable extends Perk>
     onImport,
     isPending,
     currentPerkableIds,
-    useSearchPerkables
+    useSearchPerkables,
+    renderItem
   }
     : ImportPerksSheetProps<TPerkable>
 ) 
@@ -138,20 +140,23 @@ export default function ImportPerkableSheet<TPerkable extends Perk>
             isLoading 
               ? <LoadingSpinner />
               : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                   {
                     filteredPerkables.length === 0 
                       ? <NotFoundMessage notFoundText={notFoundText} />
                       : (
                           filteredPerkables.map(perkable => 
-                          (
-                            <PerkableSelectCard
-                              key={perkable.id}
-                              perkable={perkable}
-                              isSelected={selectedPerkableIds.has(perkable.id)}
-                              onToggle={handleTogglePerkable}
-                            />
-                          ))
+                            renderItem 
+                              ? <div key={perkable.id}>{renderItem(perkable, selectedPerkableIds.has(perkable.id), handleTogglePerkable)}</div>
+                              : (
+                                  <PerkableSelectCard
+                                    key={perkable.id}
+                                    perkable={perkable}
+                                    isSelected={selectedPerkableIds.has(perkable.id)}
+                                    onToggle={handleTogglePerkable}
+                                  />
+                                )
+                          )
                         )
                   }
                   </div>
