@@ -17,6 +17,8 @@ Bestiary + Battle + Edit Talents Table + Talents Table
         allOption={displayedText.all}
     />
 
+FILTRY NA RODZAJU MOCY?!!?!?!
+
 (when the perkable is from import it  -is readonly - before update - handle it)
 ----- Comon useSearch ??
 
