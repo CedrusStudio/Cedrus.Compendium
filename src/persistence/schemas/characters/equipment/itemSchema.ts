@@ -7,3 +7,5 @@ export const itemSchema = entitySchema.extend
   description: z.string().max(2000, { message: "Opis musi mieć najwyżej 2000 znaków." }),
   tags: tagsSchema
 });
+
+export type InventoryItemDto = z.infer<typeof itemSchema>;
