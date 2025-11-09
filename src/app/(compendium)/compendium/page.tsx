@@ -15,11 +15,9 @@ export default async function CompendiumPage()
         <LinkButton name="spells" basePath={basePath} />
       </div>
 
-      {/* <div className="flex gap-3">
-        <LinkButton name="powers" basePath={basePath} />
+      <div className="flex gap-3">
         <LinkButton name="equipment" basePath={basePath} />
-        <LinkButton name="talents" basePath={basePath} />
-      </div> */}
+      </div>
 
     </section>
   );
