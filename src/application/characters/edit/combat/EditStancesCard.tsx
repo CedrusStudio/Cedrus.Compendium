@@ -84,7 +84,6 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
             currentItemsIds={watchedArray.map(stance => stance.id)}
             useSearchItems={useSearchStances}
             renderItem={renderStanceItem}
-            gridColumns={2}
           />
         </CardTitle>
       </CardHeader>

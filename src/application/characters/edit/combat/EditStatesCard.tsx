@@ -84,7 +84,6 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
             currentItemsIds={watchedArray.map(state => state.id)}
             useSearchItems={useSearchStates}
             renderItem={renderStateItem}
-            gridColumns={2}
           />
         </CardTitle>
       </CardHeader>

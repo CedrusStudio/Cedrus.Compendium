@@ -41,7 +41,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     currentItemsIds,
     useSearchItems,
     renderItem,
-    gridColumns = 1
+    gridColumns = 2
   }
     : ImportItemsSheetProps<TItem>
 ) 

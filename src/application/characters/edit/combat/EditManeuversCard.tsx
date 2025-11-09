@@ -103,7 +103,6 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
             currentItemsIds={watchedArray.map(maneuver => maneuver.id)}
             useSearchItems={useSearchManeuvers}
             renderItem={renderManeuverItem}
-            gridColumns={2}
           />
         </CardTitle>
       </CardHeader>

@@ -139,7 +139,6 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
               currentItemsIds={spells.map(spell => spell.id)}
               useSearchItems={useSearchSpells}
               renderItem={renderSpellItem}
-              gridColumns={2}
             />
 
           </div>
