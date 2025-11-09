@@ -1,7 +1,7 @@
 import client from '@/infrastructure/clients/baseClient';
 import { InventoryItemDto } from '@/persistence/schemas/characters/equipment/itemSchema';
 
-const inventoryPathSegment = '/inventory';
+const inventoryPathSegment = '/equipment/inventory';
 
 const inventoryClient = 
 {

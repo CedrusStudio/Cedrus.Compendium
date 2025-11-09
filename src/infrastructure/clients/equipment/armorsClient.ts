@@ -1,7 +1,7 @@
 import client from '@/infrastructure/clients/baseClient';
 import { ArmorDto } from '@/persistence/schemas/characters/equipment/armorSchema';
 
-const armorPathSegment = '/armors';
+const armorPathSegment = '/equipment/armors';
 
 const armorsClient = 
 {

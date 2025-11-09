@@ -1,7 +1,7 @@
 import client from '@/infrastructure/clients/baseClient';
 import { ShieldDto } from '@/persistence/schemas/characters/equipment/shieldSchema';
 
-const shieldPathSegment = '/shields';
+const shieldPathSegment = '/equipment/shields';
 
 const shieldsClient = 
 {

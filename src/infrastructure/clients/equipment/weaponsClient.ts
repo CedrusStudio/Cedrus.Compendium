@@ -1,7 +1,7 @@
 import client from '@/infrastructure/clients/baseClient';
 import { WeaponDto } from '@/persistence/schemas/characters/equipment/weaponSchema';
 
-const weaponPathSegment = '/weapons';
+const weaponPathSegment = '/equipment/weapons';
 
 const weaponsClient = 
 {

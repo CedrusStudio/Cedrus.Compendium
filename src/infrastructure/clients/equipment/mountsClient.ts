@@ -1,7 +1,7 @@
 import client from '@/infrastructure/clients/baseClient';
 import { MountDto } from '@/persistence/schemas/characters/equipment/mountSchema';
 
-const mountPathSegment = '/mounts';
+const mountPathSegment = '/equipment/mounts';
 
 const mountsClient = 
 {
