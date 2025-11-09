@@ -7,24 +7,31 @@ import EditDefensiveItemView from "@/application/characters/edit/equipment/EditD
 import { Label } from "@/ui/label";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { displayedText } from "@/presentation/translations";
+import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditShieldViewProps = 
 {
   shield: Shield;
   index: number;
+  isImported: boolean;
 };
 
-export default function EditShieldView({ index, shield }: EditShieldViewProps)
+export default function EditShieldView({ index, shield, isImported }: EditShieldViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
-      <ShieldView shield={shield} />
-      <EditShieldSheet shield={shield} index={index} />
+      <div className="flex items-center">
+        <ShieldView shield={shield} />
+        <ImportedBadge isImported={isImported} />
+      </div>
+      {!isImported && <EditShieldSheet shield={shield} index={index} />}
     </div>
   );
 }
 
-function EditShieldSheet({ shield, index }: EditShieldViewProps)
+type EditShieldSheetProps = Pick<EditShieldViewProps, 'shield' | 'index'>;
+
+function EditShieldSheet({ shield, index }: EditShieldSheetProps)
 {
   return (
     <EditItemSheet item={{ name: shield.name, description: shield.description, type: `shields.${index}` }} >

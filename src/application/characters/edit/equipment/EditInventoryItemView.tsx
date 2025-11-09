@@ -1,24 +1,31 @@
 import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
 import { Item } from "@/domain/characters/equipment/Item";
 import { displayedText } from "@/presentation/translations";
+import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditInventoryItemViewProps = 
 {
   inventory: Item;
   index: number;
+  isImported: boolean;
 };
 
-export default function EditInventoryItemView({ index, inventory }: EditInventoryItemViewProps)
+export default function EditInventoryItemView({ index, inventory, isImported }: EditInventoryItemViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
-      <span>{displayedText.description}: {inventory.description}</span>
-      <EditInventorySheet inventory={inventory} index={index} />
+      <div className="flex items-center">
+        <span>{displayedText.description}: {inventory.description}</span>
+        <ImportedBadge isImported={isImported} />
+      </div>
+      {!isImported && <EditInventorySheet inventory={inventory} index={index} />}
     </div>
   );
 }
 
-function EditInventorySheet({ inventory, index }: EditInventoryItemViewProps)
+type EditInventorySheetProps = Pick<EditInventoryItemViewProps, 'inventory' | 'index'>;
+
+function EditInventorySheet({ inventory, index }: EditInventorySheetProps)
 {
   return <EditItemSheet item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} />;
 }
