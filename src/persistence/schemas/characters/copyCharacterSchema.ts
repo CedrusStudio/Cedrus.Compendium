@@ -2,7 +2,6 @@ import { z } from "zod";
 import { headerSchema } from "@/persistence/schemas/characters/headerSchema";
 import { statisticsSchema } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { talentsSchema } from "@/persistence/schemas/characters/talentSchema";
-import { equipmentSchema } from "@/persistence/schemas/characters/equipment/equipmentSchema";
 import { combatSchema } from "@/persistence/schemas/characters/combat/combatSchema";
 
 export const copyCreateCharacterSchema = z.object
@@ -20,8 +19,13 @@ export const copyCreateCharacterSchema = z.object
   health: combatSchema.shape.health,
   defenses: combatSchema.shape.defenses,
   offenses: combatSchema.shape.offenses,
-  equipment: equipmentSchema,
   powers: combatSchema.shape.powers,
+  // Relation ids
+  weaponsIds: z.array(z.string()),
+  armorsIds: z.array(z.string()),
+  shieldsIds: z.array(z.string()),
+  inventoryIds: z.array(z.string()),
+  mountsIds: z.array(z.string()),
 
   // Relation ids
   stancesIds: z.array(z.string()),

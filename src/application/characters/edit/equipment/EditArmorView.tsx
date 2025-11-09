@@ -7,24 +7,35 @@ import { Armor, allowedProtections } from "@/domain/characters/equipment/Armor";
 import { pathToArmorsField } from "@/domain/characters/equipment/Equipment";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 import { displayedText } from "@/presentation/translations";
+import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditArmorViewProps = 
 {
   armor: Armor;
   index: number;
+  isImported: boolean;
 };
 
-export default function EditArmorView({ index, armor }: EditArmorViewProps)
+export default function EditArmorView({ index, armor, isImported }: EditArmorViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
-      <ArmorView armor={armor} />
-      <EditArmorSheet armor={armor} index={index} />
+      <div className="flex items-center">
+        <ArmorView armor={armor} />
+        <ImportedBadge isImported={isImported} />
+      </div>
+      {!isImported && <EditArmorSheet armor={armor} index={index} /> }
     </div>
   );
 }
 
-function EditArmorSheet({ armor, index }: EditArmorViewProps)
+type EditArmorSheetProps = 
+{
+  armor: Armor;
+  index: number;
+};
+
+function EditArmorSheet({ armor, index }: EditArmorSheetProps)
 {
   return (
     <EditItemSheet item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} >

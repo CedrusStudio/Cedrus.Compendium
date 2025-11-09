@@ -8,3 +8,5 @@ export const mountSchema = itemSchema.extend
   canterSpeed: z.coerce.number<number>().int().min(1, { message: "Prędkość kłusa musi mieć co najmniej 1." }).max(175, { message: "Prędkość kłusa musi mieć najwyżej 175." }),
   horsemanshipBonus: z.coerce.number<number>().int().min(-10, { message: "Bonus jeździecki musi mieć co najmniej -10." }).max(20, { message: "Bonus jeździecki musi mieć najwyżej 20." }),
 });
+
+export type MountDto = z.infer<typeof mountSchema>;

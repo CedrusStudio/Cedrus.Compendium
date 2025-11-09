@@ -10,3 +10,5 @@ export const weaponSchema = itemSchema.extend
   damageBonus: damageOffenseSchema,
   range: z.coerce.number<number>().int().min(-5, { message: "Zasięg Krytyka musi mieć co najmniej -5." }).max(50, { message: "Zasięg Krytyka musi mieć najwyżej 50." }),
 });
+
+export type WeaponDto = z.infer<typeof weaponSchema>;

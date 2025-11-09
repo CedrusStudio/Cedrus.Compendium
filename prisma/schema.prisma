@@ -31,7 +31,6 @@ model Character {
   health          Health
   defenses        Defense[]
   offenses        Offense[]
-  equipment       Equipment
 
   stancesIds String[]
   stances    Stance[] @relation(fields: [stancesIds], references: [id])
@@ -48,6 +47,21 @@ model Character {
 
   perksIds String[]
   perks    Perk[]   @relation(fields: [perksIds], references: [id])
+
+  weaponsIds String[]
+  weapons    Weapon[] @relation(fields: [weaponsIds], references: [id])
+
+  armorsIds String[]
+  armors    Armor[]  @relation(fields: [armorsIds], references: [id])
+
+  shieldsIds String[]
+  shields    Shield[] @relation(fields: [shieldsIds], references: [id])
+
+  inventoryIds String[]
+  inventory    InventoryItem[] @relation(fields: [inventoryIds], references: [id])
+
+  mountsIds String[]
+  mounts    Mount[]  @relation(fields: [mountsIds], references: [id])
 
   @@map("characters") // Map to existing collection name in MongoDB
 }
@@ -140,6 +154,94 @@ model Spell {
 
   @@unique([name, grade(sort: Asc)])
   @@map("spells")
+}
+
+model Weapon {
+  id          String @id @default(ulid()) @map("_id")
+  name        String
+  description String
+  tags        String[]
+  style       String
+  offense     WeaponOffense
+  damageBonus DamageOffense
+  range       Int
+
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@map("weapons")
+}
+
+model Armor {
+  id          String @id @default(ulid()) @map("_id")
+  name        String
+  description String
+  tags        String[]
+
+  resistance            Int
+  dexterityRestriction  Int
+  reflexRestriction     Int
+  initiativeRestriction Int
+  attributePenalty      Int
+  strengthRequirement   Int
+
+  immunity   Int
+  protection Int
+
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@map("armors")
+}
+
+model Shield {
+  id          String @id @default(ulid()) @map("_id")
+  name        String
+  description String
+  tags        String[]
+
+  resistance            Int
+  dexterityRestriction  Int
+  reflexRestriction     Int
+  initiativeRestriction Int
+  attributePenalty      Int
+  strengthRequirement   Int
+
+  block Int
+
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@map("shields")
+}
+
+model InventoryItem {
+  id          String @id @default(ulid()) @map("_id")
+  name        String
+  description String
+  tags        String[]
+
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@map("inventory")
+}
+
+model Mount {
+  id          String @id @default(ulid()) @map("_id")
+  name        String
+  description String
+  tags        String[]
+
+  paceSpeed         Int
+  gallopSpeed       Int
+  canterSpeed       Int
+  horsemanshipBonus Int
+
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+
+  @@map("mounts")
 }
 
 // Value Objects
@@ -241,79 +343,6 @@ type DamageOffense {
 type Critical {
   power Int
   range Int
-}
-
-type Equipment {
-  weapons   Weapon[]
-  armors    Armor[]
-  shields   Shield[]
-  inventory Item[]
-  mounts    Mount[]
-}
-
-//Think should it be embedded in Character or separate collection?
-
-type Weapon {
-  id          String
-  name        String
-  description String
-  tags        String[]
-  style       String
-  offense     WeaponOffense
-  damageBonus DamageOffense
-  range       Int
-}
-
-type Armor {
-  id          String
-  name        String
-  description String
-  tags        String[]
-
-  resistance            Int
-  dexterityRestriction  Int
-  reflexRestriction     Int
-  initiativeRestriction Int
-  attributePenalty      Int
-  strengthRequirement   Int
-
-  immunity   Int
-  protection Int
-}
-
-type Shield {
-  id          String
-  name        String
-  description String
-  tags        String[]
-
-  resistance            Int
-  dexterityRestriction  Int
-  reflexRestriction     Int
-  initiativeRestriction Int
-  attributePenalty      Int
-  strengthRequirement   Int
-
-  block Int
-}
-
-type Item {
-  id          String
-  name        String
-  description String
-  tags        String[]
-}
-
-type Mount {
-  id          String
-  name        String
-  description String
-  tags        String[]
-
-  paceSpeed         Int
-  gallopSpeed       Int
-  canterSpeed       Int
-  horsemanshipBonus Int
 }
 
 type Power {

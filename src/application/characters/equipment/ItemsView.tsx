@@ -1,7 +1,6 @@
-import TagsView from '@/common/components/tags/TagsView';
 import { Item } from '@/domain/characters/equipment/Item';
-import { AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/accordion";
 import { PropsWithChildren } from 'react';
+import ItemAccordion from '@/application/characters/equipment/ItemAccordion';
 
 type ItemsViewProps<T extends Item> = 
 {
@@ -23,17 +22,9 @@ export default function ItemsView<T extends Item>({ items, itemViewFactory, labe
           <div>
           {
             items.map((item, index) => (
-              <AccordionItem key={item.id} value={item.id}>
-                <AccordionTrigger>
-                  <div className='flex flex-row gap-2 place-content-center'>
-                    <span>{item.name}</span>
-                    <TagsView tags={item.tags} variant="secondary" />
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                    {itemViewFactory(item, index)}
-                </AccordionContent>
-              </AccordionItem>
+              <ItemAccordion key={item.id} item={item}>
+                {itemViewFactory(item, index)}
+              </ItemAccordion>
             ))
           }
           </div>

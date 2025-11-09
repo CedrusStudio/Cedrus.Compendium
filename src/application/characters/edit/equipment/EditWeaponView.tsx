@@ -8,24 +8,31 @@ import { type EquipmentDto } from '@/persistence/schemas/characters/equipment/eq
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditItemSheet from '@/application/characters/edit/equipment/EditItemSheet';
 import { displayedText } from '@/presentation/translations';
+import ImportedBadge from '@/common/components/labels/ImportedBadge';
 
 type EditWeaponViewProps = 
 {
   weapon: Weapon;
   index: number;
+  isImported: boolean;
 };
 
-export default function EditWeaponView({ index, weapon }: EditWeaponViewProps)
+export default function EditWeaponView({ index, weapon, isImported }: EditWeaponViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
-      <WeaponView weapon={weapon} />
-      <EditWeaponSheet index={index} weapon={weapon} />
+      <div className="flex items-center">
+        <WeaponView weapon={weapon} />
+        <ImportedBadge isImported={isImported} />
+      </div>
+      {!isImported && <EditWeaponSheet index={index} weapon={weapon} />}
     </div>
   )
 }
 
-function EditWeaponSheet({ weapon, index }: EditWeaponViewProps)
+type EditWeaponSheetProps = Pick<EditWeaponViewProps, 'weapon' | 'index'>;
+
+function EditWeaponSheet({ weapon, index }: EditWeaponSheetProps)
 {
   return (
     <EditItemSheet item={{ name: weapon.name, description: weapon.description, type: `weapons.${index}` }} >

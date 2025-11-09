@@ -11,6 +11,7 @@ import { toEquipment } from '@/persistence/mappings/equipmentMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { ulid } from 'ulid';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
+import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { createUpsertPayload } from '@/persistence/mappings/createUpsertPayload';
 import { toEntity } from '@/persistence/mappings/entityMapping';
 import { SpellModel, toSpell } from '@/persistence/mappings/spellMappings';
@@ -20,6 +21,39 @@ import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCha
 
 export type CharacterWithRelations = Prisma.CharacterGetPayload<{ include: CharacterIncludeAllRelations }>;
 export type CharacterWithoutRelations = Prisma.CharacterGetPayload<null>;
+
+export function toCharacter(characterPersistenceModel: CharacterWithRelations): Character
+{
+  return {
+    ...toEntity(characterPersistenceModel),
+    shortName: characterPersistenceModel.shortName,
+    description: characterPersistenceModel.description,
+    tags: characterPersistenceModel.tags,
+
+    characteristics: characterPersistenceModel.characteristics,
+    attributes: characterPersistenceModel.attributes,
+    talents: characterPersistenceModel.talents.map(toTalents),
+
+    health: characterPersistenceModel.health,
+    defenses: characterPersistenceModel.defenses.map(toDefense),
+    offenses: characterPersistenceModel.offenses.map(toOffense),
+
+    equipment: toEquipment
+    (
+      characterPersistenceModel.weapons,
+      characterPersistenceModel.armors,
+      characterPersistenceModel.shields,
+      characterPersistenceModel.inventory,
+      characterPersistenceModel.mounts
+    ),
+
+    stances: characterPersistenceModel.stances.map(toPerk<Mode>),
+    states: characterPersistenceModel.states.map(toPerk<Mode>),
+    maneuvers: characterPersistenceModel.maneuvers.map(toCastablePerk<Maneuver>),
+    powers: characterPersistenceModel.powers.map(power => toPower(power, characterPersistenceModel.spells)),
+    perks: characterPersistenceModel.perks.map(toPerk<Perk>),
+  };
+}
 
 export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCreateCharacterDto)
   : Prisma.CharacterCreateInput
@@ -37,7 +71,27 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     health: copyCreateCharacter.health,
     defenses: copyCreateCharacter.defenses,
     offenses: copyCreateCharacter.offenses,
-    equipment: copyCreateCharacter.equipment,
+
+    weapons : {
+      connect: copyCreateCharacter.weaponsIds.map(id => ({ id }))
+    },
+
+    armors : {
+      connect: copyCreateCharacter.armorsIds.map(id => ({ id }))
+    },
+
+    shields : {
+      connect: copyCreateCharacter.shieldsIds.map(id => ({ id }))
+    },
+
+    inventory : {
+      connect: copyCreateCharacter.inventoryIds.map(id => ({ id }))
+    },
+
+    mounts : {
+      connect: copyCreateCharacter.mountsIds.map(id => ({ id }))
+    },
+
     powers: copyCreateCharacter.powers.map(power => ({
       ...power,
       spells: undefined,
@@ -58,31 +112,6 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     spells: {
       connect: copyCreateCharacter.spellsIds.map(id => ({ id }))
     },
-  };
-}
-
-export function toCharacter(characterPersistenceModel: CharacterWithRelations): Character
-{
-  return {
-    ...toEntity(characterPersistenceModel),
-    shortName: characterPersistenceModel.shortName,
-    description: characterPersistenceModel.description,
-    tags: characterPersistenceModel.tags,
-
-    characteristics: characterPersistenceModel.characteristics,
-    attributes: characterPersistenceModel.attributes,
-    talents: characterPersistenceModel.talents.map(toTalents),
-
-    health: characterPersistenceModel.health,
-    defenses: characterPersistenceModel.defenses.map(toDefense),
-    offenses: characterPersistenceModel.offenses.map(toOffense),
-    equipment: toEquipment(characterPersistenceModel.equipment),
-
-    stances: characterPersistenceModel.stances.map(toPerk<Mode>),
-    states: characterPersistenceModel.states.map(toPerk<Mode>),
-    maneuvers: characterPersistenceModel.maneuvers.map(toCastablePerk<Maneuver>),
-    powers: characterPersistenceModel.powers.map(power => toPower(power, characterPersistenceModel.spells)),
-    perks: characterPersistenceModel.perks.map(toPerk<Perk>),
   };
 }
 
@@ -136,14 +165,7 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
     offenses: [ CreateDefaultOffense() ],
     talents: [],
 
-    equipment: 
-    {
-      weapons: [],
-      armors: [],
-      shields: [],
-      inventory: [],
-      mounts: []
-    },
+    // equipment relations start as empty arrays
     powers: [],
   };
 }
@@ -192,6 +214,31 @@ export function toCharacterCombatPersistenceModel
       spellsIds: power.spells.map(spell => spell.id)
     })),
     spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells), spellsIdsToConnect),
+  };
+}
+
+export function toCharacterEquipmentPersistenceModel
+(
+  equipment: EquipmentDto,
+  existingWeaponsIds: string[],
+  weaponsIdsToConnect: string[] = [],
+  existingArmorsIds: string[],
+  armorsIdsToConnect: string[] = [],
+  existingShieldsIds: string[],
+  shieldsIdsToConnect: string[] = [],
+  existingInventoryIds: string[],
+  inventoryIdsToConnect: string[] = [],
+  existingMountsIds: string[],
+  mountsIdsToConnect: string[] = []
+)
+  : Prisma.CharacterUpdateInput
+{
+  return {
+    weapons: createUpsertPayload(existingWeaponsIds, equipment.weapons, weaponsIdsToConnect),
+    armors: createUpsertPayload(existingArmorsIds, equipment.armors, armorsIdsToConnect),
+    shields: createUpsertPayload(existingShieldsIds, equipment.shields, shieldsIdsToConnect),
+    inventory: createUpsertPayload(existingInventoryIds, equipment.inventory, inventoryIdsToConnect),
+    mounts: createUpsertPayload(existingMountsIds, equipment.mounts, mountsIdsToConnect),
   };
 }
 

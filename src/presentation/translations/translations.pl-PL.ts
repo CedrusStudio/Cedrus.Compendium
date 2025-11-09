@@ -231,6 +231,26 @@ export const translations_plPL =
     select_spells_to_import: "wybierz zaklęcia do zaimportowania",
     no_spells_found: "nie znaleziono zaklęć",
 
+    import_weapons: "importuj broń",
+    select_weapons_to_import: "wybierz broń do zaimportowania",
+    no_weapons_found: "nie znaleziono broni",
+
+    import_armors: "importuj zbroje",
+    select_armors_to_import: "wybierz zbroje do zaimportowania",
+    no_armors_found: "nie znaleziono zbroi",
+
+    import_shields: "importuj tarcze",
+    select_shields_to_import: "wybierz tarcze do zaimportowania",
+    no_shields_found: "nie znaleziono tarcz",
+
+    import_inventory: "importuj ekwipunek",
+    select_inventory_to_import: "wybierz przedmioty do zaimportowania",
+    no_inventory_found: "nie znaleziono przedmiotów",
+
+    import_mounts: "importuj wierzchowce",
+    select_mounts_to_import: "wybierz wierzchowce do zaimportowania",
+    no_mounts_found: "nie znaleziono wierzchowców",
+
     notFound: "nie znaleziono",
 } as const;
 

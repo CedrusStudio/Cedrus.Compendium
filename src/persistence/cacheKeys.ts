@@ -88,3 +88,68 @@ export function createKeysetSearchSpellsKey
 {
     return [spellKey, searchParamKey, search, cursor, pageSize] as const;
 }
+
+// Weapons
+const weaponKey = 'weapons';
+export const createWeaponByIdKey = (id: string) => [weaponKey, id] as const;
+export function createKeysetSearchWeaponsKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    pageSize: number = DEFAULT_PAGE_SIZE
+) 
+{
+    return [weaponKey, searchParamKey, search, cursor, pageSize] as const;
+}
+
+// Armors
+const armorKey = 'armors';
+export const createArmorByIdKey = (id: string) => [armorKey, id] as const;
+export function createKeysetSearchArmorsKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    pageSize: number = DEFAULT_PAGE_SIZE
+) 
+{
+    return [armorKey, searchParamKey, search, cursor, pageSize] as const;
+}
+
+// Shields
+const shieldKey = 'shields';
+export const createShieldByIdKey = (id: string) => [shieldKey, id] as const;
+export function createKeysetSearchShieldsKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    pageSize: number = DEFAULT_PAGE_SIZE
+) 
+{
+    return [shieldKey, searchParamKey, search, cursor, pageSize] as const;
+}
+
+// Inventory
+const inventoryKey = 'inventory';
+export const createInventoryItemByIdKey = (id: string) => [inventoryKey, id] as const;
+export function createKeysetSearchInventoryKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    pageSize: number = DEFAULT_PAGE_SIZE
+) 
+{
+    return [inventoryKey, searchParamKey, search, cursor, pageSize] as const;
+}
+
+// Mounts
+const mountKey = 'mounts';
+export const createMountByIdKey = (id: string) => [mountKey, id] as const;
+export function createKeysetSearchMountsKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    pageSize: number = DEFAULT_PAGE_SIZE
+) 
+{
+    return [mountKey, searchParamKey, search, cursor, pageSize] as const;
+}

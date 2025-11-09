@@ -6,24 +6,31 @@ import { Label } from "@/ui/label";
 import MountView from "@/application/characters/equipment/MountView";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import { displayedText } from "@/presentation/translations";
+import ImportedBadge from "@/common/components/labels/ImportedBadge";
 
 type EditMountViewProps = 
 {
   mount: Mount;
   index: number;
+  isImported: boolean;
 };
 
-export default function EditMountView({ index, mount}: EditMountViewProps)
+export default function EditMountView({ index, mount, isImported}: EditMountViewProps)
 {
   return (
     <div className="flex flex-row justify-between items-start">
-      <MountView horse={mount} />
-      <EditMountSheet mount={mount} index={index} />
+      <div className="flex items-center">
+        <MountView horse={mount} />
+        <ImportedBadge isImported={isImported} />
+      </div>
+      {!isImported && <EditMountSheet mount={mount} index={index} />}
     </div>
   );
 }
 
-function EditMountSheet({ mount, index }: EditMountViewProps)
+type EditMountSheetProps = Pick<EditMountViewProps, 'mount' | 'index'>;
+
+function EditMountSheet({ mount, index }: EditMountSheetProps)
 {
   return (
     <EditItemSheet item={{ name: mount.name, description: mount.description, type: `mounts.${index}` }} >

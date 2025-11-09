@@ -231,5 +231,25 @@ export const translations_frFR =
     select_spells_to_import: "sélectionnez les sorts à importer",
     no_spells_found: "aucun sort trouvé",
 
+    import_weapons: "importer des armes",
+    select_weapons_to_import: "sélectionnez les armes à importer",
+    no_weapons_found: "aucune arme trouvée",
+
+    import_armors: "importer des armures",
+    select_armors_to_import: "sélectionnez les armures à importer",
+    no_armors_found: "aucune armure trouvée",
+
+    import_shields: "importer des boucliers",
+    select_shields_to_import: "sélectionnez les boucliers à importer",
+    no_shields_found: "aucun bouclier trouvé",
+
+    import_inventory: "importer l'inventaire",
+    select_inventory_to_import: "sélectionnez les objets à importer",
+    no_inventory_found: "aucun objet trouvé",
+
+    import_mounts: "importer des montures",
+    select_mounts_to_import: "sélectionnez les montures à importer",
+    no_mounts_found: "aucune monture trouvée",
+
     notFound: "non trouvé",
 } as const;
