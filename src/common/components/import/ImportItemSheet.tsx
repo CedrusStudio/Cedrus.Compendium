@@ -27,6 +27,7 @@ type ImportItemsSheetProps<TItem extends { id: string }> =
   currentItemsIds: string[];
   useSearchItems: (params: { searchTerm: string, enabled: boolean }) => { data: TItem[]; isLoading: boolean; error: Error | null };
   renderItem: (item: TItem, isSelected: boolean, onToggle: (id: string) => void) => React.ReactNode;
+  gridColumns?: 1 | 2 | 3 | 4;
 };
 
 export default function ImportItemsSheet<TItem extends { id: string }>
@@ -39,7 +40,8 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     isPending,
     currentItemsIds,
     useSearchItems,
-    renderItem
+    renderItem,
+    gridColumns = 2
   }
     : ImportItemsSheetProps<TItem>
 ) 
@@ -103,6 +105,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   const allSelected = filteredItems.length > 0 && selectedItemsIds.size === filteredItems.length;
   const visibleSelectedCount = filteredItems.filter(p => selectedItemsIds.has(p.id)).length;
   const hiddenSelectedCount = selectedCount - visibleSelectedCount;
+  const gridColsClass = `grid-cols-1 lg:grid-cols-${gridColumns}`;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -157,7 +160,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
           {
             isLoading 
               ? <LoadingSpinner />
-              : <div className="grid grid-cols-1 gap-4">
+              : <div className={`grid ${gridColsClass} gap-4`}>
                 {
                   filteredItems.length === 0 
                     ? <NotFoundMessage notFoundText={notFoundText} />

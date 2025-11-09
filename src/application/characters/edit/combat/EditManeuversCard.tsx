@@ -81,7 +81,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(maneuver.id)}>
-        <ManeuverView maneuver={maneuver} />
+        <ManeuverView maneuver={maneuver} disableEdit={true} />
       </SelectableItemWrapper>
     );
   };

@@ -62,7 +62,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(stance.id)}>
-        <StanceView stance={stance} />
+        <StanceView stance={stance} disableEdit={true} />
       </SelectableItemWrapper>
     );
   };

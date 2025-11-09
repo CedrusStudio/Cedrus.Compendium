@@ -23,19 +23,20 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 
 type StanceViewProps =
 {
   stance: Mode;
+  disableEdit?: boolean;
 }
 
-export default function StanceView({ stance }: StanceViewProps)
+export default function StanceView({ stance, disableEdit = false }: StanceViewProps)
 {
   const { deleteStance, isPending } = useDeleteStanceById();
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
-
 
       <div className="p-2 rounded-md w-full">
         <div className="flex flex-row gap-2">
@@ -55,8 +56,14 @@ export default function StanceView({ stance }: StanceViewProps)
           <div>{priceIcon}</div>
           <div>{stance.price}</div>
         </Badge>
-        <DeleteButton id={stance.id} isPending={isPending} deleteAction={deleteStance} />
-        <EditStanceForm stance={stance} />
+        {
+          !disableEdit && (
+            <>
+              <DeleteButton id={stance.id} isPending={isPending} deleteAction={deleteStance} />
+              <EditStanceForm stance={stance} />
+            </>
+          )
+        }
       </div>
 
     </div>
@@ -88,7 +95,7 @@ function EditStanceForm(input: EditStanceFormProps)
     }
   );
 
-  const formId = `edit-stance-${input.stance.id}`;
+  const formId = createCompendiumFormId.stance(input.stance.id);
   
   return (
     <Form {...form}>

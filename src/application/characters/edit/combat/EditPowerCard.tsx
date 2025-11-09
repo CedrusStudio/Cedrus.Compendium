@@ -83,7 +83,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(spell.id)}>
-        <SpellView spell={spell} />
+        <SpellView spell={spell} disableEdit={true} />
       </SelectableItemWrapper>
     );
   };

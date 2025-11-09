@@ -23,19 +23,20 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 
 type PerkViewProps =
 {
   perk: Perk;
+  disableEdit?: boolean;
 }
 
-export default function PerkView({ perk }: PerkViewProps)
+export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
 {
   const { deletePerk, isPending } = useDeletePerkById();
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
-
 
       <div className="p-2 rounded-md w-full">
         <div className="flex flex-row gap-2">
@@ -55,8 +56,14 @@ export default function PerkView({ perk }: PerkViewProps)
           <div>{priceIcon}</div>
           <div>{perk.price}</div>
         </Badge>
-        <DeleteButton id={perk.id} isPending={isPending} deleteAction={deletePerk} />
-        <EditPerkForm perk={perk} />
+        {
+          !disableEdit && (
+            <>
+              <DeleteButton id={perk.id} isPending={isPending} deleteAction={deletePerk} />
+              <EditPerkForm perk={perk} />
+            </>
+          )
+        }
       </div>
 
     </div>
@@ -88,7 +95,7 @@ function EditPerkForm(input: EditPerkFormProps)
     }
   );
 
-  const formId = `edit-perk-${input.perk.id}`;
+  const formId = createCompendiumFormId.perk(input.perk.id);
   
   return (
     <Form {...form}>
