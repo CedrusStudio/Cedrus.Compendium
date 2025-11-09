@@ -258,5 +258,25 @@ export const displayedText =
     select_spells_to_import: translate("select_spells_to_import"),
     no_spells_found: translate("no_spells_found"),
 
+    import_weapons: translate("import_weapons"),
+    select_weapons_to_import: translate("select_weapons_to_import"),
+    no_weapons_found: translate("no_weapons_found"),
+
+    import_armors: translate("import_armors"),
+    select_armors_to_import: translate("select_armors_to_import"),
+    no_armors_found: translate("no_armors_found"),
+
+    import_shields: translate("import_shields"),
+    select_shields_to_import: translate("select_shields_to_import"),
+    no_shields_found: translate("no_shields_found"),
+
+    import_inventory: translate("import_inventory"),
+    select_inventory_to_import: translate("select_inventory_to_import"),
+    no_inventory_found: translate("no_inventory_found"),
+
+    import_mounts: translate("import_mounts"),
+    select_mounts_to_import: translate("select_mounts_to_import"),
+    no_mounts_found: translate("no_mounts_found"),
+
     notFound: translate("notFound"),
 } as const;

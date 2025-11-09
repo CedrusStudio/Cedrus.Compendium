@@ -231,5 +231,25 @@ export const translations_deDE =
     select_spells_to_import: "wählen Sie zauber zum importieren",
     no_spells_found: "keine zauber gefunden",
 
+    import_weapons: "waffen importieren",
+    select_weapons_to_import: "wählen Sie waffen zum importieren",
+    no_weapons_found: "keine waffen gefunden",
+
+    import_armors: "rüstungen importieren",
+    select_armors_to_import: "wählen Sie rüstungen zum importieren",
+    no_armors_found: "keine rüstungen gefunden",
+
+    import_shields: "schilde importieren",
+    select_shields_to_import: "wählen Sie schilde zum importieren",
+    no_shields_found: "keine schilde gefunden",
+
+    import_inventory: "inventar importieren",
+    select_inventory_to_import: "wählen Sie gegenstände zum importieren",
+    no_inventory_found: "keine gegenstände gefunden",
+
+    import_mounts: "reittiere importieren",
+    select_mounts_to_import: "wählen Sie reittiere zum importieren",
+    no_mounts_found: "keine reittiere gefunden",
+
     notFound: "nicht gefunden",
 } as const;
