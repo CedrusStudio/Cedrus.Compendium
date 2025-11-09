@@ -44,8 +44,13 @@ export const useCreateCharacterFromCopy = ({ onSuccessCallback }: UseCreateChara
         health: baseChar.health,
         defenses: baseChar.defenses,
         offenses: baseChar.offenses,
-        equipment: baseChar.equipment,
         powers: baseChar.powers,
+
+        weaponsIds: baseChar.equipment.weapons.map(weapon => weapon.id),
+        armorsIds: baseChar.equipment.armors.map(armor => armor.id),
+        shieldsIds: baseChar.equipment.shields.map(shield => shield.id),
+        inventoryIds: baseChar.equipment.inventory.map(item => item.id),
+        mountsIds: baseChar.equipment.mounts.map(mount => mount.id),
 
         stancesIds: baseChar.stances.map(stance => stance.id),
         statesIds: baseChar.states.map(state => state.id),

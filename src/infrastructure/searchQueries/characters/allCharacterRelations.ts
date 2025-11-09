@@ -1,9 +1,14 @@
 export type CharacterIncludeAllRelations = {
   stances: true;
   states: true;
-  maneuvers: true
-  spells: true
-  perks: true
+  maneuvers: true;
+  spells: true;
+  perks: true;
+  weapons: true;
+  armors: true;
+  shields: true;
+  inventory: true;
+  mounts: true;
 };
 
 export const includeAllRelations: CharacterIncludeAllRelations =
@@ -12,5 +17,10 @@ export const includeAllRelations: CharacterIncludeAllRelations =
   states: true,
   maneuvers: true,
   spells: true,
-  perks: true
+  perks: true,
+  weapons: true,
+  armors: true,
+  shields: true,
+  inventory: true,
+  mounts: true
 };

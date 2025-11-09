@@ -1,4 +1,3 @@
-
 import { Armor } from '@/domain/characters/equipment/Armor';
 import { Equipment } from '@/domain/characters/equipment/Equipment';
 import { DefensiveItem, Item } from '@/domain/characters/equipment/Item';
@@ -8,20 +7,30 @@ import { Style, Weapon } from '@/domain/characters/equipment/Weapon';
 import { Prisma } from '@prisma/client';
 import { toEntity } from '@/persistence/mappings/entityMapping';
 
-type EquipmentModel = Prisma.CharacterGetPayload<{select: { equipment: true }}>['equipment'];
+type WeaponModel = Prisma.WeaponGetPayload<null>;
+type ArmorModel = Prisma.ArmorGetPayload<null>;
+type ShieldModel = Prisma.ShieldGetPayload<null>;
+type ItemModel = Prisma.InventoryItemGetPayload<null>;
+type MountModel = Prisma.MountGetPayload<null>;
 
-export function toEquipment(equipmentPersistenceModel: EquipmentModel): Equipment
+export function toEquipment
+(
+  weapons: WeaponModel[],
+  armors: ArmorModel[],
+  shields: ShieldModel[],
+  inventory: ItemModel[],
+  mounts: MountModel[]
+)
+  : Equipment
 {
   return {
-    weapons: equipmentPersistenceModel.weapons.map(toWeapon),
-    armors: equipmentPersistenceModel.armors.map(toArmor),
-    shields: equipmentPersistenceModel.shields.map(toShield),
-    inventory: equipmentPersistenceModel.inventory.map(toItem),
-    mounts: equipmentPersistenceModel.mounts.map(toMount),
+    weapons: weapons.map(toWeapon),
+    armors: armors.map(toArmor),
+    shields: shields.map(toShield),
+    inventory: inventory.map(toItem),
+    mounts: mounts.map(toMount),
   };
 }
-
-type ItemModel = Prisma.CharacterGetPayload<{select: { equipment: true }}>['equipment']['inventory'][number];
 
 function toItem(itemPersistenceModel: ItemModel): Item
 {
@@ -31,8 +40,6 @@ function toItem(itemPersistenceModel: ItemModel): Item
     tags: itemPersistenceModel.tags ?? []
   }
 };
-
-type WeaponModel = Prisma.CharacterGetPayload<{select: { equipment: true }}>['equipment']['weapons'][number];
 
 function toWeapon(weaponPersistenceModel: WeaponModel): Weapon
 {
@@ -67,8 +74,6 @@ function toDefenseItem(defenseItemPersistenceModel: DefensiveItemPersistencePara
   };
 }
 
-type ArmorModel = Prisma.CharacterGetPayload<{select: { equipment: true }}>['equipment']['armors'][number];
-
 function toArmor(armorPersistenceModel: ArmorModel): Armor
 {
   return {
@@ -79,8 +84,6 @@ function toArmor(armorPersistenceModel: ArmorModel): Armor
   };
 };
 
-type ShieldModel = Prisma.CharacterGetPayload<{select: { equipment: true }}>['equipment']['shields'][number];
-
 function toShield(shieldPersistenceModel: ShieldModel): Shield
 {
   return {
@@ -89,8 +92,6 @@ function toShield(shieldPersistenceModel: ShieldModel): Shield
     block: shieldPersistenceModel.block,
   };
 };
-
-type MountModel = Prisma.CharacterGetPayload<{select: { equipment: true }}>['equipment']['mounts'][number];
 
 function toMount(mountPersistenceModel: MountModel): Mount
 {
