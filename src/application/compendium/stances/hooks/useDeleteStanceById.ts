@@ -1,27 +1,16 @@
 "use client";
 
-import { useMutation, useQueryClient  } from '@tanstack/react-query';
 import client from "@/infrastructure/clients/stancesClient";
-import { useRouter } from 'next/navigation';
+import { useDeleteEntity } from '@/application/common/hooks/useDeleteEntity';
 
 export const useDeleteStanceById = () => 
 {
-    const queryClient = useQueryClient();
-    const router = useRouter();
-
-    const { mutate, isPending } = useMutation
+    const { deleteEntity, isPending } = useDeleteEntity
     ({
-        mutationFn: async (stanceId: string) => await client.delete(stanceId),
-        onSuccess: () =>
-        {
-            queryClient.invalidateQueries({ queryKey: ['stances'] });
-            router.push('/compendium/stances');
-        },
-        onError: (error) => 
-        {
-            console.error('Error deleting stance:', error);
-        }
+        client: client,
+        queryKey: ['stances'],
+        redirectPath: '/compendium/stances'
     });
 
-    return { deleteStance: mutate, isPending }
+    return { deleteStance: deleteEntity, isPending }
 };

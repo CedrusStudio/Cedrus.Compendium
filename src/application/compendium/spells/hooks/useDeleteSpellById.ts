@@ -1,27 +1,16 @@
 "use client";
 
-import { useMutation, useQueryClient  } from '@tanstack/react-query';
 import client from "@/infrastructure/clients/spellsClient";
-import { useRouter } from 'next/navigation';
+import { useDeleteEntity } from '@/application/common/hooks/useDeleteEntity';
 
 export const useDeleteSpellById = () => 
 {
-    const queryClient = useQueryClient();
-    const router = useRouter();
-
-    const { mutate, isPending } = useMutation
+    const { deleteEntity, isPending } = useDeleteEntity
     ({
-        mutationFn: async (spellId: string) => await client.delete(spellId),
-        onSuccess: () =>
-        {
-            queryClient.invalidateQueries({ queryKey: ['spells'] });
-            router.push('/compendium/spells');
-        },
-        onError: (error) => 
-        {
-            console.error('Error deleting spell:', error);
-        }
+        client: client,
+        queryKey: ['spells'],
+        redirectPath: '/compendium/spells'
     });
 
-    return { deleteSpell: mutate, isPending }
+    return { deleteSpell: deleteEntity, isPending }
 };

@@ -1,27 +1,16 @@
 "use client";
 
-import { useMutation, useQueryClient  } from '@tanstack/react-query';
 import client from "@/infrastructure/clients/equipment/shieldsClient";
-import { useRouter } from 'next/navigation';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 
 export const useDeleteShieldById = () => 
 {
-    const queryClient = useQueryClient();
-    const router = useRouter();
-
-    const { mutate, isPending } = useMutation
+    const { deleteEntity, isPending } = useDeleteEntity
     ({
-        mutationFn: async (shieldId: string) => await client.delete(shieldId),
-        onSuccess: () =>
-        {
-            queryClient.invalidateQueries({ queryKey: ['shields'] });
-            router.push('/compendium/equipment/shields');
-        },
-        onError: (error) => 
-        {
-            console.error('Error deleting shield:', error);
-        }
+        client: client,
+        queryKey: ['shields'],
+        redirectPath: '/compendium/equipment/shields'
     });
 
-    return { deleteShield: mutate, isPending }
+    return { deleteShield: deleteEntity, isPending };
 };

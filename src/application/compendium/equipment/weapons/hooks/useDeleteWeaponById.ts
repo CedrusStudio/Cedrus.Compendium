@@ -1,27 +1,16 @@
 "use client";
 
-import { useMutation, useQueryClient  } from '@tanstack/react-query';
 import client from "@/infrastructure/clients/equipment/weaponsClient";
-import { useRouter } from 'next/navigation';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 
 export const useDeleteWeaponById = () => 
 {
-    const queryClient = useQueryClient();
-    const router = useRouter();
+  const { deleteEntity, isPending } = useDeleteEntity
+  ({
+    client: client,
+    queryKey: ['weapons'],
+    redirectPath: '/compendium/equipment/weapons'
+  });
 
-    const { mutate, isPending } = useMutation
-    ({
-        mutationFn: async (weaponId: string) => await client.delete(weaponId),
-        onSuccess: () =>
-        {
-            queryClient.invalidateQueries({ queryKey: ['weapons'] });
-            router.push('/compendium/equipment/weapons');
-        },
-        onError: (error) => 
-        {
-            console.error('Error deleting weapon:', error);
-        }
-    });
-
-    return { deleteWeapon: mutate, isPending }
+  return { deleteWeapon: deleteEntity, isPending };
 };

@@ -1,27 +1,16 @@
 "use client";
 
-import { useMutation, useQueryClient  } from '@tanstack/react-query';
 import client from "@/infrastructure/clients/equipment/inventoryClient";
-import { useRouter } from 'next/navigation';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 
 export const useDeleteInventoryItemById = () => 
 {
-    const queryClient = useQueryClient();
-    const router = useRouter();
-
-    const { mutate, isPending } = useMutation
+    const { deleteEntity, isPending } = useDeleteEntity
     ({
-        mutationFn: async (itemId: string) => await client.delete(itemId),
-        onSuccess: () =>
-        {
-            queryClient.invalidateQueries({ queryKey: ['inventory'] });
-            router.push('/compendium/equipment/inventory');
-        },
-        onError: (error) => 
-        {
-            console.error('Error deleting inventory item:', error);
-        }
+        client: client,
+        queryKey: ['inventory'],
+        redirectPath: '/compendium/equipment/inventory'
     });
 
-    return { deleteInventoryItem: mutate, isPending }
+    return { deleteInventoryItem: deleteEntity, isPending };
 };
