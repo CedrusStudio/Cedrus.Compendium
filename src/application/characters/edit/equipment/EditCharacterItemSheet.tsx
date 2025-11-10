@@ -10,10 +10,7 @@ import {
 } from "@/ui/sheet";
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
-import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
-import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
-import { useFieldArray } from "react-hook-form";
-import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
+import { EquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
 import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
@@ -25,18 +22,12 @@ type EditItemSheetProps =
 
 export default function EditCharacterItemSheet({ type, children }: PropsWithChildren<EditItemSheetProps>)
 {
-  const { name, index } = splitEquipmentItemTypes(type);
-  const { remove } = useFieldArray<EquipmentDto>({ name });
-
   return (
     <Sheet>
 
-      <div className="flex justify-end items-center mt-4 gap-3">
-        <RemoveFromArrayButton remove={remove} index={index} />
-        <SheetTrigger asChild>
-          <Button variant="edit">{editIcon}</Button>
-        </SheetTrigger>
-      </div>
+      <SheetTrigger asChild>
+        <Button variant="edit">{editIcon}</Button>
+      </SheetTrigger>
 
       <SheetContent>
         
