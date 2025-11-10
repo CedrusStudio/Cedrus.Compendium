@@ -19,8 +19,8 @@ export default function ItemEditableFields({ pathPrefix = ""}: EditItemViewProps
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.name}</span></Label>
 
             <InputFormField<InventoryItemDto> 
-            path={(`${pathPrefix}name` as FieldPath<InventoryItemDto>)}
-            inputPlaceholder={displayedText.changeName} inputClassName='w-80' 
+                path={(`${pathPrefix}name` as FieldPath<InventoryItemDto>)}
+                inputPlaceholder={displayedText.changeName} inputClassName='w-80' 
             />
         </div>
 
