@@ -22,6 +22,9 @@ import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import SummaryView from '@/application/common/SummaryView';
 import EditCharacterCombatPerkSheet from '@/application/characters/edit/combat/EditCharacterCombatPerkSheet';
 import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
+import { battleIcon, cooldownIcon, costIcon } from '@/presentation/icons';
+import { Badge } from '@/common/components/ui/badge';
+import { getBadgeVariant } from '@/presentation/colors';
 
 type EditPowersCardProps =
 {
@@ -139,7 +142,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
           </div>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
           {
             spells.map((spell, spellIndex) => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={spellIndex} remove={removeSpell} isImported={importedSpellIds.has(spell.id)} />) 
           }
@@ -186,6 +189,14 @@ function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: Ed
       <ImportedBadge isImported={isImported} />
 
       <div className="flex flex-row gap-2">
+        <Badge variant="cost" className="h-9 w-14 capitalize ">
+          <div>{costIcon}</div>
+          <div>{spell.cost}</div>
+        </Badge>
+        <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(spell.castTime)}>
+          {cooldownIcon()}
+          <span>{spell.cooldown || battleIcon("scale-80")}</span>
+        </Badge>
         <RemoveFromArrayButton remove={remove} index={spellIndex} />
         {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
       </div>
