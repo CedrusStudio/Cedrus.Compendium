@@ -53,7 +53,7 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
                 renderSheetContent=
                 {
                   (isPending, formId) => (
-                    <PerkableEditSheet<ModeDto>
+                    <PerkableEditSheet
                       isPending={isPending}
                       formId={formId}
                       displayedTitle={displayedText.editState}

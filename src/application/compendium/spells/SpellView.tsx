@@ -2,10 +2,6 @@
 
 import client from "@/infrastructure/clients/spellsClient";
 import { type Spell } from "@/domain/characters/combat/Power";
-import { allowedCastTimes } from "@/domain/characters/Castable";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { battleIcon, cooldownIcon, costIcon, priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
@@ -18,6 +14,7 @@ import { createCompendiumFormId } from "@/application/compendium/compendiumFormC
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import SpellEditableFields from "@/application/common/combat/SpellEditableFields";
 
 type SpellViewProps =
 {
@@ -64,7 +61,10 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
                 schema={spellSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.spell(spell.id)}
-                renderSheetContent={(isPending, formId) => <EditSpellSheet isPending={isPending} formId={formId} />}
+                renderSheetContent=
+                {
+                  (isPending, formId) => <EditSpellSheet isPending={isPending} formId={formId} />
+                }
                 cacheKeys={['spells']}
               />
 
@@ -80,28 +80,12 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
 function EditSpellSheet({ isPending, formId }: { isPending: boolean, formId: string })
 {
   return (
-    <PerkableEditSheet<SpellDto>
+    <PerkableEditSheet
       isPending={isPending}
       formId={formId}
       displayedTitle={displayedText.editSpell}
     >
-      <div className="flex flex-wrap place-content-center gap-4">
-        <div className="grid auto-rows-min gap-3 px-4">
-          <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
-          <InputFormField<SpellDto> path='cooldown' inputClassName='w-11 h-10 text-center font-medium' />
-        </div>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-          <Label className='justify-center capitalize'>{displayedText.cost}</Label>
-          <InputFormField<SpellDto> path='cost' inputClassName='w-14 h-10 text-center font-medium'  />
-        </div>
-        
-        <div className="flex flex-col items-center gap-3 px-4">
-          <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
-          <SelectFormField<SpellDto> path='castTime' labelText={displayedText.castTime} items={allowedCastTimes} />
-        </div>
-
-      </div>
+      <SpellEditableFields  />
     </PerkableEditSheet>
   )
 }

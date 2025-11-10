@@ -53,7 +53,7 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
                 renderSheetContent=
                 {
                   (isPending, formId) => (
-                    <PerkableEditSheet<PerkDto>
+                    <PerkableEditSheet
                       isPending={isPending}
                       formId={formId}
                       displayedTitle={displayedText.editPerk}

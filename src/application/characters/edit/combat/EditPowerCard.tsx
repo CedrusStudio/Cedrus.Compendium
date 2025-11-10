@@ -1,9 +1,6 @@
 "use client";
 
-import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { allowedCastTimes } from "@/domain/characters/Castable";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import { Label } from "@/ui/label";
@@ -12,13 +9,10 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
-import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpellField, powerFieldOrder, Spell, type Power } from '@/domain/characters/combat/Power';
+import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpell, powerFieldOrder, Spell, type Power } from '@/domain/characters/combat/Power';
 import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
-import FormTagsInput from '@/common/components/inputs/FormTagsInput';
-import { FormStringsInput } from '@/common/components/inputs/FormStringsInput';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
 import SpellView from "@/application/compendium/spells/SpellView";
@@ -26,6 +20,8 @@ import SelectableItemWrapper from "@/common/components/import/SelectableItemWrap
 import { useState, useEffect, useRef } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import SummaryView from '@/application/common/SummaryView';
+import EditCharacterCombatPerkSheet from '@/application/characters/edit/combat/EditCharacterCombatPerkSheet';
+import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
 
 type EditPowersCardProps =
 {
@@ -191,7 +187,7 @@ function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: Ed
 
       <div className="flex flex-row gap-2">
         <RemoveFromArrayButton remove={remove} index={spellIndex} />
-        {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
+        {!isImported && <EditSpellSheet spell={spell} spellIndex={spellIndex} powerIndex={powerIndex} />}
       </div>
 
     </div>
@@ -200,89 +196,19 @@ function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: Ed
 
 type EditSpellSheetProps = 
 {
+  spell: Spell;
   powerIndex: number;
   spellIndex: number;
 };
 
-function EditSpellSheet({ powerIndex, spellIndex }: EditSpellSheetProps)
+
+function EditSpellSheet({ spell, powerIndex, spellIndex }: EditSpellSheetProps)
 {
+  const type = pathToSpell(powerIndex, spellIndex);
+
   return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.editSpell}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'name')} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-            </div>
-      
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'grade')} inputClassName="w-11 h-10 text-center font-medium" />
-            </div>
-
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'tags')} />
-          <FormStringsInput<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'requirements')} placeholder={displayedText.addRequirement} />
-
-          <div className="grid grid-cols-2 gap-4">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize justify-center'>{displayedText.cooldown}</Label>
-              <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'cooldown')} inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-    
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize justify-center'>{displayedText.castTime}</Label>
-              <SelectFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'castTime')} labelText={displayedText.castTime} items={allowedCastTimes} />
-            </div>
-            
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize justify-center'>{displayedText.cost}</Label>
-              <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'cost')} inputClassName='w-16 h-10 text-center font-medium' />
-            </div>
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize justify-center'>{displayedText.price}</Label>
-              <InputFormField<CombatDto> path={pathToSpellField(powerIndex, spellIndex, 'price')} inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-
-      </SheetContent>
-    </Sheet>
+    <EditCharacterCombatPerkSheet item={{ name: spell.name, description: spell.description, type }} >
+      <SpellEditableFields pathPrefix={type + "."}  />
+    </EditCharacterCombatPerkSheet>
   )
 }

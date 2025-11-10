@@ -53,7 +53,7 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
                 renderSheetContent=
                 {
                   (isPending, formId) => (
-                    <PerkableEditSheet<ModeDto>
+                    <PerkableEditSheet
                       isPending={isPending}
                       formId={formId}
                       displayedTitle={displayedText.editStance}

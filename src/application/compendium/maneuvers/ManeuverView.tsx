@@ -2,10 +2,6 @@
 
 import client from "@/infrastructure/clients/maneuversClient";
 import { type Maneuver } from "@/domain/characters/combat/Maneuver";
-import { allowedCastTimes } from "@/domain/characters/Castable";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { battleIcon, cooldownIcon, priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
@@ -18,6 +14,7 @@ import { createCompendiumFormId } from "@/application/compendium/compendiumFormC
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import CastablePerkEditableFields from "@/application/common/combat/CastablePerkEditableFields";
 
 type ManeuverViewProps =
 {
@@ -59,7 +56,18 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
                 schema={maneuverSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.maneuver(maneuver.id)}
-                renderSheetContent={(isPending, formId) => <EditManeuverSheet isPending={isPending} formId={formId} />}
+                renderSheetContent=
+                {
+                  (isPending, formId) => (
+                    <PerkableEditSheet
+                      isPending={isPending}
+                      formId={formId}
+                      displayedTitle={displayedText.editManeuver}
+                    >
+                      <CastablePerkEditableFields />
+                    </PerkableEditSheet>
+                  )
+                }
                 cacheKeys={['maneuvers']}
               />
 
@@ -70,29 +78,4 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
 
     </div>
   );
-}
-
-function EditManeuverSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <PerkableEditSheet<ManeuverDto>
-      isPending={isPending}
-      formId={formId}
-      displayedTitle={displayedText.editManeuver}
-    >
-      <div className="grid grid-cols-2 gap-4">
-
-        <div className="grid auto-rows-min gap-3 px-4">
-          <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
-          <InputFormField<ManeuverDto> path='cooldown' inputClassName='w-11 h-10 text-center font-medium' />
-        </div>
-
-        <div className="flex flex-col items-center gap-3 px-4">
-          <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
-          <SelectFormField<ManeuverDto> path='castTime' labelText={displayedText.castTime} items={allowedCastTimes} />
-        </div>
-
-      </div>
-    </PerkableEditSheet>
-  )
 }
