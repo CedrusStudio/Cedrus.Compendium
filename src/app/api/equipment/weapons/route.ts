@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { addWeapon } from '@/persistence/equipment/weapons/weaponsRepository';
+import prisma from "@/lib/prisma";
+import { createCommonRepository } from '@/persistence/common/createCommonRepository';
 
 export async function POST(request: NextRequest)
 {
@@ -7,7 +8,8 @@ export async function POST(request: NextRequest)
   {
     const weapon = await request.json();
     if (!weapon) return NextResponse.json({ message: 'Weapon data is required' }, { status: 400 });
-    const id = await addWeapon(weapon);
+    const repository = await createCommonRepository(prisma.weapon);
+    const id = await repository.add(weapon);
     if (!id) return NextResponse.json({ message: 'Failed to add weapon' }, { status: 500 });
     return NextResponse.json({ id }, { status: 201 });
   } 

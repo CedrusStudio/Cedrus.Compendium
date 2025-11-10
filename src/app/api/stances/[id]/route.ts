@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { deleteStance, updateStance } from '@/persistence/stances/stancesRepository';
+import prisma from "@/lib/prisma";
+import { createCommonRepository } from '@/persistence/common/createCommonRepository';
 
 type RouteParams = Promise<{ id: string }>
 
@@ -12,7 +13,8 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
     const stance = await request.json();
     if (!stance) return NextResponse.json({ message: 'Stance data is required' }, { status: 400 });
     if (stance.id !== id) return NextResponse.json({ message: 'Stance ID mismatch' }, { status: 400 });
-    const updated = await updateStance(stance);
+    const repository = await createCommonRepository(prisma.stance);
+    const updated = await repository.update(stance);
     return NextResponse.json({ status: updated ? 200 : 500 });
   } 
   catch (error) 
@@ -30,7 +32,8 @@ export async function DELETE(request: NextRequest, segmentData: { params: RouteP
     if (!id) return NextResponse.json({ message: 'Stance ID is required' }, { status: 400 });
     try 
     {
-      await deleteStance(id);
+      const repository = await createCommonRepository(prisma.stance);
+      await repository.delete(id);
       return NextResponse.json({ status: 204 });
     } 
     catch 
