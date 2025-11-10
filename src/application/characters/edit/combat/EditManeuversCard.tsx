@@ -129,17 +129,17 @@ function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverV
   return (
     <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
 
-        <SummaryView entity={maneuver} tagsVariant="outline" />
-        <ImportedBadge isImported={isImported} />
+      <SummaryView entity={maneuver} tagsVariant="outline" />
+      <ImportedBadge isImported={isImported} />
 
-        <div className="flex flex-row gap-2">
-          <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
-              {cooldownIcon()}
-              <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
-          </Badge>
-          <RemoveFromArrayButton remove={remove} index={index} />
-          {!isImported && <EditManeuverSheet index={index}/>}
-        </div>
+      <div className="flex flex-row gap-2">
+        <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
+          {cooldownIcon()}
+          <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
+        </Badge>
+        <RemoveFromArrayButton remove={remove} index={index} />
+        {!isImported && <EditManeuverSheet index={index}/>}
+      </div>
 
     </div>
   );

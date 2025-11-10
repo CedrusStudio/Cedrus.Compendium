@@ -44,19 +44,20 @@ export function PerkableEditSheet<TDto extends Omit<Perk, "id"> & FieldValues>(i
           <div className="flex justify-around">
 
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
+
+              <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.name}</span></Label>
               <InputFormField<TDto> path={'name' as FieldPath<TDto>}  inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
             </div>
       
             <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
+              <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.grade}</span></Label>
               <InputFormField<TDto> path={'grade' as FieldPath<TDto>} inputClassName="w-11 h-10 text-center font-medium" />
             </div>
 
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
+              <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.description}</span></Label>
             <AreaInputFormField<TDto> path={'description' as FieldPath<TDto>} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
@@ -64,7 +65,7 @@ export function PerkableEditSheet<TDto extends Omit<Perk, "id"> & FieldValues>(i
           <FormStringsInput<TDto> path={'requirements' as FieldPath<TDto>} placeholder={displayedText.addRequirement} />
           
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='justify-center capitalize'>{displayedText.price}</Label>
+              <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.price}</span></Label>
             <InputFormField<TDto> path={'price' as FieldPath<TDto>} inputClassName='w-11 h-10 text-center font-medium'  />
           </div>
 
