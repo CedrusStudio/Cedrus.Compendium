@@ -3,7 +3,7 @@ import { Label } from "@/ui/label"
 import { allowedCriticalPowers, allowedCriticalRanges, allowedDiceAmounts, allowedDiceBonuses, allowedDiceGrades } from '@/domain/characters/combat/Offense';
 import { allowedStyles, pathToWeaponDamageOffenseField, pathToWeaponOffenseCriticalField, pathToWeaponOffenseField } from '@/domain/characters/equipment/Weapon';
 import { displayedText } from '@/presentation/translations';
-import { FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath } from 'react-hook-form';
 import { WeaponDto } from '@/persistence/schemas/characters/equipment/weaponSchema';
 
 type EditWeaponViewProps =
@@ -11,7 +11,7 @@ type EditWeaponViewProps =
     pathPrefix?: string;
 }
 
-export default function WeaponEditableFields<TEditable extends FieldValues & Omit<WeaponDto, "id">>({ pathPrefix = ""}: EditWeaponViewProps)
+export default function WeaponEditableFields({ pathPrefix = ""}: EditWeaponViewProps)
 {
   return (
     <>
@@ -20,8 +20,8 @@ export default function WeaponEditableFields<TEditable extends FieldValues & Omi
             <div className="grid auto-rows-min gap-3 px-4">
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.style}</span></Label>
 
-                <SelectFormField<TEditable> 
-                    path={(`${pathPrefix}style`) as FieldPath<TEditable>}
+                <SelectFormField<WeaponDto> 
+                    path={(`${pathPrefix}style`) as FieldPath<WeaponDto>}
                     items={allowedStyles}
                     noLabel
                 />
@@ -30,8 +30,8 @@ export default function WeaponEditableFields<TEditable extends FieldValues & Omi
             <div className="grid auto-rows-min gap-3 px-4">
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.range}</span></Label>
 
-                <SelectFormField<TEditable> 
-                    path={(`${pathPrefix}range`) as FieldPath<TEditable>}
+                <SelectFormField<WeaponDto> 
+                    path={(`${pathPrefix}range`) as FieldPath<WeaponDto>}
                     items={[1,2,3,4,5]}
                     noLabel
                 />

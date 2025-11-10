@@ -10,7 +10,7 @@ import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipm
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/ItemEditSheet";
+import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
 import WeaponEditableFields from "@/application/common/equipment/WeaponEditableFields";
 
 type WeaponViewProps =
@@ -70,7 +70,7 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
                 {
                   (isPending, formId) => (
                     <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
-                      <WeaponEditableFields<WeaponDto> />
+                      <WeaponEditableFields />
                     </ItemEditSheet>
                   )
                 }

@@ -4,7 +4,6 @@ import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditCharacterItemSheet from '@/application/characters/edit/equipment/EditCharacterItemSheet';
 import ImportedBadge from '@/common/components/labels/ImportedBadge';
 import WeaponEditableFields from '@/application/common/equipment/WeaponEditableFields';
-import { WeaponDto } from '@/persistence/schemas/characters/equipment/weaponSchema';
 
 type EditWeaponViewProps = 
 {
@@ -34,7 +33,7 @@ function EditWeaponSheet({ weapon, index }: EditWeaponSheetProps)
 
   return (
     <EditCharacterItemSheet item={{ name: weapon.name, description: weapon.description, type: `weapons.${index}` }} >
-      <WeaponEditableFields<WeaponDto> pathPrefix={type + "."} />
+      <WeaponEditableFields pathPrefix={type + "."} />
     </EditCharacterItemSheet>
   )
 }
