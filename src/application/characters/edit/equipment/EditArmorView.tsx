@@ -1,9 +1,9 @@
 import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
-import ArmorView from "@/application/characters/equipment/ArmorView";
 import { Armor } from "@/domain/characters/equipment/Armor";
 import { pathToArmors } from "@/domain/characters/equipment/Equipment";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
+import ArmorViewFields from "@/application/common/equipment/Views/ArmorViewFields";
 
 type EditArmorViewProps = 
 {
@@ -15,9 +15,9 @@ type EditArmorViewProps =
 export default function EditArmorView({ index, armor, isImported }: EditArmorViewProps)
 {
   return (
-    <div className="flex flex-row justify-between items-start">
-      <div className="flex items-center">
-        <ArmorView armor={armor} />
+    <div className="flex flex-row justify-between items-center gap-4">
+      <div className="flex items-center gap-2 flex-1">
+        <ArmorViewFields armor={armor} />
         <ImportedBadge isImported={isImported} />
       </div>
       {!isImported && <EditArmorSheet index={index} /> }

@@ -1,22 +1,23 @@
 import { Equipment } from '@/domain/characters/equipment/Equipment';
-import { Accordion } from "@/ui/accordion";
-import WeaponView from '@/application/characters/equipment/WeaponView';
-import ArmorView from '@/application/characters/equipment/ArmorView';
-import ShieldView from '@/application/characters/equipment/ShieldView';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import { displayedText } from '@/presentation/translations';
+import InventoryItemViewFields from '@/application/common/equipment/Views/InventoryItemViewFields';
+import MountViewFields from '@/application/common/equipment/Views/MountViewFields';
+import ArmorViewFields from '@/application/common/equipment/Views/ArmorViewFields';
+import ShieldViewFields from '@/application/common/equipment/Views/ShieldViewFields';
+import WeaponViewFields from '@/application/common/equipment/Views/WeaponViewFields';
 
 export default function EquipmentView({ equipment }: { equipment: Equipment })
 {
   return (
-    <Accordion type="multiple">
+    <div className="flex flex-col gap-6">
 
       {
         equipment.weapons.length > 0 && (
           <ItemsView 
             items={equipment.weapons} 
             label={displayedText.weapons}
-            itemViewFactory={item => <WeaponView weapon={item} />} 
+            itemViewFactory={item => <WeaponViewFields weapon={item} />} 
           />
         )
       }
@@ -26,7 +27,7 @@ export default function EquipmentView({ equipment }: { equipment: Equipment })
           <ItemsView 
             items={equipment.armors} 
             label={displayedText.armors}
-            itemViewFactory={item => <ArmorView armor={item} />} 
+            itemViewFactory={item => <ArmorViewFields armor={item} />} 
           />
         )
       }
@@ -36,7 +37,7 @@ export default function EquipmentView({ equipment }: { equipment: Equipment })
           <ItemsView 
             items={equipment.shields} 
             label={displayedText.shields}
-            itemViewFactory={item => <ShieldView shield={item} />} 
+            itemViewFactory={item => <ShieldViewFields shield={item} />} 
           />
         )
       }
@@ -46,7 +47,7 @@ export default function EquipmentView({ equipment }: { equipment: Equipment })
           <ItemsView 
             items={equipment.inventory} 
             label={displayedText.inventory}
-            itemViewFactory={item => <span>{item.description}</span>} 
+            itemViewFactory={item => <InventoryItemViewFields item={item} />} 
           />
         )
       }
@@ -56,11 +57,11 @@ export default function EquipmentView({ equipment }: { equipment: Equipment })
           <ItemsView 
             items={equipment.mounts} 
             label={displayedText.mounts}
-            itemViewFactory={item => <span>{item.description}</span>} 
+            itemViewFactory={item => <MountViewFields mount={item} />} 
           />
         )
       }
 
-    </Accordion>
+    </div>
   );
 };

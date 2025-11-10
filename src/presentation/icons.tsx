@@ -115,3 +115,5 @@ export const arrowUpIcon = <IoIosArrowRoundUp className="w-4 h-4" />;
 export const arrowDownIcon = <IoIosArrowRoundDown className="w-4 h-4" />;
 
 export const importIcon = <BiImport className="w-5 h-5" />;
+
+export const reductionArmorOrBlockIcon = (className?: string) => <IoShieldHalfOutline className={className} />;

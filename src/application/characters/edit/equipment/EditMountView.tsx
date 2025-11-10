@@ -1,7 +1,7 @@
 import { pathToMounts } from "@/domain/characters/equipment/Equipment";
 import { Mount } from "@/domain/characters/equipment/Mount";
 import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
-import MountView from "@/application/characters/equipment/MountView";
+import MountViewFields from "@/application/common/equipment/Views/MountViewFields";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import MountEditableFields from "@/application/common/equipment/EditSheets/MountEditableFields";
 
@@ -15,9 +15,9 @@ type EditMountViewProps =
 export default function EditMountView({ index, mount, isImported}: EditMountViewProps)
 {
   return (
-    <div className="flex flex-row justify-between items-start">
-      <div className="flex items-center">
-        <MountView horse={mount} />
+    <div className="flex flex-row justify-between items-center gap-4">
+      <div className="flex items-center gap-2 flex-1">
+        <MountViewFields mount={mount} />
         <ImportedBadge isImported={isImported} />
       </div>
       {!isImported && <EditMountSheet index={index} />}
