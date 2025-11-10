@@ -26,6 +26,7 @@ import SpellView from "@/application/compendium/spells/SpellView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import SummaryView from '@/application/common/SummaryView';
 
 type EditPowersCardProps =
 {
@@ -184,25 +185,16 @@ type EditSpellViewProps =
 function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: EditSpellViewProps)
 {
   return (
-    <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
+    <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
 
-      <div className="flex flex-row gap-2 items-center min-h-24">
-        <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">
-            {spell.name} {spell.grade}
-            <ImportedBadge isImported={isImported} />
-          </h4>
-          <p className="text-sm text-muted-foreground">{spell.description}</p>
-        </div>
+      <SummaryView entity={spell} tagsVariant="outline" />
+      <ImportedBadge isImported={isImported} />
 
-        <div className="flex flex-row gap-2">
-          <RemoveFromArrayButton remove={remove} index={spellIndex} />
-          {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
-        </div>
+      <div className="flex flex-row gap-2">
+        <RemoveFromArrayButton remove={remove} index={spellIndex} />
+        {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
       </div>
 
-      <Separator className='mb-2' />
-      <TagsView tags={spell.tags} variant="outline" />
     </div>
   );
 }

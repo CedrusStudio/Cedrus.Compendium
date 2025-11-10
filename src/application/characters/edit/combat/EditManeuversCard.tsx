@@ -20,8 +20,6 @@ import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
-import TagsView from '@/common/components/tags/TagsView';
-import { Separator } from '@/common/components/ui/separator';
 import FormStringsInput from '@/common/components/inputs/FormStringsInput';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
@@ -29,6 +27,7 @@ import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import SummaryView from '@/application/common/SummaryView';
 
 type EditManeuversCardProps = 
 {
@@ -128,16 +127,10 @@ type EditManeuverViewProps =
 function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverViewProps)
 {
   return (
-    <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
+    <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
 
-      <div className="flex flex-row gap-2 items-center min-h-24">
-        <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">
-            {maneuver.name} {maneuver.grade}
-            <ImportedBadge isImported={isImported} />
-          </h4>
-          <p className="text-sm text-muted-foreground">{maneuver.description}</p>
-        </div>
+        <SummaryView entity={maneuver} tagsVariant="outline" />
+        <ImportedBadge isImported={isImported} />
 
         <div className="flex flex-row gap-2">
           <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
@@ -147,10 +140,7 @@ function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverV
           <RemoveFromArrayButton remove={remove} index={index} />
           {!isImported && <EditManeuverSheet index={index}/>}
         </div>
-      </div>
 
-      <Separator className='mb-2' />
-      <TagsView tags={maneuver.tags} variant="outline" />
     </div>
   );
 }

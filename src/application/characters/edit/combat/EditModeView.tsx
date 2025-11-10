@@ -19,12 +19,11 @@ import { Mode, ModesType, pathToModeField } from "@/domain/characters/combat/Mod
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
-import { Separator } from "@/common/components/ui/separator";
-import TagsView from "@/common/components/tags/TagsView";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import SummaryView from "@/application/common/SummaryView";
 
 type EditModeViewProps =
 { 
@@ -38,25 +37,16 @@ type EditModeViewProps =
 export default function EditModeView({ mode, modeType, index, remove, isImported }: EditModeViewProps)
 { 
   return (
-    <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
+    <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
 
-      <div className="flex flex-row place-items-center p-2 rounded-md w-full">
-        <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">
-            {mode.name} {mode.grade}
-            <ImportedBadge isImported={isImported} />
-          </h4>
-          <p className="text-sm text-muted-foreground">{mode.description}</p>
-        </div>
+      <SummaryView entity={mode} tagsVariant="outline" />
+      <ImportedBadge isImported={isImported} />
 
-        <div className="flex flex-row gap-2">
-          <RemoveFromArrayButton remove={remove} index={index} />
-          {!isImported && <EditModeSheet index={index} modeType={modeType} />}
-        </div>
+      <div className="flex flex-row gap-2">
+        <RemoveFromArrayButton remove={remove} index={index} />
+        {!isImported && <EditModeSheet index={index} modeType={modeType} />}
       </div>
 
-      <Separator className='mb-2' />
-      <TagsView tags={mode.tags} variant="outline" />
     </div>
   );
 }
