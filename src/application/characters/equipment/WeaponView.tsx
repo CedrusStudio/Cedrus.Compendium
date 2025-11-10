@@ -1,3 +1,4 @@
+import { toCriticalRangeString, toOffenseString } from "@/domain/characters/combat/Offense";
 import { Weapon } from "@/domain/characters/equipment/Weapon";
 import { displayedText } from "@/presentation/translations";
 import { AccordionContent } from "@radix-ui/react-accordion";
@@ -40,32 +41,17 @@ export default function WeaponView({ weapon }: { weapon: Weapon })
 
 function WeaponOverview({ weapon }: { weapon: Weapon }) 
 {
-   const weaponOffense = weapon.offense.amount === 1 
-      ? `(k${weapon.offense.grade * 2}+${weapon.offense.bonus})`
-      : `${weapon.offense.amount}(k${weapon.offense.grade * 2}+${weapon.offense.bonus})`
-
-    const damageOffense = weapon.damageBonus.amount === 1 
-      ? `k${weapon.damageBonus.grade * 2}+${weapon.damageBonus.bonus}`
-      : weapon.damageBonus.amount === 0
-        ? `${weapon.damageBonus.bonus}`
-        : `${weapon.damageBonus.amount}k${weapon.damageBonus.grade * 2}+${weapon.damageBonus.bonus}`
-
-    const criticalDamageBonus = weapon.offense.critical.power
-    const criticalRangeBonus = weapon.offense.critical.range;
-
-    return (
-      <div className='flex flex-col'>
-        <div>
-          <span className='font-semibold capitalize'>{displayedText.damage}: </span>
-          <span>{weaponOffense}+{damageOffense}</span>
-        </div>
-
-        <div>
-          <span className='font-semibold capitalize'>{displayedText.critical}: </span>
-          <span>
-            {displayedText.range}: {criticalRangeBonus}, {displayedText.damage}: {criticalDamageBonus}
-          </span>
-        </div>
+  return (
+    <div className='flex flex-col'>
+      <div>
+        <span className='font-semibold capitalize'>{displayedText.damage}: </span>
+        <span>{toOffenseString(weapon.offense)}+{toOffenseString(weapon.damageBonus)}</span>
       </div>
-    );
+
+      <div>
+        <span className='font-semibold capitalize'>{displayedText.critical}: </span>
+        <span>{toCriticalRangeString(weapon.offense)}, +{weapon.offense.critical.power}</span>
+      </div>
+    </div>
+  );
 }
