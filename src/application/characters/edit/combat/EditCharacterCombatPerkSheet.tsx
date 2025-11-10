@@ -11,10 +11,10 @@ export type CombatPerksTypes = `maneuvers.${number}` | `stances.${number}` | `st
 
 type EditCombatSheetProps = 
 {
-  item: { name: string; description: string; type: CombatPerksTypes };
+   type: CombatPerksTypes;
 };
 
-export default function EditCharacterCombatPerkSheet({ item, children }: PropsWithChildren<EditCombatSheetProps>)
+export default function EditCharacterCombatPerkSheet({ type, children }: PropsWithChildren<EditCombatSheetProps>)
 {
     return (
         <Sheet>
@@ -32,8 +32,8 @@ export default function EditCharacterCombatPerkSheet({ item, children }: PropsWi
                     </SheetDescription>
                 </SheetHeader>
 
-                <div className="flex flex-col gap-3">
-                    <PerkEditableFields pathPrefix={`${item.type}.`} />
+                <div className="flex flex-col gap-3 px-4">
+                    <PerkEditableFields pathPrefix={`${type}.`} />
                     {children}
                 </div>
 

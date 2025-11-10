@@ -33,7 +33,7 @@ export function PerkableEditSheet(input: PropsWithChildren<EditSheetProps>)
           </SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 px-4">
           <PerkEditableFields />
           {input.children}
         </div>

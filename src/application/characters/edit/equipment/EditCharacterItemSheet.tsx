@@ -20,12 +20,12 @@ import ItemEditableFields from "@/application/common/equipment/ItemEditableField
 
 type EditItemSheetProps = 
 {
-  item: { name: string; description: string; type: EquipmentItemTypes };
+  type: EquipmentItemTypes;
 };
 
-export default function EditCharacterItemSheet({ item, children }: PropsWithChildren<EditItemSheetProps>)
+export default function EditCharacterItemSheet({ type, children }: PropsWithChildren<EditItemSheetProps>)
 {
-  const { name, index } = splitEquipmentItemTypes(item.type);
+  const { name, index } = splitEquipmentItemTypes(type);
   const { remove } = useFieldArray<EquipmentDto>({ name });
 
   return (
@@ -46,7 +46,7 @@ export default function EditCharacterItemSheet({ item, children }: PropsWithChil
         </SheetHeader>
 
         <div className="grid gap-6">
-          <ItemEditableFields pathPrefix={`${item.type}.`} />
+          <ItemEditableFields pathPrefix={`${type}.`} />
           {children}
         </div>
 

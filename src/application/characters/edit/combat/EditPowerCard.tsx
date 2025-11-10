@@ -187,7 +187,7 @@ function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: Ed
 
       <div className="flex flex-row gap-2">
         <RemoveFromArrayButton remove={remove} index={spellIndex} />
-        {!isImported && <EditSpellSheet spell={spell} spellIndex={spellIndex} powerIndex={powerIndex} />}
+        {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
       </div>
 
     </div>
@@ -196,18 +196,16 @@ function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: Ed
 
 type EditSpellSheetProps = 
 {
-  spell: Spell;
   powerIndex: number;
   spellIndex: number;
 };
 
-
-function EditSpellSheet({ spell, powerIndex, spellIndex }: EditSpellSheetProps)
+function EditSpellSheet({ powerIndex, spellIndex }: EditSpellSheetProps)
 {
   const type = pathToSpell(powerIndex, spellIndex);
 
   return (
-    <EditCharacterCombatPerkSheet item={{ name: spell.name, description: spell.description, type }} >
+    <EditCharacterCombatPerkSheet type={type} >
       <SpellEditableFields pathPrefix={type + "."}  />
     </EditCharacterCombatPerkSheet>
   )

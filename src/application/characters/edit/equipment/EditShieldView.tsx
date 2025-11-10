@@ -20,19 +20,22 @@ export default function EditShieldView({ index, shield, isImported }: EditShield
         <ShieldView shield={shield} />
         <ImportedBadge isImported={isImported} />
       </div>
-      {!isImported && <EditShieldSheet shield={shield} index={index} />}
+      {!isImported && <EditShieldSheet index={index} />}
     </div>
   );
 }
 
-type EditShieldSheetProps = Pick<EditShieldViewProps, 'shield' | 'index'>;
+type EditShieldSheetProps = 
+{
+  index: number;
+};
 
-function EditShieldSheet({ shield, index }: EditShieldSheetProps)
+function EditShieldSheet({ index }: EditShieldSheetProps)
 {
   const type = pathToShields(index);
 
   return (
-    <EditCharacterItemSheet item={{ name: shield.name, description: shield.description, type }} >
+    <EditCharacterItemSheet type={type} >
       <ShieldEditableFields pathPrefix={type + "."}  />
     </EditCharacterItemSheet>
   )

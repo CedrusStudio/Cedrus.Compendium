@@ -26,7 +26,7 @@ export default function EditModeView({ mode, modeType, index, remove, isImported
 
       <div className="flex flex-row gap-2">
         <RemoveFromArrayButton remove={remove} index={index} />
-        {!isImported && <EditModeSheet mode={mode} index={index} modeType={modeType} />}
+        {!isImported && <EditModeSheet index={index} modeType={modeType} />}
       </div>
 
     </div>
@@ -35,13 +35,12 @@ export default function EditModeView({ mode, modeType, index, remove, isImported
 
 type EditModeSheetProps = 
 {
-  mode: Mode;
   modeType: ModesType;
   index: number;
 };
 
-function EditModeSheet({ mode, index, modeType }: EditModeSheetProps)
+function EditModeSheet({ index, modeType }: EditModeSheetProps)
 {
   const type = pathToMode(index, modeType);
-  return <EditCharacterCombatPerkSheet item={{ name: mode.name, description: mode.description, type }} />;
+  return <EditCharacterCombatPerkSheet type={type} />;
 }

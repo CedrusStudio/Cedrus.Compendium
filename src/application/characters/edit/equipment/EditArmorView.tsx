@@ -20,23 +20,22 @@ export default function EditArmorView({ index, armor, isImported }: EditArmorVie
         <ArmorView armor={armor} />
         <ImportedBadge isImported={isImported} />
       </div>
-      {!isImported && <EditArmorSheet armor={armor} index={index} /> }
+      {!isImported && <EditArmorSheet index={index} /> }
     </div>
   );
 }
 
 type EditArmorSheetProps = 
 {
-  armor: Armor;
   index: number;
 };
 
-function EditArmorSheet({ armor, index }: EditArmorSheetProps)
+function EditArmorSheet({ index }: EditArmorSheetProps)
 {
   const type = pathToArmors(index);
 
   return (
-    <EditCharacterItemSheet item={{ name: armor.name, description: armor.description, type }} >
+    <EditCharacterItemSheet type={type} >
       <ArmorEditableFields pathPrefix={type + "."}  />
     </EditCharacterItemSheet>
   )

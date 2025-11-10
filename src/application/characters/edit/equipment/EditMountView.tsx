@@ -20,19 +20,22 @@ export default function EditMountView({ index, mount, isImported}: EditMountView
         <MountView horse={mount} />
         <ImportedBadge isImported={isImported} />
       </div>
-      {!isImported && <EditMountSheet mount={mount} index={index} />}
+      {!isImported && <EditMountSheet index={index} />}
     </div>
   );
 }
 
-type EditMountSheetProps = Pick<EditMountViewProps, 'mount' | 'index'>;
+type EditMountSheetProps =
+{
+  index: number;
+};
 
-function EditMountSheet({ mount, index }: EditMountSheetProps)
+function EditMountSheet({ index }: EditMountSheetProps)
 {
   const type = pathToMounts(index);
 
   return (
-    <EditCharacterItemSheet item={{ name: mount.name, description: mount.description, type }} >
+    <EditCharacterItemSheet type={type} >
       <MountEditableFields pathPrefix={type + "."} />
     </EditCharacterItemSheet>
   )

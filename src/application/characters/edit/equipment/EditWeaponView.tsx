@@ -20,19 +20,22 @@ export default function EditWeaponView({ index, weapon, isImported }: EditWeapon
         <WeaponView weapon={weapon} />
         <ImportedBadge isImported={isImported} />
       </div>
-      {!isImported && <EditWeaponSheet index={index} weapon={weapon} />}
+      {!isImported && <EditWeaponSheet index={index} />}
     </div>
   )
 }
 
-type EditWeaponSheetProps = Pick<EditWeaponViewProps, 'weapon' | 'index'>;
+type EditWeaponSheetProps = 
+{
+  index: number;
+};
 
-function EditWeaponSheet({ weapon, index }: EditWeaponSheetProps)
+function EditWeaponSheet({ index }: EditWeaponSheetProps)
 {
   const type = pathToWeapons(index);
 
   return (
-    <EditCharacterItemSheet item={{ name: weapon.name, description: weapon.description, type: `weapons.${index}` }} >
+    <EditCharacterItemSheet type={`weapons.${index}`} >
       <WeaponEditableFields pathPrefix={type + "."} />
     </EditCharacterItemSheet>
   )

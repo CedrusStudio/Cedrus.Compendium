@@ -130,7 +130,7 @@ function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverV
           <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
         </Badge>
         <RemoveFromArrayButton remove={remove} index={index} />
-        {!isImported && <EditManeuverSheet maneuver={maneuver} index={index}/>}
+        {!isImported && <EditManeuverSheet index={index}/>}
       </div>
 
     </div>
@@ -139,16 +139,15 @@ function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverV
 
 type EditManeuverSheetProps = 
 {
-  maneuver: Maneuver;
   index: number;
 };
 
-function EditManeuverSheet({ maneuver, index }: EditManeuverSheetProps)
+function EditManeuverSheet({ index }: EditManeuverSheetProps)
 {
   const type = pathToManeuvers(index);
 
   return (
-    <EditCharacterCombatPerkSheet item={{ name: maneuver.name, description: maneuver.description, type }} >
+    <EditCharacterCombatPerkSheet type={type} >
       <CastablePerkEditableFields pathPrefix={type + "."}  />
     </EditCharacterCombatPerkSheet>
   )

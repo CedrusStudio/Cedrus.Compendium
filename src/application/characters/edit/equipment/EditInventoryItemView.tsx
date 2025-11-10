@@ -18,14 +18,7 @@ export default function EditInventoryItemView({ index, inventory, isImported }: 
         <span>{displayedText.description}: {inventory.description}</span>
         <ImportedBadge isImported={isImported} />
       </div>
-      {!isImported && <EditInventorySheet inventory={inventory} index={index} />}
+      {!isImported && <EditCharacterItemSheet type={`inventory.${index}`} />}
     </div>
   );
-}
-
-type EditInventorySheetProps = Pick<EditInventoryItemViewProps, 'inventory' | 'index'>;
-
-function EditInventorySheet({ inventory, index }: EditInventorySheetProps)
-{
-  return <EditCharacterItemSheet item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} />;
 }
