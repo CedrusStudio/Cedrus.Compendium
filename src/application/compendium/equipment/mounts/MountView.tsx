@@ -18,10 +18,10 @@ import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteMountById } from '@/application/compendium/equipment/mounts/hooks/useDeleteMountById';
 import { MountDto, mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
+import SummaryView from "@/application/common/SummaryView";
 
 type MountViewProps =
 {
@@ -36,13 +36,7 @@ export default function MountView({ mount, disableEdit = false }: MountViewProps
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{mount.name}</h4>
-          <TagsView tags={mount.tags} />
-        </div>
-        <p className="text-sm text-muted-foreground">{mount.description}</p>
-      </div>
+      <SummaryView entity={mount} />
 
       <div className="flex flex-row items-center gap-2">
 

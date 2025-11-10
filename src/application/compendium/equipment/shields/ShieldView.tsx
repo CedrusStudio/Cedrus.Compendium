@@ -18,10 +18,10 @@ import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteShieldById } from '@/application/compendium/equipment/shields/hooks/useDeleteShieldById';
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
+import SummaryView from "@/application/common/SummaryView";
 
 type ShieldViewProps =
 {
@@ -36,13 +36,7 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{shield.name}</h4>
-          <TagsView tags={shield.tags} />
-        </div>
-        <p className="text-sm text-muted-foreground">{shield.description}</p>
-      </div>
+      <SummaryView entity={shield} />
 
       <div className="flex flex-row items-center gap-2">
 

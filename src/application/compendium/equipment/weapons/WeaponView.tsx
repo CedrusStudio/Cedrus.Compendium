@@ -19,12 +19,12 @@ import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteWeaponById } from '@/application/compendium/equipment/weapons/hooks/useDeleteWeaponById';
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import { allowedStyles } from "@/domain/characters/equipment/Weapon";
 import { allowedDiceGrades } from "@/domain/characters/combat/Offense";
+import SummaryView from "@/application/common/SummaryView";
 
 type WeaponViewProps =
 {
@@ -39,13 +39,7 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{weapon.name}</h4>
-          <TagsView tags={weapon.tags} />
-        </div>
-        <p className="text-sm text-muted-foreground">{weapon.description}</p>
-      </div>
+      <SummaryView entity={weapon} />
 
       <div className="flex flex-row items-center gap-2">
 

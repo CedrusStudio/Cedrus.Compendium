@@ -17,10 +17,10 @@ import { editIcon } from '@/presentation/icons';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteInventoryItemById } from '@/application/compendium/equipment/inventory/hooks/useDeleteInventoryItemById';
 import { InventoryItemDto, itemSchema } from "@/persistence/schemas/characters/equipment/itemSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
+import SummaryView from "@/application/common/SummaryView";
 
 type InventoryItemViewProps =
 {
@@ -35,13 +35,7 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{item.name}</h4>
-          <TagsView tags={item.tags} />
-        </div>
-        <p className="text-sm text-muted-foreground">{item.description}</p>
-      </div>
+      <SummaryView entity={item} />
 
       <div className="flex flex-row items-center gap-2">
         {
