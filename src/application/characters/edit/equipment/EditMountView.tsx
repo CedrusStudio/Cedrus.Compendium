@@ -1,7 +1,7 @@
 import { pathToMountsField } from "@/domain/characters/equipment/Equipment";
 import { Mount } from "@/domain/characters/equipment/Mount";
 import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
-import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
+import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import { Label } from "@/ui/label";
 import MountView from "@/application/characters/equipment/MountView";
 import { InputFormField } from "@/common/components/form/InputFormField";
@@ -33,7 +33,7 @@ type EditMountSheetProps = Pick<EditMountViewProps, 'mount' | 'index'>;
 function EditMountSheet({ mount, index }: EditMountSheetProps)
 {
   return (
-    <EditItemSheet item={{ name: mount.name, description: mount.description, type: `mounts.${index}` }} >
+    <EditCharacterItemSheet item={{ name: mount.name, description: mount.description, type: `mounts.${index}` }} >
 
       <div className="grid auto-rows-min gap-3 px-4 justify-center">
 
@@ -79,6 +79,6 @@ function EditMountSheet({ mount, index }: EditMountSheetProps)
           
       </div>
 
-    </EditItemSheet>
+    </EditCharacterItemSheet>
   )
 }

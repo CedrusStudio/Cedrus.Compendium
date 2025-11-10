@@ -1,6 +1,6 @@
 import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
 import { Label } from "@/ui/label";
-import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
+import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import ArmorView from "@/application/characters/equipment/ArmorView";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { Armor, allowedProtections } from "@/domain/characters/equipment/Armor";
@@ -38,7 +38,7 @@ type EditArmorSheetProps =
 function EditArmorSheet({ armor, index }: EditArmorSheetProps)
 {
   return (
-    <EditItemSheet item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} >
+    <EditCharacterItemSheet item={{ name: armor.name, description: armor.description, type: `armors.${index}` }} >
       <div className="grid auto-rows-min gap-3 justify-center items-center">
 
         <Label className="capitalize">{displayedText.protection}</Label>
@@ -52,6 +52,6 @@ function EditArmorSheet({ armor, index }: EditArmorSheetProps)
       </div>
 
       <EditDefensiveItemView defensiveItem="armors" index={index} />
-    </EditItemSheet>
+    </EditCharacterItemSheet>
   )
 }

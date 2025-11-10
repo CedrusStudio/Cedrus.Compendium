@@ -1,4 +1,4 @@
-import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
+import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import { Item } from "@/domain/characters/equipment/Item";
 import { displayedText } from "@/presentation/translations";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
@@ -27,5 +27,5 @@ type EditInventorySheetProps = Pick<EditInventoryItemViewProps, 'inventory' | 'i
 
 function EditInventorySheet({ inventory, index }: EditInventorySheetProps)
 {
-  return <EditItemSheet item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} />;
+  return <EditCharacterItemSheet item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} />;
 }

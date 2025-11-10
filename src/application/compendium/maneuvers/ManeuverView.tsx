@@ -1,28 +1,23 @@
 "use client";
 
-import SubmitButton from "@/common/components/form/SubmitButton";
 import client from "@/infrastructure/clients/maneuversClient";
-import { Button } from '@/ui/button';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Maneuver } from "@/domain/characters/combat/Maneuver";
 import { allowedCastTimes } from "@/domain/characters/Castable";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
-import { battleIcon, cooldownIcon, editIcon, priceIcon } from '@/presentation/icons';
+import { battleIcon, cooldownIcon, priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteManeuverById } from '@/application/compendium/maneuvers/hooks/useDeleteManeuverById';
 import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
-import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
+import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
 
 type ManeuverViewProps =
 {
@@ -80,72 +75,24 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
 function EditManeuverSheet({ isPending, formId }: { isPending: boolean, formId: string })
 {
   return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.editManeuver}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
+    <PerkableEditSheet<ManeuverDto>
+      isPending={isPending}
+      formId={formId}
+      displayedTitle={displayedText.editManeuver}
+    >
+      <div className="grid grid-cols-2 gap-4">
 
         <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<ManeuverDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-            </div>
-      
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<ManeuverDto> path='grade' inputClassName="w-11 h-10 text-center font-medium" />
-            </div>
-
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <AreaInputFormField<ManeuverDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<ManeuverDto> path='tags' />
-          <FormStringsInput<ManeuverDto> path='requirements' placeholder={displayedText.addRequirement} />
-
-          <div className="grid grid-cols-2 gap-4">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
-              <InputFormField<ManeuverDto> path='cooldown' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-    
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.price}</Label>
-              <InputFormField<ManeuverDto> path='price' inputClassName='w-11 h-10 text-center font-medium'  />
-            </div>
-          </div>
-  
-          <div className="flex flex-col items-center gap-3 px-4">
-            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
-            <SelectFormField<ManeuverDto> path='castTime' labelText={displayedText.castTime} items={allowedCastTimes} />
-          </div>
-
+          <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
+          <InputFormField<ManeuverDto> path='cooldown' inputClassName='w-11 h-10 text-center font-medium' />
         </div>
 
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+        <div className="flex flex-col items-center gap-3 px-4">
+          <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
+          <SelectFormField<ManeuverDto> path='castTime' labelText={displayedText.castTime} items={allowedCastTimes} />
+        </div>
+
+      </div>
+    </PerkableEditSheet>
   )
 }

@@ -26,7 +26,7 @@ type EditItemSheetProps =
   item: { name: string; description: string; type: EquipmentItemTypes };
 };
 
-export default function EditItemSheet({ item, children }: PropsWithChildren<EditItemSheetProps>)
+export default function EditCharacterItemSheet({ item, children }: PropsWithChildren<EditItemSheetProps>)
 {
   const { name, index } = splitEquipmentItemTypes(item.type);
   const { remove } = useFieldArray<EquipmentDto>({ name });

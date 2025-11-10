@@ -1,7 +1,7 @@
 import { pathToShieldsField } from "@/domain/characters/equipment/Equipment";
 import { allowedBlocks, Shield } from "@/domain/characters/equipment/Shield";
 import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
-import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
+import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import ShieldView from "@/application/characters/equipment/ShieldView";
 import EditDefensiveItemView from "@/application/characters/edit/equipment/EditDefensiveItemView";
 import { Label } from "@/ui/label";
@@ -34,7 +34,7 @@ type EditShieldSheetProps = Pick<EditShieldViewProps, 'shield' | 'index'>;
 function EditShieldSheet({ shield, index }: EditShieldSheetProps)
 {
   return (
-    <EditItemSheet item={{ name: shield.name, description: shield.description, type: `shields.${index}` }} >
+    <EditCharacterItemSheet item={{ name: shield.name, description: shield.description, type: `shields.${index}` }} >
 
         <div className="grid auto-rows-min gap-3 justify-center items-center">
 
@@ -49,6 +49,6 @@ function EditShieldSheet({ shield, index }: EditShieldSheetProps)
         </div>
 
       <EditDefensiveItemView defensiveItem="shields" index={index} />
-    </EditItemSheet>
+    </EditCharacterItemSheet>
   )
 }

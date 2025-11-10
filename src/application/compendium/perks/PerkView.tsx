@@ -1,25 +1,18 @@
 "use client";
 
-import SubmitButton from "@/common/components/form/SubmitButton";
 import client from "@/infrastructure/clients/perksClient";
-import { Button } from '@/ui/button';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Perk } from "@/domain/characters/Perk";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
-import { editIcon, priceIcon } from '@/presentation/icons';
+import { priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeletePerkById } from '@/application/compendium/perks/hooks/useDeletePerkById';
 import { PerkDto, perkSchema } from "@/persistence/schemas/characters/perkSchema";
-import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
+import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
 
 type PerkViewProps =
 {
@@ -57,7 +50,16 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
                 schema={perkSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.perk(perk.id)}
-                renderSheetContent={(isPending, formId) => <EditPerkSheet isPending={isPending} formId={formId} />}
+                renderSheetContent=
+                {
+                  (isPending, formId) => (
+                    <PerkableEditSheet<PerkDto>
+                      isPending={isPending}
+                      formId={formId}
+                      displayedTitle={displayedText.editPerk}
+                    />
+                  )
+                }
                 cacheKeys={['perks']}
               />
 
@@ -68,64 +70,4 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
 
     </div>
   );
-}
-
-function EditPerkSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.editPerk}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<PerkDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-            </div>
-      
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<PerkDto> path='grade' inputClassName="w-11 h-10 text-center font-medium" />
-            </div>
-
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <AreaInputFormField<PerkDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<PerkDto> path='tags' />
-          <FormStringsInput<PerkDto> path='requirements' placeholder={displayedText.addRequirement} />
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='justify-center capitalize'>{displayedText.price}</Label>
-            <InputFormField<PerkDto> path='price' inputClassName='w-11 h-10 text-center font-medium'  />
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
-  )
 }
