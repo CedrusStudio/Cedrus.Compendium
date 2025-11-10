@@ -1,23 +1,17 @@
 "use client";
 
-import SubmitButton from "@/common/components/form/SubmitButton";
 import client from "@/infrastructure/clients/equipment/shieldsClient";
-import { Button } from '@/ui/button';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Shield } from "@/domain/characters/equipment/Shield";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteShieldById } from '@/application/compendium/equipment/shields/hooks/useDeleteShieldById';
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
-import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
+import ShieldEditableFields from "@/application/common/equipment/ShieldEditableFields";
+import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
 
 type ShieldViewProps =
 {
@@ -57,7 +51,14 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
                 schema={shieldSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.shield(shield.id)}
-                renderSheetContent={(isPending, formId) => <EditShieldSheet isPending={isPending} formId={formId} />}
+                renderSheetContent=
+                {
+                  (isPending, formId) => (
+                    <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                      <ShieldEditableFields />
+                    </ItemEditSheet>
+                  )
+                }
                 cacheKeys={['shields']}
               />
 
@@ -68,82 +69,4 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
 
     </div>
   );
-}
-
-function EditShieldSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.edit} {displayedText.shields}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.name}</Label>
-            <InputFormField<ShieldDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <AreaInputFormField<ShieldDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<ShieldDto> path='tags' />
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.block}</Label>
-              <InputFormField<ShieldDto> path='block' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.resistance}</Label>
-              <InputFormField<ShieldDto> path='resistance' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mt-2">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.dexterityRestriction}</Label>
-              <InputFormField<ShieldDto> path='dexterityRestriction' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.initiativeRestriction}</Label>
-              <InputFormField<ShieldDto> path='initiativeRestriction' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.attributePenalty}</Label>
-              <InputFormField<ShieldDto> path='attributePenalty' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.strengthRequirement}</Label>
-              <InputFormField<ShieldDto> path='strengthRequirement' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
-  )
 }
