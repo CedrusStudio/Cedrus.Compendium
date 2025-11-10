@@ -8,18 +8,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/sheet";
-import { InputFormField } from '@/common/components/form/InputFormField';
 import { PropsWithChildren } from 'react';
 import { Button } from "@/ui/button"
 import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
 import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
-import { Label } from "@/ui/label";
-import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import { useFieldArray } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import ItemEditableFields from "@/application/common/equipment/ItemEditableFields";
 
 type EditItemSheetProps = 
 {
@@ -49,34 +46,8 @@ export default function EditCharacterItemSheet({ item, children }: PropsWithChil
         </SheetHeader>
 
         <div className="grid gap-6">
-
-          <div className="grid auto-rows-min gap-3 px-4">
-
-            <Label className="px-6 capitalize">{displayedText.name}</Label>
-            
-            <InputFormField<EquipmentDto> 
-              path={`${item.type}.name`}
-              inputPlaceholder={displayedText.changeName}
-              inputClassName='w-80'
-            />
-              
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-
-            <Label className="capitalize">{displayedText.description}</Label>
-            
-            <AreaInputFormField<EquipmentDto> 
-              path={`${item.type}.description`}
-              inputPlaceholder={displayedText.changeDescription}
-            />
-            
-            <FormTagsInput<EquipmentDto> path={`${item.type}.tags`} />
-            
-          </div>
-
+          <ItemEditableFields pathPrefix={`${item.type}.`} />
           {children}
-
         </div>
 
         <SheetFooter>

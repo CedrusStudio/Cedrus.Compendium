@@ -3,15 +3,10 @@
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { editIcon } from '@/presentation/icons';
-import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { PropsWithChildren } from "react";
-import { FieldValues, FieldPath } from "react-hook-form";
-import { Item } from "@/domain/characters/equipment/Item";
+import ItemEditableFields from "@/application/common/equipment/ItemEditableFields";
 
 type EditSheetProps =
 {
@@ -20,7 +15,7 @@ type EditSheetProps =
   displayedTitle: string;
 }
 
-export function ItemEditSheet<TDto extends Omit<Item, "id"> & FieldValues>(input: PropsWithChildren<EditSheetProps>)
+export function ItemEditSheet(input: PropsWithChildren<EditSheetProps>)
 {
   return (
     <Sheet>
@@ -38,22 +33,9 @@ export function ItemEditSheet<TDto extends Omit<Item, "id"> & FieldValues>(input
           </SheetDescription>
         </SheetHeader>
 
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<TDto> path={'name' as FieldPath<TDto>}  inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <AreaInputFormField<TDto> path={'description' as FieldPath<TDto>} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<TDto> path={'tags' as FieldPath<TDto>} />
-
+        <div className="flex flex-col gap-3">
+          <ItemEditableFields />
           {input.children}
-
         </div>
 
         <SheetFooter>
