@@ -1,11 +1,9 @@
 "use client";
 
-import { useQuery } from '@tanstack/react-query';
-import client from "@/infrastructure/clients/searchClient";
 import { Spell } from '@/domain/characters/combat/Power';
 import { createSpellKeysetQuery } from '@/infrastructure/searchQueries/spells/createSpellKeysetQuery';
 import { createKeysetSearchSpellsKey } from '@/persistence/cacheKeys';
-import { useDebounce } from "use-debounce";
+import { useSearch } from '@/infrastructure/hooks/useSearch';
 
 type UseSearchSpellsParams = 
 {
@@ -20,23 +18,10 @@ type UseSearchSpellsReturn =
   error: Error | null;
 };
 
-export const useSearchSpells = ({ searchTerm, enabled = true }: UseSearchSpellsParams): UseSearchSpellsReturn => 
+export const useSearchSpells = (params: UseSearchSpellsParams): UseSearchSpellsReturn => 
 {
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
-  const spellsQuery = createSpellKeysetQuery(debouncedSearchTerm);
-  const queryKey = createKeysetSearchSpellsKey(debouncedSearchTerm);
-
-  const { data = [], isLoading, error } = useQuery<Spell[]>
-  ({
-    queryKey,
-    queryFn: () => client.search(spellsQuery),
-    enabled,
-    staleTime: 5_000,
+  return useSearch<Spell>(params, {
+    createKeysetQuery: createSpellKeysetQuery,
+    createCacheKey: createKeysetSearchSpellsKey,
   });
-
-  return { 
-    data, 
-    isLoading, 
-    error 
-  };
 };

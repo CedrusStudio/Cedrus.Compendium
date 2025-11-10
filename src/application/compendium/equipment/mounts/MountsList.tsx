@@ -14,7 +14,9 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { MountDto, mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";
 
-import { useInitialKeysetSearchMounts } from "@/application/compendium/equipment/mounts/hooks/useInitialKeysetSearchMounts";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchMountsKey } from "@/persistence/cacheKeys";
+import { createMountKeysetQuery } from "@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery";
 import MountView from "@/application/compendium/equipment/mounts/MountView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -24,14 +26,16 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createMountKeysetQuery } from "@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchMountsKey } from "@/persistence/cacheKeys";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function MountsList()
 {
-  const { mounts, initialCursor } = useInitialKeysetSearchMounts();
+  const { data: mounts, initialCursor } = useInitialKeysetSearch<Mount>
+  ({
+    createQueryKey: createKeysetSearchMountsKey,
+    createQuery: createMountKeysetQuery
+  });
   const [displayedMounts, setDisplayedMounts] = useState<Mount[]>([]);
 
   useEffect(() =>   

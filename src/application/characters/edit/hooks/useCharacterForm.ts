@@ -23,34 +23,22 @@ type UseCharacterFormReturn<TFormData extends FieldValues> =
   formId?: string;
 };
 
-export function useCharacterForm<TFormData extends FieldValues>
-(
-    {
-        characterId,
-        schema,
-        defaultValues,
-        updateFn,
-        formId,
-        formMode = "onBlur",
-        toastPosition = "bottom-left",
-    }
-        : UseCharacterFormParams<TFormData>
-)
-    : UseCharacterFormReturn<TFormData> 
+export function useCharacterForm<TFormData extends FieldValues>(input : UseCharacterFormParams<TFormData>)
+  : UseCharacterFormReturn<TFormData> 
 {
   const form = useForm<TFormData>
   ({
-    resolver: zodResolver(schema),
-    defaultValues: defaultValues,
-    mode: formMode,
+    resolver: zodResolver(input.schema),
+    defaultValues: input.defaultValues,
+    mode: input.formMode || "onBlur",
   });
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (data: TFormData) => await updateFn(characterId, data),
+    async (data: TFormData) => await input.updateFn(input.characterId, data),
     {
-      invalidateOnSuccess: createCharacterCacheKeys(characterId),
-      toastPosition,
+      invalidateOnSuccess: createCharacterCacheKeys(input.characterId),
+      toastPosition: input.toastPosition,
     }
   );
 
@@ -58,6 +46,6 @@ export function useCharacterForm<TFormData extends FieldValues>
     form,
     handleSubmit,
     isPending,
-    formId,
+    formId: input.formId,
   };
 }

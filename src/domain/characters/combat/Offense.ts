@@ -39,7 +39,9 @@ export type Critical =
 
 export function toOffenseString(offense: { amount: number; grade: number; bonus: number }): string
 {
-  return `${offense.amount}(k${offense.grade * 2}+${offense.bonus})`;
+  return offense.amount === 0
+    ? `${offense.bonus}`
+    : `${offense.amount}k${offense.grade * 2}+${offense.bonus}`
 }
 
 export function toCriticalRangeString(weaponOffense: WeaponOffense): string

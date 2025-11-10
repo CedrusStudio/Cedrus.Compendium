@@ -16,7 +16,9 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddManeuverDto, addManeuverSchema, ManeuverDto } from "@/persistence/schemas/characters/combat/maneuverSchema";
 
-import { useInitialKeysetSearchManeuvers } from "@/application/compendium/maneuvers/hooks/useInitialKeysetSearchManeuvers";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
+import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery";
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -26,15 +28,17 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function ManeuversList()
 {
-  const { maneuvers, initialCursor } = useInitialKeysetSearchManeuvers();
+  const { data: maneuvers, initialCursor } = useInitialKeysetSearch<Maneuver>
+  ({
+    createQueryKey: createKeysetSearchManeuversKey,
+    createQuery: createManeuverKeysetQuery
+  });
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>([]);
 
   useEffect(() =>   

@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { deleteWeapon, updateWeapon } from '@/persistence/equipment/weapons/weaponsRepository';
+import prisma from "@/lib/prisma";
+import { createCommonRepository } from '@/persistence/common/createCommonRepository';
 
 type RouteParams = Promise<{ id: string }>
 
@@ -12,7 +13,8 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
     const weapon = await request.json();
     if (!weapon) return NextResponse.json({ message: 'Weapon data is required' }, { status: 400 });
     if (weapon.id !== id) return NextResponse.json({ message: 'Weapon ID mismatch' }, { status: 400 });
-    const updated = await updateWeapon(weapon);
+    const repository = await createCommonRepository(prisma.weapon);
+    const updated = await repository.update(weapon);
     return NextResponse.json({ status: updated ? 200 : 500 });
   } 
   catch (error) 
@@ -30,7 +32,8 @@ export async function DELETE(request: NextRequest, segmentData: { params: RouteP
     if (!id) return NextResponse.json({ message: 'Weapon ID is required' }, { status: 400 });
     try 
     {
-      await deleteWeapon(id);
+      const repository = await createCommonRepository(prisma.weapon);
+      await repository.delete(id);
       return NextResponse.json({ status: 204 });
     } 
     catch 

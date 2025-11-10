@@ -22,6 +22,7 @@ export type Spell = Perk & Castable &
   cost: number;
 };
 
+export const pathToSpell = (powerIndex: number, spellIndex: number): `powers.${number}.spells.${number}` => `powers.${powerIndex}.spells.${spellIndex}`;
 export const pathToSpellField = <K extends keyof Spell>(powerIndex: number, spellIndex: number, field: K): `powers.${number}.spells.${number}.${K}` => `powers.${powerIndex}.spells.${spellIndex}.${field}`;
 
 export const defaultSpell: Omit<Spell, "id"> =

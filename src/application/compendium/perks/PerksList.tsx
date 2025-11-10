@@ -14,7 +14,9 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddPerkDto, addPerkSchema, PerkDto } from "@/persistence/schemas/characters/perkSchema";
 
-import { useInitialKeysetSearchPerks } from "@/application/compendium/perks/hooks/useInitialKeysetSearchPerks";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
+import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
 import PerkView from "@/application/compendium/perks/PerkView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -24,15 +26,17 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 
 export default function PerksList()
 {
-  const { perks, initialCursor } = useInitialKeysetSearchPerks();
+  const { data: perks, initialCursor } = useInitialKeysetSearch<Perk>
+  ({
+    createQueryKey: createKeysetSearchPerksKey,
+    createQuery: createPerkKeysetQuery
+  });
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>([]);
 
   useEffect(() =>   

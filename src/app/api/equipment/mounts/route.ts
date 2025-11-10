@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { addMount } from '@/persistence/equipment/mounts/mountsRepository';
+import prisma from "@/lib/prisma";
+import { createCommonRepository } from '@/persistence/common/createCommonRepository';
 
 export async function POST(request: NextRequest)
 {
@@ -7,7 +8,8 @@ export async function POST(request: NextRequest)
   {
     const mount = await request.json();
     if (!mount) return NextResponse.json({ message: 'Mount data is required' }, { status: 400 });
-    const id = await addMount(mount);
+    const repository = await createCommonRepository(prisma.mount);
+    const id = await repository.add(mount);
     if (!id) return NextResponse.json({ message: 'Failed to add mount' }, { status: 500 });
     return NextResponse.json({ id }, { status: 201 });
   } 

@@ -21,3 +21,24 @@ export const defaultMount: Omit<Mount, "id"> =
 };
 
 export const CreateDefaultMount = (): Mount => ({...defaultMount, id: ulid()});
+
+export const allowedMountPaceSpeed = 
+[ 
+  0, 1, 2, 3, 4, 5
+] as const satisfies readonly number[];
+
+export const allowedMountGallopSpeed = 
+[ 
+  3, 4, 5, 6, 7, 8, 9, 10
+] as const satisfies readonly number[];
+
+export const allowedMountCenterSpeed = 
+[ 
+  3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+] as const satisfies readonly number[];
+
+export const allowedHorsemanshipBonuses = 
+[ 
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+] as const satisfies readonly number[];
+

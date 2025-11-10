@@ -28,3 +28,4 @@ export const CreateDefaultStance = (): Mode => ({...defaultStance, id: ulid()});
 export const CreateDefaultState = (): Mode => ({...defaultState, id: ulid()});
 
 export const pathToModeField = <K extends keyof Mode>(index: number, modeType: ModesType, field: K): `${ModesType}.${number}.${K}` => `${modeType}.${index}.${field}`;
+export const pathToMode = (index: number, modeType: ModesType): `${ModesType}.${number}` => `${modeType}.${index}`;

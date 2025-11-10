@@ -14,7 +14,9 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { InventoryItemDto, itemSchema } from "@/persistence/schemas/characters/equipment/itemSchema";
 
-import { useInitialKeysetSearchInventory } from "@/application/compendium/equipment/inventory/hooks/useInitialKeysetSearchInventory";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchInventoryKey } from "@/persistence/cacheKeys";
+import { createInventoryItemKeysetQuery } from "@/infrastructure/searchQueries/equipment/inventory/createInventoryItemKeysetQuery";
 import InventoryItemView from "@/application/compendium/equipment/inventory/InventoryItemView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -24,14 +26,16 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createInventoryItemKeysetQuery } from "@/infrastructure/searchQueries/equipment/inventory/createInventoryItemKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchInventoryKey } from "@/persistence/cacheKeys";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function InventoryList()
 {
-  const { inventory, initialCursor } = useInitialKeysetSearchInventory();
+  const { data: inventory, initialCursor } = useInitialKeysetSearch<Item>
+  ({
+    createQueryKey: createKeysetSearchInventoryKey,
+    createQuery: createInventoryItemKeysetQuery
+  });
   const [displayedInventory, setDisplayedInventory] = useState<Item[]>([]);
 
   useEffect(() =>   

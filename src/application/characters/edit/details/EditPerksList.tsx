@@ -2,18 +2,14 @@
 
 import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/ui/item";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { CreateDefaultPerk, pathToPerkField, Perk } from "@/domain/characters/Perk";
+import { CreateDefaultPerk, pathToPerk, Perk } from "@/domain/characters/Perk";
 import { FieldArrayWithId, UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { Button } from "@/common/components/ui/button";
 import { editIcon } from "@/presentation/icons";
 import { displayedText } from "@/presentation/translations";
-import { Label } from "@/common/components/ui/label";
-import { InputFormField } from "@/common/components/form/InputFormField";
 import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
-import { FormTagsInput } from "@/common/components/inputs/FormTagsInput";
-import { FormStringsInput } from "@/common/components/inputs/FormStringsInput";
 import TagsView from "@/common/components/tags/TagsView";
 import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
 import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
@@ -21,6 +17,7 @@ import PerkView from "@/application/compendium/perks/PerkView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from "react";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import PerkEditableFields from "@/application/common/PerkEditableFields";
 
 type EditPerksListProps =
 {
@@ -157,6 +154,8 @@ type EditPerkSheetProps =
 
 function EditPerkSheet({ index }: EditPerkSheetProps)
 {
+  const type = pathToPerk(index);
+
   return (
     <Sheet>
 
@@ -173,35 +172,8 @@ function EditPerkSheet({ index }: EditPerkSheetProps)
           </SheetDescription>
         </SheetHeader>
 
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<DetailsDto> path={pathToPerkField(index, 'name')} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-            </div>
-      
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<DetailsDto> path={pathToPerkField(index, 'grade')} inputClassName="w-11 h-10 text-center font-medium" />
-            </div>
-
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<DetailsDto> path={pathToPerkField(index, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<DetailsDto> path={pathToPerkField(index, 'tags')} />
-          <FormStringsInput<DetailsDto> path={pathToPerkField(index, 'requirements')} placeholder={displayedText.addRequirement} />
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='justify-center capitalize'>{displayedText.price}</Label>
-            <InputFormField<DetailsDto> path={pathToPerkField(index, 'price')} inputClassName='w-14 h-10 text-center font-medium' />
-          </div>
-
+        <div className="flex flex-col gap-3 px-4">
+          <PerkEditableFields pathPrefix={`${type}.`} />
         </div>
 
         <SheetFooter>

@@ -1,26 +1,16 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/armorsClient";
-
-import { Button } from '@/ui/button';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Armor } from "@/domain/characters/equipment/Armor";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteArmorById } from '@/application/compendium/equipment/armors/hooks/useDeleteArmorById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ArmorDto, armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";
-import TagsView from "@/common/components/tags/TagsView";
-import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
+import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
+import ArmorEditableFields from "@/application/common/equipment/ArmorEditableFields";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 
 type ArmorViewProps =
@@ -31,18 +21,16 @@ type ArmorViewProps =
 
 export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps)
 {
-  const { deleteArmor, isPending } = useDeleteArmorById();
+  const { deleteEntity: deleteArmor, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['armors'],
+    redirectPath: '/compendium/equipment/armors'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{armor.name}</h4>
-          <TagsView tags={armor.tags} />
-        </div>
-        <p className="text-sm text-muted-foreground">{armor.description}</p>
-      </div>
+      <SummaryView entity={armor} />
 
       <div className="flex flex-row items-center gap-2">
 
@@ -65,7 +53,24 @@ export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps
           !disableEdit && (
             <>
               <DeleteButton id={armor.id} isPending={isPending} deleteAction={deleteArmor} />
-              <EditArmorForm armor={armor} />
+
+              <EditFormForSheet<ArmorDto> 
+                entityId={armor.id}
+                defaultValues={armor}
+                schema={armorSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.armor(armor.id)}
+                renderSheetContent=
+                {
+                  (isPending, formId) => (
+                    <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                      <ArmorEditableFields />
+                    </ItemEditSheet>
+                  )
+                }
+                cacheKeys={['armors']}
+              />
+
             </>
           )
         }
@@ -73,122 +78,4 @@ export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps
 
     </div>
   );
-}
-
-type EditArmorFormProps =
-{
-  armor: Armor;
-};
-
-function EditArmorForm(input: EditArmorFormProps)
-{
-  const initialValues: ArmorDto = input.armor;
-
-  const form = useForm<ArmorDto>
-  ({
-    resolver: zodResolver(armorSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (armor: ArmorDto) => await client.update(input.armor.id, armor),
-    {
-      invalidateOnSuccess: ['armors'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.armor(input.armor.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditArmorSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
-}
-
-function EditArmorSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.edit} {displayedText.armor}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.name}</Label>
-            <InputFormField<ArmorDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <AreaInputFormField<ArmorDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<ArmorDto> path='tags' />
-
-          <div className="grid grid-cols-3 gap-4">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.protection}</Label>
-              <InputFormField<ArmorDto> path='protection' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.immunity}</Label>
-              <InputFormField<ArmorDto> path='immunity' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.resistance}</Label>
-              <InputFormField<ArmorDto> path='resistance' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mt-2">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.dexterityRestriction}</Label>
-              <InputFormField<ArmorDto> path='dexterityRestriction' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.initiativeRestriction}</Label>
-              <InputFormField<ArmorDto> path='initiativeRestriction' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.attributePenalty}</Label>
-              <InputFormField<ArmorDto> path='attributePenalty' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.strengthRequirement}</Label>
-              <InputFormField<ArmorDto> path='strengthRequirement' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
-  )
 }

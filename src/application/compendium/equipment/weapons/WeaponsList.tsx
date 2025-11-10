@@ -15,7 +15,9 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";
 
-import { useInitialKeysetSearchWeapons } from "@/application/compendium/equipment/weapons/hooks/useInitialKeysetSearchWeapons";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchWeaponsKey } from "@/persistence/cacheKeys";
+import { createWeaponKeysetQuery } from "@/infrastructure/searchQueries/equipment/weapons/createWeaponKeysetQuery";
 import WeaponView from "@/application/compendium/equipment/weapons/WeaponView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -25,15 +27,17 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createWeaponKeysetQuery } from "@/infrastructure/searchQueries/equipment/weapons/createWeaponKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchWeaponsKey } from "@/persistence/cacheKeys";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { allowedDiceGrades } from "@/domain/characters/combat/Offense";
 
 export default function WeaponsList()
 {
-  const { weapons, initialCursor } = useInitialKeysetSearchWeapons();
+  const { data: weapons, initialCursor } = useInitialKeysetSearch<Weapon>
+  ({
+    createQueryKey: createKeysetSearchWeaponsKey,
+    createQuery: createWeaponKeysetQuery
+  });
   const [displayedWeapons, setDisplayedWeapons] = useState<Weapon[]>([]);
 
   useEffect(() =>   

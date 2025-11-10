@@ -12,6 +12,7 @@ export type Perk = Entity &
 };
 
 export const pathToPerkField = <K extends keyof Perk>(index: number, field: K): `perks.${number}.${K}` => `perks.${index}.${field}`;
+export const pathToPerk = (index: number): `perks.${number}` => `perks.${index}`;
 
 export const defaultPerk: Omit<Perk, "id"> =
 {

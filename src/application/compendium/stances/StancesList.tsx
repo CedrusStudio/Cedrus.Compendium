@@ -14,7 +14,9 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddModeDto, addModeSchema, ModeDto } from "@/persistence/schemas/characters/combat/modeSchema";
 
-import { useInitialKeysetSearchStances } from "@/application/compendium/stances/hooks/useInitialKeysetSearchStances";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchStancesKey } from "@/persistence/cacheKeys";
+import { createStanceKeysetQuery } from "@/infrastructure/searchQueries/stances/createStanceKeysetQuery";
 import StanceView from "@/application/compendium/stances/StanceView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -24,15 +26,17 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createStanceKeysetQuery } from "@/infrastructure/searchQueries/stances/createStanceKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchStancesKey } from "@/persistence/cacheKeys";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 
 export default function StancesList()
 {
-  const { stances, initialCursor } = useInitialKeysetSearchStances();
+  const { data: stances, initialCursor } = useInitialKeysetSearch<Mode>
+  ({
+    createQueryKey: createKeysetSearchStancesKey,
+    createQuery: createStanceKeysetQuery
+  });
   const [displayedStances, setDisplayedStances] = useState<Mode[]>([]);
 
   useEffect(() =>   

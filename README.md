@@ -19,15 +19,10 @@ Bestiary + Battle + Edit Talents Table + Talents Table
 
 Polepszych performance do importów - prekalkulowac idki odpowiednie
 
-FILTRY NA RODZAJU MOCY?!!?!?!
-
-(when the perkable is from import it  -is readonly - before update - handle it)
------ Comon useSearch ??
-
 ## Prioritized
 
-4. importy
-5. tworzenie postacie na podstawie innej.
+5. refactor the item view, because mp they are not that readable, especially that view contains accordion content. Plus consider what to do on compendium level
+6. fix the bugs of items view like weapons damage views and critical view (make weapon its crit rage and power)
 
 soft delete
 

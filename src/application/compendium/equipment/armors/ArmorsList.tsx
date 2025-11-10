@@ -14,7 +14,9 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { ArmorDto, armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";
 
-import { useInitialKeysetSearchArmors } from "@/application/compendium/equipment/armors/hooks/useInitialKeysetSearchArmors";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchArmorsKey } from "@/persistence/cacheKeys";
+import { createArmorKeysetQuery } from "@/infrastructure/searchQueries/equipment/armors/createArmorKeysetQuery";
 import ArmorView from "@/application/compendium/equipment/armors/ArmorView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -24,14 +26,16 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createArmorKeysetQuery } from "@/infrastructure/searchQueries/equipment/armors/createArmorKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchArmorsKey } from "@/persistence/cacheKeys";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function ArmorsList()
 {
-  const { armors, initialCursor } = useInitialKeysetSearchArmors();
+  const { data: armors, initialCursor } = useInitialKeysetSearch<Armor>
+  ({
+    createQueryKey: createKeysetSearchArmorsKey,
+    createQuery: createArmorKeysetQuery
+  });
   const [displayedArmors, setDisplayedArmors] = useState<Armor[]>([]);
 
   useEffect(() =>   

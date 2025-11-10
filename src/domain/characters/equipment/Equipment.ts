@@ -16,6 +16,12 @@ export type Equipment =
 export type EquipmentItemArraysTypes = keyof Equipment;
 export type EquipmentItemTypes = `weapons.${number}` | `armors.${number}` | `shields.${number}` | `mounts.${number}` | `inventory.${number}`;
 
+export const pathToWeapons = (index: number): `weapons.${number}` => `weapons.${index}`;
+export const pathToArmors = (index: number): `armors.${number}` => `armors.${index}`;
+export const pathToShields = (index: number): `shields.${number}` => `shields.${index}`;
+export const pathToInventory = (index: number): `inventory.${number}` => `inventory.${index}`;
+export const pathToMounts = (index: number): `mounts.${number}` => `mounts.${index}`;
+
 export const pathToWeaponsField = <K extends keyof Weapon>(index: number, field: K): `weapons.${number}.${K}` => `weapons.${index}.${field}`;
 export const pathToArmorsField = <K extends keyof Armor>(index: number, field: K): `armors.${number}.${K}` => `armors.${index}.${field}`;
 export const pathToShieldsField = <K extends keyof Shield>(index: number, field: K): `shields.${number}.${K}` => `shields.${index}.${field}`;

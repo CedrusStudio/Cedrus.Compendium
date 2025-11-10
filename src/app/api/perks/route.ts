@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { addPerk } from '@/persistence/perks/perksRepository';
+import prisma from "@/lib/prisma";
+import { createCommonRepository } from '@/persistence/common/createCommonRepository';
 
 export async function POST(request: NextRequest)
 {
@@ -7,7 +8,8 @@ export async function POST(request: NextRequest)
   {
     const perk = await request.json();
     if (!perk) return NextResponse.json({ message: 'Perk data is required' }, { status: 400 });
-    const id = await addPerk(perk);
+    const repository = await createCommonRepository(prisma.perk);
+    const id = await repository.add(perk);
     if (!id) return NextResponse.json({ message: 'Failed to add perk' }, { status: 500 });
     return NextResponse.json({ id }, { status: 201 });
   } 

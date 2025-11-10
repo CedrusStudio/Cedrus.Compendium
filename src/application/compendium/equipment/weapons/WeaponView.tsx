@@ -1,30 +1,17 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/weaponsClient";
-
-import { Button } from '@/ui/button';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Weapon } from "@/domain/characters/equipment/Weapon";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteWeaponById } from '@/application/compendium/equipment/weapons/hooks/useDeleteWeaponById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";
-import TagsView from "@/common/components/tags/TagsView";
-import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
-import { allowedStyles } from "@/domain/characters/equipment/Weapon";
-import { allowedDiceGrades } from "@/domain/characters/combat/Offense";
+import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
+import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
+import WeaponEditableFields from "@/application/common/equipment/WeaponEditableFields";
 
 type WeaponViewProps =
 {
@@ -34,18 +21,16 @@ type WeaponViewProps =
 
 export default function WeaponView({ weapon, disableEdit = false }: WeaponViewProps)
 {
-  const { deleteWeapon, isPending } = useDeleteWeaponById();
+  const { deleteEntity: deleteWeapon, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['weapons'],
+    redirectPath: '/compendium/equipment/weapons'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{weapon.name}</h4>
-          <TagsView tags={weapon.tags} />
-        </div>
-        <p className="text-sm text-muted-foreground">{weapon.description}</p>
-      </div>
+      <SummaryView entity={weapon} />
 
       <div className="flex flex-row items-center gap-2">
 
@@ -78,7 +63,24 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
           !disableEdit && (
             <>
               <DeleteButton id={weapon.id} isPending={isPending} deleteAction={deleteWeapon} />
-              <EditWeaponForm weapon={weapon} />
+
+              <EditFormForSheet<WeaponDto> 
+                entityId={weapon.id}
+                defaultValues={weapon}
+                schema={weaponSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.weapon(weapon.id)}
+                renderSheetContent=
+                {
+                  (isPending, formId) => (
+                    <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                      <WeaponEditableFields />
+                    </ItemEditSheet>
+                  )
+                }
+                cacheKeys={['weapons']}
+              />
+
             </>
           )
         }
@@ -86,144 +88,4 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
 
     </div>
   );
-}
-
-type EditWeaponFormProps =
-{
-  weapon: Weapon;
-};
-
-function EditWeaponForm(input: EditWeaponFormProps)
-{
-  const initialValues: WeaponDto = input.weapon;
-
-  const form = useForm<WeaponDto>
-  ({
-    resolver: zodResolver(weaponSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (weapon: WeaponDto) => await client.update(input.weapon.id, weapon),
-    {
-      invalidateOnSuccess: ['weapons'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.weapon(input.weapon.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditWeaponSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
-}
-
-function EditWeaponSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.edit} {displayedText.weapons}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.name}</Label>
-            <InputFormField<WeaponDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <AreaInputFormField<WeaponDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<WeaponDto> path='tags' />
-
-          <div className="flex flex-col items-center gap-3 px-4">
-            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.style}</span></Label>
-            <SelectFormField<WeaponDto> path='style' labelText={displayedText.style} items={allowedStyles} />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='justify-center capitalize'>{displayedText.range}</Label>
-            <InputFormField<WeaponDto> path='range' inputClassName='w-11 h-10 text-center font-medium' />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='font-semibold text-base'>{displayedText.offense}</Label>
-            
-            <div className="grid grid-cols-3 gap-2">
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.amount}</Label>
-                <InputFormField<WeaponDto> path='offense.amount' inputClassName='w-11 h-10 text-center font-medium' />
-              </div>
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.grade}</Label>
-                <SelectFormField<WeaponDto> path='offense.grade' labelText={displayedText.grade} items={allowedDiceGrades} />
-              </div>
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.bonus}</Label>
-                <InputFormField<WeaponDto> path='offense.bonus' inputClassName='w-11 h-10 text-center font-medium' />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.critical} {displayedText.power}</Label>
-                <InputFormField<WeaponDto> path='offense.critical.power' inputClassName='w-11 h-10 text-center font-medium' />
-              </div>
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.critical} {displayedText.range}</Label>
-                <InputFormField<WeaponDto> path='offense.critical.range' inputClassName='w-11 h-10 text-center font-medium' />
-              </div>
-            </div>
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='font-semibold text-base'>{displayedText.damageBonus}</Label>
-            
-            <div className="grid grid-cols-3 gap-2">
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.amount}</Label>
-                <InputFormField<WeaponDto> path='damageBonus.amount' inputClassName='w-11 h-10 text-center font-medium' />
-              </div>
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.grade}</Label>
-                <SelectFormField<WeaponDto> path='damageBonus.grade' labelText={displayedText.grade} items={allowedDiceGrades} />
-              </div>
-              <div className="grid auto-rows-min gap-2">
-                <Label className='text-xs capitalize'>{displayedText.bonus}</Label>
-                <InputFormField<WeaponDto> path='damageBonus.bonus' inputClassName='w-11 h-10 text-center font-medium' />
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
-  )
 }

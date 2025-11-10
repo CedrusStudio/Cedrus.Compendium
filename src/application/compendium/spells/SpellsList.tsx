@@ -16,7 +16,9 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddSpellDto, addSpellSchema, SpellDto } from "@/persistence/schemas/characters/combat/powerSchema";
 
-import { useInitialKeysetSearchSpells } from "@/application/compendium/spells/hooks/useInitialKeysetSearchSpells";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchSpellsKey } from "@/persistence/cacheKeys";
+import { createSpellKeysetQuery } from "@/infrastructure/searchQueries/spells/createSpellKeysetQuery";
 import SpellView from "@/application/compendium/spells/SpellView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -26,15 +28,17 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createSpellKeysetQuery } from "@/infrastructure/searchQueries/spells/createSpellKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchSpellsKey } from "@/persistence/cacheKeys";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function SpellsList()
 {
-  const { spells, initialCursor } = useInitialKeysetSearchSpells();
+  const { data: spells, initialCursor } = useInitialKeysetSearch<Spell>
+  ({
+    createQueryKey: createKeysetSearchSpellsKey,
+    createQuery: createSpellKeysetQuery
+  });
   const [displayedSpells, setDisplayedSpells] = useState<Spell[]>([]);
 
   useEffect(() =>   

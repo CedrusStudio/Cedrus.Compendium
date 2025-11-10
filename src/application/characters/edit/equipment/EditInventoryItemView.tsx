@@ -1,4 +1,4 @@
-import EditItemSheet from "@/application/characters/edit/equipment/EditItemSheet";
+import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import { Item } from "@/domain/characters/equipment/Item";
 import { displayedText } from "@/presentation/translations";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
@@ -18,14 +18,7 @@ export default function EditInventoryItemView({ index, inventory, isImported }: 
         <span>{displayedText.description}: {inventory.description}</span>
         <ImportedBadge isImported={isImported} />
       </div>
-      {!isImported && <EditInventorySheet inventory={inventory} index={index} />}
+      {!isImported && <EditCharacterItemSheet type={`inventory.${index}`} />}
     </div>
   );
-}
-
-type EditInventorySheetProps = Pick<EditInventoryItemViewProps, 'inventory' | 'index'>;
-
-function EditInventorySheet({ inventory, index }: EditInventorySheetProps)
-{
-  return <EditItemSheet item={{ name: inventory.name, description: inventory.description, type: `inventory.${index}` }} />;
 }

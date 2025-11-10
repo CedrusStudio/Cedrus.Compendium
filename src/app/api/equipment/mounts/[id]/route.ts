@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { deleteMount, updateMount } from '@/persistence/equipment/mounts/mountsRepository';
+import prisma from "@/lib/prisma";
+import { createCommonRepository } from '@/persistence/common/createCommonRepository';
 
 type RouteParams = Promise<{ id: string }>
 
@@ -12,7 +13,8 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
     const mount = await request.json();
     if (!mount) return NextResponse.json({ message: 'Mount data is required' }, { status: 400 });
     if (mount.id !== id) return NextResponse.json({ message: 'Mount ID mismatch' }, { status: 400 });
-    const updated = await updateMount(mount);
+    const repository = await createCommonRepository(prisma.mount);
+    const updated = await repository.update(mount);
     return NextResponse.json({ status: updated ? 200 : 500 });
   } 
   catch (error) 
@@ -30,7 +32,8 @@ export async function DELETE(request: NextRequest, segmentData: { params: RouteP
     if (!id) return NextResponse.json({ message: 'Mount ID is required' }, { status: 400 });
     try 
     {
-      await deleteMount(id);
+      const repository = await createCommonRepository(prisma.mount);
+      await repository.delete(id);
       return NextResponse.json({ status: 204 });
     } 
     catch 

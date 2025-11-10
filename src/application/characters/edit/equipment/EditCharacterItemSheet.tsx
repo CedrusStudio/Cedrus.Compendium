@@ -1,0 +1,62 @@
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/ui/sheet";
+import { PropsWithChildren } from 'react';
+import { Button } from "@/ui/button"
+import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
+import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
+import { useFieldArray } from "react-hook-form";
+import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
+import { displayedText } from "@/presentation/translations";
+import { editIcon } from "@/presentation/icons";
+import ItemEditableFields from "@/application/common/equipment/ItemEditableFields";
+
+type EditItemSheetProps = 
+{
+  type: EquipmentItemTypes;
+};
+
+export default function EditCharacterItemSheet({ type, children }: PropsWithChildren<EditItemSheetProps>)
+{
+  const { name, index } = splitEquipmentItemTypes(type);
+  const { remove } = useFieldArray<EquipmentDto>({ name });
+
+  return (
+    <Sheet>
+
+      <div className="flex justify-end items-center mt-4 gap-3">
+        <RemoveFromArrayButton remove={remove} index={index} />
+        <SheetTrigger asChild>
+          <Button variant="edit">{editIcon}</Button>
+        </SheetTrigger>
+      </div>
+
+      <SheetContent>
+        
+        <SheetHeader>
+          <SheetTitle className="first-letter:uppercase">{displayedText.editingItem}</SheetTitle>
+          <SheetDescription>{displayedText.clickSave}</SheetDescription>
+        </SheetHeader>
+
+        <div className="grid gap-6">
+          <ItemEditableFields pathPrefix={`${type}.`} />
+          {children}
+        </div>
+
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button variant="outline" className="capitalize">{displayedText.close}</Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+
+    </Sheet>
+  )
+}

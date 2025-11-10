@@ -14,7 +14,9 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
 
-import { useInitialKeysetSearchShields } from "@/application/compendium/equipment/shields/hooks/useInitialKeysetSearchShields";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchShieldsKey } from "@/persistence/cacheKeys";
+import { createShieldKeysetQuery } from "@/infrastructure/searchQueries/equipment/shields/createShieldKeysetQuery";
 import ShieldView from "@/application/compendium/equipment/shields/ShieldView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -24,14 +26,16 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createShieldKeysetQuery } from "@/infrastructure/searchQueries/equipment/shields/createShieldKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchShieldsKey } from "@/persistence/cacheKeys";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function ShieldsList()
 {
-  const { shields, initialCursor } = useInitialKeysetSearchShields();
+  const { data: shields, initialCursor } = useInitialKeysetSearch<Shield>
+  ({
+    createQueryKey: createKeysetSearchShieldsKey,
+    createQuery: createShieldKeysetQuery
+  });
   const [displayedShields, setDisplayedShields] = useState<Shield[]>([]);
 
   useEffect(() =>   

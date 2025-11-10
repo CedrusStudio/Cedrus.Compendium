@@ -1,6 +1,6 @@
 import { Perk } from "@/domain/characters/Perk";
-import PerkView from "@/application/characters/details/PerkView";
 import { displayedText } from "@/presentation/translations";
+import SummaryView from "@/application/common/SummaryView";
 
 export default function PerksList({ perks }: { perks: Perk[] })
 {
@@ -13,8 +13,8 @@ export default function PerksList({ perks }: { perks: Perk[] })
       <ul className="list-inside grid grid-cols-2 gap-2">
       {
         perks.map((perk, index) => (
-          <li key={index} className="text-md text-primary">
-            <PerkView perk={perk} />
+          <li key={index} className="flex flex-row items-center  rounded-md p-2 bg-muted">
+            <SummaryView entity={perk} tagsVariant="outline" />
           </li>
         ))
       }

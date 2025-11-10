@@ -1,11 +1,9 @@
 "use client";
 
-import { useQuery } from '@tanstack/react-query';
-import client from "@/infrastructure/clients/searchClient";
 import { Mode } from '@/domain/characters/combat/Mode';
 import { createStateKeysetQuery } from '@/infrastructure/searchQueries/states/createStateKeysetQuery';
 import { createKeysetSearchStatesKey } from '@/persistence/cacheKeys';
-import { useDebounce } from "use-debounce";
+import { useSearch } from '@/infrastructure/hooks/useSearch';
 
 type UseSearchStatesParams = 
 {
@@ -20,23 +18,10 @@ type UseSearchStatesReturn =
   error: Error | null;
 };
 
-export const useSearchStates = ({ searchTerm, enabled = true }: UseSearchStatesParams): UseSearchStatesReturn => 
+export const useSearchStates = (params: UseSearchStatesParams): UseSearchStatesReturn => 
 {
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
-  const statesQuery = createStateKeysetQuery(debouncedSearchTerm);
-  const queryKey = createKeysetSearchStatesKey(debouncedSearchTerm);
-
-  const { data = [], isLoading, error } = useQuery<Mode[]>
-  ({
-    queryKey,
-    queryFn: () => client.search(statesQuery),
-    enabled,
-    staleTime: 5_000,
+  return useSearch<Mode>(params, {
+    createKeysetQuery: createStateKeysetQuery,
+    createCacheKey: createKeysetSearchStatesKey,
   });
-
-  return { 
-    data, 
-    isLoading, 
-    error 
-  };
 };

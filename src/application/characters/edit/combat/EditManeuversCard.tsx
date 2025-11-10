@@ -1,34 +1,25 @@
 "use client";
 
-import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { CreateDefaultManeuver, type Maneuver } from "@/domain/characters/combat/Maneuver";
-import { allowedCastTimes } from "@/domain/characters/Castable";
+import { CreateDefaultManeuver, pathToManeuvers, type Maneuver } from "@/domain/characters/combat/Maneuver";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { SelectFormField } from '@/common/components/form/SelectFormField';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { displayedText } from '@/presentation/translations';
-import { battleIcon, cooldownIcon, editIcon } from '@/presentation/icons';
-import { pathToManeuverField } from '@/domain/characters/combat/Maneuver';
+import { battleIcon, cooldownIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
-import FormTagsInput from '@/common/components/inputs/FormTagsInput';
-import AreaInputFormField from '@/common/components/form/AreaInputFormField';
-import TagsView from '@/common/components/tags/TagsView';
-import { Separator } from '@/common/components/ui/separator';
-import FormStringsInput from '@/common/components/inputs/FormStringsInput';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import SummaryView from '@/application/common/SummaryView';
+import EditCharacterCombatPerkSheet from './EditCharacterCombatPerkSheet';
+import CastablePerkEditableFields from '@/application/common/combat/CastablePerkEditableFields';
 
 type EditManeuversCardProps = 
 {
@@ -128,29 +119,20 @@ type EditManeuverViewProps =
 function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverViewProps)
 {
   return (
-    <div className="flex flex-col m-1 items-center border rounded-md p-2 min-h-24">
+    <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
 
-      <div className="flex flex-row gap-2 items-center min-h-24">
-        <div className="p-2 rounded-md w-full">
-          <h4 className="font-semibold">
-            {maneuver.name} {maneuver.grade}
-            <ImportedBadge isImported={isImported} />
-          </h4>
-          <p className="text-sm text-muted-foreground">{maneuver.description}</p>
-        </div>
+      <SummaryView entity={maneuver} tagsVariant="outline" />
+      <ImportedBadge isImported={isImported} />
 
-        <div className="flex flex-row gap-2">
-          <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
-              {cooldownIcon()}
-              <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
-          </Badge>
-          <RemoveFromArrayButton remove={remove} index={index} />
-          {!isImported && <EditManeuverSheet index={index}/>}
-        </div>
+      <div className="flex flex-row gap-2">
+        <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
+          {cooldownIcon()}
+          <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
+        </Badge>
+        <RemoveFromArrayButton remove={remove} index={index} />
+        {!isImported && <EditManeuverSheet index={index}/>}
       </div>
 
-      <Separator className='mb-2' />
-      <TagsView tags={maneuver.tags} variant="outline" />
     </div>
   );
 }
@@ -160,75 +142,13 @@ type EditManeuverSheetProps =
   index: number;
 };
 
-function EditManeuverSheet({ index}: EditManeuverSheetProps)
+function EditManeuverSheet({ index }: EditManeuverSheetProps)
 {
+  const type = pathToManeuvers(index);
+
   return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.editManeuver}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<CombatDto> path={pathToManeuverField(index, 'name')} inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-            </div>
-      
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<CombatDto> path={pathToManeuverField(index, 'grade')} inputClassName="w-11 h-10 text-center font-medium" />
-            </div>
-
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <AreaInputFormField<CombatDto> path={pathToManeuverField(index, 'description')} inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-          
-          <FormTagsInput<CombatDto> path={pathToManeuverField(index, 'tags')} />
-          <FormStringsInput<CombatDto> path={pathToManeuverField(index, 'requirements')} placeholder={displayedText.addRequirement} />
-
-          <div className="grid grid-cols-2 gap-4">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
-              <InputFormField<CombatDto> path={pathToManeuverField(index, 'cooldown')} inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-    
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.price}</Label>
-              <InputFormField<CombatDto> path={pathToManeuverField(index, 'price')} inputClassName='w-11 h-10 text-center font-medium'  />
-            </div>
-          </div>
-  
-          <div className="flex flex-col items-center gap-3 px-4">
-            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
-            <SelectFormField<CombatDto> path={pathToManeuverField(index, 'castTime')} labelText={displayedText.castTime} items={allowedCastTimes} />
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-
-      </SheetContent>
-    </Sheet>
+    <EditCharacterCombatPerkSheet type={type} >
+      <CastablePerkEditableFields pathPrefix={type + "."}  />
+    </EditCharacterCombatPerkSheet>
   )
 }

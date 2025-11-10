@@ -22,7 +22,8 @@ export default function EditDetailsView(input: { character: Character })
     const { form, handleSubmit, isPending, formId } = useCharacterForm<DetailsDto>({
         characterId: character.id,
         schema: detailsSchema,
-        defaultValues: {
+        defaultValues: 
+        {
             name: character.name,
             shortName: character.shortName,
             tags: character.tags,
