@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/stancesClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Mode } from "@/domain/characters/combat/Mode";
@@ -24,6 +19,7 @@ import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type StanceViewProps =
 {
@@ -54,7 +50,17 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
           !disableEdit && (
             <>
               <DeleteButton id={stance.id} isPending={isPending} deleteAction={deleteStance} />
-              <EditStanceForm stance={stance} />
+
+              <EditFormForSheet<ModeDto> 
+                entityId={stance.id}
+                defaultValues={stance}
+                schema={modeSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.stance(stance.id)}
+                renderSheetContent={(isPending, formId) => <EditStanceSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['stances']}
+              />
+
             </>
           )
         }
@@ -62,42 +68,6 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
 
     </div>
   );
-}
-
-type EditStanceFormProps =
-{
-  stance: Mode;
-};
-
-function EditStanceForm(input: EditStanceFormProps)
-{
-  const initialValues: ModeDto = input.stance;
-
-  const form = useForm<ModeDto>
-  ({
-    resolver: zodResolver(modeSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (stance: ModeDto) => await client.update(input.stance.id, stance),
-    {
-      invalidateOnSuccess: ['stances'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.stance(input.stance.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditStanceSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditStanceSheet({ isPending, formId }: { isPending: boolean, formId: string })

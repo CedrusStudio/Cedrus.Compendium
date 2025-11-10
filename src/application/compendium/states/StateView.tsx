@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/statesClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Mode } from "@/domain/characters/combat/Mode";
@@ -24,6 +19,7 @@ import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type StateViewProps =
 {
@@ -54,7 +50,16 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
           !disableEdit && (
             <>
               <DeleteButton id={state.id} isPending={isPending} deleteAction={deleteState} />
-              <EditStateForm state={state} />
+
+              <EditFormForSheet<ModeDto> 
+                entityId={state.id}
+                defaultValues={state}
+                schema={modeSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.state(state.id)}
+                renderSheetContent={(isPending, formId) => <EditStateSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['states']}
+              />
             </>
           )
         }
@@ -62,42 +67,6 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
 
     </div>
   );
-}
-
-type EditStateFormProps =
-{
-  state: Mode;
-};
-
-function EditStateForm(input: EditStateFormProps)
-{
-  const initialValues: ModeDto = input.state;
-
-  const form = useForm<ModeDto>
-  ({
-    resolver: zodResolver(modeSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (state: ModeDto) => await client.update(input.state.id, state),
-    {
-      invalidateOnSuccess: ['states'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.state(input.state.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditStateSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditStateSheet({ isPending, formId }: { isPending: boolean, formId: string })

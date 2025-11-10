@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/maneuversClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Maneuver } from "@/domain/characters/combat/Maneuver";
@@ -27,6 +22,7 @@ import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type ManeuverViewProps =
 {
@@ -61,7 +57,17 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
           !disableEdit && (
             <>
               <DeleteButton id={maneuver.id} isPending={isPending} deleteAction={deleteManeuver} />
-              <EditManeuverForm maneuver={maneuver} />
+
+              <EditFormForSheet<ManeuverDto> 
+                entityId={maneuver.id}
+                defaultValues={maneuver}
+                schema={maneuverSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.maneuver(maneuver.id)}
+                renderSheetContent={(isPending, formId) => <EditManeuverSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['maneuvers']}
+              />
+
             </>
           )
         }
@@ -69,42 +75,6 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
 
     </div>
   );
-}
-
-type EditManeuverFormProps =
-{
-  maneuver: Maneuver;
-};
-
-function EditManeuverForm(input: EditManeuverFormProps)
-{
-  const initialValues: ManeuverDto = input.maneuver;
-
-  const form = useForm<ManeuverDto>
-  ({
-    resolver: zodResolver(maneuverSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (maneuver: ManeuverDto) => await client.update(input.maneuver.id, maneuver),
-    {
-      invalidateOnSuccess: ['maneuvers'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.maneuver(input.maneuver.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditManeuverSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditManeuverSheet({ isPending, formId }: { isPending: boolean, formId: string })

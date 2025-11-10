@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/armorsClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Armor } from "@/domain/characters/equipment/Armor";
@@ -22,6 +17,7 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type ArmorViewProps =
 {
@@ -59,7 +55,17 @@ export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps
           !disableEdit && (
             <>
               <DeleteButton id={armor.id} isPending={isPending} deleteAction={deleteArmor} />
-              <EditArmorForm armor={armor} />
+
+              <EditFormForSheet<ArmorDto> 
+                entityId={armor.id}
+                defaultValues={armor}
+                schema={armorSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.armor(armor.id)}
+                renderSheetContent={(isPending, formId) => <EditArmorSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['armors']}
+              />
+
             </>
           )
         }
@@ -67,42 +73,6 @@ export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps
 
     </div>
   );
-}
-
-type EditArmorFormProps =
-{
-  armor: Armor;
-};
-
-function EditArmorForm(input: EditArmorFormProps)
-{
-  const initialValues: ArmorDto = input.armor;
-
-  const form = useForm<ArmorDto>
-  ({
-    resolver: zodResolver(armorSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (armor: ArmorDto) => await client.update(input.armor.id, armor),
-    {
-      invalidateOnSuccess: ['armors'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.armor(input.armor.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditArmorSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditArmorSheet({ isPending, formId }: { isPending: boolean, formId: string })

@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/mountsClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Mount } from "@/domain/characters/equipment/Mount";
@@ -22,6 +17,7 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type MountViewProps =
 {
@@ -64,7 +60,17 @@ export default function MountView({ mount, disableEdit = false }: MountViewProps
           !disableEdit && (
             <>
               <DeleteButton id={mount.id} isPending={isPending} deleteAction={deleteMount} />
-              <EditMountForm mount={mount} />
+
+              <EditFormForSheet<MountDto> 
+                entityId={mount.id}
+                defaultValues={mount}
+                schema={mountSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.mount(mount.id)}
+                renderSheetContent={(isPending, formId) => <EditMountSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['mounts']}
+              />
+
             </>
           )
         }
@@ -72,42 +78,6 @@ export default function MountView({ mount, disableEdit = false }: MountViewProps
 
     </div>
   );
-}
-
-type EditMountFormProps =
-{
-  mount: Mount;
-};
-
-function EditMountForm(input: EditMountFormProps)
-{
-  const initialValues: MountDto = input.mount;
-
-  const form = useForm<MountDto>
-  ({
-    resolver: zodResolver(mountSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (mount: MountDto) => await client.update(input.mount.id, mount),
-    {
-      invalidateOnSuccess: ['mounts'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.mount(input.mount.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditMountSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditMountSheet({ isPending, formId }: { isPending: boolean, formId: string })

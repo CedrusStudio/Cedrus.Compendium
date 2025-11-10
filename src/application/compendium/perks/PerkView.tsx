@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/perksClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Perk } from "@/domain/characters/Perk";
@@ -24,6 +19,7 @@ import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type PerkViewProps =
 {
@@ -54,7 +50,17 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
           !disableEdit && (
             <>
               <DeleteButton id={perk.id} isPending={isPending} deleteAction={deletePerk} />
-              <EditPerkForm perk={perk} />
+              
+              <EditFormForSheet<PerkDto> 
+                entityId={perk.id}
+                defaultValues={perk}
+                schema={perkSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.perk(perk.id)}
+                renderSheetContent={(isPending, formId) => <EditPerkSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['perks']}
+              />
+
             </>
           )
         }
@@ -62,42 +68,6 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
 
     </div>
   );
-}
-
-type EditPerkFormProps =
-{
-  perk: Perk;
-};
-
-function EditPerkForm(input: EditPerkFormProps)
-{
-  const initialValues: PerkDto = input.perk;
-
-  const form = useForm<PerkDto>
-  ({
-    resolver: zodResolver(perkSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (perk: PerkDto) => await client.update(input.perk.id, perk),
-    {
-      invalidateOnSuccess: ['perks'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.perk(input.perk.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditPerkSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditPerkSheet({ isPending, formId }: { isPending: boolean, formId: string })

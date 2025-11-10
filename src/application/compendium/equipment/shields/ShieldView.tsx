@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/shieldsClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Shield } from "@/domain/characters/equipment/Shield";
@@ -22,6 +17,7 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type ShieldViewProps =
 {
@@ -54,7 +50,17 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
           !disableEdit && (
             <>
               <DeleteButton id={shield.id} isPending={isPending} deleteAction={deleteShield} />
-              <EditShieldForm shield={shield} />
+
+              <EditFormForSheet<ShieldDto> 
+                entityId={shield.id}
+                defaultValues={shield}
+                schema={shieldSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.shield(shield.id)}
+                renderSheetContent={(isPending, formId) => <EditShieldSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['shields']}
+              />
+
             </>
           )
         }
@@ -62,42 +68,6 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
 
     </div>
   );
-}
-
-type EditShieldFormProps =
-{
-  shield: Shield;
-};
-
-function EditShieldForm(input: EditShieldFormProps)
-{
-  const initialValues: ShieldDto = input.shield;
-
-  const form = useForm<ShieldDto>
-  ({
-    resolver: zodResolver(shieldSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (shield: ShieldDto) => await client.update(input.shield.id, shield),
-    {
-      invalidateOnSuccess: ['shields'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.shield(input.shield.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditShieldSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditShieldSheet({ isPending, formId }: { isPending: boolean, formId: string })

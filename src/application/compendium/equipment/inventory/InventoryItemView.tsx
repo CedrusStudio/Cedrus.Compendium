@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/inventoryClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Item } from "@/domain/characters/equipment/Item";
@@ -21,6 +16,7 @@ import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type InventoryItemViewProps =
 {
@@ -42,7 +38,17 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
           !disableEdit && (
             <>
               <DeleteButton id={item.id} isPending={isPending} deleteAction={deleteInventoryItem} />
-              <EditInventoryItemForm item={item} />
+
+              <EditFormForSheet<InventoryItemDto> 
+                entityId={item.id}
+                defaultValues={item}
+                schema={itemSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.inventoryItem(item.id)}
+                renderSheetContent={(isPending, formId) => <EditInventoryItemSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['inventory']}
+              />
+
             </>
           )
         }
@@ -50,42 +56,6 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
 
     </div>
   );
-}
-
-type EditInventoryItemFormProps =
-{
-  item: Item;
-};
-
-function EditInventoryItemForm(input: EditInventoryItemFormProps)
-{
-  const initialValues: InventoryItemDto = input.item;
-
-  const form = useForm<InventoryItemDto>
-  ({
-    resolver: zodResolver(itemSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (item: InventoryItemDto) => await client.update(input.item.id, item),
-    {
-      invalidateOnSuccess: ['inventory'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.inventoryItem(input.item.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditInventoryItemSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditInventoryItemSheet({ isPending, formId }: { isPending: boolean, formId: string })

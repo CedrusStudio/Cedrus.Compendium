@@ -1,12 +1,7 @@
 "use client";
 
-import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/spellsClient";
-
 import { Button } from '@/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { type Spell } from "@/domain/characters/combat/Power";
@@ -27,6 +22,7 @@ import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
+import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 
 type SpellViewProps =
 {
@@ -66,7 +62,17 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
           !disableEdit && (
             <>
               <DeleteButton id={spell.id} isPending={isPending} deleteAction={deleteSpell} />
-              <EditSpellForm spell={spell} />
+
+              <EditFormForSheet<SpellDto> 
+                entityId={spell.id}
+                defaultValues={spell}
+                schema={spellSchema}
+                updateFn={client.update}
+                formId={createCompendiumFormId.spell(spell.id)}
+                renderSheetContent={(isPending, formId) => <EditSpellSheet isPending={isPending} formId={formId} />}
+                cacheKeys={['spells']}
+              />
+
             </>
           )
         }
@@ -74,42 +80,6 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
 
     </div>
   );
-}
-
-type EditSpellFormProps =
-{
-  spell: Spell;
-};
-
-function EditSpellForm(input: EditSpellFormProps)
-{
-  const initialValues: SpellDto = input.spell;
-
-  const form = useForm<SpellDto>
-  ({
-    resolver: zodResolver(spellSchema),
-    defaultValues: initialValues,
-    mode: "onBlur"
-  });
-
-  const { handleSubmit, isPending } = useFormMutation
-  (
-    async (spell: SpellDto) => await client.update(input.spell.id, spell),
-    {
-      invalidateOnSuccess: ['spells'],
-      toastPosition: "bottom-left"
-    }
-  );
-
-  const formId = createCompendiumFormId.spell(input.spell.id);
-  
-  return (
-    <Form {...form}>
-      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditSpellSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
 }
 
 function EditSpellSheet({ isPending, formId }: { isPending: boolean, formId: string })
