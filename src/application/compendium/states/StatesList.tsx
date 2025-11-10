@@ -14,7 +14,9 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddModeDto, addModeSchema, ModeDto } from "@/persistence/schemas/characters/combat/modeSchema";
 
-import { useInitialKeysetSearchStates } from "@/application/compendium/states/hooks/useInitialKeysetSearchStates";
+import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
+import { createKeysetSearchStatesKey } from "@/persistence/cacheKeys";
+import { createStateKeysetQuery } from "@/infrastructure/searchQueries/states/createStateKeysetQuery";
 import StateView from "@/application/compendium/states/StateView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
@@ -24,15 +26,17 @@ import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
 import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
-import { createStateKeysetQuery } from "@/infrastructure/searchQueries/states/createStateKeysetQuery";
 import { useQuery } from "@tanstack/react-query";
-import { createKeysetSearchStatesKey } from "@/persistence/cacheKeys";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 
 export default function StatesList()
 {
-  const { states, initialCursor } = useInitialKeysetSearchStates();
+  const { data: states, initialCursor } = useInitialKeysetSearch<Mode>
+  ({
+    createQueryKey: createKeysetSearchStatesKey,
+    createQuery: createStateKeysetQuery
+  });
   const [displayedStates, setDisplayedStates] = useState<Mode[]>([]);
 
   useEffect(() =>   
