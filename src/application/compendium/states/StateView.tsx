@@ -6,7 +6,7 @@ import { displayedText } from '@/presentation/translations';
 import { priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteStateById } from '@/application/compendium/states/hooks/useDeleteStateById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
@@ -22,7 +22,11 @@ type StateViewProps =
 
 export default function StateView({ state, disableEdit = false }: StateViewProps)
 {
-  const { deleteState, isPending } = useDeleteStateById();
+  const { deleteEntity: deleteState, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['states'],
+    redirectPath: '/compendium/states'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

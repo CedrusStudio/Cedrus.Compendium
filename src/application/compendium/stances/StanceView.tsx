@@ -6,7 +6,7 @@ import { displayedText } from '@/presentation/translations';
 import { priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteStanceById } from '@/application/compendium/stances/hooks/useDeleteStanceById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
@@ -22,7 +22,11 @@ type StanceViewProps =
 
 export default function StanceView({ stance, disableEdit = false }: StanceViewProps)
 {
-  const { deleteStance, isPending } = useDeleteStanceById();
+  const { deleteEntity: deleteStance, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['stances'],
+    redirectPath: '/compendium/stances'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

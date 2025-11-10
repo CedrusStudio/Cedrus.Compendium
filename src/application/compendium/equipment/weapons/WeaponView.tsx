@@ -5,7 +5,7 @@ import { type Weapon } from "@/domain/characters/equipment/Weapon";
 import { displayedText } from '@/presentation/translations';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteWeaponById } from '@/application/compendium/equipment/weapons/hooks/useDeleteWeaponById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
@@ -21,7 +21,11 @@ type WeaponViewProps =
 
 export default function WeaponView({ weapon, disableEdit = false }: WeaponViewProps)
 {
-  const { deleteWeapon, isPending } = useDeleteWeaponById();
+  const { deleteEntity: deleteWeapon, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['weapons'],
+    redirectPath: '/compendium/equipment/weapons'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

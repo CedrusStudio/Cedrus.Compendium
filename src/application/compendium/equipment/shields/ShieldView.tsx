@@ -5,7 +5,7 @@ import { type Shield } from "@/domain/characters/equipment/Shield";
 import { displayedText } from '@/presentation/translations';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteShieldById } from '@/application/compendium/equipment/shields/hooks/useDeleteShieldById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
@@ -21,7 +21,11 @@ type ShieldViewProps =
 
 export default function ShieldView({ shield, disableEdit = false }: ShieldViewProps)
 {
-  const { deleteShield, isPending } = useDeleteShieldById();
+  const { deleteEntity: deleteShield, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['shields'],
+    redirectPath: '/compendium/equipment/shields'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

@@ -4,7 +4,7 @@ import client from "@/infrastructure/clients/equipment/inventoryClient";
 import { type Item } from "@/domain/characters/equipment/Item";
 import { displayedText } from '@/presentation/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteInventoryItemById } from '@/application/compendium/equipment/inventory/hooks/useDeleteInventoryItemById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { InventoryItemDto, itemSchema } from "@/persistence/schemas/characters/equipment/itemSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
@@ -19,7 +19,11 @@ type InventoryItemViewProps =
 
 export default function InventoryItemView({ item, disableEdit = false }: InventoryItemViewProps)
 {
-  const { deleteInventoryItem, isPending } = useDeleteInventoryItemById();
+  const { deleteEntity: deleteInventoryItem, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['inventory'],
+    redirectPath: '/compendium/equipment/inventory'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

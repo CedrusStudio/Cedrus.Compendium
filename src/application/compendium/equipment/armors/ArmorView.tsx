@@ -5,7 +5,7 @@ import { type Armor } from "@/domain/characters/equipment/Armor";
 import { displayedText } from '@/presentation/translations';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteArmorById } from '@/application/compendium/equipment/armors/hooks/useDeleteArmorById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ArmorDto, armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -21,7 +21,11 @@ type ArmorViewProps =
 
 export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps)
 {
-  const { deleteArmor, isPending } = useDeleteArmorById();
+  const { deleteEntity: deleteArmor, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['armors'],
+    redirectPath: '/compendium/equipment/armors'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

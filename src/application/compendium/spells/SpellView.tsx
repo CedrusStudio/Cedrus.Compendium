@@ -7,7 +7,7 @@ import { battleIcon, cooldownIcon, costIcon, priceIcon } from '@/presentation/ic
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteSpellById } from '@/application/compendium/spells/hooks/useDeleteSpellById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { SpellDto, spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
@@ -24,7 +24,11 @@ type SpellViewProps =
 
 export default function SpellView({ spell, disableEdit = false }: SpellViewProps)
 {
-  const { deleteSpell, isPending } = useDeleteSpellById();
+  const { deleteEntity: deleteSpell, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['spells'],
+    redirectPath: '/compendium/spells'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

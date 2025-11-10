@@ -6,7 +6,7 @@ import { displayedText } from '@/presentation/translations';
 import { priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeletePerkById } from '@/application/compendium/perks/hooks/useDeletePerkById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { PerkDto, perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
@@ -22,7 +22,11 @@ type PerkViewProps =
 
 export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
 {
-  const { deletePerk, isPending } = useDeletePerkById();
+  const { deleteEntity: deletePerk, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['perks'],
+    redirectPath: '/compendium/perks'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">

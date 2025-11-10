@@ -7,7 +7,7 @@ import { battleIcon, cooldownIcon, priceIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
-import { useDeleteManeuverById } from '@/application/compendium/maneuvers/hooks/useDeleteManeuverById';
+import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
@@ -24,7 +24,11 @@ type ManeuverViewProps =
 
 export default function ManeuverView({ maneuver, disableEdit = false }: ManeuverViewProps)
 {
-  const { deleteManeuver, isPending } = useDeleteManeuverById();
+  const { deleteEntity: deleteManeuver, isPending } = useDeleteEntity({
+    client,
+    queryKey: ['maneuvers'],
+    redirectPath: '/compendium/maneuvers'
+  });
 
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
@@ -45,6 +49,8 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
             <div>{cooldownIcon()}</div>
             <div>{maneuver.cooldown || battleIcon("scale-90")}</div>
         </Badge>
+
+
         {
           !disableEdit && (
             <>
