@@ -4,6 +4,7 @@ import { displayedText } from '@/presentation/translations';
 import { Badge } from '@/common/components/ui/badge';
 import SummaryView from "@/application/common/SummaryView";
 import { type Mount } from '@/domain/characters/equipment/Mount';
+import { attributesIcons } from '@/presentation/icons';
 
 type MountViewFieldsProps =
 {
@@ -35,7 +36,7 @@ export default function MountViewFields({ mount }: MountViewFieldsProps)
         </Badge>
 
         <Badge variant="secondary" className="h-9 px-2">
-          <div className="text-xs">{displayedText.horsemanship}:</div>
+          <div className="text-xs">{attributesIcons.horsemanship}</div>
           <div className="ml-1">{mount.horsemanshipBonus}</div>
         </Badge>
 

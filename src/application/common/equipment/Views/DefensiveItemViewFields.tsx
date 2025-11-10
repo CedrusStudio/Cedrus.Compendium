@@ -1,12 +1,11 @@
 "use client";
 
-import { displayedText } from '@/presentation/translations';
 import { Badge } from '@/common/components/ui/badge';
 import SummaryView from "@/application/common/SummaryView";
 import { type Armor } from '@/domain/characters/equipment/Armor';
 import { type Shield } from '@/domain/characters/equipment/Shield';
 import { ReactNode } from 'react';
-import { resistanceIcon } from '@/presentation/icons';
+import { attributePenaltyIcon, dexterityRestrictionIcon, initiativeRestrictionIcon, resistanceIcon, strengthRequirementIcon } from '@/presentation/icons';
 
 type DefensiveItemViewFieldsProps =
 {
@@ -18,10 +17,10 @@ type DefensiveItemViewFieldsProps =
 export default function DefensiveItemViewFields({ item, specificBadges, compact = false }: DefensiveItemViewFieldsProps)
 {
   return (
-    <div className='flex flex-col w-full gap-3'>
-      <div className='flex flex-row place-items-center justify-between w-full gap-4'>
+    <div className='flex flex-row place-items-center w-full gap-4'>
 
         <SummaryView entity={item} />
+        { !compact && <ExtendedViewFields item={item} /> }
 
         <div className="flex flex-row place-items-center gap-2">
           {specificBadges}
@@ -36,9 +35,7 @@ export default function DefensiveItemViewFields({ item, specificBadges, compact 
           }
 
         </div>
-      </div>
 
-      { !compact && <ExtendedViewFields item={item} /> }
     </div>
   );
 }
@@ -46,26 +43,36 @@ export default function DefensiveItemViewFields({ item, specificBadges, compact 
 function ExtendedViewFields({ item }: { item: Armor | Shield })
 {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 px-2 py-2 bg-muted/30 rounded-md">
-        <div className="flex flex-row gap-1 place-items-center">
-          <span className='text-xs font-semibold capitalize text-muted-foreground'>{displayedText.attributePenalty}:</span>
-          <span className="text-xs font-medium">{item.attributePenalty}</span>
-        </div>
+        <div className='flex flex-row  gap-2'>
 
-        <div className="flex flex-row gap-1 place-items-center">
-          <span className='text-xs font-semibold capitalize text-muted-foreground'>{displayedText.strengthRequirement}:</span>
-          <span className="text-xs font-medium">{item.strengthRequirement}</span>
-        </div>
+        {
+            item.attributePenalty > 0 && (
+                <Badge variant="secondary" className='w-8 h-8 p-4 rounded-full'>
+                    <span className='text-xs font-semibold capitalize text-muted-foreground'>{attributePenaltyIcon()}</span>
+                    <span className="text-xs font-medium">{item.attributePenalty}</span>
+                </Badge>
+            )
+        }
 
-        <div className="flex flex-row gap-1 place-items-center">
-          <span className='text-xs font-semibold capitalize text-muted-foreground'>{displayedText.dexterityRestriction}:</span>
-          <span className="text-xs font-medium">{item.dexterityRestriction}</span>
-        </div>
+        <div className="flex flex-row gap-2 px-2 py-2 bg-muted/30 rounded-md w-fit">
 
-        <div className="flex flex-row gap-1 place-items-center">
-          <span className='text-xs font-semibold capitalize text-muted-foreground'>{displayedText.initiativeRestriction}:</span>
-          <span className="text-xs font-medium">{item.initiativeRestriction}</span>
+            <div className="flex flex-row gap-1 place-items-center">
+            <span className='text-xs font-semibold capitalize text-muted-foreground'>{strengthRequirementIcon()}</span>
+            <span className="text-xs font-medium">{item.strengthRequirement}</span>
+            </div>
+
+            <div className="flex flex-row gap-1 place-items-center">
+            <span className='text-xs font-semibold capitalize text-muted-foreground'>{dexterityRestrictionIcon()}</span>
+            <span className="text-xs font-medium">{item.dexterityRestriction}</span>
+            </div>
+
+            <div className="flex flex-row gap-1 place-items-center">
+            <span className='text-xs font-semibold capitalize text-muted-foreground'>{initiativeRestrictionIcon()}</span>
+            <span className="text-xs font-medium">{item.initiativeRestriction}</span>
+            </div>
+
         </div>
-      </div>
+      
+    </div>
   )
 }
