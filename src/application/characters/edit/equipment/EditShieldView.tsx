@@ -3,7 +3,7 @@ import { Shield } from "@/domain/characters/equipment/Shield";
 import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import ShieldView from "@/application/characters/equipment/ShieldView";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
-import ShieldEditableFields from "@/application/common/equipment/ShieldEditableFields";
+import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
 
 type EditShieldViewProps = 
 {

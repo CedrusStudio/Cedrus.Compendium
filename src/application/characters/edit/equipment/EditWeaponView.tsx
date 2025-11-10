@@ -3,7 +3,7 @@ import { Weapon } from '@/domain/characters/equipment/Weapon';
 import WeaponView from '@/application/characters/equipment/WeaponView';
 import EditCharacterItemSheet from '@/application/characters/edit/equipment/EditCharacterItemSheet';
 import ImportedBadge from '@/common/components/labels/ImportedBadge';
-import WeaponEditableFields from '@/application/common/equipment/WeaponEditableFields';
+import WeaponEditableFields from '@/application/common/equipment/EditSheets/WeaponEditableFields';
 
 type EditWeaponViewProps = 
 {

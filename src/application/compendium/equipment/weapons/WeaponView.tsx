@@ -10,8 +10,8 @@ import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipm
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
-import WeaponEditableFields from "@/application/common/equipment/WeaponEditableFields";
+import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import WeaponEditableFields from "@/application/common/equipment/EditSheets/WeaponEditableFields";
 
 type WeaponViewProps =
 {

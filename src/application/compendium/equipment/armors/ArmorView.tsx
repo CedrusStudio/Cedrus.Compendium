@@ -9,8 +9,8 @@ import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ArmorDto, armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
-import ArmorEditableFields from "@/application/common/equipment/ArmorEditableFields";
+import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 
 type ArmorViewProps =

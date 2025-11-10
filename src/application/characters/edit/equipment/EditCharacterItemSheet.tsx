@@ -16,7 +16,7 @@ import { useFieldArray } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { displayedText } from "@/presentation/translations";
 import { editIcon } from "@/presentation/icons";
-import ItemEditableFields from "@/application/common/equipment/ItemEditableFields";
+import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 
 type EditItemSheetProps = 
 {

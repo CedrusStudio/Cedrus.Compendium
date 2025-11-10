@@ -9,7 +9,7 @@ import { InventoryItemDto, itemSchema } from "@/persistence/schemas/characters/e
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
+import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
 
 type InventoryItemViewProps =
 {

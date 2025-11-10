@@ -3,7 +3,7 @@ import { Mount } from "@/domain/characters/equipment/Mount";
 import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import MountView from "@/application/characters/equipment/MountView";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
-import MountEditableFields from "@/application/common/equipment/MountEditableFields";
+import MountEditableFields from "@/application/common/equipment/EditSheets/MountEditableFields";
 
 type EditMountViewProps = 
 {

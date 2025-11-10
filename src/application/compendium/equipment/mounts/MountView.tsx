@@ -9,8 +9,8 @@ import { MountDto, mountSchema } from "@/persistence/schemas/characters/equipmen
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
-import MountEditableFields from "@/application/common/equipment/MountEditableFields";
+import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import MountEditableFields from "@/application/common/equipment/EditSheets/MountEditableFields";
 import { Mount } from "@/domain/characters/equipment/Mount";
 
 type MountViewProps =

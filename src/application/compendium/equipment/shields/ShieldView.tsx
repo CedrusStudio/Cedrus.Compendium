@@ -10,8 +10,8 @@ import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipm
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import ShieldEditableFields from "@/application/common/equipment/ShieldEditableFields";
-import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
+import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
+import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
 
 type ShieldViewProps =
 {

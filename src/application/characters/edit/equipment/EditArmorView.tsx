@@ -3,7 +3,7 @@ import ArmorView from "@/application/characters/equipment/ArmorView";
 import { Armor } from "@/domain/characters/equipment/Armor";
 import { pathToArmors } from "@/domain/characters/equipment/Equipment";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
-import ArmorEditableFields from "@/application/common/equipment/ArmorEditableFields";
+import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
 
 type EditArmorViewProps = 
 {
