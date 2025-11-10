@@ -34,24 +34,24 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
       <SummaryView entity={item} />
 
       <div className="flex flex-row items-center gap-2">
-        {
-          !disableEdit && (
-            <>
-              <DeleteButton id={item.id} isPending={isPending} deleteAction={deleteInventoryItem} />
+      {
+        !disableEdit && (
+          <>
+            <DeleteButton id={item.id} isPending={isPending} deleteAction={deleteInventoryItem} />
 
-              <EditFormForSheet<InventoryItemDto> 
-                entityId={item.id}
-                defaultValues={item}
-                schema={itemSchema}
-                updateFn={client.update}
-                formId={createCompendiumFormId.inventoryItem(item.id)}
-                renderSheetContent={(isPending, formId) => <EditInventoryItemSheet isPending={isPending} formId={formId} />}
-                cacheKeys={['inventory']}
-              />
+            <EditFormForSheet<InventoryItemDto> 
+              entityId={item.id}
+              defaultValues={item}
+              schema={itemSchema}
+              updateFn={client.update}
+              formId={createCompendiumFormId.inventoryItem(item.id)}
+              renderSheetContent={(isPending, formId) => <EditInventoryItemSheet isPending={isPending} formId={formId} />}
+              cacheKeys={['inventory']}
+            />
 
-            </>
-          )
-        }
+          </>
+        )
+      }
       </div>
 
     </div>
