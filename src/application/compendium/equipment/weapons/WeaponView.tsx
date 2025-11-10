@@ -2,16 +2,12 @@
 
 import client from "@/infrastructure/clients/equipment/weaponsClient";
 import { type Weapon } from "@/domain/characters/equipment/Weapon";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteWeaponById } from '@/application/compendium/equipment/weapons/hooks/useDeleteWeaponById';
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
-import { allowedDiceGrades } from "@/domain/characters/combat/Offense";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { ItemEditSheet } from "@/application/common/ItemEditSheet";
@@ -70,7 +66,14 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
                 schema={weaponSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.weapon(weapon.id)}
-                renderSheetContent={(isPending, formId) => <EditWeaponSheet isPending={isPending} formId={formId} />}
+                renderSheetContent=
+                {
+                  (isPending, formId) => (
+                    <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                      <WeaponEditableFields<WeaponDto> />
+                    </ItemEditSheet>
+                  )
+                }
                 cacheKeys={['weapons']}
               />
 
@@ -80,14 +83,5 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
       </div>
 
     </div>
-  );
-}
-
-function EditWeaponSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
-      <WeaponEditableFields<WeaponDto> />
-    </ItemEditSheet>
   );
 }
