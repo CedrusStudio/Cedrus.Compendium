@@ -1,11 +1,9 @@
 "use client";
 
-import { useQuery } from '@tanstack/react-query';
-import client from "@/infrastructure/clients/searchClient";
 import { Item } from '@/domain/characters/equipment/Item';
 import { createInventoryItemKeysetQuery } from '@/infrastructure/searchQueries/equipment/inventory/createInventoryItemKeysetQuery';
 import { createKeysetSearchInventoryKey } from '@/persistence/cacheKeys';
-import { useDebounce } from "use-debounce";
+import { useSearch } from '@/infrastructure/hooks/useSearch';
 
 type UseSearchInventoryParams = 
 {
@@ -20,23 +18,10 @@ type UseSearchInventoryReturn =
   error: Error | null;
 };
 
-export const useSearchInventory = ({ searchTerm, enabled = true }: UseSearchInventoryParams): UseSearchInventoryReturn => 
+export const useSearchInventory = (params: UseSearchInventoryParams): UseSearchInventoryReturn => 
 {
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
-  const inventoryQuery = createInventoryItemKeysetQuery(debouncedSearchTerm);
-  const queryKey = createKeysetSearchInventoryKey(debouncedSearchTerm);
-
-  const { data = [], isLoading, error } = useQuery<Item[]>
-  ({
-    queryKey,
-    queryFn: () => client.search(inventoryQuery),
-    enabled,
-    staleTime: 5_000,
+  return useSearch<Item>(params, {
+    createKeysetQuery: createInventoryItemKeysetQuery,
+    createCacheKey: createKeysetSearchInventoryKey,
   });
-
-  return { 
-    data, 
-    isLoading, 
-    error 
-  };
 };

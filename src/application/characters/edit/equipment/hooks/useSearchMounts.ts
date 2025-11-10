@@ -1,11 +1,9 @@
 "use client";
 
-import { useQuery } from '@tanstack/react-query';
-import client from "@/infrastructure/clients/searchClient";
 import { Mount } from '@/domain/characters/equipment/Mount';
 import { createMountKeysetQuery } from '@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery';
 import { createKeysetSearchMountsKey } from '@/persistence/cacheKeys';
-import { useDebounce } from "use-debounce";
+import { useSearch } from '@/infrastructure/hooks/useSearch';
 
 type UseSearchMountsParams = 
 {
@@ -20,23 +18,10 @@ type UseSearchMountsReturn =
   error: Error | null;
 };
 
-export const useSearchMounts = ({ searchTerm, enabled = true }: UseSearchMountsParams): UseSearchMountsReturn => 
+export const useSearchMounts = (params: UseSearchMountsParams): UseSearchMountsReturn => 
 {
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
-  const mountsQuery = createMountKeysetQuery(debouncedSearchTerm);
-  const queryKey = createKeysetSearchMountsKey(debouncedSearchTerm);
-
-  const { data = [], isLoading, error } = useQuery<Mount[]>
-  ({
-    queryKey,
-    queryFn: () => client.search(mountsQuery),
-    enabled,
-    staleTime: 5_000,
+  return useSearch<Mount>(params, {
+    createKeysetQuery: createMountKeysetQuery,
+    createCacheKey: createKeysetSearchMountsKey,
   });
-
-  return { 
-    data, 
-    isLoading, 
-    error 
-  };
 };

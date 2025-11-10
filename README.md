@@ -26,8 +26,9 @@ FILTRY NA RODZAJU MOCY?!!?!?!
 
 ## Prioritized
 
-4. importy
-5. tworzenie postacie na podstawie innej.
+4. refactor to reuse hooks for import, repositories etc
+5. refactor the item view, because mp they are not that readable, especially that view contains accordion content. Plus consider what to do on compendium level
+6. fix the bugs of items view like weapons damage views and critical view (make weapon its crit rage and power)
 
 soft delete
 
