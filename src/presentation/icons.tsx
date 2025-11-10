@@ -42,6 +42,7 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { IoIosArrowRoundUp } from "react-icons/io";
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { BiImport } from "react-icons/bi";
+import { cn } from "@/lib/utils";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -115,3 +116,10 @@ export const arrowUpIcon = <IoIosArrowRoundUp className="w-4 h-4" />;
 export const arrowDownIcon = <IoIosArrowRoundDown className="w-4 h-4" />;
 
 export const importIcon = <BiImport className="w-5 h-5" />;
+
+export const reductionArmorOrBlockIcon = (className?: string) => <IoShieldHalfOutline className={className} />;
+
+export const attributePenaltyIcon = (className?: string) => <LuMinus className={className} />;
+export const strengthRequirementIcon = (className?: string) => <LuBicepsFlexed className={cn("text-blue-500", className)} />;
+export const dexterityRestrictionIcon = (className?: string) => <GiRun className={cn("text-red-500", className)} />;
+export const initiativeRestrictionIcon = (className?: string) => <BsLightning className={cn("text-red-500", className)} />;

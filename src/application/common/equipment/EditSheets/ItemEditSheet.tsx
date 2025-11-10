@@ -6,7 +6,7 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 import { displayedText } from '@/presentation/translations';
 import { editIcon } from '@/presentation/icons';
 import { PropsWithChildren } from "react";
-import ItemEditableFields from "@/application/common/equipment/ItemEditableFields";
+import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 
 type EditSheetProps =
 {

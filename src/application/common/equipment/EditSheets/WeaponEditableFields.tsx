@@ -15,29 +15,29 @@ export default function WeaponEditableFields({ pathPrefix = ""}: EditWeaponViewP
 {
   return (
     <>
-        <div className="flex flex-row gap-3 px-14">
-        
-            <div className="grid auto-rows-min gap-3 px-4">
-                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.style}</span></Label>
+      <div className="flex flex-row gap-3 px-14">
+    
+        <div className="grid auto-rows-min gap-3 px-4">
+            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.style}</span></Label>
 
-                <SelectFormField<WeaponDto> 
-                    path={(`${pathPrefix}style`) as FieldPath<WeaponDto>}
-                    items={allowedStyles}
-                    noLabel
-                />
-            </div>
-
-            <div className="grid auto-rows-min gap-3 px-4">
-                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.range}</span></Label>
-
-                <SelectFormField<WeaponDto> 
-                    path={(`${pathPrefix}range`) as FieldPath<WeaponDto>}
-                    items={[1,2,3,4,5]}
-                    noLabel
-                />
-            </div>
-
+            <SelectFormField<WeaponDto> 
+                path={(`${pathPrefix}style`) as FieldPath<WeaponDto>}
+                items={allowedStyles}
+                noLabel
+            />
         </div>
+
+        <div className="grid auto-rows-min gap-3 px-4">
+            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.range}</span></Label>
+
+            <SelectFormField<WeaponDto> 
+                path={(`${pathPrefix}range`) as FieldPath<WeaponDto>}
+                items={[1,2,3,4,5]}
+                noLabel
+            />
+        </div>
+
+      </div>
 
       <WeaponDiceEditor pathPrefix={pathPrefix} />
       <CriticalEditor pathPrefix={pathPrefix} />

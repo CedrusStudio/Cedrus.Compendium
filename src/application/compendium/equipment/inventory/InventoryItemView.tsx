@@ -7,9 +7,9 @@ import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { InventoryItemDto, itemSchema } from "@/persistence/schemas/characters/equipment/itemSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
-import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/ItemEditSheet";
+import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import InventoryItemViewFields from "@/application/common/equipment/Views/InventoryItemViewFields";
 
 type InventoryItemViewProps =
 {
@@ -26,11 +26,10 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2">
+    <div className="flex flex-row items-center border rounded-md p-2 gap-2">
 
-      <SummaryView entity={item} />
+      <InventoryItemViewFields item={item} />
 
-      <div className="flex flex-row items-center gap-2">
       {
         !disableEdit && (
           <>
@@ -52,7 +51,6 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
           </>
         )
       }
-      </div>
 
     </div>
   );

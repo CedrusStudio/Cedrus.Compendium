@@ -1,7 +1,6 @@
 "use client";
 
 import { Character } from '@/domain/characters/Character';
-import { Accordion } from "@/ui/accordion"
 import { Form } from "@/ui/form";
 import { equipmentSchema, type EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import EditShieldView from '@/application/characters/edit/equipment/EditShieldView';
@@ -29,12 +28,12 @@ import { useSearchArmors } from '@/application/characters/edit/equipment/hooks/u
 import { useSearchShields } from '@/application/characters/edit/equipment/hooks/useSearchShields';
 import { useSearchMounts } from '@/application/characters/edit/equipment/hooks/useSearchMounts';
 import { useSearchInventory } from '@/application/characters/edit/equipment/hooks/useSearchInventory';
-import WeaponView from '@/application/characters/equipment/WeaponView';
-import ArmorView from '@/application/characters/equipment/ArmorView';
-import ShieldView from '@/application/characters/equipment/ShieldView';
-import MountView from '@/application/characters/equipment/MountView';
 import { useState, useEffect, useRef } from 'react';
-import ItemAccordion from '@/application/characters/equipment/ItemAccordion';
+import ArmorViewFields from '@/application/common/equipment/Views/ArmorViewFields';
+import MountViewFields from '@/application/common/equipment/Views/MountViewFields';
+import ShieldViewFields from '@/application/common/equipment/Views/ShieldViewFields';
+import WeaponViewFields from '@/application/common/equipment/Views/WeaponViewFields';
+import InventoryItemViewFields from '@/application/common/equipment/Views/InventoryItemViewFields';
 
 export default function EditEquipmentView(input: { character: Character })
 {
@@ -208,9 +207,7 @@ export default function EditEquipmentView(input: { character: Character })
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(weapon.id)}>
-        <ItemAccordion item={weapon}>
-          <WeaponView weapon={weapon} />
-        </ItemAccordion>
+        <WeaponViewFields weapon={weapon} />
       </SelectableItemWrapper>
     );
   };
@@ -219,9 +216,7 @@ export default function EditEquipmentView(input: { character: Character })
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(armor.id)}>
-        <ItemAccordion item={armor}>
-          <ArmorView armor={armor} />
-        </ItemAccordion>
+        <ArmorViewFields armor={armor} />
       </SelectableItemWrapper>
     );
   };
@@ -230,9 +225,7 @@ export default function EditEquipmentView(input: { character: Character })
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(shield.id)}>
-        <ItemAccordion item={shield}>
-          <ShieldView shield={shield} />
-        </ItemAccordion>
+        <ShieldViewFields shield={shield} />
       </SelectableItemWrapper>
     );
   };
@@ -241,12 +234,7 @@ export default function EditEquipmentView(input: { character: Character })
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(item.id)}>
-        <ItemAccordion item={item}>
-          <div className="p-4">
-            <h4 className="font-semibold">{item.name}</h4>
-            <p className="text-sm text-muted-foreground">{item.description}</p>
-          </div>
-        </ItemAccordion>
+        <InventoryItemViewFields item={item} />
       </SelectableItemWrapper>
     );
   };
@@ -255,9 +243,7 @@ export default function EditEquipmentView(input: { character: Character })
   {
     return (
       <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(mount.id)}>
-        <ItemAccordion item={mount}>
-          <MountView horse={mount} />
-        </ItemAccordion>
+        <MountViewFields mount={mount} />
       </SelectableItemWrapper>
     );
   };
@@ -265,8 +251,6 @@ export default function EditEquipmentView(input: { character: Character })
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} id={formId} className="space-y-8">
-
-        <Accordion type="single" collapsible className='w-90 sm:w-160 lg:w-full'>
 
           <ItemsView
             items={weapons}
@@ -377,8 +361,6 @@ export default function EditEquipmentView(input: { character: Character })
               renderItem={renderMountItem}
             />
           </ItemsView>
-
-        </Accordion>
 
         <SubmitButton isPending={isPending} />
       </form>

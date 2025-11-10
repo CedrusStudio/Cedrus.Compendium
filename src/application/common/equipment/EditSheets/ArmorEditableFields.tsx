@@ -3,24 +3,24 @@ import { Label } from "@/ui/label"
 import { displayedText } from '@/presentation/translations';
 import { FieldPath } from 'react-hook-form';
 import { ArmorDto } from '@/persistence/schemas/characters/equipment/armorSchema';
-import DefensiveItemEditableFields from '@/application/common/equipment/DefensiveItemEditableFields';
+import DefensiveItemEditableFields from '@/application/common/equipment/EditSheets/DefensiveItemEditableFields';
 import { allowedProtections } from '@/domain/characters/equipment/Armor';
 
-type EditShieldViewProps =
+type EditArmorViewProps =
 {
     pathPrefix?: string;
 }
 
-export default function ShieldEditableFields({ pathPrefix = ""}: EditShieldViewProps)
+export default function ArmorEditableFields({ pathPrefix = ""}: EditArmorViewProps)
 {
   return (
     <>
       <div className="grid auto-rows-min gap-3 justify-center items-center">
 
-        <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.block}</span></Label>
+        <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.protection}</span></Label>
 
         <SelectFormField<ArmorDto> 
-          path={(`${pathPrefix}block` as FieldPath<ArmorDto>)}
+          path={(`${pathPrefix}protection` as FieldPath<ArmorDto>)}
           items={allowedProtections}
           noLabel
         />

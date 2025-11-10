@@ -1,6 +1,5 @@
 import { Item } from '@/domain/characters/equipment/Item';
 import { PropsWithChildren } from 'react';
-import ItemAccordion from '@/application/characters/equipment/ItemAccordion';
 
 type ItemsViewProps<T extends Item> = 
 {
@@ -12,24 +11,27 @@ type ItemsViewProps<T extends Item> =
 export default function ItemsView<T extends Item>({ items, itemViewFactory, label, children }: PropsWithChildren<ItemsViewProps<T>>)
 {
   return (
-    <>
+    <div className="flex flex-col gap-3">
       <div className="flex items-center justify-center gap-2">
         <h3 className="text-lg font-semibold capitalize">{label}</h3>
         {children}
       </div>
       {
         items.length > 0 && (
-          <div>
+          <div className="flex flex-col gap-3">
           {
             items.map((item, index) => (
-              <ItemAccordion key={item.id} item={item}>
+              <div 
+                key={item.id}
+                className="border rounded-lg p-3 bg-card hover:bg-accent/50 transition-colors"
+              >
                 {itemViewFactory(item, index)}
-              </ItemAccordion>
+              </div>
             ))
           }
           </div>
         )
       }
-    </>
+    </div>
   )
 }
