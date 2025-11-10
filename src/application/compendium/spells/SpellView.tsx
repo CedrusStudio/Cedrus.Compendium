@@ -21,12 +21,12 @@ import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteSpellById } from '@/application/compendium/spells/hooks/useDeleteSpellById';
 import { SpellDto, spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
+import SummaryView from "@/application/common/SummaryView";
 
 type SpellViewProps =
 {
@@ -41,13 +41,7 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{spell.name} {spell.grade}</h4>
-          <TagsView tags={spell.tags} />
-        </div>
-          <p className="text-sm text-muted-foreground">{spell.description}</p>
-      </div>
+      <SummaryView entity={spell} />
 
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={spell} />

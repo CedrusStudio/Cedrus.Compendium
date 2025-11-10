@@ -21,12 +21,12 @@ import { getBadgeVariant } from '@/presentation/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteManeuverById } from '@/application/compendium/maneuvers/hooks/useDeleteManeuverById';
 import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
+import SummaryView from "@/application/common/SummaryView";
 
 type ManeuverViewProps =
 {
@@ -41,14 +41,8 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{maneuver.name} {maneuver.grade}</h4>
-          <TagsView tags={maneuver.tags} />
-        </div>
-          <p className="text-sm text-muted-foreground">{maneuver.description}</p>
-      </div>
-
+      <SummaryView entity={maneuver} />
+      
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={maneuver} />
       </div>

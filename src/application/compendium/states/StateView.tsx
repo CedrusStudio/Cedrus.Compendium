@@ -18,12 +18,12 @@ import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteStateById } from '@/application/compendium/states/hooks/useDeleteStateById';
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
+import SummaryView from "@/application/common/SummaryView";
 
 type StateViewProps =
 {
@@ -38,14 +38,7 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{state.name} {state.grade}</h4>
-          <TagsView tags={state.tags} />
-        </div>
-          <p className="text-sm text-muted-foreground">{state.description}</p>
-      </div>
+      <SummaryView entity={state} />
 
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={state} />

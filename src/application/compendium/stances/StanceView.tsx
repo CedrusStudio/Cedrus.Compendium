@@ -18,12 +18,12 @@ import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteStanceById } from '@/application/compendium/stances/hooks/useDeleteStanceById';
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
-import TagsView from "@/common/components/tags/TagsView";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementsView from "@/application/common/RequirementsView";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
+import SummaryView from "@/application/common/SummaryView";
 
 type StanceViewProps =
 {
@@ -38,13 +38,7 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
   return (
     <div className="flex flex-row items-center border rounded-md p-2">
 
-      <div className="p-2 rounded-md w-full">
-        <div className="flex flex-row gap-2">
-          <h4 className="font-semibold">{stance.name} {stance.grade}</h4>
-          <TagsView tags={stance.tags} />
-        </div>
-          <p className="text-sm text-muted-foreground">{stance.description}</p>
-      </div>
+      <SummaryView entity={stance} />
 
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={stance} />
