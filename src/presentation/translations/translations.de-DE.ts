@@ -252,4 +252,10 @@ export const translations_deDE =
     no_mounts_found: "keine reittiere gefunden",
 
     notFound: "nicht gefunden",
+
+    // Command Palette / Search
+    searchShortcut: "Ctrl+K",
+    searchPlaceholder: "Search in rulebook...",
+    searchNoResults: "No results found",
+    searchSelectCategory: "Select category...",
 } as const;

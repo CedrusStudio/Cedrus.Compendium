@@ -279,4 +279,10 @@ export const displayedText =
     no_mounts_found: translate("no_mounts_found"),
 
     notFound: translate("notFound"),
+
+    // Command Palette / Search
+    searchShortcut: translate("searchShortcut"),
+    searchPlaceholder: translate("searchPlaceholder"),
+    searchNoResults: translate("searchNoResults"),
+    searchSelectCategory: translate("searchSelectCategory"),
 } as const;

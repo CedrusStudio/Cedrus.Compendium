@@ -252,5 +252,11 @@ export const translations_plPL =
     no_mounts_found: "nie znaleziono wierzchowców",
 
     notFound: "nie znaleziono",
+
+    // Command Palette / Search
+    searchShortcut: "Ctrl+K",
+    searchPlaceholder: "Szukaj w podręczniku...",
+    searchNoResults: "Brak wyników",
+    searchSelectCategory: "Wybierz kategorię...",
 } as const;
 

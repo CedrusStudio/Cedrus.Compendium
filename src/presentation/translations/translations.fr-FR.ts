@@ -252,4 +252,10 @@ export const translations_frFR =
     no_mounts_found: "aucune monture trouvée",
 
     notFound: "non trouvé",
+
+    // Command Palette / Search
+    searchShortcut: "Ctrl+K",
+    searchPlaceholder: "Search in rulebook...",
+    searchNoResults: "No results found",
+    searchSelectCategory: "Select category...",
 } as const;
