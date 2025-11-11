@@ -1,7 +1,3 @@
-/**
- * Navigation sidebar for rulebook sections
- */
-
 'use client';
 
 import Link from 'next/link';

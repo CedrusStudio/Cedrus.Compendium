@@ -2,12 +2,15 @@ import type { ContentBlock } from '@/domain/rulebook/RulebookTypes';
 import { RulebookTable } from '@/application/rulebook/RulebookTable';
 import { parseInlineMarkdown } from '@/application/rulebook/utils/markdownParser';
 
-type ContentBlockRendererProps = {
+type ContentBlockRendererProps = 
+{
   block: ContentBlock;
 };
 
-export function ContentBlockRenderer({ block }: ContentBlockRendererProps) {
-  switch (block.type) {
+export function ContentBlockRenderer({ block }: ContentBlockRendererProps) 
+{
+  switch (block.type) 
+  {
     case 'heading':
       const HeadingTag = `h${block.level}` as const;
       return (
@@ -44,11 +47,13 @@ export function ContentBlockRenderer({ block }: ContentBlockRendererProps) {
       const ListTag = block.ordered ? 'ol' : 'ul';
       return (
         <ListTag className={`mb-3 ml-6 space-y-1.5 ${block.ordered ? 'list-decimal' : 'list-disc'}`}>
-          {block.items.map((item, idx) => (
-            <li key={idx} className="text-muted-foreground leading-relaxed">
-              {parseInlineMarkdown(item)}
-            </li>
-          ))}
+        {
+            block.items.map((item, index) => (
+                <li key={index} className="text-muted-foreground leading-relaxed">
+                    {parseInlineMarkdown(item)}
+                </li>
+            ))
+        }
         </ListTag>
       );
 
@@ -66,7 +71,6 @@ export function ContentBlockRenderer({ block }: ContentBlockRendererProps) {
         </pre>
       );
 
-    default:
-      return null;
+    default: return null;
   }
 }
