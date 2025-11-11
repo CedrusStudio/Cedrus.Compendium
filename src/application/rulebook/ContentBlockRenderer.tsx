@@ -1,7 +1,3 @@
-/**
- * Component for rendering different types of content blocks
- */
-
 import type { ContentBlock } from '@/domain/rulebook/RulebookTypes';
 import { RulebookTable } from '@/application/rulebook/RulebookTable';
 import { parseInlineMarkdown } from '@/application/rulebook/utils/markdownParser';

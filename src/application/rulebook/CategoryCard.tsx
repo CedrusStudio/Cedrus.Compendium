@@ -1,7 +1,3 @@
-/**
- * Category card for rulebook landing page
- */
-
 import Link from 'next/link';
 import type { RulebookCategory } from '@/domain/rulebook/RulebookTypes';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/ui/card';
