@@ -14,7 +14,8 @@ import {
   AccordionTrigger,
 } from '@/ui/accordion';
 
-type RulebookSidebarProps = {
+type RulebookSidebarProps = 
+{
   navigation: NavigationNode[];
 };
 
@@ -22,16 +23,15 @@ export function RulebookSidebar({ navigation }: RulebookSidebarProps)
 {
   const pathname = usePathname();
 
-  // Znajdź kategorię dla aktualnej strony - to będzie domyślnie otwarte
-  const currentCategory = navigation.find(cat => 
-    cat.children?.some(section => pathname === `/rulebook/${section.slug}`)
+  const currentCategory = navigation.find
+  (
+    category => category.children?.some(section => pathname === `/rulebook/${section.slug}`)
   );
 
-  // Użyj defaultValue zamiast kontrolowanego value - pozwala to accordion zarządzać własnym stanem
   const defaultOpenCategories = currentCategory ? [currentCategory.id] : [];
 
   return (
-    <aside className="w-64 border-r h-[calc(100vh-4rem)] overflow-y-auto sticky top-16">
+    <aside className="hidden md:block w-64 border-r h-[calc(100vh-4rem)] overflow-y-auto sticky top-16">
       <div className="p-4">
         <h2 className="text-lg font-bold mb-4">Spis Treści</h2>
         

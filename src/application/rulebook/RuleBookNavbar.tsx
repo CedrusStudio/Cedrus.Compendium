@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function RuleBookNavbar()
 {
-const pathname = usePathname();
+  const pathname = usePathname();
 
   return (
     <nav className="flex items-center justify-between py-4 pr-11">
