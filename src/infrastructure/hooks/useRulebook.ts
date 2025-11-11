@@ -5,21 +5,18 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import type {
-  RulebookData,
-  RulebookSection,
-  RulebookCategory,
-  RulebookCategoryId,
-  NavigationNode
-} from '@/domain/rulebook/RulebookTypes';
+import type { RulebookData, RulebookSection, RulebookCategory, RulebookCategoryId, NavigationNode } from '@/domain/rulebook/RulebookTypes';
 
 /**
  * Fetch complete rulebook data
  */
-export function useRulebookData() {
-  return useQuery<RulebookData>({
+export function useRulebookData() 
+{
+  return useQuery<RulebookData>
+  ({
     queryKey: ['rulebook', 'complete'],
-    queryFn: async () => {
+    queryFn: async () => 
+    {
       const response = await fetch('/data/rulebook/rulebook-complete.json');
       if (!response.ok) throw new Error('Failed to load rulebook data');
       return response.json();
@@ -32,10 +29,13 @@ export function useRulebookData() {
 /**
  * Fetch sections for a category
  */
-export function useCategorySections(categoryId: RulebookCategoryId) {
-  return useQuery<RulebookSection[]>({
+export function useCategorySections(categoryId: RulebookCategoryId) 
+{
+  return useQuery<RulebookSection[]>
+  ({
     queryKey: ['rulebook', 'category', categoryId],
-    queryFn: async () => {
+    queryFn: async () => 
+    {
       const response = await fetch(`/data/rulebook/${categoryId}.json`);
       if (!response.ok) throw new Error(`Failed to load category: ${categoryId}`);
       const data = await response.json();
@@ -49,7 +49,8 @@ export function useCategorySections(categoryId: RulebookCategoryId) {
 /**
  * Fetch a specific section
  */
-export function useRulebookSection(categoryId: RulebookCategoryId, slug: string) {
+export function useRulebookSection(categoryId: RulebookCategoryId, slug: string) 
+{
   const { data: sections, ...rest } = useCategorySections(categoryId);
   
   return {
@@ -61,10 +62,12 @@ export function useRulebookSection(categoryId: RulebookCategoryId, slug: string)
 /**
  * Fetch navigation tree
  */
-export function useRulebookNavigation() {
+export function useRulebookNavigation() 
+{
   return useQuery<NavigationNode[]>({
     queryKey: ['rulebook', 'navigation'],
-    queryFn: async () => {
+    queryFn: async () => 
+    {
       const response = await fetch('/data/rulebook/rulebook-complete.json');
       if (!response.ok) throw new Error('Failed to load navigation');
       const data = await response.json();
@@ -78,8 +81,10 @@ export function useRulebookNavigation() {
 /**
  * Fetch all categories
  */
-export function useRulebookCategories() {
-  return useQuery<RulebookCategory[]>({
+export function useRulebookCategories() 
+{
+  return useQuery<RulebookCategory[]>
+  ({
     queryKey: ['rulebook', 'categories'],
     queryFn: async () => {
       const response = await fetch('/data/rulebook/rulebook-complete.json');
@@ -95,8 +100,10 @@ export function useRulebookCategories() {
 /**
  * Search sections
  */
-export function useRulebookSearch(query: string, categoryId?: RulebookCategoryId) {
-  return useQuery<RulebookSection[]>({
+export function useRulebookSearch(query: string, categoryId?: RulebookCategoryId) 
+{
+  return useQuery<RulebookSection[]>
+  ({
     queryKey: ['rulebook', 'search', query, categoryId],
     queryFn: async () => {
       const response = await fetch('/data/rulebook/rulebook-complete.json');
@@ -110,24 +117,30 @@ export function useRulebookSearch(query: string, categoryId?: RulebookCategoryId
         sections = sections.filter(s => s.category === categoryId);
       }
       
-      return sections.filter(section => {
+      return sections.filter(section => 
+      {
         // Search in title
-        if (section.title.toLowerCase().includes(lowerQuery)) {
-          return true;
-        }
+        if (section.title.toLowerCase().includes(lowerQuery)) return true;
 
         // Search in content
         const contentText = section.content
-          .map(block => {
-            if (block.type === 'paragraph' || block.type === 'heading' || block.type === 'blockquote') {
+          .map(block => 
+          {
+            if (block.type === 'paragraph' || block.type === 'heading' || block.type === 'blockquote') 
+            {
               return block.content;
             }
-            if (block.type === 'list') {
+
+            if (block.type === 'list') 
+            {
               return block.items.join(' ');
             }
-            if (block.type === 'table') {
+
+            if (block.type === 'table') 
+            {
               return block.table.headers.join(' ') + ' ' + block.table.rows.flat().join(' ');
             }
+            
             return '';
           })
           .join(' ')
