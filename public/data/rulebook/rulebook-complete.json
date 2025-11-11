@@ -1,0 +1,4398 @@
+{
+  "categories": [
+    {
+      "id": "podstawy",
+      "title": "Podstawy",
+      "description": "Mechaniki bazowe systemu: testy, kości, obrażenia, rundy i akcje",
+      "icon": "🎲",
+      "order": 1,
+      "slug": "podstawy"
+    },
+    {
+      "id": "cechy-i-umiejetnosci",
+      "title": "Cechy i Umiejętności",
+      "description": "Atrybuty postaci, umiejętności bojowe, obronne i nadnaturalne",
+      "icon": "⚔️",
+      "order": 2,
+      "slug": "cechy-i-umiejetnosci"
+    },
+    {
+      "id": "system-walki",
+      "title": "System Walki",
+      "description": "Mechanika walki, style, taktyka, organizacja i manewry bojowe",
+      "icon": "🛡️",
+      "order": 3,
+      "slug": "system-walki"
+    },
+    {
+      "id": "magia-i-zaklecia",
+      "title": "Magia i Zaklęcia",
+      "description": "Zasady czarowania, łańcuchy zaklęć, siła zaklęć i magia obszarowa",
+      "icon": "✨",
+      "order": 4,
+      "slug": "magia-i-zaklecia"
+    },
+    {
+      "id": "zdrowie-i-regeneracja",
+      "title": "Zdrowie i Regeneracja",
+      "description": "Punkty życia, leczenie, regeneracja esencji i efekty krytyczne",
+      "icon": "❤️",
+      "order": 5,
+      "slug": "zdrowie-i-regeneracja"
+    }
+  ],
+  "sections": [
+    {
+      "id": "section-podstawy-bariera",
+      "slug": "bariera",
+      "title": "Bariera",
+      "category": "podstawy",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Bariera (inaczej Punkty Bariery) określają ilość obrażeń jest w stanie przyjąć postać nim zacznie tracić Punkty Zdrowia chyba, że postać otrzymuje Śmiertelne Obrażenia (np. już działająca trucizna). Postać posiadająca bariery najczęściej jest bardziej chroniona przed negatywnymi skutkami niesiony przez obrażenia i obce wpływy jak klątwy, efekty krytyczne i tym podobne."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.260Z"
+    },
+    {
+      "id": "section-podstawy-medale-a-szacowana-si-a-postaci",
+      "slug": "medale-a-szacowana-si-a-postaci",
+      "title": "Medale a Szacowana Siła Postaci",
+      "category": "podstawy",
+      "order": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Bardzo silna postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "D"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "3x P"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "25x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "35x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "40x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Silna postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "PP"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "20x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "25x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "30x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-12",
+          "content": "W miarę silna postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "P"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "15x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "20x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-16",
+          "content": "20x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-17",
+          "content": "Średnia postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-18",
+          "content": "13x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-19",
+          "content": "16x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-20",
+          "content": "20x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-21",
+          "content": "Słaba postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-22",
+          "content": "10x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-23",
+          "content": "15x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-24",
+          "content": "15x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-25",
+          "content": "Bardzo słaba postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-26",
+          "content": "8x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-27",
+          "content": "12x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-28",
+          "content": "14x B"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.262Z"
+    },
+    {
+      "id": "section-podstawy-oszo-omienie-i-og-uszenie",
+      "slug": "oszo-omienie-i-og-uszenie",
+      "title": "Oszołomienie i Ogłuszenie",
+      "category": "podstawy",
+      "order": 2,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-oszo-omienie",
+          "title": "Oszołomienie",
+          "anchor": "oszo-omienie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Postać oszołomiona traci możliwość wykonywania wszelkiego rodzaju manewrów oraz jest niezdolna do używania postaw oraz połowę parowania, uników i blokowania oraz 1 kość broni. Dodatkowo zamienia kości broni w kości obrażeń."
+            }
+          ]
+        },
+        {
+          "id": "subsection-og-uszenie",
+          "title": "Ogłuszenie",
+          "anchor": "og-uszenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-4",
+              "content": "Postać jest nieprzytomna."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.262Z"
+    },
+    {
+      "id": "section-podstawy-oznaczenia",
+      "slug": "oznaczenia",
+      "title": "Oznaczenia",
+      "category": "podstawy",
+      "order": 3,
+      "content": [
+        {
+          "type": "table",
+          "id": "table-1",
+          "table": {
+            "headers": [
+              "Oznaczenie",
+              "Znaczenie"
+            ],
+            "rows": [
+              [
+                "X/-",
+                "X jest liczbą sumy redukcji"
+              ],
+              [
+                "X/Y",
+                "X jest liczbą redukcji a Y mówi na co konkretnie ta redukcja działa"
+              ],
+              [
+                "(X)/-",
+                "X jest liczbą odporności"
+              ],
+              [
+                "(X)/Y",
+                "X jest liczbą odporności a Y mówi na co konkretnie ta odporność działa"
+              ],
+              [
+                "X/-p",
+                "X jest liczbą redukcji z parowania (równej Fechtunek + bonus parowania)"
+              ],
+              [
+                "X/-u",
+                "X jest liczbą redukcji z uników (równej Refleks + bonus uników)"
+              ],
+              [
+                "Xk/-",
+                "X kości redukcji gdzie X jest od 0-3"
+              ],
+              [
+                "RO",
+                "Rzuty obronne czyli wytrwałość, refleks, wola"
+              ],
+              [
+                "Ref",
+                "Refleks - od testów zależy koncentracja, rzuty obronne i testy sporne"
+              ],
+              [
+                "Wyt",
+                "Wytrwałość"
+              ],
+              [
+                "Wol",
+                "Wola"
+              ],
+              [
+                "UB",
+                "Umiejętności Bojowe"
+              ],
+              [
+                "Fech",
+                "Fechtunek"
+              ],
+              [
+                "For",
+                "Fortel"
+              ],
+              [
+                "Prec",
+                "Precyzja"
+              ],
+              [
+                "Ark",
+                "Arkana"
+              ],
+              [
+                "Wia",
+                "Wiara"
+              ],
+              [
+                "Moc",
+                "Moc"
+              ],
+              [
+                "PL",
+                "Poziom Leczenia"
+              ],
+              [
+                "Twar",
+                "Twardość"
+              ],
+              [
+                "PW",
+                "Punkty wytrzymałości"
+              ],
+              [
+                "PW(T)",
+                "Punkty wytrzymałości tarcza"
+              ],
+              [
+                "PU",
+                "Punkty umiejętności"
+              ],
+              [
+                "Mod",
+                "Modyfikator"
+              ],
+              [
+                "S",
+                "Siła"
+              ],
+              [
+                "Zr",
+                "Zręczność"
+              ],
+              [
+                "Bd",
+                "Budowa"
+              ],
+              [
+                "Md",
+                "Mądrość"
+              ],
+              [
+                "Int",
+                "Inteligencja"
+              ],
+              [
+                "Cha",
+                "Charyzma"
+              ],
+              [
+                "Ck",
+                "Czarokrwistość"
+              ]
+            ]
+          }
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.262Z"
+    },
+    {
+      "id": "section-podstawy-oslepienie-i-ciemnosc",
+      "slug": "oslepienie-i-ciemnosc",
+      "title": "Oślepienie",
+      "category": "podstawy",
+      "order": 4,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postać walcząca w ciemności podlega każde -10 do parowania, blokowania, uników (min 0), obrażeń na kość broni (może być ujemne), siły krytyka (może być ujemne) oraz testów umiejętności (min 0). Co więcej postać nie może wykonywać manewrów. Oczywiście postać ma ograniczenia wynikająca z niewidzenia przeciwnika takie jak brak zasięgu. Karę -10 można obniżyć ze względu na umiejętność nasłuchiwania i posiadanie niezwykłych zmysłów. Każdy punkt nasłuchiwania (czy dodatkowych zmysłów) kara zmniejszona jest o 1. Jeśli ciemność nie jest całkowita, to kara jest zmniejszona ze względu na ocenę mistrza gry. Posiadając karę na poziomie -5 lub mniej, postać może wykonywać manewry."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Postać walcząca jako oślepiona traktowana jest jak gdyby walczyła w całkowitej ciemności, z tym wyjątkiem, że w turze oślepienia kara bazowo wynosi -15."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.263Z"
+    },
+    {
+      "id": "section-podstawy-podstawy-walk",
+      "slug": "podstawy-walk",
+      "title": "Podstawy Walk",
+      "category": "podstawy",
+      "order": 5,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Każdy oddział ma swoją siłę ataku, siłę obrony oraz morale. Siła ataku i siła obrony oddziału to sumaryczna siła ataku i siła obrony jego jednostek przeskalowana z jego charakterystycznymi cechami."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Starcie oddziałów to wymiana ciosów podyktowanych siłą ich ataku. Za każde 10 siły ataku rzucamy jedną kością k10. Następnie za pozostałą wartość rzucamy odpowiednio kością k8 (jeśli pozostała siła ataku to 8 lub 9), kością k6 (jeśli pozostała siła ataku to 6 lub 7), kością k4 (jeśli pozostała siła ataku tu 4 lub 5), kością k2 (jeśli pozostała siła ataku to 2 lub 3)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Obniża się siłę obrony przeciwnego oddziału o uzyskaną wartość na kościach siły ataku."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Większość oddziałów posiada cechę, że jego siła ataku jest proporcjonalna do siły obrony (a czasem równa)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Jeśli siła ataku wroga powiększona o morale wroga przewyższa siłę ataku sojuszniczego oddziału powiększoną o morale to przeciwny oddział zyskuje redukcję 1 za każde 10 oczek różnicy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.263Z"
+    },
+    {
+      "id": "section-podstawy-punkty-umiejetnosci",
+      "slug": "punkty-umiejetnosci",
+      "title": "Punkty Umiejętności",
+      "category": "podstawy",
+      "order": 6,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-wymiana-talentow-na-punkty-umiejetnosci-pu",
+          "title": "Wymiana Talentów na Punkty Umiejętności (PU)",
+          "anchor": "wymiana-talentow-na-punkty-umiejetnosci-pu",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-2",
+              "ordered": false,
+              "items": [
+                "B = 10 PU",
+                "S = 30 PU",
+                "Z = 90 PU",
+                "P = 270 PU",
+                "D = 810 PU"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-koszt-rozwoju-umiejetnosci",
+          "title": "Koszt rozwoju umiejętności",
+          "anchor": "koszt-rozwoju-umiejetnosci",
+          "content": [
+            {
+              "type": "table",
+              "id": "table-4",
+              "table": {
+                "headers": [
+                  "Modyfikator",
+                  "Koszt polepszenia",
+                  "Sumaryczny koszt"
+                ],
+                "rows": [
+                  [
+                    "k6",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "k6+1",
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "k6+2",
+                    "10",
+                    "15"
+                  ],
+                  [
+                    "k6+3",
+                    "15",
+                    "30"
+                  ],
+                  [
+                    "k6+4",
+                    "25",
+                    "55"
+                  ],
+                  [
+                    "k6+5",
+                    "35",
+                    "90"
+                  ],
+                  [
+                    "k6+6",
+                    "45",
+                    "135"
+                  ],
+                  [
+                    "k6+7",
+                    "55",
+                    "190"
+                  ],
+                  [
+                    "k6+8",
+                    "65",
+                    "255"
+                  ],
+                  [
+                    "k6+9",
+                    "75",
+                    "330"
+                  ],
+                  [
+                    "k6+10",
+                    "85",
+                    "415"
+                  ],
+                  [
+                    "k6+11",
+                    "95",
+                    "510"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.263Z"
+    },
+    {
+      "id": "section-podstawy-rodzaje-kosci",
+      "slug": "rodzaje-kosci",
+      "title": "Rodzaje Kości",
+      "category": "podstawy",
+      "order": 7,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-wprowadzenie",
+          "title": "Wprowadzenie",
+          "anchor": "wprowadzenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Obrażenia głównie są zadawane za pomocą różnorodnych kości. Ilość oczek wyrzuconych na jakiejś kości oznacza ilość obrażeń, które postać zadaje dzięki tej kości (nie licząc dodatkowych bonusów oraz trafienia krytycznego)."
+            }
+          ]
+        },
+        {
+          "id": "subsection-ranga-kosci",
+          "title": "Ranga Kości",
+          "anchor": "ranga-kosci",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-4",
+              "content": "Każda kość ma swoją **rangę** równą maksymalnej wartości podzielonej na 2."
+            },
+            {
+              "type": "heading",
+              "id": "heading-5",
+              "level": 3,
+              "content": "Przykłady rang",
+              "anchor": "przyk-ady-rang"
+            },
+            {
+              "type": "list",
+              "id": "list-6",
+              "ordered": false,
+              "items": [
+                "**k4** ma rangę **2**",
+                "**k6** ma rangę **3**",
+                "**k18** ma rangę **9**"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-typy-kosci",
+          "title": "Typy Kości",
+          "anchor": "typy-kosci",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 3,
+              "content": "Kości Broni",
+              "anchor": "kosci-broni"
+            },
+            {
+              "type": "list",
+              "id": "list-9",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Kość, która może być zredukowana przez niewrażliwość przeciwnika",
+                "**Zastosowanie**: Kości związane z fizyczną walką",
+                "**Trafienie krytyczne**: Mogą spowodować trafienie krytyczne",
+                "**Parametry**: Parametry trafienia krytycznego są odrębne od tych związanych z kośćmi zaklęcia"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Kości Zaklęcia",
+              "anchor": "kosci-zaklecia"
+            },
+            {
+              "type": "list",
+              "id": "list-11",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Kość, która może być zredukowana przez niewrażliwość przeciwnika",
+                "**Zastosowanie**: Kości związane z emanacją mocy podmiotu",
+                "**Trafienie krytyczne**: Mogą spowodować trafienie krytyczne",
+                "**Parametry**: Szansa i siła trafienia krytycznego jest niezależna od parametrów związanych z kośćmi broni"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 3,
+              "content": "Kości Obrażeń",
+              "anchor": "kosci-obrazen"
+            },
+            {
+              "type": "list",
+              "id": "list-13",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Kość, która może być zredukowana przez niewrażliwość przeciwnika",
+                "**Zastosowanie**: Kości mogące być związane zarówno z fizyczną walką jak i emanacją mocy",
+                "**Trafienie krytyczne**: **NIE mogą** spowodować trafienia krytycznego"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-14",
+              "level": 3,
+              "content": "Kości Widmowe",
+              "anchor": "kosci-widmowe"
+            },
+            {
+              "type": "list",
+              "id": "list-15",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Dodatkowa cecha kości",
+                "**Właściwość**: Zachowują własności swoich odpowiedników z wyjątkiem tego, że **nie mogą być zredukowane** przez niewrażliwość przeciwnika",
+                "**Typy widmowe**:",
+                "Widmowe kości obrażeń",
+                "Widmowe kości broni",
+                "Widmowe kości zaklęć"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-16",
+              "content": "**Uwaga**: Kości widmowe oznacza się literą \"w\", np. k10w"
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-rodzaje-obrazen",
+      "slug": "rodzaje-obrazen",
+      "title": "Rodzaje Obrażeń",
+      "category": "podstawy",
+      "order": 8,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Kolejność odejmowania względem typów obrażeń"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Zwykłe obrażenia:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "\\1. Odporność"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "\\2. Redukcja"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "\\3. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "\\4. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "\\1. Odporność"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "\\2. Blokowalna Redukcja (Redukcja pomniejszona o uniki i parowanie)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "\\3. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "\\4. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "\\1. Odporność"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "\\2. Redukcja Bezpośrednia (Redukcja pomniejszona o uniki, parowanie i blok)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "\\3. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-16",
+          "content": "\\4. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-18",
+          "content": "\\1. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-19",
+          "content": "\\2. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-21",
+          "content": "\\1. Zdrowie"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-runda-tura-i-akcje",
+      "slug": "runda-tura-i-akcje",
+      "title": "Runda, Tura i Akcje",
+      "category": "podstawy",
+      "order": 9,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Runda składa się z tur, w których postacie wykonują swoje akcje zgodnie z ustaloną inicjatywą. W swojej turze postać może wykonać jedną akcję standardową, jedną akcję natychmiastową fizyczną, jedną akcję natychmiastową magiczną i jedną akcję nadnatychmiastową lub jedną akcję całorundową i jedną akcję nadnatychmiastową."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "W akcji standardowej można przykładowo wykonać atak z manewrem, zaatakować mocą wraz z zaklęciami. W akcji standardowej możesz jednocześnie wykonywać działania i poruszać się, chyba że działanie jest sprzeczne z jednoczesnym poruszaniem się."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "W akcji natychmiastowej fizycznej zazwyczaj stosuje się manewry, w akcji natychmiastowej magicznej zwykle jest to zaklęcie obronne. Czasami akcją natychmiastową może być dodatkowe działanie ofensywne. W tej akcji można jednocześnie coś powiedzieć chyba, że podejmowana akcja jest sprzeczna z jednoczesnym mówieniem. Można jednocześnie wykonać akcję natychmiastową fizyczną i magiczną - na przykład fizyczny unik i wzniesienie bariery."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "W akcji nadnatychmiastowej zazwyczaj stosuje się unikalne dodatki defensywne lub ofensywne."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-strach-i-przerazenie",
+      "slug": "strach-i-przerazenie",
+      "title": "Strach",
+      "category": "podstawy",
+      "order": 10,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postać narażona na stres zwiazany z walką, ciemnością, zmeczeniem, przewagą wroga czy potwornosciami, które doświadcza jest narażona na strach. Testy strachu są czynione za pośrednictwem moralne=wola+efekty dodatkowe. Postać pod wpływem intensywnego strachu nie jest w stanie wykorzystywać swoich umiejętności w pełni. Otrzymuje karę do wszelkich działań od -1 do -10 (do wszystkich umiejętności bojowych, użytkowych i obrażeń na kość broni przed redukcją kości)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Elementy skali trudności:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Podstawyw element ST=3."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Przewaga siły przeciwnika +1/+2/+3"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Groza przeciwnika +1/+2/+3"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "Wydarzenia na polu bitwy (śmierci sojuszników itp) +1/+2/+3"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Przykładowa skala trudności w walce z merromonstrum"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "a) 10x osoby oddział wojaków: ST=3+2(przewaga siły)+2(groza przeciwnika)=7"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "b) 4x kwiat rycerstwa: ST=3+2(groza przeciwnika)=5"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "Przykładowa skala trudności w walce z cykodliszczem"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "a) 4x rycerzy lennych: ST=3+1(przewaga wroga)+2(goza przeciwnika)=6"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-12",
+          "content": "b) 30x chłopi: ST=3+3(przewraga wroga)+3(groza przeciwnika)=9"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "Przykładowa skala trudności w trzema bandytami (piechury):"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "a) 1x wojak: ST=3+2(przewaga przeciwnika)=5"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "b) 1x wojmistrz: ST=3. Bandyci St=3+2(przewaga przeciwnika)+1(groza przeciwnika)=6"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-17",
+          "content": "Postać której kara ze względu na strach wynosi -11 lub wiecej to postać traci kontrole nad sobą i panicznie ucieka lub jeśli mistrz gry tak uzna barbarzyńsko atakuje."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-twardosc",
+      "slug": "twardosc",
+      "title": "Twardość",
+      "category": "podstawy",
+      "order": 11,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Twardość określa jedną z ważnych zależności budowy a ilości zdrowia. Twardość daje (Twardość) x (Budowa) do zdrowia. Twardość związana jest bezpośrednio z siłą postaci: Twardość wynosi 1+(1/2) siły (zaokrąglone w dół)."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.265Z"
+    },
+    {
+      "id": "section-podstawy-zmeczenie-i-odpoczynek",
+      "slug": "zmeczenie-i-odpoczynek",
+      "title": "Zmęczenie i Odpoczynek",
+      "category": "podstawy",
+      "order": 12,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-zmeczenie-zasady-podstawowe",
+          "title": "Zmęczenie - Zasady podstawowe",
+          "anchor": "zmeczenie-zasady-podstawowe",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Postać w intensywnej walce jest narażona na zmęczenie. Za każdy nieudany test wytrzymałości przeciw zmęczeniu postać otrzymuje karę -1 do uników, parowania i blokowania oraz -1 do zadawanych obrażeń. Mistrz gry ustala kiedy postać powinna wykonać rzuty przeciw zmęczeniu biorąc pod uwagę wytrwałość postaci, intensywność walki i długość walki. Testy wytrwałości od tego momentu są powtarzane z rundy na rundę i ST tych testów rośnie co rundę o 1. Początkowa ST jest ustalana przez mistrza gry."
+            }
+          ]
+        },
+        {
+          "id": "subsection-propozycja-alternatywna-system-znamion",
+          "title": "Propozycja alternatywna - System znamion",
+          "anchor": "propozycja-alternatywna-system-znamion",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-4",
+              "level": 3,
+              "content": "Znamiona Zmęczenia",
+              "anchor": "znamiona-zmeczenia"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Każda runda walki to 1 znamię zmęczenia."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-6",
+              "content": "**Odległość Standardowa** (którą możesz przebyć w 1 rundę):"
+            },
+            {
+              "type": "list",
+              "id": "list-7",
+              "ordered": false,
+              "items": [
+                "**Sprint:** +1 znamię + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą",
+                "**Bieg:** 0 znamion + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą",
+                "**Trucht:** -1 znamię + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "Dodatkowe czynności powinny być szacowane przez Mistrza Gry."
+            },
+            {
+              "type": "heading",
+              "id": "heading-9",
+              "level": 3,
+              "content": "Znamiona Wyczerpania",
+              "anchor": "znamiona-wyczerpania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "W momencie gdy ilość znamion zmęczenia jest równa wytrwałości + 2, postać zmuszona jest wykonać co rundę test wytrwałości o ST=ilość znamion zmęczenia. Nieudany oznacza otrzymanie znamiona wyczerpania."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "**Efekty wyczerpania:**"
+            },
+            {
+              "type": "list",
+              "id": "list-12",
+              "ordered": false,
+              "items": [
+                "-3/r (uniki, parowanie, blokowanie) *(pytanie: co jeżeli ktoś nie ma tarczy?)*",
+                "-1 do zadawanych obrażeń"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-13",
+              "level": 3,
+              "content": "Utrata przytomności z wyczerpania",
+              "anchor": "utrata-przytomnosci-z-wyczerpania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-14",
+              "content": "W momencie gdy ilość znamion wyczerpania jest równa wytrwałości + 2, postać zmuszona jest wykonać co rundę test wytrwałości o ST=ilość znamiona wyczerpania. Nieudane oznacza utracenie przytomności."
+            }
+          ]
+        },
+        {
+          "id": "subsection-przyk-ad-walki-jarfeg",
+          "title": "Przykład walki: Jarfeg",
+          "anchor": "przyk-ad-walki-jarfeg",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-16",
+              "content": "**Postać:** Jarfeg - 5 wytrwałości, Kolczuga, Średnia Tarcza"
+            },
+            {
+              "type": "table",
+              "id": "table-17",
+              "table": {
+                "headers": [
+                  "Akcja",
+                  "Mechanika",
+                  "Efekt"
+                ],
+                "rows": [
+                  [
+                    "1) Jarfeg dobiega jak najszybciej na pole bitwy aby wspomóc kamratów",
+                    "Sprint",
+                    "4 znamiona zmęczenia"
+                  ],
+                  [
+                    "2-4) Walczy zaciekle i jest pełen werwy",
+                    "3 rundy walki",
+                    "7 znamion zmęczenia"
+                  ],
+                  [
+                    "5) Nie ustępuje mimo bólu mięśni",
+                    "Udany test Wytrwałości o ST=7",
+                    "8 znamion zmęczenia"
+                  ],
+                  [
+                    "6) Nadal trzyma się hardo uderza z pełną mocą",
+                    "Udany test Wytrwałości o ST=8",
+                    "9 znamion zmęczenia"
+                  ],
+                  [
+                    "7) Pierwsze osłabienie mięśni spłyneło na woja",
+                    "Nieudany test Wytrwałości o ST=9",
+                    "10 znamion zmęczenia, 1 znamię wyczerpania"
+                  ],
+                  [
+                    "8) Zacisnął zęby i naparł na wroga",
+                    "Udany test Wytrwałości o ST=10",
+                    "11 znamion zmęczenia"
+                  ],
+                  [
+                    "9) To nie sielanka",
+                    "Nieudany test Wytrwałości o ST=11",
+                    "12 znamion zmęczenia, 2 znamiona wyczerpania"
+                  ],
+                  [
+                    "10-14) Jego mięśnie zmęczone a wrogów całe masy",
+                    "Test wytrwałości niemożliwy",
+                    "7 znamion wyczerpania"
+                  ],
+                  [
+                    "15) Nie padnę!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=7",
+                    "8 znamion wyczerpania"
+                  ],
+                  [
+                    "16) Giń!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=8",
+                    "9 znamion wyczerpania"
+                  ],
+                  [
+                    "17) Araaaag!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=9",
+                    "10 znamion wyczerpania"
+                  ],
+                  [
+                    "18) Nieee.. - Wyszeptał",
+                    "Nieudany test Wytrwałości o ST=10",
+                    "Utrata przytomności"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-18",
+              "level": 3,
+              "content": "Opcja 2 - Wyczerpanie",
+              "anchor": "opcja-2-wyczerpanie"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-19",
+              "content": "Wyczerpanie oznacza utratę kości broni oraz to że przeciwnicy mają dodatkową kość broni przeciwko wyczerpującemu."
+            }
+          ]
+        },
+        {
+          "id": "subsection-odpoczynek",
+          "title": "Odpoczynek",
+          "anchor": "odpoczynek",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-21",
+              "ordered": false,
+              "items": [
+                "**1 godzina odpoczynku** pozwala usunąć Wytrwałość punktów zmęczenia",
+                "**2 godziny odpoczynku** pozwalają usunąć 1,5 × Wytrwałość punktów zmęczenia"
+              ]
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.265Z"
+    },
+    {
+      "id": "section-podstawy-testy",
+      "slug": "testy",
+      "title": "Testy",
+      "category": "podstawy",
+      "order": 13,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-podstawowe-zasady-testow",
+          "title": "Podstawowe zasady testów",
+          "anchor": "podstawowe-zasady-testow",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Wszelkiego rodzaju testy bazowo wykonuje się kością o randze 3, czyli **kością k6**."
+            }
+          ]
+        },
+        {
+          "id": "subsection-skale-trudnosci",
+          "title": "Skale trudności",
+          "anchor": "skale-trudnosci",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-4",
+              "content": "Testy skal trudności polegają na tym, że testowana osoba wykonuje dany test i jeśli w sumie ma tyle samo oczek lub więcej niż ustalona z góry skala trudności (ST), to udaje mu się jego przedsięwzięcie lub nie dotykają go negatywne skutki na które był narażony."
+            },
+            {
+              "type": "list",
+              "id": "list-5",
+              "ordered": false,
+              "items": [
+                "**Zwyczajowa skala trudności**: ST = 4",
+                "**Łatwe działania** (minimalne problemy): ST = 2-3",
+                "Każde oczko więcej zwiększa trudność"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-testy-sporne",
+          "title": "Testy sporne",
+          "anchor": "testy-sporne",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Testy sporne to testy, gdzie jedna strona wymusza na drugiej konkretne działanie."
+            },
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 3,
+              "content": "Mechanika",
+              "anchor": "mechanika"
+            },
+            {
+              "type": "list",
+              "id": "list-9",
+              "ordered": true,
+              "items": [
+                "Obie strony rzucają kośćmi związanymi z danym testem i sumują dodatkowe modyfikatory",
+                "**Prowokujący** wygrywa jeśli w sumie wyrzucił więcej niż prowokowany",
+                "Jeśli prowokujący wygra - realizuje swoje zamierzenie",
+                "W przeciwnym wypadku jego zamierzenie nie odnosi skutku"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Efekty przewagi",
+              "anchor": "efekty-przewagi"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "Często zdarzają się testy, gdzie za każde oczko przewagi prowokujący wywiera większy wpływ na prowokowanego."
+            }
+          ]
+        },
+        {
+          "id": "subsection-wydarzenia",
+          "title": "Wydarzenia",
+          "anchor": "wydarzenia",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-13",
+              "content": "Testy wydarzeń określa się za pomocą rzutu **k100** (2x k10). Opcjonalnie można stosować kość k30, jeśli tak uzna Mistrz Gry."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.265Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-klasy-postaci",
+      "slug": "klasy-postaci",
+      "title": "Klasy Postaci",
+      "category": "cechy-i-umiejetnosci",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Szermierz: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek2"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Wojownik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek1, Większy Fortel1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Barbarzyńca: Brak możliwości wyboru Wiary, Arkan i Mocy . Bazowo dodaje Większa Inicjatywa2, Większa Wytrwałość + 1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Łucznik/Kusznik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Precyzja1, Większa Inicjatywa1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Łotrzyk: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fortel2"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "Kapłan: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Wiara1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Mag: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większe Arkana1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "Czarokrwisty: Możliwość wyboru dodatkowej klasy. Niezależnie od drugiej klasy możliwość wyboru Mocy. Bazowo dodaje Większa Moc1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "Mistrz gry"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "Wojmistrz"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-12",
+          "content": "Miecznik"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "Tarczownik"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "Legionista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "Dualista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-16",
+          "content": "Rycerz (Obniżenie wymagań fechtunku o 2, Możliwość wyboru manewrów, atutów i postaw Klasy Rycerz)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-17",
+          "content": "Czarokrwisty"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-18",
+          "content": "Elita"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-19",
+          "content": "Zamachowiec"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-20",
+          "content": "Zabójca"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-21",
+          "content": "Skrytobójca"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-22",
+          "content": "Pustoszyciel"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-23",
+          "content": "Stalowy Obrońca"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-24",
+          "content": "Czempion"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-25",
+          "content": "Biały Rycerz"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-26",
+          "content": "Srebrny Rycerz"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-27",
+          "content": "Cień Śmierci"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-28",
+          "content": "Arkanista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-29",
+          "content": "Arcymag"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-30",
+          "content": "Krucjator"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-31",
+          "content": "Żelazny Watażka"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-32",
+          "content": "Batalionista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-33",
+          "content": "Urderin AnhKragg"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-34",
+          "content": "Kwiat Rycerstwa"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-35",
+          "content": "Nemesis"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-36",
+          "content": "Urderin AnhKragg"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-37",
+          "content": "Ręka Mordu"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-38",
+          "content": "Szermierz"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.266Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-talenty",
+      "slug": "talenty",
+      "title": "Talenty",
+      "category": "cechy-i-umiejetnosci",
+      "order": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Wymiana Talentów na Talenty (Talenty == Medale)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "D=3P"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "P=3Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Z=3S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "S=3B"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.266Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-uzytkowe",
+      "slug": "umiejetnosci-uzytkowe",
+      "title": "Umiejętności Użytkowe",
+      "category": "cechy-i-umiejetnosci",
+      "order": 2,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Umiejętności użytkowe są umiejętnościami związanymi z najróżniejszymi rzeczami. Od etykiety, przez wspinaczkę aż do medycyny opisują one poziom jaki reprezentuje postać w danej dziedzinie. Postacie często stają przed sytuacjami gdzie muszą użyć różnorodnych umiejętności i testy umiejętność najczęściej są związane z przekroczeniem ustalonej przez mistrza gry skali trudności. Ilość oczek powyżej skali i poniżej skali opisują odpowiednio jak dobrze/źle wyszła dana czynność. Przy wielu umiejętnościach (zwłaszcza fizycznych) występują kary za zbroję, tarczę czy bagaż. Umiejętności użytkowe są związane z konkretnymi cechami. Jeśli mistrz nie powie inaczej, to maksymalny poziom danej umiejętności użytkowej wynosi 3+modyfikator cechy z którą zdolność jest związana. Jeśli z daną umiejętnością użytkową są związane więcej niż 1 cecha, to postać wybiera dowolną cechę jako cechę wiodącą tej umiejętności. Istnieją umiejętności specjalne, których polepszanie zależy od decyzji mistrza gry lub spełnienia innych specyficznych wymagań."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Oto lista standardowych umiejętności użytkowych wraz z modyfikatorami kar za obciążenie i cechami z które są związane:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Unikalne postacie mogą posiadać unikalne umiejętności użytkowe jak rzeźbienie, górnictwo czy fryzjerstwo."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Spis umiejętności znajdują się w Wielkiej Księdze Umiejętności"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.266Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-budowa",
+      "slug": "budowa",
+      "title": "Budowa",
+      "category": "cechy-i-umiejetnosci",
+      "order": 3,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha mocno związana z ilością punktów zdrowia, wytrwałością, twardością i czasami z poziomem leczenia. Modyfikator budowy dodaje Większą Budowę na poziomie równym modyfikatorowi."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-cechy",
+      "slug": "cechy",
+      "title": "Cechy",
+      "category": "cechy-i-umiejetnosci",
+      "order": 4,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-wprowadzenie",
+          "title": "Wprowadzenie",
+          "anchor": "wprowadzenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Cechy określają fizyczne i mentalne predyspozycje postaci na dany moment w jej życiu. Najczęściej wynikają one z:"
+            },
+            {
+              "type": "list",
+              "id": "list-3",
+              "ordered": false,
+              "items": [
+                "Predyspozycji genetycznych",
+                "Stylu życia",
+                "Obecnej formy fizycznej",
+                "Wzmocnień magicznych"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-podstawowe-zasady",
+          "title": "Podstawowe zasady",
+          "anchor": "podstawowe-zasady",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-5",
+              "ordered": false,
+              "items": [
+                "**Przeciętna cecha** dorosłej osoby to **0**",
+                "Cechy determinują siłę jednostki i wyznaczają naturalne bariery rozwoju",
+                "**Cechy dodatnie** (+) określają pozytywne skłonności postaci",
+                "**Cechy ujemne** (-) określają negatywne skłonności postaci",
+                "Posiadając dowolną cechę na **-10** postać jest niezdolna do egzystowania"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-6",
+              "content": "**Uwaga:** Mistrz gry może luzować ograniczenia cech wedle upodobań."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-charyzma",
+      "slug": "charyzma",
+      "title": "Charyzma",
+      "category": "cechy-i-umiejetnosci",
+      "order": 5,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha związana z urodą i prezencją postaci. Odpowiada za jej urok osobisty, pierwsze wrażenie, zdolności interpersonalne. Najbardziej związana z umiejętnościami użytkowymi, ale również z umiejętnościami dowódczymi w tym zarządzanie ludźmi."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-czarokrwistosc",
+      "slug": "czarokrwistosc",
+      "title": "Czarokrwistość",
+      "category": "cechy-i-umiejetnosci",
+      "order": 6,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha związana z nadprzyrodzonymi mocami. Tą cechę może mieć postać tylko za pozwoleniem mistrza gry. Rodzai czarokrwistości jest bardzo wiele, lecz istnieją też dość unikalne moce. Czarokrwistość związana jest z mocą postaci oraz esencją."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-losowanie-cech",
+      "slug": "losowanie-cech",
+      "title": "Losowanie Cech",
+      "category": "cechy-i-umiejetnosci",
+      "order": 7,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Wykonujemy 7 serii rzutów 3k6+3k4. Mamy prawo poprawić dowolną kość z jednej wybranej. W każdym rzucie wybieramy 3 wyniki z każdej serii, sumujemy wartości na nich i odejmujemy 12. Następnie wyniki rozdzielamy pomiędzy cechy. W przypadku nie czarokrwistego odrzucamy jedną wybraną serię rzutów i dodatkowo mamy możliwość poprawy dowolnej wybranej pojedynczej kości."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-si-a",
+      "slug": "si-a",
+      "title": "Siła",
+      "category": "cechy-i-umiejetnosci",
+      "order": 8,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha odpowiadająca na ilość obrażeń w walce fizycznej oraz za testy siłowe. Osoby walczące bronią dwuręczną otrzymują 1,5 modyfikatora z siły do obrażeń podczas gdy pozostał modyfikator z siły do obrażeń. Ujemna siła zmniejsza obrażenia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umys",
+      "slug": "umys",
+      "title": "Umysł",
+      "category": "cechy-i-umiejetnosci",
+      "order": 9,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha związana ze zdolnościami analizowania otoczenia, bystrością, przenikliwością, zdolnościami pamięciowymi, roztropnością i silna wolą. Umysł dodaje Większą Wolę na poziomie równym modyfikatorowi."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-zrecznosc",
+      "slug": "zrecznosc",
+      "title": "Zręczność",
+      "category": "cechy-i-umiejetnosci",
+      "order": 10,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha wpływająca na uniki, refleks oraz czasami obrażenia. Modyfikator zręczności dodaje Większy Refleks i uniki na poziomie równym modyfikatorowi. Zbroje i tarcze posiadają ograniczenia zręczności, co sprawia, ze nosząc ciężka zbroję często musimy stosować zaniżoną wartość zręczności."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "W testach siły, za przyzwoleniem Mistrza Gry można używać połowy wartości zręczności (zaokrąglonej w dół). Testy czystej zręczności są rzadkie, lecz czasami pojawiają się w kontrze do siły."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-fechtunek",
+      "slug": "fechtunek",
+      "title": "Fechtunek",
+      "category": "cechy-i-umiejetnosci",
+      "order": 11,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do fechtowania bronią, w którą jest się wyszkolonym. Fechtunek daje premię do parowania w walce bronią. Wiele broni posiada premie/kary/ograniczenia fechtunku ze względu na styl walki jaki jest z nimi związany. Przykładowo mieczem fechtuje się lepiej niż korbaczem. Z fechtunkiem związanych jest bardzo dużo manewrów, zarówno ofensywnych jak i defensywnych."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-fortel",
+      "slug": "fortel",
+      "title": "Fortel",
+      "category": "cechy-i-umiejetnosci",
+      "order": 12,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do zwodzenia przeciwnika w walce. Tą umiejętność mogą ćwiczyć zarówno osoby wyszkolone w fechtunku jak i znające jedynie podstawy fechtowania. Stąd ta umiejętność może być albo wodzącą umiejętnością bojową, albo uzupełniającą umiejętnością."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-inicjatywa",
+      "slug": "inicjatywa",
+      "title": "Inicjatywa",
+      "category": "cechy-i-umiejetnosci",
+      "order": 13,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa dynamikę postaci, czyli ma wpływ na kolejność tur w rundzie. Co więcej inicjatywa określa jak szybko postać jest w stanie pozbierać się po negatywnych efektach jak obalenie czy wytrącenie z równowagi. Aby określić kolejność wykonywania tur postaci w walce należy wykonać test inicjatywy (k6+inicjatywa). Otrzymana wartość nazywa się ustalona inicjatywą. Następnie postacie wykonują swoje tury w kolejności danej od największej ustalonej inicjatywy do najmniejszej ustalonej inicjatywy. Jeśli dwie lub więcej postaci mają taką samą ustaloną inicjatywę, to wewnątrz tej grupy ponawiają rzut (dodając całą swoją inicjatywę do rzutu) w celu ustalenia kolejności wewnątrz tej grupy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-jezdziectwo",
+      "slug": "jezdziectwo",
+      "title": "Jeździectwo",
+      "category": "cechy-i-umiejetnosci",
+      "order": 14,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa poziom umiejętności jazdy na wierzchowcu oraz walki na wierzchowcu. Jeździectwo daje premię do parowania i obrażeń w walce bronią z wierzchowca."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-precyzja",
+      "slug": "precyzja",
+      "title": "Precyzja",
+      "category": "cechy-i-umiejetnosci",
+      "order": 15,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa celność postaci związaną z atakami dystansowymi. Należy zaznaczyć, że ta cecha jest związana zarówno z celnością łukami/kuszami i tym podobnymi oraz celność zaklęciami. Mimo wszystko ta cecha nie decyduje o wyszkoleniu postaci do władania konkretnym rodzajem broni dystansowej. Precyzja daje premię do obrażeń w walce dystansowej fizycznej."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-bojowe",
+      "slug": "umiejetnosci-bojowe",
+      "title": "Umiejętności bojowe: fizyczne",
+      "category": "cechy-i-umiejetnosci",
+      "order": 16,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Umiejętności bojowe określają pewien rodzaj wyszkolenia postaci. Testy umiejętności bojowych bazowo wykonywane są kością k6 i dodaje się do nich wartość danej umiejętności. Umiejętności bojowe często związane są również z dodatkowymi bonusami."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-walka-wrecz",
+      "slug": "walka-wrecz",
+      "title": "Walka Wręcz",
+      "category": "cechy-i-umiejetnosci",
+      "order": 17,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa poziom umiejętności w walce bez broni. Walka Wręcz daje premie do parowania i obrażeń w walce bez broni, jednak uzbrojone postacie atakujące nieuzbrojoną osobą otrzymują dodatkową kość broni. Należy pamiętać, że walcząc wręcz nie otrzymuje się premii z fechtunku do parowania."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Walka wręcz otrzymuje karę do umiejętności podobnie jak umiejętności użytkowe. Modyfikator tej kary to x1+1. W przypadku tej umiejętności, jej poziom może zejść poniżej zera (w związku z karą) przez co dawać pokaźne kary do parowania i obrażeń z walki wręcz."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Postać otrzymuje jeden darmowy manewr związany z Walką Wręcz na każdy poziom Walki Wręcz zgodnie z wymaganiami Walki Wręcz."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Przeciwnik niemogący używać walki bronią, ani walki wręcz przeciw osobie używającej walkę wręcz jest uznawany za nieuzbrojonego. Wtedy osoba walcząca wręcz otrzymuje dodatkową kość broni. Są to przypadki gdy przeciwnik jest na przykład unieruchomiony, powalony i niemogący się bronić, niewalczący czy oszołomiony."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-arkana",
+      "slug": "arkana",
+      "title": "Arkana",
+      "category": "cechy-i-umiejetnosci",
+      "order": 18,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określają poziom zaawansowania w sztuce magicznej. Odnoszą się do rodzaju magii z jakiej dana postać korzysta (Matryca bądź Rdzeń). Arkana są bezpośrednio związane z Siłą Zaklęcia oraz z wymaganiami związanymi z nauczeniem się zaklęć. Mówi też o umiejętnościach związanych z praktyką magii. Wartość arkan dostaje się Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-esencja",
+      "slug": "esencja",
+      "title": "Esencja",
+      "category": "cechy-i-umiejetnosci",
+      "order": 19,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa punkty, które są zużywane w celu rzucania zaklęć. Każda postać posiada górną granicę esencji. Esencja jest najczęściej związana z konkretnym rodzajem/rodzajami mocy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-moc",
+      "slug": "moc",
+      "title": "Moc",
+      "category": "cechy-i-umiejetnosci",
+      "order": 20,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę wewnętrznych, nadnaturalnych mocy, która dana postać posiada. Im większa moc tym więcej można mieć esencji (chociaż zależy też to od innych czynników). Wartość mocy dodaje się do Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-si-a-zaklecia",
+      "slug": "si-a-zaklecia",
+      "title": "Siła Zaklęcia",
+      "category": "cechy-i-umiejetnosci",
+      "order": 21,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę mocy jakimi się włada. Ta statystyka jest odrębna dla każdego odrębnego rodzaju mocy (osobno dla magów, kapłanów i czarokrwistych). Każde zaklęcie, zdolność nadnaturalna jest w jakiś sposób związana z Siłą Zaklęcia. Przy zaklęciach bojowych dodaje się 2 razy Siłę Zaklęcia jeśli atak nie jest w bariery do obrażeń lub 3 razy Siłę Zaklęcia jeśli atak jest w bariery. Zazwyczaj 1 Siły Zaklęcia dodaje 1 kostkę zaklęcia. Siła Zaklęcia również jest związana ze skalą rozproszenia danego zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-nadnaturalne",
+      "slug": "umiejetnosci-nadnaturalne",
+      "title": "Umiejętności Nadnaturalne",
+      "category": "cechy-i-umiejetnosci",
+      "order": 22,
+      "content": [],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wiara",
+      "slug": "wiara",
+      "title": "Wiara",
+      "category": "cechy-i-umiejetnosci",
+      "order": 23,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę więzi z bogiem, którego się wyznaje oraz zdolność do manipulacji tą mocą. Im większa wiara tym więcej można mieć boskiej esencji (chociaż zależy też to od innych czynników) i lepiej nią manipulować. Każdy bóg wedle swego uznania zsyła swoim kapłanom charakterystyczny na siebie rodzaj mocy. Wartość wiary dodaje się do Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wiez",
+      "slug": "wiez",
+      "title": "Więź",
+      "category": "cechy-i-umiejetnosci",
+      "order": 24,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę więzi z naturą i zdolności korzystania z mocy natury (nie będąc czarokrwistym natury). Im większa moc tym więcej można mieć esencji. Wartość więzi dodaje się do Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-refleks",
+      "slug": "refleks",
+      "title": "Refleks",
+      "category": "cechy-i-umiejetnosci",
+      "order": 25,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do szybkiego reagowania na zmieniającą się sytuację. Refleks zwiększa uniki o wartość refleksu. Wygrane testy refleksu chronią przed ataki dystansowymi. Refleks może być ograniczony przez zbroję."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-obronne",
+      "slug": "umiejetnosci-obronne",
+      "title": "Umiejętności Obronne",
+      "category": "cechy-i-umiejetnosci",
+      "order": 26,
+      "content": [],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wola",
+      "slug": "wola",
+      "title": "Wola",
+      "category": "cechy-i-umiejetnosci",
+      "order": 27,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do opierania się wpływom na umysł jak przykładowo strach czy stres. Również wola wyznacza koncentrację postaci. Jeśli postać otrzymała obrażenia a chce przedsięwziąć akcję która wymaga dużego skupienia (np. czarodziej rzuca zaklęcie) to musi zdać test woli o ST=6+otrzymane obrażenia+połowa otrzymanych obrażeń w poprzedniej turze."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.272Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wytrwa-osc",
+      "slug": "wytrwa-osc",
+      "title": "Wytrwałość",
+      "category": "cechy-i-umiejetnosci",
+      "order": 28,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do radzenia sobie ze zmęczeniem, osłabieniem, wpływami na zdrowie i ciało. Co więcej zdrowie jest zwiększone o ilość wytrwałości."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.272Z"
+    },
+    {
+      "id": "section-system-walki-krytyczne-pud-o",
+      "slug": "krytyczne-pud-o",
+      "title": "Krytyczne Pudło",
+      "category": "system-walki",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Krytyczne pudło nie jest standardową cechą wojowników, czyli domyślnie nikt nie stosuje krytycznego pudła. Natomiast jeśli posiada się odpowiedni atut lub manewr, albo mistrz gry ustali że na danych atak trzeba to stosować to wygląda to w następujący sposób: wyrzucenie na kości broni oczka mniejszego równego niż 1+szansa krytyka oznacza zmniejszenie obrażeń o siłę krytyka. Należy zaznaczyć że trafienie krytyczne i krytyczne pudło nie może nastąpić jednocześnie - jeśli miałoby się tak stać (np. kość broni k4 i szansa krytyka 2) to stosujemy trafienie krytyczne."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Notacja Krytyczne Pudło+1 oznacza, że należy je liczyć jak gdyby postać miała o 1 więcej szansy i siły krytyka"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.272Z"
+    },
+    {
+      "id": "section-system-walki-mechanika-walki",
+      "slug": "mechanika-walki",
+      "title": "Mechanika Walki",
+      "category": "system-walki",
+      "order": 1,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-wprowadzenie",
+          "title": "Wprowadzenie",
+          "anchor": "wprowadzenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "System walki w grze składa się z kilku kluczowych elementów:"
+            },
+            {
+              "type": "list",
+              "id": "list-3",
+              "ordered": false,
+              "items": [
+                "**Ataki** - sposób zadawania obrażeń przeciwnikom",
+                "**Defensywa** - metody obrony przed atakami",
+                "**Trafienia krytyczne** - szczególnie skuteczne ataki",
+                "**Krytyczne pudła** - nieudane próby ataku"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-organizacja-walki",
+          "title": "Organizacja walki",
+          "anchor": "organizacja-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Walka jest podzielona na rundy i tury, gdzie kolejność działań determinuje inicjatywa poszczególnych postaci."
+            }
+          ]
+        },
+        {
+          "id": "subsection-rodzaje-atakow",
+          "title": "Rodzaje ataków",
+          "anchor": "rodzaje-atakow",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-7",
+              "level": 3,
+              "content": "Ataki w zwarciu",
+              "anchor": "ataki-w-zwarciu"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "Standardowe ataki bronią w bezpośrednim kontakcie z przeciwnikiem."
+            },
+            {
+              "type": "heading",
+              "id": "heading-9",
+              "level": 3,
+              "content": "Ataki dystansowe",
+              "anchor": "ataki-dystansowe"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "Ataki wykonywane z odległości przy użyciu broni dystansowej lub magii."
+            }
+          ]
+        },
+        {
+          "id": "subsection-system-obrazen",
+          "title": "System obrażeń",
+          "anchor": "system-obrazen",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-12",
+              "content": "Obrażenia są zadawane różnymi rodzajami kości i mogą być redukowane przez obronę przeciwnika w zależności od typu ataku."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.273Z"
+    },
+    {
+      "id": "section-system-walki-trafienie-krytyczne",
+      "slug": "trafienie-krytyczne",
+      "title": "Trafienie krytyczne",
+      "category": "system-walki",
+      "order": 2,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Każda postać ma określoną szansę trafienia krytycznego i siłę trafienia krytycznego. Bazowo każda postać ma szansę trafienia krytycznego równa 0 i siłę trafienia krytycznego równą 1. Oznacza to, że gdy na kości broni wypadnie maksymalne oczko, to dodatkowo postać zadaje 1 obrażenie. Trafienie krytyczne występuje gdy na kości broni wypadnie oczko, które jest równe maksymalnej wartości minus szansa trafienia krytycznego. Przykładowo niech postać ma kość broni k12 i szanse trafienia krytycznego 3 oraz siłę trafienia krytycznego 5. Wtedy jeśli na tej kości wypadnie 9,10,11 lub 12, to dodatkowo postać zadaje 5 obrażeń."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Stąd im większa szansa trafienia krytycznego, tym więcej wyników rzutu kością broni powoduje trafienie krytyczne, a im większa siła trafienia krytycznego to więcej obrażeń zostanie zadanych z powodu trafienia krytycznego."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Niektóre postacie posiadają właściwość redukcja na obrażenia krytyczne. Jest to ilość redukcji, która neguje tylko obrażenia krytyczne. Przykładowo jeśli postać ma redukcję na obrażenia krytyczne 3, a przeciwnik na dwóch kościach wyrzucił trafienia krytyczne zadając na każde 2 dodatkowe obrażenia (w sumie 4), to ostatecznie zadaje obrażenia równe 4-3=1."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.273Z"
+    },
+    {
+      "id": "section-system-walki-ataki-dystansowy",
+      "slug": "ataki-dystansowy",
+      "title": "Ataki dystansowe",
+      "category": "system-walki",
+      "order": 3,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-rodzaje-atakow-dystansowych",
+          "title": "Rodzaje ataków dystansowych",
+          "anchor": "rodzaje-atakow-dystansowych",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-2",
+              "level": 3,
+              "content": "Ataki dystansowe magiczne",
+              "anchor": "ataki-dystansowe-magiczne"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-3",
+              "content": "Ataki wykorzystujące magię (np. strumień ognia)"
+            },
+            {
+              "type": "heading",
+              "id": "heading-4",
+              "level": 3,
+              "content": "Ataki dystansowe fizyczne",
+              "anchor": "ataki-dystansowe-fizyczne"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Ataki przy użyciu broni dystansowej (np. strzał z łuku)"
+            }
+          ]
+        },
+        {
+          "id": "subsection-mechanika-ataku",
+          "title": "Mechanika ataku",
+          "anchor": "mechanika-ataku",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Aby atak dystansowy dosięgnął celu należy wykonać **test precyzji** przeciwko większej z wartości:"
+            },
+            {
+              "type": "list",
+              "id": "list-8",
+              "ordered": false,
+              "items": [
+                "**Refleks przeciwnika**",
+                "**ST odległości nieruchomego celu**"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-9",
+              "level": 3,
+              "content": "Warunek trafienia",
+              "anchor": "warunek-trafienia"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "Wygrany test (co najmniej 1 oczko więcej) powoduje trafienie."
+            }
+          ]
+        },
+        {
+          "id": "subsection-typy-zadawanych-obrazen",
+          "title": "Typy zadawanych obrażeń",
+          "anchor": "typy-zadawanych-obrazen",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 3,
+              "content": "Atak dystansowy fizyczny (np. strzał z łuku)",
+              "anchor": "atak-dystansowy-fizyczny-np-strza-z-uku"
+            },
+            {
+              "type": "list",
+              "id": "list-13",
+              "ordered": false,
+              "items": [
+                "**Typ obrażeń**: Bezpośrednie obrażenia",
+                "**Pomijane obrony**: uniki, parowanie i blokowanie",
+                "**Kości obrażeń**: Najczęściej postać NIE posiada kości obrażeń",
+                "**Bonus do obrażeń**: Wojownik otrzymuje premię z precyzji do obrażeń"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-14",
+              "level": 3,
+              "content": "Atak dystansowy magiczny (np. strumień ognia)",
+              "anchor": "atak-dystansowy-magiczny-np-strumien-ognia"
+            },
+            {
+              "type": "list",
+              "id": "list-15",
+              "ordered": false,
+              "items": [
+                "**Typ obrażeń**: Blokowane obrażenia",
+                "**Pomijane obrony**: uniki i parowanie"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-skala-trudnosci-odleg-osci-nieruchomego-celu",
+          "title": "Skala trudności odległości nieruchomego celu",
+          "anchor": "skala-trudnosci-odleg-osci-nieruchomego-celu",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-17",
+              "content": "Przedstawiamy sześć standardowych rodzajów odległości dla celu wielkości człowieka:"
+            },
+            {
+              "type": "table",
+              "id": "table-18",
+              "table": {
+                "headers": [
+                  "Odległość",
+                  "ST",
+                  "Uwagi"
+                ],
+                "rows": [
+                  [
+                    "**Zwarcie**",
+                    "-",
+                    "Brak możliwości strzelania fizycznego; atak dystansowy magiczny +1"
+                  ],
+                  [
+                    "**Blisko**",
+                    "3",
+                    ""
+                  ],
+                  [
+                    "**Normalny dystans**",
+                    "5",
+                    ""
+                  ],
+                  [
+                    "**Daleki dystans**",
+                    "8",
+                    ""
+                  ],
+                  [
+                    "**Skraj zasięgu**",
+                    "12",
+                    ""
+                  ],
+                  [
+                    "**Poza zasięgiem**",
+                    "∞",
+                    "Trafienie niemożliwe"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-19",
+              "content": "**Uwaga**: Mistrz gry w razie potrzeby może modyfikować te ST."
+            }
+          ]
+        },
+        {
+          "id": "subsection-modyfikatory-testow-ataku-dystansowego",
+          "title": "Modyfikatory testów ataku dystansowego",
+          "anchor": "modyfikatory-testow-ataku-dystansowego",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-21",
+              "level": 3,
+              "content": "Warunki atmosferyczne (tylko fizyczne)",
+              "anchor": "warunki-atmosferyczne-tylko-fizyczne"
+            },
+            {
+              "type": "table",
+              "id": "table-22",
+              "table": {
+                "headers": [
+                  "Warunki",
+                  "Modyfikator"
+                ],
+                "rows": [
+                  [
+                    "**Znaczący wiatr**",
+                    "-1"
+                  ],
+                  [
+                    "**Silny wiatr**",
+                    "-2"
+                  ],
+                  [
+                    "**Deszcz**",
+                    "-3"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-23",
+              "level": 3,
+              "content": "Wielkość celu",
+              "anchor": "wielkosc-celu"
+            },
+            {
+              "type": "table",
+              "id": "table-24",
+              "table": {
+                "headers": [
+                  "Wielkość celu",
+                  "Modyfikator"
+                ],
+                "rows": [
+                  [
+                    "**Wielkość tarczy strzeleckiej**",
+                    "-1"
+                  ],
+                  [
+                    "**Wielkość jabłka**",
+                    "-3"
+                  ],
+                  [
+                    "**Wielkość ziarnka grochu**",
+                    "-7"
+                  ],
+                  [
+                    "**Wielkość niedźwiedzia**",
+                    "+1"
+                  ],
+                  [
+                    "**Wielkość ogra**",
+                    "+2"
+                  ],
+                  [
+                    "**Wielkość olbrzyma**",
+                    "+4"
+                  ],
+                  [
+                    "**Wielkość smoka**",
+                    "+7"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "subsection-wymagania-wyszkolenia",
+          "title": "Wymagania wyszkolenia",
+          "anchor": "wymagania-wyszkolenia",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-26",
+              "content": "Pomimo, że precyzja służy zarówno atakom dystansowym magicznym jak i fizycznym, aby **czarodzieje dobrze strzelali z łuków** muszą być w nich wyszkoleni i spełniać wymogi fizyczne, aby móc korzystać ze swojej precyzji."
+            }
+          ]
+        },
+        {
+          "id": "subsection-obrona-przed-atakami-dystansowymi",
+          "title": "Obrona przed atakami dystansowymi",
+          "anchor": "obrona-przed-atakami-dystansowymi",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-28",
+              "content": "Tarcza przeciwnika najczęściej dodaje przeciwnikowi plusy do testu refleksu związanego z wrogim atakiem dystansowym fizycznym."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.273Z"
+    },
+    {
+      "id": "section-system-walki-ataki-w-zwarciu",
+      "slug": "ataki-w-zwarciu",
+      "title": "Ataki w zwarciu",
+      "category": "system-walki",
+      "order": 4,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-mechanika",
+          "title": "Mechanika",
+          "anchor": "mechanika",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Atakując przeciwnika w zwarciu należy wykonać następujące kroki:"
+            },
+            {
+              "type": "list",
+              "id": "list-3",
+              "ordered": true,
+              "items": [
+                "**Rzut kośćmi** związanymi z wyszkoleniem postaci (po uwzględnieniu redukcji kości przeciwnika)",
+                "**Zsumowanie wyników** wraz z dodatkowymi bonusami na kość broni",
+                "**Dodanie pozostałych bonusów**:"
+              ]
+            },
+            {
+              "type": "list",
+              "id": "list-4",
+              "ordered": false,
+              "items": [
+                "Stałe bonusy do ataku",
+                "Bonusy z trafienia krytycznego"
+              ]
+            },
+            {
+              "type": "list",
+              "id": "list-5",
+              "ordered": true,
+              "items": [
+                "**Obliczenie końcowych obrażeń** zadanych przeciwnikowi"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-typ-obrazen",
+          "title": "Typ obrażeń",
+          "anchor": "typ-obrazen",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Atak w zwarciu zadaje **zwyczajne obrażenia**."
+            }
+          ]
+        },
+        {
+          "id": "subsection-kosci-obrazen",
+          "title": "Kości obrażeń",
+          "anchor": "kosci-obrazen",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "W przypadku ataków w zwarciu postać najczęściej posiada **kość obrażeń**."
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Wyjątki",
+              "anchor": "wyjatki"
+            },
+            {
+              "type": "list",
+              "id": "list-11",
+              "ordered": false,
+              "items": [
+                "**Walka wręcz** - nie ma się kości obrażeń"
+              ]
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.274Z"
+    },
+    {
+      "id": "section-system-walki-ataki",
+      "slug": "ataki",
+      "title": "Ataki",
+      "category": "system-walki",
+      "order": 5,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Przykładowy sposób zapisu ofensywnego wyszkolenia postaci: 3x(1k12+2)+1k8+10 / 10-12,+4"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Oznacza to, że postać atakuje 3 kośćmi broni o randze 6 (tj. k12) i na każdą taką kość dodaje 2 obrażenia, oraz dodatkowo atakuje 1 kością obrażeń o randze 4 (k8) i sumuje to z dodatkowymi 10 obrażaniami. Trafienie krytyczne wytypuje gdy na kości broni wypadnie 10,11 lub 12 i wtedy należy doliczyć dodatkowe 4 obrażenia."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Widmowe kości broni oznacza się następująco: 2x(1k10w), a widmowe kości obrażeń następująco: 2k10w."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.274Z"
+    },
+    {
+      "id": "section-system-walki-blokowanie",
+      "slug": "blokowanie",
+      "title": "Blokowanie",
+      "category": "system-walki",
+      "order": 6,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Blokowanie jest związane z tym jak bardzo postać potrafi powstrzymywać ataki za pomocą tarczy i podobnych obiektów. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej. Blokowanie jest rodzajem redukcji, który bierze się pod uwagę po unikach i parowaniu. Blokowanie jest głównie związane z redukcją z tarczy:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Blokowanie = redukcja z tarczy + inne"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.274Z"
+    },
+    {
+      "id": "section-system-walki-defensywa",
+      "slug": "defensywa",
+      "title": "Defensywa",
+      "category": "system-walki",
+      "order": 7,
+      "content": [],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.275Z"
+    },
+    {
+      "id": "section-system-walki-niewrazliwosc",
+      "slug": "niewrazliwosc",
+      "title": "Niewrażliwość",
+      "category": "system-walki",
+      "order": 8,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Niewrażliwość określa o ile mniej kości, z wyłączeniem kości widmowych, będzie stosował przeciwnik w każdym ataku. Przeciwnik sam wybiera, która kość jest redukowana. Niewrażliwość działa przeciwko każdej ilości przeciwników. Stąd jeśli przykładowo przeciwnik ma niewrażliwość równą , a postać atakuje 2x(k12+3)+1k8+10 to postać może wybrać dwie opcje: 1x(k12+3)+10 (redukcja kości broni i kości obrażeń) lub 1k8+10 (redukcja 2 kości broni)"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.275Z"
+    },
+    {
+      "id": "section-system-walki-odpornosc",
+      "slug": "odpornosc",
+      "title": "Odporność",
+      "category": "system-walki",
+      "order": 9,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Odporność jest to wartość, od której w pierwszej kolejności odejmowane są obrażenia jakiegokolwiek rodzaju poza obrażeniami śmiertelnymi i nieuchronnymi. Dopiero nadmiar obrażeń przechodzi na redukcję. W każdej rundzie odporność jest odejmowana od obrażeń pierwszych 6 źródeł obrażeń (chyba, że mistrz gry postanowi inaczej). Stąd odporność można traktować jako redukcję na każde źródło do 6 źródeł obrażeń. Przykładowo jeśli podmiot jest atakowany przez 3 wrogów i ma 5 odporności, to na każdy atak przeciwnika zadaje 5 obrażeń mniej."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.275Z"
+    },
+    {
+      "id": "section-system-walki-parowanie",
+      "slug": "parowanie",
+      "title": "Parowanie",
+      "category": "system-walki",
+      "order": 10,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Parowanie jest związane z tym jak bardzo postać potrafi wykorzystywać swoją broń do obrony. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej czy blokowalnej. Parowanie jest rodzajem redukcji, który jako jeden z pierwszych (na równi z unikami) jest brany pod uwagę przy obrażeniach. Parowanie jest związane głównie z fechtunkiem w następujący sposób:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Parowanie = fechtunek + inne"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.275Z"
+    },
+    {
+      "id": "section-system-walki-redukcja",
+      "slug": "redukcja",
+      "title": "Redukcja",
+      "category": "system-walki",
+      "order": 11,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Całkowita redukcja jest sumą redukcji pochodzących z poszczególnych źródeł jak uniki, parowanie, blokowanie, redukcja ze zbroi czy magii. Jeśli przeciwnik zadaje zwyczajne obrażenia (w przypadku gdy nie posiada się odporności), to od całkowitej redukcji odejmuje się zadane obrażenia. Nadmiar przechodzi w bariery, a jeśli ich nie ma to w zdrowie. Niedomiar pozostaje jako redukcja przeciwko kolejnym źródłom obrażeń. W zależności od rodzaju obrażeń część redukcji jest pominięta. Przykładowo dla obrażeń bezpośrednich do redukcji przeciwko tym obrażeniom nie są wliczane parowanie i uniki."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Całkowita redukcja = redukcja ze zbroi + redukcja z blokowania + redukcja z parowania + redukcja z uników + redukcja ze źródeł magicznych + unikatowa redukcja"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Kolejność odejmowania obrażeń od poszczególnych redukcji:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "\\1. Redukcja z uników lub redukcja z parowania (do wyboru)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "\\2. Redukcja z uników jeśli w 1. została wybrania redukcja z parowania lub redukcja z parowania jeśli w 1. została wybrana redukcja z uników"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "\\3. Redukcja z blokowania"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "\\4. Redukcja ze zbroi"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "\\5. Redukcja ze źródeł magicznych"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "\\6. Redukcja unikatowa"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "Redukcja blokowalna = redukcja ze zbroi + redukcja z blokowania + redukcja ze źródeł magicznych + unikatowa redukcja"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "Redukcja bezpośrednia = redukcja ze zbroi + redukcja ze źródeł magicznych + unikatowa redukcja"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.276Z"
+    },
+    {
+      "id": "section-system-walki-uniki",
+      "slug": "uniki",
+      "title": "Uniki",
+      "category": "system-walki",
+      "order": 12,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Uniki są związane z tym jak bardzo postać potrafi omijać obrażenia. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej czy blokowalnej. Uniki są rodzajem redukcji, który jako jeden z pierwszych (na równi z parowaniem) jest brany pod uwagę przy obrażeniach. Uniki są związane z zręcznością i refleksem w następujący sposób:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Uniki = ograniczony modyfikator zręczności + ograniczony refleks + inne"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Słowo \"ograniczony\" tyczy się w obu przypadkach ograniczeń wynikających najczęściej z noszonej zbroi/tarczy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.276Z"
+    },
+    {
+      "id": "section-system-walki-atak-w-plecy",
+      "slug": "atak-w-plecy",
+      "title": "Atak w plecy",
+      "category": "system-walki",
+      "order": 13,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Atakując w plecy otrzymujemy dodatkową kość broni, a przeciwnik stosuje redukcję bezpośrednią + uniki chyba, że nie spodziewa się ataku, wtedy tylko redukcja bezpośrednia"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.276Z"
+    },
+    {
+      "id": "section-system-walki-atak-z-flanki",
+      "slug": "atak-z-flanki",
+      "title": "Atak z flanki",
+      "category": "system-walki",
+      "order": 14,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Flankując wroga dodajesz 1 obrażenie oraz przeciwnik traci redukcję z blokowania lub parowania, w zależności od której strony flankujesz wroga."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.276Z"
+    },
+    {
+      "id": "section-system-walki-dobieganie-i-poruszanie-sie-w-walce",
+      "slug": "dobieganie-i-poruszanie-sie-w-walce",
+      "title": "Dobieganie i poruszanie się w walce",
+      "category": "system-walki",
+      "order": 15,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Za każde 10 kroków odległości pomiędzy celem biegu podmiotu rośnie ranga kości utraty inicjatywy. Przykładowo cel jest oddalony o 30 kroków to rzucamy kością k6. Nie można utracić więcej inicjatywy niż maksymalna wartość na kości utraty inicjatywy. Minimalna utrata inicjatywy jest równa karze umiejętności za zbroje, tarcze (i tym podobne) chyba, ze ta utrata jest większa niż maksymalna wartość na kości inicjatywy (wtedy traci się tą minimalną wartość kości utraty inicjatywy)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Przykładowo: cel znajduje się w odległości 40 kroków, więc kość utraty inicjatywy to k8. Postać ma na sobie kolczugę (kara 3) i średnia tarcza (kara 2). Tak więc postać rzuca kością k8 i jeśli wyrzucił powyżej 5 to właśnie tyle traci inicjatywy, ale jeśli mniej to traci równo 5."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Należy pamiętać, że postać nie może przebiec więcej niż wynosi jego maksymalna odległość pokonywana w rundzie. Kara do inicjatywy czyniona jest dopiero wtedy, gdy postać jest o rundę od dobiegnięcia do przeciwnika. Bieganie dwóch rund na pełnej prędkości przynosi dodatkowo punkt zmęczenia, który jednak nie pociąga kolejnych testów za zmęczenie w sposób automatyczny."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Odległości należy zaokrąglać do dołu, chyba że mistrz gry powie inaczej. Ze względu na trudny teren, mistrz gry może zmniejszyć maksymalną odległość pokonywaną w rundzie jak i rangę kości utraty inicjatywy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.277Z"
+    },
+    {
+      "id": "section-system-walki-obalenie",
+      "slug": "obalenie",
+      "title": "Obalenie",
+      "category": "system-walki",
+      "order": 16,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Najczęściej postać zostaje obalona gdy w wyniku przegranego testu siłowego jej inicjatywa spadnie poniżej 0. Wtedy traci jedną rundę na podniesienie się i ponawia test inicjatywy w celu określenia kolejności. Obalona postać traci połowę uników i połowę parowania (zaokrąglone do dołu) oraz wszystkie ataki w zwarciu wymierzone w tą postać otrzymują dodatkową kość broni. Testy siłowe postaci obalonej przeciwko osobie stojącej są wykonywane z połową modyfikatora (zaokrąglone do dołu, chyba że mistrz gry postanowi inaczej), stąd łatwiej jest utrzymać obaloną postać na ziemi. Ataki postaci obalonej, które są w stanie sięgnąć wroga i są wykonalne są wykonywane z jedną kością broni mniej (chyba, że mistrz gry postanowi inaczej)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Inne przypadki upadków przeprowadza się poprzez testy zachowania równowagi o ST ustalonej przez mistrza gry."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.277Z"
+    },
+    {
+      "id": "section-system-walki-organizacja-walki",
+      "slug": "organizacja-walki",
+      "title": "Organizacja Walki",
+      "category": "system-walki",
+      "order": 17,
+      "content": [],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.277Z"
+    },
+    {
+      "id": "section-system-walki-przewaga-wysokosci",
+      "slug": "przewaga-wysokosci",
+      "title": "Przewaga wysokości",
+      "category": "system-walki",
+      "order": 18,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Mając nad przeciwnikiem znaczną przewagę wysokości otrzymujesz 1 obrażenie na każdy atak."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.277Z"
+    },
+    {
+      "id": "section-system-walki-szarza",
+      "slug": "szarza",
+      "title": "Szarża",
+      "category": "system-walki",
+      "order": 19,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Szarża na przeciwnika wymaga odpowiedniego rozpędzenia się. Osobą szarżująca zyskuje premię +1 obrażeń i +1 do testów siłowych na obalenie. Szarże można uniknąć testem refleksu o ST=8 + poziom szarży (bazowy poziom szarży to 0). Jeśli postać uniknie to otrzymuje 1 obrażenie i 1 inicjatywy względem szarżującego. Jeśli osoba nie uniknęła szarży, to wykonuje test sporny siły vs siła + zachowanie równowagi. Za każde oczko przewagi przeciwnik traci 1 inicjatywy, a jeśli jego inicjatywa spadnie poniżej 0 to skutkuje to obaleniem."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.277Z"
+    },
+    {
+      "id": "section-system-walki-walka-bez-wyszkolenia",
+      "slug": "walka-bez-wyszkolenia",
+      "title": "Walka bez wyszkolenia",
+      "category": "system-walki",
+      "order": 20,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Walcząc bronią podobną do broni w której wyuczono się walczyć -0 dmg na kość broni"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Walcząc bronią lekko odmienią do broni w której wyuczono się walczyć -1 dmg na kość broni"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Walcząc bronią odmienią do broni w której wyuczono się walczyć -2 dmg na kość broni"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Walcząc bronią mocno odmienią do broni w której wyuczono się walczyć -3 dmg na kość broni"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.278Z"
+    },
+    {
+      "id": "section-system-walki-walka-z-nieuzbrojonym-przeciwnikiem",
+      "slug": "walka-z-nieuzbrojonym-przeciwnikiem",
+      "title": "Walka z nieuzbrojonym przeciwnikiem",
+      "category": "system-walki",
+      "order": 21,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Walcząc z przeciwnikiem, który nie posiada broni otrzymujemy dodatkową kość broni lub obrażeń (do wyboru). Osoba bez broni nie otrzymuje premii z fechtunku do parowania, ale otrzymuje premię z walki wręcz do parowania i obrażeń."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.278Z"
+    },
+    {
+      "id": "section-system-walki-zwarcie-w-walce",
+      "slug": "zwarcie-w-walce",
+      "title": "Zwarcie w walce",
+      "category": "system-walki",
+      "order": 22,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Gdy postać jest w zwarciu z inną postacią, lecz postanawia zaatakować innego wroga, wtedy atakuje jedną kością broni mniej oraz traci jeden niewrażliwości (może być -1). Ponadto przeciwnik, z którym postać była w zwarciu zyskuje dodatkową kość broni (czyli licząc utratę niewrażliwości, mogą być dwie kości broni lub kość broni i kość obrażeń)"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.278Z"
+    },
+    {
+      "id": "section-system-walki-samotny-orez",
+      "slug": "samotny-orez",
+      "title": "Samotny oręż",
+      "category": "system-walki",
+      "order": 23,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Walcząc bronią jednoręczną lub póltoraręczną jedną ręką i dwoma rękoma na zmianę, wykorzystując wolną rękę do rozmaitych manewrów. Dodaje modyfikator siły do obrażeń i 1 inicjatywy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.278Z"
+    },
+    {
+      "id": "section-system-walki-style-walki",
+      "slug": "style-walki",
+      "title": "Style Walki",
+      "category": "system-walki",
+      "order": 24,
+      "content": [],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.278Z"
+    },
+    {
+      "id": "section-system-walki-walka-bronia-dwureczna",
+      "slug": "walka-bronia-dwureczna",
+      "title": "Walka bronią dwuręczną",
+      "category": "system-walki",
+      "order": 25,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Wojownik walczący bronią dwuręcznie, dodaje 1,5 modyfikatora z siły do obrażeń (zaokrąglając do dołu)."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.279Z"
+    },
+    {
+      "id": "section-system-walki-walka-bronia-jednoreczna-i-tarcza",
+      "slug": "walka-bronia-jednoreczna-i-tarcza",
+      "title": "Walka bronią jednoręczną i tarczą",
+      "category": "system-walki",
+      "order": 26,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Wojownik walczy bronią jednoręcznie wiec dodaje modyfikator z siły do obrażeń. Co więcej posiadana tarcza gwarantuje całą premie do redukcji z blokowania, lecz niesie ze sobą karę do umiejętności i ograniczenie zręczności i uników."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.279Z"
+    },
+    {
+      "id": "section-system-walki-walka-dwoma-broniami",
+      "slug": "walka-dwoma-broniami",
+      "title": "Walka dwoma broniami",
+      "category": "system-walki",
+      "order": 27,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Wojownik walczący dwoma broniami jednocześnie musi spełnić odpowiednie wymagania. W pierwszej kolejności broń w niewiodącej ręce musi być krótsza niż w wiodące, chyba, że postać jest oburęczna lub odpowiednio wyszkolona. Taki wojownik zyskuje dodatkową kość broni: ma bazowo 2 kości broni wiodącej ręki (lub do wyboru przy obu rekach lub odpowiednim wyszkoleniu) i 1 kość drugiej ręki. Zyskując kolejną kość broni otrzymuje się kość związaną z bronią, w której mamy mniej kości broni. Walcząc dwoma broniami na każdą broń osobno liczy się siłę i szansę krytyka, lecz sumuje się premie do umiejętności bojowych i innych specjalnych zdolności broni (ale też premii do parowania)"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.279Z"
+    },
+    {
+      "id": "section-system-walki-manewry",
+      "slug": "manewry",
+      "title": "Manewry",
+      "category": "system-walki",
+      "order": 28,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Manewry są używane przez wojowników aby wyprowadzać różnorodne ataki i w chronić się przed obrażeniami. Każda postać może w jednej turze wykonać 1 manewr zwyczajny, 1 manewr natychmiastowy i 1 manewr nadnatychmiastowy. Manewry natychmiastowe można stosować w dowolnej chwili - nawet po podliczeniu obrażeń przeciwnika w jego ataku, chyba że manewr mówi inaczej. Manewry nadnatychmiastowe można stosować w każdym momencie podyktowanym przez kryteria tego manewru."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Każdy manewr ma swój czas odnowienia, np 1//5 oznacza, że po użyciu manewru, ponowne jego użycie będzie możliwe za 5 rund. Oznaczenie 1//D oznacza, że tego manewru można użyć raz na walkę."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.279Z"
+    },
+    {
+      "id": "section-system-walki-postawy",
+      "slug": "postawy",
+      "title": "Postawy",
+      "category": "system-walki",
+      "order": 29,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postawy określają bonusy jakie postać otrzymuje ze względu na jego ustawienie, przygotowanie i metodologię walki. Postać wchodzi w postawę na początku rundy i będzie obowiązywała ona do początku następnej rundy. Można zmienić swoją postawę na początku każdej rundy. Bazowo można być tylko w jednej postawie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Bazowo każda postać posiada następujące postawy:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Postawa Ofensywna1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Postawa Defensywna1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Postawa Pełna Defensywna1"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.280Z"
+    },
+    {
+      "id": "section-system-walki-stany",
+      "slug": "stany",
+      "title": "Stany",
+      "category": "system-walki",
+      "order": 30,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Stany określają schemat zachowań postaci i dodają bonusy niezależnie od postaw. Wejście w stan postać deklaruje na początku rundy podobnie jak wyjście w postawę. Bazowo można być tylko w jednym stanie."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.280Z"
+    },
+    {
+      "id": "section-system-walki-taktyka-walki",
+      "slug": "taktyka-walki",
+      "title": "Uzbrojenie bez spełniania wymogów",
+      "category": "system-walki",
+      "order": 31,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Nosząc zbroję i nie spełniając wymogów siłowych otrzymujemy ograniczenie refleksu, zręczności, precyzji i inicjatywy równe 0 oraz ograniczenie fechtunku, fortelu i walki wręcz równe 5."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Nosząc tarczę i nie spełniając wymogów siłowych otrzymujemy ograniczenie refleksu, zręczności, precyzji i inicjatywy równe 0 oraz w walce postać traci całą redukcję z tarczy po turach w ilości modyfikatora siły."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Nosząc broń i nie spełniając wymogów siłowych otrzymujemy karę -4 dmg na każdą kość broni oraz w walce postać traci dodatkowe -1 na kość broni po turach w ilości modyfikatora siły i kolejne -1 na kość broni ponownie po ilości tur równej modyfikatorowi siły."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.280Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-czarowanie-i-walka",
+      "slug": "czarowanie-i-walka",
+      "title": "Testy Fechtunku i Fortelu",
+      "category": "magia-i-zaklecia",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postać walcząca zaklęciami jest odporna na testy fechtunku i fortelu. Jeśli jednak ta odporność zostanie ona pominięta wtedy w owych testach stosuje się arkana."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Postać walcząca zaklęciami podejmuje wymuszone na nim testy siłowe/wytrwałości (obronne) z Siły Zaklęcia (jeśli posiada bariery), chyba że zaklęcie ochronne mówi inaczej. Zazwyczaj chodzi o ochronę przed przesunięciem, chorobami, klątwami."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Postać walcząca zaklęciami zazwyczaj nie rusza się więc ataki dystansowe w nich są związane z pokonaniem ST związanej z odległością i wielkością celu"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Jeśli postać otrzymała obrażenia a chce przedsięwziąć akcję która wymaga dużego skupienia (np. czarodziej rzuca zaklęcie) to musi zdać test woli o"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "ST = 6 + otrzymane obrażenia + połowa otrzymanych obrażeń w poprzedniej turze."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "Postać rzucająca czary otrzymuje premię +1 do testów precyzji względem postaci z średnimi i ciężkimi zbrojami, które atakują czarującego w zwarciu"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.281Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-magia-obszarowa",
+      "slug": "magia-obszarowa",
+      "title": "Magia Obszarowa",
+      "category": "magia-i-zaklecia",
+      "order": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Czarodziej wykonuje test ataku dystansowego i za każde oczko straty (pamiętajmy, że równowaga jest liczona jako jedno oczko straty, ze względu na to, że atakujący musi PRZEBIĆ refleks) przeciwnik zyskuje 1\\*zr do redukcji z uników względem tego ataku, które należy zastosować jako pierwsze do ogólnej redukcji przeciw temu zaklęciu. Każde oczko symbolizuje oddalenie się od epicentrum o 1 krok przed wybuchem. Jeśli przewaga oczek jest większa niż zasięg zaklęcia lub redukcja z uników przekracza obrażenia, wtedy unikający nie otrzymuje żadnych obrażeń. W przypadku zaklęć o specyficznym kształcie oddalanie od epicentrum (lub odpowiednich stref obrażeń) nie musi być liniowe."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.281Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-si-a-zaklecia-i-obrazenia-maga",
+      "slug": "si-a-zaklecia-i-obrazenia-maga",
+      "title": "Siła Zaklęcia i obrażenia maga",
+      "category": "magia-i-zaklecia",
+      "order": 2,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Rodzaj magii, którą włada czarodziej i jego siła zaklęcia determinuje ilość obrażeń, którą mag zadaje standardowym atakiem magicznym. Konkretny rodzaj magii ma swój specyficzny tryb rozwoju zadawanych obrażeń związanych bezpośrednio z siłą zaklęcia czarodzieja. Stąd konkretny rodzaj magii można traktować jak rodzaj broni, która rozwija się wraz ze wzrostem sił czarodzieja. Jednak każdy mag zadaje dodatkowe obrażenia związane ze swoją Siłą Zaklęcia równe dwa razy Siła Zaklęcia."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Zestawienie rodzai obrażeń znajduje się w Księdze Nowego Systemu Magów."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.282Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-zaklecia-i-czary",
+      "slug": "zaklecia-i-czary",
+      "title": "Zaklęcia i Czary",
+      "category": "magia-i-zaklecia",
+      "order": 3,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-zaklecia",
+          "title": "Zaklęcia",
+          "anchor": "zaklecia",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "**Zaklęcia** są modyfikacjami standardowej, ofensywnej emanacji mocy."
+            },
+            {
+              "type": "heading",
+              "id": "heading-3",
+              "level": 3,
+              "content": "Zasady stosowania zaklęć",
+              "anchor": "zasady-stosowania-zaklec"
+            },
+            {
+              "type": "list",
+              "id": "list-4",
+              "ordered": false,
+              "items": [
+                "Można używać dowolnych zaklęć, które współgrają z rodzajem mocy",
+                "Można używać zaklęć, które współgrają z innymi używanymi zaklęciami",
+                "Można użyć maksymalnie **siły zaklęć** w jednej emanacji mocy (chyba, że zaklęcie mówi inaczej)"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-5",
+              "level": 3,
+              "content": "Efekty zaklęć",
+              "anchor": "efekty-zaklec"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-6",
+              "content": "Zaklęcia wpływają na:"
+            },
+            {
+              "type": "list",
+              "id": "list-7",
+              "ordered": false,
+              "items": [
+                "**Koszt esencji** - zwiększają zużycie magicznej energii",
+                "**Czas odnowienia** - określają kiedy można ponownie użyć zaklęcia",
+                "**Efekt pozytywny** - korzystne modyfikacje emanacji mocy",
+                "**Efekt negatywny** - ograniczenia lub koszty stosowania"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-czary",
+          "title": "Czary",
+          "anchor": "czary",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "**Czary** są to przekształcenia mocy w taki sposób, aby użyć jej w wyjątkowy, użyteczny sposób."
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Przykłady zastosowań czarów",
+              "anchor": "przyk-ady-zastosowan-czarow"
+            },
+            {
+              "type": "list",
+              "id": "list-11",
+              "ordered": false,
+              "items": [
+                "**Moc kinetyki** pozwoli przyciągać przedmioty",
+                "**Moc wiatru** pozwoli na lewitację",
+                "**Moc zimna** pozwoli zamrozić wodę",
+                "**Moc ognia** pozwoli wyparować wodę"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-12",
+              "content": "**Różnica**: Zaklęcia modyfikują istniejące ataki, czary tworzą całkowicie nowe efekty."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.282Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-zaklecia-obronne",
+      "slug": "zaklecia-obronne",
+      "title": "Zaklęcia Obronne",
+      "category": "magia-i-zaklecia",
+      "order": 4,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Rzucenie jednego zaklęcia ochronnego w akcji natychmiastowe powoduje, że jeśli chcemy rzucić zaklęcie w akcji standardowej to jest to zaklęcie skuteczne jedynie w 50% (chyba, że w zaklęciu napisane jest inaczej)."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.282Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-ancuch-zaklec",
+      "slug": "ancuch-zaklec",
+      "title": "Łańcuch Zaklęć",
+      "category": "magia-i-zaklecia",
+      "order": 5,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-definicja",
+          "title": "Definicja",
+          "anchor": "definicja",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "**Łańcuch Zaklęć** to uporządkowany ciąg zaklęć, który podmiot chce wpleść w swoją emanację mocy, aby uczynić ją bardziej efektywną."
+            }
+          ]
+        },
+        {
+          "id": "subsection-mechanika",
+          "title": "Mechanika",
+          "anchor": "mechanika",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-4",
+              "level": 3,
+              "content": "Poziom skomplikowania",
+              "anchor": "poziom-skomplikowania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Każde zaklęcie posiada **poziom skomplikowania**, który składa się na poziom skomplikowania całego Łańcucha Zaklęć."
+            },
+            {
+              "type": "heading",
+              "id": "heading-6",
+              "level": 3,
+              "content": "Test manipulacji mocą",
+              "anchor": "test-manipulacji-moca"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "**UWAGA**: Skomponowanie Łańcucha Zaklęć **MUSI** poprzedzać test manipulacji mocą."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "**Test**: 1k6 + (manipulacja mocą)"
+            },
+            {
+              "type": "heading",
+              "id": "heading-9",
+              "level": 3,
+              "content": "Określenie finalnego łańcucha",
+              "anchor": "okreslenie-finalnego-ancucha"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "Zaklęcia, które wejdą w skład finalnego Łańcucha Zaklęć to te, których sumaryczny poziom skomplikowania (licząc od początku) nie przekroczy wartości uzyskanej w teście manipulacji mocą."
+            }
+          ]
+        },
+        {
+          "id": "subsection-konsekwencje-niepowodzenia",
+          "title": "Konsekwencje niepowodzenia",
+          "anchor": "konsekwencje-niepowodzenia",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-12",
+              "content": "Jeśli w Łańcuchu Zaklęć **nie ma zaklęcia** z szczególnym przypadkiem przy porażce całego Łańcucha, to:"
+            },
+            {
+              "type": "list",
+              "id": "list-13",
+              "ordered": false,
+              "items": [
+                "Łańcuch skraca się od końca do długości określonej przez zdolność manipulacji mocą",
+                "Zaklęcia, które nie zostały dodane do końcowego Łańcucha **i tak** powodują:",
+                "Zużycie esencji",
+                "Aktywację czasu odnowienia"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-przyk-ad-mistrz-viratis",
+          "title": "Przykład: Mistrz Viratis",
+          "anchor": "przyk-ad-mistrz-viratis",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-15",
+              "level": 3,
+              "content": "Komponowanie łańcucha",
+              "anchor": "komponowanie-ancucha"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-16",
+              "content": "**Mistrz Viratis** (mag zimna) komponuje Łańcuch Zaklęć:"
+            },
+            {
+              "type": "list",
+              "id": "list-17",
+              "ordered": true,
+              "items": [
+                "**Skrząca Biel Odelaily** - poziom skomplikowania = 2",
+                "**Minajski Chłód** - poziom skomplikowania = 1",
+                "**Stożek** - poziom skomplikowania = 1",
+                "**Dech Madarmadara** - poziom skomplikowania = 3",
+                "**Precyzja Ajrandy** - poziom skomplikowania = 1"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-18",
+              "content": "**Sumaryczny poziom skomplikowania**: 2+1+1+3+1 = **8**"
+            },
+            {
+              "type": "heading",
+              "id": "heading-19",
+              "level": 3,
+              "content": "Test manipulacji",
+              "anchor": "test-manipulacji"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-20",
+              "content": "**Wynik testu**: 5"
+            },
+            {
+              "type": "heading",
+              "id": "heading-21",
+              "level": 3,
+              "content": "Finalny łańcuch",
+              "anchor": "finalny-ancuch"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-22",
+              "content": "**Analiza**:"
+            },
+            {
+              "type": "list",
+              "id": "list-23",
+              "ordered": false,
+              "items": [
+                "Zaklęcia 1-3: 2+1+1 = 4 ≤ 5 ✓",
+                "Zaklęcia 1-4: 2+1+1+3 = 7 > 5 ✗"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-24",
+              "content": "**Finalny Łańcuch**: Pierwsze 3 zaklęcia (Skrząca Biel Odelaily, Minajski Chłód, Stożek)"
+            },
+            {
+              "type": "heading",
+              "id": "heading-25",
+              "level": 3,
+              "content": "Konsekwencje",
+              "anchor": "konsekwencje"
+            },
+            {
+              "type": "list",
+              "id": "list-26",
+              "ordered": false,
+              "items": [
+                "**Zaklęcia 1-3**: Modyfikacje zastosowane do emanacji mocy",
+                "**Zaklęcia 4-5**: Pomimo braku w końcowym Łańcuchu:",
+                "Zużywają esencję",
+                "Aktywują czas odnowienia"
+              ]
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.282Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-poziom-leczenia",
+      "slug": "poziom-leczenia",
+      "title": "Poziom Leczenia",
+      "category": "zdrowie-i-regeneracja",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Poziom Leczenia jest wartością przedstawiającą zdolność regeneracji, ogół sprawności organizmu pod względem zdrowotności. Najczęściej jest ściśle związana z ilością zdrowia. Jeśli postać otrzyma obrażenia w zdrowie w ilości równej 10 razy Poziom Leczenia lub więcej, to podlega efektowi krytycznemu (dokładne wyjaśnienie w \"Efekt Krytyczny\"). Poziom Leczenia pomaga również przetrwać posiadając ujemne punkty zdrowia (patrz \"Zdrowie\" powyżej). Minimalny Poziom Leczenia to 0, wiec jeśli miałby spaść poniżej (z jakiegokolwiek powodu) to ustala się go na wartości 0, lecz w zamian postać traci 10 punktów zdrowia za każde oczko które należy zanegować aby Poziom Leczenia nie spadł poniżej zera. Poziom leczenia określa efektywność leczenia urazów."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.283Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-zdrowie",
+      "slug": "zdrowie",
+      "title": "Zdrowie",
+      "category": "zdrowie-i-regeneracja",
+      "order": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Zdrowie (inaczej Punkty Zdrowia lub Punkty Życia) określają ile obrażeń jest w stanie przyjąć postać. Każda postać ma maksymalną ilość punktów zdrowia na dany moment. Jeśli postać ma więcej niż 0 punktów zdrowia, to żyje. Jeśli zdrowie spadnie po wartości od 0 do minus Poziomu Leczenia do postać pada nieprzytomna, lecz żywa. Jeśli postać nie utraci dodatkowego zdrowia, to odzyska przytomność po godzinie i będzie miała wtedy 1 zdrowia. Postać może próbować utrzymać przytomność posiadając od 0 do minus Poziomu Leczenia zdrowia jeśli zda test wytrwałości o ST=10+1 za każde -1 zdrowia poniżej 0. Wtedy postać nie jest zdolna do walki - nie może atakować, bronić się a jej używanie mocy wewnętrznych jest mocno ograniczone (decyduje mistrz gry)."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.283Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-efekt-krytyczny",
+      "slug": "efekt-krytyczny",
+      "title": "Efekty Krytyczne",
+      "category": "zdrowie-i-regeneracja",
+      "order": 2,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Efekt krytyczny powoduje najczęściej dotkliwe urazy fizyczne związane z utratą zbyt dużej ilości punktów zdrowia w jednej rundzie. Jeśli postać w jednej rundzie otrzyma obrażenia równe 10 x Poziom Leczenia (zwane progiem efektu krytycznego), to w pierwszej kolejności rzuca kością aby określić, która część ciała ucierpi, a następnie rzuca kością k100. Im mniej wyrzuci na kości k100 tym bardziej dotkliwe szkody powinny być wyrządzone (o ich rodzaju decyduje mistrz gry), przykładowo odpowiednio niska wartość powinna być związana z utratą danej części ciała."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Jeśli obrażenia z ostatniego źródła wyrządzały w danej turze obrażenia o 10 więcej niż 10 x Poziom Leczenia, to należy rzucić dwoma kośćmi k100 i wybrać niższy wynik. Jeśli obrażenia przytraczają próg efektu krytycznego o 20, to należy rzucić 3 kośćmi k100 i wybrać najniższy wynik. I tak dalej."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Jeśli kolejne źródło zadaje obrażenia postaci, która otrzymała w tej turze Efekt Krytyczny, to próg kolejnego Efektu Krytycznego w tym wypadku wynosi 10. W przypadku znacznie większych obrażeń należy zastosować zasadę jak wyżej."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Części ciała humanoidów zagrożone efektem krytyczny i przykładowe efekty krytyczne:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "\\1. Głowa - blizna na twarzy (np na wardze lub przez twarz), rozcięcie czoła tak, że krew zalewa twarz, utrata ucha/nosa/oka, poważny wstrząs mózgu, rozbicie głowy (krwawienie), zmiażdżenie czaszki"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "\\2. Korpus - blizny na ciele, mocne krwawienie z rozcięcia, uszkodzone płuco, uszkodzony żołądek, uszkodzony kręgosłup, przebite serce"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "\\3. Lewa ręka - blizny na ręce, utrata palca/palców, przebity łokieć, ucięta dłoń, przebita ręka, ręka ucięta do łokcia"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "\\4. Prawa ręka - blizny na ręce, utrata palca/palców, przebity łokieć, ucięta dłoń, przebita ręka, ręka ucięta do łokcia"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "\\5. Lewa noga - blizny na nodze, przebita stopa, ucięte palce u stopy, przebite kolano, ucięta noga do kolana"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "\\6. Prawa noga - blizny na nodze, przebita stopa, ucięte palce u stopy, przebite kolano, ucięta noga do kolana"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.284Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-uraz",
+      "slug": "uraz",
+      "title": "Urazy",
+      "category": "zdrowie-i-regeneracja",
+      "order": 3,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postać otrzymuje jeden Uraz za każde 10 obrażeń otrzymanych w całej walce. Efekt ten występuje dopiero po walce. Oznacza on, że rany były na tyle dotkliwe, że ich zasklepienie wymaga czasu i nim ów uraz minie, to każde otrzymane obrażenia są zwiększone a maksymalne zdrowie ograniczone."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Urazy leczy się poprzez odpoczynki: po każdym odpoczynku rzuca się (1k6 + Poziom Leczenia - Ilość Urazów) i sumuje się wyniki. Za każde 10 w sumie, leczy się jeden Uraz. Postać opatrująca rany może raz dodać swoje opatrywanie ran do sumy leczenia. Eliksiry i medycyna dodaje bonusy do każdego rzutu."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Każdy uraz ogranicza maksymalne zdrowie o 10 do minimum 10, a w dodatku każde źródło obrażeń zadaje obrażenia o 1 większe za każdy posiadany Uraz."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Otrzymany Efekt Krytyczny dodaje Urazy w ilości określonej na poziomie rzutu: 10 - (1k100 / 10 zaokrąglone do dołu do dziesiątki)."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.284Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-autoregeneracja-mocy",
+      "slug": "autoregeneracja-mocy",
+      "title": "Autoregeneracja mocy",
+      "category": "zdrowie-i-regeneracja",
+      "order": 4,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Polega na samoistnym odzyskiwaniu mocy. Przepustowość odzyskiwania mocy u czarkokrwistego zależy od jego mocy. Najczęściej godzinny odpoczynek powoduje zregenerowanie 3x(1k6+Moc) esencji, a po prostu godzinna autoregeneracja bez odpoczynku, lecz bez większego wysiłku k6+Moc"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.284Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-odpoczynek",
+      "slug": "odpoczynek",
+      "title": "Przepływy mocy",
+      "category": "zdrowie-i-regeneracja",
+      "order": 5,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Polegają na odnowie utraconej esencji poprzez otrzymanie jej od bóstwa, Matrycy, Rdzenia czy w podobny sposób. Każdy przepływ ma swoją standardową przepustowość, która zależy od więzi z danym podmiotem. Stąd standardowy godzinny przepływ mocy powodu regenerację k6+Arkana/Wiara esencji aż do maksymalne ilości esencji. Przepływ ten może być większy, lecz nie do przesady (decyduje mistrz gry)"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.284Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-regeneracja-esencji",
+      "slug": "regeneracja-esencji",
+      "title": "Regeneracja esencji",
+      "category": "zdrowie-i-regeneracja",
+      "order": 6,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Esencję odzyskuje się poprzez przepływy mocy i autoregenerację mocy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.284Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-magiczne-leczenie",
+      "slug": "magiczne-leczenie",
+      "title": "Magiczne Leczenie",
+      "category": "zdrowie-i-regeneracja",
+      "order": 7,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Najczęściej magiczne leczenie jednorazowo odnawia punkty zdrowia w ilości wielokrotności Poziomu Leczenia. Przy takim leczeniu należy zaznaczyć, że całkowita ilość uleczonych ran nie może przekroczyć maksymalnego poziomu punktów zdrowia. Przykładowo jeśli postać ma 50 maksymalnego zdrowia, a obecnie 20, to początkowo można uleczyć do 50, ale jeśli po chwili otrzyma cios i znowu starci do 20 to teraz magicznie można uleczyć jedynie do 40."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Standardowe magiczne leczenie nie polegające na magicznej hospitalizacji nie potrafi wyleczyć złamań, chorób czy poważnych fizycznych przypadłości."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Leczenie za pomocą magicznego leczenia nie polegającego na magicznej hospitalizacji sprawia, że postać wymaga odpoczynku długiego na tyle na ile trzebaby odpoczynkiem wyleczyć połowę uleczonego magicznym leczeniem zdrowia. Postacie czarokrwiste, które mają moce leczące zazwyczaj potrzebują połowy tego czasu."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.285Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-medycyna",
+      "slug": "medycyna",
+      "title": "Medycyna",
+      "category": "zdrowie-i-regeneracja",
+      "order": 8,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Najczęściej medycyna wymaga wielorundowego zaangażowania innej osoby lub samego chorego (jeśli jest to możliwe) i leczy małe ilości punktów zdrowia, lecz może dopomóc w poradzeniu sobie z zapobiegnięciem trwałych uszczerbków na zdrowiu. Oczywiście medycyna też może poradzić sobie ze zwykłymi chorobami i różnorodnymi przypadłościami, które nękają postacie. Często medycyna stosowana jest to tamowania upływu krwi czy też usztywnienia złamanej kończyny."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Skale trudności testów medycyny ustala mistrz gry. Zazwyczaj medycyna pozwala odzyskać w małym odstępie czasu Poziom Leczenia razy ilość oczek przewagi nad testem a po dodatkowym Poziomie Leczenia do dziennego odpoczynku."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.285Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-nadnaturalna-regeneracja",
+      "slug": "nadnaturalna-regeneracja",
+      "title": "Nadnaturalna regeneracja",
+      "category": "zdrowie-i-regeneracja",
+      "order": 9,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Najczęściej nadnaturalna regeneracja co rundę (lub co kilka rund) odnawia punkty zdrowia w ilości wielokrotności Poziomu Leczenia. Całkowita ilość uleczonych ran w tym wypadku jest ograniczona przez mistrza gry ze względu na to, że nadmierne użycie tego rodzaju regeneracji powoduje zmęczenie."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.285Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-odpoczynek",
+      "slug": "odpoczynek",
+      "title": "Odpoczynek",
+      "category": "zdrowie-i-regeneracja",
+      "order": 10,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Dzienny odpoczynek powoduje regenerację: 1k6 + Poziom Leczenia - Ilość Urazów. Regeneracja sumuje się za każdy odpoczynek, jeśli przekroczy 10 to leczy się jeden uraz, potem za każdego kolejne 10 leczą się kolejne urazy (patrz Urazy)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Dodatkowo opatrywanie raz jednorazowo dodaje się jako bonus do regeneracji. Eliksiry i inne metody lecznicze wpływają na regenerację."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.285Z"
+    },
+    {
+      "id": "section-zdrowie-i-regeneracja-regeneracja-zdrowia",
+      "slug": "regeneracja-zdrowia",
+      "title": "Regeneracja zdrowia",
+      "category": "zdrowie-i-regeneracja",
+      "order": 11,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Zdrowie odzyskuje się poprzez odpoczynek, magiczne leczenie, nadnaturalną regenerację oraz medycynę"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.286Z"
+    }
+  ],
+  "navigation": [
+    {
+      "id": "podstawy",
+      "title": "Podstawy",
+      "slug": "podstawy",
+      "category": "podstawy",
+      "order": 1,
+      "children": [
+        {
+          "id": "section-podstawy-bariera",
+          "title": "Bariera",
+          "slug": "podstawy/bariera",
+          "category": "podstawy",
+          "order": 0
+        },
+        {
+          "id": "section-podstawy-medale-a-szacowana-si-a-postaci",
+          "title": "Medale a Szacowana Siła Postaci",
+          "slug": "podstawy/medale-a-szacowana-si-a-postaci",
+          "category": "podstawy",
+          "order": 1
+        },
+        {
+          "id": "section-podstawy-oszo-omienie-i-og-uszenie",
+          "title": "Oszołomienie i Ogłuszenie",
+          "slug": "podstawy/oszo-omienie-i-og-uszenie",
+          "category": "podstawy",
+          "order": 2
+        },
+        {
+          "id": "section-podstawy-oznaczenia",
+          "title": "Oznaczenia",
+          "slug": "podstawy/oznaczenia",
+          "category": "podstawy",
+          "order": 3
+        },
+        {
+          "id": "section-podstawy-oslepienie-i-ciemnosc",
+          "title": "Oślepienie",
+          "slug": "podstawy/oslepienie-i-ciemnosc",
+          "category": "podstawy",
+          "order": 4
+        },
+        {
+          "id": "section-podstawy-podstawy-walk",
+          "title": "Podstawy Walk",
+          "slug": "podstawy/podstawy-walk",
+          "category": "podstawy",
+          "order": 5
+        },
+        {
+          "id": "section-podstawy-punkty-umiejetnosci",
+          "title": "Punkty Umiejętności",
+          "slug": "podstawy/punkty-umiejetnosci",
+          "category": "podstawy",
+          "order": 6
+        },
+        {
+          "id": "section-podstawy-rodzaje-kosci",
+          "title": "Rodzaje Kości",
+          "slug": "podstawy/rodzaje-kosci",
+          "category": "podstawy",
+          "order": 7
+        },
+        {
+          "id": "section-podstawy-rodzaje-obrazen",
+          "title": "Rodzaje Obrażeń",
+          "slug": "podstawy/rodzaje-obrazen",
+          "category": "podstawy",
+          "order": 8
+        },
+        {
+          "id": "section-podstawy-runda-tura-i-akcje",
+          "title": "Runda, Tura i Akcje",
+          "slug": "podstawy/runda-tura-i-akcje",
+          "category": "podstawy",
+          "order": 9
+        },
+        {
+          "id": "section-podstawy-strach-i-przerazenie",
+          "title": "Strach",
+          "slug": "podstawy/strach-i-przerazenie",
+          "category": "podstawy",
+          "order": 10
+        },
+        {
+          "id": "section-podstawy-twardosc",
+          "title": "Twardość",
+          "slug": "podstawy/twardosc",
+          "category": "podstawy",
+          "order": 11
+        },
+        {
+          "id": "section-podstawy-zmeczenie-i-odpoczynek",
+          "title": "Zmęczenie i Odpoczynek",
+          "slug": "podstawy/zmeczenie-i-odpoczynek",
+          "category": "podstawy",
+          "order": 12
+        },
+        {
+          "id": "section-podstawy-testy",
+          "title": "Testy",
+          "slug": "podstawy/testy",
+          "category": "podstawy",
+          "order": 13
+        }
+      ]
+    },
+    {
+      "id": "cechy-i-umiejetnosci",
+      "title": "Cechy i Umiejętności",
+      "slug": "cechy-i-umiejetnosci",
+      "category": "cechy-i-umiejetnosci",
+      "order": 2,
+      "children": [
+        {
+          "id": "section-cechy-i-umiejetnosci-klasy-postaci",
+          "title": "Klasy Postaci",
+          "slug": "cechy-i-umiejetnosci/klasy-postaci",
+          "category": "cechy-i-umiejetnosci",
+          "order": 0
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-talenty",
+          "title": "Talenty",
+          "slug": "cechy-i-umiejetnosci/talenty",
+          "category": "cechy-i-umiejetnosci",
+          "order": 1
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-umiejetnosci-uzytkowe",
+          "title": "Umiejętności Użytkowe",
+          "slug": "cechy-i-umiejetnosci/umiejetnosci-uzytkowe",
+          "category": "cechy-i-umiejetnosci",
+          "order": 2
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-budowa",
+          "title": "Budowa",
+          "slug": "cechy-i-umiejetnosci/budowa",
+          "category": "cechy-i-umiejetnosci",
+          "order": 3
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-cechy",
+          "title": "Cechy",
+          "slug": "cechy-i-umiejetnosci/cechy",
+          "category": "cechy-i-umiejetnosci",
+          "order": 4
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-charyzma",
+          "title": "Charyzma",
+          "slug": "cechy-i-umiejetnosci/charyzma",
+          "category": "cechy-i-umiejetnosci",
+          "order": 5
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-czarokrwistosc",
+          "title": "Czarokrwistość",
+          "slug": "cechy-i-umiejetnosci/czarokrwistosc",
+          "category": "cechy-i-umiejetnosci",
+          "order": 6
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-losowanie-cech",
+          "title": "Losowanie Cech",
+          "slug": "cechy-i-umiejetnosci/losowanie-cech",
+          "category": "cechy-i-umiejetnosci",
+          "order": 7
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-si-a",
+          "title": "Siła",
+          "slug": "cechy-i-umiejetnosci/si-a",
+          "category": "cechy-i-umiejetnosci",
+          "order": 8
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-umys",
+          "title": "Umysł",
+          "slug": "cechy-i-umiejetnosci/umys",
+          "category": "cechy-i-umiejetnosci",
+          "order": 9
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-zrecznosc",
+          "title": "Zręczność",
+          "slug": "cechy-i-umiejetnosci/zrecznosc",
+          "category": "cechy-i-umiejetnosci",
+          "order": 10
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-fechtunek",
+          "title": "Fechtunek",
+          "slug": "cechy-i-umiejetnosci/fechtunek",
+          "category": "cechy-i-umiejetnosci",
+          "order": 11
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-fortel",
+          "title": "Fortel",
+          "slug": "cechy-i-umiejetnosci/fortel",
+          "category": "cechy-i-umiejetnosci",
+          "order": 12
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-inicjatywa",
+          "title": "Inicjatywa",
+          "slug": "cechy-i-umiejetnosci/inicjatywa",
+          "category": "cechy-i-umiejetnosci",
+          "order": 13
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-jezdziectwo",
+          "title": "Jeździectwo",
+          "slug": "cechy-i-umiejetnosci/jezdziectwo",
+          "category": "cechy-i-umiejetnosci",
+          "order": 14
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-precyzja",
+          "title": "Precyzja",
+          "slug": "cechy-i-umiejetnosci/precyzja",
+          "category": "cechy-i-umiejetnosci",
+          "order": 15
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-umiejetnosci-bojowe",
+          "title": "Umiejętności bojowe: fizyczne",
+          "slug": "cechy-i-umiejetnosci/umiejetnosci-bojowe",
+          "category": "cechy-i-umiejetnosci",
+          "order": 16
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-walka-wrecz",
+          "title": "Walka Wręcz",
+          "slug": "cechy-i-umiejetnosci/walka-wrecz",
+          "category": "cechy-i-umiejetnosci",
+          "order": 17
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-arkana",
+          "title": "Arkana",
+          "slug": "cechy-i-umiejetnosci/arkana",
+          "category": "cechy-i-umiejetnosci",
+          "order": 18
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-esencja",
+          "title": "Esencja",
+          "slug": "cechy-i-umiejetnosci/esencja",
+          "category": "cechy-i-umiejetnosci",
+          "order": 19
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-moc",
+          "title": "Moc",
+          "slug": "cechy-i-umiejetnosci/moc",
+          "category": "cechy-i-umiejetnosci",
+          "order": 20
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-si-a-zaklecia",
+          "title": "Siła Zaklęcia",
+          "slug": "cechy-i-umiejetnosci/si-a-zaklecia",
+          "category": "cechy-i-umiejetnosci",
+          "order": 21
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-umiejetnosci-nadnaturalne",
+          "title": "Umiejętności Nadnaturalne",
+          "slug": "cechy-i-umiejetnosci/umiejetnosci-nadnaturalne",
+          "category": "cechy-i-umiejetnosci",
+          "order": 22
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-wiara",
+          "title": "Wiara",
+          "slug": "cechy-i-umiejetnosci/wiara",
+          "category": "cechy-i-umiejetnosci",
+          "order": 23
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-wiez",
+          "title": "Więź",
+          "slug": "cechy-i-umiejetnosci/wiez",
+          "category": "cechy-i-umiejetnosci",
+          "order": 24
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-refleks",
+          "title": "Refleks",
+          "slug": "cechy-i-umiejetnosci/refleks",
+          "category": "cechy-i-umiejetnosci",
+          "order": 25
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-umiejetnosci-obronne",
+          "title": "Umiejętności Obronne",
+          "slug": "cechy-i-umiejetnosci/umiejetnosci-obronne",
+          "category": "cechy-i-umiejetnosci",
+          "order": 26
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-wola",
+          "title": "Wola",
+          "slug": "cechy-i-umiejetnosci/wola",
+          "category": "cechy-i-umiejetnosci",
+          "order": 27
+        },
+        {
+          "id": "section-cechy-i-umiejetnosci-wytrwa-osc",
+          "title": "Wytrwałość",
+          "slug": "cechy-i-umiejetnosci/wytrwa-osc",
+          "category": "cechy-i-umiejetnosci",
+          "order": 28
+        }
+      ]
+    },
+    {
+      "id": "system-walki",
+      "title": "System Walki",
+      "slug": "system-walki",
+      "category": "system-walki",
+      "order": 3,
+      "children": [
+        {
+          "id": "section-system-walki-krytyczne-pud-o",
+          "title": "Krytyczne Pudło",
+          "slug": "system-walki/krytyczne-pud-o",
+          "category": "system-walki",
+          "order": 0
+        },
+        {
+          "id": "section-system-walki-mechanika-walki",
+          "title": "Mechanika Walki",
+          "slug": "system-walki/mechanika-walki",
+          "category": "system-walki",
+          "order": 1
+        },
+        {
+          "id": "section-system-walki-trafienie-krytyczne",
+          "title": "Trafienie krytyczne",
+          "slug": "system-walki/trafienie-krytyczne",
+          "category": "system-walki",
+          "order": 2
+        },
+        {
+          "id": "section-system-walki-ataki-dystansowy",
+          "title": "Ataki dystansowe",
+          "slug": "system-walki/ataki-dystansowy",
+          "category": "system-walki",
+          "order": 3
+        },
+        {
+          "id": "section-system-walki-ataki-w-zwarciu",
+          "title": "Ataki w zwarciu",
+          "slug": "system-walki/ataki-w-zwarciu",
+          "category": "system-walki",
+          "order": 4
+        },
+        {
+          "id": "section-system-walki-ataki",
+          "title": "Ataki",
+          "slug": "system-walki/ataki",
+          "category": "system-walki",
+          "order": 5
+        },
+        {
+          "id": "section-system-walki-blokowanie",
+          "title": "Blokowanie",
+          "slug": "system-walki/blokowanie",
+          "category": "system-walki",
+          "order": 6
+        },
+        {
+          "id": "section-system-walki-defensywa",
+          "title": "Defensywa",
+          "slug": "system-walki/defensywa",
+          "category": "system-walki",
+          "order": 7
+        },
+        {
+          "id": "section-system-walki-niewrazliwosc",
+          "title": "Niewrażliwość",
+          "slug": "system-walki/niewrazliwosc",
+          "category": "system-walki",
+          "order": 8
+        },
+        {
+          "id": "section-system-walki-odpornosc",
+          "title": "Odporność",
+          "slug": "system-walki/odpornosc",
+          "category": "system-walki",
+          "order": 9
+        },
+        {
+          "id": "section-system-walki-parowanie",
+          "title": "Parowanie",
+          "slug": "system-walki/parowanie",
+          "category": "system-walki",
+          "order": 10
+        },
+        {
+          "id": "section-system-walki-redukcja",
+          "title": "Redukcja",
+          "slug": "system-walki/redukcja",
+          "category": "system-walki",
+          "order": 11
+        },
+        {
+          "id": "section-system-walki-uniki",
+          "title": "Uniki",
+          "slug": "system-walki/uniki",
+          "category": "system-walki",
+          "order": 12
+        },
+        {
+          "id": "section-system-walki-atak-w-plecy",
+          "title": "Atak w plecy",
+          "slug": "system-walki/atak-w-plecy",
+          "category": "system-walki",
+          "order": 13
+        },
+        {
+          "id": "section-system-walki-atak-z-flanki",
+          "title": "Atak z flanki",
+          "slug": "system-walki/atak-z-flanki",
+          "category": "system-walki",
+          "order": 14
+        },
+        {
+          "id": "section-system-walki-dobieganie-i-poruszanie-sie-w-walce",
+          "title": "Dobieganie i poruszanie się w walce",
+          "slug": "system-walki/dobieganie-i-poruszanie-sie-w-walce",
+          "category": "system-walki",
+          "order": 15
+        },
+        {
+          "id": "section-system-walki-obalenie",
+          "title": "Obalenie",
+          "slug": "system-walki/obalenie",
+          "category": "system-walki",
+          "order": 16
+        },
+        {
+          "id": "section-system-walki-organizacja-walki",
+          "title": "Organizacja Walki",
+          "slug": "system-walki/organizacja-walki",
+          "category": "system-walki",
+          "order": 17
+        },
+        {
+          "id": "section-system-walki-przewaga-wysokosci",
+          "title": "Przewaga wysokości",
+          "slug": "system-walki/przewaga-wysokosci",
+          "category": "system-walki",
+          "order": 18
+        },
+        {
+          "id": "section-system-walki-szarza",
+          "title": "Szarża",
+          "slug": "system-walki/szarza",
+          "category": "system-walki",
+          "order": 19
+        },
+        {
+          "id": "section-system-walki-walka-bez-wyszkolenia",
+          "title": "Walka bez wyszkolenia",
+          "slug": "system-walki/walka-bez-wyszkolenia",
+          "category": "system-walki",
+          "order": 20
+        },
+        {
+          "id": "section-system-walki-walka-z-nieuzbrojonym-przeciwnikiem",
+          "title": "Walka z nieuzbrojonym przeciwnikiem",
+          "slug": "system-walki/walka-z-nieuzbrojonym-przeciwnikiem",
+          "category": "system-walki",
+          "order": 21
+        },
+        {
+          "id": "section-system-walki-zwarcie-w-walce",
+          "title": "Zwarcie w walce",
+          "slug": "system-walki/zwarcie-w-walce",
+          "category": "system-walki",
+          "order": 22
+        },
+        {
+          "id": "section-system-walki-samotny-orez",
+          "title": "Samotny oręż",
+          "slug": "system-walki/samotny-orez",
+          "category": "system-walki",
+          "order": 23
+        },
+        {
+          "id": "section-system-walki-style-walki",
+          "title": "Style Walki",
+          "slug": "system-walki/style-walki",
+          "category": "system-walki",
+          "order": 24
+        },
+        {
+          "id": "section-system-walki-walka-bronia-dwureczna",
+          "title": "Walka bronią dwuręczną",
+          "slug": "system-walki/walka-bronia-dwureczna",
+          "category": "system-walki",
+          "order": 25
+        },
+        {
+          "id": "section-system-walki-walka-bronia-jednoreczna-i-tarcza",
+          "title": "Walka bronią jednoręczną i tarczą",
+          "slug": "system-walki/walka-bronia-jednoreczna-i-tarcza",
+          "category": "system-walki",
+          "order": 26
+        },
+        {
+          "id": "section-system-walki-walka-dwoma-broniami",
+          "title": "Walka dwoma broniami",
+          "slug": "system-walki/walka-dwoma-broniami",
+          "category": "system-walki",
+          "order": 27
+        },
+        {
+          "id": "section-system-walki-manewry",
+          "title": "Manewry",
+          "slug": "system-walki/manewry",
+          "category": "system-walki",
+          "order": 28
+        },
+        {
+          "id": "section-system-walki-postawy",
+          "title": "Postawy",
+          "slug": "system-walki/postawy",
+          "category": "system-walki",
+          "order": 29
+        },
+        {
+          "id": "section-system-walki-stany",
+          "title": "Stany",
+          "slug": "system-walki/stany",
+          "category": "system-walki",
+          "order": 30
+        },
+        {
+          "id": "section-system-walki-taktyka-walki",
+          "title": "Uzbrojenie bez spełniania wymogów",
+          "slug": "system-walki/taktyka-walki",
+          "category": "system-walki",
+          "order": 31
+        }
+      ]
+    },
+    {
+      "id": "magia-i-zaklecia",
+      "title": "Magia i Zaklęcia",
+      "slug": "magia-i-zaklecia",
+      "category": "magia-i-zaklecia",
+      "order": 4,
+      "children": [
+        {
+          "id": "section-magia-i-zaklecia-czarowanie-i-walka",
+          "title": "Testy Fechtunku i Fortelu",
+          "slug": "magia-i-zaklecia/czarowanie-i-walka",
+          "category": "magia-i-zaklecia",
+          "order": 0
+        },
+        {
+          "id": "section-magia-i-zaklecia-magia-obszarowa",
+          "title": "Magia Obszarowa",
+          "slug": "magia-i-zaklecia/magia-obszarowa",
+          "category": "magia-i-zaklecia",
+          "order": 1
+        },
+        {
+          "id": "section-magia-i-zaklecia-si-a-zaklecia-i-obrazenia-maga",
+          "title": "Siła Zaklęcia i obrażenia maga",
+          "slug": "magia-i-zaklecia/si-a-zaklecia-i-obrazenia-maga",
+          "category": "magia-i-zaklecia",
+          "order": 2
+        },
+        {
+          "id": "section-magia-i-zaklecia-zaklecia-i-czary",
+          "title": "Zaklęcia i Czary",
+          "slug": "magia-i-zaklecia/zaklecia-i-czary",
+          "category": "magia-i-zaklecia",
+          "order": 3
+        },
+        {
+          "id": "section-magia-i-zaklecia-zaklecia-obronne",
+          "title": "Zaklęcia Obronne",
+          "slug": "magia-i-zaklecia/zaklecia-obronne",
+          "category": "magia-i-zaklecia",
+          "order": 4
+        },
+        {
+          "id": "section-magia-i-zaklecia-ancuch-zaklec",
+          "title": "Łańcuch Zaklęć",
+          "slug": "magia-i-zaklecia/ancuch-zaklec",
+          "category": "magia-i-zaklecia",
+          "order": 5
+        }
+      ]
+    },
+    {
+      "id": "zdrowie-i-regeneracja",
+      "title": "Zdrowie i Regeneracja",
+      "slug": "zdrowie-i-regeneracja",
+      "category": "zdrowie-i-regeneracja",
+      "order": 5,
+      "children": [
+        {
+          "id": "section-zdrowie-i-regeneracja-poziom-leczenia",
+          "title": "Poziom Leczenia",
+          "slug": "zdrowie-i-regeneracja/poziom-leczenia",
+          "category": "zdrowie-i-regeneracja",
+          "order": 0
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-zdrowie",
+          "title": "Zdrowie",
+          "slug": "zdrowie-i-regeneracja/zdrowie",
+          "category": "zdrowie-i-regeneracja",
+          "order": 1
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-efekt-krytyczny",
+          "title": "Efekty Krytyczne",
+          "slug": "zdrowie-i-regeneracja/efekt-krytyczny",
+          "category": "zdrowie-i-regeneracja",
+          "order": 2
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-uraz",
+          "title": "Urazy",
+          "slug": "zdrowie-i-regeneracja/uraz",
+          "category": "zdrowie-i-regeneracja",
+          "order": 3
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-autoregeneracja-mocy",
+          "title": "Autoregeneracja mocy",
+          "slug": "zdrowie-i-regeneracja/autoregeneracja-mocy",
+          "category": "zdrowie-i-regeneracja",
+          "order": 4
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-odpoczynek",
+          "title": "Przepływy mocy",
+          "slug": "zdrowie-i-regeneracja/odpoczynek",
+          "category": "zdrowie-i-regeneracja",
+          "order": 5
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-regeneracja-esencji",
+          "title": "Regeneracja esencji",
+          "slug": "zdrowie-i-regeneracja/regeneracja-esencji",
+          "category": "zdrowie-i-regeneracja",
+          "order": 6
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-magiczne-leczenie",
+          "title": "Magiczne Leczenie",
+          "slug": "zdrowie-i-regeneracja/magiczne-leczenie",
+          "category": "zdrowie-i-regeneracja",
+          "order": 7
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-medycyna",
+          "title": "Medycyna",
+          "slug": "zdrowie-i-regeneracja/medycyna",
+          "category": "zdrowie-i-regeneracja",
+          "order": 8
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-nadnaturalna-regeneracja",
+          "title": "Nadnaturalna regeneracja",
+          "slug": "zdrowie-i-regeneracja/nadnaturalna-regeneracja",
+          "category": "zdrowie-i-regeneracja",
+          "order": 9
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-odpoczynek",
+          "title": "Odpoczynek",
+          "slug": "zdrowie-i-regeneracja/odpoczynek",
+          "category": "zdrowie-i-regeneracja",
+          "order": 10
+        },
+        {
+          "id": "section-zdrowie-i-regeneracja-regeneracja-zdrowia",
+          "title": "Regeneracja zdrowia",
+          "slug": "zdrowie-i-regeneracja/regeneracja-zdrowia",
+          "category": "zdrowie-i-regeneracja",
+          "order": 11
+        }
+      ]
+    }
+  ],
+  "version": "1.0",
+  "lastUpdated": "2025-11-11T08:46:50.286Z"
+}

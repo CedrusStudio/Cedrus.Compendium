@@ -1,0 +1,741 @@
+{
+  "category": {
+    "id": "cechy-i-umiejetnosci",
+    "title": "Cechy i Umiejętności",
+    "description": "Atrybuty postaci, umiejętności bojowe, obronne i nadnaturalne",
+    "icon": "⚔️",
+    "order": 2,
+    "slug": "cechy-i-umiejetnosci"
+  },
+  "sections": [
+    {
+      "id": "section-cechy-i-umiejetnosci-klasy-postaci",
+      "slug": "klasy-postaci",
+      "title": "Klasy Postaci",
+      "category": "cechy-i-umiejetnosci",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Szermierz: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek2"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Wojownik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek1, Większy Fortel1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Barbarzyńca: Brak możliwości wyboru Wiary, Arkan i Mocy . Bazowo dodaje Większa Inicjatywa2, Większa Wytrwałość + 1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Łucznik/Kusznik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Precyzja1, Większa Inicjatywa1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Łotrzyk: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fortel2"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "Kapłan: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Wiara1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Mag: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większe Arkana1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "Czarokrwisty: Możliwość wyboru dodatkowej klasy. Niezależnie od drugiej klasy możliwość wyboru Mocy. Bazowo dodaje Większa Moc1"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "Mistrz gry"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "Wojmistrz"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-12",
+          "content": "Miecznik"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "Tarczownik"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "Legionista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "Dualista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-16",
+          "content": "Rycerz (Obniżenie wymagań fechtunku o 2, Możliwość wyboru manewrów, atutów i postaw Klasy Rycerz)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-17",
+          "content": "Czarokrwisty"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-18",
+          "content": "Elita"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-19",
+          "content": "Zamachowiec"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-20",
+          "content": "Zabójca"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-21",
+          "content": "Skrytobójca"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-22",
+          "content": "Pustoszyciel"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-23",
+          "content": "Stalowy Obrońca"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-24",
+          "content": "Czempion"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-25",
+          "content": "Biały Rycerz"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-26",
+          "content": "Srebrny Rycerz"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-27",
+          "content": "Cień Śmierci"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-28",
+          "content": "Arkanista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-29",
+          "content": "Arcymag"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-30",
+          "content": "Krucjator"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-31",
+          "content": "Żelazny Watażka"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-32",
+          "content": "Batalionista"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-33",
+          "content": "Urderin AnhKragg"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-34",
+          "content": "Kwiat Rycerstwa"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-35",
+          "content": "Nemesis"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-36",
+          "content": "Urderin AnhKragg"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-37",
+          "content": "Ręka Mordu"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-38",
+          "content": "Szermierz"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.266Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-talenty",
+      "slug": "talenty",
+      "title": "Talenty",
+      "category": "cechy-i-umiejetnosci",
+      "order": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Wymiana Talentów na Talenty (Talenty == Medale)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "D=3P"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "P=3Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Z=3S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "S=3B"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.266Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-uzytkowe",
+      "slug": "umiejetnosci-uzytkowe",
+      "title": "Umiejętności Użytkowe",
+      "category": "cechy-i-umiejetnosci",
+      "order": 2,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Umiejętności użytkowe są umiejętnościami związanymi z najróżniejszymi rzeczami. Od etykiety, przez wspinaczkę aż do medycyny opisują one poziom jaki reprezentuje postać w danej dziedzinie. Postacie często stają przed sytuacjami gdzie muszą użyć różnorodnych umiejętności i testy umiejętność najczęściej są związane z przekroczeniem ustalonej przez mistrza gry skali trudności. Ilość oczek powyżej skali i poniżej skali opisują odpowiednio jak dobrze/źle wyszła dana czynność. Przy wielu umiejętnościach (zwłaszcza fizycznych) występują kary za zbroję, tarczę czy bagaż. Umiejętności użytkowe są związane z konkretnymi cechami. Jeśli mistrz nie powie inaczej, to maksymalny poziom danej umiejętności użytkowej wynosi 3+modyfikator cechy z którą zdolność jest związana. Jeśli z daną umiejętnością użytkową są związane więcej niż 1 cecha, to postać wybiera dowolną cechę jako cechę wiodącą tej umiejętności. Istnieją umiejętności specjalne, których polepszanie zależy od decyzji mistrza gry lub spełnienia innych specyficznych wymagań."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Oto lista standardowych umiejętności użytkowych wraz z modyfikatorami kar za obciążenie i cechami z które są związane:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Unikalne postacie mogą posiadać unikalne umiejętności użytkowe jak rzeźbienie, górnictwo czy fryzjerstwo."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Spis umiejętności znajdują się w Wielkiej Księdze Umiejętności"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.266Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-budowa",
+      "slug": "budowa",
+      "title": "Budowa",
+      "category": "cechy-i-umiejetnosci",
+      "order": 3,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha mocno związana z ilością punktów zdrowia, wytrwałością, twardością i czasami z poziomem leczenia. Modyfikator budowy dodaje Większą Budowę na poziomie równym modyfikatorowi."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-cechy",
+      "slug": "cechy",
+      "title": "Cechy",
+      "category": "cechy-i-umiejetnosci",
+      "order": 4,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-wprowadzenie",
+          "title": "Wprowadzenie",
+          "anchor": "wprowadzenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Cechy określają fizyczne i mentalne predyspozycje postaci na dany moment w jej życiu. Najczęściej wynikają one z:"
+            },
+            {
+              "type": "list",
+              "id": "list-3",
+              "ordered": false,
+              "items": [
+                "Predyspozycji genetycznych",
+                "Stylu życia",
+                "Obecnej formy fizycznej",
+                "Wzmocnień magicznych"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-podstawowe-zasady",
+          "title": "Podstawowe zasady",
+          "anchor": "podstawowe-zasady",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-5",
+              "ordered": false,
+              "items": [
+                "**Przeciętna cecha** dorosłej osoby to **0**",
+                "Cechy determinują siłę jednostki i wyznaczają naturalne bariery rozwoju",
+                "**Cechy dodatnie** (+) określają pozytywne skłonności postaci",
+                "**Cechy ujemne** (-) określają negatywne skłonności postaci",
+                "Posiadając dowolną cechę na **-10** postać jest niezdolna do egzystowania"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-6",
+              "content": "**Uwaga:** Mistrz gry może luzować ograniczenia cech wedle upodobań."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-charyzma",
+      "slug": "charyzma",
+      "title": "Charyzma",
+      "category": "cechy-i-umiejetnosci",
+      "order": 5,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha związana z urodą i prezencją postaci. Odpowiada za jej urok osobisty, pierwsze wrażenie, zdolności interpersonalne. Najbardziej związana z umiejętnościami użytkowymi, ale również z umiejętnościami dowódczymi w tym zarządzanie ludźmi."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-czarokrwistosc",
+      "slug": "czarokrwistosc",
+      "title": "Czarokrwistość",
+      "category": "cechy-i-umiejetnosci",
+      "order": 6,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha związana z nadprzyrodzonymi mocami. Tą cechę może mieć postać tylko za pozwoleniem mistrza gry. Rodzai czarokrwistości jest bardzo wiele, lecz istnieją też dość unikalne moce. Czarokrwistość związana jest z mocą postaci oraz esencją."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.267Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-losowanie-cech",
+      "slug": "losowanie-cech",
+      "title": "Losowanie Cech",
+      "category": "cechy-i-umiejetnosci",
+      "order": 7,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Wykonujemy 7 serii rzutów 3k6+3k4. Mamy prawo poprawić dowolną kość z jednej wybranej. W każdym rzucie wybieramy 3 wyniki z każdej serii, sumujemy wartości na nich i odejmujemy 12. Następnie wyniki rozdzielamy pomiędzy cechy. W przypadku nie czarokrwistego odrzucamy jedną wybraną serię rzutów i dodatkowo mamy możliwość poprawy dowolnej wybranej pojedynczej kości."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-si-a",
+      "slug": "si-a",
+      "title": "Siła",
+      "category": "cechy-i-umiejetnosci",
+      "order": 8,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha odpowiadająca na ilość obrażeń w walce fizycznej oraz za testy siłowe. Osoby walczące bronią dwuręczną otrzymują 1,5 modyfikatora z siły do obrażeń podczas gdy pozostał modyfikator z siły do obrażeń. Ujemna siła zmniejsza obrażenia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umys",
+      "slug": "umys",
+      "title": "Umysł",
+      "category": "cechy-i-umiejetnosci",
+      "order": 9,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha związana ze zdolnościami analizowania otoczenia, bystrością, przenikliwością, zdolnościami pamięciowymi, roztropnością i silna wolą. Umysł dodaje Większą Wolę na poziomie równym modyfikatorowi."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-zrecznosc",
+      "slug": "zrecznosc",
+      "title": "Zręczność",
+      "category": "cechy-i-umiejetnosci",
+      "order": 10,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Cecha wpływająca na uniki, refleks oraz czasami obrażenia. Modyfikator zręczności dodaje Większy Refleks i uniki na poziomie równym modyfikatorowi. Zbroje i tarcze posiadają ograniczenia zręczności, co sprawia, ze nosząc ciężka zbroję często musimy stosować zaniżoną wartość zręczności."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "W testach siły, za przyzwoleniem Mistrza Gry można używać połowy wartości zręczności (zaokrąglonej w dół). Testy czystej zręczności są rzadkie, lecz czasami pojawiają się w kontrze do siły."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.268Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-fechtunek",
+      "slug": "fechtunek",
+      "title": "Fechtunek",
+      "category": "cechy-i-umiejetnosci",
+      "order": 11,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do fechtowania bronią, w którą jest się wyszkolonym. Fechtunek daje premię do parowania w walce bronią. Wiele broni posiada premie/kary/ograniczenia fechtunku ze względu na styl walki jaki jest z nimi związany. Przykładowo mieczem fechtuje się lepiej niż korbaczem. Z fechtunkiem związanych jest bardzo dużo manewrów, zarówno ofensywnych jak i defensywnych."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-fortel",
+      "slug": "fortel",
+      "title": "Fortel",
+      "category": "cechy-i-umiejetnosci",
+      "order": 12,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do zwodzenia przeciwnika w walce. Tą umiejętność mogą ćwiczyć zarówno osoby wyszkolone w fechtunku jak i znające jedynie podstawy fechtowania. Stąd ta umiejętność może być albo wodzącą umiejętnością bojową, albo uzupełniającą umiejętnością."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-inicjatywa",
+      "slug": "inicjatywa",
+      "title": "Inicjatywa",
+      "category": "cechy-i-umiejetnosci",
+      "order": 13,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa dynamikę postaci, czyli ma wpływ na kolejność tur w rundzie. Co więcej inicjatywa określa jak szybko postać jest w stanie pozbierać się po negatywnych efektach jak obalenie czy wytrącenie z równowagi. Aby określić kolejność wykonywania tur postaci w walce należy wykonać test inicjatywy (k6+inicjatywa). Otrzymana wartość nazywa się ustalona inicjatywą. Następnie postacie wykonują swoje tury w kolejności danej od największej ustalonej inicjatywy do najmniejszej ustalonej inicjatywy. Jeśli dwie lub więcej postaci mają taką samą ustaloną inicjatywę, to wewnątrz tej grupy ponawiają rzut (dodając całą swoją inicjatywę do rzutu) w celu ustalenia kolejności wewnątrz tej grupy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-jezdziectwo",
+      "slug": "jezdziectwo",
+      "title": "Jeździectwo",
+      "category": "cechy-i-umiejetnosci",
+      "order": 14,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa poziom umiejętności jazdy na wierzchowcu oraz walki na wierzchowcu. Jeździectwo daje premię do parowania i obrażeń w walce bronią z wierzchowca."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-precyzja",
+      "slug": "precyzja",
+      "title": "Precyzja",
+      "category": "cechy-i-umiejetnosci",
+      "order": 15,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa celność postaci związaną z atakami dystansowymi. Należy zaznaczyć, że ta cecha jest związana zarówno z celnością łukami/kuszami i tym podobnymi oraz celność zaklęciami. Mimo wszystko ta cecha nie decyduje o wyszkoleniu postaci do władania konkretnym rodzajem broni dystansowej. Precyzja daje premię do obrażeń w walce dystansowej fizycznej."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-bojowe",
+      "slug": "umiejetnosci-bojowe",
+      "title": "Umiejętności bojowe: fizyczne",
+      "category": "cechy-i-umiejetnosci",
+      "order": 16,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Umiejętności bojowe określają pewien rodzaj wyszkolenia postaci. Testy umiejętności bojowych bazowo wykonywane są kością k6 i dodaje się do nich wartość danej umiejętności. Umiejętności bojowe często związane są również z dodatkowymi bonusami."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.269Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-walka-wrecz",
+      "slug": "walka-wrecz",
+      "title": "Walka Wręcz",
+      "category": "cechy-i-umiejetnosci",
+      "order": 17,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa poziom umiejętności w walce bez broni. Walka Wręcz daje premie do parowania i obrażeń w walce bez broni, jednak uzbrojone postacie atakujące nieuzbrojoną osobą otrzymują dodatkową kość broni. Należy pamiętać, że walcząc wręcz nie otrzymuje się premii z fechtunku do parowania."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Walka wręcz otrzymuje karę do umiejętności podobnie jak umiejętności użytkowe. Modyfikator tej kary to x1+1. W przypadku tej umiejętności, jej poziom może zejść poniżej zera (w związku z karą) przez co dawać pokaźne kary do parowania i obrażeń z walki wręcz."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Postać otrzymuje jeden darmowy manewr związany z Walką Wręcz na każdy poziom Walki Wręcz zgodnie z wymaganiami Walki Wręcz."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Przeciwnik niemogący używać walki bronią, ani walki wręcz przeciw osobie używającej walkę wręcz jest uznawany za nieuzbrojonego. Wtedy osoba walcząca wręcz otrzymuje dodatkową kość broni. Są to przypadki gdy przeciwnik jest na przykład unieruchomiony, powalony i niemogący się bronić, niewalczący czy oszołomiony."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-arkana",
+      "slug": "arkana",
+      "title": "Arkana",
+      "category": "cechy-i-umiejetnosci",
+      "order": 18,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określają poziom zaawansowania w sztuce magicznej. Odnoszą się do rodzaju magii z jakiej dana postać korzysta (Matryca bądź Rdzeń). Arkana są bezpośrednio związane z Siłą Zaklęcia oraz z wymaganiami związanymi z nauczeniem się zaklęć. Mówi też o umiejętnościach związanych z praktyką magii. Wartość arkan dostaje się Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-esencja",
+      "slug": "esencja",
+      "title": "Esencja",
+      "category": "cechy-i-umiejetnosci",
+      "order": 19,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa punkty, które są zużywane w celu rzucania zaklęć. Każda postać posiada górną granicę esencji. Esencja jest najczęściej związana z konkretnym rodzajem/rodzajami mocy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-moc",
+      "slug": "moc",
+      "title": "Moc",
+      "category": "cechy-i-umiejetnosci",
+      "order": 20,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę wewnętrznych, nadnaturalnych mocy, która dana postać posiada. Im większa moc tym więcej można mieć esencji (chociaż zależy też to od innych czynników). Wartość mocy dodaje się do Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-si-a-zaklecia",
+      "slug": "si-a-zaklecia",
+      "title": "Siła Zaklęcia",
+      "category": "cechy-i-umiejetnosci",
+      "order": 21,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę mocy jakimi się włada. Ta statystyka jest odrębna dla każdego odrębnego rodzaju mocy (osobno dla magów, kapłanów i czarokrwistych). Każde zaklęcie, zdolność nadnaturalna jest w jakiś sposób związana z Siłą Zaklęcia. Przy zaklęciach bojowych dodaje się 2 razy Siłę Zaklęcia jeśli atak nie jest w bariery do obrażeń lub 3 razy Siłę Zaklęcia jeśli atak jest w bariery. Zazwyczaj 1 Siły Zaklęcia dodaje 1 kostkę zaklęcia. Siła Zaklęcia również jest związana ze skalą rozproszenia danego zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.270Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-nadnaturalne",
+      "slug": "umiejetnosci-nadnaturalne",
+      "title": "Umiejętności Nadnaturalne",
+      "category": "cechy-i-umiejetnosci",
+      "order": 22,
+      "content": [],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wiara",
+      "slug": "wiara",
+      "title": "Wiara",
+      "category": "cechy-i-umiejetnosci",
+      "order": 23,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę więzi z bogiem, którego się wyznaje oraz zdolność do manipulacji tą mocą. Im większa wiara tym więcej można mieć boskiej esencji (chociaż zależy też to od innych czynników) i lepiej nią manipulować. Każdy bóg wedle swego uznania zsyła swoim kapłanom charakterystyczny na siebie rodzaj mocy. Wartość wiary dodaje się do Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wiez",
+      "slug": "wiez",
+      "title": "Więź",
+      "category": "cechy-i-umiejetnosci",
+      "order": 24,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa siłę więzi z naturą i zdolności korzystania z mocy natury (nie będąc czarokrwistym natury). Im większa moc tym więcej można mieć esencji. Wartość więzi dodaje się do Siły Zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-refleks",
+      "slug": "refleks",
+      "title": "Refleks",
+      "category": "cechy-i-umiejetnosci",
+      "order": 25,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do szybkiego reagowania na zmieniającą się sytuację. Refleks zwiększa uniki o wartość refleksu. Wygrane testy refleksu chronią przed ataki dystansowymi. Refleks może być ograniczony przez zbroję."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-umiejetnosci-obronne",
+      "slug": "umiejetnosci-obronne",
+      "title": "Umiejętności Obronne",
+      "category": "cechy-i-umiejetnosci",
+      "order": 26,
+      "content": [],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.271Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wola",
+      "slug": "wola",
+      "title": "Wola",
+      "category": "cechy-i-umiejetnosci",
+      "order": 27,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do opierania się wpływom na umysł jak przykładowo strach czy stres. Również wola wyznacza koncentrację postaci. Jeśli postać otrzymała obrażenia a chce przedsięwziąć akcję która wymaga dużego skupienia (np. czarodziej rzuca zaklęcie) to musi zdać test woli o ST=6+otrzymane obrażenia+połowa otrzymanych obrażeń w poprzedniej turze."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.272Z"
+    },
+    {
+      "id": "section-cechy-i-umiejetnosci-wytrwa-osc",
+      "slug": "wytrwa-osc",
+      "title": "Wytrwałość",
+      "category": "cechy-i-umiejetnosci",
+      "order": 28,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa zdolność do radzenia sobie ze zmęczeniem, osłabieniem, wpływami na zdrowie i ciało. Co więcej zdrowie jest zwiększone o ilość wytrwałości."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.272Z"
+    }
+  ]
+}

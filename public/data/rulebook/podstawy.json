@@ -1,0 +1,1211 @@
+{
+  "category": {
+    "id": "podstawy",
+    "title": "Podstawy",
+    "description": "Mechaniki bazowe systemu: testy, kości, obrażenia, rundy i akcje",
+    "icon": "🎲",
+    "order": 1,
+    "slug": "podstawy"
+  },
+  "sections": [
+    {
+      "id": "section-podstawy-bariera",
+      "slug": "bariera",
+      "title": "Bariera",
+      "category": "podstawy",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Bariera (inaczej Punkty Bariery) określają ilość obrażeń jest w stanie przyjąć postać nim zacznie tracić Punkty Zdrowia chyba, że postać otrzymuje Śmiertelne Obrażenia (np. już działająca trucizna). Postać posiadająca bariery najczęściej jest bardziej chroniona przed negatywnymi skutkami niesiony przez obrażenia i obce wpływy jak klątwy, efekty krytyczne i tym podobne."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.260Z"
+    },
+    {
+      "id": "section-podstawy-medale-a-szacowana-si-a-postaci",
+      "slug": "medale-a-szacowana-si-a-postaci",
+      "title": "Medale a Szacowana Siła Postaci",
+      "category": "podstawy",
+      "order": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Bardzo silna postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "D"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "3x P"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "25x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "35x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "40x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Silna postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "PP"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "20x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "25x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "30x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-12",
+          "content": "W miarę silna postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "P"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "15x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "20x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-16",
+          "content": "20x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-17",
+          "content": "Średnia postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-18",
+          "content": "13x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-19",
+          "content": "16x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-20",
+          "content": "20x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-21",
+          "content": "Słaba postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-22",
+          "content": "10x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-23",
+          "content": "15x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-24",
+          "content": "15x B"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-25",
+          "content": "Bardzo słaba postać"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-26",
+          "content": "8x Z"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-27",
+          "content": "12x S"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-28",
+          "content": "14x B"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.262Z"
+    },
+    {
+      "id": "section-podstawy-oszo-omienie-i-og-uszenie",
+      "slug": "oszo-omienie-i-og-uszenie",
+      "title": "Oszołomienie i Ogłuszenie",
+      "category": "podstawy",
+      "order": 2,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-oszo-omienie",
+          "title": "Oszołomienie",
+          "anchor": "oszo-omienie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Postać oszołomiona traci możliwość wykonywania wszelkiego rodzaju manewrów oraz jest niezdolna do używania postaw oraz połowę parowania, uników i blokowania oraz 1 kość broni. Dodatkowo zamienia kości broni w kości obrażeń."
+            }
+          ]
+        },
+        {
+          "id": "subsection-og-uszenie",
+          "title": "Ogłuszenie",
+          "anchor": "og-uszenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-4",
+              "content": "Postać jest nieprzytomna."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.262Z"
+    },
+    {
+      "id": "section-podstawy-oznaczenia",
+      "slug": "oznaczenia",
+      "title": "Oznaczenia",
+      "category": "podstawy",
+      "order": 3,
+      "content": [
+        {
+          "type": "table",
+          "id": "table-1",
+          "table": {
+            "headers": [
+              "Oznaczenie",
+              "Znaczenie"
+            ],
+            "rows": [
+              [
+                "X/-",
+                "X jest liczbą sumy redukcji"
+              ],
+              [
+                "X/Y",
+                "X jest liczbą redukcji a Y mówi na co konkretnie ta redukcja działa"
+              ],
+              [
+                "(X)/-",
+                "X jest liczbą odporności"
+              ],
+              [
+                "(X)/Y",
+                "X jest liczbą odporności a Y mówi na co konkretnie ta odporność działa"
+              ],
+              [
+                "X/-p",
+                "X jest liczbą redukcji z parowania (równej Fechtunek + bonus parowania)"
+              ],
+              [
+                "X/-u",
+                "X jest liczbą redukcji z uników (równej Refleks + bonus uników)"
+              ],
+              [
+                "Xk/-",
+                "X kości redukcji gdzie X jest od 0-3"
+              ],
+              [
+                "RO",
+                "Rzuty obronne czyli wytrwałość, refleks, wola"
+              ],
+              [
+                "Ref",
+                "Refleks - od testów zależy koncentracja, rzuty obronne i testy sporne"
+              ],
+              [
+                "Wyt",
+                "Wytrwałość"
+              ],
+              [
+                "Wol",
+                "Wola"
+              ],
+              [
+                "UB",
+                "Umiejętności Bojowe"
+              ],
+              [
+                "Fech",
+                "Fechtunek"
+              ],
+              [
+                "For",
+                "Fortel"
+              ],
+              [
+                "Prec",
+                "Precyzja"
+              ],
+              [
+                "Ark",
+                "Arkana"
+              ],
+              [
+                "Wia",
+                "Wiara"
+              ],
+              [
+                "Moc",
+                "Moc"
+              ],
+              [
+                "PL",
+                "Poziom Leczenia"
+              ],
+              [
+                "Twar",
+                "Twardość"
+              ],
+              [
+                "PW",
+                "Punkty wytrzymałości"
+              ],
+              [
+                "PW(T)",
+                "Punkty wytrzymałości tarcza"
+              ],
+              [
+                "PU",
+                "Punkty umiejętności"
+              ],
+              [
+                "Mod",
+                "Modyfikator"
+              ],
+              [
+                "S",
+                "Siła"
+              ],
+              [
+                "Zr",
+                "Zręczność"
+              ],
+              [
+                "Bd",
+                "Budowa"
+              ],
+              [
+                "Md",
+                "Mądrość"
+              ],
+              [
+                "Int",
+                "Inteligencja"
+              ],
+              [
+                "Cha",
+                "Charyzma"
+              ],
+              [
+                "Ck",
+                "Czarokrwistość"
+              ]
+            ]
+          }
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.262Z"
+    },
+    {
+      "id": "section-podstawy-oslepienie-i-ciemnosc",
+      "slug": "oslepienie-i-ciemnosc",
+      "title": "Oślepienie",
+      "category": "podstawy",
+      "order": 4,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postać walcząca w ciemności podlega każde -10 do parowania, blokowania, uników (min 0), obrażeń na kość broni (może być ujemne), siły krytyka (może być ujemne) oraz testów umiejętności (min 0). Co więcej postać nie może wykonywać manewrów. Oczywiście postać ma ograniczenia wynikająca z niewidzenia przeciwnika takie jak brak zasięgu. Karę -10 można obniżyć ze względu na umiejętność nasłuchiwania i posiadanie niezwykłych zmysłów. Każdy punkt nasłuchiwania (czy dodatkowych zmysłów) kara zmniejszona jest o 1. Jeśli ciemność nie jest całkowita, to kara jest zmniejszona ze względu na ocenę mistrza gry. Posiadając karę na poziomie -5 lub mniej, postać może wykonywać manewry."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Postać walcząca jako oślepiona traktowana jest jak gdyby walczyła w całkowitej ciemności, z tym wyjątkiem, że w turze oślepienia kara bazowo wynosi -15."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.263Z"
+    },
+    {
+      "id": "section-podstawy-podstawy-walk",
+      "slug": "podstawy-walk",
+      "title": "Podstawy Walk",
+      "category": "podstawy",
+      "order": 5,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Każdy oddział ma swoją siłę ataku, siłę obrony oraz morale. Siła ataku i siła obrony oddziału to sumaryczna siła ataku i siła obrony jego jednostek przeskalowana z jego charakterystycznymi cechami."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Starcie oddziałów to wymiana ciosów podyktowanych siłą ich ataku. Za każde 10 siły ataku rzucamy jedną kością k10. Następnie za pozostałą wartość rzucamy odpowiednio kością k8 (jeśli pozostała siła ataku to 8 lub 9), kością k6 (jeśli pozostała siła ataku to 6 lub 7), kością k4 (jeśli pozostała siła ataku tu 4 lub 5), kością k2 (jeśli pozostała siła ataku to 2 lub 3)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Obniża się siłę obrony przeciwnego oddziału o uzyskaną wartość na kościach siły ataku."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Większość oddziałów posiada cechę, że jego siła ataku jest proporcjonalna do siły obrony (a czasem równa)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Jeśli siła ataku wroga powiększona o morale wroga przewyższa siłę ataku sojuszniczego oddziału powiększoną o morale to przeciwny oddział zyskuje redukcję 1 za każde 10 oczek różnicy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.263Z"
+    },
+    {
+      "id": "section-podstawy-punkty-umiejetnosci",
+      "slug": "punkty-umiejetnosci",
+      "title": "Punkty Umiejętności",
+      "category": "podstawy",
+      "order": 6,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-wymiana-talentow-na-punkty-umiejetnosci-pu",
+          "title": "Wymiana Talentów na Punkty Umiejętności (PU)",
+          "anchor": "wymiana-talentow-na-punkty-umiejetnosci-pu",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-2",
+              "ordered": false,
+              "items": [
+                "B = 10 PU",
+                "S = 30 PU",
+                "Z = 90 PU",
+                "P = 270 PU",
+                "D = 810 PU"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-koszt-rozwoju-umiejetnosci",
+          "title": "Koszt rozwoju umiejętności",
+          "anchor": "koszt-rozwoju-umiejetnosci",
+          "content": [
+            {
+              "type": "table",
+              "id": "table-4",
+              "table": {
+                "headers": [
+                  "Modyfikator",
+                  "Koszt polepszenia",
+                  "Sumaryczny koszt"
+                ],
+                "rows": [
+                  [
+                    "k6",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "k6+1",
+                    "5",
+                    "5"
+                  ],
+                  [
+                    "k6+2",
+                    "10",
+                    "15"
+                  ],
+                  [
+                    "k6+3",
+                    "15",
+                    "30"
+                  ],
+                  [
+                    "k6+4",
+                    "25",
+                    "55"
+                  ],
+                  [
+                    "k6+5",
+                    "35",
+                    "90"
+                  ],
+                  [
+                    "k6+6",
+                    "45",
+                    "135"
+                  ],
+                  [
+                    "k6+7",
+                    "55",
+                    "190"
+                  ],
+                  [
+                    "k6+8",
+                    "65",
+                    "255"
+                  ],
+                  [
+                    "k6+9",
+                    "75",
+                    "330"
+                  ],
+                  [
+                    "k6+10",
+                    "85",
+                    "415"
+                  ],
+                  [
+                    "k6+11",
+                    "95",
+                    "510"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.263Z"
+    },
+    {
+      "id": "section-podstawy-rodzaje-kosci",
+      "slug": "rodzaje-kosci",
+      "title": "Rodzaje Kości",
+      "category": "podstawy",
+      "order": 7,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-wprowadzenie",
+          "title": "Wprowadzenie",
+          "anchor": "wprowadzenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Obrażenia głównie są zadawane za pomocą różnorodnych kości. Ilość oczek wyrzuconych na jakiejś kości oznacza ilość obrażeń, które postać zadaje dzięki tej kości (nie licząc dodatkowych bonusów oraz trafienia krytycznego)."
+            }
+          ]
+        },
+        {
+          "id": "subsection-ranga-kosci",
+          "title": "Ranga Kości",
+          "anchor": "ranga-kosci",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-4",
+              "content": "Każda kość ma swoją **rangę** równą maksymalnej wartości podzielonej na 2."
+            },
+            {
+              "type": "heading",
+              "id": "heading-5",
+              "level": 3,
+              "content": "Przykłady rang",
+              "anchor": "przyk-ady-rang"
+            },
+            {
+              "type": "list",
+              "id": "list-6",
+              "ordered": false,
+              "items": [
+                "**k4** ma rangę **2**",
+                "**k6** ma rangę **3**",
+                "**k18** ma rangę **9**"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-typy-kosci",
+          "title": "Typy Kości",
+          "anchor": "typy-kosci",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 3,
+              "content": "Kości Broni",
+              "anchor": "kosci-broni"
+            },
+            {
+              "type": "list",
+              "id": "list-9",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Kość, która może być zredukowana przez niewrażliwość przeciwnika",
+                "**Zastosowanie**: Kości związane z fizyczną walką",
+                "**Trafienie krytyczne**: Mogą spowodować trafienie krytyczne",
+                "**Parametry**: Parametry trafienia krytycznego są odrębne od tych związanych z kośćmi zaklęcia"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Kości Zaklęcia",
+              "anchor": "kosci-zaklecia"
+            },
+            {
+              "type": "list",
+              "id": "list-11",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Kość, która może być zredukowana przez niewrażliwość przeciwnika",
+                "**Zastosowanie**: Kości związane z emanacją mocy podmiotu",
+                "**Trafienie krytyczne**: Mogą spowodować trafienie krytyczne",
+                "**Parametry**: Szansa i siła trafienia krytycznego jest niezależna od parametrów związanych z kośćmi broni"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 3,
+              "content": "Kości Obrażeń",
+              "anchor": "kosci-obrazen"
+            },
+            {
+              "type": "list",
+              "id": "list-13",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Kość, która może być zredukowana przez niewrażliwość przeciwnika",
+                "**Zastosowanie**: Kości mogące być związane zarówno z fizyczną walką jak i emanacją mocy",
+                "**Trafienie krytyczne**: **NIE mogą** spowodować trafienia krytycznego"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-14",
+              "level": 3,
+              "content": "Kości Widmowe",
+              "anchor": "kosci-widmowe"
+            },
+            {
+              "type": "list",
+              "id": "list-15",
+              "ordered": false,
+              "items": [
+                "**Definicja**: Dodatkowa cecha kości",
+                "**Właściwość**: Zachowują własności swoich odpowiedników z wyjątkiem tego, że **nie mogą być zredukowane** przez niewrażliwość przeciwnika",
+                "**Typy widmowe**:",
+                "Widmowe kości obrażeń",
+                "Widmowe kości broni",
+                "Widmowe kości zaklęć"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-16",
+              "content": "**Uwaga**: Kości widmowe oznacza się literą \"w\", np. k10w"
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-rodzaje-obrazen",
+      "slug": "rodzaje-obrazen",
+      "title": "Rodzaje Obrażeń",
+      "category": "podstawy",
+      "order": 8,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Kolejność odejmowania względem typów obrażeń"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Zwykłe obrażenia:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "\\1. Odporność"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "\\2. Redukcja"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "\\3. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "\\4. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "\\1. Odporność"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "\\2. Blokowalna Redukcja (Redukcja pomniejszona o uniki i parowanie)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "\\3. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "\\4. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "\\1. Odporność"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "\\2. Redukcja Bezpośrednia (Redukcja pomniejszona o uniki, parowanie i blok)"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "\\3. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-16",
+          "content": "\\4. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-18",
+          "content": "\\1. Bariery"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-19",
+          "content": "\\2. Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-21",
+          "content": "\\1. Zdrowie"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-runda-tura-i-akcje",
+      "slug": "runda-tura-i-akcje",
+      "title": "Runda, Tura i Akcje",
+      "category": "podstawy",
+      "order": 9,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Runda składa się z tur, w których postacie wykonują swoje akcje zgodnie z ustaloną inicjatywą. W swojej turze postać może wykonać jedną akcję standardową, jedną akcję natychmiastową fizyczną, jedną akcję natychmiastową magiczną i jedną akcję nadnatychmiastową lub jedną akcję całorundową i jedną akcję nadnatychmiastową."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "W akcji standardowej można przykładowo wykonać atak z manewrem, zaatakować mocą wraz z zaklęciami. W akcji standardowej możesz jednocześnie wykonywać działania i poruszać się, chyba że działanie jest sprzeczne z jednoczesnym poruszaniem się."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "W akcji natychmiastowej fizycznej zazwyczaj stosuje się manewry, w akcji natychmiastowej magicznej zwykle jest to zaklęcie obronne. Czasami akcją natychmiastową może być dodatkowe działanie ofensywne. W tej akcji można jednocześnie coś powiedzieć chyba, że podejmowana akcja jest sprzeczna z jednoczesnym mówieniem. Można jednocześnie wykonać akcję natychmiastową fizyczną i magiczną - na przykład fizyczny unik i wzniesienie bariery."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "W akcji nadnatychmiastowej zazwyczaj stosuje się unikalne dodatki defensywne lub ofensywne."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-strach-i-przerazenie",
+      "slug": "strach-i-przerazenie",
+      "title": "Strach",
+      "category": "podstawy",
+      "order": 10,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postać narażona na stres zwiazany z walką, ciemnością, zmeczeniem, przewagą wroga czy potwornosciami, które doświadcza jest narażona na strach. Testy strachu są czynione za pośrednictwem moralne=wola+efekty dodatkowe. Postać pod wpływem intensywnego strachu nie jest w stanie wykorzystywać swoich umiejętności w pełni. Otrzymuje karę do wszelkich działań od -1 do -10 (do wszystkich umiejętności bojowych, użytkowych i obrażeń na kość broni przed redukcją kości)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Elementy skali trudności:"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Podstawyw element ST=3."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Przewaga siły przeciwnika +1/+2/+3"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Groza przeciwnika +1/+2/+3"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-6",
+          "content": "Wydarzenia na polu bitwy (śmierci sojuszników itp) +1/+2/+3"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Przykładowa skala trudności w walce z merromonstrum"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "a) 10x osoby oddział wojaków: ST=3+2(przewaga siły)+2(groza przeciwnika)=7"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-9",
+          "content": "b) 4x kwiat rycerstwa: ST=3+2(groza przeciwnika)=5"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "Przykładowa skala trudności w walce z cykodliszczem"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-11",
+          "content": "a) 4x rycerzy lennych: ST=3+1(przewaga wroga)+2(goza przeciwnika)=6"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-12",
+          "content": "b) 30x chłopi: ST=3+3(przewraga wroga)+3(groza przeciwnika)=9"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-13",
+          "content": "Przykładowa skala trudności w trzema bandytami (piechury):"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-14",
+          "content": "a) 1x wojak: ST=3+2(przewaga przeciwnika)=5"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-15",
+          "content": "b) 1x wojmistrz: ST=3. Bandyci St=3+2(przewaga przeciwnika)+1(groza przeciwnika)=6"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-17",
+          "content": "Postać której kara ze względu na strach wynosi -11 lub wiecej to postać traci kontrole nad sobą i panicznie ucieka lub jeśli mistrz gry tak uzna barbarzyńsko atakuje."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.264Z"
+    },
+    {
+      "id": "section-podstawy-twardosc",
+      "slug": "twardosc",
+      "title": "Twardość",
+      "category": "podstawy",
+      "order": 11,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Twardość określa jedną z ważnych zależności budowy a ilości zdrowia. Twardość daje (Twardość) x (Budowa) do zdrowia. Twardość związana jest bezpośrednio z siłą postaci: Twardość wynosi 1+(1/2) siły (zaokrąglone w dół)."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T08:46:50.265Z"
+    },
+    {
+      "id": "section-podstawy-zmeczenie-i-odpoczynek",
+      "slug": "zmeczenie-i-odpoczynek",
+      "title": "Zmęczenie i Odpoczynek",
+      "category": "podstawy",
+      "order": 12,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-zmeczenie-zasady-podstawowe",
+          "title": "Zmęczenie - Zasady podstawowe",
+          "anchor": "zmeczenie-zasady-podstawowe",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Postać w intensywnej walce jest narażona na zmęczenie. Za każdy nieudany test wytrzymałości przeciw zmęczeniu postać otrzymuje karę -1 do uników, parowania i blokowania oraz -1 do zadawanych obrażeń. Mistrz gry ustala kiedy postać powinna wykonać rzuty przeciw zmęczeniu biorąc pod uwagę wytrwałość postaci, intensywność walki i długość walki. Testy wytrwałości od tego momentu są powtarzane z rundy na rundę i ST tych testów rośnie co rundę o 1. Początkowa ST jest ustalana przez mistrza gry."
+            }
+          ]
+        },
+        {
+          "id": "subsection-propozycja-alternatywna-system-znamion",
+          "title": "Propozycja alternatywna - System znamion",
+          "anchor": "propozycja-alternatywna-system-znamion",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-4",
+              "level": 3,
+              "content": "Znamiona Zmęczenia",
+              "anchor": "znamiona-zmeczenia"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Każda runda walki to 1 znamię zmęczenia."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-6",
+              "content": "**Odległość Standardowa** (którą możesz przebyć w 1 rundę):"
+            },
+            {
+              "type": "list",
+              "id": "list-7",
+              "ordered": false,
+              "items": [
+                "**Sprint:** +1 znamię + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą",
+                "**Bieg:** 0 znamion + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą",
+                "**Trucht:** -1 znamię + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "Dodatkowe czynności powinny być szacowane przez Mistrza Gry."
+            },
+            {
+              "type": "heading",
+              "id": "heading-9",
+              "level": 3,
+              "content": "Znamiona Wyczerpania",
+              "anchor": "znamiona-wyczerpania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "W momencie gdy ilość znamion zmęczenia jest równa wytrwałości + 2, postać zmuszona jest wykonać co rundę test wytrwałości o ST=ilość znamion zmęczenia. Nieudany oznacza otrzymanie znamiona wyczerpania."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "**Efekty wyczerpania:**"
+            },
+            {
+              "type": "list",
+              "id": "list-12",
+              "ordered": false,
+              "items": [
+                "-3/r (uniki, parowanie, blokowanie) *(pytanie: co jeżeli ktoś nie ma tarczy?)*",
+                "-1 do zadawanych obrażeń"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-13",
+              "level": 3,
+              "content": "Utrata przytomności z wyczerpania",
+              "anchor": "utrata-przytomnosci-z-wyczerpania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-14",
+              "content": "W momencie gdy ilość znamion wyczerpania jest równa wytrwałości + 2, postać zmuszona jest wykonać co rundę test wytrwałości o ST=ilość znamiona wyczerpania. Nieudane oznacza utracenie przytomności."
+            }
+          ]
+        },
+        {
+          "id": "subsection-przyk-ad-walki-jarfeg",
+          "title": "Przykład walki: Jarfeg",
+          "anchor": "przyk-ad-walki-jarfeg",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-16",
+              "content": "**Postać:** Jarfeg - 5 wytrwałości, Kolczuga, Średnia Tarcza"
+            },
+            {
+              "type": "table",
+              "id": "table-17",
+              "table": {
+                "headers": [
+                  "Akcja",
+                  "Mechanika",
+                  "Efekt"
+                ],
+                "rows": [
+                  [
+                    "1) Jarfeg dobiega jak najszybciej na pole bitwy aby wspomóc kamratów",
+                    "Sprint",
+                    "4 znamiona zmęczenia"
+                  ],
+                  [
+                    "2-4) Walczy zaciekle i jest pełen werwy",
+                    "3 rundy walki",
+                    "7 znamion zmęczenia"
+                  ],
+                  [
+                    "5) Nie ustępuje mimo bólu mięśni",
+                    "Udany test Wytrwałości o ST=7",
+                    "8 znamion zmęczenia"
+                  ],
+                  [
+                    "6) Nadal trzyma się hardo uderza z pełną mocą",
+                    "Udany test Wytrwałości o ST=8",
+                    "9 znamion zmęczenia"
+                  ],
+                  [
+                    "7) Pierwsze osłabienie mięśni spłyneło na woja",
+                    "Nieudany test Wytrwałości o ST=9",
+                    "10 znamion zmęczenia, 1 znamię wyczerpania"
+                  ],
+                  [
+                    "8) Zacisnął zęby i naparł na wroga",
+                    "Udany test Wytrwałości o ST=10",
+                    "11 znamion zmęczenia"
+                  ],
+                  [
+                    "9) To nie sielanka",
+                    "Nieudany test Wytrwałości o ST=11",
+                    "12 znamion zmęczenia, 2 znamiona wyczerpania"
+                  ],
+                  [
+                    "10-14) Jego mięśnie zmęczone a wrogów całe masy",
+                    "Test wytrwałości niemożliwy",
+                    "7 znamion wyczerpania"
+                  ],
+                  [
+                    "15) Nie padnę!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=7",
+                    "8 znamion wyczerpania"
+                  ],
+                  [
+                    "16) Giń!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=8",
+                    "9 znamion wyczerpania"
+                  ],
+                  [
+                    "17) Araaaag!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=9",
+                    "10 znamion wyczerpania"
+                  ],
+                  [
+                    "18) Nieee.. - Wyszeptał",
+                    "Nieudany test Wytrwałości o ST=10",
+                    "Utrata przytomności"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-18",
+              "level": 3,
+              "content": "Opcja 2 - Wyczerpanie",
+              "anchor": "opcja-2-wyczerpanie"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-19",
+              "content": "Wyczerpanie oznacza utratę kości broni oraz to że przeciwnicy mają dodatkową kość broni przeciwko wyczerpującemu."
+            }
+          ]
+        },
+        {
+          "id": "subsection-odpoczynek",
+          "title": "Odpoczynek",
+          "anchor": "odpoczynek",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-21",
+              "ordered": false,
+              "items": [
+                "**1 godzina odpoczynku** pozwala usunąć Wytrwałość punktów zmęczenia",
+                "**2 godziny odpoczynku** pozwalają usunąć 1,5 × Wytrwałość punktów zmęczenia"
+              ]
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.265Z"
+    },
+    {
+      "id": "section-podstawy-testy",
+      "slug": "testy",
+      "title": "Testy",
+      "category": "podstawy",
+      "order": 13,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-podstawowe-zasady-testow",
+          "title": "Podstawowe zasady testów",
+          "anchor": "podstawowe-zasady-testow",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Wszelkiego rodzaju testy bazowo wykonuje się kością o randze 3, czyli **kością k6**."
+            }
+          ]
+        },
+        {
+          "id": "subsection-skale-trudnosci",
+          "title": "Skale trudności",
+          "anchor": "skale-trudnosci",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-4",
+              "content": "Testy skal trudności polegają na tym, że testowana osoba wykonuje dany test i jeśli w sumie ma tyle samo oczek lub więcej niż ustalona z góry skala trudności (ST), to udaje mu się jego przedsięwzięcie lub nie dotykają go negatywne skutki na które był narażony."
+            },
+            {
+              "type": "list",
+              "id": "list-5",
+              "ordered": false,
+              "items": [
+                "**Zwyczajowa skala trudności**: ST = 4",
+                "**Łatwe działania** (minimalne problemy): ST = 2-3",
+                "Każde oczko więcej zwiększa trudność"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-testy-sporne",
+          "title": "Testy sporne",
+          "anchor": "testy-sporne",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Testy sporne to testy, gdzie jedna strona wymusza na drugiej konkretne działanie."
+            },
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 3,
+              "content": "Mechanika",
+              "anchor": "mechanika"
+            },
+            {
+              "type": "list",
+              "id": "list-9",
+              "ordered": true,
+              "items": [
+                "Obie strony rzucają kośćmi związanymi z danym testem i sumują dodatkowe modyfikatory",
+                "**Prowokujący** wygrywa jeśli w sumie wyrzucił więcej niż prowokowany",
+                "Jeśli prowokujący wygra - realizuje swoje zamierzenie",
+                "W przeciwnym wypadku jego zamierzenie nie odnosi skutku"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Efekty przewagi",
+              "anchor": "efekty-przewagi"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "Często zdarzają się testy, gdzie za każde oczko przewagi prowokujący wywiera większy wpływ na prowokowanego."
+            }
+          ]
+        },
+        {
+          "id": "subsection-wydarzenia",
+          "title": "Wydarzenia",
+          "anchor": "wydarzenia",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-13",
+              "content": "Testy wydarzeń określa się za pomocą rzutu **k100** (2x k10). Opcjonalnie można stosować kość k30, jeśli tak uzna Mistrz Gry."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T08:46:50.265Z"
+    }
+  ]
+}
