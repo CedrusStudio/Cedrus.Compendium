@@ -1,5 +1,6 @@
 import type { RulebookTable as RulebookTableType } from '@/domain/rulebook/RulebookTypes';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/ui/table';
+import { parseInlineMarkdown } from './utils/markdownParser';
 
 type RulebookTableProps = 
 {
@@ -14,7 +15,7 @@ export function RulebookTable({ table }: RulebookTableProps)
 
         <TableHeader>
           <TableRow>
-          { table.headers.map((header, idx) => <TableHead key={idx} className="font-semibold">{header}</TableHead>) }
+          { table.headers.map((header, idx) => <TableHead key={idx} className="font-semibold">{parseInlineMarkdown(header)}</TableHead>) }
           </TableRow>
         </TableHeader>
 
@@ -22,7 +23,7 @@ export function RulebookTable({ table }: RulebookTableProps)
         {
           table.rows.map((row, rowIdx) => (
             <TableRow key={rowIdx}>
-            { row.map((cell, cellIdx) => <TableCell key={cellIdx}>{cell}</TableCell>) }
+            { row.map((cell, cellIdx) => <TableCell key={cellIdx}>{parseInlineMarkdown(cell)}</TableCell>) }
             </TableRow>
           ))
         }
@@ -30,7 +31,7 @@ export function RulebookTable({ table }: RulebookTableProps)
 
       </Table>
 
-      { table.caption && <div className="px-4 py-2 text-sm text-muted-foreground bg-muted/50">{table.caption}</div> }
+      { table.caption && <div className="px-4 py-2 text-sm text-muted-foreground bg-muted/50">{parseInlineMarkdown(table.caption)}</div> }
     </div>
   );
 }
