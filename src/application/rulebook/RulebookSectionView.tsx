@@ -3,7 +3,7 @@
  */
 
 import type { RulebookSection } from '@/domain/rulebook/RulebookTypes';
-import { ContentBlockRenderer } from './ContentBlockRenderer';
+import { ContentBlockRenderer } from '@/application/rulebook/ContentBlockRenderer';
 import { Separator } from '@/ui/separator';
 
 type RulebookSectionViewProps = {

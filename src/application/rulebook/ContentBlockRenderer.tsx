@@ -3,8 +3,8 @@
  */
 
 import type { ContentBlock } from '@/domain/rulebook/RulebookTypes';
-import { RulebookTable } from './RulebookTable';
-import { parseInlineMarkdown } from './utils/markdownParser';
+import { RulebookTable } from '@/application/rulebook/RulebookTable';
+import { parseInlineMarkdown } from '@/application/rulebook/utils/markdownParser';
 
 type ContentBlockRendererProps = {
   block: ContentBlock;

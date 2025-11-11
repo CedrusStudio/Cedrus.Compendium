@@ -6,17 +6,15 @@ import { ArrowRight, Book } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/ui/card';
 import type { RulebookCategoryId } from '@/domain/rulebook/RulebookTypes';
 
-type PageProps = {
-  params: Promise<{
-    category: string;
-  }>;
-};
+type PageProps = { params: Promise<{ category: string; }> };
 
-export default async function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params }: PageProps) 
+{
   const { category } = await params;
   const categoryData = loadCategory(category as RulebookCategoryId);
   
-  if (!categoryData) {
+  if (!categoryData) 
+  {
     notFound();
   }
 
