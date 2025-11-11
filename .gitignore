@@ -10,6 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
+#rulebook data
+/rulebook-data/
+
 # testing
 /coverage
 

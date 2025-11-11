@@ -1,0 +1,390 @@
+{
+  "category": {
+    "id": "magia-i-zaklecia",
+    "title": "Magia i Zaklęcia",
+    "description": "Zasady czarowania, łańcuchy zaklęć, siła zaklęć i magia obszarowa",
+    "icon": "✨",
+    "order": 4,
+    "slug": "magia-i-zaklecia"
+  },
+  "sections": [
+    {
+      "id": "section-magia-i-zaklecia-czarowanie-i-walka",
+      "slug": "czarowanie-i-walka",
+      "title": "Testy Fechtunku i Fortelu",
+      "category": "magia-i-zaklecia",
+      "order": 0,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Postać walcząca zaklęciami jest odporna na testy fechtunku i fortelu. Jeśli jednak ta odporność zostanie ona pominięta wtedy w owych testach stosuje się arkana."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Postać walcząca zaklęciami podejmuje wymuszone na nim testy siłowe/wytrwałości (obronne) z Siły Zaklęcia (jeśli posiada bariery), chyba że zaklęcie ochronne mówi inaczej. Zazwyczaj chodzi o ochronę przed przesunięciem, chorobami, klątwami."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-5",
+          "content": "Postać walcząca zaklęciami zazwyczaj nie rusza się więc ataki dystansowe w nich są związane z pokonaniem ST związanej z odległością i wielkością celu"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-7",
+          "content": "Jeśli postać otrzymała obrażenia a chce przedsięwziąć akcję która wymaga dużego skupienia (np. czarodziej rzuca zaklęcie) to musi zdać test woli o"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-8",
+          "content": "ST = 6 + otrzymane obrażenia + połowa otrzymanych obrażeń w poprzedniej turze."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-10",
+          "content": "Postać rzucająca czary otrzymuje premię +1 do testów precyzji względem postaci z średnimi i ciężkimi zbrojami, które atakują czarującego w zwarciu"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.653Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-magia-obszarowa",
+      "slug": "magia-obszarowa",
+      "title": "Magia Obszarowa",
+      "category": "magia-i-zaklecia",
+      "order": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Czarodziej wykonuje test ataku dystansowego i za każde oczko straty (pamiętajmy, że równowaga jest liczona jako jedno oczko straty, ze względu na to, że atakujący musi PRZEBIĆ refleks) przeciwnik zyskuje 1\\*zr do redukcji z uników względem tego ataku, które należy zastosować jako pierwsze do ogólnej redukcji przeciw temu zaklęciu. Każde oczko symbolizuje oddalenie się od epicentrum o 1 krok przed wybuchem. Jeśli przewaga oczek jest większa niż zasięg zaklęcia lub redukcja z uników przekracza obrażenia, wtedy unikający nie otrzymuje żadnych obrażeń. W przypadku zaklęć o specyficznym kształcie oddalanie od epicentrum (lub odpowiednich stref obrażeń) nie musi być liniowe."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.654Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-si-a-zaklecia-i-obrazenia-maga",
+      "slug": "si-a-zaklecia-i-obrazenia-maga",
+      "title": "Siła Zaklęcia i obrażenia maga",
+      "category": "magia-i-zaklecia",
+      "order": 2,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Rodzaj magii, którą włada czarodziej i jego siła zaklęcia determinuje ilość obrażeń, którą mag zadaje standardowym atakiem magicznym. Konkretny rodzaj magii ma swój specyficzny tryb rozwoju zadawanych obrażeń związanych bezpośrednio z siłą zaklęcia czarodzieja. Stąd konkretny rodzaj magii można traktować jak rodzaj broni, która rozwija się wraz ze wzrostem sił czarodzieja. Jednak każdy mag zadaje dodatkowe obrażenia związane ze swoją Siłą Zaklęcia równe dwa razy Siła Zaklęcia."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Zestawienie rodzai obrażeń znajduje się w Księdze Nowego Systemu Magów."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.654Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-zaklecia-i-czary",
+      "slug": "zaklecia-i-czary",
+      "title": "Zaklęcia i Czary",
+      "category": "magia-i-zaklecia",
+      "order": 3,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-zaklecia",
+          "title": "Zaklęcia",
+          "anchor": "zaklecia",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "**Zaklęcia** są modyfikacjami standardowej, ofensywnej emanacji mocy."
+            },
+            {
+              "type": "heading",
+              "id": "heading-3",
+              "level": 3,
+              "content": "Zasady stosowania zaklęć",
+              "anchor": "zasady-stosowania-zaklec"
+            },
+            {
+              "type": "list",
+              "id": "list-4",
+              "ordered": false,
+              "items": [
+                "Można używać dowolnych zaklęć, które współgrają z rodzajem mocy",
+                "Można używać zaklęć, które współgrają z innymi używanymi zaklęciami",
+                "Można użyć maksymalnie **siły zaklęć** w jednej emanacji mocy (chyba, że zaklęcie mówi inaczej)"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-5",
+              "level": 3,
+              "content": "Efekty zaklęć",
+              "anchor": "efekty-zaklec"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-6",
+              "content": "Zaklęcia wpływają na:"
+            },
+            {
+              "type": "list",
+              "id": "list-7",
+              "ordered": false,
+              "items": [
+                "**Koszt esencji** - zwiększają zużycie magicznej energii",
+                "**Czas odnowienia** - określają kiedy można ponownie użyć zaklęcia",
+                "**Efekt pozytywny** - korzystne modyfikacje emanacji mocy",
+                "**Efekt negatywny** - ograniczenia lub koszty stosowania"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-czary",
+          "title": "Czary",
+          "anchor": "czary",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "**Czary** są to przekształcenia mocy w taki sposób, aby użyć jej w wyjątkowy, użyteczny sposób."
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Przykłady zastosowań czarów",
+              "anchor": "przyk-ady-zastosowan-czarow"
+            },
+            {
+              "type": "list",
+              "id": "list-11",
+              "ordered": false,
+              "items": [
+                "**Moc kinetyki** pozwoli przyciągać przedmioty",
+                "**Moc wiatru** pozwoli na lewitację",
+                "**Moc zimna** pozwoli zamrozić wodę",
+                "**Moc ognia** pozwoli wyparować wodę"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-12",
+              "content": "**Różnica**: Zaklęcia modyfikują istniejące ataki, czary tworzą całkowicie nowe efekty."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.654Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-zaklecia-obronne",
+      "slug": "zaklecia-obronne",
+      "title": "Zaklęcia Obronne",
+      "category": "magia-i-zaklecia",
+      "order": 4,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Rzucenie jednego zaklęcia ochronnego w akcji natychmiastowe powoduje, że jeśli chcemy rzucić zaklęcie w akcji standardowej to jest to zaklęcie skuteczne jedynie w 50% (chyba, że w zaklęciu napisane jest inaczej)."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.654Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-ancuch-zaklec",
+      "slug": "ancuch-zaklec",
+      "title": "Łańcuch Zaklęć",
+      "category": "magia-i-zaklecia",
+      "order": 5,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-definicja",
+          "title": "Definicja",
+          "anchor": "definicja",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "**Łańcuch Zaklęć** to uporządkowany ciąg zaklęć, który podmiot chce wpleść w swoją emanację mocy, aby uczynić ją bardziej efektywną."
+            }
+          ]
+        },
+        {
+          "id": "subsection-mechanika",
+          "title": "Mechanika",
+          "anchor": "mechanika",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-4",
+              "level": 3,
+              "content": "Poziom skomplikowania",
+              "anchor": "poziom-skomplikowania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Każde zaklęcie posiada **poziom skomplikowania**, który składa się na poziom skomplikowania całego Łańcucha Zaklęć."
+            },
+            {
+              "type": "heading",
+              "id": "heading-6",
+              "level": 3,
+              "content": "Test manipulacji mocą",
+              "anchor": "test-manipulacji-moca"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "**UWAGA**: Skomponowanie Łańcucha Zaklęć **MUSI** poprzedzać test manipulacji mocą."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "**Test**: 1k6 + (manipulacja mocą)"
+            },
+            {
+              "type": "heading",
+              "id": "heading-9",
+              "level": 3,
+              "content": "Określenie finalnego łańcucha",
+              "anchor": "okreslenie-finalnego-ancucha"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "Zaklęcia, które wejdą w skład finalnego Łańcucha Zaklęć to te, których sumaryczny poziom skomplikowania (licząc od początku) nie przekroczy wartości uzyskanej w teście manipulacji mocą."
+            }
+          ]
+        },
+        {
+          "id": "subsection-konsekwencje-niepowodzenia",
+          "title": "Konsekwencje niepowodzenia",
+          "anchor": "konsekwencje-niepowodzenia",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-12",
+              "content": "Jeśli w Łańcuchu Zaklęć **nie ma zaklęcia** z szczególnym przypadkiem przy porażce całego Łańcucha, to:"
+            },
+            {
+              "type": "list",
+              "id": "list-13",
+              "ordered": false,
+              "items": [
+                "Łańcuch skraca się od końca do długości określonej przez zdolność manipulacji mocą",
+                "Zaklęcia, które nie zostały dodane do końcowego Łańcucha **i tak** powodują:",
+                "Zużycie esencji",
+                "Aktywację czasu odnowienia"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-przyk-ad-mistrz-viratis",
+          "title": "Przykład: Mistrz Viratis",
+          "anchor": "przyk-ad-mistrz-viratis",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-15",
+              "level": 3,
+              "content": "Komponowanie łańcucha",
+              "anchor": "komponowanie-ancucha"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-16",
+              "content": "**Mistrz Viratis** (mag zimna) komponuje Łańcuch Zaklęć:"
+            },
+            {
+              "type": "list",
+              "id": "list-17",
+              "ordered": true,
+              "items": [
+                "**Skrząca Biel Odelaily** - poziom skomplikowania = 2",
+                "**Minajski Chłód** - poziom skomplikowania = 1",
+                "**Stożek** - poziom skomplikowania = 1",
+                "**Dech Madarmadara** - poziom skomplikowania = 3",
+                "**Precyzja Ajrandy** - poziom skomplikowania = 1"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-18",
+              "content": "**Sumaryczny poziom skomplikowania**: 2+1+1+3+1 = **8**"
+            },
+            {
+              "type": "heading",
+              "id": "heading-19",
+              "level": 3,
+              "content": "Test manipulacji",
+              "anchor": "test-manipulacji"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-20",
+              "content": "**Wynik testu**: 5"
+            },
+            {
+              "type": "heading",
+              "id": "heading-21",
+              "level": 3,
+              "content": "Finalny łańcuch",
+              "anchor": "finalny-ancuch"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-22",
+              "content": "**Analiza**:"
+            },
+            {
+              "type": "list",
+              "id": "list-23",
+              "ordered": false,
+              "items": [
+                "Zaklęcia 1-3: 2+1+1 = 4 ≤ 5 ✓",
+                "Zaklęcia 1-4: 2+1+1+3 = 7 > 5 ✗"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-24",
+              "content": "**Finalny Łańcuch**: Pierwsze 3 zaklęcia (Skrząca Biel Odelaily, Minajski Chłód, Stożek)"
+            },
+            {
+              "type": "heading",
+              "id": "heading-25",
+              "level": 3,
+              "content": "Konsekwencje",
+              "anchor": "konsekwencje"
+            },
+            {
+              "type": "list",
+              "id": "list-26",
+              "ordered": false,
+              "items": [
+                "**Zaklęcia 1-3**: Modyfikacje zastosowane do emanacji mocy",
+                "**Zaklęcia 4-5**: Pomimo braku w końcowym Łańcuchu:",
+                "Zużywają esencję",
+                "Aktywują czas odnowienia"
+              ]
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.655Z"
+    }
+  ]
+}
