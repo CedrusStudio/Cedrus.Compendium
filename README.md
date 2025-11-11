@@ -1,3 +1,7 @@
+## Jak odpalic synchronizacje .json plikó rulebook
+
+> npm run sync-rulebook
+
 # TODO
 
 Bestiary + Battle + Edit Talents Table + Talents Table
