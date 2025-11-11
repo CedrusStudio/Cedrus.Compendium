@@ -12,20 +12,18 @@ type RulebookSectionViewProps = {
 
 export function RulebookSectionView({ section }: RulebookSectionViewProps) {
   return (
-    <article className="max-w-4xl mx-auto px-6 py-8">
+    <article className="max-w-4xl mx-auto space-y-6">
       {/* Section Header */}
-      <header className="mb-8">
+      <header className="border-b pb-4 mb-6">
         <h1 className="text-4xl font-bold mb-2">{section.title}</h1>
         {section.description && (
           <p className="text-lg text-muted-foreground">{section.description}</p>
         )}
       </header>
 
-      <Separator className="mb-8" />
-
       {/* Main Content (before subsections) */}
       {section.content.length > 0 && (
-        <div className="mb-8">
+        <div className="mb-6">
           {section.content.map((block) => (
             <ContentBlockRenderer key={block.id} block={block} />
           ))}
@@ -34,11 +32,10 @@ export function RulebookSectionView({ section }: RulebookSectionViewProps) {
 
       {/* Subsections */}
       {section.subsections.map((subsection, idx) => (
-        <section key={subsection.id} className="mb-10">
+        <section key={subsection.id} className="mb-8">
           <h2
             id={subsection.anchor}
-            className="text-3xl font-bold mb-6 scroll-mt-20"
-          >
+            className="text-2xl font-bold mb-4 scroll-mt-20">
             {subsection.title}
           </h2>
           <div className="space-y-4">
@@ -47,7 +44,7 @@ export function RulebookSectionView({ section }: RulebookSectionViewProps) {
             ))}
           </div>
           {idx < section.subsections.length - 1 && (
-            <Separator className="mt-10" />
+            <Separator className="mt-8" />
           )}
         </section>
       ))}

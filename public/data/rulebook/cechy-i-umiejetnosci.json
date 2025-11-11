@@ -14,231 +14,451 @@
       "title": "Klasy Postaci",
       "category": "cechy-i-umiejetnosci",
       "order": 0,
-      "content": [
+      "content": [],
+      "subsections": [
         {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Szermierz: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek2"
+          "id": "subsection-klasy-podstawowe",
+          "title": "Klasy Podstawowe",
+          "anchor": "klasy-podstawowe",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Poniższa tabela przedstawia klasy podstawowe dostępne dla graczy oraz ich bazowe bonusy i ograniczenia."
+            },
+            {
+              "type": "heading",
+              "id": "heading-3",
+              "level": 3,
+              "content": "Tabela Klas Podstawowych",
+              "anchor": "tabela-klas-podstawowych"
+            },
+            {
+              "type": "table",
+              "id": "table-4",
+              "table": {
+                "headers": [
+                  "Klasa",
+                  "Ograniczenia",
+                  "Bazowe Bonusy"
+                ],
+                "rows": [
+                  [
+                    "**Szermierz**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większy Fechtunek +2"
+                  ],
+                  [
+                    "**Wojownik**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większy Fechtunek +1, Większy Fortel +1"
+                  ],
+                  [
+                    "**Barbarzyńca**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większa Inicjatywa +2, Większa Wytrwałość +1"
+                  ],
+                  [
+                    "**Łucznik/Kusznik**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większa Precyzja +1, Większa Inicjatywa +1"
+                  ],
+                  [
+                    "**Łotrzyk**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większy Fortel +2"
+                  ],
+                  [
+                    "**Kapłan**",
+                    "Brak: Arkan, Mocy",
+                    "Większa Wiara +1"
+                  ],
+                  [
+                    "**Mag**",
+                    "Brak: Wiary, Mocy",
+                    "Większe Arkana +1"
+                  ],
+                  [
+                    "**Czarokrwisty**",
+                    "-",
+                    "Większa Moc +1, możliwość wyboru dodatkowej klasy"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-5",
+              "level": 3,
+              "content": "Opis Klas",
+              "anchor": "opis-klas"
+            },
+            {
+              "type": "heading",
+              "id": "heading-6",
+              "level": 4,
+              "content": "Szermierz",
+              "anchor": "szermierz"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Mistrzowie białej broni specjalizujący się w fechtunku. Nie posiadają dostępu do magii."
+            },
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 4,
+              "content": "Wojownik",
+              "anchor": "wojownik"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "Wszechstronni wojownicy łączący umiejętności walki i taktyki."
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 4,
+              "content": "Barbarzyńca",
+              "anchor": "barbarzynca"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "Dzicy wojownicy polegający na sile i szybkości, wytrzymali w boju."
+            },
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 4,
+              "content": "Łucznik/Kusznik",
+              "anchor": "ucznik-kusznik"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-13",
+              "content": "Specjaliści broni dystansowej z precyzyjnym okiem i szybkimi refleksami."
+            },
+            {
+              "type": "heading",
+              "id": "heading-14",
+              "level": 4,
+              "content": "Łotrzyk",
+              "anchor": "otrzyk"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-15",
+              "content": "Mistrzowie podstępu i fortelu, wykorzystujący chytrość zamiast siły."
+            },
+            {
+              "type": "heading",
+              "id": "heading-16",
+              "level": 4,
+              "content": "Kapłan",
+              "anchor": "kap-an"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-17",
+              "content": "Słudzy bogów władający mocą wiary."
+            },
+            {
+              "type": "heading",
+              "id": "heading-18",
+              "level": 4,
+              "content": "Mag",
+              "anchor": "mag"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-19",
+              "content": "Uczeni władający tajemną wiedzą arkan."
+            },
+            {
+              "type": "heading",
+              "id": "heading-20",
+              "level": 4,
+              "content": "Czarokrwisty",
+              "anchor": "czarokrwisty"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-21",
+              "content": "Unikalna klasa z naturalną zdolnością do magii czarnej krwi. Może łączyć z inną klasą."
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Wojownik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek1, Większy Fortel1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Barbarzyńca: Brak możliwości wyboru Wiary, Arkan i Mocy . Bazowo dodaje Większa Inicjatywa2, Większa Wytrwałość + 1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Łucznik/Kusznik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Precyzja1, Większa Inicjatywa1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "Łotrzyk: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fortel2"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "Kapłan: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Wiara1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-7",
-          "content": "Mag: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większe Arkana1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "Czarokrwisty: Możliwość wyboru dodatkowej klasy. Niezależnie od drugiej klasy możliwość wyboru Mocy. Bazowo dodaje Większa Moc1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "Mistrz gry"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "Wojmistrz"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-12",
-          "content": "Miecznik"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-13",
-          "content": "Tarczownik"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-14",
-          "content": "Legionista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-15",
-          "content": "Dualista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-16",
-          "content": "Rycerz (Obniżenie wymagań fechtunku o 2, Możliwość wyboru manewrów, atutów i postaw Klasy Rycerz)"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-17",
-          "content": "Czarokrwisty"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-18",
-          "content": "Elita"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-19",
-          "content": "Zamachowiec"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-20",
-          "content": "Zabójca"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-21",
-          "content": "Skrytobójca"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-22",
-          "content": "Pustoszyciel"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-23",
-          "content": "Stalowy Obrońca"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-24",
-          "content": "Czempion"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-25",
-          "content": "Biały Rycerz"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-26",
-          "content": "Srebrny Rycerz"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-27",
-          "content": "Cień Śmierci"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-28",
-          "content": "Arkanista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-29",
-          "content": "Arcymag"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-30",
-          "content": "Krucjator"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-31",
-          "content": "Żelazny Watażka"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-32",
-          "content": "Batalionista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-33",
-          "content": "Urderin AnhKragg"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-34",
-          "content": "Kwiat Rycerstwa"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-35",
-          "content": "Nemesis"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-36",
-          "content": "Urderin AnhKragg"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-37",
-          "content": "Ręka Mordu"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-38",
-          "content": "Szermierz"
+          "id": "subsection-klasy-prestizowe",
+          "title": "Klasy Prestiżowe",
+          "anchor": "klasy-prestizowe",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-23",
+              "content": "Klasy prestiżowe to zaawansowane specjalizacje dostępne dla doświadczonych postaci. Wymagają spełnienia określonych warunków (np. poziom umiejętności, reputacja, ukończenie questów)."
+            },
+            {
+              "type": "heading",
+              "id": "heading-24",
+              "level": 3,
+              "content": "Lista Klas Prestiżowych",
+              "anchor": "lista-klas-prestizowych"
+            },
+            {
+              "type": "heading",
+              "id": "heading-25",
+              "level": 4,
+              "content": "Elitarne Klasy Wojowników",
+              "anchor": "elitarne-klasy-wojownikow"
+            },
+            {
+              "type": "list",
+              "id": "list-26",
+              "ordered": false,
+              "items": [
+                "**Wojmistrz** - Weteran dowodzący oddziałami",
+                "**Miecznik** - Mistrz szermierki jednoręcznej",
+                "**Szermierz** - Zaawansowany mistrz białej broni",
+                "**Tarczownik** - Specjalista obrony tarczą",
+                "**Legionista** - Żołnierz formacji legionowych",
+                "**Dualista** - Mistrz pojedynków honorowych"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-27",
+              "level": 4,
+              "content": "Klasy Rycerskie",
+              "anchor": "klasy-rycerskie"
+            },
+            {
+              "type": "list",
+              "id": "list-28",
+              "ordered": false,
+              "items": [
+                "**Rycerz** - Obniżenie wymagań fechtunku o 2, dostęp do manewrów, atutów i postaw klasy rycerz",
+                "**Biały Rycerz** - Obrońca sprawiedliwości",
+                "**Srebrny Rycerz** - Elita rycerstwa",
+                "**Kwiat Rycerstwa** - Najlepsi z najlepszych"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-29",
+              "level": 4,
+              "content": "Klasy Zabójców",
+              "anchor": "klasy-zabojcow"
+            },
+            {
+              "type": "list",
+              "id": "list-30",
+              "ordered": false,
+              "items": [
+                "**Zabójca** - Profesjonalny morderca",
+                "**Skrytobójca** - Mistrz ukrytych zabójstw",
+                "**Zamachowiec** - Specjalista nagłych ataków",
+                "**Cień Śmierci** - Legendarna klasa zabójców",
+                "**Ręka Mordu** - Najemny zabójca"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-31",
+              "level": 4,
+              "content": "Klasy Magiczne",
+              "anchor": "klasy-magiczne"
+            },
+            {
+              "type": "list",
+              "id": "list-32",
+              "ordered": false,
+              "items": [
+                "**Arkanista** - Zaawansowany mag arkan",
+                "**Arcymag** - Mistrz magii",
+                "**Krucjator** - Wojownik-kapłan",
+                "**Czarokrwisty** - Mistrz magii czarnej krwi"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-33",
+              "level": 4,
+              "content": "Klasy Elitarne",
+              "anchor": "klasy-elitarne"
+            },
+            {
+              "type": "list",
+              "id": "list-34",
+              "ordered": false,
+              "items": [
+                "**Elita** - Wybrane jednostki wojskowe",
+                "**Czempion** - Mistrz areny",
+                "**Pustoszyciel** - Niszczyciel armii",
+                "**Stalowy Obrońca** - Niezniszczalny obrońca",
+                "**Nemesis** - Mściwy wojownik"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-35",
+              "level": 4,
+              "content": "Klasy Dowódców",
+              "anchor": "klasy-dowodcow"
+            },
+            {
+              "type": "list",
+              "id": "list-36",
+              "ordered": false,
+              "items": [
+                "**Żelazny Watażka** - Dowódca oddziałów najemnych",
+                "**Batalionista** - Specjalista walki grupowej",
+                "**Urderin AnhKragg** - Legendarny tytuł wojownika"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-37",
+              "content": "**Uwaga:** Szczegółowe wymagania i bonusy dla klas prestiżowych są opisane w osobnych rozdziałach podręcznika."
+            }
+          ]
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.266Z"
+      "lastModified": "2025-11-11T09:57:04.636Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-talenty",
       "slug": "talenty",
-      "title": "Talenty",
+      "title": "Medale",
       "category": "cechy-i-umiejetnosci",
       "order": 1,
       "content": [
         {
           "type": "paragraph",
           "id": "paragraph-1",
-          "content": "Wymiana Talentów na Talenty (Talenty == Medale)"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "D=3P"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "P=3Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Z=3S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "S=3B"
+          "content": "System medali w Cedrus RPG służy do określania postępów i siły postaci. Medale można wymieniać na medale niższej rangi według ustalonego przelicznika."
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.266Z"
+      "subsections": [
+        {
+          "id": "subsection-rodzaje-medali",
+          "title": "Rodzaje Medali",
+          "anchor": "rodzaje-medali",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-3",
+              "ordered": false,
+              "items": [
+                "**D** - Medal Diamentowy (najwyższy)",
+                "**P** - Medal Platynowy",
+                "**Z** - Medal Złoty",
+                "**S** - Medal Srebrny",
+                "**B** - Medal Brązowy (podstawowy)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-przelicznik-wymiany-medali",
+          "title": "Przelicznik Wymiany Medali",
+          "anchor": "przelicznik-wymiany-medali",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Medale wyższej rangi można wymienić na medale niższej rangi według następujących współczynników:"
+            },
+            {
+              "type": "table",
+              "id": "table-6",
+              "table": {
+                "headers": [
+                  "Medal wyższej rangi",
+                  "Wymienia się na",
+                  "Medal niższej rangi"
+                ],
+                "rows": [
+                  [
+                    "1x D (Diamentowy)",
+                    "=",
+                    "3x P (Platynowy)"
+                  ],
+                  [
+                    "1x P (Platynowy)",
+                    "=",
+                    "3x Z (Złoty)"
+                  ],
+                  [
+                    "1x Z (Złoty)",
+                    "=",
+                    "3x S (Srebrny)"
+                  ],
+                  [
+                    "1x S (Srebrny)",
+                    "=",
+                    "3x B (Brązowy)"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-7",
+              "level": 3,
+              "content": "Przykłady Wymiany",
+              "anchor": "przyk-ady-wymiany"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-8",
+              "content": "**Przykład 1:**\nPostać z 1x Medalem Diamentowym może go wymienić na 3x Medale Platynowe"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-9",
+              "content": "**Przykład 2:**\nPostać z 2x Medalami Złotymi może je wymienić na 6x Medale Srebrne (2 × 3 = 6)"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-10",
+              "content": "**Przykład 3:**\nPostać z 1x Medalem Platynowym może go wymienić na 3x Medale Złote, które następnie można wymienić na 9x Medale Srebrne (3 × 3 = 9)"
+            }
+          ]
+        },
+        {
+          "id": "subsection-zdobywanie-medali",
+          "title": "Zdobywanie Medali",
+          "anchor": "zdobywanie-medali",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-12",
+              "content": "Medale są przyznawane przez Mistrza Gry za:"
+            },
+            {
+              "type": "list",
+              "id": "list-13",
+              "ordered": false,
+              "items": [
+                "Ukończenie ważnych questów",
+                "Heroiczne czyny",
+                "Rozwój postaci",
+                "Osiągnięcia fabularne"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-14",
+              "content": "**Uwaga:** Wymiana medali jest nieodwracalna. Zastanów się dobrze przed wymianą medali wyższej rangi na niższe."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.636Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-uzytkowe",
@@ -269,7 +489,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.266Z"
+      "lastModified": "2025-11-11T09:57:04.636Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-budowa",
@@ -285,7 +505,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-cechy",
@@ -343,7 +563,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-charyzma",
@@ -359,7 +579,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-czarokrwistosc",
@@ -375,7 +595,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-losowanie-cech",
@@ -391,7 +611,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-si-a",
@@ -407,7 +627,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umys",
@@ -423,7 +643,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-zrecznosc",
@@ -444,7 +664,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-fechtunek",
@@ -460,7 +680,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.639Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-fortel",
@@ -476,7 +696,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.639Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-inicjatywa",
@@ -492,7 +712,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.639Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-jezdziectwo",
@@ -508,7 +728,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-precyzja",
@@ -524,7 +744,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-bojowe",
@@ -540,7 +760,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-walka-wrecz",
@@ -571,7 +791,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-arkana",
@@ -587,7 +807,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-esencja",
@@ -603,7 +823,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-moc",
@@ -619,7 +839,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-si-a-zaklecia",
@@ -635,7 +855,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-nadnaturalne",
@@ -645,7 +865,7 @@
       "order": 22,
       "content": [],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wiara",
@@ -661,7 +881,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wiez",
@@ -677,7 +897,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-refleks",
@@ -693,7 +913,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-obronne",
@@ -703,7 +923,7 @@
       "order": 26,
       "content": [],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wola",
@@ -719,7 +939,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.272Z"
+      "lastModified": "2025-11-11T09:57:04.643Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wytrwa-osc",
@@ -735,7 +955,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.272Z"
+      "lastModified": "2025-11-11T09:57:04.643Z"
     }
   ]
 }

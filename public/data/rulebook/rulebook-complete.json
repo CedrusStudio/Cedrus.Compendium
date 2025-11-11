@@ -56,7 +56,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.260Z"
+      "lastModified": "2025-11-11T09:57:04.629Z"
     },
     {
       "id": "section-podstawy-medale-a-szacowana-si-a-postaci",
@@ -68,146 +68,141 @@
         {
           "type": "paragraph",
           "id": "paragraph-1",
-          "content": "Bardzo silna postać"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "D"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "3x P"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "25x Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "35x S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "40x B"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-7",
-          "content": "Silna postać"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "PP"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-9",
-          "content": "20x Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "25x S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "30x B"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-12",
-          "content": "W miarę silna postać"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-13",
-          "content": "P"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-14",
-          "content": "15x Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-15",
-          "content": "20x S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-16",
-          "content": "20x B"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-17",
-          "content": "Średnia postać"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-18",
-          "content": "13x Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-19",
-          "content": "16x S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-20",
-          "content": "20x B"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-21",
-          "content": "Słaba postać"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-22",
-          "content": "10x Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-23",
-          "content": "15x S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-24",
-          "content": "15x B"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-25",
-          "content": "Bardzo słaba postać"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-26",
-          "content": "8x Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-27",
-          "content": "12x S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-28",
-          "content": "14x B"
+          "content": "System medali w Cedrus RPG służy do określenia orientacyjnej siły postaci. Poniżej przedstawiono relację między posiadanymi medalami a szacowanymi parametrami postaci."
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.262Z"
+      "subsections": [
+        {
+          "id": "subsection-legenda-medali",
+          "title": "Legenda Medali",
+          "anchor": "legenda-medali",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-3",
+              "ordered": false,
+              "items": [
+                "**D** - Medal Diamentowy (najwyższy)",
+                "**P** - Medal Platynowy",
+                "**Z** - Medal Złoty",
+                "**S** - Medal Srebrny",
+                "**B** - Medal Brązowy (podstawowy)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-relacja-medale-poziom-si-y",
+          "title": "Relacja: Medale → Poziom Siły",
+          "anchor": "relacja-medale-poziom-si-y",
+          "content": [
+            {
+              "type": "table",
+              "id": "table-5",
+              "table": {
+                "headers": [
+                  "Poziom Siły",
+                  "Wymagane Medale"
+                ],
+                "rows": [
+                  [
+                    "Bardzo silna postać",
+                    "1x D + 3x P"
+                  ],
+                  [
+                    "Silna postać",
+                    "2x P (dwa platynowe)"
+                  ],
+                  [
+                    "W miarę silna postać",
+                    "1x P"
+                  ],
+                  [
+                    "Średnia postać",
+                    "- (brak medali)"
+                  ],
+                  [
+                    "Słaba postać",
+                    "- (brak medali)"
+                  ],
+                  [
+                    "Bardzo słaba postać",
+                    "- (brak medali)"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "subsection-orientacyjne-statystyki-dla-poziomow-si-y",
+          "title": "Orientacyjne Statystyki dla Poziomów Siły",
+          "anchor": "orientacyjne-statystyki-dla-poziomow-si-y",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Poniższa tabela pokazuje **orientacyjne** wartości parametrów postaci dla danego poziomu siły."
+            },
+            {
+              "type": "table",
+              "id": "table-8",
+              "table": {
+                "headers": [
+                  "Poziom Siły",
+                  "Zdrowie",
+                  "Siła",
+                  "Budowa"
+                ],
+                "rows": [
+                  [
+                    "Bardzo silna postać",
+                    "25",
+                    "35",
+                    "40"
+                  ],
+                  [
+                    "Silna postać",
+                    "20",
+                    "25",
+                    "30"
+                  ],
+                  [
+                    "W miarę silna postać",
+                    "15",
+                    "20",
+                    "20"
+                  ],
+                  [
+                    "Średnia postać",
+                    "13",
+                    "16",
+                    "20"
+                  ],
+                  [
+                    "Słaba postać",
+                    "10",
+                    "15",
+                    "15"
+                  ],
+                  [
+                    "Bardzo słaba postać",
+                    "8",
+                    "12",
+                    "14"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-9",
+              "content": "**Uwaga:** Wartości w tabeli są orientacyjne i mogą się różnić w zależności od rozwoju postaci."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.631Z"
     },
     {
       "id": "section-podstawy-oszo-omienie-i-og-uszenie",
@@ -242,7 +237,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.262Z"
+      "lastModified": "2025-11-11T09:57:04.631Z"
     },
     {
       "id": "section-podstawy-oznaczenia",
@@ -389,7 +384,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.262Z"
+      "lastModified": "2025-11-11T09:57:04.632Z"
     },
     {
       "id": "section-podstawy-oslepienie-i-ciemnosc",
@@ -410,7 +405,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.263Z"
+      "lastModified": "2025-11-11T09:57:04.632Z"
     },
     {
       "id": "section-podstawy-podstawy-walk",
@@ -446,7 +441,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.263Z"
+      "lastModified": "2025-11-11T09:57:04.632Z"
     },
     {
       "id": "section-podstawy-punkty-umiejetnosci",
@@ -556,7 +551,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.263Z"
+      "lastModified": "2025-11-11T09:57:04.633Z"
     },
     {
       "id": "section-podstawy-rodzaje-kosci",
@@ -693,7 +688,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.264Z"
+      "lastModified": "2025-11-11T09:57:04.633Z"
     },
     {
       "id": "section-podstawy-rodzaje-obrazen",
@@ -705,91 +700,134 @@
         {
           "type": "paragraph",
           "id": "paragraph-1",
-          "content": "Kolejność odejmowania względem typów obrażeń"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Zwykłe obrażenia:"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "\\1. Odporność"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "\\2. Redukcja"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "\\3. Bariery"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "\\4. Zdrowie"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "\\1. Odporność"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-9",
-          "content": "\\2. Blokowalna Redukcja (Redukcja pomniejszona o uniki i parowanie)"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "\\3. Bariery"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "\\4. Zdrowie"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-13",
-          "content": "\\1. Odporność"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-14",
-          "content": "\\2. Redukcja Bezpośrednia (Redukcja pomniejszona o uniki, parowanie i blok)"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-15",
-          "content": "\\3. Bariery"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-16",
-          "content": "\\4. Zdrowie"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-18",
-          "content": "\\1. Bariery"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-19",
-          "content": "\\2. Zdrowie"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-21",
-          "content": "\\1. Zdrowie"
+          "content": "W systemie Cedrus RPG występuje pięć podstawowych typów obrażeń. Każdy z nich ma swoją specyfikę dotyczącą tego, jak jest redukowany przez mechaniki obronne postaci."
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.264Z"
+      "subsections": [
+        {
+          "id": "subsection-kolejnosc-odejmowania",
+          "title": "Kolejność Odejmowania",
+          "anchor": "kolejnosc-odejmowania",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-3",
+              "content": "Poniżej przedstawiono kolejność odejmowania obrażeń dla każdego typu:"
+            }
+          ]
+        },
+        {
+          "id": "subsection-obrazenia-zwyk-e",
+          "title": "Obrażenia Zwykłe",
+          "anchor": "obrazenia-zwyk-e",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Standardowy typ obrażeń zadawanych przez większość ataków."
+            },
+            {
+              "type": "list",
+              "id": "list-6",
+              "ordered": true,
+              "items": [
+                "Odporność",
+                "Redukcja",
+                "Bariery",
+                "Zdrowie"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-obrazenia-blokowalne",
+          "title": "Obrażenia Blokowalne",
+          "anchor": "obrazenia-blokowalne",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "Obrażenia, które można zablokować tarczą lub inną mechaniką blokowania."
+            },
+            {
+              "type": "list",
+              "id": "list-9",
+              "ordered": true,
+              "items": [
+                "Odporność",
+                "Blokowalna Redukcja (Redukcja pomniejszona o uniki i parowanie)",
+                "Bariery",
+                "Zdrowie"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-obrazenia-bezposrednie",
+          "title": "Obrażenia Bezpośrednie",
+          "anchor": "obrazenia-bezposrednie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "Obrażenia omijające blok, ale nadal podlegające innym mechanikom obronnym."
+            },
+            {
+              "type": "list",
+              "id": "list-12",
+              "ordered": true,
+              "items": [
+                "Odporność",
+                "Redukcja Bezpośrednia (Redukcja pomniejszona o uniki, parowanie i blok)",
+                "Bariery",
+                "Zdrowie"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-obrazenia-nieuchronne",
+          "title": "Obrażenia Nieuchronne",
+          "anchor": "obrazenia-nieuchronne",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-14",
+              "content": "Obrażenia omijające większość mechanik obronnych - nie podlegają odporności ani redukcji."
+            },
+            {
+              "type": "list",
+              "id": "list-15",
+              "ordered": true,
+              "items": [
+                "Bariery",
+                "Zdrowie"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-obrazenia-smiertelne",
+          "title": "Obrażenia Śmiertelne",
+          "anchor": "obrazenia-smiertelne",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-17",
+              "content": "Najbardziej niebezpieczny typ obrażeń, ignorujący wszystkie mechaniki obronne oprócz zdrowia."
+            },
+            {
+              "type": "list",
+              "id": "list-18",
+              "ordered": true,
+              "items": [
+                "Zdrowie"
+              ]
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.634Z"
     },
     {
       "id": "section-podstawy-runda-tura-i-akcje",
@@ -820,98 +858,195 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.264Z"
+      "lastModified": "2025-11-11T09:57:04.634Z"
     },
     {
       "id": "section-podstawy-strach-i-przerazenie",
       "slug": "strach-i-przerazenie",
-      "title": "Strach",
+      "title": "Strach i Przerażenie",
       "category": "podstawy",
       "order": 10,
-      "content": [
+      "content": [],
+      "subsections": [
         {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Postać narażona na stres zwiazany z walką, ciemnością, zmeczeniem, przewagą wroga czy potwornosciami, które doświadcza jest narażona na strach. Testy strachu są czynione za pośrednictwem moralne=wola+efekty dodatkowe. Postać pod wpływem intensywnego strachu nie jest w stanie wykorzystywać swoich umiejętności w pełni. Otrzymuje karę do wszelkich działań od -1 do -10 (do wszystkich umiejętności bojowych, użytkowych i obrażeń na kość broni przed redukcją kości)."
+          "id": "subsection-strach",
+          "title": "Strach",
+          "anchor": "strach",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-2",
+              "level": 3,
+              "content": "Definicja",
+              "anchor": "definicja"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-3",
+              "content": "Postać narażona na stres związany z walką, ciemnością, zmęczeniem, przewagą wroga czy potworności, których doświadcza, jest narażona na **strach**."
+            },
+            {
+              "type": "heading",
+              "id": "heading-4",
+              "level": 3,
+              "content": "Mechanika Testów Strachu",
+              "anchor": "mechanika-testow-strachu"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Testy strachu są wykonywane za pośrednictwem następującego testu:"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-6",
+              "content": "**Test Morale = Wola + efekty dodatkowe**"
+            },
+            {
+              "type": "heading",
+              "id": "heading-7",
+              "level": 3,
+              "content": "Efekty Strachu",
+              "anchor": "efekty-strachu"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "Postać pod wpływem intensywnego strachu nie jest w stanie wykorzystywać swoich umiejętności w pełni. Otrzymuje **karę od -1 do -10** do:"
+            },
+            {
+              "type": "list",
+              "id": "list-9",
+              "ordered": false,
+              "items": [
+                "Wszystkich umiejętności bojowych",
+                "Wszystkich umiejętności użytkowych",
+                "Obrażeń na kość broni (przed redukcją kości)"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 3,
+              "content": "Skala Trudności Testów Strachu",
+              "anchor": "skala-trudnosci-testow-strachu"
+            },
+            {
+              "type": "table",
+              "id": "table-11",
+              "table": {
+                "headers": [
+                  "Element",
+                  "Modyfikator ST"
+                ],
+                "rows": [
+                  [
+                    "Podstawowy element",
+                    "+3"
+                  ],
+                  [
+                    "Przewaga siły przeciwnika",
+                    "+1 / +2 / +3"
+                  ],
+                  [
+                    "Groza przeciwnika",
+                    "+1 / +2 / +3"
+                  ],
+                  [
+                    "Wydarzenia na polu bitwy (śmierć sojuszników itp.)",
+                    "+1 / +2 / +3"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 3,
+              "content": "Przykłady Testów Strachu",
+              "anchor": "przyk-ady-testow-strachu"
+            },
+            {
+              "type": "heading",
+              "id": "heading-13",
+              "level": 4,
+              "content": "Przykład 1: Walka z Merromonstrum",
+              "anchor": "przyk-ad-1-walka-z-merromonstrum"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-14",
+              "content": "**Oddział 10 wojaków:**\nST = 3 (podstawa) + 2 (przewaga siły) + 2 (groza przeciwnika) = **7**"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-15",
+              "content": "**4 kwiat rycerstwa:**\nST = 3 (podstawa) + 2 (groza przeciwnika) = **5**"
+            },
+            {
+              "type": "heading",
+              "id": "heading-16",
+              "level": 4,
+              "content": "Przykład 2: Walka z Cykodliszczem",
+              "anchor": "przyk-ad-2-walka-z-cykodliszczem"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-17",
+              "content": "**4 rycerzy lennych:**\nST = 3 (podstawa) + 1 (przewaga wroga) + 2 (groza przeciwnika) = **6**"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-18",
+              "content": "**30 chłopów:**\nST = 3 (podstawa) + 3 (przewaga wroga) + 3 (groza przeciwnika) = **9**"
+            },
+            {
+              "type": "heading",
+              "id": "heading-19",
+              "level": 4,
+              "content": "Przykład 3: Walka z Trzema Bandytami (piechurzy)",
+              "anchor": "przyk-ad-3-walka-z-trzema-bandytami-piechurzy"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-20",
+              "content": "**1 wojak:**\nST = 3 (podstawa) + 2 (przewaga przeciwnika) = **5**"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-21",
+              "content": "**1 wojmistrz:**\nST = 3 (podstawa)\nBandyci: ST = 3 (podstawa) + 2 (przewaga przeciwnika) + 1 (groza przeciwnika) = **6**"
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Elementy skali trudności:"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Podstawyw element ST=3."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Przewaga siły przeciwnika +1/+2/+3"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "Groza przeciwnika +1/+2/+3"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "Wydarzenia na polu bitwy (śmierci sojuszników itp) +1/+2/+3"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-7",
-          "content": "Przykładowa skala trudności w walce z merromonstrum"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "a) 10x osoby oddział wojaków: ST=3+2(przewaga siły)+2(groza przeciwnika)=7"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-9",
-          "content": "b) 4x kwiat rycerstwa: ST=3+2(groza przeciwnika)=5"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "Przykładowa skala trudności w walce z cykodliszczem"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "a) 4x rycerzy lennych: ST=3+1(przewaga wroga)+2(goza przeciwnika)=6"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-12",
-          "content": "b) 30x chłopi: ST=3+3(przewraga wroga)+3(groza przeciwnika)=9"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-13",
-          "content": "Przykładowa skala trudności w trzema bandytami (piechury):"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-14",
-          "content": "a) 1x wojak: ST=3+2(przewaga przeciwnika)=5"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-15",
-          "content": "b) 1x wojmistrz: ST=3. Bandyci St=3+2(przewaga przeciwnika)+1(groza przeciwnika)=6"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-17",
-          "content": "Postać której kara ze względu na strach wynosi -11 lub wiecej to postać traci kontrole nad sobą i panicznie ucieka lub jeśli mistrz gry tak uzna barbarzyńsko atakuje."
+          "id": "subsection-przerazenie",
+          "title": "Przerażenie",
+          "anchor": "przerazenie",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-23",
+              "content": "Postać, której kara ze względu na strach wynosi **-11 lub więcej**, traci kontrolę nad sobą i:"
+            },
+            {
+              "type": "list",
+              "id": "list-24",
+              "ordered": false,
+              "items": [
+                "Panicznie ucieka, **LUB**",
+                "Barbarzyńsko atakuje (decyzja Mistrza Gry)"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-25",
+              "content": "**Uwaga:** Przerażenie jest stanem całkowitej utraty kontroli nad działaniami postaci."
+            }
+          ]
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.264Z"
+      "lastModified": "2025-11-11T09:57:04.634Z"
     },
     {
       "id": "section-podstawy-twardosc",
@@ -927,7 +1062,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.265Z"
+      "lastModified": "2025-11-11T09:57:04.635Z"
     },
     {
       "id": "section-podstawy-zmeczenie-i-odpoczynek",
@@ -1140,7 +1275,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.265Z"
+      "lastModified": "2025-11-11T09:57:04.635Z"
     },
     {
       "id": "section-podstawy-testy",
@@ -1239,7 +1374,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.265Z"
+      "lastModified": "2025-11-11T09:57:04.635Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-klasy-postaci",
@@ -1247,231 +1382,451 @@
       "title": "Klasy Postaci",
       "category": "cechy-i-umiejetnosci",
       "order": 0,
-      "content": [
+      "content": [],
+      "subsections": [
         {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Szermierz: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek2"
+          "id": "subsection-klasy-podstawowe",
+          "title": "Klasy Podstawowe",
+          "anchor": "klasy-podstawowe",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Poniższa tabela przedstawia klasy podstawowe dostępne dla graczy oraz ich bazowe bonusy i ograniczenia."
+            },
+            {
+              "type": "heading",
+              "id": "heading-3",
+              "level": 3,
+              "content": "Tabela Klas Podstawowych",
+              "anchor": "tabela-klas-podstawowych"
+            },
+            {
+              "type": "table",
+              "id": "table-4",
+              "table": {
+                "headers": [
+                  "Klasa",
+                  "Ograniczenia",
+                  "Bazowe Bonusy"
+                ],
+                "rows": [
+                  [
+                    "**Szermierz**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większy Fechtunek +2"
+                  ],
+                  [
+                    "**Wojownik**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większy Fechtunek +1, Większy Fortel +1"
+                  ],
+                  [
+                    "**Barbarzyńca**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większa Inicjatywa +2, Większa Wytrwałość +1"
+                  ],
+                  [
+                    "**Łucznik/Kusznik**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większa Precyzja +1, Większa Inicjatywa +1"
+                  ],
+                  [
+                    "**Łotrzyk**",
+                    "Brak: Wiary, Arkan, Mocy",
+                    "Większy Fortel +2"
+                  ],
+                  [
+                    "**Kapłan**",
+                    "Brak: Arkan, Mocy",
+                    "Większa Wiara +1"
+                  ],
+                  [
+                    "**Mag**",
+                    "Brak: Wiary, Mocy",
+                    "Większe Arkana +1"
+                  ],
+                  [
+                    "**Czarokrwisty**",
+                    "-",
+                    "Większa Moc +1, możliwość wyboru dodatkowej klasy"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-5",
+              "level": 3,
+              "content": "Opis Klas",
+              "anchor": "opis-klas"
+            },
+            {
+              "type": "heading",
+              "id": "heading-6",
+              "level": 4,
+              "content": "Szermierz",
+              "anchor": "szermierz"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Mistrzowie białej broni specjalizujący się w fechtunku. Nie posiadają dostępu do magii."
+            },
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 4,
+              "content": "Wojownik",
+              "anchor": "wojownik"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "Wszechstronni wojownicy łączący umiejętności walki i taktyki."
+            },
+            {
+              "type": "heading",
+              "id": "heading-10",
+              "level": 4,
+              "content": "Barbarzyńca",
+              "anchor": "barbarzynca"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "Dzicy wojownicy polegający na sile i szybkości, wytrzymali w boju."
+            },
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 4,
+              "content": "Łucznik/Kusznik",
+              "anchor": "ucznik-kusznik"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-13",
+              "content": "Specjaliści broni dystansowej z precyzyjnym okiem i szybkimi refleksami."
+            },
+            {
+              "type": "heading",
+              "id": "heading-14",
+              "level": 4,
+              "content": "Łotrzyk",
+              "anchor": "otrzyk"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-15",
+              "content": "Mistrzowie podstępu i fortelu, wykorzystujący chytrość zamiast siły."
+            },
+            {
+              "type": "heading",
+              "id": "heading-16",
+              "level": 4,
+              "content": "Kapłan",
+              "anchor": "kap-an"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-17",
+              "content": "Słudzy bogów władający mocą wiary."
+            },
+            {
+              "type": "heading",
+              "id": "heading-18",
+              "level": 4,
+              "content": "Mag",
+              "anchor": "mag"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-19",
+              "content": "Uczeni władający tajemną wiedzą arkan."
+            },
+            {
+              "type": "heading",
+              "id": "heading-20",
+              "level": 4,
+              "content": "Czarokrwisty",
+              "anchor": "czarokrwisty"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-21",
+              "content": "Unikalna klasa z naturalną zdolnością do magii czarnej krwi. Może łączyć z inną klasą."
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Wojownik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fechtunek1, Większy Fortel1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Barbarzyńca: Brak możliwości wyboru Wiary, Arkan i Mocy . Bazowo dodaje Większa Inicjatywa2, Większa Wytrwałość + 1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Łucznik/Kusznik: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Precyzja1, Większa Inicjatywa1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "Łotrzyk: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większy Fortel2"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "Kapłan: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większa Wiara1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-7",
-          "content": "Mag: Brak możliwości wyboru Wiary, Arkan i Mocy. Bazowo dodaje Większe Arkana1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "Czarokrwisty: Możliwość wyboru dodatkowej klasy. Niezależnie od drugiej klasy możliwość wyboru Mocy. Bazowo dodaje Większa Moc1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "Mistrz gry"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "Wojmistrz"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-12",
-          "content": "Miecznik"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-13",
-          "content": "Tarczownik"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-14",
-          "content": "Legionista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-15",
-          "content": "Dualista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-16",
-          "content": "Rycerz (Obniżenie wymagań fechtunku o 2, Możliwość wyboru manewrów, atutów i postaw Klasy Rycerz)"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-17",
-          "content": "Czarokrwisty"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-18",
-          "content": "Elita"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-19",
-          "content": "Zamachowiec"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-20",
-          "content": "Zabójca"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-21",
-          "content": "Skrytobójca"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-22",
-          "content": "Pustoszyciel"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-23",
-          "content": "Stalowy Obrońca"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-24",
-          "content": "Czempion"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-25",
-          "content": "Biały Rycerz"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-26",
-          "content": "Srebrny Rycerz"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-27",
-          "content": "Cień Śmierci"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-28",
-          "content": "Arkanista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-29",
-          "content": "Arcymag"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-30",
-          "content": "Krucjator"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-31",
-          "content": "Żelazny Watażka"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-32",
-          "content": "Batalionista"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-33",
-          "content": "Urderin AnhKragg"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-34",
-          "content": "Kwiat Rycerstwa"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-35",
-          "content": "Nemesis"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-36",
-          "content": "Urderin AnhKragg"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-37",
-          "content": "Ręka Mordu"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-38",
-          "content": "Szermierz"
+          "id": "subsection-klasy-prestizowe",
+          "title": "Klasy Prestiżowe",
+          "anchor": "klasy-prestizowe",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-23",
+              "content": "Klasy prestiżowe to zaawansowane specjalizacje dostępne dla doświadczonych postaci. Wymagają spełnienia określonych warunków (np. poziom umiejętności, reputacja, ukończenie questów)."
+            },
+            {
+              "type": "heading",
+              "id": "heading-24",
+              "level": 3,
+              "content": "Lista Klas Prestiżowych",
+              "anchor": "lista-klas-prestizowych"
+            },
+            {
+              "type": "heading",
+              "id": "heading-25",
+              "level": 4,
+              "content": "Elitarne Klasy Wojowników",
+              "anchor": "elitarne-klasy-wojownikow"
+            },
+            {
+              "type": "list",
+              "id": "list-26",
+              "ordered": false,
+              "items": [
+                "**Wojmistrz** - Weteran dowodzący oddziałami",
+                "**Miecznik** - Mistrz szermierki jednoręcznej",
+                "**Szermierz** - Zaawansowany mistrz białej broni",
+                "**Tarczownik** - Specjalista obrony tarczą",
+                "**Legionista** - Żołnierz formacji legionowych",
+                "**Dualista** - Mistrz pojedynków honorowych"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-27",
+              "level": 4,
+              "content": "Klasy Rycerskie",
+              "anchor": "klasy-rycerskie"
+            },
+            {
+              "type": "list",
+              "id": "list-28",
+              "ordered": false,
+              "items": [
+                "**Rycerz** - Obniżenie wymagań fechtunku o 2, dostęp do manewrów, atutów i postaw klasy rycerz",
+                "**Biały Rycerz** - Obrońca sprawiedliwości",
+                "**Srebrny Rycerz** - Elita rycerstwa",
+                "**Kwiat Rycerstwa** - Najlepsi z najlepszych"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-29",
+              "level": 4,
+              "content": "Klasy Zabójców",
+              "anchor": "klasy-zabojcow"
+            },
+            {
+              "type": "list",
+              "id": "list-30",
+              "ordered": false,
+              "items": [
+                "**Zabójca** - Profesjonalny morderca",
+                "**Skrytobójca** - Mistrz ukrytych zabójstw",
+                "**Zamachowiec** - Specjalista nagłych ataków",
+                "**Cień Śmierci** - Legendarna klasa zabójców",
+                "**Ręka Mordu** - Najemny zabójca"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-31",
+              "level": 4,
+              "content": "Klasy Magiczne",
+              "anchor": "klasy-magiczne"
+            },
+            {
+              "type": "list",
+              "id": "list-32",
+              "ordered": false,
+              "items": [
+                "**Arkanista** - Zaawansowany mag arkan",
+                "**Arcymag** - Mistrz magii",
+                "**Krucjator** - Wojownik-kapłan",
+                "**Czarokrwisty** - Mistrz magii czarnej krwi"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-33",
+              "level": 4,
+              "content": "Klasy Elitarne",
+              "anchor": "klasy-elitarne"
+            },
+            {
+              "type": "list",
+              "id": "list-34",
+              "ordered": false,
+              "items": [
+                "**Elita** - Wybrane jednostki wojskowe",
+                "**Czempion** - Mistrz areny",
+                "**Pustoszyciel** - Niszczyciel armii",
+                "**Stalowy Obrońca** - Niezniszczalny obrońca",
+                "**Nemesis** - Mściwy wojownik"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-35",
+              "level": 4,
+              "content": "Klasy Dowódców",
+              "anchor": "klasy-dowodcow"
+            },
+            {
+              "type": "list",
+              "id": "list-36",
+              "ordered": false,
+              "items": [
+                "**Żelazny Watażka** - Dowódca oddziałów najemnych",
+                "**Batalionista** - Specjalista walki grupowej",
+                "**Urderin AnhKragg** - Legendarny tytuł wojownika"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-37",
+              "content": "**Uwaga:** Szczegółowe wymagania i bonusy dla klas prestiżowych są opisane w osobnych rozdziałach podręcznika."
+            }
+          ]
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.266Z"
+      "lastModified": "2025-11-11T09:57:04.636Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-talenty",
       "slug": "talenty",
-      "title": "Talenty",
+      "title": "Medale",
       "category": "cechy-i-umiejetnosci",
       "order": 1,
       "content": [
         {
           "type": "paragraph",
           "id": "paragraph-1",
-          "content": "Wymiana Talentów na Talenty (Talenty == Medale)"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "D=3P"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "P=3Z"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Z=3S"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "S=3B"
+          "content": "System medali w Cedrus RPG służy do określania postępów i siły postaci. Medale można wymieniać na medale niższej rangi według ustalonego przelicznika."
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.266Z"
+      "subsections": [
+        {
+          "id": "subsection-rodzaje-medali",
+          "title": "Rodzaje Medali",
+          "anchor": "rodzaje-medali",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-3",
+              "ordered": false,
+              "items": [
+                "**D** - Medal Diamentowy (najwyższy)",
+                "**P** - Medal Platynowy",
+                "**Z** - Medal Złoty",
+                "**S** - Medal Srebrny",
+                "**B** - Medal Brązowy (podstawowy)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "subsection-przelicznik-wymiany-medali",
+          "title": "Przelicznik Wymiany Medali",
+          "anchor": "przelicznik-wymiany-medali",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Medale wyższej rangi można wymienić na medale niższej rangi według następujących współczynników:"
+            },
+            {
+              "type": "table",
+              "id": "table-6",
+              "table": {
+                "headers": [
+                  "Medal wyższej rangi",
+                  "Wymienia się na",
+                  "Medal niższej rangi"
+                ],
+                "rows": [
+                  [
+                    "1x D (Diamentowy)",
+                    "=",
+                    "3x P (Platynowy)"
+                  ],
+                  [
+                    "1x P (Platynowy)",
+                    "=",
+                    "3x Z (Złoty)"
+                  ],
+                  [
+                    "1x Z (Złoty)",
+                    "=",
+                    "3x S (Srebrny)"
+                  ],
+                  [
+                    "1x S (Srebrny)",
+                    "=",
+                    "3x B (Brązowy)"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-7",
+              "level": 3,
+              "content": "Przykłady Wymiany",
+              "anchor": "przyk-ady-wymiany"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-8",
+              "content": "**Przykład 1:**\nPostać z 1x Medalem Diamentowym może go wymienić na 3x Medale Platynowe"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-9",
+              "content": "**Przykład 2:**\nPostać z 2x Medalami Złotymi może je wymienić na 6x Medale Srebrne (2 × 3 = 6)"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-10",
+              "content": "**Przykład 3:**\nPostać z 1x Medalem Platynowym może go wymienić na 3x Medale Złote, które następnie można wymienić na 9x Medale Srebrne (3 × 3 = 9)"
+            }
+          ]
+        },
+        {
+          "id": "subsection-zdobywanie-medali",
+          "title": "Zdobywanie Medali",
+          "anchor": "zdobywanie-medali",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-12",
+              "content": "Medale są przyznawane przez Mistrza Gry za:"
+            },
+            {
+              "type": "list",
+              "id": "list-13",
+              "ordered": false,
+              "items": [
+                "Ukończenie ważnych questów",
+                "Heroiczne czyny",
+                "Rozwój postaci",
+                "Osiągnięcia fabularne"
+              ]
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-14",
+              "content": "**Uwaga:** Wymiana medali jest nieodwracalna. Zastanów się dobrze przed wymianą medali wyższej rangi na niższe."
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.636Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-uzytkowe",
@@ -1502,7 +1857,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.266Z"
+      "lastModified": "2025-11-11T09:57:04.636Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-budowa",
@@ -1518,7 +1873,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-cechy",
@@ -1576,7 +1931,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-charyzma",
@@ -1592,7 +1947,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-czarokrwistosc",
@@ -1608,7 +1963,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.267Z"
+      "lastModified": "2025-11-11T09:57:04.637Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-losowanie-cech",
@@ -1624,7 +1979,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-si-a",
@@ -1640,7 +1995,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umys",
@@ -1656,7 +2011,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-zrecznosc",
@@ -1677,7 +2032,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.268Z"
+      "lastModified": "2025-11-11T09:57:04.638Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-fechtunek",
@@ -1693,7 +2048,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.639Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-fortel",
@@ -1709,7 +2064,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.639Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-inicjatywa",
@@ -1725,7 +2080,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.639Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-jezdziectwo",
@@ -1741,7 +2096,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-precyzja",
@@ -1757,7 +2112,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-bojowe",
@@ -1773,7 +2128,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.269Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-walka-wrecz",
@@ -1804,7 +2159,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.640Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-arkana",
@@ -1820,7 +2175,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-esencja",
@@ -1836,7 +2191,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-moc",
@@ -1852,7 +2207,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-si-a-zaklecia",
@@ -1868,7 +2223,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.270Z"
+      "lastModified": "2025-11-11T09:57:04.641Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-nadnaturalne",
@@ -1878,7 +2233,7 @@
       "order": 22,
       "content": [],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wiara",
@@ -1894,7 +2249,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wiez",
@@ -1910,7 +2265,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-refleks",
@@ -1926,7 +2281,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-umiejetnosci-obronne",
@@ -1936,7 +2291,7 @@
       "order": 26,
       "content": [],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.271Z"
+      "lastModified": "2025-11-11T09:57:04.642Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wola",
@@ -1952,7 +2307,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.272Z"
+      "lastModified": "2025-11-11T09:57:04.643Z"
     },
     {
       "id": "section-cechy-i-umiejetnosci-wytrwa-osc",
@@ -1968,7 +2323,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.272Z"
+      "lastModified": "2025-11-11T09:57:04.643Z"
     },
     {
       "id": "section-system-walki-krytyczne-pud-o",
@@ -1989,7 +2344,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.272Z"
+      "lastModified": "2025-11-11T09:57:04.644Z"
     },
     {
       "id": "section-system-walki-mechanika-walki",
@@ -2078,7 +2433,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.273Z"
+      "lastModified": "2025-11-11T09:57:04.644Z"
     },
     {
       "id": "section-system-walki-trafienie-krytyczne",
@@ -2104,7 +2459,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.273Z"
+      "lastModified": "2025-11-11T09:57:04.644Z"
     },
     {
       "id": "section-system-walki-ataki-dystansowy",
@@ -2389,7 +2744,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.273Z"
+      "lastModified": "2025-11-11T09:57:04.645Z"
     },
     {
       "id": "section-system-walki-ataki-w-zwarciu",
@@ -2478,7 +2833,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.274Z"
+      "lastModified": "2025-11-11T09:57:04.645Z"
     },
     {
       "id": "section-system-walki-ataki",
@@ -2504,7 +2859,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.274Z"
+      "lastModified": "2025-11-11T09:57:04.645Z"
     },
     {
       "id": "section-system-walki-blokowanie",
@@ -2525,7 +2880,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.274Z"
+      "lastModified": "2025-11-11T09:57:04.646Z"
     },
     {
       "id": "section-system-walki-defensywa",
@@ -2535,7 +2890,7 @@
       "order": 7,
       "content": [],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.275Z"
+      "lastModified": "2025-11-11T09:57:04.646Z"
     },
     {
       "id": "section-system-walki-niewrazliwosc",
@@ -2551,7 +2906,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.275Z"
+      "lastModified": "2025-11-11T09:57:04.646Z"
     },
     {
       "id": "section-system-walki-odpornosc",
@@ -2567,7 +2922,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.275Z"
+      "lastModified": "2025-11-11T09:57:04.646Z"
     },
     {
       "id": "section-system-walki-parowanie",
@@ -2588,7 +2943,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.275Z"
+      "lastModified": "2025-11-11T09:57:04.647Z"
     },
     {
       "id": "section-system-walki-redukcja",
@@ -2654,7 +3009,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.276Z"
+      "lastModified": "2025-11-11T09:57:04.647Z"
     },
     {
       "id": "section-system-walki-uniki",
@@ -2680,7 +3035,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.276Z"
+      "lastModified": "2025-11-11T09:57:04.647Z"
     },
     {
       "id": "section-system-walki-atak-w-plecy",
@@ -2696,7 +3051,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.276Z"
+      "lastModified": "2025-11-11T09:57:04.648Z"
     },
     {
       "id": "section-system-walki-atak-z-flanki",
@@ -2712,7 +3067,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.276Z"
+      "lastModified": "2025-11-11T09:57:04.648Z"
     },
     {
       "id": "section-system-walki-dobieganie-i-poruszanie-sie-w-walce",
@@ -2743,7 +3098,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.277Z"
+      "lastModified": "2025-11-11T09:57:04.648Z"
     },
     {
       "id": "section-system-walki-obalenie",
@@ -2764,7 +3119,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.277Z"
+      "lastModified": "2025-11-11T09:57:04.648Z"
     },
     {
       "id": "section-system-walki-organizacja-walki",
@@ -2774,7 +3129,7 @@
       "order": 17,
       "content": [],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.277Z"
+      "lastModified": "2025-11-11T09:57:04.649Z"
     },
     {
       "id": "section-system-walki-przewaga-wysokosci",
@@ -2790,7 +3145,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.277Z"
+      "lastModified": "2025-11-11T09:57:04.649Z"
     },
     {
       "id": "section-system-walki-szarza",
@@ -2806,7 +3161,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.277Z"
+      "lastModified": "2025-11-11T09:57:04.649Z"
     },
     {
       "id": "section-system-walki-walka-bez-wyszkolenia",
@@ -2837,7 +3192,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.278Z"
+      "lastModified": "2025-11-11T09:57:04.649Z"
     },
     {
       "id": "section-system-walki-walka-z-nieuzbrojonym-przeciwnikiem",
@@ -2853,7 +3208,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.278Z"
+      "lastModified": "2025-11-11T09:57:04.650Z"
     },
     {
       "id": "section-system-walki-zwarcie-w-walce",
@@ -2869,7 +3224,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.278Z"
+      "lastModified": "2025-11-11T09:57:04.650Z"
     },
     {
       "id": "section-system-walki-samotny-orez",
@@ -2885,7 +3240,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.278Z"
+      "lastModified": "2025-11-11T09:57:04.651Z"
     },
     {
       "id": "section-system-walki-style-walki",
@@ -2895,7 +3250,7 @@
       "order": 24,
       "content": [],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.278Z"
+      "lastModified": "2025-11-11T09:57:04.651Z"
     },
     {
       "id": "section-system-walki-walka-bronia-dwureczna",
@@ -2911,7 +3266,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.279Z"
+      "lastModified": "2025-11-11T09:57:04.651Z"
     },
     {
       "id": "section-system-walki-walka-bronia-jednoreczna-i-tarcza",
@@ -2927,7 +3282,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.279Z"
+      "lastModified": "2025-11-11T09:57:04.652Z"
     },
     {
       "id": "section-system-walki-walka-dwoma-broniami",
@@ -2943,7 +3298,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.279Z"
+      "lastModified": "2025-11-11T09:57:04.652Z"
     },
     {
       "id": "section-system-walki-manewry",
@@ -2964,7 +3319,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.279Z"
+      "lastModified": "2025-11-11T09:57:04.652Z"
     },
     {
       "id": "section-system-walki-postawy",
@@ -3000,7 +3355,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.280Z"
+      "lastModified": "2025-11-11T09:57:04.652Z"
     },
     {
       "id": "section-system-walki-stany",
@@ -3016,7 +3371,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.280Z"
+      "lastModified": "2025-11-11T09:57:04.653Z"
     },
     {
       "id": "section-system-walki-taktyka-walki",
@@ -3042,7 +3397,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.280Z"
+      "lastModified": "2025-11-11T09:57:04.653Z"
     },
     {
       "id": "section-magia-i-zaklecia-czarowanie-i-walka",
@@ -3083,7 +3438,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.281Z"
+      "lastModified": "2025-11-11T09:57:04.653Z"
     },
     {
       "id": "section-magia-i-zaklecia-magia-obszarowa",
@@ -3099,7 +3454,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.281Z"
+      "lastModified": "2025-11-11T09:57:04.654Z"
     },
     {
       "id": "section-magia-i-zaklecia-si-a-zaklecia-i-obrazenia-maga",
@@ -3120,7 +3475,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.282Z"
+      "lastModified": "2025-11-11T09:57:04.654Z"
     },
     {
       "id": "section-magia-i-zaklecia-zaklecia-i-czary",
@@ -3218,7 +3573,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.282Z"
+      "lastModified": "2025-11-11T09:57:04.654Z"
     },
     {
       "id": "section-magia-i-zaklecia-zaklecia-obronne",
@@ -3234,7 +3589,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.282Z"
+      "lastModified": "2025-11-11T09:57:04.654Z"
     },
     {
       "id": "section-magia-i-zaklecia-ancuch-zaklec",
@@ -3420,7 +3775,7 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T08:46:50.282Z"
+      "lastModified": "2025-11-11T09:57:04.655Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-poziom-leczenia",
@@ -3436,7 +3791,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.283Z"
+      "lastModified": "2025-11-11T09:57:04.655Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-zdrowie",
@@ -3452,7 +3807,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.283Z"
+      "lastModified": "2025-11-11T09:57:04.655Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-efekt-krytyczny",
@@ -3460,60 +3815,351 @@
       "title": "Efekty Krytyczne",
       "category": "zdrowie-i-regeneracja",
       "order": 2,
-      "content": [
+      "content": [],
+      "subsections": [
         {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Efekt krytyczny powoduje najczęściej dotkliwe urazy fizyczne związane z utratą zbyt dużej ilości punktów zdrowia w jednej rundzie. Jeśli postać w jednej rundzie otrzyma obrażenia równe 10 x Poziom Leczenia (zwane progiem efektu krytycznego), to w pierwszej kolejności rzuca kością aby określić, która część ciała ucierpi, a następnie rzuca kością k100. Im mniej wyrzuci na kości k100 tym bardziej dotkliwe szkody powinny być wyrządzone (o ich rodzaju decyduje mistrz gry), przykładowo odpowiednio niska wartość powinna być związana z utratą danej części ciała."
+          "id": "subsection-definicja",
+          "title": "Definicja",
+          "anchor": "definicja",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "**Efekt krytyczny** występuje gdy postać otrzyma bardzo duże obrażenia w jednej rundzie. Najczęściej powoduje dotkliwe urazy fizyczne."
+            },
+            {
+              "type": "heading",
+              "id": "heading-3",
+              "level": 3,
+              "content": "Próg Efektu Krytycznego",
+              "anchor": "prog-efektu-krytycznego"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-4",
+              "content": "**Próg = 10 × Poziom Leczenia**\n\nJeśli postać otrzyma obrażenia równe lub większe od progu w **jednej rundzie**, następuje efekt krytyczny."
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Jeśli obrażenia z ostatniego źródła wyrządzały w danej turze obrażenia o 10 więcej niż 10 x Poziom Leczenia, to należy rzucić dwoma kośćmi k100 i wybrać niższy wynik. Jeśli obrażenia przytraczają próg efektu krytycznego o 20, to należy rzucić 3 kośćmi k100 i wybrać najniższy wynik. I tak dalej."
+          "id": "subsection-mechanika-efektu-krytycznego",
+          "title": "Mechanika Efektu Krytycznego",
+          "anchor": "mechanika-efektu-krytycznego",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-6",
+              "level": 3,
+              "content": "Krok 1: Określenie Części Ciała",
+              "anchor": "krok-1-okreslenie-czesci-cia-a"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Rzuć kością aby określić, która część ciała ucierpiała (szczegóły zależą od typu postaci - humanoid/potwór)."
+            },
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 3,
+              "content": "Krok 2: Określenie Dotkliwości",
+              "anchor": "krok-2-okreslenie-dotkliwosci"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "Rzuć kością **k100** - im niższy wynik, tym poważniejsze obrażenia."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "**Tabela Liczby Kości:**"
+            },
+            {
+              "type": "table",
+              "id": "table-11",
+              "table": {
+                "headers": [
+                  "Obrażenia powyżej progu",
+                  "Liczba kości k100",
+                  "Wybierz"
+                ],
+                "rows": [
+                  [
+                    "Próg + 0-9",
+                    "1x k100",
+                    "Ten wynik"
+                  ],
+                  [
+                    "Próg + 10-19",
+                    "2x k100",
+                    "Niższy wynik"
+                  ],
+                  [
+                    "Próg + 20-29",
+                    "3x k100",
+                    "Najniższy wynik"
+                  ],
+                  [
+                    "Próg + 30+",
+                    "4x k100",
+                    "Najniższy wynik"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 3,
+              "content": "Krok 3: Efekt Krytyczny",
+              "anchor": "krok-3-efekt-krytyczny"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-13",
+              "content": "Mistrz Gry określa efekt na podstawie:"
+            },
+            {
+              "type": "list",
+              "id": "list-14",
+              "ordered": false,
+              "items": [
+                "Części ciała (krok 1)",
+                "Dotkliwości (krok 2)",
+                "Kontekstu sytuacji"
+              ]
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Jeśli kolejne źródło zadaje obrażenia postaci, która otrzymała w tej turze Efekt Krytyczny, to próg kolejnego Efektu Krytycznego w tym wypadku wynosi 10. W przypadku znacznie większych obrażeń należy zastosować zasadę jak wyżej."
+          "id": "subsection-efekty-kumulatywne",
+          "title": "Efekty Kumulatywne",
+          "anchor": "efekty-kumulatywne",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-16",
+              "content": "Jeśli postać otrzymała już efekt krytyczny w danej turze, **próg kolejnego efektu krytycznego spada do 10**."
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-17",
+              "content": "**Przykład:**\nPostać z Poziomem Leczenia 5 ma próg 50. Otrzymuje 60 obrażeń → efekt krytyczny. W tej samej turze otrzymuje kolejne 15 obrażeń → drugi efekt krytyczny (próg spadł do 10)."
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "Części ciała humanoidów zagrożone efektem krytyczny i przykładowe efekty krytyczne:"
+          "id": "subsection-przyk-adowe-efekty-krytyczne-humanoidy",
+          "title": "Przykładowe Efekty Krytyczne (Humanoidy)",
+          "anchor": "przyk-adowe-efekty-krytyczne-humanoidy",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-19",
+              "level": 3,
+              "content": "Tabela Części Ciała",
+              "anchor": "tabela-czesci-cia-a"
+            },
+            {
+              "type": "table",
+              "id": "table-20",
+              "table": {
+                "headers": [
+                  "k6",
+                  "Część ciała"
+                ],
+                "rows": [
+                  [
+                    "1",
+                    "Głowa"
+                  ],
+                  [
+                    "2",
+                    "Korpus"
+                  ],
+                  [
+                    "3",
+                    "Lewa ręka"
+                  ],
+                  [
+                    "4",
+                    "Prawa ręka"
+                  ],
+                  [
+                    "5",
+                    "Lewa noga"
+                  ],
+                  [
+                    "6",
+                    "Prawa noga"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-21",
+              "level": 3,
+              "content": "Przykładowe Urazy według Części Ciała",
+              "anchor": "przyk-adowe-urazy-wed-ug-czesci-cia-a"
+            },
+            {
+              "type": "heading",
+              "id": "heading-22",
+              "level": 4,
+              "content": "1. Głowa",
+              "anchor": "1-g-owa"
+            },
+            {
+              "type": "table",
+              "id": "table-23",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizna na twarzy (np. na wardze lub przez twarz)"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Rozcięcie czoła - krew zalewa twarz, utrudnienie widzenia"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Utrata ucha/nosa/oka, poważny wstrząs mózgu"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Rozbicie głowy (masywne krwawienie), zmiażdżenie czaszki"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-24",
+              "level": 4,
+              "content": "2. Korpus",
+              "anchor": "2-korpus"
+            },
+            {
+              "type": "table",
+              "id": "table-25",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizny na ciele"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Mocne krwawienie z rozcięcia"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Uszkodzone płuco, uszkodzony żołądek"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Uszkodzony kręgosłup, przebite serce"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-26",
+              "level": 4,
+              "content": "3. Lewa/Prawa Ręka",
+              "anchor": "3-lewa-prawa-reka"
+            },
+            {
+              "type": "table",
+              "id": "table-27",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizny na ręce"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Utrata palca/palców, trudność w chwytaniu"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Przebity łokieć, ucięta dłoń, ręka niesprawna"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Przebita ręka, ręka ucięta do łokcia"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-28",
+              "level": 4,
+              "content": "4. Lewa/Prawa Noga",
+              "anchor": "4-lewa-prawa-noga"
+            },
+            {
+              "type": "table",
+              "id": "table-29",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizny na nodze"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Przebita stopa, utrudnione chodzenie"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Ucięte palce u stopy, przebite kolano"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Ucięta noga do kolana"
+                  ]
+                ]
+              }
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "\\1. Głowa - blizna na twarzy (np na wardze lub przez twarz), rozcięcie czoła tak, że krew zalewa twarz, utrata ucha/nosa/oka, poważny wstrząs mózgu, rozbicie głowy (krwawienie), zmiażdżenie czaszki"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-7",
-          "content": "\\2. Korpus - blizny na ciele, mocne krwawienie z rozcięcia, uszkodzone płuco, uszkodzony żołądek, uszkodzony kręgosłup, przebite serce"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "\\3. Lewa ręka - blizny na ręce, utrata palca/palców, przebity łokieć, ucięta dłoń, przebita ręka, ręka ucięta do łokcia"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-9",
-          "content": "\\4. Prawa ręka - blizny na ręce, utrata palca/palców, przebity łokieć, ucięta dłoń, przebita ręka, ręka ucięta do łokcia"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "\\5. Lewa noga - blizny na nodze, przebita stopa, ucięte palce u stopy, przebite kolano, ucięta noga do kolana"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "\\6. Prawa noga - blizny na nodze, przebita stopa, ucięte palce u stopy, przebite kolano, ucięta noga do kolana"
+          "id": "subsection-interpretacja-mistrza-gry",
+          "title": "Interpretacja Mistrza Gry",
+          "anchor": "interpretacja-mistrza-gry",
+          "content": [
+            {
+              "type": "blockquote",
+              "id": "blockquote-31",
+              "content": "**Uwaga:** Powyższe przykłady są orientacyjne. Ostateczną decyzję o charakterze i skutkach efektu krytycznego podejmuje Mistrz Gry, biorąc pod uwagę:\n- Typ ataku (cięcie, przebicie, zmiażdżenie, magia)\n- Kontekst fabularny\n- Epickość sceny\n- Balans gry"
+            }
+          ]
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.656Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-uraz",
@@ -3544,7 +4190,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.656Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-autoregeneracja-mocy",
@@ -3560,7 +4206,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.656Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-odpoczynek",
@@ -3576,7 +4222,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.657Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-regeneracja-esencji",
@@ -3592,7 +4238,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.657Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-magiczne-leczenie",
@@ -3618,7 +4264,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-medycyna",
@@ -3639,7 +4285,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-nadnaturalna-regeneracja",
@@ -3655,7 +4301,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-odpoczynek",
@@ -3676,7 +4322,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-regeneracja-zdrowia",
@@ -3692,7 +4338,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.286Z"
+      "lastModified": "2025-11-11T09:57:04.659Z"
     }
   ],
   "navigation": [
@@ -3775,7 +4421,7 @@
         },
         {
           "id": "section-podstawy-strach-i-przerazenie",
-          "title": "Strach",
+          "title": "Strach i Przerażenie",
           "slug": "podstawy/strach-i-przerazenie",
           "category": "podstawy",
           "order": 10
@@ -3819,7 +4465,7 @@
         },
         {
           "id": "section-cechy-i-umiejetnosci-talenty",
-          "title": "Talenty",
+          "title": "Medale",
           "slug": "cechy-i-umiejetnosci/talenty",
           "category": "cechy-i-umiejetnosci",
           "order": 1
@@ -4394,5 +5040,5 @@
     }
   ],
   "version": "1.0",
-  "lastUpdated": "2025-11-11T08:46:50.286Z"
+  "lastUpdated": "2025-11-11T09:57:04.659Z"
 }

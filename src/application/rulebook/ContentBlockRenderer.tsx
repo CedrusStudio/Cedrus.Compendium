@@ -4,6 +4,7 @@
 
 import type { ContentBlock } from '@/domain/rulebook/RulebookTypes';
 import { RulebookTable } from './RulebookTable';
+import { parseInlineMarkdown } from './utils/markdownParser';
 
 type ContentBlockRendererProps = {
   block: ContentBlock;
@@ -18,27 +19,27 @@ export function ContentBlockRenderer({ block }: ContentBlockRendererProps) {
           id={block.anchor}
           className={`
             scroll-mt-20
-            ${block.level === 2 ? 'text-2xl font-bold mt-8 mb-4' : ''}
-            ${block.level === 3 ? 'text-xl font-semibold mt-6 mb-3' : ''}
+            ${block.level === 2 ? 'text-2xl font-bold mt-6 mb-4' : ''}
+            ${block.level === 3 ? 'text-xl font-semibold mt-5 mb-3' : ''}
             ${block.level === 4 ? 'text-lg font-semibold mt-4 mb-2' : ''}
             ${block.level === 5 ? 'text-base font-semibold mt-3 mb-2' : ''}
             ${block.level === 6 ? 'text-sm font-semibold mt-2 mb-1' : ''}
           `}
         >
-          {block.content}
+          {parseInlineMarkdown(block.content)}
         </HeadingTag>
       );
 
     case 'paragraph':
       return (
-        <p className="mb-4 leading-relaxed text-muted-foreground">
-          {block.content}
+        <p className="mb-3 leading-relaxed text-muted-foreground">
+          {parseInlineMarkdown(block.content)}
         </p>
       );
 
     case 'table':
       return (
-        <div className="my-6">
+        <div className="my-4">
           <RulebookTable table={block.table} />
         </div>
       );
@@ -46,10 +47,10 @@ export function ContentBlockRenderer({ block }: ContentBlockRendererProps) {
     case 'list':
       const ListTag = block.ordered ? 'ol' : 'ul';
       return (
-        <ListTag className={`mb-4 ml-6 space-y-2 ${block.ordered ? 'list-decimal' : 'list-disc'}`}>
+        <ListTag className={`mb-3 ml-6 space-y-1.5 ${block.ordered ? 'list-decimal' : 'list-disc'}`}>
           {block.items.map((item, idx) => (
             <li key={idx} className="text-muted-foreground leading-relaxed">
-              {item}
+              {parseInlineMarkdown(item)}
             </li>
           ))}
         </ListTag>
@@ -58,7 +59,7 @@ export function ContentBlockRenderer({ block }: ContentBlockRendererProps) {
     case 'blockquote':
       return (
         <blockquote className="border-l-4 border-primary pl-4 py-2 my-4 italic bg-muted/50 rounded-r">
-          <p className="text-muted-foreground">{block.content}</p>
+          <p className="text-muted-foreground">{parseInlineMarkdown(block.content)}</p>
         </blockquote>
       );
 

@@ -22,7 +22,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.283Z"
+      "lastModified": "2025-11-11T09:57:04.655Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-zdrowie",
@@ -38,7 +38,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.283Z"
+      "lastModified": "2025-11-11T09:57:04.655Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-efekt-krytyczny",
@@ -46,60 +46,351 @@
       "title": "Efekty Krytyczne",
       "category": "zdrowie-i-regeneracja",
       "order": 2,
-      "content": [
+      "content": [],
+      "subsections": [
         {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Efekt krytyczny powoduje najczęściej dotkliwe urazy fizyczne związane z utratą zbyt dużej ilości punktów zdrowia w jednej rundzie. Jeśli postać w jednej rundzie otrzyma obrażenia równe 10 x Poziom Leczenia (zwane progiem efektu krytycznego), to w pierwszej kolejności rzuca kością aby określić, która część ciała ucierpi, a następnie rzuca kością k100. Im mniej wyrzuci na kości k100 tym bardziej dotkliwe szkody powinny być wyrządzone (o ich rodzaju decyduje mistrz gry), przykładowo odpowiednio niska wartość powinna być związana z utratą danej części ciała."
+          "id": "subsection-definicja",
+          "title": "Definicja",
+          "anchor": "definicja",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "**Efekt krytyczny** występuje gdy postać otrzyma bardzo duże obrażenia w jednej rundzie. Najczęściej powoduje dotkliwe urazy fizyczne."
+            },
+            {
+              "type": "heading",
+              "id": "heading-3",
+              "level": 3,
+              "content": "Próg Efektu Krytycznego",
+              "anchor": "prog-efektu-krytycznego"
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-4",
+              "content": "**Próg = 10 × Poziom Leczenia**\n\nJeśli postać otrzyma obrażenia równe lub większe od progu w **jednej rundzie**, następuje efekt krytyczny."
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Jeśli obrażenia z ostatniego źródła wyrządzały w danej turze obrażenia o 10 więcej niż 10 x Poziom Leczenia, to należy rzucić dwoma kośćmi k100 i wybrać niższy wynik. Jeśli obrażenia przytraczają próg efektu krytycznego o 20, to należy rzucić 3 kośćmi k100 i wybrać najniższy wynik. I tak dalej."
+          "id": "subsection-mechanika-efektu-krytycznego",
+          "title": "Mechanika Efektu Krytycznego",
+          "anchor": "mechanika-efektu-krytycznego",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-6",
+              "level": 3,
+              "content": "Krok 1: Określenie Części Ciała",
+              "anchor": "krok-1-okreslenie-czesci-cia-a"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "Rzuć kością aby określić, która część ciała ucierpiała (szczegóły zależą od typu postaci - humanoid/potwór)."
+            },
+            {
+              "type": "heading",
+              "id": "heading-8",
+              "level": 3,
+              "content": "Krok 2: Określenie Dotkliwości",
+              "anchor": "krok-2-okreslenie-dotkliwosci"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "Rzuć kością **k100** - im niższy wynik, tym poważniejsze obrażenia."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "**Tabela Liczby Kości:**"
+            },
+            {
+              "type": "table",
+              "id": "table-11",
+              "table": {
+                "headers": [
+                  "Obrażenia powyżej progu",
+                  "Liczba kości k100",
+                  "Wybierz"
+                ],
+                "rows": [
+                  [
+                    "Próg + 0-9",
+                    "1x k100",
+                    "Ten wynik"
+                  ],
+                  [
+                    "Próg + 10-19",
+                    "2x k100",
+                    "Niższy wynik"
+                  ],
+                  [
+                    "Próg + 20-29",
+                    "3x k100",
+                    "Najniższy wynik"
+                  ],
+                  [
+                    "Próg + 30+",
+                    "4x k100",
+                    "Najniższy wynik"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-12",
+              "level": 3,
+              "content": "Krok 3: Efekt Krytyczny",
+              "anchor": "krok-3-efekt-krytyczny"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-13",
+              "content": "Mistrz Gry określa efekt na podstawie:"
+            },
+            {
+              "type": "list",
+              "id": "list-14",
+              "ordered": false,
+              "items": [
+                "Części ciała (krok 1)",
+                "Dotkliwości (krok 2)",
+                "Kontekstu sytuacji"
+              ]
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Jeśli kolejne źródło zadaje obrażenia postaci, która otrzymała w tej turze Efekt Krytyczny, to próg kolejnego Efektu Krytycznego w tym wypadku wynosi 10. W przypadku znacznie większych obrażeń należy zastosować zasadę jak wyżej."
+          "id": "subsection-efekty-kumulatywne",
+          "title": "Efekty Kumulatywne",
+          "anchor": "efekty-kumulatywne",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-16",
+              "content": "Jeśli postać otrzymała już efekt krytyczny w danej turze, **próg kolejnego efektu krytycznego spada do 10**."
+            },
+            {
+              "type": "blockquote",
+              "id": "blockquote-17",
+              "content": "**Przykład:**\nPostać z Poziomem Leczenia 5 ma próg 50. Otrzymuje 60 obrażeń → efekt krytyczny. W tej samej turze otrzymuje kolejne 15 obrażeń → drugi efekt krytyczny (próg spadł do 10)."
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "Części ciała humanoidów zagrożone efektem krytyczny i przykładowe efekty krytyczne:"
+          "id": "subsection-przyk-adowe-efekty-krytyczne-humanoidy",
+          "title": "Przykładowe Efekty Krytyczne (Humanoidy)",
+          "anchor": "przyk-adowe-efekty-krytyczne-humanoidy",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-19",
+              "level": 3,
+              "content": "Tabela Części Ciała",
+              "anchor": "tabela-czesci-cia-a"
+            },
+            {
+              "type": "table",
+              "id": "table-20",
+              "table": {
+                "headers": [
+                  "k6",
+                  "Część ciała"
+                ],
+                "rows": [
+                  [
+                    "1",
+                    "Głowa"
+                  ],
+                  [
+                    "2",
+                    "Korpus"
+                  ],
+                  [
+                    "3",
+                    "Lewa ręka"
+                  ],
+                  [
+                    "4",
+                    "Prawa ręka"
+                  ],
+                  [
+                    "5",
+                    "Lewa noga"
+                  ],
+                  [
+                    "6",
+                    "Prawa noga"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-21",
+              "level": 3,
+              "content": "Przykładowe Urazy według Części Ciała",
+              "anchor": "przyk-adowe-urazy-wed-ug-czesci-cia-a"
+            },
+            {
+              "type": "heading",
+              "id": "heading-22",
+              "level": 4,
+              "content": "1. Głowa",
+              "anchor": "1-g-owa"
+            },
+            {
+              "type": "table",
+              "id": "table-23",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizna na twarzy (np. na wardze lub przez twarz)"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Rozcięcie czoła - krew zalewa twarz, utrudnienie widzenia"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Utrata ucha/nosa/oka, poważny wstrząs mózgu"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Rozbicie głowy (masywne krwawienie), zmiażdżenie czaszki"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-24",
+              "level": 4,
+              "content": "2. Korpus",
+              "anchor": "2-korpus"
+            },
+            {
+              "type": "table",
+              "id": "table-25",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizny na ciele"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Mocne krwawienie z rozcięcia"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Uszkodzone płuco, uszkodzony żołądek"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Uszkodzony kręgosłup, przebite serce"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-26",
+              "level": 4,
+              "content": "3. Lewa/Prawa Ręka",
+              "anchor": "3-lewa-prawa-reka"
+            },
+            {
+              "type": "table",
+              "id": "table-27",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizny na ręce"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Utrata palca/palców, trudność w chwytaniu"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Przebity łokieć, ucięta dłoń, ręka niesprawna"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Przebita ręka, ręka ucięta do łokcia"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-28",
+              "level": 4,
+              "content": "4. Lewa/Prawa Noga",
+              "anchor": "4-lewa-prawa-noga"
+            },
+            {
+              "type": "table",
+              "id": "table-29",
+              "table": {
+                "headers": [
+                  "Dotkliwość",
+                  "Przykładowe efekty"
+                ],
+                "rows": [
+                  [
+                    "Lekka (80-100)",
+                    "Blizny na nodze"
+                  ],
+                  [
+                    "Średnia (50-79)",
+                    "Przebita stopa, utrudnione chodzenie"
+                  ],
+                  [
+                    "Ciężka (20-49)",
+                    "Ucięte palce u stopy, przebite kolano"
+                  ],
+                  [
+                    "Krytyczna (1-19)",
+                    "Ucięta noga do kolana"
+                  ]
+                ]
+              }
+            }
+          ]
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "\\1. Głowa - blizna na twarzy (np na wardze lub przez twarz), rozcięcie czoła tak, że krew zalewa twarz, utrata ucha/nosa/oka, poważny wstrząs mózgu, rozbicie głowy (krwawienie), zmiażdżenie czaszki"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-7",
-          "content": "\\2. Korpus - blizny na ciele, mocne krwawienie z rozcięcia, uszkodzone płuco, uszkodzony żołądek, uszkodzony kręgosłup, przebite serce"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "\\3. Lewa ręka - blizny na ręce, utrata palca/palców, przebity łokieć, ucięta dłoń, przebita ręka, ręka ucięta do łokcia"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-9",
-          "content": "\\4. Prawa ręka - blizny na ręce, utrata palca/palców, przebity łokieć, ucięta dłoń, przebita ręka, ręka ucięta do łokcia"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "\\5. Lewa noga - blizny na nodze, przebita stopa, ucięte palce u stopy, przebite kolano, ucięta noga do kolana"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "\\6. Prawa noga - blizny na nodze, przebita stopa, ucięte palce u stopy, przebite kolano, ucięta noga do kolana"
+          "id": "subsection-interpretacja-mistrza-gry",
+          "title": "Interpretacja Mistrza Gry",
+          "anchor": "interpretacja-mistrza-gry",
+          "content": [
+            {
+              "type": "blockquote",
+              "id": "blockquote-31",
+              "content": "**Uwaga:** Powyższe przykłady są orientacyjne. Ostateczną decyzję o charakterze i skutkach efektu krytycznego podejmuje Mistrz Gry, biorąc pod uwagę:\n- Typ ataku (cięcie, przebicie, zmiażdżenie, magia)\n- Kontekst fabularny\n- Epickość sceny\n- Balans gry"
+            }
+          ]
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.656Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-uraz",
@@ -130,7 +421,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.656Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-autoregeneracja-mocy",
@@ -146,7 +437,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.656Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-odpoczynek",
@@ -162,7 +453,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.657Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-regeneracja-esencji",
@@ -178,7 +469,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.284Z"
+      "lastModified": "2025-11-11T09:57:04.657Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-magiczne-leczenie",
@@ -204,7 +495,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-medycyna",
@@ -225,7 +516,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-nadnaturalna-regeneracja",
@@ -241,7 +532,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-odpoczynek",
@@ -262,7 +553,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.285Z"
+      "lastModified": "2025-11-11T09:57:04.658Z"
     },
     {
       "id": "section-zdrowie-i-regeneracja-regeneracja-zdrowia",
@@ -278,7 +569,7 @@
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T08:46:50.286Z"
+      "lastModified": "2025-11-11T09:57:04.659Z"
     }
   ]
 }
