@@ -7,98 +7,158 @@
 import { useEffect, useState } from 'react';
 import type { RulebookSection } from '@/domain/rulebook/RulebookTypes';
 
-type TableOfContentsProps = {
+type TableOfContentsProps = 
+{
   section: RulebookSection;
 };
 
-export function TableOfContents({ section }: TableOfContentsProps) {
-  const [activeId, setActiveId] = useState<string>('');
+type TocItem = 
+{
+  id: string;
+  title: string;
+  level: number;
+  children: TocChild[];
+};
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-80px 0px -80% 0px' }
-    );
+type TocChild = 
+{
+  id: string;
+  title: string;
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+};
 
-    // Observe all headings
-    const headings = document.querySelectorAll('h2[id], h3[id], h4[id]');
-    headings.forEach((heading) => observer.observe(heading));
+const INTERSECTION_CONFIG = 
+{
+  rootMargin: '-80px 0px -80% 0px'
+} as const;
+
+const HEADING_SELECTORS = 'h2[id], h3[id], h4[id]';
+
+export function TableOfContents({ section }: TableOfContentsProps) 
+{
+  const [activeHeadingId, setActiveHeadingId] = useState<string>('');
+
+  useEffect(() => 
+  {
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => 
+    {
+      entries.forEach((entry) => 
+      {
+        if (entry.isIntersecting) setActiveHeadingId(entry.target.id);
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, INTERSECTION_CONFIG);
+    
+    const headingElements = document.querySelectorAll(HEADING_SELECTORS);
+    headingElements.forEach((heading) => observer.observe(heading));
 
     return () => observer.disconnect();
   }, []);
 
-  const toc = section.subsections.map(subsection => ({
+  const tableOfContents = buildTableOfContents(section);
+
+  if (tableOfContents.length === 0) return null;
+
+  return (
+        <nav className="hidden lg:block sticky top-20 w-64 ml-20">
+            <ul className="space-y-2 text-sm border rounded-lg p-4">
+                { tableOfContents.map(item => <TocMainItem key={item.id} item={item} activeHeadingId={activeHeadingId} /> ) }
+            </ul>
+        </nav>
+  );
+}
+
+function buildTableOfContents(section: RulebookSection): TocItem[] 
+{
+  return section.subsections.map((subsection) => 
+  ({
     id: subsection.anchor,
     title: subsection.title,
     level: 2,
-    children: subsection.content
-      .filter(block => block.type === 'heading' && block.level >= 3)
-      .map(block => {
-        if (block.type === 'heading') {
-          return {
-            id: block.anchor,
-            title: block.content,
-            level: block.level
-          };
-        }
-        return null;
-      })
-      .filter(Boolean)
+    children: extractChildHeadings(subsection.content)
   }));
+}
 
-  if (toc.length === 0) return null;
+function extractChildHeadings(content: RulebookSection['subsections'][0]['content']): TocChild[] 
+{
+  return content
+    .filter((block) => block.type === 'heading' && block.level >= 3)
+    .map((block) => 
+    {
+      if (block.type === 'heading') 
+      {
+        return {
+          id: block.anchor,
+          title: block.content,
+          level: block.level
+        };
+      }
+      return null;
+    })
+    .filter((item): item is TocChild => item !== null);
+}
+
+type TocMainItemProps = 
+{
+  item: TocItem;
+  activeHeadingId: string;
+};
+
+function TocMainItem({ item, activeHeadingId }: TocMainItemProps) 
+{
+  const isActive = activeHeadingId === item.id;
+  const hasChildren = item.children.length > 0;
 
   return (
-    <nav className="sticky top-20 w-64 h-fit">
-      <div className="border rounded-lg p-4">
-        <h3 className="font-semibold mb-3 text-sm">Na tej stronie</h3>
-        <ul className="space-y-2 text-sm">
-          {toc.map((item) => (
-            <li key={item.id}>
-              <a
-                href={`#${item.id}`}
-                className={`
-                  block py-1 transition-colors
-                  ${activeId === item.id 
-                    ? 'text-primary font-medium' 
-                    : 'text-muted-foreground hover:text-foreground'
-                  }
-                `}
-              >
-                {item.title}
-              </a>
-              {item.children && item.children.length > 0 && (
-                <ul className="ml-3 mt-1 space-y-1 border-l pl-3">
-                  {item.children.map((child) => (
-                    child && (
-                      <li key={child.id}>
-                        <a
-                          href={`#${child.id}`}
-                          className={`
-                            block py-1 text-xs transition-colors
-                            ${activeId === child.id 
-                              ? 'text-primary font-medium' 
-                              : 'text-muted-foreground hover:text-foreground'
-                            }
-                          `}
-                        >
-                          {child.title}
-                        </a>
-                      </li>
-                    )
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+    <li>
+      <a
+        href={`#${item.id}`}
+        className={`
+          block py-1 transition-colors
+          ${isActive 
+            ? 'text-primary font-medium' 
+            : 'text-muted-foreground hover:text-foreground'
+          }
+        `}
+      >
+        {item.title}
+      </a>
+      {
+        hasChildren && (
+            <ul className="ml-3 mt-1 space-y-1 border-l pl-3">
+                { item.children.map((child) => <TocChildItem key={child.id} child={child} activeHeadingId={activeHeadingId} />)}
+            </ul>
+        )
+      }
+    </li>
+  );
+}
+
+type TocChildItemProps = 
+{
+  child: TocChild;
+  activeHeadingId: string;
+};
+
+function TocChildItem({ child, activeHeadingId }: TocChildItemProps) 
+{
+  const isActive = activeHeadingId === child.id;
+
+  return (
+    <li>
+      <a
+        href={`#${child.id}`}
+        className={`
+          block py-1 text-xs transition-colors
+          ${isActive 
+            ? 'text-primary font-medium' 
+            : 'text-muted-foreground hover:text-foreground'
+          }
+        `}
+      >
+        {child.title}
+      </a>
+    </li>
   );
 }

@@ -18,7 +18,8 @@ type RulebookSidebarProps = {
   navigation: NavigationNode[];
 };
 
-export function RulebookSidebar({ navigation }: RulebookSidebarProps) {
+export function RulebookSidebar({ navigation }: RulebookSidebarProps) 
+{
   const pathname = usePathname();
 
   // Znajdź kategorię dla aktualnej strony - to będzie domyślnie otwarte

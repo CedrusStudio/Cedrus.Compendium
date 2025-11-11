@@ -6,13 +6,15 @@ import type { RulebookSection } from '@/domain/rulebook/RulebookTypes';
 import { ContentBlockRenderer } from '@/application/rulebook/ContentBlockRenderer';
 import { Separator } from '@/ui/separator';
 
-type RulebookSectionViewProps = {
+type RulebookSectionViewProps = 
+{
   section: RulebookSection;
 };
 
 export function RulebookSectionView({ section }: RulebookSectionViewProps) {
   return (
-    <article className="max-w-4xl mx-auto space-y-6">
+    <article className="w-3xl space-y-6">
+        
       {/* Section Header */}
       <header className="border-b pb-4 mb-6">
         <h1 className="text-4xl font-bold mb-2">{section.title}</h1>
