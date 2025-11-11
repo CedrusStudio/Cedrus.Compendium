@@ -48,18 +48,6 @@ export const RULEBOOK_CATEGORIES: RulebookCategory[] =
 ];
 
 /**
- * Mapping of folder names to category IDs
- */
-export const FOLDER_TO_CATEGORY = 
-{
-  '01-Podstawy': 'podstawy',
-  '02-Cechy-i-Umiejętności': 'cechy-i-umiejetnosci',
-  '03-System-Walki': 'system-walki',
-  '04-Magia-i-Zaklęcia': 'magia-i-zaklecia',
-  '05-Zdrowie-i-Regeneracja': 'zdrowie-i-regeneracja'
-} as const;
-
-/**
  * Get category by ID
  */
 export function getCategoryById(id: string): RulebookCategory | undefined 
