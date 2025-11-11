@@ -4,10 +4,10 @@ import { Book, Search } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/ui/button';
 
-export default async function RulebookPage() {
+export default async function RulebookPage() 
+{
   const rulebookData = loadRulebookData();
   
-  // Count sections per category
   const sectionCounts = rulebookData.categories.map(category => ({
     category,
     count: rulebookData.sections.filter(s => s.category === category.id).length
@@ -15,26 +15,8 @@ export default async function RulebookPage() {
 
   return (
     <div className="container mx-auto px-6 py-12 max-w-7xl">
-      {/* Hero Section */}
-      <div className="text-center mb-16">
-        <div className="flex items-center justify-center mb-4">
-          <Book className="h-16 w-16 text-primary" />
-        </div>
-        <h1 className="text-5xl font-bold mb-4">Cedrus System Rulebook</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-          Kompletny podręcznik zasad systemu RPG Cedrus. 
-          Poznaj mechaniki, zasady walki, magię i wszystkie aspekty systemu.
-        </p>
-        
-        <div className="flex items-center justify-center gap-4">
-          <Link href="/rulebook/search">
-            <Button size="lg" variant="outline">
-              <Search className="mr-2 h-5 w-5" />
-              Szukaj w podręczniku
-            </Button>
-          </Link>
-        </div>
-      </div>
+
+      <HeroSection />
 
       {/* Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -112,6 +94,35 @@ export default async function RulebookPage() {
           </Link>
         </div>
       </div>
+    </div>
+  );
+}
+
+function HeroSection() 
+{
+  return (
+    <div className="text-center mb-16">
+
+      <div className="flex items-center justify-center mb-4">
+        <Book className="h-16 w-16 text-primary" />
+      </div>
+
+      <h1 className="text-5xl font-bold mb-4">Cedrus System Rulebook</h1>
+
+      <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+        Kompletny podręcznik zasad systemu RPG Cedrus. 
+        Poznaj mechaniki, zasady walki, magię i wszystkie aspekty systemu.
+      </p>
+      
+      <div className="flex items-center justify-center gap-4">
+        <Link href="/rulebook/search">
+          <Button size="lg" variant="outline">
+            <Search className="mr-2 h-5 w-5" />
+            Szukaj w podręczniku
+          </Button>
+        </Link>
+      </div>
+      
     </div>
   );
 }

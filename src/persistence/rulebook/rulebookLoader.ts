@@ -18,7 +18,8 @@ const DATA_DIR = path.join(process.cwd(), 'public', 'data', 'rulebook');
 /**
  * Load complete rulebook data
  */
-export function loadRulebookData(): RulebookData {
+export function loadRulebookData(): RulebookData 
+{
   const filePath = path.join(DATA_DIR, 'rulebook-complete.json');
   const data = fs.readFileSync(filePath, 'utf-8');
   return JSON.parse(data) as RulebookData;
@@ -27,7 +28,8 @@ export function loadRulebookData(): RulebookData {
 /**
  * Load sections for a specific category
  */
-export function loadCategorySections(categoryId: RulebookCategoryId): RulebookSection[] {
+export function loadCategorySections(categoryId: RulebookCategoryId): RulebookSection[] 
+{
   const filePath = path.join(DATA_DIR, `${categoryId}.json`);
   const data = fs.readFileSync(filePath, 'utf-8');
   const parsed = JSON.parse(data);
@@ -37,7 +39,8 @@ export function loadCategorySections(categoryId: RulebookCategoryId): RulebookSe
 /**
  * Load a specific section by category and slug
  */
-export function loadSection(categoryId: RulebookCategoryId, slug: string): RulebookSection | null {
+export function loadSection(categoryId: RulebookCategoryId, slug: string): RulebookSection | null 
+{
   const sections = loadCategorySections(categoryId);
   return sections.find(s => s.slug === slug) || null;
 }
@@ -45,7 +48,8 @@ export function loadSection(categoryId: RulebookCategoryId, slug: string): Ruleb
 /**
  * Get all sections across all categories
  */
-export function loadAllSections(): RulebookSection[] {
+export function loadAllSections(): RulebookSection[] 
+{
   const data = loadRulebookData();
   return data.sections;
 }
@@ -53,7 +57,8 @@ export function loadAllSections(): RulebookSection[] {
 /**
  * Get navigation tree
  */
-export function loadNavigation(): NavigationNode[] {
+export function loadNavigation(): NavigationNode[] 
+{
   const data = loadRulebookData();
   return data.navigation;
 }
@@ -61,21 +66,24 @@ export function loadNavigation(): NavigationNode[] {
 /**
  * Get all categories
  */
-export function loadCategories(): RulebookCategory[] {
+export function loadCategories(): RulebookCategory[] 
+{
   return RULEBOOK_CATEGORIES;
 }
 
 /**
  * Get category by ID
  */
-export function loadCategory(categoryId: RulebookCategoryId): RulebookCategory | null {
+export function loadCategory(categoryId: RulebookCategoryId): RulebookCategory | null 
+{
   return RULEBOOK_CATEGORIES.find(c => c.id === categoryId) || null;
 }
 
 /**
  * Search sections by text
  */
-export function searchSections(query: string, categoryId?: RulebookCategoryId): RulebookSection[] {
+export function searchSections(query: string, categoryId?: RulebookCategoryId): RulebookSection[] 
+{
   const allSections = categoryId ? loadCategorySections(categoryId) : loadAllSections();
   const lowerQuery = query.toLowerCase();
 
@@ -109,7 +117,8 @@ export function searchSections(query: string, categoryId?: RulebookCategoryId): 
 /**
  * Get sections by tag
  */
-export function loadSectionsByTag(tag: string): RulebookSection[] {
+export function loadSectionsByTag(tag: string): RulebookSection[] 
+{
   const allSections = loadAllSections();
   return allSections.filter(s => s.tags?.includes(tag));
 }
@@ -117,7 +126,8 @@ export function loadSectionsByTag(tag: string): RulebookSection[] {
 /**
  * Get table of contents for a section
  */
-export function getSectionTableOfContents(section: RulebookSection): Array<{ title: string; anchor: string; level: number }> {
+export function getSectionTableOfContents(section: RulebookSection): Array<{ title: string; anchor: string; level: number }> 
+{
   const toc: Array<{ title: string; anchor: string; level: number }> = [];
 
   section.subsections.forEach(subsection => {
