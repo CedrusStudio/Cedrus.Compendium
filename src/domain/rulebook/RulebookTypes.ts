@@ -5,7 +5,8 @@
 /**
  * Represents a single table cell
  */
-export interface TableCell {
+export interface TableCell 
+{
   content: string;
   align?: 'left' | 'center' | 'right';
 }
@@ -13,7 +14,8 @@ export interface TableCell {
 /**
  * Represents a table in the rulebook
  */
-export interface RulebookTable {
+export interface RulebookTable 
+{
   headers: string[];
   rows: string[][];
   caption?: string;
@@ -33,7 +35,8 @@ export type ContentBlockType =
 /**
  * Base content block interface
  */
-export interface BaseContentBlock {
+export interface BaseContentBlock 
+{
   type: ContentBlockType;
   id: string;
 }
@@ -41,7 +44,8 @@ export interface BaseContentBlock {
 /**
  * Paragraph content block
  */
-export interface ParagraphBlock extends BaseContentBlock {
+export interface ParagraphBlock extends BaseContentBlock 
+{
   type: 'paragraph';
   content: string;
 }
@@ -49,7 +53,8 @@ export interface ParagraphBlock extends BaseContentBlock {
 /**
  * Heading content block
  */
-export interface HeadingBlock extends BaseContentBlock {
+export interface HeadingBlock extends BaseContentBlock 
+{
   type: 'heading';
   level: 1 | 2 | 3 | 4 | 5 | 6;
   content: string;
@@ -59,7 +64,8 @@ export interface HeadingBlock extends BaseContentBlock {
 /**
  * Table content block
  */
-export interface TableBlock extends BaseContentBlock {
+export interface TableBlock extends BaseContentBlock 
+{
   type: 'table';
   table: RulebookTable;
 }
@@ -67,7 +73,8 @@ export interface TableBlock extends BaseContentBlock {
 /**
  * List content block
  */
-export interface ListBlock extends BaseContentBlock {
+export interface ListBlock extends BaseContentBlock 
+{
   type: 'list';
   ordered: boolean;
   items: string[];
@@ -76,7 +83,8 @@ export interface ListBlock extends BaseContentBlock {
 /**
  * Blockquote content block
  */
-export interface BlockquoteBlock extends BaseContentBlock {
+export interface BlockquoteBlock extends BaseContentBlock 
+{
   type: 'blockquote';
   content: string;
 }
@@ -84,7 +92,8 @@ export interface BlockquoteBlock extends BaseContentBlock {
 /**
  * Code block
  */
-export interface CodeBlock extends BaseContentBlock {
+export interface CodeBlock extends BaseContentBlock 
+{
   type: 'code';
   language?: string;
   content: string;
@@ -104,7 +113,8 @@ export type ContentBlock =
 /**
  * Represents a subsection within a rulebook section
  */
-export interface RulebookSubsection {
+export interface RulebookSubsection 
+{
   id: string;
   title: string;
   anchor: string;
@@ -114,7 +124,8 @@ export interface RulebookSubsection {
 /**
  * Represents a complete rulebook section (one markdown file)
  */
-export interface RulebookSection {
+export interface RulebookSection 
+{
   id: string;
   slug: string;
   title: string;
@@ -140,7 +151,8 @@ export type RulebookCategoryId =
 /**
  * Category display information
  */
-export interface RulebookCategory {
+export interface RulebookCategory 
+{
   id: RulebookCategoryId;
   title: string;
   description: string;
@@ -152,7 +164,8 @@ export interface RulebookCategory {
 /**
  * Navigation tree node for sidebar
  */
-export interface NavigationNode {
+export interface NavigationNode 
+{
   id: string;
   title: string;
   slug: string;
@@ -164,7 +177,8 @@ export interface NavigationNode {
 /**
  * Search result item
  */
-export interface SearchResult {
+export interface SearchResult 
+{
   sectionId: string;
   sectionTitle: string;
   category: RulebookCategoryId;
@@ -176,7 +190,8 @@ export interface SearchResult {
 /**
  * Complete rulebook data structure
  */
-export interface RulebookData {
+export interface RulebookData 
+{
   categories: RulebookCategory[];
   sections: RulebookSection[];
   navigation: NavigationNode[];
@@ -187,7 +202,8 @@ export interface RulebookData {
 /**
  * Metadata for the entire rulebook
  */
-export interface RulebookMetadata {
+export interface RulebookMetadata 
+{
   totalSections: number;
   totalCategories: number;
   version: string;

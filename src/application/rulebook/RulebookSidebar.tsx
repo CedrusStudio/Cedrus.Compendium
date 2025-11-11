@@ -4,7 +4,6 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { NavigationNode } from '@/domain/rulebook/RulebookTypes';
@@ -21,25 +20,14 @@ type RulebookSidebarProps = {
 
 export function RulebookSidebar({ navigation }: RulebookSidebarProps) {
   const pathname = usePathname();
-  const [openCategories, setOpenCategories] = useState<string[]>([]);
 
-  // Automatycznie otwórz kategorię dla aktualnej strony
-  useEffect(() => {
-    const currentCategory = navigation.find(cat => 
-      cat.children?.some(section => pathname === `/rulebook/${section.slug}`)
-    );
-    
-    if (currentCategory) {
-      setOpenCategories(prev => {
-        // Sprawdź czy kategoria już jest w stanie (zapobiega wielokrotnym dodaniom)
-        if (prev.includes(currentCategory.id)) {
-          return prev;
-        }
-        return [...prev, currentCategory.id];
-      });
-    }
-    // POPRAWKA: usunięto openCategories z dependencies - to była przyczyna migotania
-  }, [pathname, navigation]);
+  // Znajdź kategorię dla aktualnej strony - to będzie domyślnie otwarte
+  const currentCategory = navigation.find(cat => 
+    cat.children?.some(section => pathname === `/rulebook/${section.slug}`)
+  );
+
+  // Użyj defaultValue zamiast kontrolowanego value - pozwala to accordion zarządzać własnym stanem
+  const defaultOpenCategories = currentCategory ? [currentCategory.id] : [];
 
   return (
     <aside className="w-64 border-r h-[calc(100vh-4rem)] overflow-y-auto sticky top-16">
@@ -49,8 +37,7 @@ export function RulebookSidebar({ navigation }: RulebookSidebarProps) {
         <Accordion 
           type="multiple" 
           className="space-y-2"
-          value={openCategories}
-          onValueChange={setOpenCategories}
+          defaultValue={defaultOpenCategories}
         >
           {navigation.map((category) => (
             <AccordionItem key={category.id} value={category.id}>
