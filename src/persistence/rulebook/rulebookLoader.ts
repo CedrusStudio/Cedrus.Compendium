@@ -4,13 +4,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import type {
-  RulebookData,
-  RulebookSection,
-  RulebookCategory,
-  NavigationNode,
-  RulebookCategoryId
-} from '@/domain/rulebook/RulebookTypes';
+import type { RulebookData, RulebookSection, RulebookCategory, NavigationNode, RulebookCategoryId } from '@/domain/rulebook/RulebookTypes';
 import { RULEBOOK_CATEGORIES } from '@/domain/rulebook/constants';
 
 const DATA_DIR = path.join(process.cwd(), 'public', 'data', 'rulebook');
@@ -89,22 +83,27 @@ export function searchSections(query: string, categoryId?: RulebookCategoryId): 
 
   return allSections.filter(section => {
     // Search in title
-    if (section.title.toLowerCase().includes(lowerQuery)) {
-      return true;
-    }
+    if (section.title.toLowerCase().includes(lowerQuery)) return true;
 
     // Search in content blocks
     const contentText = section.content
-      .map(block => {
-        if (block.type === 'paragraph' || block.type === 'heading' || block.type === 'blockquote') {
+      .map(block => 
+      {
+        if (block.type === 'paragraph' || block.type === 'heading' || block.type === 'blockquote') 
+        {
           return block.content;
         }
-        if (block.type === 'list') {
+
+        if (block.type === 'list') 
+        {
           return block.items.join(' ');
         }
-        if (block.type === 'table') {
+
+        if (block.type === 'table') 
+        {
           return block.table.headers.join(' ') + ' ' + block.table.rows.flat().join(' ');
         }
+
         return '';
       })
       .join(' ')
@@ -128,19 +127,24 @@ export function loadSectionsByTag(tag: string): RulebookSection[]
  */
 export function getSectionTableOfContents(section: RulebookSection): Array<{ title: string; anchor: string; level: number }> 
 {
-  const toc: Array<{ title: string; anchor: string; level: number }> = [];
+  const tableOfContents: Array<{ title: string; anchor: string; level: number }> = [];
 
-  section.subsections.forEach(subsection => {
-    toc.push({
+  section.subsections.forEach(subsection => 
+  {
+    tableOfContents.push
+    ({
       title: subsection.title,
       anchor: subsection.anchor,
       level: 2
     });
 
     // Add H3 headings from subsection content
-    subsection.content.forEach(block => {
-      if (block.type === 'heading' && block.level >= 3) {
-        toc.push({
+    subsection.content.forEach(block => 
+    {
+      if (block.type === 'heading' && block.level >= 3) 
+      {
+        tableOfContents.push
+        ({
           title: block.content,
           anchor: block.anchor,
           level: block.level
@@ -149,5 +153,5 @@ export function getSectionTableOfContents(section: RulebookSection): Array<{ tit
     });
   });
 
-  return toc;
+  return tableOfContents;
 }
