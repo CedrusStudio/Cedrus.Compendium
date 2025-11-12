@@ -32,3 +32,4 @@ const parseLanguageEnvironmentVariables = () =>
 };
 
 export const languageSettings = parseLanguageEnvironmentVariables();
+export const apiKey = process.env.NEXT_API_KEY;

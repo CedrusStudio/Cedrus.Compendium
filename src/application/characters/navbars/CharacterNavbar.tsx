@@ -14,6 +14,7 @@ import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
 import { addIcon } from "@/presentation/icons";
 import { displayedText } from "@/presentation/translations";
+import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 
 export default function CharacterNavbar() 
 {
@@ -66,6 +67,7 @@ export default function CharacterNavbar()
             />
 
             <div className="flex flex-row items-center gap-2 justify-self-center">
+                <ApiKeySettings />
                 <Button asChild variant="outline" size="icon">
                     <Link href="/characters/add">{addIcon("h-[1.2rem] w-[1.2rem]")}</Link>
                 </Button>

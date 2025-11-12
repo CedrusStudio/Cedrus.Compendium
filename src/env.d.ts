@@ -9,6 +9,8 @@ declare namespace NodeJS
     NEXT_LANGUAGE: string;
     NEXT_LANGUAGE_FALLBACK: string;
     
+    NEXT_API_KEY: string;
+    
     DATABASE_CONNECTION_STRING: string;
   }
 }
