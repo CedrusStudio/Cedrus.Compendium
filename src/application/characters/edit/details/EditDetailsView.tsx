@@ -12,14 +12,15 @@ import EditPerksList from "@/application/characters/edit/details/EditPerksList";
 import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 import { Separator } from "@/common/components/ui/separator";
 import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
-import { updateCharacterDetails } from "@/persistence/characters/charactersRepository";
+import client from "@/infrastructure/clients/charactersClient";
 import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 
 export default function EditDetailsView(input: { character: Character })
 {
     const { character } = input;
 
-    const { form, handleSubmit, isPending, formId } = useCharacterForm<DetailsDto>({
+    const { form, handleSubmit, isPending, formId } = useCharacterForm<DetailsDto>
+    ({
         characterId: character.id,
         schema: detailsSchema,
         defaultValues: 
@@ -30,7 +31,7 @@ export default function EditDetailsView(input: { character: Character })
             description: character.description,
             perks: character.perks
         },
-        updateFn: async (id, data) => { await updateCharacterDetails(id, data); },
+        updateFn: async (id, data) => client.updateDetails(id, data),
         formId: FORM_IDS.DETAILS,
     });
 
