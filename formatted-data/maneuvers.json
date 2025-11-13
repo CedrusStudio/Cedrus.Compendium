@@ -629,12 +629,12 @@
     "id": "01K9Z6YGYW259QW01JV9SARQYE",
     "name": "Zakuty w Żelazo",
     "grade": 1,
-    "description": "Tracisz 5 redukcji, dodajesz redukcję 1 kości.",
+    "description": "Tracisz 5 redukcji, zyskujesz redukcję równą 1 kości.",
     "castTime": "Natychmiastowa",
     "price": 6,
     "requirements": [
       "Większa Wytrwałość 5",
-      "Średnia zbroja"
+      "Średnia Zbroja"
     ],
     "tags": []
   },
@@ -642,12 +642,12 @@
     "id": "01K9Z6YGYWBC50FYCY2TJJDYM2",
     "name": "Zakuty w Stal",
     "grade": 1,
-    "description": "Tracisz 10 redukcji, dodajesz redukcję 1 kości.",
+    "description": "Tracisz 10 redukcji, zyskujesz redukcję równą 1 kości.",
     "castTime": "Natychmiastowa",
     "price": 6,
     "requirements": [
       "Większa Wytrwałość 5",
-      "ciężka zbroja"
+      "Ciężka Zbroja"
     ],
     "tags": [
       "obronny"
@@ -657,7 +657,7 @@
     "id": "01K9Z6YGYW0SV5ZYXS0FY700G1",
     "name": "Zryw Adrenaliny",
     "grade": 1,
-    "description": "Dodaje +1hp/wytrwałość na 3 tury.",
+    "description": "Dodaje +1 do Wytrwałości na 3 tury.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
@@ -671,11 +671,11 @@
     "id": "01K9Z6YGYW011FCS2FNGJMX9KE",
     "name": "Zwiększenie Szans",
     "grade": 1,
-    "description": "Wrogowie otrzymują Krytyczne Pudło+1.",
+    "description": "Przeciwnicy otrzymują Krytyczne Pudło +1.",
     "castTime": "Natychmiastowa",
     "price": 3,
     "requirements": [
-      "Wrogowie muszą mieć możliwość krytycznego pudła"
+      "Przeciwnicy muszą mieć możliwość otrzymania krytycznego pudła"
     ],
     "tags": [
       "obronny"
@@ -685,13 +685,13 @@
     "id": "01K9Z6YGYWDKPTWDDDRMYPYABC",
     "name": "Antyczny Cios",
     "grade": 1,
-    "description": "Zmniejsza obrażenia o 5. Podwaja obrażenia zadane w zdrowie. Dodatkowe obrazenia max 15.",
+    "description": "Zmniejsza obrażenia o 5. Podwaja obrażenia zadane w punkty zdrowia. Dodatkowe obrażenia maks. 15.",
     "castTime": "Standardowa",
     "cooldown": 6,
     "price": 9,
     "requirements": [
       "S 4",
-      "postać półepicka"
+      "Postać półepicka"
     ],
     "tags": [
       "ofensywny"
@@ -793,7 +793,7 @@
     "id": "01K9Z6YGYXGZHTPTTF8GT1HE7E",
     "name": "Echo Ciosu",
     "grade": 1,
-    "description": "Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości.",
+    "description": "Wybierasz kostkę i rzucasz dwiema takimi kostkami; bierzesz lepszy wynik.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 9,
@@ -808,7 +808,7 @@
     "id": "01K9Z6YGYXNXQKZD4GHKN27AJM",
     "name": "Fuzja Bitewna",
     "grade": 1,
-    "description": "Wybierz dwie kości broni i zamiast nich rzucasz kością o sumarycznej randze, sile i szansie krytyka. Maksymalna ranga otrzymanej kości to 15.",
+  "description": "Wybierz dwie kości broni i zamiast nich rzucasz kością o sumarycznej randze, sile i szansie na krytyczne trafienie. Maksymalna ranga otrzymanej kości to 15.",
     "castTime": "Standardowa",
     "cooldown": 5,
     "price": 4,
@@ -899,7 +899,7 @@
     "id": "01K9Z6YGYXSDT34MJEFNWDWFFM",
     "name": "Napór",
     "grade": 1,
-    "description": "Dodaje obrażenia równe wytrwałosci ale odejmuje połowę tego redukcji (zaokraglone w górę).",
+    "description": "Dodaje obrażenia równe Wytrwałości, ale odejmuje połowę tej redukcji (zaokrąglone w górę).",
     "castTime": "Standardowa",
     "cooldown": 6,
     "price": 6,
@@ -914,7 +914,7 @@
     "id": "01K9Z6YGYXYKSE7MWGK5JRNKKK",
     "name": "Obusieczne Uderzenie",
     "grade": 1,
-    "description": "Dodaje do +2dmg i odejmuje tyle samo redukcji na najbliższy atak przeciwnika.",
+    "description": "Dodaje +2 do obrażeń i odejmuje tyle samo redukcji na najbliższy atak przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 3,
@@ -929,7 +929,7 @@
     "id": "01K9Z6YGYXXEKQE7GERZ2BCTQQ",
     "name": "Obusieczne Uderzenie",
     "grade": 2,
-    "description": "Dodaje do +4dmg i odejmuje tyle samo redukcji na najbliższy atak przeciwnika.",
+    "description": "Dodaje +4 do obrażeń i odejmuje tyle samo redukcji na najbliższy atak przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 7,
@@ -945,7 +945,7 @@
     "id": "01K9Z6YGYXCPYH1A5TBSTYE7SD",
     "name": "Obusieczne Uderzenie",
     "grade": 3,
-    "description": "Dodaje do +6dmg i odejmuje tyle samo redukcji na najbliższy atak przeciwnika.",
+    "description": "Dodaje +6 do obrażeń i odejmuje tyle samo redukcji na najbliższy atak przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 12,
@@ -961,7 +961,7 @@
     "id": "01K9Z6YGYX758NNGN5R80RVR4P",
     "name": "Odwet za przyjaciela",
     "grade": 1,
-    "description": "Dodaje 1dmg do ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (takie które przeszły redukcję).",
+    "description": "Dodaje +1 do obrażeń ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (po redukcji).",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 1,
@@ -974,7 +974,7 @@
     "id": "01K9Z6YGYXBMDD7Q1YE96JBQGF",
     "name": "Odwet za przyjaciela",
     "grade": 2,
-    "description": "Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (takie które przeszły redukcję).",
+    "description": "Dodaje +2 do obrażeń ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (po redukcji).",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 3,
@@ -989,7 +989,7 @@
     "id": "01K9Z6YGYX9HR0C7GXXWFF507W",
     "name": "Odwet za przyjaciela",
     "grade": 3,
-    "description": "Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (takie które przeszły redukcję).",
+    "description": "Dodaje +3 do obrażeń ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (po redukcji).",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 4,
@@ -1004,7 +1004,7 @@
     "id": "01K9Z6YGYXG12WM9TZR7E041AA",
     "name": "Odwet",
     "grade": 1,
-    "description": "Dodaje 1dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
+    "description": "Dodaje +1 do obrażeń ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (po redukcji).",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 1,
@@ -1017,7 +1017,7 @@
     "id": "01K9Z6YGYXK1BHGPNWQAKZ28PP",
     "name": "Odwet",
     "grade": 2,
-    "description": "Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
+    "description": "Dodaje +2 do obrażeń ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (po redukcji).",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 3,
@@ -1032,7 +1032,7 @@
     "id": "01K9Z6YGYXZW0HEEVCC2G6YVJK",
     "name": "Odwet",
     "grade": 3,
-    "description": "Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
+    "description": "Dodaje +3 do obrażeń ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (po redukcji).",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 4,
@@ -1047,7 +1047,7 @@
     "id": "01K9Z6YGYXHNRPWPXW7FPHZE2H",
     "name": "Odwrócenie Losu",
     "grade": 1,
-    "description": "Krytyczne Pudła potraktuj jak Trafienia Krytyczne.",
+    "description": "Krytyczne pudła traktuje się jak trafienia krytyczne.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 3,
@@ -1062,7 +1062,7 @@
     "id": "01K9Z6YGYYVTQAK30NBTQ2KWWV",
     "name": "Pewny Cios",
     "grade": 1,
-    "description": "Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych.",
+    "description": "Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tę kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek, co ranga tej kości, nie możesz zadać obrażeń krytycznych.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
@@ -1076,13 +1076,13 @@
     "id": "01K9Z6YGYYTFPJEZ9JSZEZ8Q5S",
     "name": "Podrzynanie",
     "grade": 1,
-    "description": "Niewidmowa kość obrażeń zyskuje siłę i szansę krytyka jak jego kości broni.",
+    "description": "Widmowa kość obrażeń zyskuje siłę i szansę krytyka jak kość broni.",
     "castTime": "Standardowa",
     "cooldown": 5,
     "price": 4,
     "requirements": [
-      "zr 3",
-      "broń krótka"
+      "ZR 3",
+      "Broń krótka"
     ],
     "tags": [
       "ofensywny"
@@ -1264,7 +1264,7 @@
     "id": "01K9Z6YGYY8MF1SKV6W353JPNW",
     "name": "Śmiały Ruch",
     "grade": 1,
-    "description": "Wybierz dwie kości broni o tej samej randze. Rzucasz dodatkowo kością o randze o jeden większej i spośród tych trzech kosci wybierasz największy i najmniejszy wynik.",
+    "description": "Wybierz dwie kości broni o tej samej randze. Rzucasz dodatkowo kością o randze większej o jeden i spośród tych trzech kości wybierasz największy i najmniejszy wynik.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 3,
@@ -1279,7 +1279,7 @@
     "id": "01K9Z6YGYYJRF8K5S5C3AW6JJJ",
     "name": "Śmiały Ruch",
     "grade": 2,
-    "description": "Wybierz dwie kości broni o tej samej randze. Rzucasz dodatkowo kością o randze o dwa większej i spośród tych trzech kosci wybierasz największy i najmniejszy wynik.",
+  "description": "Wybierz dwie kości broni o tej samej randze. Rzucasz dodatkowo kością o randze większej o dwa i spośród tych trzech kości wybierasz największy i najmniejszy wynik.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 3,
@@ -1294,7 +1294,7 @@
     "id": "01K9Z6YGYYQ3H6M924YAJ5Q5VF",
     "name": "Trzy Cięcia",
     "grade": 1,
-    "description": "Działa trzy tury, w ciągu których nie możesz stosować innych manewrów niech. W pierwszej dodaje widmową kość obrażeń k4, w drugiej dodajesz widmową kość obrażeń k8, w trzeciej widmową kości obrażeń k12.",
+  "description": "Trwa trzy tury. W pierwszej turze dodaje widmową kość obrażeń k4, w drugiej k8, w trzeciej k12. W czasie trwania manewru nie możesz stosować innych manewrów.",
     "castTime": "Natychmiastowa",
     "price": 9,
     "requirements": [
@@ -1309,7 +1309,7 @@
     "id": "01K9Z6YGYYEHVF0J56E5X56MW9",
     "name": "Waleczność",
     "grade": 1,
-    "description": "Atakujesz dodatkowego wroga w twoim zasięgu, jednakże obu atakujesz z jedną kością broni mniej.",
+  "description": "Atakujesz dodatkowego wroga w zasięgu; jednak przy obu atakach używasz o jedną kość broni mniej.",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 5,
@@ -1325,7 +1325,7 @@
     "id": "01K9Z6YGYYD5575DVFBFG1VBM3",
     "name": "Wężowy Ruch",
     "grade": 1,
-    "description": "Zwiększa siłe Krytyka +1 i szanse krytyka +1.",
+  "description": "Zwiększa Siłę Krytyka o 1 oraz Szansę Krytyka o 1.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
@@ -1340,7 +1340,7 @@
     "id": "01K9Z6YGYY351821KK51B4KP4B",
     "name": "Wszystko na jedną kartę",
     "grade": 1,
-    "description": "Dodaje szansę krytyka+3 do siły krytyka. Ustawia szansę krytyka na 0.",
+  "description": "Dodaje +3 do Siły Krytyka. Ustawia Szansę Krytyka na 0.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 2,
@@ -1355,7 +1355,7 @@
     "id": "01K9Z6YGYY0GMHPT6CGMZ1G9VM",
     "name": "Wszystko na jedną kartę",
     "grade": 2,
-    "description": "Dodaje szansę krytyka+5 do siły krytyka. Ustawia szansę krytyka na 0.",
+  "description": "Dodaje +5 do Siły Krytyka. Ustawia Szansę Krytyka na 0.",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 2,
@@ -1371,7 +1371,7 @@
     "id": "01K9Z6YGYYG80418X23FP5F5YV",
     "name": "Wszystko na jedną kartę",
     "grade": 3,
-    "description": "Dodaje szansę krytyka+7 do siły krytyka. Ustawia szansę krytyka na 0.",
+  "description": "Dodaje +7 do Siły Krytyka. Ustawia Szansę Krytyka na 0.",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 2,
@@ -1402,7 +1402,7 @@
     "id": "01K9Z6YGYYC1HKXKPD8B3K0W17",
     "name": "Za Ciosem",
     "grade": 1,
-    "description": "Odejmuje najmniejszą niewidmową kość obrażeń. Dodaje taką samą kość obrażeń do siły krytyka. Ta kość nie może zostać zamieniona w żaden sposób na kość broni.",
+    "description": "Odejmuje najmniejszą niewidmową kość obrażeń. Dodaje taką samą kość obrażeń do Siły Krytyka. Ta kość nie może zostać zamieniona w żaden sposób na kość broni.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 3,
@@ -1417,7 +1417,7 @@
     "id": "01K9Z6YGYY7ZVBKH36KMXEG7QZ",
     "name": "Za Ciosem",
     "grade": 2,
-    "description": "Odejmuje najmniejszą niewidmową kość obrażeń. Dodaje kość obrażeń o randzie o jeden większej do siły krytyka. Ta kość nie może zostać zamieniona w żaden sposób na kość broni.",
+    "description": "Odejmuje najmniejszą niewidmową kość obrażeń. Dodaje kość obrażeń o randze większej o 1 do Siły Krytyka. Ta kość nie może zostać zamieniona w żaden sposób na kość broni.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 2,
@@ -1433,7 +1433,7 @@
     "id": "01K9Z6YGYYYCAMAXWEQDRD9RHZ",
     "name": "Za Ciosem",
     "grade": 3,
-    "description": "Odejmuje najmniejszą niewidmową kość obrażeń. Dodaje kość obrażeń o randzie o dwa większej do siły krytyka. Ta kość nie może zostać zamieniona w żaden sposób na kość broni.",
+    "description": "Odejmuje najmniejszą niewidmową kość obrażeń. Dodaje kość obrażeń o randze większej o 2 do Siły Krytyka. Ta kość nie może zostać zamieniona w żaden sposób na kość broni.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 2,
@@ -1449,7 +1449,7 @@
     "id": "01K9Z6YGYYJ5VP2KCJS2X2ARBV",
     "name": "Zamaszysty Cios",
     "grade": 1,
-    "description": "Atakujesz dodatkowego wroga w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół).",
+  "description": "Atakujesz dodatkowego wroga w zasięgu. Obrażenia zadane w punkty zdrowia przeciwników są dzielone na pół (zaokrąglane w dół).",
     "castTime": "Standardowa",
     "cooldown": 1,
     "price": 1,
@@ -1462,7 +1462,7 @@
     "id": "01K9Z6YGYZCSMBK9HBKNZVQZXB",
     "name": "Zamaszysty Cios",
     "grade": 2,
-    "description": "Atakujesz dwóch dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół).",
+    "description": "Atakujesz dwóch dodatkowych wrogów w zasięgu. Obrażenia zadane w punkty zdrowia przeciwników są dzielone na pół (zaokrąglane w dół).",
     "castTime": "Standardowa",
     "cooldown": 1,
     "price": 3,
@@ -1478,7 +1478,7 @@
     "id": "01K9Z6YGYZEPW4J8R03N7EXFB0",
     "name": "Zamaszysty Cios",
     "grade": 3,
-    "description": "Atakujesz trzech dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół).",
+    "description": "Atakujesz trzech dodatkowych wrogów w zasięgu. Obrażenia zadane w punkty zdrowia przeciwników są dzielone na pół (zaokrąglane w dół).",
     "castTime": "Standardowa",
     "cooldown": 1,
     "price": 6,
@@ -1494,7 +1494,7 @@
     "id": "01K9Z6YGYZQVK228CE3QQ0B8HP",
     "name": "Zapał Wojownika",
     "grade": 1,
-    "description": "Dodaje +1dmg na kości broni i obrażeń.",
+    "description": "Dodaje +1 do obrażeń kości broni i kości obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 3,
@@ -1545,7 +1545,7 @@
     "cooldown": 6,
     "price": 4,
     "requirements": [
-      "Akumucja Postawy 1"
+      "Akumulacja Postawy 1"
     ],
     "tags": [
       "postawy"
@@ -1560,7 +1560,7 @@
     "cooldown": 6,
     "price": 6,
     "requirements": [
-      "Akumucja Postawy 2"
+      "Akumulacja Postawy 2"
     ],
     "tags": [
       "postawy"
@@ -1570,7 +1570,7 @@
     "id": "01K9Z6YGYZVY5Y7ZVVK2XABWHB",
     "name": "Descendencja Postawy",
     "grade": 1,
-    "description": "Obniżenia o 1 poziom postawy przeciwnika, którego postawę przejrzałeś.",
+    "description": "Obniża poziom postawy przeciwnika, którego postawę przejrzałeś, o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
     "price": 4,
@@ -1585,7 +1585,7 @@
     "id": "01K9Z6YGYZWNJWP2AS8KMN85P9",
     "name": "Dynamika Postaw",
     "grade": 1,
-    "description": "Zmniejsza czas odnowienia manewrów zwiazanych z postawami o 1.",
+    "description": "Zmniejsza czas odnowienia manewrów związanych z postawami o 1.",
     "castTime": "Natychmiastowa",
     "cooldown": 6,
     "price": 2,
@@ -1606,8 +1606,8 @@
     "price": 6,
     "requirements": [
       "Perfekcja 3",
-      "Płynne Przejście:Atak",
-      "Płynne Przejście:Obrona"
+      "Płynne Przejście: Atak",
+      "Płynne Przejście: Obrona"
     ],
     "tags": [
       "postawy"
@@ -1662,7 +1662,7 @@
     "id": "01K9Z6YGYZ1GPFW5DH4G3BJ0XE",
     "name": "Płynne Przejście: Obrona",
     "grade": 1,
-    "description": "Po wykonaniu ataku możesz natychmiast przejść do innej postawy, która będzie obowiązywała do nastepnego ataku włącznie.",
+    "description": "Po wykonaniu ataku możesz natychmiast przejść do innej postawy, która będzie obowiązywała do następnego ataku włącznie.",
     "castTime": "Natychmiastowa",
     "cooldown": 5,
     "price": 6,
@@ -1692,7 +1692,7 @@
     "id": "01K9Z6YGYZWKTS0Q2K2PASC0PX",
     "name": "Przejrzenie Postawy",
     "grade": 1,
-    "description": "Test sporny spostrzegawczości z fortelem/fechtunkiem. Wygrany powoduje odkrycie postawy w jakiej znajduje się przeciwnik.",
+    "description": "Test sporny Spostrzegawczości z Fortelem/Fechtunkiem. Wygrany powoduje odkrycie postawy, w jakiej znajduje się przeciwnik.",
     "castTime": "Nadnatychmiastowa",
     "cooldown": 1,
     "price": 1,
@@ -1758,7 +1758,7 @@
     "price": 9,
     "requirements": [
       "Int 3",
-      "spostrzegawczość 5"
+      "Spostrzegawczość 5"
     ],
     "tags": [
       "widmowe-kości"
@@ -1768,7 +1768,7 @@
     "id": "01K9Z6YGYZ73EZRTRGYAAW4EFW",
     "name": "Cios Widmowego Czempiona",
     "grade": 1,
-    "description": "Dodaje widmową kość obrażeń o randzie równej randze kości broni. Redukuje bonus na kość broni.",
+  "description": "Dodaje widmową kość obrażeń o randze równej randze kości broni. Redukuje bonus na kość broni.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
@@ -1782,7 +1782,7 @@
     "id": "01K9Z6YGYZ3QKBRYHH4P3Y0363",
     "name": "Echo Widmowego Ciosu",
     "grade": 1,
-    "description": "Wybierasz widmową kostkę i rzuć trzema takimi. Bierzesz pod uwagę lepszy wynik z tych trzech kości.",
+    "description": "Wybierasz widmową kość i rzucasz trzema takimi; bierzesz najlepszy wynik z tych trzech kości.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 6,
@@ -1798,7 +1798,7 @@
     "id": "01K9Z6YGYZGXG6Z8K1YDTXV111",
     "name": "Precyzyjny Widmowy Cios",
     "grade": 1,
-    "description": "Manwer . Możesz przerzucić dwie dowolne widmowe kości lub jedną dwa razy.",
+    "description": "Możesz przerzucić dwie dowolne widmowe kości lub jedną dwukrotnie.",
     "castTime": "Natychmiastowa",
     "price": 9,
     "requirements": [
@@ -1813,7 +1813,7 @@
     "id": "01K9Z6YGYZEJEHRTEVKVY02K0X",
     "name": "Szachowa Podmiana",
     "grade": 1,
-    "description": "Zmniejsza o połowe range kości broni. Dodaje widmową kość obrażeń za każdą kość broni o tej samej randze co kość broni po redukcji.",
+  "description": "Zmniejsza rangę kości broni o połowę. Dodaje widmową kość obrażeń za każdą kość broni, której ranga po redukcji jest równa randze kości broni.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
@@ -1828,12 +1828,12 @@
     "id": "01K9Z6YGYZH6N9XEHKVG9SB798",
     "name": "Upiorny Sztych",
     "grade": 1,
-    "description": "Uniemożliwia trafienie krytyczne, lecz dodaje widmową kość obrażeń o randze równej sumie siły i szansy krytyka.",
+  "description": "Uniemożliwia trafienie krytyczne, lecz dodaje widmową kość obrażeń o randze równej sumie siły i szansy krytyka.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 3,
     "requirements": [
-      "Co najmniej jednka widmowa kość obrażeń"
+      "Co najmniej jedna widmowa kość obrażeń"
     ],
     "tags": [
       "widmowe-kości"
@@ -1843,7 +1843,7 @@
     "id": "01K9Z6YGZ05M3STDD7XJ3WADJM",
     "name": "Widmo Krytycznego Trafienia",
     "grade": 1,
-    "description": "Widmowe kości obrażeń zyskują następującą własność: traktuje się je jakby były koścmi broni o szansie krytyka 1 i siłe krytyka 2.",
+    "description": "Widmowe kości obrażeń zyskują następującą własność: traktuje się je jakby były kośćmi broni o szansie krytyka 1 i siłą krytyka 2.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 4,
@@ -1864,7 +1864,7 @@
     "price": 6,
     "requirements": [
       "Int 3",
-      "spostrzegawczość 5"
+      "Spostrzegawczość 5"
     ],
     "tags": [
       "widmowe-kości"
@@ -1902,12 +1902,12 @@
     "id": "01K9Z6YGZ0KK3D6PS8HPK3T9MR",
     "name": "Widmowa Percepcja",
     "grade": 1,
-    "description": "Dodaje widmową kość obrażeń o randze równej  Int.",
+    "description": "Dodaje widmową kość obrażeń o randze równej wartości INT.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
       "Int 3",
-      "spostrzegawczość 5"
+      "Spostrzegawczość 5"
     ],
     "tags": [
       "widmowe-kości"
@@ -1917,7 +1917,7 @@
     "id": "01K9Z6YGZ0D7138MWX1CJR20W5",
     "name": "Widmowe Morderstwo",
     "grade": 1,
-    "description": "Dodaje widmowe kości obrażeń k4 w ilości równej szansie krytyka-2.",
+    "description": "Dodaje widmowe kości obrażeń k4 w liczbie równej Szansie Krytyka - 2.",
     "castTime": "Standardowa",
     "price": 18,
     "requirements": [
@@ -1947,7 +1947,7 @@
     "id": "01K9Z6YGZ0GS4QRZ77WT5EMZTG",
     "name": "Widmowy Atak",
     "grade": 1,
-    "description": "Dodaje widmową kość obrażeń o randze równej połowie fechtunku lub fortelu (zaokrąglone do dołu).",
+    "description": "Dodaje widmową kość obrażeń o randze równej połowie fechtunku lub fortelu (zaokrąglone w dół).",
     "castTime": "Standardowa",
     "price": 6,
     "requirements": [
@@ -1961,13 +1961,13 @@
     "id": "01K9Z6YGZ0VRD1JAEG4Q2R6QJP",
     "name": "Widmowy Cios",
     "grade": 1,
-    "description": "Zamienia wszystkie nie widmowe kości broni i obrażeń na jedną widmową kość broni ze zwiększoną o 1 rangą.",
+    "description": "Zamienia wszystkie niewidmowe kości broni i obrażeń na jedną widmową kość broni ze zwiększoną o 1 rangę.",
     "castTime": "Standardowa",
     "cooldown": 5,
     "price": 3,
     "requirements": [
       "Int 2",
-      "spostrzegawczość 4"
+      "Spostrzegawczość 4"
     ],
     "tags": [
       "widmowe-kości"
@@ -1977,13 +1977,13 @@
     "id": "01K9Z6YGZ04TE9N7JTYW8K8CFY",
     "name": "Widmowy Cios",
     "grade": 2,
-    "description": "Zamienia wszystkie nie widmowe kości broni i obrażeń na jedną widmową kość broni ze zwiększoną o 2 rangą.",
+    "description": "Zamienia wszystkie niewidmowe kości broni i obrażeń na jedną widmową kość broni ze zwiększoną o 2 rangi.",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 6,
     "requirements": [
       "Int 3",
-      "spostrzegawczość 5"
+      "Spostrzegawczość 5"
     ],
     "tags": [
       "widmowe-kości"
@@ -1993,13 +1993,13 @@
     "id": "01K9Z6YGZ0W7EJJ44466X0VFZ5",
     "name": "Widmowy Cios",
     "grade": 3,
-    "description": "Zamienia wszystkie nie widmowe kości broni i obrażeń na jedną widmową kość broni ze zwiększoną o 3 rangą.",
+    "description": "Zamienia wszystkie niewidmowe kości broni i obrażeń na jedną widmową kość broni ze zwiększoną o 3 rangi.",
     "castTime": "Standardowa",
     "cooldown": 3,
     "price": 9,
     "requirements": [
       "Int 4",
-      "spostrzegawczość 6"
+      "Spostrzegawczość 6"
     ],
     "tags": [
       "widmowe-kości"
@@ -2024,7 +2024,7 @@
     "id": "01K9Z6YGZ0GRK76B3RE09CHEQQ",
     "name": "Widmowy Odwet",
     "grade": 1,
-    "description": "Dodaje widmową kość k4 za każde 5 obrażenia otrzymane w zdrowie (maks 2k4w).",
+  "description": "Dodaje widmową kość obrażeń k4 za każde 5 otrzymanych obrażeń (maks. 2k4).",
     "castTime": "Standardowa",
     "cooldown": 4,
     "price": 6,
@@ -2044,7 +2044,7 @@
     "price": 12,
     "requirements": [
       "Int 5",
-      "spostrzegawczość 8"
+      "Spostrzegawczość 8"
     ],
     "tags": [
       "widmowe-kości"
@@ -2054,7 +2054,7 @@
     "id": "01K9Z6YGZ0F5FYYTMX8ZTXFQTH",
     "name": "Widmowy Wir Ciosów",
     "grade": 1,
-    "description": "Test sporny fechtunku z fechtunkiem/fortelem/siłą. Dodaje widmową kość obrażeń k4 za każde 2 oczka przewagi w teście.",
+    "description": "Test sporny: fechtunek vs fechtunek/fortel/siła. Za każde 2 oczka przewagi w teście dodaje widmową kość obrażeń k4.",
     "castTime": "Standardowa",
     "price": 6,
     "requirements": [
@@ -2069,7 +2069,7 @@
     "id": "01K9Z6YGZ0EGQC5RGZ70G6M09X",
     "name": "Widmowy Zapał",
     "grade": 1,
-    "description": "Zwiększa range widmowch kości o 1.",
+    "description": "Zwiększa rangę widmowych kości o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
     "price": 4,
@@ -2084,12 +2084,12 @@
     "id": "01K9Z6YGZ07SSE2Z3KY359JTHG",
     "name": "Widmowy Zwód",
     "grade": 1,
-    "description": "Test sporny fechtunek/fortel z fechtunek/fortel przeciwnika. Wygrany dodaje spostrzegawczość do redukcji.",
+    "description": "Test sporny: fechtunek/fortel vs fechtunek/fortel przeciwnika. Wygrany dodaje Spostrzegawczość do redukcji.",
     "castTime": "Standardowa",
     "price": 21,
     "requirements": [
       "Int 4",
-      "spostrzegawczość 6"
+      "Spostrzegawczość 6"
     ],
     "tags": [
       "widmowe-kości"
@@ -2099,7 +2099,7 @@
     "id": "01K9Z6YGZ0AXSZWVDZ4T33PXZ2",
     "name": "Zabójcze Pchnięcie",
     "grade": 1,
-    "description": "Test sporny  int+fortel vs 2xfechtunek/2xfortel/2xrefleks. Wygrany powoduje dodanie widmowej kości obrażeń k10.",
+    "description": "Test sporny: Int + Fortel vs 2x Fechtunek / 2x Fortel / 2x Refleks. Wygrany dodaje widmową kość obrażeń k10.",
     "castTime": "Standardowa",
     "price": 6,
     "requirements": [
@@ -2115,7 +2115,7 @@
     "id": "01K9Z6YGZ0S2R9TJ0WE22VEFTQ",
     "name": "Zamarkowany Ruch",
     "grade": 1,
-    "description": "Test sporny inteligencji z refleksem, nastepnie test sporny fortelu z fechtunkiem/fortelem. Oba wygrane testy powodują dodanie widmowej kości broni.",
+    "description": "Test sporny inteligencji z refleksem, następnie test sporny fortelu z fechtunkiem/fortelem. Oba wygrane testy powodują dodanie widmowej kości broni.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
@@ -2130,7 +2130,7 @@
     "id": "01K9Z6YGZ0MWTZCQF36MG7MZ91",
     "name": "Drwina",
     "grade": 1,
-    "description": "Jeśli wybrany przeciwnik nie zda testu woli o ST=3 to w miarę możliwości obiera osobę, którą użyła drwiny na cel. Każda kolejna próba drwiny wobec tego samego przeciwnika jest ze ST o 1 mniejszą.",
+    "description": "Jeśli wybrany przeciwnik nie zda testu woli o ST=3 to w miarę możliwości obiera za cel osobę, która użyła drwiny. Każda kolejna próba drwiny wobec tego samego przeciwnika ma ST zmniejszone o 1.",
     "castTime": "Standardowa",
     "cooldown": 1,
     "price": 4,
@@ -2146,7 +2146,7 @@
     "id": "01K9Z6YGZ0YFJTN9Z37JYPZ8NZ",
     "name": "Drwina",
     "grade": 2,
-    "description": "Jeśli wybrany przeciwnik nie zda testu woli o ST=4 to w miarę możliwości obiera osobę, którą użyła drwiny na cel. Każda kolejna próba drwiny wobec tego samego przeciwnika jest ze ST o 1 mniejszą.",
+    "description": "Jeśli wybrany przeciwnik nie zda testu woli o ST=4 to w miarę możliwości obiera za cel osobę, która użyła drwiny. Każda kolejna próba drwiny wobec tego samego przeciwnika ma ST zmniejszone o 1.",
     "castTime": "Standardowa",
     "cooldown": 1,
     "price": 4,
@@ -2162,7 +2162,7 @@
     "id": "01K9Z6YGZ0S0ADMVSW9J0R4CJH",
     "name": "Drwina",
     "grade": 3,
-    "description": "Jeśli wybrany przeciwnik nie zda testu woli o ST=5 to w miarę możliwości obiera osobę, którą użyła drwiny na cel. Każda kolejna próba drwiny wobec tego samego przeciwnika jest ze ST o 1 mniejszą.",
+    "description": "Jeśli wybrany przeciwnik nie zda testu woli o ST=5 to w miarę możliwości obiera za cel osobę, która użyła drwiny. Każda kolejna próba drwiny wobec tego samego przeciwnika ma ST zmniejszone o 1.",
     "castTime": "Standardowa",
     "cooldown": 1,
     "price": 4,
@@ -2193,7 +2193,7 @@
     "id": "01K9Z6YGZ11XK3CZMZE2A28ESC",
     "name": "Marsz Bitewny",
     "grade": 1,
-    "description": "Dodaje 1 budowy sojusznikom w walce. Podtrzymywany.",
+    "description": "Dodaje 1 do Budowy sojusznikom w walce. Podtrzymywany.",
     "castTime": "Standardowa",
     "price": 9,
     "requirements": [
