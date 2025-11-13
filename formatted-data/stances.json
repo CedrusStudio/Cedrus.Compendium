@@ -5,7 +5,7 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń o randze równej zasięgowi trafienia krytycznego maks. k6.",
     "requirements": [
-      "PostawaGerneta4"
+      "Postawa Gerneta 4"
     ],
     "price": 6,
     "tags": [
@@ -18,7 +18,7 @@
     "grade": 2,
     "description": "Dodaje widmową kość obrażeń o randze równej zasięgowi trafienia krytycznego maks. k8.",
     "requirements": [
-      "PostawaNemesis"
+      "Postawa Nemesis"
     ],
     "price": 2,
     "tags": [
@@ -31,7 +31,7 @@
     "grade": 3,
     "description": "Dodaje widmową kość obrażeń o randze równej zasięgowi trafienia krytycznego maks. k10.",
     "requirements": [
-      "PostawaOfensywna1"
+      "Postawa Ofensywna 1"
     ],
     "price": 2,
     "tags": [
@@ -44,7 +44,7 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń k4, odejmuje 1 punkt uniku i 1 punkt parowania.",
     "requirements": [
-      "PostawaOfensywna2"
+      "Postawa Ofensywna 2"
     ],
     "price": 1,
     "tags": [
@@ -57,7 +57,7 @@
     "grade": 2,
     "description": "Dodaje dwie widmowe kości obrażeń k4, odejmuje 2 punkty uniku i 2 punkty parowania.",
     "requirements": [
-      "PostawaOfensywna3"
+      "Postawa Ofensywna 3"
     ],
     "price": 3,
     "tags": [
@@ -70,7 +70,7 @@
     "grade": 3,
     "description": "Dodaje trzy widmowe kości obrażeń k4, odejmuje 3 punkty uniku i 3 punkty parowania.",
     "requirements": [
-      "PostawaOfensywna4"
+      "Postawa Ofensywna 4"
     ],
     "price": 5,
     "tags": [
@@ -83,7 +83,7 @@
     "grade": 1,
     "description": "Odejmuje 2 obrażeń, dodaje widmową kość obrażeń 1 k4.",
     "requirements": [
-      "PostawaOfensywna5"
+      "Postawa Ofensywna 5"
     ],
     "price": 2,
     "tags": [
@@ -96,7 +96,7 @@
     "grade": 2,
     "description": "Odejmuje 3 obrażeń, dodaje widmową kość obrażeń 1 k6.",
     "requirements": [
-      "PostawaOfensywna6"
+      "Postawa Ofensywna 6"
     ],
     "price": 2,
     "tags": [
@@ -109,7 +109,7 @@
     "grade": 3,
     "description": "Odejmuje 4 obrażeń, dodaje widmową kość obrażeń 1 k8.",
     "requirements": [
-      "PostawaTura1"
+      "Postawa Tura 1"
     ],
     "price": 2,
     "tags": [
@@ -122,7 +122,7 @@
     "grade": 4,
     "description": "Odejmuje 5 obrażeń, dodaje widmową kość obrażeń 1 k10.",
     "requirements": [
-      "PostawaTura2"
+      "Postawa Tura 2"
     ],
     "price": 2,
     "tags": [
@@ -135,7 +135,7 @@
     "grade": 1,
     "description": "Zamienia istniejącą widmową kość obrażeń na kość broni o randze o 3 mniejszej.",
     "requirements": [
-      "PostawaTura3"
+      "Postawa Tura 3"
     ],
     "price": 9,
     "tags": [
@@ -148,7 +148,7 @@
     "grade": 2,
     "description": "Zamienia istniejącą widmową kość obrażeń na kość broni o randze o 2 mniejszej.",
     "requirements": [
-      "PostawaTura4"
+      "Postawa Tura 4"
     ],
     "price": 2,
     "tags": [
@@ -161,7 +161,7 @@
     "grade": 3,
     "description": "Zamienia istniejącą widmową kość obrażeń na kość broni o randze o 1 mniejszej.",
     "requirements": [
-      "PrzezGniew4"
+      "Przez Gniew 4"
     ],
     "price": 2,
     "tags": [
@@ -174,7 +174,7 @@
     "grade": 4,
     "description": "Zamienia istniejącą widmową kość obrażeń na kość broni o tej samej randze.",
     "requirements": [
-      "StylGrupowy1"
+      "Styl Grupowy 1"
     ],
     "price": 2,
     "tags": [
@@ -187,7 +187,7 @@
     "grade": 1,
     "description": "Zwiększa siłę fizycznego uderzenia krytycznego o 1, zwiększa zasięg trafienia krytycznego o 1, zmniejsza redukcji o 3.",
     "requirements": [
-      "StylGrupowy3"
+      "Styl Grupowy 3"
     ],
     "price": 4,
     "tags": [
@@ -200,7 +200,7 @@
     "grade": 2,
     "description": "Zwiększa siłę fizycznego uderzenia krytycznego o 2, zwiększa zasięg trafienia krytycznego o 1, zmniejsza redukcji o 5.",
     "requirements": [
-      "StylGrupowy4"
+      "Styl Grupowy 4"
     ],
     "price": 5,
     "tags": [
@@ -226,7 +226,7 @@
     "grade": 1,
     "description": "Zmniejsza zasięg fizycznego trafienia krytycznego o 1, a zwiększa siłę fizycznego uderzenia krytycznego o 2.",
     "requirements": [
-      "PoczucieSiły1"
+      "Poczucie Siły 1"
     ],
     "price": 2,
     "tags": [
@@ -239,7 +239,7 @@
     "grade": 2,
     "description": "Zmniejsza zasięg fizycznego trafienia krytycznego o 2, a zwiększa siłę fizycznego uderzenia krytycznego o 5.",
     "requirements": [
-      "PoczucieSiły2"
+      "Poczucie Siły 2"
     ],
     "price": 4,
     "tags": [
@@ -252,7 +252,7 @@
     "grade": 3,
     "description": "Zmniejsza zasięg fizycznego trafienia krytycznego o 3, a zwiększa siłę fizycznego uderzenia krytycznego o 8.",
     "requirements": [
-      "PoczucieSiły3"
+      "Poczucie Siły 3"
     ],
     "price": 6,
     "tags": [
@@ -265,7 +265,7 @@
     "grade": 4,
     "description": "Zmniejsza zasięg fizycznego trafienia krytycznego o 4, a zwiększa siłę fizycznego uderzenia krytycznego o 11.",
     "requirements": [
-      "PostawaAsaryLu'dean1"
+      "Postawa Asary Lu'dean 1"
     ],
     "price": 9,
     "tags": [
@@ -278,7 +278,7 @@
     "grade": 1,
     "description": "Zmniejsza zasięg trafienia krytycznego do 1, dodaje do siły trafienia krytycznego widmową kość obrażeń 1 k4.",
     "requirements": [
-      "PostawaAsaryLu'dean2"
+      "Postawa Asary Lu'dean 2"
     ],
     "price": 2,
     "tags": [
@@ -291,7 +291,7 @@
     "grade": 2,
     "description": "Zmniejsza zasięg trafienia krytycznego do 1, dodaje do siły trafienia krytycznego widmową kość obrażeń 1 k6.",
     "requirements": [
-      "PostawaAsaryLu'dean3"
+      "Postawa Asary Lu'dean 3"
     ],
     "price": 2,
     "tags": [
@@ -304,7 +304,7 @@
     "grade": 3,
     "description": "Zmniejsza zasięg trafienia krytycznego do 1, dodaje do siły trafienia krytycznego widmową kość obrażeń 1 k8.",
     "requirements": [
-      "PostawaVirtonaLenter1"
+      "Postawa Virtona Lenter 1"
     ],
     "price": 2,
     "tags": [
@@ -318,7 +318,7 @@
     "description": "Zwiększa o 1 zasięg kości broni, zwiększa zasięg trafienia krytycznego o 1.",
     "requirements": [
       "specjalne",
-      "PostawaVirtonaLenter2"
+      "Postawa Virtona Lenter 2"
     ],
     "price": 6,
     "tags": [
@@ -332,7 +332,7 @@
     "description": "Zwiększa o 2 zasięg kości broni, zwiększa zasięg trafienia krytycznego o 2.",
     "requirements": [
       "specjalne",
-      "PostawaVirtonaLenter3"
+      "Postawa Virtona Lenter 3"
     ],
     "price": 9,
     "tags": [
@@ -346,7 +346,7 @@
     "description": "Zwiększa o 3 zasięg kości broni, zwiększa zasięg trafienia krytycznego o 3.",
     "requirements": [
       "specjalne",
-      "StalowyAdwokat1"
+      "Stalowy Adwokat 1"
     ],
     "price": 12,
     "tags": [
@@ -359,7 +359,7 @@
     "grade": 1,
     "description": "Zwiększa siłę fizycznego uderzenia krytycznego o 1.",
     "requirements": [
-      "StalowyAdwokat2"
+      "Stalowy Adwokat 2"
     ],
     "price": 4,
     "tags": [
@@ -372,7 +372,7 @@
     "grade": 2,
     "description": "Zwiększa siłę fizycznego uderzenia krytycznego o 2.",
     "requirements": [
-      "StalowyAdwokat3"
+      "Stalowy Adwokat 3"
     ],
     "price": 9,
     "tags": [
@@ -398,7 +398,7 @@
     "grade": 4,
     "description": "Zwiększa siłę fizycznego uderzenia krytycznego o 4.",
     "requirements": [
-      "PostawaDowódcy1"
+      "Postawa Dowódcy 1"
     ],
     "price": 18,
     "tags": [
@@ -411,7 +411,7 @@
     "grade": 1,
     "description": "Zwiększa zasięg trafienia krytycznego o 1.",
     "requirements": [
-      "PostawaDowódcy2"
+      "Postawa Dowódcy 2"
     ],
     "price": 7,
     "tags": [
@@ -424,7 +424,7 @@
     "grade": 2,
     "description": "Zwiększa zasięg trafienia krytycznego o 2.",
     "requirements": [
-      "PostawaDowódcy3"
+      "Postawa Dowódcy 3"
     ],
     "price": 15,
     "tags": [
@@ -437,7 +437,7 @@
     "grade": 3,
     "description": "Zwiększa zasięg trafienia krytycznego o 3.",
     "requirements": [
-      "PostawaTaktyka"
+      "Postawa Taktyka"
     ],
     "price": 18,
     "tags": [
@@ -450,7 +450,7 @@
     "grade": 4,
     "description": "Zwiększa zasięg trafienia krytycznego o 4.",
     "requirements": [
-      "PostawaWodza1"
+      "Postawa Wodza 1"
     ],
     "price": 18,
     "tags": [
@@ -463,8 +463,8 @@
     "grade": 1,
     "description": "Zwiększa uniki o 1.",
     "requirements": [
-      "Większy Refleks5",
-      "PostawaWodza3"
+      "Większy Refleks 5",
+      "Postawa Wodza 3"
     ],
     "price": 4,
     "tags": [
@@ -477,7 +477,7 @@
     "grade": 2,
     "description": "Zwiększa uniki o 2.",
     "requirements": [
-      "Większy Refleks6",
+      "Większy Refleks 6",
       "Nazwa"
     ],
     "price": 6,
@@ -491,7 +491,7 @@
     "grade": 3,
     "description": "Zwiększa uniki o 3.",
     "requirements": [
-      "Większy Refleks7"
+      "Większy Refleks 7"
     ],
     "price": 12,
     "tags": [
@@ -504,7 +504,7 @@
     "grade": 4,
     "description": "Zwiększa uniki o 4.",
     "requirements": [
-      "Większy Refleks8"
+      "Większy Refleks 8"
     ],
     "price": 18,
     "tags": [
@@ -552,7 +552,7 @@
     "grade": 1,
     "description": "Odejmuje kość broni. Redukuje połowę obrażeń zadanych w zdrowie.",
     "requirements": [
-      "AuraDrenora"
+      "Aura Drenora"
     ],
     "price": 9,
     "tags": [
@@ -565,7 +565,7 @@
     "grade": 1,
     "description": "Dodaje 1hp tarczy co ture (max 3). Wyjście z postawy anuluje bonus. W tą postawę można wejść raz dziennie.",
     "requirements": [
-      "AuraGerneta"
+      "Aura Gerneta"
     ],
     "price": 3,
     "tags": [
@@ -578,7 +578,7 @@
     "grade": 2,
     "description": "Dodaje 2hp tarczy co ture (max 6). Wyjście z postawy anuluje bonus. W tą postawę można wejść raz dziennie.",
     "requirements": [
-      "AuraRiny"
+      "Aura Riny"
     ],
     "price": 6,
     "tags": [
@@ -591,7 +591,7 @@
     "grade": 3,
     "description": "Dodaje 3hp tarczy co ture (max 9). Wyjście z postawy anuluje bonus. W tą postawę można wejść raz dziennie.",
     "requirements": [
-      "AuraShojiegoKaname"
+      "Aura Shojiego Kaname"
     ],
     "price": 10,
     "tags": [
@@ -689,7 +689,7 @@
     "grade": 2,
     "description": "Siła uderzeń krytycznych ataków wymierzonych w postać zmniejsza się o 2.",
     "requirements": [
-      "PostawaAlcanlorów1"
+      "Postawa Alcanlorów 1"
     ],
     "price": 9,
     "tags": [
@@ -702,7 +702,7 @@
     "grade": 3,
     "description": "Siła uderzeń krytycznych ataków wymierzonych w postać zmniejsza się o 3.",
     "requirements": [
-      "PostawaAlcanlorów2"
+      "Postawa Alcanlorów 2"
     ],
     "price": 12,
     "tags": [
@@ -715,7 +715,7 @@
     "grade": 1,
     "description": "Dodaje +1 do refleksu przeciw atakom dystansowym [może wykroczyć poza ograniczenia refleksu].",
     "requirements": [
-      "PostawaAlcanlorów3"
+      "Postawa Alcanlorów 3"
     ],
     "price": 3,
     "tags": [
@@ -728,7 +728,7 @@
     "grade": 2,
     "description": "Dodaje +2 do refleksu przeciw atakom dystansowym [może wykroczyć poza ograniczenia refleksu].",
     "requirements": [
-      "PostawaDiany1"
+      "Postawa Diany 1"
     ],
     "price": 6,
     "tags": [
@@ -741,7 +741,7 @@
     "grade": 3,
     "description": "Dodaje +3 do refleksu przeciw atakom dystansowym [może wykroczyć poza ograniczenia refleksu].",
     "requirements": [
-      "PostawaDiany2"
+      "Postawa Diany 2"
     ],
     "price": 8,
     "tags": [
@@ -754,7 +754,7 @@
     "grade": 1,
     "description": "Zasięg trafień krytycznych wymierzonych w postać zmniejsza się o 1.",
     "requirements": [
-      "PostawaDiany3"
+      "Postawa Diany 3"
     ],
     "price": 4,
     "tags": [
@@ -767,7 +767,7 @@
     "grade": 2,
     "description": "Zasięg trafień krytycznych ataków wymierzonych w postać zmniejsza się o 2.",
     "requirements": [
-      "PostawaIris1"
+      "Postawa Iris 1"
     ],
     "price": 12,
     "tags": [
@@ -780,7 +780,7 @@
     "grade": 3,
     "description": "Zasięg trafień krytycznych ataków wymierzonych w postać zmniejsza się o 3.",
     "requirements": [
-      "PostawaIris2"
+      "Postawa Iris 2"
     ],
     "price": 18,
     "tags": [
@@ -793,7 +793,7 @@
     "grade": 1,
     "description": "Dodaje redukcję jednej widmowej kości.",
     "requirements": [
-      "PostawaIris3"
+      "Postawa Iris 3"
     ],
     "price": 6,
     "tags": [
@@ -806,7 +806,7 @@
     "grade": 2,
     "description": "Dodaje redukcję dwóch widmowych kości.",
     "requirements": [
-      "PostawaKaname1"
+      "Postawa Kaname 1"
     ],
     "price": 18,
     "tags": [
@@ -819,7 +819,7 @@
     "grade": 1,
     "description": "Odejmuje 1 blokowania, dodaje 1 odporności.",
     "requirements": [
-      "PostawaKaname3"
+      "Postawa Kaname 3"
     ],
     "price": 1,
     "tags": [
@@ -845,7 +845,7 @@
     "grade": 3,
     "description": "Odejmuje 3 blokowania, dodaje 3 odporności.",
     "requirements": [
-      "PostawaSztukmistrza1"
+      "Postawa Sztukmistrza 1"
     ],
     "price": 6,
     "tags": [
@@ -858,7 +858,7 @@
     "grade": 4,
     "description": "Odejmuje 4 blokowania, dodaje 4 odporności.",
     "requirements": [
-      "PostawaSztukmistrza2"
+      "Postawa Sztukmistrza 2"
     ],
     "price": 9,
     "tags": [
@@ -871,7 +871,7 @@
     "grade": 1,
     "description": "Dodaje +2 blokowania jeśli ma się osłonę z prawej i lewej strony. Dodaje +1 blokowania jeśli ma się osłonę tylko z jednej strony. Unieruchamia. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim+1 za osłonę z każdej ze stron.",
     "requirements": [
-      "PostawaSztukmistrza3"
+      "Postawa Sztukmistrza 3"
     ],
     "price": 3,
     "tags": [
@@ -884,7 +884,7 @@
     "grade": 2,
     "description": "Dodaje +4 blokowania jeśli ma się osłonę z prawej i lewej strony. Dodaje +2 blokowania jeśli ma się osłonę tylko z jednej strony. Unieruchamia. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim+1 za osłonę z każdej ze stron.",
     "requirements": [
-      "PostawaWojmistrza1"
+      "Postawa Wojmistrza 1"
     ],
     "price": 5,
     "tags": [
@@ -897,7 +897,7 @@
     "grade": 3,
     "description": "Dodaje +6 redukcji jeśli ma się osłonę z prawej i lewej strony. Dodaje +3 blokowania jeśli ma się osłonę tylko z jednej strony. Unieruchamia. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim+1 za osłonę z każdej ze stron.",
     "requirements": [
-      "PostawaWojmistrza2"
+      "Postawa Wojmistrza 2"
     ],
     "price": 5,
     "tags": [
@@ -910,7 +910,7 @@
     "grade": 1,
     "description": "Blokowanie +1. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 6. Połowa prędkości poruszania.",
     "requirements": [
-      "PostawaWojmistrza3"
+      "Postawa Wojmistrza 3"
     ],
     "price": 6,
     "tags": [
@@ -923,7 +923,7 @@
     "grade": 2,
     "description": "Blokowanie +2. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 8. Połowa prędkości poruszania.",
     "requirements": [
-      "PostawaWojmistrza4"
+      "Postawa Wojmistrza 4"
     ],
     "price": 9,
     "tags": [
@@ -936,7 +936,7 @@
     "grade": 3,
     "description": "Blokowanie +3. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 10. Połowa prędkości poruszania.",
     "requirements": [
-      "PostawaWojmistrza5"
+      "Postawa Wojmistrza 5"
     ],
     "price": 12,
     "tags": [
@@ -950,7 +950,7 @@
     "description": "Blokowanie +5. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 10. Połowa prędkości poruszania.",
     "requirements": [
       "specjalne",
-      "PostawaMędrca2"
+      "Postawa Mędrca 2"
     ],
     "price": 0,
     "tags": [
@@ -964,7 +964,7 @@
     "description": "Blokowanie +8. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 10. Połowa prędkości poruszania.",
     "requirements": [
       "specjalne",
-      "PostawaMędrca3"
+      "Postawa Mędrca 3"
     ],
     "price": 0,
     "tags": [
@@ -977,7 +977,7 @@
     "grade": 1,
     "description": "Nie można atakować, zamienia 4 redukcji na 4 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [
-      "PostawaSpokoju1"
+      "Postawa Spokoju 1"
     ],
     "price": 1,
     "tags": [
@@ -990,7 +990,7 @@
     "grade": 2,
     "description": "Nie można atakować, zamienia 8 redukcji na 8 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [
-      "PostawaSpokoju2"
+      "Postawa Spokoju 2"
     ],
     "price": 4,
     "tags": [
@@ -1003,7 +1003,7 @@
     "grade": 3,
     "description": "Nie można atakować, zamienia 12 redukcji na 12 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [
-      "PostawaSpokoju3"
+      "Postawa Spokoju 3"
     ],
     "price": 12,
     "tags": [
