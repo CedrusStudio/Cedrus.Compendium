@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "sync-rulebook": "tsx scripts/sync-rulebook.ts"
+    "sync-rulebook": "tsx scripts/sync-rulebook.ts",
+    "analyze-excel": "tsx scripts/analyze-excel.ts",
+    "analyze-excel-clean": "tsx scripts/analyze-excel-clean.ts",
+    "excel-to-json": "tsx scripts/excel-to-json/index.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -51,12 +54,13 @@
     "ulid": "^3.0.1",
     "use-debounce": "^10.0.5",
     "vaul": "^1.1.2",
+    "xlsx": "^0.18.5",
     "zod": "^4.1.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20.19.22",
+    "@types/node": "^20.19.25",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "eslint": "^9",

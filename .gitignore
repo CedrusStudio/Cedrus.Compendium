@@ -12,6 +12,8 @@
 
 #rulebook data
 /rulebook-data/
+/raw-data/
+#/formatted-data/
 
 # testing
 /coverage

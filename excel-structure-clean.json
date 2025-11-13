@@ -1,0 +1,1067 @@
+[
+  {
+    "sheetName": "Atuty Bojowe",
+    "rowCount": 125,
+    "columnCount": 4,
+    "headers": [
+      "Nazwa",
+      "Działanie",
+      "Koszt",
+      "Wymagania"
+    ],
+    "sampleRows": [
+      {
+        "Nazwa": "Modyfikacje Obrażeń",
+        "Działanie": null,
+        "Koszt": null,
+        "Wymagania": null
+      },
+      {
+        "Nazwa": "Finezja w walce",
+        "Działanie": "+ (Zręczność) dmg, zamiast siły. Kara ujemnej siły obowiązuje. Dla broni 2 ręcznej: +(zręczność + siła/2) dmg",
+        "Koszt": "Z",
+        "Wymagania": "Zr 3"
+      },
+      {
+        "Nazwa": "Wirtuoz walki1",
+        "Działanie": "+ (Inteligencja/2) dmg",
+        "Koszt": "ZS",
+        "Wymagania": "Int 3, 2 widmowe manewry"
+      },
+      {
+        "Nazwa": "Wirtuoz walki2",
+        "Działanie": "+ (Inteligencja) dmg",
+        "Koszt": "ZZS",
+        "Wymagania": "Int 5, Wiruoz walki1"
+      },
+      {
+        "Nazwa": "Symbiotyka ",
+        "Działanie": "+ (Siła/2) dmg",
+        "Koszt": "S",
+        "Wymagania": "S 3, Zr 3, broń dwuręczna, Finezja w walce"
+      }
+    ],
+    "dataTypes": {
+      "Nazwa": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "Atuty Defensywne",
+    "rowCount": 174,
+    "columnCount": 4,
+    "headers": [
+      "Nazwa",
+      "Działanie",
+      "Koszt",
+      "Wymogi"
+    ],
+    "sampleRows": [
+      {
+        "Nazwa": "Umiejętności Bojowe",
+        "Działanie": "Zwiększa wybraną cechę o 1. Przy koszcie nie uwzględniać modyfikatora rasowego",
+        "Koszt": "SS+S*|cecha|",
+        "Wymogi": "Cecha inna niż czarokrwistość"
+      },
+      {
+        "Nazwa": "Fechtunek, Testy i Parowanie",
+        "Działanie": null,
+        "Koszt": null,
+        "Wymogi": null
+      },
+      {
+        "Nazwa": "Większy Fechtunek1",
+        "Działanie": "Bazowy Fechtunek +1",
+        "Koszt": "BB",
+        "Wymogi": null
+      },
+      {
+        "Nazwa": "Większy Fechtunek2",
+        "Działanie": "Bazowy Fechtunek +2",
+        "Koszt": "S",
+        "Wymogi": "Większy Fechtunek1,  Int+Zr -2"
+      },
+      {
+        "Nazwa": "Większy Fechtunek3",
+        "Działanie": "Bazowy Fechtunek +3",
+        "Koszt": "SB",
+        "Wymogi": "Większy Fechtunek2,  Int+Zr -1"
+      }
+    ],
+    "dataTypes": {
+      "Nazwa": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Koszt": [
+        "string",
+        "number"
+      ],
+      "Wymogi": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "Walka Wrecz",
+    "rowCount": 65,
+    "columnCount": 5,
+    "headers": [
+      "Nazwa",
+      "Działanie",
+      "Czas",
+      "Koszt",
+      "Wymagania"
+    ],
+    "sampleRows": [
+      {
+        "Nazwa": null,
+        "Działanie": "Uzbrojenie ",
+        "Czas": null,
+        "Koszt": null,
+        "Wymagania": null
+      },
+      {
+        "Nazwa": null,
+        "Działanie": "Broń Dwuręczna (1x S)",
+        "Czas": null,
+        "Koszt": null,
+        "Wymagania": null
+      },
+      {
+        "Nazwa": "Walka Wręcz",
+        "Działanie": "dmg k6, -3 siła krytyka, +1 inicjatywa. Walka Wręcz",
+        "Czas": null,
+        "Koszt": null,
+        "Wymagania": null
+      },
+      {
+        "Nazwa": "Kastet/Cestus",
+        "Działanie": "dmg k6, +1 Walka Wręcz, +1 inicjatywa. Walka Wręcz",
+        "Czas": null,
+        "Koszt": null,
+        "Wymagania": null
+      },
+      {
+        "Nazwa": "Żelazne rękawice",
+        "Działanie": "dmg k6, +1dmg, -3 siła krytyka, +1 Walka Wręcz. Walka Wręcz",
+        "Czas": null,
+        "Koszt": null,
+        "Wymagania": null
+      }
+    ],
+    "dataTypes": {
+      "Nazwa": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Czas": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "Harmonia",
+    "rowCount": 57,
+    "columnCount": 5,
+    "headers": [
+      "Nazwa",
+      "Działanie",
+      "Czas/H",
+      "Koszt",
+      "Wymogi"
+    ],
+    "sampleRows": [
+      {
+        "Nazwa": null,
+        "Działanie": "Zasady Harmoni",
+        "Czas/H": null,
+        "Koszt": null,
+        "Wymogi": null
+      },
+      {
+        "Nazwa": null,
+        "Działanie": "Punkty Harmoni - Aby móc używać technik mędrców musisz posiadać odpowiednią ilość punktów odnosnie kosztów. Każde użycie harmoni zmniejsza ilość owych punktów. Punkty są odzyskiwane podczas odpoczynku, godzina odpoczynku powoduje odzyskani k6+harmonia",
+        "Czas/H": null,
+        "Koszt": null,
+        "Wymogi": null
+      },
+      {
+        "Nazwa": null,
+        "Działanie": "Atuty",
+        "Czas/H": null,
+        "Koszt": null,
+        "Wymogi": null
+      },
+      {
+        "Nazwa": 1,
+        "Działanie": null,
+        "Czas/H": 5,
+        "Koszt": 5,
+        "Wymogi": null
+      },
+      {
+        "Nazwa": 2,
+        "Działanie": null,
+        "Czas/H": 5,
+        "Koszt": 5,
+        "Wymogi": null
+      }
+    ],
+    "dataTypes": {
+      "Nazwa": [
+        "number",
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Czas/H": [
+        "number",
+        "string"
+      ],
+      "Koszt": [
+        "number",
+        "string"
+      ],
+      "Wymogi": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "M Ogolne",
+    "rowCount": 175,
+    "columnCount": 10,
+    "headers": [
+      "Typ",
+      "Nazwa",
+      "Nazwa_1",
+      "Działanie",
+      "Częstotliwość",
+      "Koszt",
+      "Wymagania",
+      "War",
+      "ST",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Manewry Obronne",
+        "Nazwa": "Akrobatyka",
+        "Nazwa_1": "Akrobatyka",
+        "Działanie": "Test sporny Refleksu z Refleksem/Fechtuniem/Fortel. Za każde oczko przewagi dodaje 2 uników",
+        "Częstotliwość": "1//D",
+        "Koszt": "SSB",
+        "Wymagania": "Nieuchwytność, Lekka Zbroja",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Antyecho",
+        "Nazwa_1": "Antyecho",
+        "Działanie": "Manewr Natychmiastowy. Wybierz kość przeciwnika. Przeciwnika rzuca dwiema takimi kośćmi i wybiera mniejszą z nich",
+        "Częstotliwość": "1//6",
+        "Koszt": "SS",
+        "Wymagania": "Echo ciosu, Wieksza Wytrwałość5",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Antyrozpłatanie",
+        "Nazwa_1": "Antyrozpłatanie",
+        "Działanie": "Manewr Natychmiastowy. Zmniejsza obrażenia o 10% (zaokrąglone w górę)",
+        "Częstotliwość": "1//6",
+        "Koszt": "SS",
+        "Wymagania": "Rozpłatanie1, Większa Wytrwałość6",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Antyzapał",
+        "Nazwa_1": "Antyzapał",
+        "Działanie": "Manewr Natychmiastowy. Dodaje 1 redukcji za każdą kość broni i obrażeń skierowaną przeciwko tobie",
+        "Częstotliwość": "1//6",
+        "Koszt": "SS",
+        "Wymagania": "Zapał Wojownika, Większa Wytrwałość4",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Błyskawiczny1",
+        "Nazwa_1": "Błyskawiczny1",
+        "Działanie": "Manewr Natychmiastowy. Dodaje +1 uników ",
+        "Częstotliwość": "1//D",
+        "Koszt": "S",
+        "Wymagania": "Większy Refleks3, Lekka Zbroja",
+        "War": 3,
+        "ST": 2,
+        "Typ_1": "Manewry Obronne"
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Nazwa_1": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Częstotliwość": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ],
+      "War": [
+        "number",
+        "string"
+      ],
+      "ST": [
+        "number",
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "M Umiejętności",
+    "rowCount": 119,
+    "columnCount": 10,
+    "headers": [
+      "Typ",
+      "Nazwa",
+      "Nazwa_1",
+      "Działanie",
+      "Częstotliwość",
+      "Koszt",
+      "Wymagania",
+      "War",
+      "ST",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Manewry Fortel",
+        "Nazwa": "BłyskawiczntUkratkowyAtak",
+        "Nazwa_1": "Błyskawicznt Ukratkowy Atak",
+        "Działanie": "Manewr Natymiastowy.  Zamiast ustalonych obrażeń Ukratkowy Atak zadaje obrażenia równe widmowej kości obrażeń o radze równej obrażeniom+1",
+        "Częstotliwość": "1//6",
+        "Koszt": "S",
+        "Wymagania": "Ukratkowy Atak2",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Fortel"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "FałszywyZwód",
+        "Nazwa_1": "Fałszywy Zwód",
+        "Działanie": "Manewr natychmiastowy. Test sporny fortelu z fortelem/fechtunku przeciwnika. Dodaje redukcję równą ilości wyrzuconych oczek na kości o randze równej 1 za każde oczko przewagi w teście. ",
+        "Częstotliwość": "1//D",
+        "Koszt": "SS",
+        "Wymagania": "Większy Forte4",
+        "War": 6,
+        "ST": 2,
+        "Typ_1": "Manewry Fortel"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Finta1",
+        "Nazwa_1": "Finta1",
+        "Działanie": "Wygrany test sporny fortelu+1 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy. ",
+        "Częstotliwość": "1//3",
+        "Koszt": "B",
+        "Wymagania": "Większy Fortel4",
+        "War": 1,
+        "ST": 1,
+        "Typ_1": "Manewry Fortel"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Finta2",
+        "Nazwa_1": "Finta2",
+        "Działanie": "Wygrany test sporny fortelu+3 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy. ",
+        "Częstotliwość": "1//3",
+        "Koszt": "SB",
+        "Wymagania": "Finta1, Większy Fortel5",
+        "War": 4,
+        "ST": 2,
+        "Typ_1": "Manewry Fortel"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Finta3",
+        "Nazwa_1": "Finta3",
+        "Działanie": "Wygrany test sporny fortelu+5 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy. ",
+        "Częstotliwość": "1//3",
+        "Koszt": "SS",
+        "Wymagania": "Finta2, Większy Fortel6",
+        "War": 6,
+        "ST": 2,
+        "Typ_1": "Manewry Fortel"
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Nazwa_1": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Częstotliwość": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ],
+      "War": [
+        "number",
+        "string"
+      ],
+      "ST": [
+        "number",
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "M Broni",
+    "rowCount": 233,
+    "columnCount": 10,
+    "headers": [
+      "Typ",
+      "Nazwa",
+      "Nazwa_1",
+      "Działanie",
+      "Częstotliwość",
+      "Koszt",
+      "Wymagania",
+      "War",
+      "ST",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Kuszę/Łuki",
+        "Nazwa": "DefensywnyStrzał1",
+        "Nazwa_1": "Defensywny Strzał1",
+        "Działanie": "Trafienie ataku dystansowego-2 powoduje obniżenie obrażeń zadawanych przez przeciwnika o 2 w jego najbliższym ataku",
+        "Częstotliwość": "1//4",
+        "Koszt": "BB",
+        "Wymagania": "Większa Precyzja4",
+        "War": 2,
+        "ST": 1,
+        "Typ_1": "Kuszę/Łuki"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "BłyskawicznyStrzał1",
+        "Nazwa_1": "Błyskawiczny Strzał1",
+        "Działanie": "Manewr Natychmiastowy. Za każde +1 inicjatywy, zmniejsza o 1 precyzję na najbliższy atak (max +2,-2)",
+        "Częstotliwość": "1//6",
+        "Koszt": "BB",
+        "Wymagania": "Większa Inicjatywa3",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Kuszę/Łuki"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "BłyskawicznyStrzał2",
+        "Nazwa_1": "Błyskawiczny Strzał2",
+        "Działanie": "Manewr Natychmiastowy. Za każde +1 inicjatywy, zmniejsza o 1 precyzję na najbliższy atak (max +3,-3)",
+        "Częstotliwość": "1//6",
+        "Koszt": "S",
+        "Wymagania": "Błyskawiczny Strzał1, Większa Inicjatywa4",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Kuszę/Łuki"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "BłyskawicznyStrzał3",
+        "Nazwa_1": "Błyskawiczny Strzał3",
+        "Działanie": "Manewr Natychmiastowy. Za każde +1 inicjatywy, zmniejsza o 1 precyzję na najbliższy atak (max +4,-4)",
+        "Częstotliwość": "1//6",
+        "Koszt": "SB",
+        "Wymagania": "Błyskawiczny Strzał2, Większa Inicjatywa5",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Kuszę/Łuki"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "DefensywnyStrzał2",
+        "Nazwa_1": "Defensywny Strzał2",
+        "Działanie": "Trafienie ataku dystansowego-2 powoduje obniżenie obrażeń zadawanych przez przeciwnika o 4 w jego najbliższym ataku",
+        "Częstotliwość": "1//4",
+        "Koszt": "SB",
+        "Wymagania": "Defensywny Strzał1, Większa Precyzja5",
+        "War": 4,
+        "ST": 2,
+        "Typ_1": "Kuszę/Łuki"
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Nazwa_1": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Częstotliwość": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ],
+      "War": [
+        "number",
+        "string"
+      ],
+      "ST": [
+        "number",
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "M Harmonia",
+    "rowCount": 38,
+    "columnCount": 10,
+    "headers": [
+      "Typ",
+      "Nazwa",
+      "Nazwa_1",
+      "Działanie",
+      "Częstotliwość",
+      "Koszt",
+      "Wymagania",
+      "War",
+      "ST",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Harmonnia Ofensywa",
+        "Nazwa": "CiosHarmonii1",
+        "Nazwa_1": "Cios Harmonii1",
+        "Działanie": "Dodaje dmg równy Harmonii do jednego ciosu",
+        "Częstotliwość": "1//3, 2H",
+        "Koszt": "Z",
+        "Wymagania": "Większa Harmonia4",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Harmonnia Ofensywa"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "CiosHarmonii2",
+        "Nazwa_1": "Cios Harmonii2",
+        "Działanie": "Dodaje dmg równy Harmonii+1 do jednego ciosu",
+        "Częstotliwość": "1//3, 2H",
+        "Koszt": "S",
+        "Wymagania": "Cios Harmonii1, Większa Harmonia6",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Harmonnia Ofensywa"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "CiosHarmonii3",
+        "Nazwa_1": "Cios Harmonii3",
+        "Działanie": "Dodaje dmg równy Harmonii+2 do jednego ciosu",
+        "Częstotliwość": "1//3, 2H",
+        "Koszt": "S",
+        "Wymagania": "Cios Harmonii2, Większa Harmonia8",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Harmonnia Ofensywa"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "CiosHarmonii4",
+        "Nazwa_1": "Cios Harmonii4",
+        "Działanie": "Dodaje dmg równy Harmonii+3 do jednego ciosu",
+        "Częstotliwość": "1//3, 2H",
+        "Koszt": "S",
+        "Wymagania": "Cios Harmonii3, Większa Harmonia10",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Harmonnia Ofensywa"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "CiosHarmonii5",
+        "Nazwa_1": "Cios Harmonii5",
+        "Działanie": "Dodaje dmg równy Harmonii+4 do jednego ciosu",
+        "Częstotliwość": "1//3, 2H",
+        "Koszt": "S",
+        "Wymagania": "Cios Harmonii4, Większa Harmonia12",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Harmonnia Ofensywa"
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Nazwa_1": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Częstotliwość": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ],
+      "War": [
+        "string"
+      ],
+      "ST": [
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "M Kulturowe",
+    "rowCount": 17,
+    "columnCount": 8,
+    "headers": [
+      "Typ",
+      "Nazwa",
+      "Nazwa_1",
+      "Działanie",
+      "Częstotliwość",
+      "Koszt",
+      "Wymagania",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Girgeńskie i durskie manewry",
+        "Nazwa": "AntyzapałWojmistrza",
+        "Nazwa_1": "Antyzapał Wojmistrza",
+        "Działanie": "Manewr Natychmiastowy. Dodaje 1 redukcji za każdą kość broni i obrażeń skierowaną przeciwko tobie i każdą twoją kość broni i obrażeń",
+        "Częstotliwość": "1//D",
+        "Koszt": "BB",
+        "Wymagania": "Zastępuje antyzapał, wymagana klasa wojmistrz",
+        "Typ_1": "Girgeńskie i durskie manewry"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "CzłowiekTwierdza",
+        "Nazwa_1": "Człowiek Twierdza",
+        "Działanie": "Podwaja odporność z Syna Wojny",
+        "Częstotliwość": "1//D",
+        "Koszt": "S",
+        "Wymagania": "Syn Wojny1",
+        "Typ_1": "Girgeńskie i durskie manewry"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "GirgeńskaFinta",
+        "Nazwa_1": "Girgeńska Finta",
+        "Działanie": "Wygrany test sporny fortelu+(fechtunek/2) vs fechtunek lub fortel zadaje obrażenia równe 1 za każde oczko różnicy. ",
+        "Częstotliwość": "1//5",
+        "Koszt": "BB",
+        "Wymagania": "Zastępuje Finte3",
+        "Typ_1": "Girgeńskie i durskie manewry"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "GirgeńskiMłyniec",
+        "Nazwa_1": "Girgeński Młyniec",
+        "Działanie": "Wygrany test (fortelu+fechtunek)/2 vs siła/fechtunek/fortel dodaje kość broni. Jeśli wygrałeś o 5 oczek dodaj 1 szansy krytyka",
+        "Częstotliwość": "1//D",
+        "Koszt": "BB",
+        "Wymagania": "Zastępuje Młyniec",
+        "Typ_1": "Girgeńskie i durskie manewry"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "GirgeńskiŚlizg",
+        "Nazwa_1": "Girgeński Ślizg",
+        "Działanie": "Manewr Nadnatychmiastowy. Dodaje redukcję równą ilości oczek wyrzuconej na kości o randze równej fortelowi",
+        "Częstotliwość": "1//D",
+        "Koszt": "SB",
+        "Wymagania": null,
+        "Typ_1": "Girgeńskie i durskie manewry"
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Nazwa_1": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Częstotliwość": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "M Propozycje",
+    "rowCount": 15,
+    "columnCount": 6,
+    "headers": [
+      "Typ",
+      "Nazwa",
+      "Nazwa_1",
+      "Działanie",
+      "Częstotliwość",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Propozycje",
+        "Nazwa": "Nadwuręcznąijednoręczna",
+        "Nazwa_1": "Na dwuręczną i jednoręczna",
+        "Działanie": "Dzwignia i atak cos fajnego",
+        "Częstotliwość": null,
+        "Typ_1": "Propozycje"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "",
+        "Nazwa_1": null,
+        "Działanie": null,
+        "Częstotliwość": null,
+        "Typ_1": "Propozycje"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "",
+        "Nazwa_1": null,
+        "Działanie": null,
+        "Częstotliwość": null,
+        "Typ_1": "Propozycje"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Żądło",
+        "Nazwa_1": "Żądło",
+        "Działanie": "Dodaje siłe i szanse krytyka do obrażeń, ustawia szanse krytyka na 0",
+        "Częstotliwość": "1//4",
+        "Typ_1": "Propozycje"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "PrzełamującyImpet",
+        "Nazwa_1": "Przełamujący Impet",
+        "Działanie": "Dodaje Modyfikator Siły do rangi kości obrażeń",
+        "Częstotliwość": "1//5",
+        "Typ_1": null
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Nazwa_1": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Częstotliwość": [
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "M Total",
+    "rowCount": 574,
+    "columnCount": 10,
+    "headers": [
+      "Typ",
+      "Nazwa",
+      "Nazwa_1",
+      "Działanie",
+      "Częstotliwość",
+      "Koszt",
+      "Wymagania",
+      "War",
+      "ST",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Manewry Obronne",
+        "Nazwa": "Akrobatyka",
+        "Nazwa_1": "Akrobatyka",
+        "Działanie": "Test sporny Refleksu z Refleksem/Fechtuniem/Fortel. Za każde oczko przewagi dodaje 2 uników",
+        "Częstotliwość": "1//D",
+        "Koszt": "SSB",
+        "Wymagania": "Nieuchwytność, Lekka Zbroja",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Antyecho",
+        "Nazwa_1": "Antyecho",
+        "Działanie": "Manewr Natychmiastowy. Wybierz kość przeciwnika. Przeciwnika rzuca dwiema takimi kośćmi i wybiera mniejszą z nich",
+        "Częstotliwość": "1//6",
+        "Koszt": "SS",
+        "Wymagania": "Echo ciosu, Wieksza Wytrwałość5",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Antyrozpłatanie",
+        "Nazwa_1": "Antyrozpłatanie",
+        "Działanie": "Manewr Natychmiastowy. Zmniejsza obrażenia o 10% (zaokrąglone w górę)",
+        "Częstotliwość": "1//6",
+        "Koszt": "SS",
+        "Wymagania": "Rozpłatanie1, Większa Wytrwałość6",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Antyzapał",
+        "Nazwa_1": "Antyzapał",
+        "Działanie": "Manewr Natychmiastowy. Dodaje 1 redukcji za każdą kość broni i obrażeń skierowaną przeciwko tobie",
+        "Częstotliwość": "1//6",
+        "Koszt": "SS",
+        "Wymagania": "Zapał Wojownika, Większa Wytrwałość4",
+        "War": null,
+        "ST": null,
+        "Typ_1": "Manewry Obronne"
+      },
+      {
+        "Typ": null,
+        "Nazwa": "Błyskawiczny1",
+        "Nazwa_1": "Błyskawiczny1",
+        "Działanie": "Manewr Natychmiastowy. Dodaje +1 uników ",
+        "Częstotliwość": "1//D",
+        "Koszt": "S",
+        "Wymagania": "Większy Refleks3, Lekka Zbroja",
+        "War": 3,
+        "ST": 2,
+        "Typ_1": "Manewry Obronne"
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Nazwa_1": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Częstotliwość": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ],
+      "War": [
+        "number",
+        "string"
+      ],
+      "ST": [
+        "number",
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  },
+  {
+    "sheetName": "Postawy i Stany",
+    "rowCount": 247,
+    "columnCount": 7,
+    "headers": [
+      "Typ",
+      "PostawaSokoła2",
+      "Nazwa",
+      "Działanie",
+      "Koszt",
+      "Wymagania",
+      "Typ_1"
+    ],
+    "sampleRows": [
+      {
+        "Typ": "Stany",
+        "PostawaSokoła2": "PostawaSokoła3",
+        "Nazwa": "Amok",
+        "Działanie": "Za każde 10 brakującego hp dodajesz 1dmg do obrażeń. Uniemożliwia defensywne postawy i manewry",
+        "Koszt": "SB",
+        "Wymagania": null,
+        "Typ_1": "Stany"
+      },
+      {
+        "Typ": null,
+        "PostawaSokoła2": "PostawaSzermierska1",
+        "Nazwa": "Defensywny Rytm1",
+        "Działanie": "Testy fechtunku-1, parownie+1",
+        "Koszt": "SS",
+        "Wymagania": "brak tarczy, Postawa Defensywna3, Garda2, Większy Fechtunek5",
+        "Typ_1": "Stany"
+      },
+      {
+        "Typ": null,
+        "PostawaSokoła2": "PostawaSzermierska2",
+        "Nazwa": "Defensywny Rytm2",
+        "Działanie": "Testy fechtunku-2, parownie+2",
+        "Koszt": "ZS",
+        "Wymagania": "brak tarczy, Postawa Defensywna3, Garda2, Większy Fechtunek6",
+        "Typ_1": "Stany"
+      },
+      {
+        "Typ": null,
+        "PostawaSokoła2": "PostawaSzermierska3",
+        "Nazwa": "Defensywny Rytm3",
+        "Działanie": "Testy fechtunku-3, parownie+3",
+        "Koszt": "SSB",
+        "Wymagania": "brak tarczy, Postawa Defensywna3, Garda2, Większy Fechtunek7",
+        "Typ_1": "Stany"
+      },
+      {
+        "Typ": null,
+        "PostawaSokoła2": "PostawaSzermierska4",
+        "Nazwa": "Stan Pojedynku",
+        "Działanie": "Odbiera kość broni walczącemu i przeciwnikowi. Uniemożliwia użytkownikowi manewry związane z unikami",
+        "Koszt": "BB",
+        "Wymagania": "Lekka lub średnia zbroja u walczącego i u przeciwnika w pojedynku 1 na 1",
+        "Typ_1": "Stany"
+      }
+    ],
+    "dataTypes": {
+      "Typ": [
+        "string"
+      ],
+      "PostawaSokoła2": [
+        "string"
+      ],
+      "Nazwa": [
+        "string"
+      ],
+      "Działanie": [
+        "string"
+      ],
+      "Koszt": [
+        "string"
+      ],
+      "Wymagania": [
+        "string"
+      ],
+      "Typ_1": [
+        "string"
+      ]
+    }
+  }
+]
