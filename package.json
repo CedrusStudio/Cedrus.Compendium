@@ -9,8 +9,6 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "sync-rulebook": "tsx scripts/sync-rulebook.ts",
-    "generate-characters": "tsx scripts/generate-characters-json.ts",
-    "validate-characters": "tsx scripts/validate-characters.ts",
     "seed": "tsx prisma/seed.ts",
     "seed:stances": "tsx prisma/seeds/stanceSeed.ts",
     "seed:states": "tsx prisma/seeds/stateSeed.ts",
