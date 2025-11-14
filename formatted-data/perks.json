@@ -4931,5 +4931,38 @@
     "tags": [
       "nieumarli"
     ]
+  },
+  {
+    "id": "01KA1ARST00843DHKDYE000000",
+    "name": "Paraliż",
+    "grade": 0,
+    "description": "Nakłada 1 stacków paralizu za każde obrażenia które zostały zadane w zdrowie. Po każdym ataku w zdrowie rzut na wytrwałość o ST=ilość stacków-1. Nieudany powoduje paraliż na 1 ture za każde oczko straty w teście wytrwałości. Stacki po paraliżu zostają zdjęte",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "paraliż"
+    ]
+  },
+  {
+    "id": "01KA1ARST4PJ8MAJP7QJ000000",
+    "name": "Paraliż",
+    "grade": 1,
+    "description": "Nakłada 1 stacków paralizu za każde obrażenia które zostały zadane w zdrowie. Po każdym ataku w zdrowie rzut na wytrwałość o ST=ilość stacków. Nieudany powoduje paraliż na 1 ture za każde oczko straty w teście wytrwałości. Stacki po paraliżu zostają zdjęte",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "paraliż"
+    ]
+  },
+  {
+    "id": "01KA1ARST40NHPZR3YXJ000000",
+    "name": "Paraliż",
+    "grade": 2,
+    "description": "Nakłada 1 stacków paralizu za każde obrażenia które zostały zadane w zdrowie. Po każdym ataku w zdrowie rzut na wytrwałość o ST=ilość stacków+1. Nieudany powoduje paraliż na 1 ture za każde oczko straty w teście wytrwałości. Stacki po paraliżu zostają zdjęte",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "paraliż"
+    ]
   }
 ]
