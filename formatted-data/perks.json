@@ -5195,5 +5195,38 @@
     "tags": [
       "siły-nieczyste"
     ]
+  },
+  {
+    "id": "01KA1AZJKJVQDQ5Q1YAJ000000",
+    "name": "Bestia",
+    "grade": 1,
+    "description": "Dodaje odporność na testy fechtunku i fortelu. Jeśli jednak, któś wyjątkowo omija ową odporność wtedy stosowana jest premia z refleksu do owych testów.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "bestie"
+    ]
+  },
+  {
+    "id": "01KA1AZJKK08WQ357X01000000",
+    "name": "Bestia",
+    "grade": 2,
+    "description": "Dodaje odporność na testy fechtunku i fortelu. Jeśli jednak, któś wyjątkowo omija ową odporność wtedy stosowana jest premia z refleksu+2 do owych testów.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "bestie"
+    ]
+  },
+  {
+    "id": "01KA1AZJKK4KET7EKBBT000000",
+    "name": "Bestia",
+    "grade": 3,
+    "description": "Dodaje odporność na testy fechtunku i fortelu. Jeśli jednak, któś wyjątkowo omija ową odporność wtedy stosowana jest premia z refleksu+4 do owych testów.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "bestie"
+    ]
   }
 ]
