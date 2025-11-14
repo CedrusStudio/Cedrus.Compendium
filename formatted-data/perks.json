@@ -5250,5 +5250,49 @@
     "tags": [
       "wampiry"
     ]
+  },
+  {
+    "id": "01KA1B1W2YH4S6ACSHWX000000",
+    "name": "Potwór",
+    "grade": 1,
+    "description": "Odporność na testy fechtunku i fortelu / refleks +2",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "potwór"
+    ]
+  },
+  {
+    "id": "01KA1B1W2YB8TZ6EZAWX000000",
+    "name": "Potwór",
+    "grade": 2,
+    "description": "Odporność na testy fechtunku i fortelu / refleks +3",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "potwory"
+    ]
+  },
+  {
+    "id": "01KA1B1W2ZBAV8XQNNJA000000",
+    "name": "Potwór",
+    "grade": 3,
+    "description": "Odporność na testy fechtunku i fortelu / refleks +4",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "potwory"
+    ]
+  },
+  {
+    "id": "01KA1B1W2ZY0JYEQWG4J000000",
+    "name": "Potwór",
+    "grade": 4,
+    "description": "Odporność na testy fechtunku i fortelu / refleks +5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "potwory"
+    ]
   }
 ]
