@@ -4964,5 +4964,60 @@
     "tags": [
       "paraliż"
     ]
+  },
+  {
+    "id": "01KA1AV3AMZMNPXNS0WY000000",
+    "name": "Choroba",
+    "grade": 0,
+    "description": "Po każdym ataku w zdrowie rzut na wytrwałość o ST=2 x 1 za każde obrażenie które zostało zadane w zdrowie. Nieudany powoduje chorobotwórczą ranę. Chorobotwórcza rana zadaje 1 śmiertelnych obrażeń przez 1k4 rund oraz dodaje 1 staka choroby. Dodatkowe stacki wedle uznania mistrza gry. Poziom ilości stacków po walce określa ryzyko zarażenia chorobą związaną z testem wytrwałości+poziomu leczenia. Na podstawie ilości stacków mistrz gry określa skale trudności (skale 6+)",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "choroba"
+    ]
+  },
+  {
+    "id": "01KA1AV3AMQD905F822J000000",
+    "name": "Choroba",
+    "grade": 1,
+    "description": "Po każdym ataku w zdrowie rzut na wytrwałość o ST=2 x 1 za każde obrażenie które zostało zadane w zdrowie. Nieudany powoduje chorobotwórczą ranę. Chorobotwórcza rana zadaje 1 śmiertelnych obrażeń przez 1k6 rund oraz dodaje 2 staka choroby. Dodatkowe stacki wedle uznania mistrza gry. Poziom ilości stacków po walce określa ryzyko zarażenia chorobą związaną z testem wytrwałości+poziomu leczenia. Na podstawie ilości stacków mistrz gry określa skale trudności (skale 7+)",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "choroba"
+    ]
+  },
+  {
+    "id": "01KA1AV3ANBXT0DS95SC000000",
+    "name": "Choroba",
+    "grade": 2,
+    "description": "Po każdym ataku w zdrowie rzut na wytrwałość o ST=2 x 1 za każde obrażenie które zostało zadane w zdrowie. Nieudany powoduje chorobotwórczą ranę. Chorobotwórcza rana zadaje 1 śmiertelnych obrażeń przez 1k8 rund oraz dodaje 3 staka choroby. Dodatkowe stacki wedle uznania mistrza gry. Poziom ilości stacków po walce określa ryzyko zarażenia chorobą związaną z testem wytrwałości+poziomu leczenia. Na podstawie ilości stacków mistrz gry określa skale trudności (skale 8+)",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "choroba"
+    ]
+  },
+  {
+    "id": "01KA1AV3AN27J0EPHKX5000000",
+    "name": "Orędownik Zarazy",
+    "grade": 0,
+    "description": "Przegrany test wytrwałości przeciwko Orędownikowi Zarazy obniża wytrwałość o 1",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "choroba"
+    ]
+  },
+  {
+    "id": "01KA1AV3AN66C9X69WKB000000",
+    "name": "Czyrakownik",
+    "grade": 0,
+    "description": "Za każde 5 hp straty Czyrakownik zyskuje dodatkowo bonus 2 obrażeń do ataku",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "choroba"
+    ]
   }
 ]
