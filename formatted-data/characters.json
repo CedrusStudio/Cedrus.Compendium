@@ -21310,7 +21310,7 @@
       {
         "id": "01KA25N7BPA3X1T17EWCA8W0C6",
         "name": "Podstawowa",
-        "immunity": "Skorupa 1     Noga 1       Spód 0",
+        "immunity": 1,
         "resistance": 25,
         "protection": 40,
         "block": 0,
