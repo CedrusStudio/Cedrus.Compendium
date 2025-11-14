@@ -5019,5 +5019,71 @@
     "tags": [
       "choroba"
     ]
+  },
+  {
+    "id": "01KA1AW7CV3XVH48803Y000000",
+    "name": "Cieniste Brutchy",
+    "grade": 0,
+    "description": "Test wytrwałości o ST=4+1/10 brutchów+stacki. Udany obniża obrażenia, redukcję i testy fizyczne 1. Nieudany nakłada tyle stacków ile obrażeń zadano.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "rdzeń"
+    ]
+  },
+  {
+    "id": "01KA1AW7CVHN2WDQDZXF000000",
+    "name": "Cienisty",
+    "grade": 0,
+    "description": "Przy każdym ataku = Obrażenia zadane w zdrowie przeciwnika powodują test wytrwałości o ST=2+zadane obrażenia+stacki. Udany obniża obrażenia, redukcję i testy fizyczne 1. Nieudany nakłada tyle stacków ile obrażeń zadano.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "rdzeń"
+    ]
+  },
+  {
+    "id": "01KA1AW7CWX7DR21TVZ7000000",
+    "name": "Cienisty",
+    "grade": 1,
+    "description": "Przy każdym ataku = Obrażenia zadane w zdrowie przeciwnika powodują test wytrwałości o ST=3+zadane obrażenia+stacki. Udany obniża obrażenia, redukcję i testy fizyczne 1. Nieudany nakłada tyle stacków ile obrażeń zadano.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "rdzeń"
+    ]
+  },
+  {
+    "id": "01KA1AW7CWMG9TDPVS0Q000000",
+    "name": "Cienisty",
+    "grade": 2,
+    "description": "Przy każdym ataku = Obrażenia zadane w zdrowie przeciwnika powodują test wytrwałości o ST=4+zadane obrażenia+stacki. Udany obniża obrażenia, redukcję i testy fizyczne 1. Nieudany nakłada tyle stacków ile obrażeń zadano.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "rdzeń"
+    ]
+  },
+  {
+    "id": "01KA1AW7CX33FSFSB4HC000000",
+    "name": "Cienisty",
+    "grade": 3,
+    "description": "Przy każdym ataku = Obrażenia zadane w zdrowie przeciwnika powodują test wytrwałości o ST=5+zadane obrażenia+stacki. Udany obniża obrażenia, redukcję i testy fizyczne 1. Nieudany nakłada tyle stacków ile obrażeń zadano.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "rdzeń"
+    ]
+  },
+  {
+    "id": "01KA1AW7CXRFYC8PHW0B000000",
+    "name": "Cienisty",
+    "grade": 4,
+    "description": "Przy każdym ataku = Obrażenia zadane w zdrowie przeciwnika powodują test wytrwałości o ST=6+zadane obrażenia+stacki. Udany obniża obrażenia, redukcję i testy fizyczne 1. Nieudany nakłada tyle stacków ile obrażeń zadano.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "rdzeń"
+    ]
   }
 ]
