@@ -4546,5 +4546,390 @@
     "tags": [
       "harmonia"
     ]
+  },
+  {
+    "id": "01KA1AK3J2EXWHGJ4A80000000",
+    "name": "Nieumarły",
+    "grade": 0,
+    "description": "Redukcja na krytyki 2. Niewrażliwość na strach, ból. Odporność na trucizny, choroby, ogłuszenie, paraliż. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JD93MDPNRWHA000000",
+    "name": "Nieumarły",
+    "grade": 1,
+    "description": "Redukcja na krytyki 3. Niewrażliwość na strach, ból. Odporność na trucizny, choroby, ogłuszenie, paraliż. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JE99KFJJPKXK000000",
+    "name": "Nieumarły",
+    "grade": 2,
+    "description": "Redukcja na krytyki 3. Niewrażliwość na strach, ból. Odporność na trucizny, choroby, ogłuszenie, paraliż. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JE5KZZ1TN539000000",
+    "name": "Nieumarły",
+    "grade": 3,
+    "description": "Redukcja na krytyki 4. Niewrażliwość na strach, ból. Odporność na trucizny, choroby, ogłuszenie, paraliż. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JEX91Y5DY1WV000000",
+    "name": "Eteryczny Nieumarły",
+    "grade": 0,
+    "description": "Redukcja na krytyki 3. Niewrażliwość na strach, ból. Odporność na trucizny, choroby. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 4, Widmowe kości broni. Przechodzenie przez materię niemagiczną.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JF3W7NAVMT7S000000",
+    "name": "Eteryczny Nieumarły",
+    "grade": 1,
+    "description": "Redukcja na krytyki 4. Niewrażliwość na strach, ból. Odporność na trucizny, choroby. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 4, Widmowe kości broni. Przechodzenie przez materię niemagiczną.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JF3VB8E081ZD000000",
+    "name": "Eteryczny Nieumarły",
+    "grade": 2,
+    "description": "Redukcja na krytyki 4. Niewrażliwość na strach, ból. Odporność na trucizny, choroby. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 4, Widmowe kości broni. Przechodzenie przez materię niemagiczną.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JFSTVX80NTEB000000",
+    "name": "Eteryczny Nieumarły",
+    "grade": 3,
+    "description": "Redukcja na krytyki 5. Niewrażliwość na strach, ból. Odporność na trucizny, choroby. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 4, Widmowe kości broni. Przechodzenie przez materię niemagiczną.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JGBK7TX2GNAQ000000",
+    "name": "Eteryczny Nieumarły",
+    "grade": 4,
+    "description": "Redukcja na krytyki 5. Niewrażliwość na strach, ból. Odporność na trucizny, choroby. Odporność na testy fechtunki i fortelu. Podatność na wpływy nekromancji 4, Widmowe kości broni. Przechodzenie przez materię niemagiczną.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JJD4Q82SSK87000000",
+    "name": "Nekromantyczny Dotyk",
+    "grade": 0,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 5/7 nieudany skutkuje obrażeniami 2k4/1k4",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JJ7MG7VD46AE000000",
+    "name": "Nekromantyczny Dotyk",
+    "grade": 1,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 6/8 nieudany skutkuje obrażeniami 2k6/1k6",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JKNT36A5TRRR000000",
+    "name": "Nekromantyczny Dotyk",
+    "grade": 2,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 6/8/10 nieudany skutkuje obrażeniami 3k6/2k6/1k6",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JKYQDCBWGAY3000000",
+    "name": "Nekromantyczny Dotyk",
+    "grade": 3,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 7/9/11 nieudany skutkuje obrażeniami 3k8/2k8/1k8",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JKA0DH3ZC7G1000000",
+    "name": "Nekromantyczny Dotyk",
+    "grade": 4,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 7/9/11/13 nieudany skutkuje obrażeniami 4k8/3k8/2k8/1k8",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JME9A6X57BXV000000",
+    "name": "Porażający Dotyk",
+    "grade": 0,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 6 nieudany za każde oczko straty nakłąda znamie na istotę i zadanje k4 obrażeń za każde znamie",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JMV4HQRSXZN9000000",
+    "name": "Porażający Dotyk",
+    "grade": 1,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 8 nieudany za każde oczko straty nakłąda znamie na istotę i zadanje k4 obrażeń za każde znamie",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JM02QZNFXGV4000000",
+    "name": "Porażający Dotyk",
+    "grade": 2,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 10 nieudany za każde oczko straty nakłąda znamie na istotę i zadanje k4 obrażeń za każde znamie",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AK3JN8PC8NXJNE0000000",
+    "name": "Porażający Dotyk",
+    "grade": 3,
+    "description": "Każdy atak w zdrowie podlega testowi obronnemu wytrwałości o skali 12 nieudany za każde oczko straty nakłąda znamie na istotę i zadanje k4 obrażeń za każde znamie",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP30YNR75Q45X000000",
+    "name": "Wypalająca Aura",
+    "grade": 1,
+    "description": "Każdy atak w istotę skutkuje otrzymaniem 2 obrażeń, niewrażliwość na ogień",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP4D36AW0BE2T000000",
+    "name": "Wypalająca Aura",
+    "grade": 2,
+    "description": "Każdy atak w istotę skutkuje otrzymaniem 3 obrażeń, niewrażliwość na ogień",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP4D0DMHCK2SZ000000",
+    "name": "Wypalająca Aura",
+    "grade": 3,
+    "description": "Każdy atak w istotę skutkuje otrzymaniem 4 obrażeń, niewrażliwość na ogień",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP553KVZ128GA000000",
+    "name": "Południca",
+    "grade": 0,
+    "description": "Całkowita niewrażliwość na ogień. Podatność na zimno, 2 krotne obrażenia w zdrowie od zimna. Aura ognia, każdy wymierzony w eterycznego atak skutkuje otrzymaniem 2 obrażeń od ognia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP5JW15VNFSC4000000",
+    "name": "Północnica",
+    "grade": 0,
+    "description": "Całkowita niewrażliwość na zimno. Podatność na ogień, 2 krotne obrażenia w zdrowie od ognia. Aura Zimna, każdy w odległości 2 kroków otrzymaniem 1 prawdziwych obrażeń od zimna",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP6R4Z86D91GB000000",
+    "name": "Horror",
+    "grade": 0,
+    "description": "Po każdym ataku w zdrowie rzut na wytrwałość o ST=2 + 1 za każde obrażenie które zostało zadane w zdrowie. Nieudany powoduje chorobotwórczą ranę. Chorobotwórcza rana zadaje 1 śmiertelnych obrażeń przez 1k8 rund oraz dodaje 3 staka choroby. Dodatkowe stacki wedle uznania mistrza gry. Poziom ilości stacków po walce określa ryzyko zarażenia chorobą związaną z testem wytrwałości+poziomu leczenia. Na podstawie ilości staków mistrz gry określa skale trudności (skale 8+)",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP6E4SA0SPWY3000000",
+    "name": "Zemsta",
+    "grade": 1,
+    "description": "Zadaje dodatkowo 1k8w obrażeń istocie na której pragnie wywrzeć zemstę (podmiotowi zemsty), oraz siła i zasięg krytyczny rośnie o 1 względem tej istoty",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP671M8WTVYPJ000000",
+    "name": "Zemsta",
+    "grade": 2,
+    "description": "Zadaje dodatkowo 1k10w obrażeń istocie na której pragnie wywrzeć zemstę (podmiotowi zemsty), oraz siła i zasięg krytyczny rośnie o 2 względem tej istoty",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP7ARDHD0BHSW000000",
+    "name": "Śniący",
+    "grade": 0,
+    "description": "Nakłada 1 stacków paralizu za każde obrażenia które zostały zadane w zdrowie. Po każdym ataku w zdrowie rzut na wytrwałość o ST=ilość stacków. Nieudany powoduje paraliż na 1 ture za każde oczko straty w teście wytrwałości. Stacki po paraliżu zostają zdjęte",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP70SZBF9GN6P000000",
+    "name": "Banshee",
+    "grade": 0,
+    "description": "Co turę każda istota w promieniu 20 kroków zmuszona jest do testu wytrwałości o ST 8 + ilość stacków. Za każde oczko w przegranym teście zadaje 1k6+1 obrażeń -1 inicjatywy oraz nałożenie jednego staca.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP7QP69TZBXMW000000",
+    "name": "Chabernica",
+    "grade": 0,
+    "description": "Każede zadane obrażenie w chabernice odbija 10% wyrzuconych obrażeń od ognia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP82BWS7KHMZD000000",
+    "name": "Zimny Trup",
+    "grade": 0,
+    "description": "Każede zadane obrażenie w zimnego trupa zadaje 2k6 obrażeń od zimna",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP9CS285WWZD1000000",
+    "name": "Wypaleniec",
+    "grade": 0,
+    "description": "Ignoruję jedną najniższą kość broni(Wynik) z każdego ataku",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP9MJG5R5MG71000000",
+    "name": "Spopieleniec",
+    "grade": 0,
+    "description": "Ignoruję jedną najwyższą kość broni(Wynik) z każdego ataku",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEP9V1BHRQT99T000000",
+    "name": "Mumia",
+    "grade": 0,
+    "description": "Przy pierwszej turze 1 dodatkowa kość redukcji",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEPA3P30D6G0X5000000",
+    "name": "Martwiec",
+    "grade": 0,
+    "description": "Przy śmierci uwolnia novę o zasięgu 3 kroków. Test sporny refleksu o ST 7 nieudany skutkuje testem spornym wytrwałości 8 za każde oczko straty 1k6 obrażeń",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
+  },
+  {
+    "id": "01KA1AMEPAQZEZXFX4WF000000",
+    "name": "Płomienny Trup",
+    "grade": 0,
+    "description": "Każede zadane obrażenie w płomiennego trupa zadaje 2k4 obrażeń od ognia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "nieumarli"
+    ]
   }
 ]
