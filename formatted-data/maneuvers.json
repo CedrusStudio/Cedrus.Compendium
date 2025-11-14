@@ -11609,7 +11609,7 @@
   },
   {
     "id": "J5PSSB33ED2ETDN98Z4Q8KC4JQ",
-    "name": "Wsparciedlawierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 1,
     "description": "Odejmuje 4 obrażenia do następnego ataku (z jeździectwa) i dodaje 4 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -11622,7 +11622,7 @@
   },
   {
     "id": "20QZ3X2V9QX1W7D3WQ69PBFFV4",
-    "name": "Wsparciedlawierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 2,
     "description": "Odejmuje 6 obrażenia do następnego ataku (z jeździectwa) i dodaje 6 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -11635,7 +11635,7 @@
   },
   {
     "id": "63PMR3P37V1PX8XN8BG0RWF40Z",
-    "name": "Wsparciedlawierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 3,
     "description": "Odejmuje 8 obrażenia do następnego ataku (z jeździectwa) i dodaje 8 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -11648,7 +11648,7 @@
   },
   {
     "id": "EEG9YNA7WW1EAFT5NYEW6GE1YN",
-    "name": "Wsparciedlawierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 4,
     "description": "Odejmuje 10 obrażenia do następnego ataku (z jeździectwa) i dodaje 10 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -11661,7 +11661,7 @@
   },
   {
     "id": "MC4KPWYXZXF88M184PB1DCX6MX",
-    "name": "Wszystkonajednąkartę",
+    "name": "Wszystko na Jedną Kartę",
     "grade": 1,
     "description": "Dodaje szansę krytyka+3 do siły krytyka. Ustawia szansę krytyka na 0",
     "castTime": "Standardowa",
@@ -11674,7 +11674,7 @@
   },
   {
     "id": "SX3VPRJR6XCGAE8CZKXPHJ6C3M",
-    "name": "Wszystkonajednąkartę",
+    "name": "Wszystko na Jedną Kartę",
     "grade": 2,
     "description": "Dodaje szansę krytyka+5 do siły krytyka. Ustawia szansę krytyka na 0",
     "castTime": "Standardowa",
@@ -11687,7 +11687,7 @@
   },
   {
     "id": "DX9Z5Q9WW6F49R52P50GP83VZC",
-    "name": "Wszystkonajednąkartę",
+    "name": "Wszystko na Jedną Kartę",
     "grade": 3,
     "description": "Dodaje szansę krytyka+7 do siły krytyka. Ustawia szansę krytyka na 0",
     "castTime": "Standardowa",
@@ -11772,7 +11772,7 @@
   },
   {
     "id": "AV801XRZR5TJ6J23A3H6FD9N9E",
-    "name": "Wyścigzczasem",
+    "name": "Wyścig z Czasem",
     "grade": 1,
     "description": "Wygrany test sporny inicjatywy zmniejsza przeciwnikowi ustaloną inicjatywe o 1",
     "castTime": "Standardowa",
@@ -11785,7 +11785,7 @@
   },
   {
     "id": "318WDST9QXKYJ7G2TZPV09TFSK",
-    "name": "Wyścigzczasem",
+    "name": "Wyścig z Czasem",
     "grade": 2,
     "description": "Wygrany test sporny inicjatywy zmniejsza przeciwnikowi ustaloną inicjatywe o 2",
     "castTime": "Standardowa",
@@ -11798,7 +11798,7 @@
   },
   {
     "id": "BYYWM1JV6YQQK97Y91E270HBVR",
-    "name": "Wyścigzczasem",
+    "name": "Wyścig z Czasem",
     "grade": 3,
     "description": "Wygrany test sporny inicjatywy zmniejsza przeciwnikowi ustalona inicjatywe o 3",
     "castTime": "Standardowa",
@@ -11811,7 +11811,7 @@
   },
   {
     "id": "9XB21T5KTRJ0QAC15Q5B90MW21",
-    "name": "Wytrąceniezrównowagi",
+    "name": "Wytrącenie z Równowagi",
     "grade": 1,
     "description": "Wygrany test sporny fechunku+siła/zręczność -5 vs fechunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak",
     "castTime": "Standardowa",
@@ -11824,7 +11824,7 @@
   },
   {
     "id": "19ER8JZXXAT2T171RFPSJQ2699",
-    "name": "Wytrąceniezrównowagi",
+    "name": "Wytrącenie z Równowagi",
     "grade": 2,
     "description": "Wygrany test sporny fechunku+siła/zręczność -4 vs fechunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak",
     "castTime": "Standardowa",
@@ -11837,7 +11837,7 @@
   },
   {
     "id": "J07AYR0WTQQTB7BP9EM4RGNHP5",
-    "name": "Wytrąceniezrównowagi",
+    "name": "Wytrącenie z Równowagi",
     "grade": 3,
     "description": "Wygrany test sporny fechunku+siła/zręczność -3 vs fechunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak",
     "castTime": "Standardowa",
