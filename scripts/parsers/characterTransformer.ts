@@ -7,6 +7,7 @@ import { parseReduction } from './reductionParser';
 import { parseDefense } from './defenseParser';
 import { parseCombatSkill } from './combatSkillParser';
 import { parseDamage } from './damageParser';
+import { parseResistance } from './resistanceParser';
 import { parseManeuverReferences, parsePerkReferences, parseEquipmentReferences, extractCombatTypes, type ManeuverReference, type PerkReference, type EquipmentReferences } from './equipmentParser';
 
 export type Statistic = {
@@ -157,6 +158,10 @@ export function transformToCharacter(rawData: RawCharacterData): Character {
                     rawData.equipmentRaw.toLowerCase().includes('rapier') ||
                     rawData.equipmentRaw.toLowerCase().includes('szpada');
 
+  // Determine if character is mounted (horsemanship instead of artifice)
+  const isMounted = rawData.name.toLowerCase().includes('konny') ||
+                    rawData.abilities.some(a => a.name.toLowerCase().includes('mistrzowskie jeździectwo'));
+
   const combatTypes = extractCombatTypes(rawData.maneuversRaw, rawData.abilities);
   
   return {
@@ -164,7 +169,9 @@ export function transformToCharacter(rawData: RawCharacterData): Character {
     name: rawData.name,
     shortName: generateShortName(rawData.name),
     description,
-    tags: [rawData.category, rawData.sheetName, ...combatTypes].filter(tag => tag && tag.trim().length > 0),
+    tags: [rawData.category, rawData.sheetName, ...combatTypes]
+      .filter(tag => tag && tag.trim().length > 0)
+      .map(tag => tag.toLowerCase()),
     characteristics: {
       strength: stats.strength,
       dexterity: stats.dexterity,
@@ -176,12 +183,10 @@ export function transformToCharacter(rawData: RawCharacterData): Character {
     attributes: {
       initiative: { grade: 3, value: rawData.initiativeRaw, bonus: 0, testBonus: 0 },
       precision: { grade: 3, value: 0, bonus: 0, testBonus: 0 },
-      ...(isFencing 
-        ? { fencing: { grade: 3, value: combatSkill.primary, bonus: 0, testBonus: combatSkill.primaryTestBonus } } 
-        : { martialArt: { grade: 3, value: combatSkill.primary, bonus: 0, testBonus: combatSkill.primaryTestBonus } }
-      ),
-      artifice: { grade: 3, value: combatSkill.secondary, bonus: 0, testBonus: combatSkill.secondaryTestBonus },
-      horsemanship: { grade: 3, value: 0, bonus: 0, testBonus: 0 },
+      fencing: { grade: 3, value: isFencing ? combatSkill.primary : 0, bonus: 0, testBonus: isFencing ? combatSkill.primaryTestBonus : 0 },
+      martialArt: { grade: 3, value: isFencing ? 0 : combatSkill.primary, bonus: 0, testBonus: isFencing ? 0 : combatSkill.primaryTestBonus },
+      artifice: { grade: 3, value: isMounted ? 0 : combatSkill.secondary, bonus: 0, testBonus: isMounted ? 0 : combatSkill.secondaryTestBonus },
+      horsemanship: { grade: 3, value: isMounted ? combatSkill.secondary : 0, bonus: 0, testBonus: isMounted ? combatSkill.secondaryTestBonus : 0 },
       willpower: saves.willpower,
       reflex: saves.reflex,
       fortitude: saves.fortitude
@@ -199,7 +204,7 @@ export function transformToCharacter(rawData: RawCharacterData): Character {
       id: ulid(),
       name: 'Podstawowa',
       immunity: rawData.immunityRaw,
-      resistance: rawData.resistanceRaw,
+      resistance: parseResistance(rawData.resistanceRaw),
       protection: reduction.protection,
       block: reduction.block,
       parry: defense.parry,
@@ -213,7 +218,7 @@ export function transformToCharacter(rawData: RawCharacterData): Character {
         amount: damage.leading.amount,
         grade: damage.leading.grade,
         bonus: damage.leading.bonus,
-        critical: damage.critical
+        critical: damage.critical ?? { range: 0, power: 0 }
       },
       damageBonus: {
         amount: damage.bonus.amount,

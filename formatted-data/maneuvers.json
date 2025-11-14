@@ -294,7 +294,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC32W4R2XTA916S577",
@@ -305,7 +306,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC0Z5VQBJVZSSTTAF9",
@@ -316,7 +318,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZA1RECHTES695NMDNB",
@@ -372,7 +375,8 @@
     "description": "Dodaje 3dmg atakując z powietrza.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "21CHDRC3SE9K5Z6N9ME7QVGCFM",
@@ -381,7 +385,8 @@
     "description": "Dodaje 5dmg atakując z powietrza.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "K4R7WKN4W2F22SD5M40FPQM454",
@@ -390,7 +395,8 @@
     "description": "Dodaje 7dmg atakując z powietrza.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "VY86537ZRXJDSQEZ6R9WZWD49S",
@@ -399,7 +405,8 @@
     "description": "Dodaje 10 pwT.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYX7Z526J4ZXGWE9B2M",
@@ -457,7 +464,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "5KFQWCT3SBEPFJ3S46261KHPN8",
@@ -470,7 +478,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Z98J9P047WS1HXE9JFPFWHS8RE",
@@ -483,7 +492,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "6JWZEE890PM2VCP2CM508MXGE9",
@@ -496,7 +506,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "A10D2F2K6S3PM9DK1530467PCP",
@@ -509,7 +520,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZFMRSQBESKRQPFHZ2H",
@@ -965,7 +977,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "VM4MVHGF8N7PF8R5JPEZFSG3E0",
@@ -977,7 +990,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "4QBPW6FC2ZJ9KPXBD253M2BTGR",
@@ -989,7 +1003,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "6V81F6PF51HFW5X2XCCEWGATC2",
@@ -1001,7 +1016,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "JVR9GV6QKEK6SX8AZC41Z1R2AT",
@@ -1013,7 +1029,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "8W8R8W0647BNRA1S9PD9AMZNQG",
@@ -1025,7 +1042,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDEG50B12EJDK4JFAC",
@@ -1087,7 +1105,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "MK4BMJDZCMC9MD6NZJY12MEY2C",
@@ -1099,7 +1118,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZFBJTDGTTMMS9MGRBA",
@@ -1108,7 +1128,8 @@
     "description": "Dodaje 1 obrażeń na kości broni i obrażeń, odejmuje 1 obrażeń.",
     "castTime": "Standardowa",
     "tags": [],
-    "cooldown": 3
+    "cooldown": 3,
+    "price": 0
   },
   {
     "id": "YYFY7Z3NYFCST5W10T9M3V14BS",
@@ -1117,7 +1138,8 @@
     "description": "Stożek (120* 3 kroki). Test refleksu o ST=8. Nieudany powoduje -2 obrażenia, -2 redukcji. Nie działa na istoty nie używające wzroku 1//3].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "YFSY3CH679XBDNPDST62A54VDC",
@@ -1129,7 +1151,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "YN2S1AVJNCHC5RPKW7ZKZ88EFE",
@@ -1141,7 +1164,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "2RPMZJNQ771VXYYV5E0FNQRMQG",
@@ -1153,7 +1177,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "B8VA7TXDR77Y1S2TZHDCEYK1V2",
@@ -1165,7 +1190,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC8QC1X7DZGDGXTE84",
@@ -1176,7 +1202,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCA2BGT15PFRB86097",
@@ -1187,7 +1214,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCPFCAZS2TYYMKZ98D",
@@ -1198,7 +1226,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ929B3N59E9ZNK2NZ4",
@@ -1252,7 +1281,8 @@
     "grade": 1,
     "description": "Manwer . W poprzedniej turze wymagany wygrany test fechtunku/fortelu o co najmniej 4 oczka. Dodaje walkę wręcz do redukcji.",
     "castTime": "Natychmiastowa",
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "DRBWDNE1XXG0W60YZJEME3NF8R",
@@ -1261,7 +1291,8 @@
     "description": "Zadaje 1 obrażeń za każdą kość broni i obrażeń twoją i atakowanego przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "16JY7K7W67TJF5059797R7MKR6",
@@ -1272,7 +1303,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FZJ8SESSSV6JGW452P4AVEVZN0",
@@ -1283,7 +1315,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "JTNB0DF41Z8B1Z76E1XQKDN0XC",
@@ -1294,7 +1327,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "SWAE2FW8Y8M3WYCSEDE1SF07R3",
@@ -1305,7 +1339,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "153AYXB0EFX37JYG38TRD0N6KM",
@@ -1316,7 +1351,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "677E95V9F767Y1YZFQV39EYYER",
@@ -1327,7 +1363,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "GT4VYTTSZ0AX2D0XNVNA16WS2N",
@@ -1338,7 +1375,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCEH6R08E7JA4B6S8X",
@@ -1349,7 +1387,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCXYSHZCN5H0EAD83F",
@@ -1360,7 +1399,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC1BHDY2HHEQCY8E1Y",
@@ -1371,7 +1411,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDSYPJGR6834Z3K480",
@@ -1468,7 +1509,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ9YHWEWX8KNYT2V7KG",
@@ -1508,7 +1550,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC27D3Y8JFJ3XB66FP",
@@ -1519,7 +1562,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCCTSC1E34AXKDTDT2",
@@ -1530,7 +1574,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "XQBD9B355S00HAN73RQHTY5G49",
@@ -1539,7 +1584,8 @@
     "description": "Dodaje 3 do szansy krytyka [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "3SJR4KJ97XBDCXKTA0SNM23MZD",
@@ -1593,7 +1639,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC0A1PXMZW4PAZKY7G",
@@ -1604,7 +1651,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCDEH6WJJTYV86SSRA",
@@ -1615,7 +1663,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCE54NJRZ6DZ05BB87",
@@ -1626,7 +1675,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZEHRP4QETGSAMR09F1",
@@ -1766,7 +1816,8 @@
     "cooldown": 6,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "38RXWRQZ2DAYJKTBHT9SQA1W51",
@@ -1777,7 +1828,8 @@
     "cooldown": 6,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "PP5X7T17E7TB1CV9YFDHQV0DAB",
@@ -1788,7 +1840,8 @@
     "cooldown": 6,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QKWSQXA2RNQJWJ6FR7QPVD5Y8M",
@@ -1799,7 +1852,8 @@
     "cooldown": 6,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QMF1NFWP1E0SHKKZ84X2SXJTTE",
@@ -1810,7 +1864,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "06BH8C3D84232TF2JMY1NXMF2W",
@@ -1821,7 +1876,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QTYK44WZYCHV198NSC7YF6E6C8",
@@ -1832,7 +1888,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "EHXJGX18ZTNJACGJ9EJYVKXKY9",
@@ -1843,7 +1900,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1NCXDTABJGXCA1HER08V8R0VJG",
@@ -1854,7 +1912,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "9HF22NK556985M5A9F7VEESSZR",
@@ -1865,7 +1924,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QBKV6BN98NRR264HZE869SFGJ1",
@@ -1876,7 +1936,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "VKSFN856QNM8VYASM8QZRH5APM",
@@ -1887,7 +1948,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FH0AC0H1HZ58MHD1JATFED01YM",
@@ -1898,7 +1960,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "J08PQ4GZFFJJSFFMSPCEV4W84W",
@@ -1909,7 +1972,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "E3NSJD9ED2P8G8ZENYB3MH0KTB",
@@ -1920,7 +1984,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "4PHW6A5BNJM7A5D5X229GX48YN",
@@ -1931,7 +1996,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Y1V70KD84KMX53NM93SV1BB00D",
@@ -1942,7 +2008,8 @@
     "cooldown": 1,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1C3T1V87GAPAYVZDD0SGD0JZC0",
@@ -1951,7 +2018,8 @@
     "description": "Dodaje 1 dmg na kość broni oraz +1 do szansy i siły krytyka na turę/4esencji [1//4e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "31CDJ46ER1M00X6A1H2HN9RMX3",
@@ -1962,7 +2030,8 @@
     "cooldown": null,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "P92DD179D83SXKQ1WHJC1T6EKF",
@@ -1973,7 +2042,8 @@
     "cooldown": null,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "62PNW7H61XYR4K6QTKMCGWD0JM",
@@ -1982,7 +2052,8 @@
     "description": "Dodaje 1 refleksu za każde 3 esencji max 4 [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "XZY6TB1TQ1A6DW7WSHEPFPSXS5",
@@ -1991,7 +2062,8 @@
     "description": "Dodaje 1 refleksu za każde 3 esencji max 7 [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYZVY5Y7ZVVK2XABWHB",
@@ -2017,7 +2089,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "MJPSCZM2JWPFS4HX5ZVDYKFQAR",
@@ -2026,7 +2099,8 @@
     "description": "Dodaje fechtunek do redukcji na 1 ture [15e,.",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "AJGGMTEQ8FVHB8QR72G5G5T6RP",
@@ -2037,7 +2111,8 @@
     "cooldown": null,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DGZP5VSQ90ZPGCJMPSRG3WT7JD",
@@ -2048,7 +2123,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "PNENQDNY9420EAPYDHK5GF2FB4",
@@ -2056,10 +2132,11 @@
     "grade": 1,
     "description": "Dodaje 1 kość redukcji oraz 2redukcji/siła zaklęcia na minute/1esencji.",
     "castTime": "Standardowa",
-    "cooldown": "5+1e",
+    "cooldown": 5,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "BAXVAHXGC8TH056G8X2S371XPH",
@@ -2070,7 +2147,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "NKCYKAEQ29RV1PJEHTG69Z54KF",
@@ -2081,7 +2159,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DWZZ2YEPAP80M8PKM6A35ND29K",
@@ -2092,7 +2171,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "SX4EM61ECGCAWJ0V1457003F75",
@@ -2103,7 +2183,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "7QW3BGQRR323KAF22074YEDBJD",
@@ -2114,7 +2195,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "T7HZRS89BPFHK5HMGXJT1XJ0B8",
@@ -2125,7 +2207,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "H7E0QPSCZ9R3V5KZ2C4EEK2PQQ",
@@ -2136,7 +2219,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "RH7NHRRQZXXM3MSJKTHWYSVG46",
@@ -2145,7 +2229,8 @@
     "description": "Dodaje 1dmg na kość broni na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "F8MH07Z4GP635WA2ADN84MKP7Q",
@@ -2156,7 +2241,8 @@
     "cooldown": 4,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "B7H4TZ5T0CG5CYRYYSJN493V1J",
@@ -2167,7 +2253,8 @@
     "cooldown": 4,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "4C4XKY88VWGEY6AYJYDMBP65MT",
@@ -2178,7 +2265,8 @@
     "cooldown": 4,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "3FY40VB090JCJ5SJMHFQSYMQQT",
@@ -2189,7 +2277,8 @@
     "cooldown": 4,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "8VBPX7CDA5PTGCT65QYZBMNVC0",
@@ -2200,7 +2289,8 @@
     "cooldown": 4,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "2CRDMF9BBGVXDJSCH5YAQ20PMB",
@@ -2211,7 +2301,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "KBG6GBFR2JAGQS13GQ64768XTZ",
@@ -2222,7 +2313,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "SJBWQZSGX50M27R0899D8PXXH0",
@@ -2233,7 +2325,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "C0ZSJBEH0GVBC379M9ASM9P69A",
@@ -2244,7 +2337,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "RDSYPJCTTH589J8HDVC5MYM4C2",
@@ -2255,7 +2349,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "SX4RCSCVG3TG22CM6BVKKPMVD6",
@@ -2266,7 +2361,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ7BZQ2ZF3M16CX4ZWQ",
@@ -2290,7 +2386,8 @@
     "description": "Test siły vs siła/zręczność. Za każde oczko przewagi zadaje 1 obrażeń. Przy 5 obrażeniach test wytrwałości o ST=3+obrażenia, nieudany oznacza Oszołomienie.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "N9T2PPA91JVVM39R0WYH9XYVZ4",
@@ -2299,7 +2396,8 @@
     "description": "Test siły vs siła/zręczność. Za każde oczko przewagi zadaje 1 obrażeń. Przy 5 obrażeniach test wytrwałości o ST=4+obrażenia, nieudany oznacza Oszołomienie.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "3E0KNAC49KV0ANSSW4HAWM4Z7Q",
@@ -2308,7 +2406,8 @@
     "description": "Test siły vs siła/zręczność. Za każde oczko przewagi zadaje 1 obrażeń. Przy 5 obrażeniach test wytrwałości o ST=5+obrażenia, nieudany oznacza Oszołomienie.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ0MWTZCQF36MG7MZ91",
@@ -2411,7 +2510,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "5PS166QS5VKFFWB7ZK9YG2CKW0",
@@ -2423,7 +2523,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "H02A2X41R7YW8K4AHTSKRXB728",
@@ -2435,7 +2536,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZA3PRCPS6V8HTKTN3H",
@@ -2445,7 +2547,8 @@
     "castTime": "Standardowa",
     "tags": [
       "bolas"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ88VTTXD9HJQ0SATPK",
@@ -2526,7 +2629,8 @@
     "tags": [
       "zwierzę",
       "szarża"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "JP2QKPC313SSSCBCN68Q8RWD8Z",
@@ -2538,7 +2642,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "PPN31GTD655BQ2A8ZG40B7CGHS",
@@ -2551,7 +2656,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "29EH6DJR916V5DDRBDY6Y2YY9M",
@@ -2564,7 +2670,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "5YC09RVP3ZTV37KWNTY3N28K17",
@@ -2577,7 +2684,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "465DCPZ790S4D581YRQCDM38HK",
@@ -2586,7 +2694,8 @@
     "description": "Dodaje k10w obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "2TE6DNEPNFJV8HQHWZZ0EPS5K8",
@@ -2595,7 +2704,8 @@
     "description": "Dodaje k14w obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "G3ZJQQP2A8P4MZ8EKD62G20ZM4",
@@ -2604,7 +2714,8 @@
     "description": "Dodaje k18w obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "AMZR7JX9KQB87R4T2YAFK9VVY1",
@@ -2617,7 +2728,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FPTZKS10AEXAN6QTQ4R8GBMBPB",
@@ -2630,7 +2742,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "ZERBJBVWDGAD5YACEZZRRX189K",
@@ -2643,7 +2756,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "XSS1EGPZMD098YBZ0HZSABXSPV",
@@ -2656,7 +2770,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "M2P4PBJ049PVT25RX7ACHCPPBJ",
@@ -2667,7 +2782,8 @@
     "cooldown": 5,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "VC6R5T7PQF5X5J8D1ZYV2A3YQ2",
@@ -2678,7 +2794,8 @@
     "cooldown": 5,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYXGZHTPTTF8GT1HE7E",
@@ -2707,7 +2824,8 @@
     ],
     "requirements": [
       "Większa Harmonia 10"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "PAF6Z0GM5W01FD5B16Q71Z8WJF",
@@ -2719,7 +2837,8 @@
     "tags": [
       "wynaturzenia",
       "humanoidalne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYZ3QKBRYHH4P3Y0363",
@@ -2744,7 +2863,8 @@
     "description": "Dodaje kość redukcji względem jednego wybranego przeciwnika [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "KW457AXDSM7P3NN4FHV7GG4PBS",
@@ -2767,7 +2887,8 @@
     "description": "Dodaje 3 widmowe kości obrażeń k6.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYVP4MC44FRHA8CQK11",
@@ -2795,7 +2916,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "W5NTWSSASSB0VZA58A5KVEZRK6",
@@ -2808,7 +2930,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Q5SZ1AMEWB8ZQ84R20KKM0BZJ9",
@@ -2821,7 +2944,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FP3FFNQTM712PAQJP3H9X45WMB",
@@ -2834,7 +2958,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QJ4EDY8VC2J5EWZ8T4A5RYZMH1",
@@ -2847,7 +2972,8 @@
       "nieumarli",
       "eteryczni",
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "XAYSJ356JB8C3J85CDX3Z71FHN",
@@ -2859,7 +2985,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "J4XM1DM3CCWNJEYCFSDFGR9A5N",
@@ -2871,7 +2998,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "NA0D8V0246J3S788NM7XBHZ2HE",
@@ -2883,7 +3011,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "2PPM67854PWSR6GDNAQYEKS0KF",
@@ -2895,7 +3024,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "T938KR3Z4WAXCJPZ1B6PFFMQXD",
@@ -2907,7 +3037,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC0M76VZGCXTXGA1J9",
@@ -2917,7 +3048,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ24YST3AWMZCP0SQNH",
@@ -3003,7 +3135,8 @@
     "cooldown": null,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYXNXQKZD4GHKN27AJM",
@@ -3031,7 +3164,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "ZFYZ8BQ7674BBPYT2P1HJGBFFD",
@@ -3043,7 +3177,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DBDEH5WJ3TNTXNK7T2CYXY0TVS",
@@ -3055,7 +3190,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "649MCMADET7TQ5D2MQ5Q48H462",
@@ -3067,7 +3203,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "6YK0E5AMTJHNNW0A18PN0DGF56",
@@ -3079,7 +3216,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ4TTGHWWW36VHASK7K",
@@ -3248,7 +3386,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCWNX2QXTE3N964C4E",
@@ -3259,7 +3398,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC4N8RJYEVQ3RH3N7W",
@@ -3270,7 +3410,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ2RQ6YMSJG0E0XHRHZ",
@@ -3366,7 +3507,8 @@
     "description": "Dodaje przerzut każdej kości na której nie wypadło trafienie krytyczne, ale siła krytyka -1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCTYFWTPH02JJ5CZQH",
@@ -3377,7 +3519,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCMHB4A13J4XTM3MSB",
@@ -3388,7 +3531,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC8YAYHEEJJ4GYB8PV",
@@ -3399,7 +3543,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBK4AER753CRJSP1QG",
@@ -3426,7 +3571,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "HNK7S1GMND37V8F8J2KJCTAE2K",
@@ -3439,7 +3585,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "2T3GR9B3ZZVR5FH5YKWSTQQ5C9",
@@ -3452,7 +3599,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCXZZ7027V46RTSAX0",
@@ -3462,7 +3610,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCX3P1Z7FZ35DT8WW3",
@@ -3472,7 +3621,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC3KYSD5R0AF3AHDXX",
@@ -3482,7 +3632,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "W0T3K255MJ51DRWRZDEGJ2H3PY",
@@ -3495,7 +3646,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Z5DWWX7DPTB6SRJ86ZEEGKR74H",
@@ -3507,7 +3659,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "KS3QSG61YE9BHFD06YWPYCBKQR",
@@ -3519,7 +3672,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Y8MSR7XB8PFV35X7K7YDDXMT68",
@@ -3530,7 +3684,8 @@
     "cooldown": 4,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "0SS63ZA9244M6M6Q3QPJ09VQ6W",
@@ -3541,7 +3696,8 @@
     "cooldown": 4,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "H7SJ7YSDX20PSN552CB5K9T3A8",
@@ -3552,7 +3708,8 @@
     "cooldown": 4,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "JTE2CHHD5VTEPXGR186XQ7WZBB",
@@ -3565,7 +3722,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FRMT79F9EW3K8NT6PRK7SRGSFK",
@@ -3578,7 +3736,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "H97WPNDT3CCMZMGDFEZMVB5WG2",
@@ -3591,7 +3750,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "B2MF00E0HN52BEHBZJ5PKC2EB2",
@@ -3604,7 +3764,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYZPJ9PF9RZCBW69PPD",
@@ -3770,7 +3931,8 @@
     "cooldown": null,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYVNEV2DV041HP48NP5",
@@ -3798,7 +3960,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Q9CNPRJ4XJNB1SA96MSFXHTKG1",
@@ -3811,7 +3974,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "BGG0XW6FF68CJP0MJHY9MMXJXZ",
@@ -3824,7 +3988,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYXY45CH031V9994M8Y",
@@ -3895,7 +4060,8 @@
     "description": "Odejmuje kość obrażeń. Zwiększa rangę kości broni o 2 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "NAT29BDKFRKRV6Q7N4B25S8BF0",
@@ -3907,7 +4073,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "JGB379G146VDPMB6NJMG3DCHXD",
@@ -3920,7 +4087,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "9BXD0N23GBNHEPB2Z5P2B71F36",
@@ -3933,7 +4101,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DA5XNEMZAER45JV3CMWQQP04H4",
@@ -3946,7 +4115,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ83NTX2DACNXVDQERT",
@@ -3972,7 +4142,8 @@
     "tags": [
       "kusze"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZFWJCBPH5PDN81HMHQ",
@@ -3983,7 +4154,8 @@
     "tags": [
       "kusze"
     ],
-    "cooldown": 3
+    "cooldown": 3,
+    "price": 0
   },
   {
     "id": "01KA1Z2PTHT783FJGSYGPDEHC0",
@@ -3994,7 +4166,8 @@
     "price": 0,
     "tags": [
       "jeździectwo"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01KA1Z2PTHQ9FY0QY2BQ8W0X7W",
@@ -4005,7 +4178,8 @@
     "price": 0,
     "tags": [
       "jeździectwo"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "YJKTTZABA8A41BP2BPJHRPG6CS",
@@ -4017,7 +4191,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBS1CZEZAZT3XFKQ7W",
@@ -4058,7 +4233,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "XJH0T79J13TG19K73A8TENQWFR",
@@ -4070,7 +4246,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "2BC1GXHP0FJ64CGAWYWGNE4ECD",
@@ -4083,7 +4260,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "JPX0V0091XKT5WHDJMQ83DXMJ8",
@@ -4096,7 +4274,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "YRCSCJ0CYN5JE9A3NK9CCXMVJF",
@@ -4109,7 +4288,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "KNCB8AXJC05D2Q20A4001SR4CK",
@@ -4118,7 +4298,8 @@
     "description": "Dodaje redukcje 1 kości i 1 odporności [].",
     "castTime": "Pełnorundowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "BM0KAYWW0X276DNNH0MJN4RNMM",
@@ -4127,7 +4308,8 @@
     "description": "Dodaje redukcje 1 kości i 2 odporności [].",
     "castTime": "Pełnorundowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "FBESR8ATF4JD29GKCPR3KSSMDH",
@@ -4136,7 +4318,8 @@
     "description": "Dodaje redukcje 1 kości i 3 odporności [].",
     "castTime": "Pełnorundowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ024RGGHBSSZW4CEP4",
@@ -4194,7 +4377,8 @@
     ],
     "requirements": [
       "Większa Harmonia 4"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYVVXYRWGQCX32FJDJN",
@@ -4266,7 +4450,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1KJ53BYZQXB2004BX29KNQ8ADD",
@@ -4278,7 +4463,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FVWBN5A1V0KGZRGM4WG5CQM705",
@@ -4290,7 +4476,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "48CBW5RANHG08M9QRBCM7N0G5P",
@@ -4302,7 +4489,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Q7W3BEJAJPMXGZGMDZCKFB5J6C",
@@ -4314,7 +4502,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1Z0DWG3HGZWC6ZGA3354RZY0Y7",
@@ -4326,7 +4515,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "A76RV4JNAHWGRFX8TV27MJB0NB",
@@ -4338,7 +4528,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "F34B3D7HGSCR83WBQZ20WPPJQ4",
@@ -4350,7 +4541,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ25R85S1VQHT74DM0A",
@@ -4406,7 +4598,8 @@
     "description": "Zamienia kość obrażeń na kość broni, a każda redukcja kości przeciwnika zmniejsza siłę krytyka o 2.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "J8RT2KSCGGQ0R2PMN1PPESDKRY",
@@ -4415,7 +4608,8 @@
     "description": "Dodaje widmową kość obrażeń k4 do siły krytyka oraz przeciwnik otrzymuje karę -5 do rzutu k30 na skutki efektu krytycznego.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ7SN8TX1BMV1J97NZD",
@@ -4479,7 +4673,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ2EXR7SD7ZE9GKMVXM",
@@ -4506,7 +4701,8 @@
     "cooldown": null,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FEB2FQ6JYRJ5QNMGGN80GXPWVW",
@@ -4518,7 +4714,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ8ANECM21SSZZ4G62K",
@@ -4557,7 +4754,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ8HDNF53RY4SDGBC63",
@@ -4583,7 +4781,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DX1THCVFCVGZ7WWERAFCBW2XF9",
@@ -4595,7 +4794,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ81C8PMZYE9XAJCSGR",
@@ -4634,7 +4834,8 @@
     "castTime": "Standardowa",
     "tags": [
       "samotny-oręż"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "ZVKG9C4FE9KMDPX90B9R93JDD0",
@@ -4642,8 +4843,9 @@
     "grade": 1,
     "description": "Tworzy aurę zadającą 1k6 prawdziwych obrażeń wszystkim w okolicy 6 metrów.",
     "castTime": "Standardowa",
-    "cooldown": "10e",
-    "tags": []
+    "cooldown": 10,
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ11XK3CZMZE2A28ESC",
@@ -4685,7 +4887,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "KCXPB3M6N514CPMJKQ2BY2WCD2",
@@ -4696,7 +4899,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "M9F9GXQFPQTZ7ZQMPJ3AX4FK0F",
@@ -4708,7 +4912,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "HG06DXM2DD24T7BTXQYQ9CJZE3",
@@ -4720,7 +4925,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "HVWK36XRXYB1G3F3ZHS7WAFNC6",
@@ -4731,7 +4937,8 @@
     "cooldown": 1,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "P18M3DRGZ7W9EF5HHVYT377Z52",
@@ -4740,7 +4947,8 @@
     "description": "Dodaje zasięg krytyka do odporności.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "DG56DE7G4QFXY3E7DJXYXQDZY5",
@@ -4752,7 +4960,8 @@
     "tags": [
       "wynaturzenia",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ262Y8SZ45QQW60AFN",
@@ -4776,7 +4985,8 @@
     "description": "Dodaje kość broni, atakujesz do 2 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "PQJE85CCSV4AZWFRBZ0W4B52KJ",
@@ -4785,7 +4995,8 @@
     "description": "Dodaje kość broni, atakujesz do 3 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "W07020AJ5SYMJDAVWSNHTAGSVM",
@@ -4794,7 +5005,8 @@
     "description": "Dodaje kość broni, atakujesz do 4 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ7Y78QQKKD2M6RVHBG",
@@ -5003,7 +5215,8 @@
     "tags": [
       "potwory",
       "ogień"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01K9Z6YGZDB2WQRMCVWKR1XNTM",
@@ -5028,7 +5241,8 @@
     "description": "Test wytrwałości/refleksu o ST=16. Nieudany powoduje dodanie kości obrażeń k20 [5e 1//3].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "G1M5VFTXFQF1T8FXZZZ85AP8S5",
@@ -5039,7 +5253,8 @@
     "cooldown": 3,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "6EMDWY05KMFDE3RTF5B8MVGXZK",
@@ -5052,7 +5267,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "ENVTEY69FDKVWR54DRW4107VYE",
@@ -5065,7 +5281,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "GXER7EKD44VS4D4FF3ZDVHJ927",
@@ -5078,7 +5295,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "S8WTMVZWGKTC3DMS5CYPZFPB67",
@@ -5090,7 +5308,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZFTG326PFEQWEG3SNG",
@@ -5100,7 +5319,8 @@
     "castTime": "Standardowa",
     "tags": [
       "propozycje"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "3WVMGAW9H6VZN3GM2R2VB285PZ",
@@ -5108,7 +5328,8 @@
     "grade": 1,
     "description": "Dzwignia i atak cos fajnego.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "C69DG32ZSHZV5HNVY7KY8FCFD9",
@@ -5119,7 +5340,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYV43E260DN2YNH1QYG",
@@ -5262,7 +5484,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYXSDT34MJEFNWDWFFM",
@@ -5288,7 +5511,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBWNQANDFZ2R42N5K0",
@@ -5299,7 +5523,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "FPYYC2AEA2FM7K17SVHFJWF7SX",
@@ -5308,7 +5533,8 @@
     "description": "Test sporny Mod Reflesu+Mod Siły przeciwko fechtunkowi/refleksowi przeciwnika za każde oczko przewagi dodatkowo +2 obrażenia.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ4AJ6PYVBNFCM2Z3WD",
@@ -5375,7 +5601,8 @@
     "cooldown": 5,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "5K7T9QJ8YY1YNQGGKHSM79J4XT",
@@ -5386,7 +5613,8 @@
     "cooldown": 5,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZE67B4XSX0RF8SXMTY",
@@ -5416,7 +5644,8 @@
       "korpusy",
       "wynaturzenia",
       "humanoidalne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1AFYJGNAQAYQTYPP3YJXNMWND9",
@@ -5425,7 +5654,8 @@
     "description": "Powoduje zwiększenie ST Spojrzenia Plugawiciela o 1.",
     "castTime": "Natychmiastowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01KA1Z2PTHB75RMYN0MMX80S34",
@@ -5436,7 +5666,8 @@
     "price": 0,
     "tags": [
       "nekromancja"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "AA09MPMNW114WN2V1Q2WTCV5DY",
@@ -5448,7 +5679,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "P8BJ5FE4BJ2DXQHMWT32ZE7MRK",
@@ -5460,7 +5692,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FRWV1JREXTS4QCXWAZHEY0CDK9",
@@ -5472,7 +5705,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "NJNRXQ236WV413P5123QX544HK",
@@ -5484,7 +5718,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "X8AN50RXV6WYV5KXPEQVD9N1NN",
@@ -5496,7 +5731,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "TA44JJYS8Y38274ZXFR32NBB26",
@@ -5508,7 +5744,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZAP0H8FJQV6PGPVZ25",
@@ -5552,7 +5789,8 @@
     "requirements": [
       "Większa Harmonia 5"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZEVK4P3JPNDD4S2YB2",
@@ -5568,7 +5806,8 @@
       "Niewzruszona Obrona 1",
       "Większa Harmonia 7"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZE1KJ3YJ3593BQYPBN",
@@ -5584,7 +5823,8 @@
       "Niewzruszona Obrona 2",
       "Większa Harmonia 9"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZEPM8CAD2MJ14F3SV3",
@@ -5599,7 +5839,8 @@
     "requirements": [
       "Większa Harmonia 4"
     ],
-    "cooldown": 2
+    "cooldown": 2,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZESCMFE1NQJTSHMRN5",
@@ -5615,7 +5856,8 @@
       "Niewzruszone Ciało 1",
       "Większa Harmonia 6"
     ],
-    "cooldown": 2
+    "cooldown": 2,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDPHE3SBXD2G9SZB4G",
@@ -5626,7 +5868,8 @@
     "tags": [
       "walka-wręcz"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "6DEV0ARP7Q5TDD96R6GH259Z59",
@@ -5638,7 +5881,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYXYKSE7MWGK5JRNKKK",
@@ -5820,7 +6064,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "WGG5H6RRHJ04Y4QAQ5JQ14X7RV",
@@ -5833,7 +6078,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "F0QWR5KPZ3PBCC7MN6BA22FDVF",
@@ -5842,7 +6088,8 @@
     "description": "Do 2 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "QEFKP0K89B360HBCS35RQWSCK4",
@@ -5851,7 +6098,8 @@
     "description": "Do 3 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "AX7M4DXYF9Y678WSE9Z81ST2Q8",
@@ -5860,7 +6108,8 @@
     "description": "Do 4 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "N4MXWNQT7GHPG0Y22MJ1ZT30HJ",
@@ -5869,7 +6118,8 @@
     "description": "Do 5 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYXG12WM9TZR7E041AA",
@@ -6020,7 +6270,8 @@
     "castTime": "Standardowa",
     "tags": [
       "bolas"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "77T0AHYX85F7AZ6KGCQRH91TE2",
@@ -6033,7 +6284,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "V7VCCG8CYD1ZDYVJGZRWZ7HJ2R",
@@ -6046,7 +6298,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "RGJFDVST4Z0EPW2C8VMEW7A8SM",
@@ -6059,7 +6312,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "YT3HKNBKJGQWG87YWTFMCM62NJ",
@@ -6071,7 +6325,8 @@
     "tags": [
       "wynaturzenia",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ2JZPQDKY2K57GYBK2",
@@ -6098,7 +6353,8 @@
     "tags": [
       "wynaturzenia",
       "humanoidalne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ11EJJNTK0AV8J04WM",
@@ -6210,7 +6466,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "8KNTT6SDWS8R1KRH4B4YFDVHWW",
@@ -6222,7 +6479,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "8SDFMP1AQXEM41MJ9D380FB8HD",
@@ -6234,7 +6492,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ457YHWB9B3TCAW31X",
@@ -6288,7 +6547,8 @@
     "description": "Jeżeli przeciwnik zostaje otoczony z 4 stron. Dodaje kość 1k10w.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "W55AZASWCSMB83F5VZRZ21FR7W",
@@ -6301,7 +6561,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "2K56GZ3HA5G9MT0QYYTFWN8NZD",
@@ -6314,7 +6575,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "ZT4G7REZV4HHDE34FDEWK658TW",
@@ -6327,7 +6589,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ5FWV1X64HGMN84P3X",
@@ -6385,7 +6648,8 @@
     "tags": [
       "potwory",
       "kontrola"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "ZWT3X4YQE70TQANF19CXX0M8C0",
@@ -6396,7 +6660,8 @@
     "cooldown": 1,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYVVXV0RN4Y10C8H7Q0",
@@ -6470,7 +6735,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ740QHAJ35S0GHY2N2",
@@ -6660,7 +6926,8 @@
     "description": "Dodatkowy test morale.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "8TMDWQ3057JBNBRS69BEWC1QJW",
@@ -6669,7 +6936,8 @@
     "description": "Dodatkowy test morale z bonusem 1.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "5TGJEHCKM44GTA1ZQ8VB58JHNT",
@@ -6678,7 +6946,8 @@
     "description": "Dodatkowy test morale z bonusem 2.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "HJBJKC0TTVZT0WX9B0F4WGYZPG",
@@ -6689,7 +6958,8 @@
     "cooldown": 1,
     "tags": [
       "diabelskie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "D4P8RJGVA2DTSDNNPWSD2EBGSR",
@@ -6697,10 +6967,11 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=12. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e",
+    "cooldown": 8,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "ZJXXRQ69AGGZ2A43BEYZVKPV56",
@@ -6708,10 +6979,11 @@
     "grade": 2,
     "description": "Test wytrwałości o ST=14. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e",
+    "cooldown": 8,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "6N8H9HPPRJYM565EMPAT233F3P",
@@ -6719,10 +6991,11 @@
     "grade": 3,
     "description": "Test wytrwałości o ST=16. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e",
+    "cooldown": 8,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FE8QCC3ZG5J8RHZV48YZ2NXCA9",
@@ -6730,10 +7003,11 @@
     "grade": 4,
     "description": "Test wytrwałości o ST=18. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e",
+    "cooldown": 8,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "3CSMDQVTY3MPV8Q8DQBW3X6BN7",
@@ -6742,7 +7016,8 @@
     "description": "Dodaje 2 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "VSQ26K74Z8NT5GBTVBQYAPR2J8",
@@ -6751,7 +7026,8 @@
     "description": "Dodaje 3 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "Q98HFPM0CJ8B2SRR175A65KQ9B",
@@ -6760,7 +7036,8 @@
     "description": "Dodaje 4 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "0CW74N82EJTC0DESW3W7TF1H86",
@@ -6772,7 +7049,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYZ7H5V7F4YCEKDC20Q",
@@ -6852,7 +7130,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QHNAXTJH37NSTRWGGDC4D90W52",
@@ -6865,7 +7144,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "M8Y47R6281V5JGD0APWHJ51Y3G",
@@ -6878,7 +7158,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ6W77PTJG24X8E5JMS",
@@ -6909,7 +7190,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "J0PYAJN6CESGGZ6DXA7TPCAJW0",
@@ -6921,7 +7203,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "6TQ048NFMYDPPY2FZHP8WEQNAJ",
@@ -6933,7 +7216,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "3X6NJFNQZY6QQP46YK532H3T6C",
@@ -6945,7 +7229,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZA5XC2JCSAW76MSPWD",
@@ -7260,7 +7545,8 @@
     "cooldown": 5,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ5JGGMS54EN0BAW2KF",
@@ -7287,7 +7573,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "VXN18V0A2G0NW5CGFP157S5YY3",
@@ -7299,7 +7586,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "56W2DERS9MJYDJW1644KK2HJ6F",
@@ -7311,7 +7599,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QTV5J7RJDQWFSKQCF3TWWJNTJP",
@@ -7323,7 +7612,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Q0PXBZAXQWADKQGYK2KSG3MSM7",
@@ -7335,7 +7625,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Z8DGRQWXRXW9KJDK8HVE3AWJXA",
@@ -7347,7 +7638,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "4MVSD5EC8N67WXQZBPYVQ28MH0",
@@ -7359,7 +7651,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "3HJ9BVX0PV9HBGJ2WD0C3Y6HQY",
@@ -7371,7 +7664,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "R8HCMMK5FN7ZFB3YXVV2VFH2JM",
@@ -7382,7 +7676,8 @@
     "cooldown": 4,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DTGS6BNZQJDTJBBFDW2T4XMZFR",
@@ -7393,7 +7688,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ7D8CCR3KH4P1DC484",
@@ -7436,7 +7732,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "BNJMQ191Y0ZW59AKCAQC9YBB1W",
@@ -7448,7 +7745,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "FAKM8FJJ3DVV6TA2BBM6SGDJR9",
@@ -7460,7 +7758,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBWE1MFW0H65GJF9BC",
@@ -7471,7 +7770,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 2
+    "cooldown": 2,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZB4P6HKWXVBSNX2V9J",
@@ -7482,7 +7782,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 2
+    "cooldown": 2,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBG8HP6RE28PGMZT7X",
@@ -7493,7 +7794,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 2
+    "cooldown": 2,
+    "price": 0
   },
   {
     "id": "SKT2C0NV5NMFQED6QBYNTCKB2Z",
@@ -7504,7 +7806,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "G70S3BM7RKHZ1CBFYHT3W4AQ9N",
@@ -7515,7 +7818,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDP1BCSQBT9HVR7432",
@@ -7542,7 +7846,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZD4MZ26QCZ5AP6ZFFJ",
@@ -7552,7 +7857,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZD38B17BN5MQ55RXCE",
@@ -7562,7 +7868,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYYT6BSP3TP84VA14PK",
@@ -7668,7 +7975,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "15MJWHJASRNRF9HHAMPMB8B80C",
@@ -7681,7 +7989,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ37N3SCDZJ9E89EJW5",
@@ -7754,7 +8063,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCSFWQPKAYNJW2ZAC3",
@@ -7765,7 +8075,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCHSQX2N1KHXG8FMGF",
@@ -7776,7 +8087,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGYZTTT85A1PTE3289MQ",
@@ -7803,7 +8115,8 @@
     "tags": [
       "wynaturzenia",
       "gadzie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "455XTTMEKW3PDPFJ2P9F7FBAYC",
@@ -7815,7 +8128,8 @@
     "tags": [
       "wynaturzenia",
       "gadzie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1DTV8F9VP2TNBWP2YGW8Q7K88K",
@@ -7827,7 +8141,8 @@
     "tags": [
       "wynaturzenia",
       "gadzie"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ5BSMHD03YGP9HE333",
@@ -7886,7 +8201,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "BSQ0ED227NSYK57Q97WY3QBJZS",
@@ -7899,7 +8215,8 @@
       "nieumarli",
       "eteryczni",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZD0VEFSEVD17E774TB",
@@ -7909,7 +8226,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCT2KFM7S89MP7ABHB",
@@ -7920,7 +8238,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCVMY2N8CVARFSSYY4",
@@ -7931,7 +8250,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZAH5DD1VK0KV6JWNEB",
@@ -7957,7 +8277,8 @@
     "tags": [
       "włócznie",
       "włócznia"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ6HWHRPV1SMRZRHJ2Q",
@@ -8068,7 +8389,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1ZEX201JAEGND5XBPGZHFNYT56",
@@ -8080,7 +8402,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ9X9YGZYMS0TS08Q03",
@@ -8118,7 +8441,8 @@
     "description": "Dodaje +2dmg, -2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "4QV5TW7G7KQ4FBWDFVX89420MN",
@@ -8127,7 +8451,8 @@
     "description": "Dodaje +3dmg, -2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "TC4ECHZ26740KGD43CGE3HTQGW",
@@ -8136,7 +8461,8 @@
     "description": "Dodaje +4dmg, -2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "8EEJ9QP581R33RW4B86MPV8HET",
@@ -8145,7 +8471,8 @@
     "description": "Dodaje +5dmg, -2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "9NZX5B1362WQDMR1964ZF2P1J9",
@@ -8159,7 +8486,8 @@
       "korpusy",
       "diabelskie",
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "13MEBJHHGD0914HGTHQV29K5F9",
@@ -8173,7 +8501,8 @@
       "korpusy",
       "diabelskie",
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "YY30NG81QW3VHPNMW411KCK299",
@@ -8187,7 +8516,8 @@
       "korpusy",
       "diabelskie",
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DZS75HBNFKSJQM1Z8CJJNQGTNF",
@@ -8201,7 +8531,8 @@
       "korpusy",
       "diabelskie",
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "V56XFY37FDH6JMXMENPJNQ5QY4",
@@ -8215,7 +8546,8 @@
       "korpusy",
       "diabelskie",
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "XXW3GZ66YTVBTB2FRW9FRR7YX1",
@@ -8224,7 +8556,8 @@
     "description": "Dodaje , +2 redukcji -2dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "J54RHFFC2TZSK2FDFYN119TYXG",
@@ -8233,7 +8566,8 @@
     "description": "Dodaje , +3 redukcji -2dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "KBF127EEAMHNN6VJKWMSNA27FZ",
@@ -8242,7 +8576,8 @@
     "description": "Dodaje , +5 redukcji -2dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ1K2MPZ94JJ45TQKGV",
@@ -8268,7 +8603,8 @@
     "cooldown": 5,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYW009XYMTY0ASPZS8W",
@@ -8326,7 +8662,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DTSE5QZXZF14QXJQHF4N5QX6SN",
@@ -8338,7 +8675,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "NS3PD7DV899V48KG3Z0STB5HJM",
@@ -8350,7 +8688,8 @@
     "tags": [
       "wynaturzenia",
       "humanoidalne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "K683G1CKN43AACTWBAQQFPHP2Q",
@@ -8362,7 +8701,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Q6NKNEGGK0PYSCJV8EBRRD5EMA",
@@ -8374,7 +8714,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "8665DT0K93F8EK9JBHYDHT0BS6",
@@ -8386,7 +8727,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "CWGMW0SG6A3DGDPXFQXDFJ75AP",
@@ -8395,7 +8737,8 @@
     "description": "Dodaje dwie kości broni, atakujesz do 2 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "D9DP50V4BBP7K3FSZY7C0CYVX1",
@@ -8404,7 +8747,8 @@
     "description": "Dodaje dwie kości broni, atakujesz do 3 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "015MSDB0Z36KZF01GW2H5MMY4R",
@@ -8413,7 +8757,8 @@
     "description": "Dodaje dwie kości broni, atakujesz do 4 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "FN76Y126P3JHZDA7KWD5RPYEVV",
@@ -8425,7 +8770,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "7Q0B0VJK02N5KG0REDTPGWF3D0",
@@ -8437,7 +8783,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYY7YT1NXRKVVBQWGXC",
@@ -8533,7 +8880,8 @@
       "humanoidalne",
       "gadzie",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "GCDSGNA1XTYXDA5VY1TWREKJ70",
@@ -8550,7 +8898,8 @@
       "humanoidalne",
       "gadzie",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "MM1K0XHMHP3V54WWVF2RDWJQQG",
@@ -8567,7 +8916,8 @@
       "humanoidalne",
       "gadzie",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "KERAQM1K74NRG83QS9NRT5G134",
@@ -8584,7 +8934,8 @@
       "humanoidalne",
       "gadzie",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZB7HC70RMQKJPMSZ8S",
@@ -8638,7 +8989,8 @@
     "description": "Dodaje 20% obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "QVWY035N618Y3PPGF747V1RD7J",
@@ -8651,7 +9003,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "G2Y6G8AF6PXZVHYRT8VBMM7Q3X",
@@ -8664,7 +9017,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "SZJGDYF7RTSP0MP07WAEYY1N5N",
@@ -8677,7 +9031,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QB9E42WZ3FX21N86WG17G377KF",
@@ -8690,7 +9045,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ7MNKE0R2JFVSZRSMP",
@@ -8769,7 +9125,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "D1TV34JF8YTYMGNDZYD1GZ60EH",
@@ -8781,7 +9138,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "43EC9F51D9RKZA01TG809T8YAJ",
@@ -8792,7 +9150,8 @@
     "cooldown": 3,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ932WE3EGXNN1AZZGB",
@@ -8962,7 +9321,8 @@
     "tags": [
       "wynaturzenia",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ98BQM9K8X0MJYMQAS",
@@ -9117,7 +9477,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QSCFFB6QVAE97RAQQVD14A4Z9W",
@@ -9130,7 +9491,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "WWD1Z812JSEXBY7YSBTP9A0HVE",
@@ -9143,7 +9505,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ8EJAEQHR3HVDAM6D6",
@@ -9199,7 +9562,8 @@
     "description": "Dodaje 1 siły lub zręczności /4 esencji max 3 [1//5e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBD17F9G5J5N6KYWXN",
@@ -9226,7 +9590,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "SWNBHGZ9J2BB3BC7CPQ4ZJMP58",
@@ -9238,7 +9603,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBH4QXM9NT52X47A88",
@@ -9260,10 +9626,11 @@
     "grade": 1,
     "description": "Pozwala skakać na dalekie odległości.",
     "castTime": "Standardowa",
-    "cooldown": "10e",
+    "cooldown": 10,
     "tags": [
       "demoniczne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01KA1Z2PTGFVBPYKP9973TWA87",
@@ -9275,7 +9642,8 @@
     "tags": [
       "zwierzę",
       "atak"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01KA1Z2PTG2W10P22353P69GWW",
@@ -9287,7 +9655,8 @@
     "tags": [
       "zwierzę",
       "atak"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01KA1Z2PTGMG50S8QNCCNX75F0",
@@ -9299,7 +9668,8 @@
     "tags": [
       "zwierzę",
       "atak"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "ZMF141905FN5G84186F1PH8CH1",
@@ -9308,7 +9678,8 @@
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "X5WW2SEY96EY765C47C2KDCHAM",
@@ -9317,7 +9688,8 @@
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "69PESY5CYZ17HCM0RG0CQVM4VV",
@@ -9326,7 +9698,8 @@
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ1M6BZB01A13D5SW4T",
@@ -9425,7 +9798,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYYXK4J06PKDPXWQ80T",
@@ -9452,7 +9826,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "5V33YGBYF55N2E2NR8YMPKFPN8",
@@ -9464,7 +9839,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "VS5FXFFTZPV6JNGCRA0J5Y7PD9",
@@ -9476,7 +9852,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DW0BMJEQKR7BG07N6C3GE39C5J",
@@ -9488,7 +9865,8 @@
     "tags": [
       "wynaturzenia",
       "humanoidalne"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYYJDJNVPX1B6REYCWZ",
@@ -9532,7 +9910,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "N25QQKM546G33PXW1M8DTVXYC8",
@@ -9544,7 +9923,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "PY6CQCVQ0BBFK1Y2BAKNPPJ1T6",
@@ -9556,7 +9936,8 @@
     "tags": [
       "zwierzęta",
       "lądowe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ72D9Y30XW77FYV73X",
@@ -9807,7 +10188,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC7WA1YNV21EMMQ7Y8",
@@ -9818,7 +10200,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZCCVRBB475ZFWDG7ZA",
@@ -9829,7 +10212,8 @@
     "tags": [
       "włócznie"
     ],
-    "cooldown": 6
+    "cooldown": 6,
+    "price": 0
   },
   {
     "id": "8BCA81S7AE4FEKT3FTJATMR5FT",
@@ -9838,7 +10222,8 @@
     "description": "Atakujesz do 2 celi. Odejmuje 2 redukcji [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "FAM0R5GQQ2DJGTD4978WJJBCK4",
@@ -9847,7 +10232,8 @@
     "description": "Atakujesz do 3 celi. Odejmuje 3 redukcji [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "2SZE4HMD338Y49S9K55AGX7RT4",
@@ -9856,7 +10242,8 @@
     "description": "Atakujesz do 4 celi. Odejmuje 4 redukcji [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "GTP5TMTFJDG7H1QBCM6F7WGDMH",
@@ -9865,7 +10252,8 @@
     "description": "Atakujesz do 5 celi. Odejmuje 5 redukcji [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBQJFEZ255EQHVV52Y",
@@ -9951,7 +10339,8 @@
     ],
     "requirements": [
       "Większa Harmonia 6"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYZX0VPZ3FN9R3N5MJT",
@@ -10005,7 +10394,8 @@
     "description": "Jeśli przeciwnik ma tarczę, to za każde oczko przewagi w teście siłowym odbiera przeciwnikowi 2 redukcji z tarczy. Jeśli redukcja z blokowania przeciwnika spadnie do 0 tarcza przeciwnika zostaje wyszarpnieta.",
     "castTime": "Standardowa",
     "tags": [],
-    "cooldown": 3
+    "cooldown": 3,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZE9KAA10WSP3FVEQNG",
@@ -10020,7 +10410,8 @@
     "requirements": [
       "Większa Harmonia 2"
     ],
-    "cooldown": 1
+    "cooldown": 1,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZE1SBZTVSWWZFE6867",
@@ -10036,7 +10427,8 @@
       "Szczelny Umysł 1",
       "Większa Harmonia 3"
     ],
-    "cooldown": 1
+    "cooldown": 1,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZEA5X0C3BGGGSX37Z1",
@@ -10052,7 +10444,8 @@
       "Szczelny Umysł 2",
       "Większa Harmonia 4"
     ],
-    "cooldown": 1
+    "cooldown": 1,
+    "price": 0
   },
   {
     "id": "K08YCHVFV7GD72B68VV51JPM9D",
@@ -10063,7 +10456,8 @@
     "cooldown": 4,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01KA1Z2PTGB8FC91X3SNZDHPSD",
@@ -10075,7 +10469,8 @@
     "tags": [
       "zwierzę",
       "atak"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01KA1Z2PTGKTRD583XXVPTYV2W",
@@ -10087,7 +10482,8 @@
     "tags": [
       "zwierzę",
       "atak"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01KA1Z2PTGDHTN1B8R0WSZRWYV",
@@ -10099,7 +10495,8 @@
     "tags": [
       "zwierzę",
       "atak"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "4BEY7S9ESZGH36XX3PT66AV9SR",
@@ -10108,7 +10505,8 @@
     "description": "Dodaje 1 dmg na każdą kość broni przed redukcja kości.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "ENYH5P02QW4HV6K5X2K7SQC8AR",
@@ -10117,7 +10515,8 @@
     "description": "Dodaje 2 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "AGWQN3KXYNCNV40MYBSRJPSQRF",
@@ -10126,7 +10525,8 @@
     "description": "Dodaje 3 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "7GQXPKAG0CZTF65A0CRQF0DKQY",
@@ -10139,7 +10539,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ3MRNR2B8E2SSRDXN0",
@@ -10180,7 +10581,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "N1WGF1S2N5XQZC65FE738HYMHH",
@@ -10191,7 +10593,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZAPCAZS82T0J6DQ87G",
@@ -10649,7 +11052,8 @@
     "cooldown": 2,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "P9VKMH0CNFQAZYZ6Z2XAV6ECWN",
@@ -10660,7 +11064,8 @@
     "cooldown": 2,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "JYR1ZZ0CGDEY7JM7Q369V87KC6",
@@ -10671,7 +11076,8 @@
     "cooldown": 2,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "M2QTWAY5NDSDHJR3G888BW08QZ",
@@ -10680,7 +11086,8 @@
     "description": "Stawia barierę o 5PwT (siła zaklęcia 7) [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "VY3Z1G58QJ0WY0E554WNN8JAHJ",
@@ -10689,7 +11096,8 @@
     "description": "Stawia barierę o 10PwT (siła zaklęcia 10) [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "5MG34SKB2SYREBXRJFMSQZF6XE",
@@ -10698,7 +11106,8 @@
     "description": "Stawia barierę o 15PwT (siła zaklęcia 13) [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZA7Z12A3KPT253P7VM",
@@ -10722,7 +11131,8 @@
     "description": "Dodaje 1 redukcji na następną rundę za każde obrażenie w zdrowie w tej rundzię (maks 7).",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "MD8XSPH4AKWX5SDN95K4P2WWEX",
@@ -10731,7 +11141,8 @@
     "description": "Dodaje widmową kość obrażeń o randze równej 1 za każde obrażenie zadane w tej rundzie (maks 1k12).",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "D79Y2QQPVMAQ2TVBSBFQ41RSJ2",
@@ -10740,7 +11151,8 @@
     "description": "Test wytrwałość o ST=10. Zadaje 1 dmg za każde oczko przewagi co ture przez 3 tury. Każda kolejna próba na ten sam cel jest ze ST+1. Atakując osobę pod sobą ma +2ST.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "H9YKZN3E2CGSHF1WASC53S78GW",
@@ -10749,7 +11161,8 @@
     "description": "Test refleksu o St=6. Za każde oczko różnicy w przegranym teście Siła i Szansa uderzenia krytycznego rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "PV4Z45KAST6JKP5564WM50J3Z0",
@@ -10758,7 +11171,8 @@
     "description": "Test refleksu o St=7. Za każde oczko różnicy w przegranym teście Siła i Szansa uderzenia krytycznego rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "S87QQV6637Q8MEXJAPHQQ1SDP0",
@@ -10767,7 +11181,8 @@
     "description": "Test refleksu o St=8. Za każde oczko różnicy w przegranym teście Siła i Szansa uderzenia krytycznego rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "M10GRK6E0NZPH1T8WKDG8Q1THZ",
@@ -10779,7 +11194,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "1RZWDPA2FMH0DESJ1RVWXH8HFH",
@@ -10791,7 +11207,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "X5YESK3Y31D2CP42FKZ1YF74CN",
@@ -10803,7 +11220,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "A06WKYGS68KW268876AR15ZSP6",
@@ -10815,7 +11233,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYYQ3H6M924YAJ5Q5VF",
@@ -10858,7 +11277,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "8HBJE7PTXHQR1XTFPDM6BQ42J4",
@@ -10871,7 +11291,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "SBKK7R9WZVKYFHKN3PK5ANE5NH",
@@ -10884,7 +11305,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDE03GAMDYEBRWQMQ8",
@@ -10983,7 +11405,8 @@
     "cooldown": 3,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "BWF9399G1C4VWVP7V8K39WX5E5",
@@ -10994,7 +11417,8 @@
     "cooldown": 3,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "Y6M8HQ12KH15Y2GJ72RP4H3081",
@@ -11005,7 +11429,8 @@
     "cooldown": 3,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "6VC7VRBJ8645ADKHJHRCX1SQ11",
@@ -11017,7 +11442,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "NNNADPSDZ82X1ZV2VF08PAN08N",
@@ -11026,7 +11452,8 @@
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k4 prawdziwych obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "HFPMQ1Q3E880SE32DQ75ZBR65R",
@@ -11035,7 +11462,8 @@
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k6 prawdziwych obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "8CRP8WBCM6B6781DM82HMD9C2E",
@@ -11044,7 +11472,8 @@
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k8 prawdziwych obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "AWS28W8HNPEC1CA1Q0T2ZE3M1D",
@@ -11053,7 +11482,8 @@
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 2k4 prawdziwych obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "EN1VH9D0PSQN0W0DF3NCG5ERBW",
@@ -11066,7 +11496,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYZH6N9XEHKVG9SB798",
@@ -11109,7 +11540,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "P1EZF9G1AHZJ78MG7J4J81R6PG",
@@ -11122,7 +11554,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDQDYKXG729F7PHNRZ",
@@ -11132,7 +11565,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDXP2XXE50CCCPG535",
@@ -11142,7 +11576,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZDJC59KPTW0M97WM29",
@@ -11152,7 +11587,8 @@
     "castTime": "Standardowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ84QGTVJK182HR9PNV",
@@ -11224,7 +11660,8 @@
     "description": "Dodaje widmową kość obrażeń k16, odejmuje 4 uników.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "HWC3NSET5D0262AME07Z6AJ2VP",
@@ -11233,7 +11670,8 @@
     "description": "Dodaje kość redukcji oraz 1k8 uników [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01KA1Z2PTHPY50GN84DXABX0AZ",
@@ -11245,7 +11683,8 @@
     "tags": [
       "potwory",
       "demony"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "6DR56T51W3Z1JF6SBTC0Y7ES73",
@@ -11254,7 +11693,8 @@
     "description": "Atak dystansowy z precyzją = 12, zadaje 3k6 prawdziwych duchowych obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ19HCZDGB0MX0K9VQ8",
@@ -11455,7 +11895,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ05M3STDD7XJ3WADJM",
@@ -11482,7 +11923,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ002AT6C7E2RF9QXSY",
@@ -11675,7 +12117,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "VD0K2YSF2MRH963777P7JA81RZ",
@@ -11687,7 +12130,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "7QFRBA62JPJNCJTMWSRPQ3PXY6",
@@ -11699,7 +12143,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ0W5B9X7Z0Y9MSSVN7",
@@ -11723,7 +12168,8 @@
     "description": "Dodaje odporność do uników [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "1XJY9N0WCG0X2G8H780M2WJ1V7",
@@ -11732,7 +12178,8 @@
     "description": "Dodaje 1,5 x odporność do uników [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ0F5FYYTMX8ZTXFQTH",
@@ -11789,7 +12236,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "GQ6QB3TBRRJ9Q4T69M9FSNXFT7",
@@ -11801,7 +12249,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "W3SM786CBY0Z7GRM5N2TB9V47S",
@@ -11813,7 +12262,8 @@
     "tags": [
       "wynaturzenia",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "VKWBKZEVA54PF1QAQX88K4NHQ7",
@@ -11822,7 +12272,8 @@
     "description": "Dodaje refleks do redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "6B2C8NH6JRNHJBFZM3ZECSDD5N",
@@ -11833,7 +12284,8 @@
     "cooldown": null,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "RQHWHSF4PMJPK1GWX0AV9ZB51M",
@@ -11844,7 +12296,8 @@
     "cooldown": null,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZFP1G7Q76TVN422FX5",
@@ -11921,7 +12374,8 @@
     "cooldown": null,
     "tags": [
       "rdzeń"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ3AF21FSYZFP1RGH03",
@@ -11947,7 +12401,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZADT8RPD8CTRPPAQF9",
@@ -12200,7 +12655,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYYQFQFPAA881F69XQS",
@@ -12364,7 +12820,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "7WVSKT63PAFQNBF6J43VZVRK5Z",
@@ -12377,7 +12834,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "5AK3MFJK0YCW6EGSMESDYFSACE",
@@ -12390,7 +12848,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ9GRRN74RYTJZWJ8T1",
@@ -12487,7 +12946,8 @@
     "grade": 1,
     "description": "Dodaje 1 parowania.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "3T57KGF0CJCNNX74VG81RN6224",
@@ -12499,7 +12959,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "M00RD7MJ48VAENC2ARWJQCRR73",
@@ -12511,7 +12972,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "TQ1PVA3FMN2J40HYG3Z48QJN73",
@@ -12523,7 +12985,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "A77WWD3QC6N9S8CN45F6Y9BYWT",
@@ -12535,7 +12998,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "HGFQRRT136TTFW4C1X3T6506E9",
@@ -12547,7 +13011,8 @@
     "tags": [
       "nieumarli",
       "eteryczni"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZF6RSGVV8WWEDZXAKK",
@@ -12556,7 +13021,8 @@
     "description": "Dodaje 1 redukcji.",
     "castTime": "Standardowa",
     "tags": [],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "AV801XRZR5TJ6J23A3H6FD9N9E",
@@ -12834,7 +13300,8 @@
     "cooldown": 4,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "EXPZK1M99231492N7N92W8FX34",
@@ -12846,7 +13313,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "2XW1EAVMT10GYCHJ1XFAX2FV1W",
@@ -12858,7 +13326,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "4WR4QD3061TCSSSNBQKCA86M7K",
@@ -12870,7 +13339,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "DJR1WV1B7Y2GQW05PV27EKJNEN",
@@ -12882,7 +13352,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "3975EJBMWNFF86T49T2XQVV7WA",
@@ -12894,7 +13365,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGYWBC50FYCY2TJJDYM2",
@@ -12989,7 +13461,8 @@
     "description": "Zwiększa range jednej kości broni o 3 rangi.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "KCYMQ0B08KN154PP5ZXJB4S1D1",
@@ -12998,7 +13471,8 @@
     "description": "Zwiększa rangę dwóch kości broni o 3 rangi.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZAHDSW9WDY8AD1HZ2J",
@@ -13170,7 +13644,8 @@
     "castTime": "Standardowa",
     "tags": [
       "bolas"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ3ZP21HXPTDQ4YR93G",
@@ -13197,7 +13672,8 @@
     "tags": [
       "zwierzę",
       "trucizna"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01K9Z6YGZ1DWQ9CZ64R8RSQ8TF",
@@ -13337,7 +13813,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "QPY5KPQR7E4PG1V8G8HC5RB41E",
@@ -13349,7 +13826,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "66JK7MKGSEYKVM7ZZY1J5N8307",
@@ -13361,7 +13839,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "JTXV2YVG1FD5B81KH5N7ZR561Q",
@@ -13373,7 +13852,8 @@
     "tags": [
       "nieumarli",
       "korpusy"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "0776DM0F8XXKKDKDYH9PQHH327",
@@ -13385,7 +13865,8 @@
     "tags": [
       "wynaturzenia",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ4Z7HD1ZY2KTPX121A",
@@ -13426,7 +13907,8 @@
     "price": 0,
     "tags": [
       "specjalne"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "01KA1Z2PTHVKMJPBG2RKPX0A2A",
@@ -13437,7 +13919,8 @@
     "price": 0,
     "tags": [
       "specjalne"
-    ]
+    ],
+    "castTime": "Standardowa"
   },
   {
     "id": "WCWD9KYDD6CRPGF0FN0JB804SM",
@@ -13449,7 +13932,8 @@
     "tags": [
       "wynaturzenia",
       "pozostałe"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
@@ -13462,7 +13946,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZBBTYHV79KDVZ0G56D",
@@ -13545,7 +14030,8 @@
     "cooldown": null,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ7WQZ4KC1YHNB1400C",
@@ -13664,7 +14150,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "3NE63ZGRD3JP52GZ9B23BFK3X1",
@@ -13676,7 +14163,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "AFNCAXY9XQYW0VFM653F8YSQNT",
@@ -13688,7 +14176,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": 5
+    "cooldown": 5,
+    "price": 0
   },
   {
     "id": "HPM58EAK956NDT1B2HAA5YQD1Z",
@@ -13700,7 +14189,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": null
+    "cooldown": null,
+    "price": 0
   },
   {
     "id": "14C72GNPZES60XNNHXQDPC1H34",
@@ -13712,7 +14202,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": null
+    "cooldown": null,
+    "price": 0
   },
   {
     "id": "ZSQ0RVYGMWXT8W7J19E8R7RYEK",
@@ -13724,7 +14215,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": null
+    "cooldown": null,
+    "price": 0
   },
   {
     "id": "0WGN5GZWYSMC9GS32A1G44539V",
@@ -13737,7 +14229,8 @@
       "lądowe",
       "potwory"
     ],
-    "cooldown": null
+    "cooldown": null,
+    "price": 0
   },
   {
     "id": "B66ED7WCW6Z5Q79XJ7EM6PE5E2",
@@ -13750,7 +14243,8 @@
       "lądowe",
       "potwory"
     ],
-    "cooldown": null
+    "cooldown": null,
+    "price": 0
   },
   {
     "id": "P2Z01C8BQ21PYZE64RK98WKD2Y",
@@ -13763,7 +14257,8 @@
       "lądowe",
       "potwory"
     ],
-    "cooldown": null
+    "cooldown": null,
+    "price": 0
   },
   {
     "id": "H1QREDP27E678XMGH7Z8RVXSWX",
@@ -13775,7 +14270,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "EFK1GHMVHP8H7GG80JX4K3AR3S",
@@ -13787,7 +14283,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": 3
+    "cooldown": 3,
+    "price": 0
   },
   {
     "id": "BBFMAQDR9YF84W0XR9AHA38AQG",
@@ -13799,7 +14296,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": 3
+    "cooldown": 3,
+    "price": 0
   },
   {
     "id": "ZR7194YGYXTATHC971775RVNP9",
@@ -13811,7 +14309,8 @@
       "zwierzęta",
       "lądowe"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGYW011FCS2FNGJMX9KE",
@@ -13835,7 +14334,8 @@
     "castTime": "Nadnatychmiastowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZD9R0E5301CG0BCBGW",
@@ -13845,7 +14345,8 @@
     "castTime": "Nadnatychmiastowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZD3WTQBM5D1ZHZQ7A2",
@@ -13855,7 +14356,8 @@
     "castTime": "Nadnatychmiastowa",
     "tags": [
       "walka-wręcz"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "01K9Z6YGZ4H0BD35TQ6EFBC9YJ",
@@ -13927,7 +14429,8 @@
       "włócznie",
       "włócznia"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "01K9Z6YGZC1528JKP1C2HF8Y7N",
@@ -13939,7 +14442,8 @@
       "włócznie",
       "włócznia"
     ],
-    "cooldown": 4
+    "cooldown": 4,
+    "price": 0
   },
   {
     "id": "Q0SS6176K094GCMJ1MRKG4A1XN",
@@ -13950,7 +14454,8 @@
     "cooldown": 4,
     "tags": [
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "G9T6FDVDZYDXCXJPBNVB69KX6D",
@@ -13959,7 +14464,8 @@
     "description": "Test wytrwałość o ST=10. Zadaje 1 dmg za każde oczko przewagi co ture przez 3 tury. Każda kolejna próba na ten sam cel jest ze ST+1. Atakując osobę pod sobą ma +2ST.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [],
+    "price": 0
   },
   {
     "id": "C8D3C5VJ01REN6JNVNY0G1J0QW",
@@ -13972,7 +14478,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "XYTKVM32QK13HT9Q18PDVBKATM",
@@ -13985,7 +14492,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "50GBC8QZJMEHH1XWK1HGF5Y034",
@@ -13998,7 +14506,8 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   },
   {
     "id": "MBQCZMF4T1TQDCCBH21Y76TWMQ",
@@ -14011,6 +14520,7 @@
       "zwierzęta",
       "lądowe",
       "potwory"
-    ]
+    ],
+    "price": 0
   }
 ]

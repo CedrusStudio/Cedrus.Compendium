@@ -2,10 +2,7 @@
   {
     "name": "Puklerz",
     "description": "",
-    "tags": [
-    ],
-    "protection": 0,
-    "immunity": 0,
+    "tags": [],
     "resistance": 0,
     "dexterityRestriction": 9,
     "reflexRestriction": 12,
@@ -17,10 +14,7 @@
   {
     "name": "Mała Tarcza",
     "description": "",
-    "tags": [
-    ],
-    "protection": 0,
-    "immunity": 0,
+    "tags": [],
     "resistance": 0,
     "dexterityRestriction": 6,
     "reflexRestriction": 9,
@@ -32,10 +26,7 @@
   {
     "name": "Średnia Tarcza",
     "description": "",
-    "tags": [
-    ],
-    "protection": 0,
-    "immunity": 0,
+    "tags": [],
     "resistance": 0,
     "dexterityRestriction": 4,
     "reflexRestriction": 7,
@@ -47,10 +38,7 @@
   {
     "name": "Duża Tarcza",
     "description": "",
-    "tags": [
-    ],
-    "protection": 0,
-    "immunity": 0,
+    "tags": [],
     "resistance": 0,
     "dexterityRestriction": 2,
     "reflexRestriction": 4,
@@ -62,10 +50,7 @@
   {
     "name": "Pawęż",
     "description": "",
-    "tags": [
-    ],
-    "protection": 0,
-    "immunity": 0,
+    "tags": [],
     "resistance": 0,
     "dexterityRestriction": 0,
     "reflexRestriction": 1,
@@ -80,8 +65,6 @@
     "tags": [
       "magiczny"
     ],
-    "protection": 0,
-    "immunity": 0,
     "resistance": 0,
     "dexterityRestriction": 9,
     "reflexRestriction": 12,
@@ -96,8 +79,6 @@
     "tags": [
       "magiczny"
     ],
-    "protection": 0,
-    "immunity": 0,
     "resistance": 0,
     "dexterityRestriction": 4,
     "reflexRestriction": 6,
@@ -112,8 +93,6 @@
     "tags": [
       "magiczny"
     ],
-    "protection": 0,
-    "immunity": 0,
     "resistance": 0,
     "dexterityRestriction": 5,
     "reflexRestriction": 6,
@@ -128,8 +107,6 @@
     "tags": [
       "magiczny"
     ],
-    "protection": 0,
-    "immunity": 0,
     "resistance": 15,
     "dexterityRestriction": 4,
     "reflexRestriction": 6,
@@ -144,8 +121,6 @@
     "tags": [
       "magiczny"
     ],
-    "protection": 0,
-    "immunity": 0,
     "resistance": 0,
     "dexterityRestriction": 3,
     "reflexRestriction": 5,

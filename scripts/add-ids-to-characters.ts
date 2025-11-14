@@ -13,10 +13,11 @@ const STATES_PATH = path.join(FORMATTED_DATA_DIR, 'states.json');
 type Character = {
   id: string;
   name: string;
-  maneuvers: Reference[];
-  perks: Reference[];
-  stances: Reference[];
-  states: Reference[];
+  maneuvers?: Reference[];
+  perks?: Reference[];
+  stances?: Reference[];
+  states?: Reference[];
+  equipment?: unknown;
   [key: string]: unknown; // Other properties
 };
 
@@ -93,9 +94,10 @@ async function main() {
       missingReports.push(createMissingReport(character.name, 'States', statesResult.missing));
     }
 
-    // Create updated character with IDs
+    // Create updated character with IDs (remove old collections)
+    const { maneuvers, perks, stances, states, equipment, ...characterWithoutCollections } = character;
     updatedCharacters.push({
-      ...character,
+      ...characterWithoutCollections,
       maneuversIds: maneuversResult.ids,
       perksIds: perksResult.ids,
       stancesIds: stancesResult.ids,

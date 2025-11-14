@@ -1,5 +1,6 @@
 [
   {
+    "id": "01KA21QH5JWN3DPR4Q5WHP5R2S",
     "name": "Gruba Tunika",
     "description": "",
     "tags": [
@@ -15,6 +16,7 @@
     "strengthRequirement": -4
   },
   {
+    "id": "01KA21QH5J9JBJWRTPB6S0SYVW",
     "name": "Kaftan Skórzany",
     "description": "",
     "tags": [
@@ -30,6 +32,7 @@
     "strengthRequirement": -2
   },
   {
+    "id": "01KA21QH5J58TBWPB47N74J2R5",
     "name": "Przeszywnica",
     "description": "",
     "tags": [
@@ -45,6 +48,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5J8ZPVPK1H4J3BWDMF",
     "name": "Zbroja Skórzana",
     "description": "",
     "tags": [
@@ -60,6 +64,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5JK94K281NJAJ0N6QR",
     "name": "Zbroja Skórzana Ćwiekowana",
     "description": "",
     "tags": [
@@ -75,6 +80,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5J71HB7P3KAGZTDYDG",
     "name": "Zbroja Łuskowa",
     "description": "",
     "tags": [
@@ -90,6 +96,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5JTQ9HJCSAJ29GJHHH",
     "name": "Zbroja Segmentowa",
     "description": "",
     "tags": [
@@ -105,6 +112,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5JAF0RY6CNBVF938HQ",
     "name": "Zbroja Lamelkowa",
     "description": "",
     "tags": [
@@ -120,6 +128,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5JBY1GQK9MKHY29V8A",
     "name": "Zbroja Pierścieniowa",
     "description": "",
     "tags": [
@@ -135,6 +144,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5J83QSSC0H0XRQF1VH",
     "name": "Kolczuga",
     "description": "",
     "tags": [
@@ -150,6 +160,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5JMT1W5KHA2BHJWRX0",
     "name": "Bechter",
     "description": "",
     "tags": [
@@ -165,6 +176,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5JJ90DAR8TWV32FGP6",
     "name": "Brygantyna",
     "description": "",
     "tags": [
@@ -180,6 +192,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5JATX1N9FR955J7KFE",
     "name": "Zbroje Płytkowa",
     "description": "",
     "tags": [
@@ -195,6 +208,7 @@
     "strengthRequirement": 2
   },
   {
+    "id": "01KA21QH5JH84J8QVCJ2GBJHWK",
     "name": "Zbroja Kryta",
     "description": "",
     "tags": [
@@ -210,6 +224,7 @@
     "strengthRequirement": 2
   },
   {
+    "id": "01KA21QH5JQN2ADKP2Y9F6GC4G",
     "name": "Zbroja Półpłytowa",
     "description": "",
     "tags": [
@@ -225,6 +240,7 @@
     "strengthRequirement": 2
   },
   {
+    "id": "01KA21QH5JNJNVS5K390WTSYAT",
     "name": "Zbroja Pełna Płytowa",
     "description": "",
     "tags": [
@@ -240,6 +256,7 @@
     "strengthRequirement": 2
   },
   {
+    "id": "01KA21QH5JS6PJZ1FY33AZ9XP3",
     "name": "Noc",
     "description": "Kolczuga z czarnego mithrilu",
     "tags": [
@@ -256,6 +273,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5J5JPKF54WM16NMEV7",
     "name": "Zainatesar",
     "description": "Skórznia, tracisz 1 redukcji z każdym atakiem przeciwnika zadajacym obrażenia zbroi do minimum 5 redukcji.",
     "tags": [
@@ -272,6 +290,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5J01BTKMF7MNMF7JGE",
     "name": "Skórznia Selviry",
     "description": "Skórznia, 1//D niewrażliwość 2.",
     "tags": [
@@ -288,6 +307,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5K16NTX98SDV7KCB0W",
     "name": "Łuskowa Zbroja Atemera",
     "description": "Zbroja Łuskowa",
     "tags": [
@@ -304,6 +324,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5KZ3HRPRDJ0HC8C4GK",
     "name": "Zbroja Mistrza Valsy",
     "description": "Zbroja Lamelkowa",
     "tags": [
@@ -320,6 +341,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5K046QQK2BQ24B7N81",
     "name": "Brygantyna sir Valerengo Longsidle",
     "description": "Brygantyna, zmniejsza o 1 rangę kości broni oraz o 1 szansę trafienia krytycznego atakującego.",
     "tags": [
@@ -336,6 +358,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5K8P39VB78XEAM707J",
     "name": "Bryngandna Labrasci",
     "description": "Brygantyna",
     "tags": [
@@ -352,6 +375,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5KSTAZ5TA483P2RV1W",
     "name": "Brygandyna Czempiona Labrasci",
     "description": "Brygantyna",
     "tags": [
@@ -368,6 +392,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5KAY37VYSG7JSRM7SC",
     "name": "Kolczuga Tarmy",
     "description": "Kolczuga, nakłada stacka za każdą skierowaną w ciebie kość broni. Zdejmując 6 stacków dodaje 6 odporności.",
     "tags": [
@@ -384,6 +409,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5K4SDA61VE2ATZPBXY",
     "name": "Bechter Oddanego",
     "description": "Bechter, 1//D wróg dorzuca do każdej kości broni, dodatkową taką samą kość. Wybiera niższe wyniki z rzuconych par kości.",
     "tags": [
@@ -400,6 +426,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5KBPFSE2E88PD8F3CK",
     "name": "Brygantyna Odenveda",
     "description": "Redukcja 4, odporność 4, redukcja 1 kości. Dodaje redukcje 1 kości na pierwszy atak każdego dnia. Brygantyna",
     "tags": [
@@ -416,6 +443,7 @@
     "strengthRequirement": 0
   },
   {
+    "id": "01KA21QH5KTGGT0QKDXMTZR76E",
     "name": "Zbroja Chmur",
     "description": "Zbroja Kryta, 2//D dodaje 1 niewrażliwości.",
     "tags": [
@@ -432,6 +460,7 @@
     "strengthRequirement": 4
   },
   {
+    "id": "01KA21QH5K3CVYFKPP41E5CDSY",
     "name": "Zbroja Armeny",
     "description": "Zbroja Płytkowa z czarnego mithrilu",
     "tags": [
@@ -448,6 +477,7 @@
     "strengthRequirement": 1
   },
   {
+    "id": "01KA21QH5KQ54TJQ3WCT5A6T6F",
     "name": "Twierdza Diany",
     "description": "Pełna płytowa zbroja z wyjątkowych pancerzy żuczych, 3x Skorupa (zamienia 1 redukcji na 1 odporności max 5).",
     "tags": [
@@ -464,6 +494,7 @@
     "strengthRequirement": 5
   },
   {
+    "id": "01KA21QH5KMDM6EFBMTPH3WYW4",
     "name": "Zbroja Łuska Nikitiragora",
     "description": "Pełna płytowa ze smoczych łusek Nikitiragora, odporność 5 vs Zimno, +1 Charyzma.",
     "tags": [
@@ -478,5 +509,127 @@
     "initiativeRestriction": 0,
     "attributePenalty": 4,
     "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21TX2HN745MMYE9B8C7F79",
+    "name": "Zbroja Łuskowa Stalowa",
+    "description": "Stalowa zbroja łuskowa",
+    "tags": [
+      "zbroje",
+      "średnie"
+    ],
+    "resistance": 6,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 1,
+    "initiativeRestriction": 1,
+    "attributePenalty": 1,
+    "strengthRequirement": 3,
+    "immunity": 0,
+    "protection": 1
+  },
+  {
+    "id": "01KA21TX2H520KE0C16M71EJZX",
+    "name": "Mistrzowska Zbroja Łuskowa",
+    "description": "Mistrzowskiej jakości zbroja łuskowa",
+    "tags": [
+      "zbroje",
+      "średnie",
+      "mistrzowskie"
+    ],
+    "resistance": 7,
+    "dexterityRestriction": 0,
+    "reflexRestriction": 0,
+    "initiativeRestriction": 0,
+    "attributePenalty": 0,
+    "strengthRequirement": 3,
+    "immunity": 0,
+    "protection": 2
+  },
+  {
+    "id": "01KA21TX2HMNWCSB8NR6DJET1S",
+    "name": "Zbroja Płytkowa",
+    "description": "Zbroja płytkowa",
+    "tags": [
+      "zbroje",
+      "ciężkie"
+    ],
+    "resistance": 10,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 3,
+    "initiativeRestriction": 3,
+    "attributePenalty": 3,
+    "strengthRequirement": 5,
+    "immunity": 0,
+    "protection": 2
+  },
+  {
+    "id": "01KA21TX2H9591P8SGRSDQPMQG",
+    "name": "Zbroja Półplytowa",
+    "description": "Zbroja półpłytowa",
+    "tags": [
+      "zbroje",
+      "ciężkie"
+    ],
+    "resistance": 8,
+    "dexterityRestriction": 2,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 2,
+    "strengthRequirement": 4,
+    "immunity": 0,
+    "protection": 1
+  },
+  {
+    "id": "01KA21TX2HZWBSPVC68CY0E4T9",
+    "name": "Pełna  Płytowa+",
+    "description": "Ulepszona pełna zbroja płytowa",
+    "tags": [
+      "zbroje",
+      "ciężkie",
+      "ulepszone"
+    ],
+    "resistance": 13,
+    "dexterityRestriction": 4,
+    "reflexRestriction": 4,
+    "initiativeRestriction": 4,
+    "attributePenalty": 4,
+    "strengthRequirement": 6,
+    "immunity": 0,
+    "protection": 3
+  },
+  {
+    "id": "01KA21TX2J5BDPDHYK9NW792FN",
+    "name": "Zbroja  Pełna  Płytowa+",
+    "description": "Ulepszona pełna zbroja płytowa",
+    "tags": [
+      "zbroje",
+      "ciężkie",
+      "ulepszone"
+    ],
+    "resistance": 13,
+    "dexterityRestriction": 4,
+    "reflexRestriction": 4,
+    "initiativeRestriction": 4,
+    "attributePenalty": 4,
+    "strengthRequirement": 6,
+    "immunity": 0,
+    "protection": 3
+  },
+  {
+    "id": "01KA21TX2JAHPSPWFGRXSJQF8M",
+    "name": "Pełna Płytowa",
+    "description": "Pełna zbroja płytowa",
+    "tags": [
+      "zbroje",
+      "ciężkie"
+    ],
+    "resistance": 12,
+    "dexterityRestriction": 4,
+    "reflexRestriction": 4,
+    "initiativeRestriction": 4,
+    "attributePenalty": 4,
+    "strengthRequirement": 6,
+    "immunity": 0,
+    "protection": 2
   }
 ]

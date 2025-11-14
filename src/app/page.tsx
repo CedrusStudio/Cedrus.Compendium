@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { displayedText } from "@/presentation/translations";
 import { Users, BookOpen, Scroll, Swords } from "lucide-react";
+import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 
 export default function HomePage() 
 {
@@ -17,6 +18,9 @@ function HeroSection()
 {
   return (
     <div className="text-center mb-16">
+      <div className="flex justify-end mb-4">
+        <ApiKeySettings />
+      </div>
       <h1 className="text-6xl lg:text-7xl font-bold mb-6">
         {displayedText.applicationHeading}
       </h1>

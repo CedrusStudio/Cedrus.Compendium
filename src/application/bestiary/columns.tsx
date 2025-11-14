@@ -4,7 +4,7 @@ import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons, copyIcon, immunityIcon, resistanceIcon } from "@/presentation/icons";
+import { attributesIcons, characteristicIcons, goToIcon, immunityIcon, resistanceIcon } from "@/presentation/icons";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
@@ -77,7 +77,7 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={value => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -158,11 +158,13 @@ export const columns: AccessorKeyColumnDef<Character>[] =
 
 function CharacterNameView({ character }: {character: Character})
 {
+  const route = useRouter();
+
   return (
     <div className="flex flex-row justify-center items-center gap-1">
       <span className="block lg:hidden">{character.shortName}</span>
       <span className="hidden lg:block">{character.name}</span>
-      <Button variant="ghost" size="icon" onClick={() => navigator.clipboard.writeText(character.name)}>{copyIcon}</Button>
+      <Button variant="ghost" size="icon" onClick={() => route.push(`/characters/${character.id}?tab=combat`)}>{goToIcon}</Button>
     </div>
   );
 }
@@ -224,7 +226,6 @@ function CharacterDefensesBattleView({ character }: { character : Character })
 
 function MoreBattleActions({ character }: { character: Character })
 {
-  const route = useRouter();
   const [isModesAndManeuversDrawerOpen, setIsModesAndManeuversDrawerOpen] = useState(false);
   const [isPowersDrawerOpen, setIsPowersDrawerOpen] = useState(false);
 
@@ -241,7 +242,6 @@ function MoreBattleActions({ character }: { character: Character })
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStatesManeuvers}</span></DropdownMenuItem>
           { character.powers.length > 0 && <DropdownMenuItem onClick={() => setIsPowersDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPowers}</span></DropdownMenuItem>}
-          <DropdownMenuItem onClick={() => route.push(`/characters/${character.id}?tab=combat`)}><span className="first-letter:uppercase">{displayedText.goToCharacterView}</span></DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
