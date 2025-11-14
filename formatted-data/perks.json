@@ -5228,5 +5228,27 @@
     "tags": [
       "bestie"
     ]
+  },
+  {
+    "id": "01KA1B0YGDNCEW6EB0PH000000",
+    "name": "Wampir",
+    "grade": 0,
+    "description": "Widzenie w ciemnościach, odporność na zwykłe choroby, trucizny, uśpienie. Odporność na testy fechtunki i fortelu / refleks, lepszy węch i zmysł krwi. Przyśpieszona prędkość poruszania +50%, dalekość skoków +50%, oczy podatne na światło",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "wampiry"
+    ]
+  },
+  {
+    "id": "01KA1B0YGD3EQY6JR7K7000000",
+    "name": "Archwampir",
+    "grade": 0,
+    "description": "Widzenie w ciemnościach, odporność na zwykłe choroby, trucizny, uśpienie. Odporność na testy fechtunki i fortelu / refleks, lepszy węch i zmysł krwi. Przyśpieszona prędkość poruszania +50%, dalekość skoków +50%, oczy podatne na światło",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "wampiry"
+    ]
   }
 ]
