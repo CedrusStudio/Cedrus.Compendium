@@ -8,7 +8,10 @@
       "Zr 3"
     ],
     "price": 9,
-    "tags": []
+    "tags": [
+      "atak",
+      "dwuręczny"
+    ]
   },
   {
     "id": "01K9Z6YHWWGJ5XDPY0DHE83V4Y",
@@ -20,7 +23,7 @@
       "2 widmowe manewry"
     ],
     "price": 12,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWWDHB5AP9PSX5XQ7NR",
@@ -32,7 +35,7 @@
       "Wirtuoz walki 1"
     ],
     "price": 21,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWWWCACZ5RNG711G3RG",
@@ -46,7 +49,7 @@
       "Finezja w walce"
     ],
     "price": 3,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWW6S2W7X8C5TM25S9R",
@@ -55,7 +58,7 @@
     "description": "+1 dmg/kość broni.",
     "requirements": [],
     "price": 4,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWW0JEH15FAZN37Y04C",
@@ -66,7 +69,7 @@
       "Skupienie na broni 1"
     ],
     "price": 12,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWWPC5Q8AT69BWFDVJ9",
@@ -77,7 +80,7 @@
       "Skupienie na broni 2"
     ],
     "price": 18,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWWANJJPZQ5C7X2XSFV",
@@ -88,7 +91,10 @@
       "Wiekszy Fechtunek 8"
     ],
     "price": 5,
-    "tags": []
+    "tags": [
+      "atak",
+      "fechtunek"
+    ]
   },
   {
     "id": "01K9Z6YHWW3WGGMEJ8571XTMD9",
@@ -99,7 +105,10 @@
       "Wiekszy Fortel 8"
     ],
     "price": 5,
-    "tags": []
+    "tags": [
+      "atak",
+      "fortel"
+    ]
   },
   {
     "id": "01K9Z6YHWW24S085XR0CQ7S9ER",
@@ -110,7 +119,7 @@
       "S 2"
     ],
     "price": 2,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWW7A0A6ENAMKZG4TAE",
@@ -122,7 +131,7 @@
       "S 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWX8W83D003C902DAHX",
@@ -134,7 +143,7 @@
       "S 6"
     ],
     "price": 10,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXW42PNVXT1FDJN32A",
@@ -146,7 +155,7 @@
       "S 8"
     ],
     "price": 12,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXACB94ZQSXBBARCMX",
@@ -158,7 +167,11 @@
       "Zogniskowanie broni 4 lub Bazowy Fechtunek 8"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWXP32AT9HPT1KCP7ZS",
@@ -169,7 +182,11 @@
       "Przebijalność 1"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWX2BH4JWAHKQ5GF45S",
@@ -180,7 +197,11 @@
       "Przebijalność 2"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWXC15K7H1CN637C33F",
@@ -191,7 +212,11 @@
       "Przebijalność 3"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWXW200WTSJBVQAE9M8",
@@ -256,7 +281,7 @@
       "Większy Fechtunek 10 lub Większy Fortel 10"
     ],
     "price": 27,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXCV04M4JY5564H359",
@@ -267,7 +292,7 @@
       "Specjalizacja w Broni 2"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWX3X3PP0KBJB790KP8",
@@ -278,7 +303,7 @@
       "Specjalizacja w Broni 3"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXJ1NVDCC3ES06QQ13",
@@ -289,7 +314,7 @@
       "Specjalizacja w Broni 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWX54RKQ5GRGP2M30VV",
@@ -300,7 +325,7 @@
       "Specjalizacja w Broni 5"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXEYY0EF42E8GHXJ6P",
@@ -312,7 +337,7 @@
       "broń krótkodystansowa"
     ],
     "price": 1,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXX8YSQGS2XGGF869G",
@@ -324,7 +349,7 @@
       "broń krótkodystansowa"
     ],
     "price": 3,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWX0NSM0GY9J9HXB8FJ",
@@ -336,7 +361,7 @@
       "broń krótkodystansowa"
     ],
     "price": 4,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXN14628T976WV8WG5",
@@ -348,7 +373,7 @@
       "broń krótkodystansowa"
     ],
     "price": 5,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWX8P36GQM3ESW7H3GN",
@@ -360,7 +385,7 @@
       "broń krótkodystansowa"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWXFEMKMBFTQ36KMHY3",
@@ -369,7 +394,7 @@
     "description": "+ 1 szansa krytyka.",
     "requirements": [],
     "price": 3,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWXK0GCBK2S6AT3HNPS",
@@ -380,7 +405,7 @@
       "Szansa Krytyka 1"
     ],
     "price": 7,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWXN7ZT9E21FP1F4RF3",
@@ -391,7 +416,7 @@
       "Szansa Krytyka 2"
     ],
     "price": 12,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWXBBHGBW8ERXPDA80H",
@@ -402,7 +427,7 @@
       "Szansa Krytyka 3"
     ],
     "price": 18,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWX9F61JXKAJ6VPWMN6",
@@ -411,7 +436,7 @@
     "description": "+1 siła krytyka.",
     "requirements": [],
     "price": 3,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWX8M4D657N6V4VH0J6",
@@ -422,7 +447,7 @@
       "Siła Krytyka 1"
     ],
     "price": 7,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWXJ4Y2A4A0323ZA2D0",
@@ -433,7 +458,7 @@
       "Siła Krytyka 2"
     ],
     "price": 15,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWXMST5473SNNH20QMH",
@@ -444,7 +469,7 @@
       "Siła Krytyka 3"
     ],
     "price": 18,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWX0VWDY25GNQYXWDHW",
@@ -455,7 +480,7 @@
       "Siła Krytyka 1"
     ],
     "price": 4,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWXZNJYA1G66MB0D8T9",
@@ -466,7 +491,7 @@
       "Szansa Krytyka 1"
     ],
     "price": 9,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHWXQTJW2TB0D6E9GCDJ",
@@ -477,7 +502,10 @@
       "Int 3"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "atak",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWXJHKX2XTV2N9B6W5V",
@@ -488,7 +516,10 @@
       "Int 4"
     ],
     "price": 4,
-    "tags": []
+    "tags": [
+      "atak",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWXQTVXQMXWF16Z010J",
@@ -499,7 +530,10 @@
       "Int 5"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "atak",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWXGQQQQFW426SA7TFB",
@@ -510,7 +544,10 @@
       "Int 6"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "atak",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWXYE858G47E59WDSDJ",
@@ -521,7 +558,10 @@
       "Int 7"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "atak",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWX00G0MQT54BYTD4YR",
@@ -613,7 +653,7 @@
       "Zr 2"
     ],
     "price": 3,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWYYXNR2DKEHTXXH53F",
@@ -625,7 +665,7 @@
       "Zr 3"
     ],
     "price": 3,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWYP00YT9N1MR8BFHZH",
@@ -637,7 +677,7 @@
       "Zr 4"
     ],
     "price": 4,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWYM3A5PV3JJ519WWVK",
@@ -648,7 +688,7 @@
       "Zr 5"
     ],
     "price": 5,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWYNBTB14ADVMN5C5NQ",
@@ -657,7 +697,7 @@
     "description": "Jeśli wyrzucisz maksimum na wybranej kości broni to zyskujesz 1 dmg na każdy następny atak na tą osobę (max +1dmg).",
     "requirements": [],
     "price": 2,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWY339PA498DXJQMGRA",
@@ -669,7 +709,7 @@
       "Większy Fechtunek 2 lub Większy Fortel 2"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWY16878AGRDPD9WFGR",
@@ -681,7 +721,7 @@
       "Większy Fechtunek 3 lub Większy Fortel 3"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWYVGNSQG7QQESN9X5P",
@@ -733,7 +773,7 @@
     "description": "Mając przewagę położenia terytorium nad wrogiem (walcząc z wyższego pułapu) otrzymujesz 1 dmg na kość broni i obrażeń.",
     "requirements": [],
     "price": 2,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWY28CWQG5Y171XDCRT",
@@ -744,7 +784,10 @@
       "Większy Refleks 4"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHWYYEBXV33TST5EDGAV",
@@ -756,7 +799,10 @@
       "Większy Refleks 5"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHWYN56FSSDD7X4YXDQ4",
@@ -768,7 +814,10 @@
       "Większy Refleks 6"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHWYCACVHV6GNEZ3GPPY",
@@ -779,7 +828,10 @@
       "Większy Fortel 4"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "fortel"
+    ]
   },
   {
     "id": "01K9Z6YHWY4TZ3BA01X3BFW71J",
@@ -791,7 +843,10 @@
       "Większy Fortel 5"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "fortel"
+    ]
   },
   {
     "id": "01K9Z6YHWY05CE5TAW7X8S9KWS",
@@ -803,7 +858,10 @@
       "Większy Fortel 6"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "fortel"
+    ]
   },
   {
     "id": "01K9Z6YHWY3AE88BB48AZ1FVKE",
@@ -814,7 +872,7 @@
       "Większy Fechtunek 5"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHWYZQQMYXDCWSCYYN6F",
@@ -826,7 +884,7 @@
       "Riposta 1"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHWY27RMM7G24M7E2ZXJ",
@@ -838,7 +896,7 @@
       "Riposta 2"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHWY318AFWZQHZJRHDZ3",
@@ -849,7 +907,7 @@
       "S 3"
     ],
     "price": 2,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHWYK4GDQQDVKBXR5SDA",
@@ -860,7 +918,7 @@
       "S 4"
     ],
     "price": 2,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHWYB5Y9C02B19B62DA0",
@@ -871,7 +929,7 @@
       "S 5"
     ],
     "price": 2,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHWYGDH2NFHYKY7S288K",
@@ -917,7 +975,7 @@
       "Większa Precyzja 3"
     ],
     "price": 3,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHWYGBY6ZN0P3DF0F8GQ",
@@ -929,7 +987,7 @@
       "Większa Precyzja 4"
     ],
     "price": 9,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHWYWVNWDJPA0P4XNW38",
@@ -941,7 +999,7 @@
       "Większa Precyzja 5"
     ],
     "price": 18,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHWY7DK2ZTA7XZSCBN5B",
@@ -952,7 +1010,7 @@
       "Zr 2"
     ],
     "price": 7,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHWYH12S3Y97XA0Y2GRV",
@@ -964,7 +1022,7 @@
       "Zr 4"
     ],
     "price": 9,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHWYB7QR2QXMCJEVGVH2",
@@ -976,7 +1034,7 @@
       "Zr 6"
     ],
     "price": 18,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHWYYG4W7GQFC4NR0FA7",
@@ -998,7 +1056,7 @@
       "Większa Precyzja 5"
     ],
     "price": 9,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWY211MTHPVMWVK7M4E",
@@ -1009,7 +1067,11 @@
       "Większy Fechtunek 4 lub Większy Fortel 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "fechtunek",
+      "fortel",
+      "styl-walki"
+    ]
   },
   {
     "id": "01K9Z6YHWY6W0YKH9YX1NN9HN7",
@@ -1020,7 +1082,11 @@
       "Większy Fechtunek 5 lub Większy Fortel 5"
     ],
     "price": 7,
-    "tags": []
+    "tags": [
+      "fechtunek",
+      "fortel",
+      "styl-walki"
+    ]
   },
   {
     "id": "01K9Z6YHWY7KQ1D7E6WXP6Q4KF",
@@ -1031,7 +1097,7 @@
       "Dwa miecze"
     ],
     "price": 4,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHWYGJB6XMVCZSMBB2N6",
@@ -1043,7 +1109,7 @@
       "Dwa miecze"
     ],
     "price": 12,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHWZVBZRDE433SQ79QHB",
@@ -1054,7 +1120,11 @@
       "Ruch Skrytobójcy"
     ],
     "price": 1,
-    "tags": []
+    "tags": [
+      "atak",
+      "styl-walki",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWZW8JHKN22JSA89ZSE",
@@ -1065,7 +1135,11 @@
       "Mistrzostwo w skrytobójstwie 1"
     ],
     "price": 2,
-    "tags": []
+    "tags": [
+      "atak",
+      "styl-walki",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWZ8NRQ83Z5JDBXYQ1C",
@@ -1076,7 +1150,11 @@
       "Mistrzostwo w skrytobójstwie 2"
     ],
     "price": 2,
-    "tags": []
+    "tags": [
+      "atak",
+      "styl-walki",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWZZ468CY3PT81PQRF7",
@@ -1087,7 +1165,11 @@
       "Mistrzostwo w skrytobójstwie 3"
     ],
     "price": 2,
-    "tags": []
+    "tags": [
+      "atak",
+      "styl-walki",
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YHWZHESKY6DZXB5WJX43",
@@ -1099,7 +1181,7 @@
       "Ciche Poruszanie 5"
     ],
     "price": 4,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWZK2EFNFPRRMFSMTPR",
@@ -1111,7 +1193,7 @@
       "Ciche Poruszanie 6"
     ],
     "price": 5,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWZ2EVPNTS9V89KF0FQ",
@@ -1123,7 +1205,7 @@
       "Ciche Poruszanie 7"
     ],
     "price": 6,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHWZMFSTVMNK79TQ0WN8",
@@ -1158,7 +1240,7 @@
       "S 4"
     ],
     "price": 2,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHWZD2CQFSRTGQE44QDN",
@@ -1170,7 +1252,7 @@
       "S 5"
     ],
     "price": 3,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHWZHFWP3NVE4KWZFJV7",
@@ -1179,7 +1261,7 @@
     "description": "Po zabitym przeciwniku dostajesz +1dmg do końca walki (max +2).",
     "requirements": [],
     "price": 3,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YHX0FKSP9CBWD521Q4PG",
@@ -1199,7 +1281,7 @@
     "description": "Bazowy Fechtunek +1.",
     "requirements": [],
     "price": 2,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0W072RQCHSP3NNN1N",
@@ -1211,7 +1293,7 @@
       "Int+Zr -2"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0WJD50JK7ZC8C2RYQ",
@@ -1223,7 +1305,7 @@
       "Int+Zr -1"
     ],
     "price": 4,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0PMHKE128XSVDQ785",
@@ -1236,7 +1318,7 @@
       "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 9,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0GJSPMADZS6W95HTQ",
@@ -1249,7 +1331,7 @@
       "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 10,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0Q26AERYS01XEGGS7",
@@ -1262,7 +1344,7 @@
       "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 12,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0GW4JMQFG238VEQD3",
@@ -1275,7 +1357,7 @@
       "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 21,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX09085WF2HDDH2AH1W",
@@ -1288,7 +1370,7 @@
       "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 30,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0WBBQX44TX2KKW2GE",
@@ -1301,7 +1383,7 @@
       "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX01J13A47EJQK3MV3T",
@@ -1314,7 +1396,7 @@
       "Ilość postaw i manewrów fizycznych 5"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0CCHYH3YTMY635TTP",
@@ -1327,7 +1409,7 @@
       "Ilość postaw i manewrów fizycznych 6"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0S52JSFA234RPZ0HT",
@@ -1340,7 +1422,7 @@
       "Ilość postaw i manewrów fizycznych 7"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX0GRZPSRHYGAAZFP6F",
@@ -1384,7 +1466,7 @@
     "description": "Bazowy Fortel+1.",
     "requirements": [],
     "price": 2,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0QJRF3Y63H7P6032T",
@@ -1396,7 +1478,7 @@
       "Int+Zr 0"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX00SZ03XN2JEEEFB25",
@@ -1408,7 +1490,7 @@
       "Int+Zr 1"
     ],
     "price": 4,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0T01PVA5J8R9ZJ2V2",
@@ -1421,7 +1503,7 @@
       "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 9,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0NKSCDAHDVFR885ZP",
@@ -1434,7 +1516,7 @@
       "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 10,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0CA89X5AMBYAQ5YHV",
@@ -1447,7 +1529,7 @@
       "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 12,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0JRA6JXG78PZGTWDP",
@@ -1460,7 +1542,7 @@
       "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 21,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX064FG8Y3CVAZ7544K",
@@ -1473,7 +1555,7 @@
       "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 30,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0ZMA31E6463FM4C5R",
@@ -1486,7 +1568,7 @@
       "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX055HQSXR3BMCAYH2P",
@@ -1499,7 +1581,7 @@
       "Ilość postaw i manewrów fizycznych 5"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0JK504B30TRRRHP5K",
@@ -1512,7 +1594,7 @@
       "Ilość postaw i manewrów fizycznych 6"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX035SDX7SP46A2G9X5",
@@ -1525,7 +1607,7 @@
       "Ilość postaw i manewrów fizycznych 7"
     ],
     "price": 36,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0PXH2C1H93PPD7Y8B",
@@ -1536,7 +1618,10 @@
       "Większy Fortel 6"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "fortel",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHX085X86D326JTAAZF3",
@@ -1548,7 +1633,7 @@
       "Większy Fechtunek 4"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX0WVWWF5VD9QD16G0V",
@@ -1560,7 +1645,7 @@
       "Większy Fechtunek 8"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX091EMPSTYZT358379",
@@ -1571,7 +1656,7 @@
       "Spostrzegawczość 5"
     ],
     "price": 3,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX080E4X3DJNR451S6H",
@@ -1582,7 +1667,7 @@
       "Spostrzegawczość 7"
     ],
     "price": 9,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX1KGJF1ZEV1WW7XVCM",
@@ -1594,7 +1679,10 @@
       "Większy Fortel 8"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "fechtunek",
+      "fortel"
+    ]
   },
   {
     "id": "01K9Z6YHX16NEQACNV1T3E59Y2",
@@ -1606,7 +1694,10 @@
       "Większy Fortel 8"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "fechtunek",
+      "fortel"
+    ]
   },
   {
     "id": "01K9Z6YHX14NCXPN3DKYBPTCY5",
@@ -1617,7 +1708,10 @@
       "Większy Fortel 6"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "fortel",
+      "styl-walki"
+    ]
   },
   {
     "id": "01K9Z6YHX1SX3G2P7VT8DEJ3X9",
@@ -1629,7 +1723,10 @@
       "Większy Fortel 7"
     ],
     "price": 13,
-    "tags": []
+    "tags": [
+      "fortel",
+      "styl-walki"
+    ]
   },
   {
     "id": "01K9Z6YHX17F2GAAT8PRMPKDEC",
@@ -1638,7 +1735,7 @@
     "description": "Bazowa Precyzja+1.",
     "requirements": [],
     "price": 4,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1JRGTBJ6DW2V0CRFP",
@@ -1650,7 +1747,7 @@
       "Zr 0"
     ],
     "price": 7,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1DCXFFTH315KDF1N8",
@@ -1662,7 +1759,7 @@
       "Zr 1"
     ],
     "price": 10,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX143G1Z05Y6H19PZ4Y",
@@ -1674,7 +1771,7 @@
       "Zr 2"
     ],
     "price": 10,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1KSAYQFFX4RN9RVB6",
@@ -1686,7 +1783,7 @@
       "Zr 3"
     ],
     "price": 10,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1PQNRSPET9SGBETN4",
@@ -1698,7 +1795,7 @@
       "Zr 4"
     ],
     "price": 12,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1CBX35TPEP46FCH3X",
@@ -1710,7 +1807,7 @@
       "Zr 5"
     ],
     "price": 21,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1ABRS8PN5DWPKA7NK",
@@ -1722,7 +1819,7 @@
       "Zr 5"
     ],
     "price": 30,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1YPBX1FJ7M3D3ZQMA",
@@ -1734,7 +1831,7 @@
       "Zr 6"
     ],
     "price": 36,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1MA6QRC8YMDXVB0S6",
@@ -1746,7 +1843,7 @@
       "Zr 7"
     ],
     "price": 36,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1TJJDJYYN6MM2B94E",
@@ -1758,7 +1855,7 @@
       "Zr 9"
     ],
     "price": 36,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1ZQPF3VPN0R0AF32N",
@@ -1770,7 +1867,7 @@
       "Zr 11"
     ],
     "price": 36,
-    "tags": []
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YHX1EXGSK3YTFQVE7QSW",
@@ -1851,7 +1948,10 @@
       "siła 3"
     ],
     "price": 1,
-    "tags": []
+    "tags": [
+      "obrona",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHX1P145SMBX4C9P0612",
@@ -1864,7 +1964,10 @@
       "siła 5"
     ],
     "price": 1,
-    "tags": []
+    "tags": [
+      "obrona",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHX18RMYV3Y3N5AWTP3M",
@@ -1876,7 +1979,10 @@
       "siła 3"
     ],
     "price": 2,
-    "tags": []
+    "tags": [
+      "dystans",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHX1QBCBMEM7Q2A7RXXM",
@@ -1923,7 +2029,7 @@
       "Zr -2"
     ],
     "price": 2,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX17QS9Y08KVBY879G0",
@@ -1935,7 +2041,7 @@
       "Zr -1"
     ],
     "price": 4,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX1Y6C1YF2H1KKBHWYS",
@@ -1947,7 +2053,7 @@
       "Zr 0"
     ],
     "price": 6,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX10Q6QBQNKKF3KGNSE",
@@ -1959,7 +2065,10 @@
       "lekka zbroja"
     ],
     "price": 9,
-    "tags": []
+    "tags": [
+      "refleks",
+      "styl-walki"
+    ]
   },
   {
     "id": "01K9Z6YHX1NFNFAGHAVRS99P42",
@@ -1970,7 +2079,7 @@
       "Bazowy Refleks 3"
     ],
     "price": 9,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX1SKQP8SMC2VV12Q6V",
@@ -1982,7 +2091,7 @@
       "Bazowy Refleks 4"
     ],
     "price": 18,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX1SGBEGGVNYVTETFW6",
@@ -1993,7 +2102,10 @@
       "Bazowy Refleks 5"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "dystans",
+      "magia"
+    ]
   },
   {
     "id": "01K9Z6YHX1E4WRB31VHWMZ3FQA",
@@ -2002,7 +2114,7 @@
     "description": "W testach obalenia, odrzucenia i w podobnych testach zamiast wytrwałości można użyć refleksu-4.",
     "requirements": [],
     "price": 3,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX1HMY20CWJA36HJN4Z",
@@ -2013,7 +2125,7 @@
       "Perfekcyjny Balans 1"
     ],
     "price": 6,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX1A0YJ3JYEBH1RC4WA",
@@ -2024,7 +2136,7 @@
       "Perfekcyjny Balans 2"
     ],
     "price": 6,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX1JGHC4XB2HJ40HQ8K",
@@ -2057,7 +2169,7 @@
       "Bazowy Refleks 2"
     ],
     "price": 3,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX1C9KJ9A2PMHYB0K5F",
@@ -2069,7 +2181,7 @@
       "Uniki 1"
     ],
     "price": 6,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX2W8Q6JRJJM7895BNF",
@@ -2081,7 +2193,7 @@
       "Uniki 2"
     ],
     "price": 9,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX2NP1PD735EHH2YKFT",
@@ -2093,7 +2205,7 @@
       "Uniki 3"
     ],
     "price": 9,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX2NTE1TP2C5ZRTG150",
@@ -2139,7 +2251,7 @@
       "Bazowa Wola 3"
     ],
     "price": 2,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHX2TH9H7YPCC712QWFK",
@@ -2184,7 +2296,7 @@
       "Bazowa Wola 1"
     ],
     "price": 3,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHX2MT8T6B6M4R741ZCM",
@@ -2196,7 +2308,7 @@
       "Bazowa Wola 2"
     ],
     "price": 3,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHX2M4GK120SC29W5HVC",
@@ -2234,7 +2346,10 @@
       "Bazowa Wytrwałość 8"
     ],
     "price": 0,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YHX2R5CYX5V7SGP8PAYV",
@@ -2245,7 +2360,11 @@
       "Bazowy Refleks 8"
     ],
     "price": 0,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YHX2VJYEE9RY8DFRD2KP",
@@ -2256,7 +2375,10 @@
       "Bazowa Wola 8"
     ],
     "price": 0,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YHX2293JYNEXQ3NRHT85",
@@ -2267,7 +2389,7 @@
       "Większa Moc 8"
     ],
     "price": 0,
-    "tags": []
+    "tags": "magia"
   },
   {
     "id": "01K9Z6YHX25QPSXD513HPVFGXX",
@@ -2278,7 +2400,7 @@
       "Większa Wiara 10"
     ],
     "price": 0,
-    "tags": []
+    "tags": "magia"
   },
   {
     "id": "01K9Z6YHX2TSYQSFB5JVNT7FTD",
@@ -2289,7 +2411,7 @@
       "Większe Arkana 10"
     ],
     "price": 0,
-    "tags": []
+    "tags": "magia"
   },
   {
     "id": "01K9Z6YHX25V7KJGM1F98ECSR0",
@@ -2300,7 +2422,10 @@
       "Epicki Atut"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YHX2XGZW59PKKNM5GT2V",
@@ -2311,7 +2436,7 @@
       "Zr -1"
     ],
     "price": 2,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2N0AX14390JZHVVXH",
@@ -2323,7 +2448,7 @@
       "Bazowy Inicjatywa 1"
     ],
     "price": 3,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2GF2H52JCNKD7GXJS",
@@ -2335,7 +2460,7 @@
       "Bazowy Inicjatywa 2"
     ],
     "price": 4,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2H0Z7DZ50VEHGVW9C",
@@ -2347,7 +2472,7 @@
       "Bazowy Inicjatywa 3"
     ],
     "price": 6,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX26KS0YM3YKZR71FQD",
@@ -2359,7 +2484,7 @@
       "Bazowy Inicjatywa 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2B9GFSD3PR2PCEWNP",
@@ -2371,7 +2496,7 @@
       "Bazowy Inicjatywa 5"
     ],
     "price": 9,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2DDK4P4VAVD623D2B",
@@ -2383,7 +2508,7 @@
       "Bazowy Inicjatywa 6"
     ],
     "price": 9,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX28BQJ7WF2JS3FR1SB",
@@ -2395,7 +2520,7 @@
       "Bazowy Inicjatywa 7"
     ],
     "price": 18,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2X46W9CTMBH8EDS3E",
@@ -2407,7 +2532,7 @@
       "Bazowy Inicjatywa 8"
     ],
     "price": 18,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX270ZGBFP975XN16HS",
@@ -2419,7 +2544,7 @@
       "Bazowy Inicjatywa 9"
     ],
     "price": 18,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2SW3EN5RF5HFHQ0HJ",
@@ -2430,7 +2555,7 @@
       "Bazowy Inicjatywa 3"
     ],
     "price": 2,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2RSPBR86D1DZXB9MY",
@@ -2441,7 +2566,7 @@
       "Energiczne Uniki"
     ],
     "price": 3,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX2XCGCQ42W6PEVPA8J",
@@ -2453,7 +2578,7 @@
       "Bd -4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2EDWVGZZD24CE2H0C",
@@ -2465,7 +2590,7 @@
       "Bd 0"
     ],
     "price": 12,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2FTATFP2M10FHDE4P",
@@ -2477,7 +2602,7 @@
       "Bd 2"
     ],
     "price": 27,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2BKFRJQC47DY5BCZG",
@@ -2489,7 +2614,7 @@
       "Bd 4"
     ],
     "price": 30,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2CZAYDCY1DZJDQ9GT",
@@ -2501,7 +2626,7 @@
       "Bd 6"
     ],
     "price": 30,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2RZ5HAY3EEE9JQV09",
@@ -2513,7 +2638,7 @@
       "Bd 8"
     ],
     "price": 36,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2J824M0A11T5NH01A",
@@ -2525,7 +2650,7 @@
       "Bd 10"
     ],
     "price": 36,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2VA5N88Q3DP28EHRD",
@@ -2537,7 +2662,7 @@
       "Bd 11"
     ],
     "price": 36,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX25VS5QCBKJCPJZ4GR",
@@ -2549,7 +2674,7 @@
       "Bd 12"
     ],
     "price": 36,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX2V97XDBAKPJ2V8VQN",
@@ -2571,7 +2696,7 @@
       "Żywotność 2"
     ],
     "price": 9,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX3JFWPTZFN8M9HC2YV",
@@ -2583,7 +2708,7 @@
       "Żywotność 3"
     ],
     "price": 10,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX3JAW2MYXKAS09XJ59",
@@ -2595,7 +2720,7 @@
       "Żywotność 4"
     ],
     "price": 10,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX3TAXFNC6Z0AH47109",
@@ -2606,7 +2731,7 @@
       "Poziom Leczenia 3"
     ],
     "price": 3,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX3VXKEH4N00JK59D2G",
@@ -2618,7 +2743,7 @@
       "Poziom Leczenia 4"
     ],
     "price": 5,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX3PG0YZAD1BKBTFVH8",
@@ -2630,7 +2755,7 @@
       "Poziom Leczenia 5"
     ],
     "price": 6,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX37KYAZND4KRJKD8J9",
@@ -2652,7 +2777,7 @@
       "Poziom Leczenia 3"
     ],
     "price": 9,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX3MRERHSB9W2XAY1HJ",
@@ -2664,7 +2789,7 @@
       "Poziom Leczenia 4"
     ],
     "price": 12,
-    "tags": []
+    "tags": "regeneracja"
   },
   {
     "id": "01K9Z6YHX3HGG6E2D50TK15GKC",
@@ -2686,7 +2811,7 @@
       "Postawa Defensywna 2"
     ],
     "price": 6,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX32HCG71G19ZCQK7YR",
@@ -2698,7 +2823,7 @@
       "Manewr związany z tarczą"
     ],
     "price": 12,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX31T1121RS4BG8C455",
@@ -2711,7 +2836,7 @@
       "2 Manewry związane z tarczą"
     ],
     "price": 12,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX3YGJ9XWDRVETFFAVR",
@@ -2720,7 +2845,7 @@
     "description": "Dodaje 1 blokowania tarczą bedąc w dowolnej postawie defensywnej.",
     "requirements": [],
     "price": 5,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX37Q45BGGESRB6V0CX",
@@ -2767,7 +2892,7 @@
       "Ilość okrzyków 1"
     ],
     "price": 3,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHX3QGGDTN980FBKRVEH",
@@ -2778,7 +2903,7 @@
       "Ilość okrzyków 2"
     ],
     "price": 9,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHX37WQ955NK8QND997S",
@@ -2789,7 +2914,7 @@
       "Ilość okrzyków 2 i okrzyk 3 poziomu"
     ],
     "price": 18,
-    "tags": []
+    "tags": "dystans"
   },
   {
     "id": "01K9Z6YHX3D5X0HQRKEWZPJ9TY",
@@ -2800,7 +2925,7 @@
       "Lekka lub średnia zbroja"
     ],
     "price": 4,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX31ED341T7YQGJKBQS",
@@ -2812,7 +2937,7 @@
       "lekka lub średnia zbroja"
     ],
     "price": 6,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX380D0AEA00HY2FXM0",
@@ -2823,7 +2948,7 @@
       "Bazowy Inicjatywa 4"
     ],
     "price": 4,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX3HXMK7ED0BHWCQNGN",
@@ -2835,7 +2960,7 @@
       "Bazowy Inicjatywa 5"
     ],
     "price": 4,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YHX3WYEMFAW7C0TKJKJZ",
@@ -2846,7 +2971,7 @@
       "Większy Fortel 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YHX3T7N0XW2G4FFNA0DV",
@@ -2857,7 +2982,10 @@
       "Większy Fechtunek 6"
     ],
     "price": 2,
-    "tags": []
+    "tags": [
+      "krytyk",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YHX3JN8H6P54YJXCP10B",
@@ -2868,7 +2996,10 @@
       "Większy Fortel 6"
     ],
     "price": 2,
-    "tags": []
+    "tags": [
+      "krytyk",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YHX3G8EXG37V0JF7TD23",
@@ -2912,7 +3043,7 @@
       "Bazowa Wola 4"
     ],
     "price": 9,
-    "tags": []
+    "tags": "magia"
   },
   {
     "id": "01K9Z6YHX3E7PTCQK6Q2CBPFT0",
@@ -2923,7 +3054,7 @@
       "Bazowa Wola 5"
     ],
     "price": 18,
-    "tags": []
+    "tags": "magia"
   },
   {
     "id": "01K9Z6YHX3E4HAQPEX5XAS6MGN",
@@ -2932,7 +3063,7 @@
     "description": "W testach fechtunku zamiast fechtunku możesz użyć połowy modyfikatora z siły.",
     "requirements": [],
     "price": 6,
-    "tags": []
+    "tags": "fechtunek"
   },
   {
     "id": "01K9Z6YHX3A43STGHAY5ZDKWTJ",
@@ -2943,7 +3074,7 @@
       "Jeździectwo 2"
     ],
     "price": 6,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX3Q7K4NMNTM8SMNY6Q",
@@ -2955,7 +3086,7 @@
       "Jeździectwo 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YHX3JCERTPN4Y90CZ9CB",
@@ -2987,7 +3118,10 @@
     "description": "dmg k6, -3 siła krytyka, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": [
+      "krytyk",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YJJAWK4EGVFGMDXPVD64",
@@ -2996,7 +3130,7 @@
     "description": "dmg k6, +1 Walka Wręcz, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YJJA19JRMK8F64CVH74S",
@@ -3005,7 +3139,10 @@
     "description": "dmg k6, +1dmg, -3 siła krytyka, +1 Walka Wręcz. Walka Wręcz.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": [
+      "atak",
+      "krytyk"
+    ]
   },
   {
     "id": "01K9Z6YJJBZTZ3NMY6XAEX3T8W",
@@ -3027,7 +3164,7 @@
       "Walka Wręcz 6"
     ],
     "price": 4,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YJJBX9P3PCZ4HMSEBM67",
@@ -3038,7 +3175,7 @@
       "Walka Wręcz 3"
     ],
     "price": 3,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJJBC2TD48D4XX4VX3A9",
@@ -3049,7 +3186,10 @@
       "Walka Wręcz 4"
     ],
     "price": 4,
-    "tags": []
+    "tags": [
+      "dwuręczny",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YJJB886FRNM094BEM281",
@@ -3060,7 +3200,7 @@
       "Walka Wręcz 5"
     ],
     "price": 4,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJJB2Y9F94R0K157JT7R",
@@ -3071,7 +3211,7 @@
       "Walka Wręcz 7"
     ],
     "price": 4,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJJBXBP8QE9X5HF3HV2R",
@@ -3126,7 +3266,7 @@
       "Walka Wręcz 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "fortel"
   },
   {
     "id": "01K9Z6YJJB7GY3C9F56XR9QCYQ",
@@ -3148,7 +3288,7 @@
       "Walka Wręcz 4"
     ],
     "price": 4,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJJB8FH1Z7PX6E29WPC2",
@@ -3159,7 +3299,10 @@
       "Walka Wręcz 5"
     ],
     "price": 9,
-    "tags": []
+    "tags": [
+      "atak",
+      "dwuręczny"
+    ]
   },
   {
     "id": "01K9Z6YJJB5ZB4NF03EDCFCF6G",
@@ -3170,7 +3313,7 @@
       "Walka Wręcz 6"
     ],
     "price": 15,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJJBM03Y83NTQ8VD80BS",
@@ -3181,7 +3324,7 @@
       "Walka Wręcz 4"
     ],
     "price": 3,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJJBPP8M6AWVQ5DG8VHH",
@@ -3192,7 +3335,7 @@
       "Walka Wręcz 5"
     ],
     "price": 4,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJJBBCG5G340E5V3DW99",
@@ -3203,7 +3346,7 @@
       "Walka Wręcz 7"
     ],
     "price": 4,
-    "tags": []
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJJBHBP6H8FBEKDG8PMV",
@@ -3225,7 +3368,7 @@
       "Walka Wręcz 4"
     ],
     "price": 5,
-    "tags": []
+    "tags": "dwuręczny"
   },
   {
     "id": "01K9Z6YJJBHRF12SE01PGNG61B",
@@ -3280,7 +3423,7 @@
       "Walka Wręcz 10"
     ],
     "price": 24,
-    "tags": []
+    "tags": "dwuręczny"
   },
   {
     "id": "01K9Z6YJJB7H3SJQB9WV81XSF0",
@@ -3291,7 +3434,7 @@
       "Walka Wręcz 5"
     ],
     "price": 3,
-    "tags": []
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJJBHMKK03ZZ2NNXK75D",
@@ -3408,7 +3551,10 @@
     "description": "dmg k6, -3 siła krytyka, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": [
+      "krytyk",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YJJBJRRYJJ9DEZFRJS0Q",
@@ -3417,7 +3563,10 @@
     "description": "dmg k6, -1 siła krytyka, +1 Walka Wręcz, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": [
+      "krytyk",
+      "refleks"
+    ]
   },
   {
     "id": "01K9Z6YJJBCJEV0HTCS9YQVW52",
@@ -3426,7 +3575,10 @@
     "description": "dmg k6, +1dmg, -3 siła krytyka, +1 Walka Wręcz. Walka Wręcz.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": [
+      "atak",
+      "krytyk"
+    ]
   },
   {
     "id": "01K9Z6YJVTTDYDV09JP1NS8QDB",
@@ -3545,7 +3697,7 @@
       "Md 1"
     ],
     "price": 2,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVTG1BCDJSDS9WEEB1V",
@@ -3557,7 +3709,7 @@
       "Md 1"
     ],
     "price": 3,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVT5FQZSC54WBXXKTY1",
@@ -3569,7 +3721,7 @@
       "Md 2"
     ],
     "price": 4,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVT2ZK1ZEHYR14FF7X6",
@@ -3581,7 +3733,7 @@
       "Md 2"
     ],
     "price": 9,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVTKD1WSB6G0X8KVR8W",
@@ -3593,7 +3745,7 @@
       "Md 3"
     ],
     "price": 10,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVTT094V0AT7G9KQGN9",
@@ -3605,7 +3757,7 @@
       "Md 3"
     ],
     "price": 12,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVTEHVHQWVEPDG187T",
@@ -3617,7 +3769,7 @@
       "Md 4"
     ],
     "price": 12,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVV3G7D51A224BD84Z4",
@@ -3629,7 +3781,7 @@
       "Md 4"
     ],
     "price": 12,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVTMF2KRP24K0CFSC4",
@@ -3641,7 +3793,7 @@
       "Md 5"
     ],
     "price": 12,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVBK8XDKND35BTNQYH",
@@ -3653,7 +3805,7 @@
       "Md 6"
     ],
     "price": 12,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVV5J05EGERCXHQJ3A4",
@@ -3665,7 +3817,7 @@
       "Md 7"
     ],
     "price": 12,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVN2GH176422GN6MQ9",
@@ -3677,7 +3829,7 @@
       "Md 8"
     ],
     "price": 12,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVQSF1G1DDM9X82ZRX",
@@ -3689,7 +3841,7 @@
       "Większa Wola 2"
     ],
     "price": 6,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVV4RM4KYT0FNGA5SQX",
@@ -3701,7 +3853,7 @@
       "Większa Wola 3"
     ],
     "price": 6,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVV8W729TJRNKXYN7HP",
@@ -3713,7 +3865,7 @@
       "Większa Wola 4"
     ],
     "price": 6,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVRGDWH0KB19W0N2MT",
@@ -3725,7 +3877,7 @@
       "Większa Wola 5"
     ],
     "price": 6,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVRH5C5GYHA9X0Q4JG",
@@ -3737,7 +3889,7 @@
       "Większa Wola 6"
     ],
     "price": 6,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVN01YGMMT5JJFY2ZG",
@@ -3749,7 +3901,7 @@
       "Większa Wola 7"
     ],
     "price": 6,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVGHPYPJX1RZVR8VS1",
@@ -3761,7 +3913,7 @@
       "Większa Wola 4"
     ],
     "price": 9,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVV9YKG06EEV8HYDFFN",
@@ -3773,7 +3925,7 @@
       "Większa Wola 6"
     ],
     "price": 6,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVYA4Q0SX85N1BH803",
@@ -3784,7 +3936,11 @@
       "Większa Harmonia 3"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "dystans",
+      "harmonia",
+      "regeneracja"
+    ]
   },
   {
     "id": "01K9Z6YJVVXGBVFAFRS5J04F9Y",
@@ -3796,7 +3952,11 @@
       "Większa Harmonia 5"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "dystans",
+      "harmonia",
+      "regeneracja"
+    ]
   },
   {
     "id": "01K9Z6YJVVQV34AP69KSCME2BH",
@@ -3808,7 +3968,11 @@
       "Większa Harmonia 7"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "dystans",
+      "harmonia",
+      "regeneracja"
+    ]
   },
   {
     "id": "01K9Z6YJVVHAV0GR5WVRCCCBBG",
@@ -3819,7 +3983,10 @@
       "Większa Harmonia 5"
     ],
     "price": 5,
-    "tags": []
+    "tags": [
+      "harmonia",
+      "regeneracja"
+    ]
   },
   {
     "id": "01K9Z6YJVV8H9AWAPP2CXW49MC",
@@ -3830,7 +3997,10 @@
       "Większa Harmonia 7"
     ],
     "price": 3,
-    "tags": []
+    "tags": [
+      "harmonia",
+      "regeneracja"
+    ]
   },
   {
     "id": "01K9Z6YJVVM93J3B1ATTKVWFMP",
@@ -3842,7 +4012,10 @@
       "Symbioza Ciała 1"
     ],
     "price": 9,
-    "tags": []
+    "tags": [
+      "harmonia",
+      "regeneracja"
+    ]
   },
   {
     "id": "01K9Z6YJVV88YRE81XCMEZE253",
@@ -3854,7 +4027,7 @@
       "Symbioza Umysłu 1"
     ],
     "price": 4,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVV350GC9M53ZXR7DHZ",
@@ -3865,7 +4038,7 @@
       "Większa Harmonia 6"
     ],
     "price": 3,
-    "tags": []
+    "tags": "harmonia"
   },
   {
     "id": "01K9Z6YJVVCNAD8EW8J8DXV6P8",
@@ -3933,7 +4106,10 @@
       "Większa Harmonia 8"
     ],
     "price": 9,
-    "tags": []
+    "tags": [
+      "harmonia",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YJVVJ1DS4A5MBNVQTTHM",
@@ -3944,7 +4120,10 @@
       "Większa Harmonia 6"
     ],
     "price": 2,
-    "tags": []
+    "tags": [
+      "magia",
+      "regeneracja"
+    ]
   },
   {
     "id": "01K9Z6YJVVGPTZ6DNSD10K5ZH0",
@@ -3966,6 +4145,6 @@
       "Większa Harmonia 10"
     ],
     "price": 0,
-    "tags": []
+    "tags": "harmonia"
   }
 ]
