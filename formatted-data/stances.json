@@ -8,9 +8,7 @@
       "Postawa Gerneta 4"
     ],
     "price": 6,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZ3F87QF4TQP8BGNMC",
@@ -21,9 +19,7 @@
       "Postawa Nemesis"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZCYN0XB3VJV931G9W",
@@ -34,9 +30,7 @@
       "Postawa Ofensywna 1"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZ4YQVYK5Z5VDENT8Y",
@@ -47,9 +41,7 @@
       "Postawa Ofensywna 2"
     ],
     "price": 1,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZ2XZ1M522642ZSGDM",
@@ -60,9 +52,7 @@
       "Postawa Ofensywna 3"
     ],
     "price": 3,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZXD1BS0Q9YF11RJAT",
@@ -73,9 +63,7 @@
       "Postawa Ofensywna 4"
     ],
     "price": 5,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZR8ZTXJ91WNW0AEBT",
@@ -86,9 +74,7 @@
       "Postawa Ofensywna 5"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZAC98DBMNX7HZ53YF",
@@ -99,9 +85,7 @@
       "Postawa Ofensywna 6"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZ333DZMQDGZSRN13G",
@@ -112,9 +96,7 @@
       "Postawa Tura 1"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZKH1DV8XY0CV050TF",
@@ -125,9 +107,7 @@
       "Postawa Tura 2"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZQFY4CRCYCMB55HTW",
@@ -138,9 +118,7 @@
       "Postawa Tura 3"
     ],
     "price": 9,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZ1FDWFCBEYD9RW0NX",
@@ -151,9 +129,7 @@
       "Postawa Tura 4"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZBZFDW5R7QG9Y2734",
@@ -164,9 +140,7 @@
       "Przez Gniew 4"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZ1KAWNMYHM2QAX0V4",
@@ -177,9 +151,7 @@
       "Styl Grupowy 1"
     ],
     "price": 2,
-    "tags": [
-      "widmowe-kości"
-    ]
+    "tags": "widmowy"
   },
   {
     "id": "01K9Z6YJVZFJ52N9CB731MAB41",
@@ -190,9 +162,7 @@
       "Styl Grupowy 3"
     ],
     "price": 4,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJVZS6HA0J89HA6KK7GT",
@@ -203,9 +173,7 @@
       "Styl Grupowy 4"
     ],
     "price": 5,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJVZ9GE4B24RM0W8N74J",
@@ -216,9 +184,7 @@
       "Nazwa"
     ],
     "price": 6,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJVZR7SEY0K09PJ89Z4Z",
@@ -229,9 +195,7 @@
       "Poczucie Siły 1"
     ],
     "price": 2,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJVZKFPNBVB5JN0YWV5G",
@@ -242,9 +206,7 @@
       "Poczucie Siły 2"
     ],
     "price": 4,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJVZY5J6F77STKXE8PK8",
@@ -255,9 +217,7 @@
       "Poczucie Siły 3"
     ],
     "price": 6,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJVZQMK5929XQ8R1RA4A",
@@ -268,9 +228,7 @@
       "Postawa Asary Lu'dean 1"
     ],
     "price": 9,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJVZTH3GSRCN657CM1W1",
@@ -281,9 +239,7 @@
       "Postawa Asary Lu'dean 2"
     ],
     "price": 2,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW09W65EKJQQ7CK7E25",
@@ -294,9 +250,7 @@
       "Postawa Asary Lu'dean 3"
     ],
     "price": 2,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0526T4RERD517EV3R",
@@ -307,9 +261,7 @@
       "Postawa Virtona Lenter 1"
     ],
     "price": 2,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0RENGJFTJAMK8FJ4J",
@@ -321,9 +273,7 @@
       "Postawa Virtona Lenter 2"
     ],
     "price": 6,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0ERX05RSYXAR53TNF",
@@ -335,9 +285,7 @@
       "Postawa Virtona Lenter 3"
     ],
     "price": 9,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW08TNBJT3HVBE8H92G",
@@ -349,9 +297,7 @@
       "Stalowy Adwokat 1"
     ],
     "price": 12,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW06GEG0GBGYQNXFAAN",
@@ -362,9 +308,7 @@
       "Stalowy Adwokat 2"
     ],
     "price": 4,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW004TXA4YF40HQ4EWE",
@@ -375,9 +319,7 @@
       "Stalowy Adwokat 3"
     ],
     "price": 9,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0WAT25E51QR5JMHVA",
@@ -388,9 +330,7 @@
       "Nazwa"
     ],
     "price": 12,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0RGBVMKDKCAM4DYGA",
@@ -401,9 +341,7 @@
       "Postawa Dowódcy 1"
     ],
     "price": 18,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0G749E8JN3FCP3XMH",
@@ -414,9 +352,7 @@
       "Postawa Dowódcy 2"
     ],
     "price": 7,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0CYP9G35A2PSYG6YD",
@@ -427,9 +363,7 @@
       "Postawa Dowódcy 3"
     ],
     "price": 15,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0KT9EF5D3HSPZG6CT",
@@ -440,9 +374,7 @@
       "Postawa Taktyka"
     ],
     "price": 18,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW0K9P1J4E0GWSBZTYD",
@@ -453,9 +385,7 @@
       "Postawa Wodza 1"
     ],
     "price": 18,
-    "tags": [
-      "obrażenia-krytyczne"
-    ]
+    "tags": "krytyk"
   },
   {
     "id": "01K9Z6YJW09WRCMKSZFSQG7M0H",
@@ -467,9 +397,7 @@
       "Postawa Wodza 3"
     ],
     "price": 4,
-    "tags": [
-      "uniki"
-    ]
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YJW0J72YAB3K5WFAQA8M",
@@ -481,9 +409,7 @@
       "Nazwa"
     ],
     "price": 6,
-    "tags": [
-      "uniki"
-    ]
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YJW0CWPEBM2ESY8SZSGS",
@@ -494,9 +420,7 @@
       "Większy Refleks 7"
     ],
     "price": 12,
-    "tags": [
-      "uniki"
-    ]
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YJW0N7YTTQJSM6KZS36T",
@@ -507,9 +431,7 @@
       "Większy Refleks 8"
     ],
     "price": 18,
-    "tags": [
-      "uniki"
-    ]
+    "tags": "refleks"
   },
   {
     "id": "01K9Z6YJW04A16Y1TD00849DKN",
@@ -518,9 +440,7 @@
     "description": "Dodaje redukcję kostki zaklęcia.",
     "requirements": [],
     "price": 9,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0TD4HHACNTPF5BX2A",
@@ -529,9 +449,7 @@
     "description": "Dodaje redukcję dwóch kostek zaklęcia.",
     "requirements": [],
     "price": 18,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW077GRQE0ZSHNZ92Q6",
@@ -542,9 +460,7 @@
       "Nazwa"
     ],
     "price": 18,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0T76H9FYHF2KHBWSF",
@@ -555,9 +471,7 @@
       "Aura Drenora"
     ],
     "price": 9,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW04A1TW3RM3MQ8SFFP",
@@ -568,9 +482,7 @@
       "Aura Gerneta"
     ],
     "price": 3,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW08275WD7C9ZE68AJB",
@@ -581,9 +493,7 @@
       "Aura Riny"
     ],
     "price": 6,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0T9HGHHX1A6KHQ3B8",
@@ -594,9 +504,7 @@
       "Aura Shojiego Kaname"
     ],
     "price": 10,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW07DEFN2D07ZH6ZYQC",
@@ -605,9 +513,7 @@
     "description": "Zwiększa odporność o 1, zmniejsza obrażenia o 1.",
     "requirements": [],
     "price": 1,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0AGXTNVGYYGYDWZG1",
@@ -618,9 +524,7 @@
       "Nazwa"
     ],
     "price": 3,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0YPXM9C6Q4F293CVT",
@@ -629,9 +533,7 @@
     "description": "Zwiększa odporność o 4, zmniejsza obrażenia o 3.",
     "requirements": [],
     "price": 7,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0SP2JNDD6CBRZ72ZH",
@@ -640,9 +542,7 @@
     "description": "Zwiększa odporność o 6, zmniejsza obrażenia o 4.",
     "requirements": [],
     "price": 10,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0CET6ME8YGYD8M109",
@@ -653,9 +553,7 @@
       "specjalne"
     ],
     "price": 12,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW06TDWWYTTTY1AZA96",
@@ -666,9 +564,7 @@
       "specjalne"
     ],
     "price": 15,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0PM1Y7MM1ADWH3BKS",
@@ -679,9 +575,7 @@
       "Nazwa"
     ],
     "price": 3,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0A829XEY5NWWDMSSG",
@@ -692,9 +586,7 @@
       "Postawa Alcanlorów 1"
     ],
     "price": 9,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW015PECNMN3KFPPXSH",
@@ -705,9 +597,7 @@
       "Postawa Alcanlorów 2"
     ],
     "price": 12,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW09787P2DT6PXVBSWX",
@@ -718,9 +608,7 @@
       "Postawa Alcanlorów 3"
     ],
     "price": 3,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0VJTQCT70RRAREHEC",
@@ -731,9 +619,7 @@
       "Postawa Diany 1"
     ],
     "price": 6,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW02M0M4WK8XJ3G74Z1",
@@ -744,9 +630,7 @@
       "Postawa Diany 2"
     ],
     "price": 8,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0SEJZY9J41VKKYX0Z",
@@ -757,9 +641,7 @@
       "Postawa Diany 3"
     ],
     "price": 4,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0NAXNWFVBCBHECE3C",
@@ -770,9 +652,7 @@
       "Postawa Iris 1"
     ],
     "price": 12,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0ECM580KCWXE07BDH",
@@ -783,9 +663,7 @@
       "Postawa Iris 2"
     ],
     "price": 18,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW060HPT3J5XG0762RM",
@@ -796,9 +674,7 @@
       "Postawa Iris 3"
     ],
     "price": 6,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0DJFJBR1303TBDG8V",
@@ -809,9 +685,7 @@
       "Postawa Kaname 1"
     ],
     "price": 18,
-    "tags": [
-      "defensyne"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW0NZ4JH4M9V8JWEAV7",
@@ -823,6 +697,7 @@
     ],
     "price": 1,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -836,6 +711,7 @@
     ],
     "price": 2,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -849,6 +725,7 @@
     ],
     "price": 6,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -862,6 +739,7 @@
     ],
     "price": 9,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -875,6 +753,7 @@
     ],
     "price": 3,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -888,6 +767,7 @@
     ],
     "price": 5,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -901,6 +781,7 @@
     ],
     "price": 5,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -914,6 +795,7 @@
     ],
     "price": 6,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -927,6 +809,7 @@
     ],
     "price": 9,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -940,6 +823,7 @@
     ],
     "price": 12,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -954,6 +838,7 @@
     ],
     "price": 0,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -968,6 +853,7 @@
     ],
     "price": 0,
     "tags": [
+      "obrona",
       "tarcze"
     ]
   },
@@ -980,9 +866,7 @@
       "Postawa Spokoju 1"
     ],
     "price": 1,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW1D8QE9MKRABE81PFT",
@@ -993,9 +877,7 @@
       "Postawa Spokoju 2"
     ],
     "price": 4,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW1W83TE8AG6K35A31H",
@@ -1006,9 +888,7 @@
       "Postawa Spokoju 3"
     ],
     "price": 12,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW1PF7A40KEQWT5V63E",
@@ -1017,9 +897,7 @@
     "description": "Nie można atakować, zamienia 16 redukcji na 16 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [],
     "price": 12,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW1CB35VQ9W7GFT301W",
@@ -1028,9 +906,7 @@
     "description": "Nie można atakować, dodaje 1 redukcji i 2 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [],
     "price": 1,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW1QSNB4G8BAGXPBRT2",
@@ -1039,9 +915,7 @@
     "description": "Nie można atakować, dodaje 2 redukcji i 3 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [],
     "price": 4,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW19P88ZMRJZW18HY2Z",
@@ -1050,9 +924,7 @@
     "description": "Nie można atakować, dodaje 3 redukcji i 4 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [],
     "price": 12,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW13GZCAVQ213S0S5B3",
@@ -1061,9 +933,7 @@
     "description": "Nie można atakować, dodaje 4 redukcji i 5 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [],
     "price": 12,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW1SQRW182J0R6T86JX",
@@ -1072,9 +942,7 @@
     "description": "Nie można atakować, dodaje 5 redukcji i 6 odporności. Nie może być użyta do odpoczynku.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "całkowita-defensywa"
-    ]
+    "tags": "obrona"
   },
   {
     "id": "01K9Z6YJW1K04MSVDQ8BE2487W",
@@ -1083,9 +951,7 @@
     "description": "Zwiększa fechtunek o 1.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1KQSBP7GYMZBC8ZD8",
@@ -1094,9 +960,7 @@
     "description": "Zwiększa fechtunek o 1, zwiększa refleks o 1.",
     "requirements": [],
     "price": 6,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW147B92NPSW6KNBJ1Y",
@@ -1105,9 +969,7 @@
     "description": "Zwiększa fechtunek o 2, zwiększa refleks o 1.",
     "requirements": [],
     "price": 12,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW11F09QCWQADX0YEJQ",
@@ -1116,9 +978,7 @@
     "description": "Zwiększa fechtunek o 2, zwiększa refleks o 2, zwiększa fortel o 1.",
     "requirements": [],
     "price": 21,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW16Y9QYAKN9PENKMNN",
@@ -1127,9 +987,7 @@
     "description": "Zwiększa fechtunek o 2, zwiększa refleks o 2, zwiększa fortel o 2.",
     "requirements": [],
     "price": 12,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1AKZVYT5KPM0RQDPC",
@@ -1138,9 +996,7 @@
     "description": "Zwiększa fechtunek o 1.",
     "requirements": [],
     "price": 4,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1MZVRV1PH1EDC5HKM",
@@ -1149,9 +1005,7 @@
     "description": "Zwiększa fechtunek o 2.",
     "requirements": [],
     "price": 10,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1S7FZ4Y35PEKA3DD8",
@@ -1160,9 +1014,7 @@
     "description": "Zwiększa fechtunek o 3.",
     "requirements": [],
     "price": 19,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1N169NRACEX90REAE",
@@ -1171,9 +1023,7 @@
     "description": "Zwiększa fechtunek o 4.",
     "requirements": [],
     "price": 19,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1JFXK0EVBHB5JPF59",
@@ -1182,9 +1032,7 @@
     "description": "Zmniejsza fechtunek o 1 podmiotowi oraz wszystkim atakującym przeciwnikom.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW10AMMMP6BJV8JVECB",
@@ -1193,9 +1041,7 @@
     "description": "Zmniejsza fechtunek o 2 podmiotowi oraz wszystkim atakującym przeciwnikom.",
     "requirements": [],
     "price": 4,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1PHYYAWJRTVDCEC99",
@@ -1204,9 +1050,7 @@
     "description": "Zwiększa fortel o 1.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1EW0SR91STAGSMYA9",
@@ -1215,9 +1059,7 @@
     "description": "Zwiększa fortel o 2.",
     "requirements": [],
     "price": 9,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1XKAYSX9PN614F831",
@@ -1226,9 +1068,7 @@
     "description": "Zwiększa fortel o 3.",
     "requirements": [],
     "price": 15,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1P004QNFZPN0BS9G2",
@@ -1237,9 +1077,7 @@
     "description": "Zwiększa fortel o 4.",
     "requirements": [],
     "price": 19,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1MG31028DFX6TANG8",
@@ -1248,9 +1086,7 @@
     "description": "Za wygrany test fechtunku lub fortelu bonus 3 redukcji na następny atak względem przeciwnika który przegrał test.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1YWSR6P92NYZJFVRT",
@@ -1259,9 +1095,7 @@
     "description": "Za wygrany test fechtunku lub fortelu bonus 4 redukcji na następny atak względem przeciwnika który przegrał test.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1MR56DVJQBW9Y8BS6",
@@ -1270,9 +1104,7 @@
     "description": "Za wygrany test fechtunku lub fortelu bonus 5 redukcji na następny atak względem przeciwnika który przegrał test.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW1XPA90VJ0YH0JQKWV",
@@ -1281,9 +1113,7 @@
     "description": "Za wygrany test fechtunku lub fortelu bonus 6 redukcji na następny atak względem przeciwnika który przegrał test.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2FATHDYQ43WXATF6V",
@@ -1292,9 +1122,7 @@
     "description": "Zwiększa fortel o 1, zmniejsza fechtunek o 1.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2RM6HAE1AB919V0BM",
@@ -1303,9 +1131,7 @@
     "description": "Zwiększa fortel o 2, zmniejsza fechtunek o 1.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2083JTCDHH3MRYH5Y",
@@ -1314,9 +1140,7 @@
     "description": "Zwiększa fortel o 3, zmniejsza fechtunek o 2.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW21MRC7PZ92ATN0W0T",
@@ -1325,9 +1149,7 @@
     "description": "Zwiększa fortel o 4, zmniejsza fechtunek o 3.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW22S9837YYM8M31DQC",
@@ -1336,9 +1158,7 @@
     "description": "Zwiększa fechtunek o 1, zmniejsza fortel o 1.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW24PE95YAGWEBHKQ0C",
@@ -1347,9 +1167,7 @@
     "description": "Zwiększa fechtunek o 2, zmniejsza fortel o 2.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2818GJVK5DK182D5Y",
@@ -1358,9 +1176,7 @@
     "description": "Zwiększa fechtunek o 3, zmniejsza fortel o 4.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2RSK87CS1FS6TGF92",
@@ -1369,9 +1185,7 @@
     "description": "Zwiększa fechtunek o 4, zmniejsza fortel o 6.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW22VRM7FHM7CTRKN8H",
@@ -1380,9 +1194,7 @@
     "description": "Wygranie czterech testów spornych fechtunku lub fortelu z rzędu z wybranym przeciwnikiem powoduje zwiększenie ilości kości broni o 1 przeciwko temu przeciwnikowi.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW24SK0FQ5HKPEZY2XY",
@@ -1391,9 +1203,7 @@
     "description": "Wygranie trzech testów spornych fechtunku lub fortelu z rzędu z wybranym przeciwnikiem powoduje zwiększenie ilości kości broni o 1 przeciwko temu przeciwnikowi.",
     "requirements": [],
     "price": 16,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2WEEKXX3NAK7XWH5H",
@@ -1402,9 +1212,7 @@
     "description": "Wygranie czterech lub trzech z rzędu testów spornych fechtunku lub fortelu z wybranym przeciwnikiem powoduje zwiększenie ilości kości broni o 1 przeciwko temu przeciwnikowi.",
     "requirements": [],
     "price": 12,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2Y6JNEBFMVMY3XVB9",
@@ -1413,9 +1221,7 @@
     "description": "Zwiększa fechtunek i fortel o 1.",
     "requirements": [],
     "price": 6,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2BJZMW489H32RY8KB",
@@ -1424,9 +1230,7 @@
     "description": "Zwiększa fechtunek i fortel o 2.",
     "requirements": [],
     "price": 18,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2H198K9KYW6SWTS7V",
@@ -1435,9 +1239,7 @@
     "description": "Zwiększa fechtunek i fortel o 3.",
     "requirements": [],
     "price": 21,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2R1AJHY5AF5H22D1V",
@@ -1446,9 +1248,7 @@
     "description": "Zwiększa fechtunek i fortel o 4.",
     "requirements": [],
     "price": 27,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW26GV1V0GV0SFQ8MBV",
@@ -1457,9 +1257,7 @@
     "description": "Zwiększa fortel o 2, zmniejsza refleks o 1.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2XJFS6VK6KQAJGH59",
@@ -1468,9 +1266,7 @@
     "description": "Zwiększa fortel o 3, zmniejsza refleks o 2, dodaje 1 obrażeń.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2K1TJSKTR29XPHRP2",
@@ -1479,9 +1275,7 @@
     "description": "Zwiększa fortel o 4, zmniejsza refleks o 3, dodaje 2 obrażeń.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2JDZRXD3R50Z0V8BN",
@@ -1490,9 +1284,7 @@
     "description": "Zwiększa fortel o 5, zmniejsza refleks o 4, dodaje 3 obrażeń.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW25F4ZRDB3SJNRGESG",
@@ -1501,9 +1293,7 @@
     "description": "Za każdy wygrany test fechtunku lub fortelu bonus 1 redukcji na stałe względem 1 przeciwnika który przegrał test (bonus maksymalnie względem jednego) maks. 4 redukcji. Wytrącenie z postawy usuwa postęp.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2Z4KNMEQWTFCYTQJ8",
@@ -1512,9 +1302,7 @@
     "description": "Za każdy wygrany test fechtunku lub fortelu bonus 1 redukcji na stałe względem 1 przeciwnika który przegrał test (bonus maksymalnie względem jednego) maks. 6 redukcji. Wytrącenie z postawy usuwa postęp.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2RBMP1949HKEQKMPB",
@@ -1523,9 +1311,7 @@
     "description": "Za każdy wygrany test fechtunku lub fortelu bonus 1 redukcji na stałe względem 1 przeciwnika który przegrał test (bonus maksymalnie względem jednego) maks. 8 redukcji. Wytrącenie z postawy usuwa postęp.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "umiejętności-bojowe"
-    ]
+    "tags": "styl-walki"
   },
   {
     "id": "01K9Z6YJW2N20CZYJGAGAXFJMV",
@@ -1534,9 +1320,7 @@
     "description": "Zwiększa o 1 rangę kości broni.",
     "requirements": [],
     "price": 12,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW26CAS5TFZ242TPF1Z",
@@ -1545,9 +1329,7 @@
     "description": "Zwiększa o 2 rangę kości broni.",
     "requirements": [],
     "price": 15,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2XCKHKBMEMXYDAZC6",
@@ -1556,9 +1338,7 @@
     "description": "Zwiększa o 3 rangę kości broni.",
     "requirements": [],
     "price": 15,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW26EM22PK91QB47ERH",
@@ -1567,9 +1347,7 @@
     "description": "Zwiększa o 4 rangę kości broni.",
     "requirements": [],
     "price": 45,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW27CSTT407P20QJ7QC",
@@ -1578,9 +1356,7 @@
     "description": "Zwiększa o 2 zasięg kości obrażeń.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW28D4F21BZ0F3312BH",
@@ -1589,9 +1365,7 @@
     "description": "Zwiększa o 4 zasięg kości obrażeń.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2D95043R72S1YVFBH",
@@ -1600,9 +1374,7 @@
     "description": "Zwiększa o 6 zasięg kości obrażeń.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW24JHDYX76ZBCWEETD",
@@ -1611,9 +1383,7 @@
     "description": "Zwiększa o 8 zasięg kości obrażeń.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2ZNVY8J8ZYR2C18F4",
@@ -1622,9 +1392,7 @@
     "description": "Dodaje dmg +3, zasięg trafień krytycznych +1, siły uderzenia krytycznego +2, redukcji +2.",
     "requirements": [],
     "price": 121,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW20RJMA79Z47CGAPW8",
@@ -1633,9 +1401,7 @@
     "description": "Zwiększa obrażenia o 1, zmniejsza redukcję o 1.",
     "requirements": [],
     "price": 1,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2W8F53JT35EM3NKP1",
@@ -1644,9 +1410,7 @@
     "description": "Zwiększa obrażenia o 2, zmniejsza redukcję o 2.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2J48K2SQHH2R9ZRVH",
@@ -1655,9 +1419,7 @@
     "description": "Zwiększa obrażenia o 4, zmniejsza redukcję o 3.",
     "requirements": [],
     "price": 7,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2DAT5HR6DD7DM6VE5",
@@ -1666,9 +1428,7 @@
     "description": "Zwiększa obrażenia o 6, zmniejsza redukcję o 4.",
     "requirements": [],
     "price": 10,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW28P021GQFHKXTK7NN",
@@ -1679,9 +1439,7 @@
       "specjalne"
     ],
     "price": 12,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2V7XTJJ1J5C07Q00G",
@@ -1692,9 +1450,7 @@
       "specjalne"
     ],
     "price": 15,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2TF3XX4QPB3K9DJ9C",
@@ -1703,9 +1459,7 @@
     "description": "Dodaje 1 do testów siłowych.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2DP9VYVBDKPH4VNXH",
@@ -1714,9 +1468,7 @@
     "description": "Dodaje 2 do testów siłowych.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2JYHP3W3893SC16MH",
@@ -1725,9 +1477,7 @@
     "description": "Dodaje 3 do testów siłowych.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW2ZMPGTWPFW7M3XA79",
@@ -1736,9 +1486,7 @@
     "description": "Dodaje 4 do testów siłowych.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW31GZA04KW288V51GY",
@@ -1747,9 +1495,7 @@
     "description": "Dodaje kość broni, wszystkie obrażenia które zostaną zadane użytkownikowi postawy mnożone są razy 1, 5.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW3S40PT5QYWVB97K0Z",
@@ -1758,9 +1504,7 @@
     "description": "Możesz atakować 1cel/bazową kość broni (max 2). Nie można używać manewrów i innych postaw.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW36MT3MZ18WBWCP1HY",
@@ -1769,9 +1513,7 @@
     "description": "Możesz atakować 1cel/bazową kość broni (max 3). Nie można używać manewrów i innych postaw.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW3DMHMEG3YQN61RPKC",
@@ -1780,9 +1522,7 @@
     "description": "Możesz atakować 1cel/bazową kość broni (max 4). Nie można używać manewrów i innych postaw.",
     "requirements": [],
     "price": 4,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW37D58YYA3A22TBFW1",
@@ -1791,9 +1531,7 @@
     "description": "Możesz atakować 1cel/bazową kość broni (max 5). Nie można używać manewrów i innych postaw.",
     "requirements": [],
     "price": 9,
-    "tags": [
-      "ofensywny"
-    ]
+    "tags": "atak"
   },
   {
     "id": "01K9Z6YJW3FP3EC0E0S9KXD328",
@@ -1987,9 +1725,7 @@
     "description": "Atakujący przeciwnik traci 1 inicjatywy. Co turę zmniejsza incjatywę o 1.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW36J4E665FTBGNDHZG",
@@ -1998,9 +1734,7 @@
     "description": "Atakujący przeciwnik traci 2 inicjatywy. Co turę zmniejsza incjatywę o 2.",
     "requirements": [],
     "price": 9,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3P24NQ7G1RXCA8ZCD",
@@ -2009,9 +1743,7 @@
     "description": "Atakujący przeciwnik traci 3 inicjatywy. Co turę zmniejsza incjatywę o 2.",
     "requirements": [],
     "price": 27,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3C6JZ6ZV0WXTE3WZC",
@@ -2020,9 +1752,7 @@
     "description": "Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 1. Dodaje +1 siłę krytyka i +1 zasięg krytyka.",
     "requirements": [],
     "price": 9,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3WBVNB002E3J1S199",
@@ -2031,9 +1761,7 @@
     "description": "Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 2. Dodaje +2 siłę krytyka i +2 zasięg krytyka.",
     "requirements": [],
     "price": 18,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3X1613630AJ0JQ5QB",
@@ -2042,9 +1770,7 @@
     "description": "Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 3. Dodaje +3 siłę krytyka i +3 zasięg krytyka.",
     "requirements": [],
     "price": 27,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW31FRJ81AX9Y4R0P2F",
@@ -2053,9 +1779,7 @@
     "description": "Zmniejsza inicjatywe o 3, co turę zwiększa inicjatywę o 1.",
     "requirements": [],
     "price": 3,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3RX4NFDRJCXDZ26AK",
@@ -2064,9 +1788,7 @@
     "description": "Zmniejsza inicjatywe o 2, co turę zwiększa inicjatywę o 1.",
     "requirements": [],
     "price": 6,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW347WC7DJ7FJG3DCMT",
@@ -2075,9 +1797,7 @@
     "description": "Zmniejsza inicjatywe o 2, co turę zwiększa inicjatywę o 2.",
     "requirements": [],
     "price": 18,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3PF09R5JB1K4G342Z",
@@ -2086,9 +1806,7 @@
     "description": "Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 1. Dodaje +1 fechtunek i +1 fortel.",
     "requirements": [],
     "price": 6,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3QH3GKV4N6YB1VWJT",
@@ -2097,9 +1815,7 @@
     "description": "Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 2. Dodaje +2 fechtunek i +2 fortel.",
     "requirements": [],
     "price": 9,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW34SHHANFVYJ5C861J",
@@ -2108,9 +1824,7 @@
     "description": "Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 3. Dodaje +3 fechtunek i +3 fortel.",
     "requirements": [],
     "price": 21,
-    "tags": [
-      "inicjatywa"
-    ]
+    "tags": "inicjatywa"
   },
   {
     "id": "01K9Z6YJW3NQQZVEJ58V3NYBP4",
