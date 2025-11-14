@@ -1,47 +1,47 @@
 [
   {
     "id": "01K9Z6YJJBEE6K7KBW72XN6WCE",
-    "name": "├ôsme Poty",
+    "name": "Ósme Poty",
     "grade": 1,
-    "description": "Otrzymuj─ůc ciosy od walki wr─Öcz, walczysz do -6pw.",
+    "description": "Otrzymując ciosy od walki wręcz, walczysz do -6pw.",
     "requirements": [
-      "Walka Wr─Öcz 4"
+      "Walka Wręcz 4"
     ],
     "price": 4,
     "tags": []
   },
   {
     "id": "01K9Z6YHWZHFWP3NVE4KWZFJV7",
-    "name": "┼╗─ůdza Krwii",
+    "name": "Żądza Krwii",
     "grade": 1,
-    "description": "Po zabitym przeciwniku dostajesz +1dmg do ko┼äca walki (max +2).",
+    "description": "Po zabitym przeciwniku dostajesz +1dmg do końca walki (max +2).",
     "requirements": [],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YJJA19JRMK8F64CVH74S",
-    "name": "┼╗elazne r─Ökawice",
+    "name": "Żelazne rękawice",
     "grade": 1,
-    "description": "dmg k6, +1dmg, -3 si┼éa krytyka, +1 Walka Wr─Öcz. Walka Wr─Öcz.",
+    "description": "dmg k6, +1dmg, -3 siła krytyka, +1 Walka Wręcz. Walka Wręcz.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBCJEV0HTCS9YQVW52",
-    "name": "┼╗elazne r─Ökawice",
+    "name": "Żelazne rękawice",
     "grade": 1,
-    "description": "dmg k6, +1dmg, -3 si┼éa krytyka, +1 Walka Wr─Öcz. Walka Wr─Öcz.",
+    "description": "dmg k6, +1dmg, -3 siła krytyka, +1 Walka Wręcz. Walka Wręcz.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YHX1SGBEGGVNYVTETFW6",
-    "name": "┼╗ywa Nadzieja",
+    "name": "Żywa Nadzieja",
     "grade": 1,
-    "description": "Zakl─Öcia samonaprawadzaj─ůce u┼╝yte przeciw podmiotowi, s─ů atakami dystansowymi z precyzj─ů +8.",
+    "description": "Zaklęcia samonaprawadzające użyte przeciw podmiotowi, są atakami dystansowymi z precyzją +8.",
     "requirements": [
       "Bazowy Refleks 5"
     ],
@@ -50,11 +50,11 @@
   },
   {
     "id": "01K9Z6YHX2XCGCQ42W6PEVPA8J",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 1,
     "description": "Dodaje 10hp i 1 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 1",
+      "Bazowa Wytrwałość 1",
       "Bd -4"
     ],
     "price": 6,
@@ -62,11 +62,11 @@
   },
   {
     "id": "01K9Z6YHX2EDWVGZZD24CE2H0C",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 2,
     "description": "Dodaje 20hp i 2 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 3",
+      "Bazowa Wytrwałość 3",
       "Bd 0"
     ],
     "price": 12,
@@ -74,11 +74,11 @@
   },
   {
     "id": "01K9Z6YHX2FTATFP2M10FHDE4P",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 3,
     "description": "Dodaje 30hp i 3 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 4",
+      "Bazowa Wytrwałość 4",
       "Bd 2"
     ],
     "price": 27,
@@ -86,11 +86,11 @@
   },
   {
     "id": "01K9Z6YHX2BKFRJQC47DY5BCZG",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 4,
     "description": "Dodaje 40hp i 4 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 5",
+      "Bazowa Wytrwałość 5",
       "Bd 4"
     ],
     "price": 30,
@@ -98,11 +98,11 @@
   },
   {
     "id": "01K9Z6YHX2CZAYDCY1DZJDQ9GT",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 5,
     "description": "Dodaje 50hp i 5 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 6",
+      "Bazowa Wytrwałość 6",
       "Bd 6"
     ],
     "price": 30,
@@ -110,11 +110,11 @@
   },
   {
     "id": "01K9Z6YHX2RZ5HAY3EEE9JQV09",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 6,
     "description": "Dodaje 60hp i 6 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 7",
+      "Bazowa Wytrwałość 7",
       "Bd 8"
     ],
     "price": 36,
@@ -122,11 +122,11 @@
   },
   {
     "id": "01K9Z6YHX2J824M0A11T5NH01A",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 7,
     "description": "Dodaje 70hp i 7 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 8",
+      "Bazowa Wytrwałość 8",
       "Bd 10"
     ],
     "price": 36,
@@ -134,11 +134,11 @@
   },
   {
     "id": "01K9Z6YHX2VA5N88Q3DP28EHRD",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 8,
     "description": "Dodaje 80hp i 8 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 10",
+      "Bazowa Wytrwałość 10",
       "Bd 11"
     ],
     "price": 36,
@@ -146,11 +146,11 @@
   },
   {
     "id": "01K9Z6YHX25VS5QCBKJCPJZ4GR",
-    "name": "┼╗ywotno┼Ť─ç",
+    "name": "Żywotność",
     "grade": 9,
     "description": "Dodaje 90hp i 9 poziomu leczenia.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 12",
+      "Bazowa Wytrwałość 12",
       "Bd 12"
     ],
     "price": 36,
@@ -158,140 +158,140 @@
   },
   {
     "id": "01K9Z6YHX2HS1PERZDZXTBH4YX",
-    "name": "┼╗ywotny organizm",
+    "name": "Żywotny organizm",
     "grade": 1,
     "description": "Dodaje 1 poziomu leczenia.",
     "requirements": [
-      "┼╗ywotno┼Ť─ç 2"
+      "Żywotność 2"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3JFWPTZFN8M9HC2YV",
-    "name": "┼╗ywotny organizm",
+    "name": "Żywotny organizm",
     "grade": 2,
     "description": "Dodaje 2 poziomu leczenia.",
     "requirements": [
-      "┼╗ywotny organizm 2",
-      "┼╗ywotno┼Ť─ç 3"
+      "Żywotny organizm 2",
+      "Żywotność 3"
     ],
     "price": 10,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3JAW2MYXKAS09XJ59",
-    "name": "┼╗ywotny organizm",
+    "name": "Żywotny organizm",
     "grade": 3,
     "description": "Dodaje 3 poziomu leczenia.",
     "requirements": [
-      "┼╗ywotny organizm 3",
-      "┼╗ywotno┼Ť─ç 4"
+      "Żywotny organizm 3",
+      "Żywotność 4"
     ],
     "price": 10,
     "tags": []
   },
   {
     "id": "01K9Z6YJVVQSF1G1DDM9X82ZRX",
-    "name": "┼╣r├│d┼éo Harmonii",
+    "name": "Źródło Harmonii",
     "grade": 1,
-    "description": "Dodaje 5 Punkt├│w Harmonii.",
+    "description": "Dodaje 5 Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Harmonia 1",
-      "Wi─Öksza Wola 2"
+      "Większa Harmonia 1",
+      "Większa Wola 2"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV4RM4KYT0FNGA5SQX",
-    "name": "┼╣r├│d┼éo Harmonii",
+    "name": "Źródło Harmonii",
     "grade": 2,
-    "description": "Dodaje 10 Punkt├│w Harmonii.",
+    "description": "Dodaje 10 Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Harmonia 3",
-      "Wi─Öksza Wola 3"
+      "Większa Harmonia 3",
+      "Większa Wola 3"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV8W729TJRNKXYN7HP",
-    "name": "┼╣r├│d┼éo Harmonii",
+    "name": "Źródło Harmonii",
     "grade": 3,
-    "description": "Dodaje 20 Punkt├│w Harmonii.",
+    "description": "Dodaje 20 Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Harmonia 5",
-      "Wi─Öksza Wola 4"
+      "Większa Harmonia 5",
+      "Większa Wola 4"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YJVVRGDWH0KB19W0N2MT",
-    "name": "┼╣r├│d┼éo Harmonii",
+    "name": "Źródło Harmonii",
     "grade": 4,
-    "description": "Dodaje 30 Punkt├│w Harmonii.",
+    "description": "Dodaje 30 Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Harmonia 7",
-      "Wi─Öksza Wola 5"
+      "Większa Harmonia 7",
+      "Większa Wola 5"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YJVVRH5C5GYHA9X0Q4JG",
-    "name": "┼╣r├│d┼éo Harmonii",
+    "name": "Źródło Harmonii",
     "grade": 5,
-    "description": "Dodaje 40 Punkt├│w Harmonii.",
+    "description": "Dodaje 40 Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Harmonia 9",
-      "Wi─Öksza Wola 6"
+      "Większa Harmonia 9",
+      "Większa Wola 6"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YJVVN01YGMMT5JJFY2ZG",
-    "name": "┼╣r├│d┼éo Harmonii",
+    "name": "Źródło Harmonii",
     "grade": 6,
-    "description": "Dodaje 50 Punkt├│w Harmonii.",
+    "description": "Dodaje 50 Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Harmonia 11",
-      "Wi─Öksza Wola 7"
+      "Większa Harmonia 11",
+      "Większa Wola 7"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3RWYT2EW6MNKQERDB",
-    "name": "┼Ümia┼éy Okrzyk",
+    "name": "┼Ümiały Okrzyk",
     "grade": 1,
-    "description": "Dodaje +1 do rzut├│w spornych okrzyk├│w.",
+    "description": "Dodaje +1 do rzutów spornych okrzyków.",
     "requirements": [
-      "Ilo┼Ť─ç okrzyk├│w 1"
+      "Ilość okrzyków 1"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3QGGDTN980FBKRVEH",
-    "name": "┼Ümia┼éy Okrzyk",
+    "name": "┼Ümiały Okrzyk",
     "grade": 2,
-    "description": "Dodaje +2 do rzut├│w spornych okrzyk├│w.",
+    "description": "Dodaje +2 do rzutów spornych okrzyków.",
     "requirements": [
-      "Ilo┼Ť─ç okrzyk├│w 2"
+      "Ilość okrzyków 2"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX37WQ955NK8QND997S",
-    "name": "┼Ümia┼éy Okrzyk",
+    "name": "┼Ümiały Okrzyk",
     "grade": 3,
-    "description": "Dodaje +3 do rzut├│w spornych okrzyk├│w.",
+    "description": "Dodaje +3 do rzutów spornych okrzyków.",
     "requirements": [
-      "Ilo┼Ť─ç okrzyk├│w 2 i okrzyk 3 poziomu"
+      "Ilość okrzyków 2 i okrzyk 3 poziomu"
     ],
     "price": 18,
     "tags": []
@@ -309,23 +309,23 @@
   },
   {
     "id": "01K9Z6YHX3D5X0HQRKEWZPJ9TY",
-    "name": "Balans w walce jedn─ů broni─ů",
+    "name": "Balans w walce jedną bronią",
     "grade": 1,
-    "description": "Zmniejsza o 1 kar─Ö refleksu za u┼╝ywanie zbroi.",
+    "description": "Zmniejsza o 1 karę refleksu za używanie zbroi.",
     "requirements": [
-      "Lekka lub ┼Ťrednia zbroja"
+      "Lekka lub średnia zbroja"
     ],
     "price": 4,
     "tags": []
   },
   {
     "id": "01K9Z6YHX31ED341T7YQGJKBQS",
-    "name": "Balans w walce jedn─ů broni─ů",
+    "name": "Balans w walce jedną bronią",
     "grade": 2,
-    "description": "Zmniejsza o 2 kar─Ö refleksu za u┼╝ywanie zbroi.",
+    "description": "Zmniejsza o 2 karę refleksu za używanie zbroi.",
     "requirements": [
-      "Balans w walce jedn─ů broni─ů 1",
-      "lekka lub ┼Ťrednia zbroja"
+      "Balans w walce jedną bronią 1",
+      "lekka lub średnia zbroja"
     ],
     "price": 6,
     "tags": []
@@ -428,35 +428,35 @@
   },
   {
     "id": "01K9Z6YJVVCNAD8EW8J8DXV6P8",
-    "name": "Cia┼éo Umys┼éem",
+    "name": "Ciało Umysłem",
     "grade": 1,
-    "description": "Dodaje po┼éowe  Md do zr─Öczno┼Ťci wzgl─Ödem unik├│w.",
+    "description": "Dodaje połowe  Md do zręczności względem uników.",
     "requirements": [
-      "Wi─Öksza Harmonia 7"
+      "Większa Harmonia 7"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV1T8XKYFH6WJ0PK0R",
-    "name": "Cia┼éo Umys┼éem",
+    "name": "Ciało Umysłem",
     "grade": 2,
-    "description": "Dodaje  Md do zr─Öczno┼Ťci wzgl─Ödem unik├│w.",
+    "description": "Dodaje  Md do zręczności względem uników.",
     "requirements": [
-      "Cia┼éo Umys┼éem 1",
-      "Wi─Öksza Harmonia 9"
+      "Ciało Umysłem 1",
+      "Większa Harmonia 9"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV1BPDS36K1MXDE6GB",
-    "name": "Cia┼éo Umys┼éem",
+    "name": "Ciało Umysłem",
     "grade": 3,
-    "description": "Dodaje p├│┼étorej  Md do zr─Öczno┼Ťci wzgl─Ödem unik├│w.",
+    "description": "Dodaje półtorej  Md do zręczności względem uników.",
     "requirements": [
-      "Cia┼éo Umys┼éem 2",
-      "Wi─Öksza Harmonia 11"
+      "Ciało Umysłem 2",
+      "Większa Harmonia 11"
     ],
     "price": 9,
     "tags": []
@@ -465,9 +465,9 @@
     "id": "01K9Z6YJJBM03Y83NTQ8VD80BS",
     "name": "Cios za ciosem",
     "grade": 1,
-    "description": "Wyrzucaj─ůc dublet na ko┼Ťciach broni walki wr─Öcz dodatkowo otrzymujesz ko┼Ť─ç obra┼╝e┼ä k4.",
+    "description": "Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k4.",
     "requirements": [
-      "Walka Wr─Öcz 4"
+      "Walka Wręcz 4"
     ],
     "price": 3,
     "tags": []
@@ -476,9 +476,9 @@
     "id": "01K9Z6YJJBPP8M6AWVQ5DG8VHH",
     "name": "Cios za ciosem",
     "grade": 2,
-    "description": "Wyrzucaj─ůc dublet na ko┼Ťciach broni walki wr─Öcz dodatkowo otrzymujesz ko┼Ť─ç obra┼╝e┼ä k6.",
+    "description": "Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k6.",
     "requirements": [
-      "Walka Wr─Öcz 5"
+      "Walka Wręcz 5"
     ],
     "price": 4,
     "tags": []
@@ -487,9 +487,9 @@
     "id": "01K9Z6YJJBBCG5G340E5V3DW99",
     "name": "Cios za ciosem",
     "grade": 3,
-    "description": "Wyrzucaj─ůc dublet na ko┼Ťciach broni walki wr─Öcz dodatkowo otrzymujesz ko┼Ť─ç obra┼╝e┼ä k8.",
+    "description": "Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k8.",
     "requirements": [
-      "Walka Wr─Öcz 7"
+      "Walka Wręcz 7"
     ],
     "price": 4,
     "tags": []
@@ -510,9 +510,9 @@
     "id": "01K9Z6YJVVGPTZ6DNSD10K5ZH0",
     "name": "Czujny Sen",
     "grade": 1,
-    "description": "Technika ta pozwala podczas snu zachowa─ç wzmo┼╝on─ů czujno┼Ť─ç, bardzo ┼éatwo wyj┼Ť─ç ze snu, zareagowa─ç na d┼║wi─Öki uznawane przez nasz umys┼é za niebezpieczne oraz pr─Ödko┼Ť─ç reakcji i aktywno┼Ť─ç cia┼éa i umys┼éu s─ů wzmorzone zaraz po przebudzeniu. U┼╝ytkownik tej techniki jest jednak czasem nara┼╝ony na czeste przebudzenia co mo┼╝e skutkowa─ç niewyspaniem lub przed┼éu┼╝onym snem. Mo┼╝na stosowa─ç bez skutk├│w ubocznych raz na trzy dni.",
+    "description": "Technika ta pozwala podczas snu zachować wzmożoną czujność, bardzo łatwo wyjść ze snu, zareagować na dźwięki uznawane przez nasz umysł za niebezpieczne oraz prędkość reakcji i aktywność ciała i umysłu są wzmorzone zaraz po przebudzeniu. Użytkownik tej techniki jest jednak czasem narażony na czeste przebudzenia co może skutkować niewyspaniem lub przedłużonym snem. Można stosować bez skutków ubocznych raz na trzy dni.",
     "requirements": [
-      "Wi─Öksza Harmonia 5"
+      "Większa Harmonia 5"
     ],
     "price": 2,
     "tags": []
@@ -531,44 +531,44 @@
   },
   {
     "id": "01K9Z6YJJBX9P3PCZ4HMSEBM67",
-    "name": "Defensywna walka wr─Öcz",
+    "name": "Defensywna walka wręcz",
     "grade": 1,
-    "description": "Dodaje 1 redukcji z parowania walcz─ůc wr─Öcz przeciwko przeciwnikowi u┼╝ywaj─ůcemu walki wr─Öcz.",
+    "description": "Dodaje 1 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 3"
+      "Walka Wręcz 3"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBC2TD48D4XX4VX3A9",
-    "name": "Defensywna walka wr─Öcz",
+    "name": "Defensywna walka wręcz",
     "grade": 2,
-    "description": "Dodaje 2 redukcji z parowania walcz─ůc wr─Öcz przeciwko przeciwnikowi u┼╝ywaj─ůcemu walki wr─Öcz.",
+    "description": "Dodaje 2 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 4"
+      "Walka Wręcz 4"
     ],
     "price": 4,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB886FRNM094BEM281",
-    "name": "Defensywna walka wr─Öcz",
+    "name": "Defensywna walka wręcz",
     "grade": 3,
-    "description": "Dodaje 3 redukcji z parowania walcz─ůc wr─Öcz przeciwko przeciwnikowi u┼╝ywaj─ůcemu walki wr─Öcz.",
+    "description": "Dodaje 3 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 5"
+      "Walka Wręcz 5"
     ],
     "price": 4,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB2Y9F94R0K157JT7R",
-    "name": "Defensywna walka wr─Öcz",
+    "name": "Defensywna walka wręcz",
     "grade": 4,
-    "description": "Dodaje 4 redukcji z parowania walcz─ůc wr─Öcz przeciwko przeciwnikowi u┼╝ywaj─ůcemu walki wr─Öcz.",
+    "description": "Dodaje 4 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 7"
+      "Walka Wręcz 7"
     ],
     "price": 4,
     "tags": []
@@ -613,7 +613,7 @@
     "id": "01K9Z6YHX2JV7YHT76JWEGFB3A",
     "name": "Determinacja",
     "grade": 1,
-    "description": "Dodaje +1 do test├│w woli.",
+    "description": "Dodaje +1 do testów woli.",
     "requirements": [
       "Bazowa Wola 3"
     ],
@@ -624,7 +624,7 @@
     "id": "01K9Z6YHX2M0WMB7XJV53PG30V",
     "name": "Determinacja",
     "grade": 2,
-    "description": "Dodaje +2 do test├│w woli.",
+    "description": "Dodaje +2 do testów woli.",
     "requirements": [
       "Determinacja 1",
       "Bazowa Wola 4"
@@ -634,11 +634,11 @@
   },
   {
     "id": "01K9Z6YJJBZTZ3NMY6XAEX3T8W",
-    "name": "Do┼Ťwiadczony Walczak",
+    "name": "Doświadczony Walczak",
     "grade": 1,
-    "description": "Dodaje 1 do test├│w walki wr─Öcz.",
+    "description": "Dodaje 1 do testów walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 5"
+      "Walka Wręcz 5"
     ],
     "price": 4,
     "tags": []
@@ -670,7 +670,7 @@
     "id": "01K9Z6YHWYJCEZH3R77YMTT20P",
     "name": "Dublet",
     "grade": 1,
-    "description": "Je┼Ťli wyrzucisz dwa takie same oczka na wybranych dw├│ch ko┼Ťciach broni dodajesz dodatkowo 1 obra┼╝enie.",
+    "description": "Jeśli wyrzucisz dwa takie same oczka na wybranych dwóch kościach broni dodajesz dodatkowo 1 obrażenie.",
     "requirements": [
       "Zr 2"
     ],
@@ -681,7 +681,7 @@
     "id": "01K9Z6YHWYYXNR2DKEHTXXH53F",
     "name": "Dublet",
     "grade": 2,
-    "description": "Je┼Ťli wyrzucisz co najmniej dwa takie same oczka na wybranych dw├│ch lub trzech ko┼Ťciach broni dodajesz dodatkowo 2 obra┼╝enia.",
+    "description": "Jeśli wyrzucisz co najmniej dwa takie same oczka na wybranych dwóch lub trzech kościach broni dodajesz dodatkowo 2 obrażenia.",
     "requirements": [
       "Dublet 1",
       "Zr 3"
@@ -693,7 +693,7 @@
     "id": "01K9Z6YHWYP00YT9N1MR8BFHZH",
     "name": "Dublet",
     "grade": 3,
-    "description": "Jesli wyrzucisz co najmniej dwa take same oczka na wybranych dw├│ch lub trzech ko┼Ťciach broni dodajesz dodatkowo 3 obra┼╝enia.",
+    "description": "Jesli wyrzucisz co najmniej dwa take same oczka na wybranych dwóch lub trzech kościach broni dodajesz dodatkowo 3 obrażenia.",
     "requirements": [
       "Dublet 2",
       "Zr 4"
@@ -703,22 +703,22 @@
   },
   {
     "id": "01K9Z6YJVV9WRR0416K1FT6XK0",
-    "name": "Dusza Pokarmem Cia┼éa",
+    "name": "Dusza Pokarmem Ciała",
     "grade": 1,
-    "description": "Medytuj─ůc otrzymuje si─Ö +1 do test├│w przeciwko d┼éugotrwa┼éym wp┼éywom takim jak: choroby, toksyny, kl─ůtwy i podobne wp┼éywy.",
+    "description": "Medytując otrzymuje się +1 do testów przeciwko długotrwałym wpływom takim jak: choroby, toksyny, klątwy i podobne wpływy.",
     "requirements": [
-      "Wi─Öksza Harmonia 5"
+      "Większa Harmonia 5"
     ],
     "price": 2,
     "tags": []
   },
   {
     "id": "01K9Z6YJVVNAB8A77NFH7JJ7E2",
-    "name": "Dusza Pokarmem Cia┼éa",
+    "name": "Dusza Pokarmem Ciała",
     "grade": 2,
-    "description": "Medytuj─ůc otrzymuje si─Ö +2 do test├│w przeciwko d┼éugotrwa┼éym wp┼éywom takim jak: choroby, toksyny, kl─ůtwy i podobne wp┼éywy.",
+    "description": "Medytując otrzymuje się +2 do testów przeciwko długotrwałym wpływom takim jak: choroby, toksyny, klątwy i podobne wpływy.",
     "requirements": [
-      "Wi─Öksza Harmonia 7"
+      "Większa Harmonia 7"
     ],
     "price": 3,
     "tags": []
@@ -727,7 +727,7 @@
     "id": "01K9Z6YHX2SW3EN5RF5HFHQ0HJ",
     "name": "Dynamika",
     "grade": 1,
-    "description": "Je┼Ťli masz tak─ů sam─ů inicjatyw─Ö jak przeciwnik wykonujesz akcje przed przeciwnikiem. Je┼Ťli przeciwnik r├│wnie┼╝ ma ten atut, roztrzygni─Öcie kolejno┼Ťci jest losowe.",
+    "description": "Jeśli masz taką samą inicjatywę jak przeciwnik wykonujesz akcje przed przeciwnikiem. Jeśli przeciwnik również ma ten atut, roztrzygnięcie kolejności jest losowe.",
     "requirements": [
       "Bazowy Inicjatywa 3"
     ],
@@ -736,22 +736,22 @@
   },
   {
     "id": "01K9Z6YJJB5SXPYTQBDBRHHCS3",
-    "name": "Dziesi─ůte Poty",
+    "name": "Dziesiąte Poty",
     "grade": 1,
-    "description": "Otrzymuj─ůc ciosy od walki wr─Öcz, walczysz do -12pw.",
+    "description": "Otrzymując ciosy od walki wręcz, walczysz do -12pw.",
     "requirements": [
-      "Walka Wr─Öcz 7"
+      "Walka Wręcz 7"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB0ZYT1RVBBB9PRJ7F",
-    "name": "Dziewi─ůte Poty",
+    "name": "Dziewiąte Poty",
     "grade": 1,
-    "description": "Otrzymuj─ůc ciosy od walki wr─Öcz, walczysz do -9pw.",
+    "description": "Otrzymując ciosy od walki wręcz, walczysz do -9pw.",
     "requirements": [
-      "Walka Wr─Öcz 5"
+      "Walka Wręcz 5"
     ],
     "price": 5,
     "tags": []
@@ -771,9 +771,9 @@
     "id": "01K9Z6YHX37Q45BGGESRB6V0CX",
     "name": "Echo Okrzyku",
     "grade": 1,
-    "description": "Efekty okrzyk├│w trwaj─ů o 1 tur─Ö d┼éu┼╝ej.",
+    "description": "Efekty okrzyków trwają o 1 turę dłużej.",
     "requirements": [
-      "Ilo┼Ť─ç okrzyk├│w 1"
+      "Ilość okrzyków 1"
     ],
     "price": 1,
     "tags": []
@@ -782,9 +782,9 @@
     "id": "01K9Z6YHX3AZ11XYJKQ63SF74Z",
     "name": "Echo Okrzyku",
     "grade": 2,
-    "description": "Efekty okrzyk├│w trwaj─ů o 2 tury d┼éu┼╝ej.",
+    "description": "Efekty okrzyków trwają o 2 tury dłużej.",
     "requirements": [
-      "Ilo┼Ť─ç okrzyk├│w 2",
+      "Ilość okrzyków 2",
       "Echo Okrzyku 1"
     ],
     "price": 3,
@@ -794,9 +794,9 @@
     "id": "01K9Z6YHX3XMT57TGR07AYNEK1",
     "name": "Echo Okrzyku",
     "grade": 3,
-    "description": "Efekty okrzyk├│w trwaj─ů o 3 tury d┼éu┼╝ej.",
+    "description": "Efekty okrzyków trwają o 3 tury dłużej.",
     "requirements": [
-      "Ilo┼Ť─ç okrzyk├│w 2",
+      "Ilość okrzyków 2",
       "okrzyk 3 poziomu",
       "Echo Okrzyku 2"
     ],
@@ -807,9 +807,9 @@
     "id": "01K9Z6YHWX00G0MQT54BYTD4YR",
     "name": "Echo Postawy",
     "grade": 1,
-    "description": "Premia z poprzedniej postawy trwa dodatkowo 1 tur─Ö, je┼Ťli by┼ée┼Ť w tej postawie przynajmniej 3 tury.",
+    "description": "Premia z poprzedniej postawy trwa dodatkowo 1 turę, jeśli byłeś w tej postawie przynajmniej 3 tury.",
     "requirements": [
-      "Ilo┼Ť─ç Postaw 3"
+      "Ilość Postaw 3"
     ],
     "price": 12,
     "tags": []
@@ -818,10 +818,10 @@
     "id": "01K9Z6YHWXBJXNWX8CFY432R2A",
     "name": "Echo Postawy",
     "grade": 2,
-    "description": "Premia z poprzedniej postawy trwa dodatkowo 2 tury, je┼Ťli by┼ée┼Ť w tej postawie przynajmniej 3 tury.",
+    "description": "Premia z poprzedniej postawy trwa dodatkowo 2 tury, jeśli byłeś w tej postawie przynajmniej 3 tury.",
     "requirements": [
       "Echo Postawy 1",
-      "Ilo┼Ť─ç Postaw 4"
+      "Ilość Postaw 4"
     ],
     "price": 18,
     "tags": []
@@ -830,10 +830,10 @@
     "id": "01K9Z6YHWXVCXCZ9CQG259J5EE",
     "name": "Echo Postawy",
     "grade": 3,
-    "description": "Premia z poprzedniej postawy trwa dodatkowo 3 tury, je┼Ťli by┼ée┼Ť w tej postawie przynajmniej 3 tury.",
+    "description": "Premia z poprzedniej postawy trwa dodatkowo 3 tury, jeśli byłeś w tej postawie przynajmniej 3 tury.",
     "requirements": [
       "Echo Postawy 2",
-      "Ilo┼Ť─ç Postaw 5"
+      "Ilość Postaw 5"
     ],
     "price": 18,
     "tags": []
@@ -842,9 +842,9 @@
     "id": "01K9Z6YJVVXD1YJ8MGF3G0P9V5",
     "name": "Epicka Harmonia",
     "grade": 1,
-    "description": "Pozwala zamienia─ç 1Punkt Harmoni na 2pwT.",
+    "description": "Pozwala zamieniać 1Punkt Harmoni na 2pwT.",
     "requirements": [
-      "Wi─Öksza Harmonia 10"
+      "Większa Harmonia 10"
     ],
     "price": 0,
     "tags": []
@@ -853,18 +853,18 @@
     "id": "01K9Z6YHX2293JYNEXQ3NRHT85",
     "name": "Epicka Moc",
     "grade": 1,
-    "description": "Pozwala zamienia─ç 3esencji na 1pwT.",
+    "description": "Pozwala zamieniać 3esencji na 1pwT.",
     "requirements": [
-      "Wi─Öksza Moc 8"
+      "Większa Moc 8"
     ],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YHX25V7KJGM1F98ECSR0",
-    "name": "Epicka Waleczno┼Ť─ç",
+    "name": "Epicka Waleczność",
     "grade": 1,
-    "description": "Za ka┼╝de -1 do obra┼╝e┼ä dodaje +1 do redukcji zwi─ůzanej z atutem epickim. Max -10, +10.",
+    "description": "Za każde -1 do obrażeń dodaje +1 do redukcji związanej z atutem epickim. Max -10, +10.",
     "requirements": [
       "Epicki Atut"
     ],
@@ -875,9 +875,9 @@
     "id": "01K9Z6YHX25QPSXD513HPVFGXX",
     "name": "Epicka Wiara",
     "grade": 1,
-    "description": "Pozwala zamienia─ç 3esencji na 1pwT.",
+    "description": "Pozwala zamieniać 3esencji na 1pwT.",
     "requirements": [
-      "Wi─Öksza Wiara 10"
+      "Większa Wiara 10"
     ],
     "price": 0,
     "tags": []
@@ -886,7 +886,7 @@
     "id": "01K9Z6YHX2VJYEE9RY8DFRD2KP",
     "name": "Epicka Wola",
     "grade": 1,
-    "description": "Je┼Ťli obra┼╝enia zadane w zdrowie od jednego celu wynosz─ů 25+x, to dodaj redukcj─Ö r├│wn─ů min{x,wola}. ┼Ümiartelna walka przez +2 rundy.",
+    "description": "Jeśli obrażenia zadane w zdrowie od jednego celu wynoszą 25+x, to dodaj redukcję równą min{x,wola}. ┼Ümiartelna walka przez +2 rundy.",
     "requirements": [
       "Bazowa Wola 8"
     ],
@@ -895,11 +895,11 @@
   },
   {
     "id": "01K9Z6YHX2CC5DPW3Y5YK82AZC",
-    "name": "Epicka Wytrwa┼éo┼Ť─ç",
+    "name": "Epicka Wytrwałość",
     "grade": 1,
-    "description": "Je┼Ťli obra┼╝enia zadane w zdrowie od jednego celu wynosz─ů 20+x, to dodaj redukcj─Ö r├│wn─ů min{x,wytrwa┼éo┼Ť─ç}.",
+    "description": "Jeśli obrażenia zadane w zdrowie od jednego celu wynoszą 20+x, to dodaj redukcję równą min{x,wytrwałość}.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 8"
+      "Bazowa Wytrwałość 8"
     ],
     "price": 0,
     "tags": []
@@ -908,7 +908,7 @@
     "id": "01K9Z6YHX2R5CYX5V7SGP8PAYV",
     "name": "Epicki Refleks",
     "grade": 1,
-    "description": "Je┼Ťli obra┼╝enia zadane w zdrowie od jednego celu wynosz─ů 15+x, to dodaj redukcj─Ö r├│wn─ů min{x,refleks}.",
+    "description": "Jeśli obrażenia zadane w zdrowie od jednego celu wynoszą 15+x, to dodaj redukcję równą min{x,refleks}.",
     "requirements": [
       "Bazowy Refleks 8"
     ],
@@ -919,9 +919,9 @@
     "id": "01K9Z6YHX2TSYQSFB5JVNT7FTD",
     "name": "Epickie Arkana",
     "grade": 1,
-    "description": "Pozwala zamienia─ç 4esencji na 1pwT.",
+    "description": "Pozwala zamieniać 4esencji na 1pwT.",
     "requirements": [
-      "Wi─Öksze Arkana 10"
+      "Większe Arkana 10"
     ],
     "price": 0,
     "tags": []
@@ -990,7 +990,7 @@
     "id": "01K9Z6YHWWMFC0EKFCC50MHT0Q",
     "name": "Finezja w walce",
     "grade": 1,
-    "description": "+ (Zr─Öczno┼Ť─ç) dmg, zamiast si┼éy. Kara ujemnej si┼éy obowi─ůzuje. Dla broni 2 r─Öcznej: +(zr─Öczno┼Ť─ç + si┼éa/2) dmg.",
+    "description": "+ (Zręczność) dmg, zamiast siły. Kara ujemnej siły obowiązuje. Dla broni 2 ręcznej: +(zręczność + siła/2) dmg.",
     "requirements": [
       "Zr 3"
     ],
@@ -1001,7 +1001,7 @@
     "id": "01K9Z6YHX2M4GK120SC29W5HVC",
     "name": "Gambit",
     "grade": 1,
-    "description": "Raz dziennie mo┼╝esz postawi─ç kostk─Ö k6 na 3 (nie w testach ataku ani precyzji).",
+    "description": "Raz dziennie możesz postawić kostkę k6 na 3 (nie w testach ataku ani precyzji).",
     "requirements": [],
     "price": 1,
     "tags": []
@@ -1010,7 +1010,7 @@
     "id": "01K9Z6YHX29HETGT67BP4476WM",
     "name": "Gambit",
     "grade": 2,
-    "description": "Dwa razy dziennie mo┼╝esz postawi─ç kostk─Ö k6 na 3 (nie w testach ataku ani precyzji).",
+    "description": "Dwa razy dziennie możesz postawić kostkę k6 na 3 (nie w testach ataku ani precyzji).",
     "requirements": [],
     "price": 2,
     "tags": []
@@ -1019,7 +1019,7 @@
     "id": "01K9Z6YHX2W8QKK7PQAX32YNKQ",
     "name": "Gambit",
     "grade": 3,
-    "description": "Trzy razy dziennie mo┼╝esz postawi─ç kostk─Ö k6 na 3 (nie w testach ataku ani precyzji).",
+    "description": "Trzy razy dziennie możesz postawić kostkę k6 na 3 (nie w testach ataku ani precyzji).",
     "requirements": [],
     "price": 3,
     "tags": []
@@ -1048,12 +1048,12 @@
   },
   {
     "id": "01K9Z6YJVVM93J3B1ATTKVWFMP",
-    "name": "Harmonia ┼╗ycia",
+    "name": "Harmonia Życia",
     "grade": 1,
-    "description": "Przed┼éu┼╝a ┼╝ycie o 5%*Harmonia. Zwi─Öksza o 1 rang─Ö ko┼Ťci w testach naturalnej dziennej regeneracji.",
+    "description": "Przedłuża życie o 5%*Harmonia. Zwiększa o 1 rangę kości w testach naturalnej dziennej regeneracji.",
     "requirements": [
-      "Wi─Öksza Harmonia 10",
-      "Symbioza Cia┼éa 1"
+      "Większa Harmonia 10",
+      "Symbioza Ciała 1"
     ],
     "price": 9,
     "tags": []
@@ -1098,7 +1098,7 @@
     "id": "01K9Z6YHX2RSPBR86D1DZXB9MY",
     "name": "Intuicyjne Zwody",
     "grade": 1,
-    "description": "Przeciwnik mo┼╝e krytycznie spud┼éowa─ç je┼Ťli ma mniejsz─ů inicjatyw─Ö od ciebie. Je┼Ťli z innych powod├│w przeciwnik mo┼╝e krytycznie spud┼éowa─ç wtedy jego krytyczne pud┼éo+1.",
+    "description": "Przeciwnik może krytycznie spudłować jeśli ma mniejszą inicjatywę od ciebie. Jeśli z innych powodów przeciwnik może krytycznie spudłować wtedy jego krytyczne pudło+1.",
     "requirements": [
       "Energiczne Uniki"
     ],
@@ -1107,23 +1107,23 @@
   },
   {
     "id": "01K9Z6YHWYN8619DWG9QH43TNK",
-    "name": "Jedno┼Ť─ç",
+    "name": "Jedność",
     "grade": 1,
-    "description": "Je┼Ťli znajdujesz si─Ö w takiej samej postawie jak towarzysz obok (lub towarzysze), kt├│ry (lub kt├│rzy) r├│wnie┼╝ posiadaj─ů atut Jedno┼Ť─ç, to ty i tw├│j towarzysz (lub towarzysze) zwi─Ökszaj─ů poziom swojej postawy o 1.",
+    "description": "Jeśli znajdujesz się w takiej samej postawie jak towarzysz obok (lub towarzysze), który (lub którzy) również posiadają atut Jedność, to ty i twój towarzysz (lub towarzysze) zwiększają poziom swojej postawy o 1.",
     "requirements": [
-      "Ilo┼Ť─ç postaw 3"
+      "Ilość postaw 3"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHWYS5XHT6BFF1PF26S5",
-    "name": "Jedno┼Ť─ç",
+    "name": "Jedność",
     "grade": 2,
-    "description": "Je┼Ťli znajdujesz si─Ö w takiej samej postawie jak towarzysz obok (lub towarzysze), kt├│ry (lub kt├│rzy) r├│wnie┼╝ posiadaj─ů atut Jedno┼Ť─ç, to ty i tw├│j towarzysz (lub towarzysze) zwi─Ökszaj─ů poziom swojej postawy o 2.",
+    "description": "Jeśli znajdujesz się w takiej samej postawie jak towarzysz obok (lub towarzysze), który (lub którzy) również posiadają atut Jedność, to ty i twój towarzysz (lub towarzysze) zwiększają poziom swojej postawy o 2.",
     "requirements": [
-      "Jedno┼Ť─ç 1",
-      "ilo┼Ť─ç postaw 4"
+      "Jedność 1",
+      "ilość postaw 4"
     ],
     "price": 6,
     "tags": []
@@ -1132,7 +1132,7 @@
     "id": "01K9Z6YJJAWK4EGVFGMDXPVD64",
     "name": "Kastet/Cestus",
     "grade": 1,
-    "description": "dmg k6, +1 Walka Wr─Öcz, +1 inicjatywa. Walka Wr─Öcz.",
+    "description": "dmg k6, +1 Walka Wręcz, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
     "tags": []
@@ -1141,7 +1141,7 @@
     "id": "01K9Z6YJJBJRRYJJ9DEZFRJS0Q",
     "name": "Kastet/Cestus",
     "grade": 1,
-    "description": "dmg k6, -1 si┼éa krytyka, +1 Walka Wr─Öcz, +1 inicjatywa. Walka Wr─Öcz.",
+    "description": "dmg k6, -1 siła krytyka, +1 Walka Wręcz, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
     "tags": []
@@ -1150,9 +1150,9 @@
     "id": "01K9Z6YJVVJ1DS4A5MBNVQTTHM",
     "name": "Koncentratyczny Sen",
     "grade": 1,
-    "description": "Pozwala na sen o bardzo intensywnym dzia┼éaniu. U┼╝ywaj─ůc tej techniki czas potrzebnego snu do pe┼énej zwyczajowej regeneracji cia┼éa i umys┼éu wynosi 3 godziny. Jednak u┼╝ytkownik zostaje ograniczony wzgl─Ödem czujno┼Ťci. Wybudzenie z tej techniki wymaga silnych bod┼║c├│w zewn─Ötrznych b─ůd┼║ skonczenia snu. Mo┼╝na stosowa─ç bez skutk├│w ubocznych raz tygodniowo.",
+    "description": "Pozwala na sen o bardzo intensywnym działaniu. Używając tej techniki czas potrzebnego snu do pełnej zwyczajowej regeneracji ciała i umysłu wynosi 3 godziny. Jednak użytkownik zostaje ograniczony względem czujności. Wybudzenie z tej techniki wymaga silnych bodźców zewnętrznych bądź skonczenia snu. Można stosować bez skutków ubocznych raz tygodniowo.",
     "requirements": [
-      "Wi─Öksza Harmonia 6"
+      "Większa Harmonia 6"
     ],
     "price": 2,
     "tags": []
@@ -1161,9 +1161,9 @@
     "id": "01K9Z6YJVVYA4Q0SX85N1BH803",
     "name": "Kontemplentacja",
     "grade": 1,
-    "description": "Pozwala wej┼Ť─ç w stan medytacji podczas kt├│rego wzrast odzyskiwanie Harmoni. Zamiast rzutu 1k6+Harmonia odzyskuje si─Ö 1k10+Harmonia.",
+    "description": "Pozwala wejść w stan medytacji podczas którego wzrast odzyskiwanie Harmoni. Zamiast rzutu 1k6+Harmonia odzyskuje się 1k10+Harmonia.",
     "requirements": [
-      "Wi─Öksza Harmonia 3"
+      "Większa Harmonia 3"
     ],
     "price": 3,
     "tags": []
@@ -1172,10 +1172,10 @@
     "id": "01K9Z6YJVVXGBVFAFRS5J04F9Y",
     "name": "Kontemplentacja",
     "grade": 2,
-    "description": "Pozwala wej┼Ť─ç w stan medytacji podczas kt├│rego wzrast odzyskiwanie Harmoni. Zamiast rzutu 1k6+Harmonia odzyskuje si─Ö 1k14+Harmonia.",
+    "description": "Pozwala wejść w stan medytacji podczas którego wzrast odzyskiwanie Harmoni. Zamiast rzutu 1k6+Harmonia odzyskuje się 1k14+Harmonia.",
     "requirements": [
       "Kontemplentacja 1",
-      "Wi─Öksza Harmonia 5"
+      "Większa Harmonia 5"
     ],
     "price": 3,
     "tags": []
@@ -1184,10 +1184,10 @@
     "id": "01K9Z6YJVVQV34AP69KSCME2BH",
     "name": "Kontemplentacja",
     "grade": 3,
-    "description": "Pozwala wej┼Ť─ç w stan medytacji podczas kt├│rego wzrast odzyskiwanie Harmoni. Zamiast rzutu 1k6+Harmonia odzyskuje si─Ö 1k18+Harmonia.",
+    "description": "Pozwala wejść w stan medytacji podczas którego wzrast odzyskiwanie Harmoni. Zamiast rzutu 1k6+Harmonia odzyskuje się 1k18+Harmonia.",
     "requirements": [
       "Kontemplentacja 2",
-      "Wi─Öksza Harmonia 7"
+      "Większa Harmonia 7"
     ],
     "price": 3,
     "tags": []
@@ -1196,31 +1196,31 @@
     "id": "01K9Z6YHX2V97XDBAKPJ2V8VQN",
     "name": "Krew i Pot",
     "grade": 1,
-    "description": "Walczysz do hp = -bazowa wytrwa┼éo┼Ť─ç, przez ilo┼Ť─ç tur = bazowa wytrwa┼éo┼Ť─ç. Potem padasz nieprzytomny.",
+    "description": "Walczysz do hp = -bazowa wytrwałość, przez ilość tur = bazowa wytrwałość. Potem padasz nieprzytomny.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 3"
+      "Bazowa Wytrwałość 3"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX1JGHC4XB2HJ40HQ8K",
-    "name": "Krytyczne Pud┼éo",
+    "name": "Krytyczne Pudło",
     "grade": 1,
-    "description": "Walcz─ůc z jednym przeciwnikiem ten przeciwnik ma szans─Ö na krytyczne pud┼éo.",
+    "description": "Walcząc z jednym przeciwnikiem ten przeciwnik ma szansę na krytyczne pudło.",
     "requirements": [
-      "Wi─Öksze Uniki 1"
+      "Większe Uniki 1"
     ],
     "price": 2,
     "tags": []
   },
   {
     "id": "01K9Z6YHX1R27VFQMWGJ887JKN",
-    "name": "Krytyczne Pud┼éo",
+    "name": "Krytyczne Pudło",
     "grade": 2,
-    "description": "Wszyscy przeciwnicy maj─ů szans─Ö na krytyczne pud┼éo.",
+    "description": "Wszyscy przeciwnicy mają szansę na krytyczne pudło.",
     "requirements": [
-      "Wi─Ökszy Refleks 3"
+      "Większy Refleks 3"
     ],
     "price": 4,
     "tags": []
@@ -1229,7 +1229,7 @@
     "id": "01K9Z6YHWYNBTB14ADVMN5C5NQ",
     "name": "Krytyczne Znamie",
     "grade": 1,
-    "description": "Je┼Ťli wyrzucisz maksimum na wybranej ko┼Ťci broni to zyskujesz 1 dmg na ka┼╝dy nast─Öpny atak na t─ů osob─Ö (max +1dmg).",
+    "description": "Jeśli wyrzucisz maksimum na wybranej kości broni to zyskujesz 1 dmg na każdy następny atak na tą osobę (max +1dmg).",
     "requirements": [],
     "price": 2,
     "tags": []
@@ -1238,10 +1238,10 @@
     "id": "01K9Z6YHWY339PA498DXJQMGRA",
     "name": "Krytyczne Znamie",
     "grade": 2,
-    "description": "Je┼Ťli wyrzucisz maksimum na wybranej ko┼Ťci broni to zyskujesz 1 dmg na ka┼╝dy nast─Öpny atak na t─ů osob─Ö (max +2dmg).",
+    "description": "Jeśli wyrzucisz maksimum na wybranej kości broni to zyskujesz 1 dmg na każdy następny atak na tą osobę (max +2dmg).",
     "requirements": [
       "Krytyczne Znamie 1",
-      "Wi─Ökszy Fechtunek 2 lub Wi─Ökszy Fortel 2"
+      "Większy Fechtunek 2 lub Większy Fortel 2"
     ],
     "price": 6,
     "tags": []
@@ -1250,10 +1250,10 @@
     "id": "01K9Z6YHWY16878AGRDPD9WFGR",
     "name": "Krytyczne Znamie",
     "grade": 3,
-    "description": "Je┼Ťli wyrzucisz maksimum na wybranej ko┼Ťci broni to zyskujesz 1 dmg na ka┼╝dy nast─Öpny atak na t─ů osob─Ö (max +3dmg).",
+    "description": "Jeśli wyrzucisz maksimum na wybranej kości broni to zyskujesz 1 dmg na każdy następny atak na tą osobę (max +3dmg).",
     "requirements": [
       "Krytyczne Znamie 2",
-      "Wi─Ökszy Fechtunek 3 lub Wi─Ökszy Fortel 3"
+      "Większy Fechtunek 3 lub Większy Fortel 3"
     ],
     "price": 6,
     "tags": []
@@ -1262,9 +1262,9 @@
     "id": "01K9Z6YHWYRQENH26VMM35Y5S0",
     "name": "Krytyczny Grot",
     "grade": 1,
-    "description": "Wyrzucenie maxymalnej warto┼Ťci na te┼Ťcie precyzji oznacza dodanie ko┼Ťci obra┼╝e┼ä k4.",
+    "description": "Wyrzucenie maxymalnej wartości na teście precyzji oznacza dodanie kości obrażeń k4.",
     "requirements": [
-      "Wi─Öksza Precyzja 5"
+      "Większa Precyzja 5"
     ],
     "price": 9,
     "tags": []
@@ -1353,9 +1353,9 @@
   },
   {
     "id": "01K9Z6YHX3HGG6E2D50TK15GKC",
-    "name": "Masa=Si┼éa",
+    "name": "Masa=Siła",
     "grade": 1,
-    "description": "Defensywne testy si┼éowe mo┼╝na wykonywa─ç z budowy.",
+    "description": "Defensywne testy siłowe można wykonywać z budowy.",
     "requirements": [
       "Krasnolud lub Bd 6"
     ],
@@ -1366,7 +1366,7 @@
     "id": "01K9Z6YHX2V8QBDK2DZDEXMQV3",
     "name": "Mentalny mur",
     "grade": 1,
-    "description": "je┼╝eli oprzesz si─Ö testowi woli wywo┼éanemu przez podmiot wyrzucaj─ůc maksymaln─ů warto┼Ť─ç na ko┼Ťci to ka┼╝dy nast─Öpny test spowodowany przez ten sam podmiot b─Ödzie wykonywany premi─ů +1 do rzutu.",
+    "description": "jeżeli oprzesz się testowi woli wywołanemu przez podmiot wyrzucając maksymalną wartość na kości to każdy następny test spowodowany przez ten sam podmiot będzie wykonywany premią +1 do rzutu.",
     "requirements": [
       "Bazowa Wola 3"
     ],
@@ -1390,10 +1390,10 @@
     "id": "01K9Z6YHX1KGJF1ZEV1WW7XVCM",
     "name": "Mglisty Fechtunek",
     "grade": 1,
-    "description": "Bazowa ranga ko┼Ťci fechtunku jest r├│wna fortel/2.",
+    "description": "Bazowa ranga kości fechtunku jest równa fortel/2.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 8",
-      "Wi─Ökszy Fortel 8"
+      "Większy Fechtunek 8",
+      "Większy Fortel 8"
     ],
     "price": 3,
     "tags": []
@@ -1402,10 +1402,10 @@
     "id": "01K9Z6YHX16NEQACNV1T3E59Y2",
     "name": "Mglisty Fortel",
     "grade": 1,
-    "description": "Bazowa ranga ko┼Ťci fortelu jest r├│wna fechtunek/2.",
+    "description": "Bazowa ranga kości fortelu jest równa fechtunek/2.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 8",
-      "Wi─Ökszy Fortel 8"
+      "Większy Fechtunek 8",
+      "Większy Fortel 8"
     ],
     "price": 3,
     "tags": []
@@ -1414,9 +1414,9 @@
     "id": "01K9Z6YHX14NCXPN3DKYBPTCY5",
     "name": "Mistrzostwo w fortelu",
     "grade": 1,
-    "description": "Dodaje 1 do test├│w fortelu.",
+    "description": "Dodaje 1 do testów fortelu.",
     "requirements": [
-      "Wi─Ökszy Fortel 6"
+      "Większy Fortel 6"
     ],
     "price": 6,
     "tags": []
@@ -1425,54 +1425,54 @@
     "id": "01K9Z6YHX1SX3G2P7VT8DEJ3X9",
     "name": "Mistrzostwo w fortelu",
     "grade": 2,
-    "description": "Dodaje 2 do test├│w fortelu.",
+    "description": "Dodaje 2 do testów fortelu.",
     "requirements": [
       "Mistrzostwo w fortelu 1",
-      "Wi─Ökszy Fortel 7"
+      "Większy Fortel 7"
     ],
     "price": 13,
     "tags": []
   },
   {
     "id": "01K9Z6YHWZVBZRDE433SQ79QHB",
-    "name": "Mistrzostwo w skrytob├│jstwie",
+    "name": "Mistrzostwo w skrytobójstwie",
     "grade": 1,
-    "description": "Dodaje widmow─ů ko┼Ť─ç obra┼╝e┼ä k4 atakuj─ůc z flanki.",
+    "description": "Dodaje widmową kość obrażeń k4 atakując z flanki.",
     "requirements": [
-      "Ruch Skrytob├│jcy"
+      "Ruch Skrytobójcy"
     ],
     "price": 1,
     "tags": []
   },
   {
     "id": "01K9Z6YHWZW8JHKN22JSA89ZSE",
-    "name": "Mistrzostwo w skrytob├│jstwie",
+    "name": "Mistrzostwo w skrytobójstwie",
     "grade": 2,
-    "description": "Dodaje widmow─ů ko┼Ť─ç obra┼╝e┼ä k6 atakuj─ůc z flanki.",
+    "description": "Dodaje widmową kość obrażeń k6 atakując z flanki.",
     "requirements": [
-      "Mistrzostwo w skrytob├│jstwie 1"
+      "Mistrzostwo w skrytobójstwie 1"
     ],
     "price": 2,
     "tags": []
   },
   {
     "id": "01K9Z6YHWZ8NRQ83Z5JDBXYQ1C",
-    "name": "Mistrzostwo w skrytob├│jstwie",
+    "name": "Mistrzostwo w skrytobójstwie",
     "grade": 3,
-    "description": "Dodaje widmow─ů ko┼Ť─ç obra┼╝e┼ä k8 atakuj─ůc z flanki.",
+    "description": "Dodaje widmową kość obrażeń k8 atakując z flanki.",
     "requirements": [
-      "Mistrzostwo w skrytob├│jstwie 2"
+      "Mistrzostwo w skrytobójstwie 2"
     ],
     "price": 2,
     "tags": []
   },
   {
     "id": "01K9Z6YHWZZ468CY3PT81PQRF7",
-    "name": "Mistrzostwo w skrytob├│jstwie",
+    "name": "Mistrzostwo w skrytobójstwie",
     "grade": 4,
-    "description": "Dodaje widmow─ů ko┼Ť─ç obra┼╝e┼ä k10 atakuj─ůc z flanki.",
+    "description": "Dodaje widmową kość obrażeń k10 atakując z flanki.",
     "requirements": [
-      "Mistrzostwo w skrytob├│jstwie 3"
+      "Mistrzostwo w skrytobójstwie 3"
     ],
     "price": 2,
     "tags": []
@@ -1481,7 +1481,7 @@
     "id": "01K9Z6YHX10Q6QBQNKKF3KGNSE",
     "name": "Mistrzowski Refleks",
     "grade": 1,
-    "description": "Zwi─Öksza o 1 rang─Ö ko┼Ťci w testach refleksu.",
+    "description": "Zwiększa o 1 rangę kości w testach refleksu.",
     "requirements": [
       "Bazowy Refleks 6",
       "lekka zbroja"
@@ -1502,22 +1502,22 @@
   },
   {
     "id": "01K9Z6YHX37KYAZND4KRJKD8J9",
-    "name": "Nad┼╝ywotno┼Ť─ç",
+    "name": "Nadżywotność",
     "grade": 1,
-    "description": "Dodaje 2 zdrowia za ka┼╝dy poziom ┼╝ywotno┼Ťci.",
+    "description": "Dodaje 2 zdrowia za każdy poziom żywotności.",
     "requirements": [
-      "┼╗ywotno┼Ť─ç 3"
+      "Żywotność 3"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX1QBCBMEM7Q2A7RXXM",
-    "name": "Nadtwardo┼Ť─ç",
+    "name": "Nadtwardość",
     "grade": 1,
-    "description": "Bazowa twardo┼Ť─ç o 1.",
+    "description": "Bazowa twardość o 1.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 5",
+      "Bazowa Wytrwałość 5",
       "S 5"
     ],
     "price": 9,
@@ -1525,11 +1525,11 @@
   },
   {
     "id": "01K9Z6YHX166Z1SBJZ8TB012PJ",
-    "name": "Nadtwardo┼Ť─ç",
+    "name": "Nadtwardość",
     "grade": 2,
-    "description": "Bazowa twardo┼Ť─ç o 2.",
+    "description": "Bazowa twardość o 2.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 7",
+      "Bazowa Wytrwałość 7",
       "S 6"
     ],
     "price": 15,
@@ -1537,11 +1537,11 @@
   },
   {
     "id": "01K9Z6YHX17KSYQDZ7QSWXQPPG",
-    "name": "Nadtwardo┼Ť─ç",
+    "name": "Nadtwardość",
     "grade": 3,
-    "description": "Bazowa twardo┼Ť─ç o 3.",
+    "description": "Bazowa twardość o 3.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 9",
+      "Bazowa Wytrwałość 9",
       "S 7"
     ],
     "price": 18,
@@ -1549,33 +1549,33 @@
   },
   {
     "id": "01K9Z6YJJBHBP6H8FBEKDG8PMV",
-    "name": "Napi─Ötnowane Mi─Ö┼Ťnie",
+    "name": "Napiętnowane Mięśnie",
     "grade": 1,
-    "description": "Dodaje premie +1 do test├│w si┼éowych w walce wr─Öcz.",
+    "description": "Dodaje premie +1 do testów siłowych w walce wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 3"
+      "Walka Wręcz 3"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBGMW0R0ENDZYJ8RB0",
-    "name": "Napi─Ötnowane Mi─Ö┼Ťnie",
+    "name": "Napiętnowane Mięśnie",
     "grade": 2,
-    "description": "Dodaje premie +2 do test├│w si┼éowych w walce wr─Öcz.",
+    "description": "Dodaje premie +2 do testów siłowych w walce wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 4"
+      "Walka Wręcz 4"
     ],
     "price": 5,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBHRF12SE01PGNG61B",
-    "name": "Napi─Ötnowane Mi─Ö┼Ťnie",
+    "name": "Napiętnowane Mięśnie",
     "grade": 3,
-    "description": "Dodaje premie +3 do test├│w si┼éowych w walce wr─Öcz.",
+    "description": "Dodaje premie +3 do testów siłowych w walce wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 5"
+      "Walka Wręcz 5"
     ],
     "price": 10,
     "tags": []
@@ -1717,25 +1717,25 @@
   },
   {
     "id": "01K9Z6YHX1PEGYHJVYYNW1F8DQ",
-    "name": "Odporno┼Ť─ç na zmeczenie",
+    "name": "Odporność na zmeczenie",
     "grade": 1,
-    "description": "Zmniejsza kar─Ö utraty inicjatywy z kar zbroi i tarczy o 1.",
+    "description": "Zmniejsza karę utraty inicjatywy z kar zbroi i tarczy o 1.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 4",
-      "si┼éa 3"
+      "Bazowa Wytrwałość 4",
+      "siła 3"
     ],
     "price": 1,
     "tags": []
   },
   {
     "id": "01K9Z6YHX1P145SMBX4C9P0612",
-    "name": "Odporno┼Ť─ç na zmeczenie",
+    "name": "Odporność na zmeczenie",
     "grade": 2,
-    "description": "Zmniejsza kar─Ö utraty inicjatywy z kar zbroi i tarczy o 2.",
+    "description": "Zmniejsza karę utraty inicjatywy z kar zbroi i tarczy o 2.",
     "requirements": [
-      "Odporno┼Ť─ç na zmeczenie 1",
-      "Bazowa Wytrwa┼éo┼Ť─ç 6",
-      "si┼éa 5"
+      "Odporność na zmeczenie 1",
+      "Bazowa Wytrwałość 6",
+      "siła 5"
     ],
     "price": 1,
     "tags": []
@@ -1766,22 +1766,22 @@
   },
   {
     "id": "01K9Z6YJJB4HHSKC3V20W08Q5Q",
-    "name": "Odpowiednia D┼║wignia",
+    "name": "Odpowiednia Dźwignia",
     "grade": 1,
-    "description": "W testach si┼éowych mo┼╝esz u┼╝y─ç po┼éowy zr─Öczno┼Ťci.",
+    "description": "W testach siłowych możesz użyć połowy zręczności.",
     "requirements": [
-      "Walka Wr─Öcz 4"
+      "Walka Wręcz 4"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB01JGMJZVVPDFMQ1R",
-    "name": "Odpowiednia D┼║wignia",
+    "name": "Odpowiednia Dźwignia",
     "grade": 2,
-    "description": "W testach si┼éowych mo┼╝esz u┼╝y─ç zr─Öczno┼Ťci.",
+    "description": "W testach siłowych możesz użyć zręczności.",
     "requirements": [
-      "Walka Wr─Öcz 7"
+      "Walka Wręcz 7"
     ],
     "price": 18,
     "tags": []
@@ -1835,9 +1835,9 @@
     "id": "01K9Z6YHWY28CWQG5Y171XDCRT",
     "name": "Okazyjny Atak",
     "grade": 1,
-    "description": "Po wygranym te┼Ťcie refleksu wymuszonym przez przeciwnika dodaje 2dmg na nast─Öpn─ů ture przeciw temu przeciwnikowi.",
+    "description": "Po wygranym teście refleksu wymuszonym przez przeciwnika dodaje 2dmg na następną ture przeciw temu przeciwnikowi.",
     "requirements": [
-      "Wi─Ökszy Refleks 4"
+      "Większy Refleks 4"
     ],
     "price": 3,
     "tags": []
@@ -1846,10 +1846,10 @@
     "id": "01K9Z6YHWYYEBXV33TST5EDGAV",
     "name": "Okazyjny Atak",
     "grade": 2,
-    "description": "Po wygranym te┼Ťcie refleksu wymuszonym przez przeciwnika dodaje 4dmg na nast─Öpn─ů ture przeciw temu przeciwnikowi.",
+    "description": "Po wygranym teście refleksu wymuszonym przez przeciwnika dodaje 4dmg na następną ture przeciw temu przeciwnikowi.",
     "requirements": [
       "Okazyjny Atak 1",
-      "Wi─Ökszy Refleks 5"
+      "Większy Refleks 5"
     ],
     "price": 3,
     "tags": []
@@ -1858,32 +1858,32 @@
     "id": "01K9Z6YHWYN56FSSDD7X4YXDQ4",
     "name": "Okazyjny Atak",
     "grade": 3,
-    "description": "Po wygranym te┼Ťcie refleksu wymuszonym przez przeciwnika dodaje 6dmg na nast─Öpn─ů ture przeciw temu przeciwnikowi.",
+    "description": "Po wygranym teście refleksu wymuszonym przez przeciwnika dodaje 6dmg na następną ture przeciw temu przeciwnikowi.",
     "requirements": [
       "Okazyjny Atak 2",
-      "Wi─Ökszy Refleks 6"
+      "Większy Refleks 6"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3T7N0XW2G4FFNA0DV",
-    "name": "Os┼éona punkt├│w witalnych",
+    "name": "Osłona punktów witalnych",
     "grade": 1,
-    "description": "Dodaje redukcj─Ö na krytyki 1.",
+    "description": "Dodaje redukcję na krytyki 1.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 6"
+      "Większy Fechtunek 6"
     ],
     "price": 2,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3JN8H6P54YJXCP10B",
-    "name": "Os┼éona punkt├│w witalnych",
+    "name": "Osłona punktów witalnych",
     "grade": 2,
-    "description": "Dodaje redukcj─Ö na krytyki 2.",
+    "description": "Dodaje redukcję na krytyki 2.",
     "requirements": [
-      "Wi─Ökszy Fortel 6"
+      "Większy Fortel 6"
     ],
     "price": 2,
     "tags": []
@@ -1892,42 +1892,42 @@
     "id": "01K9Z6YJVV1DDK2A90XP0M78KR",
     "name": "Pancerz Harmoni",
     "grade": 1,
-    "description": "Dodaje Pw tarcze w wysoko┼Ťci bazowej Harmoni.",
+    "description": "Dodaje Pw tarcze w wysokości bazowej Harmoni.",
     "requirements": [
-      "Wi─Öksza Harmonia 8"
+      "Większa Harmonia 8"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3G8EXG37V0JF7TD23",
-    "name": "Parowanie Dwoma Bro┼ämi",
+    "name": "Parowanie Dwoma Brońmi",
     "grade": 1,
     "description": "Dodaje 1 do parowania.",
     "requirements": [
-      "Wymagana bro┼ä w obu r─Ökach"
+      "Wymagana broń w obu rękach"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3E3Y3ZS0DDA7YJMQ3",
-    "name": "Parowanie Dwoma Bro┼ämi",
+    "name": "Parowanie Dwoma Brońmi",
     "grade": 2,
     "description": "Dodaje 2 do parowania.",
     "requirements": [
-      "Parowanie Dwoma Bro┼ämi 1"
+      "Parowanie Dwoma Brońmi 1"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3FG1GQ2NDYT24DWYV",
-    "name": "Parowanie Dwoma Bro┼ämi",
+    "name": "Parowanie Dwoma Brońmi",
     "grade": 3,
     "description": "Dodaje 3 do parowania.",
     "requirements": [
-      "Parowanie Dwoma Bro┼ämi 2"
+      "Parowanie Dwoma Brońmi 2"
     ],
     "price": 12,
     "tags": []
@@ -1948,7 +1948,7 @@
     "id": "01K9Z6YHX1E4WRB31VHWMZ3FQA",
     "name": "Perfekcyjny Balans",
     "grade": 1,
-    "description": "W testach obalenia, odrzucenia i w podobnych testach zamiast wytrwa┼éo┼Ťci mo┼╝na u┼╝y─ç refleksu-4.",
+    "description": "W testach obalenia, odrzucenia i w podobnych testach zamiast wytrwałości można użyć refleksu-4.",
     "requirements": [],
     "price": 3,
     "tags": []
@@ -1957,7 +1957,7 @@
     "id": "01K9Z6YHX1HMY20CWJA36HJN4Z",
     "name": "Perfekcyjny Balans",
     "grade": 2,
-    "description": "W testach obalenia, odrzucenia i w podobnych testach zamiast wytrwa┼éo┼Ťci mo┼╝na u┼╝y─ç refleksu-3.",
+    "description": "W testach obalenia, odrzucenia i w podobnych testach zamiast wytrwałości można użyć refleksu-3.",
     "requirements": [
       "Perfekcyjny Balans 1"
     ],
@@ -1968,7 +1968,7 @@
     "id": "01K9Z6YHX1A0YJ3JYEBH1RC4WA",
     "name": "Perfekcyjny Balans",
     "grade": 3,
-    "description": "W testach obalenia, odrzucenia i w podobnych testach zamiast wytrwa┼éo┼Ťci mo┼╝na u┼╝y─ç refleksu-2.",
+    "description": "W testach obalenia, odrzucenia i w podobnych testach zamiast wytrwałości można użyć refleksu-2.",
     "requirements": [
       "Perfekcyjny Balans 2"
     ],
@@ -2014,40 +2014,40 @@
   },
   {
     "id": "01K9Z6YJJBG55P4PETY1QAQKDN",
-    "name": "Pot─Ö┼╝ne Uderzenie",
+    "name": "Potężne Uderzenie",
     "grade": 1,
-    "description": "+1dmg do walki wr─Öcz.",
+    "description": "+1dmg do walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 4"
+      "Walka Wręcz 4"
     ],
     "price": 4,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB8FH1Z7PX6E29WPC2",
-    "name": "Pot─Ö┼╝ne Uderzenie",
+    "name": "Potężne Uderzenie",
     "grade": 2,
-    "description": "+2dmg do walki wr─Öcz.",
+    "description": "+2dmg do walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 5"
+      "Walka Wręcz 5"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB5ZB4NF03EDCFCF6G",
-    "name": "Pot─Ö┼╝ne Uderzenie",
+    "name": "Potężne Uderzenie",
     "grade": 3,
-    "description": "+3dmg do walki wr─Öcz.",
+    "description": "+3dmg do walki wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 6"
+      "Walka Wręcz 6"
     ],
     "price": 15,
     "tags": []
   },
   {
     "id": "01K9Z6YHWW24S085XR0CQ7S9ER",
-    "name": "Pot─Ö┼╝ny Cios",
+    "name": "Potężny Cios",
     "grade": 1,
     "description": "+1 dmg.",
     "requirements": [
@@ -2058,11 +2058,11 @@
   },
   {
     "id": "01K9Z6YHWW7A0A6ENAMKZG4TAE",
-    "name": "Pot─Ö┼╝ny Cios",
+    "name": "Potężny Cios",
     "grade": 2,
     "description": "+2 dmg.",
     "requirements": [
-      "Pot─Ö┼╝ny Cios 1",
+      "Potężny Cios 1",
       "S 4"
     ],
     "price": 6,
@@ -2070,11 +2070,11 @@
   },
   {
     "id": "01K9Z6YHWX8W83D003C902DAHX",
-    "name": "Pot─Ö┼╝ny Cios",
+    "name": "Potężny Cios",
     "grade": 3,
     "description": "+3 dmg.",
     "requirements": [
-      "Pot─Ö┼╝ny Cios 2",
+      "Potężny Cios 2",
       "S 6"
     ],
     "price": 10,
@@ -2082,11 +2082,11 @@
   },
   {
     "id": "01K9Z6YHWXW42PNVXT1FDJN32A",
-    "name": "Pot─Ö┼╝ny Cios",
+    "name": "Potężny Cios",
     "grade": 4,
     "description": "+4 dmg.",
     "requirements": [
-      "Pot─Ö┼╝ny Cios 3",
+      "Potężny Cios 3",
       "S 8"
     ],
     "price": 12,
@@ -2144,9 +2144,9 @@
     "id": "01K9Z6YJJB7H3SJQB9WV81XSF0",
     "name": "Profesjonalizm",
     "grade": 1,
-    "description": "Ataki walki wr─Öcz pomijaj─ů redukcj─Ö jednej ko┼Ťci.",
+    "description": "Ataki walki wręcz pomijają redukcję jednej kości.",
     "requirements": [
-      "Walka Wr─Öcz 5"
+      "Walka Wręcz 5"
     ],
     "price": 3,
     "tags": []
@@ -2155,9 +2155,9 @@
     "id": "01K9Z6YHX3A43STGHAY5ZDKWTJ",
     "name": "Protekcja Wierzchowca",
     "grade": 1,
-    "description": "Dodaje po┼éowe umiej─Ötno┼Ťci je┼║dziectwa do redukcji wierzchowca (Zaokr─ůglon─ů do do┼éu).",
+    "description": "Dodaje połowe umiejętności jeździectwa do redukcji wierzchowca (Zaokrągloną do dołu).",
     "requirements": [
-      "Je┼║dziectwo 2"
+      "Jeździectwo 2"
     ],
     "price": 6,
     "tags": []
@@ -2166,19 +2166,19 @@
     "id": "01K9Z6YHX3Q7K4NMNTM8SMNY6Q",
     "name": "Protekcja Wierzchowca",
     "grade": 2,
-    "description": "Dodaje umiej─Ötno┼Ť─ç je┼║dziectwa do redukcji wierzchowca.",
+    "description": "Dodaje umiejętność jeździectwa do redukcji wierzchowca.",
     "requirements": [
       "Protekcja Wierzchowca 1",
-      "Je┼║dziectwo 4"
+      "Jeździectwo 4"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YHWXACB94ZQSXBBARCMX",
-    "name": "Przebijalno┼Ť─ç",
+    "name": "Przebijalność",
     "grade": 1,
-    "description": "+ widmowa ko┼Ť─ç obra┼╝e┼ä k4/(2 ko┼Ťci redukcji przeciwnika).",
+    "description": "+ widmowa kość obrażeń k4/(2 kości redukcji przeciwnika).",
     "requirements": [
       "Skupienie na broni 2",
       "Zogniskowanie broni 4 lub Bazowy Fechtunek 8"
@@ -2188,33 +2188,33 @@
   },
   {
     "id": "01K9Z6YHWXP32AT9HPT1KCP7ZS",
-    "name": "Przebijalno┼Ť─ç",
+    "name": "Przebijalność",
     "grade": 2,
-    "description": "+ widmowa ko┼Ť─ç obra┼╝e┼ä k6/(2 ko┼Ťci redukcji przeciwnika).",
+    "description": "+ widmowa kość obrażeń k6/(2 kości redukcji przeciwnika).",
     "requirements": [
-      "Przebijalno┼Ť─ç 1"
+      "Przebijalność 1"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHWX2BH4JWAHKQ5GF45S",
-    "name": "Przebijalno┼Ť─ç",
+    "name": "Przebijalność",
     "grade": 3,
-    "description": "+ widmowa ko┼Ť─ç obra┼╝e┼ä k8/(2 ko┼Ťci redukcji przeciwnika).",
+    "description": "+ widmowa kość obrażeń k8/(2 kości redukcji przeciwnika).",
     "requirements": [
-      "Przebijalno┼Ť─ç 2"
+      "Przebijalność 2"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHWXC15K7H1CN637C33F",
-    "name": "Przebijalno┼Ť─ç",
+    "name": "Przebijalność",
     "grade": 4,
-    "description": "+ widmowa ko┼Ť─ç obra┼╝e┼ä k10/(2 ko┼Ťci redukcji przeciwnika).",
+    "description": "+ widmowa kość obrażeń k10/(2 kości redukcji przeciwnika).",
     "requirements": [
-      "Przebijalno┼Ť─ç 3"
+      "Przebijalność 3"
     ],
     "price": 3,
     "tags": []
@@ -2233,9 +2233,9 @@
   },
   {
     "id": "01K9Z6YHWYK0AH04D4QTR6RTVW",
-    "name": "Przewaga Wysoko┼Ťci",
+    "name": "Przewaga Wysokości",
     "grade": 1,
-    "description": "Maj─ůc przewag─Ö po┼éo┼╝enia terytorium nad wrogiem (walcz─ůc z wy┼╝szego pu┼éapu) otrzymujesz 1 dmg na ko┼Ť─ç broni i obra┼╝e┼ä.",
+    "description": "Mając przewagę położenia terytorium nad wrogiem (walcząc z wyższego pułapu) otrzymujesz 1 dmg na kość broni i obrażeń.",
     "requirements": [],
     "price": 2,
     "tags": []
@@ -2244,9 +2244,9 @@
     "id": "01K9Z6YHX0PXH2C1H93PPD7Y8B",
     "name": "Przewidywanie Wroga",
     "grade": 1,
-    "description": "W testach refleksu (wymuszonych przez przeciwnika) mo┼╝esz stosowa─ç Bazowy Fortel.",
+    "description": "W testach refleksu (wymuszonych przez przeciwnika) możesz stosować Bazowy Fortel.",
     "requirements": [
-      "Wi─Ökszy Fortel 6"
+      "Większy Fortel 6"
     ],
     "price": 6,
     "tags": []
@@ -2255,9 +2255,9 @@
     "id": "01K9Z6YHWY3AE88BB48AZ1FVKE",
     "name": "Riposta",
     "grade": 1,
-    "description": "Po przegranym te┼Ťcie fechtunku wymuszonym przez przeciwnika dodaje 1dmg na nast─Öpn─ů tur─Ö przeciw temu przeciwnikowi.",
+    "description": "Po przegranym teście fechtunku wymuszonym przez przeciwnika dodaje 1dmg na następną turę przeciw temu przeciwnikowi.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 5"
+      "Większy Fechtunek 5"
     ],
     "price": 3,
     "tags": []
@@ -2266,9 +2266,9 @@
     "id": "01K9Z6YHWYZQQMYXDCWSCYYN6F",
     "name": "Riposta",
     "grade": 2,
-    "description": "Po przegranym te┼Ťcie fechtunku wymuszonym przez przeciwnika dodaje 2dmg na nast─Öpn─ů tur─Ö przeciw temu przeciwnikowi.",
+    "description": "Po przegranym teście fechtunku wymuszonym przez przeciwnika dodaje 2dmg na następną turę przeciw temu przeciwnikowi.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 6",
+      "Większy Fechtunek 6",
       "Riposta 1"
     ],
     "price": 3,
@@ -2278,9 +2278,9 @@
     "id": "01K9Z6YHWY27RMM7G24M7E2ZXJ",
     "name": "Riposta",
     "grade": 3,
-    "description": "Po przegranym te┼Ťcie fechtunku wymuszonym przez przeciwnika dodaje 3dmg na nast─Öpn─ů tur─Ö przeciw temu przeciwnikowi.",
+    "description": "Po przegranym teście fechtunku wymuszonym przez przeciwnika dodaje 3dmg na następną turę przeciw temu przeciwnikowi.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 7",
+      "Większy Fechtunek 7",
       "Riposta 2"
     ],
     "price": 3,
@@ -2386,9 +2386,9 @@
     "id": "01K9Z6YHWX0VWDY25GNQYXWDHW",
     "name": "Ryzyko",
     "grade": 1,
-    "description": "+1 si┼éa krytyka, ale dopuszcza krytyczne pud┼éo.",
+    "description": "+1 siła krytyka, ale dopuszcza krytyczne pudło.",
     "requirements": [
-      "Si┼éa Krytyka 1"
+      "Siła Krytyka 1"
     ],
     "price": 4,
     "tags": []
@@ -2397,7 +2397,7 @@
     "id": "01K9Z6YHWXZNJYA1G66MB0D8T9",
     "name": "Ryzyko",
     "grade": 2,
-    "description": "+1 si┼éy krytyka, +1 szansa krytyka, ale dopuszcza krytyczne pud┼éo.",
+    "description": "+1 siły krytyka, +1 szansa krytyka, ale dopuszcza krytyczne pudło.",
     "requirements": [
       "Szansa Krytyka 1"
     ],
@@ -2406,62 +2406,62 @@
   },
   {
     "id": "01K9Z6YJJBXBP8QE9X5HF3HV2R",
-    "name": "Si├│dme Poty",
+    "name": "Siódme Poty",
     "grade": 1,
-    "description": "Otrzymuj─ůc ciosy od walki wr─Öcz, walczysz do -3pw.",
+    "description": "Otrzymując ciosy od walki wręcz, walczysz do -3pw.",
     "requirements": [
-      "Walka Wr─Öcz 3"
+      "Walka Wręcz 3"
     ],
     "price": 2,
     "tags": []
   },
   {
     "id": "01K9Z6YHWX9F61JXKAJ6VPWMN6",
-    "name": "Si┼éa Krytyka",
+    "name": "Siła Krytyka",
     "grade": 1,
-    "description": "+1 si┼éa krytyka.",
+    "description": "+1 siła krytyka.",
     "requirements": [],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHWX8M4D657N6V4VH0J6",
-    "name": "Si┼éa Krytyka",
+    "name": "Siła Krytyka",
     "grade": 2,
-    "description": "+2 si┼éa krytyka.",
+    "description": "+2 siła krytyka.",
     "requirements": [
-      "Si┼éa Krytyka 1"
+      "Siła Krytyka 1"
     ],
     "price": 7,
     "tags": []
   },
   {
     "id": "01K9Z6YHWXJ4Y2A4A0323ZA2D0",
-    "name": "Si┼éa Krytyka",
+    "name": "Siła Krytyka",
     "grade": 3,
-    "description": "+3 si┼éa krytyka.",
+    "description": "+3 siła krytyka.",
     "requirements": [
-      "Si┼éa Krytyka 2"
+      "Siła Krytyka 2"
     ],
     "price": 15,
     "tags": []
   },
   {
     "id": "01K9Z6YHWXMST5473SNNH20QMH",
-    "name": "Si┼éa Krytyka",
+    "name": "Siła Krytyka",
     "grade": 4,
-    "description": "+4 si┼éa krytyka.",
+    "description": "+4 siła krytyka.",
     "requirements": [
-      "Si┼éa Krytyka 3"
+      "Siła Krytyka 3"
     ],
     "price": 18,
     "tags": []
   },
   {
     "id": "01K9Z6YHX3E4HAQPEX5XAS6MGN",
-    "name": "Si┼éa ponad wszystko",
+    "name": "Siła ponad wszystko",
     "grade": 1,
-    "description": "W testach fechtunku zamiast fechtunku mo┼╝esz u┼╝y─ç po┼éowy modyfikatora z si┼éy.",
+    "description": "W testach fechtunku zamiast fechtunku możesz użyć połowy modyfikatora z siły.",
     "requirements": [],
     "price": 6,
     "tags": []
@@ -2480,11 +2480,11 @@
   },
   {
     "id": "01K9Z6YHWZHESKY6DZXB5WJX43",
-    "name": "Skrytob├│jstwo",
+    "name": "Skrytobójstwo",
     "grade": 1,
-    "description": "Je┼Ťli przeciwnik otrzymuje bezpo┼Ťrednie obra┼╝enia, to dodaje 2 obra┼╝enia.",
+    "description": "Jeśli przeciwnik otrzymuje bezpośrednie obrażenia, to dodaje 2 obrażenia.",
     "requirements": [
-      "Wi─Ökszy Fortel 5",
+      "Większy Fortel 5",
       "Ciche Poruszanie 5"
     ],
     "price": 4,
@@ -2492,11 +2492,11 @@
   },
   {
     "id": "01K9Z6YHWZK2EFNFPRRMFSMTPR",
-    "name": "Skrytob├│jstwo",
+    "name": "Skrytobójstwo",
     "grade": 2,
-    "description": "Je┼Ťli przeciwnik otrzymuje bezpo┼Ťrednie obra┼╝enia, to dodaje 4 obra┼╝enia.",
+    "description": "Jeśli przeciwnik otrzymuje bezpośrednie obrażenia, to dodaje 4 obrażenia.",
     "requirements": [
-      "Wi─Ökszy Fortel 6",
+      "Większy Fortel 6",
       "Ciche Poruszanie 6"
     ],
     "price": 5,
@@ -2504,11 +2504,11 @@
   },
   {
     "id": "01K9Z6YHWZ2EVPNTS9V89KF0FQ",
-    "name": "Skrytob├│jstwo",
+    "name": "Skrytobójstwo",
     "grade": 3,
-    "description": "Je┼Ťli przeciwnik otrzymuje bezpo┼Ťrednie obra┼╝enia, to dodaje 6 obra┼╝enia.",
+    "description": "Jeśli przeciwnik otrzymuje bezpośrednie obrażenia, to dodaje 6 obrażenia.",
     "requirements": [
-      "Wi─Ökszy Fortel 7",
+      "Większy Fortel 7",
       "Ciche Poruszanie 7"
     ],
     "price": 6,
@@ -2518,7 +2518,7 @@
     "id": "01K9Z6YHWW6S2W7X8C5TM25S9R",
     "name": "Skupienie na Broni",
     "grade": 1,
-    "description": "+1 dmg/ko┼Ť─ç broni.",
+    "description": "+1 dmg/kość broni.",
     "requirements": [],
     "price": 4,
     "tags": []
@@ -2527,7 +2527,7 @@
     "id": "01K9Z6YHWW0JEH15FAZN37Y04C",
     "name": "Skupienie na Broni",
     "grade": 2,
-    "description": "+2 dmg/ko┼Ť─ç broni.",
+    "description": "+2 dmg/kość broni.",
     "requirements": [
       "Skupienie na broni 1"
     ],
@@ -2538,7 +2538,7 @@
     "id": "01K9Z6YHWWPC5Q8AT69BWFDVJ9",
     "name": "Skupienie na Broni",
     "grade": 3,
-    "description": "+3 dmg/ko┼Ť─ç broni.",
+    "description": "+3 dmg/kość broni.",
     "requirements": [
       "Skupienie na broni 2"
     ],
@@ -2549,10 +2549,10 @@
     "id": "01K9Z6YHX18RMYV3Y3N5AWTP3M",
     "name": "Specjalizacja w bieganiu",
     "grade": 1,
-    "description": "Zmniejsza rang─Ö ko┼Ťci utraty inicjatywy o 1 w zwi─ůzku z bieganiem. Zwi─Öksza zasi─Ög biegania o 10 krok├│w na rund─Ö.",
+    "description": "Zmniejsza rangę kości utraty inicjatywy o 1 w związku z bieganiem. Zwiększa zasięg biegania o 10 kroków na rundę.",
     "requirements": [
-      "Odporno┼Ť─ç na zm─Öczenie",
-      "si┼éa 3"
+      "Odporność na zmęczenie",
+      "siła 3"
     ],
     "price": 2,
     "tags": []
@@ -2561,9 +2561,9 @@
     "id": "01K9Z6YHWX15N59C12VPN2XN9D",
     "name": "Specjalizacja w Broni",
     "grade": 1,
-    "description": "+1 ko┼Ť─ç broni.",
+    "description": "+1 kość broni.",
     "requirements": [
-      "Pi─Ö─ç atut├│w ofensywnych na poziomie co najmniej 2"
+      "Pięć atutów ofensywnych na poziomie co najmniej 2"
     ],
     "price": 27,
     "tags": []
@@ -2572,10 +2572,10 @@
     "id": "01K9Z6YHWXDY7DP67VZ22BE6Z0",
     "name": "Specjalizacja w Broni",
     "grade": 2,
-    "description": "+1 ko┼Ť─ç broni, + ko┼Ť─ç obra┼╝e┼ä 1k6.",
+    "description": "+1 kość broni, + kość obrażeń 1k6.",
     "requirements": [
       "Specjalizacja w Broni 1",
-      "Wi─Ökszy Fechtunek 10 lub Wi─Ökszy Fortel 10"
+      "Większy Fechtunek 10 lub Większy Fortel 10"
     ],
     "price": 27,
     "tags": []
@@ -2584,7 +2584,7 @@
     "id": "01K9Z6YHWXCV04M4JY5564H359",
     "name": "Specjalizacja w Broni",
     "grade": 3,
-    "description": "+1 ko┼Ť─ç broni, + ko┼Ť─ç obra┼╝e┼ä 1k8.",
+    "description": "+1 kość broni, + kość obrażeń 1k8.",
     "requirements": [
       "Specjalizacja w Broni 2"
     ],
@@ -2595,7 +2595,7 @@
     "id": "01K9Z6YHWX3X3PP0KBJB790KP8",
     "name": "Specjalizacja w Broni",
     "grade": 4,
-    "description": "+1 ko┼Ť─ç broni, + ko┼Ť─ç obra┼╝e┼ä 1k10.",
+    "description": "+1 kość broni, + kość obrażeń 1k10.",
     "requirements": [
       "Specjalizacja w Broni 3"
     ],
@@ -2606,7 +2606,7 @@
     "id": "01K9Z6YHWXJ1NVDCC3ES06QQ13",
     "name": "Specjalizacja w Broni",
     "grade": 5,
-    "description": "+1 ko┼Ť─ç broni, + ko┼Ť─ç obra┼╝e┼ä 1k12.",
+    "description": "+1 kość broni, + kość obrażeń 1k12.",
     "requirements": [
       "Specjalizacja w Broni 4"
     ],
@@ -2617,7 +2617,7 @@
     "id": "01K9Z6YHWX54RKQ5GRGP2M30VV",
     "name": "Specjalizacja w Broni",
     "grade": 6,
-    "description": "+1 ko┼Ť─ç broni, + ko┼Ť─ç obra┼╝e┼ä 1k14.",
+    "description": "+1 kość broni, + kość obrażeń 1k14.",
     "requirements": [
       "Specjalizacja w Broni 5"
     ],
@@ -2630,7 +2630,7 @@
     "grade": 1,
     "description": "Zmniejsza czas odnowienia konkretnego manewru o 1 (minimum 1//4).",
     "requirements": [
-      "Ilo┼Ť─ç manewr├│w 4"
+      "Ilość manewrów 4"
     ],
     "price": 4,
     "tags": []
@@ -2642,7 +2642,7 @@
     "description": "Zmniejsza czas odnowienia konkretnego manewru o 1 (minimum 1//3).",
     "requirements": [
       "Specjalizacja w Manewrach 1",
-      "Ilo┼Ť─ç manewr├│w 5"
+      "Ilość manewrów 5"
     ],
     "price": 4,
     "tags": []
@@ -2663,7 +2663,7 @@
     "id": "01K9Z6YHX1NFNFAGHAVRS99P42",
     "name": "Spryt",
     "grade": 1,
-    "description": "Dodaje +1 do test├│w refleksu.",
+    "description": "Dodaje +1 do testów refleksu.",
     "requirements": [
       "Bazowy Refleks 3"
     ],
@@ -2674,7 +2674,7 @@
     "id": "01K9Z6YHX1SKQP8SMC2VV12Q6V",
     "name": "Spryt",
     "grade": 2,
-    "description": "Dodaje +2 do test├│w refleksu.",
+    "description": "Dodaje +2 do testów refleksu.",
     "requirements": [
       "Spryt 1",
       "Bazowy Refleks 4"
@@ -2686,7 +2686,7 @@
     "id": "01K9Z6YHX2H0T4J79K0MH28SRN",
     "name": "Stalowe Nerwy",
     "grade": 1,
-    "description": "Dodaje +1 do rzut├│w przeciw strachowi.",
+    "description": "Dodaje +1 do rzutów przeciw strachowi.",
     "requirements": [
       "Bazowa Wola 1"
     ],
@@ -2697,7 +2697,7 @@
     "id": "01K9Z6YHX2MT8T6B6M4R741ZCM",
     "name": "Stalowe Nerwy",
     "grade": 2,
-    "description": "Dodaje +2 do rzut├│w przeciw strachowi.",
+    "description": "Dodaje +2 do rzutów przeciw strachowi.",
     "requirements": [
       "Stalowe Nerwy 2",
       "Bazowa Wola 2"
@@ -2707,9 +2707,9 @@
   },
   {
     "id": "01K9Z6YHWY318AFWZQHZJRHDZ3",
-    "name": "Stalowy Op├│r",
+    "name": "Stalowy Opór",
     "grade": 1,
-    "description": "Po wygranym te┼Ťcie si┼éowym wymuszonym przez przeciwnika dodaje 1 redukcji na najbli┼╝szy atak wzgl─Ödem tego przeciwnika.",
+    "description": "Po wygranym teście siłowym wymuszonym przez przeciwnika dodaje 1 redukcji na najbliższy atak względem tego przeciwnika.",
     "requirements": [
       "S 3"
     ],
@@ -2718,9 +2718,9 @@
   },
   {
     "id": "01K9Z6YHWYK4GDQQDVKBXR5SDA",
-    "name": "Stalowy Op├│r",
+    "name": "Stalowy Opór",
     "grade": 2,
-    "description": "Po wygranym te┼Ťcie si┼éowym wymuszonym przez przeciwnika dodaje 2 redukcji na najbli┼╝szy atak wzgl─Ödem tego przeciwnika.",
+    "description": "Po wygranym teście siłowym wymuszonym przez przeciwnika dodaje 2 redukcji na najbliższy atak względem tego przeciwnika.",
     "requirements": [
       "S 4"
     ],
@@ -2729,9 +2729,9 @@
   },
   {
     "id": "01K9Z6YHWYB5Y9C02B19B62DA0",
-    "name": "Stalowy Op├│r",
+    "name": "Stalowy Opór",
     "grade": 3,
-    "description": "Po wygranym te┼Ťcie si┼éowym wymuszonym przez przeciwnika dodaje 3 redukcji na najbli┼╝szy atak wzgl─Ödem tego przeciwnika.",
+    "description": "Po wygranym teście siłowym wymuszonym przez przeciwnika dodaje 3 redukcji na najbliższy atak względem tego przeciwnika.",
     "requirements": [
       "S 5"
     ],
@@ -2740,22 +2740,22 @@
   },
   {
     "id": "01K9Z6YHWY211MTHPVMWVK7M4E",
-    "name": "Styl Walki Jedn─ů Broni─ů",
+    "name": "Styl Walki Jedną Bronią",
     "grade": 1,
-    "description": "Zwi─Öksza rang─Ö test├│w fechtunku i fortelu o 1.",
+    "description": "Zwiększa rangę testów fechtunku i fortelu o 1.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 4 lub Wi─Ökszy Fortel 4"
+      "Większy Fechtunek 4 lub Większy Fortel 4"
     ],
     "price": 6,
     "tags": []
   },
   {
     "id": "01K9Z6YHWY6W0YKH9YX1NN9HN7",
-    "name": "Styl Walki Jedn─ů Broni─ů",
+    "name": "Styl Walki Jedną Bronią",
     "grade": 2,
-    "description": "Zwi─Öksza rang─Ö test├│w fechtunku i fortelu o 2.",
+    "description": "Zwiększa rangę testów fechtunku i fortelu o 2.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 5 lub Wi─Ökszy Fortel 5"
+      "Większy Fechtunek 5 lub Większy Fortel 5"
     ],
     "price": 7,
     "tags": []
@@ -2764,11 +2764,11 @@
     "id": "01K9Z6YHWWWCACZ5RNG711G3RG",
     "name": "Symbiotyka",
     "grade": 1,
-    "description": "+ (Si┼éa/2) dmg.",
+    "description": "+ (Siła/2) dmg.",
     "requirements": [
       "S 3",
       "Zr 3",
-      "bro┼ä dwur─Öczna",
+      "broń dwuręczna",
       "Finezja w walce"
     ],
     "price": 3,
@@ -2776,46 +2776,46 @@
   },
   {
     "id": "01K9Z6YJVVHAV0GR5WVRCCCBBG",
-    "name": "Symbioza Cia┼éa",
+    "name": "Symbioza Ciała",
     "grade": 1,
-    "description": "Dodaje Harmoni─Ö do Zdrowia. Zwi─Öksza o 1 rang─Ö ko┼Ťci w testach naturalnej dziennej regeneracji. Zwi─Öksza Poziom Leczenia o 1.",
+    "description": "Dodaje Harmonię do Zdrowia. Zwiększa o 1 rangę kości w testach naturalnej dziennej regeneracji. Zwiększa Poziom Leczenia o 1.",
     "requirements": [
-      "Wi─Öksza Harmonia 5"
+      "Większa Harmonia 5"
     ],
     "price": 5,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV8H9AWAPP2CXW49MC",
-    "name": "Symbioza Cia┼éa",
+    "name": "Symbioza Ciała",
     "grade": 2,
-    "description": "Dodaje 2xHarmonia do Zdrowia. Zwi─Öksza o 2 rang─Ö ko┼Ťci w testach naturalnej dziennej regeneracji. Zwi─Öksza Poziom Leczenia o 2.",
+    "description": "Dodaje 2xHarmonia do Zdrowia. Zwiększa o 2 rangę kości w testach naturalnej dziennej regeneracji. Zwiększa Poziom Leczenia o 2.",
     "requirements": [
-      "Wi─Öksza Harmonia 7"
+      "Większa Harmonia 7"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YJVVGHPYPJX1RZVR8VS1",
-    "name": "Symbioza Umys┼éu",
+    "name": "Symbioza Umysłu",
     "grade": 1,
-    "description": "Dodaje Wol─Ö do Punkt├│w Harmonii.",
+    "description": "Dodaje Wolę do Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Haromnia 4",
-      "Wi─Öksza Wola 4"
+      "Większa Haromnia 4",
+      "Większa Wola 4"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV9YKG06EEV8HYDFFN",
-    "name": "Symbioza Umys┼éu",
+    "name": "Symbioza Umysłu",
     "grade": 2,
-    "description": "Dodaje 2xWola do Punkt├│w Harmonii.",
+    "description": "Dodaje 2xWola do Punktów Harmonii.",
     "requirements": [
-      "Wi─Öksza Haromnia 6",
-      "Wi─Öksza Wola 6"
+      "Większa Haromnia 6",
+      "Większa Wola 6"
     ],
     "price": 6,
     "tags": []
@@ -2824,11 +2824,11 @@
     "id": "01K9Z6YHX3JCERTPN4Y90CZ9CB",
     "name": "Syn Wojny",
     "grade": 1,
-    "description": "Dodaje 2 odporno┼Ťci.",
+    "description": "Dodaje 2 odporności.",
     "requirements": [
-      "Epicka Wytrwa┼éo┼Ť─ç(z wirem walki",
+      "Epicka Wytrwałość(z wirem walki",
       "3 manewry wojmistrzowskie",
-      "Cz┼éowiek Twierdza 2",
+      "Człowiek Twierdza 2",
       "Postawa Wojmistrza 1"
     ],
     "price": 6,
@@ -2838,30 +2838,30 @@
     "id": "01K9Z6YHX343HKABYCAAWM3MTV",
     "name": "Syn Wojny",
     "grade": 2,
-    "description": "Dodaje 4 odporno┼Ťci.",
+    "description": "Dodaje 4 odporności.",
     "requirements": [],
     "price": 12,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV88YRE81XCMEZE253",
-    "name": "Sz├│sty Zmys┼é",
+    "name": "Szósty Zmysł",
     "grade": 1,
-    "description": "Pozwala na wyczuwanie r├│┼╝nych rodzaji mocy (w tym Harmonii) na odleg┼éo┼Ť─ç 1m*Harmonia (im dalej tym s┼éabiej).",
+    "description": "Pozwala na wyczuwanie różnych rodzaji mocy (w tym Harmonii) na odległość 1m*Harmonia (im dalej tym słabiej).",
     "requirements": [
-      "Wi─Öksza Harmonia 4",
-      "Symbioza Umys┼éu 1"
+      "Większa Harmonia 4",
+      "Symbioza Umysłu 1"
     ],
     "price": 4,
     "tags": []
   },
   {
     "id": "01K9Z6YJVV350GC9M53ZXR7DHZ",
-    "name": "Sz├│sty Zmys┼é",
+    "name": "Szósty Zmysł",
     "grade": 2,
-    "description": "Pozwala na wyczuwanie r├│┼╝nych rodzaji mocy (w tym Harmonii) na odleg┼éo┼Ť─ç 2m*Harmonia (im dalej tym s┼éabiej).",
+    "description": "Pozwala na wyczuwanie różnych rodzaji mocy (w tym Harmonii) na odległość 2m*Harmonia (im dalej tym słabiej).",
     "requirements": [
-      "Wi─Öksza Harmonia 6"
+      "Większa Harmonia 6"
     ],
     "price": 3,
     "tags": []
@@ -2910,9 +2910,9 @@
   },
   {
     "id": "01K9Z6YHWY7KQ1D7E6WXP6Q4KF",
-    "name": "Szemrz─ůce Klingi",
+    "name": "Szemrzące Klingi",
     "grade": 1,
-    "description": "Dodaje 1 do test├│w fechtunku.",
+    "description": "Dodaje 1 do testów fechtunku.",
     "requirements": [
       "Dwa miecze"
     ],
@@ -2921,11 +2921,11 @@
   },
   {
     "id": "01K9Z6YHWYGJB6XMVCZSMBB2N6",
-    "name": "Szemrz─ůce Klingi",
+    "name": "Szemrzące Klingi",
     "grade": 2,
-    "description": "Dodaje 2 do test├│w fechtunku.",
+    "description": "Dodaje 2 do testów fechtunku.",
     "requirements": [
-      "Szemrz─ůce Klingi 1",
+      "Szemrzące Klingi 1",
       "Dwa miecze"
     ],
     "price": 12,
@@ -2933,24 +2933,24 @@
   },
   {
     "id": "01K9Z6YHWZMFSTVMNK79TQ0WN8",
-    "name": "Szkolenie Zab├│jcy",
+    "name": "Szkolenie Zabójcy",
     "grade": 1,
     "description": "Dodaje 1 dmg.",
     "requirements": [
-      "Wi─Ökszy Fortel 5",
-      "Mistrzowstwo w skrytob├│jstwie 1"
+      "Większy Fortel 5",
+      "Mistrzowstwo w skrytobójstwie 1"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHWZ70EGYJQX5K4EZTC0",
-    "name": "Szkolenie Zab├│jcy",
+    "name": "Szkolenie Zabójcy",
     "grade": 2,
     "description": "Dodaje 2 dmg.",
     "requirements": [
-      "Wi─Ökszy Fortel 7",
-      "Szkolenie Zab├│jcy 1"
+      "Większy Fortel 7",
+      "Szkolenie Zabójcy 1"
     ],
     "price": 9,
     "tags": []
@@ -2959,9 +2959,9 @@
     "id": "01K9Z6YJJBXNG83Q0D0JT9R537",
     "name": "Sztuka Walki",
     "grade": 1,
-    "description": "Dodaje 1 ko┼Ť─ç broni w Walce Wr─Öcz.",
+    "description": "Dodaje 1 kość broni w Walce Wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 6"
+      "Walka Wręcz 6"
     ],
     "price": 12,
     "tags": []
@@ -2970,9 +2970,9 @@
     "id": "01K9Z6YJJBB58WET1SFDZP026B",
     "name": "Sztuka Walki",
     "grade": 2,
-    "description": "Dodaje 2 ko┼Ťci broni w Walce Wr─Öcz.",
+    "description": "Dodaje 2 kości broni w Walce Wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 10"
+      "Walka Wręcz 10"
     ],
     "price": 24,
     "tags": []
@@ -2981,9 +2981,9 @@
     "id": "01K9Z6YHWYVGNSQG7QQESN9X5P",
     "name": "Sztuka Wojenna",
     "grade": 1,
-    "description": "Otrzymujesz 1 dmg maj─ůc nad przeciwnikiem przewag─Ö wysoko┼Ťci terenu.",
+    "description": "Otrzymujesz 1 dmg mając nad przeciwnikiem przewagę wysokości terenu.",
     "requirements": [
-      "Zapa┼é Wjownika 1"
+      "Zapał Wjownika 1"
     ],
     "price": 2,
     "tags": []
@@ -2992,19 +2992,19 @@
     "id": "01K9Z6YHWYC5WGFG4MT664TCVK",
     "name": "Sztuka Wojenna",
     "grade": 2,
-    "description": "Otrzymujesz 2 dmg maj─ůc nad przeciwnikiem przewag─Ö wysoko┼Ťci terenu.",
+    "description": "Otrzymujesz 2 dmg mając nad przeciwnikiem przewagę wysokości terenu.",
     "requirements": [
       "Sztuka Wojenna 1",
-      "Zapa┼é Wojownika 2"
+      "Zapał Wojownika 2"
     ],
     "price": 2,
     "tags": []
   },
   {
     "id": "01K9Z6YHWY7DK2ZTA7XZSCBN5B",
-    "name": "Szybkie Dobieranie Strza┼é",
+    "name": "Szybkie Dobieranie Strzał",
     "grade": 1,
-    "description": "Zwi─Öksza inicjatywe o 1.",
+    "description": "Zwiększa inicjatywe o 1.",
     "requirements": [
       "Zr 2"
     ],
@@ -3013,11 +3013,11 @@
   },
   {
     "id": "01K9Z6YHWYH12S3Y97XA0Y2GRV",
-    "name": "Szybkie Dobieranie Strza┼é",
+    "name": "Szybkie Dobieranie Strzał",
     "grade": 2,
-    "description": "Zwi─Öksza inicjatywe o 2.",
+    "description": "Zwiększa inicjatywe o 2.",
     "requirements": [
-      "Szybkie Dobieranie Strza┼é 1",
+      "Szybkie Dobieranie Strzał 1",
       "Zr 4"
     ],
     "price": 9,
@@ -3025,11 +3025,11 @@
   },
   {
     "id": "01K9Z6YHWYB7QR2QXMCJEVGVH2",
-    "name": "Szybkie Dobieranie Strza┼é",
+    "name": "Szybkie Dobieranie Strzał",
     "grade": 3,
-    "description": "Zwi─Öksza inicjatywe o 3.",
+    "description": "Zwiększa inicjatywe o 3.",
     "requirements": [
-      "Szybkie Dobieranie Strza┼é 2",
+      "Szybkie Dobieranie Strzał 2",
       "Zr 6"
     ],
     "price": 18,
@@ -3037,9 +3037,9 @@
   },
   {
     "id": "01K9Z6YHX380D0AEA00HY2FXM0",
-    "name": "Szybko┼Ť─ç",
+    "name": "Szybkość",
     "grade": 1,
-    "description": "Zwi─Öksza rang─Ö test├│w inicjatywy o 1.",
+    "description": "Zwiększa rangę testów inicjatywy o 1.",
     "requirements": [
       "Bazowy Inicjatywa 4"
     ],
@@ -3048,11 +3048,11 @@
   },
   {
     "id": "01K9Z6YHX3HXMK7ED0BHWCQNGN",
-    "name": "Szybko┼Ť─ç",
+    "name": "Szybkość",
     "grade": 2,
-    "description": "Zwi─Öksza rang─Ö test├│w inicjatywy o 2.",
+    "description": "Zwiększa rangę testów inicjatywy o 2.",
     "requirements": [
-      "Szybo┼Ť─ç 1",
+      "Szybość 1",
       "Bazowy Inicjatywa 5"
     ],
     "price": 4,
@@ -3071,11 +3071,11 @@
   },
   {
     "id": "01K9Z6YJJB7GY3C9F56XR9QCYQ",
-    "name": "Technika ponad si┼é─Ö",
+    "name": "Technika ponad siłę",
     "grade": 1,
-    "description": "Podczas Walki Wr─Öcz z wrogiem stosuj─ůcym Walk─Ö Wr─Öcz w testach si┼éowych wymuszonych przez przeciwnika mo┼╝esz stosowa─ç Walk─Ö Wr─Öcz zamiast modyfikatora z si┼éy.",
+    "description": "Podczas Walki Wręcz z wrogiem stosującym Walkę Wręcz w testach siłowych wymuszonych przez przeciwnika możesz stosować Walkę Wręcz zamiast modyfikatora z siły.",
     "requirements": [
-      "Walka Wr─Öcz 6"
+      "Walka Wręcz 6"
     ],
     "price": 6,
     "tags": []
@@ -3084,7 +3084,7 @@
     "id": "01K9Z6YHWYM3A5PV3JJ519WWVK",
     "name": "Triple",
     "grade": 1,
-    "description": "Je┼╝eli wyrzucisz trzy takie same oczka na wybranych trzech ko┼Ťciach broni dodajesz dodatkowo 5 obra┼╝e┼ä.",
+    "description": "Jeżeli wyrzucisz trzy takie same oczka na wybranych trzech kościach broni dodajesz dodatkowo 5 obrażeń.",
     "requirements": [
       "Zr 5"
     ],
@@ -3093,22 +3093,22 @@
   },
   {
     "id": "01K9Z6YHX091EMPSTYZT358379",
-    "name": "Trudno┼Ť─ç w rozczytaniu",
+    "name": "Trudność w rozczytaniu",
     "grade": 1,
-    "description": "Dodaje 1 do test├│w spornych przeciwko fortelowi.",
+    "description": "Dodaje 1 do testów spornych przeciwko fortelowi.",
     "requirements": [
-      "Spostrzegawczo┼Ť─ç 5"
+      "Spostrzegawczość 5"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHX080E4X3DJNR451S6H",
-    "name": "Trudno┼Ť─ç w rozczytaniu",
+    "name": "Trudność w rozczytaniu",
     "grade": 2,
-    "description": "Dodaje 2 do test├│w spornych przeciwko fortelowi.",
+    "description": "Dodaje 2 do testów spornych przeciwko fortelowi.",
     "requirements": [
-      "Spostrzegawczo┼Ť─ç 7"
+      "Spostrzegawczość 7"
     ],
     "price": 9,
     "tags": []
@@ -3129,9 +3129,9 @@
     "id": "01K9Z6YHWYCACVHV6GNEZ3GPPY",
     "name": "Ukratkowy Atak",
     "grade": 1,
-    "description": "Po wygranym te┼Ťcie fortelu wymuszonym przez przeciwnika dodaje 2dmg na nast─Öpn─ů ture przeciw temu przeciwnikowi.",
+    "description": "Po wygranym teście fortelu wymuszonym przez przeciwnika dodaje 2dmg na następną ture przeciw temu przeciwnikowi.",
     "requirements": [
-      "Wi─Ökszy Fortel 4"
+      "Większy Fortel 4"
     ],
     "price": 3,
     "tags": []
@@ -3140,10 +3140,10 @@
     "id": "01K9Z6YHWY4TZ3BA01X3BFW71J",
     "name": "Ukratkowy Atak",
     "grade": 2,
-    "description": "Po wygranym te┼Ťcie fortelu wymuszonym przez przeciwnika dodaje 4dmg na nast─Öpn─ů ture przeciw temu przeciwnikowi.",
+    "description": "Po wygranym teście fortelu wymuszonym przez przeciwnika dodaje 4dmg na następną ture przeciw temu przeciwnikowi.",
     "requirements": [
       "Ukratkowy Atak 1",
-      "Wi─Ökszy Fortel 5"
+      "Większy Fortel 5"
     ],
     "price": 3,
     "tags": []
@@ -3152,10 +3152,10 @@
     "id": "01K9Z6YHWY05CE5TAW7X8S9KWS",
     "name": "Ukratkowy Atak",
     "grade": 3,
-    "description": "Po wygranym te┼Ťcie fortelu wymuszonym przez przeciwnika dodaje 6dmg na nast─Öpn─ů ture przeciw temu przeciwnikowi.",
+    "description": "Po wygranym teście fortelu wymuszonym przez przeciwnika dodaje 6dmg na następną ture przeciw temu przeciwnikowi.",
     "requirements": [
       "Ukratowy Atak 2",
-      "Wi─Ökszy Fortel 6"
+      "Większy Fortel 6"
     ],
     "price": 3,
     "tags": []
@@ -3164,18 +3164,18 @@
     "id": "01K9Z6YHX3YGJ9XWDRVETFFAVR",
     "name": "Ulepszona Postawa Defensywna",
     "grade": 1,
-    "description": "Dodaje 1 blokowania tarcz─ů bed─ůc w dowolnej postawie defensywnej.",
+    "description": "Dodaje 1 blokowania tarczą bedąc w dowolnej postawie defensywnej.",
     "requirements": [],
     "price": 5,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0FKSP9CBWD521Q4PG",
-    "name": "Umiej─Ötno┼Ťci Bojowe",
+    "name": "Umiejętności Bojowe",
     "grade": 1,
-    "description": "Zwi─Öksza wybran─ů cech─Ö o 1. Przy koszcie nie uwzgl─Ödnia─ç modyfikatora rasowego. Dodatkowy koszt 3*|cecha|.",
+    "description": "Zwiększa wybraną cechę o 1. Przy koszcie nie uwzględniać modyfikatora rasowego. Dodatkowy koszt 3*|cecha|.",
     "requirements": [
-      "Cecha inna ni┼╝ czarokrwisto┼Ť─ç"
+      "Cecha inna niż czarokrwistość"
     ],
     "price": 6,
     "tags": []
@@ -3195,25 +3195,25 @@
   },
   {
     "id": "01K9Z6YJJA999ZCBCEW78ZRA95",
-    "name": "Walka Wr─Öcz",
+    "name": "Walka Wręcz",
     "grade": 1,
-    "description": "dmg k6, -3 si┼éa krytyka, +1 inicjatywa. Walka Wr─Öcz.",
+    "description": "dmg k6, -3 siła krytyka, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBMGAMQYH93JK8XB82",
-    "name": "Walka Wr─Öcz",
+    "name": "Walka Wręcz",
     "grade": 1,
-    "description": "dmg k6, -3 si┼éa krytyka, +1 inicjatywa. Walka Wr─Öcz.",
+    "description": "dmg k6, -3 siła krytyka, +1 inicjatywa. Walka Wręcz.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJVTDPA5T5GZ5DACRFPH",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 1,
     "description": "Bazowa Harmonia +1.",
     "requirements": [
@@ -3224,11 +3224,11 @@
   },
   {
     "id": "01K9Z6YJVTG1BCDJSDS9WEEB1V",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 2,
     "description": "Bazowa Harmonia +2.",
     "requirements": [
-      "Wi─Öksza Harmonia 1",
+      "Większa Harmonia 1",
       "Md 1"
     ],
     "price": 3,
@@ -3236,11 +3236,11 @@
   },
   {
     "id": "01K9Z6YJVT5FQZSC54WBXXKTY1",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 3,
     "description": "Bazowa Harmonia +3.",
     "requirements": [
-      "Wi─Öksza Harmonia 2",
+      "Większa Harmonia 2",
       "Md 2"
     ],
     "price": 4,
@@ -3248,11 +3248,11 @@
   },
   {
     "id": "01K9Z6YJVT2ZK1ZEHYR14FF7X6",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 4,
     "description": "Bazowa Harmonia +4.",
     "requirements": [
-      "Wi─Öksza Harmonia 3",
+      "Większa Harmonia 3",
       "Md 2"
     ],
     "price": 9,
@@ -3260,11 +3260,11 @@
   },
   {
     "id": "01K9Z6YJVTKD1WSB6G0X8KVR8W",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 5,
     "description": "Bazowa Harmonia +5.",
     "requirements": [
-      "Wi─Öksza Harmonia 4",
+      "Większa Harmonia 4",
       "Md 3"
     ],
     "price": 10,
@@ -3272,11 +3272,11 @@
   },
   {
     "id": "01K9Z6YJVTT094V0AT7G9KQGN9",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 6,
     "description": "Bazowa Harmonia +6.",
     "requirements": [
-      "Wi─Öksza Harmonia 5",
+      "Większa Harmonia 5",
       "Md 3"
     ],
     "price": 12,
@@ -3284,11 +3284,11 @@
   },
   {
     "id": "01K9Z6YJVVTEHVHQWVEPDG187T",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 7,
     "description": "Bazowa Harmonia +7.",
     "requirements": [
-      "Wi─Öksza Harmonia 6",
+      "Większa Harmonia 6",
       "Md 4"
     ],
     "price": 12,
@@ -3296,11 +3296,11 @@
   },
   {
     "id": "01K9Z6YJVV3G7D51A224BD84Z4",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 8,
     "description": "Bazowa Harmonia +8.",
     "requirements": [
-      "Wi─Öksza Harmonia 7",
+      "Większa Harmonia 7",
       "Md 4"
     ],
     "price": 12,
@@ -3308,11 +3308,11 @@
   },
   {
     "id": "01K9Z6YJVVTMF2KRP24K0CFSC4",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 9,
     "description": "Bazowa Harmonia +9.",
     "requirements": [
-      "Wi─Öksza Harmonia 8",
+      "Większa Harmonia 8",
       "Md 5"
     ],
     "price": 12,
@@ -3320,11 +3320,11 @@
   },
   {
     "id": "01K9Z6YJVVBK8XDKND35BTNQYH",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 10,
     "description": "Bazowa Harmonia +10, Epicka Harmonia.",
     "requirements": [
-      "Wi─Öksza Harmonia 9",
+      "Większa Harmonia 9",
       "Md 6"
     ],
     "price": 12,
@@ -3332,11 +3332,11 @@
   },
   {
     "id": "01K9Z6YJVV5J05EGERCXHQJ3A4",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 11,
     "description": "Bazowa Harmonia +11.",
     "requirements": [
-      "Wi─Öksza Harmonia 10",
+      "Większa Harmonia 10",
       "Md 7"
     ],
     "price": 12,
@@ -3344,11 +3344,11 @@
   },
   {
     "id": "01K9Z6YJVVN2GH176422GN6MQ9",
-    "name": "Wi─Öksza Harmonia",
+    "name": "Większa Harmonia",
     "grade": 12,
     "description": "Bazowa Harmonia +12.",
     "requirements": [
-      "Wi─Öksza Harmonia 11",
+      "Większa Harmonia 11",
       "Md 8"
     ],
     "price": 12,
@@ -3356,7 +3356,7 @@
   },
   {
     "id": "01K9Z6YHX2XGZW59PKKNM5GT2V",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 1,
     "description": "Bazowa Inicjatywa +1.",
     "requirements": [
@@ -3367,7 +3367,7 @@
   },
   {
     "id": "01K9Z6YHX2N0AX14390JZHVVXH",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 2,
     "description": "Bazowa Inicjatywa +2.",
     "requirements": [
@@ -3379,7 +3379,7 @@
   },
   {
     "id": "01K9Z6YHX2GF2H52JCNKD7GXJS",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 3,
     "description": "Bazowa Inicjatywa +3.",
     "requirements": [
@@ -3391,7 +3391,7 @@
   },
   {
     "id": "01K9Z6YHX2H0Z7DZ50VEHGVW9C",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 4,
     "description": "Bazowa Inicjatywa +4.",
     "requirements": [
@@ -3403,7 +3403,7 @@
   },
   {
     "id": "01K9Z6YHX26KS0YM3YKZR71FQD",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 5,
     "description": "Bazowa Inicjatywa +5.",
     "requirements": [
@@ -3415,7 +3415,7 @@
   },
   {
     "id": "01K9Z6YHX2B9GFSD3PR2PCEWNP",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 6,
     "description": "Bazowa Inicjatywa +6.",
     "requirements": [
@@ -3427,7 +3427,7 @@
   },
   {
     "id": "01K9Z6YHX2DDK4P4VAVD623D2B",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 7,
     "description": "Bazowa Inicjatywa +7.",
     "requirements": [
@@ -3439,7 +3439,7 @@
   },
   {
     "id": "01K9Z6YHX28BQJ7WF2JS3FR1SB",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 8,
     "description": "Bazowa Inicjatywa +8.",
     "requirements": [
@@ -3451,7 +3451,7 @@
   },
   {
     "id": "01K9Z6YHX2X46W9CTMBH8EDS3E",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 9,
     "description": "Bazowa Inicjatywa +9.",
     "requirements": [
@@ -3463,7 +3463,7 @@
   },
   {
     "id": "01K9Z6YHX270ZGBFP975XN16HS",
-    "name": "Wi─Öksza Inicjatywa",
+    "name": "Większa Inicjatywa",
     "grade": 10,
     "description": "Bazowa Inicjatywa +10.",
     "requirements": [
@@ -3475,7 +3475,7 @@
   },
   {
     "id": "01K9Z6YHX17F2GAAT8PRMPKDEC",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 1,
     "description": "Bazowa Precyzja+1.",
     "requirements": [],
@@ -3484,11 +3484,11 @@
   },
   {
     "id": "01K9Z6YHX1JRGTBJ6DW2V0CRFP",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 2,
     "description": "Bazowa Precyzja+2.",
     "requirements": [
-      "Wi─Öksza Precyzja 1",
+      "Większa Precyzja 1",
       "Zr 0"
     ],
     "price": 7,
@@ -3496,11 +3496,11 @@
   },
   {
     "id": "01K9Z6YHX1DCXFFTH315KDF1N8",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 3,
     "description": "Bazowa Precyzja+3.",
     "requirements": [
-      "Wi─Öksza Precyzja 2",
+      "Większa Precyzja 2",
       "Zr 1"
     ],
     "price": 10,
@@ -3508,11 +3508,11 @@
   },
   {
     "id": "01K9Z6YHX143G1Z05Y6H19PZ4Y",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 4,
     "description": "Bazowa Precyzja+4.",
     "requirements": [
-      "Wi─Öksza Precyzja 3",
+      "Większa Precyzja 3",
       "Zr 2"
     ],
     "price": 10,
@@ -3520,11 +3520,11 @@
   },
   {
     "id": "01K9Z6YHX1KSAYQFFX4RN9RVB6",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 5,
     "description": "Bazowa Precyzja+5.",
     "requirements": [
-      "Wi─Öksza Precyzja 4",
+      "Większa Precyzja 4",
       "Zr 3"
     ],
     "price": 10,
@@ -3532,11 +3532,11 @@
   },
   {
     "id": "01K9Z6YHX1PQNRSPET9SGBETN4",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 6,
     "description": "Bazowa Precyzja+6.",
     "requirements": [
-      "Wi─Öksza Precyzja 5",
+      "Większa Precyzja 5",
       "Zr 4"
     ],
     "price": 12,
@@ -3544,11 +3544,11 @@
   },
   {
     "id": "01K9Z6YHX1CBX35TPEP46FCH3X",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 7,
     "description": "Bazowa Precyzja+7.",
     "requirements": [
-      "Wi─Öksza Precyzja 6",
+      "Większa Precyzja 6",
       "Zr 5"
     ],
     "price": 21,
@@ -3556,11 +3556,11 @@
   },
   {
     "id": "01K9Z6YHX1ABRS8PN5DWPKA7NK",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 8,
     "description": "Bazowa Precyzja+8.",
     "requirements": [
-      "Wi─Öksza Precyzja 7",
+      "Większa Precyzja 7",
       "Zr 5"
     ],
     "price": 30,
@@ -3568,11 +3568,11 @@
   },
   {
     "id": "01K9Z6YHX1YPBX1FJ7M3D3ZQMA",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 9,
     "description": "Bazowa Precyzja+9.",
     "requirements": [
-      "Wi─Öksza Precyzja 8",
+      "Większa Precyzja 8",
       "Zr 6"
     ],
     "price": 36,
@@ -3580,11 +3580,11 @@
   },
   {
     "id": "01K9Z6YHX1MA6QRC8YMDXVB0S6",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 10,
     "description": "Bazowa Precyzja+10.",
     "requirements": [
-      "Wi─Öksza Precyzja 9",
+      "Większa Precyzja 9",
       "Zr 7"
     ],
     "price": 36,
@@ -3592,11 +3592,11 @@
   },
   {
     "id": "01K9Z6YHX1TJJDJYYN6MM2B94E",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 11,
     "description": "Bazowa Precyzja+11.",
     "requirements": [
-      "Wi─Öksza Precyzja 10",
+      "Większa Precyzja 10",
       "Zr 9"
     ],
     "price": 36,
@@ -3604,11 +3604,11 @@
   },
   {
     "id": "01K9Z6YHX1ZQPF3VPN0R0AF32N",
-    "name": "Wi─Öksza Precyzja",
+    "name": "Większa Precyzja",
     "grade": 12,
     "description": "Bazowa Precyzja+12.",
     "requirements": [
-      "Wi─Öksza Precyzja 11",
+      "Większa Precyzja 11",
       "Zr 11"
     ],
     "price": 36,
@@ -3616,115 +3616,115 @@
   },
   {
     "id": "01K9Z6YJJBHMKK03ZZ2NNXK75D",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 1,
-    "description": "Bazowa Walka Wr─Öcz+1.",
+    "description": "Bazowa Walka Wręcz+1.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB1XCGC6RRMB82W9TH",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 2,
-    "description": "Bazowa Walka Wr─Öcz+2.",
+    "description": "Bazowa Walka Wręcz+2.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB2KE6RDMAWBCR88YC",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 3,
-    "description": "Bazowa Walka Wr─Öcz+3.",
+    "description": "Bazowa Walka Wręcz+3.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBK834N9HGV8M714FX",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 4,
-    "description": "Bazowa Walka Wr─Öcz+4.",
+    "description": "Bazowa Walka Wręcz+4.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB0RVR5EWNFE3D7BA2",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 5,
-    "description": "Bazowa Walka Wr─Öcz+5.",
+    "description": "Bazowa Walka Wręcz+5.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB7ZAKBSD3P20NBTCC",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 6,
-    "description": "Bazowa Walka Wr─Öcz+6.",
+    "description": "Bazowa Walka Wręcz+6.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB3Q9WQCN8W87XS7EA",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 7,
-    "description": "Bazowa Walka Wr─Öcz+7.",
+    "description": "Bazowa Walka Wręcz+7.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJB8TTVYACVW1QT8Y2N",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 8,
-    "description": "Bazowa Walka Wr─Öcz+8.",
+    "description": "Bazowa Walka Wręcz+8.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBVAKECGAFRMXFYX45",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 9,
-    "description": "Bazowa Walka Wr─Öcz+9.",
+    "description": "Bazowa Walka Wręcz+9.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBFXD69HH6AAMF5XRJ",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 10,
-    "description": "Bazowa Walka Wr─Öcz+10.",
+    "description": "Bazowa Walka Wręcz+10.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBA8QXM65RKKJ1RWSB",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 11,
-    "description": "Bazowa Walka Wr─Öcz+11.",
+    "description": "Bazowa Walka Wręcz+11.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YJJBA61GAFYH9MC2JSK4",
-    "name": "Wi─Öksza Walka Wr─Öcz",
+    "name": "Większa Walka Wręcz",
     "grade": 12,
-    "description": "Bazowa Walka Wr─Öcz+12.",
+    "description": "Bazowa Walka Wręcz+12.",
     "requirements": [],
     "price": 0,
     "tags": []
   },
   {
     "id": "01K9Z6YHX2NTE1TP2C5ZRTG150",
-    "name": "Wi─Öksza Wola",
+    "name": "Większa Wola",
     "grade": 1,
     "description": "Bazowa Wola +1. Dodatkowy koszt 1*Md.",
     "requirements": [
@@ -3735,11 +3735,11 @@
   },
   {
     "id": "01K9Z6YHX25EAEJPBAHYJYKDAA",
-    "name": "Wi─Öksza Wola",
+    "name": "Większa Wola",
     "grade": 2,
     "description": "Bazowa Wola +2. Dodatkowy koszt 1*Md.",
     "requirements": [
-      "Bazowa M─ůdro┼Ť─ç 1",
+      "Bazowa Mądrość 1",
       "Md -1"
     ],
     "price": 4,
@@ -3747,11 +3747,11 @@
   },
   {
     "id": "01K9Z6YHX233VYE4CQKN7N9NAA",
-    "name": "Wi─Öksza Wola",
+    "name": "Większa Wola",
     "grade": 3,
     "description": "Bazowa Wola +3. Dodatkowy koszt 1*Md.",
     "requirements": [
-      "Bazowa M─ůdro┼Ť─ç 2",
+      "Bazowa Mądrość 2",
       "Md 0"
     ],
     "price": 6,
@@ -3759,9 +3759,9 @@
   },
   {
     "id": "01K9Z6YHX1EXGSK3YTFQVE7QSW",
-    "name": "Wi─Öksza Wytrwa┼éo┼Ť─ç",
+    "name": "Większa Wytrwałość",
     "grade": 1,
-    "description": "Bazowa Wytrwa┼éo┼Ť─ç +1. Dodatkowy koszt 1*Bd.",
+    "description": "Bazowa Wytrwałość +1. Dodatkowy koszt 1*Bd.",
     "requirements": [
       "Bd -2"
     ],
@@ -3770,11 +3770,11 @@
   },
   {
     "id": "01K9Z6YHX1AZ7CYTVRYCJB275Y",
-    "name": "Wi─Öksza Wytrwa┼éo┼Ť─ç",
+    "name": "Większa Wytrwałość",
     "grade": 2,
-    "description": "Bazowa Wytrwa┼éo┼Ť─ç +2. Dodatkowy koszt 1*Bd.",
+    "description": "Bazowa Wytrwałość +2. Dodatkowy koszt 1*Bd.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 1",
+      "Bazowa Wytrwałość 1",
       "Bd -1"
     ],
     "price": 4,
@@ -3782,11 +3782,11 @@
   },
   {
     "id": "01K9Z6YHX14XZ0VKG352SJRMDQ",
-    "name": "Wi─Öksza Wytrwa┼éo┼Ť─ç",
+    "name": "Większa Wytrwałość",
     "grade": 3,
-    "description": "Bazowa Wytrwa┼éo┼Ť─ç +3. Dodatkowy koszt 1*Bd.",
+    "description": "Bazowa Wytrwałość +3. Dodatkowy koszt 1*Bd.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 2",
+      "Bazowa Wytrwałość 2",
       "Bd 0"
     ],
     "price": 6,
@@ -3794,9 +3794,9 @@
   },
   {
     "id": "01K9Z6YHX1WP027S0V5VGZT5X1",
-    "name": "Wi─Öksze Uniki",
+    "name": "Większe Uniki",
     "grade": 1,
-    "description": "Dodaje 1 do unik├│w przeciw jednemu przeciwnikowi je┼Ťli walczy si─Ö z jednym przeciwnikiem.",
+    "description": "Dodaje 1 do uników przeciw jednemu przeciwnikowi jeśli walczy się z jednym przeciwnikiem.",
     "requirements": [
       "Bazowy Refleks 2"
     ],
@@ -3805,9 +3805,9 @@
   },
   {
     "id": "01K9Z6YHX1C9KJ9A2PMHYB0K5F",
-    "name": "Wi─Öksze Uniki",
+    "name": "Większe Uniki",
     "grade": 2,
-    "description": "Dodaje 2 do unik├│w przeciw jednemu przeciwnikowi je┼Ťli walczy si─Ö z jednym przeciwnikiem.",
+    "description": "Dodaje 2 do uników przeciw jednemu przeciwnikowi jeśli walczy się z jednym przeciwnikiem.",
     "requirements": [
       "Bazowy Refleks 4",
       "Uniki 1"
@@ -3817,9 +3817,9 @@
   },
   {
     "id": "01K9Z6YHX2W8Q6JRJJM7895BNF",
-    "name": "Wi─Öksze Uniki",
+    "name": "Większe Uniki",
     "grade": 3,
-    "description": "Dodaje 3 do unik├│w przeciw jednemu przeciwnikowi je┼Ťli walczy si─Ö z jednym przeciwnikiem.",
+    "description": "Dodaje 3 do uników przeciw jednemu przeciwnikowi jeśli walczy się z jednym przeciwnikiem.",
     "requirements": [
       "Bazowy Refleks 6",
       "Uniki 2"
@@ -3829,9 +3829,9 @@
   },
   {
     "id": "01K9Z6YHX2NP1PD735EHH2YKFT",
-    "name": "Wi─Öksze Uniki",
+    "name": "Większe Uniki",
     "grade": 4,
-    "description": "Dodaje 4 do unik├│w przeciw jednemu przeciwnikowi je┼Ťli walczy si─Ö z jednym przeciwnikiem.",
+    "description": "Dodaje 4 do uników przeciw jednemu przeciwnikowi jeśli walczy się z jednym przeciwnikiem.",
     "requirements": [
       "Bazowy Refleks 8",
       "Uniki 3"
@@ -3841,7 +3841,7 @@
   },
   {
     "id": "01K9Z6YHX0XNYQ2XZJEASTX9VY",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 1,
     "description": "Bazowy Fechtunek +1.",
     "requirements": [],
@@ -3850,11 +3850,11 @@
   },
   {
     "id": "01K9Z6YHX0W072RQCHSP3NNN1N",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 2,
     "description": "Bazowy Fechtunek +2.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 1",
+      "Większy Fechtunek 1",
       "Int+Zr -2"
     ],
     "price": 3,
@@ -3862,11 +3862,11 @@
   },
   {
     "id": "01K9Z6YHX0WJD50JK7ZC8C2RYQ",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 3,
     "description": "Bazowy Fechtunek +3.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 2",
+      "Większy Fechtunek 2",
       "Int+Zr -1"
     ],
     "price": 4,
@@ -3874,124 +3874,124 @@
   },
   {
     "id": "01K9Z6YHX0PMHKE128XSVDQ785",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 4,
     "description": "Bazowy Fechtunek +4.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 3",
+      "Większy Fechtunek 3",
       "Int+Zr 0",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 2"
+      "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0GJSPMADZS6W95HTQ",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 5,
     "description": "Bazowy Fechtunek +5.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 4",
+      "Większy Fechtunek 4",
       "Int+Zr 1",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 2"
+      "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 10,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0Q26AERYS01XEGGS7",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 6,
     "description": "Bazowy Fechtunek +6.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 5",
+      "Większy Fechtunek 5",
       "Int+Zr 2",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 3"
+      "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 12,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0GW4JMQFG238VEQD3",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 7,
     "description": "Bazowy Fechtunek +7.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 6",
+      "Większy Fechtunek 6",
       "Int+Zr 3",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 3"
+      "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 21,
     "tags": []
   },
   {
     "id": "01K9Z6YHX09085WF2HDDH2AH1W",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 8,
     "description": "Bazowy Fechtunek +8.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 7",
+      "Większy Fechtunek 7",
       "Int+Zr 4",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 4"
+      "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 30,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0WBBQX44TX2KKW2GE",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 9,
     "description": "Bazowy Fechtunek +9.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 8",
+      "Większy Fechtunek 8",
       "Int+Zr 5",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 4"
+      "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX01J13A47EJQK3MV3T",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 10,
     "description": "Bazowy Fechtunek +10.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 9",
+      "Większy Fechtunek 9",
       "Int+Zr 6",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 5"
+      "Ilość postaw i manewrów fizycznych 5"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0CCHYH3YTMY635TTP",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 11,
     "description": "Bazowy Fechtunek +11.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 10",
+      "Większy Fechtunek 10",
       "Int+Zr 7",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 6"
+      "Ilość postaw i manewrów fizycznych 6"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0S52JSFA234RPZ0HT",
-    "name": "Wi─Ökszy Fechtunek",
+    "name": "Większy Fechtunek",
     "grade": 12,
     "description": "Bazowy Fechtunek +12.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 11",
+      "Większy Fechtunek 11",
       "Int+Zr 8",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 7"
+      "Ilość postaw i manewrów fizycznych 7"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0NXB0HA3058XH767M",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 1,
     "description": "Bazowy Fortel+1.",
     "requirements": [],
@@ -4000,11 +4000,11 @@
   },
   {
     "id": "01K9Z6YHX0QJRF3Y63H7P6032T",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 2,
     "description": "Bazowy Fortel+2.",
     "requirements": [
-      "Wi─Ökszy Fortel 1",
+      "Większy Fortel 1",
       "Int+Zr 0"
     ],
     "price": 3,
@@ -4012,11 +4012,11 @@
   },
   {
     "id": "01K9Z6YHX00SZ03XN2JEEEFB25",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 3,
     "description": "Bazowy Fortel+3.",
     "requirements": [
-      "Wi─Ökszy Fortel 2",
+      "Większy Fortel 2",
       "Int+Zr 1"
     ],
     "price": 4,
@@ -4024,124 +4024,124 @@
   },
   {
     "id": "01K9Z6YHX0T01PVA5J8R9ZJ2V2",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 4,
     "description": "Bazowy Fortel+4.",
     "requirements": [
-      "Wi─Ökszy Fortel 3",
+      "Większy Fortel 3",
       "Int+Zr 2",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 2"
+      "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0NKSCDAHDVFR885ZP",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 5,
     "description": "Bazowy Fortel+5.",
     "requirements": [
-      "Wi─Ökszy Fortel 4",
+      "Większy Fortel 4",
       "Int+Zr 3",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 2"
+      "Ilość postaw i manewrów fizycznych 2"
     ],
     "price": 10,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0CA89X5AMBYAQ5YHV",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 6,
     "description": "Bazowy Fortel+6.",
     "requirements": [
-      "Wi─Ökszy Fortel 5",
+      "Większy Fortel 5",
       "Int+Zr 4",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 3"
+      "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 12,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0JRA6JXG78PZGTWDP",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 7,
     "description": "Bazowy Fortel+7.",
     "requirements": [
-      "Wi─Ökszy Fortel 6",
+      "Większy Fortel 6",
       "Int+Zr 5",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 3"
+      "Ilość postaw i manewrów fizycznych 3"
     ],
     "price": 21,
     "tags": []
   },
   {
     "id": "01K9Z6YHX064FG8Y3CVAZ7544K",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 8,
     "description": "Bazowy Fortel+8.",
     "requirements": [
-      "Wi─Ökszy Fortel 7",
+      "Większy Fortel 7",
       "Int+Zr 5",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 4"
+      "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 30,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0ZMA31E6463FM4C5R",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 9,
     "description": "Bazowy Fortel+9.",
     "requirements": [
-      "Wi─Ökszy Fortel 8",
+      "Większy Fortel 8",
       "Int+Zr 6",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 4"
+      "Ilość postaw i manewrów fizycznych 4"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX055HQSXR3BMCAYH2P",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 10,
     "description": "Bazowy Fortel+10.",
     "requirements": [
-      "Wi─Ökszy Fortel 9",
+      "Większy Fortel 9",
       "Int+Zr 7",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 5"
+      "Ilość postaw i manewrów fizycznych 5"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX0JK504B30TRRRHP5K",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 11,
     "description": "Bazowy Fortel+11.",
     "requirements": [
-      "Wi─Ökszy Fortel 10",
+      "Większy Fortel 10",
       "Int+Zr 9",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 6"
+      "Ilość postaw i manewrów fizycznych 6"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX035SDX7SP46A2G9X5",
-    "name": "Wi─Ökszy Fortel",
+    "name": "Większy Fortel",
     "grade": 12,
     "description": "Bazowy Fortel+12.",
     "requirements": [
-      "Wi─Ökszy Fortel 11",
+      "Większy Fortel 11",
       "Int+Zr 11",
-      "Ilo┼Ť─ç postaw i manewr├│w fizycznych 7"
+      "Ilość postaw i manewrów fizycznych 7"
     ],
     "price": 36,
     "tags": []
   },
   {
     "id": "01K9Z6YHX1WY3CAV6ME5EZAJAD",
-    "name": "Wi─Ökszy Refleks",
+    "name": "Większy Refleks",
     "grade": 1,
     "description": "Bazowy Refleks +1. Dodatkowy koszt 1*Zr.",
     "requirements": [
@@ -4152,7 +4152,7 @@
   },
   {
     "id": "01K9Z6YHX17QS9Y08KVBY879G0",
-    "name": "Wi─Ökszy Refleks",
+    "name": "Większy Refleks",
     "grade": 2,
     "description": "Bazowy Refleks +2. Dodatkowy koszt 1*Zr.",
     "requirements": [
@@ -4164,7 +4164,7 @@
   },
   {
     "id": "01K9Z6YHX1Y6C1YF2H1KKBHWYS",
-    "name": "Wi─Ökszy Refleks",
+    "name": "Większy Refleks",
     "grade": 3,
     "description": "Bazowy Refleks +3. Dodatkowy koszt 1*Zr.",
     "requirements": [
@@ -4190,7 +4190,7 @@
     "id": "01K9Z6YHWXQTJW2TB0D6E9GCDJ",
     "name": "Widmowe Zogniskowanie Broni",
     "grade": 1,
-    "description": "+ widmowa ko┼Ť─ç obra┼╝e┼ä 1k4.",
+    "description": "+ widmowa kość obrażeń 1k4.",
     "requirements": [
       "Int 3"
     ],
@@ -4201,7 +4201,7 @@
     "id": "01K9Z6YHWXJHKX2XTV2N9B6W5V",
     "name": "Widmowe Zogniskowanie Broni",
     "grade": 2,
-    "description": "+1 ranga widmowej ko┼Ťci obra┼╝e┼ä.",
+    "description": "+1 ranga widmowej kości obrażeń.",
     "requirements": [
       "Int 4"
     ],
@@ -4212,7 +4212,7 @@
     "id": "01K9Z6YHWXQTVXQMXWF16Z010J",
     "name": "Widmowe Zogniskowanie Broni",
     "grade": 3,
-    "description": "+2 ranga widmowej ko┼Ťci obra┼╝e┼ä.",
+    "description": "+2 ranga widmowej kości obrażeń.",
     "requirements": [
       "Int 5"
     ],
@@ -4223,7 +4223,7 @@
     "id": "01K9Z6YHWXGQQQQFW426SA7TFB",
     "name": "Widmowe Zogniskowanie Broni",
     "grade": 4,
-    "description": "+3 ranga widmowej ko┼Ťci obra┼╝e┼ä.",
+    "description": "+3 ranga widmowej kości obrażeń.",
     "requirements": [
       "Int 6"
     ],
@@ -4234,7 +4234,7 @@
     "id": "01K9Z6YHWXYE858G47E59WDSDJ",
     "name": "Widmowe Zogniskowanie Broni",
     "grade": 5,
-    "description": "+4 ranga widmowej ko┼Ťci obra┼╝e┼ä.",
+    "description": "+4 ranga widmowej kości obrażeń.",
     "requirements": [
       "Int 7"
     ],
@@ -4245,9 +4245,9 @@
     "id": "01K9Z6YHX1THQ8831ZZ10RC6QP",
     "name": "Wigor",
     "grade": 1,
-    "description": "Dodaje +1 do test├│w wytrwa┼éo┼Ťci.",
+    "description": "Dodaje +1 do testów wytrwałości.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 5"
+      "Bazowa Wytrwałość 5"
     ],
     "price": 9,
     "tags": []
@@ -4256,10 +4256,10 @@
     "id": "01K9Z6YHX1Z06YA890GE90R282",
     "name": "Wigor",
     "grade": 2,
-    "description": "Dodaje +2 do test├│w wytrwa┼éo┼Ťci.",
+    "description": "Dodaje +2 do testów wytrwałości.",
     "requirements": [
       "Wigor 1",
-      "Bazowa Wytrwa┼éo┼Ť─ç 6"
+      "Bazowa Wytrwałość 6"
     ],
     "price": 18,
     "tags": []
@@ -4349,9 +4349,9 @@
   },
   {
     "id": "01K9Z6YHX2TH9H7YPCC712QWFK",
-    "name": "Wola m─Ödrca",
+    "name": "Wola mędrca",
     "grade": 1,
-    "description": "Zwi─Öksza o 1 rang─Ö ko┼Ťci w testach woli.",
+    "description": "Zwiększa o 1 rangę kości w testach woli.",
     "requirements": [
       "Bazowa Wola 6"
     ],
@@ -4362,10 +4362,10 @@
     "id": "01K9Z6YHX085X86D326JTAAZF3",
     "name": "Wolta",
     "grade": 1,
-    "description": "Za ka┼╝de 3 fortelu otrzymujesz 1 parowania.",
+    "description": "Za każde 3 fortelu otrzymujesz 1 parowania.",
     "requirements": [
-      "Wi─Ökszy Fortel 4",
-      "Wi─Ökszy Fechtunek 4"
+      "Większy Fortel 4",
+      "Większy Fechtunek 4"
     ],
     "price": 3,
     "tags": []
@@ -4374,21 +4374,21 @@
     "id": "01K9Z6YHX0WVWWF5VD9QD16G0V",
     "name": "Wolta",
     "grade": 2,
-    "description": "Za ka┼╝de 3 fortelu otrzymujesz 2 parowania.",
+    "description": "Za każde 3 fortelu otrzymujesz 2 parowania.",
     "requirements": [
-      "Wi─Ökszy Fortel 8",
-      "Wi─Ökszy Fechtunek 8"
+      "Większy Fortel 8",
+      "Większy Fechtunek 8"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHWYYG4W7GQFC4NR0FA7",
-    "name": "Wprawno┼Ť─ç ┼üucznicza",
+    "name": "Wprawność Łucznicza",
     "grade": 1,
-    "description": "Zmniejsza czas odnowienia manewr├│w strzeleckich o 1.",
+    "description": "Zmniejsza czas odnowienia manewrów strzeleckich o 1.",
     "requirements": [
-      "Szybkie Dobieranie Strza┼é 2"
+      "Szybkie Dobieranie Strzał 2"
     ],
     "price": 27,
     "tags": []
@@ -4409,7 +4409,7 @@
     "id": "01K9Z6YHX3TAXFNC6Z0AH47109",
     "name": "Wybitna Regeneracja",
     "grade": 1,
-    "description": "W testach naturalnej regeneracji z dziennego odpoczynku stosujesz ko┼Ť─ç k8 zamiast ko┼Ťci k6.",
+    "description": "W testach naturalnej regeneracji z dziennego odpoczynku stosujesz kość k8 zamiast kości k6.",
     "requirements": [
       "Poziom Leczenia 3"
     ],
@@ -4420,7 +4420,7 @@
     "id": "01K9Z6YHX3VXKEH4N00JK59D2G",
     "name": "Wybitna Regeneracja",
     "grade": 2,
-    "description": "W testach naturalnej regeneracji z dziennego odpoczynku stosujesz ko┼Ť─ç k10 zamiast ko┼Ťci k6.",
+    "description": "W testach naturalnej regeneracji z dziennego odpoczynku stosujesz kość k10 zamiast kości k6.",
     "requirements": [
       "Wybitna Regeneracja 1",
       "Poziom Leczenia 4"
@@ -4432,7 +4432,7 @@
     "id": "01K9Z6YHX3PG0YZAD1BKBTFVH8",
     "name": "Wybitna Regeneracja",
     "grade": 3,
-    "description": "W testach naturalnej regeneracji z dziennego odpoczynku stosujesz ko┼Ť─ç k12 zamiast ko┼Ťci k6.",
+    "description": "W testach naturalnej regeneracji z dziennego odpoczynku stosujesz kość k12 zamiast kości k6.",
     "requirements": [
       "Wybitna Regeneracja 2",
       "Poziom Leczenia 5"
@@ -4492,9 +4492,9 @@
     "id": "01K9Z6YJJB13ZVM7563F4GHMEZ",
     "name": "Wyrobiony Instynkt",
     "grade": 1,
-    "description": "Dodaje 1 do test├│w przeciw fortelowi spowodowanych przez walk─Ö wr─Öcz.",
+    "description": "Dodaje 1 do testów przeciw fortelowi spowodowanych przez walkę wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 4"
+      "Walka Wręcz 4"
     ],
     "price": 6,
     "tags": []
@@ -4503,7 +4503,7 @@
     "id": "01K9Z6YHX3S5YXM6QK2ESNXA6F",
     "name": "Wyszkolenie antymagiczne",
     "grade": 1,
-    "description": "Dodaje +1 do test├│w przeciwko magii.",
+    "description": "Dodaje +1 do testów przeciwko magii.",
     "requirements": [
       "Bazowa Wola 4"
     ],
@@ -4514,7 +4514,7 @@
     "id": "01K9Z6YHX3E7PTCQK6Q2CBPFT0",
     "name": "Wyszkolenie antymagiczne",
     "grade": 2,
-    "description": "Dodaje +2 do test├│w przeciwko magii.",
+    "description": "Dodaje +2 do testów przeciwko magii.",
     "requirements": [
       "Bazowa Wola 5"
     ],
@@ -4525,7 +4525,7 @@
     "id": "01K9Z6YHWXW200WTSJBVQAE9M8",
     "name": "Wyszkolenie w broni",
     "grade": 1,
-    "description": "+1 ranga ko┼Ťci broni.",
+    "description": "+1 ranga kości broni.",
     "requirements": [],
     "price": 3,
     "tags": []
@@ -4534,7 +4534,7 @@
     "id": "01K9Z6YHWXHG4R6JBMPCN3A22C",
     "name": "Wyszkolenie w broni",
     "grade": 2,
-    "description": "+2 ranga ko┼Ťci broni.",
+    "description": "+2 ranga kości broni.",
     "requirements": [
       "Wyszkolenie w broni 1"
     ],
@@ -4545,7 +4545,7 @@
     "id": "01K9Z6YHWX9HMC1QCDGBKS0J6V",
     "name": "Wyszkolenie w broni",
     "grade": 3,
-    "description": "+3 ranga ko┼Ťci broni.",
+    "description": "+3 ranga kości broni.",
     "requirements": [
       "Wyszkolenie w broni 2"
     ],
@@ -4556,7 +4556,7 @@
     "id": "01K9Z6YHWXPDFEPYSNCSXR37A5",
     "name": "Wyszkolenie w broni",
     "grade": 4,
-    "description": "+4 ranga ko┼Ťci broni.",
+    "description": "+4 ranga kości broni.",
     "requirements": [
       "Wyszkolenie w broni 3"
     ],
@@ -4569,7 +4569,7 @@
     "grade": 1,
     "description": "Dodaje 1 parowania.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 4"
+      "Większy Fechtunek 4"
     ],
     "price": 6,
     "tags": []
@@ -4580,7 +4580,7 @@
     "grade": 2,
     "description": "Dodaje 2 parowania.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 5",
+      "Większy Fechtunek 5",
       "Wyszkolenie w parowaniu 1"
     ],
     "price": 12,
@@ -4592,7 +4592,7 @@
     "grade": 3,
     "description": "Dodaje 3 parowania.",
     "requirements": [
-      "Wi─Ökszy Fechtunek 6",
+      "Większy Fechtunek 6",
       "Wyszkolenie w parowaniu 2"
     ],
     "price": 15,
@@ -4602,7 +4602,7 @@
     "id": "01K9Z6YHX32463JESQYBHMZEK1",
     "name": "Wyszkolenie w Tarczy",
     "grade": 1,
-    "description": "Dodaje 1 blokowania tarcz─ů.",
+    "description": "Dodaje 1 blokowania tarczą.",
     "requirements": [
       "Postawa Defensywna 2"
     ],
@@ -4613,10 +4613,10 @@
     "id": "01K9Z6YHX32HCG71G19ZCQK7YR",
     "name": "Wyszkolenie w Tarczy",
     "grade": 2,
-    "description": "Dodaje 2 blokowania tarcz─ů.",
+    "description": "Dodaje 2 blokowania tarczą.",
     "requirements": [
       "Wyszkolenie w Tarczy 2",
-      "Manewr zwi─ůzany z tarcz─ů"
+      "Manewr związany z tarczą"
     ],
     "price": 12,
     "tags": []
@@ -4625,11 +4625,11 @@
     "id": "01K9Z6YHX31T1121RS4BG8C455",
     "name": "Wyszkolenie w Tarczy",
     "grade": 3,
-    "description": "Dodaje 3 blokowania tarcz─ů.",
+    "description": "Dodaje 3 blokowania tarczą.",
     "requirements": [
       "Wyszkolenie w Tarczy 3",
       "Postawa Defensywna 3",
-      "2 Manewry zwi─ůzane z tarcz─ů"
+      "2 Manewry związane z tarczą"
     ],
     "price": 12,
     "tags": []
@@ -4638,9 +4638,9 @@
     "id": "01K9Z6YHWYGDH2NFHYKY7S288K",
     "name": "Wytrawne Strzelectwo",
     "grade": 1,
-    "description": "Dodaje 1dmg do atak├│w strzeleckich.",
+    "description": "Dodaje 1dmg do ataków strzeleckich.",
     "requirements": [
-      "Wi─Öksza Precyzja 4"
+      "Większa Precyzja 4"
     ],
     "price": 9,
     "tags": []
@@ -4649,10 +4649,10 @@
     "id": "01K9Z6YHWYFVT46T7H48ZHZV44",
     "name": "Wytrawne Strzelectwo",
     "grade": 2,
-    "description": "Dodaje 2dmg do atak├│w strzeleckich.",
+    "description": "Dodaje 2dmg do ataków strzeleckich.",
     "requirements": [
       "Wytrawne Strzelectwo 1",
-      "Wi─Öksza Precyzja 6"
+      "Większa Precyzja 6"
     ],
     "price": 12,
     "tags": []
@@ -4661,21 +4661,21 @@
     "id": "01K9Z6YHWY5WRMWTJBKDJ5R7D3",
     "name": "Wytrawne Strzelectwo",
     "grade": 3,
-    "description": "Dodaje 3dmg do atak├│w strzeleckich.",
+    "description": "Dodaje 3dmg do ataków strzeleckich.",
     "requirements": [
       "Wytrawne Strzelectwo 2",
-      "Wi─Öksza Precyzja 8"
+      "Większa Precyzja 8"
     ],
     "price": 12,
     "tags": []
   },
   {
     "id": "01K9Z6YHX1VCFHJX02A7S3XPDX",
-    "name": "Wytrwa┼éo┼Ť─ç Czempiona",
+    "name": "Wytrwałość Czempiona",
     "grade": 1,
-    "description": "Bazowa o 1 rang─Ö ko┼Ťci w testach wytrwa┼éo┼Ťci.",
+    "description": "Bazowa o 1 rangę kości w testach wytrwałości.",
     "requirements": [
-      "Bazowa Wytrwa┼éo┼Ť─ç 6"
+      "Bazowa Wytrwałość 6"
     ],
     "price": 9,
     "tags": []
@@ -4697,7 +4697,7 @@
     "id": "01K9Z6YHWY4PWRG6V2829HCCZP",
     "name": "Zaawansowe Flankowanie",
     "grade": 1,
-    "description": "Dodaje 1dmg do atak├│w przeciw flankowanym wrogom.",
+    "description": "Dodaje 1dmg do ataków przeciw flankowanym wrogom.",
     "requirements": [],
     "price": 3,
     "tags": []
@@ -4706,7 +4706,7 @@
     "id": "01K9Z6YHWY09T5MZ61K4YX1JDW",
     "name": "Zaawansowe Flankowanie",
     "grade": 2,
-    "description": "Dodaje 2dmg do atak├│w przeciw flankowanym wrogom.",
+    "description": "Dodaje 2dmg do ataków przeciw flankowanym wrogom.",
     "requirements": [
       "Zaawansowane Flankowanie 1"
     ],
@@ -4759,35 +4759,35 @@
   },
   {
     "id": "01K9Z6YHWY729RG1S86SJKH0BW",
-    "name": "Zasi─Ög Strza┼é",
+    "name": "Zasięg Strzał",
     "grade": 1,
-    "description": "Zmniejsza kar─Ö do precyzji za zasi─Ög o 1.",
+    "description": "Zmniejsza karę do precyzji za zasięg o 1.",
     "requirements": [
-      "Wi─Öksza Precyzja 3"
+      "Większa Precyzja 3"
     ],
     "price": 3,
     "tags": []
   },
   {
     "id": "01K9Z6YHWYGBY6ZN0P3DF0F8GQ",
-    "name": "Zasi─Ög Strza┼é",
+    "name": "Zasięg Strzał",
     "grade": 2,
-    "description": "Zmniejsza kar─Ö do precyzji za zasi─Ög o 2.",
+    "description": "Zmniejsza karę do precyzji za zasięg o 2.",
     "requirements": [
-      "Zasi─Ög Strza┼é 1",
-      "Wi─Öksza Precyzja 4"
+      "Zasięg Strzał 1",
+      "Większa Precyzja 4"
     ],
     "price": 9,
     "tags": []
   },
   {
     "id": "01K9Z6YHWYWVNWDJPA0P4XNW38",
-    "name": "Zasi─Ög Strza┼é",
+    "name": "Zasięg Strzał",
     "grade": 3,
-    "description": "Zmniejsza kar─Ö do precyzji za zasi─Ög o 3.",
+    "description": "Zmniejsza karę do precyzji za zasięg o 3.",
     "requirements": [
-      "Zasi─Ög Strza┼é 2",
-      "Wi─Öksza Precyzja 5"
+      "Zasięg Strzał 2",
+      "Większa Precyzja 5"
     ],
     "price": 18,
     "tags": []
@@ -4874,10 +4874,10 @@
     "id": "01K9Z6YHWXEYY0EF42E8GHXJ6P",
     "name": "Zogniskowanie Broni",
     "grade": 1,
-    "description": "+ ko┼Ť─ç obra┼╝e┼ä 1k6.",
+    "description": "+ kość obrażeń 1k6.",
     "requirements": [
       "Skupienie na broni 1",
-      "bro┼ä kr├│tkodystansowa"
+      "broń krótkodystansowa"
     ],
     "price": 1,
     "tags": []
@@ -4886,10 +4886,10 @@
     "id": "01K9Z6YHWXX8YSQGS2XGGF869G",
     "name": "Zogniskowanie Broni",
     "grade": 2,
-    "description": "+1 ranga ko┼Ťci obra┼╝e┼ä.",
+    "description": "+1 ranga kości obrażeń.",
     "requirements": [
       "Zogniskowanie Broni 1",
-      "bro┼ä kr├│tkodystansowa"
+      "broń krótkodystansowa"
     ],
     "price": 3,
     "tags": []
@@ -4898,10 +4898,10 @@
     "id": "01K9Z6YHWX0NSM0GY9J9HXB8FJ",
     "name": "Zogniskowanie Broni",
     "grade": 3,
-    "description": "+2 ranga ko┼Ťci obra┼╝e┼ä.",
+    "description": "+2 ranga kości obrażeń.",
     "requirements": [
       "Zogniskowanie Broni 2",
-      "bro┼ä kr├│tkodystansowa"
+      "broń krótkodystansowa"
     ],
     "price": 4,
     "tags": []
@@ -4910,10 +4910,10 @@
     "id": "01K9Z6YHWXN14628T976WV8WG5",
     "name": "Zogniskowanie Broni",
     "grade": 4,
-    "description": "+3 ranga ko┼Ťci obra┼╝e┼ä.",
+    "description": "+3 ranga kości obrażeń.",
     "requirements": [
       "Zogniskowanie Broni 3",
-      "bro┼ä kr├│tkodystansowa"
+      "broń krótkodystansowa"
     ],
     "price": 5,
     "tags": []
@@ -4922,10 +4922,10 @@
     "id": "01K9Z6YHWX8P36GQM3ESW7H3GN",
     "name": "Zogniskowanie Broni",
     "grade": 5,
-    "description": "+4 ranga ko┼Ťci obra┼╝e┼ä.",
+    "description": "+4 ranga kości obrażeń.",
     "requirements": [
       "Zogniskowanie Broni 4",
-      "bro┼ä kr├│tkodystansowa"
+      "broń krótkodystansowa"
     ],
     "price": 6,
     "tags": []
@@ -4979,9 +4979,9 @@
     "id": "01K9Z6YHX3WYEMFAW7C0TKJKJZ",
     "name": "Zwodnicza Defensywa",
     "grade": 1,
-    "description": "Dodaje po┼éow─Ö fortelu do parowania.",
+    "description": "Dodaje połowę fortelu do parowania.",
     "requirements": [
-      "Wi─Ökszy Fortel 4"
+      "Większy Fortel 4"
     ],
     "price": 6,
     "tags": []
@@ -4990,9 +4990,9 @@
     "id": "01K9Z6YJJB72R8QWNSGRM0RHWD",
     "name": "Zwodnicza Technika",
     "grade": 1,
-    "description": "Dodaje 1 do test├│w fortelu walcz─ůc wr─Öcz.",
+    "description": "Dodaje 1 do testów fortelu walcząc wręcz.",
     "requirements": [
-      "Walka Wr─Öcz 6"
+      "Walka Wręcz 6"
     ],
     "price": 4,
     "tags": []
