@@ -8,7 +8,7 @@
       "Postawa Sokoła 3"
     ],
     "price": 4,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZJM9RB3XM8994MB6E",
@@ -23,7 +23,10 @@
       "Postawa Szermierska 1"
     ],
     "price": 6,
-    "tags": []
+    "tags": [
+      "fechtunek",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YJVZCM2J91T08FQQ41TM",
@@ -38,7 +41,10 @@
       "Postawa Szermierska 2"
     ],
     "price": 12,
-    "tags": []
+    "tags": [
+      "fechtunek",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YJVZK8ET103G4HRCKF47",
@@ -53,7 +59,10 @@
       "Postawa Szermierska 3"
     ],
     "price": 7,
-    "tags": []
+    "tags": [
+      "fechtunek",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YJVZHRT917G8WGH51VAE",
@@ -87,7 +96,7 @@
       "Postawa Szulera 2"
     ],
     "price": 2,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZN0CCVQ96X2BF0CQG",
@@ -98,7 +107,7 @@
       "Postawa Szulera 3"
     ],
     "price": 8,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZW3K0WHV5GFZK1G56",
@@ -109,47 +118,43 @@
       "Postawa Szulera 4"
     ],
     "price": 15,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZ482FMWQYGXZ14MBS",
     "name": "Szał Bitewny",
     "grade": 4,
     "description": "Zwiększa siłę i budowę o 5, zmniejsza redukcję o 5, +3 Wola, +1 PL. Uniemożliwia defensywne postawy i manewry.",
-    "requirements": [
-    ],
+    "requirements": [],
     "price": 21,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZTPSGDT4EZSY1RWV0",
     "name": "Szarża",
     "grade": 1,
     "description": "Atakując przeciwnika z szarży otrzymujesz +3 dmg, +2 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry.",
-    "requirements": [
-    ],
+    "requirements": [],
     "price": 3,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZG8GM1K5WYER9XW79",
     "name": "Szarża",
     "grade": 2,
     "description": "Atakując przeciwnika z szarży otrzymujesz +4 dmg, +3 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry.",
-    "requirements": [
-    ],
+    "requirements": [],
     "price": 9,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZGZT6EQR4YPXBR7FY",
     "name": "Szarża",
     "grade": 3,
     "description": "Atakując przeciwnika z szarży otrzymujesz +5 dmg, +4 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry.",
-    "requirements": [
-    ],
+    "requirements": [],
     "price": 9,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZC1XKF8DVX9KKRX9D",
@@ -162,7 +167,7 @@
       "Postawa Dartona 1"
     ],
     "price": 15,
-    "tags": []
+    "tags": ["widmowy"]
   },
   {
     "id": "01K9Z6YJVZZFNFDV88SMS09P57",
@@ -173,7 +178,7 @@
       "Postawa Dartona 2"
     ],
     "price": 6,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZGM4QECQNG3VMJYNY",
@@ -184,7 +189,7 @@
       "Postawa Dartona 3"
     ],
     "price": 12,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZT7FZCSD7SZDDM3B9",
@@ -195,7 +200,7 @@
       "Postawa Dartona 4"
     ],
     "price": 7,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZZVZ2P0EKM9SNQ9F0",
@@ -206,7 +211,7 @@
       "Postawa Gerneta 1"
     ],
     "price": 18,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJVZG9262VRB220YZTA3",
@@ -217,7 +222,7 @@
       "Postawa Gerneta 2"
     ],
     "price": 4,
-    "tags": []
+    "tags": ["atak"]
   },
   {
     "id": "01K9Z6YJW48XCJ14MRDK165EBK",
@@ -227,6 +232,7 @@
     "requirements": [],
     "price": 0,
     "tags": [
+      "atak",
       "harmonia"
     ]
   },
@@ -237,9 +243,7 @@
     "description": "Zwiększa o 1 zasięg kości broni.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "harmonia"
-    ]
+    "tags": ["harmonia"]
   },
   {
     "id": "01K9Z6YJW4W8MPYCXKQ7RFYKD9",
@@ -249,7 +253,8 @@
     "requirements": [],
     "price": 0,
     "tags": [
-      "harmonia"
+      "harmonia",
+      "krytyk"
     ]
   },
   {
@@ -259,9 +264,7 @@
     "description": "Zwiększa o 1 rangę jednej kości broni przeciwnika i zmniejsza o 1 rangę innej kości broni przeciwnika.",
     "requirements": [],
     "price": 0,
-    "tags": [
-      "harmonia"
-    ]
+    "tags": ["harmonia"]
   },
   {
     "id": "01K9Z6YJW4J048H8FHZ0B17ZXJ",
@@ -271,6 +274,7 @@
     "requirements": [],
     "price": 0,
     "tags": [
+      "atak",
       "harmonia"
     ]
   },
@@ -281,7 +285,7 @@
     "description": "Dodaje 1/- na ogień.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": ["obrona"]
   },
   {
     "id": "01K9Z6YJW4184G5FV1MBWPQVM4",
@@ -308,6 +312,9 @@
     "description": "Dmg +2, redukcja 1.",
     "requirements": [],
     "price": 0,
-    "tags": []
+    "tags": [
+      "atak",
+      "obrona"
+    ]
   }
 ]
