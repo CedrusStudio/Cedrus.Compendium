@@ -8,7 +8,50 @@
       "Postawa Sokoła 3"
     ],
     "price": 4,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
+  },
+  {
+    "id": "01K9Z6YJW4705RGFZ7BKVTYSZW",
+    "name": "Aura Drenora",
+    "grade": 1,
+    "description": "Dodaje 1/- na ogień.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "obrona"
+    ]
+  },
+  {
+    "id": "01K9Z6YJW4184G5FV1MBWPQVM4",
+    "name": "Aura Gerneta",
+    "grade": 1,
+    "description": "Brak opisu.",
+    "requirements": [],
+    "price": 0,
+    "tags": []
+  },
+  {
+    "id": "01K9Z6YJW41BSQDF7FPZX5VFA7",
+    "name": "Aura Riny",
+    "grade": 1,
+    "description": "Brak opisu.",
+    "requirements": [],
+    "price": 0,
+    "tags": []
+  },
+  {
+    "id": "01K9Z6YJW4F7HB85Q3ZVQY8QT1",
+    "name": "Aura Shojiego Kaname",
+    "grade": 1,
+    "description": "Dmg +2, redukcja 1.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "atak",
+      "obrona"
+    ]
   },
   {
     "id": "01K9Z6YJVZJM9RB3XM8994MB6E",
@@ -65,6 +108,41 @@
     ]
   },
   {
+    "id": "01K9Z6YJW48XCJ14MRDK165EBK",
+    "name": "Ostrość Umysłu",
+    "grade": 1,
+    "description": "Dodaje +2 do obrażeń.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "atak",
+      "harmonia"
+    ]
+  },
+  {
+    "id": "01K9Z6YJW453CAN50N75VE56SC",
+    "name": "Precyzja Wnętrza",
+    "grade": 1,
+    "description": "Zwiększa o 1 zasięg kości broni.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "harmonia"
+    ]
+  },
+  {
+    "id": "01K9Z6YJW4W8MPYCXKQ7RFYKD9",
+    "name": "Rezonująca Sztuka",
+    "grade": 1,
+    "description": "Dodaje +1 do szansy obrażeń krytycznych, odejmuje -1 od siły obrażeń krytycznych.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "harmonia",
+      "krytyk"
+    ]
+  },
+  {
     "id": "01K9Z6YJVZHRT917G8WGH51VAE",
     "name": "Stan Pojedynku",
     "grade": 1,
@@ -96,7 +174,9 @@
       "Postawa Szulera 2"
     ],
     "price": 2,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZN0CCVQ96X2BF0CQG",
@@ -107,7 +187,9 @@
       "Postawa Szulera 3"
     ],
     "price": 8,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZW3K0WHV5GFZK1G56",
@@ -118,7 +200,9 @@
       "Postawa Szulera 4"
     ],
     "price": 15,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZ482FMWQYGXZ14MBS",
@@ -127,7 +211,21 @@
     "description": "Zwiększa siłę i budowę o 5, zmniejsza redukcję o 5, +3 Wola, +1 PL. Uniemożliwia defensywne postawy i manewry.",
     "requirements": [],
     "price": 21,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
+  },
+  {
+    "id": "01KA1Z4SNDJHCY32PVD3T4CEH7",
+    "name": "Szarża",
+    "grade": 0,
+    "description": "",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "stan",
+      "ruch"
+    ]
   },
   {
     "id": "01K9Z6YJVZTPSGDT4EZSY1RWV0",
@@ -136,7 +234,9 @@
     "description": "Atakując przeciwnika z szarży otrzymujesz +3 dmg, +2 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry.",
     "requirements": [],
     "price": 3,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZG8GM1K5WYER9XW79",
@@ -145,7 +245,9 @@
     "description": "Atakując przeciwnika z szarży otrzymujesz +4 dmg, +3 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry.",
     "requirements": [],
     "price": 9,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZGZT6EQR4YPXBR7FY",
@@ -154,7 +256,20 @@
     "description": "Atakując przeciwnika z szarży otrzymujesz +5 dmg, +4 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry.",
     "requirements": [],
     "price": 9,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
+  },
+  {
+    "id": "01K9Z6YJW43W2HJ0VD31NN399F",
+    "name": "Umysł Przedłużeniem Ostrza",
+    "grade": 1,
+    "description": "Zwiększa o 1 rangę jednej kości broni przeciwnika i zmniejsza o 1 rangę innej kości broni przeciwnika.",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "harmonia"
+    ]
   },
   {
     "id": "01K9Z6YJVZC1XKF8DVX9KKRX9D",
@@ -167,7 +282,9 @@
       "Postawa Dartona 1"
     ],
     "price": 15,
-    "tags": ["widmowy"]
+    "tags": [
+      "widmowy"
+    ]
   },
   {
     "id": "01K9Z6YJVZZFNFDV88SMS09P57",
@@ -178,7 +295,9 @@
       "Postawa Dartona 2"
     ],
     "price": 6,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZGM4QECQNG3VMJYNY",
@@ -189,7 +308,9 @@
       "Postawa Dartona 3"
     ],
     "price": 12,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZT7FZCSD7SZDDM3B9",
@@ -200,7 +321,9 @@
       "Postawa Dartona 4"
     ],
     "price": 7,
-    "tags": ["atak"]
+    "tags": [
+      "atak"
+    ]
   },
   {
     "id": "01K9Z6YJVZZVZ2P0EKM9SNQ9F0",
@@ -211,60 +334,9 @@
       "Postawa Gerneta 1"
     ],
     "price": 18,
-    "tags": ["atak"]
-  },
-  {
-    "id": "01K9Z6YJVZG9262VRB220YZTA3",
-    "name": "Żądza Krwi",
-    "grade": 1,
-    "description": "Za każde 10 brakującego HP wroga dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.",
-    "requirements": [
-      "Postawa Gerneta 2"
-    ],
-    "price": 4,
-    "tags": ["atak"]
-  },
-  {
-    "id": "01K9Z6YJW48XCJ14MRDK165EBK",
-    "name": "Ostrość Umysłu",
-    "grade": 1,
-    "description": "Dodaje +2 do obrażeń.",
-    "requirements": [],
-    "price": 0,
     "tags": [
-      "atak",
-      "harmonia"
+      "atak"
     ]
-  },
-  {
-    "id": "01K9Z6YJW453CAN50N75VE56SC",
-    "name": "Precyzja Wnętrza",
-    "grade": 1,
-    "description": "Zwiększa o 1 zasięg kości broni.",
-    "requirements": [],
-    "price": 0,
-    "tags": ["harmonia"]
-  },
-  {
-    "id": "01K9Z6YJW4W8MPYCXKQ7RFYKD9",
-    "name": "Rezonująca Sztuka",
-    "grade": 1,
-    "description": "Dodaje +1 do szansy obrażeń krytycznych, odejmuje -1 od siły obrażeń krytycznych.",
-    "requirements": [],
-    "price": 0,
-    "tags": [
-      "harmonia",
-      "krytyk"
-    ]
-  },
-  {
-    "id": "01K9Z6YJW43W2HJ0VD31NN399F",
-    "name": "Umysł Przedłużeniem Ostrza",
-    "grade": 1,
-    "description": "Zwiększa o 1 rangę jednej kości broni przeciwnika i zmniejsza o 1 rangę innej kości broni przeciwnika.",
-    "requirements": [],
-    "price": 0,
-    "tags": ["harmonia"]
   },
   {
     "id": "01K9Z6YJW4J048H8FHZ0B17ZXJ",
@@ -279,42 +351,16 @@
     ]
   },
   {
-    "id": "01K9Z6YJW4705RGFZ7BKVTYSZW",
-    "name": "Aura Drenora",
+    "id": "01K9Z6YJVZG9262VRB220YZTA3",
+    "name": "Żądza Krwi",
     "grade": 1,
-    "description": "Dodaje 1/- na ogień.",
-    "requirements": [],
-    "price": 0,
-    "tags": ["obrona"]
-  },
-  {
-    "id": "01K9Z6YJW4184G5FV1MBWPQVM4",
-    "name": "Aura Gerneta",
-    "grade": 1,
-    "description": "Brak opisu.",
-    "requirements": [],
-    "price": 0,
-    "tags": []
-  },
-  {
-    "id": "01K9Z6YJW41BSQDF7FPZX5VFA7",
-    "name": "Aura Riny",
-    "grade": 1,
-    "description": "Brak opisu.",
-    "requirements": [],
-    "price": 0,
-    "tags": []
-  },
-  {
-    "id": "01K9Z6YJW4F7HB85Q3ZVQY8QT1",
-    "name": "Aura Shojiego Kaname",
-    "grade": 1,
-    "description": "Dmg +2, redukcja 1.",
-    "requirements": [],
-    "price": 0,
+    "description": "Za każde 10 brakującego HP wroga dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.",
+    "requirements": [
+      "Postawa Gerneta 2"
+    ],
+    "price": 4,
     "tags": [
-      "atak",
-      "obrona"
+      "atak"
     ]
   }
 ]

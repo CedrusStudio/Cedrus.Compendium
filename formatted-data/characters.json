@@ -5,7 +5,7 @@
     "shortName": "Karczmieny",
     "description": "**Cios Zawodowca1**: Zwiększa o 1 rangę kości broni walki wręcz\n\n**Czinkciarz2**: Test sporny walki wręcz+fortelu+1 vs walka wręcz+fortel/walka wręcz+siła+2. Za każde oczko przewagi dodaje 1 obrażenie. Tylko przeciw walce wręcz\n\n**Chwyt Szelmy2**: Test sporny fortelu vs siła+2. Wygrany powoduje obrażenia równie sile przeciwnika\n\n**Atak Szubrawcy1**: Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła. Zadaje 1k4w obrażeń. Tylko przeciw walce wręcz\n\n**Niski Kopniak**: Test fortelu vs fortel/siła. Udany dodaje 1k4-1 obrażeń\n\n**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Ustawiczne Ciosy1**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 2 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza1**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Zwinny Zwod1**: Akcja Natychmiastowa. Dodaje 1 redukcji do uników. Tylko przeciw walce wręcz\n\n**Pełniejsza Zasłona**: Dodaje 1k2 parowania\n\n**Pasywy**: \n\n**Odpowiednia Dźwignia1**: W testach siłowych możesz użyć połowy zręczności\n\n**Defensywna walka wręcz1**: Dodaje 1 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -208,8 +208,8 @@
       }
     ],
     "perksIds": [
-      "01K9Z6YJJB4HHSKC3V20W08Q5Q",
-      "01K9Z6YJJBX9P3PCZ4HMSEBM67"
+      "01KA1ZCV3JTKN0FF79QDRWM2FK",
+      "01KA1ZCV3KB8N9GXE9J9AGMVMW"
     ],
     "equipment": {
       "weapons": [
@@ -231,7 +231,7 @@
     "shortName": "Walczak",
     "description": "**Cios Zawodowca1**: Zwiększa o 1 rangę kości broni walki wręcz\n\n**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Prawy Sierpowy**: Dodaje 2 obrażenia, odejmuje 2 parowania\n\n**Grad Ciosów1**: Test sporny Walki Wręcz-2 vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni\n\n**Ciężki Cios1**: Test sporny siły-1 vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia\n\n**Gniewne Natarcie2**: Test sporny siły vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem\n\n**Ustawiczne Ciosy2**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 3 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza2**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Zwinny Zwod1**: Akcja Natychmiastowa. Dodaje 1 redukcji do uników. Tylko przeciw walce wręcz\n\n**Pełniejsza Zasłona**: Dodaje 1k2 parowania\n\n**Pasywy**: \n\n**Cios za ciosem1**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k4\n\n**Defensywna walka wręcz1**: Dodaje 1 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -435,7 +435,7 @@
     ],
     "perksIds": [
       "01K9Z6YJJBM03Y83NTQ8VD80BS",
-      "01K9Z6YJJBX9P3PCZ4HMSEBM67"
+      "01KA1ZCV3KB8N9GXE9J9AGMVMW"
     ],
     "equipment": {
       "weapons": [
@@ -457,7 +457,7 @@
     "shortName": "Wioskowy",
     "description": "**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Prawy Sierpowy**: Dodaje 2 obrażenia, odejmuje 2 parowania\n\n**Grad Ciosów1**: Test sporny Walki Wręcz-2 vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni\n\n**Ciężki Cios1**: Test sporny siły-1 vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia\n\n**Gniewne Natarcie2**: Test sporny siły vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem\n\n**Ustawiczne Ciosy2**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 3 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza2**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Pasywy**: \n\n**Napiętnowane Mięśnie1**: Dodaje premie +1 do testów siłowych w walce wręcz\n\n**Cios za ciosem1**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k4\n\n**Defensywna walka wręcz1**: Dodaje 1 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz\n\n**Potężne Uderzenie1**: +1dmg do walki wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -649,10 +649,10 @@
       }
     ],
     "perksIds": [
-      "01K9Z6YJJBHBP6H8FBEKDG8PMV",
+      "01KA1ZCV3M8WAPAWP6M0JJE1Q1",
       "01K9Z6YJJBM03Y83NTQ8VD80BS",
-      "01K9Z6YJJBX9P3PCZ4HMSEBM67",
-      "01K9Z6YJJBG55P4PETY1QAQKDN"
+      "01KA1ZCV3KB8N9GXE9J9AGMVMW",
+      "01KA1ZCV3MEAY4QGZDAYEM93NX"
     ],
     "equipment": {
       "weapons": [
@@ -674,7 +674,7 @@
     "shortName": "Zakapior",
     "description": "**Czinkciarz3**: Test sporny walki wręcz+fortelu+2 vs walka wręcz+fortel/walka wręcz+siła+2. Za każde oczko przewagi dodaje 1 obrażenie. Tylko przeciw walce wręcz\n\n**Chwyt Szelmy3**: Test sporny fortelu vs siła+1. Wygrany powoduje obrażenia równie sile przeciwnika\n\n**Atak Szubrawcy2**: Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła. Zadaje 1k6w obrażeń. Tylko przeciw walce wręcz\n\n**Niski Kopniak**: Test fortelu vs fortel/siła. Udany dodaje 1k4-1 obrażeń\n\n**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Ustawiczne Ciosy2**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 3 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza3**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Zwinny Zwod2**: Akcja Natychmiastowa. Dodaje 2 redukcji do uników. Tylko przeciw walce wręcz\n\n**Pełniejsza Zasłona**: Dodaje 1k2 parowania\n\n**Pasywy**: \n\n**Cios za ciosem1**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k4\n\n**Defensywna walka wręcz1**: Dodaje 1 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz\n\n**Potężne Uderzenie2**: +2dmg do walki wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -877,8 +877,8 @@
     ],
     "perksIds": [
       "01K9Z6YJJBM03Y83NTQ8VD80BS",
-      "01K9Z6YJJBX9P3PCZ4HMSEBM67",
-      "01K9Z6YJJB8FH1Z7PX6E29WPC2"
+      "01KA1ZCV3KB8N9GXE9J9AGMVMW",
+      "01KA1ZCV3MFF0Y13CQW475VQ5J"
     ],
     "equipment": {
       "weapons": [
@@ -900,7 +900,7 @@
     "shortName": "Karczmienny",
     "description": "**Cios Zawodowca2**: Zwiększa o 2 rangi kości broni walki wręcz\n\n**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Prawy Sierpowy**: Dodaje 2 obrażenia, odejmuje 2 parowania\n\n**Grad Ciosów1**: Test sporny Walki Wręcz-2 vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni\n\n**Ciężki Cios2**: Test sporny siły vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia\n\n**Gniewne Natarcie3**: Test sporny siły+1 vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem\n\n**Ustawiczne Ciosy3**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 4 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza3**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Zwinny Zwod1**: Akcja Natychmiastowa. Dodaje 1 redukcji do uników. Tylko przeciw walce wręcz\n\n**Pełniejsza Zasłona**: Dodaje 1k2 parowania\n\n**Pasywy**: \n\n**Cios za ciosem2**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k6\n\n**Defensywna walka wręcz1**: Dodaje 1 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz\n\n**Potężne Uderzenie1**: +1dmg do walki wręcz\n\n**Doświadczony Walczak**: Dodaje 1 do testów walki wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -1112,9 +1112,9 @@
     ],
     "perksIds": [
       "01K9Z6YJJBPP8M6AWVQ5DG8VHH",
-      "01K9Z6YJJBX9P3PCZ4HMSEBM67",
-      "01K9Z6YJJBG55P4PETY1QAQKDN",
-      "01K9Z6YJJBZTZ3NMY6XAEX3T8W"
+      "01KA1ZCV3KB8N9GXE9J9AGMVMW",
+      "01KA1ZCV3MEAY4QGZDAYEM93NX",
+      "01KA1ZCV3MFRY5F3J31WFDXWH6"
     ],
     "equipment": {
       "weapons": [
@@ -1136,7 +1136,7 @@
     "shortName": "Szachraj",
     "description": "**Czinkciarz3**: Test sporny walki wręcz+fortelu+2 vs walka wręcz+fortel/walka wręcz+siła+2. Za każde oczko przewagi dodaje 1 obrażenie. Tylko przeciw walce wręcz\n\n**Chwyt Szelmy3**: Test sporny fortelu vs siła+1. Wygrany powoduje obrażenia równie sile przeciwnika\n\n**Atak Szubrawcy3**: Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła. Zadaje 1k8w obrażeń. Tylko przeciw walce wręcz\n\n**Niski Kopniak**: Test fortelu vs fortel/siła. Udany dodaje 1k4-1 obrażeń\n\n**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Ustawiczne Ciosy3**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 4 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza3**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Pełniejsza Zasłona**: Dodaje 1k2 parowania\n\n**Pasywy**: \n\n**Cios za ciosem1**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k4\n\n**Defensywna walka wręcz1**: Dodaje 1 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz\n\n**Wyrobiony Instynkt**: Dodaje 1 do testów przeciw fortelowi spowodowanych przez walkę wręcz\n\n**Zwodnicza Technika**: Dodaje 1 do testów fortelu walcząc wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -1338,7 +1338,7 @@
     ],
     "perksIds": [
       "01K9Z6YJJBM03Y83NTQ8VD80BS",
-      "01K9Z6YJJBX9P3PCZ4HMSEBM67",
+      "01KA1ZCV3KB8N9GXE9J9AGMVMW",
       "01K9Z6YJJB13ZVM7563F4GHMEZ",
       "01K9Z6YJJB72R8QWNSGRM0RHWD"
     ],
@@ -1362,7 +1362,7 @@
     "shortName": "Pięściarz",
     "description": "**Cios Zawodowca3**: Zwiększa o 3 rangi kości broni walki wręcz\n\n**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Prawy Sierpowy**: Dodaje 2 obrażenia, odejmuje 2 parowania\n\n**Grad Ciosów2**: Test sporny Walki Wręcz-1 vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni\n\n**Ciężki Cios3**: Test sporny siły+1 vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia\n\n**Gniewne Natarcie3**: Test sporny siły+1 vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem\n\n**Ustawiczne Ciosy3**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 4 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza3**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Zwinny Zwod2**: Akcja Natychmiastowa. Dodaje 2 redukcji do uników. Tylko przeciw walce wręcz\n\n**Pełniejsza Zasłona**: Dodaje 1k2 parowania\n\n**Pasywy**: \n\n**Cios za ciosem2**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k6\n\n**Profesjonalizm**: Ataki walki wręcz pomijają redukcję jednej kości\n\n**Defensywna walka wręcz2**: Dodaje 2 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz\n\n**Potężne Uderzenie3**: +3dmg do walki wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -1575,8 +1575,8 @@
     "perksIds": [
       "01K9Z6YJJBPP8M6AWVQ5DG8VHH",
       "01K9Z6YJJB7H3SJQB9WV81XSF0",
-      "01K9Z6YJJBC2TD48D4XX4VX3A9",
-      "01K9Z6YJJB5ZB4NF03EDCFCF6G"
+      "01KA1ZCV3K2VXCWAJ7HV4CZ0QJ",
+      "01KA1ZCV3M7C1QCMMA96VBD18A"
     ],
     "equipment": {
       "weapons": [
@@ -1598,7 +1598,7 @@
     "shortName": "Niszczyciel",
     "description": "**Cios Zawodowca3**: Zwiększa o 3 rangi kości broni walki wręcz\n\n**Lewy Sierpowy**: Dodaje 1k2 obrażeń, odejmuje 1 parowania\n\n**Prawy Prosty**: Dodaje 1 obrażenie\n\n**Prawy Sierpowy**: Dodaje 2 obrażenia, odejmuje 2 parowania\n\n**Grad Ciosów3**: Test sporny Walki Wręcz vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni\n\n**Ciężki Cios3**: Test sporny siły+1 vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia\n\n**Gniewne Natarcie3**: Test sporny siły+1 vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem\n\n**Ustawiczne Ciosy3**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 4 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza3**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Pełniejsza Zasłona**: Dodaje 1k2 parowania\n\n**Przełamanie Gardy**: Test sporny Walki Wręcz-3 vs walka wręcz/fortel/zręczność Wygrany powoduje zadanie bezpośrednich obrażeń\n\n**Falanga Pięści**: Test sporny Walki Wręcz vs walka wręcz/fortel/siła. Wygrany powoduje dodanie echa ciosu na każdą kość broni\n\n**Pasywy**: \n\n**Cios za ciosem3**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k8\n\n**Profesjonalizm**: Ataki walki wręcz pomijają redukcję jednej kości\n\n**Napiętnowane Mięśnie2**: Dodaje premie +2 do testów siłowych w walce wręcz\n\n**Sztuka Walki1**: Dodaje 1 kość broni w Walce Wręcz\n\n**Defensywna walka wręcz3**: Dodaje 3 redukcji z parowania walcząc wręcz przeciwko przeciwnikowi używającemu walki wręcz\n\n**Potężne Uderzenie3**: +3dmg do walki wręcz\n\n**Doświadczony Walczak**: Dodaje 1 do testów walki wręcz",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -1828,11 +1828,11 @@
     "perksIds": [
       "01K9Z6YJJBBCG5G340E5V3DW99",
       "01K9Z6YJJB7H3SJQB9WV81XSF0",
-      "01K9Z6YJJBGMW0R0ENDZYJ8RB0",
+      "01KA1ZCV3MGMJHE48Y45F62AWV",
       "01K9Z6YJJBXNG83Q0D0JT9R537",
-      "01K9Z6YJJB886FRNM094BEM281",
-      "01K9Z6YJJB5ZB4NF03EDCFCF6G",
-      "01K9Z6YJJBZTZ3NMY6XAEX3T8W"
+      "01KA1ZCV3M0ZFKCV40T11BYQ6Q",
+      "01KA1ZCV3M7C1QCMMA96VBD18A",
+      "01KA1ZCV3MFRY5F3J31WFDXWH6"
     ],
     "equipment": {
       "weapons": [
@@ -1854,7 +1854,7 @@
     "shortName": "Mistrz",
     "description": "**Cios Zawodowca3**: Zwiększa o 3 rangi kości broni walki wręcz\n\n**Czinkciarz3**: Test sporny walki wręcz+fortelu+2 vs walka wręcz+fortel/walka wręcz+siła+2. Za każde oczko przewagi dodaje 1 obrażenie. Tylko przeciw walce wręcz\n\n**Chwyt Szelmy3**: Test sporny fortelu vs siła+1. Wygrany powoduje obrażenia równie sile przeciwnika\n\n**Atak Szubrawcy3**: Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła. Zadaje 1k8w obrażeń. Tylko przeciw walce wręcz\n\n**Grad Ciosów3**: Test sporny Walki Wręcz vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni\n\n**Ciężki Cios3**: Test sporny siły+1 vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia\n\n**Gniewne Natarcie3**: Test sporny siły+1 vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem\n\n**Ustawiczne Ciosy3**: Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 4 rundy. Tylko przeciw walce wręcz\n\n**Garda Pięściarza3**: Akcja Natychmiastowa. Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz\n\n**Przełamanie Gardy**: Test sporny Walki Wręcz-3 vs walka wręcz/fortel/zręczność Wygrany powoduje zadanie bezpośrednich obrażeń\n\n**Falanga Pięści**: Test sporny Walki Wręcz vs walka wręcz/fortel/siła. Wygrany powoduje dodanie echa ciosu na każdą kość broni\n\n**Pasywy**: \n\n**Cios za ciosem4**: Wyrzucając dublet na kościach broni walki wręcz dodatkowo otrzymujesz kość obrażeń k10\n\n**Profesjonalizm**: Ataki walki wręcz pomijają redukcję jednej kości\n\n**Odpowiednia Dźwignia2**: W testach siłowych możesz użyć zręczności\n\n**Sztuka Walki1**: Dodaje 1 kość broni w Walce Wręcz\n\n**Zwodnicza Technika**: Dodaje 1 do testów fortelu walcząc wręcz\n\n**Nazwa**: Zdrowie",
     "tags": [
-      "Wojacy",
+      "wojacy",
       "walka-wręcz"
     ],
     "characteristics": {
@@ -2031,10 +2031,6 @@
       {
         "name": "Falanga Pięści",
         "grade": 1
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
@@ -2051,10 +2047,6 @@
       "01K9Z6YGZC0M76VZGCXTXGA1J9"
     ],
     "perks": [
-      {
-        "name": "Cios za ciosem",
-        "grade": 4
-      },
       {
         "name": "Profesjonalizm",
         "grade": 1
@@ -2074,7 +2066,7 @@
     ],
     "perksIds": [
       "01K9Z6YJJB7H3SJQB9WV81XSF0",
-      "01K9Z6YJJB01JGMJZVVPDFMQ1R",
+      "01KA1ZCV3KPK3B8HAA8FYWCWRD",
       "01K9Z6YJJBXNG83Q0D0JT9R537",
       "01K9Z6YJJB72R8QWNSGRM0RHWD"
     ],
@@ -2098,8 +2090,8 @@
     "shortName": "Leśnik",
     "description": "**Pewny Strzał**: Zmniejsza rangę ataku dystansowego o 1, ale zwiększa precyzję o 1\n\n**Stabilny Strzał**: Wykonjesz dwa razy test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)\n\n**Krytyczna Strzała1**: Dodaje +1 do siły krytyka\n\n**Mierzony Strzał1**: Dodaje +1 do zasięgu trafienia krytycznego\n\n**Seryjny Strzał1**: Dodaje widmową kość obrażeń k4, ale zmniejsza precyzję o 1\n\n**Skupienie na Celu**: Wymaga rundy celowania. Dodaje +1 precyzji względem danego celu",
     "tags": [
-      "Dystansowi",
-      "Wojacy",
+      "dystansowi",
+      "wojacy",
       "łucznik"
     ],
     "characteristics": {
@@ -2288,8 +2280,8 @@
     "shortName": "Łucznik",
     "description": "**Pewny Strzał**: Zmniejsza rangę ataku dystansowego o 1, ale zwiększa precyzję o 1\n\n**Stabilny Strzał**: Wykonjesz dwa razy test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)\n\n**Krytyczna Strzała2**: Dodaje +2 do siły krytyka\n\n**Mierzony Strzał1**: Dodaje +1 do zasięgu trafienia krytycznego\n\n**Seryjny Strzał2**: Dodaje widmową kość obrażeń k4 / k6, ale zmniejsza precyzję o 1 / 2\n\n**Skupienie na Celu**: Wymaga rundy celowania. Dodaje +1 precyzji względem danego celu\n\n**Długi Naciąg**: Dodaje obrażenia równe połowie modyfikatora ze zręczności do obrażeń\n\n**Błyskawiczny Strzał1**: Manewr Natychmiastowy. Za każde +1 inicjatywy, zmniejsza o 1 precyzję na najbliższy atak (max +2,-2)\n\n**Roztrzał**: Zwiększa rangę ataku dystansowego o 2, ale zmniejsza precyzję o 2\n\n**Przeszywający Strzał1**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +3)",
     "tags": [
-      "Dystansowi",
-      "Wojacy",
+      "dystansowi",
+      "wojacy",
       "łucznik"
     ],
     "characteristics": {
@@ -2498,8 +2490,8 @@
     "shortName": "Strzelec",
     "description": "**Pewny Strzał**: Zmniejsza rangę ataku dystansowego o 1, ale zwiększa precyzję o 1\n\n**Stabilny Strzał**: Wykonjesz dwa razy test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)\n\n**Krytyczna Strzała2**: Dodaje +2 do siły krytyka\n\n**Mierzony Strzał1**: Dodaje +1 do zasięgu trafienia krytycznego\n\n**Seryjny Strzał2**: Dodaje widmową kość obrażeń k4 / k6, ale zmniejsza precyzję o 1 / 2\n\n**Skupienie na Celu**: Wymaga rundy celowania. Dodaje +1 precyzji względem danego celu\n\n**Długi Naciąg**: Dodaje obrażenia równe połowie modyfikatora ze zręczności do obrażeń\n\n**Błyskawiczny Strzał2**: Manewr Natychmiastowy. Za każde +1 inicjatywy, zmniejsza o 1 precyzję na najbliższy atak (max +3,-3)\n\n**Roztrzał**: Zwiększa rangę ataku dystansowego o 2, ale zmniejsza precyzję o 2\n\n**Przeszywający Strzał2**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +6)\n\n**Defensywny Strzał1**: Trafienie ataku dystansowego-2 powoduje obniżenie obrażeń zadawanych przez przeciwnika o 2 w jego najbliższym ataku\n\n**Potok Strzał1**: Zamienia jedną kość broni na dwie widmowe kości obrażeń o randzie o jeden mniejszej\n\n**Ruch Strzelca1**: Pozwala na strzał w ruchu z połową prędkości. Strzał w ruchu jest wykonywany z karą -3 precyzji\n\n**Znakomity Strzał**: Zwiększa o 1 rangę kości w teście precyzji",
     "tags": [
-      "Dystansowi",
-      "Wojacy",
+      "dystansowi",
+      "wojacy",
       "łucznik"
     ],
     "characteristics": {
@@ -2728,8 +2720,8 @@
     "shortName": "Saggitarius",
     "description": "**Pewny Strzał**: Zmniejsza rangę ataku dystansowego o 1, ale zwiększa precyzję o 1\n\n**Stabilny Strzał**: Wykonjesz dwa razy test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)\n\n**Krytyczna Strzała3**: Dodaje +3 do siły krytyka\n\n**Mierzony Strzał2**: Dodaje +2 do zasięgu trafienia krytycznego\n\n**Seryjny Strzał3**: Dodaje widmową kość obrażeń k4 / k6 / k8, ale zmniejsza precyzję o 1 / 2 / 3\n\n**Skupienie na Celu**: Wymaga rundy celowania. Dodaje +1 precyzji względem danego celu\n\n**Długi Naciąg**: Dodaje obrażenia równe połowie modyfikatora ze zręczności do obrażeń\n\n**Błyskawiczny Strzał3**: Manewr Natychmiastowy. Za każde +1 inicjatywy, zmniejsza o 1 precyzję na najbliższy atak (max +4,-4)\n\n**Przeszywający Strzał3**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +9)\n\n**Roztrzał**: Zwiększa rangę ataku dystansowego o 2, ale zmniejsza precyzję o 2\n\n**Defensywny Strzał3**: Trafienie ataku dystansowego-2 powoduje obniżenie obrażeń zadawanych przez przeciwnika o 6 w jego najbliższym ataku\n\n**Potok Strzał2**: Zamienia jedną kość broni na dwie widmowe kości obrażeń o tej samej randze\n\n**Ruch Strzelca2**: Pozwala na strzał w ruchu z połową prędkości. Strzał w ruchu jest wykonywany z karą -2 precyzji\n\n**Znakomity Strzał**: Zwiększa o 1 rangę kości w teście precyzji\n\n**Wyborowy Strzał**: Wykonaj dwa razy test ataku dystansowego. W przypadku powodzenia dodaje przerzut kości broni\n\n**Penetrujący Strzał**: Omija redukcję 1 kości, ale zmniejsza precyzję o 4\n\n**Strzał Weterana**: Zwiększa rangę kości broni i zasięg trafienia krytycznego o 1",
     "tags": [
-      "Dystansowi",
-      "Wojacy",
+      "dystansowi",
+      "wojacy",
       "łucznik"
     ],
     "characteristics": {
@@ -2973,8 +2965,8 @@
     "shortName": "Kusznik",
     "description": "**Strzelec Wyborowy1**: Podwaja premie precyzji z kuszy (max +1). Tylko na krótką odległość\n\n**Wytrawny Strzelec1**: Dodaje +1 siły krytyka i +1 szansy krytyka\n\n**Biegły Kawaler1**: Wymaga 1 tury celowania ale dodaje kość obrażeń równą kości broni, manew trwa 2 rundy, runde celowania i runde strzału, nie można dołożyć kolejnego manewru do strzału\n\n**Strzał zza Zasłony1**: Pozwala strzelać z za zasłony nie tracąc nawet na chwile premii z osłony -5 precyzji, do tego manewru można dorzucić kolejny manewr\n\n**Jager1**: Pozwala dodać wybraną kość obrażeń ale odejmuje maksymalną wartość kości dzieloną na dwa precyzji, to znaczy że na przykład dodając kość 1k10 do strzału podlegasz karze 5 precyzji (Max Kość 1k12)\n\n**Przeszywający Strzał1**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +3)\n\n**Precyzyjny Strzał**: Dodaje +1 do precyzji\n\n**Pewny Strzał**: Zmniejsza rangę ataku dystansowego o 1, ale zwiększa precyzję o 1\n\n**Przeszywający Strzał1**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +3)\n\n**Stabilny Strzał**: Wykonjesz dwa razy test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)",
     "tags": [
-      "Dystansowi",
-      "Wojacy"
+      "dystansowi",
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -3104,10 +3096,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Kusznik",
-        "grade": 1
-      },
-      {
         "name": "Strzelec  Wyborowy",
         "grade": 1
       },
@@ -3155,8 +3143,15 @@
       "01K9Z6YGZ7PBK5TFR4V9SCGCND",
       "01K9Z6YGZ7VJQ0CPH8R7BXN274"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Kusznik",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73JVP6M1S5HRH54WGD1"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -3177,8 +3172,8 @@
     "shortName": "Kusznik",
     "description": "**Strzelec Wyborowy2**: Podwaja premie precyzji z kuszy (max +2). Tylko na krótką odległość\n\n**Wytrawny Strzelec2**: Dodaje +1 siły krytyka i +1 szansy krytyka\n\n**Biegły Kawaler2**: Wymaga 1 tury celowania ale dodaje kość obrażeń równą kości broni, manew trwa 2 rundy, runde celowania i runde strzału, nie można dołożyć kolejnego manewru do strzału\n\n**Strzał zza Zasłony2**: Pozwala strzelać z za zasłony nie tracąc nawet na chwile premii z osłony -4 precyzji, do tego manewru można dorzucić kolejny manewr\n\n**Jager2**: Pozwala dodać wybraną kość obrażeń ale odejmuje maksymalną wartość kości dzieloną na dwa precyzji, to znaczy że na przykład dodając kość 1k10 do strzału podlegasz karze 5 precyzji (Max Kość 1k20)\n\n**Przeszywający Strzał2**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +6)\n\n**Precyzyjny Strzał**: Dodaje +1 do precyzji\n\n**Pewny Strzał**: Zmniejsza rangę ataku dystansowego o 1, ale zwiększa precyzję o 1\n\n**Przeszywający Strzał2**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +6)\n\n**Stabilny Strzał**: Wykonjesz dwa razy test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)\n\n**Roztrzał**: Zwiększa rangę ataku dystansowego o 2, ale zmniejsza precyzję o 2\n\n**Rozsądny Strzał**: Jeśli w teście ataku dystansowego wygrasz o co najmniej 5 oczek, to stawiasz jedną kość broni na maksymalnej wartości, ale nie zadajesz z tej kości obrażeń krytycznych\n\n**Ruch Strzelca1**: Pozwala na strzał w ruchu z połową prędkości. Strzał w ruchu jest wykonywany z karą -3 precyzji\n\n**Znakomity Strzał**: Zwiększa o 1 rangę kości w teście precyzji\n\n**Szybkie Przeładowanie**: Zmniejszasz czas przeładowania o 1 rundę ale oddajesz następnej turze strzał z jedną mniej kością broni\n\n**Lider Strzelecki**: Zmniejszasz czas przeładowania o 1 rundę, ale kości broni stają się kośmi obrażeń",
     "tags": [
-      "Dystansowi",
-      "Wojacy"
+      "dystansowi",
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -3308,10 +3303,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Kusznik",
-        "grade": 2
-      },
-      {
         "name": "Strzelec  Wyborowy",
         "grade": 2
       },
@@ -3389,8 +3380,15 @@
       "01K9Z6YGZ8XZFC0KTRBCBGNC1K",
       "01K9Z6YGZ8HDNF53RY4SDGBC63"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Kusznik",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73JGM6QHHFJVCHC2KFR"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -3411,8 +3409,8 @@
     "shortName": "Mistrz",
     "description": "**Strzelec Wyborowy3**: Podwaja premie precyzji z kuszy (max +3). Tylko na krótką odległość\n\n**Wytrawny Strzelec3**: Dodaje +2 siły krytyka i +1 szansy krytyka\n\n**Biegły Kawaler3**: Wymaga 1 tury celowania ale dodaje kość obrażeń równą kości broni, manew trwa 2 rundy, runde celowania i runde strzału, nie można dołożyć kolejnego manewru do strzału\n\n**Strzał zza Zasłony3**: Pozwala strzelać z za zasłony nie tracąc nawet na chwile premii z osłony -3 precyzji, do tego manewru można dorzucić kolejny manewr\n\n**Jager3**: Pozwala dodać wybraną kość obrażeń ale odejmuje maksymalną wartość kości dzieloną na dwa precyzji, to znaczy że na przykład dodając kość 1k10 do strzału podlegasz karze 5 precyzji (Max Kość 1k30)\n\n**Przeszywający Strzał3**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +9)\n\n**Pewny Strzał**: Zmniejsza rangę ataku dystansowego o 1, ale zwiększa precyzję o 1\n\n**Przeszywający Strzał3**: Dodajesz 1dmg za każdy oczko przewagi w teście ataku dystansowego (max +9)\n\n**Precyzyjny Strzał**: Dodaje +1 do precyzji\n\n**Stabilny Strzał**: Wykonjesz dwa razy test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)\n\n**Roztrzał**: Zwiększa rangę ataku dystansowego o 2, ale zmniejsza precyzję o 2\n\n**Rozsądny Strzał**: Jeśli w teście ataku dystansowego wygrasz o co najmniej 5 oczek, to stawiasz jedną kość broni na maksymalnej wartości, ale nie zadajesz z tej kości obrażeń krytycznych\n\n**Ruch Strzelca2**: Pozwala na strzał w ruchu z połową prędkości. Strzał w ruchu jest wykonywany z karą -2 precyzji\n\n**Znakomity Strzał**: Zwiększa o 1 rangę kości w teście precyzji\n\n**Szybkie Przeładowanie**: Zmniejszasz czas przeładowania o 1 rundę ale oddajesz następnej turze strzał z jedną mniej kością broni\n\n**Lider Strzelecki**: Zmniejszasz czas przeładowania o 1 rundę, ale kości broni stają się kośmi obrażeń\n\n**Szybki Spust**: Zmniejszasz czas przeładowania o 1 rundę ale oddajesz następnej turze strzał z precyzją -4\n\n**Mistrzowski Strzał**: Dodajesz widmową kość obrażeń o randze równej ilości przewadze w teście ataku dystansowego\n\n**Strzał Weterana**: Zwiększa rangę kości broni i zasięg trafienia krytycznego o 1\n\n**Nazwa**: Zdrowie",
     "tags": [
-      "Dystansowi",
-      "Wojacy"
+      "dystansowi",
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -3542,10 +3540,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Kusznik",
-        "grade": 3
-      },
-      {
         "name": "Strzelec  Wyborowy",
         "grade": 3
       },
@@ -3616,10 +3610,6 @@
       {
         "name": "Strzał Weterana",
         "grade": 1
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
@@ -3642,8 +3632,15 @@
       "01K9Z6YGZ7M9ZVKMK54797TKQG",
       "01K9Z6YGZ7P6P6HTW50AHZ6MYM"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Kusznik",
+        "grade": 3
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73K5X3ARNGR22J84P6Y"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -3664,8 +3661,7 @@
     "shortName": "Dzikus",
     "description": "**Odwet2**: Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Rozpłatanie1**: Cios zadaje dodatkowe 10% obrażeń zaokrąglone do dołu\n\n**Obusieczne Uderzenie1**: Dodaje do +2dmg i odejmuje tyle samo redukcji na najbliższy atak przeciwnika\n\n**Atak Tarczą2**: Wygrany test sporny siły vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Postawy**: \n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna1**: Zwiększa odporność o 1, zmniejsza obrażenia o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -3795,10 +3791,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Dzikus",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -3821,16 +3813,7 @@
       "01K9Z6YGYXYKSE7MWGK5JRNKKK",
       "01K9Z6YGZAFCNCSX88QM60VW9V"
     ],
-    "perks": [
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 1
-      }
-    ],
+    "perks": [],
     "perksIds": [],
     "equipment": {
       "weapons": [
@@ -3845,8 +3828,20 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 1
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW07DEFN2D07ZH6ZYQC"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -3856,8 +3851,7 @@
     "shortName": "Dzikus",
     "description": "**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Rozpłatanie2**: Cios zadaje dodatkowe 10% obrażeń zaokrąglone do dołu\n\n**Obusieczne Uderzenie2**: Dodaje do +4dmg i odejmuje tyle samo redukcji na najbliższy atak przeciwnika\n\n**Atak Tarczą2**: Wygrany test sporny siły vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Napór**: Dodaje obrażenia równe wytrwałosci ale odejmuje połowę tego redukcji (zaokraglone w górę)\n\n**Postawy**: \n\n**Postawa Ofensywna3**: Zwiększa obrażenia o 4, zmniejsza redukcję o 3\n\n**Postawa Defensywna1**: Zwiększa odporność o 1, zmniejsza obrażenia o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -3987,10 +3981,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Dzikus",
-        "grade": 2
-      },
-      {
         "name": "Odwet",
         "grade": 3
       },
@@ -4020,15 +4010,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 1
+        "name": "Dzikus",
+        "grade": 2
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73KZ6G1XJ9PKX2HNM6D"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -4042,8 +4030,20 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 1
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW07DEFN2D07ZH6ZYQC"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -4053,8 +4053,7 @@
     "shortName": "Barbarzyńca",
     "description": "**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Rozpłatanie3**: Cios zadaje dodatkowe 10% obrażeń zaokrąglone do dołu\n\n**Obusieczne Uderzenie3**: Dodaje do +6dmg i odejmuje tyle samo redukcji na najbliższy atak przeciwnika\n\n**Gniewny Atak**: Dodaje widmową kość obrażeń o randzie równej połowie modyfikatora siły\n\n**Surowa Siła**: Dodaje 1/3 mod siły do obrażeń i redukcji\n\n**Przewaga siły**: Atakując bronią dwuręczną dodajesz dodatkowe 1/2 modyfikatora z siły do obrażeń\n\n**Roztrzaskanie3**: Test siły vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi\n\n**Rzeź1**: Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku\n\n**Postawy**: \n\n**Postawa Ofensywna3**: Zwiększa obrażenia o 4, zmniejsza redukcję o 3\n\n**Postawa Defensywna1**: Zwiększa odporność o 1, zmniejsza obrażenia o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -4188,10 +4187,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Barbarzyńca",
-        "grade": 3
-      },
-      {
         "name": "Odwet",
         "grade": 3
       },
@@ -4236,15 +4231,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
+        "name": "Barbarzyńca",
         "grade": 3
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 1
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73KVN62DNJWK7D1H597"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -4254,8 +4247,20 @@
       "armors": [],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa Ofensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa Defensywna",
+        "grade": 1
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW07DEFN2D07ZH6ZYQC"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -4265,8 +4270,7 @@
     "shortName": "Oprych",
     "description": "**Odwet2**: Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Finta1**: Wygrany test sporny fortelu+1 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy.\n\n**Podstępne Kopnięcie**: Manewr Natychmiastowy. Wygrany test sporny fortelu z fechtunek lub fortel dodaje 2dmg\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Instynktowny Atak2**: Wybierz kość broni lub obrażeń. Stawiasz daną kość na wartości równej randze kości+1. Tą kością nie można zadać obrażeń krytycznych\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Postawy**: \n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna1**: Zwiększa odporność o 1, zmniejsza obrażenia o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -4396,10 +4400,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zbój",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -4434,6 +4434,20 @@
     ],
     "perks": [
       {
+        "name": "Zbój",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73K18MXAKEKK2XYCHZD"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Ofensywna",
         "grade": 2
       },
@@ -4442,14 +4456,10 @@
         "grade": 1
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [],
-      "armors": [],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW07DEFN2D07ZH6ZYQC"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -4459,8 +4469,7 @@
     "shortName": "Bandyta",
     "description": "**Odwet2**: Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Finta1**: Wygrany test sporny fortelu+1 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy.\n\n**Podstępne Kopnięcie**: Manewr Natychmiastowy. Wygrany test sporny fortelu z fechtunek lub fortel dodaje 2dmg\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Instynktowny Atak2**: Wybierz kość broni lub obrażeń. Stawiasz daną kość na wartości równej randze kości+1. Tą kością nie można zadać obrażeń krytycznych\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rozpłatanie1**: Cios zadaje dodatkowe 10% obrażeń zaokrąglone do dołu\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Garda1**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna2**: Zwiększa odporność o 2, zmniejsza obrażenia o 2",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -4594,10 +4603,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zbój",
-        "grade": 2
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -4647,6 +4652,20 @@
     ],
     "perks": [
       {
+        "name": "Zbój",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73K17YPHVRHWBHK8AGY"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Ofensywna",
         "grade": 2
       },
@@ -4655,14 +4674,10 @@
         "grade": 2
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [],
-      "armors": [],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -4672,8 +4687,7 @@
     "shortName": "Zabijaka",
     "description": "**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Finta2**: Wygrany test sporny fortelu+3 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy.\n\n**Podstępne Kopnięcie**: Manewr Natychmiastowy. Wygrany test sporny fortelu z fechtunek lub fortel dodaje 2dmg\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Instynktowny Atak2**: Wybierz kość broni lub obrażeń. Stawiasz daną kość na wartości równej randze kości+1. Tą kością nie można zadać obrażeń krytycznych\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rozpłatanie1**: Cios zadaje dodatkowe 10% obrażeń zaokrąglone do dołu\n\n**Solidny Cios**: Wybrana niewidmowa kość obrażeń zyskuje obrażnia równe obrażeniom na kość broni\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Garda1**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Pomniejsza Parada**: Manewr Natychmiastowy. Dodaje 2 parowania\n\n**Antyzapał**: Manewr Natychmiastowy. Dodaje 1 redukcji za każdą kość broni i obrażeń skierowaną przeciwko tobie\n\n**Postawy**: \n\n**Postawa Ofensywna3**: Zwiększa obrażenia o 4, zmniejsza redukcję o 3\n\n**Postawa Defensywna2**: Zwiększa odporność o 2, zmniejsza obrażenia o 2",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -4807,10 +4821,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zbój",
-        "grade": 3
-      },
-      {
         "name": "Odwet",
         "grade": 3
       },
@@ -4875,15 +4885,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
+        "name": "Zbój",
         "grade": 3
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 2
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73K8C6BEHD3BSD3R6Q2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [
@@ -4893,8 +4901,20 @@
       ],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa Ofensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa Defensywna",
+        "grade": 2
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -4904,8 +4924,7 @@
     "shortName": "Siepacz",
     "description": "**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Finta2**: Wygrany test sporny fortelu+3 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy.\n\n**Podstępne Kopnięcie**: Manewr Natychmiastowy. Wygrany test sporny fortelu z fechtunek lub fortel dodaje 2dmg\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Instynktowny Atak2**: Wybierz kość broni lub obrażeń. Stawiasz daną kość na wartości równej randze kości+1. Tą kością nie można zadać obrażeń krytycznych\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rozpłatanie1**: Cios zadaje dodatkowe 10% obrażeń zaokrąglone do dołu\n\n**Solidny Cios**: Wybrana niewidmowa kość obrażeń zyskuje obrażnia równe obrażeniom na kość broni\n\n**Rozprawa Fechmistrza**: Wygrany test sporny fechtunku vs fechtunek lub fortel dodaje widmową kość obrażeń o randze równej 1 za każde oczko różnicy w teście\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Tajemny Sztych**: Dodaje widmową kość obrażeń o randze równej połowie fortelu (zaokrąglonej do dołu)\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Instynktowny Unik**: Manewr Natychmiastowy. Dodaje 1k6 uników\n\n**Garda3**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Pomniejsza Parada**: Manewr Natychmiastowy. Dodaje 2 parowania\n\n**Antyzapał**: Manewr Natychmiastowy. Dodaje 1 redukcji za każdą kość broni i obrażeń skierowaną przeciwko tobie\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Postawy**: \n\n**Postawa Ofensywna3**: Zwiększa obrażenia o 4, zmniejsza redukcję o 3\n\n**Postawa Defensywna3**: Zwiększa odporność o 4, zmniejsza obrażenia o 3",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -5039,10 +5058,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zbój",
-        "grade": 4
-      },
-      {
         "name": "Odwet",
         "grade": 3
       },
@@ -5127,15 +5142,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 3
+        "name": "Zbój",
+        "grade": 4
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73KR1A85YGN9373ED2Q"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -5149,8 +5162,20 @@
       ],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 3
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW0YPXM9C6Q4F293CVT"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -5160,8 +5185,7 @@
     "shortName": "Chłop",
     "description": "**Odwet1**: Dodaje 1dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Chłopski Zapał**: Dodaje 1 obrażeń na kości broni i obrażeń, odejmuje 1 obrażeń\n\n**Pewny Cios**: Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -5291,10 +5315,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Chłop",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 1
       },
@@ -5312,8 +5332,15 @@
       "01K9Z6YGZFBJTDGTTMMS9MGRBA",
       "01K9Z6YGYYVTQAK30NBTQ2KWWV"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Chłop",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73KXXBX38BAZ5NBE9QY"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -5330,8 +5357,7 @@
     "shortName": "Piechur",
     "description": "**Odwet2**: Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Pewny Cios**: Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych\n\n**Żądło1**: Dodaje siłe i szanse krytyka do obrażeń, ustawia szanse krytyka na 0\n\n**Powstrzymanie Natarcia1**: Manewr Natychmiwstowy. Neguje wszelkie bonusy przeciwnika z szarży oraz dodaje widmową kość 1k4 (Tylko przeciw szarży)\n\n**Wyszkolenie Piechura**: Dodaje 1 redukcji\n\n**Postawy**: \n\n**Postawa Ofensywna1**: Zwiększa obrażenia o 1, zmniejsza redukcję o 1\n\n**Postawa Defensywna1**: Zwiększa odporność o 1, zmniejsza obrażenia o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -5461,10 +5487,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wojownik",
-        "grade": 0
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -5499,15 +5521,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 1
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 1
+        "name": "Wojownik",
+        "grade": 0
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73K1X2XVS7FW6ZA2S9Q"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -5517,8 +5537,20 @@
       "armors": [],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 1
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 1
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW20RJMA79Z47CGAPW8",
+      "01K9Z6YJW07DEFN2D07ZH6ZYQC"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -5528,8 +5560,7 @@
     "shortName": "Wojak",
     "description": "**Odwet2**: Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Pewny Cios**: Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych\n\n**Precyzyjny Cios1**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość obrażeń\n\n**Atak Tarczą1**: Wygrany test sporny siły-1 vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Wsparcie1**: Manewr Natychmiastowy. Odejmuje 3 redukcji (z tarczy lub/i parowania) i dodaje wybranemu sojusznikowi będącemu w pobliżu. Odejmuje 3 obrażenia\n\n**Podkulenie Ogona1**: Dodaje 2 redukcji z tarczy\n\n**Nagła Zasłona1**: Manewr Natychmiastowy. Dodaje 1 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Garda1**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna2**: Zwiększa odporność o 2, zmniejsza obrażenia o 2",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -5659,10 +5690,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wojownik",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -5712,15 +5739,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 2
+        "name": "Wojownik",
+        "grade": 1
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73MVZ71JPNA8DGTDFXQ"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -5734,8 +5759,20 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 2
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -5745,8 +5782,7 @@
     "shortName": "Zbrojny",
     "description": "**Odwet2**: Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Pewny Cios**: Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych\n\n**Precyzyjny Cios1**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość obrażeń\n\n**Atak Tarczą1**: Wygrany test sporny siły-1 vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Wsparcie2**: Manewr Natychmiastowy. Odejmuje 5 redukcji (z tarczy lub/i parowania) i dodaje wybranemu sojusznikowi będącemu w pobliżu. Odejmuje 5 obrażeń\n\n**Podkulenie Ogona1**: Dodaje 2 redukcji z tarczy\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Ofensywna1**: Zwiększa obrażenia o 1, zmniejsza redukcję o 1\n\n**Postawa Defensywna1**: Zwiększa odporność o 1, zmniejsza obrażenia o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -5876,10 +5912,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wojownik",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -5929,15 +5961,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 1
-      },
-      {
-        "name": "Postawa  Defensywna",
+        "name": "Wojownik",
         "grade": 1
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73MVZ71JPNA8DGTDFXQ"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -5955,8 +5985,20 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 1
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 1
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW20RJMA79Z47CGAPW8",
+      "01K9Z6YJW07DEFN2D07ZH6ZYQC"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -5966,8 +6008,7 @@
     "shortName": "Tarczownik",
     "description": "**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Pewny Cios**: Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Atak Tarczą2**: Wygrany test sporny siły vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Wsparcie2**: Manewr Natychmiastowy. Odejmuje 5 redukcji (z tarczy lub/i parowania) i dodaje wybranemu sojusznikowi będącemu w pobliżu. Odejmuje 5 obrażeń\n\n**Podkulenie Ogona2**: Dodaje 3 redukcji z tarczy\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna3**: Zwiększa odporność o 4, zmniejsza obrażenia o 3\n\n**Postawa Pełna Defensywna2**: Nie można atakować, dodaje 2 redukcji i 3 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -6101,10 +6142,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wojownik Tarczownik",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 3
       },
@@ -6154,19 +6191,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Pełna  Defensywna",
-        "grade": 2
+        "name": "Wojownik Tarczownik",
+        "grade": 1
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73MMD5CR4A64181R2G9"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -6184,8 +6215,25 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Pełna  Defensywna",
+        "grade": 2
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0YPXM9C6Q4F293CVT",
+      "01K9Z6YJW1QSNB4G8BAGXPBRT2"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -6195,8 +6243,7 @@
     "shortName": "Miecznik",
     "description": "**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Pewny Cios**: Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych\n\n**Waleczność**: Atakujesz dodatkowego wroga w twoim zasięgu, jednakże obu atakujesz z jedną kością broni mniej\n\n**Zamaszysty Cios1**: Atakujesz dodatkowego wroga w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Rozpłatanie2**: Cios zadaje dodatkowe 10% obrażeń zaokrąglone do dołu\n\n**Napór**: Dodaje obrażenia równe wytrwałosci ale odejmuje połowę tego redukcji (zaokraglone w górę)\n\n**Rozszczepienie2**: Zwiększa o 2 rangę kości broni\n\n**Siłowa Parada**: Manewr Natychmiastowy. Dodaje modyfikator z siły do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Ofensywna3**: Zwiększa obrażenia o 4, zmniejsza redukcję o 3\n\n**Postawa Defensywna2**: Zwiększa odporność o 2, zmniejsza obrażenia o 2\n\n**Postawa Miecznika1**: Dodaje 1 obrażeń odeimuje 1 inicjatywy",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -6330,10 +6377,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wojownik Miecznik",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 3
       },
@@ -6388,19 +6431,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Miecznika",
+        "name": "Wojownik Miecznik",
         "grade": 1
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73MBJFXZR6RX3XH5P1N"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [
@@ -6410,8 +6447,25 @@
       ],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa Miecznika",
+        "grade": 1
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1",
+      "01KA1Z4SNC4WM98JGNGAREYSJ7"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -6421,8 +6475,7 @@
     "shortName": "Dualista",
     "description": "**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Przebijające Uderzenie2**: Wygrany test sporny fechtunku+1 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Dualny Cios**: Dodaje 2 dmg\n\n**Podwójne Uderzenie3**: Dodaje kość broni oręża trzymanego w niewiodącej ręce. Odejmuje kość obrażeń.\n\n**Wir Ostrzy2**: Dodaje widmową kość obrażeń 1k6 do jednego ataku\n\n**Kunszt Obronny**: Manewr Natychmiastowy. Zamienia jedną kość broni na kość obrażeń, dodaje fechtunek do parowania\n\n**Dwie Trajektorie**: Wybierz dwie kości broni trzymanych w różnych rękach. Zamiast sumy obrażeń zadaje obrażenia równe podwojonej wartości wyższego wyniku. Obrażenia krytyczne mogą zostać zadane tylko raz i tylko z kości broni, która miała więcej oczek. W przypadku remisu atakujący sam wybiera kość\n\n**Skrzyżowane Ostrza2**: Manewr Natychmiastowy. Zmniejsza o 1 rangi kości broni i obrażeń przeciwnika, zmniejsza szansę krytyka przeciwnika o 1 oraz wydłuża o 2 odnowienie się manewru ofensywnego przeciwnika\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Nieuchwytność**: Manewr Natychmiastowy. Dodaje modyfikator ze zręczności do uników na 3 tury\n\n**Świadomość Otoczenia1**: Manewr Natychmiastowy. Dodaje 1 kość redukcji\n\n**Postawy**: \n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna3**: Zwiększa odporność o 4, zmniejsza obrażenia o 3\n\n**Postawa Fechmistrza2**: Zwiększa fechtunek o 2",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -6556,10 +6609,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Dualista",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 3
       },
@@ -6624,19 +6673,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Ofensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Fechmistrza",
-        "grade": 2
+        "name": "Dualista",
+        "grade": 1
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73M3XA3S1ZWF7V93K6D"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -6650,8 +6693,25 @@
       ],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Fechmistrza",
+        "grade": 2
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0YPXM9C6Q4F293CVT",
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -6661,8 +6721,7 @@
     "shortName": "Rycerz",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios1**: Atakujesz dodatkowego wroga w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie2**: Wygrany test sporny fechtunku+1 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Atak Tarczą2**: Wygrany test sporny siły vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Podkulenie Ogona2**: Dodaje 3 redukcji z tarczy\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza1**: Zwiększa fechtunek o 1\n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna2**: Zwiększa odporność o 2, zmniejsza obrażenia o 2\n\n**Postawa Pełna Defensywna2**: Nie można atakować, dodaje 2 redukcji i 3 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -6796,10 +6855,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Tarczownik",
-        "grade": 1
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -6869,23 +6924,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Fechmistrza",
+        "name": "Rycerz  Tarczownik",
         "grade": 1
-      },
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Pełna  Defensywna",
-        "grade": 2
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73MQY62MBF6VC0W6ACV"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -6903,8 +6948,30 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Fechmistrza",
+        "grade": 1
+      },
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Pełna  Defensywna",
+        "grade": 2
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW1AKZVYT5KPM0RQDPC",
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1",
+      "01K9Z6YJW1QSNB4G8BAGXPBRT2"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -6914,8 +6981,7 @@
     "shortName": "Rycerz:",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios2**: Atakujesz dwóch dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie3**: Wygrany test sporny fechtunku+2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Atak Tarczą2**: Wygrany test sporny siły vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Podkulenie Ogona2**: Dodaje 3 redukcji z tarczy\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza2**: Zwiększa fechtunek o 2\n\n**Postawa Ofensywna3**: Zwiększa obrażenia o 4, zmniejsza redukcję o 3\n\n**Postawa Defensywna3**: Zwiększa odporność o 4, zmniejsza obrażenia o 3\n\n**Postawa Pełna Defensywna3**: Nie można atakować, dodaje 3 redukcji i 4 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -7049,10 +7115,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Tarczownik",
-        "grade": 2
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -7122,23 +7184,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Fechmistrza",
+        "name": "Rycerz  Tarczownik",
         "grade": 2
-      },
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Pełna  Defensywna",
-        "grade": 3
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73MJS9749K9YE9S0A9Q"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -7156,8 +7208,30 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Fechmistrza",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Pełna  Defensywna",
+        "grade": 3
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM",
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW0YPXM9C6Q4F293CVT",
+      "01K9Z6YJW19P88ZMRJZW18HY2Z"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -7167,8 +7241,7 @@
     "shortName": "Kwiat",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios2**: Atakujesz dwóch dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie3**: Wygrany test sporny fechtunku+2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Atak Tarczą2**: Wygrany test sporny siły vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Podkulenie Ogona2**: Dodaje 3 redukcji z tarczy\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza2**: Zwiększa fechtunek o 2\n\n**Postawa Ofensywna4**: Zwiększa obrażenia o 6, zmniejsza redukcję o 4\n\n**Postawa Defensywna4**: Zwiększa odporność o 6, zmniejsza obrażenia o 4\n\n**Postawa Pełna Defensywna4**: Nie można atakować, dodaje 4 redukcji i 5 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -7302,10 +7375,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Tarczownik",
-        "grade": 3
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -7375,23 +7444,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Fechmistrza",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 4
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 4
-      },
-      {
-        "name": "Postawa  Pełna  Defensywna",
-        "grade": 4
+        "name": "Rycerz  Tarczownik",
+        "grade": 3
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73M8PBCPV49G0H1WFYQ"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -7409,8 +7468,30 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Fechmistrza",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 4
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 4
+      },
+      {
+        "name": "Postawa  Pełna  Defensywna",
+        "grade": 4
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM",
+      "01K9Z6YJW2DAT5HR6DD7DM6VE5",
+      "01K9Z6YJW0SP2JNDD6CBRZ72ZH",
+      "01K9Z6YJW13GZCAVQ213S0S5B3"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -7420,8 +7501,7 @@
     "shortName": "Czempion:",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios2**: Atakujesz dwóch dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie3**: Wygrany test sporny fechtunku+2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Atak Tarczą2**: Wygrany test sporny siły vs siła lub zręczność zadaje obrażenia równe 1  +  1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika. Skala trudności zachowania równowagi równa jest różnicy oczek\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Podkulenie Ogona2**: Dodaje 3 redukcji z tarczy\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza2**: Zwiększa fechtunek o 2\n\n**Postawa Ofensywna4**: Zwiększa obrażenia o 6, zmniejsza redukcję o 4\n\n**Postawa Defensywna4**: Zwiększa odporność o 6, zmniejsza obrażenia o 4\n\n**Postawa Pełna Defensywna4**: Nie można atakować, dodaje 4 redukcji i 5 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -7555,10 +7635,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Tarczownik",
-        "grade": 4
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -7628,23 +7704,13 @@
     ],
     "perks": [
       {
-        "name": "Postawa  Fechmistrza",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 4
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 4
-      },
-      {
-        "name": "Postawa  Pełna  Defensywna",
+        "name": "Rycerz  Tarczownik",
         "grade": 4
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZB73MZY4MCNEE3BE6A9Q1"
+    ],
     "equipment": {
       "weapons": [
         {
@@ -7662,8 +7728,30 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Fechmistrza",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 4
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 4
+      },
+      {
+        "name": "Postawa  Pełna  Defensywna",
+        "grade": 4
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM",
+      "01K9Z6YJW2DAT5HR6DD7DM6VE5",
+      "01K9Z6YJW0SP2JNDD6CBRZ72ZH",
+      "01K9Z6YJW13GZCAVQ213S0S5B3"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -7673,8 +7761,7 @@
     "shortName": "Rycerz",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios1**: Atakujesz dodatkowego wroga w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie2**: Wygrany test sporny fechtunku+1 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rozszczepienie3**: Zwiększa o 3 rangę kości broni\n\n**Rzeź2**: Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku\n\n**Roztrzaskanie3**: Test siły vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi\n\n**Siłowa Parada**: Manewr Natychmiastowy. Dodaje modyfikator z siły do redukcji\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza1**: Zwiększa fechtunek o 1\n\n**Postawa Ofensywna2**: Zwiększa obrażenia o 2, zmniejsza redukcję o 2\n\n**Postawa Defensywna2**: Zwiększa odporność o 2, zmniejsza obrażenia o 2\n\n**Postawa Pełna Defensywna2**: Nie można atakować, dodaje 2 redukcji i 3 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -7808,10 +7895,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Miecznik",
-        "grade": 1
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -7886,6 +7969,24 @@
     ],
     "perks": [
       {
+        "name": "Rycerz  Miecznik",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73MG0M8BSXFK0955QX4"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [
+        {
+          "name": "Zbroja Kryta"
+        }
+      ],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Fechmistrza",
         "grade": 1
       },
@@ -7902,18 +8003,12 @@
         "grade": 2
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [],
-      "armors": [
-        {
-          "name": "Zbroja Kryta"
-        }
-      ],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW1AKZVYT5KPM0RQDPC",
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1",
+      "01K9Z6YJW1QSNB4G8BAGXPBRT2"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -7923,8 +8018,7 @@
     "shortName": "Rycerz:",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios2**: Atakujesz dwóch dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie3**: Wygrany test sporny fechtunku+2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rozszczepienie3**: Zwiększa o 3 rangę kości broni\n\n**Rzeź3**: Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku\n\n**Roztrzaskanie3**: Test siły vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi\n\n**Siłowa Parada**: Manewr Natychmiastowy. Dodaje modyfikator z siły do redukcji\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza2**: Zwiększa fechtunek o 2\n\n**Postawa Ofensywna3**: Zwiększa obrażenia o 4, zmniejsza redukcję o 3\n\n**Postawa Defensywna3**: Zwiększa odporność o 4, zmniejsza obrażenia o 3\n\n**Postawa Pełna Defensywna3**: Nie można atakować, dodaje 3 redukcji i 4 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -8058,10 +8152,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Miecznik",
-        "grade": 2
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -8136,6 +8226,24 @@
     ],
     "perks": [
       {
+        "name": "Rycerz  Miecznik",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73MM30Y7KTSM36D4R9R"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [
+        {
+          "name": "Zbroja Półpłytowa"
+        }
+      ],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Fechmistrza",
         "grade": 2
       },
@@ -8152,18 +8260,12 @@
         "grade": 3
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [],
-      "armors": [
-        {
-          "name": "Zbroja Półpłytowa"
-        }
-      ],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM",
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW0YPXM9C6Q4F293CVT",
+      "01K9Z6YJW19P88ZMRJZW18HY2Z"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -8173,8 +8275,7 @@
     "shortName": "Kwiat",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios2**: Atakujesz dwóch dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie3**: Wygrany test sporny fechtunku+2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rozszczepienie3**: Zwiększa o 3 rangę kości broni\n\n**Rzeź3**: Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku\n\n**Roztrzaskanie3**: Test siły vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi\n\n**Siłowa Parada**: Manewr Natychmiastowy. Dodaje modyfikator z siły do redukcji\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda3**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza2**: Zwiększa fechtunek o 2\n\n**Postawa Ofensywna4**: Zwiększa obrażenia o 6, zmniejsza redukcję o 4\n\n**Postawa Defensywna4**: Zwiększa odporność o 6, zmniejsza obrażenia o 4\n\n**Postawa Pełna Defensywna4**: Nie można atakować, dodaje 4 redukcji i 5 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -8308,10 +8409,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Miecznik",
-        "grade": 3
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -8386,6 +8483,24 @@
     ],
     "perks": [
       {
+        "name": "Rycerz  Miecznik",
+        "grade": 3
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73NR0J9J319EQQ5H1PN"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [
+        {
+          "name": "Pełna  Płytowa+"
+        }
+      ],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Fechmistrza",
         "grade": 2
       },
@@ -8402,18 +8517,12 @@
         "grade": 4
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [],
-      "armors": [
-        {
-          "name": "Pełna  Płytowa+"
-        }
-      ],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM",
+      "01K9Z6YJW2DAT5HR6DD7DM6VE5",
+      "01K9Z6YJW0SP2JNDD6CBRZ72ZH",
+      "01K9Z6YJW13GZCAVQ213S0S5B3"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -8423,8 +8532,7 @@
     "shortName": "Czempion:",
     "description": "**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios3**: Atakujesz trzech dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios3**: Manewr Nadnatychmiastowy. Możesz przerzucić kość broni i kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie3**: Wygrany test sporny fechtunku+2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rozszczepienie3**: Zwiększa o 3 rangę kości broni\n\n**Rzeź4**: Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku i użyć kolejnego manewru\n\n**Roztrzaskanie3**: Test siły vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi\n\n**Uderzenie Jastrzębia**: Dodaje bazowy fechtunek do obrażeń\n\n**Siłowa Parada**: Manewr Natychmiastowy. Dodaje modyfikator z siły do redukcji\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda3**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku\n\n**Postawy**: \n\n**Postawa Fechmistrza3**: Zwiększa fechtunek o 3\n\n**Postawa Ofensywna4**: Zwiększa obrażenia o 6, zmniejsza redukcję o 4\n\n**Postawa Defensywna4**: Zwiększa odporność o 6, zmniejsza obrażenia o 4\n\n**Postawa Pełna Defensywna4**: Nie można atakować, dodaje 4 redukcji i 5 odporności. Nie może być użyta do odpoczynku",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -8558,10 +8666,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Rycerz  Miecznik",
-        "grade": 4
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -8641,6 +8745,24 @@
     ],
     "perks": [
       {
+        "name": "Rycerz  Miecznik",
+        "grade": 4
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73NK5SD45E3NMC95AM1"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [
+        {
+          "name": "Pełna  Płytowa+"
+        }
+      ],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Fechmistrza",
         "grade": 3
       },
@@ -8657,18 +8779,12 @@
         "grade": 4
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [],
-      "armors": [
-        {
-          "name": "Pełna  Płytowa+"
-        }
-      ],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW1S7FZ4Y35PEKA3DD8",
+      "01K9Z6YJW2DAT5HR6DD7DM6VE5",
+      "01K9Z6YJW0SP2JNDD6CBRZ72ZH",
+      "01K9Z6YJW13GZCAVQ213S0S5B3"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -8678,8 +8794,7 @@
     "shortName": "Szelma",
     "description": "**Redukcja**: (18 vs 1)\n\n**Finta1**: Wygrany test sporny fortelu+1 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy.\n\n**Podstępne Kopnięcie**: Manewr Natychmiastowy. Wygrany test sporny fortelu z fechtunek lub fortel dodaje 2dmg\n\n**Krwawiący Cios1**: Test sporny fortelu z wytrwałością powoduje, że zadanie obrażeń tym atakiem w zdrowie przeciwnika skutkuje krwawieniem zadającym 1 śmiartelnych obrażeń na ture przez 1tura/ilość obrażeń zadanych w zdrowie przeciwnika (max 6 tur)\n\n**Wszystko na jedną kartę2**: Dodaje szansę krytyka+5 do siły krytyka. Ustawia szansę krytyka na 0\n\n**Podstępny Zwrot1**: Wygrany test fortelu z fechtunkiem lub fortelem dodaje 3 fortelu w następnej turze\n\n**Świadomość Otoczenia1**: Manewr Natychmiastowy. Dodaje 1 kość redukcji\n\n**Błyskawiczny1**: Manewr Natychmiastowy. Dodaje +1 uników\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Nieuchwytność**: Manewr Natychmiastowy. Dodaje modyfikator ze zręczności do uników na 3 tury\n\n**Postawy**: \n\n**Postawa Tygrysa1**: Zwiększa siłę fizycznego uderzenia krytycznego o 1\n\n**Postawa Ofensywna1**: Zwiększa obrażenia o 1, zmniejsza redukcję o 1\n\n**Postawa Defensywna1**: Zwiększa odporność o 1, zmniejsza obrażenia o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -8813,10 +8928,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zabójca",
-        "grade": 1
-      },
-      {
         "name": "Finta",
         "grade": 1
       },
@@ -8866,6 +8977,24 @@
     ],
     "perks": [
       {
+        "name": "Zabójca",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73NA5W21BPG3RVKKQXK"
+    ],
+    "equipment": {
+      "weapons": [
+        {
+          "name": "Krótki Miecz"
+        }
+      ],
+      "armors": [],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Tygrysa",
         "grade": 1
       },
@@ -8878,18 +9007,11 @@
         "grade": 1
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [
-        {
-          "name": "Krótki Miecz"
-        }
-      ],
-      "armors": [],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW06GEG0GBGYQNXFAAN",
+      "01K9Z6YJW20RJMA79Z47CGAPW8",
+      "01K9Z6YJW07DEFN2D07ZH6ZYQC"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -8899,8 +9021,7 @@
     "shortName": "Zabójca",
     "description": "**Redukcja**: (22 vs 1)\n\n**Finta2**: Wygrany test sporny fortelu+3 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy.\n\n**Podstępne Kopnięcie**: Manewr Natychmiastowy. Wygrany test sporny fortelu z fechtunek lub fortel dodaje 2dmg\n\n**Krwawiący Cios2**: Test sporny fortelu z wytrwałością powoduje, że zadanie obrażeń tym atakiem w zdrowie przeciwnika skutkuje krwawieniem zadającym 1 śmiartelnych obrażeń na ture przez 1tura/ilość obrażeń zadanych w zdrowie przeciwnika+2 (max 8 tur)\n\n**Wszystko na jedną kartę3**: Dodaje szansę krytyka+7 do siły krytyka. Ustawia szansę krytyka na 0\n\n**Sztuka Zabijania**: Wygrany test fortelu z fechtunkiem/fortelem powoduje dodanie bazowego fortelu do obrażeń\n\n**Podrzynanie**: Niewidmowa kość obrażeń zyskuje siłę i szansę krytyka jak jego kości broni\n\n**Podstępny Zwrot2**: Wygrany test fortelu z fechtunkiem lub fortelem dodaje 4 fortelu w następnej turze\n\n**Świadomość Otoczenia1**: Manewr Natychmiastowy. Dodaje 1 kość redukcji\n\n**Błyskawiczny2**: Manewr Natychmiastowy. Dodaje +2 uników\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Nieuchwytność**: Manewr Natychmiastowy. Dodaje modyfikator ze zręczności do uników na 3 tury\n\n**Zbicie Ciosu**: Udany test sporny fortelu vs Fechtunek lub Fortel lub  z siły powoduje, że przeciwnik traci kość broni na najbliższy atak\n\n**Instynkt Przetrwania**: Manewr Natychmiastowy. Podwaja premie z uników\n\n**Postawy**: \n\n**Postawa Kruka1**: Zwiększa fortel o 1\n\n**Postawa Tygrysa1**: Zwiększa siłę fizycznego uderzenia krytycznego o 1\n\n**Postawa Węża1**: Zwiększa zasięg trafienia krytycznego o 1",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -9034,10 +9155,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zabójca",
-        "grade": 2
-      },
-      {
         "name": "Finta",
         "grade": 2
       },
@@ -9107,6 +9224,24 @@
     ],
     "perks": [
       {
+        "name": "Zabójca",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73NB0Z0NK5KF1MH0434"
+    ],
+    "equipment": {
+      "weapons": [
+        {
+          "name": "Krótki Miecz"
+        }
+      ],
+      "armors": [],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Kruka",
         "grade": 1
       },
@@ -9119,18 +9254,11 @@
         "grade": 1
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [
-        {
-          "name": "Krótki Miecz"
-        }
-      ],
-      "armors": [],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW1PHYYAWJRTVDCEC99",
+      "01K9Z6YJW06GEG0GBGYQNXFAAN",
+      "01K9Z6YJW0G749E8JN3FCP3XMH"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -9140,8 +9268,7 @@
     "shortName": "Skrytobójca",
     "description": "**Redukcja**: (27 vs 1)\n\n**Sztuka Zabijania**: Wygrany test fortelu z fechtunkiem/fortelem powoduje dodanie bazowego fortelu do obrażeń\n\n**Śmiartelna Precyzja**: Test sporny fortelu+zręczność z fortelem/fechtunkiem+siłą/zręcznością przeciwnika. Wygrany sprawia, że na ten atak siła krytyka zostaje zamieniona przez fortel\n\n**Podrzynanie**: Niewidmowa kość obrażeń zyskuje siłę i szansę krytyka jak jego kości broni\n\n**Ruch Skrytobójcy**: Zamienia niewidmową kość obrażeń na kość broni\n\n**Cios w słaby punkt**: Dodaje widmową kość obrażeń 1k4 za każdą redukcję kości wroga\n\n**Podstępny Zwrot2**: Wygrany test fortelu z fechtunkiem lub fortelem dodaje 4 fortelu w następnej turze\n\n**Świadomość Otoczenia2**: Manewr Natychmiastowy. Dodaje 1 kość redukcji\n\n**Błyskawiczny3**: Manewr Natychmiastowy. Dodaje +3 uników\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Nieuchwytność**: Manewr Natychmiastowy. Dodaje modyfikator ze zręczności do uników na 3 tury\n\n**Zbicie Ciosu**: Udany test sporny fortelu vs Fechtunek lub Fortel lub  z siły powoduje, że przeciwnik traci kość broni na najbliższy atak\n\n**Instynkt Przetrwania**: Manewr Natychmiastowy. Podwaja premie z uników\n\n**Instynktowny Unik**: Manewr Natychmiastowy. Dodaje 1k6 uników\n\n**Podstępny Zwrot2**: Wygrany test fortelu z fechtunkiem lub fortelem dodaje 4 fortelu w następnej turze\n\n**Fałszywy Zwód**: Manewr natychmiastowy. Test sporny fortelu z fortelem/fechtunku przeciwnika. Dodaje redukcję równą ilości wyrzuconych oczek na kości o randze równej 1 za każde oczko przewagi w teście.\n\n**Postawy**: \n\n**Postawa Kruka2**: Zwiększa fortel o 2\n\n**Postawa Tygrysa2**: Zwiększa siłę fizycznego uderzenia krytycznego o 2\n\n**Postawa Węża2**: Zwiększa zasięg trafienia krytycznego o 2",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -9275,10 +9402,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zabójca",
-        "grade": 3
-      },
-      {
         "name": "Sztuka Zabijania",
         "grade": 1
       },
@@ -9353,6 +9476,24 @@
     ],
     "perks": [
       {
+        "name": "Zabójca",
+        "grade": 3
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73NXJKBFWTE7ZZ2C7GJ"
+    ],
+    "equipment": {
+      "weapons": [
+        {
+          "name": "Krótki Miecz"
+        }
+      ],
+      "armors": [],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Kruka",
         "grade": 2
       },
@@ -9365,18 +9506,11 @@
         "grade": 2
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [
-        {
-          "name": "Krótki Miecz"
-        }
-      ],
-      "armors": [],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW1EW0SR91STAGSMYA9",
+      "01K9Z6YJW004TXA4YF40HQ4EWE",
+      "01K9Z6YJW0CYP9G35A2PSYG6YD"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -9386,8 +9520,7 @@
     "shortName": "Assassyn",
     "description": "**Redukcja**: (34 vs 1)\n\n**Finta3**: Wygrany test sporny fortelu+5 vs fechtunek/fortel zadaje obrażenia równe 1 za każde oczko różnicy.\n\n**Podstępne Kopnięcie**: Manewr Natychmiastowy. Wygrany test sporny fortelu z fechtunek lub fortel dodaje 2dmg\n\n**Krwawiący Cios3**: Test sporny fortelu z wytrwałością powoduje, że zadanie obrażeń tym atakiem w zdrowie przeciwnika skutkuje krwawieniem zadającym 1 śmiartelnych obrażeń na ture przez 1tura/ilość obrażeń zadanych w zdrowie przeciwnika+4 (max 10 tur)\n\n**Wszystko na jedną kartę3**: Dodaje szansę krytyka+7 do siły krytyka. Ustawia szansę krytyka na 0\n\n**Sztuka Zabijania**: Wygrany test fortelu z fechtunkiem/fortelem powoduje dodanie bazowego fortelu do obrażeń\n\n**Śmiartelna Precyzja**: Test sporny fortelu+zręczność z fortelem/fechtunkiem+siłą/zręcznością przeciwnika. Wygrany sprawia, że na ten atak siła krytyka zostaje zamieniona przez fortel\n\n**Podrzynanie**: Niewidmowa kość obrażeń zyskuje siłę i szansę krytyka jak jego kości broni\n\n**Ruch Skrytobójcy**: Zamienia niewidmową kość obrażeń na kość broni\n\n**Cios w słaby punkt**: Dodaje widmową kość obrażeń 1k4 za każdą redukcję kości wroga\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Podstępny Zwrot3**: Wygrany test fortelu z fechtunkiem lub fortelem dodaje 5 fortelu w następnej turze\n\n**Świadomość Otoczenia3**: Manewr Natychmiastowy. Dodaje 1 kość redukcji\n\n**Błyskawiczny3**: Manewr Natychmiastowy. Dodaje +3 uników\n\n**Szczwany Ruch**: Manewr natychmiastowy. Dodaje fortel do redukcji\n\n**Nieuchwytność**: Manewr Natychmiastowy. Dodaje modyfikator ze zręczności do uników na 3 tury\n\n**Zbicie Ciosu**: Udany test sporny fortelu vs Fechtunek lub Fortel lub  z siły powoduje, że przeciwnik traci kość broni na najbliższy atak\n\n**Instynkt Przetrwania**: Manewr Natychmiastowy. Podwaja premie z uników\n\n**Instynktowny Unik**: Manewr Natychmiastowy. Dodaje 1k6 uników\n\n**Podstępny Zwrot3**: Wygrany test fortelu z fechtunkiem lub fortelem dodaje 5 fortelu w następnej turze\n\n**Fałszywy Zwód**: Manewr natychmiastowy. Test sporny fortelu z fortelem/fechtunku przeciwnika. Dodaje redukcję równą ilości wyrzuconych oczek na kości o randze równej 1 za każde oczko przewagi w teście.\n\n**Szósty Zmysł**: Manewr Natychmiastowy. Dodaje 1 kość redukcji broni. Zwiększa o 2 rangi kość obrażeń przeciwnika\n\n**Postawy**: \n\n**Postawa Kruka3**: Zwiększa fortel o 3\n\n**Postawa Tygrysa3**: Zwiększa siłę fizycznego uderzenia krytycznego o 3\n\n**Postawa Węża2**: Zwiększa zasięg trafienia krytycznego o 2\n\n**Nazwa**: Zdrowie",
     "tags": [
-      "Wojacy",
-      "Wojacy"
+      "wojacy"
     ],
     "characteristics": {
       "strength": {
@@ -9521,10 +9654,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zabójca",
-        "grade": 4
-      },
-      {
         "name": "Finta",
         "grade": 3
       },
@@ -9603,10 +9732,6 @@
       {
         "name": "Szósty Zmysł",
         "grade": 1
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
@@ -9633,6 +9758,20 @@
     ],
     "perks": [
       {
+        "name": "Zabójca",
+        "grade": 4
+      }
+    ],
+    "perksIds": [
+      "01KA1ZB73NE16R54GPFEXHNSV0"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Kruka",
         "grade": 3
       },
@@ -9645,14 +9784,11 @@
         "grade": 2
       }
     ],
-    "perksIds": [],
-    "equipment": {
-      "weapons": [],
-      "armors": [],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
+    "stancesIds": [
+      "01K9Z6YJW1XKAYSX9PN614F831",
+      "01K9Z6YJW0WAT25E51QR5JMHVA",
+      "01K9Z6YJW0CYP9G35A2PSYG6YD"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -9663,7 +9799,7 @@
     "description": "**Wierzchowiec0**: Dodaje redukcje równo jeździectwu(max 4)\n\n**Zryw1**: Manewr Natychmiastowy. Dodaje 1 dodatkowe obrażenie\n\n**Precyzyjny Cios1**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość obrażeń\n\n**Odwet2**: Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Pewny Cios**: Wybierz kość broni lub obrażeń. Minimalne obrażenia zadane przez tą kość są równe randze tej kości. Jeśli wyrzucisz mniej lub tyle samo oczek co ranga tej kości nie możesz zadać obrażeń krytycznych\n\n**Mistrzowskie Jeździectwo1**: Dodaje 1 jeździectwa\n\n**Wsparcie dla wierzchowca1**: Manewr Natychmiastowy. Odejmuje 4 obrażenia do następnego ataku (z jeździectwa) i dodaje 4 redukcji wierzchowcowi.\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku",
     "tags": [
       "Jeźdzcy",
-      "Wojacy",
+      "wojacy",
       "konny"
     ],
     "characteristics": {
@@ -9841,12 +9977,7 @@
       "01K9Z6YGZAGZ5GYGG184G0F7MX",
       "01K9Z6YGZ43PZVBW7VP6JFKHCV"
     ],
-    "perks": [
-      {
-        "name": "Wierzchowiec",
-        "grade": 0
-      }
-    ],
+    "perks": [],
     "perksIds": [],
     "equipment": {
       "weapons": [
@@ -9877,7 +10008,7 @@
     "description": "**Wierzchowiec1**: Dodaje redukcje równo jeździectwu(max 6)\n\n**Zryw2**: Manewr Natychmiastowy. Dodaje 2 dodatkowe obrażenie\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios1**: Atakujesz dodatkowego wroga w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios2**: Manewr Nadnatychmiastowy. Możesz przerzucić jedną kość broni lub jedną kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie2**: Wygrany test sporny fechtunku+1 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Mistrzowskie Jeździectwo2**: Dodaje 2 jeździectwa\n\n**Wsparcie dla wierzchowca2**: Manewr Natychmiastowy. Odejmuje 6 obrażenia do następnego ataku (z jeździectwa) i dodaje 6 redukcji wierzchowcowi.\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Nagła Zasłona2**: Manewr Natychmiastowy. Dodaje 2 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda2**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku",
     "tags": [
       "Jeźdzcy",
-      "Wojacy",
+      "wojacy",
       "konny"
     ],
     "characteristics": {
@@ -10084,12 +10215,7 @@
       "01K9Z6YGZ58B3HTTPVAVV8005R",
       "01K9Z6YGZ43PZVBW7VP6JFKHCV"
     ],
-    "perks": [
-      {
-        "name": "Wierzchowiec",
-        "grade": 1
-      }
-    ],
+    "perks": [],
     "perksIds": [],
     "equipment": {
       "weapons": [
@@ -10120,7 +10246,7 @@
     "description": "**Wierzchowiec2**: Dodaje redukcje równo jeździectwu(max 8)\n\n**Zryw3**: Manewr Natychmiastowy. Dodaje 3 dodatkowe obrażenie\n\n**Zapał Wojownika**: Dodaje +1dmg na kości broni i obrażeń\n\n**Rycerski Ruch**: Dodaje 1 kość broni\n\n**Echo Ciosu**: Wybierasz kostkę i rzucasz dwoma takimi, bierzesz lepszy wynik z tych dwóch kości\n\n**Zamaszysty Cios3**: Atakujesz trzech dodatkowych wrogów w twoim zasięgu. Obrażenia zadane w zdrowie przeciwników są dzielone na 2 (zaokrąglane w dół)\n\n**Precyzyjny Cios3**: Manewr Nadnatychmiastowy. Możesz przerzucić kość broni i kość obrażeń\n\n**Odwet3**: Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję)\n\n**Przebijające Uderzenie3**: Wygrany test sporny fechtunku+2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy\n\n**Mistrzowskie Jeździectwo3**: Dodaje 3 Jeździectwa\n\n**Wsparcie dla wierzchowca4**: Manewr Natychmiastowy. Odejmuje 10 obrażenia do następnego ataku (z jeździectwa) i dodaje 10 redukcji wierzchowcowi.\n\n**Zakuty w Stal**: Manewr Natychmiastowy. Tracisz 10 redukcji, dodajesz redukcję 1 kości\n\n**Nagła Zasłona3**: Manewr Natychmiastowy. Dodaje 3 redukcji tarczy oraz +1 do testu refleksu przeciw atakowi strzeleckiemu\n\n**Tajna Garda**: Manewr natychmiastowy. Podwaja premię z parowania do redukcji\n\n**Garda3**: Manewr natychmiastowy. Dodaje fechtunek do parowania, zabiera tyle samo obrażeń w następnym ataku",
     "tags": [
       "Jeźdzcy",
-      "Wojacy",
+      "wojacy",
       "konny"
     ],
     "characteristics": {
@@ -10327,12 +10453,7 @@
       "01K9Z6YGZ58B3HTTPVAVV8005R",
       "01K9Z6YGZ4GBHJPZ5DC5QGDF1B"
     ],
-    "perks": [
-      {
-        "name": "Wierzchowiec",
-        "grade": 2
-      }
-    ],
+    "perks": [],
     "perksIds": [],
     "equipment": {
       "weapons": [
@@ -10496,10 +10617,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Eteryczny  Nieumarły",
-        "grade": 0
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 1
       },
@@ -10529,7 +10646,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JEX91Y5DY1WV000000"
+      "01KA1ZCV3M1E9TPPVVKZVQP25A"
     ],
     "equipment": {
       "weapons": [],
@@ -10677,10 +10794,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Eteryczny  Nieumarły",
-        "grade": 1
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 2
       },
@@ -10710,7 +10823,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JF3W7NAVMT7S000000"
+      "01KA1ZCV3M6KT3DRE351RDKZYA"
     ],
     "equipment": {
       "weapons": [],
@@ -10862,10 +10975,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Eteryczny  Nieumarły",
-        "grade": 1
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 2
       },
@@ -10895,7 +11004,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JF3W7NAVMT7S000000"
+      "01KA1ZCV3M6KT3DRE351RDKZYA"
     ],
     "equipment": {
       "weapons": [],
@@ -11047,10 +11156,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Eteryczny  Nieumarły",
-        "grade": 3
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 4
       },
@@ -11090,7 +11195,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JFSTVX80NTEB000000"
+      "01KA1ZCV3M9PV43NX9RSSM36RH"
     ],
     "equipment": {
       "weapons": [],
@@ -11242,10 +11347,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Eteryczny  Nieumarły",
-        "grade": 3
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 4
       },
@@ -11285,7 +11386,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JFSTVX80NTEB000000"
+      "01KA1ZCV3M9PV43NX9RSSM36RH"
     ],
     "equipment": {
       "weapons": [],
@@ -11437,10 +11538,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Banshee",
-        "grade": 1
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 5
       },
@@ -11480,16 +11577,17 @@
     ],
     "perks": [
       {
-        "name": "Banshiee",
-        "grade": 1
-      },
-      {
         "name": "Eteryczny  Nieumarły",
         "grade": 3
+      },
+      {
+        "name": "Banshee",
+        "grade": 1
       }
     ],
     "perksIds": [
-      "01KA1AK3JFSTVX80NTEB000000"
+      "01KA1ZCV3M9PV43NX9RSSM36RH",
+      "01KA1ZB73NRZ3MQH3X00FTZCY3"
     ],
     "equipment": {
       "weapons": [],
@@ -11637,10 +11735,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Chabernica",
-        "grade": 1
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 3
       },
@@ -11694,7 +11788,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JFSTVX80NTEB000000"
+      "01KA1ZB73NCMX8P9R88HJQKHYX",
+      "01KA1ZCV3M9PV43NX9RSSM36RH"
     ],
     "equipment": {
       "weapons": [],
@@ -11846,10 +11941,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Południca",
-        "grade": 1
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 3
       },
@@ -11903,7 +11994,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JFSTVX80NTEB000000"
+      "01KA1ZB73NER0QTR0VMSJB93F6",
+      "01KA1ZCV3M9PV43NX9RSSM36RH"
     ],
     "equipment": {
       "weapons": [],
@@ -12055,10 +12147,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Północnica",
-        "grade": 1
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 3
       },
@@ -12112,7 +12200,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JFSTVX80NTEB000000"
+      "01KA1ZB73NMNA314DS05C577J2",
+      "01KA1ZCV3M9PV43NX9RSSM36RH"
     ],
     "equipment": {
       "weapons": [],
@@ -12264,10 +12353,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Horror",
-        "grade": 1
-      },
-      {
         "name": "Bezcielesny  Dotyk",
         "grade": 3
       },
@@ -12346,7 +12431,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JF3VB8E081ZD000000"
+      "01KA1ZB73N4H049F22TEQNTSNB",
+      "01KA1ZCV3MHDJ7ZDQNJTE6CY73"
     ],
     "equipment": {
       "weapons": [],
@@ -12531,6 +12617,7 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTH2RWB3B7Y9V1F07W9",
       "5KFQWCT3SBEPFJ3S46261KHPN8",
       "1KJ53BYZQXB2004BX29KNQ8ADD",
       "M00RD7MJ48VAENC2ARWJQCRR73",
@@ -12550,8 +12637,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AMEP6E4SA0SPWY3000000",
-      "01KA1AK3JF3VB8E081ZD000000"
+      "01KA1ZCV3NVWGWF96FYDS79106",
+      "01KA1ZCV3MHDJ7ZDQNJTE6CY73"
     ],
     "equipment": {
       "weapons": [],
@@ -12745,13 +12832,10 @@
       {
         "name": "Eteryczność",
         "grade": 3
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTHVKMJPBG2RKPX0A2A",
       "Z98J9P047WS1HXE9JFPFWHS8RE",
       "FVWBN5A1V0KGZRGM4WG5CQM705",
       "TQ1PVA3FMN2J40HYG3Z48QJN73",
@@ -12782,9 +12866,10 @@
       }
     ],
     "perksIds": [
-      "01KA1AMEP671M8WTVYPJ000000",
-      "01KA1AK3JFSTVX80NTEB000000",
-      "01KA1AK3JF3VB8E081ZD000000"
+      "01KA1ZCV3NXS9C694FWZ7YAYPM",
+      "01KA1ZCV3M9PV43NX9RSSM36RH",
+      "01KA1ZB73NJV0EZKYH9CANZPJ3",
+      "01KA1ZCV3MHDJ7ZDQNJTE6CY73"
     ],
     "equipment": {
       "weapons": [],
@@ -12933,10 +13018,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 0
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 1
       },
@@ -12971,7 +13052,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3J2EXWHGJ4A80000000"
+      "01KA1ZCV3N50FM2JR1NGACZDP3"
     ],
     "equipment": {
       "weapons": [],
@@ -13124,10 +13205,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 0
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 1
       },
@@ -13162,7 +13239,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3J2EXWHGJ4A80000000"
+      "01KA1ZCV3N50FM2JR1NGACZDP3"
     ],
     "equipment": {
       "weapons": [],
@@ -13311,10 +13388,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 1
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 1
       },
@@ -13346,10 +13419,15 @@
       {
         "name": "Nieumarły",
         "grade": 0
+      },
+      {
+        "name": "Nieumarły",
+        "grade": 1
       }
     ],
     "perksIds": [
-      "01KA1AK3J2EXWHGJ4A80000000"
+      "01KA1ZCV3N50FM2JR1NGACZDP3",
+      "01KA1ZCV3NVX7J03E389KQAMSA"
     ],
     "equipment": {
       "weapons": [],
@@ -13498,10 +13576,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 2
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 3
       },
@@ -13536,7 +13610,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JE99KFJJPKXK000000"
+      "01KA1ZCV3NXKSNJ3YNADWNG5S8"
     ],
     "equipment": {
       "weapons": [],
@@ -13689,10 +13763,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 2
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 3
       },
@@ -13727,7 +13797,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JE99KFJJPKXK000000"
+      "01KA1ZCV3NXKSNJ3YNADWNG5S8"
     ],
     "equipment": {
       "weapons": [],
@@ -13876,10 +13946,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Śniący",
-        "grade": 1
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 1
       },
@@ -13918,7 +13984,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JD93MDPNRWHA000000"
+      "01KA1ZB73N6TA39TW9PSAMZCFM",
+      "01KA1ZCV3NVX7J03E389KQAMSA"
     ],
     "equipment": {
       "weapons": [],
@@ -14071,10 +14138,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wypaleniec",
-        "grade": 1
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 2
       },
@@ -14113,7 +14176,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JD93MDPNRWHA000000"
+      "01KA1ZB73N1403XMRKPPWDCHY9",
+      "01KA1ZCV3NVX7J03E389KQAMSA"
     ],
     "equipment": {
       "weapons": [],
@@ -14266,10 +14330,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Spopieleniec",
-        "grade": 1
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 3
       },
@@ -14312,7 +14372,9 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JD93MDPNRWHA000000"
+      "01KA1ZB73NAFARS57HDQFQ4D8C",
+      "01KA1ZCV3NVX7J03E389KQAMSA",
+      "01KA1ZB73PBPJXP166TP0R9P6P"
     ],
     "equipment": {
       "weapons": [],
@@ -14461,10 +14523,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zimny Trup",
-        "grade": 1
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 2
       },
@@ -14503,7 +14561,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JD93MDPNRWHA000000"
+      "01KA1ZB73PNQ5HK0JTFC3Z8S5A",
+      "01KA1ZCV3NVX7J03E389KQAMSA"
     ],
     "equipment": {
       "weapons": [],
@@ -14652,10 +14711,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Choroba",
-        "grade": 1
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 2
       },
@@ -14704,8 +14759,8 @@
       }
     ],
     "perksIds": [
-      "01KA1AV3AMQD905F822J000000",
-      "01KA1AK3JD93MDPNRWHA000000"
+      "01KA1ZCV3NCRVC5QKJDMV7SR95",
+      "01KA1ZCV3NVX7J03E389KQAMSA"
     ],
     "equipment": {
       "weapons": [],
@@ -14854,10 +14909,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Choroba",
-        "grade": 3
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 4
       },
@@ -14957,11 +15008,17 @@
       {
         "name": "Choroba",
         "grade": 2
+      },
+      {
+        "name": "Choroba",
+        "grade": 3
       }
     ],
     "perksIds": [
-      "01KA1AK3JE99KFJJPKXK000000",
-      "01KA1AV3ANBXT0DS95SC000000"
+      "01KA1ZCV3NXKSNJ3YNADWNG5S8",
+      "01KA1ZB73PKVDMZHVVZWAC1MEE",
+      "01KA1ZCV3NXE812K0SCYVB3TM8",
+      "01KA1ZB73PYM9HZZ655CFNM49J"
     ],
     "equipment": {
       "weapons": [],
@@ -15114,14 +15171,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 2
-      },
-      {
-        "name": "Mumia",
-        "grade": 1
-      },
-      {
         "name": "Trupi  Szpon",
         "grade": 3
       },
@@ -15220,10 +15269,6 @@
       {
         "name": "Morowa  Aura",
         "grade": 1
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
@@ -15280,8 +15325,12 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JE99KFJJPKXK000000",
-      "01KA1AV3AMQD905F822J000000"
+      "01KA1ZCV3NXKSNJ3YNADWNG5S8",
+      "01KA1ZB73PNXPK5RECXVSC5P1A",
+      "01KA1ZB73PE5GW1582N82PN5NW",
+      "01KA1ZB73P0VE053V4S131F41N",
+      "01KA1ZCV3NCRVC5QKJDMV7SR95",
+      "01KA1ZB73P7FHFWJKMGFTJJG5W"
     ],
     "equipment": {
       "weapons": [],
@@ -15430,10 +15479,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -15485,18 +15530,10 @@
       {
         "name": "Nieumarły",
         "grade": 1
-      },
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 2
       }
     ],
     "perksIds": [
-      "01KA1AK3JD93MDPNRWHA000000"
+      "01KA1ZCV3NVX7J03E389KQAMSA"
     ],
     "equipment": {
       "weapons": [
@@ -15507,8 +15544,20 @@
       "armors": [],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 2
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 2
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -15653,10 +15702,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Nieumarły",
-        "grade": 1
-      },
-      {
         "name": "Odwet",
         "grade": 2
       },
@@ -15708,7 +15753,21 @@
       {
         "name": "Nieumarły",
         "grade": 1
-      },
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NVX7J03E389KQAMSA"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [
+        {
+          "name": "Kolczuga"
+        }
+      ],
+      "shields": []
+    },
+    "stances": [
       {
         "name": "Postawa  Fechmistrza",
         "grade": 1
@@ -15726,20 +15785,12 @@
         "grade": 2
       }
     ],
-    "perksIds": [
-      "01KA1AK3JD93MDPNRWHA000000"
+    "stancesIds": [
+      "01K9Z6YJW1AKZVYT5KPM0RQDPC",
+      "01K9Z6YJW2W8F53JT35EM3NKP1",
+      "01K9Z6YJW0AGXTNVGYYGYDWZG1",
+      "01K9Z6YJW1QSNB4G8BAGXPBRT2"
     ],
-    "equipment": {
-      "weapons": [],
-      "armors": [
-        {
-          "name": "Kolczuga"
-        }
-      ],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
     "states": [],
     "statesIds": []
   },
@@ -15884,18 +15935,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Inteligentny  Nieumarły",
-        "grade": 1
-      },
-      {
-        "name": "Manewry 2+",
-        "grade": 1
-      },
-      {
-        "name": "Postawy",
-        "grade": 2
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -15969,6 +16008,21 @@
         "grade": 2
       },
       {
+        "name": "Inteligentny  Nieumarły",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NXKSNJ3YNADWNG5S8",
+      "01KA1ZB73PNXSYRZFA52XGGAXS"
+    ],
+    "equipment": {
+      "weapons": [],
+      "armors": [],
+      "shields": []
+    },
+    "stances": [
+      {
         "name": "Postawa  Fechmistrza",
         "grade": 2
       },
@@ -15985,16 +16039,12 @@
         "grade": 3
       }
     ],
-    "perksIds": [
-      "01KA1AK3JE99KFJJPKXK000000"
+    "stancesIds": [
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM",
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW0YPXM9C6Q4F293CVT",
+      "01K9Z6YJW19P88ZMRJZW18HY2Z"
     ],
-    "equipment": {
-      "weapons": [],
-      "armors": [],
-      "shields": []
-    },
-    "stances": [],
-    "stancesIds": [],
     "states": [],
     "statesIds": []
   },
@@ -16139,18 +16189,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Inteligentny  Nieumarły",
-        "grade": 1
-      },
-      {
-        "name": "Manewry 2+",
-        "grade": 1
-      },
-      {
-        "name": "Postawy",
-        "grade": 2
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -16229,24 +16267,13 @@
         "grade": 2
       },
       {
-        "name": "Postawa  Fechmistrza",
-        "grade": 2
-      },
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Pełna  Defensywna",
-        "grade": 3
+        "name": "Inteligentny  Nieumarły",
+        "grade": 1
       }
     ],
     "perksIds": [
-      "01KA1AK3JE99KFJJPKXK000000"
+      "01KA1ZCV3NXKSNJ3YNADWNG5S8",
+      "01KA1ZB73PNXSYRZFA52XGGAXS"
     ],
     "equipment": {
       "weapons": [
@@ -16261,8 +16288,30 @@
       ],
       "shields": []
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa Fechmistrza",
+        "grade": 2
+      },
+      {
+        "name": "Postawa Ofensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa Defensywna",
+        "grade": 3
+      },
+      {
+        "name": "Postawa Pełna Defensywna",
+        "grade": 3
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW1MZVRV1PH1EDC5HKM",
+      "01K9Z6YJW2J48K2SQHH2R9ZRVH",
+      "01K9Z6YJW0YPXM9C6Q4F293CVT",
+      "01K9Z6YJW19P88ZMRJZW18HY2Z"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -16407,18 +16456,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Inteligentny  Nieumarły",
-        "grade": 1
-      },
-      {
-        "name": "Manewry",
-        "grade": 3
-      },
-      {
-        "name": "Postawy",
-        "grade": 3
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -16492,24 +16529,13 @@
         "grade": 3
       },
       {
-        "name": "Postawa  Fechmistrza",
-        "grade": 3
-      },
-      {
-        "name": "Postawa  Ofensywna",
-        "grade": 4
-      },
-      {
-        "name": "Postawa  Defensywna",
-        "grade": 4
-      },
-      {
-        "name": "Postawa  Pełna  Defensywna",
-        "grade": 4
+        "name": "Inteligentny  Nieumarły",
+        "grade": 1
       }
     ],
     "perksIds": [
-      "01KA1AK3JE5KZZ1TN539000000"
+      "01KA1ZCV3NARV1FZK130EC3732",
+      "01KA1ZB73PNXSYRZFA52XGGAXS"
     ],
     "equipment": {
       "weapons": [
@@ -16528,8 +16554,30 @@
         }
       ]
     },
-    "stances": [],
-    "stancesIds": [],
+    "stances": [
+      {
+        "name": "Postawa  Fechmistrza",
+        "grade": 3
+      },
+      {
+        "name": "Postawa  Ofensywna",
+        "grade": 4
+      },
+      {
+        "name": "Postawa  Defensywna",
+        "grade": 4
+      },
+      {
+        "name": "Postawa  Pełna  Defensywna",
+        "grade": 4
+      }
+    ],
+    "stancesIds": [
+      "01K9Z6YJW1S7FZ4Y35PEKA3DD8",
+      "01K9Z6YJW2DAT5HR6DD7DM6VE5",
+      "01K9Z6YJW0SP2JNDD6CBRZ72ZH",
+      "01K9Z6YJW13GZCAVQ213S0S5B3"
+    ],
     "states": [],
     "statesIds": []
   },
@@ -16670,16 +16718,8 @@
     ],
     "maneuvers": [
       {
-        "name": "Manewry",
-        "grade": 1
-      },
-      {
         "name": "Jeździectwo",
         "grade": 4
-      },
-      {
-        "name": "Szarża",
-        "grade": 0
       },
       {
         "name": "Zryw",
@@ -16739,6 +16779,7 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTHT783FJGSYGPDEHC0",
       "01K9Z6YGZ6QKNPBE7HBJ58CT5S",
       "01K9Z6YGZ6C2VY0EFM6WX9HKH0",
       "01K9Z6YGZ64SEBRZRWW0593ZCY",
@@ -16761,7 +16802,7 @@
       }
     ],
     "perksIds": [
-      "01KA1AK3JE5KZZ1TN539000000"
+      "01KA1ZCV3NARV1FZK130EC3732"
     ],
     "equipment": {
       "weapons": [
@@ -16782,8 +16823,15 @@
     },
     "stances": [],
     "stancesIds": [],
-    "states": [],
-    "statesIds": []
+    "states": [
+      {
+        "name": "Szarża",
+        "grade": 0
+      }
+    ],
+    "statesIds": [
+      "01KA1Z4SNDJHCY32PVD3T4CEH7"
+    ]
   },
   {
     "id": "01KA1WHHHQD6W3ZTD8R65HE6M5",
@@ -16926,16 +16974,8 @@
     ],
     "maneuvers": [
       {
-        "name": "Manerwy",
-        "grade": 3
-      },
-      {
         "name": "Jeździectwo",
         "grade": 6
-      },
-      {
-        "name": "Szarża",
-        "grade": 2
       },
       {
         "name": "Zryw",
@@ -17006,15 +17046,12 @@
         "grade": 3
       },
       {
-        "name": "Nazwa",
-        "grade": 1
-      },
-      {
         "name": "Nekromantyczny  Promień",
         "grade": 1
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTHQ9FY0QY2BQ8W0X7W",
       "01K9Z6YGZ6WD4RVVG9TCTRJ8C0",
       "01K9Z6YGZ6MQN939F029E7G2Z0",
       "01K9Z6YGZ6M1YH1XKCRHHNN0JG",
@@ -17031,7 +17068,8 @@
       "01K9Z6YGYWBC50FYCY2TJJDYM2",
       "01K9Z6YGZA03D8ZCAZCV9R9YPX",
       "01K9Z6YGZ58B3HTTPVAVV8005R",
-      "01K9Z6YGZ4GBHJPZ5DC5QGDF1B"
+      "01K9Z6YGZ4GBHJPZ5DC5QGDF1B",
+      "01KA1Z2PTHB75RMYN0MMX80S34"
     ],
     "perks": [
       {
@@ -17061,10 +17099,21 @@
       {
         "name": "Arcymag Nekromancji",
         "grade": 1
+      },
+      {
+        "name": "Manerwy",
+        "grade": 3
       }
     ],
     "perksIds": [
-      "01KA1AK3JE5KZZ1TN539000000"
+      "01KA1ZCV3NARV1FZK130EC3732",
+      "01KA1ZAZT7Y5530ZZ0W3SM7RAA",
+      "01KA1ZAZT7119HHDT0QD10E9CF",
+      "01KA1ZAZT7MR7167Y89V40QKXJ",
+      "01KA1ZAZT78GVC8J42F12S483J",
+      "01KA1ZAZT7ACHTAAJ9XQTNH59P",
+      "01KA1ZAZT77A6Y76MWQGE01ZKZ",
+      "01KA1ZAZT76VJRF2ST2EP6XRYC"
     ],
     "equipment": {
       "weapons": [
@@ -17085,8 +17134,15 @@
     },
     "stances": [],
     "stancesIds": [],
-    "states": [],
-    "statesIds": []
+    "states": [
+      {
+        "name": "Szarża",
+        "grade": 2
+      }
+    ],
+    "statesIds": [
+      "01K9Z6YJVZG8GM1K5WYER9XW79"
+    ]
   },
   {
     "id": "01KA1WHHHRZ2F14A70AHKQR5SR",
@@ -17094,7 +17150,7 @@
     "shortName": "Ogar",
     "description": "**Skok na ofiare1**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia1**: Dodaje 2 obrażenia i odejmuje 1 redukcji\n\n**Szczęki i Szpony1**: Dodaje 1 dmg na każdą kość broni przed redukcja kości\n\n**Godzisko1**: Wybrana kość zadaje trafienie krytyczne\n\n**Instynkt Stadny1**: Dodaje 1 szansy uderzenia krytycznego za każdego członka stada atakującego ten sam cel\n\n**Zwierzęcy Instynkt1**: Manewr Całorundowy. Dodaje redukcje 1 kości broni\n\n**Wyostrzenie Zmysłów Zwierza1**: Dodaje 1 uników na 3rundy\n\n**Stadne Wycie1**: Tylko Samiec Alfa. Dodaje 1 odporności każdemu ze stada. Tylko jedno na rundę",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -17224,10 +17280,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 0
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -17261,15 +17313,24 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "PPN31GTD655BQ2A8ZG40B7CGHS",
+      "01KA1Z2PTGB8FC91X3SNZDHPSD",
       "8ABD01H7BW4B65GM7KZSVM3QRN",
       "NZZMT1SRMJ7JWVDGVQ90E3BMQD",
       "0WGN5GZWYSMC9GS32A1G44539V",
       "N876K6TDK95C7YHFV3NQC863XJ",
       "XH3TQD5FX069Q9NCTQ65YJE7EX"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 0
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT462ZT6BSTS3RMNH7G"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -17286,7 +17347,7 @@
     "shortName": "Wilk",
     "description": "**Skok na ofiare1**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia1**: Dodaje 2 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie1**: Dodaje widmową kość obrażeń k4\n\n**Szczęki i Szpony1**: Dodaje 1 dmg na każdą kość broni przed redukcja kości\n\n**Zwierzęca Pomsta1**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k10\n\n**Godzisko1**: Wybrana kość zadaje trafienie krytyczne\n\n**Zwierzęca Szarża1**: Szarża zadaje 2dmg\n\n**Instynkt Stadny3**: Dodaje 1 szansy i 1 siły uderzenia krytycznego  oraz 1 inicjatywy za każdego członka stada atakującego ten sam cel\n\n**Nieposkromiony Atak1**: Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Odruch Warunkowy**: Akcja Natychmiastowa. Blokuje następny manewr ofensywny przeciwnika\n\n**Stadne Wycie3**: Tylko Samiec Alfa. Dodaje 1 odporności i 2 redukcji każdemu ze stada. Tylko jedno na rundę\n\n**Zwierzęcy Instynkt1**: Manewr Całorundowy. Dodaje redukcje 1 kości broni",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -17420,10 +17481,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 0
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -17477,8 +17534,10 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "PPN31GTD655BQ2A8ZG40B7CGHS",
       "TT0GT5PXV589BDMZHZRNDQXV9K",
+      "01KA1Z2PTGB8FC91X3SNZDHPSD",
       "Z87R5WK92RE3PV52FX3VZ87DFP",
       "8ABD01H7BW4B65GM7KZSVM3QRN",
       "HPM58EAK956NDT1B2HAA5YQD1Z",
@@ -17489,8 +17548,15 @@
       "PY6CQCVQ0BBFK1Y2BAKNPPJ1T6",
       "0WGN5GZWYSMC9GS32A1G44539V"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 0
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT462ZT6BSTS3RMNH7G"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -17507,7 +17573,7 @@
     "shortName": "Niedzwiedź",
     "description": "**Dzika Furia3**: Dodaje 4 obrażenia i odejmuje 2 redukcji\n\n**Rozszarpanie2**: Dodaje widmową kość obrażeń k6\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta2**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k12\n\n**Dzikość3**: Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie1**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Żer2**: Manewr całorundowy. Pozwala wykonać atak w dwa cele. Z połową bonusu z Siły\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Zwierzęcy Ryk1**: Dodatkowy test morale\n\n**Obronne Uderzenie**: Dodaje odporność równą 10% zadanych obrażeń na tą albo następną\n\n**Nieposkromiony Atak1**: Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Odgrożenie**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -17641,10 +17707,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Dzika  Furia",
         "grade": 3
       },
@@ -17708,6 +17770,7 @@
     "maneuversIds": [
       "5YC09RVP3ZTV37KWNTY3N28K17",
       "GCDSGNA1XTYXDA5VY1TWREKJ70",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "3NE63ZGRD3JP52GZ9B23BFK3X1",
       "XSS1EGPZMD098YBZ0HZSABXSPV",
       "HNK7S1GMND37V8F8J2KJCTAE2K",
@@ -17721,8 +17784,15 @@
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
       "4K8JKRZEE621YZZZR5XFJC24WF"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -17739,7 +17809,7 @@
     "shortName": "Dzik",
     "description": "**Dzika Furia2**: Dodaje 3 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie1**: Dodaje widmową kość obrażeń k4\n\n**Zwierzęca Pomsta1**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k10\n\n**Dzikość3**: Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Przyparcie**: Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1\n\n**Dzicza Szarża**: Dodaje kość obrażeń 1k12\n\n**Nieposkromiony Atak1**: Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Obronne Uderzenie**: Dodaje odporność równą 10% zadanych obrażeń na tą albo następną\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Poderwanie**: Test sporny siły vs Siła/Refleks. Przegrany powoduje -4 redukcji z uników",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -17873,10 +17943,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Dzicza  Szarża +",
         "grade": 3
       },
@@ -17934,6 +18000,7 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTG87X8S00T01JGABSH",
       "29EH6DJR916V5DDRBDY6Y2YY9M",
       "TT0GT5PXV589BDMZHZRNDQXV9K",
       "Z87R5WK92RE3PV52FX3VZ87DFP",
@@ -17948,8 +18015,15 @@
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
       "3X6NJFNQZY6QQP46YK532H3T6C"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -17966,7 +18040,7 @@
     "shortName": "Tygrys",
     "description": "**Skok na ofiare2**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia2**: Dodaje 3 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie2**: Dodaje widmową kość obrażeń k6\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta1**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k10\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie1**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Żer1**: Manewr całorundowy. Pozwala wykonać atak w dwa cele. Bez bonusu z siły\n\n**Zwierzęca Szarża2**: Szarża zadaje 4dmg\n\n**Przyparcie**: Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Zwierzęcy Ryk2**: Dodatkowy test morale\n\n**Nieposkromiony Atak2**: Test siły/refleksu+1 vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Uskok Drapieżnika1**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 kości redukcji na jeden atak\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Odruch Warunkowy**: Akcja Natychmiastowa. Blokuje następny manewr ofensywny przeciwnika\n\n**Intuicja Zwierza**: Manewr Całorundowy. Zamienia jedną kość broni przeciwnika w kość obrażeń\n\n**Predykcja Drapieżnika**: Dodaje 1k8 redukcji\n\n**Zwierzęcy Instynkt2**: Manewr Całorundowy. Dodaje redukcje 1 kości broni",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -18100,10 +18174,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 2
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 2
       },
@@ -18185,8 +18255,10 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTG2W10P22353P69GWW",
       "29EH6DJR916V5DDRBDY6Y2YY9M",
       "GCDSGNA1XTYXDA5VY1TWREKJ70",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "Z87R5WK92RE3PV52FX3VZ87DFP",
       "HNK7S1GMND37V8F8J2KJCTAE2K",
       "2XQ0ZMS17SHN1PA8HGX10J9V1M",
@@ -18204,8 +18276,15 @@
       "15MJWHJASRNRF9HHAMPMB8B80C",
       "B66ED7WCW6Z5Q79XJ7EM6PE5E2"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3N27G33AG1DZQW7P4A"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -18222,7 +18301,7 @@
     "shortName": "Pantera",
     "description": "**Skok na ofiare3**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia1**: Dodaje 2 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie3**: Dodaje widmową kość obrażeń k8\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta1**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k10\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie1**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Zwierzęca Szarża1**: Szarża zadaje 2dmg\n\n**Przyparcie**: Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Ukradkowe Szpony**: Test Refleksu vs Fortel/Refleks. Wygrany powoduje dodanie refleksu do obrażeń\n\n**Zwierzęcy Wybieg**: Test sporny Refleks vs Uniki/Siła wygrany odejmuje przeciwnikowi premie z uników\n\n**Zwierzęcy Ryk1**: Dodatkowy test morale\n\n**Nieposkromiony Atak2**: Test siły/refleksu+1 vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Uskok Drapieżnika2**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 3 kości redukcji na jeden atak\n\n**Wyostrzenie Zmysłów Zwierza3**: Dodaje 3 uników na 3rundy\n\n**Odruch Warunkowy**: Akcja Natychmiastowa. Blokuje następny manewr ofensywny przeciwnika\n\n**Intuicja Zwierza**: Manewr Całorundowy. Zamienia jedną kość broni przeciwnika w kość obrażeń\n\n**Predykcja Drapieżnika**: Dodaje 1k8 redukcji\n\n**Zwierzęcy Instynkt2**: Manewr Całorundowy. Dodaje redukcje 1 kości broni",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -18356,10 +18435,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 2
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 3
       },
@@ -18441,8 +18516,10 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGMG50S8QNCCNX75F0",
       "PPN31GTD655BQ2A8ZG40B7CGHS",
       "MM1K0XHMHP3V54WWVF2RDWJQQG",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "Z87R5WK92RE3PV52FX3VZ87DFP",
       "HNK7S1GMND37V8F8J2KJCTAE2K",
       "2XQ0ZMS17SHN1PA8HGX10J9V1M",
@@ -18460,8 +18537,15 @@
       "15MJWHJASRNRF9HHAMPMB8B80C",
       "B66ED7WCW6Z5Q79XJ7EM6PE5E2"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3N27G33AG1DZQW7P4A"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -18478,7 +18562,7 @@
     "shortName": "Lew",
     "description": "**Skok na ofiare1**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia2**: Dodaje 3 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie2**: Dodaje widmową kość obrażeń k6\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta2**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k12\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie1**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Żer2**: Manewr całorundowy. Pozwala wykonać atak w dwa cele. Z połową bonusu z Siły\n\n**Zwierzęca Szarża2**: Szarża zadaje 4dmg\n\n**Przyparcie**: Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Instynkt Stadny2**: Dodaje 1 szansy i 1 siły uderzenia krytycznego za każdego członka stada atakującego ten sam cel\n\n**Zwierzęcy Ryk3**: Dodatkowy test morale+1\n\n**Nieposkromiony Atak2**: Test siły/refleksu+1 vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Uskok Drapieżnika1**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 kości redukcji na jeden atak\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Odruch Warunkowy**: Akcja Natychmiastowa. Blokuje następny manewr ofensywny przeciwnika\n\n**Intuicja Zwierza**: Manewr Całorundowy. Zamienia jedną kość broni przeciwnika w kość obrażeń\n\n**Predykcja Drapieżnika**: Dodaje 1k8 redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Zwierzęcy Instynkt1**: Manewr Całorundowy. Dodaje redukcje 1 kości broni",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -18612,10 +18696,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 2
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -18705,8 +18785,10 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "29EH6DJR916V5DDRBDY6Y2YY9M",
       "GCDSGNA1XTYXDA5VY1TWREKJ70",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "3NE63ZGRD3JP52GZ9B23BFK3X1",
       "HNK7S1GMND37V8F8J2KJCTAE2K",
       "2XQ0ZMS17SHN1PA8HGX10J9V1M",
@@ -18726,8 +18808,15 @@
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
       "0WGN5GZWYSMC9GS32A1G44539V"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3N27G33AG1DZQW7P4A"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -18744,7 +18833,7 @@
     "shortName": "Wielki",
     "description": "**Skok na ofiare1**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia1**: Dodaje 2 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie1**: Dodaje widmową kość obrażeń k4\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta2**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k12\n\n**Godzisko1**: Wybrana kość zadaje trafienie krytyczne\n\n**Zwierzęca Szarża2**: Szarża zadaje 4dmg\n\n**Przyparcie**: Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Zwierzęcy Ryk1**: Dodatkowy test morale\n\n**Zwierzęcy Instynkt1**: Manewr Całorundowy. Dodaje redukcje 1 kości broni\n\n**Uskok Drapieżnika1**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 kości redukcji na jeden atak\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Odruch Warunkowy**: Akcja Natychmiastowa. Blokuje następny manewr ofensywny przeciwnika\n\n**Intuicja Zwierza**: Manewr Całorundowy. Zamienia jedną kość broni przeciwnika w kość obrażeń\n\n**Predykcja Drapieżnika**: Dodaje 1k8 redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -18878,10 +18967,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -18955,8 +19040,10 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "PPN31GTD655BQ2A8ZG40B7CGHS",
       "TT0GT5PXV589BDMZHZRNDQXV9K",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "3NE63ZGRD3JP52GZ9B23BFK3X1",
       "8ABD01H7BW4B65GM7KZSVM3QRN",
       "14C72GNPZES60XNNHXQDPC1H34",
@@ -18972,8 +19059,15 @@
       "15MJWHJASRNRF9HHAMPMB8B80C",
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -18990,7 +19084,7 @@
     "shortName": "Jaguar",
     "description": "**Skok na ofiare1**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia1**: Dodaje 2 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie1**: Dodaje widmową kość obrażeń k4\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta1**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k10\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie1**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Żer1**: Manewr całorundowy. Pozwala wykonać atak w dwa cele. Bez bonusu z siły\n\n**Zwierzęca Szarża1**: Szarża zadaje 2dmg\n\n**Przyparcie**: Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Zwierzęcy Ryk1**: Dodatkowy test morale\n\n**Nieposkromiony Atak1**: Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Uskok Drapieżnika2**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 3 kości redukcji na jeden atak\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Odruch Warunkowy**: Akcja Natychmiastowa. Blokuje następny manewr ofensywny przeciwnika\n\n**Intuicja Zwierza**: Manewr Całorundowy. Zamienia jedną kość broni przeciwnika w kość obrażeń\n\n**Predykcja Drapieżnika**: Dodaje 1k8 redukcji\n\n**Zwierzęcy Instynkt1**: Manewr Całorundowy. Dodaje redukcje 1 kości broni",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -19124,10 +19218,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 2
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -19205,8 +19295,10 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "PPN31GTD655BQ2A8ZG40B7CGHS",
       "TT0GT5PXV589BDMZHZRNDQXV9K",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "Z87R5WK92RE3PV52FX3VZ87DFP",
       "HNK7S1GMND37V8F8J2KJCTAE2K",
       "2XQ0ZMS17SHN1PA8HGX10J9V1M",
@@ -19223,8 +19315,15 @@
       "15MJWHJASRNRF9HHAMPMB8B80C",
       "0WGN5GZWYSMC9GS32A1G44539V"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3N27G33AG1DZQW7P4A"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -19241,7 +19340,7 @@
     "shortName": "Krokodyl",
     "description": "**Dzika Furia3**: Dodaje 4 obrażenia i odejmuje 2 redukcji\n\n**Rozszarpanie3**: Dodaje widmową kość obrażeń k8\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta1**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k10\n\n**Godzisko1**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie1**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Cios Ogonem**: Test siła vs wytrwałość. Za każde oczko straty odżuca o 1 krok i obniża inicjatywe o 1\n\n**Szczękościsk**: Test Refleksu o ST=7. Nieudany wymusza test siły o ST=7. Nieudany obniża PL o 2 i zadaje 1k16w obrażeń\n\n**Obronne Uderzenie**: Dodaje odporność równą 10% zadanych obrażeń na tą albo następną\n\n**Odgrożenie**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Predykcja Drapieżnika**: Dodaje 1k8 redukcji",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -19371,10 +19470,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Dzika  Furia",
         "grade": 3
       },
@@ -19430,6 +19525,7 @@
     "maneuversIds": [
       "5YC09RVP3ZTV37KWNTY3N28K17",
       "MM1K0XHMHP3V54WWVF2RDWJQQG",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "Z87R5WK92RE3PV52FX3VZ87DFP",
       "8ABD01H7BW4B65GM7KZSVM3QRN",
       "2XQ0ZMS17SHN1PA8HGX10J9V1M",
@@ -19441,8 +19537,15 @@
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
       "15MJWHJASRNRF9HHAMPMB8B80C"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -19459,7 +19562,7 @@
     "shortName": "Wielki",
     "description": "**Dzika Furia1**: Dodaje 2 obrażenia i odejmuje 1 redukcji\n\n**Dzikość2**: Test siły-3 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń\n\n**Godzisko1**: Wybrana kość zadaje trafienie krytyczne\n\n**Żer1**: Manewr całorundowy. Pozwala wykonać atak w dwa cele. Bez bonusu z siły\n\n**Przyparcie**: Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1\n\n**Kły Jadowe1**: Obrażenia w zdrowie. Test Refleksu o ST=7. Nieudany wymusza test wytrwałości o ST=8 + znamiona jadu. Za każde oczko straty obniża 1 obrażeń na kość, 1 redukcji z uników, zadaje 1k4 śmiertelnych obrażeń i nakłada 1 znamie jadu\n\n**Żuwaczki**: Pozwala na przrzut 2 kości broni\n\n**Sczękoczułki1**: Dodaje kość broni, odbiera 1 obrażeń na kość broni\n\n**Nieposkromiony Atak1**: Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Obronne Uderzenie**: Dodaje odporność równą 10% zadanych obrażeń na tą albo następną\n\n**Odgrożenie**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Uskok Drapieżnika1**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 kości redukcji na jeden atak",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -19593,10 +19696,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Dzika  Furia",
         "grade": 1
       },
@@ -19664,8 +19763,15 @@
       "0KQAM8Y34SDV2SN904TACGFNAX",
       "6GZ15VNQWMG6M1GHH2908Q92MR"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -19682,7 +19788,7 @@
     "shortName": "Włochawiec",
     "description": "**Dzika Furia3**: Dodaje 4 obrażenia i odejmuje 2 redukcji\n\n**Rozszarpanie3**: Dodaje widmową kość obrażeń k8\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta3**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k14\n\n**Dzikość3**: Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie2**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Żer3**: Manewr całorundowy. Pozwala wykonać atak w dwa cele.\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Zwierzęcy Ryk2**: Dodatkowy test morale\n\n**Roztrącenie1**: Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=5+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie\n\n**Powalające Uderzenie1**: Test siły-1 vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1\n\n**Nieoprawiona Siła1**: Zamienia kości broni na kości obrażeń, podnosi rangę kości obrażeń o 2\n\n**Nieposkromiony Atak1**: Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Odgrożenie**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Predykcja Drapieżnika**: Dodaje 1k8 redukcji\n\n**Obronne Uderzenie**: Dodaje odporność równą 10% zadanych obrażeń na tą albo następną",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -19816,10 +19922,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Dzika  Furia",
         "grade": 3
       },
@@ -19899,6 +20001,7 @@
     "maneuversIds": [
       "5YC09RVP3ZTV37KWNTY3N28K17",
       "MM1K0XHMHP3V54WWVF2RDWJQQG",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "AFNCAXY9XQYW0VFM653F8YSQNT",
       "XSS1EGPZMD098YBZ0HZSABXSPV",
       "HNK7S1GMND37V8F8J2KJCTAE2K",
@@ -19916,8 +20019,15 @@
       "15MJWHJASRNRF9HHAMPMB8B80C",
       "6DEV0ARP7Q5TDD96R6GH259Z59"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -19934,7 +20044,7 @@
     "shortName": "Anakonda",
     "description": "**Skok na ofiare1**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Gadzi Chwyt3**: Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k14w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników\n\n**Siłowe Pochwycenie2**: W przypadku pochwycenia. Dodaje zwiększa o 2 rangę testu siłowego, odejmuje 2 do testów siłowych\n\n**Gadzi Spryt1**: Dodaje +1 do najbliższego testu Refleksu\n\n**Posnuwanie**: Dodaje 2 reducji w przypadku pochwycenia\n\n**Podduszenie3**: W przypadku podduszenia zmniejsza o 3 test siłowy ale dodaje 3k4p obrażeń\n\n**Nieposkromiony Atak2**: Test siły/refleksu+1 vs parowanie. Udany powoduje ominięcie parowania przeciwnika",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -20068,10 +20178,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -20101,6 +20207,7 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "DBDEH5WJ3TNTXNK7T2CYXY0TVS",
       "SWNBHGZ9J2BB3BC7CPQ4ZJMP58",
       "649MCMADET7TQ5D2MQ5Q48H462",
@@ -20108,8 +20215,15 @@
       "6TQ048NFMYDPPY2FZHP8WEQNAJ",
       "X8AN50RXV6WYV5KXPEQVD9N1NN"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -20126,7 +20240,7 @@
     "shortName": "Niedzwiedzi",
     "description": "**Skok na ofiare1**: Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.\n\n**Dzika Furia2**: Dodaje 3 obrażenia i odejmuje 1 redukcji\n\n**Rozszarpanie2**: Dodaje widmową kość obrażeń k6\n\n**Szczęki i Szpony2**: Dodaje 2 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta2**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k12\n\n**Godzisko1**: Wybrana kość zadaje trafienie krytyczne\n\n**Dzikość3**: Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie1**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Żer2**: Manewr całorundowy. Pozwala wykonać atak w dwa cele. Z połową bonusu z Siły\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Zwierzęca Szarża2**: Szarża zadaje 4dmg\n\n**Instynkt Stadny2**: Dodaje 1 szansy i 1 siły uderzenia krytycznego za każdego członka stada atakującego ten sam cel\n\n**Zwierzęcy Ryk1**: Dodatkowy test morale\n\n**Obronne Uderzenie**: Dodaje odporność równą 10% zadanych obrażeń na tą albo następną\n\n**Odgrożenie**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Zwierzęcy Instynkt1**: Manewr Całorundowy. Dodaje redukcje 1 kości broni\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Odruch Warunkowy**: Akcja Natychmiastowa. Blokuje następny manewr ofensywny przeciwnika\n\n**Stadne Wycie3**: Tylko Samiec Alfa. Dodaje 1 odporności i 2 redukcji każdemu ze stada. Tylko jedno na rundę",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -20260,10 +20374,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -20353,8 +20463,10 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "29EH6DJR916V5DDRBDY6Y2YY9M",
       "GCDSGNA1XTYXDA5VY1TWREKJ70",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "3NE63ZGRD3JP52GZ9B23BFK3X1",
       "8ABD01H7BW4B65GM7KZSVM3QRN",
       "XSS1EGPZMD098YBZ0HZSABXSPV",
@@ -20374,8 +20486,15 @@
       "WGG5H6RRHJ04Y4QAQ5JQ14X7RV",
       "PY6CQCVQ0BBFK1Y2BAKNPPJ1T6"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -20392,7 +20511,7 @@
     "shortName": "Górski",
     "description": "**Dzika Furia3**: Dodaje 4 obrażenia i odejmuje 2 redukcji\n\n**Rozszarpanie3**: Dodaje widmową kość obrażeń k8\n\n**Szczęki i Szpony3**: Dodaje 3 dmg na każdą kość broni przed redukcją kości\n\n**Zwierzęca Pomsta3**: Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k14\n\n**Dzikość3**: Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń\n\n**Godzisko2**: Wybrana kość zadaje trafienie krytyczne\n\n**Rozżynanie2**: Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych\n\n**Żer2**: Manewr całorundowy. Pozwala wykonać atak w dwa cele. Z połową bonusu z Siły\n\n**Dzikie Szranki**: Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego\n\n**Zwierzęcy Ryk2**: Dodatkowy test morale\n\n**Roztrącenie1**: Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=5+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie\n\n**Powalające Uderzenie1**: Test siły-1 vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1\n\n**Nieposkromiony Atak1**: Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Odgrożenie**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Przewraz**: Test sporny siły, za każde oczko przewagi dodaje jeden redukcji\n\n**Zew Przetrwania**: Akcja Natychmiastowa. Dodaje poziom leczenia do redukcji\n\n**Obronne Uderzenie**: Dodaje odporność równą 10% zadanych obrażeń na tą albo następną",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -20526,10 +20645,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Dzika  Furia",
         "grade": 3
       },
@@ -20601,6 +20716,7 @@
     "maneuversIds": [
       "5YC09RVP3ZTV37KWNTY3N28K17",
       "MM1K0XHMHP3V54WWVF2RDWJQQG",
+      "01KA1Z2PTGDHTN1B8R0WSZRWYV",
       "AFNCAXY9XQYW0VFM653F8YSQNT",
       "XSS1EGPZMD098YBZ0HZSABXSPV",
       "HNK7S1GMND37V8F8J2KJCTAE2K",
@@ -20616,8 +20732,15 @@
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
       "6DEV0ARP7Q5TDD96R6GH259Z59"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -20634,7 +20757,7 @@
     "shortName": "Spora",
     "description": "**Jadowity Zryw2**: Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=9, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1\n\n**Uskok Drapieżnika2**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 3 kości redukcji na jeden atak\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -20768,10 +20891,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 0
-      },
-      {
         "name": "Zatrucie 1/2k",
         "grade": 6
       },
@@ -20789,12 +20908,20 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTG0YRGJFKDGTFHCJEW",
       "9BXD0N23GBNHEPB2Z5P2B71F36",
       "P1EZF9G1AHZJ78MG7J4J81R6PG",
       "7WVSKT63PAFQNBF6J43VZVRK5Z"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 0
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT462ZT6BSTS3RMNH7G"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -20811,7 +20938,7 @@
     "shortName": "Wielki",
     "description": "**Jadowity Zryw3**: Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=10, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1\n\n**Gadzi Chwyt3**: Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k14w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników\n\n**Gadzi Spryt1**: Dodaje +1 do najbliższego testu Refleksu\n\n**Posnuwanie**: Dodaje 2 reducji w przypadku pochwycenia\n\n**Siłowe Pochwycenie2**: W przypadku pochwycenia. Dodaje zwiększa o 2 rangę testu siłowego, odejmuje 2 do testów siłowych\n\n**Podduszenie2**: W przypadku podduszenia zmniejsza o 2 test siłowy ale dodaje 2k4p obrażeń\n\n**Nieposkromiony Atak2**: Test siły/refleksu+1 vs parowanie. Udany powoduje ominięcie parowania przeciwnika\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Uskok Drapieżnika2**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 3 kości redukcji na jeden atak",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -20945,10 +21072,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Zatrucie 1/2k",
         "grade": 6
       },
@@ -20990,6 +21113,7 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTG0YRGJFKDGTFHCJEW",
       "DA5XNEMZAER45JV3CMWQQP04H4",
       "DBDEH5WJ3TNTXNK7T2CYXY0TVS",
       "649MCMADET7TQ5D2MQ5Q48H462",
@@ -21000,8 +21124,15 @@
       "7WVSKT63PAFQNBF6J43VZVRK5Z",
       "P1EZF9G1AHZJ78MG7J4J81R6PG"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -21018,7 +21149,7 @@
     "shortName": "Adynowe",
     "description": "**Jadowity Zryw3**: Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=10, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1\n\n**Cios Ogonem**: Test siła vs wytrwałość. Za każde oczko straty odżuca o 1 krok i obniża inicjatywe o 1\n\n**Szczękościsk**: Test Refleksu o ST=7. Nieudany wymusza test siły o ST=7. Nieudany obniża PL o 2 i zadaje 1k16w obrażeń\n\n**Ucisk Szczypiec2**: Test Sporny Siłowy+1 dodaje range kości broni za każde oczko przezewagi. Test wygrany o 8 punktów odbiera kość broni podmiotowi w następnej rundzie\n\n**Pochwycenie Szczęk2**: Test Refleksu o ST=8, Nieudany powoduje test sporny siłowy+1. Nieudany powoduje pochwycenie Szczęk. Test można powtarzać co rundę aby wyrwać się z pochwycenia. Zmniejsza redukcje jednej kości podmiotowi i neguje redukcje z uników\n\n**Roztrącenie2**: Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=6+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie\n\n**Sczękoczułki2**: Dodaje 2 kości broni, odbiera 2 obrażeń na kość broni\n\n**Uskok Drapieżnika1**: Akcja Natychmiastowa. Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 kości redukcji na jeden atak\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Odgrodzenie**: Test siłowy vs siła/zręczność. Wygrany dodaje 1 redukcji za każde oczko przewagi\n\n**Wyostrzenie Zmysłów Zwierza2**: Dodaje 2 uników na 3rundy\n\n**Hityna2**: Akcja Natychmiastowa. Odejmuje kość redukcji, Dodaje 12 redukcji\n\n**Owadzie Płyty2**: Akcja Natychmiastowa. Odejmuje 8 redukcji dodaje kośc redukcji\n\n**Nazwa**: Zdrowie",
     "tags": [
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -21152,10 +21283,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 1
-      },
-      {
         "name": "Zatrucie 1/2k",
         "grade": 6
       },
@@ -21206,13 +21333,10 @@
       {
         "name": "Owadzie  Płyty",
         "grade": 2
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTG0YRGJFKDGTFHCJEW",
       "DA5XNEMZAER45JV3CMWQQP04H4",
       "YQHZGYCW1CVX147157VDMV6QF7",
       "7GQXPKAG0CZTF65A0CRQF0DKQY",
@@ -21226,8 +21350,15 @@
       "FRMT79F9EW3K8NT6PRK7SRGSFK",
       "2K56GZ3HA5G9MT0QYYTFWN8NZD"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3NE080HN4YRMST3CB2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -21245,7 +21376,7 @@
     "description": "",
     "tags": [
       "Zwierzęta Wodne",
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -21377,15 +21508,17 @@
         }
       }
     ],
-    "maneuvers": [
+    "maneuvers": [],
+    "maneuversIds": [],
+    "perks": [
       {
         "name": "Zwierzę  Wodne",
         "grade": 1
       }
     ],
-    "maneuversIds": [],
-    "perks": [],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZAZT4TTVYA0258JS8YQ22"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -21403,7 +21536,7 @@
     "description": "",
     "tags": [
       "Zwierzęta Wodne",
-      "Natura"
+      "natura"
     ],
     "characteristics": {
       "strength": {
@@ -21535,15 +21668,17 @@
         }
       }
     ],
-    "maneuvers": [
+    "maneuvers": [],
+    "maneuversIds": [],
+    "perks": [
       {
         "name": "Zwierzę  Wodne",
         "grade": 1
       }
     ],
-    "maneuversIds": [],
-    "perks": [],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZAZT4TTVYA0258JS8YQ22"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -21694,10 +21829,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 2
-      },
-      {
         "name": "Godzisko",
         "grade": 2
       },
@@ -21753,6 +21884,7 @@
     "maneuversIds": [
       "HNK7S1GMND37V8F8J2KJCTAE2K",
       "P9VKMH0CNFQAZYZ6Z2XAV6ECWN",
+      "01KA1Z2PTG2W10P22353P69GWW",
       "GCDSGNA1XTYXDA5VY1TWREKJ70",
       "YQHZGYCW1CVX147157VDMV6QF7",
       "G2Y6G8AF6PXZVHYRT8VBMM7Q3X",
@@ -21764,8 +21896,15 @@
       "0KQAM8Y34SDV2SN904TACGFNAX",
       "01K9Z6YGZBR3YP8EY8DV734443"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3N27G33AG1DZQW7P4A"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -21910,15 +22049,17 @@
         }
       }
     ],
-    "maneuvers": [
+    "maneuvers": [],
+    "maneuversIds": [],
+    "perks": [
       {
         "name": "Skorpena",
         "grade": 1
       }
     ],
-    "maneuversIds": [],
-    "perks": [],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZAZT5AAEZ162H39WWF6KG"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -22069,10 +22210,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Czerw",
-        "grade": 1
-      },
-      {
         "name": "Naskok  Czerwia",
         "grade": 1
       },
@@ -22090,8 +22227,15 @@
       "FYW9AXRAADB7KYQM4TNBYB7TV0",
       "M2P4PBJ049PVT25RX7ACHCPPBJ"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Czerw",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT5T6DDT4BQCNSNBBQ3"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -22242,10 +22386,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wurm",
-        "grade": 1
-      },
-      {
         "name": "Naskok  Czerwia",
         "grade": 2
       },
@@ -22263,8 +22403,15 @@
       "FYW9AXRAADB7KYQM4TNBYB7TV0",
       "VC6R5T7PQF5X5J8D1ZYV2A3YQ2"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Wurm",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT5MJ1B8P51EXQ412VZ"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -22415,17 +22562,22 @@
     ],
     "maneuvers": [
       {
-        "name": "Pełzacz",
-        "grade": 1
-      },
-      {
         "name": "Paraliż",
         "grade": 1
       }
     ],
-    "maneuversIds": [],
-    "perks": [],
-    "perksIds": [],
+    "maneuversIds": [
+      "01KA1Z2PTGJJWSJ4KX9F2ECPTK"
+    ],
+    "perks": [
+      {
+        "name": "Pełzacz",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT5DGHDH1TFXV2X1W5N"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -22576,10 +22728,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Utopiec",
-        "grade": 1
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 1
       },
@@ -22613,6 +22761,7 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGFVBPYKP9973TWA87",
       "TT0GT5PXV589BDMZHZRNDQXV9K",
       "FPTZKS10AEXAN6QTQ4R8GBMBPB",
       "NZZMT1SRMJ7JWVDGVQ90E3BMQD",
@@ -22621,8 +22770,15 @@
       "WGG5H6RRHJ04Y4QAQ5JQ14X7RV",
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Utopiec",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT5XK1027ETKABXH34H"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -22773,10 +22929,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wilkołak",
-        "grade": 1
-      },
-      {
         "name": "Furia Wilkołaka",
         "grade": 1
       },
@@ -22816,6 +22968,7 @@
     "maneuversIds": [
       "RQCWX3WCDJ60EESFTVN31MB0FQ",
       "RQHWHSF4PMJPK1GWX0AV9ZB51M",
+      "01KA1Z2PTGKTRD583XXVPTYV2W",
       "MM1K0XHMHP3V54WWVF2RDWJQQG",
       "ZERBJBVWDGAD5YACEZZRRX189K",
       "6B2C8NH6JRNHJBFZM3ZECSDD5N",
@@ -22823,8 +22976,15 @@
       "15MJWHJASRNRF9HHAMPMB8B80C",
       "01K9Z6YGYVE0PEZ02N0ZDFD6BG"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Wilkołak",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT58DS3BSWE063K2YT2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -22973,15 +23133,17 @@
         }
       }
     ],
-    "maneuvers": [
+    "maneuvers": [],
+    "maneuversIds": [],
+    "perks": [
       {
         "name": "Kuroliszek",
         "grade": 1
       }
     ],
-    "maneuversIds": [],
-    "perks": [],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZAZT6ZZ06ACGF5CR4JQCG"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -23132,10 +23294,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Bazyliszek",
-        "grade": 1
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 2
       },
@@ -23181,6 +23339,7 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTG2W10P22353P69GWW",
       "MM1K0XHMHP3V54WWVF2RDWJQQG",
       "43EC9F51D9RKZA01TG809T8YAJ",
       "K08YCHVFV7GD72B68VV51JPM9D",
@@ -23192,8 +23351,15 @@
       "WGG5H6RRHJ04Y4QAQ5JQ14X7RV",
       "15MJWHJASRNRF9HHAMPMB8B80C"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Bazyliszek",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT60AEJAV4MSATNV2V9"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -23344,10 +23510,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Harpia",
-        "grade": 1
-      },
-      {
         "name": "Dzika  Furia",
         "grade": 2
       },
@@ -23395,8 +23557,15 @@
       "WGG5H6RRHJ04Y4QAQ5JQ14X7RV",
       "G1M5VFTXFQF1T8FXZZZ85AP8S5"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Harpia",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT6336HDE6RJ0MFMMPS"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -23547,10 +23716,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wyrm",
-        "grade": 1
-      },
-      {
         "name": "Rozszarpanie",
         "grade": 3
       },
@@ -23581,14 +23746,22 @@
     ],
     "maneuversIds": [
       "MM1K0XHMHP3V54WWVF2RDWJQQG",
+      "01KA1Z2PTGDHTN1B8R0WSZRWYV",
       "ZERBJBVWDGAD5YACEZZRRX189K",
       "50GBC8QZJMEHH1XWK1HGF5Y034",
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
       "15MJWHJASRNRF9HHAMPMB8B80C",
       "21CHDRC3SE9K5Z6N9ME7QVGCFM"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Wyrm",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT6F2RDYAJZCC4PHBW5"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -23739,10 +23912,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Wywerna",
-        "grade": 1
-      },
-      {
         "name": "Rycerski Ruch",
         "grade": 1
       },
@@ -23765,8 +23934,15 @@
       "01K9Z6YGYZCSMBK9HBKNZVQZXB",
       "01K9Z6YGYYQS3ZMHYXB7G8SRVV"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Wywerna",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT66MB7A4W8ZP18AZTA"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -23917,10 +24093,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Mantikora",
-        "grade": 1
-      },
-      {
         "name": "Skok na ofiare",
         "grade": 3
       },
@@ -23974,7 +24146,9 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGMG50S8QNCCNX75F0",
       "5YC09RVP3ZTV37KWNTY3N28K17",
+      "01KA1Z2PTGDHTN1B8R0WSZRWYV",
       "XSS1EGPZMD098YBZ0HZSABXSPV",
       "XYTKVM32QK13HT9Q18PDVBKATM",
       "AMZR7JX9KQB87R4T2YAFK9VVY1",
@@ -23986,8 +24160,15 @@
       "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
       "15MJWHJASRNRF9HHAMPMB8B80C"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Mantikora",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT6K9A1345D9MMKP2RA"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -24138,10 +24319,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Zwierzę",
-        "grade": 2
-      },
-      {
         "name": "Poszarpanie",
         "grade": 1
       },
@@ -24189,8 +24366,15 @@
       "5AK3MFJK0YCW6EGSMESDYFSACE",
       "15MJWHJASRNRF9HHAMPMB8B80C"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Zwierzę",
+        "grade": 2
+      }
+    ],
+    "perksIds": [
+      "01KA1ZCV3N27G33AG1DZQW7P4A"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -24337,10 +24521,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Eteryczny",
-        "grade": 1
-      },
-      {
         "name": "Moc  Ognia",
         "grade": 2
       },
@@ -24359,20 +24539,24 @@
       {
         "name": "Precyzyjny  Cios",
         "grade": 2
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTHJGXV1PFPR4452SMP",
       "01K9Z6YGYYEA8MXAX9981AGYH6",
       "01K9Z6YGYXGZHTPTTF8GT1HE7E",
       "01K9Z6YGYZCSMBK9HBKNZVQZXB",
       "01K9Z6YGYYQS3ZMHYXB7G8SRVV"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Eteryczny",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT6ZQ77ZHKKAY9Y7AEF"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -24971,10 +25155,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Plugawiciel",
-        "grade": 1
-      },
-      {
         "name": "Spojrzenie Plugawiciela",
         "grade": 1
       },
@@ -24993,11 +25173,19 @@
     ],
     "maneuversIds": [
       "DW0BMJEQKR7BG07N6C3GE39C5J",
+      "01KA1Z2PTHPY50GN84DXABX0AZ",
       "WG298509ZAYVNR8M3CMGBRF3AM",
       "8ZTBX5X74J0GTTYHQST2HZJ9NK"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Plugawiciel",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT7CDJS3W7GVWCEGGQX"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -25298,10 +25486,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Noworodnik",
-        "grade": 1
-      },
-      {
         "name": "Rozdrapanie",
         "grade": 1
       },
@@ -25316,10 +25500,6 @@
       {
         "name": "Echo  Noworodnika",
         "grade": 1
-      },
-      {
-        "name": "Nazwa",
-        "grade": 1
       }
     ],
     "maneuversIds": [
@@ -25328,8 +25508,15 @@
       "01K9Z6YGYWWFNREDNRC4E22MGX",
       "PAF6Z0GM5W01FD5B16Q71Z8WJF"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Noworodnik",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT7C2VQGT44K08TW5T2"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -25779,10 +25966,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Przebrzydły",
-        "grade": 1
-      },
-      {
         "name": "Przebrzydłe  Szpony",
         "grade": 1
       },
@@ -25810,8 +25993,15 @@
       "455XTTMEKW3PDPFJ2P9F7FBAYC",
       "01K9Z6YGYVE0PEZ02N0ZDFD6BG"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Przebrzydły",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT75D5AR0P3B9AQTKGR"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -25957,12 +26147,7 @@
         }
       }
     ],
-    "maneuvers": [
-      {
-        "name": "Nazwa",
-        "grade": 1
-      }
-    ],
+    "maneuvers": [],
     "maneuversIds": [],
     "perks": [],
     "perksIds": [],
@@ -26856,12 +27041,7 @@
         }
       }
     ],
-    "maneuvers": [
-      {
-        "name": "Nazwa",
-        "grade": 1
-      }
-    ],
+    "maneuvers": [],
     "maneuversIds": [],
     "perks": [],
     "perksIds": [],
@@ -27165,10 +27345,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Żądliszcze",
-        "grade": 1
-      },
-      {
         "name": "Rozszarpanie",
         "grade": 4
       },
@@ -27190,9 +27366,16 @@
       {
         "name": "trujące żądło",
         "grade": 1
+      },
+      {
+        "name": "Żądliszcze",
+        "grade": 1
       }
     ],
-    "perksIds": [],
+    "perksIds": [
+      "01KA1ZAZT7EF1AJZG2MCH4KACM",
+      "01KA1ZAZT7MC1N9TJG9MHMA8MM"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -27489,10 +27672,6 @@
     ],
     "maneuvers": [
       {
-        "name": "Merromonstrum",
-        "grade": 1
-      },
-      {
         "name": "Szczęki i  Szpony",
         "grade": 3
       },
@@ -27518,14 +27697,22 @@
       }
     ],
     "maneuversIds": [
+      "01KA1Z2PTGDHTN1B8R0WSZRWYV",
       "KERAQM1K74NRG83QS9NRT5G134",
       "YT3HKNBKJGQWG87YWTFMCM62NJ",
       "XFQ0HRYAX14NAHH29TNT06YZT4",
       "DG56DE7G4QFXY3E7DJXYXQDZY5",
       "WCWD9KYDD6CRPGF0FN0JB804SM"
     ],
-    "perks": [],
-    "perksIds": [],
+    "perks": [
+      {
+        "name": "Merromonstrum",
+        "grade": 1
+      }
+    ],
+    "perksIds": [
+      "01KA1ZAZT72J443W6NC7A7DDK5"
+    ],
     "equipment": {
       "weapons": [],
       "armors": [],
@@ -29310,12 +29497,7 @@
         }
       }
     ],
-    "maneuvers": [
-      {
-        "name": "Nazwa",
-        "grade": 1
-      }
-    ],
+    "maneuvers": [],
     "maneuversIds": [],
     "perks": [],
     "perksIds": [],

@@ -114,6 +114,30 @@ async function main() {
     console.log(`   - Perks: ${totalMissing.perks}`);
     console.log(`   - Stances: ${totalMissing.stances}`);
     console.log(`   - States: ${totalMissing.states}\n`);
+    
+    // Write missing references to file
+    const missingReportPath = path.join(FORMATTED_DATA_DIR, 'missing-references-report.txt');
+    const reportContent = [
+      '='.repeat(80),
+      'MISSING REFERENCES REPORT',
+      `Generated: ${new Date().toISOString()}`,
+      '='.repeat(80),
+      '',
+      missingReports.join('\n\n'),
+      '',
+      '='.repeat(80),
+      'SUMMARY',
+      '='.repeat(80),
+      `Total missing: ${totalMissing.maneuvers + totalMissing.perks + totalMissing.stances + totalMissing.states}`,
+      `  - Maneuvers: ${totalMissing.maneuvers}`,
+      `  - Perks: ${totalMissing.perks}`,
+      `  - Stances: ${totalMissing.stances}`,
+      `  - States: ${totalMissing.states}`,
+      ''
+    ].join('\n');
+    
+    fs.writeFileSync(missingReportPath, reportContent, 'utf-8');
+    console.log(`📄 Missing references report saved to: ${missingReportPath}\n`);
   } else {
     console.log('✅ All references resolved successfully!\n');
   }
