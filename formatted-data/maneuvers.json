@@ -7904,7 +7904,8 @@
     "grade": 1,
     "description": "Dodaje 3dmg atakując z powietrza.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "21CHDRC3SE9K5Z6N9ME7QVGCFM",
@@ -7912,7 +7913,8 @@
     "grade": 2,
     "description": "Dodaje 5dmg atakując z powietrza.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "K4R7WKN4W2F22SD5M40FPQM454",
@@ -7920,7 +7922,8 @@
     "grade": 3,
     "description": "Dodaje 7dmg atakując z powietrza.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "VY86537ZRXJDSQEZ6R9WZWD49S",
@@ -7928,7 +7931,8 @@
     "grade": 1,
     "description": "Dodaje 10 pwT.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "7D9PV2QNQ0741NHWVP7V951ZHS",
@@ -7936,7 +7940,8 @@
     "grade": 1,
     "description": "Dodaje 1 obrażeń. Zmniejsza odporność o 1 w następnej turze.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "5KFQWCT3SBEPFJ3S46261KHPN8",
@@ -7944,7 +7949,8 @@
     "grade": 2,
     "description": "Dodaje widmową kość obrażeń k4.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "Z98J9P047WS1HXE9JFPFWHS8RE",
@@ -7952,7 +7958,8 @@
     "grade": 3,
     "description": "Dodaje widmową kość obrażeń k8.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "6JWZEE890PM2VCP2CM508MXGE9",
@@ -7960,7 +7967,8 @@
     "grade": 4,
     "description": "Dodaje widmową kość obrażeń k10.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "A10D2F2K6S3PM9DK1530467PCP",
@@ -7968,7 +7976,8 @@
     "grade": 5,
     "description": "Dodaje widmową kość obrażeń k14.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "50DV3E4463Q5QN3HQ2VRZKBWFN",
@@ -8041,7 +8050,8 @@
     "castTime": "Standardowa",
     "requirements": "Większa Inicjatywa 2",
     "cooldown": 5,
-    "price": 4
+    "price": 4,
+    "tags": []
   },
   {
     "id": "TH0F8KJ8XES321KBQ3EVX8C5NW",
@@ -8051,7 +8061,8 @@
     "castTime": "Standardowa",
     "requirements": "Błyskawiczny Cios 1, Większa Inicjatywa 3",
     "cooldown": 5,
-    "price": 2
+    "price": 2,
+    "tags": []
   },
   {
     "id": "SNZC88X14CXJ3GQJ9RGEW4HYQ3",
@@ -8061,7 +8072,8 @@
     "castTime": "Standardowa",
     "requirements": "Błyskawiczny Cios 2, Większa Inicjatywa 4",
     "cooldown": 4,
-    "price": 2
+    "price": 2,
+    "tags": []
   },
   {
     "id": "60ZXRE92ZT4N16XR0VN5F8VVVR",
@@ -8106,7 +8118,8 @@
     "grade": 1,
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=7. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "VM4MVHGF8N7PF8R5JPEZFSG3E0",
@@ -8114,7 +8127,8 @@
     "grade": 2,
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=8. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "4QBPW6FC2ZJ9KPXBD253M2BTGR",
@@ -8122,7 +8136,8 @@
     "grade": 3,
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=9. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "6V81F6PF51HFW5X2XCCEWGATC2",
@@ -8130,7 +8145,8 @@
     "grade": 4,
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=10. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "JVR9GV6QKEK6SX8AZC41Z1R2AT",
@@ -8138,7 +8154,8 @@
     "grade": 5,
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=11. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "8W8R8W0647BNRA1S9PD9AMZNQG",
@@ -8146,7 +8163,8 @@
     "grade": 6,
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=12. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "9YAM70WF1RAW6G5DXHA3Q9488A",
@@ -8154,7 +8172,8 @@
     "grade": 1,
     "description": "Wszyscy w odległości 2 kroków wykonują test wytrwałościo o ST=7 . Za każde oczko straty w przegranym teście 1k4 prawdziwych obrażeń od zimna.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "MK4BMJDZCMC9MD6NZJY12MEY2C",
@@ -8162,7 +8181,8 @@
     "grade": 2,
     "description": "Wszyscy w odległości 2 kroków wykonują test wytrwałościo o ST=8 . Za każde oczko straty w przegranym teście 1k4 prawdziwych obrażeń od zimna.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "YYFY7Z3NYFCST5W10T9M3V14BS",
@@ -8170,7 +8190,8 @@
     "grade": 1,
     "description": "Stożek (120* 3 kroki). Test refleksu o ST=8. Nieudany powoduje -2 obrażenia, -2 redukcji. Nie działa na istoty nie używające wzroku 1//3].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "YFSY3CH679XBDNPDST62A54VDC",
@@ -8178,7 +8199,8 @@
     "grade": 1,
     "description": "Zwiększa skale trudności choroby o 1. Dodaje dodatkowo 2 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "YN2S1AVJNCHC5RPKW7ZKZ88EFE",
@@ -8186,7 +8208,8 @@
     "grade": 2,
     "description": "Zwiększa skale trudności choroby o 2. Dodaje dodatkowo 3 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "2RPMZJNQ771VXYYV5E0FNQRMQG",
@@ -8194,7 +8217,8 @@
     "grade": 3,
     "description": "Zwiększa skale trudności choroby o 3. Dodaje dodatkowo 4 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "B8VA7TXDR77Y1S2TZHDCEYK1V2",
@@ -8202,7 +8226,8 @@
     "grade": 1,
     "description": "Dodaje dodatkową chorobe w tej rundzie (o ile podmiot zostanie zraniony w zdrowie).",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "DRBWDNE1XXG0W60YZJEME3NF8R",
@@ -8210,7 +8235,8 @@
     "grade": 1,
     "description": "Zadaje 1 obrażeń za każdą kość broni i obrażeń twoją i atakowanego przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "16JY7K7W67TJF5059797R7MKR6",
@@ -8218,7 +8244,8 @@
     "grade": 1,
     "description": "Powoduje czarne światło1 w promieniu 1 kroków, w zasięgu 5 kroków [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FZJ8SESSSV6JGW452P4AVEVZN0",
@@ -8226,7 +8253,8 @@
     "grade": 2,
     "description": "Powoduje czarne światło2 w promieniu 2 kroków, w zasięgu 10 kroków [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "JTNB0DF41Z8B1Z76E1XQKDN0XC",
@@ -8234,7 +8262,8 @@
     "grade": 3,
     "description": "Powoduje czarne światło3 w promieniu 3 kroków, w zasięgu 15 kroków [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "SWAE2FW8Y8M3WYCSEDE1SF07R3",
@@ -8242,7 +8271,8 @@
     "grade": 1,
     "description": "Atak dystansowy +3, w zasięgu 11 kroków. Udany powoduje test wytrwałości o ST=7+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "153AYXB0EFX37JYG38TRD0N6KM",
@@ -8250,7 +8280,8 @@
     "grade": 2,
     "description": "Atak dystansowy +6, w zasięgu 13 kroków. Udany powoduje test wytrwałości o ST=8+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "677E95V9F767Y1YZFQV39EYYER",
@@ -8258,7 +8289,8 @@
     "grade": 3,
     "description": "Atak dystansowy +7, w zasięgu 15 kroków. Udany powoduje test wytrwałości o ST=10+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "GT4VYTTSZ0AX2D0XNVNA16WS2N",
@@ -8266,7 +8298,8 @@
     "grade": 1,
     "description": "Teleportuje się w odległości 3 kroków. Niedokładność związana z mocami i strukturami mocy w obszarze. [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "XQBD9B355S00HAN73RQHTY5G49",
@@ -8274,7 +8307,8 @@
     "grade": 1,
     "description": "Dodaje 3 do szansy krytyka [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "YQHZGYCW1CVX147157VDMV6QF7",
@@ -8282,7 +8316,8 @@
     "grade": 1,
     "description": "Test siła vs wytrwałość. Za każde oczko straty odżuca o 1 krok i obniża inicjatywe o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "3SJR4KJ97XBDCXKTA0SNM23MZD",
@@ -8303,7 +8338,8 @@
     "grade": 1,
     "description": "Wywołuje kłębiocą się czerwoną moc niczym mgła. Dookoła czarta zmniejsza widoczność i ukrywa niektóre ruchy. Dodaje +1 do testów fechtunku i fortelu. Kosc to 1//10e, trwa tura/siła zaklęcia = 4. Obszar działania to 0,05metra/siła zaklęcia = 0,2 metra. [1//10e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "B13R99YG8PMQTZXCGE1HRMN20P",
@@ -8311,7 +8347,8 @@
     "grade": 1,
     "description": "Demoniczna moc zadaje 1k6/3esencji max 4k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "38RXWRQZ2DAYJKTBHT9SQA1W51",
@@ -8319,7 +8356,8 @@
     "grade": 2,
     "description": "Demoniczna moc zadaje 1k6/3esencji max 5k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "PP5X7T17E7TB1CV9YFDHQV0DAB",
@@ -8327,7 +8365,8 @@
     "grade": 3,
     "description": "Demoniczna moc zadaje 1k6/3esencji max 7k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "QKWSQXA2RNQJWJ6FR7QPVD5Y8M",
@@ -8335,7 +8374,8 @@
     "grade": 4,
     "description": "Demoniczna moc zadaje 1k6/3esencji max 8k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "QMF1NFWP1E0SHKKZ84X2SXJTTE",
@@ -8343,7 +8383,8 @@
     "grade": 1,
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 4 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "06BH8C3D84232TF2JMY1NXMF2W",
@@ -8351,7 +8392,8 @@
     "grade": 2,
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 6 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "QTYK44WZYCHV198NSC7YF6E6C8",
@@ -8359,7 +8401,8 @@
     "grade": 3,
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 8 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "EHXJGX18ZTNJACGJ9EJYVKXKY9",
@@ -8367,7 +8410,8 @@
     "grade": 4,
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 10 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "1NCXDTABJGXCA1HER08V8R0VJG",
@@ -8375,7 +8419,8 @@
     "grade": 1,
     "description": "Dodaje 1 wytrwałości za każde 4 esencji max 5 [1//4e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "9HF22NK556985M5A9F7VEESSZR",
@@ -8383,7 +8428,8 @@
     "grade": 2,
     "description": "Dodaje 1 wytrwałości za każde 3 esencji max 7 [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "QBKV6BN98NRR264HZE869SFGJ1",
@@ -8391,7 +8437,8 @@
     "grade": 3,
     "description": "Dodaje 1 wytrwałości za każde 2 esencji max 10 [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "VKSFN856QNM8VYASM8QZRH5APM",
@@ -8399,7 +8446,8 @@
     "grade": 4,
     "description": "Dodaje 1 wytrwałości za każde 2 esencji max 12 [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "FH0AC0H1HZ58MHD1JATFED01YM",
@@ -8407,7 +8455,8 @@
     "grade": 5,
     "description": "Dodaje 1 wytrwałości za każde 2 esencji max 13 [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "J08PQ4GZFFJJSFFMSPCEV4W84W",
@@ -8415,7 +8464,8 @@
     "grade": 1,
     "description": "Dodaje 1dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "E3NSJD9ED2P8G8ZENYB3MH0KTB",
@@ -8423,7 +8473,8 @@
     "grade": 2,
     "description": "Dodaje 3dmg na ture/3esencji [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "4PHW6A5BNJM7A5D5X229GX48YN",
@@ -8431,7 +8482,8 @@
     "grade": 3,
     "description": "Dodaje 4dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "Y1V70KD84KMX53NM93SV1BB00D",
@@ -8439,7 +8491,8 @@
     "grade": 4,
     "description": "Dodaje 5dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "1C3T1V87GAPAYVZDD0SGD0JZC0",
@@ -8447,7 +8500,8 @@
     "grade": 1,
     "description": "Dodaje 1 dmg na kość broni oraz +1 do szansy i siły krytyka na turę/4esencji [1//4e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "31CDJ46ER1M00X6A1H2HN9RMX3",
@@ -8455,7 +8509,8 @@
     "grade": 1,
     "description": "Test woli o ST=12. Obniża wolę o 1 za każde oczko staty [15e 1//4].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "P92DD179D83SXKQ1WHJC1T6EKF",
@@ -8463,7 +8518,8 @@
     "grade": 2,
     "description": "Test woli o ST=14. Obniża wolę o 1 za każde oczko staty [15e 1//4].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "62PNW7H61XYR4K6QTKMCGWD0JM",
@@ -8471,7 +8527,8 @@
     "grade": 1,
     "description": "Dodaje 1 refleksu za każde 3 esencji max 4 [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "XZY6TB1TQ1A6DW7WSHEPFPSXS5",
@@ -8479,7 +8536,8 @@
     "grade": 2,
     "description": "Dodaje 1 refleksu za każde 3 esencji max 7 [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "YFFATEWGS37NRMQSP3QVBSREPA",
@@ -8487,7 +8545,8 @@
     "grade": 1,
     "description": "Dodaje kość redukcji na jeden atak. Natychmiastowa [1//10e].",
     "castTime": "Natychmiastowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "MJPSCZM2JWPFS4HX5ZVDYKFQAR",
@@ -8495,7 +8554,8 @@
     "grade": 1,
     "description": "Dodaje fechtunek do redukcji na 1 ture [15e,.",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "AJGGMTEQ8FVHB8QR72G5G5T6RP",
@@ -8503,7 +8563,8 @@
     "grade": 1,
     "description": "Dodaje dodatkową kość obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "DGZP5VSQ90ZPGCJMPSRG3WT7JD",
@@ -8511,7 +8572,8 @@
     "grade": 1,
     "description": "Dodaje 1 redukcji z naturalnego pancerza/2esencji max 3 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "PNENQDNY9420EAPYDHK5GF2FB4",
@@ -8519,7 +8581,8 @@
     "grade": 1,
     "description": "Dodaje 1 kość redukcji oraz 2redukcji/siła zaklęcia na minute/1esencji.",
     "castTime": "Standardowa",
-    "cooldown": "5+1e"
+    "cooldown": "5+1e",
+    "tags": []
   },
   {
     "id": "BAXVAHXGC8TH056G8X2S371XPH",
@@ -8527,7 +8590,8 @@
     "grade": 1,
     "description": "Dodaje 1 do woli za każde 3 esencji max 5 [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "NKCYKAEQ29RV1PJEHTG69Z54KF",
@@ -8535,7 +8599,8 @@
     "grade": 2,
     "description": "Dodaje 1 do woli za każde 3 esencji max 7 [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "RH7NHRRQZXXM3MSJKTHWYSVG46",
@@ -8543,7 +8608,8 @@
     "grade": 1,
     "description": "Dodaje 1dmg na kość broni na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "SX4EM61ECGCAWJ0V1457003F75",
@@ -8551,7 +8617,8 @@
     "grade": 1,
     "description": "Dodaje 1dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "7QW3BGQRR323KAF22074YEDBJD",
@@ -8559,7 +8626,8 @@
     "grade": 2,
     "description": "Dodaje 2dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "T7HZRS89BPFHK5HMGXJT1XJ0B8",
@@ -8567,7 +8635,8 @@
     "grade": 3,
     "description": "Dodaje 3dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "H7E0QPSCZ9R3V5KZ2C4EEK2PQQ",
@@ -8575,7 +8644,8 @@
     "grade": 4,
     "description": "Dodaje 10dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "DWZZ2YEPAP80M8PKM6A35ND29K",
@@ -8583,7 +8653,8 @@
     "grade": 1,
     "description": "Potężna diabelska moc zadaje 1k16+1/5esencji max 6k16+6 [1//5e,.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "F8MH07Z4GP635WA2ADN84MKP7Q",
@@ -8591,7 +8662,8 @@
     "grade": 1,
     "description": "Diabelska moc zadaje 1k4/3esencji max 5k4 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "B7H4TZ5T0CG5CYRYYSJN493V1J",
@@ -8599,7 +8671,8 @@
     "grade": 2,
     "description": "Diabelska moc zadaje 1k4/3esencji max 7k4 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "4C4XKY88VWGEY6AYJYDMBP65MT",
@@ -8607,7 +8680,8 @@
     "grade": 3,
     "description": "Diabelska moc zadaje 1k4/3esencji max 9k4 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "3FY40VB090JCJ5SJMHFQSYMQQT",
@@ -8615,7 +8689,8 @@
     "grade": 4,
     "description": "Diabelska moc zadaje 1k4+1/3esencji max 10k4+10 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "8VBPX7CDA5PTGCT65QYZBMNVC0",
@@ -8623,7 +8698,8 @@
     "grade": 1,
     "description": "Test sporny refleksu z siłą zaklęcia+3. Za każde oczko przewagi refleksu, siła zaklęcia zmniejsza się o 1, niemożliwośc magicznych trafień krytycznych, podjęta próba refleksu oznacza utrate 5 inicjatywy. Zadaje 1k4/4 esencji max 10k4 dmg [1k4//4e,.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "2CRDMF9BBGVXDJSCH5YAQ20PMB",
@@ -8631,7 +8707,8 @@
     "grade": 1,
     "description": "Dodaje 1hp tarczy/3esencji max 7. Natychmiastowa [1//3e].",
     "castTime": "Natychmiastowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "KBG6GBFR2JAGQS13GQ64768XTZ",
@@ -8639,7 +8716,8 @@
     "grade": 2,
     "description": "Dodaje 1hp tarczy/3esencji max 9. Natychmiastowa [1//3e].",
     "castTime": "Natychmiastowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "SJBWQZSGX50M27R0899D8PXXH0",
@@ -8647,7 +8725,8 @@
     "grade": 3,
     "description": "Dodaje 1hp tarczy/3esencji max 20. Natychmiastowa [1//3e].",
     "castTime": "Natychmiastowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "C0ZSJBEH0GVBC379M9ASM9P69A",
@@ -8655,7 +8734,8 @@
     "grade": 1,
     "description": "Dodaje 2dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "RDSYPJCTTH589J8HDVC5MYM4C2",
@@ -8663,7 +8743,8 @@
     "grade": 3,
     "description": "Dodaje 1 refleksu za każde 3 esencji max 9 [1//3e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "SX4RCSCVG3TG22CM6BVKKPMVD6",
@@ -8671,7 +8752,8 @@
     "grade": 1,
     "description": "Dodaje 1 refleksu za każde 4 esencji max 5 [1//4e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "AQ616WKQJ93BCQ2D4CMGP1D8EQ",
@@ -8679,7 +8761,8 @@
     "grade": 1,
     "description": "Test siły vs siła/zręczność. Za każde oczko przewagi zadaje 1 obrażeń. Przy 5 obrażeniach test wytrwałości o ST=3+obrażenia, nieudany oznacza Oszołomienie.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "N9T2PPA91JVVM39R0WYH9XYVZ4",
@@ -8687,7 +8770,8 @@
     "grade": 2,
     "description": "Test siły vs siła/zręczność. Za każde oczko przewagi zadaje 1 obrażeń. Przy 5 obrażeniach test wytrwałości o ST=4+obrażenia, nieudany oznacza Oszołomienie.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "3E0KNAC49KV0ANSSW4HAWM4Z7Q",
@@ -8695,7 +8779,8 @@
     "grade": 3,
     "description": "Test siły vs siła/zręczność. Za każde oczko przewagi zadaje 1 obrażeń. Przy 5 obrażeniach test wytrwałości o ST=5+obrażenia, nieudany oznacza Oszołomienie.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "4WAFSHKHWE32EFTW8JJK67D5YG",
@@ -8703,7 +8788,8 @@
     "grade": 1,
     "description": "Zwiększa rangę kość broni o 2, zmniejsza odporność o 3 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "5PS166QS5VKFFWB7ZK9YG2CKW0",
@@ -8711,7 +8797,8 @@
     "grade": 2,
     "description": "Zwiększa rangę kość broni o 3, zmniejsza odporność o 5 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "H02A2X41R7YW8K4AHTSKRXB728",
@@ -8719,7 +8806,8 @@
     "grade": 3,
     "description": "Zwiększa rangę kość broni o 4, zmniejsza odporność o 7 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "CKACV6RSXVBGG8CXFTZ1GF6MXF",
@@ -8729,7 +8817,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Inicjatywa 4",
     "cooldown": null,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "QN1Z14A5JQZ0NYT2KVDPDBSA4A",
@@ -8739,7 +8828,8 @@
     "castTime": "Standardowa",
     "requirements": "Większa Inicjatywa 4, Błyskawiczny Cios 1",
     "cooldown": null,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "JP2QKPC313SSSCBCN68Q8RWD8Z",
@@ -8747,7 +8837,8 @@
     "grade": 1,
     "description": "Dodaje kość obrażeń 1k12 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "PPN31GTD655BQ2A8ZG40B7CGHS",
@@ -8755,7 +8846,8 @@
     "grade": 1,
     "description": "Dodaje 2 obrażenia i odejmuje 1 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "29EH6DJR916V5DDRBDY6Y2YY9M",
@@ -8763,7 +8855,8 @@
     "grade": 2,
     "description": "Dodaje 3 obrażenia i odejmuje 1 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "5YC09RVP3ZTV37KWNTY3N28K17",
@@ -8771,7 +8864,8 @@
     "grade": 3,
     "description": "Dodaje 4 obrażenia i odejmuje 2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "465DCPZ790S4D581YRQCDM38HK",
@@ -8779,7 +8873,8 @@
     "grade": 1,
     "description": "Dodaje k10w obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "2TE6DNEPNFJV8HQHWZZ0EPS5K8",
@@ -8787,7 +8882,8 @@
     "grade": 2,
     "description": "Dodaje k14w obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "G3ZJQQP2A8P4MZ8EKD62G20ZM4",
@@ -8795,7 +8891,8 @@
     "grade": 3,
     "description": "Dodaje k18w obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "AMZR7JX9KQB87R4T2YAFK9VVY1",
@@ -8803,7 +8900,8 @@
     "grade": 1,
     "description": "Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FPTZKS10AEXAN6QTQ4R8GBMBPB",
@@ -8811,7 +8909,8 @@
     "grade": 1,
     "description": "Test siły-4vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "ZERBJBVWDGAD5YACEZZRRX189K",
@@ -8819,7 +8918,8 @@
     "grade": 2,
     "description": "Test siły-3 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "XSS1EGPZMD098YBZ0HZSABXSPV",
@@ -8827,7 +8927,8 @@
     "grade": 3,
     "description": "Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "M2P4PBJ049PVT25RX7ACHCPPBJ",
@@ -8835,7 +8936,8 @@
     "grade": 1,
     "description": "Test siły-3 vs siła/zręczność. Wygrany powoduje dodanie wytrwałości do obrażeń, przegrany odejmuje 2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "VC6R5T7PQF5X5J8D1ZYV2A3YQ2",
@@ -8843,7 +8945,8 @@
     "grade": 2,
     "description": "Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie wytrwałości do obrażeń, przegrany odejmuje 2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "PAF6Z0GM5W01FD5B16Q71Z8WJF",
@@ -8851,7 +8954,8 @@
     "grade": 1,
     "description": "Rzucasz dodatkową kością broni i wybierasz dwa dowolne wyniki.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "9HMG9RTW78MCNXZNFX239GQ5EJ",
@@ -8859,7 +8963,8 @@
     "grade": 1,
     "description": "Dodaje kość redukcji względem jednego wybranego przeciwnika [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "KW457AXDSM7P3NN4FHV7GG4PBS",
@@ -8869,7 +8974,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Inicjatywa 4, Impuls 1",
     "cooldown": null,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "43R1TJXHSBQ7E479389T5AHXQC",
@@ -8877,7 +8983,8 @@
     "grade": 1,
     "description": "Dodaje 3 widmowe kości obrażeń k6.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "ND0ZCWX5DAE236WD2HCXNRQ5XB",
@@ -8885,7 +8992,8 @@
     "grade": 1,
     "description": "Dodaje 1 odporności.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "W5NTWSSASSB0VZA58A5KVEZRK6",
@@ -8893,7 +9001,8 @@
     "grade": 2,
     "description": "Dodaje 2 odporności.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "Q5SZ1AMEWB8ZQ84R20KKM0BZJ9",
@@ -8901,7 +9010,8 @@
     "grade": 3,
     "description": "Dodaje 3 odporności.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "FP3FFNQTM712PAQJP3H9X45WMB",
@@ -8909,7 +9019,8 @@
     "grade": 4,
     "description": "Dodaje 3 odporności na 2 rundy.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "QJ4EDY8VC2J5EWZ8T4A5RYZMH1",
@@ -8917,7 +9028,8 @@
     "grade": 5,
     "description": "Dodaje 3 odporności na 3 rundy.",
     "castTime": "Natychmiastowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "XAYSJ356JB8C3J85CDX3Z71FHN",
@@ -8925,7 +9037,8 @@
     "grade": 1,
     "description": "Za każde 3 staki zadaje 1k4 obrażeń od elektryczności, zdejmuje stacki z podmiotu.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "J4XM1DM3CCWNJEYCFSDFGR9A5N",
@@ -8933,7 +9046,8 @@
     "grade": 2,
     "description": "Za każde 3 staki zadaje 1k6 obrażeń od elektryczności, zdejmuje stacki z podmiotu.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "NA0D8V0246J3S788NM7XBHZ2HE",
@@ -8941,7 +9055,8 @@
     "grade": 1,
     "description": "Test Refleksu o ST=6. Nieudany dodaje 1k4w do obrażeń krytycznych.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "2PPM67854PWSR6GDNAQYEKS0KF",
@@ -8949,7 +9064,8 @@
     "grade": 2,
     "description": "Test Refleksu o ST=7. Nieudany dodaje 1k4w do obrażeń krytycznych.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "T938KR3Z4WAXCJPZ1B6PFFMQXD",
@@ -8957,7 +9073,8 @@
     "grade": 3,
     "description": "Test Refleksu o ST=8. Nieudany dodaje 1k4w do obrażeń krytycznych.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "RQCWX3WCDJ60EESFTVN31MB0FQ",
@@ -8965,7 +9082,8 @@
     "grade": 1,
     "description": "Podwaja obrażenia kości broni, ale odejmuje obrażenia na kość broni do obrażeń i sumarycznie tylko samo redukcji [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "C0658G3QHVXF2MGYV3J2SEDY2Z",
@@ -8973,7 +9091,8 @@
     "grade": 1,
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+0. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k6w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "ZFYZ8BQ7674BBPYT2P1HJGBFFD",
@@ -8981,7 +9100,8 @@
     "grade": 2,
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k10w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "DBDEH5WJ3TNTXNK7T2CYXY0TVS",
@@ -8989,7 +9109,8 @@
     "grade": 3,
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k14w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "649MCMADET7TQ5D2MQ5Q48H462",
@@ -8997,7 +9118,8 @@
     "grade": 1,
     "description": "Dodaje +1 do najbliższego testu Refleksu.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "6YK0E5AMTJHNNW0A18PN0DGF56",
@@ -9005,7 +9127,8 @@
     "grade": 2,
     "description": "Dodaje +2 do najbliższego testu Refleksu.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "E044G5XCGBEV6RFQ7ADQVGKQ8T",
@@ -9013,7 +9136,8 @@
     "grade": 1,
     "description": "Dodaje przerzut każdej kości na której nie wypadło trafienie krytyczne, ale siła krytyka -1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "8ABD01H7BW4B65GM7KZSVM3QRN",
@@ -9021,7 +9145,8 @@
     "grade": 1,
     "description": "Wybrana kość zadaje trafienie krytyczne.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "HNK7S1GMND37V8F8J2KJCTAE2K",
@@ -9029,7 +9154,8 @@
     "grade": 2,
     "description": "Wybrana kość zadaje trafienie krytyczne.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "2T3GR9B3ZZVR5FH5YKWSTQQ5C9",
@@ -9037,7 +9163,8 @@
     "grade": 3,
     "description": "Wybrana kość zadaje trafienie krytyczne.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "W0T3K255MJ51DRWRZDEGJ2H3PY",
@@ -9045,7 +9172,8 @@
     "grade": 1,
     "description": "Redukuje o połowe rany zadane w zdrowie [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "Z5DWWX7DPTB6SRJ86ZEEGKR74H",
@@ -9053,7 +9181,8 @@
     "grade": 1,
     "description": "Dodaje 1k6w obrażeń od zimna.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "KS3QSG61YE9BHFD06YWPYCBKQR",
@@ -9061,7 +9190,8 @@
     "grade": 2,
     "description": "Dodaje 1k8w obrażeń od zimna.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "Y8MSR7XB8PFV35X7K7YDDXMT68",
@@ -9069,7 +9199,8 @@
     "grade": 1,
     "description": "Test sporny Siła+Zrecznośc-5. Nieudany obniża inicjatywe o 1 za każde oczko straty w teście. Jeśli inicjatywa spadnie poniżej zera obala przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "0SS63ZA9244M6M6Q3QPJ09VQ6W",
@@ -9077,7 +9208,8 @@
     "grade": 2,
     "description": "Test sporny Siła+Zrecznośc-4. Nieudany obniża inicjatywe o 1 za każde oczko straty w teście. Jeśli inicjatywa spadnie poniżej zera obala przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "H7SJ7YSDX20PSN552CB5K9T3A8",
@@ -9085,7 +9217,8 @@
     "grade": 3,
     "description": "Test sporny Siła+Zrecznośc-3. Nieudany obniża inicjatywe o 1 za każde oczko straty w teście. Jeśli inicjatywa spadnie poniżej zera obala przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "JTE2CHHD5VTEPXGR186XQ7WZBB",
@@ -9093,7 +9226,8 @@
     "grade": 1,
     "description": "Odejmuje kość redukcji, Dodaje 10 redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FRMT79F9EW3K8NT6PRK7SRGSFK",
@@ -9101,7 +9235,8 @@
     "grade": 2,
     "description": "Odejmuje kość redukcji, Dodaje 12 redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "H97WPNDT3CCMZMGDFEZMVB5WG2",
@@ -9109,7 +9244,8 @@
     "grade": 3,
     "description": "Odejmuje kość redukcji, Dodaje 14 redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "B2MF00E0HN52BEHBZJ5PKC2EB2",
@@ -9117,7 +9253,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=10. Zadajeje 1 śmiertelnych obrażeń za każde 4 stacków Choroby każdej istocie w zasięgu 7 kroków.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "S7H50SF72SDFX866SQ511HJRK4",
@@ -9205,7 +9342,8 @@
     "castTime": "Standardowa",
     "requirements": "Większa Inicjatywa 3",
     "cooldown": null,
-    "price": 7
+    "price": 7,
+    "tags": []
   },
   {
     "id": "TZ4FKQNPC3CXRJ6K8SJBNRTS42",
@@ -9213,7 +9351,8 @@
     "grade": 1,
     "description": "Przeciwnik odrzuca kość z największym wynikiem oczek (używane przed rzutem) [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "NZZMT1SRMJ7JWVDGVQ90E3BMQD",
@@ -9221,7 +9360,8 @@
     "grade": 1,
     "description": "Dodaje 1 szansy uderzenia krytycznego za każdego członka stada atakującego ten sam cel.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "Q9CNPRJ4XJNB1SA96MSFXHTKG1",
@@ -9229,7 +9369,8 @@
     "grade": 2,
     "description": "Dodaje 1 szansy i 1 siły uderzenia krytycznego za każdego członka stada atakującego ten sam cel.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "BGG0XW6FF68CJP0MJHY9MMXJXZ",
@@ -9237,7 +9378,8 @@
     "grade": 3,
     "description": "Dodaje 1 szansy i 1 siły uderzenia krytycznego oraz 1 inicjatywy za każdego członka stada atakującego ten sam cel.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "275QHP6QCRRY5E8CGB950XKQ2R",
@@ -9245,7 +9387,8 @@
     "grade": 1,
     "description": "Odejmuje kość obrażeń. Zwiększa rangę kości broni o 2 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "NAT29BDKFRKRV6Q7N4B25S8BF0",
@@ -9253,7 +9396,8 @@
     "grade": 1,
     "description": "Zamienia jedną kość broni przeciwnika w kość obrażeń.",
     "castTime": "Pełnorundowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "JGB379G146VDPMB6NJMG3DCHXD",
@@ -9261,7 +9405,8 @@
     "grade": 1,
     "description": "Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=8, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "9BXD0N23GBNHEPB2Z5P2B71F36",
@@ -9269,7 +9414,8 @@
     "grade": 2,
     "description": "Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=9, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "DA5XNEMZAER45JV3CMWQQP04H4",
@@ -9277,7 +9423,8 @@
     "grade": 3,
     "description": "Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=10, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "YJKTTZABA8A41BP2BPJHRPG6CS",
@@ -9285,7 +9432,8 @@
     "grade": 1,
     "description": "Test refleksu o ST=8. Nieudany powoduje zadanie 1k10w obrażeń. Test wytrwałości o ST=8 za każde oczko różnicy w przegranym teście 1 stack choroby.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "W4SCRAKA9ZBEMQ7W7BGP5CM1YW",
@@ -9306,7 +9454,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=2. Nieudany oznacza utrate 1 kości broni.",
     "castTime": "Standardowa",
-    "cooldown": 8
+    "cooldown": 8,
+    "tags": []
   },
   {
     "id": "XJH0T79J13TG19K73A8TENQWFR",
@@ -9314,7 +9463,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=4. Nieudany oznacza utrate 1 PL.",
     "castTime": "Standardowa",
-    "cooldown": 8
+    "cooldown": 8,
+    "tags": []
   },
   {
     "id": "2BC1GXHP0FJ64CGAWYWGNE4ECD",
@@ -9322,7 +9472,8 @@
     "grade": 1,
     "description": "Obrażenia w zdrowie. Test Refleksu o ST=7. Nieudany wymusza test wytrwałości o ST=8 + znamiona jadu. Za każde oczko straty obniża 1 obrażeń na kość, 1 redukcji z uników, zadaje 1k4 śmiertelnych obrażeń i nakłada 1 znamie jadu 1//4].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "JPX0V0091XKT5WHDJMQ83DXMJ8",
@@ -9330,7 +9481,8 @@
     "grade": 2,
     "description": "Obrażenia w zdrowie. Test Refleksu o ST=8. Nieudany wymusza test wytrwałości o ST=9 + znamiona jadu. Za każde oczko straty obniża 1 obrażeń na kość, 1 redukcji z uników, zadaje 1k4 śmiertelnych obrażeń i nakłada 1 znamie jadu 1//4].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "YRCSCJ0CYN5JE9A3NK9CCXMVJF",
@@ -9338,7 +9490,8 @@
     "grade": 3,
     "description": "Obrażenia w zdrowie. Test Refleksu o ST=9. Nieudany wymusza test wytrwałości o ST=10 + znamiona jadu. Za każde oczko straty obniża 1 obrażeń na kość, 1 redukcji z uników, zadaje 1k4 śmiertelnych obrażeń i nakłada 1 znamie jadu 1//4].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "KNCB8AXJC05D2Q20A4001SR4CK",
@@ -9346,7 +9499,8 @@
     "grade": 1,
     "description": "Dodaje redukcje 1 kości i 1 odporności [].",
     "castTime": "Pełnorundowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "BM0KAYWW0X276DNNH0MJN4RNMM",
@@ -9354,7 +9508,8 @@
     "grade": 2,
     "description": "Dodaje redukcje 1 kości i 2 odporności [].",
     "castTime": "Pełnorundowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FBESR8ATF4JD29GKCPR3KSSMDH",
@@ -9362,7 +9517,8 @@
     "grade": 3,
     "description": "Dodaje redukcje 1 kości i 3 odporności [].",
     "castTime": "Pełnorundowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "XA6ZK37XYWVMQB946C303HSRNH",
@@ -9372,7 +9528,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Krytyczne Pudło 1",
     "cooldown": 5,
-    "price": 3
+    "price": 3,
+    "tags": []
   },
   {
     "id": "529Y42JRP9BZ9QK3B378NC1ES4",
@@ -9380,7 +9537,8 @@
     "grade": 1,
     "description": "Zmniejsza czas odnowienia innych manewrów o 1.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "1KJ53BYZQXB2004BX29KNQ8ADD",
@@ -9388,7 +9546,8 @@
     "grade": 2,
     "description": "Zmniejsza czas odnowienia innych manewrów o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "FVWBN5A1V0KGZRGM4WG5CQM705",
@@ -9396,7 +9555,8 @@
     "grade": 3,
     "description": "Zmniejsza czas odnowienia innych manewrów o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "48CBW5RANHG08M9QRBCM7N0G5P",
@@ -9404,7 +9564,8 @@
     "grade": 4,
     "description": "Zmniejsza czas odnowienia innych manewrów o 2.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "Q7W3BEJAJPMXGZGMDZCKFB5J6C",
@@ -9412,7 +9573,8 @@
     "grade": 5,
     "description": "Zmniejsza czas odnowienia innych manewrów o 2.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "1Z0DWG3HGZWC6ZGA3354RZY0Y7",
@@ -9420,7 +9582,8 @@
     "grade": 1,
     "description": "Zadaje PL obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "A76RV4JNAHWGRFX8TV27MJB0NB",
@@ -9428,7 +9591,8 @@
     "grade": 2,
     "description": "Zadaje PL obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "F34B3D7HGSCR83WBQZ20WPPJQ4",
@@ -9436,7 +9600,8 @@
     "grade": 3,
     "description": "Zadaje PL obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "7J3KPGAR0GCRAWS5HG80S97ZPK",
@@ -9444,7 +9609,8 @@
     "grade": 1,
     "description": "Zamienia kość obrażeń na kość broni, a każda redukcja kości przeciwnika zmniejsza siłę krytyka o 2.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "J8RT2KSCGGQ0R2PMN1PPESDKRY",
@@ -9452,7 +9618,8 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń k4 do siły krytyka oraz przeciwnik otrzymuje karę -5 do rzutu k30 na skutki efektu krytycznego.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "6TK4Y1N7M4AGS8EBYA51J3W7TT",
@@ -9460,7 +9627,8 @@
     "grade": 1,
     "description": "Przy ataku w plecy zamiast bonusu kość broni podwaja bonus siły krytyka i dodaje 2 siły krytyka [1//Atak w Plecy].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FEB2FQ6JYRJ5QNMGGN80GXPWVW",
@@ -9468,7 +9636,8 @@
     "grade": 1,
     "description": "Test woli o ST=8. Zadaje 1k4 prawdziwych obrażeń za każde oczko straty.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "JSSS19J7CR6988FCZVG9TW5YAY",
@@ -9476,7 +9645,8 @@
     "grade": 1,
     "description": "Atak zadaje obrażenia wszystkim istotą w stożku (90* 8 kroków).",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "DX1THCVFCVGZ7WWERAFCBW2XF9",
@@ -9484,7 +9654,8 @@
     "grade": 2,
     "description": "Atak zadaje obrażenia wszystkim istotą w stożku (90* 8 kroków).",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "ZVKG9C4FE9KMDPX90B9R93JDD0",
@@ -9492,7 +9663,8 @@
     "grade": 1,
     "description": "Tworzy aurę zadającą 1k6 prawdziwych obrażeń wszystkim w okolicy 6 metrów.",
     "castTime": "Standardowa",
-    "cooldown": "10e"
+    "cooldown": "10e",
+    "tags": []
   },
   {
     "id": "6XATFXHB5XPYXR6AQNYKDSKVFG",
@@ -9500,7 +9672,8 @@
     "grade": 1,
     "description": "Akcja Całorundowa. Atak dystansowy +3, 4 cele w zasięgu 13 kroków. Udany powoduje test wytrwałości o ST=7+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "KCXPB3M6N514CPMJKQ2BY2WCD2",
@@ -9508,7 +9681,8 @@
     "grade": 2,
     "description": "Akcja Całorundowa. Atak dystansowy +4, 5 celów w zasięgu 15 kroków. Udany powoduje test wytrwałości o ST=8+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "M9F9GXQFPQTZ7ZQMPJ3AX4FK0F",
@@ -9516,7 +9690,8 @@
     "grade": 1,
     "description": "Wszyskie cele w promieniu 5 kroków. Test sporny wytrwałości. Wygrany powoduje obniżenie siły o 1 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "HG06DXM2DD24T7BTXQYQ9CJZE3",
@@ -9524,7 +9699,8 @@
     "grade": 2,
     "description": "Wszyskie cele w promieniu 5 kroków. Test sporny wytrwałości+1. Wygrany powoduje obniżenie siły o 1 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "HVWK36XRXYB1G3F3ZHS7WAFNC6",
@@ -9532,7 +9708,8 @@
     "grade": 1,
     "description": "Test refleksu o ST=14-(1 za każdy krok odległości od bazyliszka). Test wytrzymałości o ST = 9. Za każde oczko straty otrzymuje się karę 1 do uników, parowania i blokowania (jeśli jest). W przypadku gdy wartość kary będzie równa wartości wytrwałości to zostaje się sparaliżowanym.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "P18M3DRGZ7W9EF5HHVYT377Z52",
@@ -9540,7 +9717,8 @@
     "grade": 1,
     "description": "Dodaje zasięg krytyka do odporności.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "DG56DE7G4QFXY3E7DJXYXQDZY5",
@@ -9548,7 +9726,8 @@
     "grade": 1,
     "description": "Test sporny siły. Zadaje 1 dmg za każde oczko przewagi max 10. Przy 10 powala przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "E77K09YADXW1H4QT9H9A15DEKD",
@@ -9556,7 +9735,8 @@
     "grade": 1,
     "description": "Dodaje kość broni, atakujesz do 2 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "PQJE85CCSV4AZWFRBZ0W4B52KJ",
@@ -9564,7 +9744,8 @@
     "grade": 2,
     "description": "Dodaje kość broni, atakujesz do 3 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "W07020AJ5SYMJDAVWSNHTAGSVM",
@@ -9572,7 +9753,8 @@
     "grade": 3,
     "description": "Dodaje kość broni, atakujesz do 4 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "6YDBMWR63TJ6GZE73ASS2GYJ0N",
@@ -9606,7 +9788,8 @@
     "grade": 1,
     "description": "Test wytrwałości/refleksu o ST=16. Nieudany powoduje dodanie kości obrażeń k20 [5e 1//3].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "G1M5VFTXFQF1T8FXZZZ85AP8S5",
@@ -9614,7 +9797,8 @@
     "grade": 1,
     "description": "Dodaje 2 odporności -1 inicjatywy.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "6EMDWY05KMFDE3RTF5B8MVGXZK",
@@ -9622,7 +9806,8 @@
     "grade": 1,
     "description": "Rozpościera Chorobe na wszystkie cele w zasięgu 2 kroków. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "ENVTEY69FDKVWR54DRW4107VYE",
@@ -9630,7 +9815,8 @@
     "grade": 2,
     "description": "Rozpościera Chorobe na wszystkie cele w zasięgu 12 kroków. Dodaje dodatkowo 2 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "GXER7EKD44VS4D4FF3ZDVHJ927",
@@ -9638,7 +9824,8 @@
     "grade": 3,
     "description": "Rozpościera Chorobe na wszystkie cele w zasięgu 30 kroków. Dodaje dodatkowo 3 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "S8WTMVZWGKTC3DMS5CYPZFPB67",
@@ -9646,7 +9833,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=(Ilość Stacków)/2. Za każde oczko różnicy w przegranym teście -1S i -1Zr.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "C69DG32ZSHZV5HNVY7KY8FCFD9",
@@ -9654,7 +9842,8 @@
     "grade": 1,
     "description": "Dodaje redukcję 4 na kość broni i 1 na kość zaklęcia [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "ZJT8NE3T8GT2KAJ9C6RVQGNJ00",
@@ -9700,7 +9889,8 @@
     "name": "Na Dwuręczną I Jednoręczną",
     "grade": 1,
     "description": "Dzwignia i atak cos fajnego.",
-    "castTime": "Standardowa"
+    "castTime": "Standardowa",
+    "tags": []
   },
   {
     "id": "2W330Z2DNATKKCYVYY4210MBHH",
@@ -9708,7 +9898,8 @@
     "grade": 1,
     "description": "Przy śmierci eteycznego, zadający obrażenia, znajdujący się w odległości 2 kroków musi wykonać test wytrawałości o ST=8. Nieudany oznacza doodanie 5 stacków choroby [1//].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FPYYC2AEA2FM7K17SVHFJWF7SX",
@@ -9716,7 +9907,8 @@
     "grade": 2,
     "description": "Test sporny Mod Reflesu+Mod Siły przeciwko fechtunkowi/refleksowi przeciwnika za każde oczko przewagi dodatkowo +2 obrażenia.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "ERF4TSVY92580M5HSGEDM6MN92",
@@ -9726,7 +9918,8 @@
     "castTime": "Standardowa",
     "requirements": "Wymuszenie Fechtowania",
     "cooldown": 4,
-    "price": 4
+    "price": 4,
+    "tags": []
   },
   {
     "id": "BPQWN655BGNRZXTEDFQW6K82ZW",
@@ -9736,7 +9929,8 @@
     "castTime": "Standardowa",
     "requirements": "Ukratkowy Atak 2",
     "cooldown": 4,
-    "price": 2
+    "price": 2,
+    "tags": []
   },
   {
     "id": "838S43A683YQKSAGBFASXA3ZSM",
@@ -9744,7 +9938,8 @@
     "grade": 1,
     "description": "Test refleksu+1 vs refleks, dodaje obrażenia równe wytrwałości, efekt krytyczny powoduje powalenie.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "5K7T9QJ8YY1YNQGGKHSM79J4XT",
@@ -9752,7 +9947,8 @@
     "grade": 2,
     "description": "Test refleksu+2 vs refleks, dodaje obrażenia równe wytrwałości, efekt krytyczny powoduje powalenie.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "8ZTBX5X74J0GTTYHQST2HZJ9NK",
@@ -9760,7 +9956,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=6. Nieudany oznacza utrate 1 redukcji z uników co rundę. Możliwość powtażania testu ze skalą-1 w każdej kolejnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "1AFYJGNAQAYQTYPP3YJXNMWND9",
@@ -9768,7 +9965,8 @@
     "grade": 1,
     "description": "Powoduje zwiększenie ST Spojrzenia Plugawiciela o 1.",
     "castTime": "Natychmiastowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "AA09MPMNW114WN2V1Q2WTCV5DY",
@@ -9776,7 +9974,8 @@
     "grade": 1,
     "description": "Zamienia kości broni na kości obrażeń, podnosi rangę kości obrażeń o 2 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "P8BJ5FE4BJ2DXQHMWT32ZE7MRK",
@@ -9784,7 +9983,8 @@
     "grade": 2,
     "description": "Zamienia kości broni na kości obrażeń, podnosi rangę kości obrażeń o 3 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FRWV1JREXTS4QCXWAZHEY0CDK9",
@@ -9792,7 +9992,8 @@
     "grade": 3,
     "description": "Zamienia kości broni na kości obrażeń, podnosi rangę kości obrażeń o 4 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "NJNRXQ236WV413P5123QX544HK",
@@ -9800,7 +10001,8 @@
     "grade": 1,
     "description": "Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "X8AN50RXV6WYV5KXPEQVD9N1NN",
@@ -9808,7 +10010,8 @@
     "grade": 2,
     "description": "Test siły/refleksu+1 vs parowanie. Udany powoduje ominięcie parowania przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "TA44JJYS8Y38274ZXFR32NBB26",
@@ -9816,7 +10019,8 @@
     "grade": 3,
     "description": "Test siły/refleksu+2 vs parowanie. Udany powoduje ominięcie parowania przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "6DEV0ARP7Q5TDD96R6GH259Z59",
@@ -9824,7 +10028,8 @@
     "grade": 1,
     "description": "Dodaje odporność równą 10% zadanych obrażeń na tą albo następną.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "30805KF07WXBA85329FKM8N8S1",
@@ -9871,7 +10076,8 @@
     "grade": 1,
     "description": "Dodaje poziom leczenia do redukcji.",
     "castTime": "Natychmiastowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "WGG5H6RRHJ04Y4QAQ5JQ14X7RV",
@@ -9879,7 +10085,8 @@
     "grade": 1,
     "description": "Blokuje następny manewr ofensywny przeciwnika.",
     "castTime": "Natychmiastowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "F0QWR5KPZ3PBCC7MN6BA22FDVF",
@@ -9887,7 +10094,8 @@
     "grade": 1,
     "description": "Do 2 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "QEFKP0K89B360HBCS35RQWSCK4",
@@ -9895,7 +10103,8 @@
     "grade": 2,
     "description": "Do 3 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "AX7M4DXYF9Y678WSE9Z81ST2Q8",
@@ -9903,7 +10112,8 @@
     "grade": 3,
     "description": "Do 4 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "N4MXWNQT7GHPG0Y22MJ1ZT30HJ",
@@ -9911,7 +10121,8 @@
     "grade": 4,
     "description": "Do 5 celi. Wygrany test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "8MMCT0WRHPEPMGQCCBVR15R0Q1",
@@ -9957,7 +10168,8 @@
     "grade": 1,
     "description": "Zwiększa rangę kości choroby o 1. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "V7VCCG8CYD1ZDYVJGZRWZ7HJ2R",
@@ -9965,7 +10177,8 @@
     "grade": 2,
     "description": "Zwiększa rangę kości choroby o 2. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "RGJFDVST4Z0EPW2C8VMEW7A8SM",
@@ -9973,7 +10186,8 @@
     "grade": 3,
     "description": "Zwiększa rangę kości choroby o 3. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "YT3HKNBKJGQWG87YWTFMCM62NJ",
@@ -9981,7 +10195,8 @@
     "grade": 1,
     "description": "Atak z precyzją = 6. Zadaje 1k4 pernamentnych obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "WG298509ZAYVNR8M3CMGBRF3AM",
@@ -9989,7 +10204,8 @@
     "grade": 1,
     "description": "Powoduje 3 razy Spojrzenie Plugawiciela [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "MWE61EY996Q0XF14AXBFESGTD7",
@@ -9997,7 +10213,8 @@
     "grade": 1,
     "description": "Zadaje 1 prawdziwych obrażeń każdemu atakującemu w odległości 3 kroków. Dodaje 2 odporności.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "8KNTT6SDWS8R1KRH4B4YFDVHWW",
@@ -10005,7 +10222,8 @@
     "grade": 2,
     "description": "Zadaje 2 prawdziwych obrażeń każdemu atakującemu w odległości 3 kroków. Dodaje 3 odporności.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "8SDFMP1AQXEM41MJ9D380FB8HD",
@@ -10013,7 +10231,8 @@
     "grade": 3,
     "description": "Zadaje 3 prawdziwych obrażeń każdemu atakującemu w odległości 3 kroków. Dodaje 4 odporności.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "G8P9V4FDT5QB80J6NAPWEY2EAN",
@@ -10021,7 +10240,8 @@
     "grade": 1,
     "description": "Jeżeli przeciwnik zostaje otoczony z 4 stron. Dodaje kość 1k10w.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "W55AZASWCSMB83F5VZRZ21FR7W",
@@ -10029,7 +10249,8 @@
     "grade": 1,
     "description": "Odejmuje 10 redukcji dodaje kośc redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "2K56GZ3HA5G9MT0QYYTFWN8NZD",
@@ -10037,7 +10258,8 @@
     "grade": 2,
     "description": "Odejmuje 8 redukcji dodaje kośc redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "ZT4G7REZV4HHDE34FDEWK658TW",
@@ -10045,7 +10267,8 @@
     "grade": 3,
     "description": "Odejmuje 6 redukcji dodaje kośc redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "ZWT3X4YQE70TQANF19CXX0M8C0",
@@ -10053,7 +10276,8 @@
     "grade": 1,
     "description": "Atak magiczny dystansowy+1. Za każde sześć kroków odległości od bazyliszka -1 precyzja. Test wytrzymałości o ST = 10. Za każde oczko straty otrzymuje się karę 1 do uników, parowania i blokowania (jeśli jest). W przypadku gdy wartość kary będzie równa wartości wytrwałości to zostaje się sparaliżowanym.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "QYFHS4BAEN4S960G00W7RDZWJF",
@@ -10061,7 +10285,8 @@
     "grade": 1,
     "description": "Dodatkowy test morale.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "8TMDWQ3057JBNBRS69BEWC1QJW",
@@ -10069,7 +10294,8 @@
     "grade": 2,
     "description": "Dodatkowy test morale z bonusem 1.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "5TGJEHCKM44GTA1ZQ8VB58JHNT",
@@ -10077,7 +10303,8 @@
     "grade": 3,
     "description": "Dodatkowy test morale z bonusem 2.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "HJBJKC0TTVZT0WX9B0F4WGYZPG",
@@ -10085,7 +10312,8 @@
     "grade": 1,
     "description": "Dodaje kość obrażeń k4. Zamaiast szarży.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "D4P8RJGVA2DTSDNNPWSD2EBGSR",
@@ -10093,7 +10321,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=12. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e"
+    "cooldown": "8e",
+    "tags": []
   },
   {
     "id": "ZJXXRQ69AGGZ2A43BEYZVKPV56",
@@ -10101,7 +10330,8 @@
     "grade": 2,
     "description": "Test wytrwałości o ST=14. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e"
+    "cooldown": "8e",
+    "tags": []
   },
   {
     "id": "6N8H9HPPRJYM565EMPAT233F3P",
@@ -10109,7 +10339,8 @@
     "grade": 3,
     "description": "Test wytrwałości o ST=16. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e"
+    "cooldown": "8e",
+    "tags": []
   },
   {
     "id": "FE8QCC3ZG5J8RHZV48YZ2NXCA9",
@@ -10117,7 +10348,8 @@
     "grade": 4,
     "description": "Test wytrwałości o ST=18. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": "8e"
+    "cooldown": "8e",
+    "tags": []
   },
   {
     "id": "3CSMDQVTY3MPV8Q8DQBW3X6BN7",
@@ -10125,7 +10357,8 @@
     "grade": 1,
     "description": "Dodaje 2 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "VSQ26K74Z8NT5GBTVBQYAPR2J8",
@@ -10133,7 +10366,8 @@
     "grade": 2,
     "description": "Dodaje 3 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "Q98HFPM0CJ8B2SRR175A65KQ9B",
@@ -10141,7 +10375,8 @@
     "grade": 3,
     "description": "Dodaje 4 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "0CW74N82EJTC0DESW3W7TF1H86",
@@ -10149,7 +10384,8 @@
     "grade": 1,
     "description": "Dodaje 1 redukcji za każdy stack choroby względem wybranego przeciwnika [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "9Z0KJV749MX1SKXYMYCVKN0CC4",
@@ -10159,7 +10395,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Perfekcja 1",
     "cooldown": 5,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "SPBRH16WYRH2NEM735AW7TQ1ME",
@@ -10169,7 +10406,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Perfekcja 1",
     "cooldown": 5,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "W0GPXTE17YNYRV6JRKNDN1EGZV",
@@ -10177,7 +10415,8 @@
     "grade": 1,
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1. Nieudany powoduje pochwycenie Szczęk. Test można powtarzać co rundę aby wyrwać się z pochwycenia. Zmniejsza redukcje jednej kości podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "QHNAXTJH37NSTRWGGDC4D90W52",
@@ -10185,7 +10424,8 @@
     "grade": 2,
     "description": "Test Refleksu o ST=8, Nieudany powoduje test sporny siłowy+1. Nieudany powoduje pochwycenie Szczęk. Test można powtarzać co rundę aby wyrwać się z pochwycenia. Zmniejsza redukcje jednej kości podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "M8Y47R6281V5JGD0APWHJ51Y3G",
@@ -10193,7 +10433,8 @@
     "grade": 3,
     "description": "Test Refleksu o ST=8, Nieudany powoduje test sporny siłowy+2. Nieudany powoduje pochwycenie Szczęk. Test można powtarzać co rundę aby wyrwać się z pochwycenia. Zmniejsza redukcje jednej kości podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "8222GG05S7QA36K9GSW4MSPJJA",
@@ -10202,7 +10443,8 @@
     "description": "W przypadku podduszenia zmniejsza o 1 test siłowy ale dodaje 1k4p obrażeń.",
     "castTime": "Standardowa",
     "requirements": "+",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "J0PYAJN6CESGGZ6DXA7TPCAJW0",
@@ -10210,7 +10452,8 @@
     "grade": 2,
     "description": "W przypadku podduszenia zmniejsza o 2 test siłowy ale dodaje 2k4p obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "6TQ048NFMYDPPY2FZHP8WEQNAJ",
@@ -10218,7 +10461,8 @@
     "grade": 3,
     "description": "W przypadku podduszenia zmniejsza o 3 test siłowy ale dodaje 3k4p obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "3X6NJFNQZY6QQP46YK532H3T6C",
@@ -10226,7 +10470,8 @@
     "grade": 1,
     "description": "Test sporny siły vs Siła/Refleks. Przegrany powoduje -4 redukcji z uników.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "0C8BC96GKSGCB3WSR0RTC2KFRE",
@@ -10234,7 +10479,8 @@
     "grade": 1,
     "description": "Wygrany test sporny refleksu vs uniki powoduje ominiecie uników przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "M2G3QEPGC64E77ACB8R8XBCPE2",
@@ -10242,7 +10488,8 @@
     "grade": 1,
     "description": "Akcji Całorundowa. Atak dystansowy +4, w zasięgu 15 kroków. Zadaje 6k6w+18 obrażeń. Możliwość rzucenia w Akcji 2 rundowej z rangą kości podniesioną o 2 [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "VXN18V0A2G0NW5CGFP157S5YY3",
@@ -10250,7 +10497,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=9. Zadaje śmiertelne obrażenia równe 2 x poziom leczenia podmiotowi zemsty.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "56W2DERS9MJYDJW1644KK2HJ6F",
@@ -10258,7 +10506,8 @@
     "grade": 1,
     "description": "Dodaje 1 kość redukcji [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "QTV5J7RJDQWFSKQCF3TWWJNTJP",
@@ -10266,7 +10515,8 @@
     "grade": 1,
     "description": "Test Refleksu o St=7. Nieudany powoduje kare -2 redukcji i -2dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "Q0PXBZAXQWADKQGYK2KSG3MSM7",
@@ -10274,7 +10524,8 @@
     "grade": 2,
     "description": "Test Refleksu o St=8. Nieudany powoduje kare -3 redukcji i -3dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "Z8DGRQWXRXW9KJDK8HVE3AWJXA",
@@ -10282,7 +10533,8 @@
     "grade": 1,
     "description": "Zadaje 1k4w obrażeń na wybraną kość broni [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "4MVSD5EC8N67WXQZBPYVQ28MH0",
@@ -10290,7 +10542,8 @@
     "grade": 2,
     "description": "Zadaje 1k4w obrażeń na każdą kość broni [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "3HJ9BVX0PV9HBGJ2WD0C3Y6HQY",
@@ -10298,7 +10551,8 @@
     "grade": 1,
     "description": "Dodaje 2 reducji w przypadku pochwycenia.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "R8HCMMK5FN7ZFB3YXVV2VFH2JM",
@@ -10306,7 +10560,8 @@
     "grade": 1,
     "description": "Zabiera 1 siły krytyka a dodaje 1 na kość broni.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "DTGS6BNZQJDTJBBFDW2T4XMZFR",
@@ -10314,7 +10569,8 @@
     "grade": 1,
     "description": "Atak do 3 celi. Atak dystansowy +2. Zadaje 1k20w obrażeń. [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "7Z4CQH6XHSW1Q1WN2K4KF23EFA",
@@ -10322,7 +10578,8 @@
     "grade": 1,
     "description": "Test siły-1 vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "BNJMQ191Y0ZW59AKCAQC9YBB1W",
@@ -10330,7 +10587,8 @@
     "grade": 2,
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "FAKM8FJJ3DVV6TA2BBM6SGDJR9",
@@ -10338,7 +10596,8 @@
     "grade": 3,
     "description": "Test siły+1 vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "SKT2C0NV5NMFQED6QBYNTCKB2Z",
@@ -10346,7 +10605,8 @@
     "grade": 1,
     "description": "Rozporszenie magii 1k6+4. [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "G70S3BM7RKHZ1CBFYHT3W4AQ9N",
@@ -10354,7 +10614,8 @@
     "grade": 2,
     "description": "Rozporszenie magii 1k6+5. [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "JGQ18D1FF475KS44A281HE7QYE",
@@ -10362,7 +10623,8 @@
     "grade": 1,
     "description": "Akcja Całorundowa. Stożek (90* 7kroków). Zadaje 5k4w +18. Test refleksu na krańcach o ST=7. Za każde oczko przewagi -1 kość zaklęcia. [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "15MJWHJASRNRF9HHAMPMB8B80C",
@@ -10370,7 +10632,8 @@
     "grade": 1,
     "description": "Dodaje 1k8 redukcji [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "HRFZKJZTJYQ3KERB0NXBXCH5PC",
@@ -10378,7 +10641,8 @@
     "grade": 1,
     "description": "Dodaje 2 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "455XTTMEKW3PDPFJ2P9F7FBAYC",
@@ -10386,7 +10650,8 @@
     "grade": 1,
     "description": "Test sporny wytrwałość o ST=7. Dodaje 2k6 widmowych kości obrażeń. ST jest zwiększona za każdą poprzednią przebrzydłość użytą na danym wrogu.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "1DTV8F9VP2TNBWP2YGW8Q7K88K",
@@ -10394,7 +10659,8 @@
     "grade": 1,
     "description": "Atak dotykowy z precyzją =6. Zadaje 1 pernamentnych obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "BNA9DNH5TNJDY2KP7VGG1YJF2S",
@@ -10402,7 +10668,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST=5. Nieudany oznacza utrate 1 obrażeń co rundę. Możliwość powtażania testu ze skalą-1 w każdej kolejnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "BSQ0ED227NSYK57Q97WY3QBJZS",
@@ -10410,7 +10677,8 @@
     "grade": 2,
     "description": "Test wytrwałości o ST=9, nieudany powoduje podwojenie obrażeń zadanych w zdrwie podmiotu zemsty.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "2200J3HN40VWHQEGD2S4822T59",
@@ -10431,7 +10699,8 @@
     "grade": 1,
     "description": "Test sporny siły, za każde oczko przewagi dodaje jeden redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "1ZEX201JAEGND5XBPGZHFNYT56",
@@ -10439,7 +10708,8 @@
     "grade": 1,
     "description": "Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "BY3QM6Z6WV60BH2E6E7Y083RAE",
@@ -10460,7 +10730,8 @@
     "grade": 1,
     "description": "Dodaje +2dmg, -2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "4QV5TW7G7KQ4FBWDFVX89420MN",
@@ -10468,7 +10739,8 @@
     "grade": 2,
     "description": "Dodaje +3dmg, -2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "TC4ECHZ26740KGD43CGE3HTQGW",
@@ -10476,7 +10748,8 @@
     "grade": 3,
     "description": "Dodaje +4dmg, -2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "8EEJ9QP581R33RW4B86MPV8HET",
@@ -10484,7 +10757,8 @@
     "grade": 4,
     "description": "Dodaje +5dmg, -2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "9NZX5B1362WQDMR1964ZF2P1J9",
@@ -10492,7 +10766,8 @@
     "grade": 1,
     "description": "Dodaje +2dmg, -2 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "13MEBJHHGD0914HGTHQV29K5F9",
@@ -10500,7 +10775,8 @@
     "grade": 2,
     "description": "Dodaje +3dmg, -3 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "YY30NG81QW3VHPNMW411KCK299",
@@ -10508,7 +10784,8 @@
     "grade": 3,
     "description": "Dodaje +4dmg, -4 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "DZS75HBNFKSJQM1Z8CJJNQGTNF",
@@ -10516,7 +10793,8 @@
     "grade": 4,
     "description": "Dodaje +5dmg, -5 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "V56XFY37FDH6JMXMENPJNQ5QY4",
@@ -10524,7 +10802,8 @@
     "grade": 5,
     "description": "Dodaje +6dmg, -6 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "XXW3GZ66YTVBTB2FRW9FRR7YX1",
@@ -10532,7 +10811,8 @@
     "grade": 1,
     "description": "Dodaje , +2 redukcji -2dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "J54RHFFC2TZSK2FDFYN119TYXG",
@@ -10540,7 +10820,8 @@
     "grade": 2,
     "description": "Dodaje , +3 redukcji -2dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "KBF127EEAMHNN6VJKWMSNA27FZ",
@@ -10548,7 +10829,8 @@
     "grade": 3,
     "description": "Dodaje , +5 redukcji -2dmg.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "FYW9AXRAADB7KYQM4TNBYB7TV0",
@@ -10556,7 +10838,8 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń o randze wytrwałość/2 ale odejmuje 5 redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "FP3A2J5DE7VFDDXRESA27AMBJG",
@@ -10564,7 +10847,8 @@
     "grade": 1,
     "description": "Nova promień 5 kroków. Zadaje 2k6w+9 obrażeń. Na krańcach test refleks ST=8. Udany neguje obrażenia [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "DTSE5QZXZF14QXJQHF4N5QX6SN",
@@ -10572,7 +10856,8 @@
     "grade": 1,
     "description": "Zadaje każdemu w odległości 4 kroków 1 obrażeń od elektryczności za każdy stack, zdejmuje stacki z podmiotów.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "NS3PD7DV899V48KG3Z0STB5HJM",
@@ -10580,7 +10865,8 @@
     "grade": 1,
     "description": "Dodaje 2dmg na każdą kość redukcji wroga.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "K683G1CKN43AACTWBAQQFPHP2Q",
@@ -10588,7 +10874,8 @@
     "grade": 1,
     "description": "Dodaje do aury ognia 1k4 obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "Q6NKNEGGK0PYSCJV8EBRRD5EMA",
@@ -10596,7 +10883,8 @@
     "grade": 2,
     "description": "Dodaje do aury ognia 1k4+1 obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "8665DT0K93F8EK9JBHYDHT0BS6",
@@ -10604,7 +10892,8 @@
     "grade": 3,
     "description": "Dodaje do aury ognia 1k4+2 obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "CWGMW0SG6A3DGDPXFQXDFJ75AP",
@@ -10612,7 +10901,8 @@
     "grade": 1,
     "description": "Dodaje dwie kości broni, atakujesz do 2 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "D9DP50V4BBP7K3FSZY7C0CYVX1",
@@ -10620,7 +10910,8 @@
     "grade": 2,
     "description": "Dodaje dwie kości broni, atakujesz do 3 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "015MSDB0Z36KZF01GW2H5MMY4R",
@@ -10628,7 +10919,8 @@
     "grade": 3,
     "description": "Dodaje dwie kości broni, atakujesz do 4 celi. Dzielisz obrażenia na połowę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "FN76Y126P3JHZDA7KWD5RPYEVV",
@@ -10636,7 +10928,8 @@
     "grade": 1,
     "description": "Test Refleksu o ST=6. Nieudany dodaje 2 stacki.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "7Q0B0VJK02N5KG0REDTPGWF3D0",
@@ -10644,7 +10937,8 @@
     "grade": 2,
     "description": "Test Refleksu o ST=7. Nieudany dodaje 3 stacki.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "TT0GT5PXV589BDMZHZRNDQXV9K",
@@ -10652,7 +10946,8 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń k4.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "GCDSGNA1XTYXDA5VY1TWREKJ70",
@@ -10660,7 +10955,8 @@
     "grade": 2,
     "description": "Dodaje widmową kość obrażeń k6.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "MM1K0XHMHP3V54WWVF2RDWJQQG",
@@ -10668,7 +10964,8 @@
     "grade": 3,
     "description": "Dodaje widmową kość obrażeń k8.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "KERAQM1K74NRG83QS9NRT5G134",
@@ -10676,7 +10973,8 @@
     "grade": 4,
     "description": "Dodaje widmową kość obrażeń k10.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "ZNJBA32JA42DVHHJAMV9BFAYHC",
@@ -10684,7 +10982,8 @@
     "grade": 1,
     "description": "Dodaje 20% obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "QVWY035N618Y3PPGF747V1RD7J",
@@ -10692,7 +10991,8 @@
     "grade": 1,
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=5+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "G2Y6G8AF6PXZVHYRT8VBMM7Q3X",
@@ -10700,7 +11000,8 @@
     "grade": 2,
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=6+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "SZJGDYF7RTSP0MP07WAEYY1N5N",
@@ -10708,7 +11009,8 @@
     "grade": 3,
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=7+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "QB9E42WZ3FX21N86WG17G377KF",
@@ -10716,7 +11018,8 @@
     "grade": 4,
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=8+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "2XQ0ZMS17SHN1PA8HGX10J9V1M",
@@ -10724,7 +11027,8 @@
     "grade": 1,
     "description": "Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "D1TV34JF8YTYMGNDZYD1GZ60EH",
@@ -10732,7 +11036,8 @@
     "grade": 2,
     "description": "Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "43EC9F51D9RKZA01TG809T8YAJ",
@@ -10740,7 +11045,8 @@
     "grade": 1,
     "description": "Dodaje obrażenia równe przewadze inicjatywy nad przeciwnikiem.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "FV8XTTE97HAHD6CMK2NRWVS29E",
@@ -10787,7 +11093,8 @@
     "grade": 1,
     "description": "Jeden cel. Test sporny woli. Obniża wolę przeciwnika o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "4CCK9Y024HMS7E8V3GNZCRQ404",
@@ -10797,7 +11104,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Riposta 2",
     "cooldown": 6,
-    "price": 3
+    "price": 3,
+    "tags": []
   },
   {
     "id": "MX2Y5XZYRN9T06NF4JA7FRWFW1",
@@ -10807,7 +11115,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Wymuszenie Fortelu",
     "cooldown": 4,
-    "price": 4
+    "price": 4,
+    "tags": []
   },
   {
     "id": "10K80W2H1EY8N39X7B42ZHZD29",
@@ -10815,7 +11124,8 @@
     "grade": 1,
     "description": "Dodaje kość broni, odbiera 1 obrażeń na kość broni.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "QSCFFB6QVAE97RAQQVD14A4Z9W",
@@ -10823,7 +11133,8 @@
     "grade": 2,
     "description": "Dodaje 2 kości broni, odbiera 2 obrażeń na kość broni.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "WWD1Z812JSEXBY7YSBTP9A0HVE",
@@ -10831,7 +11142,8 @@
     "grade": 3,
     "description": "Dodaje 3 kości broni, odbiera 3 obrażeń na kość broni.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "RKB410GK5J7MESEF6ZMYQJ294G",
@@ -10839,7 +11151,8 @@
     "grade": 1,
     "description": "Dodaje 1 siły lub zręczności /4 esencji max 3 [1//5e].",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "AWQC9BXQQJ92QZEJGYPTN00NCV",
@@ -10847,7 +11160,8 @@
     "grade": 1,
     "description": "W przypadku pochwycenia. Dodaje zwiększa rangę testu siłowego, odejmuje 1 do testów siłowych.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "SWNBHGZ9J2BB3BC7CPQ4ZJMP58",
@@ -10855,7 +11169,8 @@
     "grade": 2,
     "description": "W przypadku pochwycenia. Dodaje zwiększa o 2 rangę testu siłowego, odejmuje 2 do testów siłowych.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "GWWW3D0M8RGQA3PVDZ8J2C7727",
@@ -10863,7 +11178,8 @@
     "grade": 1,
     "description": "Pozwala skakać na dalekie odległości.",
     "castTime": "Standardowa",
-    "cooldown": "10e"
+    "cooldown": "10e",
+    "tags": []
   },
   {
     "id": "ZMF141905FN5G84186F1PH8CH1",
@@ -10871,7 +11187,8 @@
     "grade": 1,
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "X5WW2SEY96EY765C47C2KDCHAM",
@@ -10879,7 +11196,8 @@
     "grade": 2,
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "69PESY5CYZ17HCM0RG0CQVM4VV",
@@ -10887,7 +11205,8 @@
     "grade": 3,
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi dodaje 1 do szansy krytyka i siły krytyka. Za każde oczko powyżej 8 obniża inicjatywę przeciwnika o 1. Jeśli spowoduje to spadek inicjatywy wroga poniżej 0 to obala przeciwnika.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "7T5PPCGVB2GTM9SHHAZS3F8ZM9",
@@ -10897,7 +11216,8 @@
     "castTime": "Standardowa",
     "requirements": "Większa Precyzja 4",
     "cooldown": 5,
-    "price": 1
+    "price": 1,
+    "tags": []
   },
   {
     "id": "RPYSNG6DMNMK6EN18BFTXC09QG",
@@ -10905,7 +11225,8 @@
     "grade": 1,
     "description": "Dodaje 1 redukcji i 1 dmg za każdy poziom leczenia zdrowia który stracił podmiot zemsty.",
     "castTime": "Standardowa",
-    "cooldown": 7
+    "cooldown": 7,
+    "tags": []
   },
   {
     "id": "WBZNT5ZWCXHYZBWQ57JGD8RSCF",
@@ -10913,7 +11234,8 @@
     "grade": 1,
     "description": "Jeżeli podmiotowi pozostało 7 pw, otrzymuje powójne obrażenia od ognia w zdrowie.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "5V33YGBYF55N2E2NR8YMPKFPN8",
@@ -10921,7 +11243,8 @@
     "grade": 2,
     "description": "Jeżeli podmiotowi pozostało 10 pw, otrzymuje powójne obrażenia od ognia w zdrowie.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "VS5FXFFTZPV6JNGCRA0J5Y7PD9",
@@ -10929,7 +11252,8 @@
     "grade": 1,
     "description": "Dodaje Siłe do redukcji.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "DW0BMJEQKR7BG07N6C3GE39C5J",
@@ -10937,7 +11261,8 @@
     "grade": 1,
     "description": "Test wytrwałości o ST =10. Za każde oczko straty zadaje 1 pernamentne obrażenie. Każde nastepne spojrzenie na ten sam cel dostaje stacka zwiększające ST o 1 wszystkich zdolności wynaturzeń bazujących na promieniowaniu.",
     "castTime": "Standardowa",
-    "cooldown": 1
+    "cooldown": 1,
+    "tags": []
   },
   {
     "id": "XH3TQD5FX069Q9NCTQ65YJE7EX",
@@ -10945,7 +11270,8 @@
     "grade": 1,
     "description": "Tylko Samiec Alfa. Dodaje 1 odporności każdemu ze stada. Tylko jedno na rundę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "N25QQKM546G33PXW1M8DTVXYC8",
@@ -10953,7 +11279,8 @@
     "grade": 2,
     "description": "Tylko Samiec Alfa. Dodaje 1 odporności i 1 redukcji każdemu ze stada. Tylko jedno na rundę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "PY6CQCVQ0BBFK1Y2BAKNPPJ1T6",
@@ -10961,7 +11288,8 @@
     "grade": 3,
     "description": "Tylko Samiec Alfa. Dodaje 1 odporności i 2 redukcji każdemu ze stada. Tylko jedno na rundę.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "T7FWGFYAVF6P0RA9XRRMBFN98W",
@@ -10971,7 +11299,8 @@
     "castTime": "Standardowa",
     "requirements": "Większa Precyzja 3",
     "cooldown": 4,
-    "price": 2
+    "price": 2,
+    "tags": []
   },
   {
     "id": "FGFAQ9D0DYF4NMQXQ5J4H4W126",
@@ -10981,7 +11310,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Precyzja 4",
     "cooldown": null,
-    "price": 2
+    "price": 2,
+    "tags": []
   },
   {
     "id": "DG5ZW41G2P664ET1D3YZKT2PKW",
@@ -10991,7 +11321,8 @@
     "castTime": "Standardowa",
     "requirements": "Większa Precyzja 2",
     "cooldown": 1,
-    "price": 4
+    "price": 4,
+    "tags": []
   },
   {
     "id": "WZD5KX6762TGJ4QYR1KEWV0HZY",
@@ -11001,7 +11332,8 @@
     "castTime": "Standardowa",
     "requirements": "Strzał zza Zasłony 1, Większa Precyzja 3",
     "cooldown": 1,
-    "price": 4
+    "price": 4,
+    "tags": []
   },
   {
     "id": "WES8D0XJW9TT1DHXQYB2DHYYFT",
@@ -11011,7 +11343,8 @@
     "castTime": "Standardowa",
     "requirements": "Strzał zza Zasłony 2, Większa Precyzja 5",
     "cooldown": 1,
-    "price": 4
+    "price": 4,
+    "tags": []
   },
   {
     "id": "8BCA81S7AE4FEKT3FTJATMR5FT",
@@ -11019,7 +11352,8 @@
     "grade": 1,
     "description": "Atakujesz do 2 celi. Odejmuje 2 redukcji [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "FAM0R5GQQ2DJGTD4978WJJBCK4",
@@ -11027,7 +11361,8 @@
     "grade": 2,
     "description": "Atakujesz do 3 celi. Odejmuje 3 redukcji [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "2SZE4HMD338Y49S9K55AGX7RT4",
@@ -11035,7 +11370,8 @@
     "grade": 3,
     "description": "Atakujesz do 4 celi. Odejmuje 4 redukcji [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "GTP5TMTFJDG7H1QBCM6F7WGDMH",
@@ -11043,7 +11379,8 @@
     "grade": 4,
     "description": "Atakujesz do 5 celi. Odejmuje 5 redukcji [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "MH1EYBN64W7GA1BR5KBV9X8F7S",
@@ -11053,7 +11390,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większy Fechtunek 5, Większy Fortel 5",
     "cooldown": null,
-    "price": 9
+    "price": 9,
+    "tags": []
   },
   {
     "id": "K08YCHVFV7GD72B68VV51JPM9D",
@@ -11061,7 +11399,8 @@
     "grade": 1,
     "description": "Zadaje obrażenia równe ilości oczek na kości broni, na której wypadło najwięcej oczek. Jeśli obrażenia odebrały zdrowie przeciwnikowi (lub uderzyły w bariery) następuje rzut na wytrwałość o ST = 12 (Jad bazyliszka). Zadaje śmiertelne obrażenia równe ilości oczek na kości o randze równej 2+(ilość przewagi ST jadu). W następnej rundzie zadaje analogiczne obrażenia, lecz kością o 1 rangę mniejszą, aż do momentu rangi 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "4BEY7S9ESZGH36XX3PT66AV9SR",
@@ -11069,7 +11408,8 @@
     "grade": 1,
     "description": "Dodaje 1 dmg na każdą kość broni przed redukcja kości.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "ENYH5P02QW4HV6K5X2K7SQC8AR",
@@ -11077,7 +11417,8 @@
     "grade": 2,
     "description": "Dodaje 2 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "AGWQN3KXYNCNV40MYBSRJPSQRF",
@@ -11085,7 +11426,8 @@
     "grade": 3,
     "description": "Dodaje 3 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "7GQXPKAG0CZTF65A0CRQF0DKQY",
@@ -11093,7 +11435,8 @@
     "grade": 1,
     "description": "Test Refleksu o ST=7. Nieudany wymusza test siły o ST=7. Nieudany obniża PL o 2 i zadaje 1k16w obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "PSVNRVFBJC6DRMZ178C5J8DY6G",
@@ -11101,7 +11444,8 @@
     "grade": 1,
     "description": "Akcja Całorundowa. Atak dystansowy +4, w zasięgu 13 kroków. Udany powoduje 1k20w blokowalnych obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "N1WGF1S2N5XQZC65FE738HYMHH",
@@ -11109,7 +11453,8 @@
     "grade": 2,
     "description": "Akcja Całorundowa. Atak dystansowy +5, w zasięgu 15 kroków. Udany powoduje 2k20w blokowalnych obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "5BF8DKECKJM1PV3Z8Y6PXNR4NY",
@@ -11119,7 +11464,8 @@
     "castTime": "Standardowa",
     "requirements": "Większa Inicjatywa 4, Błyskawiczny Cios 1",
     "cooldown": null,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "6QV14GAYA0AWVA33XJRB62CTK7",
@@ -11129,7 +11475,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Styl Grupowy 2, Większy Fechtunek 8, półepickość",
     "cooldown": 3,
-    "price": 4
+    "price": 4,
+    "tags": []
   },
   {
     "id": "4H4R8ZXAJ3FA9T7S19P7QGGG84",
@@ -11139,7 +11486,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Inicjatywa 3, zr  4, int  2 półepickość",
     "cooldown": 3,
-    "price": 7
+    "price": 7,
+    "tags": []
   },
   {
     "id": "AF54K9YXNYFDER1P3STBC1GWG9",
@@ -11149,7 +11497,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Inicjatywa 3, zr  4, półepickość",
     "cooldown": null,
-    "price": 7
+    "price": 7,
+    "tags": []
   },
   {
     "id": "HCEQZ6NY3235C6ZK8WPQRQ001T",
@@ -11157,7 +11506,8 @@
     "grade": 1,
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy. Zwiększa rangę wybranej kości broni o 1 za każde oczko przewagi. Test wygrany o 6 oczek skutkuje obaleniem.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "P9VKMH0CNFQAZYZ6Z2XAV6ECWN",
@@ -11165,7 +11515,8 @@
     "grade": 2,
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1. Zwiększa rangę wybranej kości broni o 1 za każde oczko przewagi. Test wygrany o 6 oczek skutkuje obaleniem.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "JYR1ZZ0CGDEY7JM7Q369V87KC6",
@@ -11173,7 +11524,8 @@
     "grade": 3,
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2. Zwiększa rangę wybranej kości broni o 1 za każde oczko przewagi. Test wygrany o 6 oczek skutkuje obaleniem.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "M2QTWAY5NDSDHJR3G888BW08QZ",
@@ -11181,7 +11533,8 @@
     "grade": 1,
     "description": "Stawia barierę o 5PwT (siła zaklęcia 7) [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "VY3Z1G58QJ0WY0E554WNN8JAHJ",
@@ -11189,7 +11542,8 @@
     "grade": 2,
     "description": "Stawia barierę o 10PwT (siła zaklęcia 10) [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "5MG34SKB2SYREBXRJFMSQZF6XE",
@@ -11197,7 +11551,8 @@
     "grade": 3,
     "description": "Stawia barierę o 15PwT (siła zaklęcia 13) [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "6BN1GNQ263TTFGHV2P8EG6M4PP",
@@ -11205,7 +11560,8 @@
     "grade": 1,
     "description": "Dodaje 1 redukcji na następną rundę za każde obrażenie w zdrowie w tej rundzię (maks 7).",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "MD8XSPH4AKWX5SDN95K4P2WWEX",
@@ -11213,7 +11569,8 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń o randze równej 1 za każde obrażenie zadane w tej rundzie (maks 1k12).",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "D79Y2QQPVMAQ2TVBSBFQ41RSJ2",
@@ -11221,7 +11578,8 @@
     "grade": 1,
     "description": "Test wytrwałość o ST=10. Zadaje 1 dmg za każde oczko przewagi co ture przez 3 tury. Każda kolejna próba na ten sam cel jest ze ST+1. Atakując osobę pod sobą ma +2ST.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "H9YKZN3E2CGSHF1WASC53S78GW",
@@ -11229,7 +11587,8 @@
     "grade": 1,
     "description": "Test refleksu o St=6. Za każde oczko różnicy w przegranym teście Siła i Szansa uderzenia krytycznego rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "PV4Z45KAST6JKP5564WM50J3Z0",
@@ -11237,7 +11596,8 @@
     "grade": 2,
     "description": "Test refleksu o St=7. Za każde oczko różnicy w przegranym teście Siła i Szansa uderzenia krytycznego rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "S87QQV6637Q8MEXJAPHQQ1SDP0",
@@ -11245,7 +11605,8 @@
     "grade": 3,
     "description": "Test refleksu o St=8. Za każde oczko różnicy w przegranym teście Siła i Szansa uderzenia krytycznego rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "M10GRK6E0NZPH1T8WKDG8Q1THZ",
@@ -11253,7 +11614,8 @@
     "grade": 1,
     "description": "Zwiększa rangę kości obrażeń o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "1RZWDPA2FMH0DESJ1RVWXH8HFH",
@@ -11261,7 +11623,8 @@
     "grade": 2,
     "description": "Zwiększa rangę kości obrażeń o 2.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "X5YESK3Y31D2CP42FKZ1YF74CN",
@@ -11269,7 +11632,8 @@
     "grade": 3,
     "description": "Zwiększa rangę kości obrażeń o 3.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "A06WKYGS68KW268876AR15ZSP6",
@@ -11277,7 +11641,8 @@
     "grade": 4,
     "description": "Zwiększa rangę kości obrażeń o 4.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "NWCGP9SSX3WWYM0J15QZ2S8WHW",
@@ -11285,7 +11650,8 @@
     "grade": 1,
     "description": "Test Sporny Siłowy dodaje range kości broni za każde oczko przezewagi. Test wygrany o 8 punktów odbiera kość broni podmiotowi w następnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "8HBJE7PTXHQR1XTFPDM6BQ42J4",
@@ -11293,7 +11659,8 @@
     "grade": 2,
     "description": "Test Sporny Siłowy+1 dodaje range kości broni za każde oczko przezewagi. Test wygrany o 8 punktów odbiera kość broni podmiotowi w następnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "SBKK7R9WZVKYFHKN3PK5ANE5NH",
@@ -11301,7 +11668,8 @@
     "grade": 3,
     "description": "Test Sporny Siłowy+2 dodaje range kości broni za każde oczko przezewagi. Test wygrany o 8 punktów odbiera kość broni podmiotowi w następnej rundzie.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "YH7ATYFC1C9VKCKEVZVJMAW3VB",
@@ -11321,7 +11689,8 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń o randze równej kości broni -2.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "BWF9399G1C4VWVP7V8K39WX5E5",
@@ -11329,7 +11698,8 @@
     "grade": 2,
     "description": "Dodaje widmową kość obrażeń o randze równej kości broni -1.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "Y6M8HQ12KH15Y2GJ72RP4H3081",
@@ -11337,7 +11707,8 @@
     "grade": 3,
     "description": "Dodaje widmową kość obrażeń o randze równej kości broni.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "6VC7VRBJ8645ADKHJHRCX1SQ11",
@@ -11345,7 +11716,8 @@
     "grade": 1,
     "description": "Dodaje 1k4w obrażeń . Test wytrwałości o ST=5 za każde oczko różnicy w przegranym teście 1 stack choroby.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "NNNADPSDZ82X1ZV2VF08PAN08N",
@@ -11353,7 +11725,8 @@
     "grade": 1,
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k4 prawdziwych obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "HFPMQ1Q3E880SE32DQ75ZBR65R",
@@ -11361,7 +11734,8 @@
     "grade": 2,
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k6 prawdziwych obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "8CRP8WBCM6B6781DM82HMD9C2E",
@@ -11369,7 +11743,8 @@
     "grade": 3,
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k8 prawdziwych obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "AWS28W8HNPEC1CA1Q0T2ZE3M1D",
@@ -11377,7 +11752,8 @@
     "grade": 4,
     "description": "Podmiot który atakujesz musi wygrać test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 2k4 prawdziwych obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "EN1VH9D0PSQN0W0DF3NCG5ERBW",
@@ -11385,7 +11761,8 @@
     "grade": 1,
     "description": "Test Refleksu vs Fortel/Refleks. Wygrany powoduje dodanie refleksu do obrażeń [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "6GZ15VNQWMG6M1GHH2908Q92MR",
@@ -11393,7 +11770,8 @@
     "grade": 1,
     "description": "Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 kości redukcji na jeden atak [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "P1EZF9G1AHZJ78MG7J4J81R6PG",
@@ -11401,7 +11779,8 @@
     "grade": 2,
     "description": "Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 3 kości redukcji na jeden atak [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "PPYP68XJ9XNS01ZRV3PV7TTVRH",
@@ -11409,7 +11788,8 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń k16, odejmuje 4 uników.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "HWC3NSET5D0262AME07Z6AJ2VP",
@@ -11417,7 +11797,8 @@
     "grade": 1,
     "description": "Dodaje kość redukcji oraz 1k8 uników [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "6DR56T51W3Z1JF6SBTC0Y7ES73",
@@ -11425,7 +11806,8 @@
     "grade": 1,
     "description": "Atak dystansowy z precyzją = 12, zadaje 3k6 prawdziwych duchowych obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "05CMK9KZGARM2ASHBXDXZMX36V",
@@ -11435,7 +11817,8 @@
     "castTime": "Standardowa",
     "requirements": "Ilość okrzyków  1",
     "cooldown": null,
-    "price": 3
+    "price": 3,
+    "tags": []
   },
   {
     "id": "SX7N786XYBF155K6AB84XC478Z",
@@ -11445,7 +11828,8 @@
     "castTime": "Standardowa",
     "requirements": "Ilość okrzyków  2, Wezwanie do Natarcia 1",
     "cooldown": null,
-    "price": 9
+    "price": 9,
+    "tags": []
   },
   {
     "id": "3DJA7685Z87455JWDZWMD0WC91",
@@ -11455,7 +11839,8 @@
     "castTime": "Standardowa",
     "requirements": "Ilość okrzyków  3, Wezwanie do Natarcia 2",
     "cooldown": null,
-    "price": 22
+    "price": 22,
+    "tags": []
   },
   {
     "id": "AV3DVF9G8JXM9Q5WP45ZV6VENF",
@@ -11465,7 +11850,8 @@
     "castTime": "Standardowa",
     "requirements": "Ilość okrzyków  1",
     "cooldown": null,
-    "price": 3
+    "price": 3,
+    "tags": []
   },
   {
     "id": "NSPVZ61JD7AVDW6SZ80K0KES2P",
@@ -11475,7 +11861,8 @@
     "castTime": "Standardowa",
     "requirements": "Ilość okrzyków  2, Wezwanie do Odwrotu 3",
     "cooldown": null,
-    "price": 9
+    "price": 9,
+    "tags": []
   },
   {
     "id": "H9W2FD8M3BQFFAK56TNE5JDT2Y",
@@ -11485,7 +11872,8 @@
     "castTime": "Standardowa",
     "requirements": "Ilość okrzyków  3, Wezwanie do Odwrotu 2",
     "cooldown": null,
-    "price": 15
+    "price": 15,
+    "tags": []
   },
   {
     "id": "5H82Y62NZ757VR2PRA7ZKVFP1B",
@@ -11493,7 +11881,8 @@
     "grade": 1,
     "description": "Zadaje widmową kość obrażeń o randze jednej trzeciej stacków choroby.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "ZG5XKAVZ9MJ6GMENZ2N0HDX380",
@@ -11501,7 +11890,8 @@
     "grade": 1,
     "description": "Niweluje działanie aury ognia w tej rundzie, w następnej rundzie aura zadaje dodatkowo 1k4w obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "MQGTQPKVXBA2P847FJPVWDP20S",
@@ -11509,7 +11899,8 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń od ognia 1k4+2.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "VD0K2YSF2MRH963777P7JA81RZ",
@@ -11517,7 +11908,8 @@
     "grade": 2,
     "description": "Dodaje widmową kość obrażeń od ognia 1k6+3.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "7QFRBA62JPJNCJTMWSRPQ3PXY6",
@@ -11525,7 +11917,8 @@
     "grade": 3,
     "description": "Dodaje widmową kość obrażeń od ognia 1k8+4.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "RRXD4M24GFQ2HETB5YE1YPQX8H",
@@ -11533,7 +11926,8 @@
     "grade": 1,
     "description": "Dodaje odporność do uników [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "1XJY9N0WCG0X2G8H780M2WJ1V7",
@@ -11541,7 +11935,8 @@
     "grade": 2,
     "description": "Dodaje 1,5 x odporność do uników [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "JYHSRR44QASFD5H3EHPBR9XH4J",
@@ -11549,7 +11944,8 @@
     "grade": 1,
     "description": "Zadaje dodatkowo 2k6w obrażeń w podmiot zemsty i traci 1k6 pw.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "GQ6QB3TBRRJ9Q4T69M9FSNXFT7",
@@ -11557,7 +11953,8 @@
     "grade": 2,
     "description": "Zadaje dodatkowo 2k8w obrażeń w podmiot zemsty i traci 1k8 pw.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "W3SM786CBY0Z7GRM5N2TB9V47S",
@@ -11565,7 +11962,8 @@
     "grade": 1,
     "description": "Pozwala zaatakować dwie postacie naraz bez żadnych kar.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "VKWBKZEVA54PF1QAQX88K4NHQ7",
@@ -11573,7 +11971,8 @@
     "grade": 1,
     "description": "Dodaje refleks do redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "6B2C8NH6JRNHJBFZM3ZECSDD5N",
@@ -11581,7 +11980,8 @@
     "grade": 1,
     "description": "Manewr Natchmiastowy. Dodaje uniki+inicjatywa do uników [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "RQHWHSF4PMJPK1GWX0AV9ZB51M",
@@ -11589,7 +11989,8 @@
     "grade": 1,
     "description": "Wygrany test refleksu powoduje dodanie kości broni [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "QNR7B3VAVY5P3B9M4AVV0QBK3Y",
@@ -11597,7 +11998,8 @@
     "grade": 1,
     "description": "Dodaje 4 odporności [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "R0RXA498K603QASXB1Z4WD4MMG",
@@ -11605,7 +12007,8 @@
     "grade": 1,
     "description": "Przy śmierci eteycznego, podmiot zemsty otrzymuje dodatkowy atak z jedną mniej kością broni [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "J5PSSB33ED2ETDN98Z4Q8KC4JQ",
@@ -11704,7 +12107,8 @@
     "grade": 1,
     "description": "Każdy w promieniu 3 kroków. Musi wykonać test refleksu o ST=7. Nieudany wymusza test wytrwałości o ST=10. Każde oczko różnicy w przegranym teście to 1 prawdziwych obrażeń i 1 stack choroby.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "N876K6TDK95C7YHFV3NQC863XJ",
@@ -11712,7 +12116,8 @@
     "grade": 1,
     "description": "Dodaje 1 uników na 3rundy [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "7WVSKT63PAFQNBF6J43VZVRK5Z",
@@ -11720,7 +12125,8 @@
     "grade": 2,
     "description": "Dodaje 2 uników na 3rundy [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "5AK3MFJK0YCW6EGSMESDYFSACE",
@@ -11728,7 +12134,8 @@
     "grade": 3,
     "description": "Dodaje 3 uników na 3rundy [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "3T57KGF0CJCNNX74VG81RN6224",
@@ -11736,7 +12143,8 @@
     "grade": 1,
     "description": "Test sporny wytrwałości. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "M00RD7MJ48VAENC2ARWJQCRR73",
@@ -11744,7 +12152,8 @@
     "grade": 2,
     "description": "Test sporny wytrwałości+1. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "TQ1PVA3FMN2J40HYG3Z48QJN73",
@@ -11752,7 +12161,8 @@
     "grade": 3,
     "description": "Test sporny wytrwałości+1. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "A77WWD3QC6N9S8CN45F6Y9BYWT",
@@ -11760,7 +12170,8 @@
     "grade": 4,
     "description": "Test sporny wytrwałości+2. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "HGFQRRT136TTFW4C1X3T6506E9",
@@ -11768,7 +12179,8 @@
     "grade": 5,
     "description": "Test sporny wytrwałości+2. Wygrany powoduje obniżenie siły o 2.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "AV801XRZR5TJ6J23A3H6FD9N9E",
@@ -11854,7 +12266,8 @@
     "grade": 1,
     "description": "Wygrany test sporny refleksu-1 vs fortel/3x inteligencja dodaje refleksu/2 do obrażeń.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "EXPZK1M99231492N7N92W8FX34",
@@ -11862,7 +12275,8 @@
     "grade": 1,
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=7. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "2XW1EAVMT10GYCHJ1XFAX2FV1W",
@@ -11870,7 +12284,8 @@
     "grade": 2,
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=8. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "4WR4QD3061TCSSSNBQKCA86M7K",
@@ -11878,7 +12293,8 @@
     "grade": 3,
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=9. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "DJR1WV1B7Y2GQW05PV27EKJNEN",
@@ -11886,7 +12302,8 @@
     "grade": 4,
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=10. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "3975EJBMWNFF86T49T2XQVV7WA",
@@ -11894,7 +12311,8 @@
     "grade": 5,
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=11. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "BPZ92TX98BQZE6ATPMKRWWAFQM",
@@ -11904,7 +12322,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Wytrwałość 5, ciężka zbroja",
     "cooldown": null,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "CN7VHY33SPKGGME3R61QMT3AF6",
@@ -11914,7 +12333,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Zastępuje zakutego w stal, wymagana klasa wojmistrz",
     "cooldown": null,
-    "price": 2
+    "price": 2,
+    "tags": []
   },
   {
     "id": "XFQ08VD7Q08FW5DDB7FY2EADAH",
@@ -11924,7 +12344,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Wytrwałość 5, Średnia zbroja",
     "cooldown": null,
-    "price": 6
+    "price": 6,
+    "tags": []
   },
   {
     "id": "Y0Y153FH7B3BZ12T2J4H36QSNS",
@@ -11932,7 +12353,8 @@
     "grade": 1,
     "description": "Zwiększa range jednej kości broni o 3 rangi.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "KCYMQ0B08KN154PP5ZXJB4S1D1",
@@ -11940,7 +12362,8 @@
     "grade": 2,
     "description": "Zwiększa rangę dwóch kości broni o 3 rangi.",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "XV2YM70PY734NJZNEHCX4MVF0V",
@@ -11950,7 +12373,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Większa Inicjatywa 1",
     "cooldown": null,
-    "price": 3
+    "price": 3,
+    "tags": []
   },
   {
     "id": "MXCG9JP5DPNZEXXAYNXM1NKREV",
@@ -11960,7 +12384,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Zapał do walki 1, Większa Inicjatywa 2",
     "cooldown": null,
-    "price": 3
+    "price": 3,
+    "tags": []
   },
   {
     "id": "F2ZC8D3VDA46SGN92ZZQFFS63F",
@@ -11970,7 +12395,8 @@
     "castTime": "Natychmiastowa",
     "requirements": "Zapał do walki 2, Większa Inicjatywa 3",
     "cooldown": null,
-    "price": 3
+    "price": 3,
+    "tags": []
   },
   {
     "id": "0Q9FN6F6886DG4P63NJ2WK8WPD",
@@ -11978,7 +12404,8 @@
     "grade": 1,
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   },
   {
     "id": "QPY5KPQR7E4PG1V8G8HC5RB41E",
@@ -11986,7 +12413,8 @@
     "grade": 2,
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
-    "cooldown": 5
+    "cooldown": 5,
+    "tags": []
   },
   {
     "id": "66JK7MKGSEYKVM7ZZY1J5N8307",
@@ -11994,7 +12422,8 @@
     "grade": 3,
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "JTXV2YVG1FD5B81KH5N7ZR561Q",
@@ -12002,7 +12431,8 @@
     "grade": 4,
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "0776DM0F8XXKKDKDYH9PQHH327",
@@ -12010,7 +12440,8 @@
     "grade": 1,
     "description": "Dodaje jedną kość broni [tylko jeśli ma przeciwnika pod sobą] [1//10].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "WCWD9KYDD6CRPGF0FN0JB804SM",
@@ -12018,7 +12449,8 @@
     "grade": 1,
     "description": "Dodaje PL do redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
@@ -12026,7 +12458,8 @@
     "grade": 1,
     "description": "Dodaje poziom leczenia do redukcji [].",
     "castTime": "Natychmiastowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "HTAQG4BQA5FD07GDY754FS35K7",
@@ -12034,7 +12467,8 @@
     "grade": 1,
     "description": "Dodaje 4 uniki na 2 rundy [].",
     "castTime": "Standardowa",
-    "cooldown": null
+    "cooldown": null,
+    "tags": []
   },
   {
     "id": "Z87R5WK92RE3PV52FX3VZ87DFP",
@@ -12185,7 +12619,8 @@
     "grade": 1,
     "description": "Test refleksu-1 vs uniki. Zadaje 1k10w. Następnie test wytrwałości o ST=15. Za każde oczko straty dodaje 1k10w.",
     "castTime": "Natychmiastowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "G9T6FDVDZYDXCXJPBNVB69KX6D",
@@ -12193,7 +12628,8 @@
     "grade": 1,
     "description": "Test wytrwałość o ST=10. Zadaje 1 dmg za każde oczko przewagi co ture przez 3 tury. Każda kolejna próba na ten sam cel jest ze ST+1. Atakując osobę pod sobą ma +2ST.",
     "castTime": "Standardowa",
-    "cooldown": 2
+    "cooldown": 2,
+    "tags": []
   },
   {
     "id": "C8D3C5VJ01REN6JNVNY0G1J0QW",
@@ -12201,7 +12637,8 @@
     "grade": 1,
     "description": "Pozwala wykonać atak w dwa cele. Bez bonusu z siły.",
     "castTime": "Pełnorundowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "XYTKVM32QK13HT9Q18PDVBKATM",
@@ -12209,7 +12646,8 @@
     "grade": 2,
     "description": "Pozwala wykonać atak w dwa cele. Z połową bonusu z Siły.",
     "castTime": "Pełnorundowa",
-    "cooldown": 4
+    "cooldown": 4,
+    "tags": []
   },
   {
     "id": "50GBC8QZJMEHH1XWK1HGF5Y034",
@@ -12217,7 +12655,8 @@
     "grade": 3,
     "description": "Pozwala wykonać atak w dwa cele.",
     "castTime": "Pełnorundowa",
-    "cooldown": 3
+    "cooldown": 3,
+    "tags": []
   },
   {
     "id": "MBQCZMF4T1TQDCCBH21Y76TWMQ",
@@ -12225,6 +12664,7 @@
     "grade": 1,
     "description": "Pozwala na przrzut 2 kości broni.",
     "castTime": "Standardowa",
-    "cooldown": 6
+    "cooldown": 6,
+    "tags": []
   }
 ]
