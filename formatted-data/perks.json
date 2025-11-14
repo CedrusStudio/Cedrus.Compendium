@@ -5294,5 +5294,38 @@
     "tags": [
       "potwory"
     ]
+  },
+  {
+    "id": "01KA1B2WE1B7FNH9QTZC000000",
+    "name": "Zwierzę",
+    "grade": 1,
+    "description": "Odporność na testy fechtunku i fortelu / refleks +2. Podatność na wpływy natury 5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "zwierzęta"
+    ]
+  },
+  {
+    "id": "01KA1B2WE10D9JNEKD2Y000000",
+    "name": "Zwierzę",
+    "grade": 2,
+    "description": "Odporność na testy fechtunku i fortelu / refleks +3. Podatność na wpływy natury 5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "zwierzęta"
+    ]
+  },
+  {
+    "id": "01KA1B2WE2QWZ56F7NAV000000",
+    "name": "Zwierzę",
+    "grade": 3,
+    "description": "Odporność na testy fechtunku i fortelu / refleks +4. Podatność na wpływy natury 5",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "zwierzęta"
+    ]
   }
 ]
