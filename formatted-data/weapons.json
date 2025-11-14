@@ -1,0 +1,2063 @@
+[
+  {
+    "name": "Gladius",
+    "description": "Fechtunek +1",
+    "tags": [
+      "miecze",
+      "krótkie"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Kord",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "miecze",
+      "krótkie"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Falcata",
+    "description": "",
+    "tags": [
+      "miecze",
+      "krótkie"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 2,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": -2
+    },
+    "range": 1
+  },
+  {
+    "name": "Rapier",
+    "description": "",
+    "tags": [
+      "miecze",
+      "szermiecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 1,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Floret",
+    "description": "",
+    "tags": [
+      "miecze",
+      "szermiecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Szpada",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "miecze",
+      "szermiecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 2,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": -2
+    },
+    "range": 1
+  },
+  {
+    "name": "Pałasz",
+    "description": "",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Falchion",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 2
+    },
+    "range": 1
+  },
+  {
+    "name": "Szabla",
+    "description": "Fechtunek +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Jatangan",
+    "description": "Fechtunek +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 1,
+      "critical": {
+        "power": -2,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Sejmitar",
+    "description": "",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 1,
+      "critical": {
+        "power": -2,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Wakizahsi",
+    "description": "Fechtunek +1, Inicjatywa +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Kanclerz",
+    "description": "Fechtunek +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Cinkerion",
+    "description": "Fechtunek +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Półtoraręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Półtorak",
+    "description": "Fechtunek +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Półtoraręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Katana",
+    "description": "Fechtunek +1, Inicjatywa +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Claymore",
+    "description": "Fechtunek +1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 2,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Estok",
+    "description": "Fechtunek +1, Inicjatywa -1",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": 0,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Espadon",
+    "description": "Fechtunek +1, Inicjatywa -2",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 7,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Flamberg",
+    "description": "Inicjatywa -2",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 8,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Miecz Katowski",
+    "description": "Fechtunek -1, Inicjatywa -4",
+    "tags": [
+      "miecze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 9,
+      "bonus": -1,
+      "critical": {
+        "power": -1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Walka Wręcz",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "wręcz"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": -3
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Cestus/Kastety",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "wręcz"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Żelazne Rękawice",
+    "description": "Walka Wręcz",
+    "tags": [
+      "wręcz"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": -3
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Kattari",
+    "description": "Fechtunek -1, Inicjatywa +1",
+    "tags": [
+      "naręczna"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 0,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Naręczne Topory",
+    "description": "Fechtunek -2",
+    "tags": [
+      "naręczna"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": -1,
+      "critical": {
+        "power": 1,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": -2
+    },
+    "range": 1
+  },
+  {
+    "name": "Jelenie Rogi",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "naręczna"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Tygrysie Szpony",
+    "description": "Fechtunek -1, Inicjatywa +1",
+    "tags": [
+      "naręczna"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": 1,
+      "critical": {
+        "power": -1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Mizerykordia",
+    "description": "Fechtunek -1",
+    "tags": [
+      "puginały"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Baselard",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "puginały"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": -2
+    },
+    "range": 1
+  },
+  {
+    "name": "Sztylet",
+    "description": "Fechtunek -1, Inicjatywa +1",
+    "tags": [
+      "puginały"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Kriss",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "puginały"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Trieden",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "puginały"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Cep Bojowy",
+    "description": "Inicjatywa -1",
+    "tags": [
+      "łańcuchowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 7,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Kiścien 1-Głowy",
+    "description": "",
+    "tags": [
+      "łańcuchowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 3
+    },
+    "range": 1
+  },
+  {
+    "name": "Kiścien 2-Głowy",
+    "description": "",
+    "tags": [
+      "łańcuchowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 4
+    },
+    "range": 1
+  },
+  {
+    "name": "Kiścien 3-Głowy",
+    "description": "",
+    "tags": [
+      "łańcuchowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 5
+    },
+    "range": 1
+  },
+  {
+    "name": "Morgernsztern",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "kłute"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Wekiera",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "kłute"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": 0,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Nadziak",
+    "description": "Inicjatywa +1",
+    "tags": [
+      "obuchowe",
+      "kłute"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 2
+    },
+    "range": 1
+  },
+  {
+    "name": "Buzdygan",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Wielki Buzdygan",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Młot Bojowy",
+    "description": "Fechtunek -1, Inicjatywa -1",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 7,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Młot Rycerski",
+    "description": "Fechtunek -1, Inicjatywa -2. Oburęcznie k16",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Półtoraręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 7,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Obuch",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Młot Oburęczny",
+    "description": "Fechtunek -1, Inicjatywa -3",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 8,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Kafar",
+    "description": "Inicjatywa -4",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 10,
+      "bonus": -2,
+      "critical": {
+        "power": -1,
+        "range": 4
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Topór Bojowy",
+    "description": "",
+    "tags": [
+      "topory",
+      "sieczne"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Wielki Topór",
+    "description": "",
+    "tags": [
+      "topory",
+      "sieczne"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 2,
+      "critical": {
+        "power": 0,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Topór Katowski",
+    "description": "Fechtunek -1, Inicjatywa -3",
+    "tags": [
+      "topory",
+      "sieczne"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 8,
+      "bonus": 0,
+      "critical": {
+        "power": -2,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Włócznia",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": -2,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 3
+    },
+    "range": 1
+  },
+  {
+    "name": "Długa Włócznia",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 3
+    },
+    "range": 1
+  },
+  {
+    "name": "Kopia",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 2,
+      "grade": 6,
+      "bonus": 2,
+      "critical": {
+        "power": 2,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Trójząb",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 1,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Wielki Trójząb",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 2,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Glewia",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe",
+      "sieczne"
+    ],
+    "style": "Półtoraręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Halabarda",
+    "description": "",
+    "tags": [
+      "topory",
+      "sieczne",
+      "drzewcowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Krótki Łuk",
+    "description": "",
+    "tags": [
+      "łuki",
+      "dystansowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 1,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 15
+  },
+  {
+    "name": "Długi Łuk",
+    "description": "",
+    "tags": [
+      "łuki",
+      "dystansowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 2,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 15
+  },
+  {
+    "name": "Refleksyjny Łuk",
+    "description": "",
+    "tags": [
+      "łuki",
+      "dystansowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 2,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 2
+    },
+    "range": 21
+  },
+  {
+    "name": "Filigramowa Kusza",
+    "description": "",
+    "tags": [
+      "kusze",
+      "dystansowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 6
+  },
+  {
+    "name": "Mała Kusza",
+    "description": "",
+    "tags": [
+      "kusze",
+      "dystansowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 6
+  },
+  {
+    "name": "Kusza",
+    "description": "",
+    "tags": [
+      "kusze",
+      "dystansowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": 3,
+      "critical": {
+        "power": 0,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 9
+  },
+  {
+    "name": "Ciężka Kusza",
+    "description": "",
+    "tags": [
+      "kusze",
+      "dystansowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 10,
+      "bonus": 1,
+      "critical": {
+        "power": 1,
+        "range": 2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 15
+  },
+  {
+    "name": "Pilum",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe",
+      "miotane"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 7,
+      "bonus": 2,
+      "critical": {
+        "power": 2,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Oszczep",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe",
+      "miotane"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": 1,
+      "critical": {
+        "power": 1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Noże do Rzutow",
+    "description": "",
+    "tags": [
+      "kłute",
+      "miotane",
+      "puginały"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Czakram",
+    "description": "",
+    "tags": [
+      "kłute",
+      "miotane"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 2,
+      "critical": {
+        "power": 1,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Toporki",
+    "description": "",
+    "tags": [
+      "topory",
+      "miotane"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": -1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Topory do rzutów",
+    "description": "",
+    "tags": [
+      "topory",
+      "miotane"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Kilof",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "kłute"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 7,
+      "bonus": -2,
+      "critical": {
+        "power": -2,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Młot Kowalski",
+    "description": "Fechtunek -2, Inicjatywa -2",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 6,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Młot Kamieniarski",
+    "description": "Fechtunek -2, Inicjatywa -2",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Tasak Rzeźniczy",
+    "description": "",
+    "tags": [
+      "topory",
+      "sieczne"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 0,
+      "critical": {
+        "power": -1,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Siekiera",
+    "description": "",
+    "tags": [
+      "topory",
+      "sieczne"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Sierp",
+    "description": "",
+    "tags": [
+      "sieczne",
+      "rolnicze",
+      "kłute"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Kostur",
+    "description": "",
+    "tags": [
+      "drzewcowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Kosa",
+    "description": "",
+    "tags": [
+      "sieczne",
+      "rolnicze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 1,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Widły",
+    "description": "",
+    "tags": [
+      "kłute",
+      "rolnicze"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 0,
+      "critical": {
+        "power": -1,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 1
+    },
+    "range": 1
+  },
+  {
+    "name": "Bicz",
+    "description": "",
+    "tags": [
+      "specjalne"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 4,
+      "bonus": 2,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Prymitywna Włócznia",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": -2,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 2
+    },
+    "range": 1
+  },
+  {
+    "name": "Prymitywna Długa Włócznia",
+    "description": "",
+    "tags": [
+      "kłute",
+      "drzewcowe"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 2
+    },
+    "range": 1
+  },
+  {
+    "name": "Maczuga",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": -1,
+        "range": 1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Wielka maczuga",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "miażdżące"
+    ],
+    "style": "Dwuręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 5,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Dmuchawka",
+    "description": "",
+    "tags": [
+      "specjalne",
+      "dystansowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": -1,
+      "critical": {
+        "power": -2,
+        "range": -2
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Bolas",
+    "description": "",
+    "tags": [
+      "specjalne",
+      "miotane"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 2,
+      "bonus": -2,
+      "critical": {
+        "power": -2,
+        "range": 0
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  },
+  {
+    "name": "Proca",
+    "description": "",
+    "tags": [
+      "obuchowe",
+      "dystansowe"
+    ],
+    "style": "Jednoręczny",
+    "offense": {
+      "amount": 1,
+      "grade": 3,
+      "bonus": 0,
+      "critical": {
+        "power": 0,
+        "range": -1
+      }
+    },
+    "damageBonus": {
+      "amount": 0,
+      "grade": 1,
+      "bonus": 0
+    },
+    "range": 1
+  }
+]
