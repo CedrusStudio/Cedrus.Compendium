@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "id": "01K9Z6YGYS89DHGRMB33QBD2AG",
     "name": "Akrobatyka",
@@ -1332,53 +1332,6 @@
       "Szansa Krytyka 2"
     ],
     "price": 9
-  },
-  {
-    "id": "01K9Z6YGYY351821KK51B4KP4B",
-    "name": "Wszystko Na Jedną Kartę",
-    "grade": 1,
-    "description": "Dodaje +3 do Siły Krytyka. Ustawia Szansę Krytyka na 0.",
-    "castTime": "Standardowa",
-    "tags": [
-      "atak"
-    ],
-    "requirements": [
-      "Większy Fortel 2"
-    ],
-    "cooldown": 4,
-    "price": 2
-  },
-  {
-    "id": "01K9Z6YGYY0GMHPT6CGMZ1G9VM",
-    "name": "Wszystko Na Jedną Kartę",
-    "grade": 2,
-    "description": "Dodaje +5 do Siły Krytyka. Ustawia Szansę Krytyka na 0.",
-    "castTime": "Standardowa",
-    "tags": [
-      "atak"
-    ],
-    "requirements": [
-      "Większy Fortel 3",
-      "Wszystko na jedną kartę 1"
-    ],
-    "cooldown": 3,
-    "price": 2
-  },
-  {
-    "id": "01K9Z6YGYYG80418X23FP5F5YV",
-    "name": "Wszystko Na Jedną Kartę",
-    "grade": 3,
-    "description": "Dodaje +7 do Siły Krytyka. Ustawia Szansę Krytyka na 0.",
-    "castTime": "Standardowa",
-    "tags": [
-      "atak"
-    ],
-    "requirements": [
-      "Większy Fortel 4",
-      "Wszystko na jedną kartę 2"
-    ],
-    "cooldown": 3,
-    "price": 2
   },
   {
     "id": "01K9Z6YGYYQFQFPAA881F69XQS",
@@ -3861,7 +3814,7 @@
   },
   {
     "id": "01K9Z6YGZ6T49KZP4BD0F336HX",
-    "name": "Wsparcie Dla Wierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 1,
     "description": "Odejmuje 4 obrażenia do następnego ataku (z jeździectwa) i dodaje 4 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -3876,7 +3829,7 @@
   },
   {
     "id": "01K9Z6YGZ64SEBRZRWW0593ZCY",
-    "name": "Wsparcie Dla Wierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 2,
     "description": "Odejmuje 6 obrażenia do następnego ataku (z jeździectwa) i dodaje 6 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -3891,7 +3844,7 @@
   },
   {
     "id": "01K9Z6YGZ6TCBKTWCESR7SR75G",
-    "name": "Wsparcie Dla Wierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 3,
     "description": "Odejmuje 8 obrażenia do następnego ataku (z jeździectwa) i dodaje 8 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -3906,7 +3859,7 @@
   },
   {
     "id": "01K9Z6YGZ6M1YH1XKCRHHNN0JG",
-    "name": "Wsparcie Dla Wierzchowca",
+    "name": "Wsparcie dla Wierzchowca",
     "grade": 4,
     "description": "Odejmuje 10 obrażenia do następnego ataku (z jeździectwa) i dodaje 10 redukcji wierzchowcowi.",
     "castTime": "Natychmiastowa",
@@ -3972,7 +3925,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 4"
@@ -3988,7 +3942,8 @@
     "castTime": "Natychmiastowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Inicjatywa 3"
@@ -4004,7 +3959,8 @@
     "castTime": "Natychmiastowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Błyskawiczny Strzał 1",
@@ -4021,7 +3977,8 @@
     "castTime": "Natychmiastowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Błyskawiczny Strzał 2",
@@ -4038,7 +3995,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Defensywny Strzał 1",
@@ -4055,7 +4013,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Defensywny Strzał 2",
@@ -4072,7 +4031,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Defensywny Strzał 3",
@@ -4089,7 +4049,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Defensywny Strzał 4",
@@ -4122,7 +4083,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 3"
@@ -4138,7 +4100,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Krytyczna Strzała 1",
@@ -4155,7 +4118,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Krytyczna Strzała 2",
@@ -4172,7 +4136,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 4"
@@ -4188,7 +4153,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Mierzony Strzał 1",
@@ -4205,7 +4171,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Przeszywający Strzał 3"
@@ -4220,7 +4187,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 4"
@@ -4236,7 +4204,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 4"
@@ -4252,7 +4221,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 4"
@@ -4268,7 +4238,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Przeszywający Strzał 1",
@@ -4285,7 +4256,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Przeszywający Strzał 2",
@@ -4302,7 +4274,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 6"
@@ -4318,7 +4291,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 4"
@@ -4334,7 +4308,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 3"
@@ -4350,7 +4325,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Ruch Strzelca 1",
@@ -4367,7 +4343,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Pewny Strzał"
@@ -4446,7 +4423,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Krytyczna Strzała 2"
@@ -4461,7 +4439,8 @@
     "castTime": "Standardowa",
     "tags": [
       "kusze",
-      "łuki"
+      "łuki",
+      "dystansowi"
     ],
     "requirements": [
       "Większa Precyzja 6"
@@ -6111,7 +6090,9 @@
     "description": "Test siłowy vs siła/zręczność. Wygrany dodaje 1 redukcji za każde oczko przewagi.",
     "castTime": "Standardowa",
     "tags": [
-      "dwuręczny"
+      "zwierzęta",
+      "lądowe",
+      "potwory"
     ],
     "requirements": [
       "S 3"
@@ -6190,6 +6171,7 @@
     "description": "Zwiększa o 1 rangę kości broni.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "cooldown": 6,
@@ -6202,6 +6184,7 @@
     "description": "Zwiększa o 2 rangę kości broni.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6217,6 +6200,7 @@
     "description": "Zwiększa o 3 rangę kości broni.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6232,6 +6216,7 @@
     "description": "Test siły-2 vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6247,6 +6232,7 @@
     "description": "Test siły-1 vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6263,6 +6249,7 @@
     "description": "Test siły vs siła/zręczność. Dodaje 1 obrażenie za każde oczko przewagi.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6279,6 +6266,7 @@
     "description": "Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "cooldown": 4,
@@ -6291,6 +6279,7 @@
     "description": "Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6306,6 +6295,7 @@
     "description": "Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6321,6 +6311,7 @@
     "description": "Możesz uderzyć w 2 cele nie tracąc zadnych premi z ataku i użyć kolejnego manewru.",
     "castTime": "Standardowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6336,6 +6327,7 @@
     "description": "Dodaje modyfikator z siły do redukcji.",
     "castTime": "Natychmiastowa",
     "tags": [
+      "atak",
       "dwuręczny"
     ],
     "requirements": [
@@ -6646,7 +6638,9 @@
     "grade": 2,
     "description": "Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła. Zadaje 1k6w obrażeń. Tylko przeciw walce wręcz.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 5
   },
   {
@@ -6655,7 +6649,9 @@
     "grade": 3,
     "description": "Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła. Zadaje 1k8w obrażeń. Tylko przeciw walce wręcz.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 5
   },
   {
@@ -6664,7 +6660,9 @@
     "grade": 1,
     "description": "Test sporny fortelu vs siła+3. Wygrany powoduje obrażenia równie sile przeciwnika.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 5
   },
   {
@@ -6673,7 +6671,9 @@
     "grade": 2,
     "description": "Test sporny fortelu vs siła+2. Wygrany powoduje obrażenia równie sile przeciwnika.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 5
   },
   {
@@ -6682,7 +6682,9 @@
     "grade": 3,
     "description": "Test sporny fortelu vs siła+1. Wygrany powoduje obrażenia równie sile przeciwnika.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 5
   },
   {
@@ -6691,7 +6693,9 @@
     "grade": 1,
     "description": "Test sporny siły-1 vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 6
   },
   {
@@ -6700,7 +6704,9 @@
     "grade": 2,
     "description": "Test sporny siły vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 6
   },
   {
@@ -6709,7 +6715,9 @@
     "grade": 3,
     "description": "Test sporny siły+1 vs siła/fortel-2. Za każde 2 oczka przewagi dodaje 3 obrażenia.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 6
   },
   {
@@ -6718,7 +6726,9 @@
     "grade": 1,
     "description": "Zwiększa o 1 rangę kości broni walki wręcz.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 4
   },
   {
@@ -6727,7 +6737,9 @@
     "grade": 2,
     "description": "Zwiększa o 2 rangi kości broni walki wręcz.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 4
   },
   {
@@ -6736,7 +6748,9 @@
     "grade": 3,
     "description": "Zwiększa o 3 rangi kości broni walki wręcz.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 4
   },
   {
@@ -6778,7 +6792,9 @@
     "grade": 1,
     "description": "Test sporny Walki Wręcz vs walka wręcz/fortel/siła. Wygrany powoduje dodanie echa ciosu na każdą kość broni.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZC2B132J8FDMV3XQE1",
@@ -6798,7 +6814,9 @@
     "grade": 1,
     "description": "Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz.",
     "castTime": "Nadnatychmiastowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 6
   },
   {
@@ -6807,7 +6825,9 @@
     "grade": 2,
     "description": "Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz.",
     "castTime": "Nadnatychmiastowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 5
   },
   {
@@ -6816,7 +6836,9 @@
     "grade": 3,
     "description": "Dodaje walke wręcz do parowania, zabiera tyle samo obrażeń w następnym ataku. Tylko przeciw walce wręcz.",
     "castTime": "Nadnatychmiastowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 4
   },
   {
@@ -6825,7 +6847,9 @@
     "grade": 1,
     "description": "Test sporny siły-1 vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 4
   },
   {
@@ -6834,7 +6858,9 @@
     "grade": 2,
     "description": "Test sporny siły vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 4
   },
   {
@@ -6843,7 +6869,9 @@
     "grade": 3,
     "description": "Test sporny siły+1 vs zręczność/siła. Wygrany powoduje dorzucenie dodatkowej kości broni i usuniecie jednej z najgorszym wynikiem.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 4
   },
   {
@@ -6852,7 +6880,9 @@
     "grade": 1,
     "description": "Test sporny Walki Wręcz-2 vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZCX3P1Z7FZ35DT8WW3",
@@ -6860,7 +6890,9 @@
     "grade": 2,
     "description": "Test sporny Walki Wręcz-1 vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZC3KYSD5R0AF3AHDXX",
@@ -6868,7 +6900,9 @@
     "grade": 3,
     "description": "Test sporny Walki Wręcz vs walka wręcz/fortel/siła. Wygrany powoduje dodanie 1 kości broni.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZCAB9K4K6BVRG5XWZZ",
@@ -6876,7 +6910,9 @@
     "grade": 1,
     "description": "Dodaje 1k2 obrażeń, odejmuje 1 parowania.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZDPHE3SBXD2G9SZB4G",
@@ -6884,7 +6920,9 @@
     "grade": 1,
     "description": "Test fortelu vs fortel/siła. Udany dodaje 1k4-1 obrażeń.",
     "castTime": "Standardowa",
-    "tags": [],
+    "tags": [
+      "walka-wręcz"
+    ],
     "cooldown": 6
   },
   {
@@ -6893,7 +6931,9 @@
     "grade": 1,
     "description": "Dodaje 1k2 parowania.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZD4MZ26QCZ5AP6ZFFJ",
@@ -6901,7 +6941,9 @@
     "grade": 1,
     "description": "Dodaje 1 obrażenie.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZD38B17BN5MQ55RXCE",
@@ -6909,7 +6951,9 @@
     "grade": 1,
     "description": "Dodaje 2 obrażenia, odejmuje 2 parowania.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZD0VEFSEVD17E774TB",
@@ -6917,7 +6961,9 @@
     "grade": 1,
     "description": "Test sporny Walki Wręcz-3 vs walka wręcz/fortel/zręczność Wygrany powoduje zadanie bezpośrednich obrażeń.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZDHVEQHW6CBKHAX3R3",
@@ -6934,7 +6980,9 @@
     "grade": 1,
     "description": "Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 2 rundy. Tylko przeciw walce wręcz.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZDXP2XXE50CCCPG535",
@@ -6942,7 +6990,9 @@
     "grade": 2,
     "description": "Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 3 rundy. Tylko przeciw walce wręcz.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZDJC59KPTW0M97WM29",
@@ -6950,7 +7000,9 @@
     "grade": 3,
     "description": "Test sporny walki wręcz vs walka wręcz. Wygrany powoduje dodanie 1 obrażenia na 4 rundy. Tylko przeciw walce wręcz.",
     "castTime": "Standardowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZD96TCS47JF3V6PYYB",
@@ -6966,7 +7018,9 @@
     "grade": 1,
     "description": "Dodaje 1 redukcji do uników. Tylko przeciw walce wręcz.",
     "castTime": "Nadnatychmiastowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZD9R0E5301CG0BCBGW",
@@ -6974,7 +7028,9 @@
     "grade": 2,
     "description": "Dodaje 2 redukcji do uników. Tylko przeciw walce wręcz.",
     "castTime": "Nadnatychmiastowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZD3WTQBM5D1ZHZQ7A2",
@@ -6982,7 +7038,9 @@
     "grade": 3,
     "description": "Dodaje 3 redukcji do uników. Tylko przeciw walce wręcz.",
     "castTime": "Nadnatychmiastowa",
-    "tags": []
+    "tags": [
+      "walka-wręcz"
+    ]
   },
   {
     "id": "01K9Z6YGZDSYPJGR6834Z3K480",
@@ -7861,11 +7919,14 @@
   },
   {
     "id": "S4PS3RVD146TF9C9SS5TCCMPRF",
-    "name": "Atakrękojeścią",
+    "name": "Atak Rękojeścią",
     "grade": 1,
     "description": "Test fechtunku/fortelu+walka wręcz-2 vs fechtunku/fortelu+refleks/siła/walka wręcz. Wygrany powoduje dodaje obrażeń równych walce wręcz.",
     "castTime": "Standardowa",
-    "requirements": "Większy Fechtunek 4 lub Większy Fortel 4, Walka Wręcz 3",
+    "requirements": [
+      "Większy Fechtunek 4 lub Większy Fortel 4",
+      "Walka Wręcz 3"
+    ],
     "cooldown": 6,
     "price": 2,
     "tags": [
@@ -7874,11 +7935,14 @@
   },
   {
     "id": "2VS8NCDXX60X9S91ZWJ94M37GA",
-    "name": "Atakrękojeścią",
+    "name": "Atak Rękojeścią",
     "grade": 2,
     "description": "Test fechtunku/fortelu+walka wręcz-1 vs fechtunku/fortelu+refleks/siła/walka wręcz. Wygrany powoduje dodaje obrażeń równych walce wręcz.",
     "castTime": "Standardowa",
-    "requirements": "Atak rękojeścią 1, Większy Fechtunek 5 lub Większy Fortel 5, Walka Wręcz 4",
+    "requirements": [
+      "Większy Fechtunek 5 lub Większy Fortel 5",
+      "Walka Wręcz 4"
+    ],
     "cooldown": 5,
     "price": 3,
     "tags": [
@@ -7887,11 +7951,14 @@
   },
   {
     "id": "9X7D2MZACKGNPGBT1BMKHFD64R",
-    "name": "Atakrękojeścią",
+    "name": "Atak Rękojeścią",
     "grade": 3,
     "description": "Test fechtunku/fortelu+walka wręcz vs fechtunku/fortelu+refleks/siła/walka wręcz. Wygrany powoduje dodaje obrażeń równych walce wręcz.",
     "castTime": "Standardowa",
-    "requirements": "Atak rękojeścią 2, Większy Fechtunek 6 lub Większy Fortel 6, Walka Wręcz 5",
+    "requirements": [
+      "Większy Fechtunek 6 lub Większy Fortel 6",
+      "Walka Wręcz 5"
+    ],
     "cooldown": 4,
     "price": 3,
     "tags": [
@@ -7900,7 +7967,7 @@
   },
   {
     "id": "TEP8NSC0KW4MAKH0RG0407N94R",
-    "name": "Atakwprzelocie",
+    "name": "Atak w Przelocie",
     "grade": 1,
     "description": "Dodaje 3dmg atakując z powietrza.",
     "castTime": "Standardowa",
@@ -7909,7 +7976,7 @@
   },
   {
     "id": "21CHDRC3SE9K5Z6N9ME7QVGCFM",
-    "name": "Atakwprzelocie",
+    "name": "Atak w Przelocie",
     "grade": 2,
     "description": "Dodaje 5dmg atakując z powietrza.",
     "castTime": "Standardowa",
@@ -7918,7 +7985,7 @@
   },
   {
     "id": "K4R7WKN4W2F22SD5M40FPQM454",
-    "name": "Atakwprzelocie",
+    "name": "Atak w Przelocie",
     "grade": 3,
     "description": "Dodaje 7dmg atakując z powietrza.",
     "castTime": "Standardowa",
@@ -7941,7 +8008,11 @@
     "description": "Dodaje 1 obrażeń. Zmniejsza odporność o 1 w następnej turze.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "5KFQWCT3SBEPFJ3S46261KHPN8",
@@ -7950,7 +8021,11 @@
     "description": "Dodaje widmową kość obrażeń k4.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "Z98J9P047WS1HXE9JFPFWHS8RE",
@@ -7959,7 +8034,11 @@
     "description": "Dodaje widmową kość obrażeń k8.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "6JWZEE890PM2VCP2CM508MXGE9",
@@ -7968,7 +8047,11 @@
     "description": "Dodaje widmową kość obrażeń k10.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "A10D2F2K6S3PM9DK1530467PCP",
@@ -7977,7 +8060,11 @@
     "description": "Dodaje widmową kość obrażeń k14.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "50DV3E4463Q5QN3HQ2VRZKBWFN",
@@ -7985,7 +8072,9 @@
     "grade": 1,
     "description": "Dodaje szansę krytyka do obrażeń. Powoduje, że nie można zadać krytycznych obrażeń.",
     "castTime": "Standardowa",
-    "requirements": "Szansa Krytyka+ 1",
+    "requirements": [
+      "Szansa Krytyka+ 1"
+    ],
     "cooldown": 6,
     "price": 2,
     "tags": [
@@ -7998,7 +8087,9 @@
     "grade": 2,
     "description": "Dodaje szansę krytyka+1 do obrażeń. Powoduje, że nie można zadać krytycznych obrażeń.",
     "castTime": "Standardowa",
-    "requirements": "Bez ryzyka 1",
+    "requirements": [
+      "Bez ryzyka 1"
+    ],
     "cooldown": 5,
     "price": 3,
     "tags": [
@@ -8011,7 +8102,9 @@
     "grade": 3,
     "description": "Dodaje szansę krytyka+2 do obrażeń. Powoduje, że nie można zadać krytycznych obrażeń.",
     "castTime": "Standardowa",
-    "requirements": "Bez ryzyka 2",
+    "requirements": [
+      "Bez ryzyka 2"
+    ],
     "cooldown": 4,
     "price": 3,
     "tags": [
@@ -8048,7 +8141,9 @@
     "grade": 1,
     "description": "Można dodać +x do dmg za -x od ustalonej inicjatywy (max +4).",
     "castTime": "Standardowa",
-    "requirements": "Większa Inicjatywa 2",
+    "requirements": [
+      "Większa Inicjatywa 2"
+    ],
     "cooldown": 5,
     "price": 4,
     "tags": []
@@ -8059,7 +8154,9 @@
     "grade": 2,
     "description": "Można dodać +x do dmg za -x od ustalonej inicjatywy (max +5).",
     "castTime": "Standardowa",
-    "requirements": "Błyskawiczny Cios 1, Większa Inicjatywa 3",
+    "requirements": [
+      "Większa Inicjatywa 3"
+    ],
     "cooldown": 5,
     "price": 2,
     "tags": []
@@ -8070,7 +8167,9 @@
     "grade": 3,
     "description": "Można dodać +x do dmg za -x od ustalonej inicjatywy (max +6).",
     "castTime": "Standardowa",
-    "requirements": "Błyskawiczny Cios 2, Większa Inicjatywa 4",
+    "requirements": [
+      "Większa Inicjatywa 4"
+    ],
     "cooldown": 4,
     "price": 2,
     "tags": []
@@ -8105,7 +8204,10 @@
     "grade": 1,
     "description": "Dodaje 1 dmg za każde 4 obrażeń zadanych w zdrowie w poprzednim ataku.",
     "castTime": "Standardowa",
-    "requirements": "Większy Fechtunek 3, Większy Fortel 3",
+    "requirements": [
+      "Większy Fechtunek 3",
+      "Większy Fortel 3"
+    ],
     "cooldown": 6,
     "price": 4,
     "tags": [
@@ -8119,7 +8221,10 @@
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=7. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "VM4MVHGF8N7PF8R5JPEZFSG3E0",
@@ -8128,7 +8233,10 @@
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=8. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "4QBPW6FC2ZJ9KPXBD253M2BTGR",
@@ -8137,7 +8245,10 @@
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=9. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "6V81F6PF51HFW5X2XCCEWGATC2",
@@ -8146,7 +8257,10 @@
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=10. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "JVR9GV6QKEK6SX8AZC41Z1R2AT",
@@ -8155,7 +8269,10 @@
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=11. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "8W8R8W0647BNRA1S9PD9AMZNQG",
@@ -8164,7 +8281,10 @@
     "description": "Jeżeli zadano obrażenia (takie które przeszły redukcję), Test wytrwałości o ST=12. Za każde oczko straty zadaje 1dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "9YAM70WF1RAW6G5DXHA3Q9488A",
@@ -8173,7 +8293,10 @@
     "description": "Wszyscy w odległości 2 kroków wykonują test wytrwałościo o ST=7 . Za każde oczko straty w przegranym teście 1k4 prawdziwych obrażeń od zimna.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "MK4BMJDZCMC9MD6NZJY12MEY2C",
@@ -8182,7 +8305,10 @@
     "description": "Wszyscy w odległości 2 kroków wykonują test wytrwałościo o ST=8 . Za każde oczko straty w przegranym teście 1k4 prawdziwych obrażeń od zimna.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "YYFY7Z3NYFCST5W10T9M3V14BS",
@@ -8200,7 +8326,10 @@
     "description": "Zwiększa skale trudności choroby o 1. Dodaje dodatkowo 2 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "YN2S1AVJNCHC5RPKW7ZKZ88EFE",
@@ -8209,7 +8338,10 @@
     "description": "Zwiększa skale trudności choroby o 2. Dodaje dodatkowo 3 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "2RPMZJNQ771VXYYV5E0FNQRMQG",
@@ -8218,7 +8350,10 @@
     "description": "Zwiększa skale trudności choroby o 3. Dodaje dodatkowo 4 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "B8VA7TXDR77Y1S2TZHDCEYK1V2",
@@ -8227,7 +8362,10 @@
     "description": "Dodaje dodatkową chorobe w tej rundzie (o ile podmiot zostanie zraniony w zdrowie).",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "DRBWDNE1XXG0W60YZJEME3NF8R",
@@ -8245,7 +8383,9 @@
     "description": "Powoduje czarne światło1 w promieniu 1 kroków, w zasięgu 5 kroków [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "FZJ8SESSSV6JGW452P4AVEVZN0",
@@ -8254,7 +8394,9 @@
     "description": "Powoduje czarne światło2 w promieniu 2 kroków, w zasięgu 10 kroków [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "JTNB0DF41Z8B1Z76E1XQKDN0XC",
@@ -8263,7 +8405,9 @@
     "description": "Powoduje czarne światło3 w promieniu 3 kroków, w zasięgu 15 kroków [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "SWAE2FW8Y8M3WYCSEDE1SF07R3",
@@ -8272,7 +8416,9 @@
     "description": "Atak dystansowy +3, w zasięgu 11 kroków. Udany powoduje test wytrwałości o ST=7+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "153AYXB0EFX37JYG38TRD0N6KM",
@@ -8281,7 +8427,9 @@
     "description": "Atak dystansowy +6, w zasięgu 13 kroków. Udany powoduje test wytrwałości o ST=8+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "677E95V9F767Y1YZFQV39EYYER",
@@ -8290,7 +8438,9 @@
     "description": "Atak dystansowy +7, w zasięgu 15 kroków. Udany powoduje test wytrwałości o ST=10+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "GT4VYTTSZ0AX2D0XNVNA16WS2N",
@@ -8299,7 +8449,9 @@
     "description": "Teleportuje się w odległości 3 kroków. Niedokładność związana z mocami i strukturami mocy w obszarze. [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "XQBD9B355S00HAN73RQHTY5G49",
@@ -8317,7 +8469,11 @@
     "description": "Test siła vs wytrwałość. Za każde oczko straty odżuca o 1 krok i obniża inicjatywe o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "3SJR4KJ97XBDCXKTA0SNM23MZD",
@@ -8325,7 +8481,9 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń 1k4 za każdą redukcję kości wroga.",
     "castTime": "Standardowa",
-    "requirements": "Większy Fortel 5",
+    "requirements": [
+      "Większy Fortel 5"
+    ],
     "cooldown": 4,
     "price": 7,
     "tags": [
@@ -8339,7 +8497,9 @@
     "description": "Wywołuje kłębiocą się czerwoną moc niczym mgła. Dookoła czarta zmniejsza widoczność i ukrywa niektóre ruchy. Dodaje +1 do testów fechtunku i fortelu. Kosc to 1//10e, trwa tura/siła zaklęcia = 4. Obszar działania to 0,05metra/siła zaklęcia = 0,2 metra. [1//10e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "B13R99YG8PMQTZXCGE1HRMN20P",
@@ -8348,7 +8508,9 @@
     "description": "Demoniczna moc zadaje 1k6/3esencji max 4k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "38RXWRQZ2DAYJKTBHT9SQA1W51",
@@ -8357,7 +8519,9 @@
     "description": "Demoniczna moc zadaje 1k6/3esencji max 5k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "PP5X7T17E7TB1CV9YFDHQV0DAB",
@@ -8366,7 +8530,9 @@
     "description": "Demoniczna moc zadaje 1k6/3esencji max 7k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "QKWSQXA2RNQJWJ6FR7QPVD5Y8M",
@@ -8375,7 +8541,9 @@
     "description": "Demoniczna moc zadaje 1k6/3esencji max 8k6 obrażeń [1k6//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "QMF1NFWP1E0SHKKZ84X2SXJTTE",
@@ -8384,7 +8552,9 @@
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 4 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "06BH8C3D84232TF2JMY1NXMF2W",
@@ -8393,7 +8563,9 @@
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 6 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "QTYK44WZYCHV198NSC7YF6E6C8",
@@ -8402,7 +8574,9 @@
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 8 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "EHXJGX18ZTNJACGJ9EJYVKXKY9",
@@ -8411,7 +8585,9 @@
     "description": "Dodaje 2 redukcji z naturalnego pancerza/2esencji max 10 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "1NCXDTABJGXCA1HER08V8R0VJG",
@@ -8420,7 +8596,9 @@
     "description": "Dodaje 1 wytrwałości za każde 4 esencji max 5 [1//4e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "9HF22NK556985M5A9F7VEESSZR",
@@ -8429,7 +8607,9 @@
     "description": "Dodaje 1 wytrwałości za każde 3 esencji max 7 [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "QBKV6BN98NRR264HZE869SFGJ1",
@@ -8438,7 +8618,9 @@
     "description": "Dodaje 1 wytrwałości za każde 2 esencji max 10 [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "VKSFN856QNM8VYASM8QZRH5APM",
@@ -8447,7 +8629,9 @@
     "description": "Dodaje 1 wytrwałości za każde 2 esencji max 12 [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "FH0AC0H1HZ58MHD1JATFED01YM",
@@ -8456,7 +8640,9 @@
     "description": "Dodaje 1 wytrwałości za każde 2 esencji max 13 [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "J08PQ4GZFFJJSFFMSPCEV4W84W",
@@ -8465,7 +8651,9 @@
     "description": "Dodaje 1dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "E3NSJD9ED2P8G8ZENYB3MH0KTB",
@@ -8474,7 +8662,9 @@
     "description": "Dodaje 3dmg na ture/3esencji [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "4PHW6A5BNJM7A5D5X229GX48YN",
@@ -8483,7 +8673,9 @@
     "description": "Dodaje 4dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "Y1V70KD84KMX53NM93SV1BB00D",
@@ -8492,7 +8684,9 @@
     "description": "Dodaje 5dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "1C3T1V87GAPAYVZDD0SGD0JZC0",
@@ -8510,7 +8704,9 @@
     "description": "Test woli o ST=12. Obniża wolę o 1 za każde oczko staty [15e 1//4].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "P92DD179D83SXKQ1WHJC1T6EKF",
@@ -8519,7 +8715,9 @@
     "description": "Test woli o ST=14. Obniża wolę o 1 za każde oczko staty [15e 1//4].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "62PNW7H61XYR4K6QTKMCGWD0JM",
@@ -8546,7 +8744,9 @@
     "description": "Dodaje kość redukcji na jeden atak. Natychmiastowa [1//10e].",
     "castTime": "Natychmiastowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "MJPSCZM2JWPFS4HX5ZVDYKFQAR",
@@ -8564,7 +8764,9 @@
     "description": "Dodaje dodatkową kość obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "DGZP5VSQ90ZPGCJMPSRG3WT7JD",
@@ -8573,7 +8775,9 @@
     "description": "Dodaje 1 redukcji z naturalnego pancerza/2esencji max 3 na 3 tury/siła zaklęcia [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "PNENQDNY9420EAPYDHK5GF2FB4",
@@ -8582,7 +8786,9 @@
     "description": "Dodaje 1 kość redukcji oraz 2redukcji/siła zaklęcia na minute/1esencji.",
     "castTime": "Standardowa",
     "cooldown": "5+1e",
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "BAXVAHXGC8TH056G8X2S371XPH",
@@ -8591,7 +8797,9 @@
     "description": "Dodaje 1 do woli za każde 3 esencji max 5 [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "NKCYKAEQ29RV1PJEHTG69Z54KF",
@@ -8600,7 +8808,9 @@
     "description": "Dodaje 1 do woli za każde 3 esencji max 7 [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "RH7NHRRQZXXM3MSJKTHWYSVG46",
@@ -8618,7 +8828,9 @@
     "description": "Dodaje 1dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "7QW3BGQRR323KAF22074YEDBJD",
@@ -8627,7 +8839,9 @@
     "description": "Dodaje 2dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "T7HZRS89BPFHK5HMGXJT1XJ0B8",
@@ -8636,7 +8850,9 @@
     "description": "Dodaje 3dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "H7E0QPSCZ9R3V5KZ2C4EEK2PQQ",
@@ -8645,7 +8861,9 @@
     "description": "Dodaje 10dmg na ture/2esencji [1//2e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "DWZZ2YEPAP80M8PKM6A35ND29K",
@@ -8654,7 +8872,9 @@
     "description": "Potężna diabelska moc zadaje 1k16+1/5esencji max 6k16+6 [1//5e,.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "F8MH07Z4GP635WA2ADN84MKP7Q",
@@ -8663,7 +8883,9 @@
     "description": "Diabelska moc zadaje 1k4/3esencji max 5k4 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "B7H4TZ5T0CG5CYRYYSJN493V1J",
@@ -8672,7 +8894,9 @@
     "description": "Diabelska moc zadaje 1k4/3esencji max 7k4 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "4C4XKY88VWGEY6AYJYDMBP65MT",
@@ -8681,7 +8905,9 @@
     "description": "Diabelska moc zadaje 1k4/3esencji max 9k4 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "3FY40VB090JCJ5SJMHFQSYMQQT",
@@ -8690,7 +8916,9 @@
     "description": "Diabelska moc zadaje 1k4+1/3esencji max 10k4+10 obrażeń [1k4//3e, 1//3].",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "8VBPX7CDA5PTGCT65QYZBMNVC0",
@@ -8699,7 +8927,9 @@
     "description": "Test sporny refleksu z siłą zaklęcia+3. Za każde oczko przewagi refleksu, siła zaklęcia zmniejsza się o 1, niemożliwośc magicznych trafień krytycznych, podjęta próba refleksu oznacza utrate 5 inicjatywy. Zadaje 1k4/4 esencji max 10k4 dmg [1k4//4e,.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "2CRDMF9BBGVXDJSCH5YAQ20PMB",
@@ -8708,7 +8938,9 @@
     "description": "Dodaje 1hp tarczy/3esencji max 7. Natychmiastowa [1//3e].",
     "castTime": "Natychmiastowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "KBG6GBFR2JAGQS13GQ64768XTZ",
@@ -8717,7 +8949,9 @@
     "description": "Dodaje 1hp tarczy/3esencji max 9. Natychmiastowa [1//3e].",
     "castTime": "Natychmiastowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "SJBWQZSGX50M27R0899D8PXXH0",
@@ -8726,7 +8960,9 @@
     "description": "Dodaje 1hp tarczy/3esencji max 20. Natychmiastowa [1//3e].",
     "castTime": "Natychmiastowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "C0ZSJBEH0GVBC379M9ASM9P69A",
@@ -8735,7 +8971,9 @@
     "description": "Dodaje 2dmg na ture/3esencji [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "RDSYPJCTTH589J8HDVC5MYM4C2",
@@ -8744,7 +8982,9 @@
     "description": "Dodaje 1 refleksu za każde 3 esencji max 9 [1//3e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "SX4RCSCVG3TG22CM6BVKKPMVD6",
@@ -8753,7 +8993,9 @@
     "description": "Dodaje 1 refleksu za każde 4 esencji max 5 [1//4e].",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "AQ616WKQJ93BCQ2D4CMGP1D8EQ",
@@ -8789,7 +9031,10 @@
     "description": "Zwiększa rangę kość broni o 2, zmniejsza odporność o 3 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "5PS166QS5VKFFWB7ZK9YG2CKW0",
@@ -8798,7 +9043,10 @@
     "description": "Zwiększa rangę kość broni o 3, zmniejsza odporność o 5 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "H02A2X41R7YW8K4AHTSKRXB728",
@@ -8807,7 +9055,10 @@
     "description": "Zwiększa rangę kość broni o 4, zmniejsza odporność o 7 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "CKACV6RSXVBGG8CXFTZ1GF6MXF",
@@ -8815,7 +9066,9 @@
     "grade": 1,
     "description": "Wygrany test sporny inicjatywy-2 redukuje 1 kość broni przeciwnika [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Inicjatywa 4",
+    "requirements": [
+      "Większa Inicjatywa 4"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": []
@@ -8826,7 +9079,10 @@
     "grade": 1,
     "description": "Test sporny inicjatywy z fechtunkiem/fortelem/siłą. Wygrany powoduje dodanie widmowej kości obrażeń o randze równej inicjatywie [].",
     "castTime": "Standardowa",
-    "requirements": "Większa Inicjatywa 4, Błyskawiczny Cios 1",
+    "requirements": [
+      "Większa Inicjatywa 4",
+      "Błyskawiczny Cios 1"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": []
@@ -8838,7 +9094,10 @@
     "description": "Dodaje kość obrażeń 1k12 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "PPN31GTD655BQ2A8ZG40B7CGHS",
@@ -8847,7 +9106,11 @@
     "description": "Dodaje 2 obrażenia i odejmuje 1 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "29EH6DJR916V5DDRBDY6Y2YY9M",
@@ -8856,7 +9119,11 @@
     "description": "Dodaje 3 obrażenia i odejmuje 1 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "5YC09RVP3ZTV37KWNTY3N28K17",
@@ -8865,7 +9132,11 @@
     "description": "Dodaje 4 obrażenia i odejmuje 2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "465DCPZ790S4D581YRQCDM38HK",
@@ -8901,7 +9172,11 @@
     "description": "Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "FPTZKS10AEXAN6QTQ4R8GBMBPB",
@@ -8910,7 +9185,11 @@
     "description": "Test siły-4vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "ZERBJBVWDGAD5YACEZZRRX189K",
@@ -8919,7 +9198,11 @@
     "description": "Test siły-3 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "XSS1EGPZMD098YBZ0HZSABXSPV",
@@ -8928,7 +9211,11 @@
     "description": "Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie połowę siły do obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "M2P4PBJ049PVT25RX7ACHCPPBJ",
@@ -8937,7 +9224,9 @@
     "description": "Test siły-3 vs siła/zręczność. Wygrany powoduje dodanie wytrwałości do obrażeń, przegrany odejmuje 2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "VC6R5T7PQF5X5J8D1ZYV2A3YQ2",
@@ -8946,7 +9235,9 @@
     "description": "Test siły-2 vs siła/zręczność. Wygrany powoduje dodanie wytrwałości do obrażeń, przegrany odejmuje 2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "PAF6Z0GM5W01FD5B16Q71Z8WJF",
@@ -8955,7 +9246,10 @@
     "description": "Rzucasz dodatkową kością broni i wybierasz dwa dowolne wyniki.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "humanoidalne"
+    ]
   },
   {
     "id": "9HMG9RTW78MCNXZNFX239GQ5EJ",
@@ -8972,7 +9266,10 @@
     "grade": 1,
     "description": "Dodaje inicjatywę do redukcji z uników [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Inicjatywa 4, Impuls 1",
+    "requirements": [
+      "Większa Inicjatywa 4",
+      "Impuls 1"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": []
@@ -8993,7 +9290,11 @@
     "description": "Dodaje 1 odporności.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "W5NTWSSASSB0VZA58A5KVEZRK6",
@@ -9002,7 +9303,11 @@
     "description": "Dodaje 2 odporności.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "Q5SZ1AMEWB8ZQ84R20KKM0BZJ9",
@@ -9011,7 +9316,11 @@
     "description": "Dodaje 3 odporności.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "FP3FFNQTM712PAQJP3H9X45WMB",
@@ -9020,7 +9329,11 @@
     "description": "Dodaje 3 odporności na 2 rundy.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "QJ4EDY8VC2J5EWZ8T4A5RYZMH1",
@@ -9029,7 +9342,11 @@
     "description": "Dodaje 3 odporności na 3 rundy.",
     "castTime": "Natychmiastowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "rdzeń"
+    ]
   },
   {
     "id": "XAYSJ356JB8C3J85CDX3Z71FHN",
@@ -9038,7 +9355,10 @@
     "description": "Za każde 3 staki zadaje 1k4 obrażeń od elektryczności, zdejmuje stacki z podmiotu.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "J4XM1DM3CCWNJEYCFSDFGR9A5N",
@@ -9047,7 +9367,10 @@
     "description": "Za każde 3 staki zadaje 1k6 obrażeń od elektryczności, zdejmuje stacki z podmiotu.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "NA0D8V0246J3S788NM7XBHZ2HE",
@@ -9056,7 +9379,10 @@
     "description": "Test Refleksu o ST=6. Nieudany dodaje 1k4w do obrażeń krytycznych.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "2PPM67854PWSR6GDNAQYEKS0KF",
@@ -9065,7 +9391,10 @@
     "description": "Test Refleksu o ST=7. Nieudany dodaje 1k4w do obrażeń krytycznych.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "T938KR3Z4WAXCJPZ1B6PFFMQXD",
@@ -9074,7 +9403,10 @@
     "description": "Test Refleksu o ST=8. Nieudany dodaje 1k4w do obrażeń krytycznych.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "RQCWX3WCDJ60EESFTVN31MB0FQ",
@@ -9083,7 +9415,9 @@
     "description": "Podwaja obrażenia kości broni, ale odejmuje obrażenia na kość broni do obrażeń i sumarycznie tylko samo redukcji [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "C0658G3QHVXF2MGYV3J2SEDY2Z",
@@ -9092,7 +9426,10 @@
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+0. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k6w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "ZFYZ8BQ7674BBPYT2P1HJGBFFD",
@@ -9101,7 +9438,10 @@
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k10w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "DBDEH5WJ3TNTXNK7T2CYXY0TVS",
@@ -9110,7 +9450,10 @@
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2. Nieudany powoduje potrzask przez gada. Test można powtarzać co rundę aby wyrwać się z potrzasku jednak ST testu rośnie co runde o 1. Potrzask powoduje dodatkowo 1k14w obrażeń, zmniejsza kość broni podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "649MCMADET7TQ5D2MQ5Q48H462",
@@ -9119,7 +9462,10 @@
     "description": "Dodaje +1 do najbliższego testu Refleksu.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "6YK0E5AMTJHNNW0A18PN0DGF56",
@@ -9128,7 +9474,10 @@
     "description": "Dodaje +2 do najbliższego testu Refleksu.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "E044G5XCGBEV6RFQ7ADQVGKQ8T",
@@ -9146,7 +9495,11 @@
     "description": "Wybrana kość zadaje trafienie krytyczne.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "HNK7S1GMND37V8F8J2KJCTAE2K",
@@ -9155,7 +9508,11 @@
     "description": "Wybrana kość zadaje trafienie krytyczne.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "2T3GR9B3ZZVR5FH5YKWSTQQ5C9",
@@ -9164,7 +9521,11 @@
     "description": "Wybrana kość zadaje trafienie krytyczne.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "W0T3K255MJ51DRWRZDEGJ2H3PY",
@@ -9173,7 +9534,11 @@
     "description": "Redukuje o połowe rany zadane w zdrowie [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "Z5DWWX7DPTB6SRJ86ZEEGKR74H",
@@ -9182,7 +9547,10 @@
     "description": "Dodaje 1k6w obrażeń od zimna.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "KS3QSG61YE9BHFD06YWPYCBKQR",
@@ -9191,7 +9559,10 @@
     "description": "Dodaje 1k8w obrażeń od zimna.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "Y8MSR7XB8PFV35X7K7YDDXMT68",
@@ -9200,7 +9571,9 @@
     "description": "Test sporny Siła+Zrecznośc-5. Nieudany obniża inicjatywe o 1 za każde oczko straty w teście. Jeśli inicjatywa spadnie poniżej zera obala przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "0SS63ZA9244M6M6Q3QPJ09VQ6W",
@@ -9209,7 +9582,9 @@
     "description": "Test sporny Siła+Zrecznośc-4. Nieudany obniża inicjatywe o 1 za każde oczko straty w teście. Jeśli inicjatywa spadnie poniżej zera obala przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "H7SJ7YSDX20PSN552CB5K9T3A8",
@@ -9218,7 +9593,9 @@
     "description": "Test sporny Siła+Zrecznośc-3. Nieudany obniża inicjatywe o 1 za każde oczko straty w teście. Jeśli inicjatywa spadnie poniżej zera obala przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "JTE2CHHD5VTEPXGR186XQ7WZBB",
@@ -9227,7 +9604,11 @@
     "description": "Odejmuje kość redukcji, Dodaje 10 redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "FRMT79F9EW3K8NT6PRK7SRGSFK",
@@ -9236,7 +9617,11 @@
     "description": "Odejmuje kość redukcji, Dodaje 12 redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "H97WPNDT3CCMZMGDFEZMVB5WG2",
@@ -9245,7 +9630,11 @@
     "description": "Odejmuje kość redukcji, Dodaje 14 redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "B2MF00E0HN52BEHBZJ5PKC2EB2",
@@ -9254,7 +9643,11 @@
     "description": "Test wytrwałości o ST=10. Zadajeje 1 śmiertelnych obrażeń za każde 4 stacków Choroby każdej istocie w zasięgu 7 kroków.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "S7H50SF72SDFX866SQ511HJRK4",
@@ -9262,7 +9655,9 @@
     "grade": 1,
     "description": "Wygrany test sporny inicjatywy-2 powoduje, że ty i przeciwnik tracicie jedną kość broni.",
     "castTime": "Natychmiastowa",
-    "requirements": "Wieksza Inicjatywa 3",
+    "requirements": [
+      "Wieksza Inicjatywa 3"
+    ],
     "cooldown": 4,
     "price": 3,
     "tags": [
@@ -9275,7 +9670,10 @@
     "grade": 2,
     "description": "Wygrany test sporny inicjatywy-1 powoduje, że ty i przeciwnik tracicie jedną kość broni.",
     "castTime": "Natychmiastowa",
-    "requirements": "Impas 1, Większa Inicjatywa 4",
+    "requirements": [
+      "Impas 1",
+      "Większa Inicjatywa 4"
+    ],
     "cooldown": 4,
     "price": 2,
     "tags": [
@@ -9288,7 +9686,10 @@
     "grade": 3,
     "description": "Wygrany test sporny inicjatywy powoduje, że ty i przeciwnik tracicie jedną kość broni.",
     "castTime": "Natychmiastowa",
-    "requirements": "Impas 2, Większa Inicjatywa 5",
+    "requirements": [
+      "Impas 2",
+      "Większa Inicjatywa 5"
+    ],
     "cooldown": 4,
     "price": 2,
     "tags": [
@@ -9301,7 +9702,9 @@
     "grade": 1,
     "description": "Ponawiasz rzut za inicjatywę [].",
     "castTime": "Standardowa",
-    "requirements": "Większa Inicjatywa 1",
+    "requirements": [
+      "Większa Inicjatywa 1"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": [
@@ -9314,7 +9717,9 @@
     "grade": 2,
     "description": "Ponawiasz rzut za inicjatywę ze zwiększoną o 1 rangą [].",
     "castTime": "Standardowa",
-    "requirements": "Impuls 1, Większa Inicjatywa 2",
+    "requirements": [
+      "Większa Inicjatywa 2"
+    ],
     "cooldown": null,
     "price": 2,
     "tags": [
@@ -9327,7 +9732,10 @@
     "grade": 3,
     "description": "Ponawiasz rzut za inicjatywę ze zwiększoną o 2 rangą [].",
     "castTime": "Standardowa",
-    "requirements": "Impuls 3, Większa Inicjatywa 3",
+    "requirements": [
+      "Impuls 3",
+      "Większa Inicjatywa 3"
+    ],
     "cooldown": null,
     "price": 2,
     "tags": [
@@ -9340,7 +9748,9 @@
     "grade": 1,
     "description": "Dodaje widmową kość obrażeń o randzie równej inicjatywie [].",
     "castTime": "Standardowa",
-    "requirements": "Większa Inicjatywa 3",
+    "requirements": [
+      "Większa Inicjatywa 3"
+    ],
     "cooldown": null,
     "price": 7,
     "tags": []
@@ -9352,7 +9762,9 @@
     "description": "Przeciwnik odrzuca kość z największym wynikiem oczek (używane przed rzutem) [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "NZZMT1SRMJ7JWVDGVQ90E3BMQD",
@@ -9361,7 +9773,11 @@
     "description": "Dodaje 1 szansy uderzenia krytycznego za każdego członka stada atakującego ten sam cel.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "Q9CNPRJ4XJNB1SA96MSFXHTKG1",
@@ -9370,7 +9786,11 @@
     "description": "Dodaje 1 szansy i 1 siły uderzenia krytycznego za każdego członka stada atakującego ten sam cel.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "BGG0XW6FF68CJP0MJHY9MMXJXZ",
@@ -9379,7 +9799,11 @@
     "description": "Dodaje 1 szansy i 1 siły uderzenia krytycznego oraz 1 inicjatywy za każdego członka stada atakującego ten sam cel.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "275QHP6QCRRY5E8CGB950XKQ2R",
@@ -9397,7 +9821,10 @@
     "description": "Zamienia jedną kość broni przeciwnika w kość obrażeń.",
     "castTime": "Pełnorundowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "JGB379G146VDPMB6NJMG3DCHXD",
@@ -9406,7 +9833,11 @@
     "description": "Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=8, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "9BXD0N23GBNHEPB2Z5P2B71F36",
@@ -9415,7 +9846,11 @@
     "description": "Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=9, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "DA5XNEMZAER45JV3CMWQQP04H4",
@@ -9424,7 +9859,11 @@
     "description": "Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=10, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu. W każdej następnej rundzie ST spada o 1.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "YJKTTZABA8A41BP2BPJHRPG6CS",
@@ -9433,7 +9872,10 @@
     "description": "Test refleksu o ST=8. Nieudany powoduje zadanie 1k10w obrażeń. Test wytrwałości o ST=8 za każde oczko różnicy w przegranym teście 1 stack choroby.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "W4SCRAKA9ZBEMQ7W7BGP5CM1YW",
@@ -9441,7 +9883,9 @@
     "grade": 1,
     "description": "Tracisz kość broni w tym ataku. Dodajesz kość broni w następnym ataku przeciw wcześniej atakowanemu wrogowi [].",
     "castTime": "Standardowa",
-    "requirements": "S  5",
+    "requirements": [
+      "S  5"
+    ],
     "cooldown": null,
     "price": 12,
     "tags": [
@@ -9455,7 +9899,10 @@
     "description": "Test wytrwałości o ST=2. Nieudany oznacza utrate 1 kości broni.",
     "castTime": "Standardowa",
     "cooldown": 8,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "XJH0T79J13TG19K73A8TENQWFR",
@@ -9464,7 +9911,10 @@
     "description": "Test wytrwałości o ST=4. Nieudany oznacza utrate 1 PL.",
     "castTime": "Standardowa",
     "cooldown": 8,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "2BC1GXHP0FJ64CGAWYWGNE4ECD",
@@ -9473,7 +9923,11 @@
     "description": "Obrażenia w zdrowie. Test Refleksu o ST=7. Nieudany wymusza test wytrwałości o ST=8 + znamiona jadu. Za każde oczko straty obniża 1 obrażeń na kość, 1 redukcji z uników, zadaje 1k4 śmiertelnych obrażeń i nakłada 1 znamie jadu 1//4].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "JPX0V0091XKT5WHDJMQ83DXMJ8",
@@ -9482,7 +9936,11 @@
     "description": "Obrażenia w zdrowie. Test Refleksu o ST=8. Nieudany wymusza test wytrwałości o ST=9 + znamiona jadu. Za każde oczko straty obniża 1 obrażeń na kość, 1 redukcji z uników, zadaje 1k4 śmiertelnych obrażeń i nakłada 1 znamie jadu 1//4].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "YRCSCJ0CYN5JE9A3NK9CCXMVJF",
@@ -9491,7 +9949,11 @@
     "description": "Obrażenia w zdrowie. Test Refleksu o ST=9. Nieudany wymusza test wytrwałości o ST=10 + znamiona jadu. Za każde oczko straty obniża 1 obrażeń na kość, 1 redukcji z uników, zadaje 1k4 śmiertelnych obrażeń i nakłada 1 znamie jadu 1//4].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "KNCB8AXJC05D2Q20A4001SR4CK",
@@ -9526,7 +9988,9 @@
     "grade": 1,
     "description": "Za każde dwa oczka przewagi w teście inicjatywy przeciwnik zyskuje szansę krytycznego pudła+1.",
     "castTime": "Natychmiastowa",
-    "requirements": "Krytyczne Pudło 1",
+    "requirements": [
+      "Krytyczne Pudło 1"
+    ],
     "cooldown": 5,
     "price": 3,
     "tags": []
@@ -9538,7 +10002,10 @@
     "description": "Zmniejsza czas odnowienia innych manewrów o 1.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "1KJ53BYZQXB2004BX29KNQ8ADD",
@@ -9547,7 +10014,10 @@
     "description": "Zmniejsza czas odnowienia innych manewrów o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "FVWBN5A1V0KGZRGM4WG5CQM705",
@@ -9556,7 +10026,10 @@
     "description": "Zmniejsza czas odnowienia innych manewrów o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "48CBW5RANHG08M9QRBCM7N0G5P",
@@ -9565,7 +10038,10 @@
     "description": "Zmniejsza czas odnowienia innych manewrów o 2.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "Q7W3BEJAJPMXGZGMDZCKFB5J6C",
@@ -9574,7 +10050,10 @@
     "description": "Zmniejsza czas odnowienia innych manewrów o 2.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "1Z0DWG3HGZWC6ZGA3354RZY0Y7",
@@ -9583,7 +10062,10 @@
     "description": "Zadaje PL obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "A76RV4JNAHWGRFX8TV27MJB0NB",
@@ -9592,7 +10074,10 @@
     "description": "Zadaje PL obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "F34B3D7HGSCR83WBQZ20WPPJQ4",
@@ -9601,7 +10086,10 @@
     "description": "Zadaje PL obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "7J3KPGAR0GCRAWS5HG80S97ZPK",
@@ -9628,7 +10116,9 @@
     "description": "Przy ataku w plecy zamiast bonusu kość broni podwaja bonus siły krytyka i dodaje 2 siły krytyka [1//Atak w Plecy].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "FEB2FQ6JYRJ5QNMGGN80GXPWVW",
@@ -9637,7 +10127,10 @@
     "description": "Test woli o ST=8. Zadaje 1k4 prawdziwych obrażeń za każde oczko straty.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "JSSS19J7CR6988FCZVG9TW5YAY",
@@ -9646,7 +10139,10 @@
     "description": "Atak zadaje obrażenia wszystkim istotą w stożku (90* 8 kroków).",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "DX1THCVFCVGZ7WWERAFCBW2XF9",
@@ -9655,7 +10151,10 @@
     "description": "Atak zadaje obrażenia wszystkim istotą w stożku (90* 8 kroków).",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "ZVKG9C4FE9KMDPX90B9R93JDD0",
@@ -9673,7 +10172,9 @@
     "description": "Akcja Całorundowa. Atak dystansowy +3, 4 cele w zasięgu 13 kroków. Udany powoduje test wytrwałości o ST=7+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "KCXPB3M6N514CPMJKQ2BY2WCD2",
@@ -9682,7 +10183,9 @@
     "description": "Akcja Całorundowa. Atak dystansowy +4, 5 celów w zasięgu 15 kroków. Udany powoduje test wytrwałości o ST=8+stacki. Udany powoduje obniżenie siły o 1. [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "M9F9GXQFPQTZ7ZQMPJ3AX4FK0F",
@@ -9691,7 +10194,10 @@
     "description": "Wszyskie cele w promieniu 5 kroków. Test sporny wytrwałości. Wygrany powoduje obniżenie siły o 1 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "HG06DXM2DD24T7BTXQYQ9CJZE3",
@@ -9700,7 +10206,10 @@
     "description": "Wszyskie cele w promieniu 5 kroków. Test sporny wytrwałości+1. Wygrany powoduje obniżenie siły o 1 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "HVWK36XRXYB1G3F3ZHS7WAFNC6",
@@ -9709,7 +10218,9 @@
     "description": "Test refleksu o ST=14-(1 za każdy krok odległości od bazyliszka). Test wytrzymałości o ST = 9. Za każde oczko straty otrzymuje się karę 1 do uników, parowania i blokowania (jeśli jest). W przypadku gdy wartość kary będzie równa wartości wytrwałości to zostaje się sparaliżowanym.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "P18M3DRGZ7W9EF5HHVYT377Z52",
@@ -9727,7 +10238,10 @@
     "description": "Test sporny siły. Zadaje 1 dmg za każde oczko przewagi max 10. Przy 10 powala przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "pozostałe"
+    ]
   },
   {
     "id": "E77K09YADXW1H4QT9H9A15DEKD",
@@ -9762,7 +10276,10 @@
     "grade": 1,
     "description": "Jeśli redukcja z parownia została użyta aby zablokować obrażenia, to odnawia redukcję z parowania [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Miecz lub broń podobna, Wyszkolenie w parowaniu 2",
+    "requirements": [
+      "Miecz lub broń podobna",
+      "Wyszkolenie w parowaniu 2"
+    ],
     "cooldown": null,
     "price": 7,
     "tags": [
@@ -9775,7 +10292,9 @@
     "grade": 1,
     "description": "Jeśli redukcja z tarczy została użyta aby zablokować obrażenia, to odnawia redukcję z tarczy [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Nagła Zasłona 3",
+    "requirements": [
+      "Nagła Zasłona 3"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": [
@@ -9798,7 +10317,9 @@
     "description": "Dodaje 2 odporności -1 inicjatywy.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "6EMDWY05KMFDE3RTF5B8MVGXZK",
@@ -9807,7 +10328,11 @@
     "description": "Rozpościera Chorobe na wszystkie cele w zasięgu 2 kroków. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "ENVTEY69FDKVWR54DRW4107VYE",
@@ -9816,7 +10341,11 @@
     "description": "Rozpościera Chorobe na wszystkie cele w zasięgu 12 kroków. Dodaje dodatkowo 2 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "GXER7EKD44VS4D4FF3ZDVHJ927",
@@ -9825,7 +10354,11 @@
     "description": "Rozpościera Chorobe na wszystkie cele w zasięgu 30 kroków. Dodaje dodatkowo 3 stacki choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "S8WTMVZWGKTC3DMS5CYPZFPB67",
@@ -9834,7 +10367,10 @@
     "description": "Test wytrwałości o ST=(Ilość Stacków)/2. Za każde oczko różnicy w przegranym teście -1S i -1Zr.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "C69DG32ZSHZV5HNVY7KY8FCFD9",
@@ -9843,7 +10379,9 @@
     "description": "Dodaje redukcję 4 na kość broni i 1 na kość zaklęcia [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "ZJT8NE3T8GT2KAJ9C6RVQGNJ00",
@@ -9851,7 +10389,9 @@
     "grade": 1,
     "description": "Wygrany test sporny inicjatywy-2 powoduje wytrącenie przeciwnika z jego postawy na 2 tury.",
     "castTime": "Standardowa",
-    "requirements": "Większa Inicjatywa 3",
+    "requirements": [
+      "Większa Inicjatywa 3"
+    ],
     "cooldown": 6,
     "price": 4,
     "tags": [
@@ -9864,7 +10404,9 @@
     "grade": 2,
     "description": "Wygrany test sporny inicjatywy-1 powoduje wytrącenie przeciwnika z jego postawy na 2 tury.",
     "castTime": "Standardowa",
-    "requirements": "Nadruchliwość 1, Większa Inicjatywa 4",
+    "requirements": [
+      "Większa Inicjatywa 4"
+    ],
     "cooldown": 6,
     "price": 2,
     "tags": [
@@ -9877,7 +10419,9 @@
     "grade": 3,
     "description": "Wygrany test sporny inicjatywy powoduje wytrącenie przeciwnika z jego postawy na 2 tury.",
     "castTime": "Standardowa",
-    "requirements": "Nadruchliwość 2, Większa Inicjatywa 5",
+    "requirements": [
+      "Większa Inicjatywa 5"
+    ],
     "cooldown": 6,
     "price": 2,
     "tags": [
@@ -9899,7 +10443,10 @@
     "description": "Przy śmierci eteycznego, zadający obrażenia, znajdujący się w odległości 2 kroków musi wykonać test wytrawałości o ST=8. Nieudany oznacza doodanie 5 stacków choroby [1//].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "FPYYC2AEA2FM7K17SVHFJWF7SX",
@@ -9916,7 +10463,9 @@
     "grade": 1,
     "description": "Przeciwnik w najbliższym ataku musi wykonać (jeśli posiada) manewr z fechtunkiem-2, jeśli nie ma jako dodatkowy manewr wykonuje: test fechtunku-1, wygrany dodaje 3 dmg, przegrany odejmuje 3 redukcji.",
     "castTime": "Standardowa",
-    "requirements": "Wymuszenie Fechtowania",
+    "requirements": [
+      "Wymuszenie Fechtowania"
+    ],
     "cooldown": 4,
     "price": 4,
     "tags": []
@@ -9927,7 +10476,9 @@
     "grade": 1,
     "description": "Przeciwnik w najbliższym ataku musi wykonać (jeśli posiada) manewr z fortelem-1, jeśli nie ma wykonuje następujący manewr: test fotelu (min 7), wygrany dodaje 3 dmg, przegrany odejmuje 3 redukcji.",
     "castTime": "Standardowa",
-    "requirements": "Ukratkowy Atak 2",
+    "requirements": [
+      "Ukratkowy Atak 2"
+    ],
     "cooldown": 4,
     "price": 2,
     "tags": []
@@ -9939,7 +10490,9 @@
     "description": "Test refleksu+1 vs refleks, dodaje obrażenia równe wytrwałości, efekt krytyczny powoduje powalenie.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "5K7T9QJ8YY1YNQGGKHSM79J4XT",
@@ -9948,7 +10501,9 @@
     "description": "Test refleksu+2 vs refleks, dodaje obrażenia równe wytrwałości, efekt krytyczny powoduje powalenie.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "8ZTBX5X74J0GTTYHQST2HZJ9NK",
@@ -9957,7 +10512,12 @@
     "description": "Test wytrwałości o ST=6. Nieudany oznacza utrate 1 redukcji z uników co rundę. Możliwość powtażania testu ze skalą-1 w każdej kolejnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy",
+      "wynaturzenia",
+      "humanoidalne"
+    ]
   },
   {
     "id": "1AFYJGNAQAYQTYPP3YJXNMWND9",
@@ -9975,7 +10535,10 @@
     "description": "Zamienia kości broni na kości obrażeń, podnosi rangę kości obrażeń o 2 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "P8BJ5FE4BJ2DXQHMWT32ZE7MRK",
@@ -9984,7 +10547,10 @@
     "description": "Zamienia kości broni na kości obrażeń, podnosi rangę kości obrażeń o 3 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "FRWV1JREXTS4QCXWAZHEY0CDK9",
@@ -9993,7 +10559,10 @@
     "description": "Zamienia kości broni na kości obrażeń, podnosi rangę kości obrażeń o 4 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "NJNRXQ236WV413P5123QX544HK",
@@ -10002,7 +10571,10 @@
     "description": "Test siły/refleksu vs parowanie. Udany powoduje ominięcie parowania przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "X8AN50RXV6WYV5KXPEQVD9N1NN",
@@ -10011,7 +10583,10 @@
     "description": "Test siły/refleksu+1 vs parowanie. Udany powoduje ominięcie parowania przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "TA44JJYS8Y38274ZXFR32NBB26",
@@ -10020,7 +10595,10 @@
     "description": "Test siły/refleksu+2 vs parowanie. Udany powoduje ominięcie parowania przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "6DEV0ARP7Q5TDD96R6GH259Z59",
@@ -10029,7 +10607,10 @@
     "description": "Dodaje odporność równą 10% zadanych obrażeń na tą albo następną.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "30805KF07WXBA85329FKM8N8S1",
@@ -10037,7 +10618,9 @@
     "grade": 1,
     "description": "Dodaje +1 do testu refleksu przeciw atakowi strzeleciemu [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Co najmniej średnia tarcza",
+    "requirements": [
+      "Co najmniej średnia tarcza"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": [
@@ -10050,7 +10633,10 @@
     "grade": 2,
     "description": "Dodaje +2 do testu refleksu przeciw atakowi strzeleckiemu [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Ochrona przed strzałami 1, co najmniej duża tarcza",
+    "requirements": [
+      "Ochrona przed strzałami 1",
+      "co najmniej duża tarcza"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": [
@@ -10063,7 +10649,10 @@
     "grade": 3,
     "description": "Dodaje +3 do testu refleksu przeciw atakowi strzeleckiemu [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Ochrona przed strzałami 2, co najmniej duża tarcza",
+    "requirements": [
+      "Ochrona przed strzałami 2",
+      "co najmniej duża tarcza"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": [
@@ -10077,7 +10666,10 @@
     "description": "Dodaje poziom leczenia do redukcji.",
     "castTime": "Natychmiastowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "WGG5H6RRHJ04Y4QAQ5JQ14X7RV",
@@ -10086,7 +10678,11 @@
     "description": "Blokuje następny manewr ofensywny przeciwnika.",
     "castTime": "Natychmiastowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "F0QWR5KPZ3PBCC7MN6BA22FDVF",
@@ -10142,7 +10738,9 @@
     "grade": 2,
     "description": "Dodaje 2dmg do ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (takie które przeszły redukcję).",
     "castTime": "Standardowa",
-    "requirements": "Odwet za przyjaciela 1",
+    "requirements": [
+      "Odwet za przyjaciela 1"
+    ],
     "cooldown": 3,
     "price": 3,
     "tags": [
@@ -10155,7 +10753,9 @@
     "grade": 3,
     "description": "Dodaje 3dmg do ataku wymierzonego w osobę, która zadała obrażenia towarzyszowi walczącemu ramię w ramię (takie które przeszły redukcję).",
     "castTime": "Standardowa",
-    "requirements": "Odwet za przyjaciela 2",
+    "requirements": [
+      "Odwet za przyjaciela 2"
+    ],
     "cooldown": 3,
     "price": 4,
     "tags": [
@@ -10169,7 +10769,11 @@
     "description": "Zwiększa rangę kości choroby o 1. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "V7VCCG8CYD1ZDYVJGZRWZ7HJ2R",
@@ -10178,7 +10782,11 @@
     "description": "Zwiększa rangę kości choroby o 2. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "RGJFDVST4Z0EPW2C8VMEW7A8SM",
@@ -10187,7 +10795,11 @@
     "description": "Zwiększa rangę kości choroby o 3. Dodaje dodatkowo 1 stack choroby w przypadku niepowodzenia testu wytrwałości.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "YT3HKNBKJGQWG87YWTFMCM62NJ",
@@ -10196,7 +10808,10 @@
     "description": "Atak z precyzją = 6. Zadaje 1k4 pernamentnych obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "pozostałe"
+    ]
   },
   {
     "id": "WG298509ZAYVNR8M3CMGBRF3AM",
@@ -10205,7 +10820,10 @@
     "description": "Powoduje 3 razy Spojrzenie Plugawiciela [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "humanoidalne"
+    ]
   },
   {
     "id": "MWE61EY996Q0XF14AXBFESGTD7",
@@ -10214,7 +10832,10 @@
     "description": "Zadaje 1 prawdziwych obrażeń każdemu atakującemu w odległości 3 kroków. Dodaje 2 odporności.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "8KNTT6SDWS8R1KRH4B4YFDVHWW",
@@ -10223,7 +10844,10 @@
     "description": "Zadaje 2 prawdziwych obrażeń każdemu atakującemu w odległości 3 kroków. Dodaje 3 odporności.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "8SDFMP1AQXEM41MJ9D380FB8HD",
@@ -10232,7 +10856,10 @@
     "description": "Zadaje 3 prawdziwych obrażeń każdemu atakującemu w odległości 3 kroków. Dodaje 4 odporności.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "G8P9V4FDT5QB80J6NAPWEY2EAN",
@@ -10250,7 +10877,11 @@
     "description": "Odejmuje 10 redukcji dodaje kośc redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "2K56GZ3HA5G9MT0QYYTFWN8NZD",
@@ -10259,7 +10890,11 @@
     "description": "Odejmuje 8 redukcji dodaje kośc redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "ZT4G7REZV4HHDE34FDEWK658TW",
@@ -10268,7 +10903,11 @@
     "description": "Odejmuje 6 redukcji dodaje kośc redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "ZWT3X4YQE70TQANF19CXX0M8C0",
@@ -10277,7 +10916,9 @@
     "description": "Atak magiczny dystansowy+1. Za każde sześć kroków odległości od bazyliszka -1 precyzja. Test wytrzymałości o ST = 10. Za każde oczko straty otrzymuje się karę 1 do uników, parowania i blokowania (jeśli jest). W przypadku gdy wartość kary będzie równa wartości wytrwałości to zostaje się sparaliżowanym.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "QYFHS4BAEN4S960G00W7RDZWJF",
@@ -10313,7 +10954,9 @@
     "description": "Dodaje kość obrażeń k4. Zamaiast szarży.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "diabelskie"
+    ]
   },
   {
     "id": "D4P8RJGVA2DTSDNNPWSD2EBGSR",
@@ -10322,7 +10965,9 @@
     "description": "Test wytrwałości o ST=12. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": "8e",
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "ZJXXRQ69AGGZ2A43BEYZVKPV56",
@@ -10331,7 +10976,9 @@
     "description": "Test wytrwałości o ST=14. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": "8e",
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "6N8H9HPPRJYM565EMPAT233F3P",
@@ -10340,7 +10987,9 @@
     "description": "Test wytrwałości o ST=16. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": "8e",
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "FE8QCC3ZG5J8RHZV48YZ2NXCA9",
@@ -10349,7 +10998,9 @@
     "description": "Test wytrwałości o ST=18. Zadaje 1 true dmg za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": "8e",
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "3CSMDQVTY3MPV8Q8DQBW3X6BN7",
@@ -10385,7 +11036,10 @@
     "description": "Dodaje 1 redukcji za każdy stack choroby względem wybranego przeciwnika [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "9Z0KJV749MX1SKXYMYCVKN0CC4",
@@ -10393,7 +11047,9 @@
     "grade": 1,
     "description": "Po otrzymaniu ataku możesz natychmiast przejść do innej postawy, która będzie obowiązywała do następnego ataku włącznie.",
     "castTime": "Natychmiastowa",
-    "requirements": "Perfekcja 1",
+    "requirements": [
+      "Perfekcja 1"
+    ],
     "cooldown": 5,
     "price": 6,
     "tags": []
@@ -10404,7 +11060,9 @@
     "grade": 1,
     "description": "Po wykonaniu ataku możesz natychmiast przejść do innej postawy, która będzie obowiązywała do nastepnego ataku włącznie.",
     "castTime": "Natychmiastowa",
-    "requirements": "Perfekcja 1",
+    "requirements": [
+      "Perfekcja 1"
+    ],
     "cooldown": 5,
     "price": 6,
     "tags": []
@@ -10416,7 +11074,11 @@
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1. Nieudany powoduje pochwycenie Szczęk. Test można powtarzać co rundę aby wyrwać się z pochwycenia. Zmniejsza redukcje jednej kości podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "QHNAXTJH37NSTRWGGDC4D90W52",
@@ -10425,7 +11087,11 @@
     "description": "Test Refleksu o ST=8, Nieudany powoduje test sporny siłowy+1. Nieudany powoduje pochwycenie Szczęk. Test można powtarzać co rundę aby wyrwać się z pochwycenia. Zmniejsza redukcje jednej kości podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "M8Y47R6281V5JGD0APWHJ51Y3G",
@@ -10434,7 +11100,11 @@
     "description": "Test Refleksu o ST=8, Nieudany powoduje test sporny siłowy+2. Nieudany powoduje pochwycenie Szczęk. Test można powtarzać co rundę aby wyrwać się z pochwycenia. Zmniejsza redukcje jednej kości podmiotowi i neguje redukcje z uników.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "8222GG05S7QA36K9GSW4MSPJJA",
@@ -10442,9 +11112,14 @@
     "grade": 1,
     "description": "W przypadku podduszenia zmniejsza o 1 test siłowy ale dodaje 1k4p obrażeń.",
     "castTime": "Standardowa",
-    "requirements": "+",
+    "requirements": [
+      "+"
+    ],
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "J0PYAJN6CESGGZ6DXA7TPCAJW0",
@@ -10453,7 +11128,10 @@
     "description": "W przypadku podduszenia zmniejsza o 2 test siłowy ale dodaje 2k4p obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "6TQ048NFMYDPPY2FZHP8WEQNAJ",
@@ -10462,7 +11140,10 @@
     "description": "W przypadku podduszenia zmniejsza o 3 test siłowy ale dodaje 3k4p obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "3X6NJFNQZY6QQP46YK532H3T6C",
@@ -10471,7 +11152,10 @@
     "description": "Test sporny siły vs Siła/Refleks. Przegrany powoduje -4 redukcji z uników.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "0C8BC96GKSGCB3WSR0RTC2KFRE",
@@ -10480,7 +11164,9 @@
     "description": "Wygrany test sporny refleksu vs uniki powoduje ominiecie uników przeciwnika.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "M2G3QEPGC64E77ACB8R8XBCPE2",
@@ -10489,7 +11175,9 @@
     "description": "Akcji Całorundowa. Atak dystansowy +4, w zasięgu 15 kroków. Zadaje 6k6w+18 obrażeń. Możliwość rzucenia w Akcji 2 rundowej z rangą kości podniesioną o 2 [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "VXN18V0A2G0NW5CGFP157S5YY3",
@@ -10498,7 +11186,10 @@
     "description": "Test wytrwałości o ST=9. Zadaje śmiertelne obrażenia równe 2 x poziom leczenia podmiotowi zemsty.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "56W2DERS9MJYDJW1644KK2HJ6F",
@@ -10507,7 +11198,10 @@
     "description": "Dodaje 1 kość redukcji [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "QTV5J7RJDQWFSKQCF3TWWJNTJP",
@@ -10516,7 +11210,10 @@
     "description": "Test Refleksu o St=7. Nieudany powoduje kare -2 redukcji i -2dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "Q0PXBZAXQWADKQGYK2KSG3MSM7",
@@ -10525,7 +11222,10 @@
     "description": "Test Refleksu o St=8. Nieudany powoduje kare -3 redukcji i -3dmg.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "Z8DGRQWXRXW9KJDK8HVE3AWJXA",
@@ -10534,7 +11234,10 @@
     "description": "Zadaje 1k4w obrażeń na wybraną kość broni [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "4MVSD5EC8N67WXQZBPYVQ28MH0",
@@ -10543,7 +11246,10 @@
     "description": "Zadaje 1k4w obrażeń na każdą kość broni [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "3HJ9BVX0PV9HBGJ2WD0C3Y6HQY",
@@ -10552,7 +11258,10 @@
     "description": "Dodaje 2 reducji w przypadku pochwycenia.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "R8HCMMK5FN7ZFB3YXVV2VFH2JM",
@@ -10561,7 +11270,9 @@
     "description": "Zabiera 1 siły krytyka a dodaje 1 na kość broni.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "DTGS6BNZQJDTJBBFDW2T4XMZFR",
@@ -10570,7 +11281,9 @@
     "description": "Atak do 3 celi. Atak dystansowy +2. Zadaje 1k20w obrażeń. [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "7Z4CQH6XHSW1Q1WN2K4KF23EFA",
@@ -10579,7 +11292,10 @@
     "description": "Test siły-1 vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "BNJMQ191Y0ZW59AKCAQC9YBB1W",
@@ -10588,7 +11304,10 @@
     "description": "Test siły vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "FAKM8FJJ3DVV6TA2BBM6SGDJR9",
@@ -10597,7 +11316,10 @@
     "description": "Test siły+1 vs siła/zręczność. Za każde 2 oczka przewagi odrzuca o krok i zmniejsza inicjatywę o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "SKT2C0NV5NMFQED6QBYNTCKB2Z",
@@ -10606,7 +11328,9 @@
     "description": "Rozporszenie magii 1k6+4. [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "G70S3BM7RKHZ1CBFYHT3W4AQ9N",
@@ -10615,7 +11339,9 @@
     "description": "Rozporszenie magii 1k6+5. [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "JGQ18D1FF475KS44A281HE7QYE",
@@ -10624,7 +11350,9 @@
     "description": "Akcja Całorundowa. Stożek (90* 7kroków). Zadaje 5k4w +18. Test refleksu na krańcach o ST=7. Za każde oczko przewagi -1 kość zaklęcia. [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "15MJWHJASRNRF9HHAMPMB8B80C",
@@ -10633,7 +11361,11 @@
     "description": "Dodaje 1k8 redukcji [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "HRFZKJZTJYQ3KERB0NXBXCH5PC",
@@ -10642,7 +11374,10 @@
     "description": "Dodaje 2 dmg na każdą kość broni przed redukcją kości.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "gadzie"
+    ]
   },
   {
     "id": "455XTTMEKW3PDPFJ2P9F7FBAYC",
@@ -10651,7 +11386,10 @@
     "description": "Test sporny wytrwałość o ST=7. Dodaje 2k6 widmowych kości obrażeń. ST jest zwiększona za każdą poprzednią przebrzydłość użytą na danym wrogu.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "gadzie"
+    ]
   },
   {
     "id": "1DTV8F9VP2TNBWP2YGW8Q7K88K",
@@ -10660,7 +11398,10 @@
     "description": "Atak dotykowy z precyzją =6. Zadaje 1 pernamentnych obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "gadzie"
+    ]
   },
   {
     "id": "BNA9DNH5TNJDY2KP7VGG1YJF2S",
@@ -10669,7 +11410,11 @@
     "description": "Test wytrwałości o ST=5. Nieudany oznacza utrate 1 obrażeń co rundę. Możliwość powtażania testu ze skalą-1 w każdej kolejnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "BSQ0ED227NSYK57Q97WY3QBJZS",
@@ -10678,7 +11423,11 @@
     "description": "Test wytrwałości o ST=9, nieudany powoduje podwojenie obrażeń zadanych w zdrwie podmiotu zemsty.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni",
+      "korpusy"
+    ]
   },
   {
     "id": "2200J3HN40VWHQEGD2S4822T59",
@@ -10686,7 +11435,9 @@
     "grade": 1,
     "description": "Atakując bronią dwuręczną dodajesz dodatkowe 1/2 modyfikatora z siły do obrażeń [].",
     "castTime": "Standardowa",
-    "requirements": "S  4",
+    "requirements": [
+      "S  4"
+    ],
     "cooldown": null,
     "price": 4,
     "tags": [
@@ -10700,7 +11451,11 @@
     "description": "Test sporny siły, za każde oczko przewagi dodaje jeden redukcji.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "1ZEX201JAEGND5XBPGZHFNYT56",
@@ -10709,7 +11464,10 @@
     "description": "Jeżeli za plecami przeciwnika znajduje się przeszkoda, dodaje 2 siły i szansy krytyka oraz zmniejsza rangę kości broni o 1.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "BY3QM6Z6WV60BH2E6E7Y083RAE",
@@ -10717,7 +11475,9 @@
     "grade": 1,
     "description": "Zwiększa rangę o 2 podejmowanego testu manewru zarówno przeciwnikowi jak i używającemu [].",
     "castTime": "Natychmiastowa",
-    "requirements": "int  2",
+    "requirements": [
+      "Int 2"
+    ],
     "cooldown": null,
     "price": 3,
     "tags": [
@@ -10767,7 +11527,12 @@
     "description": "Dodaje +2dmg, -2 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy",
+      "diabelskie",
+      "demoniczne"
+    ]
   },
   {
     "id": "13MEBJHHGD0914HGTHQV29K5F9",
@@ -10776,7 +11541,12 @@
     "description": "Dodaje +3dmg, -3 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy",
+      "diabelskie",
+      "demoniczne"
+    ]
   },
   {
     "id": "YY30NG81QW3VHPNMW411KCK299",
@@ -10785,7 +11555,12 @@
     "description": "Dodaje +4dmg, -4 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy",
+      "diabelskie",
+      "demoniczne"
+    ]
   },
   {
     "id": "DZS75HBNFKSJQM1Z8CJJNQGTNF",
@@ -10794,7 +11569,12 @@
     "description": "Dodaje +5dmg, -5 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy",
+      "diabelskie",
+      "demoniczne"
+    ]
   },
   {
     "id": "V56XFY37FDH6JMXMENPJNQ5QY4",
@@ -10803,7 +11583,12 @@
     "description": "Dodaje +6dmg, -6 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy",
+      "diabelskie",
+      "demoniczne"
+    ]
   },
   {
     "id": "XXW3GZ66YTVBTB2FRW9FRR7YX1",
@@ -10839,7 +11624,9 @@
     "description": "Dodaje widmową kość obrażeń o randze wytrwałość/2 ale odejmuje 5 redukcji.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "FP3A2J5DE7VFDDXRESA27AMBJG",
@@ -10848,7 +11635,9 @@
     "description": "Nova promień 5 kroków. Zadaje 2k6w+9 obrażeń. Na krańcach test refleks ST=8. Udany neguje obrażenia [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "DTSE5QZXZF14QXJQHF4N5QX6SN",
@@ -10857,7 +11646,10 @@
     "description": "Zadaje każdemu w odległości 4 kroków 1 obrażeń od elektryczności za każdy stack, zdejmuje stacki z podmiotów.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "NS3PD7DV899V48KG3Z0STB5HJM",
@@ -10866,7 +11658,10 @@
     "description": "Dodaje 2dmg na każdą kość redukcji wroga.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "humanoidalne"
+    ]
   },
   {
     "id": "K683G1CKN43AACTWBAQQFPHP2Q",
@@ -10875,7 +11670,10 @@
     "description": "Dodaje do aury ognia 1k4 obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "Q6NKNEGGK0PYSCJV8EBRRD5EMA",
@@ -10884,7 +11682,10 @@
     "description": "Dodaje do aury ognia 1k4+1 obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "8665DT0K93F8EK9JBHYDHT0BS6",
@@ -10893,7 +11694,10 @@
     "description": "Dodaje do aury ognia 1k4+2 obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "CWGMW0SG6A3DGDPXFQXDFJ75AP",
@@ -10929,7 +11733,10 @@
     "description": "Test Refleksu o ST=6. Nieudany dodaje 2 stacki.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "7Q0B0VJK02N5KG0REDTPGWF3D0",
@@ -10938,7 +11745,10 @@
     "description": "Test Refleksu o ST=7. Nieudany dodaje 3 stacki.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "TT0GT5PXV589BDMZHZRNDQXV9K",
@@ -10947,7 +11757,15 @@
     "description": "Dodaje widmową kość obrażeń k4.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory",
+      "wynaturzenia",
+      "humanoidalne",
+      "gadzie",
+      "pozostałe"
+    ]
   },
   {
     "id": "GCDSGNA1XTYXDA5VY1TWREKJ70",
@@ -10956,7 +11774,15 @@
     "description": "Dodaje widmową kość obrażeń k6.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory",
+      "wynaturzenia",
+      "humanoidalne",
+      "gadzie",
+      "pozostałe"
+    ]
   },
   {
     "id": "MM1K0XHMHP3V54WWVF2RDWJQQG",
@@ -10965,7 +11791,15 @@
     "description": "Dodaje widmową kość obrażeń k8.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory",
+      "wynaturzenia",
+      "humanoidalne",
+      "gadzie",
+      "pozostałe"
+    ]
   },
   {
     "id": "KERAQM1K74NRG83QS9NRT5G134",
@@ -10974,7 +11808,15 @@
     "description": "Dodaje widmową kość obrażeń k10.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory",
+      "wynaturzenia",
+      "humanoidalne",
+      "gadzie",
+      "pozostałe"
+    ]
   },
   {
     "id": "ZNJBA32JA42DVHHJAMV9BFAYHC",
@@ -10992,7 +11834,11 @@
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=5+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "G2Y6G8AF6PXZVHYRT8VBMM7Q3X",
@@ -11001,7 +11847,11 @@
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=6+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "SZJGDYF7RTSP0MP07WAEYY1N5N",
@@ -11010,7 +11860,11 @@
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=7+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "QB9E42WZ3FX21N86WG17G377KF",
@@ -11019,7 +11873,11 @@
     "description": "Każdy o rozmiarze minimóm o 1 mniejszym musi wykonać Rzut obrony testu siłowego o ST=8+S stosującego manewr inaczej zostaje odrzucony tracąc na stałe -3 inicjatywy jeżeli inicjatywa spadnie poniżej zera podmiot traci kolejke i zaczyna z inicjatywą +10 w następnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "2XQ0ZMS17SHN1PA8HGX10J9V1M",
@@ -11028,7 +11886,10 @@
     "description": "Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "D1TV34JF8YTYMGNDZYD1GZ60EH",
@@ -11037,7 +11898,10 @@
     "description": "Zmniejsza o 1 poziom leczenia przeciwnika względem efektów krytycznych.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "43EC9F51D9RKZA01TG809T8YAJ",
@@ -11046,7 +11910,9 @@
     "description": "Dodaje obrażenia równe przewadze inicjatywy nad przeciwnikiem.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "FV8XTTE97HAHD6CMK2NRWVS29E",
@@ -11054,7 +11920,10 @@
     "grade": 1,
     "description": "Po przegranym teście refleksu, przeprowadz ponowny test tym razem z użyciem inicjatywy-2. Dopiero przegrany drugi test powoduje porażkę [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Inicjatywa 2, Energiczne Uniki",
+    "requirements": [
+      "Większa Inicjatywa 2",
+      "Energiczne Uniki"
+    ],
     "cooldown": null,
     "price": 4,
     "tags": [
@@ -11067,7 +11936,10 @@
     "grade": 2,
     "description": "Po przegranym teście refleksu, przeprowadz ponowny test tym razem z użyciem inicjatywy-1. Dopiero przegrany drugi test powoduje porażkę [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Ruchliwość 1, Większa Inicjatywa 3",
+    "requirements": [
+      "Ruchliwość 1",
+      "Większa Inicjatywa 3"
+    ],
     "cooldown": null,
     "price": 2,
     "tags": [
@@ -11080,7 +11952,10 @@
     "grade": 3,
     "description": "Po przegranym teście refleksu, przeprowadz ponowny test tym razem z użyciem inicjatywy. Dopiero przegrany drugi test powoduje porażkę [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Ruchliwość 2, Większa Inicjatywa 4",
+    "requirements": [
+      "Ruchliwość 2",
+      "Większa Inicjatywa 4"
+    ],
     "cooldown": null,
     "price": 2,
     "tags": [
@@ -11094,7 +11969,10 @@
     "description": "Jeden cel. Test sporny woli. Obniża wolę przeciwnika o 1 za każde oczko przewagi.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "pozostałe"
+    ]
   },
   {
     "id": "4CCK9Y024HMS7E8V3GNZCRQ404",
@@ -11102,7 +11980,9 @@
     "grade": 1,
     "description": "Przeciwnik stosuje dwa identyczne manewry na fechtunek zamiast jednego, ale obrażenia z Riposty zwiększają się o 1.",
     "castTime": "Natychmiastowa",
-    "requirements": "Riposta 2",
+    "requirements": [
+      "Riposta 2"
+    ],
     "cooldown": 6,
     "price": 3,
     "tags": []
@@ -11113,7 +11993,9 @@
     "grade": 1,
     "description": "Przeciwnik stosuje dwa identyczne manewry na fortel zamiast jednego, ale obrażenia z Ukratkowego Ataku zwiększają się o 1.",
     "castTime": "Natychmiastowa",
-    "requirements": "Wymuszenie Fortelu",
+    "requirements": [
+      "Wymuszenie Fortelu"
+    ],
     "cooldown": 4,
     "price": 4,
     "tags": []
@@ -11125,7 +12007,11 @@
     "description": "Dodaje kość broni, odbiera 1 obrażeń na kość broni.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "QSCFFB6QVAE97RAQQVD14A4Z9W",
@@ -11134,7 +12020,11 @@
     "description": "Dodaje 2 kości broni, odbiera 2 obrażeń na kość broni.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "WWD1Z812JSEXBY7YSBTP9A0HVE",
@@ -11143,7 +12033,11 @@
     "description": "Dodaje 3 kości broni, odbiera 3 obrażeń na kość broni.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "RKB410GK5J7MESEF6ZMYQJ294G",
@@ -11161,7 +12055,10 @@
     "description": "W przypadku pochwycenia. Dodaje zwiększa rangę testu siłowego, odejmuje 1 do testów siłowych.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "SWNBHGZ9J2BB3BC7CPQ4ZJMP58",
@@ -11170,7 +12067,10 @@
     "description": "W przypadku pochwycenia. Dodaje zwiększa o 2 rangę testu siłowego, odejmuje 2 do testów siłowych.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "GWWW3D0M8RGQA3PVDZ8J2C7727",
@@ -11179,7 +12079,9 @@
     "description": "Pozwala skakać na dalekie odległości.",
     "castTime": "Standardowa",
     "cooldown": "10e",
-    "tags": []
+    "tags": [
+      "demoniczne"
+    ]
   },
   {
     "id": "ZMF141905FN5G84186F1PH8CH1",
@@ -11214,7 +12116,9 @@
     "grade": 1,
     "description": "Wymaga rundy celowania. Dodaje +1 precyzji względem danego celu.",
     "castTime": "Standardowa",
-    "requirements": "Większa Precyzja 4",
+    "requirements": [
+      "Większa Precyzja 4"
+    ],
     "cooldown": 5,
     "price": 1,
     "tags": []
@@ -11226,7 +12130,10 @@
     "description": "Dodaje 1 redukcji i 1 dmg za każdy poziom leczenia zdrowia który stracił podmiot zemsty.",
     "castTime": "Standardowa",
     "cooldown": 7,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "WBZNT5ZWCXHYZBWQ57JGD8RSCF",
@@ -11235,7 +12142,10 @@
     "description": "Jeżeli podmiotowi pozostało 7 pw, otrzymuje powójne obrażenia od ognia w zdrowie.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "5V33YGBYF55N2E2NR8YMPKFPN8",
@@ -11244,7 +12154,10 @@
     "description": "Jeżeli podmiotowi pozostało 10 pw, otrzymuje powójne obrażenia od ognia w zdrowie.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "VS5FXFFTZPV6JNGCRA0J5Y7PD9",
@@ -11253,7 +12166,10 @@
     "description": "Dodaje Siłe do redukcji.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "DW0BMJEQKR7BG07N6C3GE39C5J",
@@ -11262,7 +12178,10 @@
     "description": "Test wytrwałości o ST =10. Za każde oczko straty zadaje 1 pernamentne obrażenie. Każde nastepne spojrzenie na ten sam cel dostaje stacka zwiększające ST o 1 wszystkich zdolności wynaturzeń bazujących na promieniowaniu.",
     "castTime": "Standardowa",
     "cooldown": 1,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "humanoidalne"
+    ]
   },
   {
     "id": "XH3TQD5FX069Q9NCTQ65YJE7EX",
@@ -11271,7 +12190,10 @@
     "description": "Tylko Samiec Alfa. Dodaje 1 odporności każdemu ze stada. Tylko jedno na rundę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "N25QQKM546G33PXW1M8DTVXYC8",
@@ -11280,7 +12202,10 @@
     "description": "Tylko Samiec Alfa. Dodaje 1 odporności i 1 redukcji każdemu ze stada. Tylko jedno na rundę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "PY6CQCVQ0BBFK1Y2BAKNPPJ1T6",
@@ -11289,7 +12214,10 @@
     "description": "Tylko Samiec Alfa. Dodaje 1 odporności i 2 redukcji każdemu ze stada. Tylko jedno na rundę.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe"
+    ]
   },
   {
     "id": "T7FWGFYAVF6P0RA9XRRMBFN98W",
@@ -11297,7 +12225,9 @@
     "grade": 1,
     "description": "Rzucasz k30. Jest wyrzucisz 30 to przeciwnik zostaje trafiony i zadajesz podwójne obrażenia (co więcej pomija redukcję 1 kości). Jeśli wyrzucisz 29 to przeciwnik zostaje trafiony.",
     "castTime": "Standardowa",
-    "requirements": "Większa Precyzja 3",
+    "requirements": [
+      "Większa Precyzja 3"
+    ],
     "cooldown": 4,
     "price": 2,
     "tags": []
@@ -11308,7 +12238,9 @@
     "grade": 1,
     "description": "Rzucasz k20. Jeśli wyrzucisz 20 to otrzymujesz +4 do precyzji. Jeśli wyrzucisz 19 to otrzymujesz +2 do precyzji [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Precyzja 4",
+    "requirements": [
+      "Większa Precyzja 4"
+    ],
     "cooldown": null,
     "price": 2,
     "tags": []
@@ -11319,7 +12251,9 @@
     "grade": 1,
     "description": "Pozwala strzelać z za zasłony nie tracąc nawet na chwile premii z osłony -5 precyzji, do tego manewru można dorzucić kolejny manewr.",
     "castTime": "Standardowa",
-    "requirements": "Większa Precyzja 2",
+    "requirements": [
+      "Większa Precyzja 2"
+    ],
     "cooldown": 1,
     "price": 4,
     "tags": []
@@ -11330,7 +12264,10 @@
     "grade": 2,
     "description": "Pozwala strzelać z za zasłony nie tracąc nawet na chwile premii z osłony -4 precyzji, do tego manewru można dorzucić kolejny manewr.",
     "castTime": "Standardowa",
-    "requirements": "Strzał zza Zasłony 1, Większa Precyzja 3",
+    "requirements": [
+      "Strzał zza Zasłony 1",
+      "Większa Precyzja 3"
+    ],
     "cooldown": 1,
     "price": 4,
     "tags": []
@@ -11341,7 +12278,10 @@
     "grade": 3,
     "description": "Pozwala strzelać z za zasłony nie tracąc nawet na chwile premii z osłony -3 precyzji, do tego manewru można dorzucić kolejny manewr.",
     "castTime": "Standardowa",
-    "requirements": "Strzał zza Zasłony 2, Większa Precyzja 5",
+    "requirements": [
+      "Strzał zza Zasłony 2",
+      "Większa Precyzja 5"
+    ],
     "cooldown": 1,
     "price": 4,
     "tags": []
@@ -11388,7 +12328,10 @@
     "grade": 1,
     "description": "Wygrany test fechtunku z fechtunkiem i fortelu z fortelem powoduje dodanie fechtunek+fortel do redukcji. Jeśli chociaż jeden test jest nieudany to na nastepną turę jest się wytrąconym z postawy. [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większy Fechtunek 5, Większy Fortel 5",
+    "requirements": [
+      "Większy Fechtunek 5",
+      "Większy Fortel 5"
+    ],
     "cooldown": null,
     "price": 9,
     "tags": []
@@ -11400,7 +12343,9 @@
     "description": "Zadaje obrażenia równe ilości oczek na kości broni, na której wypadło najwięcej oczek. Jeśli obrażenia odebrały zdrowie przeciwnikowi (lub uderzyły w bariery) następuje rzut na wytrwałość o ST = 12 (Jad bazyliszka). Zadaje śmiertelne obrażenia równe ilości oczek na kości o randze równej 2+(ilość przewagi ST jadu). W następnej rundzie zadaje analogiczne obrażenia, lecz kością o 1 rangę mniejszą, aż do momentu rangi 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "4BEY7S9ESZGH36XX3PT66AV9SR",
@@ -11436,7 +12381,11 @@
     "description": "Test Refleksu o ST=7. Nieudany wymusza test siły o ST=7. Nieudany obniża PL o 2 i zadaje 1k16w obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "PSVNRVFBJC6DRMZ178C5J8DY6G",
@@ -11445,7 +12394,9 @@
     "description": "Akcja Całorundowa. Atak dystansowy +4, w zasięgu 13 kroków. Udany powoduje 1k20w blokowalnych obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "N1WGF1S2N5XQZC65FE738HYMHH",
@@ -11454,7 +12405,9 @@
     "description": "Akcja Całorundowa. Atak dystansowy +5, w zasięgu 15 kroków. Udany powoduje 2k20w blokowalnych obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "5BF8DKECKJM1PV3Z8Y6PXNR4NY",
@@ -11462,7 +12415,10 @@
     "grade": 1,
     "description": "Dodajesz obrażenia równe inicjatywie [].",
     "castTime": "Standardowa",
-    "requirements": "Większa Inicjatywa 4, Błyskawiczny Cios 1",
+    "requirements": [
+      "Większa Inicjatywa 4",
+      "Błyskawiczny Cios 1"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": []
@@ -11473,18 +12429,27 @@
     "grade": 1,
     "description": "Wymagany styl grupowy. Zmniejsza ilość atakowanych wrogów o 1 lecz dodaje kość redukcji na wroga, którego odpuściliśmy.",
     "castTime": "Natychmiastowa",
-    "requirements": "Styl Grupowy 2, Większy Fechtunek 8, półepickość",
+    "requirements": [
+      "Styl Grupowy 2",
+      "Większy Fechtunek 8",
+      "półepickość"
+    ],
     "cooldown": 3,
     "price": 4,
     "tags": []
   },
   {
     "id": "4H4R8ZXAJ3FA9T7S19P7QGGG84",
-    "name": "Taniec Bitweny:Wrógzasłonąwroga",
+    "name": "Taniec Bitewny:Wróg zasłoną wroga",
     "grade": 1,
     "description": "Wybierz jednego wroga w zwarciu. Pozostali muszą wykonać test inicjatywy o ST=inteligencja+inicjatywa. Przegrany powoduje zaniechanie ich ataku.",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Inicjatywa 3, zr  4, int  2 półepickość",
+    "requirements": [
+      "Większa Inicjatywa 3",
+      "zr 4",
+      "int 2",
+      "półepickość"
+    ],
     "cooldown": 3,
     "price": 7,
     "tags": []
@@ -11495,7 +12460,11 @@
     "grade": 1,
     "description": "Dodaje odporność równą inicjatywie [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Inicjatywa 3, zr  4, półepickość",
+    "requirements": [
+      "Większa Inicjatywa 3",
+      "zr  4",
+      "półepickość"
+    ],
     "cooldown": null,
     "price": 7,
     "tags": []
@@ -11507,7 +12476,9 @@
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy. Zwiększa rangę wybranej kości broni o 1 za każde oczko przewagi. Test wygrany o 6 oczek skutkuje obaleniem.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "P9VKMH0CNFQAZYZ6Z2XAV6ECWN",
@@ -11516,7 +12487,9 @@
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1. Zwiększa rangę wybranej kości broni o 1 za każde oczko przewagi. Test wygrany o 6 oczek skutkuje obaleniem.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "JYR1ZZ0CGDEY7JM7Q369V87KC6",
@@ -11525,7 +12498,9 @@
     "description": "Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2. Zwiększa rangę wybranej kości broni o 1 za każde oczko przewagi. Test wygrany o 6 oczek skutkuje obaleniem.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "M2QTWAY5NDSDHJR3G888BW08QZ",
@@ -11615,7 +12590,10 @@
     "description": "Zwiększa rangę kości obrażeń o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "1RZWDPA2FMH0DESJ1RVWXH8HFH",
@@ -11624,7 +12602,10 @@
     "description": "Zwiększa rangę kości obrażeń o 2.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "X5YESK3Y31D2CP42FKZ1YF74CN",
@@ -11633,7 +12614,10 @@
     "description": "Zwiększa rangę kości obrażeń o 3.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "A06WKYGS68KW268876AR15ZSP6",
@@ -11642,7 +12626,10 @@
     "description": "Zwiększa rangę kości obrażeń o 4.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "NWCGP9SSX3WWYM0J15QZ2S8WHW",
@@ -11651,7 +12638,11 @@
     "description": "Test Sporny Siłowy dodaje range kości broni za każde oczko przezewagi. Test wygrany o 8 punktów odbiera kość broni podmiotowi w następnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "8HBJE7PTXHQR1XTFPDM6BQ42J4",
@@ -11660,7 +12651,11 @@
     "description": "Test Sporny Siłowy+1 dodaje range kości broni za każde oczko przezewagi. Test wygrany o 8 punktów odbiera kość broni podmiotowi w następnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "SBKK7R9WZVKYFHKN3PK5ANE5NH",
@@ -11669,7 +12664,11 @@
     "description": "Test Sporny Siłowy+2 dodaje range kości broni za każde oczko przezewagi. Test wygrany o 8 punktów odbiera kość broni podmiotowi w następnej rundzie.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "YH7ATYFC1C9VKCKEVZVJMAW3VB",
@@ -11690,7 +12689,9 @@
     "description": "Dodaje widmową kość obrażeń o randze równej kości broni -2.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "BWF9399G1C4VWVP7V8K39WX5E5",
@@ -11699,7 +12700,9 @@
     "description": "Dodaje widmową kość obrażeń o randze równej kości broni -1.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "Y6M8HQ12KH15Y2GJ72RP4H3081",
@@ -11708,7 +12711,9 @@
     "description": "Dodaje widmową kość obrażeń o randze równej kości broni.",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "6VC7VRBJ8645ADKHJHRCX1SQ11",
@@ -11717,7 +12722,10 @@
     "description": "Dodaje 1k4w obrażeń . Test wytrwałości o ST=5 za każde oczko różnicy w przegranym teście 1 stack choroby.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "NNNADPSDZ82X1ZV2VF08PAN08N",
@@ -11762,7 +12770,11 @@
     "description": "Test Refleksu vs Fortel/Refleks. Wygrany powoduje dodanie refleksu do obrażeń [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "6GZ15VNQWMG6M1GHH2908Q92MR",
@@ -11771,7 +12783,11 @@
     "description": "Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 kości redukcji na jeden atak [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "P1EZF9G1AHZJ78MG7J4J81R6PG",
@@ -11780,7 +12796,11 @@
     "description": "Udany test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 3 kości redukcji na jeden atak [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "PPYP68XJ9XNS01ZRV3PV7TTVRH",
@@ -11815,7 +12835,9 @@
     "grade": 1,
     "description": "Dodaje sojusznikom +1 dmg do szarży i +1 inicjatywy na 3 tury [].",
     "castTime": "Standardowa",
-    "requirements": "Ilość okrzyków  1",
+    "requirements": [
+      "Ilość okrzyków  1"
+    ],
     "cooldown": null,
     "price": 3,
     "tags": []
@@ -11826,7 +12848,10 @@
     "grade": 2,
     "description": "Dodaje sojusznikom +2 dmg do szarży i +2 inicjatywy na 3 tury [].",
     "castTime": "Standardowa",
-    "requirements": "Ilość okrzyków  2, Wezwanie do Natarcia 1",
+    "requirements": [
+      "Ilość okrzyków  2",
+      "Wezwanie do Natarcia 1"
+    ],
     "cooldown": null,
     "price": 9,
     "tags": []
@@ -11837,7 +12862,10 @@
     "grade": 3,
     "description": "Dodaje sojusznikom +3 dmg do szarży i +3 inicjatywy na 3 tury [].",
     "castTime": "Standardowa",
-    "requirements": "Ilość okrzyków  3, Wezwanie do Natarcia 2",
+    "requirements": [
+      "Ilość okrzyków  3",
+      "Wezwanie do Natarcia 2"
+    ],
     "cooldown": null,
     "price": 22,
     "tags": []
@@ -11848,7 +12876,9 @@
     "grade": 1,
     "description": "Dodaje +2 redukcji, +1 inicjatywy uciekającym sojusznikom [].",
     "castTime": "Standardowa",
-    "requirements": "Ilość okrzyków  1",
+    "requirements": [
+      "Ilość okrzyków  1"
+    ],
     "cooldown": null,
     "price": 3,
     "tags": []
@@ -11859,7 +12889,9 @@
     "grade": 2,
     "description": "Dodaje +3 redukcji, +2 inicjatywy uciekającym sojusznikom [].",
     "castTime": "Standardowa",
-    "requirements": "Ilość okrzyków  2, Wezwanie do Odwrotu 3",
+    "requirements": [
+      "Ilość okrzyków  2"
+    ],
     "cooldown": null,
     "price": 9,
     "tags": []
@@ -11870,7 +12902,9 @@
     "grade": 3,
     "description": "Dodaje +4 redukcji, +3 inicjatywy uciekającym sojusznikom [].",
     "castTime": "Standardowa",
-    "requirements": "Ilość okrzyków  3, Wezwanie do Odwrotu 2",
+    "requirements": [
+      "Ilość okrzyków  3"
+    ],
     "cooldown": null,
     "price": 15,
     "tags": []
@@ -11882,7 +12916,10 @@
     "description": "Zadaje widmową kość obrażeń o randze jednej trzeciej stacków choroby.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "ZG5XKAVZ9MJ6GMENZ2N0HDX380",
@@ -11891,7 +12928,10 @@
     "description": "Niweluje działanie aury ognia w tej rundzie, w następnej rundzie aura zadaje dodatkowo 1k4w obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "MQGTQPKVXBA2P847FJPVWDP20S",
@@ -11900,7 +12940,10 @@
     "description": "Dodaje widmową kość obrażeń od ognia 1k4+2.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "VD0K2YSF2MRH963777P7JA81RZ",
@@ -11909,7 +12952,10 @@
     "description": "Dodaje widmową kość obrażeń od ognia 1k6+3.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "7QFRBA62JPJNCJTMWSRPQ3PXY6",
@@ -11918,7 +12964,10 @@
     "description": "Dodaje widmową kość obrażeń od ognia 1k8+4.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "RRXD4M24GFQ2HETB5YE1YPQX8H",
@@ -11945,7 +12994,10 @@
     "description": "Zadaje dodatkowo 2k6w obrażeń w podmiot zemsty i traci 1k6 pw.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "GQ6QB3TBRRJ9Q4T69M9FSNXFT7",
@@ -11954,7 +13006,10 @@
     "description": "Zadaje dodatkowo 2k8w obrażeń w podmiot zemsty i traci 1k8 pw.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "W3SM786CBY0Z7GRM5N2TB9V47S",
@@ -11963,7 +13018,10 @@
     "description": "Pozwala zaatakować dwie postacie naraz bez żadnych kar.",
     "castTime": "Standardowa",
     "cooldown": 2,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "pozostałe"
+    ]
   },
   {
     "id": "VKWBKZEVA54PF1QAQX88K4NHQ7",
@@ -11981,7 +13039,9 @@
     "description": "Manewr Natchmiastowy. Dodaje uniki+inicjatywa do uników [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "RQHWHSF4PMJPK1GWX0AV9ZB51M",
@@ -11990,7 +13050,9 @@
     "description": "Wygrany test refleksu powoduje dodanie kości broni [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "QNR7B3VAVY5P3B9M4AVV0QBK3Y",
@@ -11999,7 +13061,9 @@
     "description": "Dodaje 4 odporności [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "rdzeń"
+    ]
   },
   {
     "id": "R0RXA498K603QASXB1Z4WD4MMG",
@@ -12008,67 +13072,20 @@
     "description": "Przy śmierci eteycznego, podmiot zemsty otrzymuje dodatkowy atak z jedną mniej kością broni [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
-  },
-  {
-    "id": "J5PSSB33ED2ETDN98Z4Q8KC4JQ",
-    "name": "Wsparcie Dla Wierzchowca",
-    "grade": 1,
-    "description": "Odejmuje 4 obrażenia do następnego ataku (z jeździectwa) i dodaje 4 redukcji wierzchowcowi.",
-    "castTime": "Natychmiastowa",
-    "requirements": "Jeździectwo  2",
-    "cooldown": 2,
-    "price": 2,
     "tags": [
-      "jeździectwo"
-    ]
-  },
-  {
-    "id": "20QZ3X2V9QX1W7D3WQ69PBFFV4",
-    "name": "Wsparcie Dla Wierzchowca",
-    "grade": 2,
-    "description": "Odejmuje 6 obrażenia do następnego ataku (z jeździectwa) i dodaje 6 redukcji wierzchowcowi.",
-    "castTime": "Natychmiastowa",
-    "requirements": "Jeździectwo  3",
-    "cooldown": 2,
-    "price": 2,
-    "tags": [
-      "jeździectwo"
-    ]
-  },
-  {
-    "id": "63PMR3P37V1PX8XN8BG0RWF40Z",
-    "name": "Wsparcie Dla Wierzchowca",
-    "grade": 3,
-    "description": "Odejmuje 8 obrażenia do następnego ataku (z jeździectwa) i dodaje 8 redukcji wierzchowcowi.",
-    "castTime": "Natychmiastowa",
-    "requirements": "Jeździectwo  4",
-    "cooldown": 2,
-    "price": 2,
-    "tags": [
-      "jeździectwo"
-    ]
-  },
-  {
-    "id": "EEG9YNA7WW1EAFT5NYEW6GE1YN",
-    "name": "Wsparcie Dla Wierzchowca",
-    "grade": 4,
-    "description": "Odejmuje 10 obrażenia do następnego ataku (z jeździectwa) i dodaje 10 redukcji wierzchowcowi.",
-    "castTime": "Natychmiastowa",
-    "requirements": "Jeździectwo  5",
-    "cooldown": 2,
-    "price": 2,
-    "tags": [
-      "jeździectwo"
+      "nieumarli",
+      "eteryczni"
     ]
   },
   {
     "id": "MC4KPWYXZXF88M184PB1DCX6MX",
-    "name": "Wszystko Na Jedną Kartę",
+    "name": "Wszystko na Jedną Kartę",
     "grade": 1,
     "description": "Dodaje szansę krytyka+3 do siły krytyka. Ustawia szansę krytyka na 0.",
     "castTime": "Standardowa",
-    "requirements": "Większy Fortel 2",
+    "requirements": [
+      "Większy Fortel 2"
+    ],
     "cooldown": 4,
     "price": 2,
     "tags": [
@@ -12077,11 +13094,13 @@
   },
   {
     "id": "SX3VPRJR6XCGAE8CZKXPHJ6C3M",
-    "name": "Wszystko Na Jedną Kartę",
+    "name": "Wszystko na Jedną Kartę",
     "grade": 2,
     "description": "Dodaje szansę krytyka+5 do siły krytyka. Ustawia szansę krytyka na 0.",
     "castTime": "Standardowa",
-    "requirements": "Większy Fortel 3, Wszystko na jedną kartę 1",
+    "requirements": [
+      "Większy Fortel 3"
+    ],
     "cooldown": 3,
     "price": 2,
     "tags": [
@@ -12090,11 +13109,13 @@
   },
   {
     "id": "DX9Z5Q9WW6F49R52P50GP83VZC",
-    "name": "Wszystko Na Jedną Kartę",
+    "name": "Wszystko na Jedną Kartę",
     "grade": 3,
     "description": "Dodaje szansę krytyka+7 do siły krytyka. Ustawia szansę krytyka na 0.",
     "castTime": "Standardowa",
-    "requirements": "Większy Fortel 4, Wszystko na jedną kartę 2",
+    "requirements": [
+      "Większy Fortel 4"
+    ],
     "cooldown": 3,
     "price": 2,
     "tags": [
@@ -12108,7 +13129,10 @@
     "description": "Każdy w promieniu 3 kroków. Musi wykonać test refleksu o ST=7. Nieudany wymusza test wytrwałości o ST=10. Każde oczko różnicy w przegranym teście to 1 prawdziwych obrażeń i 1 stack choroby.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "N876K6TDK95C7YHFV3NQC863XJ",
@@ -12117,7 +13141,11 @@
     "description": "Dodaje 1 uników na 3rundy [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "7WVSKT63PAFQNBF6J43VZVRK5Z",
@@ -12126,7 +13154,11 @@
     "description": "Dodaje 2 uników na 3rundy [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "5AK3MFJK0YCW6EGSMESDYFSACE",
@@ -12135,7 +13167,11 @@
     "description": "Dodaje 3 uników na 3rundy [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "3T57KGF0CJCNNX74VG81RN6224",
@@ -12144,7 +13180,10 @@
     "description": "Test sporny wytrwałości. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "M00RD7MJ48VAENC2ARWJQCRR73",
@@ -12153,7 +13192,10 @@
     "description": "Test sporny wytrwałości+1. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "TQ1PVA3FMN2J40HYG3Z48QJN73",
@@ -12162,7 +13204,10 @@
     "description": "Test sporny wytrwałości+1. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "A77WWD3QC6N9S8CN45F6Y9BYWT",
@@ -12171,7 +13216,10 @@
     "description": "Test sporny wytrwałości+2. Wygrany powoduje obniżenie siły o 1.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "HGFQRRT136TTFW4C1X3T6506E9",
@@ -12180,7 +13228,10 @@
     "description": "Test sporny wytrwałości+2. Wygrany powoduje obniżenie siły o 2.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "eteryczni"
+    ]
   },
   {
     "id": "AV801XRZR5TJ6J23A3H6FD9N9E",
@@ -12188,7 +13239,9 @@
     "grade": 1,
     "description": "Wygrany test sporny inicjatywy zmniejsza przeciwnikowi ustaloną inicjatywe o 1.",
     "castTime": "Standardowa",
-    "requirements": "Większa Inicjatywa 2",
+    "requirements": [
+      "Większa Inicjatywa 2"
+    ],
     "cooldown": 3,
     "price": 5,
     "tags": [
@@ -12201,7 +13254,10 @@
     "grade": 2,
     "description": "Wygrany test sporny inicjatywy zmniejsza przeciwnikowi ustaloną inicjatywe o 2.",
     "castTime": "Standardowa",
-    "requirements": "Wyścig z czasem 1, Większa Inicjatywa 3",
+    "requirements": [
+      "Wyścig z czasem 1",
+      "Większa Inicjatywa 3"
+    ],
     "cooldown": 3,
     "price": 5,
     "tags": [
@@ -12214,7 +13270,10 @@
     "grade": 3,
     "description": "Wygrany test sporny inicjatywy zmniejsza przeciwnikowi ustalona inicjatywe o 3.",
     "castTime": "Standardowa",
-    "requirements": "Wyścig z czasem 2, Większa Inicjatywa 4",
+    "requirements": [
+      "Wyścig z czasem 2",
+      "Większa Inicjatywa 4"
+    ],
     "cooldown": 3,
     "price": 5,
     "tags": [
@@ -12227,7 +13286,9 @@
     "grade": 1,
     "description": "Wygrany test sporny fechunku+siła/zręczność -5 vs fechunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak.",
     "castTime": "Standardowa",
-    "requirements": "Większy Fechtunek 3",
+    "requirements": [
+      "Większy Fechtunek 3"
+    ],
     "cooldown": 6,
     "price": 4,
     "tags": [
@@ -12240,7 +13301,10 @@
     "grade": 2,
     "description": "Wygrany test sporny fechunku+siła/zręczność -4 vs fechunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak.",
     "castTime": "Standardowa",
-    "requirements": "Rozbrojenie 1, Większy Fechtunek 5",
+    "requirements": [
+      "Rozbrojenie 1",
+      "Większy Fechtunek 5"
+    ],
     "cooldown": 5,
     "price": 4,
     "tags": [
@@ -12253,7 +13317,10 @@
     "grade": 3,
     "description": "Wygrany test sporny fechunku+siła/zręczność -3 vs fechunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak.",
     "castTime": "Standardowa",
-    "requirements": "Rozbrojenie 2, Większy Fechtunek 7",
+    "requirements": [
+      "Rozbrojenie 2",
+      "Większy Fechtunek 7"
+    ],
     "cooldown": 4,
     "price": 4,
     "tags": [
@@ -12267,7 +13334,9 @@
     "description": "Wygrany test sporny refleksu-1 vs fortel/3x inteligencja dodaje refleksu/2 do obrażeń.",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "EXPZK1M99231492N7N92W8FX34",
@@ -12276,7 +13345,10 @@
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=7. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "2XW1EAVMT10GYCHJ1XFAX2FV1W",
@@ -12285,7 +13357,10 @@
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=8. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "4WR4QD3061TCSSSNBQKCA86M7K",
@@ -12294,7 +13369,10 @@
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=9. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "DJR1WV1B7Y2GQW05PV27EKJNEN",
@@ -12303,7 +13381,10 @@
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=10. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "3975EJBMWNFF86T49T2XQVV7WA",
@@ -12312,7 +13393,10 @@
     "description": "Dodaje Zakażenie przeciwnikowi któremu zadano obrażenia (takie które przeszły redukcję). Zakażenie to test wytrwałości o ST=11. Nieudany powoduje obniżenie obrażeń o 1. Za każdy nieudany test tego manewru ST rośnie o 1.",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "BPZ92TX98BQZE6ATPMKRWWAFQM",
@@ -12320,7 +13404,10 @@
     "grade": 1,
     "description": "Tracisz 10 redukcji, dodajesz redukcję 1 kości [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Wytrwałość 5, ciężka zbroja",
+    "requirements": [
+      "Większa Wytrwałość 5",
+      "ciężka zbroja"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": []
@@ -12331,7 +13418,10 @@
     "grade": 1,
     "description": "Tracisz 10-ilość kości broni i obrażeń redukcji (użytkownika), dodajesz redukcję 1 kości [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Zastępuje zakutego w stal, wymagana klasa wojmistrz",
+    "requirements": [
+      "Zastępuje zakutego w stal",
+      "wymagana klasa wojmistrz"
+    ],
     "cooldown": null,
     "price": 2,
     "tags": []
@@ -12342,7 +13432,10 @@
     "grade": 1,
     "description": "Tracisz 5 redukcji, dodajesz redukcję 1 kości [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Wytrwałość 5, Średnia zbroja",
+    "requirements": [
+      "Większa Wytrwałość 5",
+      "Średnia zbroja"
+    ],
     "cooldown": null,
     "price": 6,
     "tags": []
@@ -12371,7 +13464,9 @@
     "grade": 1,
     "description": "Dodaje +1 do ustalonej inicjatywy [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Większa Inicjatywa 1",
+    "requirements": [
+      "Większa Inicjatywa 1"
+    ],
     "cooldown": null,
     "price": 3,
     "tags": []
@@ -12382,7 +13477,10 @@
     "grade": 2,
     "description": "Dodaje +2 do ustalonej inicjatywy [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Zapał do walki 1, Większa Inicjatywa 2",
+    "requirements": [
+      "Zapał do walki 1",
+      "Większa Inicjatywa 2"
+    ],
     "cooldown": null,
     "price": 3,
     "tags": []
@@ -12393,7 +13491,10 @@
     "grade": 3,
     "description": "Dodaje +3 do ustalonej inicjatywy [].",
     "castTime": "Natychmiastowa",
-    "requirements": "Zapał do walki 2, Większa Inicjatywa 3",
+    "requirements": [
+      "Zapał do walki 2",
+      "Większa Inicjatywa 3"
+    ],
     "cooldown": null,
     "price": 3,
     "tags": []
@@ -12405,7 +13506,10 @@
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "QPY5KPQR7E4PG1V8G8HC5RB41E",
@@ -12414,7 +13518,10 @@
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
     "cooldown": 5,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "66JK7MKGSEYKVM7ZZY1J5N8307",
@@ -12423,7 +13530,10 @@
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "JTXV2YVG1FD5B81KH5N7ZR561Q",
@@ -12432,7 +13542,10 @@
     "description": "Dodaje 1dmg do tego i każdego następnego ataku wymierzonego w osobę, która zadała obrażenia podmiotowi (takie które przeszły redukcję).",
     "castTime": "Standardowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "nieumarli",
+      "korpusy"
+    ]
   },
   {
     "id": "0776DM0F8XXKKDKDYH9PQHH327",
@@ -12441,7 +13554,10 @@
     "description": "Dodaje jedną kość broni [tylko jeśli ma przeciwnika pod sobą] [1//10].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "pozostałe"
+    ]
   },
   {
     "id": "WCWD9KYDD6CRPGF0FN0JB804SM",
@@ -12450,7 +13566,10 @@
     "description": "Dodaje PL do redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "wynaturzenia",
+      "pozostałe"
+    ]
   },
   {
     "id": "4RJFXTWHHV4ZVB0S9ZHNABJ0C6",
@@ -12459,7 +13578,11 @@
     "description": "Dodaje poziom leczenia do redukcji [].",
     "castTime": "Natychmiastowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "HTAQG4BQA5FD07GDY754FS35K7",
@@ -12468,7 +13591,9 @@
     "description": "Dodaje 4 uniki na 2 rundy [].",
     "castTime": "Standardowa",
     "cooldown": null,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "Z87R5WK92RE3PV52FX3VZ87DFP",
@@ -12477,7 +13602,8 @@
     "description": "Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k10.",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": 5
   },
@@ -12488,7 +13614,8 @@
     "description": "Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k12.",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": 5
   },
@@ -12499,7 +13626,8 @@
     "description": "Dodaje widmową kość obrażeń o randze równej 1+(1 za każde otrzymane 4 obrażeń) max k14.",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": 5
   },
@@ -12510,7 +13638,8 @@
     "description": "Szarża zadaje 2dmg [].",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": null
   },
@@ -12521,7 +13650,8 @@
     "description": "Szarża zadaje 4dmg [].",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": null
   },
@@ -12532,7 +13662,8 @@
     "description": "Szarża zadaje 6dmg [].",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": null
   },
@@ -12543,7 +13674,9 @@
     "description": "Dodaje redukcje 1 kości broni [].",
     "castTime": "Pełnorundowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe",
+      "potwory"
     ],
     "cooldown": null
   },
@@ -12554,7 +13687,9 @@
     "description": "Dodaje redukcje 1 kości broni [].",
     "castTime": "Pełnorundowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe",
+      "potwory"
     ],
     "cooldown": null
   },
@@ -12565,7 +13700,9 @@
     "description": "Dodaje redukcje 1 kości broni i 1kości [].",
     "castTime": "Pełnorundowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe",
+      "potwory"
     ],
     "cooldown": null
   },
@@ -12576,7 +13713,8 @@
     "description": "Dodatkowy test morale.",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": 4
   },
@@ -12587,7 +13725,8 @@
     "description": "Dodatkowy test morale.",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": 3
   },
@@ -12598,7 +13737,8 @@
     "description": "Dodatkowy test morale+1.",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": 3
   },
@@ -12609,7 +13749,8 @@
     "description": "Test sporny Refleks vs Uniki/Siła wygrany odejmuje przeciwnikowi premie z uników.",
     "castTime": "Standardowa",
     "tags": [
-      "zwierzęce"
+      "zwierzęta",
+      "lądowe"
     ],
     "cooldown": 4
   },
@@ -12620,7 +13761,9 @@
     "description": "Test refleksu-1 vs uniki. Zadaje 1k10w. Następnie test wytrwałości o ST=15. Za każde oczko straty dodaje 1k10w.",
     "castTime": "Natychmiastowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "potwory"
+    ]
   },
   {
     "id": "G9T6FDVDZYDXCXJPBNVB69KX6D",
@@ -12638,7 +13781,11 @@
     "description": "Pozwala wykonać atak w dwa cele. Bez bonusu z siły.",
     "castTime": "Pełnorundowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "XYTKVM32QK13HT9Q18PDVBKATM",
@@ -12647,7 +13794,11 @@
     "description": "Pozwala wykonać atak w dwa cele. Z połową bonusu z Siły.",
     "castTime": "Pełnorundowa",
     "cooldown": 4,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "50GBC8QZJMEHH1XWK1HGF5Y034",
@@ -12656,7 +13807,11 @@
     "description": "Pozwala wykonać atak w dwa cele.",
     "castTime": "Pełnorundowa",
     "cooldown": 3,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   },
   {
     "id": "MBQCZMF4T1TQDCCBH21Y76TWMQ",
@@ -12665,6 +13820,10 @@
     "description": "Pozwala na przrzut 2 kości broni.",
     "castTime": "Standardowa",
     "cooldown": 6,
-    "tags": []
+    "tags": [
+      "zwierzęta",
+      "lądowe",
+      "potwory"
+    ]
   }
 ]
