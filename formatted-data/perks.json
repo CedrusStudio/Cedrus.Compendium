@@ -5085,5 +5085,115 @@
     "tags": [
       "rdzeń"
     ]
+  },
+  {
+    "id": "01KA1AY6A9XCQG5HFMCE000000",
+    "name": "Imp",
+    "grade": 0,
+    "description": "Esencja: 20, Siła zaklęcia 2, +2 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6A9K8G95E2ETR000000",
+    "name": "Pomiot",
+    "grade": 0,
+    "description": "Esencja 15, Siła zaklęcia 2, +2 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6AAM357QS9BAT000000",
+    "name": "Czart",
+    "grade": 0,
+    "description": "Esencja 55, Siła zaklęcia 4, +3 vs rozproszenia, Manewry 1 Postawy 1",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6AA8163PYB18V000000",
+    "name": "Ar'nezu",
+    "grade": 0,
+    "description": "Esencja 200, Siła zaklęcia 8, +6 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6AAZ66CYDAQZK000000",
+    "name": "Hir'er'deno",
+    "grade": 0,
+    "description": "Esencja 140, Siła zaklęcia 8, +6 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6ABZ0VDBW6JCW000000",
+    "name": "Plugawiec",
+    "grade": 0,
+    "description": "Esencja 20, Siła zaklęcia 2, +2 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6ABX43SNKGFXK000000",
+    "name": "Amszu",
+    "grade": 0,
+    "description": "Esencja 40, Siła zaklęcia 4, +3 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6AB2VE8HVTNSH000000",
+    "name": "Bies",
+    "grade": 0,
+    "description": "Esencja 50, Siła zaklęcia 4, +3 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6AC40N04P74C3000000",
+    "name": "Ner'arza",
+    "grade": 0,
+    "description": "Esencja 100, Siła zaklęcia 7, +4 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
+  },
+  {
+    "id": "01KA1AY6ACFSGNHZYCAJ000000",
+    "name": "Gez'aru",
+    "grade": 0,
+    "description": "Esencja 90, Siła zaklęcia 7, +4 vs rozproszenia",
+    "requirements": [],
+    "price": 0,
+    "tags": [
+      "siły-nieczyste"
+    ]
   }
 ]
