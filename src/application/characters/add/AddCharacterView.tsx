@@ -107,7 +107,7 @@ export default function AddCharacterView()
 
                 <CharacterHeaderFields />
                 {
-                    mode === "scratch" || baseCharacter && <SubmitButton isPending={isSubmitDisabled} />
+                    (mode === "scratch" || baseCharacter) && <SubmitButton isPending={isSubmitDisabled} />
                 }
             </form>
         </Form>
