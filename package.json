@@ -8,10 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "sync-rulebook": "tsx scripts/sync-rulebook.ts",
-    "analyze-excel": "tsx scripts/analyze-excel.ts",
-    "analyze-excel-clean": "tsx scripts/analyze-excel-clean.ts",
-    "excel-to-json": "tsx scripts/excel-to-json/index.ts"
+    "sync-rulebook": "tsx scripts/sync-rulebook.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
