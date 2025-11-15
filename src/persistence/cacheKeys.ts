@@ -5,13 +5,9 @@ import { Style } from "@/domain/characters/equipment/Weapon";
 // Characters
 const characterKey = 'characters';
 
-export const createSearchCharactersKey = (search: string, includeTags?: string[]) => [characterKey, searchParamKey, search, includeTags?.join(',') || ''] as const;
+export const createSearchCharactersKey = (search: string, cursor: string, includeTags?: string[], pageSize?: number) => [characterKey, searchParamKey, search, cursor, includeTags?.join(',') || '', pageSize] as const;
 export const allCharactersKey = [characterKey, 'all'] as const;
 export const createCharacterByIdKey = (id: string) => [characterKey, id] as const;
-
-export const getCharacterQueryKey = (search: string | undefined) => search 
-    ? createSearchCharactersKey(search)
-    : allCharactersKey;
 
 // Maneuvers
 const maneuverKey = 'maneuvers';

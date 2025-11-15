@@ -1,0 +1,637 @@
+[
+  {
+    "id": "01KA21QH5JWN3DPR4Q5WHP5R2S",
+    "name": "Gruba Tunika",
+    "description": "",
+    "tags": [
+      "lekka"
+    ],
+    "protection": 1,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 18,
+    "reflexRestriction": 22,
+    "initiativeRestriction": 20,
+    "attributePenalty": 0,
+    "strengthRequirement": -4
+  },
+  {
+    "id": "01KA21QH5J9JBJWRTPB6S0SYVW",
+    "name": "Kaftan Skórzany",
+    "description": "",
+    "tags": [
+      "lekka"
+    ],
+    "protection": 2,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 14,
+    "reflexRestriction": 18,
+    "initiativeRestriction": 16,
+    "attributePenalty": 0,
+    "strengthRequirement": -2
+  },
+  {
+    "id": "01KA21QH5J58TBWPB47N74J2R5",
+    "name": "Przeszywnica",
+    "description": "",
+    "tags": [
+      "lekka"
+    ],
+    "protection": 3,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 12,
+    "reflexRestriction": 15,
+    "initiativeRestriction": 14,
+    "attributePenalty": 0,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5J8ZPVPK1H4J3BWDMF",
+    "name": "Zbroja Skórzana",
+    "description": "",
+    "tags": [
+      "lekka"
+    ],
+    "protection": 5,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 8,
+    "reflexRestriction": 11,
+    "initiativeRestriction": 13,
+    "attributePenalty": 1,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5JK94K281NJAJ0N6QR",
+    "name": "Zbroja Skórzana Ćwiekowana",
+    "description": "",
+    "tags": [
+      "lekka"
+    ],
+    "protection": 6,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 7,
+    "reflexRestriction": 10,
+    "initiativeRestriction": 12,
+    "attributePenalty": 1,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5J71HB7P3KAGZTDYDG",
+    "name": "Zbroja Łuskowa",
+    "description": "",
+    "tags": [
+      "lekka"
+    ],
+    "protection": 8,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 4,
+    "reflexRestriction": 7,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5JTQ9HJCSAJ29GJHHH",
+    "name": "Zbroja Segmentowa",
+    "description": "",
+    "tags": [
+      "średnia"
+    ],
+    "protection": 0,
+    "immunity": 1,
+    "resistance": 3,
+    "dexterityRestriction": 4,
+    "reflexRestriction": 7,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5JAF0RY6CNBVF938HQ",
+    "name": "Zbroja Lamelkowa",
+    "description": "",
+    "tags": [
+      "średnia"
+    ],
+    "protection": 0,
+    "immunity": 1,
+    "resistance": 4,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 6,
+    "initiativeRestriction": 6,
+    "attributePenalty": 2,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5JBY1GQK9MKHY29V8A",
+    "name": "Zbroja Pierścieniowa",
+    "description": "",
+    "tags": [
+      "średnia"
+    ],
+    "protection": 0,
+    "immunity": 1,
+    "resistance": 4,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 6,
+    "attributePenalty": 3,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5J83QSSC0H0XRQF1VH",
+    "name": "Kolczuga",
+    "description": "",
+    "tags": [
+      "średnia"
+    ],
+    "protection": 0,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 6,
+    "attributePenalty": 3,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5JMT1W5KHA2BHJWRX0",
+    "name": "Bechter",
+    "description": "",
+    "tags": [
+      "średnia"
+    ],
+    "protection": 2,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 5,
+    "attributePenalty": 3,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5JJ90DAR8TWV32FGP6",
+    "name": "Brygantyna",
+    "description": "",
+    "tags": [
+      "średnia"
+    ],
+    "protection": 4,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 2,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 5,
+    "attributePenalty": 4,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5JATX1N9FR955J7KFE",
+    "name": "Zbroje Płytkowa",
+    "description": "",
+    "tags": [
+      "ciężka"
+    ],
+    "protection": 3,
+    "immunity": 2,
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 4,
+    "initiativeRestriction": 3,
+    "attributePenalty": 5,
+    "strengthRequirement": 2
+  },
+  {
+    "id": "01KA21QH5JH84J8QVCJ2GBJHWK",
+    "name": "Zbroja Kryta",
+    "description": "",
+    "tags": [
+      "ciężka"
+    ],
+    "protection": 5,
+    "immunity": 2,
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 3,
+    "initiativeRestriction": 2,
+    "attributePenalty": 5,
+    "strengthRequirement": 2
+  },
+  {
+    "id": "01KA21QH5JQN2ADKP2Y9F6GC4G",
+    "name": "Zbroja Półpłytowa",
+    "description": "",
+    "tags": [
+      "ciężka"
+    ],
+    "protection": 7,
+    "immunity": 2,
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 1,
+    "initiativeRestriction": 2,
+    "attributePenalty": 7,
+    "strengthRequirement": 2
+  },
+  {
+    "id": "01KA21QH5JNJNVS5K390WTSYAT",
+    "name": "Zbroja Pełna Płytowa",
+    "description": "",
+    "tags": [
+      "ciężka"
+    ],
+    "protection": 9,
+    "immunity": 2,
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 6,
+    "strengthRequirement": 2
+  },
+  {
+    "id": "01KA21QH5JS6PJZ1FY33AZ9XP3",
+    "name": "Noc",
+    "description": "Kolczuga z czarnego mithrilu",
+    "tags": [
+      "lekka",
+      "magiczny"
+    ],
+    "protection": 7,
+    "immunity": 1,
+    "resistance": 2,
+    "dexterityRestriction": 4,
+    "reflexRestriction": 7,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5J5JPKF54WM16NMEV7",
+    "name": "Zainatesar",
+    "description": "Skórznia, tracisz 1 redukcji z każdym atakiem przeciwnika zadajacym obrażenia zbroi do minimum 5 redukcji.",
+    "tags": [
+      "lekka",
+      "magiczny"
+    ],
+    "protection": 12,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 8,
+    "reflexRestriction": 11,
+    "initiativeRestriction": 13,
+    "attributePenalty": 1,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5J01BTKMF7MNMF7JGE",
+    "name": "Skórznia Selviry",
+    "description": "Skórznia, 1//D niewrażliwość 2.",
+    "tags": [
+      "lekka",
+      "magiczny"
+    ],
+    "protection": 6,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 8,
+    "reflexRestriction": 11,
+    "initiativeRestriction": 13,
+    "attributePenalty": 1,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5K16NTX98SDV7KCB0W",
+    "name": "Łuskowa Zbroja Atemera",
+    "description": "Zbroja Łuskowa",
+    "tags": [
+      "lekka",
+      "magiczny"
+    ],
+    "protection": 12,
+    "immunity": 0,
+    "resistance": 0,
+    "dexterityRestriction": 4,
+    "reflexRestriction": 7,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 0
+  },
+  {
+    "id": "01KA21QH5KZ3HRPRDJ0HC8C4GK",
+    "name": "Zbroja Mistrza Valsy",
+    "description": "Zbroja Lamelkowa",
+    "tags": [
+      "średnia",
+      "magiczny"
+    ],
+    "protection": 1,
+    "immunity": 1,
+    "resistance": 4,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 6,
+    "initiativeRestriction": 6,
+    "attributePenalty": 2,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5K046QQK2BQ24B7N81",
+    "name": "Brygantyna sir Valerengo Longsidle",
+    "description": "Brygantyna, zmniejsza o 1 rangę kości broni oraz o 1 szansę trafienia krytycznego atakującego.",
+    "tags": [
+      "średnia",
+      "magiczny"
+    ],
+    "protection": 4,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 2,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 5,
+    "attributePenalty": 4,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5K8P39VB78XEAM707J",
+    "name": "Bryngandna Labrasci",
+    "description": "Brygantyna",
+    "tags": [
+      "średnia",
+      "magiczny"
+    ],
+    "protection": 4,
+    "immunity": 1,
+    "resistance": 6,
+    "dexterityRestriction": 5,
+    "reflexRestriction": 8,
+    "initiativeRestriction": 5,
+    "attributePenalty": 3,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5KSTAZ5TA483P2RV1W",
+    "name": "Brygandyna Czempiona Labrasci",
+    "description": "Brygantyna",
+    "tags": [
+      "średnia",
+      "magiczny"
+    ],
+    "protection": 5,
+    "immunity": 1,
+    "resistance": 6,
+    "dexterityRestriction": 7,
+    "reflexRestriction": 9,
+    "initiativeRestriction": 5,
+    "attributePenalty": 3,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5KAY37VYSG7JSRM7SC",
+    "name": "Kolczuga Tarmy",
+    "description": "Kolczuga, nakłada stacka za każdą skierowaną w ciebie kość broni. Zdejmując 6 stacków dodaje 6 odporności.",
+    "tags": [
+      "średnia",
+      "magiczny"
+    ],
+    "protection": 1,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 6,
+    "attributePenalty": 3,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5K4SDA61VE2ATZPBXY",
+    "name": "Bechter Oddanego",
+    "description": "Bechter, 1//D wróg dorzuca do każdej kości broni, dodatkową taką samą kość. Wybiera niższe wyniki z rzuconych par kości.",
+    "tags": [
+      "średnia",
+      "magiczny"
+    ],
+    "protection": 2,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 5,
+    "attributePenalty": 3,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5KBPFSE2E88PD8F3CK",
+    "name": "Brygantyna Odenveda",
+    "description": "Dodaje redukcje 1 kości. Brygantyna",
+    "tags": [
+      "średnia",
+      "magiczny"
+    ],
+    "protection": 5,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 2,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 5,
+    "attributePenalty": 4,
+    "strengthRequirement": 1
+  },
+  {
+    "id": "01KA21QH5KTGGT0QKDXMTZR76E",
+    "name": "Zbroja Chmur",
+    "description": "Zbroja Kryta, 2//D dodaje 1 niewrażliwości.",
+    "tags": [
+      "ciężka",
+      "magiczny"
+    ],
+    "protection": 5,
+    "immunity": 2,
+    "resistance": 0,
+    "dexterityRestriction": 0,
+    "reflexRestriction": 0,
+    "initiativeRestriction": 2,
+    "attributePenalty": 5,
+    "strengthRequirement": 2
+  },
+  {
+    "id": "01KA21QH5K3CVYFKPP41E5CDSY",
+    "name": "Zbroja Armeny",
+    "description": "Zbroja Płytkowa z czarnego mithrilu",
+    "tags": [
+      "ciężka",
+      "magiczny"
+    ],
+    "protection": 0,
+    "immunity": 2,
+    "resistance": 3,
+    "dexterityRestriction": 5,
+    "reflexRestriction": 7,
+    "initiativeRestriction": 3,
+    "attributePenalty": 2,
+    "strengthRequirement": 2
+  },
+  {
+    "id": "01KA21QH5KQ54TJQ3WCT5A6T6F",
+    "name": "Twierdza Diany",
+    "description": "Pełna płytowa zbroja z wyjątkowych pancerzy żuczych, 3x Skorupa (zamienia 1 redukcji na 1 odporności max 5).",
+    "tags": [
+      "ciężka",
+      "magiczny"
+    ],
+    "protection": 10,
+    "immunity": 2,
+    "resistance": 4,
+    "dexterityRestriction": 2,
+    "reflexRestriction": 4,
+    "initiativeRestriction": 4,
+    "attributePenalty": 3,
+    "strengthRequirement": 5
+  },
+  {
+    "id": "01KA21QH5KMDM6EFBMTPH3WYW4",
+    "name": "Zbroja Łuska Nikitiragora",
+    "description": "Pełna płytowa ze smoczych łusek Nikitiragora, odporność 5 vs Zimno, +1 Charyzma.",
+    "tags": [
+      "ciężka",
+      "magiczny"
+    ],
+    "protection": 9,
+    "immunity": 2,
+    "resistance": 4,
+    "dexterityRestriction": 3,
+    "reflexRestriction": 6,
+    "initiativeRestriction": 4,
+    "attributePenalty": 5,
+    "strengthRequirement": 2
+  },
+  {
+    "id": "01KA21TX2HN745MMYE9B8C7F79",
+    "name": "Zbroja Łuskowa Stalowa",
+    "description": "Stalowa zbroja łuskowa",
+    "tags": [
+      "zbroje",
+      "średnie"
+    ],
+    "resistance": 2,
+    "dexterityRestriction": 5,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 1,
+    "immunity": 0,
+    "protection": 6
+  },
+  {
+    "id": "01KA21TX2H520KE0C16M71EJZX",
+    "name": "Mistrzowska Zbroja Łuskowa",
+    "description": "Mistrzowskiej jakości zbroja łuskowa",
+    "tags": [
+      "zbroje",
+      "średnie",
+      "mistrzowskie"
+    ],
+    "resistance": 3,
+    "dexterityRestriction": 5,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 1,
+    "immunity": 0,
+    "protection": 6
+  },
+  {
+    "id": "01KA21TX2HMNWCSB8NR6DJET1S",
+    "name": "Zbroja Płytkowa",
+    "description": "Zbroja płytkowa",
+    "tags": [
+      "zbroje",
+      "ciężkie"
+    ],
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 4,
+    "initiativeRestriction": 3,
+    "attributePenalty": 5,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 3
+  },
+  {
+    "id": "01KA21TX2H9591P8SGRSDQPMQG",
+    "name": "Zbroja Półplytowa",
+    "description": "Zbroja półpłytowa",
+    "tags": [
+      "zbroje",
+      "ciężkie"
+    ],
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 1,
+    "initiativeRestriction": 2,
+    "attributePenalty": 7,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 7
+  },
+  {
+    "id": "01KA21TX2HZWBSPVC68CY0E4T9",
+    "name": "Mistrzowska Pełna Płytowa",
+    "description": "Pełna zbroja płytowa, mistrzowskiej jakości",
+    "tags": [
+      "zbroje",
+      "ciężkie",
+      "ulepszone",
+      "mistrzowskie"
+    ],
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 6,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 10
+  },
+  {
+    "id": "01KA21TX2J5BDPDHYK9NW792FN",
+    "name": "Arcymistrzowska Pełna Płytowa",
+    "description": "Pełna zbroja płytowa, arcymistrzowskiej jakości",
+    "tags": [
+      "zbroje",
+      "ciężkie",
+      "ulepszone",
+      "mistrzowskie"
+    ],
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 5,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 11
+  },
+  {
+    "id": "01KA21TX2JAHPSPWFGRXSJQF8M",
+    "name": "Pełna Płytowa",
+    "description": "Zbroja pełna płytowa",
+    "tags": [
+      "zbroje",
+      "ciężkie"
+    ],
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 6,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 9
+  }
+]
