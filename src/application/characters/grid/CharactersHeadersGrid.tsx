@@ -1,23 +1,10 @@
 "use client";
 
-import { useMemo } from 'react';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/ui/pagination";
+import { useMemo, useState } from 'react';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/ui/pagination";
 import { useOffsetPagination } from '@/infrastructure/hooks/useOffsetPagination';
 import Link from 'next/link';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/card';
 import { Separator } from '@/ui/separator';
 import { Button } from '@/ui/button';
 import { useDispatch } from 'react-redux';
@@ -26,6 +13,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSearchCharactersSummary } from '../hooks/useSearchCharactersSummary';
 import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 import TagsView from '@/common/components/tags/TagsView';
+import TagFilter from '@/common/components/filters/TagFilter';
 
 type CharactersHeadersGridParams =
 {
@@ -34,7 +22,8 @@ type CharactersHeadersGridParams =
 
 export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeadersGridParams)
 {
-  const { characters: summaries } = useSearchCharactersSummary();
+  const [searchTags, setSearchTags] = useState<string[]>([]);
+  const { characters: summaries } = useSearchCharactersSummary(searchTags);
   const { goTo, totalPages, clampedPage } = useOffsetPagination(summaries.length, pageSize);
 
   const pageItems = useMemo(() =>
@@ -47,6 +36,10 @@ export default function CharactersHeadersGrid({ pageSize = 15 }: CharactersHeade
 
   return (
     <div className='flex flex-col items-center justify-end'>
+
+      <div className='flex justify-center mt-4'>
+        <TagFilter includedTags={searchTags} onTagsChange={setSearchTags} />
+      </div>
 
       <div className='grid lg:grid-cols-4 gap-4 mt-6 m-4'>
       {

@@ -14,7 +14,6 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddPerkDto, addPerkSchema, PerkDto } from "@/persistence/schemas/characters/perkSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
 import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
 import PerkView from "@/application/compendium/perks/PerkView";
@@ -23,49 +22,72 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import TagFilter from "@/common/components/filters/TagFilter";
+
+const pageSize = DEFAULT_PAGE_SIZE;
 
 export default function PerksList()
 {
-  const { data: perks, initialCursor } = useInitialKeysetSearch<Perk>
-  ({
-    createQueryKey: createKeysetSearchPerksKey,
-    createQuery: createPerkKeysetQuery
-  });
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [searchTags, setSearchTags] = useState<string[]>([]);
+
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>([]);
-
-  useEffect(() =>   
-  {
-    setDisplayedPerks(perks);
-    setCursor(initialCursor);
-  }, [perks, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchPerksKey(searchTerm, cursor);
-  const query = useQuery
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchPerksKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const perksQuery = createPerkKeysetQuery(searchTerm, cursor);
+      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
       return await searchClient.search<Perk[]>(perksQuery);
-    }
+    },
+    staleTime: 5_000
   });
+
+  useEffect(() => 
+  {
+    setHasMore(searchResults.length === pageSize);
+
+    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    {
+      setDisplayedPerks(searchResults);
+      return;
+    }
+
+    setDisplayedPerks(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
+    clearResults();
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchTagsChange = (tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  };
+
+  const clearResults = () =>
+  {
+    setDisplayedPerks([]);
+    setCursor(emptyUlid);
   };
 
   return (
@@ -75,10 +97,12 @@ export default function PerksList()
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
 
         <AddPerkForm />
       </div>
@@ -86,21 +110,11 @@ export default function PerksList()
       <WithScroll<Perk>
         parentClassName="flex flex-col gap-2"
         items={displayedPerks}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedPerks(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={perk => <PerkView key={perk.id} perk={perk} />}
       />
     </>

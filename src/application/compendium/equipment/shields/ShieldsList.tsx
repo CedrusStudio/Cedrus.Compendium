@@ -14,7 +14,6 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchShieldsKey } from "@/persistence/cacheKeys";
 import { createShieldKeysetQuery } from "@/infrastructure/searchQueries/equipment/shields/createShieldKeysetQuery";
 import ShieldView from "@/application/compendium/equipment/shields/ShieldView";
@@ -23,48 +22,71 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultShield, Shield } from "@/domain/characters/equipment/Shield";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import TagFilter from "@/common/components/filters/TagFilter";
+
+const pageSize = DEFAULT_PAGE_SIZE;
 
 export default function ShieldsList()
 {
-  const { data: shields, initialCursor } = useInitialKeysetSearch<Shield>
-  ({
-    createQueryKey: createKeysetSearchShieldsKey,
-    createQuery: createShieldKeysetQuery
-  });
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [searchTags, setSearchTags] = useState<string[]>([]);
+
   const [displayedShields, setDisplayedShields] = useState<Shield[]>([]);
-
-  useEffect(() =>   
-  {
-    setDisplayedShields(shields);
-    setCursor(initialCursor);
-  }, [shields, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchShieldsKey(searchTerm, cursor);
-  const query = useQuery
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const shieldsQuery = createShieldKeysetQuery(searchTerm, cursor);
+      const shieldsQuery = createShieldKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
       return await searchClient.search<Shield[]>(shieldsQuery);
-    }
+    },
+    staleTime: 5_000
   });
+
+  useEffect(() => 
+  {
+    setHasMore(searchResults.length === pageSize);
+
+    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    {
+      setDisplayedShields(searchResults);
+      return;
+    }
+
+    setDisplayedShields(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
+    clearResults();
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchTagsChange = (tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  };
+
+  const clearResults = () =>
+  {
+    setDisplayedShields([]);
+    setCursor(emptyUlid);
   };
 
   return (
@@ -74,10 +96,12 @@ export default function ShieldsList()
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
 
         <AddShieldForm />
       </div>
@@ -85,21 +109,11 @@ export default function ShieldsList()
       <WithScroll<Shield>
         parentClassName="flex flex-col gap-2"
         items={displayedShields}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedShields(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedShields.length > 0) setCursor(displayedShields[displayedShields.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={shield => <ShieldView key={shield.id} shield={shield} />}
       />
     </>

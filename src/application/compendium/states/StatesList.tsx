@@ -14,58 +14,79 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddModeDto, addModeSchema, ModeDto } from "@/persistence/schemas/characters/combat/modeSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchStatesKey } from "@/persistence/cacheKeys";
 import { createStateKeysetQuery } from "@/infrastructure/searchQueries/states/createStateKeysetQuery";
 import StateView from "@/application/compendium/states/StateView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
-import { CreateDefaultState, Mode } from "@/domain/characters/combat/Mode";
+import { CreateDefaultState, State } from "@/domain/characters/combat/State";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
-import { useQuery } from "@tanstack/react-query";
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import TagFilter from "@/common/components/filters/TagFilter";
+
+const pageSize = DEFAULT_PAGE_SIZE;
+import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 
 export default function StatesList()
 {
-  const { data: states, initialCursor } = useInitialKeysetSearch<Mode>
-  ({
-    createQueryKey: createKeysetSearchStatesKey,
-    createQuery: createStateKeysetQuery
-  });
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [searchTags, setSearchTags] = useState<string[]>([]);
+
   const [displayedStates, setDisplayedStates] = useState<Mode[]>([]);
-
-  useEffect(() =>   
-  {
-    setDisplayedStates(states);
-    setCursor(initialCursor);
-  }, [states, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchStatesKey(searchTerm, cursor);
-  const query = useQuery
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchStatesKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const statesQuery = createStateKeysetQuery(searchTerm, cursor);
+      const statesQuery = createStateKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
       return await searchClient.search<Mode[]>(statesQuery);
-    }
+    },
+    staleTime: 5_000
   });
+
+  useEffect(() => 
+  {
+    setHasMore(searchResults.length === pageSize);
+
+    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    {
+      setDisplayedStates(searchResults);
+      return;
+    }
+
+    setDisplayedStates(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
+    clearResults();
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchTagsChange = (tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  };
+
+  const clearResults = () =>
+  {
+    setDisplayedStates([]);
+    setCursor(emptyUlid);
   };
 
   return (
@@ -75,10 +96,12 @@ export default function StatesList()
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
 
         <AddStateForm />
       </div>
@@ -86,21 +109,11 @@ export default function StatesList()
       <WithScroll<Mode>
         parentClassName="flex flex-col gap-2"
         items={displayedStates}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedStates(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={state => <StateView key={state.id} state={state} />}
       />
     </>

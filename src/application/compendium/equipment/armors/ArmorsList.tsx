@@ -14,7 +14,6 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { ArmorDto, armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchArmorsKey } from "@/persistence/cacheKeys";
 import { createArmorKeysetQuery } from "@/infrastructure/searchQueries/equipment/armors/createArmorKeysetQuery";
 import ArmorView from "@/application/compendium/equipment/armors/ArmorView";
@@ -23,48 +22,71 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultArmor, Armor } from "@/domain/characters/equipment/Armor";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import TagFilter from "@/common/components/filters/TagFilter";
+
+const pageSize = DEFAULT_PAGE_SIZE;
 
 export default function ArmorsList()
 {
-  const { data: armors, initialCursor } = useInitialKeysetSearch<Armor>
-  ({
-    createQueryKey: createKeysetSearchArmorsKey,
-    createQuery: createArmorKeysetQuery
-  });
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [searchTags, setSearchTags] = useState<string[]>([]);
+
   const [displayedArmors, setDisplayedArmors] = useState<Armor[]>([]);
-
-  useEffect(() =>   
-  {
-    setDisplayedArmors(armors);
-    setCursor(initialCursor);
-  }, [armors, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchArmorsKey(searchTerm, cursor);
-  const query = useQuery
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchArmorsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const armorsQuery = createArmorKeysetQuery(searchTerm, cursor);
+      const armorsQuery = createArmorKeysetQuery(debouncedSearchTerm, cursor, searchTags);
       return await searchClient.search<Armor[]>(armorsQuery);
-    }
+    },
+    staleTime: 5_000
   });
+
+  useEffect(() => 
+  {
+    setHasMore(searchResults.length === pageSize);
+
+    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    {
+      setDisplayedArmors(searchResults);
+      return;
+    }
+
+    setDisplayedArmors(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
+    clearResults();
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchTagsChange = (tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  };
+
+  const clearResults = () =>
+  {
+    setDisplayedArmors([]);
+    setCursor(emptyUlid);
   };
 
   return (
@@ -74,10 +96,12 @@ export default function ArmorsList()
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
 
         <AddArmorForm />
       </div>
@@ -85,21 +109,11 @@ export default function ArmorsList()
       <WithScroll<Armor>
         parentClassName="flex flex-col gap-2"
         items={displayedArmors}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedArmors(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedArmors.length > 0) setCursor(displayedArmors[displayedArmors.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={armor => <ArmorView key={armor.id} armor={armor} />}
       />
     </>

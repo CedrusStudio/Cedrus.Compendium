@@ -14,7 +14,6 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { MountDto, mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchMountsKey } from "@/persistence/cacheKeys";
 import { createMountKeysetQuery } from "@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery";
 import MountView from "@/application/compendium/equipment/mounts/MountView";
@@ -24,47 +23,70 @@ import { ulid } from "ulid";
 import { CreateDefaultMount, Mount } from "@/domain/characters/equipment/Mount";
 import { Input } from "@/common/components/ui/input";
 import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import TagFilter from "@/common/components/filters/TagFilter";
+
+const pageSize = DEFAULT_PAGE_SIZE;
 
 export default function MountsList()
 {
-  const { data: mounts, initialCursor } = useInitialKeysetSearch<Mount>
-  ({
-    createQueryKey: createKeysetSearchMountsKey,
-    createQuery: createMountKeysetQuery
-  });
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [searchTags, setSearchTags] = useState<string[]>([]);
+
   const [displayedMounts, setDisplayedMounts] = useState<Mount[]>([]);
-
-  useEffect(() =>   
-  {
-    setDisplayedMounts(mounts);
-    setCursor(initialCursor);
-  }, [mounts, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchMountsKey(searchTerm, cursor);
-  const query = useQuery
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchMountsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const mountsQuery = createMountKeysetQuery(searchTerm, cursor);
+      const mountsQuery = createMountKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
       return await searchClient.search<Mount[]>(mountsQuery);
-    }
+    },
+    staleTime: 5_000
   });
+
+  useEffect(() => 
+  {
+    setHasMore(searchResults.length === pageSize);
+
+    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    {
+      setDisplayedMounts(searchResults);
+      return;
+    }
+
+    setDisplayedMounts(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
+    clearResults();
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchTagsChange = (tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  };
+
+  const clearResults = () =>
+  {
+    setDisplayedMounts([]);
+    setCursor(emptyUlid);
   };
 
   return (
@@ -74,10 +96,12 @@ export default function MountsList()
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
 
         <AddMountForm />
       </div>
@@ -85,21 +109,11 @@ export default function MountsList()
       <WithScroll<Mount>
         parentClassName="flex flex-col gap-2"
         items={displayedMounts}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedMounts(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedMounts.length > 0) setCursor(displayedMounts[displayedMounts.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={mount => <MountView key={mount.id} mount={mount} />}
       />
     </>

@@ -8,18 +8,18 @@ type WithScrollProps<TItem> =
 {
   items: TItem[];
   triggerNext: () => void;
-  currentCursor: string | undefined;
+  hasMore: boolean;
   renderItem: (item: TItem, index: number) => React.ReactNode;
   parentClassName?: string | undefined;
 }
 
-export function WithScroll<TItem>({ items, triggerNext, currentCursor, renderItem, parentClassName }: WithScrollProps<TItem>)
+export function WithScroll<TItem>({ items, triggerNext, hasMore, renderItem, parentClassName }: WithScrollProps<TItem>)
 {
   return (
     <InfiniteScroll
       dataLength={items.length}
       next={triggerNext}
-      hasMore={!!currentCursor}
+      hasMore={hasMore}
       loader={<Loader />}
       endMessage={<EndSeparator />}
     >
