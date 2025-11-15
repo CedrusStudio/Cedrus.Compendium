@@ -97,6 +97,7 @@ export const translations_deDE =
     roll: "wurf",
     attributePenalty: "attributstrafe",
     dexterityRestriction: "geschicklichkeitsbeschränkung",
+    reflexRestriction: "reflexbeschränkung",
     initiativeRestriction: "initiativebeschränkung",
     strengthRequirement: "stärkeanforderung",
     selectCategory: "kategorie auswählen",

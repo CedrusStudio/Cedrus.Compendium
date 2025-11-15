@@ -124,6 +124,7 @@ export const displayedText =
     roll: translate("roll"),
     attributePenalty: translate("attributePenalty"),
     dexterityRestriction: translate("dexterityRestriction"),
+    reflexRestriction: translate("reflexRestriction"),
     initiativeRestriction: translate("initiativeRestriction"),
     strengthRequirement: translate("strengthRequirement"),
     selectCategory: translate("selectCategory"),

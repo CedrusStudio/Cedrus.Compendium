@@ -97,6 +97,7 @@ export const translations_frFR =
     roll: "jet",
     attributePenalty: "malus d'attribut",
     dexterityRestriction: "restriction de dextérité",
+    reflexRestriction: "restriction de réflexe",
     initiativeRestriction: "restriction d'initiative",
     strengthRequirement: "exigence de force",
     selectCategory: "sélectionner une catégorie",

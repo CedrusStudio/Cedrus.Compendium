@@ -97,6 +97,7 @@ export const translations_plPL =
     roll: "rzut",
     attributePenalty: "kara atrybutu",
     dexterityRestriction: "ograniczenie zręczności",
+    reflexRestriction: "ograniczenie refleksu",
     initiativeRestriction: "ograniczenie inicjatywy",
     strengthRequirement: "wymaganie siły",
     selectCategory: "wybierz kategorię",

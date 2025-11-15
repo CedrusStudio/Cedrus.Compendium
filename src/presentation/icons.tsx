@@ -124,4 +124,5 @@ export const reductionArmorOrBlockIcon = (className?: string) => <IoShieldHalfOu
 export const attributePenaltyIcon = (className?: string) => <LuMinus className={className} />;
 export const strengthRequirementIcon = (className?: string) => <LuBicepsFlexed className={cn("text-blue-500", className)} />;
 export const dexterityRestrictionIcon = (className?: string) => <GiRun className={cn("text-red-500", className)} />;
+export const reflexRestrictionIcon = (className?: string) => <GiDodging className={cn("text-red-500", className)} />;
 export const initiativeRestrictionIcon = (className?: string) => <BsLightning className={cn("text-red-500", className)} />;

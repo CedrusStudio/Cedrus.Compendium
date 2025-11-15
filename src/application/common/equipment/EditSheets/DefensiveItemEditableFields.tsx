@@ -3,7 +3,7 @@ import { Label } from "@/ui/label"
 import { displayedText } from '@/presentation/translations';
 import { FieldPath, FieldValues } from 'react-hook-form';
 import { DefensiveItemDto } from '@/persistence/schemas/characters/equipment/defenseItemSchema';
-import { allowedResistances, allowedDexterityRestrictions, allowedInitiativeRestrictions, allowedStrengthRequirements } from "@/domain/characters/equipment/Item";
+import { allowedResistances, allowedDexterityRestrictions, allowedInitiativeRestrictions, allowedStrengthRequirements, allowedReflexRestrictions } from "@/domain/characters/equipment/Item";
 import { allowedItemAttributePenalties } from "@/domain/characters/equipment/Item";
 
 type EditDefensiveItemViewProps =
@@ -16,21 +16,47 @@ export default function DefensiveItemEditableFields<TEditable extends FieldValue
   return (
     <div className="grid auto-rows-min gap-3 px-4">
 
-        <div className="grid auto-rows-min gap-3 px-4 items-center justify-center">
+        <div className="flex flex-row gap-3 px-4 place-content-center">
+            
+            <div className='flex flex-col gap-3 px-4 place-items-center'>
+                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.resistance}</span></Label>
 
-            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.resistance}</span></Label>
+                <SelectFormField<TEditable> 
+                    path={(`${pathPrefix}resistance`) as FieldPath<TEditable>}
+                    items={allowedResistances}
+                    noLabel
+                    />
+            </div>
 
-            <SelectFormField<TEditable> 
-                path={(`${pathPrefix}resistance`) as FieldPath<TEditable>}
-                items={allowedResistances}
-                noLabel
-            />
+            <div className='flex flex-col'>
+                <div className="flex flex-col gap-3 px-4 place-items-center">
+                    <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.strengthRequirement}</span></Label>
+
+                    <SelectFormField<TEditable> 
+                        path={(`${pathPrefix}strengthRequirement`) as FieldPath<TEditable>}
+                        items={allowedStrengthRequirements}
+                        noLabel
+                    />
+                </div>
+            </div>
 
         </div>
 
         <div className="flex flex-row gap-3 px-14">
 
-            <div className="grid auto-rows-min gap-3 px-4">
+            <div className="flex flex-col gap-3 px-4 place-content-center">
+
+                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.initiativeRestriction}</span></Label>
+
+                <SelectFormField<TEditable> 
+                    path={(`${pathPrefix}initiativeRestriction`) as FieldPath<TEditable>}
+                    items={allowedInitiativeRestrictions}
+                    noLabel
+                />
+                
+            </div>
+
+            <div className="flex flex-col gap-3 px-4 place-content-center">
 
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.attributePenalty}</span></Label>
 
@@ -42,23 +68,24 @@ export default function DefensiveItemEditableFields<TEditable extends FieldValue
 
             </div>
 
-            <div className="grid auto-rows-min gap-3 px-4">
-
-                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.strengthRequirement}</span></Label>
-
-                <SelectFormField<TEditable> 
-                    path={(`${pathPrefix}strengthRequirement`) as FieldPath<TEditable>}
-                    items={allowedStrengthRequirements}
-                    noLabel
-                />
-
-            </div>
                 
         </div>
 
         <div className="flex flex-row gap-3 px-14">
 
-            <div className="grid auto-rows-min gap-3 px-4">
+            <div className="flex flex-col gap-3 px-4 place-content-center">
+
+                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.reflexRestriction}</span></Label>
+
+                <SelectFormField<TEditable> 
+                    path={(`${pathPrefix}reflexRestriction`) as FieldPath<TEditable>}
+                    items={allowedReflexRestrictions}
+                    noLabel
+                />
+
+            </div>
+
+            <div className="flex flex-col gap-3 px-4 place-content-center">
 
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.dexterityRestriction}</span></Label>
 
@@ -68,18 +95,6 @@ export default function DefensiveItemEditableFields<TEditable extends FieldValue
                     noLabel
                 />
 
-            </div>
-
-            <div className="grid auto-rows-min gap-3 px-4">
-
-                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.initiativeRestriction}</span></Label>
-
-                <SelectFormField<TEditable> 
-                    path={(`${pathPrefix}initiativeRestriction`) as FieldPath<TEditable>}
-                    items={allowedInitiativeRestrictions}
-                    noLabel
-                />
-                
             </div>
 
         </div>
