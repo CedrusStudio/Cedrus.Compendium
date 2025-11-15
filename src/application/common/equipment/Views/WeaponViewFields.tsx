@@ -14,6 +14,8 @@ type WeaponViewProps =
 
 export default function WeaponViewFields({ weapon }: WeaponViewProps)
 {
+  const damageBonusString = toOffenseString(weapon.damageBonus);
+
   return (
     <div className='flex flex-row place-items-center justify-between w-full gap-4'>
 
@@ -26,9 +28,14 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
           <Badge variant="secondary">{toCriticalRangeString(weapon.offense)}, {weapon.offense.critical.power >=0 ? "+" : ""}{weapon.offense.critical.power}</Badge>
         </Badge>
 
-        <Badge variant="outline">
-          <span>{toOffenseString(weapon.damageBonus)}</span>
-        </Badge>
+        {
+          damageBonusString && (
+            <Badge variant="outline">
+              <span>{damageBonusString}</span>
+            </Badge>
+          )
+        }
+
 
       </div>
 

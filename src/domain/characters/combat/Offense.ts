@@ -39,9 +39,14 @@ export type Critical =
 
 export function toOffenseString(offense: { amount: number; grade: number; bonus: number }): string
 {
-  return offense.amount === 0
-    ? `${offense.bonus >=0 ? "+" : ""}${offense.bonus}`
-    : `${offense.amount}k${offense.grade * 2}${offense.bonus >=0 ? "+" : ""}${offense.bonus}`
+  const bonusValueWithSign = offense.bonus !== 0 ? `${offense.bonus >=0 ? "+" : ""}${offense.bonus}` : "";
+
+  if (offense.grade <= 0 || offense.amount <= 0) 
+  {
+    return bonusValueWithSign;
+  }
+
+  return `${offense.amount}k${offense.grade * 2}${bonusValueWithSign}`
 }
 
 export function toCriticalRangeString(weaponOffense: WeaponOffense): string
@@ -145,9 +150,9 @@ export const allowedDiceBonuses = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1
 
 export const allowedDiceAmounts = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] as const satisfies readonly number[];
 
-export const allowedCriticalRanges = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] as const satisfies readonly number[];
+export const allowedCriticalRanges = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] as const satisfies readonly number[];
 
-export const allowedCriticalPowers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] as const satisfies readonly number[];
+export const allowedCriticalPowers = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30] as const satisfies readonly number[];
 
 export const defaultWeaponOffense: WeaponOffense = 
 {
