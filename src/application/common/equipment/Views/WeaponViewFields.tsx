@@ -23,7 +23,7 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
 
         <Badge variant="outline">
           <span>{toOffenseString(weapon.offense)}</span>
-          <Badge variant="secondary">{toCriticalRangeString(weapon.offense)}, +{weapon.offense.critical.power}</Badge>
+          <Badge variant="secondary">{toCriticalRangeString(weapon.offense)}, {weapon.offense.critical.power >=0 ? "+" : ""}{weapon.offense.critical.power}</Badge>
         </Badge>
 
         <Badge variant="outline">
