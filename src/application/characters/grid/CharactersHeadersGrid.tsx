@@ -110,15 +110,6 @@ export default function CharactersHeadersGrid()
   );
 };
 
-function NoCharacters()
-{
-  return (
-    <div className='flex items-center justify-center mt-8'>
-      <h2 className='text-xl'>No Characters found...</h2>
-    </div>
-  );
-}
-
 function CharactersSummaryCard({ summary }: { summary: CharacterSummary })
 {
   const dispatch = useDispatch();
