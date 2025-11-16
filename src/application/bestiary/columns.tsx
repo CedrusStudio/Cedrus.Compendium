@@ -40,7 +40,7 @@ import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Hea
 import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
 import { Mode } from "@/domain/characters/combat/Mode";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
-import { toCriticalRangeString, rollDamage } from "@/domain/characters/combat/Offense";
+import { toCriticalRangeString, rollDamage, toOffenseString } from "@/domain/characters/combat/Offense";
 import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import { Badge } from "@/common/components/ui/badge";
@@ -432,9 +432,9 @@ function CharacterOffensesBattleView({ character }: { character: Character })
       <SelectOneOf name='offense' defaultValue='0' index={selectedOffenseIndex} items={character.offenses} setIndex={setSelectedOffenseIndex} disableInfo />
 
       <p>
-        <span className={`${colors.offense.leading}`}>{selectedOffense.leadingWeapon.amount}(k{selectedOffense.leadingWeapon.grade * 2}+{selectedOffense.leadingWeapon.bonus})</span>
-        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}>+{selectedOffense.secondaryWeapon.amount}(k{selectedOffense.secondaryWeapon.grade * 2}+{selectedOffense.secondaryWeapon.bonus})</span>}
-        +{selectedOffense.damageBonus.amount}k{selectedOffense.damageBonus.grade * 2}+{selectedOffense.damageBonus.bonus}
+        <span className={`${colors.offense.leading}`}>{toOffenseString(selectedOffense.leadingWeapon)}</span>
+        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}>{toOffenseString(selectedOffense.secondaryWeapon)}</span>}
+        {toOffenseString(selectedOffense.damageBonus, true)}
       </p>
 
       <p>

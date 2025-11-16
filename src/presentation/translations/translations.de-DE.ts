@@ -259,4 +259,7 @@ export const translations_deDE =
     searchPlaceholder: "Search in rulebook...",
     searchNoResults: "No results found",
     searchSelectCategory: "Select category...",
+
+    loadMore: "Mehr laden",
+    loading: "Laden...",
 } as const;

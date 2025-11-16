@@ -286,4 +286,7 @@ export const displayedText =
     searchPlaceholder: translate("searchPlaceholder"),
     searchNoResults: translate("searchNoResults"),
     searchSelectCategory: translate("searchSelectCategory"),
+
+    loadMore: translate("loadMore"),
+    loading: translate("loading"),
 } as const;

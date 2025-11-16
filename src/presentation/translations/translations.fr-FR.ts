@@ -259,4 +259,7 @@ export const translations_frFR =
     searchPlaceholder: "Search in rulebook...",
     searchNoResults: "No results found",
     searchSelectCategory: "Select category...",
+
+    loadMore: "Charger plus",
+    loading: "Chargement...",
 } as const;

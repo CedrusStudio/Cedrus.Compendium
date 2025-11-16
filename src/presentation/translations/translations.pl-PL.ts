@@ -259,5 +259,8 @@ export const translations_plPL =
     searchPlaceholder: "Szukaj w podręczniku...",
     searchNoResults: "Brak wyników",
     searchSelectCategory: "Wybierz kategorię...",
+
+    loadMore: "Załaduj więcej",
+    loading: "Ładowanie...",
 } as const;
 

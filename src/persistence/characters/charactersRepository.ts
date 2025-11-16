@@ -10,6 +10,24 @@ import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
+import { Character } from '@/domain/characters/Character';
+import { toCharacter } from '@/persistence/mappings/characterMapping';
+import { includeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
+
+//Queries
+export async function getCharactersByIds(ids: string[])
+  : Promise<Character[]>
+{
+  if (ids.length === 0) return [];
+
+  const characters = await prisma.character.findMany
+  ({
+    where: { id: { in: ids } },
+    include: includeAllRelations
+  });
+
+  return characters.map(toCharacter);
+}
 
 //Commands
 export async function addCharacter(characterHeader: HeaderDto)

@@ -10,6 +10,13 @@ const characterPathSegment = '/characters';
 
 const charactersClient = 
 {
+    //Queries
+    getByIds: async (characterIds: string[]) =>
+    {
+        const response = await client.post(`${characterPathSegment}/by-ids`, { ids: characterIds });
+        return response.data;
+    },
+
     //Commands
     add: async (characterHeader: HeaderDto): Promise<string> =>
     {
@@ -25,6 +32,8 @@ const charactersClient =
     {
         await client.delete(`${characterPathSegment}/${id}`);
     },
+
+    //Updates
     updateDetails: async (id: string, characterData: DetailsDto): Promise<void> =>
     {
         await client.put(`${characterPathSegment}/${id}/details`, characterData);

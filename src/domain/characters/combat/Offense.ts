@@ -37,7 +37,7 @@ export type Critical =
   range: number;
 }
 
-export function toOffenseString(offense: { amount: number; grade: number; bonus: number }): string
+export function toOffenseString(offense: { amount: number; grade: number; bonus: number }, usePlusSignWhenDiceIsPresent?: boolean): string
 {
   const bonusValueWithSign = offense.bonus !== 0 ? `${offense.bonus >=0 ? "+" : ""}${offense.bonus}` : "";
 
@@ -46,7 +46,7 @@ export function toOffenseString(offense: { amount: number; grade: number; bonus:
     return bonusValueWithSign;
   }
 
-  return `${offense.amount}k${offense.grade * 2}${bonusValueWithSign}`
+  return `${usePlusSignWhenDiceIsPresent ? "+" : ""}${offense.amount}k${offense.grade * 2}${bonusValueWithSign}`
 }
 
 export function toCriticalRangeString(weaponOffense: WeaponOffense): string
