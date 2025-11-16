@@ -367,11 +367,11 @@
     ],
     "protection": 4,
     "immunity": 1,
-    "resistance": 5,
-    "dexterityRestriction": 4,
+    "resistance": 6,
+    "dexterityRestriction": 5,
     "reflexRestriction": 8,
     "initiativeRestriction": 5,
-    "attributePenalty": 4,
+    "attributePenalty": 3,
     "strengthRequirement": 1
   },
   {
@@ -382,12 +382,12 @@
       "średnia",
       "magiczny"
     ],
-    "protection": 6,
+    "protection": 5,
     "immunity": 1,
-    "resistance": 5,
+    "resistance": 6,
     "dexterityRestriction": 7,
     "reflexRestriction": 9,
-    "initiativeRestriction": 6,
+    "initiativeRestriction": 5,
     "attributePenalty": 3,
     "strengthRequirement": 1
   },
@@ -401,7 +401,7 @@
     ],
     "protection": 1,
     "immunity": 1,
-    "resistance": 4,
+    "resistance": 5,
     "dexterityRestriction": 3,
     "reflexRestriction": 5,
     "initiativeRestriction": 6,
@@ -418,7 +418,7 @@
     ],
     "protection": 2,
     "immunity": 1,
-    "resistance": 4,
+    "resistance": 5,
     "dexterityRestriction": 3,
     "reflexRestriction": 5,
     "initiativeRestriction": 5,
@@ -428,19 +428,19 @@
   {
     "id": "01KA21QH5KBPFSE2E88PD8F3CK",
     "name": "Brygantyna Odenveda",
-    "description": "Redukcja 4, odporność 4, redukcja 1 kości. Dodaje redukcje 1 kości na pierwszy atak każdego dnia. Brygantyna",
+    "description": "Dodaje redukcje 1 kości. Brygantyna",
     "tags": [
       "średnia",
       "magiczny"
     ],
-    "protection": 4,
-    "immunity": 0,
-    "resistance": 0,
-    "dexterityRestriction": 0,
-    "reflexRestriction": 0,
-    "initiativeRestriction": 0,
-    "attributePenalty": 0,
-    "strengthRequirement": 0
+    "protection": 5,
+    "immunity": 1,
+    "resistance": 5,
+    "dexterityRestriction": 2,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 5,
+    "attributePenalty": 4,
+    "strengthRequirement": 1
   },
   {
     "id": "01KA21QH5KTGGT0QKDXMTZR76E",
@@ -455,9 +455,9 @@
     "resistance": 0,
     "dexterityRestriction": 0,
     "reflexRestriction": 0,
-    "initiativeRestriction": 1,
+    "initiativeRestriction": 2,
     "attributePenalty": 5,
-    "strengthRequirement": 4
+    "strengthRequirement": 2
   },
   {
     "id": "01KA21QH5K3CVYFKPP41E5CDSY",
@@ -467,14 +467,14 @@
       "ciężka",
       "magiczny"
     ],
-    "protection": 3,
+    "protection": 0,
     "immunity": 2,
-    "resistance": 0,
+    "resistance": 3,
     "dexterityRestriction": 5,
     "reflexRestriction": 7,
-    "initiativeRestriction": 5,
+    "initiativeRestriction": 3,
     "attributePenalty": 2,
-    "strengthRequirement": 1
+    "strengthRequirement": 2
   },
   {
     "id": "01KA21QH5KQ54TJQ3WCT5A6T6F",
@@ -501,14 +501,14 @@
       "ciężka",
       "magiczny"
     ],
-    "protection": 10,
+    "protection": 9,
     "immunity": 2,
-    "resistance": 0,
+    "resistance": 4,
     "dexterityRestriction": 3,
     "reflexRestriction": 6,
-    "initiativeRestriction": 0,
-    "attributePenalty": 4,
-    "strengthRequirement": 0
+    "initiativeRestriction": 4,
+    "attributePenalty": 5,
+    "strengthRequirement": 2
   },
   {
     "id": "01KA21TX2HN745MMYE9B8C7F79",
@@ -518,14 +518,14 @@
       "zbroje",
       "średnie"
     ],
-    "resistance": 6,
-    "dexterityRestriction": 1,
-    "reflexRestriction": 1,
-    "initiativeRestriction": 1,
-    "attributePenalty": 1,
-    "strengthRequirement": 3,
+    "resistance": 2,
+    "dexterityRestriction": 5,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 1,
     "immunity": 0,
-    "protection": 1
+    "protection": 6
   },
   {
     "id": "01KA21TX2H520KE0C16M71EJZX",
@@ -536,14 +536,14 @@
       "średnie",
       "mistrzowskie"
     ],
-    "resistance": 7,
-    "dexterityRestriction": 0,
-    "reflexRestriction": 0,
-    "initiativeRestriction": 0,
-    "attributePenalty": 0,
-    "strengthRequirement": 3,
+    "resistance": 3,
+    "dexterityRestriction": 5,
+    "reflexRestriction": 5,
+    "initiativeRestriction": 8,
+    "attributePenalty": 2,
+    "strengthRequirement": 1,
     "immunity": 0,
-    "protection": 2
+    "protection": 6
   },
   {
     "id": "01KA21TX2HMNWCSB8NR6DJET1S",
@@ -553,14 +553,14 @@
       "zbroje",
       "ciężkie"
     ],
-    "resistance": 10,
-    "dexterityRestriction": 3,
-    "reflexRestriction": 3,
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 4,
     "initiativeRestriction": 3,
-    "attributePenalty": 3,
-    "strengthRequirement": 5,
-    "immunity": 0,
-    "protection": 2
+    "attributePenalty": 5,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 3
   },
   {
     "id": "01KA21TX2H9591P8SGRSDQPMQG",
@@ -570,66 +570,68 @@
       "zbroje",
       "ciężkie"
     ],
-    "resistance": 8,
-    "dexterityRestriction": 2,
-    "reflexRestriction": 2,
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 1,
     "initiativeRestriction": 2,
-    "attributePenalty": 2,
-    "strengthRequirement": 4,
-    "immunity": 0,
-    "protection": 1
+    "attributePenalty": 7,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 7
   },
   {
     "id": "01KA21TX2HZWBSPVC68CY0E4T9",
-    "name": "Pełna  Płytowa+",
-    "description": "Ulepszona pełna zbroja płytowa",
+    "name": "Mistrzowska Pełna Płytowa",
+    "description": "Pełna zbroja płytowa, mistrzowskiej jakości",
     "tags": [
       "zbroje",
       "ciężkie",
-      "ulepszone"
+      "ulepszone",
+      "mistrzowskie"
     ],
-    "resistance": 13,
-    "dexterityRestriction": 4,
-    "reflexRestriction": 4,
-    "initiativeRestriction": 4,
-    "attributePenalty": 4,
-    "strengthRequirement": 6,
-    "immunity": 0,
-    "protection": 3
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 6,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 10
   },
   {
     "id": "01KA21TX2J5BDPDHYK9NW792FN",
-    "name": "Zbroja  Pełna  Płytowa+",
-    "description": "Ulepszona pełna zbroja płytowa",
+    "name": "Arcymistrzowska Pełna Płytowa",
+    "description": "Pełna zbroja płytowa, arcymistrzowskiej jakości",
     "tags": [
       "zbroje",
       "ciężkie",
-      "ulepszone"
+      "ulepszone",
+      "mistrzowskie"
     ],
-    "resistance": 13,
-    "dexterityRestriction": 4,
-    "reflexRestriction": 4,
-    "initiativeRestriction": 4,
-    "attributePenalty": 4,
-    "strengthRequirement": 6,
-    "immunity": 0,
-    "protection": 3
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 5,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 11
   },
   {
     "id": "01KA21TX2JAHPSPWFGRXSJQF8M",
     "name": "Pełna Płytowa",
-    "description": "Pełna zbroja płytowa",
+    "description": "Zbroja pełna płytowa",
     "tags": [
       "zbroje",
       "ciężkie"
     ],
-    "resistance": 12,
-    "dexterityRestriction": 4,
-    "reflexRestriction": 4,
-    "initiativeRestriction": 4,
-    "attributePenalty": 4,
-    "strengthRequirement": 6,
-    "immunity": 0,
-    "protection": 2
+    "resistance": 0,
+    "dexterityRestriction": 1,
+    "reflexRestriction": 2,
+    "initiativeRestriction": 2,
+    "attributePenalty": 6,
+    "strengthRequirement": 2,
+    "immunity": 2,
+    "protection": 9
   }
 ]

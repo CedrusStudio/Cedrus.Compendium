@@ -97,6 +97,7 @@ export const translations_plPL =
     roll: "rzut",
     attributePenalty: "kara atrybutu",
     dexterityRestriction: "ograniczenie zręczności",
+    reflexRestriction: "ograniczenie refleksu",
     initiativeRestriction: "ograniczenie inicjatywy",
     strengthRequirement: "wymaganie siły",
     selectCategory: "wybierz kategorię",
@@ -258,5 +259,8 @@ export const translations_plPL =
     searchPlaceholder: "Szukaj w podręczniku...",
     searchNoResults: "Brak wyników",
     searchSelectCategory: "Wybierz kategorię...",
+
+    loadMore: "Załaduj więcej",
+    loading: "Ładowanie...",
 } as const;
 

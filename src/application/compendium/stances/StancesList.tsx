@@ -14,7 +14,6 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddModeDto, addModeSchema, ModeDto } from "@/persistence/schemas/characters/combat/modeSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchStancesKey } from "@/persistence/cacheKeys";
 import { createStanceKeysetQuery } from "@/infrastructure/searchQueries/stances/createStanceKeysetQuery";
 import StanceView from "@/application/compendium/stances/StanceView";
@@ -23,50 +22,78 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultStance, Mode } from "@/domain/characters/combat/Mode";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { useCallback, useEffect, useState } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import TagFilter from "@/common/components/filters/TagFilter";
+import { useEntityTags } from '@/common/hooks/useEntityTags';
+
+const pageSize = DEFAULT_PAGE_SIZE;
+const EMPTY_ARRAY: never[] = [];
 
 export default function StancesList()
 {
-  const { data: stances, initialCursor } = useInitialKeysetSearch<Mode>
-  ({
-    createQueryKey: createKeysetSearchStancesKey,
-    createQuery: createStanceKeysetQuery
-  });
-  const [displayedStances, setDisplayedStances] = useState<Mode[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('stances');
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
 
-  useEffect(() =>   
-  {
-    setDisplayedStances(stances);
-    setCursor(initialCursor);
-  }, [stances, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchStancesKey(searchTerm, cursor);
-  const query = useQuery
+  const [displayedStances, setDisplayedStances] = useState<Mode[]>(EMPTY_ARRAY);
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchStancesKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const stancesQuery = createStanceKeysetQuery(searchTerm, cursor);
+      const stancesQuery = createStanceKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
       return await searchClient.search<Mode[]>(stancesQuery);
-    }
+    },
+    staleTime: 5_000
   });
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  useEffect(() => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
-  };
+    if (!searchResults) return;
+    
+    setHasMore(searchResults.length === pageSize);
+
+    if (cursor === emptyUlid)
+    {
+      setDisplayedStances(searchResults);
+      return;
+    }
+
+    setDisplayedStances(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, searchResults]);
+
+  const clearResults = useCallback(() =>
+  {
+    setDisplayedStances(EMPTY_ARRAY);
+    setCursor(emptyUlid);
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  }, [clearResults]);
 
   return (
     <>
@@ -75,10 +102,12 @@ export default function StancesList()
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
 
         <AddStanceForm />
       </div>
@@ -86,21 +115,11 @@ export default function StancesList()
       <WithScroll<Mode>
         parentClassName="flex flex-col gap-2"
         items={displayedStances}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedStances(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={stance => <StanceView key={stance.id} stance={stance} />}
       />
     </>

@@ -4,19 +4,17 @@ import {
   ColumnFiltersState,
   SortingState,
   VisibilityState,
+  RowSelectionState,
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { displayedText } from "@/presentation/translations";
-import { useSearchCharacters } from '@/application/characters/hooks/useSearchCharacters';
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
-import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";
@@ -26,23 +24,33 @@ import { toast } from "sonner";
 import { removeIcon } from "@/presentation/icons";
 import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
 import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";
+import { useQuery } from "@tanstack/react-query";
+import charactersClient from "@/infrastructure/clients/charactersClient";
+
+const EMPTY_ARRAY: never[] = [];
 
 export default function BattleTable()
 {
-  const { characters } = useSearchCharacters();
   const charactersInBattle = useSelector((state: RootState) => state.bestiary.addedToBattle);
   const dispatch = useDispatch();
 
-  // Memoize filtered data to prevent recalculation on every render
-  const data = useMemo(() => 
-  {
-    const battleIdsSet = new Set(charactersInBattle);
-    return characters.filter(character => battleIdsSet.has(character.id));
-  }, [characters, charactersInBattle]);
+  const queryKey = ['characters', 'battle', charactersInBattle.join(',')];
+  const { data } = useQuery
+  ({ 
+    queryKey, 
+    queryFn: async () => 
+    {
+      if (charactersInBattle.length === 0) return [];
+      return await charactersClient.getByIds(charactersInBattle);
+    },
+    staleTime: 5_000,
+    enabled: charactersInBattle.length > 0
+  });
 
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [sorting, setSorting] = useState<SortingState>(EMPTY_ARRAY);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(EMPTY_ARRAY);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   useEffect(() => 
   {
@@ -56,20 +64,22 @@ export default function BattleTable()
 
   const table = useReactTable
   ({
-    data,
+    data: data ?? EMPTY_ARRAY,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row.id,
     state: 
     {
       sorting,
       columnFilters,
       columnVisibility,
+      rowSelection,
     },
     autoResetPageIndex: false,
   })
@@ -83,12 +93,12 @@ export default function BattleTable()
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
           dispatch(actions.removeSelectedFromBattle(selectedCharacterIds));
+          setRowSelection({});
           toast.success(displayedText.removedFromBattle);
         }}>
           {removeIcon("scale-90")}
         </Button>
 
-        <PaginationButtons table={table} />
         <ColumnFilter table={table} />
       </div>
 

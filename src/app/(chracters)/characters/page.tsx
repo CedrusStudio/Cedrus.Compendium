@@ -1,5 +1,5 @@
-import CharactersHeadersGrid from "@/application/characters/grid/CharactersHeadersGrid";
-import CharactersHeadersGridSkeleton from "@/application/characters/grid/CharactersHeadersGridSkeleton";
+import CharactersHeadersList from "@/application/characters/list/CharactersHeadersList";
+import CharactersHeadersListSkeleton from "@/application/characters/list/CharactersHeadersListSkeleton";
 import { searchEntity } from "@/persistence/searchEntity";
 import {
   dehydrate,
@@ -7,9 +7,10 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import { getCharacterQueryKey } from "@/persistence/cacheKeys";
+import { createSearchCharactersKey } from "@/persistence/cacheKeys";
 import { getSearchQuery } from "@/common/global/httpUtils";
 import { CharacterSummary, createCharacterSummaryQuery } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 
 type CharactersPageProps = 
 {
@@ -24,14 +25,14 @@ export default async function CharactersPage(input: CharactersPageProps)
 
   await queryClient.prefetchQuery<CharacterSummary[]>
   ({
-    queryKey: getCharacterQueryKey(searchQuery),
-    queryFn: () => searchEntity<CharacterSummary>(createCharacterSummaryQuery(searchQuery))
+    queryKey: createSearchCharactersKey(searchQuery || '', emptyUlid, undefined, DEFAULT_PAGE_SIZE),
+    queryFn: () => searchEntity<CharacterSummary>(createCharacterSummaryQuery(searchQuery, emptyUlid, undefined, DEFAULT_PAGE_SIZE))
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<CharactersHeadersGridSkeleton />}>
-        <CharactersHeadersGrid />
+      <Suspense fallback={<CharactersHeadersListSkeleton />}>
+        <CharactersHeadersList />
       </Suspense>
     </HydrationBoundary>
   );

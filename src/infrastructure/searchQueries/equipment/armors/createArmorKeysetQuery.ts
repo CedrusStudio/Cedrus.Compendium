@@ -6,12 +6,19 @@ export function createArmorKeysetQuery
 (
   searchQuery: string | undefined, 
   cursor: string = emptyUlid,
+  includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE
 )
   : SearchEntityPayload
 { 
-  return SearchQueryBuilder.for("armor")
+  const builder = SearchQueryBuilder.for("armor")
     .searchFilter("name", searchQuery)
-    .cursorPagination(cursor, pageSize)
-    .build();
+    .cursorPagination(cursor, pageSize);
+
+  if (includeTags && includeTags.length > 0) 
+  {
+    builder.searchFilter("tags", includeTags);
+  }
+
+  return builder.build();
 };

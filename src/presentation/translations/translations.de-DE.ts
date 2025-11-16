@@ -97,6 +97,7 @@ export const translations_deDE =
     roll: "wurf",
     attributePenalty: "attributstrafe",
     dexterityRestriction: "geschicklichkeitsbeschränkung",
+    reflexRestriction: "reflexbeschränkung",
     initiativeRestriction: "initiativebeschränkung",
     strengthRequirement: "stärkeanforderung",
     selectCategory: "kategorie auswählen",
@@ -258,4 +259,7 @@ export const translations_deDE =
     searchPlaceholder: "Search in rulebook...",
     searchNoResults: "No results found",
     searchSelectCategory: "Select category...",
+
+    loadMore: "Mehr laden",
+    loading: "Laden...",
 } as const;

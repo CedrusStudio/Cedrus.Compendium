@@ -124,6 +124,7 @@ export const displayedText =
     roll: translate("roll"),
     attributePenalty: translate("attributePenalty"),
     dexterityRestriction: translate("dexterityRestriction"),
+    reflexRestriction: translate("reflexRestriction"),
     initiativeRestriction: translate("initiativeRestriction"),
     strengthRequirement: translate("strengthRequirement"),
     selectCategory: translate("selectCategory"),
@@ -285,4 +286,7 @@ export const displayedText =
     searchPlaceholder: translate("searchPlaceholder"),
     searchNoResults: translate("searchNoResults"),
     searchSelectCategory: translate("searchSelectCategory"),
+
+    loadMore: translate("loadMore"),
+    loading: translate("loading"),
 } as const;

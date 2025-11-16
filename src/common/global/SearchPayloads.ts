@@ -61,14 +61,14 @@ export type SearchValueInput = string | number | boolean | string[] | undefined;
 export type SearchValueOutputs =
   | { contains: string; mode: "insensitive" }
   | { equals: number | boolean }
-  | { hasSome: string[] };
+  | { hasEvery: string[] };
 
 export function searchValuesMapping(value: SearchValueInput): SearchValueOutputs
 {
   if (typeof value === 'string') return { contains: value, mode: "insensitive" };
   if (typeof value === 'number') return { equals: value };
   if (typeof value === 'boolean') return { equals: value };
-  if (Array.isArray(value)) return { hasSome: value };
+  if (Array.isArray(value)) return { hasEvery: value };
   throw new Error('Unsupported search value type');
 }
 

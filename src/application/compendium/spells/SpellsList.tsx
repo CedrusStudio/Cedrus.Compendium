@@ -16,7 +16,6 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddSpellDto, addSpellSchema, SpellDto } from "@/persistence/schemas/characters/combat/powerSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchSpellsKey } from "@/persistence/cacheKeys";
 import { createSpellKeysetQuery } from "@/infrastructure/searchQueries/spells/createSpellKeysetQuery";
 import SpellView from "@/application/compendium/spells/SpellView";
@@ -25,50 +24,79 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultSpell, Spell } from "@/domain/characters/combat/Power";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import TagFilter from "@/common/components/filters/TagFilter";
+import { useEntityTags } from '@/common/hooks/useEntityTags';
+
+const pageSize = DEFAULT_PAGE_SIZE;
+
+const EMPTY_ARRAY: never[] = [];
 
 export default function SpellsList()
 {
-  const { data: spells, initialCursor } = useInitialKeysetSearch<Spell>
-  ({
-    createQueryKey: createKeysetSearchSpellsKey,
-    createQuery: createSpellKeysetQuery
-  });
-  const [displayedSpells, setDisplayedSpells] = useState<Spell[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('spells');
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
 
-  useEffect(() =>   
-  {
-    setDisplayedSpells(spells);
-    setCursor(initialCursor);
-  }, [spells, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchSpellsKey(searchTerm, cursor);
-  const query = useQuery
+  const [displayedSpells, setDisplayedSpells] = useState<Spell[]>(EMPTY_ARRAY);
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchSpellsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const spellsQuery = createSpellKeysetQuery(searchTerm, cursor);
+      const spellsQuery = createSpellKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
       return await searchClient.search<Spell[]>(spellsQuery);
-    }
+    },
+    staleTime: 5_000
   });
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  useEffect(() => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
-  };
+    if (!searchResults) return;
+    
+    setHasMore(searchResults.length === pageSize);
+
+    if (cursor === emptyUlid)
+    {
+      setDisplayedSpells(searchResults);
+      return;
+    }
+
+    setDisplayedSpells(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, searchResults]);
+
+  const clearResults = useCallback(() =>
+  {
+    setDisplayedSpells(EMPTY_ARRAY);
+    setCursor(emptyUlid);
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  }, [clearResults]);
 
   return (
     <>
@@ -77,10 +105,12 @@ export default function SpellsList()
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
 
         <AddSpellForm />
       </div>
@@ -88,21 +118,11 @@ export default function SpellsList()
       <WithScroll<Spell>
         parentClassName="flex flex-col gap-2"
         items={displayedSpells}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedSpells(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedSpells.length > 0) setCursor(displayedSpells[displayedSpells.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={spell => <SpellView key={spell.id} spell={spell} />}
       />
     </>

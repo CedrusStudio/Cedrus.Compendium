@@ -4,7 +4,7 @@ import { displayedText } from '@/presentation/translations';
 import { FieldPath } from 'react-hook-form';
 import { ArmorDto } from '@/persistence/schemas/characters/equipment/armorSchema';
 import DefensiveItemEditableFields from '@/application/common/equipment/EditSheets/DefensiveItemEditableFields';
-import { allowedProtections } from '@/domain/characters/equipment/Armor';
+import { allowedImmunities, allowedProtections } from '@/domain/characters/equipment/Armor';
 
 type EditArmorViewProps =
 {
@@ -17,13 +17,29 @@ export default function ArmorEditableFields({ pathPrefix = ""}: EditArmorViewPro
     <>
       <div className="grid auto-rows-min gap-3 justify-center items-center">
 
-        <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.protection}</span></Label>
+        <div className='flex flex-row gap-4'>
+          
+          <div className='flex flex-col gap-3 px-4 place-items-center'>
+            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.protection}</span></Label>
 
-        <SelectFormField<ArmorDto> 
-          path={(`${pathPrefix}protection` as FieldPath<ArmorDto>)}
-          items={allowedProtections}
-          noLabel
-        />
+            <SelectFormField<ArmorDto> 
+              path={(`${pathPrefix}protection` as FieldPath<ArmorDto>)}
+              items={allowedProtections}
+              noLabel
+              />
+          </div>
+
+          <div className='flex flex-col gap-3 px-4 place-items-center'>
+            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.immunity}</span></Label>
+
+            <SelectFormField<ArmorDto> 
+              path={(`${pathPrefix}immunity` as FieldPath<ArmorDto>)}
+              items={allowedImmunities}
+              noLabel
+              />
+            </div>
+            
+        </div>
 
       </div>
 

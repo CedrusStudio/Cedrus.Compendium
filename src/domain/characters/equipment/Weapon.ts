@@ -11,8 +11,8 @@ export type Weapon = Item &
   range: number;
 };
 
-export type Style = "None" | "Jednoręczny" | "Dwuręczny" | "Dystansowy" | "Rzucony" | "Półtoraręczny";
-export const allowedStyles = ["None", "Jednoręczny", "Dwuręczny", "Dystansowy", "Rzucony", "Półtoraręczny"] as const satisfies readonly Style[];
+export type Style = "Jednoręczny" | "Dwuręczny" | "Półtoraręczny";
+export const allowedStyles = ["Jednoręczny", "Dwuręczny", "Półtoraręczny"] as const satisfies readonly Style[];
 
 export const pathToWeaponOffenseField = <K extends keyof WeaponOffense>(field: K): `offense.${K}` => `offense.${field}`;
 export const pathToWeaponOffenseCriticalField = <K extends keyof Critical>(field: K): `offense.critical.${K}` => `offense.critical.${field}`;

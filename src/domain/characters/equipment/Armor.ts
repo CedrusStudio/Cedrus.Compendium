@@ -16,6 +16,11 @@ export const allowedProtections =
   41, 42, 43, 44, 45, 46, 47, 48, 49, 50
 ] as const satisfies readonly number[];
 
+export const allowedImmunities = 
+[ 
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+] as const satisfies readonly number[];
+
 export const defaultArmor: Omit<Armor, "id"> =
 {
   name: "Nowa zbroja",

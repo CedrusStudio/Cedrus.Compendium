@@ -1,16 +1,13 @@
 import { searchParamKey } from "@/common/global/httpUtils";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { Style } from "@/domain/characters/equipment/Weapon";
 
 // Characters
 const characterKey = 'characters';
 
-export const createSearchCharactersKey = (search: string) => [characterKey, searchParamKey, search] as const;
+export const createSearchCharactersKey = (search: string, cursor: string, includeTags?: string[], pageSize?: number) => [characterKey, searchParamKey, search, cursor, includeTags?.join(',') || '', pageSize] as const;
 export const allCharactersKey = [characterKey, 'all'] as const;
 export const createCharacterByIdKey = (id: string) => [characterKey, id] as const;
-
-export const getCharacterQueryKey = (search: string | undefined) => search 
-    ? createSearchCharactersKey(search)
-    : allCharactersKey;
 
 // Maneuvers
 const maneuverKey = 'maneuvers';
@@ -30,11 +27,19 @@ export function createSearchManeuversKey
 export function createKeysetSearchManeuversKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [maneuverKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        maneuverKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // Perks
@@ -43,11 +48,19 @@ export const createPerkByIdKey = (id: string) => [perkKey, id] as const;
 export function createKeysetSearchPerksKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [perkKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        perkKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // Stances
@@ -56,11 +69,19 @@ export const createStanceByIdKey = (id: string) => [stanceKey, id] as const;
 export function createKeysetSearchStancesKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [stanceKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        stanceKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // States
@@ -69,11 +90,19 @@ export const createStateByIdKey = (id: string) => [stateKey, id] as const;
 export function createKeysetSearchStatesKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [stateKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        stateKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // Spells
@@ -82,11 +111,19 @@ export const createSpellByIdKey = (id: string) => [spellKey, id] as const;
 export function createKeysetSearchSpellsKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [spellKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        spellKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // Weapons
@@ -96,10 +133,20 @@ export function createKeysetSearchWeaponsKey
 (
     search: string | undefined, 
     cursor: string = emptyUlid, 
+    includeTags?: string[],
+    style?: Style | "All",
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [weaponKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        weaponKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        style || '', 
+        pageSize
+    ] as const;
 }
 
 // Armors
@@ -108,11 +155,19 @@ export const createArmorByIdKey = (id: string) => [armorKey, id] as const;
 export function createKeysetSearchArmorsKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [armorKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        armorKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // Shields
@@ -121,11 +176,19 @@ export const createShieldByIdKey = (id: string) => [shieldKey, id] as const;
 export function createKeysetSearchShieldsKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [shieldKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        shieldKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // Inventory
@@ -134,11 +197,19 @@ export const createInventoryItemByIdKey = (id: string) => [inventoryKey, id] as 
 export function createKeysetSearchInventoryKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [inventoryKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        inventoryKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }
 
 // Mounts
@@ -147,9 +218,17 @@ export const createMountByIdKey = (id: string) => [mountKey, id] as const;
 export function createKeysetSearchMountsKey
 (
     search: string | undefined, 
-    cursor: string = emptyUlid, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE
 ) 
 {
-    return [mountKey, searchParamKey, search, cursor, pageSize] as const;
+    return [
+        mountKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
 }

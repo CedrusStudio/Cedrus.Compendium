@@ -15,71 +15,109 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";
 
-import { useInitialKeysetSearch } from "@/application/common/hooks/useInitialKeysetSearch";
 import { createKeysetSearchWeaponsKey } from "@/persistence/cacheKeys";
 import { createWeaponKeysetQuery } from "@/infrastructure/searchQueries/equipment/weapons/createWeaponKeysetQuery";
 import WeaponView from "@/application/compendium/equipment/weapons/WeaponView";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
-import { CreateDefaultWeapon, Weapon, allowedStyles } from "@/domain/characters/equipment/Weapon";
+import { CreateDefaultWeapon, Weapon, allowedStyles, Style } from "@/domain/characters/equipment/Weapon";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
-import { useSearchParamChangeWithDebounce } from "@/common/hooks/useQueryParamChange";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { allowedDiceGrades } from "@/domain/characters/combat/Offense";
+import TagFilter from "@/common/components/filters/TagFilter";
+import StyleFilter from "@/common/components/filters/StyleFilter";
+import { useDebounce } from "use-debounce";
+import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { useEntityTags } from '@/common/hooks/useEntityTags';
+
+const pageSize = DEFAULT_PAGE_SIZE;
+const EMPTY_ARRAY: never[] = [];
 
 export default function WeaponsList()
 {
-  const { data: weapons, initialCursor } = useInitialKeysetSearch<Weapon>
-  ({
-    createQueryKey: createKeysetSearchWeaponsKey,
-    createQuery: createWeaponKeysetQuery
-  });
-  const [displayedWeapons, setDisplayedWeapons] = useState<Weapon[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('weapons');
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [selectedStyle, setSelectedStyle] = useState<Style | "All">("All");
 
-  useEffect(() =>   
-  {
-    setDisplayedWeapons(weapons);
-    setCursor(initialCursor);
-  }, [weapons, initialCursor]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [cursor, setCursor] = useState<string | undefined>(undefined);
-  const debouncedSearch = useSearchParamChangeWithDebounce();
-
-  const queryKey = createKeysetSearchWeaponsKey(searchTerm, cursor);
-  const query = useQuery
+  const [displayedWeapons, setDisplayedWeapons] = useState<Weapon[]>(EMPTY_ARRAY);
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  
+  const queryKey = createKeysetSearchWeaponsKey(debouncedSearchTerm, cursor, searchTags, selectedStyle, pageSize);
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      if (!cursor) return [];
-      const weaponsQuery = createWeaponKeysetQuery(searchTerm, cursor);
+      const weaponsQuery = createWeaponKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags, selectedStyle);
       return await searchClient.search<Weapon[]>(weaponsQuery);
-    }
+    },
+    staleTime: 5_000
   });
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  useEffect(() => 
   {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearch(value);
-  };
+    if (!searchResults) return;
+    
+    setHasMore(searchResults.length === pageSize);
+
+    if (cursor === emptyUlid)
+    {
+      setDisplayedWeapons(searchResults);
+      return;
+    }
+
+    setDisplayedWeapons(prev =>  
+    {
+      if (searchResults.length === 0) return prev;
+      return [...prev, ...searchResults]
+    });
+  }, [cursor, searchResults]);
+
+  const clearResults = useCallback(() =>
+  {
+    setDisplayedWeapons(EMPTY_ARRAY);
+    setCursor(emptyUlid);
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleStyleChange = useCallback((style: Style | "All") => 
+  {
+    setSelectedStyle(style);
+    clearResults();
+  }, [clearResults]);
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center">
+      <div className="flex flex-row gap-2 m-3 px-10 items-center">
         <Input 
           name="search" 
           type="text" 
           placeholder={displayedText.searchByName}
-          value={searchTerm}
+          value={searchInput}
           onChange={handleSearchInputChange}
           className="max-w-max"
         />
+
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
+        <StyleFilter selectedStyle={selectedStyle} onStyleChange={handleStyleChange} styles={allowedStyles} />
 
         <AddWeaponForm />
       </div>
@@ -87,21 +125,11 @@ export default function WeaponsList()
       <WithScroll<Weapon>
         parentClassName="flex flex-col gap-2"
         items={displayedWeapons}
-        triggerNext={async () => 
+        triggerNext={() => 
         {
-          const { data: newData } = await query.refetch();
-
-          if (newData)
-          {
-            setDisplayedWeapons(prev => 
-            {
-              if (newData.length === 0) return prev;
-              return [...prev, ...newData];
-            });
-            setCursor(newData.length === 0 ? undefined : newData[newData.length - 1].id);
-          }
+          if (displayedWeapons.length > 0) setCursor(displayedWeapons[displayedWeapons.length - 1].id);
         }}
-        currentCursor={cursor}
+        hasMore={hasMore}
         renderItem={weapon => <WeaponView key={weapon.id} weapon={weapon} />}
       />
     </>

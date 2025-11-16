@@ -10,13 +10,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/ui/sheet';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ui/card';
-import { Separator } from '@/ui/separator';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/ui/card';
 import { displayedText } from '@/presentation/translations';
 import { useSearchCharactersSummary } from '@/application/characters/hooks/useSearchCharactersSummary';
 import { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 import TagsView from '@/common/components/tags/TagsView';
 import { Input } from '@/ui/input';
+import { emptyUlid } from '@/common/global/pagination';
+import { useDebounce } from 'use-debounce';
 
 type SelectBaseCharacterDialogProps = {
   onSelectCharacter: (characterId: string) => void;
@@ -27,13 +28,8 @@ export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedC
 {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const { characters } = useSearchCharactersSummary();
-
-  const filteredCharacters = characters.filter
-  (
-    character => character.name.toLowerCase().includes(searchTerm.toLowerCase()) 
-              || character.shortName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
+  const { characters } = useSearchCharactersSummary(debouncedSearchTerm, emptyUlid);
 
   const selectedCharacter = characters.find(c => c.id === selectedCharacterId);
 
@@ -75,19 +71,19 @@ export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedC
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {
-                filteredCharacters.length === 0 
-                    ? <NotFoundMessage />
-                    : (
-                        filteredCharacters.map(summary => 
-                        (
-                            <CharacterSelectCard
-                                key={summary.id}
-                                summary={summary}
-                                onSelect={handleSelect}
-                                isSelected={summary.id === selectedCharacterId}
-                            />
-                        ))
-                    )
+              characters.length === 0 
+                  ? <NotFoundMessage />
+                  : (
+                      characters.map(summary => 
+                      (
+                        <CharacterSelectCard
+                            key={summary.id}
+                            summary={summary}
+                            onSelect={handleSelect}
+                            isSelected={summary.id === selectedCharacterId}
+                        />
+                      ))
+                  )
             }
           </div>
         </div>
@@ -119,20 +115,13 @@ function CharacterSelectCard({ summary, onSelect, isSelected }: CharacterSelectC
       className={`cursor-pointer transition-colors ${isSelected ? 'border-primary bg-primary/10' : 'bg-muted hover:bg-muted/80'}`}
       onClick={() => onSelect(summary.id)}
     >
-      <CardHeader className='-my-1.5'>
+      <CardHeader>
         <CardTitle className='flex flex-row justify-between gap-2'>
           <h1 className='text-xl'>{summary.name}</h1>
           <TagsView tags={summary.tags} variant="outline" />
         </CardTitle>
+        <CardDescription>{summary.shortName}</CardDescription>
       </CardHeader>
-
-      <Separator />
-
-      <CardContent className='-mt-1'>
-        <CardDescription className='text-justify line-clamp-3'>
-          {summary.description}
-        </CardDescription>
-      </CardContent>
     </Card>
   );
 }

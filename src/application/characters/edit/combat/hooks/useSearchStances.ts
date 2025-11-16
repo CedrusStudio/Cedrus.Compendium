@@ -2,8 +2,10 @@
 
 import { Mode } from '@/domain/characters/combat/Mode';
 import { createStanceKeysetQuery } from '@/infrastructure/searchQueries/stances/createStanceKeysetQuery';
-import { createKeysetSearchStancesKey } from '@/persistence/cacheKeys';
 import { useSearch } from '@/infrastructure/hooks/useSearch';
+import { emptyUlid, DEFAULT_PAGE_SIZE } from '@/common/global/pagination';
+import { SearchEntityPayload } from '@/common/global/SearchPayloads';
+import { searchParamKey } from '@/common/global/httpUtils';
 
 type UseSearchStancesParams = 
 {
@@ -20,8 +22,14 @@ type UseSearchStancesReturn =
 
 export const useSearchStances = (params: UseSearchStancesParams): UseSearchStancesReturn => 
 {
+  const createQuery = (searchTerm: string): SearchEntityPayload => 
+    createStanceKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+
+  const createKey = (searchTerm: string) => 
+    ['stances', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;
+
   return useSearch<Mode>(params, {
-    createKeysetQuery: createStanceKeysetQuery,
-    createCacheKey: createKeysetSearchStancesKey,
+    createKeysetQuery: createQuery,
+    createCacheKey: createKey,
   });
 };
