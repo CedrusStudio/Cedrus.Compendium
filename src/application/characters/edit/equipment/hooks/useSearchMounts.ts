@@ -23,7 +23,7 @@ type UseSearchMountsReturn =
 export const useSearchMounts = (params: UseSearchMountsParams): UseSearchMountsReturn => 
 {
   const createQuery = (searchTerm: string): SearchEntityPayload => 
-    createMountKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+    createMountKeysetQuery(searchTerm, emptyUlid);
 
   const createKey = (searchTerm: string) => 
     ['mounts', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;

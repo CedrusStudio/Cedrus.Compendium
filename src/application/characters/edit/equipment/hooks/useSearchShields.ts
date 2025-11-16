@@ -23,7 +23,7 @@ type UseSearchShieldsReturn =
 export const useSearchShields = (params: UseSearchShieldsParams): UseSearchShieldsReturn => 
 {
   const createQuery = (searchTerm: string): SearchEntityPayload => 
-    createShieldKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+    createShieldKeysetQuery(searchTerm, emptyUlid);
 
   const createKey = (searchTerm: string) => 
     ['shields', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;

@@ -23,7 +23,7 @@ type UseSearchWeaponsReturn =
 export const useSearchWeapons = (params: UseSearchWeaponsParams): UseSearchWeaponsReturn => 
 {
   const createQuery = (searchTerm: string): SearchEntityPayload => 
-    createWeaponKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+    createWeaponKeysetQuery(searchTerm, emptyUlid);
 
   const createKey = (searchTerm: string) => 
     ['weapons', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;

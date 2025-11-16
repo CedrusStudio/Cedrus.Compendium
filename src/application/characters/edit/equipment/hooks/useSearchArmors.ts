@@ -23,7 +23,7 @@ type UseSearchArmorsReturn =
 export const useSearchArmors = (params: UseSearchArmorsParams): UseSearchArmorsReturn => 
 {
   const createQuery = (searchTerm: string): SearchEntityPayload => 
-    createArmorKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+    createArmorKeysetQuery(searchTerm, emptyUlid);
 
   const createKey = (searchTerm: string) => 
     ['armors', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;
