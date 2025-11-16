@@ -2,8 +2,10 @@
 
 import { Weapon } from '@/domain/characters/equipment/Weapon';
 import { createWeaponKeysetQuery } from '@/infrastructure/searchQueries/equipment/weapons/createWeaponKeysetQuery';
-import { createKeysetSearchWeaponsKey } from '@/persistence/cacheKeys';
 import { useSearch } from '@/infrastructure/hooks/useSearch';
+import { emptyUlid, DEFAULT_PAGE_SIZE } from '@/common/global/pagination';
+import { SearchEntityPayload } from '@/common/global/SearchPayloads';
+import { searchParamKey } from '@/common/global/httpUtils';
 
 type UseSearchWeaponsParams = 
 {
@@ -20,8 +22,14 @@ type UseSearchWeaponsReturn =
 
 export const useSearchWeapons = (params: UseSearchWeaponsParams): UseSearchWeaponsReturn => 
 {
+  const createQuery = (searchTerm: string): SearchEntityPayload => 
+    createWeaponKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+
+  const createKey = (searchTerm: string) => 
+    ['weapons', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;
+
   return useSearch<Weapon>(params, {
-    createKeysetQuery: createWeaponKeysetQuery,
-    createCacheKey: createKeysetSearchWeaponsKey,
+    createKeysetQuery: createQuery,
+    createCacheKey: createKey,
   });
 };

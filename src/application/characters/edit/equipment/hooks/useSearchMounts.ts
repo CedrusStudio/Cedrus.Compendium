@@ -2,8 +2,10 @@
 
 import { Mount } from '@/domain/characters/equipment/Mount';
 import { createMountKeysetQuery } from '@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery';
-import { createKeysetSearchMountsKey } from '@/persistence/cacheKeys';
 import { useSearch } from '@/infrastructure/hooks/useSearch';
+import { emptyUlid, DEFAULT_PAGE_SIZE } from '@/common/global/pagination';
+import { SearchEntityPayload } from '@/common/global/SearchPayloads';
+import { searchParamKey } from '@/common/global/httpUtils';
 
 type UseSearchMountsParams = 
 {
@@ -20,8 +22,14 @@ type UseSearchMountsReturn =
 
 export const useSearchMounts = (params: UseSearchMountsParams): UseSearchMountsReturn => 
 {
+  const createQuery = (searchTerm: string): SearchEntityPayload => 
+    createMountKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+
+  const createKey = (searchTerm: string) => 
+    ['mounts', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;
+
   return useSearch<Mount>(params, {
-    createKeysetQuery: createMountKeysetQuery,
-    createCacheKey: createKeysetSearchMountsKey,
+    createKeysetQuery: createQuery,
+    createCacheKey: createKey,
   });
 };
