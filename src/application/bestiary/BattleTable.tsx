@@ -4,6 +4,7 @@ import {
   ColumnFiltersState,
   SortingState,
   VisibilityState,
+  RowSelectionState,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
@@ -49,6 +50,7 @@ export default function BattleTable()
   const [sorting, setSorting] = useState<SortingState>(EMPTY_ARRAY);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(EMPTY_ARRAY);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   useEffect(() => 
   {
@@ -70,11 +72,14 @@ export default function BattleTable()
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row.id,
     state: 
     {
       sorting,
       columnFilters,
       columnVisibility,
+      rowSelection,
     },
     autoResetPageIndex: false,
   })
@@ -88,6 +93,7 @@ export default function BattleTable()
         { 
           const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
           dispatch(actions.removeSelectedFromBattle(selectedCharacterIds));
+          setRowSelection({});
           toast.success(displayedText.removedFromBattle);
         }}>
           {removeIcon("scale-90")}
