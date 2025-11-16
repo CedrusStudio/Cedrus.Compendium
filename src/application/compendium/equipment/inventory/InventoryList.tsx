@@ -22,21 +22,25 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultInventoryItem, Item } from "@/domain/characters/equipment/Item";
 import { Input } from "@/common/components/ui/input";
-import { useEffect, useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import TagFilter from "@/common/components/filters/TagFilter";
+import { useEntityTags } from '@/common/hooks/useEntityTags';
 
 const pageSize = DEFAULT_PAGE_SIZE;
+
+const EMPTY_ARRAY: never[] = [];
 
 export default function InventoryList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
-  const [searchTags, setSearchTags] = useState<string[]>([]);
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('inventory');
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
 
   const [displayedInventory, setDisplayedInventory] = useState<Item[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -101,7 +105,7 @@ export default function InventoryList()
           className="max-w-max"
         />
 
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
 
         <AddInventoryItemForm />
       </div>

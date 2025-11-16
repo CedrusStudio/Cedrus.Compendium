@@ -23,7 +23,7 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultWeapon, Weapon, allowedStyles, Style } from "@/domain/characters/equipment/Weapon";
 import { Input } from "@/common/components/ui/input";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
@@ -32,22 +32,25 @@ import TagFilter from "@/common/components/filters/TagFilter";
 import StyleFilter from "@/common/components/filters/StyleFilter";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { useEntityTags } from '@/common/hooks/useEntityTags';
 
 const pageSize = DEFAULT_PAGE_SIZE;
+const EMPTY_ARRAY: never[] = [];
 
 export default function WeaponsList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
-  const [searchTags, setSearchTags] = useState<string[]>([]);
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('weapons');
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [selectedStyle, setSelectedStyle] = useState<Style | "All">("All");
 
-  const [displayedWeapons, setDisplayedWeapons] = useState<Weapon[]>([]);
+  const [displayedWeapons, setDisplayedWeapons] = useState<Weapon[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
   const queryKey = createKeysetSearchWeaponsKey(debouncedSearchTerm, cursor, searchTags, selectedStyle, pageSize);
-  const { data: searchResults = [] } = useQuery
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
@@ -60,9 +63,11 @@ export default function WeaponsList()
 
   useEffect(() => 
   {
+    if (!searchResults) return;
+    
     setHasMore(searchResults.length === pageSize);
 
-    if (!debouncedSearchTerm && searchTags.length === 0 && selectedStyle === "All" && cursor === emptyUlid)
+    if (cursor === emptyUlid)
     {
       setDisplayedWeapons(searchResults);
       return;
@@ -73,31 +78,31 @@ export default function WeaponsList()
       if (searchResults.length === 0) return prev;
       return [...prev, ...searchResults]
     });
-  }, [cursor, debouncedSearchTerm, searchTags, selectedStyle, searchResults]);
+  }, [cursor, searchResults]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  const clearResults = useCallback(() =>
+  {
+    setDisplayedWeapons(EMPTY_ARRAY);
+    setCursor(emptyUlid);
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
   {
     clearResults();
     setSearchInput(e.target.value);
-  };
+  }, [clearResults]);
 
-  const handleSearchTagsChange = (tags: string[]) => 
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
     clearResults();
-  };
+  }, [clearResults]);
 
-  const handleStyleChange = (style: Style | "All") => 
+  const handleStyleChange = useCallback((style: Style | "All") => 
   {
     setSelectedStyle(style);
     clearResults();
-  };
-
-  const clearResults = () =>
-  {
-    setDisplayedWeapons([]);
-    setCursor(emptyUlid);
-  };
+  }, [clearResults]);
 
   return (
     <>
@@ -111,7 +116,7 @@ export default function WeaponsList()
           className="max-w-max"
         />
 
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
         <StyleFilter selectedStyle={selectedStyle} onStyleChange={handleStyleChange} styles={allowedStyles} />
 
         <AddWeaponForm />

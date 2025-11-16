@@ -18,6 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 import client from '@/infrastructure/clients/searchClient';
 import { createSearchCharactersKey } from '@/persistence/cacheKeys';
 import { createCharacterSummaryQuery } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
+import { useEntityTags } from '@/common/hooks/useEntityTags';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -26,6 +27,8 @@ export default function CharactersHeadersList()
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [searchTags, setSearchTags] = useState<string[]>([]);
+  
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
   
   const [displayedCharacters, setDisplayedCharacters] = useState<CharacterSummary[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -90,7 +93,12 @@ export default function CharactersHeadersList()
           onChange={handleSearchInputChange}
           className="flex-1 max-w-md"
         />
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
+        <TagFilter 
+          includedTags={searchTags} 
+          onTagsChange={handleSearchTagsChange}
+          availableTags={availableTags}
+          isLoading={tagsLoading}
+        />
       </div>
 
       <WithScroll<CharacterSummary>

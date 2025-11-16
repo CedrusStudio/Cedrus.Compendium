@@ -24,7 +24,7 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultSpell, Spell } from "@/domain/characters/combat/Power";
 import { Input } from "@/common/components/ui/input";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
@@ -32,21 +32,25 @@ import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import TagFilter from "@/common/components/filters/TagFilter";
+import { useEntityTags } from '@/common/hooks/useEntityTags';
 
 const pageSize = DEFAULT_PAGE_SIZE;
+
+const EMPTY_ARRAY: never[] = [];
 
 export default function SpellsList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
-  const [searchTags, setSearchTags] = useState<string[]>([]);
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('spells');
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
 
-  const [displayedSpells, setDisplayedSpells] = useState<Spell[]>([]);
+  const [displayedSpells, setDisplayedSpells] = useState<Spell[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
   const queryKey = createKeysetSearchSpellsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
-  const { data: searchResults = [] } = useQuery
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
@@ -59,9 +63,11 @@ export default function SpellsList()
 
   useEffect(() => 
   {
+    if (!searchResults) return;
+    
     setHasMore(searchResults.length === pageSize);
 
-    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    if (cursor === emptyUlid)
     {
       setDisplayedSpells(searchResults);
       return;
@@ -72,25 +78,25 @@ export default function SpellsList()
       if (searchResults.length === 0) return prev;
       return [...prev, ...searchResults]
     });
-  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
+  }, [cursor, searchResults]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  const clearResults = useCallback(() =>
+  {
+    setDisplayedSpells(EMPTY_ARRAY);
+    setCursor(emptyUlid);
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
   {
     clearResults();
     setSearchInput(e.target.value);
-  };
+  }, [clearResults]);
 
-  const handleSearchTagsChange = (tags: string[]) => 
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
     clearResults();
-  };
-
-  const clearResults = () =>
-  {
-    setDisplayedSpells([]);
-    setCursor(emptyUlid);
-  };
+  }, [clearResults]);
 
   return (
     <>
@@ -104,7 +110,7 @@ export default function SpellsList()
           className="max-w-max"
         />
 
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} />
+        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
 
         <AddSpellForm />
       </div>
