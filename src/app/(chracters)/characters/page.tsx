@@ -1,5 +1,5 @@
-import CharactersHeadersGrid from "@/application/characters/grid/CharactersHeadersGrid";
-import CharactersHeadersGridSkeleton from "@/application/characters/grid/CharactersHeadersGridSkeleton";
+import CharactersHeadersList from "@/application/characters/list/CharactersHeadersList";
+import CharactersHeadersListSkeleton from "@/application/characters/list/CharactersHeadersListSkeleton";
 import { searchEntity } from "@/persistence/searchEntity";
 import {
   dehydrate,
@@ -31,8 +31,8 @@ export default async function CharactersPage(input: CharactersPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<CharactersHeadersGridSkeleton />}>
-        <CharactersHeadersGrid />
+      <Suspense fallback={<CharactersHeadersListSkeleton />}>
+        <CharactersHeadersList />
       </Suspense>
     </HydrationBoundary>
   );
