@@ -190,7 +190,9 @@ function CharacterDefensesBattleView({ character }: { character : Character })
 
   return (
     <div className="flex flex-row gap-3 items-center">
-      <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={character.defenses} setIndex={setSelectedDefenseIndex} disableInfo />
+      {character.defenses.length > 1 && (
+        <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={character.defenses} setIndex={setSelectedDefenseIndex} disableInfo />
+      )}
 
       <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
         
@@ -429,7 +431,9 @@ function CharacterOffensesBattleView({ character }: { character: Character })
 
   return (
     <div className="flex flex-row gap-4 items-center">
-      <SelectOneOf name='offense' defaultValue='0' index={selectedOffenseIndex} items={character.offenses} setIndex={setSelectedOffenseIndex} disableInfo />
+      {character.offenses.length > 1 && (
+        <SelectOneOf name='offense' defaultValue='0' index={selectedOffenseIndex} items={character.offenses} setIndex={setSelectedOffenseIndex} disableInfo />
+      )}
 
       <p>
         <span className={`${colors.offense.leading}`}>{toOffenseString(selectedOffense.leadingWeapon)}</span>
