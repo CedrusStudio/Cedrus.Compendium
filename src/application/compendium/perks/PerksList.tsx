@@ -26,7 +26,7 @@ import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import TagFilter from "@/common/components/filters/TagFilter";
