@@ -282,5 +282,11 @@ export const translations_deDE =
     nameRequired: "Name ist erforderlich",
     changesSaved: "Änderungen gespeichert",
     removed: "entfernt",
-    initiativeGrade: "Initiativegrad",
+    initiativeGrade: "Initiative Würfelrang",
+    editInitiative: "Initiative bearbeiten",
+    editInitiativeDescription: "Initiative Rang und Wert für diesen Teilnehmer aktualisieren.",
+    deleteParticipant: "Teilnehmer löschen",
+    confirmDelete: "Möchten Sie diesen Teilnehmer wirklich aus dem Kampf entfernen?",
+    initiativeUpdated: "Initiative aktualisiert",
+    invalidGrade: "Ungültiger Rangwert",
 } as const;

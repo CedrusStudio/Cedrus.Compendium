@@ -310,4 +310,10 @@ export const displayedText =
     changesSaved: translate("changesSaved"),
     removed: translate("removed"),
     initiativeGrade: translate("initiativeGrade"),
+    editInitiative: translate("editInitiative"),
+    editInitiativeDescription: translate("editInitiativeDescription"),
+    deleteParticipant: translate("deleteParticipant"),
+    confirmDelete: translate("confirmDelete"),
+    initiativeUpdated: translate("initiativeUpdated"),
+    invalidGrade: translate("invalidGrade"),
 } as const;

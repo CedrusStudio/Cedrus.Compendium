@@ -8,8 +8,7 @@ import { RootState } from "@/persistence/slices/store";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { rollInitiative } from "@/domain/characters/statistics/Attributes";
 import { displayedText } from "@/presentation/translations";
-import { resetIcon, rollIcon } from "@/presentation/icons";
-import { FaPencilAlt, FaCheck, FaTimes } from "react-icons/fa";
+import { cancelIcon, editIcon, okIcon, resetIcon, rollIcon } from "@/presentation/icons";
 import { Statistic } from "@/domain/characters/statistics/Statistic";
 
 type InitiativeCellProps = 
@@ -79,11 +78,11 @@ export default function InitiativeCell({ id, initiative }: InitiativeCellProps)
           />
 
           <Button size="icon" variant="ghost" onClick={handleManualSet} className="h-8 w-8">
-            <FaCheck className="w-3 h-3" />
+            {okIcon()}
           </Button>
 
           <Button size="icon" variant="ghost" onClick={handleCancelManual} className="h-8 w-8">
-            <FaTimes className="w-3 h-3" />
+            {cancelIcon()}
           </Button>
         </div>
       </div>
@@ -105,7 +104,7 @@ export default function InitiativeCell({ id, initiative }: InitiativeCellProps)
           </Button>
           
           <Button variant="outline" size="icon" onClick={() => setIsManualMode(true)} title={displayedText.manualInitiative}>
-            <FaPencilAlt />
+            {editIcon}
           </Button>
         </div>
 

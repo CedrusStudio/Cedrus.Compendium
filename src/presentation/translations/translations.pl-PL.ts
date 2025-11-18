@@ -283,5 +283,11 @@ export const translations_plPL =
     changesSaved: "Zmiany zapisane",
     removed: "usunięto",
     initiativeGrade: "Ranga kości inicjatywy",
+    editInitiative: "Edytuj inicjatywę",
+    editInitiativeDescription: "Zaktualizuj rangę i wartość inicjatywy dla tego uczestnika.",
+    deleteParticipant: "Usuń uczestnika",
+    confirmDelete: "Czy na pewno chcesz usunąć tego uczestnika z bitwy?",
+    initiativeUpdated: "Zaktualizowano inicjatywę",
+    invalidGrade: "Nieprawidłowa wartość rangi",
 } as const;
 

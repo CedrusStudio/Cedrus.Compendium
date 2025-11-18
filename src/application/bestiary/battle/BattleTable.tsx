@@ -11,9 +11,10 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { displayedText } from "@/presentation/translations";
-import { columnKeys, columns } from "@/application/bestiary/columns";
+import { columnKeys } from "@/application/bestiary/columns";
+import { createCombatantColumns } from "@/application/bestiary/battle/combatantColumns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,19 +24,21 @@ import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import { removeIcon } from "@/presentation/icons";
 import { rollIcon } from "@/presentation/icons";
-import { rollInitiative } from "@/domain/characters/statistics/Attributes";
+import { rollInitiative, rollInitiativeBase } from "@/domain/characters/statistics/Attributes";
 import BattleTableBody from "@/application/bestiary/battle/BattleTableBody";
 import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";
 import { useQuery } from "@tanstack/react-query";
 import charactersClient from "@/infrastructure/clients/charactersClient";
 import { Character } from "@/domain/characters/Character";
 import AddExternalParticipantDialog from "@/application/bestiary/battle/AddExternalParticipantDialog";
+import { BattleCombatant, isCharacter, isExternalParticipant } from "@/application/bestiary/battle/ExternalParticipant";
 
 const EMPTY_ARRAY: never[] = [];
 
 export default function BattleTable()
 {
   const charactersInBattle = useSelector((state: RootState) => state.bestiary.addedToBattle);
+  const externalParticipants = useSelector((state: RootState) => state.bestiary.externalParticipants);
   const dispatch = useDispatch();
 
   const queryKey = ['characters', 'battle', charactersInBattle.join(',')];
@@ -56,26 +59,42 @@ export default function BattleTable()
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
+  const columns = useMemo(() => createCombatantColumns(), []);
+
   useEffect(() => 
   {
     const initialVisibility: VisibilityState = columns.reduce<VisibilityState>((acc, column) => 
     {
-      acc[column.accessorKey as string] = !(column.meta?.initiallyHidden);
+      if (column.id) 
+      {
+        acc[column.id as string] = !(column.meta?.initiallyHidden);
+      }
       return acc;
     }, {});
     setColumnVisibility(initialVisibility);
-  }, []);
+  }, [columns]);
 
   const initiatives = useSelector((state: RootState) => state.bestiary.initiatives);
-  const enrichedData = (data ?? EMPTY_ARRAY).map(character => 
-  ({
-    ...character,
-    __initiative: initiatives[character.id]?.initiative ?? null
-  }));
+  
+  // Merge external participants and characters into single combatants array
+  const combatants = useMemo(() => 
+  {
+    const externalData = externalParticipants.map(participant => ({
+      ...participant,
+      __initiative: initiatives[participant.id]?.initiative ?? null
+    }));
+    
+    const characterData = (data ?? EMPTY_ARRAY).map(character => ({
+      ...character,
+      __initiative: initiatives[character.id]?.initiative ?? null
+    }));
+    
+    return [...externalData, ...characterData] as (BattleCombatant & { __initiative: number | null })[];
+  }, [externalParticipants, data, initiatives]);
 
-  const table = useReactTable<Character & { __initiative: number | null }>
+  const table = useReactTable<BattleCombatant & { __initiative: number | null }>
   ({
-    data: enrichedData,
+    data: combatants,
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -102,8 +121,32 @@ export default function BattleTable()
 
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
         { 
-          const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
-          dispatch(actions.removeSelectedFromBattle(selectedCharacterIds));
+          const selectedRows = table.getFilteredSelectedRowModel().rows;
+          const selectedCharacterIds: string[] = [];
+          const selectedExternalIds: string[] = [];
+          
+          selectedRows.forEach(row => 
+          {
+            const combatant = row.original;
+            if (isCharacter(combatant)) 
+            {
+              selectedCharacterIds.push(combatant.id);
+            } 
+            else if (isExternalParticipant(combatant)) 
+            {
+              selectedExternalIds.push(combatant.id);
+            }
+          });
+          
+          if (selectedCharacterIds.length > 0) 
+          {
+            dispatch(actions.removeSelectedFromBattle(selectedCharacterIds));
+          }
+          if (selectedExternalIds.length > 0) 
+          {
+            selectedExternalIds.forEach(id => dispatch(actions.removeExternalParticipant(id)));
+          }
+          
           setRowSelection({});
           toast.success(displayedText.removedFromBattle);
         }}>
@@ -112,13 +155,27 @@ export default function BattleTable()
 
         <Button variant="outline" onClick={() => 
         {
-          const characters: Character[] = data ?? [];
-          characters.forEach((character: Character) => {
-            if (!character.attributes.initiative) return;
-            const rollResult = rollInitiative(character.attributes.initiative);
-            dispatch(actions.rollInitiativeForCharacter({ characterId: character.id, rollResult }));
+          combatants.forEach(combatant => 
+          {
+            if (isCharacter(combatant) && combatant.attributes.initiative) 
+            {
+              const rollResult = rollInitiative(combatant.attributes.initiative);
+              dispatch(actions.rollInitiativeForCharacter({ characterId: combatant.id, rollResult }));
+            } 
+
+            else if (isExternalParticipant(combatant) && combatant.initiative) 
+            {
+              const rollResult = rollInitiativeBase(
+                combatant.initiative.grade,
+                combatant.initiative.value,
+                0,
+                0
+              );
+
+              dispatch(actions.rollInitiativeForCharacter({ characterId: combatant.id, rollResult }));
+            }
           });
-          toast.success(displayedText.rollAllInitiatives);
+
         }}>
           {rollIcon} {displayedText.rollAllInitiatives}
         </Button>
@@ -126,7 +183,6 @@ export default function BattleTable()
         <Button variant="outline" onClick={() => 
         {
           dispatch(actions.clearInitiatives());
-          toast.success(displayedText.clearAllInitiatives);
         }}>
           {displayedText.clearAllInitiatives}
         </Button>
@@ -136,7 +192,7 @@ export default function BattleTable()
         <ColumnFilter table={table} />
       </div>
 
-      <BattleTableBody table={table} columns={columns} />
+      <BattleTableBody table={table} />
       <BestiaryTableFooter table={table} />
     </div>
   );

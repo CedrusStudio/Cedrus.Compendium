@@ -1,10 +1,10 @@
+import { Character } from "@/domain/characters/Character";
 import { Statistic } from "@prisma/client";
 
 export type ExternalParticipant = 
 {
   id: string;
   name: string;
-  health: number;
   maxHealth: number;
   currentInitiative: number | null;
   initiative: Statistic;
@@ -25,7 +25,6 @@ export function createExternalParticipant
   return {
     id: `ext_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`,
     name,
-    health: maxHealth,
     maxHealth,
     currentInitiative: null,
     initiative: { grade: initiativeGrade, value: initiativeTotalBonus, bonus: 0, testBonus: 0 } as Statistic,
@@ -41,4 +40,18 @@ export function updateExternalParticipant(participant: ExternalParticipant, upda
     ...participant,
     ...updates,
   };
+}
+
+export type BattleCombatant = Character | ExternalParticipant;
+
+// Type guard to check if combatant is a Character
+export function isCharacter(combatant: BattleCombatant): combatant is Character 
+{
+  return !('isExternal' in combatant) || (combatant as ExternalParticipant).isExternal !== true;
+}
+
+// Type guard to check if combatant is an ExternalParticipant
+export function isExternalParticipant(combatant: BattleCombatant): combatant is ExternalParticipant 
+{
+  return 'isExternal' in combatant && (combatant as ExternalParticipant).isExternal === true;
 }

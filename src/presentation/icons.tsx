@@ -32,7 +32,7 @@ import { GiMagicSwirl } from "react-icons/gi";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { LuMinus } from "react-icons/lu";
 import { IoMdCopy } from "react-icons/io";
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
+import { ArrowUpDown, ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { RiDeleteBack2Line, RiResetLeftFill } from "react-icons/ri";
 import { GrNext } from "react-icons/gr";
 import { GiHealthIncrease } from "react-icons/gi";
@@ -44,6 +44,7 @@ import { IoIosArrowRoundDown } from "react-icons/io";
 import { BiImport } from "react-icons/bi";
 import { VscGoToSearch } from "react-icons/vsc";
 import { cn } from "@/lib/utils";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -127,3 +128,8 @@ export const strengthRequirementIcon = (className?: string) => <LuBicepsFlexed c
 export const dexterityRestrictionIcon = (className?: string) => <GiRun className={cn("text-red-500", className)} />;
 export const reflexRestrictionIcon = (className?: string) => <GiDodging className={cn("text-red-500", className)} />;
 export const initiativeRestrictionIcon = (className?: string) => <BsLightning className={cn("text-red-500", className)} />;
+
+export const okIcon = (className?: string) => <FaCheck className={className} />;
+export const cancelIcon = (className?: string) => <FaTimes className={className} />;
+
+export const sortIcon = (className?: string) => <ArrowUpDown className={className} />;

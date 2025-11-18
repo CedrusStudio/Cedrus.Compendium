@@ -88,7 +88,7 @@ export default function AddExternalParticipantDialog()
               id="maxHealth"
               type="number"
               value={maxHealth}
-              onChange={(e) => setMaxHealth(e.target.value)}
+              onChange={e => setMaxHealth(e.target.value)}
               className="col-span-3"
               min="1"
             />
