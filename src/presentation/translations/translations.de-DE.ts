@@ -262,4 +262,25 @@ export const translations_deDE =
 
     loadMore: "Mehr laden",
     loading: "Laden...",
+    
+    rollInitiative: "Initiative würfeln",
+    manualInitiative: "Initiative manuell eingeben",
+    rollAllInitiatives: "Alle Initiativen würfeln",
+    clearAllInitiatives: "Alle Initiativen löschen",
+    sortByInitiative: "Nach Initiative sortieren",
+    initiativeValue: "Initiativewert",
+    
+    addExternalParticipant: "Externen Teilnehmer hinzufügen",
+    externalParticipant: "Externer Teilnehmer",
+    externalParticipantAdded: "Externer Teilnehmer hinzugefügt",
+    addExternalParticipantDescription: "Fügen Sie einen Spieler, NPC oder eine andere Entität zum Kampf hinzu",
+    enterName: "Namen eingeben",
+    enterNotes: "Notizen eingeben",
+    notes: "Notizen",
+    maxHealth: "Maximale Gesundheit",
+    currentHealth: "Aktuelle Gesundheit",
+    nameRequired: "Name ist erforderlich",
+    changesSaved: "Änderungen gespeichert",
+    removed: "entfernt",
+    initiativeGrade: "Initiativegrad",
 } as const;

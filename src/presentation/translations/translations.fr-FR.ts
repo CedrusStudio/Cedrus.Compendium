@@ -262,4 +262,25 @@ export const translations_frFR =
 
     loadMore: "Charger plus",
     loading: "Chargement...",
+    
+    rollInitiative: "Lancer l'initiative",
+    manualInitiative: "Entrer l'initiative manuellement",
+    rollAllInitiatives: "Lancer toutes les initiatives",
+    clearAllInitiatives: "Effacer toutes les initiatives",
+    sortByInitiative: "Trier par initiative",
+    initiativeValue: "Valeur d'initiative",
+    
+    addExternalParticipant: "Ajouter un participant externe",
+    externalParticipant: "Participant externe",
+    externalParticipantAdded: "Participant externe ajouté",
+    addExternalParticipantDescription: "Ajouter un joueur, un PNJ ou une autre entité au combat",
+    enterName: "Entrer le nom",
+    enterNotes: "Entrer des notes",
+    notes: "Notes",
+    maxHealth: "Santé maximale",
+    currentHealth: "Santé actuelle",
+    nameRequired: "Le nom est requis",
+    changesSaved: "Modifications enregistrées",
+    removed: "supprimé",
+    initiativeGrade: "Degré d'initiative",
 } as const;

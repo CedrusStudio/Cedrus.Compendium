@@ -289,4 +289,25 @@ export const displayedText =
 
     loadMore: translate("loadMore"),
     loading: translate("loading"),
+    
+    rollInitiative: translate("rollInitiative"),
+    manualInitiative: translate("manualInitiative"),
+    rollAllInitiatives: translate("rollAllInitiatives"),
+    clearAllInitiatives: translate("clearAllInitiatives"),
+    sortByInitiative: translate("sortByInitiative"),
+    initiativeValue: translate("initiativeValue"),
+    
+    addExternalParticipant: translate("addExternalParticipant"),
+    externalParticipant: translate("externalParticipant"),
+    externalParticipantAdded: translate("externalParticipantAdded"),
+    addExternalParticipantDescription: translate("addExternalParticipantDescription"),
+    enterName: translate("enterName"),
+    enterNotes: translate("enterNotes"),
+    notes: translate("notes"),
+    maxHealth: translate("maxHealth"),
+    currentHealth: translate("currentHealth"),
+    nameRequired: translate("nameRequired"),
+    changesSaved: translate("changesSaved"),
+    removed: translate("removed"),
+    initiativeGrade: translate("initiativeGrade"),
 } as const;

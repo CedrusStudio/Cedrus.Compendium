@@ -1,36 +1,23 @@
 "use client";
 
+import InitiativeCell from "@/application/bestiary/battle/InitiativeCell";
 import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { attributesIcons, characteristicIcons, goToIcon, immunityIcon, resistanceIcon } from "@/presentation/icons";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-
 import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
-
 import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
 import { reductionIcons } from "@/presentation/icons";
 import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 import { Checkbox } from "@/common/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/ui/drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
 import { getCastTimeColors } from "@/presentation/colors";
 import RollButton from "@/common/components/buttons/RollButton";
 import { colors } from "@/presentation/colors";
@@ -51,6 +38,7 @@ export const columnKeys =
   select: "select",
   name: "name",
   tags: "tags",
+  initiative: "initiative",
   health: "health",
   barrier: "barrier",
   defense: "defense",
@@ -60,7 +48,7 @@ export const columnKeys =
   actions: "actions",
 } as const;
 
-export const columns: AccessorKeyColumnDef<Character>[] = 
+export const columns: AccessorKeyColumnDef<Character & { __initiative: number | null }>[] = 
 [
   {
     id: columnKeys.select,
@@ -97,6 +85,28 @@ export const columns: AccessorKeyColumnDef<Character>[] =
     cell: ({ row }) => <TagsView tags={row.original.tags} />,
     header: () => <span className="capitalize">{displayedText[columnKeys.tags]}</span>,
     meta: { initiallyHidden: true },
+  },
+  {
+    id: columnKeys.initiative,
+    accessorKey: columnKeys.initiative,
+    cell: ({ row }) => <InitiativeCell id={row.original.id} initiative={row.original.attributes.initiative} />,
+    header: ({ column }) => ( 
+      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        <span className="capitalize">{displayedText[columnKeys.initiative]}</span> <ArrowUpDown />
+      </Button>
+    ),
+    sortingFn: (rowA, rowB) => 
+    {
+      const initiativeA = rowA.original.__initiative;
+      const initiativeB = rowB.original.__initiative;
+      
+      if (initiativeA === null && initiativeB === null) return 0;
+      if (initiativeA === null) return 1;
+      if (initiativeB === null) return -1;
+      
+      return initiativeB - initiativeA; // Descending order (highest first)
+    },
+    meta: { initiallyHidden: false },
   },
   {
     id: columnKeys.health,

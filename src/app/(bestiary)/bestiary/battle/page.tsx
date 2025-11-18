@@ -7,7 +7,7 @@ import {
 import { Character } from "@/domain/characters/Character";
 import { Suspense } from 'react';
 import BestiaryGridSkeleton from "@/application/bestiary/BestiaryTableSkeleton";
-import BattleTable from "@/application/bestiary/BattleTable";
+import BattleTable from "@/application/bestiary/battle/BattleTable";
 import { allCharactersKey } from "@/persistence/cacheKeys";
 import { createCharacterQuery } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
 

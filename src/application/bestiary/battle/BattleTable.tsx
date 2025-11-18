@@ -22,10 +22,14 @@ import { Button } from "@/common/components/ui/button";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import { removeIcon } from "@/presentation/icons";
-import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
+import { rollIcon } from "@/presentation/icons";
+import { rollInitiative } from "@/domain/characters/statistics/Attributes";
+import BattleTableBody from "@/application/bestiary/battle/BattleTableBody";
 import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";
 import { useQuery } from "@tanstack/react-query";
 import charactersClient from "@/infrastructure/clients/charactersClient";
+import { Character } from "@/domain/characters/Character";
+import AddExternalParticipantDialog from "@/application/bestiary/battle/AddExternalParticipantDialog";
 
 const EMPTY_ARRAY: never[] = [];
 
@@ -35,7 +39,7 @@ export default function BattleTable()
   const dispatch = useDispatch();
 
   const queryKey = ['characters', 'battle', charactersInBattle.join(',')];
-  const { data } = useQuery
+  const { data } = useQuery<Character[]>
   ({ 
     queryKey, 
     queryFn: async () => 
@@ -62,9 +66,16 @@ export default function BattleTable()
     setColumnVisibility(initialVisibility);
   }, []);
 
-  const table = useReactTable
+  const initiatives = useSelector((state: RootState) => state.bestiary.initiatives);
+  const enrichedData = (data ?? EMPTY_ARRAY).map(character => 
   ({
-    data: data ?? EMPTY_ARRAY,
+    ...character,
+    __initiative: initiatives[character.id]?.initiative ?? null
+  }));
+
+  const table = useReactTable<Character & { __initiative: number | null }>
+  ({
+    data: enrichedData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -73,15 +84,15 @@ export default function BattleTable()
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    getRowId: (row) => row.id,
+    getRowId: row => row.id,
     state: 
     {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
+      rowSelection
     },
-    autoResetPageIndex: false,
+    autoResetPageIndex: false
   })
 
   return (
@@ -99,10 +110,33 @@ export default function BattleTable()
           {removeIcon("scale-90")}
         </Button>
 
+        <Button variant="outline" onClick={() => 
+        {
+          const characters: Character[] = data ?? [];
+          characters.forEach((character: Character) => {
+            if (!character.attributes.initiative) return;
+            const rollResult = rollInitiative(character.attributes.initiative);
+            dispatch(actions.rollInitiativeForCharacter({ characterId: character.id, rollResult }));
+          });
+          toast.success(displayedText.rollAllInitiatives);
+        }}>
+          {rollIcon} {displayedText.rollAllInitiatives}
+        </Button>
+
+        <Button variant="outline" onClick={() => 
+        {
+          dispatch(actions.clearInitiatives());
+          toast.success(displayedText.clearAllInitiatives);
+        }}>
+          {displayedText.clearAllInitiatives}
+        </Button>
+
+        <AddExternalParticipantDialog />
+
         <ColumnFilter table={table} />
       </div>
 
-      <BestiaryTableBody table={table} columns={columns} />
+      <BattleTableBody table={table} columns={columns} />
       <BestiaryTableFooter table={table} />
     </div>
   );

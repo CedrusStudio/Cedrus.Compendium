@@ -262,5 +262,26 @@ export const translations_plPL =
 
     loadMore: "Załaduj więcej",
     loading: "Ładowanie...",
+    
+    rollInitiative: "Rzuć inicjatywą",
+    manualInitiative: "Wpisz inicjatywę ręcznie",
+    rollAllInitiatives: "Rzuć wszystkie inicjatywy",
+    clearAllInitiatives: "Wyczyść wszystkie inicjatywy",
+    sortByInitiative: "Sortuj według inicjatywy",
+    initiativeValue: "Bonus inicjatywy",
+    
+    addExternalParticipant: "Dodaj zewnętrznego uczestnika",
+    externalParticipant: "Zewnętrzny uczestnik",
+    externalParticipantAdded: "Dodano zewnętrznego uczestnika",
+    addExternalParticipantDescription: "Dodaj gracza, NPC lub inny byt do walki",
+    enterName: "Wprowadź imię",
+    enterNotes: "Wprowadź notatki",
+    notes: "Notatki",
+    maxHealth: "Maksymalne zdrowie",
+    currentHealth: "Bieżące zdrowie",
+    nameRequired: "Imię jest wymagane",
+    changesSaved: "Zmiany zapisane",
+    removed: "usunięto",
+    initiativeGrade: "Ranga kości inicjatywy",
 } as const;
 

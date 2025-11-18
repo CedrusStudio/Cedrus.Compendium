@@ -23,7 +23,7 @@ type UseSearchInventoryReturn =
 export const useSearchInventory = (params: UseSearchInventoryParams): UseSearchInventoryReturn => 
 {
   const createQuery = (searchTerm: string): SearchEntityPayload => 
-    createInventoryItemKeysetQuery(searchTerm, emptyUlid, DEFAULT_PAGE_SIZE);
+    createInventoryItemKeysetQuery(searchTerm, emptyUlid);
 
   const createKey = (searchTerm: string) => 
     ['inventory', searchParamKey, searchTerm || undefined, emptyUlid, DEFAULT_PAGE_SIZE] as const;

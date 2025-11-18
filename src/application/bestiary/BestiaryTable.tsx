@@ -1,18 +1,9 @@
 "use client";
 
-import {
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
+import { ColumnFiltersState, SortingState, VisibilityState, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { useState, useEffect, useCallback } from "react";
 import { displayedText } from "@/presentation/translations";
-import { columns } from "@/application/bestiary/columns";
+import { columnKeys, columns } from "@/application/bestiary/columns";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import TagFilter from "@/common/components/filters/TagFilter";
 import { Button } from "@/common/components/ui/button";
@@ -20,7 +11,6 @@ import { addIcon } from "@/presentation/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
-import BestiaryTableBody from "@/application/bestiary/BestiaryTableBody";
 import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";
 import { Character } from "@/domain/characters/Character";
 import { useQuery } from "@tanstack/react-query";
@@ -32,7 +22,13 @@ import { useDebounce } from "use-debounce";
 import { Input } from "@/common/components/ui/input";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingSpinner from "@/common/components/LoadingSpinner";
+import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { useEntityTags } from "@/common/hooks/useEntityTags";
+import { Table } from "@/ui/table";
+import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
+import BestiaryTableRow from "@/application/bestiary/BestiaryTableRow";
+import { Table as TableType } from "@tanstack/react-table";
+import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 
 const pageSize = 20;
 const EMPTY_ARRAY: never[] = [];
@@ -120,10 +116,10 @@ export default function BestiaryTable()
     setColumnVisibility(initialVisibility);
   }, []);
 
-  const table = useReactTable
+  const table = useReactTable<Character>
   ({
     data: displayedCharacters,
-    columns,
+    columns: columns.filter(column => column.id !== columnKeys.initiative) as AccessorKeyColumnDef<Character>[],
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -176,10 +172,28 @@ export default function BestiaryTable()
         hasMore={hasMore}
         loader={<div className="flex justify-center py-4"><LoadingSpinner /></div>}
       >
-        <BestiaryTableBody table={table} columns={columns} />
+        <BestiaryTableBody columns={columns} table={table} />
       </InfiniteScroll>
 
       <BestiaryTableFooter table={table} />
+    </div>
+  );
+};
+
+type BestiaryTableBodyProps<TData> = 
+{
+  table: TableType<TData>;
+  columns: { accessorKey: string }[];
+}
+
+function BestiaryTableBody<TData>({ table, columns }: BestiaryTableBodyProps<TData>)
+{
+  return (
+    <div className="overflow-hidden rounded-md border">
+      <Table>
+        <DefaultTableHeader table={table} addBorders className="text-center" />
+        <DefaultTableBody table={table} columns={columns} tableRowFactory={row => <BestiaryTableRow key={row.id} row={row} />} />
+      </Table>
     </div>
   );
 };

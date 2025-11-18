@@ -18,7 +18,7 @@ import { GiChessKnight } from "react-icons/gi";
 import { GiMeditation } from "react-icons/gi";
 import { ReactNode } from "react";
 
-import { IoShieldOutline } from "react-icons/io5";
+import { IoShieldOutline, IoTrashOutline } from "react-icons/io5";
 import { IoShieldHalfOutline } from "react-icons/io5";
 import { IoShield } from "react-icons/io5";
 
@@ -89,7 +89,7 @@ export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
 
 export const addIcon = (className?: string) => <LuPlus className={className} />;
-export const removeIcon = (className: string) => <LuMinus className={className} />;
+export const removeIcon = (className?: string) => <LuMinus className={className} />;
 export const cooldownIcon = (className?: string) => <LuRefreshCcw className={className} />;
 export const resetIcon = (className?: string) => <RiResetLeftFill className={className} />;
 export const nextIcon = (className?: string) => <GrNext className={className} />;
@@ -118,6 +118,7 @@ export const arrowDownIcon = <IoIosArrowRoundDown className="w-4 h-4" />;
 
 export const importIcon = <BiImport className="w-5 h-5" />;
 export const goToIcon = <VscGoToSearch className="w-5 h-5" />;
+export const deleteIcon = <IoTrashOutline className="w-5 h-5" />;
 
 export const reductionArmorOrBlockIcon = (className?: string) => <IoShieldHalfOutline className={className} />;
 
