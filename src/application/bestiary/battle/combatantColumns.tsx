@@ -108,7 +108,7 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
     },
     {
       id: columnKeys.initiative,
-      accessorKey: columnKeys.initiative,
+      accessorFn: row => row.__initiative,
       cell: ({ row }) => 
       {
         const combatant = row.original;
