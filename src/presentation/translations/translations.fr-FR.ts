@@ -270,7 +270,11 @@ export const translations_frFR =
     sortByInitiative: "Trier par initiative",
     initiativeValue: "Valeur d'initiative",
     
-    addExternalParticipant: "Ajouter un participant externe",
+    duplicateCharacter: "Dupliquer le personnage",
+    characterDuplicated: "Le personnage a été dupliqué",
+    copy: "Copie",
+    
+    addExternalParticipant: "Ajouter un participant",
     externalParticipant: "Participant externe",
     externalParticipantAdded: "Participant externe ajouté",
     addExternalParticipantDescription: "Ajouter un joueur, un PNJ ou une autre entité au combat",

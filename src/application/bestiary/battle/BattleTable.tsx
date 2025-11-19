@@ -31,7 +31,7 @@ import { useQuery } from "@tanstack/react-query";
 import charactersClient from "@/infrastructure/clients/charactersClient";
 import { Character } from "@/domain/characters/Character";
 import AddExternalParticipantDialog from "@/application/bestiary/battle/AddExternalParticipantDialog";
-import { BattleCombatant, isCharacter, isExternalParticipant } from "@/application/bestiary/battle/ExternalParticipant";
+import { BattleCombatant, isCharacter, isExternalParticipant, isDuplicatedCharacter } from "@/application/bestiary/battle/BattleCombatants";
 
 const EMPTY_ARRAY: never[] = [];
 
@@ -39,6 +39,7 @@ export default function BattleTable()
 {
   const charactersInBattle = useSelector((state: RootState) => state.bestiary.addedToBattle);
   const externalParticipants = useSelector((state: RootState) => state.bestiary.externalParticipants);
+  const duplicatedCharacters = useSelector((state: RootState) => state.bestiary.duplicatedCharacters);
   const dispatch = useDispatch();
 
   const queryKey = ['characters', 'battle', charactersInBattle.join(',')];
@@ -76,7 +77,7 @@ export default function BattleTable()
 
   const initiatives = useSelector((state: RootState) => state.bestiary.initiatives);
   
-  // Merge external participants and characters into single combatants array
+  // Merge external participants, characters, and duplicates into single combatants array
   const combatants = useMemo(() => 
   {
     const externalData = externalParticipants.map(participant => ({
@@ -89,8 +90,13 @@ export default function BattleTable()
       __initiative: initiatives[character.id]?.initiative ?? null
     }));
     
-    return [...externalData, ...characterData] as (BattleCombatant & { __initiative: number | null })[];
-  }, [externalParticipants, data, initiatives]);
+    const duplicatedData = (duplicatedCharacters ?? EMPTY_ARRAY).map(duplicate => ({
+      ...duplicate,
+      __initiative: initiatives[duplicate.id]?.initiative ?? null
+    }));
+    
+    return [...externalData, ...characterData, ...duplicatedData] as (BattleCombatant & { __initiative: number | null })[];
+  }, [externalParticipants, data, duplicatedCharacters, initiatives]);
 
   const table = useReactTable<BattleCombatant & { __initiative: number | null }>
   ({
@@ -124,6 +130,7 @@ export default function BattleTable()
           const selectedRows = table.getFilteredSelectedRowModel().rows;
           const selectedCharacterIds: string[] = [];
           const selectedExternalIds: string[] = [];
+          const selectedDuplicateIds: string[] = [];
           
           selectedRows.forEach(row => 
           {
@@ -136,6 +143,10 @@ export default function BattleTable()
             {
               selectedExternalIds.push(combatant.id);
             }
+            else if (isDuplicatedCharacter(combatant)) 
+            {
+              selectedDuplicateIds.push(combatant.id);
+            }
           });
           
           if (selectedCharacterIds.length > 0) 
@@ -145,6 +156,10 @@ export default function BattleTable()
           if (selectedExternalIds.length > 0) 
           {
             selectedExternalIds.forEach(id => dispatch(actions.removeExternalParticipant(id)));
+          }
+          if (selectedDuplicateIds.length > 0) 
+          {
+            selectedDuplicateIds.forEach(id => dispatch(actions.removeDuplicatedCharacter(id)));
           }
           
           setRowSelection({});
@@ -165,13 +180,13 @@ export default function BattleTable()
 
             else if (isExternalParticipant(combatant) && combatant.initiative) 
             {
-              const rollResult = rollInitiativeBase(
-                combatant.initiative.grade,
-                combatant.initiative.value,
-                0,
-                0
-              );
-
+              const rollResult = rollInitiativeBase(combatant.initiative.grade, combatant.initiative.value, 0, 0);
+              dispatch(actions.rollInitiativeForCharacter({ characterId: combatant.id, rollResult }));
+            }
+            
+            else if (isDuplicatedCharacter(combatant) && combatant.character.attributes.initiative) 
+            {
+              const rollResult = rollInitiative(combatant.character.attributes.initiative);
               dispatch(actions.rollInitiativeForCharacter({ characterId: combatant.id, rollResult }));
             }
           });

@@ -13,7 +13,7 @@ export default function TagsView({ tags, variant = "secondary" }: TagsViewProps)
   return (
     <>
     {
-      tags.length > 0 && (
+      tags && tags.length > 0 && (
         <div className="flex flex-row flex-wrap items-center justify-center gap-x-2">
         {
           tags.map((tag) => <Badge key={tag} variant={variant}>{tag}</Badge>)

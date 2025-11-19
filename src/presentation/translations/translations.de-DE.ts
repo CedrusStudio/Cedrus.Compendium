@@ -270,6 +270,10 @@ export const translations_deDE =
     sortByInitiative: "Nach Initiative sortieren",
     initiativeValue: "Initiativewert",
     
+    duplicateCharacter: "Charakter duplizieren",
+    characterDuplicated: "Charakter wurde dupliziert",
+    copy: "Kopie",
+    
     addExternalParticipant: "Externen Teilnehmer hinzufügen",
     externalParticipant: "Externer Teilnehmer",
     externalParticipantAdded: "Externer Teilnehmer hinzugefügt",

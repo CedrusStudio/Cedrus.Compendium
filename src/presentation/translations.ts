@@ -297,6 +297,10 @@ export const displayedText =
     sortByInitiative: translate("sortByInitiative"),
     initiativeValue: translate("initiativeValue"),
     
+    duplicateCharacter: translate("duplicateCharacter"),
+    characterDuplicated: translate("characterDuplicated"),
+    copy: translate("copy"),
+    
     addExternalParticipant: translate("addExternalParticipant"),
     externalParticipant: translate("externalParticipant"),
     externalParticipantAdded: translate("externalParticipantAdded"),

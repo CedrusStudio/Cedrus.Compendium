@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalParticipant } from "@/application/bestiary/battle/ExternalParticipant";
+import { ExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
 import { Input } from "@/common/components/ui/input";
 
 type ExternalParticipantHealthCellProps = 

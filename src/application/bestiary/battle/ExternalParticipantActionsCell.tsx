@@ -5,7 +5,7 @@ import { Button } from "@/common/components/ui/button";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
-import { ExternalParticipant, updateExternalParticipant } from "@/application/bestiary/battle/ExternalParticipant";
+import { ExternalParticipant, updateExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
 import { displayedText } from "@/presentation/translations";
 import {
   Dialog,
@@ -176,7 +176,7 @@ export default function ExternalParticipantActionsCell({ participant }: External
               <Label htmlFor="notes" className="capitalize">
                 {displayedText.notes}
               </Label>
-              
+
               <Textarea
                 id="notes"
                 value={notes}

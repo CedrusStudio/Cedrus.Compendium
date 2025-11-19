@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ExternalParticipant } from '@/application/bestiary/battle/ExternalParticipant';
+import { DuplicatedCharacter, ExternalParticipant } from '@/application/bestiary/battle/ExternalParticipant';
 
 const BATTLE_STORAGE_KEY = 'charactersInBattle';
 const INITIATIVES_STORAGE_KEY = 'battleInitiatives';
 const EXTERNAL_PARTICIPANTS_STORAGE_KEY = 'externalParticipants';
+const DUPLICATED_CHARACTERS_STORAGE_KEY = 'duplicatedCharacters';
 
 export type InitiativeEntry = 
 {
@@ -83,18 +84,51 @@ const saveExternalParticipantsToSessionStorage = (participants: ExternalParticip
   sessionStorage.setItem(EXTERNAL_PARTICIPANTS_STORAGE_KEY, JSON.stringify(participants));
 };
 
+// Helper to load duplicated characters from session storage
+const loadDuplicatedCharactersFromSessionStorage = (): DuplicatedCharacter[] => 
+{
+  if (typeof window === 'undefined') return [];
+  const stored = sessionStorage.getItem(DUPLICATED_CHARACTERS_STORAGE_KEY);
+  if (!stored) return [];
+  try 
+  {
+    const parsed = JSON.parse(stored);
+    return Array.isArray(parsed) ? parsed : [];
+  } 
+  catch 
+  {
+    return [];
+  }
+};
+
+// Helper to save duplicated characters to session storage
+const saveDuplicatedCharactersToSessionStorage = (duplicates: DuplicatedCharacter[]) => 
+{
+  if (typeof window === 'undefined') return;
+  try 
+  {
+    sessionStorage.setItem(DUPLICATED_CHARACTERS_STORAGE_KEY, JSON.stringify(duplicates));
+  } 
+  catch (e) 
+  {
+    console.error('Session storage full. Cannot save duplicates.', e);
+  }
+};
+
 export type BestiarySliceState = 
 {
   addedToBattle: string[];
   initiatives: Record<string, InitiativeEntry>;
   externalParticipants: ExternalParticipant[];
+  duplicatedCharacters: DuplicatedCharacter[];
 };
 
 const initialState: BestiarySliceState = 
 {
   addedToBattle: loadCharactersFromSessionStorage(),
   initiatives: loadInitiativesFromSessionStorage(),
-  externalParticipants: loadExternalParticipantsFromSessionStorage()
+  externalParticipants: loadExternalParticipantsFromSessionStorage(),
+  duplicatedCharacters: loadDuplicatedCharactersFromSessionStorage()
 };
 
 const bestiarySlice = createSlice
@@ -126,8 +160,12 @@ const bestiarySlice = createSlice
     {
       state.addedToBattle = [];
       state.initiatives = {};
+      state.externalParticipants = [];
+      state.duplicatedCharacters = [];
       saveCharactersToSessionStorage(state.addedToBattle);
       saveInitiativesToSessionStorage(state.initiatives);
+      saveExternalParticipantsToSessionStorage(state.externalParticipants);
+      saveDuplicatedCharactersToSessionStorage(state.duplicatedCharacters);
     },
     setInitiative(state, action: PayloadAction<{ characterId: string; initiative: number | null; }>) 
     {
@@ -172,7 +210,20 @@ const bestiarySlice = createSlice
       saveExternalParticipantsToSessionStorage(state.externalParticipants);
       saveInitiativesToSessionStorage(state.initiatives);
     },
+    addDuplicatedCharacter(state, action: PayloadAction<DuplicatedCharacter>) 
+    {
+      state.duplicatedCharacters.push(action.payload);
+      saveDuplicatedCharactersToSessionStorage(state.duplicatedCharacters);
+    },
+    removeDuplicatedCharacter(state, action: PayloadAction<string>) 
+    {
+      state.duplicatedCharacters = state.duplicatedCharacters.filter(d => d.id !== action.payload);
+      delete state.initiatives[action.payload];
+      saveDuplicatedCharactersToSessionStorage(state.duplicatedCharacters);
+      saveInitiativesToSessionStorage(state.initiatives);
+    },
   },
 });
 
-export const { actions, reducer } = bestiarySlice;
+export const actions = bestiarySlice.actions;
+export const reducer = bestiarySlice.reducer;

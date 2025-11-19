@@ -6,6 +6,8 @@ import { Character } from "@/domain/characters/Character";
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react";
 import { attributesIcons, characteristicIcons, goToIcon, immunityIcon, resistanceIcon, sortIcon } from "@/presentation/icons";
+import { useSelector } from "react-redux";
+import { RootState } from "@/persistence/slices/store";
 import { useState } from "react";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
@@ -34,7 +36,9 @@ import { Badge } from "@/common/components/ui/badge";
 import TagsView from "@/common/components/tags/TagsView";
 import ExternalParticipantActionsCell from "@/application/bestiary/battle/ExternalParticipantActionsCell";
 import ExternalParticipantHealthCell from "@/application/bestiary/battle/ExternalParticipantHealthCell";
-import { BattleCombatant, isCharacter, isExternalParticipant } from "@/application/bestiary/battle/ExternalParticipant";
+import { BattleCombatant, isCharacter, isExternalParticipant, isDuplicatedCharacter, createDuplicatedCharacter } from "@/application/bestiary/battle/BattleCombatants";
+import { useDispatch } from "react-redux";
+import { actions } from "@/persistence/slices/bestiarySlice";
 
 export const columnKeys =
 {
@@ -87,6 +91,17 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         {
           return <CharacterNameView character={combatant} />;
         }
+        if (isDuplicatedCharacter(combatant)) 
+        {
+          return (
+            <div className="flex items-center gap-2">
+              <CharacterNameView character={combatant.character} />
+              <Badge variant="secondary" className="text-xs">
+                {displayedText.copy} {combatant.duplicateNumber}
+              </Badge>
+            </div>
+          );
+        }
         return <span className="font-medium text-emerald-500">{combatant.name}</span>;
       },
       enableHiding: false
@@ -100,6 +115,10 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         if (isCharacter(combatant)) 
         {
           return <TagsView tags={combatant.tags} />;
+        }
+        if (isDuplicatedCharacter(combatant)) 
+        {
+          return <TagsView tags={combatant.character.tags} />;
         }
         return null;
       },
@@ -115,6 +134,10 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         if (isCharacter(combatant)) 
         {
           return <InitiativeCell id={combatant.id} initiative={combatant.attributes.initiative} />;
+        }
+        if (isDuplicatedCharacter(combatant)) 
+        {
+          return <InitiativeCell id={combatant.id} initiative={combatant.character.attributes.initiative} />;
         }
 
         return <InitiativeCell id={combatant.id} initiative={combatant.initiative} />;
@@ -148,6 +171,11 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         {
           return <CharacterHealthBattleView character={combatant} />;
         }
+        
+        if (isDuplicatedCharacter(combatant)) 
+        {
+          return <CharacterHealthBattleView character={combatant.character} />;
+        }
 
         return <ExternalParticipantHealthCell participant={combatant} />;
       },
@@ -163,6 +191,10 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         {
           return <CharacterDefensesBattleView character={combatant} />;
         }
+        if (isDuplicatedCharacter(combatant) && combatant.character.defenses.length > 0) 
+        {
+          return <CharacterDefensesBattleView character={combatant.character} />;
+        }
         return null;
       },
       header: () => <span className="capitalize">{displayedText[columnKeys.defense]}</span>
@@ -176,6 +208,10 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         if (isCharacter(combatant) && combatant.offenses.length > 0) 
         {
           return <CharacterOffensesBattleView character={combatant} />;
+        }
+        if (isDuplicatedCharacter(combatant) && combatant.character.offenses.length > 0) 
+        {
+          return <CharacterOffensesBattleView character={combatant.character} />;
         }
 
         if (isExternalParticipant(combatant))
@@ -193,15 +229,19 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
       cell: ({ row }) => 
       {
         const combatant = row.original;
-        if (!isCharacter(combatant)) return null;
-        
-        return (
-          <div className="flex flex-wrap gap-2">
-            <div className="flex flex-wrap gap-2">{characteristicIcons.strength} {getStatisticTotalTestValue(combatant.characteristics.strength)}</div>
-            <div className="flex flex-wrap gap-2">{characteristicIcons.dexterity} {getStatisticTotalTestValue(combatant.characteristics.dexterity)}</div>
-            <div className="flex flex-wrap gap-2">{characteristicIcons.constitution} {getStatisticTotalTestValue(combatant.characteristics.constitution)}</div>
-          </div>
-        );
+        const char = isCharacter(combatant) ? combatant : isDuplicatedCharacter(combatant) ? combatant.character : null;
+        if (!char) return null;
+
+        if (isCharacter(combatant))
+        {
+          return (
+            <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2">{characteristicIcons.strength} {getStatisticTotalTestValue(char.characteristics.strength)}</div>
+              <div className="flex flex-wrap gap-2">{characteristicIcons.dexterity} {getStatisticTotalTestValue(char.characteristics.dexterity)}</div>
+              <div className="flex flex-wrap gap-2">{characteristicIcons.constitution} {getStatisticTotalTestValue(char.characteristics.constitution)}</div>
+            </div>
+          );
+        }
       },
       header: () => <span className="capitalize">{displayedText[columnKeys.characteristics]}</span>,
       meta: { initiallyHidden: true },
@@ -212,18 +252,19 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
       cell: ({ row }) => 
       {
         const combatant = row.original;
-        if (!isCharacter(combatant)) return null;
+        const char = isCharacter(combatant) ? combatant : isDuplicatedCharacter(combatant) ? combatant.character : null;
+        if (!char) return null;
         
         return (
           <div className="flex flex-wrap gap-2">
-            <div className="flex flex-wrap gap-2">{attributesIcons.initiative} {getStatisticTotalTestValue(combatant.attributes.initiative)}</div>
-            <div className="flex flex-wrap gap-2">{attributesIcons.fencing} {getStatisticTotalTestValue(combatant.attributes.fencing)}</div>
-            <div className="flex flex-wrap gap-2">{attributesIcons.artifice} {getStatisticTotalTestValue(combatant.attributes.artifice)}</div>
-            <div className="flex flex-wrap gap-2">{attributesIcons.martialArt} {getStatisticTotalTestValue(combatant.attributes.martialArt)}</div>
-            <div className="flex flex-wrap gap-2">{attributesIcons.precision} {getStatisticTotalTestValue(combatant.attributes.precision)}</div>
-            <div className="flex flex-wrap gap-2 ml-5">{attributesIcons.fortitude} {getStatisticTotalTestValue(combatant.attributes.fortitude)}</div>
-            <div className="flex flex-wrap gap-2">{attributesIcons.reflex} {getStatisticTotalTestValue(combatant.attributes.reflex)}</div>
-            <div className="flex flex-wrap gap-2">{attributesIcons.willpower} {getStatisticTotalTestValue(combatant.attributes.willpower)}</div>
+            <div className="flex flex-wrap gap-2">{attributesIcons.initiative} {getStatisticTotalTestValue(char.attributes.initiative)}</div>
+            <div className="flex flex-wrap gap-2">{attributesIcons.fencing} {getStatisticTotalTestValue(char.attributes.fencing)}</div>
+            <div className="flex flex-wrap gap-2">{attributesIcons.artifice} {getStatisticTotalTestValue(char.attributes.artifice)}</div>
+            <div className="flex flex-wrap gap-2">{attributesIcons.martialArt} {getStatisticTotalTestValue(char.attributes.martialArt)}</div>
+            <div className="flex flex-wrap gap-2">{attributesIcons.precision} {getStatisticTotalTestValue(char.attributes.precision)}</div>
+            <div className="flex flex-wrap gap-2 ml-5">{attributesIcons.fortitude} {getStatisticTotalTestValue(char.attributes.fortitude)}</div>
+            <div className="flex flex-wrap gap-2">{attributesIcons.reflex} {getStatisticTotalTestValue(char.attributes.reflex)}</div>
+            <div className="flex flex-wrap gap-2">{attributesIcons.willpower} {getStatisticTotalTestValue(char.attributes.willpower)}</div>
           </div>
         );
       },
@@ -255,6 +296,10 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         if (isCharacter(combatant)) 
         {
           return <MoreBattleActions character={combatant} />;
+        }
+        if (isDuplicatedCharacter(combatant)) 
+        {
+          return <MoreBattleActions character={combatant.character} />;
         }
         if (isExternalParticipant(combatant)) 
         {
@@ -352,6 +397,14 @@ function MoreBattleActions({ character }: { character: Character })
 {
   const [isModesAndManeuversDrawerOpen, setIsModesAndManeuversDrawerOpen] = useState(false);
   const [isPowersDrawerOpen, setIsPowersDrawerOpen] = useState(false);
+  const dispatch = useDispatch();
+  const duplicatedCharacters = useSelector((state: RootState) => state.bestiary.duplicatedCharacters) ?? [];
+
+  const handleDuplicate = () => 
+  {
+    const duplicate = createDuplicatedCharacter(character, duplicatedCharacters);
+    dispatch(actions.addDuplicatedCharacter(duplicate));
+  };
 
   return (
     <>
@@ -366,6 +419,7 @@ function MoreBattleActions({ character }: { character: Character })
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStatesManeuvers}</span></DropdownMenuItem>
           { character.powers.length > 0 && <DropdownMenuItem onClick={() => setIsPowersDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPowers}</span></DropdownMenuItem>}
+          <DropdownMenuItem onClick={handleDuplicate}><span className="first-letter:uppercase">{displayedText.duplicateCharacter}</span></DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 

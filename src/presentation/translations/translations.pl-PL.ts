@@ -270,6 +270,10 @@ export const translations_plPL =
     sortByInitiative: "Sortuj według inicjatywy",
     initiativeValue: "Bonus inicjatywy",
     
+    duplicateCharacter: "Duplikuj postać",
+    characterDuplicated: "Postać została zduplikowana",
+    copy: "Kopia",
+    
     addExternalParticipant: "Dodaj zewnętrznego uczestnika",
     externalParticipant: "Zewnętrzny uczestnik",
     externalParticipantAdded: "Dodano zewnętrznego uczestnika",
