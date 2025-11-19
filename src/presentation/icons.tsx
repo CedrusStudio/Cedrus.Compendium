@@ -45,6 +45,7 @@ import { BiImport } from "react-icons/bi";
 import { VscGoToSearch } from "react-icons/vsc";
 import { cn } from "@/lib/utils";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -133,3 +134,6 @@ export const okIcon = (className?: string) => <FaCheck className={className} />;
 export const cancelIcon = (className?: string) => <FaTimes className={className} />;
 
 export const sortIcon = (className?: string) => <ArrowUpDown className={className} />;
+export const showHideIcon = (isHidden: boolean, className?: string) => isHidden
+  ? <FaEye className={className} />
+  : <FaEyeSlash className={className} />;

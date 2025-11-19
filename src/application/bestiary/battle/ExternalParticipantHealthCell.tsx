@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { ExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
 import { Input } from "@/common/components/ui/input";
+import { Button } from "@/common/components/ui/button";
+import { resetIcon } from "@/presentation/icons";
 
 type ExternalParticipantHealthCellProps = 
 {
@@ -26,6 +28,7 @@ export default function ExternalParticipantHealthCell({ participant }: ExternalP
         <div>
         / {participant.maxHealth}
         </div>
+      <Button variant="ghost" size="icon" onClick={() => setHealth((participant.maxHealth ?? 0).toString())} title={"Reset health to total"}>{resetIcon()}</Button>
       </div>
     </>
   );

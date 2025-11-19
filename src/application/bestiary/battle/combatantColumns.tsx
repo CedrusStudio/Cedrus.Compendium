@@ -5,7 +5,7 @@ import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons, goToIcon, immunityIcon, resistanceIcon, sortIcon } from "@/presentation/icons";
+import { attributesIcons, characteristicIcons, goToIcon, immunityIcon, resetIcon, resistanceIcon, sortIcon } from "@/presentation/icons";
 import { useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";
 import { useState } from "react";
@@ -39,6 +39,8 @@ import ExternalParticipantHealthCell from "@/application/bestiary/battle/Externa
 import { BattleCombatant, isCharacter, isExternalParticipant, isDuplicatedCharacter, createDuplicatedCharacter } from "@/application/bestiary/battle/BattleCombatants";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
+import DuplicatedCharacterAdditionalName from "@/application/bestiary/battle/DuplicatedCharacterAdditionalName";
+import { Input } from "@/common/components/ui/input";
 
 export const columnKeys =
 {
@@ -89,16 +91,19 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         const combatant = row.original;
         if (isCharacter(combatant)) 
         {
-          return <CharacterNameView character={combatant} />;
+          return (
+            <div className="flex items-center gap-2">
+              <CharacterNameView character={combatant} />
+              <DuplicatedCharacterAdditionalName duplicateNumber={1} />
+            </div>
+          );
         }
         if (isDuplicatedCharacter(combatant)) 
         {
           return (
             <div className="flex items-center gap-2">
               <CharacterNameView character={combatant.character} />
-              <Badge variant="secondary" className="text-xs">
-                {displayedText.copy} {combatant.duplicateNumber}
-              </Badge>
+              <DuplicatedCharacterAdditionalName duplicateNumber={combatant.duplicateNumber} />
             </div>
           );
         }
@@ -329,9 +334,21 @@ function CharacterNameView({ character }: {character: Character})
 
 function CharacterHealthBattleView({ character }: {character: Character})
 {
+  const totalHealth = calculateTotalHealthForCharacter(character);
+  const [health, setHealth] = useState(totalHealth);
+
   return (
-    <div>
-      {calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth > 0 ? `(-${character.health.lethalHealth})` : null} [{character.health.recoveryLevel}]
+    <div className="flex flex-row place-items-center gap-2">
+      <Input 
+          id="health" 
+          type="number" 
+          value={health} 
+          onChange={e => setHealth(Number(e.target.value))} 
+          className="w-17"
+      /> 
+      <span>/ {totalHealth} {character.health.barrier > 0 && `+${character.health.barrier}`}</span>
+      <span>{character.health.lethalHealth > 0 ? `(-${character.health.lethalHealth})` : null} [{character.health.recoveryLevel}]</span>
+      <Button variant="ghost" size="icon" onClick={() => setHealth(totalHealth)} title={"Reset health to total"}>{resetIcon()}</Button>
     </div>
   );
 }
