@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DuplicatedCharacter, ExternalParticipant } from '@/application/bestiary/battle/ExternalParticipant';
+import { DuplicatedCharacter, ExternalParticipant } from '@/application/bestiary/battle/BattleCombatants';
 
 const BATTLE_STORAGE_KEY = 'charactersInBattle';
 const INITIATIVES_STORAGE_KEY = 'battleInitiatives';
