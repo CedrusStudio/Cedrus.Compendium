@@ -262,5 +262,36 @@ export const translations_plPL =
 
     loadMore: "Załaduj więcej",
     loading: "Ładowanie...",
+    
+    rollInitiative: "Rzuć inicjatywą",
+    manualInitiative: "Wpisz inicjatywę ręcznie",
+    rollAllInitiatives: "Rzuć wszystkie inicjatywy",
+    clearAllInitiatives: "Wyczyść wszystkie inicjatywy",
+    sortByInitiative: "Sortuj według inicjatywy",
+    initiativeValue: "Bonus inicjatywy",
+    
+    duplicateCharacter: "Duplikuj postać",
+    characterDuplicated: "Postać została zduplikowana",
+    copy: "Kopia",
+    
+    addExternalParticipant: "Dodaj zewnętrznego uczestnika",
+    externalParticipant: "Zewnętrzny uczestnik",
+    externalParticipantAdded: "Dodano zewnętrznego uczestnika",
+    addExternalParticipantDescription: "Dodaj gracza, NPC lub inny byt do walki",
+    enterName: "Wprowadź imię",
+    enterNotes: "Wprowadź notatki",
+    notes: "Notatki",
+    maxHealth: "Maksymalne zdrowie",
+    currentHealth: "Bieżące zdrowie",
+    nameRequired: "Imię jest wymagane",
+    changesSaved: "Zmiany zapisane",
+    removed: "usunięto",
+    initiativeGrade: "Ranga kości inicjatywy",
+    editInitiative: "Edytuj inicjatywę",
+    editInitiativeDescription: "Zaktualizuj rangę i wartość inicjatywy dla tego uczestnika.",
+    deleteParticipant: "Usuń uczestnika",
+    confirmDelete: "Czy na pewno chcesz usunąć tego uczestnika z bitwy?",
+    initiativeUpdated: "Zaktualizowano inicjatywę",
+    invalidGrade: "Nieprawidłowa wartość rangi",
 } as const;
 

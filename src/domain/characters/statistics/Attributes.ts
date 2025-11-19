@@ -13,3 +13,14 @@ export type Attributes =
   reflex: Statistic;
   willpower: Statistic;
 };
+
+export function rollInitiative(initiative: Statistic): number 
+{
+  return rollInitiativeBase(initiative.grade, initiative.value, initiative.bonus, initiative.testBonus);
+}
+
+export function rollInitiativeBase(grade: number, value: number, bonus: number, testBonus: number): number 
+{
+  const diceRoll = Math.floor(Math.random() * grade * 2) + 1;
+  return diceRoll + value + bonus + testBonus;
+}

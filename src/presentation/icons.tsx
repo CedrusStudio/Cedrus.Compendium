@@ -18,7 +18,7 @@ import { GiChessKnight } from "react-icons/gi";
 import { GiMeditation } from "react-icons/gi";
 import { ReactNode } from "react";
 
-import { IoShieldOutline } from "react-icons/io5";
+import { IoShieldOutline, IoTrashOutline } from "react-icons/io5";
 import { IoShieldHalfOutline } from "react-icons/io5";
 import { IoShield } from "react-icons/io5";
 
@@ -32,7 +32,7 @@ import { GiMagicSwirl } from "react-icons/gi";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { LuMinus } from "react-icons/lu";
 import { IoMdCopy } from "react-icons/io";
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
+import { ArrowUpDown, ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { RiDeleteBack2Line, RiResetLeftFill } from "react-icons/ri";
 import { GrNext } from "react-icons/gr";
 import { GiHealthIncrease } from "react-icons/gi";
@@ -44,6 +44,8 @@ import { IoIosArrowRoundDown } from "react-icons/io";
 import { BiImport } from "react-icons/bi";
 import { VscGoToSearch } from "react-icons/vsc";
 import { cn } from "@/lib/utils";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -89,7 +91,7 @@ export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
 
 export const addIcon = (className?: string) => <LuPlus className={className} />;
-export const removeIcon = (className: string) => <LuMinus className={className} />;
+export const removeIcon = (className?: string) => <LuMinus className={className} />;
 export const cooldownIcon = (className?: string) => <LuRefreshCcw className={className} />;
 export const resetIcon = (className?: string) => <RiResetLeftFill className={className} />;
 export const nextIcon = (className?: string) => <GrNext className={className} />;
@@ -118,6 +120,7 @@ export const arrowDownIcon = <IoIosArrowRoundDown className="w-4 h-4" />;
 
 export const importIcon = <BiImport className="w-5 h-5" />;
 export const goToIcon = <VscGoToSearch className="w-5 h-5" />;
+export const deleteIcon = <IoTrashOutline className="w-5 h-5" />;
 
 export const reductionArmorOrBlockIcon = (className?: string) => <IoShieldHalfOutline className={className} />;
 
@@ -126,3 +129,11 @@ export const strengthRequirementIcon = (className?: string) => <LuBicepsFlexed c
 export const dexterityRestrictionIcon = (className?: string) => <GiRun className={cn("text-red-500", className)} />;
 export const reflexRestrictionIcon = (className?: string) => <GiDodging className={cn("text-red-500", className)} />;
 export const initiativeRestrictionIcon = (className?: string) => <BsLightning className={cn("text-red-500", className)} />;
+
+export const okIcon = (className?: string) => <FaCheck className={className} />;
+export const cancelIcon = (className?: string) => <FaTimes className={className} />;
+
+export const sortIcon = (className?: string) => <ArrowUpDown className={className} />;
+export const showHideIcon = (isHidden: boolean, className?: string) => isHidden
+  ? <FaEye className={className} />
+  : <FaEyeSlash className={className} />;

@@ -12,8 +12,8 @@ import {
   AlertDialogTrigger,
 } from "@/ui/alert-dialog";
 import { Button } from '@/ui/button';
-import { IoTrashOutline } from 'react-icons/io5';
 import { displayedText } from "@/presentation/translations";
+import { deleteIcon } from "@/presentation/icons";
 
 type DeleteButtonProps =
 {
@@ -33,7 +33,7 @@ export default function DeleteButton({ id, isPending, deleteAction }: DeleteButt
                     className="my-4 hover:text-red-950"
                     disabled={isPending}
                 >
-                    <IoTrashOutline />
+                    {deleteIcon}
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
