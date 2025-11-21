@@ -14,9 +14,9 @@ import {
 
 import { Table } from "@/ui/table";
 import { useState, useEffect } from "react";
-import { allowedTalentCategories, Talent } from "@/domain/characters/Talent";
+import { allowedTalentCategories, basicTalents, Talent } from "@/domain/characters/Talent";
 import { type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, UseFieldArrayAppend, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
 import { displayedText } from "@/presentation/translations";
@@ -27,6 +27,8 @@ import PaginationButtons from "@/common/components/table/PaginationButtons";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
+import { Button } from "@/common/components/ui/button";
+import { toast } from "sonner";
 
 interface DataTableProps
 {
@@ -38,7 +40,7 @@ interface DataTableProps
 export function EditTalentsTable({ columns, initialTalents }: DataTableProps) 
 {
   const { control } = useFormContext<TalentsDto>();
-  const { fields, update, remove, append } = useFieldArray
+  const { fields, update, remove, append, replace } = useFieldArray
   ({
     name: "talents",
     control,
@@ -108,6 +110,10 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
           />
 
           <AddTalentView append={append} setNameFilter={setNameFilter} />
+          <AddBasicTalentButton talents={fields} append={append} />
+          <Button type="button" onClick={() => replace([])} variant="destructive" >
+            {"Usuń wszystkie talenty"}
+          </Button>
 
         </div>
 
@@ -135,3 +141,29 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
     </div>
   )
 }
+
+type AddBasicTalentButtonProps =
+{
+  talents: Talent[];
+  append: UseFieldArrayAppend<TalentsDto, "talents">;
+}
+
+function AddBasicTalentButton({ talents, append }: AddBasicTalentButtonProps) 
+{
+  const handleAddBasicTalent = () => 
+  {
+    for (const talent of basicTalents)
+    {
+      if (talents.some(t => t.name === talent.name)) continue;
+      append(talent);
+    }
+
+    toast.success(`Dodano podstawowe talenty. Kliknij "zapisz" aby je utrwalić.`);
+  };
+
+  return (
+    <Button variant="outline" onClick={handleAddBasicTalent} type="button">
+      {"Dodaj podstawowe talenty"}
+    </Button>
+  )
+} 

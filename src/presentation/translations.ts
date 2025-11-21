@@ -69,6 +69,7 @@ export const displayedText =
     short_name: translate("short_name"),
     grade: translate("grade"),
     bonus: translate("bonus"),
+    isPhantom: translate("isPhantom"),
     category: translate("category"),
     statistics: translate("statistics"),
     characteristic: translate("characteristic"),

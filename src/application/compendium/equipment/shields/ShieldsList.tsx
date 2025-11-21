@@ -22,7 +22,7 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultShield, Shield } from "@/domain/characters/equipment/Shield";
 import { Input } from "@/common/components/ui/input";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
@@ -52,7 +52,7 @@ export default function ShieldsList()
     queryKey, 
     queryFn: async () => 
     {
-      const shieldsQuery = createShieldKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const shieldsQuery = createShieldKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Shield[]>(shieldsQuery);
     },
     staleTime: 5_000

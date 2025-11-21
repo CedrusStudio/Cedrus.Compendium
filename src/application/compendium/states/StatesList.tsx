@@ -52,7 +52,7 @@ export default function StatesList()
     queryKey, 
     queryFn: async () => 
     {
-      const statesQuery = createStateKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const statesQuery = createStateKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Mode[]>(statesQuery);
     },
     staleTime: 5_000
@@ -97,7 +97,7 @@ export default function StatesList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center">
+      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
         <Input 
           name="search" 
           type="text" 

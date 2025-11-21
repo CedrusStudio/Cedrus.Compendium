@@ -12,7 +12,6 @@ import { battleIcon, cooldownIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
-import { useSearchManeuvers } from '@/application/characters/edit/combat/hooks/useSearchManeuvers';
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from 'react';
@@ -20,6 +19,8 @@ import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import SummaryView from '@/application/common/SummaryView';
 import EditCharacterCombatPerkSheet from './EditCharacterCombatPerkSheet';
 import CastablePerkEditableFields from '@/application/common/combat/CastablePerkEditableFields';
+import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery';
+import { createKeysetSearchManeuversKey } from '@/persistence/cacheKeys';
 
 type EditManeuversCardProps = 
 {
@@ -71,7 +72,7 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
   const renderManeuverItem = (maneuver: Maneuver, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(maneuver.id)}>
+      <SelectableItemWrapper key={maneuver.id} isSelected={isSelected} onToggle={() => onToggle(maneuver.id)} cannotSelect={watchedArray.map(maneuver => maneuver.id).includes(maneuver.id)}>
         <ManeuverView maneuver={maneuver} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -88,12 +89,13 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
           <ImportItemsSheet
             importTitle={displayedText.import_maneuvers}
             importDescription={displayedText.select_maneuvers_to_import}
-            notFoundText={displayedText.no_maneuvers_found}
             onImport={handleImportManeuvers}
             isPending={isPending}
             currentItemsIds={watchedArray.map(maneuver => maneuver.id)}
-            useSearchItems={useSearchManeuvers}
             renderItem={renderManeuverItem}
+            createKeysetQuery={createManeuverKeysetQuery}
+            createKeysetSearchKey={createKeysetSearchManeuversKey}
+            entityType="maneuvers"
           />
         </CardTitle>
       </CardHeader>

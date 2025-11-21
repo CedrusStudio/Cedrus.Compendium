@@ -14,7 +14,6 @@ import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
-import { useSearchSpells } from '@/application/characters/edit/combat/hooks/useSearchSpells';
 import SpellView from "@/application/compendium/spells/SpellView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from 'react';
@@ -25,6 +24,8 @@ import SpellEditableFields from '@/application/common/combat/SpellEditableFields
 import { battleIcon, cooldownIcon, costIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
+import { createSpellKeysetQuery } from '@/infrastructure/searchQueries/spells/createSpellKeysetQuery';
+import { createKeysetSearchSpellsKey } from '@/persistence/cacheKeys';
 
 type EditPowersCardProps =
 {
@@ -81,7 +82,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
   const renderSpellItem = (spell: Spell, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(spell.id)}>
+      <SelectableItemWrapper key={spell.id} isSelected={isSelected} onToggle={() => onToggle(spell.id)} cannotSelect={spells.map(spell => spell.id).includes(spell.id)}>
         <SpellView spell={spell} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -132,12 +133,13 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
             <ImportItemsSheet
               importTitle={displayedText.import_spells}
               importDescription={displayedText.select_spells_to_import}
-              notFoundText={displayedText.no_spells_found}
               onImport={handleImportSpells}
               isPending={isPending}
               currentItemsIds={spells.map(spell => spell.id)}
-              useSearchItems={useSearchSpells}
               renderItem={renderSpellItem}
+              createKeysetQuery={createSpellKeysetQuery}
+              createKeysetSearchKey={createKeysetSearchSpellsKey}
+              entityType="spells"
             />
 
           </div>

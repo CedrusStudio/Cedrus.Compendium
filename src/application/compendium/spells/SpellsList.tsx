@@ -55,7 +55,7 @@ export default function SpellsList()
     queryKey, 
     queryFn: async () => 
     {
-      const spellsQuery = createSpellKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const spellsQuery = createSpellKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000
@@ -100,7 +100,7 @@ export default function SpellsList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center">
+      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
         <Input 
           name="search" 
           type="text" 

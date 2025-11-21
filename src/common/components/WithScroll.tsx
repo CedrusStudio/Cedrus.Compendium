@@ -11,9 +11,10 @@ type WithScrollProps<TItem> =
   hasMore: boolean;
   renderItem: (item: TItem, index: number) => React.ReactNode;
   parentClassName?: string | undefined;
+  scrollableTarget?: string;
 }
 
-export function WithScroll<TItem>({ items, triggerNext, hasMore, renderItem, parentClassName }: WithScrollProps<TItem>)
+export function WithScroll<TItem>({ items, triggerNext, hasMore, renderItem, parentClassName, scrollableTarget }: WithScrollProps<TItem>)
 {
   return (
     <InfiniteScroll
@@ -22,6 +23,7 @@ export function WithScroll<TItem>({ items, triggerNext, hasMore, renderItem, par
       hasMore={hasMore}
       loader={<Loader />}
       endMessage={<EndSeparator />}
+      scrollableTarget={scrollableTarget}
     >
       <div className={parentClassName || "flex flex-col gap-2"}>
         {items.map(renderItem)}

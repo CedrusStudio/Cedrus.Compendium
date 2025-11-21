@@ -64,14 +64,6 @@ export const allowedTalentSenses =
   "orientacja"
 ] as const satisfies readonly string[];
 
-export const allowedTalentLanguages =
-[
-  "boski",
-  "elficki",
-  "krasnoludzki",
-  "wróżowski"
-] as const satisfies readonly string[];
-
 export const allowedTalentProficiencies =
 [
   "pływanie",
@@ -126,7 +118,77 @@ export const defaultTalent: Omit<Talent, "id"> =
   characteristics: "siła",
   bonus: 0,
   grade: defaultDiceGrade,
-  penalty: null
+  penalty: null,
 };
 
 export const CreateDefaultTalent = (): Talent => ({...defaultTalent, id: ulid()});
+
+export const basicTalents : Talent[] =
+[
+  // Zmysły
+  {...CreateDefaultTalent(), name: "wzrok", category: "zmysł", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "słuch", category: "zmysł", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "węch", category: "zmysł", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "smak", category: "zmysł", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "dotyk", category: "zmysł", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "spostrzegawczość", category: "zmysł", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "orientacja", category: "zmysł", characteristics: "umysł"},
+
+  // Języki
+  {...CreateDefaultTalent(), name: "język boski", category: "język", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "język elficki", category: "język", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "język krasnoludzki", category: "język", characteristics: "umysł"},
+
+  // Fachy
+  {...CreateDefaultTalent(), name: "kradzież kieszonkowa", category: "fach", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "otwieranie zamków", category: "fach", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "pierwsza pomoc", category: "fach", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "tropienie", category: "fach", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "fałszerstwo", category: "fach", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "kulinaria", category: "fach", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "ukrywanie", category: "fach", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "wycena", category: "fach", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "używanie urządzeń", category: "fach", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "aktorstwo", category: "fach", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "instrument muzyczny", category: "fach", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "kuglarstwo", category: "fach", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "śpiew", category: "fach", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "taniec", category: "fach", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "występy sceniczne", category: "fach", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "kowalstwo", category: "fach", characteristics: "umysł"},
+
+  // Wiedza
+  {...CreateDefaultTalent(), name: "wiedza tajemna", category: "wiedza", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "wiedza historia", category: "wiedza", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "wiedza religia", category: "wiedza", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "wiedza natura", category: "wiedza", characteristics: "umysł"},
+
+  // Sprawności
+  {...CreateDefaultTalent(), name: "pływanie", category: "sprawność", characteristics: "siła"},
+  {...CreateDefaultTalent(), name: "wspinaczka", category: "sprawność", characteristics: "siła"},
+  {...CreateDefaultTalent(), name: "akrobatyka", category: "sprawność", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "skradanie", category: "sprawność", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "zachowanie równowagi", category: "sprawność", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "bezruch", category: "sprawność", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "używanie lin", category: "sprawność", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "zręczna dłoń", category: "sprawność", characteristics: "zręczność"},
+
+  // Pozostałe (Talent)
+  {...CreateDefaultTalent(), name: "przeszukiwanie", category: "talent", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "sztuka przetrwania", category: "talent", characteristics: "budowa"},
+  {...CreateDefaultTalent(), name: "oswobodzanie się", category: "talent", characteristics: "zręczność"},
+  {...CreateDefaultTalent(), name: "zwierzęca empatia", category: "talent", characteristics: "charyzma"},
+
+  {...CreateDefaultTalent(), name: "zastraszanie", category: "talent", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "blefowanie", category: "talent", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "dyplomacja", category: "talent", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "etykieta", category: "talent", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "retoryka", category: "talent", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "zbieranie informacji", category: "talent", characteristics: "charyzma"},
+];
+
+
+export const uniqueTalents : Talent[] =
+[
+  {...CreateDefaultTalent(), name: "kontrola mocy", category: "zmysł", characteristics: "czarokrwistość"}
+]

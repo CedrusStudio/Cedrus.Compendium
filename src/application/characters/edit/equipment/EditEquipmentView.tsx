@@ -23,17 +23,18 @@ import { FORM_IDS } from '@/application/characters/edit/editFormConstants';
 import { useCharacterForm } from '@/application/characters/edit/hooks/useCharacterForm';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import SelectableItemWrapper from '@/common/components/import/SelectableItemWrapper';
-import { useSearchWeapons } from '@/application/characters/edit/equipment/hooks/useSearchWeapons';
-import { useSearchArmors } from '@/application/characters/edit/equipment/hooks/useSearchArmors';
-import { useSearchShields } from '@/application/characters/edit/equipment/hooks/useSearchShields';
-import { useSearchMounts } from '@/application/characters/edit/equipment/hooks/useSearchMounts';
-import { useSearchInventory } from '@/application/characters/edit/equipment/hooks/useSearchInventory';
 import { useState, useEffect, useRef } from 'react';
 import ArmorViewFields from '@/application/common/equipment/Views/ArmorViewFields';
 import MountViewFields from '@/application/common/equipment/Views/MountViewFields';
 import ShieldViewFields from '@/application/common/equipment/Views/ShieldViewFields';
 import WeaponViewFields from '@/application/common/equipment/Views/WeaponViewFields';
 import InventoryItemViewFields from '@/application/common/equipment/Views/InventoryItemViewFields';
+import { createArmorKeysetQuery } from '@/infrastructure/searchQueries/equipment/armors/createArmorKeysetQuery';
+import { createKeysetSearchArmorsKey, createKeysetSearchInventoryKey, createKeysetSearchMountsKey, createKeysetSearchShieldsKey, createKeysetSearchWeaponsKeyWithoutStyle } from '@/persistence/cacheKeys';
+import { createShieldKeysetQuery } from '@/infrastructure/searchQueries/equipment/shields/createShieldKeysetQuery';
+import { createInventoryItemKeysetQuery } from '@/infrastructure/searchQueries/equipment/inventory/createInventoryItemKeysetQuery';
+import { createMountKeysetQuery } from '@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery';
+import { createWeaponKeysetQuery } from '@/infrastructure/searchQueries/equipment/weapons/createWeaponKeysetQuery';
 
 export default function EditEquipmentView(input: { character: Character })
 {
@@ -206,7 +207,7 @@ export default function EditEquipmentView(input: { character: Character })
   const renderWeaponItem = (weapon: Weapon, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(weapon.id)}>
+      <SelectableItemWrapper key={weapon.id} isSelected={isSelected} onToggle={() => onToggle(weapon.id)} cannotSelect={weapons.map(weapon => weapon.id).includes(weapon.id)}>
         <WeaponViewFields weapon={weapon} />
       </SelectableItemWrapper>
     );
@@ -215,7 +216,7 @@ export default function EditEquipmentView(input: { character: Character })
   const renderArmorItem = (armor: Armor, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(armor.id)}>
+      <SelectableItemWrapper key={armor.id} isSelected={isSelected} onToggle={() => onToggle(armor.id)} cannotSelect={armors.map(armor => armor.id).includes(armor.id)}>
         <ArmorViewFields armor={armor} />
       </SelectableItemWrapper>
     );
@@ -224,7 +225,7 @@ export default function EditEquipmentView(input: { character: Character })
   const renderShieldItem = (shield: Shield, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(shield.id)}>
+      <SelectableItemWrapper key={shield.id} isSelected={isSelected} onToggle={() => onToggle(shield.id)} cannotSelect={shields.map(shield => shield.id).includes(shield.id)}>
         <ShieldViewFields shield={shield} />
       </SelectableItemWrapper>
     );
@@ -233,7 +234,7 @@ export default function EditEquipmentView(input: { character: Character })
   const renderInventoryItem = (item: Item, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(item.id)}>
+      <SelectableItemWrapper key={item.id} isSelected={isSelected} onToggle={() => onToggle(item.id)} cannotSelect={inventory.map(item => item.id).includes(item.id)}>
         <InventoryItemViewFields item={item} />
       </SelectableItemWrapper>
     );
@@ -242,7 +243,7 @@ export default function EditEquipmentView(input: { character: Character })
   const renderMountItem = (mount: Mount, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(mount.id)}>
+      <SelectableItemWrapper key={mount.id} isSelected={isSelected} onToggle={() => onToggle(mount.id)} cannotSelect={mounts.map(mount => mount.id).includes(mount.id)}>
         <MountViewFields mount={mount} />
       </SelectableItemWrapper>
     );
@@ -265,12 +266,13 @@ export default function EditEquipmentView(input: { character: Character })
             <ImportItemsSheet
               importTitle={displayedText.import_weapons}
               importDescription={displayedText.select_weapons_to_import}
-              notFoundText={displayedText.no_weapons_found}
               onImport={handleImportWeapons}
               isPending={isPending}
               currentItemsIds={weapons.map(weapon => weapon.id)}
-              useSearchItems={useSearchWeapons}
               renderItem={renderWeaponItem}
+              createKeysetQuery={createWeaponKeysetQuery}
+              createKeysetSearchKey={createKeysetSearchWeaponsKeyWithoutStyle}
+              entityType="weapons"
             />
           </ItemsView>
 
@@ -287,12 +289,13 @@ export default function EditEquipmentView(input: { character: Character })
             <ImportItemsSheet
               importTitle={displayedText.import_armors}
               importDescription={displayedText.select_armors_to_import}
-              notFoundText={displayedText.no_armors_found}
               onImport={handleImportArmors}
               isPending={isPending}
               currentItemsIds={armors.map(armor => armor.id)}
-              useSearchItems={useSearchArmors}
               renderItem={renderArmorItem}
+              createKeysetQuery={createArmorKeysetQuery}
+              createKeysetSearchKey={createKeysetSearchArmorsKey}
+              entityType="armors"
             />
           </ItemsView>
 
@@ -309,12 +312,13 @@ export default function EditEquipmentView(input: { character: Character })
             <ImportItemsSheet
               importTitle={displayedText.import_shields}
               importDescription={displayedText.select_shields_to_import}
-              notFoundText={displayedText.no_shields_found}
               onImport={handleImportShields}
               isPending={isPending}
               currentItemsIds={shields.map(shield => shield.id)}
-              useSearchItems={useSearchShields}
               renderItem={renderShieldItem}
+              createKeysetQuery={createShieldKeysetQuery}
+              createKeysetSearchKey={createKeysetSearchShieldsKey}
+              entityType="shields"
             />
           </ItemsView>
 
@@ -331,12 +335,13 @@ export default function EditEquipmentView(input: { character: Character })
             <ImportItemsSheet
               importTitle={displayedText.import_inventory}
               importDescription={displayedText.select_inventory_to_import}
-              notFoundText={displayedText.no_inventory_found}
               onImport={handleImportInventory}
               isPending={isPending}
               currentItemsIds={inventory.map(item => item.id)}
-              useSearchItems={useSearchInventory}
               renderItem={renderInventoryItem}
+              createKeysetQuery={createInventoryItemKeysetQuery}
+              createKeysetSearchKey={createKeysetSearchInventoryKey}
+              entityType="inventory"
             />
           </ItemsView>
 
@@ -353,12 +358,13 @@ export default function EditEquipmentView(input: { character: Character })
             <ImportItemsSheet
               importTitle={displayedText.import_mounts}
               importDescription={displayedText.select_mounts_to_import}
-              notFoundText={displayedText.no_mounts_found}
               onImport={handleImportMounts}
               isPending={isPending}
               currentItemsIds={mounts.map(mount => mount.id)}
-              useSearchItems={useSearchMounts}
               renderItem={renderMountItem}
+              createKeysetQuery={createMountKeysetQuery}
+              createKeysetSearchKey={createKeysetSearchMountsKey}
+              entityType="mounts"
             />
           </ItemsView>
 

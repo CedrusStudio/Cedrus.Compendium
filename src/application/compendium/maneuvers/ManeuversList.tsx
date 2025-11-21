@@ -54,7 +54,7 @@ export default function ManeuversList()
     queryKey, 
     queryFn: async () => 
     {
-      const maneuversQuery = createManeuverKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const maneuversQuery = createManeuverKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000
@@ -99,7 +99,7 @@ export default function ManeuversList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center">
+      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
         <Input 
           name="search" 
           type="text" 

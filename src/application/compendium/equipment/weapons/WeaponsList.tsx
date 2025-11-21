@@ -49,13 +49,13 @@ export default function WeaponsList()
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchWeaponsKey(debouncedSearchTerm, cursor, searchTags, selectedStyle, pageSize);
+  const queryKey = createKeysetSearchWeaponsKey(debouncedSearchTerm, cursor, searchTags,  pageSize, selectedStyle);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const weaponsQuery = createWeaponKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags, selectedStyle);
+      const weaponsQuery = createWeaponKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, selectedStyle);
       return await searchClient.search<Weapon[]>(weaponsQuery);
     },
     staleTime: 5_000

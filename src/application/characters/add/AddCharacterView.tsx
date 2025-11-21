@@ -133,6 +133,7 @@ function ModeSelector({ mode, onScratchClick, onCopyClick }: ModeSelectorProps)
             >
                 <span className="first-letter:capitalize">{displayedText.create_new_character}</span>
             </Button>
+
             <Button
                 type="button"
                 variant={mode === 'copy' ? 'default' : 'outline'}
@@ -180,7 +181,7 @@ function CharacterHeaderFields()
                 inputClassName="lg:w-xl"
             />
 
-            <FormTagsInput<HeaderDto> path="tags" />
+            <FormTagsInput<HeaderDto> path="tags" beAbleToSetCharacterAndSessionTags={true} />
 
             <AreaInputFormField<HeaderDto> 
                 path="description" 

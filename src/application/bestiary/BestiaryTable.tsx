@@ -137,7 +137,7 @@ export default function BestiaryTable()
 
   return (
     <div className="mx-3">
-      <div className="flex flex-wrap items-center justify-center py-4 gap-3">
+      <div className="flex flex-wrap items-center justify-center py-4 gap-3 sticky top-0 bg-background z-10">
         <Input 
           name="search" 
           type="text" 

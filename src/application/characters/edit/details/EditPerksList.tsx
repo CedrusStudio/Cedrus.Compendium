@@ -12,12 +12,13 @@ import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import TagsView from "@/common/components/tags/TagsView";
 import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
-import { useSearchPerks } from "@/application/characters/edit/details/hooks/useSearchPerks";
 import PerkView from "@/application/compendium/perks/PerkView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from "react";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import PerkEditableFields from "@/application/common/PerkEditableFields";
+import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
+import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
 
 type EditPerksListProps =
 {
@@ -69,7 +70,7 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
   const renderPerkItem = (perk: Perk, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(perk.id)}>
+      <SelectableItemWrapper key={perk.id} isSelected={isSelected} onToggle={() => onToggle(perk.id)} cannotSelect={perks.map(perk => perk.id).includes(perk.id)}>
         <PerkView perk={perk} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -93,12 +94,13 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
           <ImportItemsSheet
             importTitle={displayedText.import_perks}
             importDescription={displayedText.select_perks_to_import}
-            notFoundText={displayedText.no_perks_found}
             onImport={handleImportPerks}
             isPending={isPending}
             currentItemsIds={perks.map(perk => perk.id)}
-            useSearchItems={useSearchPerks}
             renderItem={renderPerkItem}
+            createKeysetQuery={createPerkKeysetQuery}
+            createKeysetSearchKey={createKeysetSearchPerksKey}
+            entityType="perks"
           />
         </div>
         

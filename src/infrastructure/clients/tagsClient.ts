@@ -15,11 +15,11 @@ export type EntityType =
 
 const tagsClient = 
 {
-    getEntityTags: async (entity: EntityType): Promise<string[]> =>
-    {
-        const response = await client.get<string[]>(`/tags/${entity}`);
-        return response.data;
-    }
+  getEntityTags: async (entity: EntityType): Promise<string[]> =>
+  {
+    const response = await client.get<string[]>(`/tags/${entity}`);
+    return response.data;
+  }
 };
 
 export default tagsClient;

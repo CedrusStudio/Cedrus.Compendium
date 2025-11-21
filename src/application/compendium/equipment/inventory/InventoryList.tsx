@@ -22,7 +22,7 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultInventoryItem, Item } from "@/domain/characters/equipment/Item";
 import { Input } from "@/common/components/ui/input";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
@@ -52,7 +52,7 @@ export default function InventoryList()
     queryKey, 
     queryFn: async () => 
     {
-      const inventoryQuery = createInventoryItemKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const inventoryQuery = createInventoryItemKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Item[]>(inventoryQuery);
     },
     staleTime: 5_000
@@ -95,7 +95,7 @@ export default function InventoryList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center">
+      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
         <Input 
           name="search" 
           type="text" 

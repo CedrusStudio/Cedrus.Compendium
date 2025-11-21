@@ -33,7 +33,6 @@ import TagFilter from "@/common/components/filters/TagFilter";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 
 const pageSize = DEFAULT_PAGE_SIZE;
-
 const EMPTY_ARRAY: never[] = [];
 
 export default function PerksList()
@@ -53,7 +52,7 @@ export default function PerksList()
     queryKey, 
     queryFn: async () => 
     {
-      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -98,7 +97,7 @@ export default function PerksList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center">
+      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
         <Input 
           name="search" 
           type="text" 

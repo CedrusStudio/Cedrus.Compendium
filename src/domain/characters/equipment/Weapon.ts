@@ -1,5 +1,5 @@
 import { Item } from "@/domain/characters/equipment/Item";
-import { Critical, DamageOffense, WeaponOffense } from "@/domain/characters/combat/Offense";
+import { Critical, DamageOffense, PossiblyPhantomDamageOffense, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { defaultDiceGrade } from "@/domain/diceDefaults";
 import { ulid } from "ulid";
 
@@ -7,7 +7,7 @@ export type Weapon = Item &
 {
   style: Style;
   offense: WeaponOffense;
-  damageBonus: DamageOffense;
+  damageBonus: PossiblyPhantomDamageOffense;
   range: number;
 };
 
@@ -17,6 +17,7 @@ export const allowedStyles = ["Jednoręczny", "Dwuręczny", "Półtoraręczny"] 
 export const pathToWeaponOffenseField = <K extends keyof WeaponOffense>(field: K): `offense.${K}` => `offense.${field}`;
 export const pathToWeaponOffenseCriticalField = <K extends keyof Critical>(field: K): `offense.critical.${K}` => `offense.critical.${field}`;
 export const pathToWeaponDamageOffenseField = <K extends keyof DamageOffense>(field: K): `damageBonus.${K}` => `damageBonus.${field}`;
+export const pathToPossiblePhantomWeaponDamageOffenseField = <K extends keyof PossiblyPhantomDamageOffense>(field: K): `damageBonus.${K}` => `damageBonus.${field}`;
 
 export const defaultWeapon: Omit<Weapon, "id"> =
 {
@@ -24,7 +25,7 @@ export const defaultWeapon: Omit<Weapon, "id"> =
   description: "Opis broni",
   style: "Jednoręczny",
   range: 1,
-  damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0 },
+  damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0, isPhantom: false },
   offense: { amount: 1, grade: defaultDiceGrade, bonus: 0, critical: { range: 0, power: 0 } },
   tags: []
 };
