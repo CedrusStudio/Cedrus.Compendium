@@ -54,7 +54,7 @@ export default function ManeuversList()
     queryKey, 
     queryFn: async () => 
     {
-      const maneuversQuery = createManeuverKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const maneuversQuery = createManeuverKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000

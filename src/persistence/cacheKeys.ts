@@ -134,8 +134,8 @@ export function createKeysetSearchWeaponsKey
     search: string | undefined, 
     cursor: string = emptyUlid, 
     includeTags?: string[],
-    style?: Style | "All",
-    pageSize: number = DEFAULT_PAGE_SIZE
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    style?: Style | "All"
 ) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
@@ -145,6 +145,23 @@ export function createKeysetSearchWeaponsKey
         cursor, 
         includeTags?.join(',') || '', 
         style || '', 
+        pageSize
+    ] as const;
+}
+export function createKeysetSearchWeaponsKeyWithoutStyle
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid, 
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE
+) : readonly [string, string, string | undefined, string, string, number] 
+{
+    return [
+        weaponKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
         pageSize
     ] as const;
 }

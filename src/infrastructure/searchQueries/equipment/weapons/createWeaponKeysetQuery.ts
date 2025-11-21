@@ -7,8 +7,8 @@ export function createWeaponKeysetQuery
 (
   searchQuery: string | undefined, 
   cursor: string = emptyUlid,
-  pageSize: number = DEFAULT_PAGE_SIZE,
   includeTags?: string[],
+  pageSize: number = DEFAULT_PAGE_SIZE,
   style?: Style | "All"
 )
   : SearchEntityPayload

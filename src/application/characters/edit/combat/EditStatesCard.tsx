@@ -9,10 +9,11 @@ import { useFormContext } from 'react-hook-form';
 import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
-import { useSearchStates } from '@/application/characters/edit/combat/hooks/useSearchStates';
 import StateView from "@/application/compendium/states/StateView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from 'react';
+import { createKeysetSearchStatesKey } from '@/persistence/cacheKeys';
+import { createStateKeysetQuery } from '@/infrastructure/searchQueries/states/createStateKeysetQuery';
 
 type EditStatesCardProps = 
 {
@@ -61,7 +62,7 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
   const renderStateItem = (state: Mode, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(state.id)}>
+      <SelectableItemWrapper key={state.id} isSelected={isSelected} onToggle={() => onToggle(state.id)} cannotSelect={watchedArray.map(state => state.id).includes(state.id)}>
         <StateView state={state} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -78,12 +79,13 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
           <ImportItemsSheet
             importTitle={displayedText.import_states}
             importDescription={displayedText.select_states_to_import}
-            notFoundText={displayedText.no_states_found}
             onImport={handleImportStates}
             isPending={isPending}
             currentItemsIds={watchedArray.map(state => state.id)}
-            useSearchItems={useSearchStates}
             renderItem={renderStateItem}
+            createKeysetQuery={createStateKeysetQuery}
+            createKeysetSearchKey={createKeysetSearchStatesKey}
+            entityType="states"
           />
         </CardTitle>
       </CardHeader>

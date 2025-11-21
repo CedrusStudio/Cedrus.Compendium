@@ -22,7 +22,7 @@ import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultMount, Mount } from "@/domain/characters/equipment/Mount";
 import { Input } from "@/common/components/ui/input";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
@@ -52,7 +52,7 @@ export default function MountsList()
     queryKey, 
     queryFn: async () => 
     {
-      const mountsQuery = createMountKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const mountsQuery = createMountKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Mount[]>(mountsQuery);
     },
     staleTime: 5_000

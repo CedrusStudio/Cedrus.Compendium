@@ -6,8 +6,8 @@ export function createStanceKeysetQuery
 (
   searchQuery: string | undefined, 
   cursor: string = emptyUlid,
+  includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
-  includeTags?: string[]
 )
   : SearchEntityPayload
 { 

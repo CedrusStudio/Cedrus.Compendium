@@ -29,7 +29,7 @@ type ImportItemsSheetProps<TItem extends { id: string }> =
   renderItem: (item: TItem, isSelected: boolean, onToggle: (id: string) => void) => React.ReactNode;
   entityType: EntityType;
   createKeysetSearchKey: (search: string, cursor: string, includeTags: string[], pageSize: number) => readonly [string, string, string | undefined, string, string, number];
-  createKeysetQuery: (searchQuery: string, cursor: string, pageSize: number, includeTags?: string[]) => SearchEntityPayload;
+  createKeysetQuery: (searchQuery: string, cursor: string, includeTags: string[], pageSize: number) => SearchEntityPayload;
 };
 
 export default function ImportItemsSheet<TItem extends { id: string }>
@@ -66,7 +66,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     queryKey, 
     queryFn: async () => 
     {
-      const query = createKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const query = createKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<TItem[]>(query);
     },
     staleTime: 5_000

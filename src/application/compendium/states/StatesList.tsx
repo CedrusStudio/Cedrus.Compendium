@@ -52,7 +52,7 @@ export default function StatesList()
     queryKey, 
     queryFn: async () => 
     {
-      const statesQuery = createStateKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const statesQuery = createStateKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Mode[]>(statesQuery);
     },
     staleTime: 5_000

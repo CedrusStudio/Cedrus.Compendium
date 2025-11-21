@@ -52,7 +52,7 @@ export default function StancesList()
     queryKey, 
     queryFn: async () => 
     {
-      const stancesQuery = createStanceKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const stancesQuery = createStanceKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Mode[]>(stancesQuery);
     },
     staleTime: 5_000

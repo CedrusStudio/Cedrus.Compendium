@@ -55,7 +55,7 @@ export default function SpellsList()
     queryKey, 
     queryFn: async () => 
     {
-      const spellsQuery = createSpellKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const spellsQuery = createSpellKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000

@@ -9,10 +9,11 @@ import { useFormContext } from 'react-hook-form';
 import { CreateDefaultStance, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/presentation/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
-import { useSearchStances } from '@/application/characters/edit/combat/hooks/useSearchStances';
 import StanceView from "@/application/compendium/stances/StanceView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState, useEffect, useRef } from 'react';
+import { createKeysetSearchStancesKey } from '@/persistence/cacheKeys';
+import { createStanceKeysetQuery } from '@/infrastructure/searchQueries/stances/createStanceKeysetQuery';
 
 type EditStancesCardProps = 
 {
@@ -61,7 +62,7 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
   const renderStanceItem = (stance: Mode, isSelected: boolean, onToggle: (id: string) => void) => 
   {
     return (
-      <SelectableItemWrapper isSelected={isSelected} onToggle={() => onToggle(stance.id)}>
+      <SelectableItemWrapper key={stance.id} isSelected={isSelected} onToggle={() => onToggle(stance.id)} cannotSelect={watchedArray.map(stance => stance.id).includes(stance.id)}>
         <StanceView stance={stance} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -78,12 +79,13 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
           <ImportItemsSheet
             importTitle={displayedText.import_stances}
             importDescription={displayedText.select_stances_to_import}
-            notFoundText={displayedText.no_stances_found}
             onImport={handleImportStances}
             isPending={isPending}
             currentItemsIds={watchedArray.map(stance => stance.id)}
-            useSearchItems={useSearchStances}
             renderItem={renderStanceItem}
+            createKeysetQuery={createStanceKeysetQuery}
+            createKeysetSearchKey={createKeysetSearchStancesKey}
+            entityType="stances"
           />
         </CardTitle>
       </CardHeader>

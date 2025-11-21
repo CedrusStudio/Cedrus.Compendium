@@ -52,7 +52,7 @@ export default function PerksList()
     queryKey, 
     queryFn: async () => 
     {
-      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000

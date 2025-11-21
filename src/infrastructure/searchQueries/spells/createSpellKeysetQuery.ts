@@ -6,8 +6,8 @@ export function createSpellKeysetQuery
 (
   searchQuery: string | undefined, 
   cursor: string = emptyUlid,
-  pageSize: number = DEFAULT_PAGE_SIZE,
-  includeTags?: string[]
+  includeTags?: string[],
+  pageSize: number = DEFAULT_PAGE_SIZE
 )
   : SearchEntityPayload
 { 
