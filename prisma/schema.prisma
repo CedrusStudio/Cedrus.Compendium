@@ -338,7 +338,7 @@ type PossiblePhantomDamageOffense {
   amount Int
   grade  Int
   bonus  Int
-  isPhantom Boolean?
+  isPhantom Boolean
 }
 
 type DamageOffense {

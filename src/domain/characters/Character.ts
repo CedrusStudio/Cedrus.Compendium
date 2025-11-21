@@ -108,7 +108,8 @@ const emptyCharacter: Character =
         {
           amount: 0,
           grade: 0,
-          bonus: 0
+          bonus: 0,
+          isPhantom: false
         },
         range: 0,
         description: "Weapon 1 description",

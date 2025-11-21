@@ -1,5 +1,5 @@
 import { Item } from "@/domain/characters/equipment/Item";
-import { Critical, DamageOffense, PhantomDamageOffense as PossiblePhantomDamageOffense, WeaponOffense } from "@/domain/characters/combat/Offense";
+import { Critical, DamageOffense, PossiblyPhantomDamageOffense, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { defaultDiceGrade } from "@/domain/diceDefaults";
 import { ulid } from "ulid";
 
@@ -7,7 +7,7 @@ export type Weapon = Item &
 {
   style: Style;
   offense: WeaponOffense;
-  damageBonus: PossiblePhantomDamageOffense;
+  damageBonus: PossiblyPhantomDamageOffense;
   range: number;
 };
 
@@ -17,7 +17,7 @@ export const allowedStyles = ["Jednoręczny", "Dwuręczny", "Półtoraręczny"] 
 export const pathToWeaponOffenseField = <K extends keyof WeaponOffense>(field: K): `offense.${K}` => `offense.${field}`;
 export const pathToWeaponOffenseCriticalField = <K extends keyof Critical>(field: K): `offense.critical.${K}` => `offense.critical.${field}`;
 export const pathToWeaponDamageOffenseField = <K extends keyof DamageOffense>(field: K): `damageBonus.${K}` => `damageBonus.${field}`;
-export const pathToPossiblePhantomWeaponDamageOffenseField = <K extends keyof PossiblePhantomDamageOffense>(field: K): `damageBonus.${K}` => `damageBonus.${field}`;
+export const pathToPossiblePhantomWeaponDamageOffenseField = <K extends keyof PossiblyPhantomDamageOffense>(field: K): `damageBonus.${K}` => `damageBonus.${field}`;
 
 export const defaultWeapon: Omit<Weapon, "id"> =
 {

@@ -18,7 +18,7 @@ export type DamageOffense =
   bonus: number;
 };
 
-export type PhantomDamageOffense = DamageOffense &
+export type PossiblyPhantomDamageOffense = DamageOffense &
 {
   isPhantom: boolean;
 };
