@@ -19,6 +19,7 @@ import client from '@/infrastructure/clients/searchClient';
 import { createSearchCharactersKey } from '@/persistence/cacheKeys';
 import { createCharacterSummaryQuery } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import { CharacterTag, isCharacterOrSessionTag } from '@/domain/Tag';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -29,18 +30,20 @@ export default function CharactersHeadersList()
   const [searchTags, setSearchTags] = useState<string[]>([]);
   
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
-  
+  const availableTagsOnlyForCharacters = availableTags.filter(isCharacterOrSessionTag);
+
   const [displayedCharacters, setDisplayedCharacters] = useState<CharacterSummary[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize);
+  const tagsEnrichedByCharacter = searchTags.includes(CharacterTag) ? searchTags : [ ...searchTags, CharacterTag ];
+  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize);
   const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, tagsEnrichedByCharacter, pageSize);
       return await client.search<CharacterSummary[]>(charactersQuery);
     },
     staleTime: 5_000
@@ -96,8 +99,9 @@ export default function CharactersHeadersList()
         <TagFilter 
           includedTags={searchTags} 
           onTagsChange={handleSearchTagsChange}
-          availableTags={availableTags}
+          availableTags={availableTagsOnlyForCharacters}
           isLoading={tagsLoading}
+          excludedTags={[CharacterTag]}
         />
       </div>
 

@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import { Badge } from "@/ui/badge";
-import { isValidTag } from "@/domain/Tag";
+import { CharacterTag, isValidTag, SessionTagPrefix } from "@/domain/Tag";
 import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
 import { displayedText } from "@/presentation/translations";
 import { addIcon } from "@/presentation/icons";
@@ -36,9 +36,9 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
       {
         const tags = (Array.isArray(field.value) ? field.value : []) as string[];
 
-        const handleAddTag = () => 
+        const handleAddTag = (prefix?: string) => 
         {
-          const trimmedValue = inputValue.trim();
+          const trimmedValue = (prefix ?? "") + inputValue.trim();
           setValidationError(null); // Clear previous validation error
           
           if (!trimmedValue) 
@@ -66,6 +66,12 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
           }
 
           field.onChange([...tags, trimmedValue]);
+          setInputValue("");
+        };
+
+        const handleAddCharacterTag = () => 
+        {
+          field.onChange([...tags, CharacterTag]);
           setInputValue("");
         };
 
@@ -101,8 +107,16 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
                     className="w-46"
                   />
 
-                  <Button type="button" onClick={handleAddTag} variant="outline">
+                  <Button type="button" onClick={() => handleAddTag()} variant="outline">
                     {addIcon("scale-90")}
+                  </Button>
+
+                  <Button type="button" onClick={() => handleAddTag(SessionTagPrefix)} variant="outline">
+                    {"Użyj prefix 'sesja-'"}
+                  </Button>
+
+                  <Button type="button" onClick={handleAddCharacterTag} variant="outline">
+                    {"Dodaj tag 'postać'"}
                   </Button>
                   
                 </div>
@@ -113,16 +127,16 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
                   tags.length > 0 && (
                     <div className="flex flex-wrap items-center justify-center gap-2">
                     {
-                      tags.map((tag) => (
+                      tags.map(tag => (
                         <Badge key={tag} variant="secondary" className="flex items-center gap-1">
-                            <button
-                                type="button"
-                                onClick={() => handleRemoveTag(tag)}
-                                className="hover:text-destructive"
-                                aria-label={`Remove ${tag}`}
-                            >
+                          <button
+                              type="button"
+                              onClick={() => handleRemoveTag(tag)}
+                              className="hover:text-destructive"
+                              aria-label={`Remove ${tag}`}
+                          >
                             {tag}
-                            </button>
+                          </button>
                         </Badge>
                       ))
                     }

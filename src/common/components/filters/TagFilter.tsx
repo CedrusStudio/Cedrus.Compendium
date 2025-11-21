@@ -16,14 +16,20 @@ type TagFilterProps =
   onTagsChange: (tags: string[]) => void;
   availableTags?: string[]; // Optional: when provided, show dropdown
   isLoading?: boolean;
+  excludedTags?: string[];
 };
 
-export default function TagFilter({ 
-  includedTags, 
-  onTagsChange, 
-  availableTags,
-  isLoading = false 
-}: TagFilterProps) 
+export default function TagFilter
+(
+  { 
+    includedTags, 
+    onTagsChange, 
+    availableTags,
+    isLoading = false,
+    excludedTags = []
+  }
+  : TagFilterProps
+) 
 {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState<string>("");
@@ -72,11 +78,14 @@ export default function TagFilter({
   const hasAnyTags = includedTags.length > 0;
 
   // Dropdown mode with available tags
-  if (hasDropdown) {
+  if (hasDropdown) 
+  {
     return (
       <div className="flex flex-col gap-2 min-w-[200px]">
         <div className="flex gap-2 items-center">
+
           <Popover open={open} onOpenChange={setOpen}>
+
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -89,52 +98,57 @@ export default function TagFilter({
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
+
             <PopoverContent className="w-[300px] p-0">
+
               <Command>
                 <CommandInput placeholder="Szukaj tagu..." />
                 <CommandList>
                   <CommandEmpty>Nie znaleziono tagów.</CommandEmpty>
                   <CommandGroup>
-                    {availableTags
-                      .filter(tag => !includedTags.includes(tag))
-                      .map((tag) => (
-                        <CommandItem
-                          key={tag}
-                          value={tag}
-                          onSelect={() => addTag(tag)}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              includedTags.includes(tag) ? "opacity-100" : "opacity-0"
-                            )}
-                          />
-                          {tag}
-                        </CommandItem>
-                      ))}
+                  {
+                      availableTags
+                        .filter(tag => !includedTags.includes(tag))
+                        .filter(tag => !excludedTags?.includes(tag))
+                        .map(tag => (
+                          <CommandItem key={tag} value={tag} onSelect={() => addTag(tag)}>
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                includedTags.includes(tag) ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {tag}
+                          </CommandItem>
+                        ))
+                    }
                   </CommandGroup>
                 </CommandList>
               </Command>
             </PopoverContent>
           </Popover>
 
-          {hasAnyTags && (
-            <div className="flex flex-row flex-wrap gap-2">
-              {includedTags.map(tag => (
-                <Button 
-                  onClick={() => removeIncludedTag(tag)} 
-                  type="button" 
-                  key={tag} 
-                  variant="default" 
-                  size="sm"
-                >
-                  <Badge variant="default" className="gap-1">
-                    <span>{tag}</span>
-                  </Badge>
-                </Button>
-              ))}
-            </div>
-          )}
+          {
+            hasAnyTags && (
+              <div className="flex flex-row flex-wrap gap-2">
+              {
+                includedTags.map(tag => (
+                  <Button 
+                    onClick={() => removeIncludedTag(tag)} 
+                    type="button" 
+                    key={tag} 
+                    variant="default" 
+                    size="sm"
+                  >
+                    <Badge variant="default" className="gap-1">
+                      <span>{tag}</span>
+                    </Badge>
+                  </Button>
+                ))
+              }
+              </div>
+            )
+          }
         </div>
       </div>
     );
@@ -154,23 +168,25 @@ export default function TagFilter({
           onKeyDown={handleKeyDown}
           className={`flex-1 ${error ? "border-red-500" : ""}`}
         />
+
         <Button type="button" variant="outline" size="sm" onClick={() => addTag()} disabled={!inputValue.trim()}>
           Add
         </Button>
+
         {
-            hasAnyTags && (
-                <div className="flex flex-row flex-wrap gap-2">
-                {
-                    includedTags.map(tag => (
-                        <Button onClick={() => removeIncludedTag(tag)} type="button" key={tag} variant="default" size="sm">
-                            <Badge variant="default" className="gap-1">
-                                <span>{tag}</span>
-                            </Badge>
-                        </Button>
-                    ))
-                }
-                </div>
-            )
+          hasAnyTags && (
+            <div className="flex flex-row flex-wrap gap-2">
+            {
+              includedTags.map(tag => (
+                <Button onClick={() => removeIncludedTag(tag)} type="button" key={tag} variant="default" size="sm">
+                  <Badge variant="default" className="gap-1">
+                      <span>{tag}</span>
+                  </Badge>
+                </Button>
+              ))
+            }
+            </div>
+          )
         }
       </div>
 
