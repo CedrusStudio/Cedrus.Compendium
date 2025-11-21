@@ -73,7 +73,7 @@ function EditHeader()
 
             </div>
 
-            <FormTagsInput<DetailsDto> path="tags" />
+            <FormTagsInput<DetailsDto> path="tags" beAbleToSetCharacterAndSessionTags={true} />
     
             <AreaInputFormField<DetailsDto> 
                 path="description" 

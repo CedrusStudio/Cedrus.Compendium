@@ -33,7 +33,6 @@ import TagFilter from "@/common/components/filters/TagFilter";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 
 const pageSize = DEFAULT_PAGE_SIZE;
-
 const EMPTY_ARRAY: never[] = [];
 
 export default function PerksList()

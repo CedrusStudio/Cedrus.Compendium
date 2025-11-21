@@ -1,33 +1,35 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetFooter,
-} from '@/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
 import { displayedText } from '@/presentation/translations';
 import { Input } from '@/ui/input';
-import LoadingSpinner from '@/common/components/LoadingSpinner';
 import { importIcon } from '@/presentation/icons';
+import { useQuery } from '@tanstack/react-query';
+import { useDebounce } from 'use-debounce';
+import searchClient from '@/infrastructure/clients/searchClient';
+import { DEFAULT_PAGE_SIZE, emptyUlid } from '@/common/global/pagination';
+import { EntityType, useEntityTags } from '@/common/hooks/useEntityTags';
+import { WithScroll } from '../WithScroll';
+import TagFilter from '../filters/TagFilter';
+import { SearchEntityPayload } from '@/common/global/SearchPayloads';
+
+const pageSize = DEFAULT_PAGE_SIZE;
+const EMPTY_ARRAY: never[] = [];
+const scrollableTargetId = 'import-sheet-scrollable';
 
 type ImportItemsSheetProps<TItem extends { id: string }> = 
 {
   importTitle: string;
   importDescription: string;
-  notFoundText: string;
-
   onImport: (items: TItem[]) => void;
   isPending: boolean;
   currentItemsIds: string[];
-  useSearchItems: (params: { searchTerm: string, enabled: boolean }) => { data: TItem[]; isLoading: boolean; error: Error | null };
   renderItem: (item: TItem, isSelected: boolean, onToggle: (id: string) => void) => React.ReactNode;
-  gridColumns?: 1 | 2 | 3 | 4;
+  entityType: EntityType;
+  createKeysetSearchKey: (search: string, cursor: string, includeTags: string[], pageSize: number) => readonly [string, string, string | undefined, string, string, number];
+  createKeysetQuery: (searchQuery: string, cursor: string, pageSize: number, includeTags?: string[]) => SearchEntityPayload;
 };
 
 export default function ImportItemsSheet<TItem extends { id: string }>
@@ -35,31 +37,85 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   {
     importTitle,
     importDescription,
-    notFoundText,
     onImport,
     isPending,
     currentItemsIds,
-    useSearchItems,
     renderItem,
-    gridColumns = 2
+    entityType,
+    createKeysetSearchKey,
+    createKeysetQuery,
   }
     : ImportItemsSheetProps<TItem>
 ) 
 {
   const [open, setOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedItemsIds, setSelectedItemsIds] = useState<Set<string>>(new Set());
   const itemsCache = useRef<Map<string, TItem>>(new Map());
-  const { data: items, isLoading } = useSearchItems({ searchTerm, enabled: open });
-  const filteredItems = items.filter(item => !currentItemsIds.includes(item.id));
+  
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
+  const [displayedItems, setDisplayedItems] = useState<TItem[]>(EMPTY_ARRAY);
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState<string>(emptyUlid);
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags(entityType);
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+
+  const queryKey = createKeysetSearchKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const { data: itemSearchResults } = useQuery
+  ({ 
+    queryKey, 
+    queryFn: async () => 
+    {
+      const query = createKeysetQuery(debouncedSearchTerm, cursor, pageSize, searchTags);
+      return await searchClient.search<TItem[]>(query);
+    },
+    staleTime: 5_000
+  });
 
   useEffect(() => 
   {
-    items.forEach(item => 
+    if (!itemSearchResults) return;
+    
+    setHasMore(itemSearchResults.length === pageSize);
+
+    if (cursor === emptyUlid)
+    {
+      setDisplayedItems(itemSearchResults);
+      return;
+    }
+
+    setDisplayedItems(prev =>  
+    {
+      if (itemSearchResults.length === 0) return prev;
+      return [...prev, ...itemSearchResults]
+    });
+  }, [cursor, itemSearchResults]);
+
+  const clearResults = useCallback(() =>
+  {
+    setDisplayedItems(EMPTY_ARRAY);
+    setCursor(emptyUlid);
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchTerm(e.target.value);
+  }, [clearResults]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  useEffect(() => 
+  {
+    itemSearchResults?.forEach(item => 
     {
       itemsCache.current.set(item.id, item);
     });
-  }, [items]);
+  }, [itemSearchResults]);
 
   const handleToggleItem = (itemId: string) => 
   {
@@ -78,15 +134,17 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     });
   };
 
+  const availableItems = displayedItems.filter(p => !currentItemsIds.includes(p.id));
+
   const handleToggleAll = () => 
   {
-    if (selectedItemsIds.size === filteredItems.length) 
+    if (selectedItemsIds.size === availableItems.length) 
     {
       setSelectedItemsIds(new Set());
       return;
     } 
 
-    setSelectedItemsIds(new Set(filteredItems.map(p => p.id)));
+    setSelectedItemsIds(new Set(availableItems.map(p => p.id)));
   };
 
   const handleImport = () => 
@@ -102,10 +160,9 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   };
 
   const selectedCount = selectedItemsIds.size;
-  const allSelected = filteredItems.length > 0 && selectedItemsIds.size === filteredItems.length;
-  const visibleSelectedCount = filteredItems.filter(p => selectedItemsIds.has(p.id)).length;
+  const allSelected = displayedItems.length > 0 && selectedItemsIds.size === displayedItems.length;
+  const visibleSelectedCount = displayedItems.filter(p => selectedItemsIds.has(p.id)).length;
   const hiddenSelectedCount = selectedCount - visibleSelectedCount;
-  const gridColsClass = `grid-cols-1 lg:grid-cols-${gridColumns}`;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -116,7 +173,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
         </Button>
       </SheetTrigger>
       
-      <SheetContent side="bottom" className="h-[80vh] overflow-y-auto">
+      <SheetContent side="bottom" className="h-[80vh] overflow-y-auto" id={scrollableTargetId}>
         
         <SheetHeader>
           <SheetTitle className='first-letter:capitalize'>
@@ -127,27 +184,45 @@ export default function ImportItemsSheet<TItem extends { id: string }>
           </SheetDescription>
         </SheetHeader>
 
-        <div className="space-y-4">
-          <div className="flex gap-2 items-center">
-            <Input
-              placeholder={displayedText.searchByName}
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              className="flex-1"
-            />
+          <div className="flex flex-row pl-13 pr-3 place-content-between">
 
-            {
-              filteredItems.length > 0 && (
-                <Button 
-                  variant="outline" 
-                  type="button"
-                  onClick={handleToggleAll}
-                >
-                  <span className='first-letter:capitalize'>{allSelected ? displayedText.deselect_all : displayedText.select_all}</span>
-                </Button>
-              )
-            }
+            <div className='flex flex-row gap-4'>
+              <Input 
+                name="search" 
+                type="text" 
+                placeholder={displayedText.searchByName}
+                value={searchTerm}
+                onChange={handleSearchInputChange}
+                className="max-w-max"
+              />
+
+              <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
+
+              {
+                availableItems.length > 0 && (
+                  <Button variant="outline" type="button" onClick={handleToggleAll}>
+                    <span className='first-letter:capitalize'>{allSelected ? displayedText.deselect_all : displayedText.select_all}</span>
+                  </Button>
+                )
+              }
+            </div>
+
+            <Button variant="default" type="button" onClick={handleImport} disabled={selectedCount === 0}>
+              <span className='first-letter:capitalize'>{displayedText.import} ({selectedCount})</span>
+            </Button>
           </div>
+
+          <WithScroll<TItem>
+            parentClassName="flex flex-col gap-2"
+            items={displayedItems}
+            triggerNext={() => 
+            {
+              if (displayedItems.length > 0) setCursor(displayedItems[displayedItems.length - 1].id);
+            }}
+            hasMore={hasMore}
+            renderItem={item => renderItem(item, selectedItemsIds.has(item.id), handleToggleItem)}
+            scrollableTarget={scrollableTargetId}
+          />
 
           {
             hiddenSelectedCount > 0 && (
@@ -156,55 +231,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
               </div>
             )
           }
-
-          {
-            isLoading 
-              ? <LoadingSpinner />
-              : <div className={`grid ${gridColsClass} gap-4`}>
-                {
-                  filteredItems.length === 0 
-                    ? <NotFoundMessage notFoundText={notFoundText} />
-                    : filteredItems.map(item => (
-                        <div key={item.id}>
-                          {renderItem(item, selectedItemsIds.has(item.id), handleToggleItem)}
-                        </div>
-                      ))
-                }
-                </div>
-            }
-        </div>
-
-        <SheetFooter>
-          <div className="flex place-content-center w-full">
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                type="button"
-                onClick={() => setOpen(false)}
-              >
-                <span className='first-letter:capitalize'>{displayedText.cancel}</span>
-              </Button>
-              <Button 
-                variant="default" 
-                type="button"
-                onClick={handleImport}
-                disabled={selectedCount === 0}
-              >
-                <span className='first-letter:capitalize'>{displayedText.import} ({selectedCount})</span>
-              </Button>
-            </div>
-          </div>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
-  );
-}
-
-function NotFoundMessage({ notFoundText }: { notFoundText: string }) 
-{
-  return (
-    <div className="col-span-2 text-center text-muted-foreground py-8">
-      {notFoundText}
-    </div>
   );
 }

@@ -20,9 +20,10 @@ export type FormTagsInputProps<TFieldValues extends FieldValues> =
   path: FieldPath<TFieldValues>;
   placeholder?: string;
   maxTags?: number;
+  beAbleToSetCharacterAndSessionTags?: boolean;
 };
 
-export function FormTagsInput<TFieldValues extends FieldValues>({ path, placeholder = displayedText.addTag, maxTags = 15 }: FormTagsInputProps<TFieldValues>) 
+export function FormTagsInput<TFieldValues extends FieldValues>({ path, placeholder = displayedText.addTag, maxTags = 15, beAbleToSetCharacterAndSessionTags = false }: FormTagsInputProps<TFieldValues>) 
 {
   const { control } = useFormContext<TFieldValues>();
   const [inputValue, setInputValue] = useState("");
@@ -71,8 +72,7 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
 
         const handleAddCharacterTag = () => 
         {
-          field.onChange([...tags, CharacterTag]);
-          setInputValue("");
+          handleAddTag(CharacterTag);
         };
 
         const handleRemoveTag = (tagToRemove: string) => 
@@ -111,14 +111,19 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
                     {addIcon("scale-90")}
                   </Button>
 
-                  <Button type="button" onClick={() => handleAddTag(SessionTagPrefix)} variant="outline">
-                    {"Użyj prefix 'sesja-'"}
-                  </Button>
+                  {
+                    beAbleToSetCharacterAndSessionTags && (
+                      <>
+                        <Button type="button" onClick={() => handleAddTag(SessionTagPrefix)} variant="outline">
+                          {"Użyj prefix 'sesja-'"}
+                        </Button>
 
-                  <Button type="button" onClick={handleAddCharacterTag} variant="outline">
-                    {"Dodaj tag 'postać'"}
-                  </Button>
-                  
+                        <Button type="button" onClick={handleAddCharacterTag} variant="outline">
+                          {"Dodaj tag 'postać'"}
+                        </Button>
+                      </>
+                    )
+                  }
                 </div>
 
                 { validationError && <p className="text-sm font-medium text-destructive flex place-content-center">{validationError}</p> }
