@@ -122,7 +122,7 @@ export default function BattleTable()
 
   return (
     <div className="mx-3">
-      <div className="flex flex-wrap items-center justify-center py-4 gap-3">
+      <div className="flex flex-wrap items-center justify-center py-4 gap-3 sticky top-0 bg-background z-10">
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 

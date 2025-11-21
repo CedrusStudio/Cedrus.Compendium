@@ -27,7 +27,7 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2 gap-2">
+    <div className="flex flex-row items-center border rounded-md p-2 gap-2 sticky top-0 bg-background z-10">
 
       <ShieldViewFields shield={shield} />
 
