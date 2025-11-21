@@ -42,6 +42,7 @@ export const translations_deDE =
     short_name: "kurzname",
     grade: "rang",
     bonus: "bonus",
+    isPhantom: "phantom",
     category: "kategorie",
     statistics: "statistiken",
     characteristic: "eigenschaft",

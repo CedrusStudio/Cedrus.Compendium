@@ -5,6 +5,7 @@ import { allowedStyles, pathToPossiblePhantomWeaponDamageOffenseField, pathToWea
 import { displayedText } from '@/presentation/translations';
 import { FieldPath } from 'react-hook-form';
 import { WeaponDto } from '@/persistence/schemas/characters/equipment/weaponSchema';
+import CheckboxFormField from '@/common/components/form/CheckboxFormField';
 
 type EditWeaponViewProps =
 {
@@ -100,7 +101,7 @@ function DamageDiceEditor({ pathPrefix }: EditWeaponViewProps)
     <>
       <Label className='justify-center capitalize text-yellow-600'>{displayedText.damageDice}</Label>
 
-        <div className="flex flex-row justify-center gap-3">
+        <div className="flex flex-row justify-center gap-1">
               
           <div className="grid auto-rows-min gap-3 px-4">
 
@@ -138,13 +139,12 @@ function DamageDiceEditor({ pathPrefix }: EditWeaponViewProps)
 
           </div>
           
-          <div className="grid auto-rows-min gap-3 px-4">
+          <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3 px-4">
 
-            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.bonus}</span></Label>
+            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.isPhantom}</span></Label>
 
-            <SelectFormField<WeaponDto> 
+            <CheckboxFormField<WeaponDto> 
               path={`${pathPrefix}${pathToPossiblePhantomWeaponDamageOffenseField(`isPhantom`)}` as FieldPath<WeaponDto>}
-              items={["true", "false"]}
               noLabel
             />
 

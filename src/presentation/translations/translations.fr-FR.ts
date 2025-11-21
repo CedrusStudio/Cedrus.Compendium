@@ -42,6 +42,7 @@ export const translations_frFR =
     short_name: "nom court",
     grade: "niveau",
     bonus: "bonus",
+    isPhantom: "fantôme",
     category: "catégorie",
     statistics: "statistiques",
     characteristic: "caractéristique",
