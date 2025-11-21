@@ -14,6 +14,11 @@ export const damageOffenseSchema = z.object
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
 });
 
+export const phantomDamageOffenseSchema = damageOffenseSchema.extend
+({
+  isPhantom: z.coerce.boolean().optional()
+});
+
 export const weaponOffenseSchema = damageOffenseSchema.extend
 ({
   critical: criticalSchema

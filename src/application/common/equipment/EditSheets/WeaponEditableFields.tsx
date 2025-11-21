@@ -1,7 +1,7 @@
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { Label } from "@/ui/label"
 import { allowedCriticalPowers, allowedCriticalRanges, allowedDiceAmounts, allowedDiceBonuses, allowedDiceGrades } from '@/domain/characters/combat/Offense';
-import { allowedStyles, pathToWeaponDamageOffenseField, pathToWeaponOffenseCriticalField, pathToWeaponOffenseField } from '@/domain/characters/equipment/Weapon';
+import { allowedStyles, pathToPossiblePhantomWeaponDamageOffenseField, pathToWeaponDamageOffenseField, pathToWeaponOffenseCriticalField, pathToWeaponOffenseField } from '@/domain/characters/equipment/Weapon';
 import { displayedText } from '@/presentation/translations';
 import { FieldPath } from 'react-hook-form';
 import { WeaponDto } from '@/persistence/schemas/characters/equipment/weaponSchema';
@@ -133,6 +133,18 @@ function DamageDiceEditor({ pathPrefix }: EditWeaponViewProps)
             <SelectFormField<WeaponDto> 
               path={`${pathPrefix}${pathToWeaponDamageOffenseField(`bonus`)}` as FieldPath<WeaponDto>}
               items={allowedDiceBonuses}
+              noLabel
+            />
+
+          </div>
+          
+          <div className="grid auto-rows-min gap-3 px-4">
+
+            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.bonus}</span></Label>
+
+            <SelectFormField<WeaponDto> 
+              path={`${pathPrefix}${pathToPossiblePhantomWeaponDamageOffenseField(`isPhantom`)}` as FieldPath<WeaponDto>}
+              items={["true", "false"]}
               noLabel
             />
 

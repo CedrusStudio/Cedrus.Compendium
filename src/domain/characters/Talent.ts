@@ -133,7 +133,6 @@ export const basicTalents : Talent[] =
   {...CreateDefaultTalent(), name: "dotyk", category: "zmysł", characteristics: "umysł"},
   {...CreateDefaultTalent(), name: "spostrzegawczość", category: "zmysł", characteristics: "umysł"},
   {...CreateDefaultTalent(), name: "orientacja", category: "zmysł", characteristics: "umysł"},
-  {...CreateDefaultTalent(), name: "kontrola mocy", category: "zmysł", characteristics: "czarokrwistość"},
 
   // Języki
   {...CreateDefaultTalent(), name: "język boski", category: "język", characteristics: "umysł"},
@@ -156,13 +155,13 @@ export const basicTalents : Talent[] =
   {...CreateDefaultTalent(), name: "śpiew", category: "fach", characteristics: "charyzma"},
   {...CreateDefaultTalent(), name: "taniec", category: "fach", characteristics: "charyzma"},
   {...CreateDefaultTalent(), name: "występy sceniczne", category: "fach", characteristics: "charyzma"},
+  {...CreateDefaultTalent(), name: "kowalstwo", category: "fach", characteristics: "umysł"},
 
   // Wiedza
-  {...CreateDefaultTalent(), name: "Wiedza tajemna", category: "wiedza", characteristics: "umysł"},
-  {...CreateDefaultTalent(), name: "Wiedza historyczna", category: "wiedza", characteristics: "umysł"},
-  {...CreateDefaultTalent(), name: "Wiedza religijna", category: "wiedza", characteristics: "umysł"},
-  {...CreateDefaultTalent(), name: "Wiedza przyrodnicza", category: "wiedza", characteristics: "umysł"},
-  {...CreateDefaultTalent(), name: "Kowalstwo", category: "wiedza", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "wiedza tajemna", category: "wiedza", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "wiedza historia", category: "wiedza", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "wiedza religia", category: "wiedza", characteristics: "umysł"},
+  {...CreateDefaultTalent(), name: "wiedza natura", category: "wiedza", characteristics: "umysł"},
 
   // Sprawności
   {...CreateDefaultTalent(), name: "pływanie", category: "sprawność", characteristics: "siła"},
@@ -187,3 +186,9 @@ export const basicTalents : Talent[] =
   {...CreateDefaultTalent(), name: "retoryka", category: "talent", characteristics: "charyzma"},
   {...CreateDefaultTalent(), name: "zbieranie informacji", category: "talent", characteristics: "charyzma"},
 ];
+
+
+export const uniqueTalents : Talent[] =
+[
+  {...CreateDefaultTalent(), name: "kontrola mocy", category: "zmysł", characteristics: "czarokrwistość"}
+]

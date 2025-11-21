@@ -40,7 +40,7 @@ interface DataTableProps
 export function EditTalentsTable({ columns, initialTalents }: DataTableProps) 
 {
   const { control } = useFormContext<TalentsDto>();
-  const { fields, update, remove, append } = useFieldArray
+  const { fields, update, remove, append, replace } = useFieldArray
   ({
     name: "talents",
     control,
@@ -111,6 +111,9 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
 
           <AddTalentView append={append} setNameFilter={setNameFilter} />
           <AddBasicTalentButton talents={fields} append={append} />
+          <Button type="button" onClick={() => replace([])} variant="destructive" >
+            {"Usuń wszystkie talenty"}
+          </Button>
 
         </div>
 
