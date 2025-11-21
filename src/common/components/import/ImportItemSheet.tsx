@@ -183,8 +183,8 @@ export default function ImportItemsSheet<TItem extends { id: string }>
             {importDescription}
           </SheetDescription>
         </SheetHeader>
-
-          <div className="flex flex-row pl-13 pr-3 place-content-between">
+    
+          <div className="flex flex-row pl-13 pr-3 place-content-between sticky top-0 bg-background z-10">
 
             <div className='flex flex-row gap-4'>
               <Input 
