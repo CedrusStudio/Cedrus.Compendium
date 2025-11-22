@@ -23,7 +23,6 @@ import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultSpell, Spell } from "@/domain/characters/combat/Power";
-import { Input } from "@/common/components/ui/input";
 import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
@@ -31,8 +30,8 @@ import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
-import TagFilter from "@/common/components/filters/TagFilter";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -100,20 +99,16 @@ export default function SpellsList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
-        <Input 
-          name="search" 
-          type="text" 
-          placeholder={displayedText.searchByName}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          className="max-w-max"
-        />
-
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
-
+      <CompendiumListHeader
+        searchInput={searchInput}
+        handleSearchInputChange={handleSearchInputChange}
+        searchTags={searchTags}
+        handleSearchTagsChange={handleSearchTagsChange}
+        availableTags={availableTags}
+        tagsLoading={tagsLoading}
+      >
         <AddSpellForm />
-      </div>
+      </CompendiumListHeader>
 
       <WithScroll<Spell>
         parentClassName="flex flex-col gap-2"

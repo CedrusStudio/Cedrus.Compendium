@@ -21,15 +21,14 @@ import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultArmor, Armor } from "@/domain/characters/equipment/Armor";
-import { Input } from "@/common/components/ui/input";
 import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
-import TagFilter from "@/common/components/filters/TagFilter";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -97,20 +96,16 @@ export default function ArmorsList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
-        <Input 
-          name="search" 
-          type="text" 
-          placeholder={displayedText.searchByName}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          className="max-w-max"
-        />
-
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
-
+      <CompendiumListHeader
+        searchInput={searchInput}
+        handleSearchInputChange={handleSearchInputChange}
+        searchTags={searchTags}
+        handleSearchTagsChange={handleSearchTagsChange}
+        availableTags={availableTags}
+        tagsLoading={tagsLoading}
+      >
         <AddArmorForm />
-      </div>
+      </CompendiumListHeader>
 
       <WithScroll<Armor>
         parentClassName="flex flex-col gap-2"

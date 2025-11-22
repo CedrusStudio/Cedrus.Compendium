@@ -14,7 +14,7 @@ type StyleFilterProps<T extends string> =
 export default function StyleFilter<T extends string>({ selectedStyle, onStyleChange, styles, label = "Style" }: StyleFilterProps<T>) 
 {
   return (
-    <div className="flex flex-col gap-2 min-w-[150px]">
+    <div className="flex flex-col gap-2">
       <Select value={selectedStyle} onValueChange={value => onStyleChange(value as T | "All")}>
         
         <SelectTrigger>
