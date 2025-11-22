@@ -36,10 +36,9 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
           )
         }
 
-
       </div>
 
-        <div className="flex flex-row place-content-center gap-2">
+      <div className="hidden sm:flex flex-row place-content-center gap-2">
 
         <Badge variant="outline" className="flex place-content-center pr-2">
           <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.range}:</span></Label>
