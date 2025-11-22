@@ -17,6 +17,7 @@ import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
 import SpellEditableFields from "@/application/common/combat/SpellEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
+import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
 
 type SpellViewProps =
 {
@@ -41,7 +42,7 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
         <RequirementsView entityWithRequirements={spell} />
       </div>
       
-      <div className="flex flex-row items-center gap-2">
+      <PerkableBadgeView>
 
         <Badge variant="secondary" className="h-9 w-10 capitalize">
           <div>{priceIcon}</div>
@@ -77,7 +78,7 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
             </CompendiumEditView>
           )
         }
-      </div>
+      </PerkableBadgeView>
 
     </CompendiumView>
   );

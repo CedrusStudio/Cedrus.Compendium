@@ -17,6 +17,7 @@ import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
 import CastablePerkEditableFields from "@/application/common/combat/CastablePerkEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
+import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
 
 type ManeuverViewProps =
 {
@@ -41,17 +42,17 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
         <RequirementsView entityWithRequirements={maneuver} />
       </div>
       
-      <div className="flex flex-row items-center gap-2">
+      <PerkableBadgeView>
 
         <Badge variant="secondary" className="h-9 w-10 capitalize">
           <div>{priceIcon}</div>
           <div>{maneuver.price}</div>
         </Badge>
+        
         <Badge className='h-9 w-10 p-2 rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
             <div>{cooldownIcon()}</div>
             <div>{maneuver.cooldown || battleIcon("scale-90")}</div>
         </Badge>
-
 
         {
           !disableEdit && (
@@ -82,7 +83,7 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
             </CompendiumEditView>
           )
         }
-      </div>
+      </PerkableBadgeView>
 
     </CompendiumView>
   );

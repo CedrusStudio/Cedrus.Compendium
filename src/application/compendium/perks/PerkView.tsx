@@ -15,6 +15,7 @@ import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
+import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
 
 type PerkViewProps =
 {
@@ -39,7 +40,7 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
         <RequirementsView entityWithRequirements={perk} />
       </div>
       
-      <div className="flex flex-row items-center gap-2">
+      <PerkableBadgeView>
 
         <Badge variant="secondary" className="h-9 w-10 capitalize">
           <div>{priceIcon}</div>
@@ -72,7 +73,7 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
             </CompendiumEditView>
           )
         }
-      </div>
+      </PerkableBadgeView>
 
     </CompendiumView>
   );
