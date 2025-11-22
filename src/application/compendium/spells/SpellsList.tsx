@@ -3,36 +3,28 @@
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/spellsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { allowedCastTimes } from "@/domain/characters/Castable";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/presentation/translations';
 import { AddSpellDto, addSpellSchema, SpellDto } from "@/persistence/schemas/characters/combat/powerSchema";
-
 import { createKeysetSearchSpellsKey } from "@/persistence/cacheKeys";
 import { createSpellKeysetQuery } from "@/infrastructure/searchQueries/spells/createSpellKeysetQuery";
 import SpellView from "@/application/compendium/spells/SpellView";
-import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultSpell, Spell } from "@/domain/characters/combat/Power";
-import { Input } from "@/common/components/ui/input";
 import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
-import TagFilter from "@/common/components/filters/TagFilter";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -100,20 +92,16 @@ export default function SpellsList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
-        <Input 
-          name="search" 
-          type="text" 
-          placeholder={displayedText.searchByName}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          className="max-w-max"
-        />
-
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
-
+      <CompendiumListHeader
+        searchInput={searchInput}
+        handleSearchInputChange={handleSearchInputChange}
+        searchTags={searchTags}
+        handleSearchTagsChange={handleSearchTagsChange}
+        availableTags={availableTags}
+        tagsLoading={tagsLoading}
+      >
         <AddSpellForm />
-      </div>
+      </CompendiumListHeader>
 
       <WithScroll<Spell>
         parentClassName="flex flex-col gap-2"
@@ -154,79 +142,28 @@ function AddSpellForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <AddSpellSheet isPending={isPending} formId={formId} />
-      </form>
-    </Form>
-  )
-}
-
-function AddSpellSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{addIcon()}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.addSpell}</SheetTitle>
-          <SheetDescription>{displayedText.clickSave}</SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<SpellDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-            </div>
-      
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<SpellDto> path='grade' inputClassName="w-11 h-10 text-center font-medium" />
-            </div>
-
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<SpellDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<SpellDto> path='tags' />
-          <FormStringsInput<SpellDto> path='requirements' placeholder={displayedText.addRequirement} />
-
-          <div className="grid grid-cols-2 gap-4">
+        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addSpell} >
+          
+          <div className="grid grid-cols-3 gap-4 place-items-center">
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
               <InputFormField<SpellDto> path='cooldown' inputClassName='w-11 h-10 text-center font-medium' />
             </div>
-    
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.price}</Label>
-              <InputFormField<SpellDto> path='price' inputClassName='w-11 h-10 text-center font-medium'  />
+
+            <div className="flex flex-col items-center gap-3 px-4">
+              <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
+              <SelectFormField<SpellDto> path='castTime' labelText={displayedText.castTime} items={allowedCastTimes} />
             </div>
-          </div>
-  
-          <div className="flex flex-col items-center gap-3 px-4">
-            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
-            <SelectFormField<SpellDto> path='castTime' labelText={displayedText.castTime} items={allowedCastTimes} />
-          </div>
 
-        </div>
+            <div className="grid auto-rows-min gap-3 px-4">
+              <Label className='justify-center capitalize'>{displayedText.cost}</Label>
+              <InputFormField<SpellDto> path='cost' inputClassName='w-11 h-10 text-center font-medium' />
+            </div>
 
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+          </div>
+        </PerkableAddSheet>
+      </form>
+    </Form>
   )
 }

@@ -1,22 +1,10 @@
 "use client";
 
 import { Mode } from "@/domain/characters/combat/Mode";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
+import { Card, CardContent, CardTitle } from '@/ui/card';
 import { Label } from "@/ui/label";
 import { useState } from "react";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select";
 import FieldView from "@/common/components/fields/FieldView";
 import { displayedText } from "@/presentation/translations";
 import TagsView from "@/common/components/tags/TagsView";
@@ -28,12 +16,10 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
   const selectedModeObj = modes.find(mode => mode.name === selectedMode);
 
   return (
-    <Card className='bg-muted flex flex-col w-full '>
-      <CardHeader>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{name}</CardTitle>
-      </CardHeader>
+    <Card className='bg-muted flex flex-col'>
+      <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{name}</CardTitle>
 
-      <CardContent className='flex flex-col items-center justify-center lg:items-start lg:justify-start gap-y-4 flex-1'>
+      <CardContent className='flex flex-col place-content-start place-items-center gap-y-4 flex-1'>
 
         <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
           
@@ -59,10 +45,10 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
           </SelectContent>
         </Select>
 
-        <div className="w-full pr-4">
+        <div className="w-full">
         {
           selectedModeObj && (
-            <div className="pt-0.5 flex flex-col place-items-center gap-2">
+            <div className="pt-0.5 flex flex-col place-items-center place-content-center gap-2">
               <Separator />
               <p className="text-sm text-muted-foreground text-center italic">
                 {selectedModeObj.description}

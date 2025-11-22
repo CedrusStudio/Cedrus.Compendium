@@ -13,6 +13,9 @@ import { createCompendiumFormId } from "@/application/compendium/compendiumFormC
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
+import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
 
 type StateViewProps =
 {
@@ -29,7 +32,7 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2">
+    <CompendiumView>
 
       <SummaryView entity={state} />
 
@@ -37,7 +40,7 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
         <RequirementsView entityWithRequirements={state} />
       </div>
       
-      <div className="flex flex-row items-center gap-2">
+      <PerkableBadgeView>
 
         <Badge variant="secondary" className="h-9 w-10 capitalize">
           <div>{priceIcon}</div>
@@ -45,7 +48,7 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
         </Badge>
         {
           !disableEdit && (
-            <>
+            <CompendiumEditView>
               <DeleteButton id={state.id} isPending={isPending} deleteAction={deleteState} />
 
               <EditFormForSheet<ModeDto> 
@@ -66,11 +69,11 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
                 }
                 cacheKeys={['states']}
               />
-            </>
+            </CompendiumEditView>
           )
         }
-      </div>
+      </PerkableBadgeView>
 
-    </div>
+    </CompendiumView>
   );
 }

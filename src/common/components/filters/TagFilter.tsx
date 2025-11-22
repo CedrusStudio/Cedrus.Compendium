@@ -81,7 +81,7 @@ export default function TagFilter
   if (hasDropdown) 
   {
     return (
-      <div className="flex flex-col gap-2 min-w-[200px]">
+      <div className="flex flex-col gap-2 w-full min-w-[200px]">
         <div className="flex gap-2 items-center">
 
           <Popover open={open} onOpenChange={setOpen}>
@@ -125,6 +125,7 @@ export default function TagFilter
                   </CommandGroup>
                 </CommandList>
               </Command>
+              
             </PopoverContent>
           </Popover>
 
@@ -168,10 +169,6 @@ export default function TagFilter
           onKeyDown={handleKeyDown}
           className={`flex-1 ${error ? "border-red-500" : ""}`}
         />
-
-        <Button type="button" variant="outline" size="sm" onClick={() => addTag()} disabled={!inputValue.trim()}>
-          Add
-        </Button>
 
         {
           hasAnyTags && (

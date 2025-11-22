@@ -11,6 +11,8 @@ import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
 import WeaponEditableFields from "@/application/common/equipment/EditSheets/WeaponEditableFields";
 import WeaponViewFields from "@/application/common/equipment/Views/WeaponViewFields";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type WeaponViewProps =
 {
@@ -27,13 +29,13 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2 gap-2 sticky top-0 bg-background z-10">
+    <CompendiumView>
 
       <WeaponViewFields weapon={weapon} />
 
       {
         !disableEdit && (
-          <>
+          <CompendiumEditView>
             <DeleteButton id={weapon.id} isPending={isPending} deleteAction={deleteWeapon} />
 
             <EditFormForSheet<WeaponDto> 
@@ -53,10 +55,10 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
               cacheKeys={['weapons']}
             />
 
-          </>
+          </CompendiumEditView>
         )
       }
 
-    </div>
+    </CompendiumView>
   );
 }

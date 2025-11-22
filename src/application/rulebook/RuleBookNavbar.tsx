@@ -24,9 +24,13 @@ export default function RuleBookNavbar()
   };
 
   return (
-    <>
-      <nav className="flex items-center justify-between py-4 pr-11">
-          <NavbarBreadcrumb pathname={pathname} />
+      <nav className="flex items-center justify-between py-4 px-10 gap-3">
+        
+          <div className="hidden lg:block">
+              <NavbarBreadcrumb pathname={pathname} />
+          </div>
+          
+          <div className="flex-1" />
           
           <div className="flex items-center gap-2">
             <Button 
@@ -43,9 +47,8 @@ export default function RuleBookNavbar()
             
             <NavbarDefaultButton />
           </div>
-      </nav>
 
-      <RulebookSearchCommand />
-    </>
+          <RulebookSearchCommand />
+      </nav>
   );
 };

@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardTitle,
-} from '@/ui/card';
+import { Card, CardContent, CardTitle } from '@/ui/card';
 import FieldView from '@/common/components/fields/FieldView';
 import { useState } from 'react';
 import { Health } from '@/domain/characters/combat/Health';
@@ -12,8 +8,7 @@ import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { displayedText } from '@/presentation/translations';
-import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { currentValueIcon, gainIcon, lossIcon, sumIcon } from '@/presentation/icons';
+import { gainIcon, lossIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type BarrierCardProps = 
@@ -40,21 +35,25 @@ export default function BarrierCard(input: BarrierCardProps)
 
   return (
     <Card className='bg-muted'>
-      <CardContent className='flex flex-col h-full gap-y-4'>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.barrier}</CardTitle>
+      <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.barrier}</CardTitle>
+      <CardContent className='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'>
 
-        <FieldView value={input.health.barrier}>
-          <FieldWithTooltip name={displayedText.sum}>{sumIcon}</FieldWithTooltip>
-        </FieldView>
+        <div className='flex flex-row place-content-center place-items-center'>
 
-        <FieldViewWithInfo 
-          value={input.health.barrier + barrierIncrease - damageTaken} 
-          infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} 
-        >
-          <FieldWithTooltip name={displayedText.current}>{currentValueIcon}</FieldWithTooltip>
-        </FieldViewWithInfo>
+          <FieldView value={input.health.barrier} valueClassName='-mr-2' />
 
-        <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
+          <span className='mr-2'>/</span>
+          
+          <FieldViewWithInfo 
+            value={input.health.barrier + barrierIncrease - damageTaken} 
+            className='gap-x-0'
+            valueClassName='mx-2'
+            infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} 
+          />
+
+        </div>
+
+        <div className='flex flex-col gap-y-2'>
           <div className='flex gap-4 items-center justify-center'>
             <Label className='text-sm text-muted-foreground'>{gainIcon("size-10")}</Label>
             <ChangeButtons value={barrierIncreaseChangeAmount} setValue={setBarrierIncreaseIfPositive} setChangeAmount={setBarrierIncreaseChangeAmount} resetValue={0} />

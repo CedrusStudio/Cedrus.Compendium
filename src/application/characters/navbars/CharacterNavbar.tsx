@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import React from "react";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
 import { addIcon } from "@/presentation/icons";

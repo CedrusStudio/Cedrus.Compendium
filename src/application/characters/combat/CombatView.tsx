@@ -10,30 +10,27 @@ import PowerCard from "@/application/characters/combat/PowerCard";
 export default function CombatView({ character }: { character: Character })
 {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-3'>
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
-        <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
-        {
-          character.defenses.length > 0 && <DefenseCard defenses={character.defenses} />
-        }
-        <BarrierCard health={character.health} />
-      </div>
-
-      <div className='flex flex-col lg:grid lg:grid-cols-6 gap-4'>
-        
-        {
-          character.offenses.length > 0 && (
-            <div className='col-span-4'>
-              <OffenseCard offenses={character.offenses} />
-            </div>
-          )
-        }
-
-        <div className="flex flex-col sm:flex-row gap-4 lg:grid lg:grid-cols-2 lg:col-span-2">
+      <div className='flex flex-col lg:grid lg:grid-cols-5 gap-3'>
+        <div className="flex flex-col gap-2 lg:col-span-3">
+          <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
+          <BarrierCard health={character.health} />
+        </div>
+        <div className="flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:col-span-2">
           <ModesCard name="Postawy" modes={character.stances} />
           <ModesCard name="Stany" modes={character.states} />
         </div>
+      </div>
+
+
+      <div className='flex flex-col lg:grid lg:grid-cols-2 gap-3'>
+      {
+        character.offenses.length > 0 && <OffenseCard offenses={character.offenses} />
+      }
+      {
+        character.defenses.length > 0 && <DefenseCard defenses={character.defenses} />
+      }
       </div>
 
       <ManeuversCard maneuvers={character.maneuvers} />

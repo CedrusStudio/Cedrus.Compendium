@@ -3,34 +3,24 @@
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/perksClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { displayedText } from '@/presentation/translations';
-import { AddPerkDto, addPerkSchema, PerkDto } from "@/persistence/schemas/characters/perkSchema";
-
+import { AddPerkDto, addPerkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
 import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
 import PerkView from "@/application/compendium/perks/PerkView";
-import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
-import { Input } from "@/common/components/ui/input";
 import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
-import TagFilter from "@/common/components/filters/TagFilter";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import { displayedText } from "@/presentation/translations";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -97,20 +87,16 @@ export default function PerksList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center sticky top-0 bg-background z-10">
-        <Input 
-          name="search" 
-          type="text" 
-          placeholder={displayedText.searchByName}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          className="max-w-max"
-        />
-
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
-
+      <CompendiumListHeader
+        searchInput={searchInput}
+        handleSearchInputChange={handleSearchInputChange}
+        searchTags={searchTags}
+        handleSearchTagsChange={handleSearchTagsChange}
+        availableTags={availableTags}
+        tagsLoading={tagsLoading}
+      >
         <AddPerkForm />
-      </div>
+      </CompendiumListHeader>
 
       <WithScroll<Perk>
         parentClassName="flex flex-col gap-2"
@@ -151,69 +137,8 @@ function AddPerkForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <AddPerkSheet isPending={isPending} formId={formId} />
+        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addPerk} />
       </form>
     </Form>
-  )
-}
-
-function AddPerkSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{addIcon()}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.addPerk}</SheetTitle>
-          <SheetDescription>{displayedText.clickSave}</SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.name}</Label>
-              <InputFormField<PerkDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-            </div>
-      
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='capitalize'>{displayedText.grade}</Label>
-              <InputFormField<PerkDto> path='grade' inputClassName="w-11 h-10 text-center font-medium" />
-            </div>
-
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<PerkDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<PerkDto> path='tags' />
-          <FormStringsInput<PerkDto> path='requirements' placeholder={displayedText.addRequirement} />
-
-          <div className="grid grid-cols-2 gap-4">
-    
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.price}</Label>
-              <InputFormField<PerkDto> path='price' inputClassName='w-11 h-10 text-center font-medium'  />
-            </div>
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
   )
 }

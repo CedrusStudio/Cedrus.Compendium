@@ -24,7 +24,7 @@ export function PerkableEditSheet(input: PropsWithChildren<EditSheetProps>)
         <Button variant="outline" size='icon' type="button">{editIcon}</Button>
       </SheetTrigger>
 
-      <SheetContent>
+      <SheetContent className="w-full">
         
         <SheetHeader>
           <SheetTitle className='first-letter:uppercase'>{input.displayedTitle}</SheetTitle>

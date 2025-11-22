@@ -14,11 +14,11 @@ type EditDefensiveItemViewProps =
 export default function DefensiveItemEditableFields<TEditable extends FieldValues & Omit<DefensiveItemDto, "id">>({ pathPrefix = ""}: EditDefensiveItemViewProps)
 {
   return (
-    <div className="grid auto-rows-min gap-3 px-4">
+    <>
 
-        <div className="flex flex-row gap-3 px-4 place-content-center">
+        <div className="flex flex-row place-content-around place-items-center">
             
-            <div className='flex flex-col gap-3 px-4 place-items-center'>
+            <div className='flex flex-col gap-3 place-items-center place-content-center'>
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.resistance}</span></Label>
 
                 <SelectFormField<TEditable> 
@@ -28,35 +28,32 @@ export default function DefensiveItemEditableFields<TEditable extends FieldValue
                     />
             </div>
 
-            <div className='flex flex-col'>
-                <div className="flex flex-col gap-3 px-4 place-items-center">
-                    <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.strengthRequirement}</span></Label>
+            <div className="flex flex-col gap-3 place-items-center place-content-center">
+                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.strengthRequirement}</span></Label>
 
-                    <SelectFormField<TEditable> 
-                        path={(`${pathPrefix}strengthRequirement`) as FieldPath<TEditable>}
-                        items={allowedStrengthRequirements}
-                        noLabel
-                    />
-                </div>
+                <SelectFormField<TEditable> 
+                    path={(`${pathPrefix}strengthRequirement`) as FieldPath<TEditable>}
+                    items={allowedStrengthRequirements}
+                    noLabel
+                />
             </div>
 
         </div>
 
-        <div className="flex flex-row gap-3 px-14">
+        <div className="flex flex-row place-content-around place-items-center">
 
-            <div className="flex flex-col gap-3 px-4 place-content-center">
+            <div className="flex flex-col gap-3 place-content-center place-items-center">
 
-                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.initiativeRestriction}</span></Label>
+                <Label className=''><span className='first-letter:uppercase'>{displayedText.initiativeRestriction}</span></Label>
 
                 <SelectFormField<TEditable> 
                     path={(`${pathPrefix}initiativeRestriction`) as FieldPath<TEditable>}
                     items={allowedInitiativeRestrictions}
                     noLabel
-                />
-                
+                    />
             </div>
 
-            <div className="flex flex-col gap-3 px-4 place-content-center">
+            <div className="flex flex-col gap-3 place-content-center place-items-center mx-10.5">
 
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.attributePenalty}</span></Label>
 
@@ -67,13 +64,12 @@ export default function DefensiveItemEditableFields<TEditable extends FieldValue
                 />
 
             </div>
-
                 
         </div>
 
-        <div className="flex flex-row gap-3 px-14">
+        <div className="flex flex-row place-content-around place-items-center">
 
-            <div className="flex flex-col gap-3 px-4 place-content-center">
+            <div className="flex flex-col gap-3 place-content-center place-items-center">
 
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.reflexRestriction}</span></Label>
 
@@ -85,7 +81,7 @@ export default function DefensiveItemEditableFields<TEditable extends FieldValue
 
             </div>
 
-            <div className="flex flex-col gap-3 px-4 place-content-center">
+            <div className="flex flex-col gap-3 place-content-center place-items-center">
 
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.dexterityRestriction}</span></Label>
 
@@ -98,6 +94,6 @@ export default function DefensiveItemEditableFields<TEditable extends FieldValue
             </div>
 
         </div>
-    </div>
+    </>
   );
 };

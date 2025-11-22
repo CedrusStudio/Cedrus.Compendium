@@ -2,20 +2,14 @@
 
 import { calculateTotalHealth, Health } from '@/domain/characters/combat/Health';
 import { Statistic } from '@/domain/characters/statistics/Statistic';
-
-import {
-  Card,
-  CardContent,
-  CardTitle,
-} from '@/ui/card';
+import { Card, CardContent, CardTitle } from '@/ui/card';
 import FieldView from '@/common/components/fields/FieldView';
 import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
 import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { displayedText } from '@/presentation/translations';
-import FieldWithTooltip from '@/common/components/fields/FieldWithTooltip';
-import { currentValueIcon, gainIcon, lossIcon, sumIcon } from '@/presentation/icons';
+import { gainIcon, lossIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type HealthCardProps = 
@@ -45,22 +39,29 @@ export default function HealthCard(input: HealthCardProps)
 
   return (
     <Card className='bg-muted'>
-      <CardContent className='flex flex-col h-full gap-y-4'>
+      <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.health}</CardTitle>
+      <CardContent className='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'>
 
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.health}</CardTitle>
+        <div className='flex flex-row place-content-center place-items-center'>
 
-        <FieldViewWithInfo value={totalHealth} infoContent={<HealthInfoContent health={input.health} />} >
-          <FieldWithTooltip name={displayedText.sum}>{sumIcon}</FieldWithTooltip>
-        </FieldViewWithInfo>
+          <FieldViewWithInfo 
+            value={totalHealth + healthIncrease - damageTaken}
+            className='gap-x-0'
+            valueClassName='mx-2'
+            infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} 
+          />
 
-        <FieldViewWithInfo 
-          value={totalHealth + healthIncrease - damageTaken} 
-          infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} 
-        >
-          <FieldWithTooltip name={displayedText.current}>{currentValueIcon}</FieldWithTooltip>
-        </FieldViewWithInfo>
+          <span className='mx-2'>/</span>
 
-        <div className='flex-1 flex flex-col justify-end gap-y-2 mt-2'>
+          <FieldViewWithInfo 
+            value={totalHealth} 
+            className='gap-x-0'
+            valueClassName='mx-2' 
+            infoContent={<HealthInfoContent health={input.health} />} 
+          />
+        </div>
+
+        <div className='flex flex-col gap-y-2'>
           <div className='flex gap-4 items-center justify-center'>
             <Label className='text-sm text-muted-foreground'>{gainIcon("size-10")}</Label>
             <ChangeButtons value={healthIncreaseChangeAmount} setValue={setHealthIncreaseIfPositive} setChangeAmount={setHealthIncreaseChangeAmount} resetValue={0} />

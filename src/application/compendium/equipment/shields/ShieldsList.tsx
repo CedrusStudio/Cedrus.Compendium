@@ -3,33 +3,25 @@
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/shieldsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/presentation/translations';
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
-
 import { createKeysetSearchShieldsKey } from "@/persistence/cacheKeys";
 import { createShieldKeysetQuery } from "@/infrastructure/searchQueries/equipment/shields/createShieldKeysetQuery";
 import ShieldView from "@/application/compendium/equipment/shields/ShieldView";
-import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultShield, Shield } from "@/domain/characters/equipment/Shield";
-import { Input } from "@/common/components/ui/input";
 import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
-import TagFilter from "@/common/components/filters/TagFilter";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
+import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -95,20 +87,16 @@ export default function ShieldsList()
 
   return (
     <>
-      <div className="flex flex-row gap-8 m-3 px-10 items-center">
-        <Input 
-          name="search" 
-          type="text" 
-          placeholder={displayedText.searchByName}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          className="max-w-max"
-        />
-
-        <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
-
+      <CompendiumListHeader
+        searchInput={searchInput}
+        handleSearchInputChange={handleSearchInputChange}
+        searchTags={searchTags}
+        handleSearchTagsChange={handleSearchTagsChange}
+        availableTags={availableTags}
+        tagsLoading={tagsLoading}
+      >
         <AddShieldForm />
-      </div>
+      </CompendiumListHeader>
 
       <WithScroll<Shield>
         parentClassName="flex flex-col gap-2"
@@ -149,84 +137,10 @@ function AddShieldForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <AddShieldSheet isPending={isPending} formId={formId} />
+        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.shields} >
+          <ShieldEditableFields />
+        </ItemAddSheet>
       </form>
     </Form>
-  )
-}
-
-function AddShieldSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{addIcon()}</Button>
-      </SheetTrigger>
-
-      <SheetContent>
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.add} {displayedText.shields}</SheetTitle>
-          <SheetDescription>{displayedText.clickSave}</SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.name}</Label>
-            <InputFormField<ShieldDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<ShieldDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<ShieldDto> path='tags' />
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.block}</Label>
-              <InputFormField<ShieldDto> path='block' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.resistance}</Label>
-              <InputFormField<ShieldDto> path='resistance' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mt-2">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.dexterityRestriction}</Label>
-              <InputFormField<ShieldDto> path='dexterityRestriction' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.initiativeRestriction}</Label>
-              <InputFormField<ShieldDto> path='initiativeRestriction' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.attributePenalty}</Label>
-              <InputFormField<ShieldDto> path='attributePenalty' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='text-xs capitalize'>{displayedText.strengthRequirement}</Label>
-              <InputFormField<ShieldDto> path='strengthRequirement' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-          </div>
-
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
   )
 }

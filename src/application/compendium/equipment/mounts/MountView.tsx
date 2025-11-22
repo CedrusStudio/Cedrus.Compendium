@@ -11,6 +11,8 @@ import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEdi
 import MountEditableFields from "@/application/common/equipment/EditSheets/MountEditableFields";
 import { Mount } from "@/domain/characters/equipment/Mount";
 import MountViewFields from "@/application/common/equipment/Views/MountViewFields";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type MountViewProps =
 {
@@ -27,13 +29,13 @@ export default function MountView({ mount, disableEdit = false }: MountViewProps
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2 gap-2 sticky top-0 bg-background z-10">
+    <CompendiumView>
 
       <MountViewFields mount={mount} />
 
       {
         !disableEdit && (
-          <>
+          <CompendiumEditView>
             <DeleteButton id={mount.id} isPending={isPending} deleteAction={deleteMount} />
 
             <EditFormForSheet<MountDto> 
@@ -53,10 +55,10 @@ export default function MountView({ mount, disableEdit = false }: MountViewProps
               cacheKeys={['mounts']}
             />
 
-          </>
+          </CompendiumEditView>
         )
       }
 
-    </div>
+    </CompendiumView>
   );
 }
