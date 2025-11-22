@@ -6,6 +6,8 @@ import SummaryView from "@/application/common/SummaryView";
 import { type Weapon } from '@/domain/characters/equipment/Weapon';
 import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
 import { Label } from '@/common/components/ui/label';
+import ViewDetailsWrapper from '@/application/common/ViewDetailsWrapper';
+import FieldsViewWrapper from '@/application/common/FieldsViewWrapper';
 
 type WeaponViewProps =
 {
@@ -17,9 +19,9 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
   const damageBonusString = toOffenseString(weapon.damageBonus);
 
   return (
-    <div className='flex flex-row place-items-center justify-between w-full gap-4'>
+    <FieldsViewWrapper>
 
-      <div className='flex flex-row place-items-center gap-3'>
+      <ViewDetailsWrapper>
 
         <SummaryView entity={weapon} />
 
@@ -36,7 +38,7 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
           )
         }
 
-      </div>
+      </ViewDetailsWrapper>
 
       <div className="hidden sm:flex flex-row place-content-center gap-2">
 
@@ -50,6 +52,6 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
         </Badge>
 
       </div>
-    </div>
+    </FieldsViewWrapper>
   );
 };

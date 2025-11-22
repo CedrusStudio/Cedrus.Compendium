@@ -15,6 +15,8 @@ import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
 import CastablePerkEditableFields from "@/application/common/combat/CastablePerkEditableFields";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type ManeuverViewProps =
 {
@@ -31,7 +33,7 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2">
+    <CompendiumView>
 
       <SummaryView entity={maneuver} />
       
@@ -53,7 +55,7 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
 
         {
           !disableEdit && (
-            <>
+            <CompendiumEditView>
               <DeleteButton id={maneuver.id} isPending={isPending} deleteAction={deleteManeuver} />
 
               <EditFormForSheet<ManeuverDto> 
@@ -77,11 +79,11 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
                 cacheKeys={['maneuvers']}
               />
 
-            </>
+            </CompendiumEditView>
           )
         }
       </div>
 
-    </div>
+    </CompendiumView>
   );
 }

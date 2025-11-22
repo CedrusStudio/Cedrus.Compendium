@@ -13,6 +13,8 @@ import { createCompendiumFormId } from "@/application/compendium/compendiumFormC
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type PerkViewProps =
 {
@@ -29,7 +31,7 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2">
+    <CompendiumView>
 
       <SummaryView entity={perk} />
 
@@ -45,7 +47,7 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
         </Badge>
         {
           !disableEdit && (
-            <>
+            <CompendiumEditView>
               <DeleteButton id={perk.id} isPending={isPending} deleteAction={deletePerk} />
               
               <EditFormForSheet<PerkDto> 
@@ -67,11 +69,11 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
                 cacheKeys={['perks']}
               />
 
-            </>
+            </CompendiumEditView>
           )
         }
       </div>
 
-    </div>
+    </CompendiumView>
   );
 }

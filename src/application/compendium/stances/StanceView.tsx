@@ -13,6 +13,8 @@ import { createCompendiumFormId } from "@/application/compendium/compendiumFormC
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type StanceViewProps =
 {
@@ -29,7 +31,7 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2">
+    <CompendiumView>
 
       <SummaryView entity={stance} />
 
@@ -45,7 +47,7 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
         </Badge>
         {
           !disableEdit && (
-            <>
+            <CompendiumEditView>
               <DeleteButton id={stance.id} isPending={isPending} deleteAction={deleteStance} />
 
               <EditFormForSheet<ModeDto> 
@@ -67,11 +69,11 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
                 cacheKeys={['stances']}
               />
 
-            </>
+            </CompendiumEditView>
           )
         }
       </div>
 
-    </div>
+    </CompendiumView>
   );
 }

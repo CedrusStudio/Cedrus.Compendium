@@ -11,6 +11,8 @@ import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
 import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
 import ShieldViewFields from "@/application/common/equipment/Views/ShieldViewFields";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type ShieldViewProps =
 {
@@ -27,13 +29,13 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2 gap-2 sticky top-0 bg-background z-10">
+    <CompendiumView>
 
       <ShieldViewFields shield={shield} />
 
       {
         !disableEdit && (
-          <>
+          <CompendiumEditView>
             <DeleteButton id={shield.id} isPending={isPending} deleteAction={deleteShield} />
 
             <EditFormForSheet<ShieldDto> 
@@ -53,10 +55,10 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
               cacheKeys={['shields']}
             />
 
-          </>
+          </CompendiumEditView>
         )
       }
 
-    </div>
+    </CompendiumView>
   );
 }

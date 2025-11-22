@@ -10,6 +10,8 @@ import { createCompendiumFormId } from "@/application/compendium/compendiumFormC
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
 import InventoryItemViewFields from "@/application/common/equipment/Views/InventoryItemViewFields";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type InventoryItemViewProps =
 {
@@ -26,13 +28,13 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2 gap-2">
+    <CompendiumView>
 
       <InventoryItemViewFields item={item} />
 
       {
         !disableEdit && (
-          <>
+          <CompendiumEditView>
             <DeleteButton id={item.id} isPending={isPending} deleteAction={deleteInventoryItem} />
 
             <EditFormForSheet<InventoryItemDto> 
@@ -48,10 +50,10 @@ export default function InventoryItemView({ item, disableEdit = false }: Invento
               cacheKeys={['inventory']}
             />
 
-          </>
+          </CompendiumEditView>
         )
       }
 
-    </div>
+    </CompendiumView>
   );
 }

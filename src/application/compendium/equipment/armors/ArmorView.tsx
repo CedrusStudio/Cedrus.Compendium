@@ -11,6 +11,8 @@ import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEdi
 import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import ArmorViewFields from "@/application/common/equipment/Views/ArmorViewFields";
+import CompendiumView from "@/application/compendium/CompendiumView";
+import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
 type ArmorViewProps =
 {
@@ -27,13 +29,13 @@ export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps
   });
 
   return (
-    <div className="flex flex-row items-center border rounded-md p-2 gap-2">
+    <CompendiumView>
 
       <ArmorViewFields armor={armor} />
 
       {
         !disableEdit && (
-          <>
+          <CompendiumEditView>
             <DeleteButton id={armor.id} isPending={isPending} deleteAction={deleteArmor} />
 
             <EditFormForSheet<ArmorDto> 
@@ -53,10 +55,10 @@ export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps
               cacheKeys={['armors']}
             />
 
-          </>
+          </CompendiumEditView>
         )
       }
 
-    </div>
+    </CompendiumView>
   );
 }
