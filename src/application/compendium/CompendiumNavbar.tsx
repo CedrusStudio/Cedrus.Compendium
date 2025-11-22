@@ -10,8 +10,14 @@ export default function CompendiumNavbar()
 const pathname = usePathname();
 
   return (
-    <nav className="flex items-center justify-between py-4 pr-11">
-        <NavbarBreadcrumb pathname={pathname} />
+    <nav className="flex items-center justify-between py-4 px-10 gap-3">
+
+        <div className="hidden lg:block">
+            <NavbarBreadcrumb pathname={pathname} />
+        </div>
+
+        <div className="flex-1" />
+        
         <div className="flex gap-2 items-center">
           <ApiKeySettings />
           <NavbarDefaultButton />
