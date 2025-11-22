@@ -161,7 +161,7 @@ function AddArmorSheet({ isPending, formId }: { isPending: boolean, formId: stri
         <Button variant="outline" size='icon' type="button">{addIcon()}</Button>
       </SheetTrigger>
 
-      <SheetContent>
+      <SheetContent className="w-full">
         
         <SheetHeader>
           <SheetTitle className='first-letter:uppercase'>{displayedText.add} {displayedText.armor}</SheetTitle>

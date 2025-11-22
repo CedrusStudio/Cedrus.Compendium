@@ -24,7 +24,7 @@ export function ItemEditSheet(input: PropsWithChildren<EditSheetProps>)
         <Button variant="outline" size='icon' type="button">{editIcon}</Button>
       </SheetTrigger>
 
-      <SheetContent>
+      <SheetContent className="w-fit">
         
         <SheetHeader>
           <SheetTitle className='first-letter:uppercase'>{input.displayedTitle}</SheetTitle>
@@ -33,7 +33,7 @@ export function ItemEditSheet(input: PropsWithChildren<EditSheetProps>)
           </SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col flex-wrap place-content-center gap-3">
           <ItemEditableFields />
           {input.children}
         </div>

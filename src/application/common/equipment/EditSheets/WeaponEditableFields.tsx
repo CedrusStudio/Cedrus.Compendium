@@ -51,8 +51,8 @@ function WeaponDiceEditor({ pathPrefix }: EditWeaponViewProps)
 {
   return (
   <>
-    <Label className='justify-center capitalize text-yellow-600'>{displayedText.weaponDice}</Label>
-      <div className="flex flex-row gap-3 px-14">
+    <Label className='place-items-center place-content-center capitalize text-yellow-600'>{displayedText.weaponDice}</Label>
+      <div className="flex flex-row gap-2 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
 
@@ -101,7 +101,7 @@ function DamageDiceEditor({ pathPrefix }: EditWeaponViewProps)
     <>
       <Label className='justify-center capitalize text-yellow-600'>{displayedText.damageDice}</Label>
 
-        <div className="flex flex-row justify-center gap-1">
+        <div className="flex flex-row justify-center">
               
           <div className="grid auto-rows-min gap-3 px-4">
 

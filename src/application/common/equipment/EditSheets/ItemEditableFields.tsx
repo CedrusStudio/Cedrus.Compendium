@@ -24,7 +24,7 @@ export default function ItemEditableFields({ pathPrefix = ""}: EditItemViewProps
             />
         </div>
 
-        <div className="grid auto-rows-min gap-3 px-4">
+        <div className="grid auto-rows-min gap-3 px-4 place-content-center place-items-center">
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.description}</span></Label>
 
             <AreaInputFormField<InventoryItemDto> 

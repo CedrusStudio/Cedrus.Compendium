@@ -29,7 +29,7 @@ export default function CompendiumListHeader
 {
   return (
     <div className='flex sm:flex-row gap-2 sm:gap-2 lg:gap-4 m-3 place-items-center sticky top-0 bg-background z-10'>
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-2 lg:gap-4 items-center">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-2 lg:gap-4 place-items-start">
         <Input 
           name="search" 
           type="text" 

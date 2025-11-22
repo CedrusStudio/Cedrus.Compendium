@@ -43,5 +43,5 @@ export function EditFormForSheet<TFormData extends FieldValues>(input: EditWeapo
         {input.renderSheetContent(isPending, input.formId)}
       </form>
     </Form>
-  )
+  );
 }

@@ -171,7 +171,7 @@ function AddWeaponSheet({ isPending, formId }: { isPending: boolean, formId: str
         <Button variant="outline" size='icon' type="button">{addIcon()}</Button>
       </SheetTrigger>
 
-      <SheetContent>
+      <SheetContent className="w-full">
         
         <SheetHeader>
           <SheetTitle className='first-letter:uppercase'>{displayedText.add} {displayedText.weapons}</SheetTitle>
@@ -203,7 +203,7 @@ function AddWeaponSheet({ isPending, formId }: { isPending: boolean, formId: str
           </div>
 
           <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='font-semibold text-base'>{displayedText.offense}</Label>
+            <Label className='font-semibold text-base capitalize'>{displayedText.weaponDice}</Label>
             
             <div className="grid grid-cols-3 gap-2">
               <div className="grid auto-rows-min gap-2">
