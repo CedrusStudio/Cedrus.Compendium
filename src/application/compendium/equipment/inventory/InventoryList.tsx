@@ -3,32 +3,24 @@
 import { Form } from "@/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import SubmitButton from "@/common/components/form/SubmitButton";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/inventoryClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { displayedText } from '@/presentation/translations';
 import { InventoryItemDto, itemSchema } from "@/persistence/schemas/characters/equipment/itemSchema";
-
 import { createKeysetSearchInventoryKey } from "@/persistence/cacheKeys";
 import { createInventoryItemKeysetQuery } from "@/infrastructure/searchQueries/equipment/inventory/createInventoryItemKeysetQuery";
 import InventoryItemView from "@/application/compendium/equipment/inventory/InventoryItemView";
-import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/presentation/icons";
 import { ulid } from "ulid";
 import { CreateDefaultInventoryItem, Item } from "@/domain/characters/equipment/Item";
 import { useState, useEffect } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
-import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
+import { displayedText } from "@/presentation/translations";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -144,51 +136,8 @@ function AddInventoryItemForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <AddInventoryItemSheet isPending={isPending} formId={formId} />
+        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.inventory} />
       </form>
     </Form>
-  )
-}
-
-function AddInventoryItemSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{addIcon()}</Button>
-      </SheetTrigger>
-
-      <SheetContent className="w-full">
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.add} {displayedText.inventory}</SheetTitle>
-          <SheetDescription>{displayedText.clickSave}</SheetDescription>
-        </SheetHeader>
-
-        <div className="grid auto-rows-min gap-3 px-4">
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.name}</Label>
-            <InputFormField<InventoryItemDto> path='name' inputPlaceholder={displayedText.changeName} inputClassName='w-60' />
-          </div>
-
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='capitalize'>{displayedText.description}</Label>
-            <InputFormField<InventoryItemDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
-          </div>
-
-          <FormTagsInput<InventoryItemDto> path='tags' />
-
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
   )
 }

@@ -15,9 +15,9 @@ export default function ArmorEditableFields({ pathPrefix = ""}: EditArmorViewPro
 {
   return (
     <>
-      <div className="grid auto-rows-min gap-3 justify-center items-center">
+      <div className="flex flex-row auto-rows-min gap-3 place-items-center place-content-center">
 
-        <div className='flex flex-row gap-4'>
+        <div className='flex flex-row gap-4 '>
           
           <div className='flex flex-col gap-3 px-4 place-items-center'>
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.protection}</span></Label>

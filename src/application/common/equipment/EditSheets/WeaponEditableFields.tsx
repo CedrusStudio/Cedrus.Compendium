@@ -9,7 +9,7 @@ import CheckboxFormField from '@/common/components/form/CheckboxFormField';
 
 type EditWeaponViewProps =
 {
-    pathPrefix?: string;
+  pathPrefix?: string;
 }
 
 export default function WeaponEditableFields({ pathPrefix = ""}: EditWeaponViewProps)
@@ -22,9 +22,9 @@ export default function WeaponEditableFields({ pathPrefix = ""}: EditWeaponViewP
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.style}</span></Label>
 
             <SelectFormField<WeaponDto> 
-                path={(`${pathPrefix}style`) as FieldPath<WeaponDto>}
-                items={allowedStyles}
-                noLabel
+              path={(`${pathPrefix}style`) as FieldPath<WeaponDto>}
+              items={allowedStyles}
+              noLabel
             />
         </div>
 
@@ -32,9 +32,9 @@ export default function WeaponEditableFields({ pathPrefix = ""}: EditWeaponViewP
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.range}</span></Label>
 
             <SelectFormField<WeaponDto> 
-                path={(`${pathPrefix}range`) as FieldPath<WeaponDto>}
-                items={[1,2,3,4,5]}
-                noLabel
+              path={(`${pathPrefix}range`) as FieldPath<WeaponDto>}
+              items={[1,2,3,4,5]}
+              noLabel
             />
         </div>
 
@@ -50,8 +50,8 @@ export default function WeaponEditableFields({ pathPrefix = ""}: EditWeaponViewP
 function WeaponDiceEditor({ pathPrefix }: EditWeaponViewProps)
 {
   return (
-  <>
-    <Label className='place-items-center place-content-center capitalize text-yellow-600'>{displayedText.weaponDice}</Label>
+    <>
+      <Label className='place-items-center place-content-center capitalize text-yellow-600'>{displayedText.weaponDice}</Label>
       <div className="flex flex-row gap-2 px-14">
         
         <div className="grid auto-rows-min gap-3 px-4">
