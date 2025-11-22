@@ -94,7 +94,7 @@ export default function CharactersHeadersList()
           placeholder={displayedText.searchByName}
           value={searchInput}
           onChange={handleSearchInputChange}
-          className="flex-1 max-w-md"
+          className="w-md"
         />
         <TagFilter 
           includedTags={searchTags} 

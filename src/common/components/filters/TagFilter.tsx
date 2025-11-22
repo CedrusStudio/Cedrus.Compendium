@@ -81,7 +81,7 @@ export default function TagFilter
   if (hasDropdown) 
   {
     return (
-      <div className="flex flex-col gap-2 w-full min-w-[200px]">
+      <div className="flex flex-col gap-2 w-full max-w-md min-w-[200px]">
         <div className="flex gap-2 items-center">
 
           <Popover open={open} onOpenChange={setOpen}>
