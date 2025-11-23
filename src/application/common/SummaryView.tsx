@@ -16,7 +16,7 @@ export default function SummaryView({ entity, className, tagsVariant = "secondar
   return (
     <div className={cn("flex flex-col w-full p-2 rounded-md", className)}>
       
-      <div className="flex flex-row flex-wrap gap-2 mb-0.5 place-items-center sm:place-content-start">
+      <div className="flex flex-row flex-wrap gap-2 mb-0.5 place-items-center place-content-center sm:place-content-start">
         <p className="font-semibold">{entity.name} {entity.grade}</p>
         <TagsView tags={entity.tags} variant={tagsVariant} />
       </div>
