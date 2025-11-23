@@ -29,6 +29,8 @@ import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 import { Button } from "@/common/components/ui/button";
 import { toast } from "sonner";
+import { deleteIcon } from "@/presentation/icons";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog";
 
 interface DataTableProps
 {
@@ -50,6 +52,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => 
   {
@@ -96,10 +99,11 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
 
   return (
     <div>
-      <div className="flex items-center py-4 gap-3">
-        <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
+      <div className="flex flex-col md:flex-row place-items-center place-content-center py-4 gap-3">
+        
+        <div className="flex flex-row items-start gap-2">
 
-        <div className="flex items-start gap-2">
+          <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
 
           <SelectFilter  
             selectedOption={selectedCategory}
@@ -108,20 +112,57 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
             options={allowedTalentCategories}
             allOption={displayedText.all}
           />
+        </div>
+
+        <div className="flex flex-row items-start gap-2">
 
           <AddTalentView append={append} setNameFilter={setNameFilter} />
           <AddBasicTalentButton talents={fields} append={append} />
-          <Button type="button" onClick={() => replace([])} variant="destructive" >
-            {"Usuń wszystkie talenty"}
-          </Button>
+
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+
+            <DialogTrigger asChild>
+              <Button variant="destructive">
+                {deleteIcon}
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent className="sm:max-w-[500px]">
+              <DialogHeader>
+                <DialogTitle>Czy na pewno chce usunąć wszystkie talenty postaci?</DialogTitle>
+              </DialogHeader>
+
+              <p className="text-sm text-muted-foreground">
+                Później będzie i tak wymagane kliknięcie "zapisz"
+              </p>
+
+              <DialogFooter>
+
+                <div className="flex flex-col-reverse md:flex-row gap-2">
+                  <Button variant="outline" onClick={() => setDialogOpen(false)}>
+                    <span className="first-letter:capitalize">{displayedText.cancel}</span>
+                  </Button>
+
+                  <Button type="button" onClick={() => replace([])} variant="destructive" >
+                    {"Usuń wszystkie talenty"}
+                  </Button>
+                </div>
+                
+              </DialogFooter>
+              
+            </DialogContent>
+          </Dialog>
 
         </div>
 
-        <PaginationButtons table={table} />
-        <ColumnFilter table={table} />
+        <div className="flex flex-row place-items-center place-content-center gap-2">
+          <PaginationButtons table={table} />
+          <ColumnFilter table={table} />
+        </div>
+
       </div>
 
-      <Table className="overflow-hidden rounded-md border">
+      <Table>
         <DefaultTableHeader table={table} />
 
         <DefaultTableBody table={table} columns={columns} tableRowFactory=
