@@ -99,8 +99,8 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
   }
 
   return (
-    <div>
-      <div className="flex flex-col md:flex-row place-items-center place-content-center py-4 gap-3">
+    <div className="flex flex-col">
+      <div className="flex flex-col md:flex-row place-items-center place-content-center pt-1 gap-3">
         
         <div className="flex flex-row items-start gap-2">
 
