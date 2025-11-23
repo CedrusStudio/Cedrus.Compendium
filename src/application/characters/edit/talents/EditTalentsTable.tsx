@@ -31,6 +31,7 @@ import { Button } from "@/common/components/ui/button";
 import { toast } from "sonner";
 import { deleteIcon } from "@/presentation/icons";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog";
+import { Description } from "@radix-ui/react-dialog";
 
 interface DataTableProps
 {
@@ -132,9 +133,9 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
                 <DialogTitle>Czy na pewno chce usunąć wszystkie talenty postaci?</DialogTitle>
               </DialogHeader>
 
-              <p className="text-sm text-muted-foreground">
-                Później będzie i tak wymagane kliknięcie "zapisz"
-              </p>
+              <Description className="text-sm text-muted-foreground">
+                Później będzie i tak wymagane kliknięcie zapisz
+              </Description>
 
               <DialogFooter>
 

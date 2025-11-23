@@ -38,7 +38,7 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
 
         <div className='lg:row-span-1'>
             <div className='flex flex-row flex-wrap justify-between items-center'>
-                <TabsList className='flex scale-95 m-1 sm:m-0 sm:scale-100'>
+                <TabsList className='flex m-1'>
                     <TabsTriggerCapitalized value="statistics" overrideValue={displayedText.statistics} />
                     <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
                     <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
