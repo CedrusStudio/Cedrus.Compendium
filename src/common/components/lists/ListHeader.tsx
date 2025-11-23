@@ -4,7 +4,7 @@ import { displayedText } from '@/presentation/translations';
 import { Input } from "@/common/components/ui/input";
 import TagFilter from "@/common/components/filters/TagFilter";
 
-type CompendiumListHeaderProps = 
+type ListHeaderProps = 
 {
   searchInput: string;
   handleSearchInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +14,7 @@ type CompendiumListHeaderProps =
   tagsLoading: boolean;
 }
 
-export default function CompendiumListHeader
+export default function ListHeader
 (
   { 
     children, 
@@ -25,10 +25,10 @@ export default function CompendiumListHeader
     availableTags,
     tagsLoading
   }
-  : React.PropsWithChildren<CompendiumListHeaderProps>)
+  : React.PropsWithChildren<ListHeaderProps>)
 {
   return (
-    <div className='flex sm:flex-row gap-2 sm:gap-2 lg:gap-4 m-3 place-items-center sticky top-0 bg-background z-10'>
+    <div className='flex md:ml-12 sm:flex-row gap-2 sm:gap-2 lg:gap-4 m-3 place-items-center sticky top-0 bg-background z-10'>
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-2 lg:gap-4 place-items-start">
         <Input 
           name="search" 

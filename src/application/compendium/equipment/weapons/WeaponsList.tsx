@@ -20,7 +20,7 @@ import StyleFilter from "@/common/components/filters/StyleFilter";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
-import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 import WeaponEditableFields from "@/application/common/equipment/EditSheets/WeaponEditableFields";
 
@@ -96,7 +96,7 @@ export default function WeaponsList()
 
   return (
     <>
-      <CompendiumListHeader
+      <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
@@ -106,7 +106,7 @@ export default function WeaponsList()
       >
         <StyleFilter selectedStyle={selectedStyle} onStyleChange={handleStyleChange} styles={allowedStyles} />
         <AddWeaponForm />
-      </CompendiumListHeader>
+      </ListHeader>
 
       <WithScroll<Weapon>
         parentClassName="flex flex-col gap-2"
