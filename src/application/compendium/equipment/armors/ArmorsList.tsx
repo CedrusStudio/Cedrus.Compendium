@@ -19,7 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
-import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ListHeader from "@/common/components/lists/ListHeader";
 import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 
@@ -89,7 +89,7 @@ export default function ArmorsList()
 
   return (
     <>
-      <CompendiumListHeader
+      <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
@@ -98,7 +98,7 @@ export default function ArmorsList()
         tagsLoading={tagsLoading}
       >
         <AddArmorForm />
-      </CompendiumListHeader>
+      </ListHeader>
 
       <WithScroll<Armor>
         parentClassName="flex flex-col gap-2"

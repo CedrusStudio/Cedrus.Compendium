@@ -18,7 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
-import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import { displayedText } from "@/presentation/translations";
 
@@ -87,7 +87,7 @@ export default function PerksList()
 
   return (
     <>
-      <CompendiumListHeader
+      <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
@@ -96,7 +96,7 @@ export default function PerksList()
         tagsLoading={tagsLoading}
       >
         <AddPerkForm />
-      </CompendiumListHeader>
+      </ListHeader>
 
       <WithScroll<Perk>
         parentClassName="flex flex-col gap-2"

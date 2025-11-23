@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
 import { displayedText } from '@/presentation/translations';
-import { Input } from '@/ui/input';
 import { importIcon } from '@/presentation/icons';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
@@ -12,8 +11,8 @@ import searchClient from '@/infrastructure/clients/searchClient';
 import { DEFAULT_PAGE_SIZE, emptyUlid } from '@/common/global/pagination';
 import { EntityType, useEntityTags } from '@/common/hooks/useEntityTags';
 import { WithScroll } from '../WithScroll';
-import TagFilter from '../filters/TagFilter';
 import { SearchEntityPayload } from '@/common/global/SearchPayloads';
+import ListHeader from '@/common/components/lists/ListHeader';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -173,7 +172,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
         </Button>
       </SheetTrigger>
       
-      <SheetContent side="bottom" className="h-[80vh] overflow-y-auto" id={scrollableTargetId}>
+      <SheetContent side="bottom" className="h-full md:h-[90vh] overflow-y-auto" id={scrollableTargetId}>
         
         <SheetHeader>
           <SheetTitle className='first-letter:capitalize'>
@@ -184,20 +183,15 @@ export default function ImportItemsSheet<TItem extends { id: string }>
           </SheetDescription>
         </SheetHeader>
     
-          <div className="flex flex-row pl-13 pr-3 place-content-between sticky top-0 bg-background z-10">
-
-            <div className='flex flex-row gap-4'>
-              <Input 
-                name="search" 
-                type="text" 
-                placeholder={displayedText.searchByName}
-                value={searchTerm}
-                onChange={handleSearchInputChange}
-                className="max-w-max"
-              />
-
-              <TagFilter includedTags={searchTags} onTagsChange={handleSearchTagsChange} availableTags={availableTags} isLoading={tagsLoading} />
-
+          <ListHeader 
+            availableTags={availableTags} 
+            searchTags={searchTags}
+            searchInput={searchTerm}
+            tagsLoading={tagsLoading}
+            handleSearchTagsChange={handleSearchTagsChange}
+            handleSearchInputChange={handleSearchInputChange}
+          >
+            <div className="flex flex-col md:flex-row gap-2">
               {
                 availableItems.length > 0 && (
                   <Button variant="outline" type="button" onClick={handleToggleAll}>
@@ -205,12 +199,11 @@ export default function ImportItemsSheet<TItem extends { id: string }>
                   </Button>
                 )
               }
+              <Button variant="default" type="button" onClick={handleImport} disabled={selectedCount === 0}>
+                <span className='first-letter:capitalize'>{displayedText.import} ({selectedCount})</span>
+              </Button>
             </div>
-
-            <Button variant="default" type="button" onClick={handleImport} disabled={selectedCount === 0}>
-              <span className='first-letter:capitalize'>{displayedText.import} ({selectedCount})</span>
-            </Button>
-          </div>
+          </ListHeader>
 
           <WithScroll<TItem>
             parentClassName="flex flex-col gap-2"

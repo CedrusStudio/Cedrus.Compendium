@@ -19,7 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
-import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
 
@@ -87,7 +87,7 @@ export default function ShieldsList()
 
   return (
     <>
-      <CompendiumListHeader
+      <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
@@ -96,7 +96,7 @@ export default function ShieldsList()
         tagsLoading={tagsLoading}
       >
         <AddShieldForm />
-      </CompendiumListHeader>
+      </ListHeader>
 
       <WithScroll<Shield>
         parentClassName="flex flex-col gap-2"

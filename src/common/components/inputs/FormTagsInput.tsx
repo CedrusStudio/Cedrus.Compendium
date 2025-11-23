@@ -93,23 +93,26 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
           <FormItem>
             <FormControl>
               <div className="flex flex-col gap-3">
-                <div className="flex gap-2 items-center justify-center">
-                  <Input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => 
-                    {
-                      setInputValue(e.target.value);
-                      setValidationError(null);
-                    }}
-                    onKeyDown={handleKeyDown}
-                    placeholder={placeholder}
-                    className="w-46"
-                  />
+                <div className="flex flex-col md:flex-row gap-2 place-items-center place-content-center">
 
-                  <Button type="button" onClick={() => handleAddTag()} variant="outline">
-                    {addIcon("scale-90")}
-                  </Button>
+                  <div className="flex flex-row gap-2">
+                    <Input
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => 
+                        {
+                          setInputValue(e.target.value);
+                          setValidationError(null);
+                        }}
+                        onKeyDown={handleKeyDown}
+                        placeholder={placeholder}
+                        className="w-46"
+                        />
+
+                    <Button type="button" onClick={() => handleAddTag()} variant="outline">
+                      {addIcon("scale-90")}
+                    </Button>
+                  </div>
 
                   {
                     beAbleToSetCharacterAndSessionTags && (

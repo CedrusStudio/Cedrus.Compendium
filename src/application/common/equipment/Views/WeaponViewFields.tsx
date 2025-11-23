@@ -25,18 +25,20 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
 
         <SummaryView entity={weapon} />
 
-        <Badge variant="outline">
-          <span>{toOffenseString(weapon.offense)}</span>
-          <Badge variant="secondary">{toCriticalRangeString(weapon.offense)}, {weapon.offense.critical.power >=0 ? "+" : ""}{weapon.offense.critical.power}</Badge>
-        </Badge>
+        <div className='flex flex-row gap-2 place-content-center'>
+          <Badge variant="outline">
+            <span>{toOffenseString(weapon.offense)}</span>
+            <Badge variant="secondary">{toCriticalRangeString(weapon.offense)}, {weapon.offense.critical.power >=0 ? "+" : ""}{weapon.offense.critical.power}</Badge>
+          </Badge>
 
-        {
-          damageBonusString && (
-            <Badge variant="outline">
-              <span>{damageBonusString}</span>
-            </Badge>
-          )
-        }
+          {
+            damageBonusString && (
+              <Badge variant="outline">
+                <span>{damageBonusString}</span>
+              </Badge>
+            )
+          }
+        </div>
 
       </ViewDetailsWrapper>
 

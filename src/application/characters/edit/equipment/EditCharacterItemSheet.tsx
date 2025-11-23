@@ -26,17 +26,17 @@ export default function EditCharacterItemSheet({ type, children }: PropsWithChil
     <Sheet>
 
       <SheetTrigger asChild>
-        <Button variant="edit">{editIcon}</Button>
+        <Button variant="edit" size='icon'>{editIcon}</Button>
       </SheetTrigger>
 
-      <SheetContent>
+      <SheetContent className="w-full">
         
         <SheetHeader>
           <SheetTitle className="first-letter:uppercase">{displayedText.editingItem}</SheetTitle>
           <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
-        <div className="grid gap-6">
+        <div className="flex flex-col flex-wrap place-content-center gap-3">
           <ItemEditableFields pathPrefix={`${type}.`} />
           {children}
         </div>

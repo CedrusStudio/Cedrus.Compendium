@@ -16,12 +16,12 @@ export default function SummaryView({ entity, className, tagsVariant = "secondar
   return (
     <div className={cn("flex flex-col w-full p-2 rounded-md", className)}>
       
-      <div className="flex flex-row gap-2 place-items-center place-content-center sm:place-content-start">
-        <p className="font-semibold whitespace-nowrap">{entity.name} {entity.grade}</p>
+      <div className="flex flex-row flex-wrap gap-2 mb-0.5 place-items-center place-content-center sm:place-content-start">
+        <p className="font-semibold">{entity.name} {entity.grade}</p>
         <TagsView tags={entity.tags} variant={tagsVariant} />
       </div>
 
-      <p className="text-sm text-muted-foreground">{entity.description}</p>
+      <p className="text-sm text-muted-foreground break-words">{entity.description}</p>
     </div>
   );
 };

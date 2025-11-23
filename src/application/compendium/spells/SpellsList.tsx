@@ -23,7 +23,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
-import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -92,7 +92,7 @@ export default function SpellsList()
 
   return (
     <>
-      <CompendiumListHeader
+      <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
@@ -101,7 +101,7 @@ export default function SpellsList()
         tagsLoading={tagsLoading}
       >
         <AddSpellForm />
-      </CompendiumListHeader>
+      </ListHeader>
 
       <WithScroll<Spell>
         parentClassName="flex flex-col gap-2"

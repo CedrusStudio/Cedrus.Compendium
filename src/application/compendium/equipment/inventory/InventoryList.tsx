@@ -18,7 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
-import CompendiumListHeader from "@/application/compendium/CompendiumListHeader";
+import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 import { displayedText } from "@/presentation/translations";
 
@@ -86,7 +86,7 @@ export default function InventoryList()
 
   return (
     <>
-      <CompendiumListHeader
+      <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
@@ -95,7 +95,7 @@ export default function InventoryList()
         tagsLoading={tagsLoading}
       >
         <AddInventoryItemForm />
-      </CompendiumListHeader>
+      </ListHeader>
 
       <WithScroll<Item>
         parentClassName="flex flex-col gap-2"

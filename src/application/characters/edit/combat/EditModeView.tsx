@@ -6,6 +6,8 @@ import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButto
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import SummaryView from "@/application/common/SummaryView";
 import EditCharacterCombatPerkSheet from "./EditCharacterCombatPerkSheet";
+import { displayedText } from "@/presentation/translations";
+import PerkableEditView from '@/application/characters/edit/combat/PerkableEditView';
 
 type EditModeViewProps =
 { 
@@ -19,7 +21,7 @@ type EditModeViewProps =
 export default function EditModeView({ mode, modeType, index, remove, isImported }: EditModeViewProps)
 { 
   return (
-    <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
+    <PerkableEditView>
 
       <SummaryView entity={mode} tagsVariant="outline" />
       <ImportedBadge isImported={isImported} />
@@ -29,7 +31,7 @@ export default function EditModeView({ mode, modeType, index, remove, isImported
         {!isImported && <EditModeSheet index={index} modeType={modeType} />}
       </div>
 
-    </div>
+    </PerkableEditView>
   );
 }
 
@@ -42,5 +44,6 @@ type EditModeSheetProps =
 function EditModeSheet({ index, modeType }: EditModeSheetProps)
 {
   const type = pathToMode(index, modeType);
-  return <EditCharacterCombatPerkSheet type={type} />;
+  const displayedTitle = modeType === 'stances' ? displayedText.editStance : displayedText.editState
+  return <EditCharacterCombatPerkSheet type={type} displayedTitle={displayedTitle} />;
 }

@@ -26,25 +26,26 @@ export default function EditTalentRow({ row, initialTalent, index, update, remov
 
   return (
     <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-    {
-      row.getVisibleCells().map(cell => 
       {
-        return (
-          <TableCell key={cell.id} >
-          {
-            cell.column.id !== "grade" && cell.column.id !== "bonus"
-              ? flexRender(cell.column.columnDef.cell, cell.getContext())
-              : <EditableCell 
-                  name={cell.column.id} 
-                  currentTalent={row.original}
-                  initialTalent={initialTalent} 
-                  setTalentValue={updateTalent} 
-                />
-          }
-          </TableCell>
-        )
-      })
-    }
+        row.getVisibleCells().map(cell => 
+        {
+          return (
+            <TableCell key={cell.id} >
+            {
+              cell.column.id !== "grade" && cell.column.id !== "bonus"
+                ? flexRender(cell.column.columnDef.cell, cell.getContext())
+                : <EditableCell 
+                    name={cell.column.id} 
+                    currentTalent={row.original}
+                    initialTalent={initialTalent} 
+                    setTalentValue={updateTalent} 
+                  />
+            }
+            </TableCell>
+          )
+        })
+      }
+
       <TableCell className="flex items-center justify-center">
         <RemoveFromArrayButton remove={remove} index={index} />
       </TableCell>

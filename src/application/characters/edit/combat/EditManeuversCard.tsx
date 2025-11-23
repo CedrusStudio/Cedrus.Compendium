@@ -21,6 +21,7 @@ import EditCharacterCombatPerkSheet from './EditCharacterCombatPerkSheet';
 import CastablePerkEditableFields from '@/application/common/combat/CastablePerkEditableFields';
 import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery';
 import { createKeysetSearchManeuversKey } from '@/persistence/cacheKeys';
+import PerkableEditView from '@/application/characters/edit/combat/PerkableEditView';
 
 type EditManeuversCardProps = 
 {
@@ -121,7 +122,7 @@ type EditManeuverViewProps =
 function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverViewProps)
 {
   return (
-    <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
+    <PerkableEditView>
 
       <SummaryView entity={maneuver} tagsVariant="outline" />
       <ImportedBadge isImported={isImported} />
@@ -135,7 +136,7 @@ function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverV
         {!isImported && <EditManeuverSheet index={index}/>}
       </div>
 
-    </div>
+    </PerkableEditView>
   );
 }
 
@@ -149,7 +150,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
   const type = pathToManeuvers(index);
 
   return (
-    <EditCharacterCombatPerkSheet type={type} >
+    <EditCharacterCombatPerkSheet type={type} displayedTitle={displayedText.editManeuver} >
       <CastablePerkEditableFields pathPrefix={type + "."}  />
     </EditCharacterCombatPerkSheet>
   )
