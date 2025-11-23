@@ -12,9 +12,10 @@ export type CombatPerksTypes = `maneuvers.${number}` | `stances.${number}` | `st
 type EditCombatSheetProps = 
 {
    type: CombatPerksTypes;
+   displayedTitle: string;
 };
 
-export default function EditCharacterCombatPerkSheet({ type, children }: PropsWithChildren<EditCombatSheetProps>)
+export default function EditCharacterCombatPerkSheet({ type, displayedTitle, children }: PropsWithChildren<EditCombatSheetProps>)
 {
     return (
         <Sheet>
@@ -23,10 +24,10 @@ export default function EditCharacterCombatPerkSheet({ type, children }: PropsWi
                 <Button variant="outline" size='icon' type="button">{editIcon}</Button>
             </SheetTrigger>
 
-            <SheetContent>
+            <SheetContent className="w-full">
                 
                 <SheetHeader>
-                    <SheetTitle className='first-letter:uppercase'>{displayedText.editManeuver}</SheetTitle>
+                    <SheetTitle className='first-letter:uppercase'>{displayedTitle}</SheetTitle>
                     <SheetDescription>
                         {displayedText.clickSave}
                     </SheetDescription>

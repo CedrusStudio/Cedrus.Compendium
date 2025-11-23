@@ -218,7 +218,7 @@ function EditSpellSheet({ powerIndex, spellIndex }: EditSpellSheetProps)
   const type = pathToSpell(powerIndex, spellIndex);
 
   return (
-    <EditCharacterCombatPerkSheet type={type} >
+    <EditCharacterCombatPerkSheet type={type} displayedTitle={displayedText.editSpell} >
       <SpellEditableFields pathPrefix={type + "."}  />
     </EditCharacterCombatPerkSheet>
   )

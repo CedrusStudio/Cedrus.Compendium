@@ -6,6 +6,7 @@ import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButto
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import SummaryView from "@/application/common/SummaryView";
 import EditCharacterCombatPerkSheet from "./EditCharacterCombatPerkSheet";
+import { displayedText } from "@/presentation/translations";
 
 type EditModeViewProps =
 { 
@@ -42,5 +43,6 @@ type EditModeSheetProps =
 function EditModeSheet({ index, modeType }: EditModeSheetProps)
 {
   const type = pathToMode(index, modeType);
-  return <EditCharacterCombatPerkSheet type={type} />;
+  const displayedTitle = modeType === 'stances' ? displayedText.editStance : displayedText.editState
+  return <EditCharacterCombatPerkSheet type={type} displayedTitle={displayedTitle} />;
 }

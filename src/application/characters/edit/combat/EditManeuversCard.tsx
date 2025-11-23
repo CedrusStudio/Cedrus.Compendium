@@ -149,7 +149,7 @@ function EditManeuverSheet({ index }: EditManeuverSheetProps)
   const type = pathToManeuvers(index);
 
   return (
-    <EditCharacterCombatPerkSheet type={type} >
+    <EditCharacterCombatPerkSheet type={type} displayedTitle={displayedText.editManeuver} >
       <CastablePerkEditableFields pathPrefix={type + "."}  />
     </EditCharacterCombatPerkSheet>
   )
