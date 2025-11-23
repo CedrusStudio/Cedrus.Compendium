@@ -52,8 +52,8 @@ export default function EditDetailsView(input: { character: Character })
 function EditHeader()
 {
     return (
-        <div className="flex flex-col gap-6 pt-2">
-            <div className="flex flex-row flex-wrap justify-center items-center gap-6 flex-1">
+        <div className="flex flex-col gap-3 pt-2">
+            <div className="flex flex-row flex-wrap justify-center items-center gap-3 flex-1">
 
                 <div className="flex flex-col justify-center items-center gap-6">
                     <InputFormField<DetailsDto> 

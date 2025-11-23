@@ -78,7 +78,7 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
 
   return (
     <>
-      <div className="flex flex-row justify-center items-center gap-4">
+      <div className="flex flex-row place-items-center place-content-center gap-4">
 
         <h3 className="text-lg font-semibold text-primary capitalize">
           {displayedText.perks}
@@ -106,7 +106,7 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
         
       </div>
 
-      <ul className="list-inside grid grid-cols-2 gap-2">
+      <ul className="list-inside grid grid-cols-1 md:grid-cols-2 gap-2">
       {
         perks.map((perk, index) => (
           <li key={index} className="text-md text-primary">
