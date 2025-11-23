@@ -181,9 +181,12 @@ function CharacterNameView({ character }: {character: Character})
 
 function CharacterHealthBattleView({ character }: {character: Character})
 {
+  const totalHealth = calculateTotalHealthForCharacter(character);
+
   return (
-    <div>
-      {calculateTotalHealthForCharacter(character)}{character.health.barrier && `+${character.health.barrier}`} {character.health.lethalHealth > 0 ? `(-${character.health.lethalHealth})` : null} [{character.health.recoveryLevel}]
+    <div className="flex flex-row place-items-center gap-1">
+      <span>{totalHealth} {character.health.barrier > 0 && `+${character.health.barrier}`}</span>
+      <span>{character.health.lethalHealth > 0 ? `(-${character.health.lethalHealth})` : null} [{character.health.recoveryLevel}]</span>
     </div>
   );
 }
