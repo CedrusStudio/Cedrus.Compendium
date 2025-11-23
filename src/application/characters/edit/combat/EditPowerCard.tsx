@@ -26,6 +26,7 @@ import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import { createSpellKeysetQuery } from '@/infrastructure/searchQueries/spells/createSpellKeysetQuery';
 import { createKeysetSearchSpellsKey } from '@/persistence/cacheKeys';
+import PerkableEditView from '@/application/characters/edit/combat/PerkableEditView';
 
 type EditPowersCardProps =
 {
@@ -185,7 +186,7 @@ type EditSpellViewProps =
 function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: EditSpellViewProps)
 {
   return (
-    <div className="flex flex-row gap-2 m-1 items-center border rounded-md p-2 min-h-24">
+    <PerkableEditView>
 
       <SummaryView entity={spell} tagsVariant="outline" />
       <ImportedBadge isImported={isImported} />
@@ -203,7 +204,7 @@ function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: Ed
         {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
       </div>
 
-    </div>
+    </PerkableEditView>
   );
 }
 

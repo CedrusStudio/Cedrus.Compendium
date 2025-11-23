@@ -165,7 +165,7 @@ function EditPerkSheet({ index }: EditPerkSheetProps)
         <Button variant="outline" size='icon' type="button">{editIcon}</Button>
       </SheetTrigger>
 
-      <SheetContent>
+      <SheetContent className="w-full">
         
         <SheetHeader>
           <SheetTitle className='first-letter:uppercase'>{displayedText.editPerk}</SheetTitle>
