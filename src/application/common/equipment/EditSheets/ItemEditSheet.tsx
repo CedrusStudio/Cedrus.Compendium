@@ -28,9 +28,7 @@ export function ItemEditSheet(input: PropsWithChildren<EditSheetProps>)
         
         <SheetHeader>
           <SheetTitle className='first-letter:uppercase'>{input.displayedTitle}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
+          <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
         <div className="flex flex-col flex-wrap place-content-center gap-3">
