@@ -1,4 +1,4 @@
-import BestiaryNavbar from "@/application/characters/navbars/BestiaryNavbar";
+import BestiaryNavbar from "@/application/bestiary/BestiaryNavbar";
 import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 
