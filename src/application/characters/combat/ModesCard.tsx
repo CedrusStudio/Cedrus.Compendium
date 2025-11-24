@@ -31,7 +31,7 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
             <SelectItem value={displayedText.none}>{displayedText.none}</SelectItem>
             {
               modes.map(mode => (
-                <SelectItem key={mode.name} value={mode.name}>
+                <SelectItem key={mode.id} value={mode.name}>
                   <Label htmlFor={mode.name} className="flex items-center gap-3" >
                     <div className="flex items-start text-start gap-2">
                       <FieldView value={mode.grade} className="gap-1" childrenClassName="w-4xs">
