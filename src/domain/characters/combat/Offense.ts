@@ -78,7 +78,7 @@ export function rollTotalDamage(offense: Offense, targetImmunity: number = 0): n
     amount: takeOneFromSecondary ? offense.leadingWeapon.amount : Math.max(offense.leadingWeapon.amount - immunityAfterDecreasingSecondaryByOne, 0),
   };
 
-  const rollForDamageBonus = handleDamageOffenseTotal(damageOffenseAfterImmunity);
+  const rollForDamageBonus = handleDamageOffenseRolls(damageOffenseAfterImmunity);
   const rollForLeadingWeapon = handleWeaponDamageRolls(leadingOffenseAfterImmunity);
 
   const rollForSecondaryWeapon = !offense.secondaryWeapon 
@@ -108,7 +108,7 @@ export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: numbe
   return { total: totalOffenseDamage, rolls };
 };
 
-export function handleDamageOffenseTotal(offense: DamageOffense) : { total: number, rolls: number[] }
+export function handleDamageOffenseRolls(offense: DamageOffense) : { total: number, rolls: number[] }
 {
   let totalDamageBonus = 0;
   const rolls: number[] = [];

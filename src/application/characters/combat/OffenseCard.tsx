@@ -1,6 +1,6 @@
 "use client";
 
-import { toCriticalRangeString, DamageOffense, toOffenseString, calculateCriticalDamage, handleDamageOffenseTotal, handleDamageOffenseRoll, calculateWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { toCriticalRangeString, DamageOffense, toOffenseString, calculateCriticalDamage, handleDamageOffenseRolls, calculateWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 
 import {
   Card,
@@ -74,7 +74,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
 
   const handleRoll = () => 
   {
-    const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageOffenseTotal(currentDamageBonus);
+    const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageOffenseRolls(currentDamageBonus);
     const { total: leadingTotal, rolls: leadingRolls } = handleWeaponDamageRolls(currentLeadingOffense);
     const { total: secondaryTotal, rolls: secondaryRolls } = currentSecondaryOffense ? handleWeaponDamageRolls(currentSecondaryOffense) : { total: 0, rolls: [] };
 
@@ -98,7 +98,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
     });
   };
 
-  const handleDamageBonusReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
+  const handleDamageOffenseReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
   {
     const damage = handleDamageOffenseRoll(damageOffense);
 
@@ -173,7 +173,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           <DamageBonusWithRolls 
             damageOffense={currentDamageBonus} 
             rolls={damageBonusRolls} 
-            onReroll={(index: number, damageBonus: DamageOffense) => handleDamageBonusReroll(index, damageBonus, setDamageBonusRolls)}
+            onReroll={(index: number, damageBonus: DamageOffense) => handleDamageOffenseReroll(index, damageBonus, setDamageBonusRolls)}
             setAmount={action => setCurrentDamageBonus(prev => 
             {
               const nextAmount = resolveSetState(action, prev.amount);
