@@ -46,6 +46,7 @@ import { VscGoToSearch } from "react-icons/vsc";
 import { cn } from "@/lib/utils";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { GiShadowGrasp } from "react-icons/gi";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -135,5 +136,7 @@ export const cancelIcon = (className?: string) => <FaTimes className={className}
 
 export const sortIcon = (className?: string) => <ArrowUpDown className={className} />;
 export const showHideIcon = (isHidden: boolean, className?: string) => isHidden
-  ? <FaEye className={className} />
-  : <FaEyeSlash className={className} />;
+? <FaEye className={className} />
+: <FaEyeSlash className={className} />;
+
+export const phantomIcon = (className?: string) => <GiShadowGrasp className={className} />;

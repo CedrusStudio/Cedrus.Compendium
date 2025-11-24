@@ -163,7 +163,7 @@ model Weapon {
   tags        String[]
   style       String
   offense     WeaponOffense
-  damageBonus PossiblePhantomDamageOffense
+  damageBonus DamageOffense
   range       Int
 
   characterIds String[]
@@ -280,7 +280,6 @@ type Talent {
   name            String
   grade           Int
   category        String
-  // category        TalentCategory
   characteristics String
   bonus           Int
   penalty         String?
@@ -331,20 +330,15 @@ type WeaponOffense {
   amount   Int
   grade    Int
   bonus    Int
-  critical Critical
-}
-
-type PossiblePhantomDamageOffense {
-  amount Int
-  grade  Int
-  bonus  Int
   isPhantom Boolean
+  critical Critical
 }
 
 type DamageOffense {
   amount Int
   grade  Int
   bonus  Int
+  isPhantom Boolean
 }
 
 type Critical {
@@ -356,7 +350,6 @@ type Power {
   id      String
   name    String
   type    String
-  // type    PowerType
   level   Int
   bonus   Int
   essence Int

@@ -16,10 +16,6 @@ export type DamageOffense =
   amount: number;
   grade: number;
   bonus: number;
-};
-
-export type PossiblyPhantomDamageOffense = DamageOffense &
-{
   isPhantom: boolean;
 };
 
@@ -59,7 +55,7 @@ export function toCriticalRangeString(weaponOffense: WeaponOffense): string
   return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
 }
 
-export function rollDamage(offense: Offense, targetImmunity: number = 0): number
+export function rollTotalDamage(offense: Offense, targetImmunity: number = 0): number
 {
   if (targetImmunity < 0 || targetImmunity > 2) throw new Error("Invalid target immunity");
 
@@ -82,7 +78,7 @@ export function rollDamage(offense: Offense, targetImmunity: number = 0): number
     amount: takeOneFromSecondary ? offense.leadingWeapon.amount : Math.max(offense.leadingWeapon.amount - immunityAfterDecreasingSecondaryByOne, 0),
   };
 
-  const rollForDamageBonus = handleDamageBonusRolls(damageOffenseAfterImmunity);
+  const rollForDamageBonus = handleDamageOffenseRolls(damageOffenseAfterImmunity);
   const rollForLeadingWeapon = handleWeaponDamageRolls(leadingOffenseAfterImmunity);
 
   const rollForSecondaryWeapon = !offense.secondaryWeapon 
@@ -103,7 +99,7 @@ export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: numbe
 
   for (let i = 0; i < offense.amount; i++) 
   {
-    const [damageWithoutCritical, criticalDamage] = handleWeaponDamageRoll(offense);
+    const [damageWithoutCritical, criticalDamage] = calculateWeaponDamageRoll(offense);
     const weaponDiceDamageWithoutCritical = damageWithoutCritical + offense.bonus;
     rolls.push([damageWithoutCritical, criticalDamage > 0]);
     totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
@@ -112,39 +108,34 @@ export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: numbe
   return { total: totalOffenseDamage, rolls };
 };
 
-export function handleWeaponDamageRoll(offense: WeaponOffense) : [damage: number, critical: number]
-{
-  const weaponDamageRoll = handleWeaponOffenseRoll(offense);
-  const criticalDamage = handleCriticalDamage(offense, weaponDamageRoll);
-  return [ weaponDamageRoll, criticalDamage ];
-}
-
-export function handleDamageBonusRolls(damageOffense: DamageOffense)
+export function handleDamageOffenseRolls(offense: DamageOffense) : { total: number, rolls: number[] }
 {
   let totalDamageBonus = 0;
   const rolls: number[] = [];
 
-  for (let i = 0; i < damageOffense.amount; i++) 
+  for (let i = 0; i < offense.amount; i++) 
   {
-    const damageBonusRoll = handleDamageOffenseRoll(damageOffense);
+    const damageBonusRoll = roll(offense.grade);
     rolls.push(damageBonusRoll);
     totalDamageBonus += damageBonusRoll;
   }
 
-  return { total: totalDamageBonus + damageOffense.bonus, rolls };
+  return { total: totalDamageBonus + offense.bonus, rolls };
 }
 
-function handleWeaponOffenseRoll(offense: WeaponOffense): number
+export function roll(grade: number): number
 {
-  return Math.floor(Math.random() * offense.grade * 2) + 1;
+  return Math.floor(Math.random() * grade * 2) + 1;
 }
 
-export function handleDamageOffenseRoll(damageOffense: DamageOffense): number
+export function calculateWeaponDamageRoll(offense: WeaponOffense) : [damage: number, critical: number]
 {
-  return Math.floor(Math.random() * damageOffense.grade * 2) + 1;
+  const weaponDamageRoll = roll(offense.grade);
+  const criticalDamage = calculateCriticalDamage(offense, weaponDamageRoll);
+  return [ weaponDamageRoll, criticalDamage ];
 }
 
-export function handleCriticalDamage(offense: WeaponOffense, roll: number): number
+export function calculateCriticalDamage(offense: WeaponOffense, roll: number): number
 {
   return roll >= (offense.grade * 2 - offense.critical.range) ? offense.critical.power : 0;
 }
@@ -164,6 +155,7 @@ export const defaultWeaponOffense: WeaponOffense =
   amount: 1,
   grade: defaultDiceGrade,
   bonus: 0,
+  isPhantom: false,
   critical: { power: 0, range: 0 }
 } as const;
 
@@ -172,6 +164,7 @@ export const CreateWeaponOffense = (): WeaponOffense =>
   amount: 1,
   grade: defaultDiceGrade,
   bonus: 0,
+  isPhantom: false,
   critical: { power: 0, range: 0 }
 });
 
@@ -181,7 +174,7 @@ const defaultOffense: Omit<Offense, "id"> =
   description: "Opis ofensywy",
   leadingWeapon: defaultWeaponOffense,
   secondaryWeapon: undefined,
-  damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0 }
+  damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0, isPhantom: false }
 };
 
 export const CreateDefaultOffense = (): Offense => ({...defaultOffense, id: ulid()});

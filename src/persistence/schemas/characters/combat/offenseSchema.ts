@@ -12,17 +12,13 @@ export const damageOffenseSchema = z.object
   amount: z.coerce.number<number>().int().min(0, { message: "Ilość musi być co najmniej 0." }).max(10, { message: "Ilość musi być najwyżej 10." }),
   grade: z.coerce.number<number>().int().min(1, { message: "Ranga musi być co najmniej 1." }).max(50, { message: "Ranga musi być najwyżej 50." }),
   bonus: z.coerce.number<number>().int().min(-10, { message: "Bonus musi być co najmniej -10." }).max(50, { message: "Bonus musi być najwyżej 50." }),
-});
-
-export const possiblyPhantomDamageOffenseSchema = damageOffenseSchema.extend
-({
-  isPhantom: z.boolean().transform(val => val ?? false)
+  isPhantom: z.boolean()
 });
 
 export const weaponOffenseSchema = damageOffenseSchema.extend
 ({
   critical: criticalSchema
-});
+}); 
 
 export const offenseSchema = entitySchema.extend
 ({

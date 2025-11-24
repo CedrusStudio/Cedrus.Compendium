@@ -1,7 +1,7 @@
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { Label } from "@/ui/label"
 import { allowedCriticalPowers, allowedCriticalRanges, allowedDiceAmounts, allowedDiceBonuses, allowedDiceGrades } from '@/domain/characters/combat/Offense';
-import { allowedStyles, pathToPossiblePhantomWeaponDamageOffenseField, pathToWeaponDamageOffenseField, pathToWeaponOffenseCriticalField, pathToWeaponOffenseField } from '@/domain/characters/equipment/Weapon';
+import { allowedStyles, pathToWeaponDamageOffenseField, pathToWeaponOffenseCriticalField, pathToWeaponOffenseField } from '@/domain/characters/equipment/Weapon';
 import { displayedText } from '@/presentation/translations';
 import { FieldPath } from 'react-hook-form';
 import { WeaponDto } from '@/persistence/schemas/characters/equipment/weaponSchema';
@@ -144,7 +144,7 @@ function DamageDiceEditor({ pathPrefix }: EditWeaponViewProps)
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.isPhantom}</span></Label>
 
             <CheckboxFormField<WeaponDto> 
-              path={`${pathPrefix}${pathToPossiblePhantomWeaponDamageOffenseField(`isPhantom`)}` as FieldPath<WeaponDto>}
+              path={`${pathPrefix}${pathToWeaponDamageOffenseField(`isPhantom`)}` as FieldPath<WeaponDto>}
               noLabel
             />
 

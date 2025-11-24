@@ -1,6 +1,6 @@
 "use client";
 
-import { toCriticalRangeString, DamageOffense, toOffenseString, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { toCriticalRangeString, DamageOffense, toOffenseString, calculateCriticalDamage, handleDamageOffenseRolls, calculateWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense, roll } from '@/domain/characters/combat/Offense';
 
 import {
   Card,
@@ -74,7 +74,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
 
   const handleRoll = () => 
   {
-    const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageBonusRolls(currentDamageBonus);
+    const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageOffenseRolls(currentDamageBonus);
     const { total: leadingTotal, rolls: leadingRolls } = handleWeaponDamageRolls(currentLeadingOffense);
     const { total: secondaryTotal, rolls: secondaryRolls } = currentSecondaryOffense ? handleWeaponDamageRolls(currentSecondaryOffense) : { total: 0, rolls: [] };
 
@@ -88,7 +88,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
 
   const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>): void => 
   {
-    const [damage, critical] = handleWeaponDamageRoll(offense);
+    const [damage, critical] = calculateWeaponDamageRoll(offense);
     
     setRolls(previousRolls => 
     {
@@ -98,9 +98,9 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
     });
   };
 
-  const handleDamageBonusReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
+  const handleDamageOffenseReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
   {
-    const damage = handleDamageOffenseRoll(damageOffense);
+    const damage = roll(damageOffense.grade);
 
     setRolls(previousRolls => 
     {
@@ -114,14 +114,14 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
   useEffect(() => 
   {
     if (leadingRolls.length === 0) return;
-    setLeadingRolls(prev => prev.map(([value]) => [value, handleCriticalDamage(currentLeadingOffense, value) > 0]));
+    setLeadingRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentLeadingOffense, value) > 0]));
   }, [currentLeadingOffense.critical.range, currentLeadingOffense.grade, leadingRolls.length, currentLeadingOffense]);
 
   // Recompute critical flags for secondary weapon when crit range/grade change
   useEffect(() => 
   {
     if (!currentSecondaryOffense || secondaryRolls.length === 0) return;
-    setSecondaryRolls(prev => prev.map(([value]) => [value, handleCriticalDamage(currentSecondaryOffense, value) > 0]));
+    setSecondaryRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentSecondaryOffense, value) > 0]));
   }, [currentSecondaryOffense?.critical.range, currentSecondaryOffense?.grade, secondaryRolls.length, currentSecondaryOffense]);
 
   return (
@@ -173,7 +173,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           <DamageBonusWithRolls 
             damageOffense={currentDamageBonus} 
             rolls={damageBonusRolls} 
-            onReroll={(index: number, damageBonus: DamageOffense) => handleDamageBonusReroll(index, damageBonus, setDamageBonusRolls)}
+            onReroll={(index: number, damageBonus: DamageOffense) => handleDamageOffenseReroll(index, damageBonus, setDamageBonusRolls)}
             setAmount={action => setCurrentDamageBonus(prev => 
             {
               const nextAmount = resolveSetState(action, prev.amount);
@@ -278,7 +278,7 @@ function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls, onReroll, setP
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
-      <div className='flex justify-center gap-x-3'>
+      <div className='flex place-items-center gap-x-3'>
         <WeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
       </div>
       <CriticalView weaponOffense={weaponOffense} setPower={setPower} setRange={setRange} />
@@ -301,7 +301,7 @@ function DamageBonusWithRolls({ damageOffense, rolls, onReroll, setAmount, setGr
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
-      <div className='flex justify-center gap-x-3'>
+      <div className='flex place-items-center gap-x-3'>
         <DamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
       </div>
       <RollsView rolls={rolls} onReroll={(index) => onReroll(index, damageOffense)} />
@@ -316,25 +316,25 @@ function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { 
   return (
     <div className='flex flex-col items-center'>
       <div className='flex gap-x-1'>
+      {
+        rolls.map((roll, index) => 
         {
-          rolls.map((roll, index) => 
-          {
-            const isTuple = Array.isArray(roll);
-            const rollValue = isTuple ? roll[0] : roll;
-            const isCritical = isTuple ? roll[1] : false;
-            
-            return (
-              <Badge key={index} className={`flex flex-row rounded-full px-1 font-mono ${isCritical ? 'bg-yellow-300' : ''}`}>
-                <div className='flex items-center gap-x-1'>
-                  <Button asChild variant="ghost" className="h-full w-full p-0 hover:bg-transparent hover:text-current" onClick={() => onReroll(index)}>
-                    <GiRollingDices />
-                  </Button>
-                </div>
-                {rollValue}
-              </Badge>
-            );
-          })
-        }
+          const isTuple = Array.isArray(roll);
+          const rollValue = isTuple ? roll[0] : roll;
+          const isCritical = isTuple ? roll[1] : false;
+          
+          return (
+            <Badge key={index} className={`flex flex-row rounded-full px-1 font-mono ${isCritical ? 'bg-yellow-300' : ''}`}>
+              <div className='flex items-center gap-x-1'>
+                <Button asChild variant="ghost" className="h-full w-full p-0 hover:bg-transparent hover:text-current" onClick={() => onReroll(index)}>
+                  <GiRollingDices />
+                </Button>
+              </div>
+              {rollValue}
+            </Badge>
+          );
+        })
+      }
       </div>
     </div>
   );
@@ -348,7 +348,7 @@ function calculateWeaponDamageForRolls(offense: WeaponOffense, rolls: number[]) 
   {
     const roll = rolls[i];
     const weaponDiceDamageWithoutCritical = roll + offense.bonus;
-    const criticalDamage = handleCriticalDamage(offense, roll);
+    const criticalDamage = calculateCriticalDamage(offense, roll);
     totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
   }
 
