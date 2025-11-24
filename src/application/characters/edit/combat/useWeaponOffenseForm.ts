@@ -16,12 +16,14 @@ export function useWeaponOffenseForm
   const [amount, setAmount] = useState(defaults.amount);
   const [grade, setGrade] = useState(defaults.grade);
   const [bonus, setBonus] = useState(defaults.bonus);
+  const [isPhantom, setIsPhantom] = useState(defaults.isPhantom);
 
   const { field: criticalPowerField } = useController({ name: `${fieldPath}.critical.power`, control, defaultValue: defaults.critical.power });
   const { field: criticalRangeField } = useController({ name: `${fieldPath}.critical.range`, control, defaultValue: defaults.critical.range });
   const { field: amountField } = useController({ name: `${fieldPath}.amount`, control, defaultValue: defaults.amount });
   const { field: gradeField } = useController({ name: `${fieldPath}.grade`, control, defaultValue: defaults.grade });
   const { field: bonusField } = useController({ name: `${fieldPath}.bonus`, control, defaultValue: defaults.bonus });
+  const { field: isPhantomField } = useController({ name: `${fieldPath}.isPhantom`, control, defaultValue: defaults.isPhantom });
 
   const resetAll = () =>
   {
@@ -30,6 +32,7 @@ export function useWeaponOffenseForm
     setAmount(defaults.amount);
     setGrade(defaults.grade);
     setBonus(defaults.bonus);
+    setIsPhantom(defaults.isPhantom);
   };
 
   return { 
@@ -43,6 +46,8 @@ export function useWeaponOffenseForm
     setGrade: setWithSideEffect(setGrade, gradeField.onChange), 
     bonus, 
     setBonus: setWithSideEffect(setBonus, bonusField.onChange),
+    isPhantom,
+    setIsPhantom: setWithSideEffect(setIsPhantom, isPhantomField.onChange),
     resetAll
   };
 }

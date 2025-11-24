@@ -1,6 +1,6 @@
 "use client";
 
-import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense } from '@/domain/characters/combat/Offense';
+import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense, toOffenseString } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";
@@ -20,6 +20,7 @@ import { addIcon, leftIcon, rightIcon } from '@/presentation/icons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
 import { displayedText } from '@/presentation/translations';
+import { Checkbox } from '@/common/components/ui/checkbox';
 
 type EditOffenseCardProps =
 {
@@ -69,14 +70,14 @@ function EditLeadingWeaponOffenseSubcard({ offense, index }: EditLeadingWeaponOf
 {
   const weaponOffensePath = leadingOffenseField(index);
   const { control } = useFormContext<CombatDto>();
-  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, offense.leadingWeapon);
-  const weaponOffense = { amount, grade, bonus, critical: { power, range } };
+  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, isPhantom, setIsPhantom, resetAll } = useWeaponOffenseForm(control, weaponOffensePath, offense.leadingWeapon);
+  const weaponOffense = { amount, grade, bonus, critical: { power, range }, isPhantom };
 
   return (
     <Subcard name={displayedText.leading} className='col-span-3' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
-          <EditWeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
+          <EditWeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} setIsPhantom={setIsPhantom} />
         </div>
         <EditCriticalView weaponOffense={weaponOffense} setPower={setPower} setRange={setRange} />
       </div>
@@ -106,7 +107,7 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
 
   const updateField = (updater: (current: WeaponOffense) => WeaponOffense) => field.onChange(updater(field.value ?? CreateWeaponOffense()));
 
-  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, resetAll } = 
+  const { power, setPower, range, setRange, amount, setAmount, grade, setGrade, bonus, setBonus, isPhantom, setIsPhantom, resetAll } = 
   {
     power: field.value?.critical.power,
     setPower: (val: React.SetStateAction<number>) => updateField(current => ({...current, critical: { ...current.critical, power: resolveSetState(val, current.critical.power) }})),
@@ -122,7 +123,10 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
     
     bonus: field.value?.bonus,
     setBonus: (val: React.SetStateAction<number>) =>  updateField(current => ({...current, bonus: resolveSetState(val, current.bonus) })),
-    
+
+    isPhantom: field.value?.isPhantom,
+    setIsPhantom: (val: React.SetStateAction<boolean>) => updateField(current => ({...current, isPhantom: resolveSetState(val, current.isPhantom) })),
+
     resetAll: () => field.onChange(offense.secondaryWeapon ?? CreateWeaponOffense())
   };
 
@@ -143,14 +147,14 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
     );
   }
 
-  const newOffense = { amount, grade, bonus, critical: { power, range } } as WeaponOffense;
+  const newOffense = { amount, grade, bonus, critical: { power, range }, isPhantom } as WeaponOffense;
   const removeButton = <RemoveButton name={weaponOffensePath} variant={`${secondaryOffenseExists ? 'destructive' : 'outline'}`} control={control} callback={() => setShowSecondary(false)} />;
 
   return (
     <Subcard name={displayedText.secondary} className={`col-span-3 ${secondaryOffenseExists ? '' : 'bg-secondary'} `} callback={resetAll} button={removeButton}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
-          <EditWeaponDamageView weaponOffense={newOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
+          <EditWeaponDamageView weaponOffense={newOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} setIsPhantom={setIsPhantom} />
         </div>
         <EditCriticalView weaponOffense={newOffense} setPower={setPower} setRange={setRange} />
       </div>
@@ -164,19 +168,21 @@ type EditWeaponDamageViewProps =
   setAmount: React.Dispatch<React.SetStateAction<number>>;
   setGrade: React.Dispatch<React.SetStateAction<number>>;
   setBonus: React.Dispatch<React.SetStateAction<number>>;
+  setIsPhantom: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EditWeaponDamageView({ weaponOffense, setAmount, setGrade, setBonus }: EditWeaponDamageViewProps) 
+function EditWeaponDamageView({ weaponOffense, setAmount, setGrade, setBonus, setIsPhantom }: EditWeaponDamageViewProps) 
 {
   return (
     <div className='flex items-center'>
       <VerticalChangeButtons setValue={setAmount} />
       <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-        {weaponOffense.amount}(k{weaponOffense.grade * 2}+{weaponOffense.bonus})
+        {toOffenseString(weaponOffense)}
       </Badge>
 
       <VerticalChangeButtons setValue={setGrade} />
       <VerticalChangeButtons setValue={setBonus} />
+      <Checkbox checked={weaponOffense.isPhantom} onCheckedChange={() => setIsPhantom(prev => !prev)} />
     </div>
   );
 }
@@ -223,14 +229,14 @@ type EditDamageBonusSubcardProps =
 function EditDamageBonusSubcard({ defaultDamageOffense, index }: EditDamageBonusSubcardProps)
 {
   const { control } = useFormContext<CombatDto>();
-  const { amount, bonus, grade, resetAll, setAmount, setBonus, setGrade } = useDamageOffenseForm(control, damageOffenseField(index), defaultDamageOffense);
-  const damageOffense = { amount, grade, bonus };
+  const { amount, bonus, grade, isPhantom, resetAll, setAmount, setBonus, setGrade, setIsPhantom } = useDamageOffenseForm(control, damageOffenseField(index), defaultDamageOffense);
+  const damageOffense = { amount, grade, bonus, isPhantom };
 
   return (
     <Subcard name={displayedText.bonus} className='col-span-3 capitalize' callback={resetAll}>
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
-          <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
+          <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} setIsPhantom={setIsPhantom} />
         </div>
       </div>
     </Subcard>
@@ -243,18 +249,20 @@ type EditDamageBonusViewProps =
   setAmount: React.Dispatch<React.SetStateAction<number>>;
   setGrade: React.Dispatch<React.SetStateAction<number>>;
   setBonus: React.Dispatch<React.SetStateAction<number>>;
+  setIsPhantom: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function EditDamageBonusView({ damageOffense, setAmount, setGrade, setBonus }: EditDamageBonusViewProps) 
+function EditDamageBonusView({ damageOffense, setAmount, setGrade, setBonus, setIsPhantom }: EditDamageBonusViewProps) 
 {
   return (
     <div className='flex items-center'>
       <VerticalChangeButtons setValue={setAmount} />
         <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-          {damageOffense.amount}k{damageOffense.grade * 2}+{damageOffense.bonus}
+          {toOffenseString(damageOffense)}
         </Badge>
       <VerticalChangeButtons setValue={setGrade} />
       <VerticalChangeButtons setValue={setBonus} />
+      <Checkbox checked={damageOffense.isPhantom} onCheckedChange={() => setIsPhantom(prev => !prev)} />
   </div>
   );
 }

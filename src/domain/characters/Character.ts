@@ -98,6 +98,7 @@ const emptyCharacter: Character =
           amount: defaultWeaponDiceAmount,
           grade: defaultDiceGrade,
           bonus: 0,
+          isPhantom: false,
           critical: 
           {
             power: 0,

@@ -16,10 +16,6 @@ export type DamageOffense =
   amount: number;
   grade: number;
   bonus: number;
-};
-
-export type PossiblyPhantomDamageOffense = DamageOffense &
-{
   isPhantom: boolean;
 };
 
@@ -164,6 +160,7 @@ export const defaultWeaponOffense: WeaponOffense =
   amount: 1,
   grade: defaultDiceGrade,
   bonus: 0,
+  isPhantom: false,
   critical: { power: 0, range: 0 }
 } as const;
 
@@ -172,6 +169,7 @@ export const CreateWeaponOffense = (): WeaponOffense =>
   amount: 1,
   grade: defaultDiceGrade,
   bonus: 0,
+  isPhantom: false,
   critical: { power: 0, range: 0 }
 });
 
@@ -181,7 +179,7 @@ const defaultOffense: Omit<Offense, "id"> =
   description: "Opis ofensywy",
   leadingWeapon: defaultWeaponOffense,
   secondaryWeapon: undefined,
-  damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0 }
+  damageBonus: { amount: 1, grade: defaultDiceGrade, bonus: 0, isPhantom: false }
 };
 
 export const CreateDefaultOffense = (): Offense => ({...defaultOffense, id: ulid()});
