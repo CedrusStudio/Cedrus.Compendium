@@ -5,34 +5,20 @@ import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons, goToIcon, immunityIcon, resistanceIcon } from "@/presentation/icons";
+import { attributesIcons, characteristicIcons } from "@/presentation/icons";
 import { useState } from "react";
-import SelectOneOf from "@/common/components/selects/SelectOneOf";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
-import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
-import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
-import { reductionIcons } from "@/presentation/icons";
-import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 import { Checkbox } from "@/common/components/ui/checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
-import { getCastTimeColors } from "@/presentation/colors";
-import RollButton from "@/common/components/buttons/RollButton";
-import { colors } from "@/presentation/colors";
-import RollWithImmunityButton from "@/common/components/buttons/RollWithImmunityButton";
 import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
-import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
-import { Mode } from "@/domain/characters/combat/Mode";
-import { Maneuver } from "@/domain/characters/combat/Maneuver";
-import { toCriticalRangeString, rollTotalDamage, toOffenseString } from "@/domain/characters/combat/Offense";
 import { displayedText } from "@/presentation/translations";
-import { Power, Spell } from "@/domain/characters/combat/Power";
-import { Badge } from "@/common/components/ui/badge";
 import TagsView from "@/common/components/tags/TagsView";
-import { Perk } from "@/domain/characters/Perk";
+import CharacterPerksViewDrawer from "@/application/bestiary/drawlers/CharacterPerksViewDrawer";
+import CharacterPowersViewDrawer from "@/application/bestiary/drawlers/CharacterPowersViewDrawer";
+import CharacterModesAndManeuversViewDrawer from "@/application/bestiary/drawlers/CharacterModesAndManeuversViewDrawer";
+import CharacterNameView from "@/application/bestiary/views/CharacterNameView";
+import CharacterDefensesBattleView from "@/application/bestiary/views/CharacterDefensesBattleView";
+import CharacterOffensesBattleView from "@/application/bestiary/views/CharacterOffensesBattleView";
 
 export const columnKeys =
 {
@@ -167,19 +153,6 @@ export const columns: AccessorKeyColumnDef<Character & { __initiative: number | 
   },
 ];
 
-function CharacterNameView({ character }: {character: Character})
-{
-  const route = useRouter();
-
-  return (
-    <div className="flex flex-row justify-center items-center gap-1">
-      <span className="block lg:hidden">{character.shortName}</span>
-      <span className="hidden lg:block">{character.name}</span>
-      <Button variant="ghost" size="icon" onClick={() => route.push(`/characters/${character.id}?tab=combat`)}>{goToIcon}</Button>
-    </div>
-  );
-}
-
 function CharacterHealthBattleView({ character }: {character: Character})
 {
   const totalHealth = calculateTotalHealthForCharacter(character);
@@ -188,54 +161,6 @@ function CharacterHealthBattleView({ character }: {character: Character})
     <div className="flex flex-row place-items-center gap-1">
       <span>{totalHealth} {character.health.barrier > 0 && `+${character.health.barrier}`}</span>
       <span>{character.health.lethalHealth > 0 ? `(-${character.health.lethalHealth})` : null} [{character.health.recoveryLevel}]</span>
-    </div>
-  );
-}
-
-function CharacterDefensesBattleView({ character }: { character : Character })
-{
-  const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
-  const [selectedReductionType, setSelectedReductionType] = useState<ReductionType>("full");
-  const selectedDefense = character.defenses[selectedDefenseIndex];
-  const handleOnSelectedValueChange = (value: string) => 
-  {
-    setSelectedReductionType(value as ReductionType);
-  };
-
-  return (
-    <div className="flex flex-row gap-3 items-center">
-      {character.defenses.length > 1 && (
-        <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={character.defenses} setIndex={setSelectedDefenseIndex} disableInfo />
-      )}
-
-      <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
-        
-        <FieldWithIconView value={selectedDefense.immunity} >
-          <FieldWithTooltip name={displayedText.immunity}>{immunityIcon("w-5 h-5")}</FieldWithTooltip>
-        </FieldWithIconView>
-
-        <FieldWithIconView value={selectedDefense.resistance} >
-          <FieldWithTooltip name={displayedText.resistance}>{resistanceIcon("w-5 h-5")}</FieldWithTooltip>
-        </FieldWithIconView>
-
-        <FieldViewWithInfo
-          value={calculateSelectedReduction(selectedDefense, selectedReductionType)} 
-          infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} />}
-        >
-          <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
-        </FieldViewWithInfo>
-        
-        <SelectContent>
-        {
-          allowedReductionTypes.map(reductionType => (
-            <SelectItem key={reductionType} value={reductionType}>
-              <span className='capitalize'>{reductionIcons[reductionType]}</span>
-            </SelectItem>
-          ))
-        }
-        </SelectContent>
-      </Select>
-
     </div>
   );
 }
@@ -281,228 +206,5 @@ function MoreBattleActions({ character }: { character: Character })
         onOpenChange={setIsPerksDrawerOpen}
       />
     </>
-  );
-}
-
-function CharacterModesAndManeuversViewDrawer({ character, open, onOpenChange }: { character: Character, open: boolean, onOpenChange: (open: boolean) => void })
-{
-  return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <div className="overflow-y-auto">
-        <DrawerHeader className="flex flex-col justify-center items-center flex-wrap lg:grid lg:grid-cols-9">
-
-          <div className="flex flex-col gap-4 items-center col-span-2">
-
-            <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
-            
-            <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-            { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
-            </div>
-
-          </div>
-
-          <div className="flex flex-col gap-4 items-center col-span-1">
-
-            <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
-            <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-            { character.states.map(state => <ModeView mode={state} key={state.id} />) }
-            </div>
-
-          </div>
-
-          <div className="flex flex-col gap-4 items-center col-span-6">
-            <DrawerTitle className="capitalize">{displayedText.maneuvers}</DrawerTitle>
-            
-            <div className="grid grid-cols-4 gap-3 items-center justify-center">
-            { character.maneuvers.map(maneuver => <ManeuverView maneuver={maneuver} key={maneuver.id} />) }
-            </div>
-          </div>
-
-        </DrawerHeader>
-        </div>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-function ModeView({ mode }: { mode: Mode })
-{
-  return (
-    <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
-      <FieldViewWithInfo
-        value={mode.grade}
-        infoContent={<span>{mode.description}</span>}
-        className="gap-1"
-        nameClassName='w-4xs'
-      >
-        {mode.name}
-      </FieldViewWithInfo>
-    </div>
-  );
-}
-
-function ManeuverView({ maneuver }: { maneuver: Maneuver })
-{
-  return (
-    <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
-      <FieldViewWithInfo
-        value={maneuver.grade}
-        infoContent={<span className="capitalize">{displayedText.action} <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
-        className="gap-1"
-        nameClassName='w-4xs'
-        infoTriggerClassName={`${getCastTimeColors(maneuver.castTime).text}`}
-      >
-        {maneuver.name}
-      </FieldViewWithInfo>
-    </div>
-  );
-}
-
-function CharacterPowersViewDrawer({ character, open, onOpenChange }: { character: Character, open: boolean, onOpenChange: (open: boolean) => void })
-{
-  return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <DrawerHeader className="flex flex-row items-center justify-center">
-        {
-          character.powers.map(power => <PowerView power={power} key={power.id} />)
-        }
-        </DrawerHeader>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-function PowerView({ power }: { power: Power })
-{
-  return (
-    <div className="flex flex-col gap-4 items-center border-1 rounded-md p-4 m-2">
-
-      <DrawerTitle className="flex flex-row gap-3">
-
-        <FieldViewWithInfo
-          value={power.level + power.bonus}
-          infoContent=
-          {
-            <>
-              <div className="capitalize">{displayedText.level} {power.level}</div>
-              <div className="capitalize">{displayedText.bonus} {power.bonus}</div>
-            </>
-          }
-          className="gap-1"
-          nameClassName='w-4xs'
-        >
-          {power.name} 
-        </FieldViewWithInfo>
-        
-        <Badge variant="default" className="capitalize">{power.essence}</Badge>
-
-      </DrawerTitle>
-
-      <div className="flex flex-row items-center justify-center flex-wrap gap-3">
-        {power.spells.map(spell => <SpellView spell={spell} key={spell.id} />)}
-      </div>
-      
-    </div>
-  );
-}
-
-function SpellView({ spell }: { spell: Spell })
-{
-  return (
-    <div className='flex items-center justify-center p-2 border rounded-md min-w-50'>
-      <FieldViewWithInfo
-        value={spell.grade}
-        infoContent={<span className="capitalize">{displayedText.action} <span className={`${getCastTimeColors(spell.castTime).text}`}>{spell.castTime.toLowerCase()}</span>. {spell.description}</span>}
-        className="gap-1"
-        nameClassName='w-4xs'
-        infoTriggerClassName={`${getCastTimeColors(spell.castTime).text}`}
-      >
-        {spell.name}
-      </FieldViewWithInfo>
-    </div>
-  );
-}
-
-function CharacterPerksViewDrawer({ character, open, onOpenChange }: { character: Character, open: boolean, onOpenChange: (open: boolean) => void })
-{
-  return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <DrawerHeader className="flex flex-row items-center justify-center">
-        {
-          character.perks.map(perk => <PerkView perk={perk} key={perk.id} />)
-        }
-        </DrawerHeader>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-function PerkView({ perk }: { perk: Perk })
-{
-  return (
-    <div className='flex items-center justify-center p-2 border rounded-md min-w-50'>
-      <FieldViewWithInfo
-        value={perk.grade}
-        infoContent={<span>{perk.description}</span>}
-        className="gap-1"
-        nameClassName='w-4xs'
-      >
-        {perk.name}
-      </FieldViewWithInfo>
-    </div>
-  );
-}
-
-function CharacterOffensesBattleView({ character }: { character: Character })
-{
-  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
-  const selectedOffense = character.offenses[selectedOffenseIndex];
-  const [rollTotalResult, setRollTotalResult] = useState<number>(0);
-  const [rollTotalWithOneImmunityResult, setRollTotalWithOneImmunityResult] = useState<number>(0);
-  const [rollTotalWithTwoImmunityResult, setRollTotalWithTwoImmunityResult] = useState<number>(0);
-
-  const handleRollClick = () =>
-  {
-    const totalRoll = rollTotalDamage(selectedOffense);
-    setRollTotalResult(totalRoll);
-  }
-
-  const handleRollWithOneImmunityClick = () =>
-  {
-    const totalRollWithOneImmunity = rollTotalDamage(selectedOffense, 1);
-    setRollTotalWithOneImmunityResult(totalRollWithOneImmunity);
-  }
-
-  const handleRollWithTwoImmunityClick = () =>
-  {
-    const totalRollWithTwoImmunity = rollTotalDamage(selectedOffense, 2);
-    setRollTotalWithTwoImmunityResult(totalRollWithTwoImmunity);
-  }
-
-  return (
-    <div className="flex flex-row gap-4 items-center">
-      {character.offenses.length > 1 && (
-        <SelectOneOf name='offense' defaultValue='0' index={selectedOffenseIndex} items={character.offenses} setIndex={setSelectedOffenseIndex} disableInfo />
-      )}
-
-      <p>
-        <span className={`${colors.offense.leading}`}>{toOffenseString(selectedOffense.leadingWeapon)}</span>
-        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}>{toOffenseString(selectedOffense.secondaryWeapon)}</span>}
-        {toOffenseString(selectedOffense.damageBonus, true)}
-      </p>
-
-      <p>
-        <span className={`${colors.offense.leading}`}>{`${toCriticalRangeString(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}</span>
-        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}> | {`${toCriticalRangeString(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}</span>}
-      </p>
-
-      <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />
-
-      <RollWithImmunityButton onClick={handleRollWithOneImmunityClick} rollWithImmunityResult={rollTotalWithOneImmunityResult} immunity={1} />
-      <RollWithImmunityButton onClick={handleRollWithTwoImmunityClick} rollWithImmunityResult={rollTotalWithTwoImmunityResult} immunity={2} />
-    </div>
   );
 }
