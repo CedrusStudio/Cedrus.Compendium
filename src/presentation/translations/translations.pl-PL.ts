@@ -178,6 +178,7 @@ export const translations_plPL =
     actions: "akcje",
     showStancesStatesManeuvers: "wyświetl postawy, stany i manewry",
     showPowers: "wyświetl moce",
+    showPerks: "wyświetl atuty",
     goToCharacterView: "przejdź do widoku postaci",
     
     changeGallop: "zmień galop",

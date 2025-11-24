@@ -45,9 +45,9 @@ export default function CharacterView({ tab }: CharacterViewProps)
   if (!character) return <NotFound subject={displayedText.character} />;
 
   return (
-    <div className='flex flex-col lg:grid lg:grid-cols-12'>
+    <div className='flex flex-col-reverse gap-4 lg:grid lg:grid-cols-12'>
 
-        <div className='lg:col-span-2'>
+        <div className='hidden md:block md:col-span-2'>
             <StatisticsView character={character} />
         </div>
 
@@ -82,6 +82,9 @@ export default function CharacterView({ tab }: CharacterViewProps)
             <div className='mt-1 lg:row-span-14'>
                 <TabsContent value="character">
                     <DetailsView character={character} />
+                    <div className="my-4 md:hidden md:my-0">
+                        <StatisticsView character={character} />
+                    </div>
                 </TabsContent>
 
                 <TabsContent value="combat">

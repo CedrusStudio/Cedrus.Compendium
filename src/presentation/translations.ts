@@ -205,6 +205,7 @@ export const displayedText =
     actions: translate("actions"),
     showStancesStatesManeuvers: translate("showStancesStatesManeuvers"),
     showPowers: translate("showPowers"),
+    showPerks: translate("showPerks"),
     goToCharacterView: translate("goToCharacterView"),
 
     changeGallop: translate("changeGallop"),

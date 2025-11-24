@@ -178,6 +178,7 @@ export const translations_frFR =
     actions: "actions",
     showStancesStatesManeuvers: "afficher les postures, états et manœuvres",
     showPowers: "afficher les pouvoirs",
+    showPerks: "afficher les avantages",
     goToCharacterView: "aller à la vue du personnage",
     
     changeGallop: "modifier le galop",

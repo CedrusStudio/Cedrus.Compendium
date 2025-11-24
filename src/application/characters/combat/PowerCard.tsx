@@ -93,7 +93,7 @@ export default function PowerCard({ power }: PowerCardProps)
 
         <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
         {
-            power.spells.map(spell => <SpellView key={spell.name} spell={spell} addSpellToUsed={addSpellToUsed} usedSpells={usedSpells} reduceEssence={reduceEssence} currentEssence={currentEssence} />)
+            power.spells.map(spell => <SpellView key={spell.id} spell={spell} addSpellToUsed={addSpellToUsed} usedSpells={usedSpells} reduceEssence={reduceEssence} currentEssence={currentEssence} />)
         }
 
         <MediumUsedSpellsView usedSpells={usedSpells} removeLastSpell={removeLastSpell} setUsedSpells={setUsedSpells} endTurn={endTurn} resetEssence={resetEssence} />

@@ -12,9 +12,9 @@ export default function BestiaryNavbar()
     const pathname = usePathname();
 
     return (
-        <nav className="flex items-center justify-end lg:justify-between py-4 px-10">
+        <nav className="flex items-center justify-end md:justify-between py-4 px-10">
 
-            <div className="hidden lg:block">
+            <div className="hidden md:block">
                 <NavbarBreadcrumb pathname={pathname} />
             </div>
 

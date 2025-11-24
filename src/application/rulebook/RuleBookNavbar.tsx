@@ -26,7 +26,7 @@ export default function RuleBookNavbar()
   return (
       <nav className="flex items-center justify-between py-4 px-10 gap-3">
         
-          <div className="hidden lg:block">
+          <div className="hidden md:block">
               <NavbarBreadcrumb pathname={pathname} />
           </div>
           

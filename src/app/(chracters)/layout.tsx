@@ -1,4 +1,4 @@
-import CharacterNavbar from "@/application/characters/navbars/CharacterNavbar";
+import CharacterNavbar from "@/application/characters/CharacterNavbar";
 import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 import { Suspense } from "react";
