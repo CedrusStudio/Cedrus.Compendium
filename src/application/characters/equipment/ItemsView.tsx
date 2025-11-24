@@ -5,7 +5,7 @@ type ItemsViewProps<T extends Item> =
 {
   label: string;
   items: T[];
-  itemViewFactory: (item: T) => React.ReactNode;
+  itemViewFactory: (item: T, index: number) => React.ReactNode;
 }
 
 export default function ItemsView<T extends Item>({ items, itemViewFactory, label, children }: PropsWithChildren<ItemsViewProps<T>>)
@@ -20,12 +20,12 @@ export default function ItemsView<T extends Item>({ items, itemViewFactory, labe
         items.length > 0 && (
           <div className="flex flex-col gap-3">
           {
-            items.map(item => (
+            items.map((item, index) => (
               <div 
                 key={item.id}
                 className="border rounded-lg p-3 bg-card hover:bg-accent/50 transition-colors"
               >
-                {itemViewFactory(item)}
+                {itemViewFactory(item, index)}
               </div>
             ))
           }
