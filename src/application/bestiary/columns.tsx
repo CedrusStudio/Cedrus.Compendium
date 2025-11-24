@@ -32,6 +32,7 @@ import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import { Badge } from "@/common/components/ui/badge";
 import TagsView from "@/common/components/tags/TagsView";
+import { Perk } from "@/domain/characters/Perk";
 
 export const columnKeys =
 {
@@ -243,6 +244,7 @@ function MoreBattleActions({ character }: { character: Character })
 {
   const [isModesAndManeuversDrawerOpen, setIsModesAndManeuversDrawerOpen] = useState(false);
   const [isPowersDrawerOpen, setIsPowersDrawerOpen] = useState(false);
+  const [isPerksDrawerOpen, setIsPerksDrawerOpen] = useState(false);
 
   return (
     <>
@@ -256,6 +258,7 @@ function MoreBattleActions({ character }: { character: Character })
           <DropdownMenuLabel className="capitalize">{displayedText.actions}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStatesManeuvers}</span></DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsPerksDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPerks}</span></DropdownMenuItem>
           { character.powers.length > 0 && <DropdownMenuItem onClick={() => setIsPowersDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPowers}</span></DropdownMenuItem>}
         </DropdownMenuContent>
       </DropdownMenu>
@@ -270,6 +273,12 @@ function MoreBattleActions({ character }: { character: Character })
         character={character}
         open={isPowersDrawerOpen}
         onOpenChange={setIsPowersDrawerOpen}
+      />
+
+      <CharacterPerksViewDrawer
+        character={character}
+        open={isPerksDrawerOpen}
+        onOpenChange={setIsPerksDrawerOpen}
       />
     </>
   );
@@ -411,6 +420,37 @@ function SpellView({ spell }: { spell: Spell })
         infoTriggerClassName={`${getCastTimeColors(spell.castTime).text}`}
       >
         {spell.name}
+      </FieldViewWithInfo>
+    </div>
+  );
+}
+
+function CharacterPerksViewDrawer({ character, open, onOpenChange }: { character: Character, open: boolean, onOpenChange: (open: boolean) => void })
+{
+  return (
+    <Drawer open={open} onOpenChange={onOpenChange}>
+      <DrawerContent>
+        <DrawerHeader className="flex flex-row items-center justify-center">
+        {
+          character.perks.map(perk => <PerkView perk={perk} key={perk.id} />)
+        }
+        </DrawerHeader>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
+function PerkView({ perk }: { perk: Perk })
+{
+  return (
+    <div className='flex items-center justify-center p-2 border rounded-md min-w-50'>
+      <FieldViewWithInfo
+        value={perk.grade}
+        infoContent={<span>{perk.description}</span>}
+        className="gap-1"
+        nameClassName='w-4xs'
+      >
+        {perk.name}
       </FieldViewWithInfo>
     </div>
   );
