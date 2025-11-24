@@ -1,6 +1,6 @@
 "use client";
 
-import { toCriticalRangeString, DamageOffense, toOffenseString, handleCriticalDamage, handleDamageBonusRolls, handleDamageOffenseRoll, handleWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { toCriticalRangeString, DamageOffense, toOffenseString, calculateCriticalDamage, handleDamageOffenseTotal, handleDamageOffenseRoll, calculateWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 
 import {
   Card,
@@ -74,7 +74,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
 
   const handleRoll = () => 
   {
-    const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageBonusRolls(currentDamageBonus);
+    const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageOffenseTotal(currentDamageBonus);
     const { total: leadingTotal, rolls: leadingRolls } = handleWeaponDamageRolls(currentLeadingOffense);
     const { total: secondaryTotal, rolls: secondaryRolls } = currentSecondaryOffense ? handleWeaponDamageRolls(currentSecondaryOffense) : { total: 0, rolls: [] };
 
@@ -88,7 +88,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
 
   const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>): void => 
   {
-    const [damage, critical] = handleWeaponDamageRoll(offense);
+    const [damage, critical] = calculateWeaponDamageRoll(offense);
     
     setRolls(previousRolls => 
     {
@@ -114,14 +114,14 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
   useEffect(() => 
   {
     if (leadingRolls.length === 0) return;
-    setLeadingRolls(prev => prev.map(([value]) => [value, handleCriticalDamage(currentLeadingOffense, value) > 0]));
+    setLeadingRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentLeadingOffense, value) > 0]));
   }, [currentLeadingOffense.critical.range, currentLeadingOffense.grade, leadingRolls.length, currentLeadingOffense]);
 
   // Recompute critical flags for secondary weapon when crit range/grade change
   useEffect(() => 
   {
     if (!currentSecondaryOffense || secondaryRolls.length === 0) return;
-    setSecondaryRolls(prev => prev.map(([value]) => [value, handleCriticalDamage(currentSecondaryOffense, value) > 0]));
+    setSecondaryRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentSecondaryOffense, value) > 0]));
   }, [currentSecondaryOffense?.critical.range, currentSecondaryOffense?.grade, secondaryRolls.length, currentSecondaryOffense]);
 
   return (
@@ -348,7 +348,7 @@ function calculateWeaponDamageForRolls(offense: WeaponOffense, rolls: number[]) 
   {
     const roll = rolls[i];
     const weaponDiceDamageWithoutCritical = roll + offense.bonus;
-    const criticalDamage = handleCriticalDamage(offense, roll);
+    const criticalDamage = calculateCriticalDamage(offense, roll);
     totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
   }
 

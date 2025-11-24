@@ -29,7 +29,7 @@ import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Hea
 import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
 import { Mode } from "@/domain/characters/combat/Mode";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
-import { toCriticalRangeString, rollDamage, toOffenseString } from "@/domain/characters/combat/Offense";
+import { toCriticalRangeString, rollTotalDamage, toOffenseString } from "@/domain/characters/combat/Offense";
 import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import { Badge } from "@/common/components/ui/badge";
@@ -646,19 +646,19 @@ function CharacterOffensesBattleView({ character }: { character: Character })
 
   const handleRollClick = () =>
   {
-    const totalRoll = rollDamage(selectedOffense);
+    const totalRoll = rollTotalDamage(selectedOffense);
     setRollTotalResult(totalRoll);
   }
 
   const handleRollWithOneImmunityClick = () =>
   {
-    const totalRollWithOneImmunity = rollDamage(selectedOffense, 1);
+    const totalRollWithOneImmunity = rollTotalDamage(selectedOffense, 1);
     setRollTotalWithOneImmunityResult(totalRollWithOneImmunity);
   }
 
   const handleRollWithTwoImmunityClick = () =>
   {
-    const totalRollWithTwoImmunity = rollDamage(selectedOffense, 2);
+    const totalRollWithTwoImmunity = rollTotalDamage(selectedOffense, 2);
     setRollTotalWithTwoImmunityResult(totalRollWithTwoImmunity);
   }
 
