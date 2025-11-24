@@ -1,6 +1,6 @@
 "use client";
 
-import { toCriticalRangeString, DamageOffense, toOffenseString, calculateCriticalDamage, handleDamageOffenseRolls, calculateWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { toCriticalRangeString, DamageOffense, toOffenseString, calculateCriticalDamage, handleDamageOffenseRolls, calculateWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense, roll } from '@/domain/characters/combat/Offense';
 
 import {
   Card,
@@ -100,7 +100,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
 
   const handleDamageOffenseReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
   {
-    const damage = handleDamageOffenseRoll(damageOffense);
+    const damage = roll(damageOffense.grade);
 
     setRolls(previousRolls => 
     {
