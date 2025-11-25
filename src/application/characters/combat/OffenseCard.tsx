@@ -1,14 +1,8 @@
 "use client";
 
-import { toCriticalRangeString, DamageOffense, toOffenseString, calculateCriticalDamage, handleDamageOffenseRolls, calculateWeaponDamageRoll, handleWeaponDamageRolls, Offense, WeaponOffense, roll } from '@/domain/characters/combat/Offense';
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { toCriticalRangeString, DamageOffense, toOffenseString, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { Dispatch, SetStateAction, useState } from "react";
 import DamageBonusView from '@/application/characters/combat/DamageBonusView';
 import RollButton from "@/common/components/buttons/RollButton";
 import Subcard from '@/common/components/Subcard';
@@ -20,6 +14,8 @@ import { Button } from '@/ui/button';
 import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { resolveSetState } from '@/common/global/resolveSetState';
 import { displayedText } from '@/presentation/translations';
+import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
+import { setWithSideEffect } from '@/common/global/setterUtils';
 
 type OffenseCardProps = 
 {
@@ -35,94 +31,34 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
   const secondaryOffense = selectedOffense.secondaryWeapon;
   const damageBonus = selectedOffense.damageBonus;
 
-  const [currentLeadingOffense, setCurrentLeadingOffense] = useState<WeaponOffense>(leadingOffense);
-  const [currentSecondaryOffense, setCurrentSecondaryOffense] = useState<WeaponOffense | undefined>(secondaryOffense);
-  const [currentDamageBonus, setCurrentDamageBonus] = useState<DamageOffense>(damageBonus);
+  const { 
+    totalResult,
+    handleRoll, 
+    handleWeaponReroll, 
+    handleDamageOffenseReroll,
+    leadingRolls,
+    setLeadingRolls,
+    secondaryRolls,
+    setSecondaryRolls,
+    damageBonusRolls,
+    setDamageBonusRolls,
+    currentLeadingOffense,
+    setCurrentLeadingOffense,
+    currentSecondaryOffense,
+    setCurrentSecondaryOffense,
+    currentDamageBonus,
+    setCurrentDamageBonus,
+  } = useCombatRolls(selectedOffense);
 
-  const [leadingRolls, setLeadingRolls] = useState<[number, boolean][]>([]);
-  const [secondaryRolls, setSecondaryRolls] = useState<[number, boolean][]>([]);
-  const [damageBonusRolls, setDamageBonusRolls] = useState<number[]>([]);
-  const [rollTotalResult, setRollTotalResult] = useState<number | null>(null);
-
-  // Reset state when selectedOffenseIndex changes
-  useEffect(() => 
+  const handleChangeOffense = (index: number) =>
   {
-    setCurrentLeadingOffense(leadingOffense);
-    setCurrentSecondaryOffense(secondaryOffense);
-    setCurrentDamageBonus(damageBonus);
+    setCurrentLeadingOffense(offenses[index].leadingWeapon);
+    setCurrentSecondaryOffense(offenses[index].secondaryWeapon);
+    setCurrentDamageBonus(offenses[index].damageBonus);
     setLeadingRolls([]);
     setSecondaryRolls([]);
     setDamageBonusRolls([]);
-    setRollTotalResult(null);
-  }, [selectedOffenseIndex, leadingOffense, secondaryOffense, damageBonus]);
-
-  useEffect(() => 
-  {
-    const shouldNotRecalculateTotalDamage = leadingRolls.length === 0 && secondaryRolls.length === 0 && damageBonusRolls.length === 0;
-    if (shouldNotRecalculateTotalDamage)
-    {
-      setRollTotalResult(null);
-      return;
-    }
-
-    const damageBonusTotal = calculateDamageBonusForRolls(currentDamageBonus, damageBonusRolls);
-    const leadingTotal = calculateWeaponDamageForRolls(currentLeadingOffense, leadingRolls.map(r => r[0]));
-    const secondaryTotal = currentSecondaryOffense ? calculateWeaponDamageForRolls(currentSecondaryOffense, secondaryRolls.map(r => r[0])) : 0;
-    const totalDamage = damageBonusTotal + leadingTotal + secondaryTotal;
-    setRollTotalResult(totalDamage);
-  }, [leadingRolls, secondaryRolls, damageBonusRolls, currentLeadingOffense, currentSecondaryOffense, currentDamageBonus]);
-
-  const handleRoll = () => 
-  {
-    const { total: damageBonusTotal, rolls: damageBonusRolls } = handleDamageOffenseRolls(currentDamageBonus);
-    const { total: leadingTotal, rolls: leadingRolls } = handleWeaponDamageRolls(currentLeadingOffense);
-    const { total: secondaryTotal, rolls: secondaryRolls } = currentSecondaryOffense ? handleWeaponDamageRolls(currentSecondaryOffense) : { total: 0, rolls: [] };
-
-    setDamageBonusRolls(damageBonusRolls);
-    setLeadingRolls(leadingRolls);
-    setSecondaryRolls(secondaryRolls);
-
-    const totalDamage = damageBonusTotal + leadingTotal + secondaryTotal;
-    setRollTotalResult(totalDamage);
   };
-
-  const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>): void => 
-  {
-    const [damage, critical] = calculateWeaponDamageRoll(offense);
-    
-    setRolls(previousRolls => 
-    {
-      const newRolls = [...previousRolls];
-      newRolls[rollIndex] = [damage, critical > 0];
-      return newRolls;
-    });
-  };
-
-  const handleDamageOffenseReroll = (rollIndex: number, damageOffense: DamageOffense, setRolls: Dispatch<SetStateAction<number[]>>) => 
-  {
-    const damage = roll(damageOffense.grade);
-
-    setRolls(previousRolls => 
-    {
-      const newRolls = [...previousRolls];
-      newRolls[rollIndex] = damage;
-      return newRolls;
-    });
-  };
-
-  // Recompute critical flags for leading weapon when crit range/grade change
-  useEffect(() => 
-  {
-    if (leadingRolls.length === 0) return;
-    setLeadingRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentLeadingOffense, value) > 0]));
-  }, [currentLeadingOffense.critical.range, currentLeadingOffense.grade, leadingRolls.length, currentLeadingOffense]);
-
-  // Recompute critical flags for secondary weapon when crit range/grade change
-  useEffect(() => 
-  {
-    if (!currentSecondaryOffense || secondaryRolls.length === 0) return;
-    setSecondaryRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentSecondaryOffense, value) > 0]));
-  }, [currentSecondaryOffense?.critical.range, currentSecondaryOffense?.grade, secondaryRolls.length, currentSecondaryOffense]);
 
   return (
     <Card className='bg-muted'>
@@ -132,10 +68,10 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           <div className='flex flex-col sm:flex-row justify-center items-center gap-4'>
             <div className='flex flex-row gap-x-4 items-center justify-center'>
               <span className='capitalize'>{displayedText.offense}</span>
-              <RollButton onClick={handleRoll} rollResult={rollTotalResult} />
+              <RollButton onClick={handleRoll} rollResult={totalResult()} />
             </div>
             <div className='flex flex-row items-center justify-center gap-4'>
-              <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setSelectedOffenseIndex} />
+              <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setWithSideEffect(setSelectedOffenseIndex, handleChangeOffense)} />
             </div>
           </div>
         </CardTitle>
@@ -282,7 +218,7 @@ function WeaponDamageWithCriticalAndRolls({ weaponOffense, rolls, onReroll, setP
         <WeaponDamageView weaponOffense={weaponOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
       </div>
       <CriticalView weaponOffense={weaponOffense} setPower={setPower} setRange={setRange} />
-      <RollsView rolls={rolls} onReroll={(index) => onReroll(index, weaponOffense)} />
+      <RollsView rolls={rolls} onReroll={index => onReroll(index, weaponOffense)} />
     </div>
   )
 };
@@ -304,13 +240,13 @@ function DamageBonusWithRolls({ damageOffense, rolls, onReroll, setAmount, setGr
       <div className='flex place-items-center gap-x-3'>
         <DamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} />
       </div>
-      <RollsView rolls={rolls} onReroll={(index) => onReroll(index, damageOffense)} />
+      <RollsView rolls={rolls} onReroll={index => onReroll(index, damageOffense)} />
     </div>
   )
 };
 
 function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { rolls: T[], onReroll: (index: number) => void  }) 
-{
+{  
   if (rolls.length === 0) return null;
 
   return (
@@ -338,32 +274,4 @@ function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { 
       </div>
     </div>
   );
-}
-
-function calculateWeaponDamageForRolls(offense: WeaponOffense, rolls: number[]) : number
-{
-  let totalOffenseDamage = 0;
-
-  for (let i = 0; i < rolls.length; i++) 
-  {
-    const roll = rolls[i];
-    const weaponDiceDamageWithoutCritical = roll + offense.bonus;
-    const criticalDamage = calculateCriticalDamage(offense, roll);
-    totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
-  }
-
-  return totalOffenseDamage;
-};
-
-function calculateDamageBonusForRolls(damageOffense: DamageOffense, rolls: number[]): number
-{
-  let totalDamageBonus = 0;
-
-  for (let i = 0; i < rolls.length; i++) 
-  {
-    const roll = rolls[i];
-    totalDamageBonus += roll;
-  }
-
-  return totalDamageBonus + damageOffense.bonus;
 }
