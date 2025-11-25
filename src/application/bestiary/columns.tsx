@@ -13,12 +13,13 @@ import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Stati
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
 import { displayedText } from "@/presentation/translations";
 import TagsView from "@/common/components/tags/TagsView";
-import CharacterPerksViewDrawer from "@/application/bestiary/drawlers/CharacterPerksViewDrawer";
-import CharacterPowersViewDrawer from "@/application/bestiary/drawlers/CharacterPowersViewDrawer";
-import CharacterModesAndManeuversViewDrawer from "@/application/bestiary/drawlers/CharacterModesAndManeuversViewDrawer";
+import CharacterPerksViewDrawer from "@/application/bestiary/drawers/CharacterPerksViewDrawer";
+import CharacterPowersViewDrawer from "@/application/bestiary/drawers/CharacterPowersViewDrawer";
+import CharacterManeuversViewDrawer from "@/application/bestiary/drawers/CharacterManeuversViewDrawer";
 import CharacterNameView from "@/application/bestiary/views/CharacterNameView";
 import CharacterDefensesBattleView from "@/application/bestiary/views/CharacterDefensesBattleView";
 import CharacterOffensesBattleView from "@/application/bestiary/views/CharacterOffensesBattleView";
+import CharacterModesViewDrawer from "@/application/bestiary/drawers/CharacterModesViewDrawer";
 
 export const columnKeys =
 {
@@ -167,7 +168,8 @@ function CharacterHealthBattleView({ character }: {character: Character})
 
 function MoreBattleActions({ character }: { character: Character })
 {
-  const [isModesAndManeuversDrawerOpen, setIsModesAndManeuversDrawerOpen] = useState(false);
+  const [isModesDrawerOpen, setIsModesDrawerOpen] = useState(false);
+  const [isManeuversDrawerOpen, setIsManeuversDrawerOpen] = useState(false);
   const [isPowersDrawerOpen, setIsPowersDrawerOpen] = useState(false);
   const [isPerksDrawerOpen, setIsPerksDrawerOpen] = useState(false);
 
@@ -182,16 +184,23 @@ function MoreBattleActions({ character }: { character: Character })
         <DropdownMenuContent align="end">
           <DropdownMenuLabel className="capitalize">{displayedText.actions}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsModesAndManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStatesManeuvers}</span></DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsModesDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStates}</span></DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showManeuvers}</span></DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsPerksDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPerks}</span></DropdownMenuItem>
           { character.powers.length > 0 && <DropdownMenuItem onClick={() => setIsPowersDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPowers}</span></DropdownMenuItem>}
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <CharacterModesAndManeuversViewDrawer
+      <CharacterModesViewDrawer
         character={character}
-        open={isModesAndManeuversDrawerOpen}
-        onOpenChange={setIsModesAndManeuversDrawerOpen}
+        open={isModesDrawerOpen}
+        onOpenChange={setIsModesDrawerOpen}
+      />
+
+      <CharacterManeuversViewDrawer
+        character={character}
+        open={isManeuversDrawerOpen}
+        onOpenChange={setIsManeuversDrawerOpen}
       />
 
       <CharacterPowersViewDrawer
