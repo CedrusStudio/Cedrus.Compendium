@@ -65,16 +65,16 @@ export const useCombatRolls = (offense: Offense) =>
     return totalDamage;
   };
 
-  const recalculateCriticalLeadingOffense = () =>
+  const recalculateCriticalLeadingOffense = (offense: WeaponOffense) =>
   {
     if (leadingRolls.length === 0) return;
-    setLeadingRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentLeadingOffense, value) > 0]));
+    setLeadingRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(offense, value) > 0]));
   };
 
-  const recalculateCriticalSecondaryOffense = () =>
+  const recalculateCriticalSecondaryOffense = (offense: WeaponOffense | undefined) =>
   {
-    if (!currentSecondaryOffense || secondaryRolls.length === 0) return;
-    setSecondaryRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(currentSecondaryOffense, value) > 0]));
+    if (!offense || secondaryRolls.length === 0) return;
+    setSecondaryRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(offense, value) > 0]));
   };
 
   return { 
@@ -83,9 +83,9 @@ export const useCombatRolls = (offense: Offense) =>
     handleWeaponReroll, 
     handleDamageOffenseReroll,
     leadingRolls,
-    setLeadingRolls: setWithSideEffect(setLeadingRolls, recalculateCriticalLeadingOffense),
+    setLeadingRolls: setWithSideEffect(setLeadingRolls, () => recalculateCriticalLeadingOffense(currentLeadingOffense)),
     secondaryRolls,
-    setSecondaryRolls: setWithSideEffect(setSecondaryRolls, recalculateCriticalSecondaryOffense),
+    setSecondaryRolls: setWithSideEffect(setSecondaryRolls, () => recalculateCriticalSecondaryOffense(currentSecondaryOffense)),
     damageBonusRolls,
     setDamageBonusRolls: setDamageBonusRolls,
     currentLeadingOffense,
