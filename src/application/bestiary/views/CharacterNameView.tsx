@@ -8,7 +8,7 @@ export default function CharacterNameView({ character }: {character: Character})
   const route = useRouter();
 
   return (
-    <div className="flex flex-row justify-center items-center gap-1">
+    <div className="flex flex-row place-items-center place-content-center">
       <span className="block lg:hidden">{character.shortName}</span>
       <span className="hidden lg:block">{character.name}</span>
       <Button variant="ghost" size="icon" onClick={() => route.push(`/characters/${character.id}?tab=combat`)}>{goToIcon}</Button>
