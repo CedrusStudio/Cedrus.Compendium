@@ -1,7 +1,7 @@
 import { Character } from "@/domain/characters/Character";
 import HealthCard from "@/application/characters/combat/HealthCard";
 import DefenseCard from "@/application/characters/combat/DefenseCard";
-import OffenseCard from "@/application/characters/combat/OffenseCard";
+import OffenseCard from "@/application/characters/combat/offense/OffenseCard";
 import ModesCard from "@/application/characters/combat/ModesCard";
 import BarrierCard from "@/application/characters/combat/BarrierCard";
 import ManeuversCard from "@/application/characters/combat/ManeuversCard";

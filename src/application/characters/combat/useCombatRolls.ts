@@ -4,8 +4,11 @@ import { setWithSideEffect } from '@/common/global/setterUtils';
 import { calculateCriticalDamage, calculateWeaponDamageRoll, DamageOffense, handleDamageOffenseRolls, handleWeaponDamageRolls, Offense, roll, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-export const useCombatRolls = (offense: Offense) => 
+export const useCombatRolls = (offenses: Offense[]) => 
 {
+  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
+  const offense = offenses[selectedOffenseIndex];
+
   const [currentLeadingOffense, setCurrentLeadingOffense] = useState<WeaponOffense>(offense.leadingWeapon);
   const [currentSecondaryOffense, setCurrentSecondaryOffense] = useState<WeaponOffense | undefined>(offense.secondaryWeapon);
   const [currentDamageBonus, setCurrentDamageBonus] = useState<DamageOffense>(offense.damageBonus);
@@ -77,6 +80,16 @@ export const useCombatRolls = (offense: Offense) =>
     setSecondaryRolls(prev => prev.map(([value]) => [value, calculateCriticalDamage(offense, value) > 0]));
   };
 
+  const handleChangeOffense = (index: number) =>
+  {
+    setCurrentLeadingOffense(offenses[index].leadingWeapon);
+    setCurrentSecondaryOffense(offenses[index].secondaryWeapon);
+    setCurrentDamageBonus(offenses[index].damageBonus);
+    setLeadingRolls([]);
+    setSecondaryRolls([]);
+    setDamageBonusRolls([]);
+  };
+
   return { 
     totalResult: () => calculateTotalDamage(),
     handleRoll, 
@@ -94,6 +107,8 @@ export const useCombatRolls = (offense: Offense) =>
     setCurrentSecondaryOffense: setWithSideEffect(setCurrentSecondaryOffense, recalculateCriticalSecondaryOffense),
     currentDamageBonus,
     setCurrentDamageBonus: setCurrentDamageBonus,
+    selectedOffenseIndex,
+    setSelectedOffenseIndex: setWithSideEffect(setSelectedOffenseIndex, handleChangeOffense)
   };
 };
 

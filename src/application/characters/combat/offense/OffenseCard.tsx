@@ -2,7 +2,7 @@
 
 import { toCriticalRangeString, DamageOffense, toOffenseString, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import DamageBonusView from '@/application/characters/combat/DamageBonusView';
 import RollButton from "@/common/components/buttons/RollButton";
 import Subcard from '@/common/components/Subcard';
@@ -15,7 +15,6 @@ import SelectOneOf from '@/common/components/selects/SelectOneOf';
 import { resolveSetState } from '@/common/global/resolveSetState';
 import { displayedText } from '@/presentation/translations';
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
-import { setWithSideEffect } from '@/common/global/setterUtils';
 
 type OffenseCardProps = 
 {
@@ -24,13 +23,6 @@ type OffenseCardProps =
 
 export default function OffenseCard({ offenses }: OffenseCardProps)
 {
-  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
-  const selectedOffense = offenses[selectedOffenseIndex];
-
-  const leadingOffense = selectedOffense.leadingWeapon;
-  const secondaryOffense = selectedOffense.secondaryWeapon;
-  const damageBonus = selectedOffense.damageBonus;
-
   const { 
     totalResult,
     handleRoll, 
@@ -48,17 +40,13 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
     setCurrentSecondaryOffense,
     currentDamageBonus,
     setCurrentDamageBonus,
-  } = useCombatRolls(selectedOffense);
+    selectedOffenseIndex,
+    setSelectedOffenseIndex
+  } = useCombatRolls(offenses);
 
-  const handleChangeOffense = (index: number) =>
-  {
-    setCurrentLeadingOffense(offenses[index].leadingWeapon);
-    setCurrentSecondaryOffense(offenses[index].secondaryWeapon);
-    setCurrentDamageBonus(offenses[index].damageBonus);
-    setLeadingRolls([]);
-    setSecondaryRolls([]);
-    setDamageBonusRolls([]);
-  };
+  const leadingOffense = offenses[selectedOffenseIndex].leadingWeapon;
+  const secondaryOffense = offenses[selectedOffenseIndex].secondaryWeapon;
+  const damageBonus = offenses[selectedOffenseIndex].damageBonus;
 
   return (
     <Card className='bg-muted'>
@@ -71,7 +59,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
               <RollButton onClick={handleRoll} rollResult={totalResult()} />
             </div>
             <div className='flex flex-row items-center justify-center gap-4'>
-              <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setWithSideEffect(setSelectedOffenseIndex, handleChangeOffense)} />
+              <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setSelectedOffenseIndex} />
             </div>
           </div>
         </CardTitle>
@@ -147,7 +135,7 @@ type WeaponDamageWithCriticalSubcardProps =
   resetCallback: () => void;
 };
 
-function WeaponDamageWithCriticalSubcard(input: WeaponDamageWithCriticalSubcardProps)
+export function WeaponDamageWithCriticalSubcard(input: WeaponDamageWithCriticalSubcardProps)
 {
   return (
     <Subcard className='col-span-3' name={input.name} callback={input.resetCallback} childrenInfo={<BaseWeaponDamageInfoView weaponOffense={input.baseWeaponOffense} />}>
@@ -233,7 +221,7 @@ type DamageBonusWithRollsProps =
   setBonus: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function DamageBonusWithRolls({ damageOffense, rolls, onReroll, setAmount, setGrade, setBonus }: DamageBonusWithRollsProps)
+export function DamageBonusWithRolls({ damageOffense, rolls, onReroll, setAmount, setGrade, setBonus }: DamageBonusWithRollsProps)
 {
   return (
     <div className='flex flex-col items-center gap-y-3'>
