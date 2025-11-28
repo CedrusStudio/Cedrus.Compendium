@@ -25,7 +25,7 @@ export default function SelectOneOf<T extends { name: string; description?: stri
 
       <div className={"capitalize"}>
         <SelectTrigger className='capitalize border-0'>
-          <SelectValue>{items[index].name}</SelectValue>
+          <SelectValue>{items[index].name} </SelectValue>
         </SelectTrigger>
       </div>
 

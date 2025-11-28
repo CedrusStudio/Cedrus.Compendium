@@ -1,58 +1,85 @@
-import RollButton from "@/common/components/buttons/RollButton";
-import { colors } from "@/presentation/colors";
-import SelectOneOf from "@/common/components/selects/SelectOneOf";
-import { toCriticalRangeString, rollTotalDamage, toOffenseString } from "@/domain/characters/combat/Offense";
-import RollWithImmunityButton from "@/common/components/buttons/RollWithImmunityButton";
-import { useState } from "react";
+import { WeaponOffense } from "@/domain/characters/combat/Offense";
+import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import { Character } from "@/domain/characters/Character";
+import { displayedText } from "@/presentation/translations";
+import OffenseHeader from "@/application/characters/combat/offense/OffenseHeader";
+import { WeaponDamageWithCriticalSubcard } from "@/application/characters/combat/offense/WeaponDamageWithCriticalSubcard";
+import DamageBonusSubcardView from "@/application/characters/combat/offense/DamageBonusView";
 
 export default function CharacterOffensesBattleView({ character }: { character: Character })
 {
-  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
-  const selectedOffense = character.offenses[selectedOffenseIndex];
-  const [rollTotalResult, setRollTotalResult] = useState<number>(0);
-  const [rollTotalWithOneImmunityResult, setRollTotalWithOneImmunityResult] = useState<number>(0);
-  const [rollTotalWithTwoImmunityResult, setRollTotalWithTwoImmunityResult] = useState<number>(0);
-
-  const handleRollClick = () =>
-  {
-    const totalRoll = rollTotalDamage(selectedOffense);
-    setRollTotalResult(totalRoll);
-  }
-
-  const handleRollWithOneImmunityClick = () =>
-  {
-    const totalRollWithOneImmunity = rollTotalDamage(selectedOffense, 1);
-    setRollTotalWithOneImmunityResult(totalRollWithOneImmunity);
-  }
-
-  const handleRollWithTwoImmunityClick = () =>
-  {
-    const totalRollWithTwoImmunity = rollTotalDamage(selectedOffense, 2);
-    setRollTotalWithTwoImmunityResult(totalRollWithTwoImmunity);
-  }
+  const { 
+    totalResult,
+    handleRoll, 
+    handleWeaponReroll, 
+    handleDamageOffenseReroll,
+    leadingRolls,
+    setLeadingRolls,
+    secondaryRolls,
+    setSecondaryRolls,
+    damageBonusRolls,
+    setDamageBonusRolls,
+    currentLeadingOffense,
+    setCurrentLeadingOffense,
+    currentSecondaryOffense,
+    setCurrentSecondaryOffense,
+    currentDamageBonus,
+    setCurrentDamageBonus,
+    selectedOffenseIndex,
+    setSelectedOffenseIndex
+  } = useCombatRolls(character.offenses);
+  
+  const leadingOffense = character.offenses[selectedOffenseIndex].leadingWeapon;
+  const secondaryOffense = character.offenses[selectedOffenseIndex].secondaryWeapon;
+  const damageBonus = character.offenses[selectedOffenseIndex].damageBonus;
 
   return (
-    <div className="flex flex-row gap-4 items-center">
-      {character.offenses.length > 1 && (
-        <SelectOneOf name='offense' defaultValue='0' index={selectedOffenseIndex} items={character.offenses} setIndex={setSelectedOffenseIndex} disableInfo />
-      )}
+    <div className="flex flex-row gap-4 place-content-center">
 
-      <p>
-        <span className={`${colors.offense.leading}`}>{toOffenseString(selectedOffense.leadingWeapon)}</span>
-        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}>{toOffenseString(selectedOffense.secondaryWeapon)}</span>}
-        {toOffenseString(selectedOffense.damageBonus, true)}
-      </p>
+      <OffenseHeader 
+        offenses={character.offenses}
+        selectedOffenseIndex={selectedOffenseIndex}
+        setSelectedOffenseIndex={setSelectedOffenseIndex}
+        totalResult={totalResult}
+        handleRoll={handleRoll}
+        className="flex-col-reverse"
+      />
 
-      <p>
-        <span className={`${colors.offense.leading}`}>{`${toCriticalRangeString(selectedOffense.leadingWeapon)}, +${selectedOffense.leadingWeapon.critical.power}`}</span>
-        {selectedOffense.secondaryWeapon && <span className={`${colors.offense.secondary}`}> | {`${toCriticalRangeString(selectedOffense.secondaryWeapon)}, +${selectedOffense.secondaryWeapon.critical.power}`}</span>}
-      </p>
+      <WeaponDamageWithCriticalSubcard 
+        name={displayedText.leading}
+        weaponOffense={currentLeadingOffense}
+        baseWeaponOffense={leadingOffense}
+        rolls={leadingRolls}
+        setRolls={setLeadingRolls}
+        setOffense={setCurrentLeadingOffense}
+        handleWeaponReroll={handleWeaponReroll}
+        resetCallback={() => setCurrentLeadingOffense(leadingOffense)}
+      />
+          
+      {
+        currentSecondaryOffense && (
+          <WeaponDamageWithCriticalSubcard 
+            name={displayedText.secondary}
+            weaponOffense={currentSecondaryOffense}
+            baseWeaponOffense={secondaryOffense as WeaponOffense}
+            rolls={secondaryRolls}
+            setRolls={setSecondaryRolls}
+            setOffense={weaponOffense => setCurrentSecondaryOffense(weaponOffense as WeaponOffense)}
+            handleWeaponReroll={handleWeaponReroll}
+            resetCallback={() => setCurrentSecondaryOffense(secondaryOffense)}
+          />
+        ) 
+      }
 
-      <RollButton onClick={handleRollClick} rollResult={rollTotalResult} />
-
-      <RollWithImmunityButton onClick={handleRollWithOneImmunityClick} rollWithImmunityResult={rollTotalWithOneImmunityResult} immunity={1} />
-      <RollWithImmunityButton onClick={handleRollWithTwoImmunityClick} rollWithImmunityResult={rollTotalWithTwoImmunityResult} immunity={2} />
+      <DamageBonusSubcardView 
+        damageBonus={damageBonus}
+        currentDamageBonus={currentDamageBonus}
+        damageBonusRolls={damageBonusRolls}
+        handleDamageOffenseReroll={handleDamageOffenseReroll}
+        setCurrentDamageBonus={setCurrentDamageBonus}
+        setDamageBonusRolls={setDamageBonusRolls}
+      />
+        
     </div>
   );
 }

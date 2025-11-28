@@ -1,13 +1,8 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import React, { PropsWithChildren } from 'react';
-import { RiResetLeftFill } from 'react-icons/ri';
 import { Button } from '@/ui/button';
 import LabelWithInfo from '@/common/components/labels/LabelWithInfo';
+import { resetIcon } from '@/presentation/icons';
 
 type SubcardProps =
 {
@@ -22,21 +17,21 @@ export default function Subcard({ name, className, children, callback, button, c
 {
   return (
     <Card className={className}>
-        <CardHeader>
+      <CardHeader>
 
-          <CardTitle className='font-bold text-xl capitalize text-center text-primary flex justify-around items-center'>
-            {childrenInfo ? <LabelWithInfo name={name} infoContent={childrenInfo} infoTriggerClassName='pt-1'/> : <span>{name}</span>}
-            <Button type="button" variant="default" size="icon" onClick={callback}>
-              { <RiResetLeftFill />}
-            </Button>
-            {button}
-          </CardTitle>
+        <CardTitle className='flex place-content-center place-items-center font-bold gap-3'>
+          {childrenInfo ? <LabelWithInfo name={name} infoContent={childrenInfo} infoTriggerClassName='pt-1'/> : <span>{name}</span>}
+          <Button type="button" variant="default" size="icon" onClick={callback}>
+            {resetIcon()}
+          </Button>
+          {button}
+        </CardTitle>
 
-        </CardHeader>
+      </CardHeader>
 
-        <CardContent className='flex items-center justify-center'>
-          {children}
-        </CardContent>
+      <CardContent className='flex place-content-center place-items-center'>
+        {children}
+      </CardContent>
     </Card>
   );
 };

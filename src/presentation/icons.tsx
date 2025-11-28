@@ -140,3 +140,5 @@ export const showHideIcon = (isHidden: boolean, className?: string) => isHidden
 : <FaEyeSlash className={className} />;
 
 export const phantomIcon = (className?: string) => <GiShadowGrasp className={className} />;
+export const rollsIcon = (className?: string) => <GiRollingDices className={className} />;
+
