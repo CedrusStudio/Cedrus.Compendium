@@ -12,9 +12,10 @@ type OffenseHeaderProps =
   totalResult: () => number;
   handleRoll: () => void;
   className?: string;
+  disableInfo?: boolean;
 };
 
-export default function OffenseHeader({ offenses, selectedOffenseIndex, setSelectedOffenseIndex, totalResult, handleRoll, className }: OffenseHeaderProps)
+export default function OffenseHeader({ offenses, selectedOffenseIndex, setSelectedOffenseIndex, totalResult, handleRoll, className, disableInfo }: OffenseHeaderProps)
 {
   return (
     <div className={cn('flex flex-row place-content-center place-items-center gap-3', className)}>
@@ -24,7 +25,7 @@ export default function OffenseHeader({ offenses, selectedOffenseIndex, setSelec
       {
         offenses.length > 1 && (
           <div className='flex flex-row place-content-center place-items-center gap-4'>
-            <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setSelectedOffenseIndex} />
+            <SelectOneOf name='defense' defaultValue='0' index={selectedOffenseIndex} items={offenses} setIndex={setSelectedOffenseIndex} disableInfo={disableInfo} />
           </div>
         )
       }

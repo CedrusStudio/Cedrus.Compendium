@@ -43,6 +43,7 @@ export default function CharacterOffensesBattleView({ character }: { character: 
         totalResult={totalResult}
         handleRoll={handleRoll}
         className="flex-col-reverse"
+        disableInfo={true}
       />
 
       <WeaponDamageWithCriticalSubcard 
