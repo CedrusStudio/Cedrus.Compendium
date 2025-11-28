@@ -1,13 +1,19 @@
-import { WeaponOffense } from "@/domain/characters/combat/Offense";
+import { toCriticalRangeString, toOffenseString, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import { Character } from "@/domain/characters/Character";
 import { displayedText } from "@/presentation/translations";
 import OffenseHeader from "@/application/characters/combat/offense/OffenseHeader";
 import { WeaponDamageWithCriticalSubcard } from "@/application/characters/combat/offense/WeaponDamageWithCriticalSubcard";
 import DamageBonusSubcardView from "@/application/characters/combat/offense/DamageBonusView";
+import { useState } from "react";
+import { showHideIcon } from "@/presentation/icons";
+import { Button } from "@/common/components/ui/button";
+import { colors } from "@/presentation/colors";
 
 export default function CharacterOffensesBattleView({ character }: { character: Character })
 {
+  const [hideAdvancedCombat, setHideAdvancedCombat] = useState<boolean>(true);
+
   const { 
     totalResult,
     handleRoll, 
@@ -33,7 +39,22 @@ export default function CharacterOffensesBattleView({ character }: { character: 
   const secondaryOffense = character.offenses[selectedOffenseIndex].secondaryWeapon;
   const damageBonus = character.offenses[selectedOffenseIndex].damageBonus;
 
-  return (
+  const simpleCombat = (
+    <>
+      <p>
+        <span className={`${colors.offense.leading}`}>{toOffenseString(leadingOffense)}</span>
+        {secondaryOffense && <span className={`${colors.offense.secondary}`}>+{toOffenseString(secondaryOffense)}</span>}
+        {toOffenseString(damageBonus, true)}
+      </p>
+
+      <p>
+        <span className={`${colors.offense.leading}`}>{`${toCriticalRangeString(leadingOffense)}, +${leadingOffense.critical.power}`}</span>
+        {secondaryOffense && <span className={`${colors.offense.secondary}`}> | {`${toCriticalRangeString(secondaryOffense)}, +${secondaryOffense.critical.power}`}</span>}
+      </p>
+    </>
+  )
+
+  const advancedCombat = (
     <div className="flex flex-row gap-4 place-content-center">
 
       <OffenseHeader 
@@ -81,6 +102,18 @@ export default function CharacterOffensesBattleView({ character }: { character: 
         setDamageBonusRolls={setDamageBonusRolls}
       />
         
+    </div>
+  );
+
+  return (
+    <div className="flex flex-row place-items-center gap-2">
+      {
+        hideAdvancedCombat ? simpleCombat : advancedCombat
+      }
+
+      <Button onClick={() => setHideAdvancedCombat(!hideAdvancedCombat)} variant="ghost" >
+        {showHideIcon(hideAdvancedCombat)}
+      </Button>
     </div>
   );
 }
