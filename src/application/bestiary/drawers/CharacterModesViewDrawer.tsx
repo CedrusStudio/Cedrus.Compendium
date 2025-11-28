@@ -10,37 +10,37 @@ export default function CharacterModesViewDrawer({ character, open, onOpenChange
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent>
         <div className="overflow-y-auto">
-        <DrawerHeader className="flex flex-col justify-around md:flex-row place-items-center flex-wrap">
+          <DrawerHeader className="flex flex-col justify-around md:flex-row place-items-center flex-wrap">
 
-        {
-          character.stances.length > 0 && (
-            <div className="flex flex-col gap-4 place-content-center place-items-center">
+          {
+            character.stances.length > 0 && (
+              <div className="flex flex-col gap-4 place-content-center place-items-center">
 
-              <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
-              
-              <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-              { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
+                <DrawerTitle className="capitalize">{displayedText.stances}</DrawerTitle>
+                
+                <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
+                { character.stances.map(stance => <ModeView mode={stance} key={stance.id} />) }
+                </div>
+
               </div>
+            )
+          }
 
-            </div>
-          )
-        }
+          {
+            character.states.length > 0 && (
+              <div className="flex flex-col gap-4 place-content-center place-items-center">
 
-        {
-          character.states.length > 0 && (
-            <div className="flex flex-col gap-4 place-content-center place-items-center">
+                <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
 
-              <DrawerTitle className="capitalize">{displayedText.states}</DrawerTitle>
+                <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
+                { character.states.map(state => <ModeView mode={state} key={state.id} />) }
+                </div>
 
-              <div className="flex flex-row gap-3 flex-wrap items-center justify-center">
-              { character.states.map(state => <ModeView mode={state} key={state.id} />) }
               </div>
+            )
+          }
 
-            </div>
-          )
-        }
-
-        </DrawerHeader>
+          </DrawerHeader>
         </div>
       </DrawerContent>
     </Drawer>

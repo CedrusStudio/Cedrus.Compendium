@@ -10,9 +10,15 @@ import { showHideIcon } from "@/presentation/icons";
 import { Button } from "@/common/components/ui/button";
 import { colors } from "@/presentation/colors";
 
-export default function CharacterOffensesBattleView({ character }: { character: Character })
+type CharacterOffensesBattleViewProps =
 {
-  const [hideAdvancedCombat, setHideAdvancedCombat] = useState<boolean>(true);
+  character: Character;
+  initiallyHideAdvancedCombat?: boolean;
+};
+
+export default function CharacterOffensesBattleView({ character, initiallyHideAdvancedCombat = true }: CharacterOffensesBattleViewProps)
+{
+  const [hideAdvancedCombat, setHideAdvancedCombat] = useState<boolean>(initiallyHideAdvancedCombat);
 
   const { 
     totalResult,

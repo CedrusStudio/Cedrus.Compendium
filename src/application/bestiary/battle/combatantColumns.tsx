@@ -200,11 +200,11 @@ export function createCombatantColumns(): ColumnDef<BattleCombatant & { __initia
         const combatant = row.original;
         if (isCharacter(combatant) && combatant.offenses.length > 0) 
         {
-          return <CharacterOffensesBattleView character={combatant} />;
+          return <CharacterOffensesBattleView character={combatant} initiallyHideAdvancedCombat={false} />;
         }
         if (isDuplicatedCharacter(combatant) && combatant.character.offenses.length > 0) 
         {
-          return <CharacterOffensesBattleView character={combatant.character} />;
+          return <CharacterOffensesBattleView character={combatant.character} initiallyHideAdvancedCombat={false} />;
         }
 
         if (isExternalParticipant(combatant))
