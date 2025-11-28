@@ -20,13 +20,13 @@ type FieldViewWithInfoProps =
 export default function FieldViewWithInfo(input: PropsWithChildren<FieldViewWithInfoProps>) 
 {
   return (
-    <div className={cn('flex gap-x-6 justify-around', input.className)}>
+    <div className={cn('flex gap-x-1 justify-around', input.className)}>
 
       <div className={cn("capitalize", input.nameClassName)}>
         {input.children}
       </div>
 
-      <div className={cn("flex items-center gap-2", input.valueClassName)}>
+      <div className={cn("flex items-center gap-1.5", input.valueClassName)}>
         {input.value}
 
         <HoverCard openDelay={350} closeDelay={100}>

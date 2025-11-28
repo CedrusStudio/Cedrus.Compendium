@@ -23,7 +23,7 @@ export default function CharacterDefensesBattleView({ character }: { character :
   };
 
   return (
-    <div className="flex flex-row gap-3 items-center">
+    <div className="flex flex-row items-center">
       {
         character.defenses.length > 1 && (
           <SelectOneOf 

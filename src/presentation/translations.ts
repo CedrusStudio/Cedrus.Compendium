@@ -203,7 +203,8 @@ export const displayedText =
 
     editingMode: translate("editingMode"),
     actions: translate("actions"),
-    showStancesStatesManeuvers: translate("showStancesStatesManeuvers"),
+    showStancesStates: translate("showStancesStates"),
+    showManeuvers: translate("showManeuvers"),
     showPowers: translate("showPowers"),
     showPerks: translate("showPerks"),
     goToCharacterView: translate("goToCharacterView"),

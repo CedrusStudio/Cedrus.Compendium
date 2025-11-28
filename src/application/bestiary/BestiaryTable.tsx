@@ -138,21 +138,24 @@ export default function BestiaryTable()
   return (
     <div className="mx-3">
       <div className="flex flex-wrap items-center justify-center py-4 gap-3 sticky top-0 bg-background z-10">
-        <Input 
-          name="search" 
-          type="text" 
-          placeholder={displayedText.searchByName}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          className="flex-1 max-w-md"
-        />
 
-        <TagFilter 
-          includedTags={searchTags} 
-          onTagsChange={handleSearchTagsChange}
-          availableTags={availableTags}
-          isLoading={tagsLoading}
-        />
+        <div className="flex flex-row flex-1 gap-3">
+          <Input 
+            name="search" 
+            type="text" 
+            placeholder={displayedText.searchByName}
+            value={searchInput}
+            onChange={handleSearchInputChange}
+            className="max-w-md"
+          />
+
+          <TagFilter 
+            includedTags={searchTags} 
+            onTagsChange={handleSearchTagsChange}
+            availableTags={availableTags}
+            isLoading={tagsLoading}
+            />
+        </div>
 
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
         { 
