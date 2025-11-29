@@ -23,7 +23,6 @@ export default function CombatView({ character }: { character: Character })
         </div>
       </div>
 
-
       <div className='flex flex-col lg:grid lg:grid-cols-2 gap-3'>
       {
         character.offenses.length > 0 && <OffenseCard offenses={character.offenses} />

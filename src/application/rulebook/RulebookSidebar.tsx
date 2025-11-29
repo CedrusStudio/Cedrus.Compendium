@@ -22,7 +22,7 @@ export function RulebookSidebar({ navigation }: RulebookSidebarProps)
   const defaultOpenCategories = currentCategory ? [currentCategory.id] : [];
 
   return (
-    <aside className="hidden md:block w-64 border-r h-[calc(100vh-4rem)] overflow-y-auto sticky top-16 p-4">
+    <aside className="hidden xl:block w-64 border-r h-[calc(100vh-4rem)] overflow-y-auto sticky top-16 p-4">
         <Accordion type="multiple" className="space-y-2" defaultValue={defaultOpenCategories}>
             { navigation.map(category => <NavbarItem key={category.id} category={category} pathname={pathname} />) }
         </Accordion>

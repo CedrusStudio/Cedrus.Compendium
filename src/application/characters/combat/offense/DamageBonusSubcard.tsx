@@ -15,7 +15,7 @@ type DamageBonusSubcardViewProps =
   setDamageBonusRolls: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-export default function DamageBonusSubcardView({ damageBonus, currentDamageBonus, damageBonusRolls, handleDamageOffenseReroll, setCurrentDamageBonus, setDamageBonusRolls }: DamageBonusSubcardViewProps)
+export default function DamageBonusSubcard({ damageBonus, currentDamageBonus, damageBonusRolls, handleDamageOffenseReroll, setCurrentDamageBonus, setDamageBonusRolls }: DamageBonusSubcardViewProps)
 {
   return (
     <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)} childrenInfo={<span>{toOffenseString(damageBonus)}</span> } > 

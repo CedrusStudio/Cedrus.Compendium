@@ -12,18 +12,22 @@ export const useCombatRolls = (offenses: Offense[]) =>
   const [currentLeadingOffense, setCurrentLeadingOffense] = useState<WeaponOffense>(offense.leadingWeapon);
   const [currentSecondaryOffense, setCurrentSecondaryOffense] = useState<WeaponOffense | undefined>(offense.secondaryWeapon);
   const [currentDamageBonus, setCurrentDamageBonus] = useState<DamageOffense>(offense.damageBonus);
+  const [currentAdditionalDamageBonus, setCurrentAdditionalDamageBonus] = useState<DamageOffense | undefined>(offense.additionalDamageBonus);
 
   const [leadingRolls, setLeadingRolls] = useState<[number, boolean][]>([]);
   const [secondaryRolls, setSecondaryRolls] = useState<[number, boolean][]>([]);
   const [damageBonusRolls, setDamageBonusRolls] = useState<number[]>([]);
+  const [additionalDamageBonusRolls, setAdditionalDamageBonusRolls] = useState<number[]>([]);
 
   const handleRoll = () => 
   {
     const { rolls: damageBonusRolls } = handleDamageOffenseRolls(currentDamageBonus);
+    const { rolls: additionalDamageBonusRolls } = handleDamageOffenseRolls(currentAdditionalDamageBonus);
     const { rolls: leadingRolls } = handleWeaponDamageRolls(currentLeadingOffense);
     const { rolls: secondaryRolls } = currentSecondaryOffense ? handleWeaponDamageRolls(currentSecondaryOffense) : { rolls: [] };
 
     setDamageBonusRolls(damageBonusRolls);
+    setAdditionalDamageBonusRolls(additionalDamageBonusRolls);
     setLeadingRolls(leadingRolls);
     setSecondaryRolls(secondaryRolls);
   };
@@ -62,9 +66,10 @@ export const useCombatRolls = (offenses: Offense[]) =>
     }
 
     const damageBonusTotal = calculateDamageBonusForRolls(currentDamageBonus, damageBonusRolls);
+    const additionalDamageBonusTotal = currentAdditionalDamageBonus ? calculateDamageBonusForRolls(currentAdditionalDamageBonus, additionalDamageBonusRolls) : 0;
     const leadingTotal = calculateWeaponDamageForRolls(currentLeadingOffense, leadingRolls.map(r => r[0]));
     const secondaryTotal = currentSecondaryOffense ? calculateWeaponDamageForRolls(currentSecondaryOffense, secondaryRolls.map(r => r[0])) : 0;
-    const totalDamage = damageBonusTotal + leadingTotal + secondaryTotal;
+    const totalDamage = damageBonusTotal + additionalDamageBonusTotal + leadingTotal + secondaryTotal;
     return totalDamage;
   };
 
@@ -85,6 +90,7 @@ export const useCombatRolls = (offenses: Offense[]) =>
     setCurrentLeadingOffense(offenses[index].leadingWeapon);
     setCurrentSecondaryOffense(offenses[index].secondaryWeapon);
     setCurrentDamageBonus(offenses[index].damageBonus);
+    setCurrentAdditionalDamageBonus(offenses[index].additionalDamageBonus);
     setLeadingRolls([]);
     setSecondaryRolls([]);
     setDamageBonusRolls([]);
@@ -101,12 +107,16 @@ export const useCombatRolls = (offenses: Offense[]) =>
     setSecondaryRolls: setWithSideEffect(setSecondaryRolls, () => recalculateCriticalSecondaryOffense(currentSecondaryOffense)),
     damageBonusRolls,
     setDamageBonusRolls: setDamageBonusRolls,
+    additionalDamageBonusRolls,
+    setAdditionalDamageBonusRolls: setAdditionalDamageBonusRolls,
     currentLeadingOffense,
     setCurrentLeadingOffense: setWithSideEffect(setCurrentLeadingOffense, recalculateCriticalLeadingOffense),
     currentSecondaryOffense,
     setCurrentSecondaryOffense: setWithSideEffect(setCurrentSecondaryOffense, recalculateCriticalSecondaryOffense),
     currentDamageBonus,
     setCurrentDamageBonus: setCurrentDamageBonus,
+    currentAdditionalDamageBonus,
+    setCurrentAdditionalDamageBonus: setCurrentAdditionalDamageBonus,
     selectedOffenseIndex,
     setSelectedOffenseIndex: setWithSideEffect(setSelectedOffenseIndex, handleChangeOffense)
   };

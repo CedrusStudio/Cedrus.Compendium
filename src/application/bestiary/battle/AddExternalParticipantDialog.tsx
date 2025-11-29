@@ -52,8 +52,7 @@ export default function AddExternalParticipantDialog()
 
       <DialogTrigger asChild>
         <Button variant="outline">
-          <FaUserPlus className="mr-2" />
-          {displayedText.addExternalParticipant}
+          <FaUserPlus />
         </Button>
       </DialogTrigger>
 

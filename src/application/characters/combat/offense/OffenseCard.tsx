@@ -1,11 +1,11 @@
 "use client";
 
-import { Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { DamageOffense, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { displayedText } from '@/presentation/translations';
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import OffenseHeader from '@/application/characters/combat/offense/OffenseHeader';
-import DamageBonusSubcardView from '@/application/characters/combat/offense/DamageBonusView';
+import DamageBonusSubcard from '@/application/characters/combat/offense/DamageBonusSubcard';
 import { WeaponDamageWithCriticalSubcard } from '@/application/characters/combat/offense/WeaponDamageWithCriticalSubcard';
 
 type OffenseCardProps = 
@@ -26,12 +26,16 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
     setSecondaryRolls,
     damageBonusRolls,
     setDamageBonusRolls,
+    additionalDamageBonusRolls,
+    setAdditionalDamageBonusRolls,
     currentLeadingOffense,
     setCurrentLeadingOffense,
     currentSecondaryOffense,
     setCurrentSecondaryOffense,
     currentDamageBonus,
     setCurrentDamageBonus,
+    currentAdditionalDamageBonus,
+    setCurrentAdditionalDamageBonus,
     selectedOffenseIndex,
     setSelectedOffenseIndex
   } = useCombatRolls(offenses);
@@ -39,6 +43,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
   const leadingOffense = offenses[selectedOffenseIndex].leadingWeapon;
   const secondaryOffense = offenses[selectedOffenseIndex].secondaryWeapon;
   const damageBonus = offenses[selectedOffenseIndex].damageBonus;
+  const additionalDamageBonus = offenses[selectedOffenseIndex].additionalDamageBonus;
 
   return (
     <Card className='bg-muted'>
@@ -55,7 +60,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex flex-col md:flex-row gap-1 ">
+      <CardContent className="flex flex-col flex-wrap md:flex-row gap-1 ">
 
         <WeaponDamageWithCriticalSubcard 
           name={displayedText.leading}
@@ -83,7 +88,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           ) 
         }
 
-        <DamageBonusSubcardView
+        <DamageBonusSubcard
           damageBonus={damageBonus}
           currentDamageBonus={currentDamageBonus}
           damageBonusRolls={damageBonusRolls}
@@ -91,6 +96,19 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           setCurrentDamageBonus={setCurrentDamageBonus}
           setDamageBonusRolls={setDamageBonusRolls}
         />
+            
+        {
+          currentAdditionalDamageBonus && (
+            <DamageBonusSubcard
+              damageBonus={additionalDamageBonus as DamageOffense}
+              currentDamageBonus={currentAdditionalDamageBonus}
+              damageBonusRolls={additionalDamageBonusRolls}
+              handleDamageOffenseReroll={handleDamageOffenseReroll}
+              setCurrentDamageBonus={additionalDamageOffense => setCurrentAdditionalDamageBonus(additionalDamageOffense as DamageOffense)}
+              setDamageBonusRolls={setAdditionalDamageBonusRolls}
+            />
+          ) 
+        }
         
       </CardContent>
     </Card>

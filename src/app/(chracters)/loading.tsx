@@ -4,7 +4,7 @@ export default function Loading()
 {
   return (
     <div className="flex item-center justify-center py-10">
-        <LoadingSpinner />
+      <LoadingSpinner />
     </div>
   );
 };

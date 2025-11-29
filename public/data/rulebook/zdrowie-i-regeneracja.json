@@ -4,40 +4,185 @@
     "title": "Zdrowie i Regeneracja",
     "description": "Punkty życia, leczenie, regeneracja esencji i efekty krytyczne",
     "icon": "❤️",
-    "order": 5,
+    "order": 2,
     "slug": "zdrowie-i-regeneracja"
   },
   "sections": [
+    {
+      "id": "section-zdrowie-i-regeneracja-zdrowie-i-bariera",
+      "slug": "zdrowie-i-bariera",
+      "title": "Zdrowie i Bariera",
+      "category": "zdrowie-i-regeneracja",
+      "order": 1,
+      "content": [
+        {
+          "type": "heading",
+          "id": "heading-1",
+          "level": 2,
+          "content": "Zdrowie"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Zdrowie (inaczej Punkty Zdrowia lub Punkty Życia) określają ile obrażeń jest w stanie przyjąć postać. Każda postać ma maksymalną ilość punktów zdrowia na dany moment. Jeśli postać ma więcej niż 0 punktów zdrowia, to żyje. Jeśli zdrowie spadnie do wartości od 0 do minus Poziomu Leczenia do postać pada nieprzytomna, lecz żywa. Jeśli postać nie utraci dodatkowego zdrowia, to odzyska przytomność po godzinie i będzie miała wtedy 1 zdrowia. Postać może próbować utrzymać przytomność posiadając od 0 do minus Poziomu Leczenia zdrowia jeśli zda test wytrwałości o ST=10+1 za każde -1 zdrowia poniżej 0. Wtedy postać nie jest zdolna do walki - nie może atakować, bronić się a jej używanie mocy wewnętrznych jest mocno ograniczone."
+        },
+        {
+          "type": "heading",
+          "id": "heading-2",
+          "level": 2,
+          "content": "Bariera"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Bariera określaja ilość obrażeń jest w stanie przyjąć postać nim zacznie tracić Punkty Zdrowia. Wyjątkiem jest otrzymywanie Obrażeń Śmiertelnych, na przykład od działającej trucizny. Postać posiadająca bariery najczęściej jest bardziej chroniona przed negatywnymi skutkami niesiony przez obrażenia i obce wpływy jak klątwy."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "subsection-zywotnosc",
+          "slug": "zywotnosc",
+          "anchor": "zywotnosc",
+          "title": "Żywotność",
+          "category": "zdrowie-i-regeneracja",
+          "order": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Żywotność określa podstawową ilość zdrowia postaci w zależności od jej poziomu doświadczenia. Każda postać posiada podstawowe 10 żywotności, natomiast postacie bardziej doświadczone posiadają wielokrotność 10 poziomu żywotności"
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.658Z"
+        },
+        {
+          "id": "subsection-twardosc",
+          "anchor": "twardosc",
+          "slug": "twardosc",
+          "title": "Twardość",
+          "category": "zdrowie-i-regeneracja",
+          "order": 4,
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Twardość określa jedną z ważnych zależności budowy a ilości zdrowia. Twardość daje (Twardość) x (Budowa) bonusu zdrowia. Twardość związana jest bezpośrednio z siłą postaci: Twardość wynosi 1+(1/2) siły (zaokrąglone w dół)."
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.658Z"
+        },
+        {
+          "id": "subsection-przezywalnosc",
+          "anchor": "przezywalnosc",
+          "slug": "przezywalnosc",
+          "title": "Przeżywalność",
+          "category": "zdrowie-i-przezywalnosc",
+          "order": 5,
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Przeżywalność to całkowita ilość obrażeń jakie postać jest w stanie przyjąć **poniżej** zera wciąż walcząc. Jeśli postać otrzymuje obrażenia, które sprowadzają jej życie poniżej zera, to zazwyczaj postać pada nieprzytomna lub jest niezdolna do walki. Jednakże dodatkowe zdolności mogą pozwolić postaci dalej walczyć aż do progu przeżywalności."
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.658Z"
+        },
+        {
+          "id": "subsection-determinacja",
+          "anchor": "determinacja",
+          "slug": "determinacja",
+          "title": "Determinacja",
+          "category": "zdrowie-i-determinacja",
+          "order": 6,
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Determinacja to ilość rund, które postać jest w stanie walczyć ze zdrowiem pomiędzy zerem a przeżywalnością. Jeśli ilość rund przekracza determinację, postać pada nieprzytomna i w zależności od okoliczności traci przytomność albo umiera."
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.658Z"
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.655Z"
+    },
     {
       "id": "section-zdrowie-i-regeneracja-poziom-leczenia",
       "slug": "poziom-leczenia",
       "title": "Poziom Leczenia",
       "category": "zdrowie-i-regeneracja",
-      "order": 0,
+      "order": 2,
       "content": [
         {
           "type": "paragraph",
           "id": "paragraph-1",
-          "content": "Poziom Leczenia jest wartością przedstawiającą zdolność regeneracji, ogół sprawności organizmu pod względem zdrowotności. Najczęściej jest ściśle związana z ilością zdrowia. Jeśli postać otrzyma obrażenia w zdrowie w ilości równej 10 razy Poziom Leczenia lub więcej, to podlega efektowi krytycznemu (dokładne wyjaśnienie w \"Efekt Krytyczny\"). Poziom Leczenia pomaga również przetrwać posiadając ujemne punkty zdrowia (patrz \"Zdrowie\" powyżej). Minimalny Poziom Leczenia to 0, wiec jeśli miałby spaść poniżej (z jakiegokolwiek powodu) to ustala się go na wartości 0, lecz w zamian postać traci 10 punktów zdrowia za każde oczko które należy zanegować aby Poziom Leczenia nie spadł poniżej zera. Poziom leczenia określa efektywność leczenia urazów."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.655Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-zdrowie",
-      "slug": "zdrowie",
-      "title": "Zdrowie",
-      "category": "zdrowie-i-regeneracja",
-      "order": 1,
-      "content": [
+          "content": "Poziom Leczenia jest wartością przedstawiającą zdolność regeneracji, ogół sprawności organizmu pod względem zdrowotności. Najczęściej jest ściśle związana z ilością zdrowia. Jeśli postać od jednego źródła otrzyma obrażenia w zdrowie w ilości równej 10 razy Poziom Leczenia lub więcej, to podlega **Efektowi Krytycznemu**. Poziom Leczenia pomaga również przetrwać posiadając ujemne punkty zdrowia (patrz \"Zdrowie i Bariera\"). Minimalny Poziom Leczenia to 0, wiec jeśli miałby spaść poniżej (z jakiegokolwiek powodu) to ustala się go na wartości 0, lecz w zamian postać traci 10 punktów zdrowia za każde oczko które należy zanegować aby Poziom Leczenia nie spadł poniżej zera. Poziom leczenia określa efektywność leczenia urazów."
+        },
+        {
+          "type": "heading",
+          "id": "heading-2",
+          "level": 3,
+          "content": "Efektywność leczenia"
+        },
         {
           "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Zdrowie (inaczej Punkty Zdrowia lub Punkty Życia) określają ile obrażeń jest w stanie przyjąć postać. Każda postać ma maksymalną ilość punktów zdrowia na dany moment. Jeśli postać ma więcej niż 0 punktów zdrowia, to żyje. Jeśli zdrowie spadnie po wartości od 0 do minus Poziomu Leczenia do postać pada nieprzytomna, lecz żywa. Jeśli postać nie utraci dodatkowego zdrowia, to odzyska przytomność po godzinie i będzie miała wtedy 1 zdrowia. Postać może próbować utrzymać przytomność posiadając od 0 do minus Poziomu Leczenia zdrowia jeśli zda test wytrwałości o ST=10+1 za każde -1 zdrowia poniżej 0. Wtedy postać nie jest zdolna do walki - nie może atakować, bronić się a jej używanie mocy wewnętrznych jest mocno ograniczone (decyduje mistrz gry)."
+          "id": "paragraph-2",
+          "content": "Efekty leczenia naturalnego i nadnaturalnego są skalowane w zależności od Poziomu Leczenia postaci. Krótki odpoczynek leczy postaci 1k6 + Poziom Leczenia + Regeneracja, standardowy odpoczynek leczy kolejne 1k6 + Poziom Leczenia + Regeneracja. Regeneracja jest naturalnym bonusem leczenia wynikającym z cech postaci."
         }
       ],
-      "subsections": [],
+      "subsections": [
+        {
+          "id": "subsection-magiczne-leczenie",
+          "anchor": "magiczne-leczenie",
+          "slug": "magiczne-leczenie",
+          "title": "Magiczne Leczenie",
+          "category": "zdrowie-i-regeneracja",
+          "order": 17,
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Najczęściej magiczne leczenie jednorazowo odnawia punkty zdrowia w ilości wielokrotności Poziomu Leczenia. Przy takim leczeniu należy zaznaczyć, że całkowita ilość uleczonych ran nie może przekroczyć maksymalnego poziomu punktów zdrowia. Przykładowo jeśli postać ma 50 maksymalnego zdrowia, a obecnie 20, to początkowo można uleczyć do 50, ale jeśli po chwili otrzyma cios i znowu starci do 20 to teraz magicznie można uleczyć jedynie do 40."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Standardowe magiczne leczenie nie polegające na magicznej hospitalizacji nie potrafi wyleczyć złamań, chorób czy poważnych fizycznych przypadłości."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-3",
+              "content": "Leczenie za pomocą magicznego leczenia nie polegającego na magicznej hospitalizacji sprawia, że postać wymaga odpoczynku długiego na tyle na ile trzebaby odpoczynkiem wyleczyć połowę uleczonego magicznym leczeniem zdrowia. Postacie czarokrwiste, które mają moce leczące zazwyczaj potrzebują połowy tego czasu."
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.658Z"
+        },
+        {
+          "id": "subsection-medycyna",
+          "anchor": "medycyna",
+          "slug": "medycyna",
+          "title": "Medycyna",
+          "category": "zdrowie-i-regeneracja",
+          "order": 2,
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Najczęściej medycyna wymaga wielorundowego zaangażowania innej osoby lub samego chorego (jeśli jest to możliwe) i leczy małe ilości punktów zdrowia, lecz może dopomóc w poradzeniu sobie z zapobiegnięciem trwałych uszczerbków na zdrowiu. Oczywiście medycyna też może poradzić sobie ze zwykłymi chorobami i różnorodnymi przypadłościami, które nękają postacie. Często medycyna stosowana jest to tamowania upływu krwi czy też usztywnienia złamanej kończyny."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Skale trudności testów medycyny ustala mistrz gry. Zazwyczaj medycyna pozwala odzyskać w małym odstępie czasu Poziom Leczenia razy ilość oczek przewagi nad testem a po dodatkowym Poziomie Leczenia do dziennego odpoczynku."
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.658Z"
+        }
+      ],
       "lastModified": "2025-11-11T09:57:04.655Z"
     },
     {
@@ -45,12 +190,11 @@
       "slug": "efekt-krytyczny",
       "title": "Efekty Krytyczne",
       "category": "zdrowie-i-regeneracja",
-      "order": 2,
+      "order": 3,
       "content": [],
       "subsections": [
         {
           "id": "subsection-definicja",
-          "title": "Definicja",
           "anchor": "definicja",
           "content": [
             {
@@ -68,7 +212,7 @@
             {
               "type": "blockquote",
               "id": "blockquote-4",
-              "content": "**Próg = 10 × Poziom Leczenia**\n\nJeśli postać otrzyma obrażenia równe lub większe od progu w **jednej rundzie**, następuje efekt krytyczny."
+              "content": "**Próg = 10 × Poziom Leczenia**\n\nJeśli postać otrzyma obrażenia równe lub większe od progu w **jednej rundzie** od **pojedynczego źródła**, następuje efekt krytyczny. Próg może zostać zmodyfikowany manewrem specjalnym, zdolnością lub innym efektem gry."
             }
           ]
         },
@@ -117,22 +261,22 @@
                 ],
                 "rows": [
                   [
-                    "Próg + 0-9",
+                    "0-9",
                     "1x k100",
                     "Ten wynik"
                   ],
                   [
-                    "Próg + 10-19",
+                    "10-19",
                     "2x k100",
                     "Niższy wynik"
                   ],
                   [
-                    "Próg + 20-29",
+                    "20-29",
                     "3x k100",
                     "Najniższy wynik"
                   ],
                   [
-                    "Próg + 30+",
+                    "30+",
                     "4x k100",
                     "Najniższy wynik"
                   ]
@@ -164,23 +308,6 @@
           ]
         },
         {
-          "id": "subsection-efekty-kumulatywne",
-          "title": "Efekty Kumulatywne",
-          "anchor": "efekty-kumulatywne",
-          "content": [
-            {
-              "type": "paragraph",
-              "id": "paragraph-16",
-              "content": "Jeśli postać otrzymała już efekt krytyczny w danej turze, **próg kolejnego efektu krytycznego spada do 10**."
-            },
-            {
-              "type": "blockquote",
-              "id": "blockquote-17",
-              "content": "**Przykład:**\nPostać z Poziomem Leczenia 5 ma próg 50. Otrzymuje 60 obrażeń → efekt krytyczny. W tej samej turze otrzymuje kolejne 15 obrażeń → drugi efekt krytyczny (próg spadł do 10)."
-            }
-          ]
-        },
-        {
           "id": "subsection-przyk-adowe-efekty-krytyczne-humanoidy",
           "title": "Przykładowe Efekty Krytyczne (Humanoidy)",
           "anchor": "przyk-adowe-efekty-krytyczne-humanoidy",
@@ -188,7 +315,7 @@
             {
               "type": "heading",
               "id": "heading-19",
-              "level": 3,
+              "level": 4,
               "content": "Tabela Części Ciała",
               "anchor": "tabela-czesci-cia-a"
             },
@@ -253,11 +380,11 @@
                 "rows": [
                   [
                     "Lekka (80-100)",
-                    "Blizna na twarzy (np. na wardze lub przez twarz)"
+                    "Blizna na twarzy (np. na wardze lub przez twarz)."
                   ],
                   [
                     "Średnia (50-79)",
-                    "Rozcięcie czoła - krew zalewa twarz, utrudnienie widzenia"
+                    "Rozcięcie czoła - krew zalewa twarz, utrudnienie widzenia. Utrata zęba, lekkie oszołomienie."
                   ],
                   [
                     "Ciężka (20-49)",
@@ -376,18 +503,6 @@
               }
             }
           ]
-        },
-        {
-          "id": "subsection-interpretacja-mistrza-gry",
-          "title": "Interpretacja Mistrza Gry",
-          "anchor": "interpretacja-mistrza-gry",
-          "content": [
-            {
-              "type": "blockquote",
-              "id": "blockquote-31",
-              "content": "**Uwaga:** Powyższe przykłady są orientacyjne. Ostateczną decyzję o charakterze i skutkach efektu krytycznego podejmuje Mistrz Gry, biorąc pod uwagę:\n- Typ ataku (cięcie, przebicie, zmiażdżenie, magia)\n- Kontekst fabularny\n- Epickość sceny\n- Balans gry"
-            }
-          ]
         }
       ],
       "lastModified": "2025-11-11T09:57:04.656Z"
@@ -424,6 +539,219 @@
       "lastModified": "2025-11-11T09:57:04.656Z"
     },
     {
+      "id": "section-zdrowie-i-regeneracja-zmeczenie-i-odpoczynek",
+      "slug": "zmeczenie-i-odpoczynek",
+      "title": "Zmęczenie i Odpoczynek",
+      "category": "zdrowie-i-regeneracja",
+      "order": 12,
+      "content": [],
+      "subsections": [
+        {
+          "id": "subsection-zmeczenie-zasady-podstawowe",
+          "title": "Zmęczenie - Zasady podstawowe",
+          "anchor": "zmeczenie-zasady-podstawowe",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Postać w intensywnej walce jest narażona na zmęczenie. Za każdy nieudany test wytrzymałości przeciw zmęczeniu postać otrzymuje karę -1 do uników, parowania i blokowania oraz -1 do zadawanych obrażeń. Mistrz gry ustala kiedy postać powinna wykonać rzuty przeciw zmęczeniu biorąc pod uwagę wytrwałość postaci, intensywność walki i długość walki. Testy wytrwałości od tego momentu są powtarzane z rundy na rundę i ST tych testów rośnie co rundę o 1. Początkowa ST jest ustalana przez mistrza gry."
+            }
+          ]
+        },
+        {
+          "id": "subsection-propozycja-alternatywna-system-znamion",
+          "title": "Propozycja alternatywna - System znamion",
+          "anchor": "propozycja-alternatywna-system-znamion",
+          "content": [
+            {
+              "type": "heading",
+              "id": "heading-4",
+              "level": 3,
+              "content": "Znamiona Zmęczenia",
+              "anchor": "znamiona-zmeczenia"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "Każda runda walki to 1 znamię zmęczenia."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-6",
+              "content": "**Odległość Standardowa** (którą możesz przebyć w 1 rundę):"
+            },
+            {
+              "type": "list",
+              "id": "list-7",
+              "ordered": false,
+              "items": [
+                "**Sprint:** +1 znamię + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą",
+                "**Bieg:** 0 znamion + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą",
+                "**Trucht:** -1 znamię + 1 za zbroję lekką / +2 za zbroję średnią / +3 za zbroję ciężką / +1 za tarczę małą / +2 za tarczę dużą"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "Dodatkowe czynności powinny być szacowane przez Mistrza Gry."
+            },
+            {
+              "type": "heading",
+              "id": "heading-9",
+              "level": 3,
+              "content": "Znamiona Wyczerpania",
+              "anchor": "znamiona-wyczerpania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "W momencie gdy ilość znamion zmęczenia jest równa wytrwałości + 2, postać zmuszona jest wykonać co rundę test wytrwałości o ST=ilość znamion zmęczenia. Nieudany oznacza otrzymanie znamiona wyczerpania."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "**Efekty wyczerpania:**"
+            },
+            {
+              "type": "list",
+              "id": "list-12",
+              "ordered": false,
+              "items": [
+                "-3/r (uniki, parowanie, blokowanie) *(pytanie: co jeżeli ktoś nie ma tarczy?)*",
+                "-1 do zadawanych obrażeń"
+              ]
+            },
+            {
+              "type": "heading",
+              "id": "heading-13",
+              "level": 3,
+              "content": "Utrata przytomności z wyczerpania",
+              "anchor": "utrata-przytomnosci-z-wyczerpania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-14",
+              "content": "W momencie gdy ilość znamion wyczerpania jest równa wytrwałości + 2, postać zmuszona jest wykonać co rundę test wytrwałości o ST=ilość znamiona wyczerpania. Nieudane oznacza utracenie przytomności."
+            }
+          ]
+        },
+        {
+          "id": "subsection-przyk-ad-walki-jarfeg",
+          "title": "Przykład walki: Jarfeg",
+          "anchor": "przyk-ad-walki-jarfeg",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-16",
+              "content": "**Postać:** Jarfeg - 5 wytrwałości, Kolczuga, Średnia Tarcza"
+            },
+            {
+              "type": "table",
+              "id": "table-17",
+              "table": {
+                "headers": [
+                  "Akcja",
+                  "Mechanika",
+                  "Efekt"
+                ],
+                "rows": [
+                  [
+                    "1) Jarfeg dobiega jak najszybciej na pole bitwy aby wspomóc kamratów",
+                    "Sprint",
+                    "4 znamiona zmęczenia"
+                  ],
+                  [
+                    "2-4) Walczy zaciekle i jest pełen werwy",
+                    "3 rundy walki",
+                    "7 znamion zmęczenia"
+                  ],
+                  [
+                    "5) Nie ustępuje mimo bólu mięśni",
+                    "Udany test Wytrwałości o ST=7",
+                    "8 znamion zmęczenia"
+                  ],
+                  [
+                    "6) Nadal trzyma się hardo uderza z pełną mocą",
+                    "Udany test Wytrwałości o ST=8",
+                    "9 znamion zmęczenia"
+                  ],
+                  [
+                    "7) Pierwsze osłabienie mięśni spłyneło na woja",
+                    "Nieudany test Wytrwałości o ST=9",
+                    "10 znamion zmęczenia, 1 znamię wyczerpania"
+                  ],
+                  [
+                    "8) Zacisnął zęby i naparł na wroga",
+                    "Udany test Wytrwałości o ST=10",
+                    "11 znamion zmęczenia"
+                  ],
+                  [
+                    "9) To nie sielanka",
+                    "Nieudany test Wytrwałości o ST=11",
+                    "12 znamion zmęczenia, 2 znamiona wyczerpania"
+                  ],
+                  [
+                    "10-14) Jego mięśnie zmęczone a wrogów całe masy",
+                    "Test wytrwałości niemożliwy",
+                    "7 znamion wyczerpania"
+                  ],
+                  [
+                    "15) Nie padnę!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=7",
+                    "8 znamion wyczerpania"
+                  ],
+                  [
+                    "16) Giń!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=8",
+                    "9 znamion wyczerpania"
+                  ],
+                  [
+                    "17) Araaaag!!! - Zakrzyczał",
+                    "Udany test Wytrwałości o ST=9",
+                    "10 znamion wyczerpania"
+                  ],
+                  [
+                    "18) Nieee.. - Wyszeptał",
+                    "Nieudany test Wytrwałości o ST=10",
+                    "Utrata przytomności"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "heading",
+              "id": "heading-18",
+              "level": 3,
+              "content": "Opcja 2 - Wyczerpanie",
+              "anchor": "opcja-2-wyczerpanie"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-19",
+              "content": "Wyczerpanie oznacza utratę kości broni oraz to że przeciwnicy mają dodatkową kość broni przeciwko wyczerpującemu."
+            }
+          ]
+        },
+        {
+          "id": "subsection-odpoczynek",
+          "title": "Odpoczynek",
+          "anchor": "odpoczynek",
+          "content": [
+            {
+              "type": "list",
+              "id": "list-21",
+              "ordered": false,
+              "items": [
+                "**1 godzina odpoczynku** pozwala usunąć Wytrwałość punktów zmęczenia",
+                "**2 godziny odpoczynku** pozwalają usunąć 1,5 × Wytrwałość punktów zmęczenia"
+              ]
+            }
+          ]
+        }
+      ],
+      "lastModified": "2025-11-11T09:57:04.635Z"
+    },
+    {
       "id": "section-zdrowie-i-regeneracja-autoregeneracja-mocy",
       "slug": "autoregeneracja-mocy",
       "title": "Autoregeneracja mocy",
@@ -438,138 +766,6 @@
       ],
       "subsections": [],
       "lastModified": "2025-11-11T09:57:04.656Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-odpoczynek",
-      "slug": "odpoczynek",
-      "title": "Przepływy mocy",
-      "category": "zdrowie-i-regeneracja",
-      "order": 5,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Polegają na odnowie utraconej esencji poprzez otrzymanie jej od bóstwa, Matrycy, Rdzenia czy w podobny sposób. Każdy przepływ ma swoją standardową przepustowość, która zależy od więzi z danym podmiotem. Stąd standardowy godzinny przepływ mocy powodu regenerację k6+Arkana/Wiara esencji aż do maksymalne ilości esencji. Przepływ ten może być większy, lecz nie do przesady (decyduje mistrz gry)"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.657Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-regeneracja-esencji",
-      "slug": "regeneracja-esencji",
-      "title": "Regeneracja esencji",
-      "category": "zdrowie-i-regeneracja",
-      "order": 6,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Esencję odzyskuje się poprzez przepływy mocy i autoregenerację mocy."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.657Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-magiczne-leczenie",
-      "slug": "magiczne-leczenie",
-      "title": "Magiczne Leczenie",
-      "category": "zdrowie-i-regeneracja",
-      "order": 7,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Najczęściej magiczne leczenie jednorazowo odnawia punkty zdrowia w ilości wielokrotności Poziomu Leczenia. Przy takim leczeniu należy zaznaczyć, że całkowita ilość uleczonych ran nie może przekroczyć maksymalnego poziomu punktów zdrowia. Przykładowo jeśli postać ma 50 maksymalnego zdrowia, a obecnie 20, to początkowo można uleczyć do 50, ale jeśli po chwili otrzyma cios i znowu starci do 20 to teraz magicznie można uleczyć jedynie do 40."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Standardowe magiczne leczenie nie polegające na magicznej hospitalizacji nie potrafi wyleczyć złamań, chorób czy poważnych fizycznych przypadłości."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Leczenie za pomocą magicznego leczenia nie polegającego na magicznej hospitalizacji sprawia, że postać wymaga odpoczynku długiego na tyle na ile trzebaby odpoczynkiem wyleczyć połowę uleczonego magicznym leczeniem zdrowia. Postacie czarokrwiste, które mają moce leczące zazwyczaj potrzebują połowy tego czasu."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.658Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-medycyna",
-      "slug": "medycyna",
-      "title": "Medycyna",
-      "category": "zdrowie-i-regeneracja",
-      "order": 8,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Najczęściej medycyna wymaga wielorundowego zaangażowania innej osoby lub samego chorego (jeśli jest to możliwe) i leczy małe ilości punktów zdrowia, lecz może dopomóc w poradzeniu sobie z zapobiegnięciem trwałych uszczerbków na zdrowiu. Oczywiście medycyna też może poradzić sobie ze zwykłymi chorobami i różnorodnymi przypadłościami, które nękają postacie. Często medycyna stosowana jest to tamowania upływu krwi czy też usztywnienia złamanej kończyny."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Skale trudności testów medycyny ustala mistrz gry. Zazwyczaj medycyna pozwala odzyskać w małym odstępie czasu Poziom Leczenia razy ilość oczek przewagi nad testem a po dodatkowym Poziomie Leczenia do dziennego odpoczynku."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.658Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-nadnaturalna-regeneracja",
-      "slug": "nadnaturalna-regeneracja",
-      "title": "Nadnaturalna regeneracja",
-      "category": "zdrowie-i-regeneracja",
-      "order": 9,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Najczęściej nadnaturalna regeneracja co rundę (lub co kilka rund) odnawia punkty zdrowia w ilości wielokrotności Poziomu Leczenia. Całkowita ilość uleczonych ran w tym wypadku jest ograniczona przez mistrza gry ze względu na to, że nadmierne użycie tego rodzaju regeneracji powoduje zmęczenie."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.658Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-odpoczynek",
-      "slug": "odpoczynek",
-      "title": "Odpoczynek",
-      "category": "zdrowie-i-regeneracja",
-      "order": 10,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Dzienny odpoczynek powoduje regenerację: 1k6 + Poziom Leczenia - Ilość Urazów. Regeneracja sumuje się za każdy odpoczynek, jeśli przekroczy 10 to leczy się jeden uraz, potem za każdego kolejne 10 leczą się kolejne urazy (patrz Urazy)."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Dodatkowo opatrywanie raz jednorazowo dodaje się jako bonus do regeneracji. Eliksiry i inne metody lecznicze wpływają na regenerację."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.658Z"
-    },
-    {
-      "id": "section-zdrowie-i-regeneracja-regeneracja-zdrowia",
-      "slug": "regeneracja-zdrowia",
-      "title": "Regeneracja zdrowia",
-      "category": "zdrowie-i-regeneracja",
-      "order": 11,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Zdrowie odzyskuje się poprzez odpoczynek, magiczne leczenie, nadnaturalną regenerację oraz medycynę"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.659Z"
     }
   ]
 }

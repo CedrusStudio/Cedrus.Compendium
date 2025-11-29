@@ -22,7 +22,7 @@ import { RootState } from "@/persistence/slices/store";
 import { Button } from "@/common/components/ui/button";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
-import { removeIcon } from "@/presentation/icons";
+import { attributesIcons, removeIcon, resetIcon } from "@/presentation/icons";
 import { rollIcon } from "@/presentation/icons";
 import { rollInitiative, rollInitiativeBase } from "@/domain/characters/statistics/Attributes";
 import BattleTableBody from "@/application/bestiary/battle/BattleTableBody";
@@ -192,14 +192,14 @@ export default function BattleTable()
           });
 
         }}>
-          {rollIcon} {displayedText.rollAllInitiatives}
+          {rollIcon} {attributesIcons.initiative}
         </Button>
 
         <Button variant="outline" onClick={() => 
         {
           dispatch(actions.clearInitiatives());
         }}>
-          {displayedText.clearAllInitiatives}
+          {resetIcon()} {attributesIcons.initiative}
         </Button>
 
         <AddExternalParticipantDialog />

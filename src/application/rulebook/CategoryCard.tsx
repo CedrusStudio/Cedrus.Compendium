@@ -34,8 +34,8 @@ export function CategoryCard({ category, sectionCount }: CategoryCardProps)
         </CardHeader>
 
         <CardContent className="flex items-center text-sm text-primary font-medium group-hover:gap-2 transition-all">
-            <span>Przeglądaj</span>
-            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+          <span>Przeglądaj</span>
+          <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
         </CardContent>
 
       </Card>

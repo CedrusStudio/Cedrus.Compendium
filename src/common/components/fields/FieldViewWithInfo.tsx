@@ -20,7 +20,7 @@ type FieldViewWithInfoProps =
 export default function FieldViewWithInfo(input: PropsWithChildren<FieldViewWithInfoProps>) 
 {
   return (
-    <div className={cn('flex gap-x-1 justify-around', input.className)}>
+    <div className={cn('flex gap-x-1.5 justify-around', input.className)}>
 
       <div className={cn("capitalize", input.nameClassName)}>
         {input.children}

@@ -20,49 +20,48 @@ export function RulebookSectionView({ section }: RulebookSectionViewProps)
 
 function SectionHeader({ section }: { section: RulebookSection })
 {
-    return (
-      <header className="border-b pb-4 mb-6">
-        <h1 className="text-4xl font-bold mb-2">{section.title}</h1>
-        { section.description && <p className="text-lg text-muted-foreground">{section.description}</p> }
-      </header>
-    )
+  return (
+    <header className="border-b pb-4 mb-6">
+      <h1 className="text-4xl font-bold mb-2">{section.title}</h1>
+      { section.description && <p className="text-lg text-muted-foreground">{section.description}</p> }
+    </header>
+  )
 }
 
 function SectionContent({ section }: { section: RulebookSection })
 {
-    return (
-        <>
-        {
-            section.content.length > 0 && (
-                <div className="mb-6">
-                { section.content.map(block => <ContentBlockRenderer key={block.id} block={block} />) }
-                </div>
-            )
-        }
-        </>
-    )
+  return (
+    <>
+    {
+      section.content.length > 0 && (
+        <div className="mb-6">
+        { section.content.map(block => <ContentBlockRenderer key={block.id} block={block} />) }
+        </div>
+      )
+    }
+    </>
+  )
 }
 
 function SubsectionContent({ section }: { section: RulebookSection })
 {
-    return (
-        <>
-        {
-            section.subsections.map((subsection, index) => (
-                <section key={subsection.id} className="mb-6">
-                    <h2 id={subsection.anchor} className="text-2xl font-bold mb-4 scroll-mt-20">
-                        {subsection.title}
-                    </h2>
+  return (
+    <>
+    {
+      section.subsections.map((subsection, index) => (
+        <section key={subsection.id} className="mb-6">
+          <h2 id={subsection.anchor} className="text-2xl font-bold mb-4 scroll-mt-20">
+            {subsection.title}
+          </h2>
 
-                    <div className="space-y-4">
-                        { subsection.content.map(block => <ContentBlockRenderer key={block.id} block={block} /> ) }
-                    </div>
+          <div className="space-y-4">
+            { subsection.content.map(block => <ContentBlockRenderer key={block.id} block={block} /> ) }
+          </div>
 
-                    { index < section.subsections.length - 1 && <Separator className="mt-6" /> }
-
-                </section>
-            ))
-        }
-      </>
-    )
+          { index < section.subsections.length - 1 && <Separator className="mt-6" /> }
+        </section>
+      ))
+    }
+    </>
+  )
 };

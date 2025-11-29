@@ -38,14 +38,22 @@ export default function CharacterDefensesBattleView({ character }: { character :
       }
 
       <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
-        
-        <FieldWithIconView value={selectedDefense.immunity} >
-          <FieldWithTooltip name={displayedText.immunity}>{immunityIcon("w-5 h-5")}</FieldWithTooltip>
-        </FieldWithIconView>
 
-        <FieldWithIconView value={selectedDefense.resistance} >
-          <FieldWithTooltip name={displayedText.resistance}>{resistanceIcon("w-5 h-5")}</FieldWithTooltip>
-        </FieldWithIconView>
+        {
+          selectedDefense.immunity > 0 && (
+            <FieldWithIconView value={selectedDefense.immunity} >
+              <FieldWithTooltip name={displayedText.immunity}>{immunityIcon("w-5 h-5")}</FieldWithTooltip>
+            </FieldWithIconView>
+          )
+        }        
+
+        {
+          selectedDefense.resistance > 0 && (
+            <FieldWithIconView value={selectedDefense.resistance} >
+              <FieldWithTooltip name={displayedText.resistance}>{resistanceIcon("w-5 h-5")}</FieldWithTooltip>
+            </FieldWithIconView>
+          )
+        }
 
         <FieldViewWithInfo
           value={calculateSelectedReduction(selectedDefense, selectedReductionType)} 
