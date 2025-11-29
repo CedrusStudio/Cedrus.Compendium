@@ -42,6 +42,7 @@
         {
           "id": "subsection-zywotnosc",
           "slug": "zywotnosc",
+          "anchor": "zywotnosc",
           "title": "Żywotność",
           "category": "zdrowie-i-regeneracja",
           "order": 1,
@@ -57,6 +58,7 @@
         },
         {
           "id": "subsection-twardosc",
+          "anchor": "twardosc",
           "slug": "twardosc",
           "title": "Twardość",
           "category": "zdrowie-i-regeneracja",
@@ -73,6 +75,7 @@
         },
         {
           "id": "subsection-przezywalnosc",
+          "anchor": "przezywalnosc",
           "slug": "przezywalnosc",
           "title": "Przeżywalność",
           "category": "zdrowie-i-przezywalnosc",
@@ -89,6 +92,7 @@
         },
         {
           "id": "subsection-determinacja",
+          "anchor": "determinacja",
           "slug": "determinacja",
           "title": "Determinacja",
           "category": "zdrowie-i-determinacja",
@@ -133,6 +137,7 @@
       "subsections": [
         {
           "id": "subsection-magiczne-leczenie",
+          "anchor": "magiczne-leczenie",
           "slug": "magiczne-leczenie",
           "title": "Magiczne Leczenie",
           "category": "zdrowie-i-regeneracja",
@@ -158,6 +163,7 @@
         },
         {
           "id": "subsection-medycyna",
+          "anchor": "medycyna",
           "slug": "medycyna",
           "title": "Medycyna",
           "category": "zdrowie-i-regeneracja",
