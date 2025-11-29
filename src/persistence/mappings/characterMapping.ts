@@ -95,20 +95,30 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     powers: copyCreateCharacter.powers.map(power => ({
       ...power,
       spells: undefined,
-      spellsIds: power.spells.map(spell => spell.id)
+      spellsIds: power.spells.map(spell => spell.id),
+      powerSpecificationId: power.powerSpecification.id
     })),
+
     maneuvers: {
       connect: copyCreateCharacter.maneuversIds.map(id => ({ id }))
     },
+
+    powerSpecifications: {
+      connect: copyCreateCharacter.powerSpecificationsIds.map(id => ({ id }))
+    },
+
     states: {
       connect: copyCreateCharacter.statesIds.map(id => ({ id }))
     },
+
     stances: {
       connect: copyCreateCharacter.stancesIds.map(id => ({ id }))
     },
+
     perks: {
       connect: copyCreateCharacter.perksIds.map(id => ({ id }))
     },
+
     spells: {
       connect: copyCreateCharacter.spellsIds.map(id => ({ id }))
     },
@@ -197,7 +207,9 @@ export function toCharacterCombatPersistenceModel
   existingManeuversIds: string[],
   maneuversIdsToConnect: string[] = [],
   existingSpellsIds: string[],
-  spellsIdsToConnect: string[] = []
+  spellsIdsToConnect: string[] = [],
+  existingPowerSpecificationsIds: string[],
+  powerSpecificationsIdsToConnect: string[] = []
 )
   : Prisma.CharacterUpdateInput
 {
@@ -207,11 +219,13 @@ export function toCharacterCombatPersistenceModel
     stances: createUpsertPayload(existingStancesIds, combat.stances, stancesIdsToConnect),
     states: createUpsertPayload(existingStatesIds, combat.states, statesIdsToConnect),
     maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers, maneuversIdsToConnect),
+    powerSpecifications: createUpsertPayload(existingPowerSpecificationsIds, combat.powers.map(power => power.powerSpecification), powerSpecificationsIdsToConnect),
     offenses: combat.offenses,
     powers: combat.powers.map(power => ({
       ...power,
       spells: undefined,
-      spellsIds: power.spells.map(spell => spell.id)
+      spellsIds: power.spells.map(spell => spell.id),
+      powerSpecificationId: power.powerSpecification.id
     })),
     spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells), spellsIdsToConnect),
   };
@@ -307,3 +321,4 @@ function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: Spel
     spells: relatedSpell.map(toSpell),
   };
 }
+

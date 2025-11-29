@@ -17,7 +17,7 @@ export type Repository<TEntity extends { id: string }> =
 };
 
 export async function createCommonRepository<TEntity extends { id: string }>(model: PrismaDelegate<TEntity>) 
-    : Promise<Repository<TEntity>> 
+  : Promise<Repository<TEntity>> 
 {
   return {
 

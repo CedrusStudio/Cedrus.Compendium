@@ -20,19 +20,21 @@ export const copyCreateCharacterSchema = z.object
   defenses: combatSchema.shape.defenses,
   offenses: combatSchema.shape.offenses,
   powers: combatSchema.shape.powers,
-  // Relation ids
+
+  // Relation ids for equipment
   weaponsIds: z.array(z.string()),
   armorsIds: z.array(z.string()),
   shieldsIds: z.array(z.string()),
   inventoryIds: z.array(z.string()),
   mountsIds: z.array(z.string()),
 
-  // Relation ids
+  // Relation ids for other entities
   stancesIds: z.array(z.string()),
   statesIds:  z.array(z.string()),
   maneuversIds: z.array(z.string()),
   spellsIds: z.array(z.string()),
-  perksIds: z.array(z.string())
+  perksIds: z.array(z.string()),
+  powerSpecificationsIds: z.array(z.string())
 });
 
 export type CopyCreateCharacterDto = z.infer<typeof copyCreateCharacterSchema>;

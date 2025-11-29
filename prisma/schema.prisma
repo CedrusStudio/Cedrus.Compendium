@@ -42,6 +42,8 @@ model Character {
   maneuvers    Maneuver[] @relation(fields: [maneuversIds], references: [id])
 
   powers    Power[]
+  powerSpecificationsIds String[]
+  powerSpecifications   PowerSpecification[]  @relation(fields: [powerSpecificationsIds], references: [id])
   spellsIds String[]
   spells    Spell[]  @relation(fields: [spellsIds], references: [id])
 
@@ -244,6 +246,15 @@ model Mount {
   @@map("mounts")
 }
 
+model PowerSpecification {
+  id          String @id @default(ulid()) @map("_id")
+  name        String
+  offenses    PowerOffense[]
+  
+  characterIds String[]
+  characters   Character[] @relation(fields: [characterIds], references: [id])
+}
+
 // Value Objects
 
 type Characteristics {
@@ -335,6 +346,20 @@ type WeaponOffense {
   critical Critical
 }
 
+type PowerOffense {
+  spellOffense   SpellOffense
+  description    String
+  cost           Int
+}
+
+type SpellOffense {
+  amount   Int
+  grade    Int
+  bonus    Int
+  isPhantom Boolean
+  critical Critical
+}
+
 type DamageOffense {
   amount Int
   grade  Int
@@ -355,6 +380,7 @@ type Power {
   bonus   Int
   essence Int
 
+  powerSpecificationId String
   spellsIds String[]
 }
 

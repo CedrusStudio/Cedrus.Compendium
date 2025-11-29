@@ -2,6 +2,7 @@ import { Castable } from '@/domain/characters/Castable';
 import { ulid } from "ulid";
 import { Entity } from "@/domain/Entity";
 import { Perk } from "@/domain/characters/Perk";
+import { WeaponOffense } from '@/domain/characters/combat/Offense';
 
 export type Power = Entity & 
 {
@@ -9,8 +10,23 @@ export type Power = Entity &
   level: number;
   bonus: number;
   essence: number;
+  powerSpecification: PowerSpecification;
   spells: Spell[];
 };
+
+export type PowerSpecification = Entity &
+{
+  offenses: PowerOffense[]
+};
+
+export type PowerOffense =
+{
+  spellOffense: SpellOffense;
+  description: string;
+  cost: number;
+};
+
+export type SpellOffense = WeaponOffense;
 
 export type PowerType = "arkana" | "wiara" | "moc" | "natura";
 export const allowedPowerTypes: PowerType[] = ["arkana", "wiara", "moc", "natura"];
@@ -47,10 +63,22 @@ export const defaultPower: Omit<Power, "id"> =
   type: "moc",
   level: 1, 
   bonus: 0,
+  powerSpecification: {
+    id: ulid(),
+    name: 'Specyfikacja Mocy',
+    offenses: []
+  },
   spells: []
 };
 
-export const CreateDefaultPower = (): Power => ({...defaultPower, id: ulid()});
+export const defaultPowerSpecification: Omit<PowerSpecification, "id"> =
+{
+  name: 'Specyfikacja Mocy',
+  offenses: []
+};
+
+export const CreateDefaultPowerSpecification = (): PowerSpecification => ({...defaultPowerSpecification, id: ulid()});
+export const CreateDefaultPower = (): Power => ({...defaultPower, id: ulid(), powerSpecification: CreateDefaultPowerSpecification()});
 
 const powerFieldOrderArray: (keyof Power)[] = [
   'name',
@@ -58,6 +86,7 @@ const powerFieldOrderArray: (keyof Power)[] = [
   'level',
   'bonus',
   'essence',
+  'powerSpecification',
   'spells'
 ];
 
