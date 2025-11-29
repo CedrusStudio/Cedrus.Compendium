@@ -4,7 +4,7 @@ import { Character } from "@/domain/characters/Character";
 import { displayedText } from "@/presentation/translations";
 import OffenseHeader from "@/application/characters/combat/offense/OffenseHeader";
 import { WeaponDamageWithCriticalSubcard } from "@/application/characters/combat/offense/WeaponDamageWithCriticalSubcard";
-import DamageBonusSubcardView from "@/application/characters/combat/offense/DamageBonusView";
+import DamageBonusSubcard from "@/application/characters/combat/offense/DamageBonusSubcard";
 import { useState } from "react";
 import { showHideIcon } from "@/presentation/icons";
 import { Button } from "@/common/components/ui/button";
@@ -99,7 +99,7 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
         ) 
       }
 
-      <DamageBonusSubcardView 
+      <DamageBonusSubcard 
         damageBonus={damageBonus}
         currentDamageBonus={currentDamageBonus}
         damageBonusRolls={damageBonusRolls}

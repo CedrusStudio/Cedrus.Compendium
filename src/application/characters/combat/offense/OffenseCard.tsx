@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { displayedText } from '@/presentation/translations';
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import OffenseHeader from '@/application/characters/combat/offense/OffenseHeader';
-import DamageBonusSubcardView from '@/application/characters/combat/offense/DamageBonusView';
+import DamageBonusSubcard from '@/application/characters/combat/offense/DamageBonusSubcard';
 import { WeaponDamageWithCriticalSubcard } from '@/application/characters/combat/offense/WeaponDamageWithCriticalSubcard';
 
 type OffenseCardProps = 
@@ -83,7 +83,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           ) 
         }
 
-        <DamageBonusSubcardView
+        <DamageBonusSubcard
           damageBonus={damageBonus}
           currentDamageBonus={currentDamageBonus}
           damageBonusRolls={damageBonusRolls}
