@@ -25,7 +25,8 @@ export const offenseSchema = entitySchema.extend
   description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }).optional(),
   leadingWeapon: weaponOffenseSchema,
   secondaryWeapon: weaponOffenseSchema.optional(),
-  damageBonus: damageOffenseSchema
+  damageBonus: damageOffenseSchema,
+  additionalDamageBonus: damageOffenseSchema.optional()
 });
 
 export type OffenseDto = z.infer<typeof offenseSchema>;

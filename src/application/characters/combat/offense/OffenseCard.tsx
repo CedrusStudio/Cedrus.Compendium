@@ -1,6 +1,6 @@
 "use client";
 
-import { Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { DamageOffense, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { displayedText } from '@/presentation/translations';
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
@@ -26,12 +26,16 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
     setSecondaryRolls,
     damageBonusRolls,
     setDamageBonusRolls,
+    additionalDamageBonusRolls,
+    setAdditionalDamageBonusRolls,
     currentLeadingOffense,
     setCurrentLeadingOffense,
     currentSecondaryOffense,
     setCurrentSecondaryOffense,
     currentDamageBonus,
     setCurrentDamageBonus,
+    currentAdditionalDamageBonus,
+    setCurrentAdditionalDamageBonus,
     selectedOffenseIndex,
     setSelectedOffenseIndex
   } = useCombatRolls(offenses);
@@ -39,6 +43,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
   const leadingOffense = offenses[selectedOffenseIndex].leadingWeapon;
   const secondaryOffense = offenses[selectedOffenseIndex].secondaryWeapon;
   const damageBonus = offenses[selectedOffenseIndex].damageBonus;
+  const additionalDamageBonus = offenses[selectedOffenseIndex].additionalDamageBonus;
 
   return (
     <Card className='bg-muted'>
@@ -91,6 +96,19 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
           setCurrentDamageBonus={setCurrentDamageBonus}
           setDamageBonusRolls={setDamageBonusRolls}
         />
+            
+        {
+          currentAdditionalDamageBonus && (
+            <DamageBonusSubcardView
+              damageBonus={additionalDamageBonus as DamageOffense}
+              currentDamageBonus={currentAdditionalDamageBonus}
+              damageBonusRolls={additionalDamageBonusRolls}
+              handleDamageOffenseReroll={handleDamageOffenseReroll}
+              setCurrentDamageBonus={addtionalDamageOffense => setCurrentAdditionalDamageBonus(addtionalDamageOffense as DamageOffense)}
+              setDamageBonusRolls={setAdditionalDamageBonusRolls}
+            />
+          ) 
+        }
         
       </CardContent>
     </Card>

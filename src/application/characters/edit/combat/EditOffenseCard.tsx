@@ -1,6 +1,6 @@
 "use client";
 
-import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense, toOffenseString } from '@/domain/characters/combat/Offense';
+import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense, toOffenseString, additionalDamageOffenseField, CreateDamageOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";
@@ -52,6 +52,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
           <EditLeadingWeaponOffenseSubcard offense={offense} index={index} />
           <EditSecondaryWeaponOffenseSubcard offense={offense} index={index} />
           <EditDamageBonusSubcard defaultDamageOffense={offense.damageBonus} index={index} />
+          <EditAdditionalDamageBonusSubcard defaultAdditionalDamageOffense={offense.additionalDamageBonus} index={index} />
         </div>
         
       </CardContent>
@@ -237,6 +238,76 @@ function EditDamageBonusSubcard({ defaultDamageOffense, index }: EditDamageBonus
       <div className='flex flex-col items-center gap-y-3'>
         <div className='flex justify-center gap-x-3'>
           <EditDamageBonusView damageOffense={damageOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} setIsPhantom={setIsPhantom} />
+        </div>
+      </div>
+    </Subcard>
+  );
+}
+
+type EditAdditionalDamageBonusSubcardProps =
+{
+  defaultAdditionalDamageOffense: DamageOffense | undefined;
+  index: number;
+}
+
+function EditAdditionalDamageBonusSubcard({ defaultAdditionalDamageOffense, index }: EditAdditionalDamageBonusSubcardProps)
+{
+  const additionalDamageOffenseExists = defaultAdditionalDamageOffense !== undefined;
+  const [showAdditionalDamage, setShowAdditionalDamage] = useState(additionalDamageOffenseExists);
+  const additionalDamageOffensePath = additionalDamageOffenseField(index);
+  const { control } = useFormContext<CombatDto>();
+
+  const { field } = useController
+  ({
+    name: additionalDamageOffensePath,
+    control,
+    defaultValue: defaultAdditionalDamageOffense
+  });
+
+  const updateField = (updater: (current: DamageOffense) => DamageOffense) => field.onChange(updater(field.value ?? CreateDamageOffense()));
+
+  const { amount, setAmount, grade, setGrade, bonus, setBonus, isPhantom, setIsPhantom, resetAll } = 
+  {
+    amount: field.value?.amount,
+    setAmount: (val: React.SetStateAction<number>) => updateField(current => ({...current, amount: resolveSetState(val, current.amount) })),
+    
+    grade: field.value?.grade,
+    setGrade: (val: React.SetStateAction<number>) => updateField(current => ({...current, grade: resolveSetState(val, current.grade) })),
+    
+    bonus: field.value?.bonus,
+    setBonus: (val: React.SetStateAction<number>) =>  updateField(current => ({...current, bonus: resolveSetState(val, current.bonus) })),
+
+    isPhantom: field.value?.isPhantom,
+    setIsPhantom: (val: React.SetStateAction<boolean>) => updateField(current => ({...current, isPhantom: resolveSetState(val, current.isPhantom) })),
+
+    resetAll: () => field.onChange(defaultAdditionalDamageOffense ?? CreateDamageOffense())
+  };
+
+  const handleAddAdditionalDamageOffense = () => 
+  {
+    field.onChange(CreateDamageOffense());
+    setShowAdditionalDamage(true);
+  };
+
+  if (!showAdditionalDamage || !field.value)
+  {
+    return (
+      <Card className="flex items-center justify-center col-span-3 bg-secondary">
+        <CardContent className='flex items-center justify-center'>
+          <Button variant='outline' onClick={handleAddAdditionalDamageOffense}>{addIcon("h-[1.2rem] w-[1.2rem]")}</Button>
+        </CardContent>
+    </Card>
+    );
+  }
+
+  const newOffense = { amount, grade, bonus, isPhantom } as DamageOffense;
+  const removeButton = <RemoveButton name={additionalDamageOffensePath} variant={`${additionalDamageOffenseExists ? 'destructive' : 'outline'}`} control={control} callback={() => setShowAdditionalDamage(false)} />;
+
+  return (
+    <Subcard name={displayedText.bonus} className='col-span-3 capitalize' callback={resetAll} button={removeButton}>
+      <div className='flex flex-col items-center gap-y-3'>
+        <div className='flex justify-center gap-x-3'>
+          <EditDamageBonusView damageOffense={newOffense} setAmount={setAmount} setGrade={setGrade} setBonus={setBonus} setIsPhantom={setIsPhantom} />
         </div>
       </div>
     </Subcard>
