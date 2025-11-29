@@ -9,6 +9,7 @@ export type Offense = Entity &
   leadingWeapon: WeaponOffense;
   secondaryWeapon?: WeaponOffense;
   damageBonus: DamageOffense;
+  additionalDamageBonus?: DamageOffense;
 };
 
 export type DamageOffense =
@@ -28,9 +29,11 @@ export const pathToOffenseField = <K extends keyof Offense>(index: number, field
 export const leadingOffenseField = (index: number) => pathToOffenseField(index, "leadingWeapon");
 export const secondaryOffenseField = (index: number) => pathToOffenseField(index, "secondaryWeapon");
 export const damageOffenseField = (index: number) => pathToOffenseField(index, "damageBonus");
+export const additionalDamageOffenseField = (index: number) => pathToOffenseField(index, "additionalDamageBonus");
 
 export type WeaponOffensePath =`offenses.${number}.${PathsFrom<Offense, WeaponOffense | undefined>}`;
 export type DamageOffensePath = Exclude<`offenses.${number}.${PathsFrom<Offense, DamageOffense>}`, WeaponOffensePath>;
+export type AdditionalDamageOffensePath = Exclude<`offenses.${number}.${PathsFrom<Offense, DamageOffense | undefined>}`, WeaponOffensePath | DamageOffensePath>;
 
 export type Critical =
 {
@@ -71,8 +74,13 @@ export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: numbe
   return { total: totalOffenseDamage, rolls };
 };
 
-export function handleDamageOffenseRolls(offense: DamageOffense) : { total: number, rolls: number[] }
+export function handleDamageOffenseRolls(offense: DamageOffense | undefined) : { total: number, rolls: number[] }
 {
+  if (!offense)
+  {
+    return { total: 0, rolls: [] };
+  }
+  
   let totalDamageBonus = 0;
   const rolls: number[] = [];
 
@@ -129,6 +137,14 @@ export const CreateWeaponOffense = (): WeaponOffense =>
   bonus: 0,
   isPhantom: false,
   critical: { power: 0, range: 0 }
+});
+
+export const CreateDamageOffense = (): DamageOffense => 
+({
+  amount: 1,
+  grade: defaultDiceGrade,
+  bonus: 0,
+  isPhantom: false
 });
 
 const defaultOffense: Omit<Offense, "id"> =

@@ -324,6 +324,7 @@ type Offense {
   leadingWeapon   WeaponOffense
   secondaryWeapon WeaponOffense?
   damageBonus     DamageOffense
+  additionalDamageBonus DamageOffense?
 }
 
 type WeaponOffense {

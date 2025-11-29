@@ -287,6 +287,7 @@ function toOffense(offensePersistenceModel: OffenseModel): Offense
     leadingWeapon: offensePersistenceModel.leadingWeapon,
     secondaryWeapon: offensePersistenceModel.secondaryWeapon ?? undefined,
     damageBonus: offensePersistenceModel.damageBonus,
+    additionalDamageBonus: offensePersistenceModel.additionalDamageBonus ?? undefined
   };
 }
 
