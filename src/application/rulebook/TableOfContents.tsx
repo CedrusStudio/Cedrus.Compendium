@@ -126,9 +126,9 @@ function TocMainItem({ item, activeHeadingId }: TocMainItemProps)
       </a>
       {
         hasChildren && (
-            <ul className="ml-3 mt-1 space-y-1 border-l pl-3">
-                { item.children.map((child) => <TocChildItem key={child.id} child={child} activeHeadingId={activeHeadingId} />)}
-            </ul>
+          <ul className="ml-3 mt-1 space-y-1 border-l pl-3">
+              { item.children.map((child) => <TocChildItem key={child.id} child={child} activeHeadingId={activeHeadingId} />)}
+          </ul>
         )
       }
     </li>

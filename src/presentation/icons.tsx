@@ -89,6 +89,7 @@ export const healthIcon = <MdOutlineHealthAndSafety className="w-5 h-5" />;
 
 export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 
+export const bestiaryIcon = (className?: string) => <GiShadowGrasp className={className} />;
 export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
 
 export const addIcon = (className?: string) => <LuPlus className={className} />;
@@ -136,8 +137,8 @@ export const cancelIcon = (className?: string) => <FaTimes className={className}
 
 export const sortIcon = (className?: string) => <ArrowUpDown className={className} />;
 export const showHideIcon = (isHidden: boolean, className?: string) => isHidden
-? <FaEye className={className} />
-: <FaEyeSlash className={className} />;
+  ? <FaEye className={className} />
+  : <FaEyeSlash className={className} />;
 
 export const phantomIcon = (className?: string) => <GiShadowGrasp className={className} />;
 export const rollsIcon = (className?: string) => <GiRollingDices className={className} />;
