@@ -60,7 +60,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex flex-col md:flex-row gap-1 ">
+      <CardContent className="flex flex-col flex-wrap md:flex-row gap-1 ">
 
         <WeaponDamageWithCriticalSubcard 
           name={displayedText.leading}
@@ -99,12 +99,12 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
             
         {
           currentAdditionalDamageBonus && (
-            <DamageBonusSubcardView
+            <DamageBonusSubcard
               damageBonus={additionalDamageBonus as DamageOffense}
               currentDamageBonus={currentAdditionalDamageBonus}
               damageBonusRolls={additionalDamageBonusRolls}
               handleDamageOffenseReroll={handleDamageOffenseReroll}
-              setCurrentDamageBonus={addtionalDamageOffense => setCurrentAdditionalDamageBonus(addtionalDamageOffense as DamageOffense)}
+              setCurrentDamageBonus={additionalDamageOffense => setCurrentAdditionalDamageBonus(additionalDamageOffense as DamageOffense)}
               setDamageBonusRolls={setAdditionalDamageBonusRolls}
             />
           ) 
