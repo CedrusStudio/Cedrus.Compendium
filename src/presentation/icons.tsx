@@ -47,6 +47,7 @@ import { cn } from "@/lib/utils";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GiShadowGrasp } from "react-icons/gi";
+import { GiSeaDragon } from "react-icons/gi";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -89,7 +90,7 @@ export const healthIcon = <MdOutlineHealthAndSafety className="w-5 h-5" />;
 
 export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 
-export const bestiaryIcon = (className?: string) => <GiShadowGrasp className={className} />;
+export const bestiaryIcon = (className?: string) => <GiSeaDragon className={className} />;
 export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
 
 export const addIcon = (className?: string) => <LuPlus className={className} />;
