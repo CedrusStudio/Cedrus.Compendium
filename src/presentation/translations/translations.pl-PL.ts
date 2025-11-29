@@ -6,7 +6,7 @@ export const translations_plPL =
     add: "dodawanie",
     vitality: "żywotność",
     toughness: "twardość",
-    recoveryLevel: "regeneracja",
+    recoveryLevel: "poziom leczenia",
     lethalHealth: "przeżywalność",
     lethalRounds: "determinacja",
 

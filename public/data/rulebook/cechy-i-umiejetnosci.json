@@ -4,7 +4,7 @@
     "title": "Cechy i Umiejętności",
     "description": "Atrybuty postaci, umiejętności bojowe, obronne i nadnaturalne",
     "icon": "⚔️",
-    "order": 2,
+    "order": 3,
     "slug": "cechy-i-umiejetnosci"
   },
   "sections": [
@@ -323,137 +323,6 @@
               "type": "blockquote",
               "id": "blockquote-37",
               "content": "**Uwaga:** Szczegółowe wymagania i bonusy dla klas prestiżowych są opisane w osobnych rozdziałach podręcznika."
-            }
-          ]
-        }
-      ],
-      "lastModified": "2025-11-11T09:57:04.636Z"
-    },
-    {
-      "id": "section-cechy-i-umiejetnosci-talenty",
-      "slug": "talenty",
-      "title": "Medale",
-      "category": "cechy-i-umiejetnosci",
-      "order": 1,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "System medali w Cedrus RPG służy do określania postępów i siły postaci. Medale można wymieniać na medale niższej rangi według ustalonego przelicznika."
-        }
-      ],
-      "subsections": [
-        {
-          "id": "subsection-rodzaje-medali",
-          "title": "Rodzaje Medali",
-          "anchor": "rodzaje-medali",
-          "content": [
-            {
-              "type": "list",
-              "id": "list-3",
-              "ordered": false,
-              "items": [
-                "**D** - Medal Diamentowy (najwyższy)",
-                "**P** - Medal Platynowy",
-                "**Z** - Medal Złoty",
-                "**S** - Medal Srebrny",
-                "**B** - Medal Brązowy (podstawowy)"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "subsection-przelicznik-wymiany-medali",
-          "title": "Przelicznik Wymiany Medali",
-          "anchor": "przelicznik-wymiany-medali",
-          "content": [
-            {
-              "type": "paragraph",
-              "id": "paragraph-5",
-              "content": "Medale wyższej rangi można wymienić na medale niższej rangi według następujących współczynników:"
-            },
-            {
-              "type": "table",
-              "id": "table-6",
-              "table": {
-                "headers": [
-                  "Medal wyższej rangi",
-                  "Wymienia się na",
-                  "Medal niższej rangi"
-                ],
-                "rows": [
-                  [
-                    "1x D (Diamentowy)",
-                    "=",
-                    "3x P (Platynowy)"
-                  ],
-                  [
-                    "1x P (Platynowy)",
-                    "=",
-                    "3x Z (Złoty)"
-                  ],
-                  [
-                    "1x Z (Złoty)",
-                    "=",
-                    "3x S (Srebrny)"
-                  ],
-                  [
-                    "1x S (Srebrny)",
-                    "=",
-                    "3x B (Brązowy)"
-                  ]
-                ]
-              }
-            },
-            {
-              "type": "heading",
-              "id": "heading-7",
-              "level": 3,
-              "content": "Przykłady Wymiany",
-              "anchor": "przyk-ady-wymiany"
-            },
-            {
-              "type": "blockquote",
-              "id": "blockquote-8",
-              "content": "**Przykład 1:**\nPostać z 1x Medalem Diamentowym może go wymienić na 3x Medale Platynowe"
-            },
-            {
-              "type": "blockquote",
-              "id": "blockquote-9",
-              "content": "**Przykład 2:**\nPostać z 2x Medalami Złotymi może je wymienić na 6x Medale Srebrne (2 × 3 = 6)"
-            },
-            {
-              "type": "blockquote",
-              "id": "blockquote-10",
-              "content": "**Przykład 3:**\nPostać z 1x Medalem Platynowym może go wymienić na 3x Medale Złote, które następnie można wymienić na 9x Medale Srebrne (3 × 3 = 9)"
-            }
-          ]
-        },
-        {
-          "id": "subsection-zdobywanie-medali",
-          "title": "Zdobywanie Medali",
-          "anchor": "zdobywanie-medali",
-          "content": [
-            {
-              "type": "paragraph",
-              "id": "paragraph-12",
-              "content": "Medale są przyznawane przez Mistrza Gry za:"
-            },
-            {
-              "type": "list",
-              "id": "list-13",
-              "ordered": false,
-              "items": [
-                "Ukończenie ważnych questów",
-                "Heroiczne czyny",
-                "Rozwój postaci",
-                "Osiągnięcia fabularne"
-              ]
-            },
-            {
-              "type": "blockquote",
-              "id": "blockquote-14",
-              "content": "**Uwaga:** Wymiana medali jest nieodwracalna. Zastanów się dobrze przed wymianą medali wyższej rangi na niższe."
             }
           ]
         }

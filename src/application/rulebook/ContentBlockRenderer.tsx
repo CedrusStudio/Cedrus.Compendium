@@ -48,11 +48,11 @@ export function ContentBlockRenderer({ block }: ContentBlockRendererProps)
       return (
         <ListTag className={`mb-3 ml-6 space-y-1.5 ${block.ordered ? 'list-decimal' : 'list-disc'}`}>
         {
-            block.items.map((item, index) => (
-                <li key={index} className="text-muted-foreground leading-relaxed">
-                    {parseInlineMarkdown(item)}
-                </li>
-            ))
+          block.items.map((item, index) => (
+            <li key={index} className="text-muted-foreground leading-relaxed">
+              {parseInlineMarkdown(item)}
+            </li>
+          ))
         }
         </ListTag>
       );

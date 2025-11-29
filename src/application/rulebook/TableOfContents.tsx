@@ -61,11 +61,11 @@ export function TableOfContents({ section }: TableOfContentsProps)
   if (tableOfContents.length === 0) return null;
 
   return (
-        <nav className="hidden lg:block sticky top-20 w-64 ml-20">
-            <ul className="space-y-2 text-sm border rounded-lg p-4">
-                { tableOfContents.map(item => <TocMainItem key={item.id} item={item} activeHeadingId={activeHeadingId} /> ) }
-            </ul>
-        </nav>
+    <nav className="hidden lg:block sticky top-20 w-64 ml-20">
+      <ul className="space-y-2 text-sm border rounded-lg p-4">
+        { tableOfContents.map(item => <TocMainItem key={item.id} item={item} activeHeadingId={activeHeadingId} /> ) }
+      </ul>
+    </nav>
   );
 }
 
