@@ -9,27 +9,6 @@
   },
   "sections": [
     {
-      "id": "section-system-walki-krytyczne-pud-o",
-      "slug": "krytyczne-pud-o",
-      "title": "Krytyczne Pudło",
-      "category": "system-walki",
-      "order": 0,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Krytyczne pudło nie jest standardową cechą wojowników, czyli domyślnie nikt nie stosuje krytycznego pudła. Natomiast jeśli posiada się odpowiedni atut lub manewr, albo mistrz gry ustali że na danych atak trzeba to stosować to wygląda to w następujący sposób: wyrzucenie na kości broni oczka mniejszego równego niż 1+szansa krytyka oznacza zmniejszenie obrażeń o siłę krytyka. Należy zaznaczyć że trafienie krytyczne i krytyczne pudło nie może nastąpić jednocześnie - jeśli miałoby się tak stać (np. kość broni k4 i szansa krytyka 2) to stosujemy trafienie krytyczne."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Notacja Krytyczne Pudło+1 oznacza, że należy je liczyć jak gdyby postać miała o 1 więcej szansy i siły krytyka"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.644Z"
-    },
-    {
       "id": "section-system-walki-mechanika-walki",
       "slug": "mechanika-walki",
       "title": "Mechanika Walki",
@@ -119,37 +98,67 @@
       "lastModified": "2025-11-11T09:57:04.644Z"
     },
     {
-      "id": "section-system-walki-trafienie-krytyczne",
-      "slug": "trafienie-krytyczne",
-      "title": "Trafienie krytyczne",
+      "id": "section-system-walki-krytyki",
+      "slug": "krytyki",
+      "title": "Krytyki",
       "category": "system-walki",
       "order": 2,
-      "content": [
+      "content": [],
+      "subsections": [
         {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Każda postać ma określoną szansę trafienia krytycznego i siłę trafienia krytycznego. Bazowo każda postać ma szansę trafienia krytycznego równa 0 i siłę trafienia krytycznego równą 1. Oznacza to, że gdy na kości broni wypadnie maksymalne oczko, to dodatkowo postać zadaje 1 obrażenie. Trafienie krytyczne występuje gdy na kości broni wypadnie oczko, które jest równe maksymalnej wartości minus szansa trafienia krytycznego. Przykładowo niech postać ma kość broni k12 i szanse trafienia krytycznego 3 oraz siłę trafienia krytycznego 5. Wtedy jeśli na tej kości wypadnie 9,10,11 lub 12, to dodatkowo postać zadaje 5 obrażeń."
+          "id": "section-system-walki-trafienie-krytyczne",
+          "anchor": "trafienie-krytyczne",
+          "slug": "trafienie-krytyczne",
+          "title": "Trafienie krytyczne",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Każda postać ma określoną szansę trafienia krytycznego i siłę trafienia krytycznego. Bazowo każda postać ma szansę trafienia krytycznego równa 0 i siłę trafienia krytycznego równą 1. Oznacza to, że gdy na kości broni wypadnie maksymalne oczko, to dodatkowo postać zadaje 1 obrażenie. Trafienie krytyczne występuje gdy na kości broni wypadnie oczko, które jest równe maksymalnej wartości minus szansa trafienia krytycznego. Przykładowo niech postać ma kość broni k12 i szanse trafienia krytycznego 3 oraz siłę trafienia krytycznego 5. Wtedy jeśli na tej kości wypadnie 9,10,11 lub 12, to dodatkowo postać zadaje 5 obrażeń."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Stąd im większa szansa trafienia krytycznego, tym więcej wyników rzutu kością broni powoduje trafienie krytyczne, a im większa siła trafienia krytycznego to więcej obrażeń zostanie zadanych z powodu trafienia krytycznego."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-3",
+              "content": "Niektóre postacie posiadają właściwość redukcja na obrażenia krytyczne. Jest to ilość redukcji, która neguje tylko obrażenia krytyczne. Przykładowo jeśli postać ma redukcję na obrażenia krytyczne 3, a przeciwnik na dwóch kościach wyrzucił trafienia krytyczne zadając na każde 2 dodatkowe obrażenia (w sumie 4), to ostatecznie zadaje obrażenia równe 4-3=1."
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.644Z"
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Stąd im większa szansa trafienia krytycznego, tym więcej wyników rzutu kością broni powoduje trafienie krytyczne, a im większa siła trafienia krytycznego to więcej obrażeń zostanie zadanych z powodu trafienia krytycznego."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Niektóre postacie posiadają właściwość redukcja na obrażenia krytyczne. Jest to ilość redukcji, która neguje tylko obrażenia krytyczne. Przykładowo jeśli postać ma redukcję na obrażenia krytyczne 3, a przeciwnik na dwóch kościach wyrzucił trafienia krytyczne zadając na każde 2 dodatkowe obrażenia (w sumie 4), to ostatecznie zadaje obrażenia równe 4-3=1."
+          "id": "section-system-walki-krytyczne-pudlo",
+          "anchor": "krytyczne-pudlo",
+          "slug": "krytyczne-pudlo",
+          "title": "Krytyczne Pudło",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Krytyczne pudło nie jest standardową cechą wojowników, czyli domyślnie nikt nie stosuje krytycznego pudła. Natomiast jeśli posiada się odpowiedni atut lub manewr, albo mistrz gry ustali że na danych atak trzeba to stosować to wygląda to w następujący sposób: wyrzucenie na kości broni oczka mniejszego równego niż 1+szansa krytyka oznacza zmniejszenie obrażeń o siłę krytyka. Należy zaznaczyć że trafienie krytyczne i krytyczne pudło nie może nastąpić jednocześnie - jeśli miałoby się tak stać (np. kość broni k4 i szansa krytyka 2) to stosujemy trafienie krytyczne."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Notacja Krytyczne Pudło+1 oznacza, że należy je liczyć jak gdyby postać miała o 1 więcej szansy i siły krytyka"
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.644Z"
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.644Z"
+      "lastModified": "2025-11-11T09:57:04.648Z"
     },
     {
       "id": "section-system-walki-ataki-dystansowy",
       "slug": "ataki-dystansowy",
       "title": "Ataki dystansowe",
       "category": "system-walki",
-      "order": 3,
+      "order": 4,
       "content": [],
       "subsections": [
         {
@@ -434,7 +443,7 @@
       "slug": "ataki-w-zwarciu",
       "title": "Ataki w zwarciu",
       "category": "system-walki",
-      "order": 4,
+      "order": 3,
       "content": [],
       "subsections": [
         {
@@ -519,51 +528,60 @@
       "lastModified": "2025-11-11T09:57:04.645Z"
     },
     {
-      "id": "section-system-walki-ataki",
-      "slug": "ataki",
-      "title": "Ataki",
+      "id": "section-system-walki-ataki-okolicznościowe",
+      "slug": "ataki-okolicznosciowe",
+      "title": "Ataki okolicznościowe",
       "category": "system-walki",
       "order": 5,
-      "content": [
+      "content": [],
+      "subsections": [
         {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Przykładowy sposób zapisu ofensywnego wyszkolenia postaci: 3x(1k12+2)+1k8+10 / 10-12,+4"
+          "id": "subsection-atak-w-plecy",
+          "anchor": "atak-w-plecy",
+          "slug": "atak-w-plecy",
+          "title": "Atak w plecy",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Atakując w plecy otrzymujemy dodatkową kość broni, a przeciwnik stosuje redukcję bezpośrednią + uniki chyba, że nie spodziewa się ataku, wtedy tylko redukcja bezpośrednia"
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.648Z"
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Oznacza to, że postać atakuje 3 kośćmi broni o randze 6 (tj. k12) i na każdą taką kość dodaje 2 obrażenia, oraz dodatkowo atakuje 1 kością obrażeń o randze 4 (k8) i sumuje to z dodatkowymi 10 obrażaniami. Trafienie krytyczne wytypuje gdy na kości broni wypadnie 10,11 lub 12 i wtedy należy doliczyć dodatkowe 4 obrażenia."
+          "id": "subsection-atak-z-flanki",
+          "anchor": "atak-z-flanki",
+          "slug": "atak-z-flanki",
+          "title": "Atak z flanki",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Flankując wroga dodajesz 1 obrażenie oraz przeciwnik traci redukcję z blokowania lub parowania, w zależności od której strony flankujesz wroga."
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.648Z"
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Widmowe kości broni oznacza się następująco: 2x(1k10w), a widmowe kości obrażeń następująco: 2k10w."
+          "id": "subsection-przewaga-wysokosci",
+          "anchor": "przewaga-wysokosci",
+          "slug": "przewaga-wysokosci",
+          "title": "Przewaga wysokości",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Mając nad przeciwnikiem przewagę wysokości otrzymujesz 1 obrażenie na każdą kość broni."
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.649Z"
         }
       ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.645Z"
-    },
-    {
-      "id": "section-system-walki-blokowanie",
-      "slug": "blokowanie",
-      "title": "Blokowanie",
-      "category": "system-walki",
-      "order": 6,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Blokowanie jest związane z tym jak bardzo postać potrafi powstrzymywać ataki za pomocą tarczy i podobnych obiektów. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej. Blokowanie jest rodzajem redukcji, który bierze się pod uwagę po unikach i parowaniu. Blokowanie jest głównie związane z redukcją z tarczy:"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Blokowanie = redukcja z tarczy + inne"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.646Z"
+      "lastModified": "2025-11-11T09:57:04.648Z"
     },
     {
       "id": "section-system-walki-defensywa",
@@ -572,358 +590,174 @@
       "category": "system-walki",
       "order": 7,
       "content": [],
-      "subsections": [],
+      "subsections": [
+        {
+          "id": "subsection-niewrazliwosc",
+          "anchor": "niewrazliwosc",
+          "slug": "niewrazliwosc",
+          "title": "Niewrażliwość",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Niewrażliwość określa o ile mniej kości, z wyłączeniem kości widmowych, będzie stosował przeciwnik w każdym ataku. Przeciwnik sam wybiera, która kość jest redukowana. Niewrażliwość działa przeciwko każdej ilości przeciwników. Stąd jeśli przykładowo przeciwnik ma niewrażliwość równą , a postać atakuje 2x(k12+3)+1k8+10 to postać może wybrać dwie opcje: 1x(k12+3)+10 (redukcja kości broni i kości obrażeń) lub 1k8+10 (redukcja 2 kości broni)"
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.646Z"
+        },
+        {
+          "id": "section-system-walki-odpornosc",
+          "anchor": "odpornosc",
+          "slug": "odpornosc",
+          "title": "Odporność",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Odporność jest to wartość, od której w pierwszej kolejności odejmowane są obrażenia jakiegokolwiek rodzaju poza obrażeniami śmiertelnymi i nieuchronnymi. Dopiero nadmiar obrażeń przechodzi na redukcję. W każdej rundzie odporność jest odejmowana od obrażeń pierwszych 6 źródeł obrażeń (chyba, że mistrz gry postanowi inaczej). Stąd odporność można traktować jako redukcję na każde źródło do 6 źródeł obrażeń. Przykładowo jeśli podmiot jest atakowany przez 3 wrogów i ma 5 odporności, to na każdy atak przeciwnika zadaje 5 obrażeń mniej."
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.646Z"
+        },
+        {
+          "id": "subsection-redukcja",
+          "anchor": "redukcja",
+          "slug": "redukcja",
+          "title": "Redukcja",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Całkowita redukcja jest sumą redukcji pochodzących z poszczególnych źródeł jak uniki, parowanie, blokowanie, redukcja ze zbroi czy magii. Jeśli przeciwnik zadaje zwyczajne obrażenia (w przypadku gdy nie posiada się odporności), to od całkowitej redukcji odejmuje się zadane obrażenia. Nadmiar przechodzi w bariery, a jeśli ich nie ma to w zdrowie. Niedomiar pozostaje jako redukcja przeciwko kolejnym źródłom obrażeń. W zależności od rodzaju obrażeń część redukcji jest pominięta. Przykładowo dla obrażeń bezpośrednich do redukcji przeciwko tym obrażeniom nie są wliczane parowanie i uniki."
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Całkowita redukcja = redukcja ze zbroi + redukcja z blokowania + redukcja z parowania + redukcja z uników + redukcja ze źródeł magicznych + unikatowa redukcja"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-3",
+              "content": "Kolejność odejmowania obrażeń od poszczególnych redukcji:"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-4",
+              "content": "\\1. Redukcja z uników lub redukcja z parowania (do wyboru)"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-5",
+              "content": "\\2. Redukcja z uników jeśli w 1. została wybrania redukcja z parowania lub redukcja z parowania jeśli w 1. została wybrana redukcja z uników"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-6",
+              "content": "\\3. Redukcja z blokowania"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-7",
+              "content": "\\4. Redukcja ze zbroi"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-8",
+              "content": "\\5. Redukcja ze źródeł magicznych"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-9",
+              "content": "\\6. Redukcja unikatowa"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-10",
+              "content": "Redukcja blokowalna = redukcja ze zbroi + redukcja z blokowania + redukcja ze źródeł magicznych + unikatowa redukcja"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-11",
+              "content": "Redukcja bezpośrednia = redukcja ze zbroi + redukcja ze źródeł magicznych + unikatowa redukcja"
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.647Z"
+        },
+        {
+          "id": "subsection-parowanie",
+          "anchor": "parowanie",
+          "slug": "parowanie",
+          "title": "Parowanie",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Parowanie jest związane z tym jak bardzo postać potrafi wykorzystywać swoją broń do obrony. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej czy blokowalnej. Parowanie jest rodzajem redukcji, który jako jeden z pierwszych (na równi z unikami) jest brany pod uwagę przy obrażeniach. Parowanie jest związane głównie z fechtunkiem w następujący sposób:"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Parowanie = fechtunek + inne"
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.647Z"
+        },
+        {
+          "id": "subsection-uniki",
+          "anchor": "uniki",
+          "slug": "uniki",
+          "title": "Uniki",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Uniki są związane z tym jak bardzo postać potrafi omijać obrażenia. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej czy blokowalnej. Uniki są rodzajem redukcji, który jako jeden z pierwszych (na równi z parowaniem) jest brany pod uwagę przy obrażeniach. Uniki są związane z zręcznością i refleksem w następujący sposób:"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Uniki = ograniczony modyfikator zręczności + ograniczony refleks + inne"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-3",
+              "content": "Słowo \"ograniczony\" tyczy się w obu przypadkach ograniczeń wynikających najczęściej z noszonej zbroi/tarczy."
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.647Z"
+        },
+        {
+          "id": "subsection-blokowanie",
+          "anchor": "blokowanie",
+          "slug": "blokowanie",
+          "title": "Blokowanie",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Blokowanie jest związane z tym jak bardzo postać potrafi powstrzymywać ataki za pomocą tarczy i podobnych obiektów. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej. Blokowanie jest rodzajem redukcji, który bierze się pod uwagę po unikach i parowaniu. Blokowanie jest głównie związane z redukcją z tarczy:"
+            },
+            {
+              "type": "paragraph",
+              "id": "paragraph-2",
+              "content": "Blokowanie = redukcja z tarczy + inne"
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.646Z"
+        }
+      ],
       "lastModified": "2025-11-11T09:57:04.646Z"
-    },
-    {
-      "id": "section-system-walki-niewrazliwosc",
-      "slug": "niewrazliwosc",
-      "title": "Niewrażliwość",
-      "category": "system-walki",
-      "order": 8,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Niewrażliwość określa o ile mniej kości, z wyłączeniem kości widmowych, będzie stosował przeciwnik w każdym ataku. Przeciwnik sam wybiera, która kość jest redukowana. Niewrażliwość działa przeciwko każdej ilości przeciwników. Stąd jeśli przykładowo przeciwnik ma niewrażliwość równą , a postać atakuje 2x(k12+3)+1k8+10 to postać może wybrać dwie opcje: 1x(k12+3)+10 (redukcja kości broni i kości obrażeń) lub 1k8+10 (redukcja 2 kości broni)"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.646Z"
-    },
-    {
-      "id": "section-system-walki-odpornosc",
-      "slug": "odpornosc",
-      "title": "Odporność",
-      "category": "system-walki",
-      "order": 9,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Odporność jest to wartość, od której w pierwszej kolejności odejmowane są obrażenia jakiegokolwiek rodzaju poza obrażeniami śmiertelnymi i nieuchronnymi. Dopiero nadmiar obrażeń przechodzi na redukcję. W każdej rundzie odporność jest odejmowana od obrażeń pierwszych 6 źródeł obrażeń (chyba, że mistrz gry postanowi inaczej). Stąd odporność można traktować jako redukcję na każde źródło do 6 źródeł obrażeń. Przykładowo jeśli podmiot jest atakowany przez 3 wrogów i ma 5 odporności, to na każdy atak przeciwnika zadaje 5 obrażeń mniej."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.646Z"
-    },
-    {
-      "id": "section-system-walki-parowanie",
-      "slug": "parowanie",
-      "title": "Parowanie",
-      "category": "system-walki",
-      "order": 10,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Parowanie jest związane z tym jak bardzo postać potrafi wykorzystywać swoją broń do obrony. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej czy blokowalnej. Parowanie jest rodzajem redukcji, który jako jeden z pierwszych (na równi z unikami) jest brany pod uwagę przy obrażeniach. Parowanie jest związane głównie z fechtunkiem w następujący sposób:"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Parowanie = fechtunek + inne"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.647Z"
-    },
-    {
-      "id": "section-system-walki-redukcja",
-      "slug": "redukcja",
-      "title": "Redukcja",
-      "category": "system-walki",
-      "order": 11,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Całkowita redukcja jest sumą redukcji pochodzących z poszczególnych źródeł jak uniki, parowanie, blokowanie, redukcja ze zbroi czy magii. Jeśli przeciwnik zadaje zwyczajne obrażenia (w przypadku gdy nie posiada się odporności), to od całkowitej redukcji odejmuje się zadane obrażenia. Nadmiar przechodzi w bariery, a jeśli ich nie ma to w zdrowie. Niedomiar pozostaje jako redukcja przeciwko kolejnym źródłom obrażeń. W zależności od rodzaju obrażeń część redukcji jest pominięta. Przykładowo dla obrażeń bezpośrednich do redukcji przeciwko tym obrażeniom nie są wliczane parowanie i uniki."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Całkowita redukcja = redukcja ze zbroi + redukcja z blokowania + redukcja z parowania + redukcja z uników + redukcja ze źródeł magicznych + unikatowa redukcja"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Kolejność odejmowania obrażeń od poszczególnych redukcji:"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "\\1. Redukcja z uników lub redukcja z parowania (do wyboru)"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "\\2. Redukcja z uników jeśli w 1. została wybrania redukcja z parowania lub redukcja z parowania jeśli w 1. została wybrana redukcja z uników"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-6",
-          "content": "\\3. Redukcja z blokowania"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-7",
-          "content": "\\4. Redukcja ze zbroi"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-8",
-          "content": "\\5. Redukcja ze źródeł magicznych"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-9",
-          "content": "\\6. Redukcja unikatowa"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-10",
-          "content": "Redukcja blokowalna = redukcja ze zbroi + redukcja z blokowania + redukcja ze źródeł magicznych + unikatowa redukcja"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-11",
-          "content": "Redukcja bezpośrednia = redukcja ze zbroi + redukcja ze źródeł magicznych + unikatowa redukcja"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.647Z"
-    },
-    {
-      "id": "section-system-walki-uniki",
-      "slug": "uniki",
-      "title": "Uniki",
-      "category": "system-walki",
-      "order": 12,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Uniki są związane z tym jak bardzo postać potrafi omijać obrażenia. Stąd jest to składowa całkowitej redukcji, lecz nie redukcji bezpośredniej czy blokowalnej. Uniki są rodzajem redukcji, który jako jeden z pierwszych (na równi z parowaniem) jest brany pod uwagę przy obrażeniach. Uniki są związane z zręcznością i refleksem w następujący sposób:"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Uniki = ograniczony modyfikator zręczności + ograniczony refleks + inne"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Słowo \"ograniczony\" tyczy się w obu przypadkach ograniczeń wynikających najczęściej z noszonej zbroi/tarczy."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.647Z"
-    },
-    {
-      "id": "section-system-walki-atak-w-plecy",
-      "slug": "atak-w-plecy",
-      "title": "Atak w plecy",
-      "category": "system-walki",
-      "order": 13,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Atakując w plecy otrzymujemy dodatkową kość broni, a przeciwnik stosuje redukcję bezpośrednią + uniki chyba, że nie spodziewa się ataku, wtedy tylko redukcja bezpośrednia"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.648Z"
-    },
-    {
-      "id": "section-system-walki-atak-z-flanki",
-      "slug": "atak-z-flanki",
-      "title": "Atak z flanki",
-      "category": "system-walki",
-      "order": 14,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Flankując wroga dodajesz 1 obrażenie oraz przeciwnik traci redukcję z blokowania lub parowania, w zależności od której strony flankujesz wroga."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.648Z"
-    },
-    {
-      "id": "section-system-walki-dobieganie-i-poruszanie-sie-w-walce",
-      "slug": "dobieganie-i-poruszanie-sie-w-walce",
-      "title": "Dobieganie i poruszanie się w walce",
-      "category": "system-walki",
-      "order": 15,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Za każde 10 kroków odległości pomiędzy celem biegu podmiotu rośnie ranga kości utraty inicjatywy. Przykładowo cel jest oddalony o 30 kroków to rzucamy kością k6. Nie można utracić więcej inicjatywy niż maksymalna wartość na kości utraty inicjatywy. Minimalna utrata inicjatywy jest równa karze umiejętności za zbroje, tarcze (i tym podobne) chyba, ze ta utrata jest większa niż maksymalna wartość na kości inicjatywy (wtedy traci się tą minimalną wartość kości utraty inicjatywy)."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Przykładowo: cel znajduje się w odległości 40 kroków, więc kość utraty inicjatywy to k8. Postać ma na sobie kolczugę (kara 3) i średnia tarcza (kara 2). Tak więc postać rzuca kością k8 i jeśli wyrzucił powyżej 5 to właśnie tyle traci inicjatywy, ale jeśli mniej to traci równo 5."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Należy pamiętać, że postać nie może przebiec więcej niż wynosi jego maksymalna odległość pokonywana w rundzie. Kara do inicjatywy czyniona jest dopiero wtedy, gdy postać jest o rundę od dobiegnięcia do przeciwnika. Bieganie dwóch rund na pełnej prędkości przynosi dodatkowo punkt zmęczenia, który jednak nie pociąga kolejnych testów za zmęczenie w sposób automatyczny."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Odległości należy zaokrąglać do dołu, chyba że mistrz gry powie inaczej. Ze względu na trudny teren, mistrz gry może zmniejszyć maksymalną odległość pokonywaną w rundzie jak i rangę kości utraty inicjatywy."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.648Z"
-    },
-    {
-      "id": "section-system-walki-obalenie",
-      "slug": "obalenie",
-      "title": "Obalenie",
-      "category": "system-walki",
-      "order": 16,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Najczęściej postać zostaje obalona gdy w wyniku przegranego testu siłowego jej inicjatywa spadnie poniżej 0. Wtedy traci jedną rundę na podniesienie się i ponawia test inicjatywy w celu określenia kolejności. Obalona postać traci połowę uników i połowę parowania (zaokrąglone do dołu) oraz wszystkie ataki w zwarciu wymierzone w tą postać otrzymują dodatkową kość broni. Testy siłowe postaci obalonej przeciwko osobie stojącej są wykonywane z połową modyfikatora (zaokrąglone do dołu, chyba że mistrz gry postanowi inaczej), stąd łatwiej jest utrzymać obaloną postać na ziemi. Ataki postaci obalonej, które są w stanie sięgnąć wroga i są wykonalne są wykonywane z jedną kością broni mniej (chyba, że mistrz gry postanowi inaczej)."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Inne przypadki upadków przeprowadza się poprzez testy zachowania równowagi o ST ustalonej przez mistrza gry."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.648Z"
-    },
-    {
-      "id": "section-system-walki-organizacja-walki",
-      "slug": "organizacja-walki",
-      "title": "Organizacja Walki",
-      "category": "system-walki",
-      "order": 17,
-      "content": [],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.649Z"
-    },
-    {
-      "id": "section-system-walki-przewaga-wysokosci",
-      "slug": "przewaga-wysokosci",
-      "title": "Przewaga wysokości",
-      "category": "system-walki",
-      "order": 18,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Mając nad przeciwnikiem znaczną przewagę wysokości otrzymujesz 1 obrażenie na każdy atak."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.649Z"
-    },
-    {
-      "id": "section-system-walki-szarza",
-      "slug": "szarza",
-      "title": "Szarża",
-      "category": "system-walki",
-      "order": 19,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Szarża na przeciwnika wymaga odpowiedniego rozpędzenia się. Osobą szarżująca zyskuje premię +1 obrażeń i +1 do testów siłowych na obalenie. Szarże można uniknąć testem refleksu o ST=8 + poziom szarży (bazowy poziom szarży to 0). Jeśli postać uniknie to otrzymuje 1 obrażenie i 1 inicjatywy względem szarżującego. Jeśli osoba nie uniknęła szarży, to wykonuje test sporny siły vs siła + zachowanie równowagi. Za każde oczko przewagi przeciwnik traci 1 inicjatywy, a jeśli jego inicjatywa spadnie poniżej 0 to skutkuje to obaleniem."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.649Z"
-    },
-    {
-      "id": "section-system-walki-walka-bez-wyszkolenia",
-      "slug": "walka-bez-wyszkolenia",
-      "title": "Walka bez wyszkolenia",
-      "category": "system-walki",
-      "order": 20,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Walcząc bronią podobną do broni w której wyuczono się walczyć -0 dmg na kość broni"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Walcząc bronią lekko odmienią do broni w której wyuczono się walczyć -1 dmg na kość broni"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Walcząc bronią odmienią do broni w której wyuczono się walczyć -2 dmg na kość broni"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Walcząc bronią mocno odmienią do broni w której wyuczono się walczyć -3 dmg na kość broni"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.649Z"
-    },
-    {
-      "id": "section-system-walki-walka-z-nieuzbrojonym-przeciwnikiem",
-      "slug": "walka-z-nieuzbrojonym-przeciwnikiem",
-      "title": "Walka z nieuzbrojonym przeciwnikiem",
-      "category": "system-walki",
-      "order": 21,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Walcząc z przeciwnikiem, który nie posiada broni otrzymujemy dodatkową kość broni lub obrażeń (do wyboru). Osoba bez broni nie otrzymuje premii z fechtunku do parowania, ale otrzymuje premię z walki wręcz do parowania i obrażeń."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.650Z"
-    },
-    {
-      "id": "section-system-walki-zwarcie-w-walce",
-      "slug": "zwarcie-w-walce",
-      "title": "Zwarcie w walce",
-      "category": "system-walki",
-      "order": 22,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Gdy postać jest w zwarciu z inną postacią, lecz postanawia zaatakować innego wroga, wtedy atakuje jedną kością broni mniej oraz traci jeden niewrażliwości (może być -1). Ponadto przeciwnik, z którym postać była w zwarciu zyskuje dodatkową kość broni (czyli licząc utratę niewrażliwości, mogą być dwie kości broni lub kość broni i kość obrażeń)"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.650Z"
-    },
-    {
-      "id": "section-system-walki-samotny-orez",
-      "slug": "samotny-orez",
-      "title": "Samotny oręż",
-      "category": "system-walki",
-      "order": 23,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Walcząc bronią jednoręczną lub póltoraręczną jedną ręką i dwoma rękoma na zmianę, wykorzystując wolną rękę do rozmaitych manewrów. Dodaje modyfikator siły do obrażeń i 1 inicjatywy."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.651Z"
     },
     {
       "id": "section-system-walki-style-walki",
@@ -932,56 +766,72 @@
       "category": "system-walki",
       "order": 24,
       "content": [],
-      "subsections": [],
+      "subsections": [
+        {
+          "id": "section-system-walki-walka-bronia-dwureczna",
+          "anchor": "walka-bronia-dwureczna",
+          "slug": "walka-bronia-dwureczna",
+          "title": "Walka bronią dwuręczną",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Wojownik walczący bronią dwuręcznie, dodaje 1,5 modyfikatora z siły do obrażeń (zaokrąglając do dołu)."
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.651Z"
+        },
+        {
+          "id": "section-system-walki-walka-bronia-jednoreczna-i-tarcza",
+          "anchor": "walka-bronia-jednoreczna-i-tarcza",
+          "slug": "walka-bronia-jednoreczna-i-tarcza",
+          "title": "Walka bronią jednoręczną i tarczą",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Wojownik walczy bronią jednoręcznie wiec dodaje modyfikator z siły do obrażeń. Co więcej posiadana tarcza gwarantuje całą premie do redukcji z blokowania, lecz niesie ze sobą karę do umiejętności i ograniczenie zręczności i uników."
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.652Z"
+        },
+        {
+          "id": "section-system-walki-walka-dwoma-broniami",
+          "anchor": "walka-dwoma-broniami",
+          "slug": "walka-dwoma-broniami",
+          "title": "Walka dwoma broniami",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Wojownik walczący dwoma broniami jednocześnie musi spełnić odpowiednie wymagania. W pierwszej kolejności broń w niewiodącej ręce musi być krótsza niż w wiodące, chyba, że postać jest oburęczna lub odpowiednio wyszkolona. Taki wojownik zyskuje dodatkową kość broni: ma bazowo 2 kości broni wiodącej ręki (lub do wyboru przy obu rekach lub odpowiednim wyszkoleniu) i 1 kość drugiej ręki. Zyskując kolejną kość broni otrzymuje się kość związaną z bronią, w której mamy mniej kości broni. Walcząc dwoma broniami na każdą broń osobno liczy się siłę i szansę krytyka, lecz sumuje się premie do umiejętności bojowych i innych specjalnych zdolności broni (ale też premii do parowania)"
+            }
+          ],
+          "subsections": [],
+          "lastModified": "2025-11-11T09:57:04.652Z"
+        },
+        {
+          "id": "section-system-walki-samotny-orez",
+          "anchor": "samotny-orez",
+          "slug": "samotny-orez",
+          "title": "Samotny oręż",
+          "category": "system-walki",
+          "content": [
+            {
+              "type": "paragraph",
+              "id": "paragraph-1",
+              "content": "Walcząc bronią jednoręczną lub póltoraręczną jedną ręką i dwoma rękoma na zmianę, wykorzystując wolną rękę do rozmaitych manewrów. Dodaje modyfikator siły do obrażeń i 1 inicjatywy."
+            }
+          ],
+          "lastModified": "2025-11-11T09:57:04.651Z"
+        }
+      ],
       "lastModified": "2025-11-11T09:57:04.651Z"
-    },
-    {
-      "id": "section-system-walki-walka-bronia-dwureczna",
-      "slug": "walka-bronia-dwureczna",
-      "title": "Walka bronią dwuręczną",
-      "category": "system-walki",
-      "order": 25,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Wojownik walczący bronią dwuręcznie, dodaje 1,5 modyfikatora z siły do obrażeń (zaokrąglając do dołu)."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.651Z"
-    },
-    {
-      "id": "section-system-walki-walka-bronia-jednoreczna-i-tarcza",
-      "slug": "walka-bronia-jednoreczna-i-tarcza",
-      "title": "Walka bronią jednoręczną i tarczą",
-      "category": "system-walki",
-      "order": 26,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Wojownik walczy bronią jednoręcznie wiec dodaje modyfikator z siły do obrażeń. Co więcej posiadana tarcza gwarantuje całą premie do redukcji z blokowania, lecz niesie ze sobą karę do umiejętności i ograniczenie zręczności i uników."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.652Z"
-    },
-    {
-      "id": "section-system-walki-walka-dwoma-broniami",
-      "slug": "walka-dwoma-broniami",
-      "title": "Walka dwoma broniami",
-      "category": "system-walki",
-      "order": 27,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Wojownik walczący dwoma broniami jednocześnie musi spełnić odpowiednie wymagania. W pierwszej kolejności broń w niewiodącej ręce musi być krótsza niż w wiodące, chyba, że postać jest oburęczna lub odpowiednio wyszkolona. Taki wojownik zyskuje dodatkową kość broni: ma bazowo 2 kości broni wiodącej ręki (lub do wyboru przy obu rekach lub odpowiednim wyszkoleniu) i 1 kość drugiej ręki. Zyskując kolejną kość broni otrzymuje się kość związaną z bronią, w której mamy mniej kości broni. Walcząc dwoma broniami na każdą broń osobno liczy się siłę i szansę krytyka, lecz sumuje się premie do umiejętności bojowych i innych specjalnych zdolności broni (ale też premii do parowania)"
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.652Z"
     },
     {
       "id": "section-system-walki-manewry",
@@ -1057,30 +907,135 @@
       "lastModified": "2025-11-11T09:57:04.653Z"
     },
     {
-      "id": "section-system-walki-taktyka-walki",
-      "slug": "taktyka-walki",
-      "title": "Uzbrojenie bez spełniania wymogów",
+      "id": "section-system-walki-poruszanie-sie-w-walce",
+      "slug": "poruszanie-sie-w-walce",
+      "title": "Poruszanie się w walce",
       "category": "system-walki",
-      "order": 31,
+      "order": 95,
       "content": [
         {
           "type": "paragraph",
           "id": "paragraph-1",
-          "content": "Nosząc zbroję i nie spełniając wymogów siłowych otrzymujemy ograniczenie refleksu, zręczności, precyzji i inicjatywy równe 0 oraz ograniczenie fechtunku, fortelu i walki wręcz równe 5."
+          "content": "Za każde 10 kroków odległości pomiędzy celem biegu podmiotu rośnie ranga kości utraty inicjatywy. Przykładowo cel jest oddalony o 30 kroków to rzucamy kością k6. Nie można utracić więcej inicjatywy niż maksymalna wartość na kości utraty inicjatywy. Minimalna utrata inicjatywy jest równa karze umiejętności za zbroje, tarcze (i tym podobne) chyba, ze ta utrata jest większa niż maksymalna wartość na kości inicjatywy (wtedy traci się tą minimalną wartość kości utraty inicjatywy)."
         },
         {
           "type": "paragraph",
           "id": "paragraph-2",
-          "content": "Nosząc tarczę i nie spełniając wymogów siłowych otrzymujemy ograniczenie refleksu, zręczności, precyzji i inicjatywy równe 0 oraz w walce postać traci całą redukcję z tarczy po turach w ilości modyfikatora siły."
+          "content": "Przykładowo: cel znajduje się w odległości 40 kroków, więc kość utraty inicjatywy to k8. Postać ma na sobie kolczugę (kara 3) i średnia tarcza (kara 2). Tak więc postać rzuca kością k8 i jeśli wyrzucił powyżej 5 to właśnie tyle traci inicjatywy, ale jeśli mniej to traci równo 5."
         },
         {
           "type": "paragraph",
           "id": "paragraph-3",
-          "content": "Nosząc broń i nie spełniając wymogów siłowych otrzymujemy karę -4 dmg na każdą kość broni oraz w walce postać traci dodatkowe -1 na kość broni po turach w ilości modyfikatora siły i kolejne -1 na kość broni ponownie po ilości tur równej modyfikatorowi siły."
+          "content": "Należy pamiętać, że postać nie może przebiec więcej niż wynosi jego maksymalna odległość pokonywana w rundzie. Kara do inicjatywy czyniona jest dopiero wtedy, gdy postać jest o rundę od dobiegnięcia do przeciwnika. Bieganie dwóch rund na pełnej prędkości przynosi dodatkowo punkt zmęczenia, który jednak nie pociąga kolejnych testów za zmęczenie w sposób automatyczny."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Odległości należy zaokrąglać do dołu, chyba że mistrz gry powie inaczej. Ze względu na trudny teren, mistrz gry może zmniejszyć maksymalną odległość pokonywaną w rundzie jak i rangę kości utraty inicjatywy."
         }
       ],
       "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.653Z"
+      "lastModified": "2025-11-11T09:57:04.648Z"
+    },
+    {
+      "id": "section-system-walki-obalenie",
+      "slug": "obalenie",
+      "title": "Obalenie",
+      "category": "system-walki",
+      "order": 96,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Najczęściej postać zostaje obalona gdy w wyniku przegranego testu siłowego jej inicjatywa spadnie poniżej 0. Wtedy traci jedną rundę na podniesienie się i ponawia test inicjatywy w celu określenia kolejności. Obalona postać traci połowę uników i połowę parowania (zaokrąglone do dołu) oraz wszystkie ataki w zwarciu wymierzone w tą postać otrzymują dodatkową kość broni. Testy siłowe postaci obalonej przeciwko osobie stojącej są wykonywane z połową modyfikatora (zaokrąglone do dołu, chyba że mistrz gry postanowi inaczej), stąd łatwiej jest utrzymać obaloną postać na ziemi. Ataki postaci obalonej, które są w stanie sięgnąć wroga i są wykonalne są wykonywane z jedną kością broni mniej (chyba, że mistrz gry postanowi inaczej)."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Inne przypadki upadków przeprowadza się poprzez testy zachowania równowagi o ST ustalonej przez mistrza gry."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.648Z"
+    },
+    {
+      "id": "section-system-walki-szarza",
+      "slug": "szarza",
+      "title": "Szarża",
+      "category": "system-walki",
+      "order": 97,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Szarża na przeciwnika wymaga odpowiedniego rozpędzenia się. Osobą szarżująca zyskuje premię +1 obrażeń i +1 do testów siłowych na obalenie. Szarże można uniknąć testem refleksu o ST=8 + poziom szarży (bazowy poziom szarży to 0). Jeśli postać uniknie to otrzymuje 1 obrażenie i 1 inicjatywy względem szarżującego. Jeśli osoba nie uniknęła szarży, to wykonuje test sporny siły vs siła + zachowanie równowagi. Za każde oczko przewagi przeciwnik traci 1 inicjatywy, a jeśli jego inicjatywa spadnie poniżej 0 to skutkuje to obaleniem."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.649Z"
+    },
+    {
+      "id": "section-system-walki-walka-bez-wyszkolenia",
+      "slug": "walka-bez-wyszkolenia",
+      "title": "Walka bez wyszkolenia",
+      "category": "system-walki",
+      "order": 98,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Walcząc bronią podobną do broni w której wyuczono się walczyć -0 dmg na kość broni"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-2",
+          "content": "Walcząc bronią lekko odmienią do broni w której wyuczono się walczyć -1 dmg na kość broni"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-3",
+          "content": "Walcząc bronią odmienią do broni w której wyuczono się walczyć -2 dmg na kość broni"
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-4",
+          "content": "Walcząc bronią mocno odmienią do broni w której wyuczono się walczyć -3 dmg na kość broni"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.649Z"
+    },
+    {
+      "id": "section-system-walki-walka-z-nieuzbrojonym-przeciwnikiem",
+      "slug": "walka-z-nieuzbrojonym-przeciwnikiem",
+      "title": "Walka z nieuzbrojonym przeciwnikiem",
+      "category": "system-walki",
+      "order": 99,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Walcząc z przeciwnikiem, który nie posiada broni otrzymujemy dodatkową kość broni lub obrażeń (do wyboru). Osoba bez broni nie otrzymuje premii z fechtunku do parowania, ale otrzymuje premię z walki wręcz do parowania i obrażeń."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.650Z"
+    },
+    {
+      "id": "section-system-walki-zwarcie-w-walce",
+      "slug": "zwarcie-w-walce",
+      "title": "Zwarcie w walce",
+      "category": "system-walki",
+      "order": 100,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Gdy postać jest w zwarciu z inną postacią, lecz postanawia zaatakować innego wroga, wtedy atakuje jedną kością broni mniej oraz traci jeden niewrażliwości (może być -1). Ponadto przeciwnik, z którym postać była w zwarciu zyskuje dodatkową kość broni (czyli licząc utratę niewrażliwości, mogą być dwie kości broni lub kość broni i kość obrażeń)"
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.650Z"
     }
   ]
 }

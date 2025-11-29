@@ -764,38 +764,6 @@
         }
       ],
       "lastModified": "2025-11-11T09:57:04.640Z"
-    },
-    {
-      "id": "section-cechy-i-umiejetnosci-esencja",
-      "slug": "esencja",
-      "title": "Esencja",
-      "category": "cechy-i-umiejetnosci",
-      "order": 19,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Określa punkty, które są zużywane w celu rzucania zaklęć. Każda postać posiada górną granicę esencji. Esencja jest najczęściej związana z konkretnym rodzajem/rodzajami mocy."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.641Z"
-    },
-    {
-      "id": "section-cechy-i-umiejetnosci-sila-zaklecia",
-      "slug": "sila-zaklecia",
-      "title": "Siła Zaklęcia",
-      "category": "cechy-i-umiejetnosci",
-      "order": 21,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Określa siłę mocy jakimi się włada. Ta statystyka jest odrębna dla każdego odrębnego rodzaju mocy (osobno dla magów, kapłanów i czarokrwistych). Każde zaklęcie, zdolność nadnaturalna jest w jakiś sposób związana z Siłą Zaklęcia. Przy zaklęciach bojowych dodaje się 2 razy Siłę Zaklęcia jeśli atak nie jest w bariery do obrażeń lub 3 razy Siłę Zaklęcia jeśli atak jest w bariery. Zazwyczaj 1 Siły Zaklęcia dodaje 1 kostkę zaklęcia. Siła Zaklęcia również jest związana ze skalą rozproszenia danego zaklęcia."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.641Z"
     }
   ]
 }

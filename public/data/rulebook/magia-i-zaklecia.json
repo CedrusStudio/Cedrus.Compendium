@@ -9,6 +9,27 @@
   },
   "sections": [
     {
+      "id": "section-magia-i-zaklecia-sila-zaklecia",
+      "slug": "sila-zaklecia",
+      "title": "Siła Zaklęcia",
+      "category": "magia-i-zaklecia",
+      "order": -1,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Rodzaj magii, którą włada czarodziej i jego siła zaklęcia determinuje ilość obrażeń, którą mag zadaje standardowym atakiem magicznym. Konkretny rodzaj magii ma swój specyficzny tryb rozwoju zadawanych obrażeń związanych bezpośrednio z siłą zaklęcia czarodzieja. Stąd konkretny rodzaj magii można traktować jak rodzaj broni, która rozwija się wraz ze wzrostem sił czarodzieja."
+        },
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Ta statystyka jest odrębna dla każdego odrębnego rodzaju mocy (osobno dla magów, kapłanów i czarokrwistych). Każde zaklęcie, zdolność nadnaturalna jest w jakiś sposób związana z Siłą Zaklęcia. Przy zaklęciach bojowych dodaje się 2 razy Siłę Zaklęcia jeśli atak nie jest w bariery do obrażeń lub 3 razy Siłę Zaklęcia jeśli atak jest w bariery. Siła Zaklęcia również jest związana ze skalą rozproszenia danego zaklęcia."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.641Z"
+    },
+    {
       "id": "section-magia-i-zaklecia-czarowanie-i-walka",
       "slug": "czarowanie-i-walka",
       "title": "Testy Fechtunku i Fortelu",
@@ -60,27 +81,6 @@
           "type": "paragraph",
           "id": "paragraph-1",
           "content": "Czarodziej wykonuje test ataku dystansowego i za każde oczko straty (pamiętajmy, że równowaga jest liczona jako jedno oczko straty, ze względu na to, że atakujący musi PRZEBIĆ refleks) przeciwnik zyskuje 1\\*zr do redukcji z uników względem tego ataku, które należy zastosować jako pierwsze do ogólnej redukcji przeciw temu zaklęciu. Każde oczko symbolizuje oddalenie się od epicentrum o 1 krok przed wybuchem. Jeśli przewaga oczek jest większa niż zasięg zaklęcia lub redukcja z uników przekracza obrażenia, wtedy unikający nie otrzymuje żadnych obrażeń. W przypadku zaklęć o specyficznym kształcie oddalanie od epicentrum (lub odpowiednich stref obrażeń) nie musi być liniowe."
-        }
-      ],
-      "subsections": [],
-      "lastModified": "2025-11-11T09:57:04.654Z"
-    },
-    {
-      "id": "section-magia-i-zaklecia-si-a-zaklecia-i-obrazenia-maga",
-      "slug": "si-a-zaklecia-i-obrazenia-maga",
-      "title": "Siła Zaklęcia i obrażenia maga",
-      "category": "magia-i-zaklecia",
-      "order": 2,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Rodzaj magii, którą włada czarodziej i jego siła zaklęcia determinuje ilość obrażeń, którą mag zadaje standardowym atakiem magicznym. Konkretny rodzaj magii ma swój specyficzny tryb rozwoju zadawanych obrażeń związanych bezpośrednio z siłą zaklęcia czarodzieja. Stąd konkretny rodzaj magii można traktować jak rodzaj broni, która rozwija się wraz ze wzrostem sił czarodzieja. Jednak każdy mag zadaje dodatkowe obrażenia związane ze swoją Siłą Zaklęcia równe dwa razy Siła Zaklęcia."
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-2",
-          "content": "Zestawienie rodzai obrażeń znajduje się w Księdze Nowego Systemu Magów."
         }
       ],
       "subsections": [],
@@ -182,22 +182,6 @@
           ]
         }
       ],
-      "lastModified": "2025-11-11T09:57:04.654Z"
-    },
-    {
-      "id": "section-magia-i-zaklecia-zaklecia-obronne",
-      "slug": "zaklecia-obronne",
-      "title": "Zaklęcia Obronne",
-      "category": "magia-i-zaklecia",
-      "order": 4,
-      "content": [
-        {
-          "type": "paragraph",
-          "id": "paragraph-1",
-          "content": "Rzucenie jednego zaklęcia ochronnego w akcji natychmiastowe powoduje, że jeśli chcemy rzucić zaklęcie w akcji standardowej to jest to zaklęcie skuteczne jedynie w 50% (chyba, że w zaklęciu napisane jest inaczej)."
-        }
-      ],
-      "subsections": [],
       "lastModified": "2025-11-11T09:57:04.654Z"
     },
     {
@@ -385,6 +369,22 @@
         }
       ],
       "lastModified": "2025-11-11T09:57:04.655Z"
+    },
+    {
+      "id": "section-magia-i-zaklecia-esencja",
+      "slug": "esencja",
+      "title": "Esencja",
+      "category": "magia-i-zaklecia",
+      "order": 19,
+      "content": [
+        {
+          "type": "paragraph",
+          "id": "paragraph-1",
+          "content": "Określa punkty, które są zużywane w celu rzucania zaklęć. Każda postać posiada górną granicę esencji. Esencja jest najczęściej związana z konkretnym rodzajem/rodzajami mocy."
+        }
+      ],
+      "subsections": [],
+      "lastModified": "2025-11-11T09:57:04.641Z"
     }
   ]
 }
