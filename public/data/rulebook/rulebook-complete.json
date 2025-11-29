@@ -2511,7 +2511,7 @@
         {
           "type": "paragraph",
           "id": "paragraph-2",
-          "content": "Każdy manewr ma swój czas odnowienia, np 1//5 oznacza, że po użyciu manewru, ponowne jego użycie będzie możliwe za 5 rund. Oznaczenie 1//D oznacza, że tego manewru można użyć raz na walkę."
+          "content": "Każdy manewr ma swój czas odnowienia. Po użyciu manewru, ponowne jego użycie będzie możliwe za ilość rund równą czasowi odnowienia. Ikona walki symbolizuje oznacza, że manewru można użyć raz na walkę."
         }
       ],
       "subsections": [],
@@ -2669,9 +2669,9 @@
       "lastModified": "2025-11-11T09:57:04.649Z"
     },
     {
-      "id": "section-system-walki-walka-z-nieuzbrojonym-przeciwnikiem",
-      "slug": "walka-z-nieuzbrojonym-przeciwnikiem",
-      "title": "Walka z nieuzbrojonym przeciwnikiem",
+      "id": "section-system-walki-walka-z-nieuzbrojonym",
+      "slug": "walka-z-nieuzbrojonym",
+      "title": "Walka z nieuzbrojonym",
       "category": "system-walki",
       "order": 99,
       "content": [
@@ -4091,9 +4091,9 @@
           "order": 98
         },
         {
-          "id": "section-system-walki-walka-z-nieuzbrojonym-przeciwnikiem",
-          "title": "Walka z nieuzbrojonym przeciwnikiem",
-          "slug": "system-walki/walka-z-nieuzbrojonym-przeciwnikiem",
+          "id": "section-system-walki-walka-z-nieuzbrojonym",
+          "title": "Walka z nieuzbrojonym",
+          "slug": "system-walki/walka-z-nieuzbrojonym",
           "category": "system-walki",
           "order": 99
         },
@@ -4159,5 +4159,5 @@
     }
   ],
   "version": "1.0",
-  "lastUpdated": "2025-11-29T12:25:22.828Z"
+  "lastUpdated": "2025-11-29T18:52:17.735Z"
 }
