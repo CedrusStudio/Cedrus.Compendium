@@ -100,12 +100,12 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
         {
           currentAdditionalDamageBonus && (
             <DamageBonusSubcard
-              damageBonus={additionalDamageBonus as DamageOffense}
-              currentDamageBonus={currentAdditionalDamageBonus}
-              damageBonusRolls={additionalDamageBonusRolls}
-              handleDamageOffenseReroll={handleDamageOffenseReroll}
-              setCurrentDamageBonus={additionalDamageOffense => setCurrentAdditionalDamageBonus(additionalDamageOffense as DamageOffense)}
-              setDamageBonusRolls={setAdditionalDamageBonusRolls}
+            damageBonus={additionalDamageBonus as DamageOffense}
+            currentDamageBonus={currentAdditionalDamageBonus}
+            damageBonusRolls={additionalDamageBonusRolls}
+            handleDamageOffenseReroll={handleDamageOffenseReroll}
+            setCurrentDamageBonus={additionalDamageOffense => setCurrentAdditionalDamageBonus(additionalDamageOffense as DamageOffense)}
+            setDamageBonusRolls={setAdditionalDamageBonusRolls}
             />
           ) 
         }

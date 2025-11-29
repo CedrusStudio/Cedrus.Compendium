@@ -1,4 +1,4 @@
-import { toCriticalRangeString, toOffenseString, WeaponOffense } from "@/domain/characters/combat/Offense";
+import { DamageOffense, toCriticalRangeString, toOffenseString, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import { Character } from "@/domain/characters/Character";
 import { displayedText } from "@/presentation/translations";
@@ -31,12 +31,16 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
     setSecondaryRolls,
     damageBonusRolls,
     setDamageBonusRolls,
+    additionalDamageBonusRolls,
+    setAdditionalDamageBonusRolls,
     currentLeadingOffense,
     setCurrentLeadingOffense,
     currentSecondaryOffense,
     setCurrentSecondaryOffense,
     currentDamageBonus,
     setCurrentDamageBonus,
+    currentAdditionalDamageBonus,
+    setCurrentAdditionalDamageBonus,
     selectedOffenseIndex,
     setSelectedOffenseIndex
   } = useCombatRolls(character.offenses);
@@ -44,6 +48,7 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
   const leadingOffense = character.offenses[selectedOffenseIndex].leadingWeapon;
   const secondaryOffense = character.offenses[selectedOffenseIndex].secondaryWeapon;
   const damageBonus = character.offenses[selectedOffenseIndex].damageBonus;
+  const additionalDamageBonus = character.offenses[selectedOffenseIndex].additionalDamageBonus;
 
   const simpleCombat = (
     <>
@@ -51,6 +56,7 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
         <span className={`${colors.offense.leading}`}>{toOffenseString(leadingOffense)}</span>
         {secondaryOffense && <span className={`${colors.offense.secondary}`}>+{toOffenseString(secondaryOffense)}</span>}
         {toOffenseString(damageBonus, true)}
+        {additionalDamageBonus && toOffenseString(additionalDamageBonus, true)}
       </p>
 
       <p>
@@ -61,7 +67,7 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
   )
 
   const advancedCombat = (
-    <div className="flex flex-row gap-4 place-content-center">
+    <div className="flex flex-row gap-1.5 place-content-center">
 
       <OffenseHeader 
         offenses={character.offenses}
@@ -107,6 +113,19 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
         setCurrentDamageBonus={setCurrentDamageBonus}
         setDamageBonusRolls={setDamageBonusRolls}
       />
+
+      {
+        currentAdditionalDamageBonus && (
+          <DamageBonusSubcard
+            damageBonus={additionalDamageBonus as DamageOffense}
+            currentDamageBonus={currentAdditionalDamageBonus}
+            damageBonusRolls={additionalDamageBonusRolls}
+            handleDamageOffenseReroll={handleDamageOffenseReroll}
+            setCurrentDamageBonus={additionalDamageOffense => setCurrentAdditionalDamageBonus(additionalDamageOffense as DamageOffense)}
+            setDamageBonusRolls={setAdditionalDamageBonusRolls}
+          />
+        ) 
+      }
         
     </div>
   );
