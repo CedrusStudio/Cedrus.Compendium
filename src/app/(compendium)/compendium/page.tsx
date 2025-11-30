@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Swords, Shield, Award, Activity, Package, Wand2 } from 'lucide-react';
+import { GiSpellBook } from "react-icons/gi";
 
 export default async function CompendiumPage()
 {
@@ -65,6 +66,14 @@ function CategoryCards()
       icon: <Wand2 className="h-8 w-8" />,
       description: 'Magia, czary i zaklęcia',
       href: '/compendium/spells',
+      color: 'text-indigo-500'
+    },
+    {
+      id: 'powersSpecifications',
+      title: 'Moce',
+      icon: <GiSpellBook className="h-8 w-8" />,
+      description: 'Specyfikacje mocy i ich właściwości',
+      href: '/compendium/powers',
       color: 'text-indigo-500'
     },
     {

@@ -249,6 +249,8 @@ model Mount {
 model PowerSpecification {
   id          String @id @default(ulid()) @map("_id")
   name        String
+  description String
+  tags        String[]
   offenses    PowerOffense[]
   
   characterIds String[]
@@ -348,6 +350,7 @@ type WeaponOffense {
 
 type PowerOffense {
   spellOffense   SpellOffense
+  spellDamage   SpellDamage
   description    String
   cost           Int
 }
@@ -358,6 +361,13 @@ type SpellOffense {
   bonus    Int
   isPhantom Boolean
   critical Critical
+}
+
+type SpellDamage {
+  amount   Int
+  grade    Int
+  bonus    Int
+  isPhantom Boolean
 }
 
 type DamageOffense {

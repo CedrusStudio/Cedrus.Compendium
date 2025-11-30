@@ -2,7 +2,8 @@ import { Castable } from '@/domain/characters/Castable';
 import { ulid } from "ulid";
 import { Entity } from "@/domain/Entity";
 import { Perk } from "@/domain/characters/Perk";
-import { WeaponOffense } from '@/domain/characters/combat/Offense';
+import { DamageOffense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { Tag } from '@/domain/Tag';
 
 export type Power = Entity & 
 {
@@ -16,16 +17,20 @@ export type Power = Entity &
 
 export type PowerSpecification = Entity &
 {
+  description: string;
+  tags: Tag[];
   offenses: PowerOffense[]
 };
 
 export type PowerOffense =
 {
   spellOffense: SpellOffense;
+  spellDamage: SpellDamage;
   description: string;
   cost: number;
 };
 
+export type SpellDamage = DamageOffense;
 export type SpellOffense = WeaponOffense;
 
 export type PowerType = "arkana" | "wiara" | "moc" | "natura";
@@ -66,6 +71,8 @@ export const defaultPower: Omit<Power, "id"> =
   powerSpecification: {
     id: ulid(),
     name: 'Specyfikacja Mocy',
+    description: 'Opis specyfikacji mocy.',
+    tags: [],
     offenses: []
   },
   spells: []
@@ -74,6 +81,8 @@ export const defaultPower: Omit<Power, "id"> =
 export const defaultPowerSpecification: Omit<PowerSpecification, "id"> =
 {
   name: 'Specyfikacja Mocy',
+  description: 'Opis specyfikacji mocy.',
+  tags: [],
   offenses: []
 };
 

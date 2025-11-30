@@ -8,7 +8,7 @@ import { FieldPath } from 'react-hook-form';
 
 type EditCastablePerkViewProps =
 {
-    pathPrefix?: string;
+  pathPrefix?: string;
 }
 
 export default function CastablePerkEditableFields({ pathPrefix = ""}: EditCastablePerkViewProps)

@@ -2,7 +2,7 @@ import { OffsetPagination, KeysetPagination, isKeysetPagination } from "@/common
 import { Character } from "@/domain/characters/Character";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
 import { Mode } from "@/domain/characters/combat/Mode";
-import { Spell } from "@/domain/characters/combat/Power";
+import { PowerSpecification, Spell } from "@/domain/characters/combat/Power";
 import { Perk } from "@/domain/characters/Perk";
 import { Weapon } from "@/domain/characters/equipment/Weapon";
 import { Armor } from "@/domain/characters/equipment/Armor";
@@ -15,7 +15,7 @@ export function isAllowedSearchEntity(entity: string): boolean
   return allowedSearchEntities.includes(entity as typeof allowedSearchEntities[number]);
 }
 
-const allowedSearchEntities = ['character', 'maneuver', 'spell', 'perk', 'stance', 'state', 'weapon', 'armor', 'shield', 'inventoryItem', 'mount'] as const satisfies readonly string[];
+const allowedSearchEntities = ['character', 'maneuver', 'spell', 'perk', 'stance', 'state', 'weapon', 'armor', 'shield', 'inventoryItem', 'mount', 'powerSpecification'] as const satisfies readonly string[];
 export type EntityName = typeof allowedSearchEntities[number];
 export type EntityTypeMap = 
 {
@@ -30,6 +30,7 @@ export type EntityTypeMap =
   'shield': Shield;
   'inventoryItem': Item;
   'mount': Mount;
+  'powerSpecification': PowerSpecification;
 };
 
 export type SearchEntityPayload =

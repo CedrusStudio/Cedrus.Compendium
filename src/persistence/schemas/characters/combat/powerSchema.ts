@@ -3,7 +3,8 @@ import { allowedPowerTypes } from "@/domain/characters/combat/Power";
 import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { castableSchema } from "@/persistence/schemas/characters/castableSchema";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
-import { weaponOffenseSchema } from "./offenseSchema";
+import { weaponOffenseSchema, damageOffenseSchema } from "@/persistence/schemas/characters/combat/offenseSchema";
+import { tagsSchema } from "@/persistence/schemas/tagSchema";
 
 export const spellSchema = perkSchema.extend
 ({
@@ -16,14 +17,19 @@ export const addSpellSchema = spellSchema.omit({ id: true });
 export const powerOffenseSchema = z.object
 ({
   spellOffense: weaponOffenseSchema,
+  spellDamage: damageOffenseSchema,
   description: z.string().min(0).max(2000, { message: "Opis może mieć maksymalnie 2000 znaków." }),
   cost: z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." })
 });
 
 export const powerSpecificationSchema = entitySchema.extend
 ({
+  description: z.string().min(0).max(2000, { message: "Opis może mieć maksymalnie 2000 znaków." }),
+  tags: tagsSchema,
   offenses: z.array(powerOffenseSchema).max(20, { message: "Możesz mieć najwyżej 20 ofensyw mocy." })
 });
+
+export const addPowerSpecificationSchema = powerSpecificationSchema.omit({ id: true });
 
 export const powerSchema = entitySchema.extend
 ({
@@ -41,3 +47,4 @@ export type SpellDto = z.infer<typeof spellSchema>;
 export type AddSpellDto = z.infer<typeof addSpellSchema>;
 export type PowerDto = z.infer<typeof powerSchema>;
 export type PowerSpecificationDto = z.infer<typeof powerSpecificationSchema>;
+export type AddPowerSpecificationDto = z.infer<typeof addPowerSpecificationSchema>;

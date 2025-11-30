@@ -125,6 +125,28 @@ export function createKeysetSearchSpellsKey
         pageSize
     ] as const;
 }
+    
+// Power Specifications
+const powerSpecificationKey = 'powerSpecifications';
+export const createPowerSpecificationByIdKey = (id: string) => [powerSpecificationKey, id] as const;
+export function createKeysetSearchPowerSpecificationsKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE
+) : readonly [string, string, string | undefined, string, string, number] 
+{
+    return [
+        powerSpecificationKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
+
 
 // Weapons
 const weaponKey = 'weapons';

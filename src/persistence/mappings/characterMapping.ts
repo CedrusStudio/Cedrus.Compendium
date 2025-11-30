@@ -3,7 +3,7 @@ import { CreateDefaultDefense, Defense } from '@/domain/characters/combat/Defens
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { Mode } from '@/domain/characters/combat/Mode';
 import { CreateDefaultOffense, Offense } from '@/domain/characters/combat/Offense';
-import { Power, PowerType } from '@/domain/characters/combat/Power';
+import { Power, PowerSpecification, PowerType } from '@/domain/characters/combat/Power';
 import { Perk } from '@/domain/characters/Perk';
 import { Talent, TalentPenalty } from '@/domain/characters/Talent';
 import { Prisma } from '@prisma/client';
@@ -50,7 +50,7 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     stances: characterPersistenceModel.stances.map(toPerk<Mode>),
     states: characterPersistenceModel.states.map(toPerk<Mode>),
     maneuvers: characterPersistenceModel.maneuvers.map(toCastablePerk<Maneuver>),
-    powers: characterPersistenceModel.powers.map(power => toPower(power, characterPersistenceModel.spells)),
+    powers: characterPersistenceModel.powers.map(power => toPower(power, characterPersistenceModel.spells, characterPersistenceModel.powerSpecifications)),
     perks: characterPersistenceModel.perks.map(toPerk<Perk>),
   };
 }
@@ -306,11 +306,15 @@ function toOffense(offensePersistenceModel: OffenseModel): Offense
 }
 
 type PowerModel = Prisma.CharacterGetPayload<{select: { powers: true }}>['powers'][number];
+export type PowerSpecificationModel = Prisma.CharacterGetPayload<{select: { powerSpecifications: true }}>['powerSpecifications'][number];
 
-function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: SpellModel[]) : Power
+function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: SpellModel[], powerSpecificationPersistenceModels: PowerSpecificationModel[]) : Power
 {
   const relatedSpell = spellPersistenceModels
     .filter(spell => powerPersistenceModel.spellsIds.includes(spell.id));
+    
+  const relatedPowerSpecification = powerSpecificationPersistenceModels
+    .find(spec => spec.id === powerPersistenceModel.powerSpecificationId)!;
 
   return {
     ...toEntity(powerPersistenceModel),
@@ -319,6 +323,16 @@ function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: Spel
     essence: powerPersistenceModel.essence,
     type: powerPersistenceModel.type as PowerType,
     spells: relatedSpell.map(toSpell),
+    powerSpecification: toPowerSpecification(relatedPowerSpecification)
   };
 }
 
+function toPowerSpecification(powerSpecificationPersistenceModel: PowerSpecificationModel) : PowerSpecification
+{
+  return {
+    ...toEntity(powerSpecificationPersistenceModel),
+    description: powerSpecificationPersistenceModel.description,
+    tags: powerSpecificationPersistenceModel.tags,
+    offenses: powerSpecificationPersistenceModel.offenses
+  };
+}
