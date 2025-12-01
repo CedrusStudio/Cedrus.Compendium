@@ -9,33 +9,30 @@ export default function PowerSpecificationEditableFields()
 {
   return (
     <>
-        <div className="flex justify-around">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-
-                <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.name}</span></Label>
-                <InputFormField<PowerSpecification> 
-                    path={'name'}  
-                    inputPlaceholder={displayedText.changeName} 
-                    inputClassName='w-60' 
-                />
-            </div>
-    
-        </div>
-
+      <div className="flex justify-around">
         <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.description}</span></Label>
-            <AreaInputFormField<PowerSpecification> 
-                path={'description'} 
-                inputPlaceholder={displayedText.changeDescription} 
-                inputClassName='w-80' 
-            />
+          <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.name}</span></Label>
+          <InputFormField<PowerSpecification> 
+              path={'name'}  
+              inputPlaceholder={displayedText.changeName} 
+              inputClassName='w-60' 
+          />
         </div>
+      </div>
 
-        <FormTagsInput<PowerSpecification> path={'tags'} />
+      <div className="grid auto-rows-min gap-3 px-4">
+        <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.description}</span></Label>
+        <AreaInputFormField<PowerSpecification> 
+          path={'description'} 
+          inputPlaceholder={displayedText.changeDescription} 
+          inputClassName='w-80' 
+        />
+      </div>
 
-        {/* Select which powerOffense to edit from 0 to 15 */}
-        {/* Can be  */}
+      <FormTagsInput<PowerSpecification> path={'tags'} />
+
+      {/* Select which powerOffense to edit from 0 to 15 */}
+      {/* Can be  */}
     </>
   );
 };

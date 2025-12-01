@@ -17,11 +17,11 @@ export default function SpellEditableFields({ pathPrefix = ""}: SpellEditableFie
       <CastablePerkEditableFields pathPrefix={pathPrefix} />
 
       <div className="grid auto-rows-min gap-3 px-4">
-          <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.cost}</span></Label>
-          <InputFormField<SpellDto> 
-              path={(`${pathPrefix}cost` as FieldPath<SpellDto>)}
-              inputClassName='w-16 h-10 text-center font-medium' 
-          />
+        <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.cost}</span></Label>
+        <InputFormField<SpellDto> 
+          path={(`${pathPrefix}cost` as FieldPath<SpellDto>)}
+          inputClassName='w-16 h-10 text-center font-medium' 
+        />
       </div>
     </>
   );
