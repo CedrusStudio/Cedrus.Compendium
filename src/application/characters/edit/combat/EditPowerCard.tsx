@@ -50,13 +50,15 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
   const prevIsPendingRef = useRef(isPending);
 
   // Watch the powerSpecificationId field to react to form changes
-  const watchedPowerSpecId = useWatch({
+  const watchedPowerSpecId = useWatch
+  ({
     control,
     name: pathToPowerField(index, 'powerSpecificationId')
   });
 
   // Fetch the PowerSpecification when component mounts or powerSpecificationId changes
-  const { data: selectedSpecification } = useQuery({
+  const { data: selectedSpecification } = useQuery
+  ({
     queryKey: ['powerSpecification', watchedPowerSpecId],
     queryFn: () => powerSpecificationsClient.get(watchedPowerSpecId as string),
     enabled: !!watchedPowerSpecId && (watchedPowerSpecId as string).length > 0,
@@ -73,7 +75,8 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
     prevIsPendingRef.current = isPending;
   }, [isPending]);
 
-  const handleSelectSpecification = (spec: PowerSpecification) => {
+  const handleSelectSpecification = (spec: PowerSpecification) => 
+  {
     setValue(pathToPowerField(index, 'powerSpecificationId'), spec.id, { shouldDirty: true, shouldValidate: true });
   };
 
@@ -97,7 +100,8 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
       });
     });
     
-    setImportedSpellIds(prev => {
+    setImportedSpellIds(prev => 
+    {
       const newSet = new Set(prev);
       importedSpells.forEach(spell => newSet.add(spell.id));
       return newSet;
