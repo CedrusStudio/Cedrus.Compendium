@@ -9,13 +9,14 @@ import { Armor } from "@/domain/characters/equipment/Armor";
 import { Shield } from "@/domain/characters/equipment/Shield";
 import { Item } from "@/domain/characters/equipment/Item";
 import { Mount } from "@/domain/characters/equipment/Mount";
+import { Race } from "@/domain/Race";
 
 export function isAllowedSearchEntity(entity: string): boolean
 {
   return allowedSearchEntities.includes(entity as typeof allowedSearchEntities[number]);
 }
 
-const allowedSearchEntities = ['character', 'maneuver', 'spell', 'perk', 'stance', 'state', 'weapon', 'armor', 'shield', 'inventoryItem', 'mount', 'powerSpecification'] as const satisfies readonly string[];
+const allowedSearchEntities = ['character', 'maneuver', 'spell', 'perk', 'race', 'stance', 'state', 'weapon', 'armor', 'shield', 'inventoryItem', 'mount', 'powerSpecification'] as const satisfies readonly string[];
 export type EntityName = typeof allowedSearchEntities[number];
 export type EntityTypeMap = 
 {
@@ -23,6 +24,7 @@ export type EntityTypeMap =
   'maneuver': Maneuver;
   'spell': Spell;
   'perk': Perk;
+  'race': Race;
   'stance': Mode;
   'state': Mode;
   'weapon': Weapon;

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Swords, Shield, Award, Activity, Package, Wand2 } from 'lucide-react';
+import { Swords, Shield, Award, Activity, Package, Wand2, Users } from 'lucide-react';
 import { GiSpellBook } from "react-icons/gi";
 
 export default async function CompendiumPage()
@@ -35,6 +35,14 @@ function CategoryCards()
       description: 'Specjalne umiejętności i zdolności postaci',
       href: '/compendium/perks',
       color: 'text-purple-500'
+    },
+    {
+      id: 'races',
+      title: 'Rasy',
+      icon: <Users className="h-8 w-8" />,
+      description: 'Rasy postaci i ich cechy charakterystyczne',
+      href: '/compendium/races',
+      color: 'text-green-500'
     },
     {
       id: 'stances',

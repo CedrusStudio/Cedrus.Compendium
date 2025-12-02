@@ -2,6 +2,7 @@ export const createCompendiumFormId =
 {
   maneuver: (id: string) => `edit-maneuver-${id}`,
   perk: (id: string) => `edit-perk-${id}`,
+  race: (id: string) => `edit-race-${id}`,
   spell: (id: string) => `edit-spell-${id}`,
   stance: (id: string) => `edit-stance-${id}`,
   state: (id: string) => `edit-state-${id}`,

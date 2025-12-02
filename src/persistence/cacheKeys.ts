@@ -178,6 +178,28 @@ export function createKeysetSearchPowerSpecificationsKey
     ] as const;
 }
 
+// Races
+const raceKey = 'races';
+export const createRaceByIdKey = (id: string) => [raceKey, id] as const;
+export function createKeysetSearchRacesKey
+(
+    search: string | undefined, 
+    cursor: string = emptyUlid,
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
+{
+    return [
+        raceKey, 
+        searchParamKey, 
+        search || '', 
+        cursor, 
+        includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
 
 // Weapons
 const weaponKey = 'weapons';

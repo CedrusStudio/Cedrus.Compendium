@@ -7,6 +7,7 @@ export type EntityType =
   | 'shields'
   | 'spells'
   | 'perks'
+  | 'races'
   | 'maneuvers'
   | 'stances'
   | 'states'
