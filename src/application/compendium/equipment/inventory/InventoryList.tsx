@@ -12,7 +12,7 @@ import { createInventoryItemKeysetQuery } from "@/infrastructure/searchQueries/e
 import InventoryItemView from "@/application/compendium/equipment/inventory/InventoryItemView";
 import { ulid } from "ulid";
 import { CreateDefaultInventoryItem, Item } from "@/domain/characters/equipment/Item";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
@@ -32,18 +32,19 @@ export default function InventoryList()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('inventory');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
   const [displayedInventory, setDisplayedInventory] = useState<Item[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchInventoryKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const queryKey = createKeysetSearchInventoryKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
   const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const inventoryQuery = createInventoryItemKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const inventoryQuery = createInventoryItemKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await searchClient.search<Item[]>(inventoryQuery);
     },
     staleTime: 5_000
@@ -66,23 +67,29 @@ export default function InventoryList()
     });
   }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    clearResults();
-    setSearchInput(e.target.value);
-  };
-
-  const handleSearchTagsChange = (tags: string[]) => 
-  {
-    setSearchTags(tags);
-    clearResults();
-  };
-
-  const clearResults = () =>
+  const clearResults = useCallback(() =>
   {
     setDisplayedInventory([]);
     setCursor(emptyUlid);
-  };
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
 
   return (
     <>
@@ -91,6 +98,8 @@ export default function InventoryList()
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
+        excludedTags={excludedTags}
+        handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >

@@ -32,18 +32,19 @@ export default function StancesList()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('stances');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
   const [displayedStances, setDisplayedStances] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchStancesKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const queryKey = createKeysetSearchStancesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const stancesQuery = createStanceKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const stancesQuery = createStanceKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await searchClient.search<Mode[]>(stancesQuery);
     },
     staleTime: 5_000
@@ -86,6 +87,12 @@ export default function StancesList()
     clearResults();
   }, [clearResults]);
 
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -93,6 +100,8 @@ export default function StancesList()
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
+        excludedTags={excludedTags}
+        handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >

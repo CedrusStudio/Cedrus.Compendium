@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { Card } from '@/ui/card';
 import { useDispatch } from 'react-redux';
@@ -22,28 +22,30 @@ import { useEntityTags } from '@/common/hooks/useEntityTags';
 import { CharacterTag, isCharacterOrSessionTag } from '@/domain/Tag';
 
 const pageSize = DEFAULT_PAGE_SIZE;
+const EMPTY_ARRAY: never[] = [];
 
 export default function CharactersHeadersList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
-  const [searchTags, setSearchTags] = useState<string[]>([]);
+  const [searchTags, setSearchTags] = useState<string[]>([CharacterTag]);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
   
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
   const availableTagsOnlyForCharacters = availableTags.filter(isCharacterOrSessionTag);
 
-  const [displayedCharacters, setDisplayedCharacters] = useState<CharacterSummary[]>([]);
+  const [displayedCharacters, setDisplayedCharacters] = useState<CharacterSummary[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
   const tagsEnrichedByCharacter = searchTags.includes(CharacterTag) ? searchTags : [ ...searchTags, CharacterTag ];
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize);
-  const { data: searchResults = [] } = useQuery
+  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags);
+  const { data: searchResults = EMPTY_ARRAY } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, tagsEnrichedByCharacter, pageSize);
+      const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, tagsEnrichedByCharacter, pageSize, excludedTags);
       return await client.search<CharacterSummary[]>(charactersQuery);
     },
     staleTime: 5_000
@@ -65,29 +67,37 @@ export default function CharactersHeadersList()
       return [...prev, ...searchResults]
     });
   }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
-
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  
+  const clearResults = useCallback(() =>
   {
-    setSearchInput(e.target.value);
-    clearResults();
-  };
+    setDisplayedCharacters(EMPTY_ARRAY);
+    setCursor(emptyUlid);
+  }, []);
 
-  const handleSearchTagsChange = (tags: string[]) => 
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchInput(e.target.value);
+  }, [clearResults]);
+  
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
     clearResults();
-  };
+  }, [clearResults]);
 
-  const clearResults = () =>
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
-    setDisplayedCharacters([]);
+    setExcludedTags(tags);
     setCursor(emptyUlid);
-  }
+    clearResults();
+  }, [clearResults]);
 
   return (
     <div className='flex flex-col items-center justify-end'>
 
       <div className='flex flex-row gap-4 justify-center mt-4 w-full max-w-7xl px-4'>
+
         <Input 
           name="search" 
           type="text" 
@@ -96,12 +106,14 @@ export default function CharactersHeadersList()
           onChange={handleSearchInputChange}
           className="w-md"
         />
+
         <TagFilter 
           includedTags={searchTags} 
-          onTagsChange={handleSearchTagsChange}
+          onIncludedTagsChange={handleSearchTagsChange}
           availableTags={availableTagsOnlyForCharacters}
           isLoading={tagsLoading}
-          excludedTags={[CharacterTag]}
+          excludedTags={excludedTags}
+          onExcludedTagsChange={handleExcludedTagsChange}
         />
       </div>
 

@@ -31,18 +31,19 @@ export default function PerksList()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('perks');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchPerksKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const queryKey = createKeysetSearchPerksKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -85,6 +86,12 @@ export default function PerksList()
     clearResults();
   }, [clearResults]);
 
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -92,6 +99,8 @@ export default function PerksList()
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
+        excludedTags={excludedTags}
+        handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >

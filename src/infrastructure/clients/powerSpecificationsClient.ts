@@ -5,6 +5,12 @@ const powerSpecificationPathSegment = '/powers/specifications';
 
 const powerSpecificationsClient = 
 {
+    //Queries
+    get: async (id: string): Promise<PowerSpecificationDto> =>
+    {
+        const response = await client.get(`${powerSpecificationPathSegment}/${id}`);
+        return response.data;
+    },
     //Commands
     add: async (powerSpecification: PowerSpecificationDto): Promise<string> =>
     {

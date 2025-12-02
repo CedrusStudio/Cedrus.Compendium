@@ -4,6 +4,24 @@ import { createCommonRepository } from '@/persistence/common/createCommonReposit
 
 type RouteParams = Promise<{ id: string }>
 
+export async function GET(request: NextRequest, segmentData: { params: RouteParams })
+{
+  try 
+  {
+    const { id } = await segmentData.params;
+    if (!id) return NextResponse.json({ message: 'Power specification ID is required' }, { status: 400 });
+    const repository = await createCommonRepository(prisma.powerSpecification);
+    const powerSpecification = await repository.getById(id);
+    if (!powerSpecification) return NextResponse.json({ message: 'Power specification not found' }, { status: 404 });
+    return NextResponse.json(powerSpecification);
+  } 
+  catch (error) 
+  {
+    console.error('Error fetching power specification:', error);
+    return NextResponse.json({ message: 'Server error' }, { status: 500 });
+  }
+}
+
 export async function PUT(request: NextRequest, segmentData: { params: RouteParams })
 {
   try 

@@ -13,7 +13,7 @@ import { createMountKeysetQuery } from "@/infrastructure/searchQueries/equipment
 import MountView from "@/application/compendium/equipment/mounts/MountView";
 import { ulid } from "ulid";
 import { CreateDefaultMount, Mount } from "@/domain/characters/equipment/Mount";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
@@ -33,18 +33,19 @@ export default function MountsList()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('mounts');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
   const [displayedMounts, setDisplayedMounts] = useState<Mount[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchMountsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const queryKey = createKeysetSearchMountsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
   const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const mountsQuery = createMountKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const mountsQuery = createMountKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await searchClient.search<Mount[]>(mountsQuery);
     },
     staleTime: 5_000
@@ -67,23 +68,29 @@ export default function MountsList()
     });
   }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    clearResults();
-    setSearchInput(e.target.value);
-  };
-
-  const handleSearchTagsChange = (tags: string[]) => 
-  {
-    setSearchTags(tags);
-    clearResults();
-  };
-
-  const clearResults = () =>
+  const clearResults = useCallback(() =>
   {
     setDisplayedMounts([]);
     setCursor(emptyUlid);
-  };
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
 
   return (
     <>
@@ -92,6 +99,8 @@ export default function MountsList()
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
+        excludedTags={excludedTags}
+        handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >

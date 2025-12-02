@@ -9,7 +9,8 @@ export function createWeaponKeysetQuery
   cursor: string = emptyUlid,
   includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
-  style?: Style | "All"
+  style?: Style | "All",
+  excludeTags?: string[]
 )
   : SearchEntityPayload
 { 
@@ -25,6 +26,11 @@ export function createWeaponKeysetQuery
   if (style && style !== "All") 
   {
     builder.searchFilter("style", style);
+  }
+
+  if (excludeTags && excludeTags.length > 0) 
+  {
+    builder.excludeFilter("tags", excludeTags);
   }
 
   return builder.build();

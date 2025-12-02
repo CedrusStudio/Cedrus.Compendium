@@ -2,7 +2,7 @@
 
 import EditHealthCard from "@/application/characters/edit/combat/EditHealthCard";
 import EditDefenseCard from "@/application/characters/edit/combat/EditDefenseCard";
-import EditOffenseCard from "@/application/characters/edit/combat/EditOffenseCard";
+import EditOffenseCard from "@/application/characters/edit/combat/offense/EditOffenseCard";
 import EditStancesCard from "@/application/characters/edit/combat/EditStancesCard";
 import EditStatesCard from "@/application/characters/edit/combat/EditStatesCard";
 import EditManeuversCard from "@/application/characters/edit/combat/EditManeuversCard";

@@ -13,7 +13,7 @@ import { createShieldKeysetQuery } from "@/infrastructure/searchQueries/equipmen
 import ShieldView from "@/application/compendium/equipment/shields/ShieldView";
 import { ulid } from "ulid";
 import { CreateDefaultShield, Shield } from "@/domain/characters/equipment/Shield";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
@@ -33,18 +33,19 @@ export default function ShieldsList()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('shields');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
   const [displayedShields, setDisplayedShields] = useState<Shield[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const queryKey = createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
   const { data: searchResults = [] } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const shieldsQuery = createShieldKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const shieldsQuery = createShieldKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await searchClient.search<Shield[]>(shieldsQuery);
     },
     staleTime: 5_000
@@ -67,23 +68,29 @@ export default function ShieldsList()
     });
   }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    clearResults();
-    setSearchInput(e.target.value);
-  };
-
-  const handleSearchTagsChange = (tags: string[]) => 
-  {
-    setSearchTags(tags);
-    clearResults();
-  };
-
-  const clearResults = () =>
+  const clearResults = useCallback(() =>
   {
     setDisplayedShields([]);
     setCursor(emptyUlid);
-  };
+  }, []);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    clearResults();
+    setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
 
   return (
     <>
@@ -92,6 +99,8 @@ export default function ShieldsList()
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
+        excludedTags={excludedTags}
+        handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >

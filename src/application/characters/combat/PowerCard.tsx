@@ -11,16 +11,35 @@ import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, reset
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
 import { useState } from 'react';
 import InfoContentWithTags from '@/common/components/tags/InfoContentWithTags';
+import { useQuery } from '@tanstack/react-query';
+import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
+import { PowerSpecification } from '@/domain/characters/combat/Power';
+import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
+import { colors } from '@/presentation/colors';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type PowerCardProps =
 {
-    power: Power;
+  power: Power;
 }
 
 export default function PowerCard({ power }: PowerCardProps)
 {
   const [usedSpells, setUsedSpells] = useState<(Spell | EndTurn)[]>([]);
   const [currentEssence, setCurrentEssence] = useState<number>(power.essence);
+  
+  // Calculate default offense index based on level + bonus
+  const defaultOffenseIndex = power.level + power.bonus;
+  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(defaultOffenseIndex);
+
+  // Fetch the PowerSpecification
+  const { data: powerSpecification } = useQuery
+  ({
+    queryKey: ['powerSpecification', power.powerSpecificationId],
+    queryFn: () => powerSpecificationsClient.get(power.powerSpecificationId),
+    enabled: !!power.powerSpecificationId && power.powerSpecificationId.length > 0,
+    staleTime: 5_000
+  });
 
   const addSpellToUsed = (spell: Spell | EndTurn) =>
   {
@@ -30,10 +49,12 @@ export default function PowerCard({ power }: PowerCardProps)
   const removeLastSpell = () =>
   {
     const lastSpell = usedSpells[usedSpells.length - 1];
+
     if (lastSpell && lastSpell !== "end")
     {
       setCurrentEssence(prev => Math.min(power.essence, prev + lastSpell.cost));
     }
+
     setUsedSpells(prev => prev.slice(0, -1));
   }
 
@@ -54,52 +75,71 @@ export default function PowerCard({ power }: PowerCardProps)
 
   return (
     <Card className='bg-muted'>
+      <CardHeader>
+        <CardTitle className="flex flex-col sm:flex-row items-center justify-between">
 
-        <CardHeader>
-            <CardTitle className="flex flex-col sm:flex-row items-center justify-between">
+          <div className="flex justify-center items-center mx-auto mb-4 sm:mb-0 lg:pl-65">
+            <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
+          </div>
 
-                <div className="flex justify-center items-center mx-auto mb-4 sm:mb-0 lg:pl-65">
-                    <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
+          <div className='flex flex-row justify-center items-center gap-6'>
+            <div className="grid grid-cols-3 gap-6 justify-center items-center">
+
+              <div className="flex flex-col items-center">
+                <span className="text-xs text-muted-foreground mb-1">{displayedText.level}</span>
+                <span className="font-bold text-lg text-primary">{power.level}</span>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <span className="text-xs text-muted-foreground mb-1">{displayedText.bonus}</span>
+                <span className="font-bold text-lg text-primary">{power.bonus}</span>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <span className="text-xs text-muted-foreground mb-1">{displayedText.essence}</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-lg text-primary">{currentEssence}</span>
+                  <span className="text-sm text-muted-foreground">/</span>
+                  <span className="font-bold text-lg text-muted-foreground">{power.essence}</span>
                 </div>
+              </div>
+              
+            </div>
+            
+            <Badge variant="outline" className="px-4 py-2 mt-1 text-base capitalize">
+              {power.type}
+            </Badge>
+          </div>
 
-                <div className='flex flex-row justify-center items-center gap-6'>
-                    <div className="grid grid-cols-3 gap-6 justify-center items-center">
-                        <div className="flex flex-col items-center">
-                            <span className="text-xs text-muted-foreground mb-1">{displayedText.level}</span>
-                            <span className="font-bold text-lg text-primary">{power.level}</span>
-                        </div>
+        </CardTitle>
+      </CardHeader>
 
-                        <div className="flex flex-col items-center">
-                            <span className="text-xs text-muted-foreground mb-1">{displayedText.bonus}</span>
-                            <span className="font-bold text-lg text-primary">{power.bonus}</span>
-                        </div>
+      <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2'>
 
-                        <div className="flex flex-col items-center">
-                            <span className="text-xs text-muted-foreground mb-1">{displayedText.essence}</span>
-                            <div className="flex items-center gap-2">
-                                <span className="font-bold text-lg text-primary">{currentEssence}</span>
-                                <span className="text-sm text-muted-foreground">/</span>
-                                <span className="font-bold text-lg text-muted-foreground">{power.essence}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <Badge variant="outline" className="px-4 py-2 mt-1 text-base capitalize">
-                        {power.type}
-                    </Badge>
-                </div>
-
-            </CardTitle>
-        </CardHeader>
-
-        <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
         {
-            power.spells.map(spell => <SpellView key={spell.id} spell={spell} addSpellToUsed={addSpellToUsed} usedSpells={usedSpells} reduceEssence={reduceEssence} currentEssence={currentEssence} />)
+          powerSpecification && (
+            <div className="col-span-full">
+              {
+                powerSpecification.offenses && powerSpecification.offenses.length > 0 && (
+                  <PowerOffenseSelector 
+                    powerSpecification={powerSpecification}
+                    selectedIndex={selectedOffenseIndex}
+                    onSelectIndex={setSelectedOffenseIndex}
+                  />
+                )
+              }
+            </div>
+          )
+        }
+
+        {
+          power.spells.map(spell => <SpellView key={spell.id} spell={spell} addSpellToUsed={addSpellToUsed} usedSpells={usedSpells} reduceEssence={reduceEssence} currentEssence={currentEssence} />)
         }
 
         <MediumUsedSpellsView usedSpells={usedSpells} removeLastSpell={removeLastSpell} setUsedSpells={setUsedSpells} endTurn={endTurn} resetEssence={resetEssence} />
         <SmallUsedSpellsView usedSpells={usedSpells} removeLastSpell={removeLastSpell} setUsedSpells={setUsedSpells} endTurn={endTurn} resetEssence={resetEssence} />
-
-        </CardContent>
+      
+      </CardContent>
 
     </Card>
   );
@@ -107,146 +147,241 @@ export default function PowerCard({ power }: PowerCardProps)
 
 type UsedSpellsViewProps =
 {
-    usedSpells: (Spell | EndTurn)[];
-    removeLastSpell: () => void;
-    setUsedSpells: (usedSpells: (Spell | EndTurn)[]) => void;
-    endTurn: () => void;
-    resetEssence: () => void;
+  usedSpells: (Spell | EndTurn)[];
+  removeLastSpell: () => void;
+  setUsedSpells: (usedSpells: (Spell | EndTurn)[]) => void;
+  endTurn: () => void;
+  resetEssence: () => void;
 }
 
 function SmallUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn, resetEssence }: UsedSpellsViewProps)
 {
-    return (
-        <div className="lg:grid-cols-13 col-span-full lg:hidden">
+  return (
+    <div className="lg:grid-cols-13 col-span-full lg:hidden">
 
-            <div className="text-sm lg:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 lg:gap-2 py-3">
-            {
-                usedSpells.map((usedSpell, index) => 
-                {
-                    if (usedSpell === "end") return (
-                        <Badge key={index} variant="destructive" className='m-1' >
-                            {nextIcon()}
-                        </Badge>
-                    );
+      <div className="text-sm lg:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 lg:gap-2 py-3">
+      {
+        usedSpells.map((usedSpell, index) => 
+        {
+          if (usedSpell === "end") return (
+            <Badge key={index} variant="destructive" className='m-1' >
+              {nextIcon()}
+            </Badge>
+          );
 
-                    return (
-                        <Badge key={index} variant={getBadgeVariant(usedSpell.castTime)} className='m-1' >
-                            {usedSpell.name}
-                        </Badge>
-                    );
-                })
-            }
-            </div>
+          return (
+            <Badge key={index} variant={getBadgeVariant(usedSpell.castTime)} className='m-1' >
+              {usedSpell.name}
+            </Badge>
+          );
+        })
+      }
+      </div>
 
-            <div className="flex gap-4 justify-center items-center">
-                <Button variant="default" className='flex-1 lg:flex-0' onClick={() => { setUsedSpells([]); resetEssence(); }}>
-                    {resetIcon()}
-                </Button>
+      <div className="flex gap-4 justify-center items-center">
+        <Button variant="default" className='flex-1 lg:flex-0' onClick={() => { setUsedSpells([]); resetEssence(); }}>
+          {resetIcon()}
+        </Button>
 
-                <Button variant="default" className='flex-1 lg:flex-0' onClick={removeLastSpell}>
-                    {removePreviousIcon()}
-                </Button>
+        <Button variant="default" className='flex-1 lg:flex-0' onClick={removeLastSpell}>
+          {removePreviousIcon()}
+        </Button>
 
-                <Button variant="default" className='flex-1 lg:flex-0' onClick={endTurn}>
-                    {nextIcon()}
-                </Button>
-            </div>
-        </div>
-    );
+        <Button variant="default" className='flex-1 lg:flex-0' onClick={endTurn}>
+          {nextIcon()}
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 function MediumUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn, resetEssence }: UsedSpellsViewProps)
 {
-    return (
-        <div className="hidden lg:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
+  return (
+    <div className="hidden lg:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
 
-            <Button variant="default" className='col-span-1' onClick={() => { setUsedSpells([]); resetEssence(); }}>
-                {resetIcon()}
-            </Button>
+      <Button variant="default" className='col-span-1' onClick={() => { setUsedSpells([]); resetEssence(); }}>
+        {resetIcon()}
+      </Button>
 
-            <p className="text-sm col-span-10">
-                <span className='text-muted-foreground italic'>
-                {
-                    usedSpells.map((usedSpell, index) => 
-                    {
-                        if (usedSpell === "end") return (
-                            <Badge key={index} variant="destructive" className='m-1' >
-                                {nextIcon()}
-                            </Badge>
-                        );
-
-                        return (
-                            <Badge key={index} variant={getBadgeVariant(usedSpell.castTime)} className='m-1' >
-                                {usedSpell.name}
-                            </Badge>
-                        );
-                    })
-                }
-                </span>
-            </p>
-
-            <Button variant="default" className='col-span-1' onClick={removeLastSpell}>
-                {removePreviousIcon()}
-            </Button>
-
-            <Button variant="default" className='col-span-1' onClick={endTurn}>
+      <p className="text-sm col-span-10">
+        <span className='text-muted-foreground italic'>
+        {
+          usedSpells.map((usedSpell, index) => 
+          {
+            if (usedSpell === "end") return (
+              <Badge key={index} variant="destructive" className='m-1' >
                 {nextIcon()}
-            </Button>
-        </div>
-    );
+              </Badge>
+            );
+
+            return (
+              <Badge key={index} variant={getBadgeVariant(usedSpell.castTime)} className='m-1' >
+                {usedSpell.name}
+              </Badge>
+            );
+          })
+        }
+        </span>
+      </p>
+
+      <Button variant="default" className='col-span-1' onClick={removeLastSpell}>
+        {removePreviousIcon()}
+      </Button>
+
+      <Button variant="default" className='col-span-1' onClick={endTurn}>
+        {nextIcon()}
+      </Button>
+    </div>
+  );
 }
 
 type SpellViewProps =
 {
-    spell: Spell;
-    addSpellToUsed: (spell: Spell | EndTurn) => void;
-    usedSpells: (Spell | EndTurn)[];
-    reduceEssence: (cost: number) => void;
-    currentEssence: number;
+  spell: Spell;
+  addSpellToUsed: (spell: Spell | EndTurn) => void;
+  usedSpells: (Spell | EndTurn)[];
+  reduceEssence: (cost: number) => void;
+  currentEssence: number;
 }
 
 function SpellView({ spell, addSpellToUsed, usedSpells, reduceEssence, currentEssence }: SpellViewProps) 
 {
-    const canAffordSpell = currentEssence >= spell.cost;
+  const canAffordSpell = currentEssence >= spell.cost;
 
-    const canUseSpell = (spell: Spell, usedSpells: (Spell | EndTurn)[]) =>
+  const canUseSpell = (spell: Spell, usedSpells: (Spell | EndTurn)[]) =>
+  {
+    return canUseCastable(spell, usedSpells) && canAffordSpell;
+  };
+
+  const handleUseSpell = (spell: Spell) =>
+  {
+    addSpellToUsed(spell);
+    reduceEssence(spell.cost);
+  };
+
+  return (
+    <div className='flex m-1 p-1 w-full h-full'>
+
+      <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
+        <FieldViewWithInfo
+          value={spell.grade}
+          infoContent={<InfoContentWithTags castable={spell} />}
+          className="gap-1"
+          nameClassName='w-4xs'
+        >
+          {spell.name}
+        </FieldViewWithInfo>
+      </div>
+
+      <div className='flex items-center justify-center'>
+        <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-none' variant="cost">
+          <span className="scale-100">{costIcon}</span>
+          <span>{spell.cost}</span>
+        </Badge>
+        <Button variant="ghost" className="h-full p-0" onClick={() => handleUseSpell(spell)} disabled={!canUseSpell(spell, usedSpells)}>
+          <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none' variant={getBadgeVariant(spell.castTime)}>
+            {cooldownIcon()}
+            <span>{spell.cooldown || battleIcon("scale-80")}</span>
+          </Badge>
+        </Button>
+      </div>
+
+    </div>
+  );
+}
+
+type PowerOffenseSelectorProps = 
+{
+  powerSpecification: PowerSpecification;
+  selectedIndex: number;
+  onSelectIndex: (index: number) => void;
+};
+
+function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex }: PowerOffenseSelectorProps) 
+{
+  const offenses = powerSpecification.offenses;
+  const maxIndex = offenses.length - 1;
+  const currentIndex = Math.min(selectedIndex, maxIndex);
+  const offense = offenses[currentIndex];
+
+  if (!offense) return null;
+
+  const attackString = toOffenseString(offense.spellOffense);
+  const damageString = toOffenseString(offense.spellDamage, true);
+  const criticalString = `${toCriticalRangeString(offense.spellOffense)}, ${offense.spellOffense.critical.power >= 0 ? "+" : ""}${offense.spellOffense.critical.power}`;
+
+  const handlePrevious = () => 
+  {
+    if (currentIndex > 0) 
     {
-        return canUseCastable(spell, usedSpells) && canAffordSpell;
-    };
+      onSelectIndex(currentIndex - 1);
+    }
+  };
 
-    const handleUseSpell = (spell: Spell) =>
+  const handleNext = () => 
+  {
+    if (currentIndex < maxIndex) 
     {
-        addSpellToUsed(spell);
-        reduceEssence(spell.cost);
-    };
+      onSelectIndex(currentIndex + 1);
+    }
+  };
 
-    return (
-        <div className='flex m-1 p-1 w-full h-full'>
-
-            <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
-                <FieldViewWithInfo
-                    value={spell.grade}
-                    infoContent={<InfoContentWithTags castable={spell} />}
-                    className="gap-1"
-                    nameClassName='w-4xs'
-                >
-                    {spell.name}
-                </FieldViewWithInfo>
-            </div>
-
-            <div className='flex items-center justify-center'>
-                <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-none' variant="cost">
-                    <span className="scale-100">{costIcon}</span>
-                    <span>{spell.cost}</span>
-                </Badge>
-                <Button variant="ghost" className="h-full p-0" onClick={() => handleUseSpell(spell)} disabled={!canUseSpell(spell, usedSpells)}>
-                    <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none' variant={getBadgeVariant(spell.castTime)}>
-                        {cooldownIcon()}
-                        <span>{spell.cooldown || battleIcon("scale-80")}</span>
-                    </Badge>
-                </Button>
-            </div>
-
+  return (
+    <div className="col-span-full mt-4 pt-4 border-t border-border/40">
+      <div className="flex flex-col gap-3 p-4 bg-muted/30 rounded-lg">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold">Siła zaklęcia</h3>
+          
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+              className="h-8 w-8 p-0"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <span className="text-sm font-medium min-w-[60px] text-center">
+              {currentIndex} / {maxIndex}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleNext}
+              disabled={currentIndex === maxIndex}
+              className="h-8 w-8 p-0"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
-    );
+
+        <div className="flex flex-col gap-2">
+          {
+            offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
+          }
+          
+          <div className="flex flex-wrap gap-2 items-center justify-center">
+
+            <Badge variant="outline" className="font-mono">
+              <span className={colors.offense.leading}>{attackString}</span>
+              {damageString && <Badge variant="secondary" className="ml-1">{damageString}</Badge>}
+            </Badge>
+
+            <Badge variant="secondary" className="font-mono text-xs">
+              {criticalString}
+            </Badge>
+
+            <Badge variant="cost" className="h-8 w-20">
+              {costIcon}
+              <span className="ml-1">{offense.cost}</span>
+            </Badge>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

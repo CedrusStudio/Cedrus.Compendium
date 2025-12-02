@@ -38,7 +38,7 @@ export const powerSchema = entitySchema.extend
   bonus: z.coerce.number<number>().int().min(0, { message: "Bonus musi mieć co najmniej 0." }).max(10, { message: "Bonus musi mieć najwyżej 10." }),
   essence: z.coerce.number<number>().int().min(0, { message: "Esencja musi mieć co najmniej 0." }).max(15_000, { message: "Esencja musi mieć najwyżej 15000." }),
   spells: z.array(spellSchema).max(100, { message: "Możesz mieć najwyżej 100 zaklęć." }),
-  powerSpecification: powerSpecificationSchema
+  powerSpecificationId: z.string().min(1, { message: "Musisz wybrać specyfikację mocy." })
 });
 
 export const powersSchema = z.array(powerSchema).max(100, { message: "Możesz mieć najwyżej 100 mocy." });

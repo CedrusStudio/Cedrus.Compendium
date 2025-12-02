@@ -95,8 +95,7 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     powers: copyCreateCharacter.powers.map(power => ({
       ...power,
       spells: undefined,
-      spellsIds: power.spells.map(spell => spell.id),
-      powerSpecificationId: power.powerSpecification.id
+      spellsIds: power.spells.map(spell => spell.id)
     })),
 
     maneuvers: {
@@ -213,19 +212,22 @@ export function toCharacterCombatPersistenceModel
 )
   : Prisma.CharacterUpdateInput
 {
+  const uniquePowerSpecIds = [...new Set(combat.powers.map(power => power.powerSpecificationId))];
+  
   return {
     health: combat.health,
     defenses: combat.defenses,
     stances: createUpsertPayload(existingStancesIds, combat.stances, stancesIdsToConnect),
     states: createUpsertPayload(existingStatesIds, combat.states, statesIdsToConnect),
     maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers, maneuversIdsToConnect),
-    powerSpecifications: createUpsertPayload(existingPowerSpecificationsIds, combat.powers.map(power => power.powerSpecification), powerSpecificationsIdsToConnect),
+    powerSpecifications: {
+      connect: [...powerSpecificationsIdsToConnect, ...uniquePowerSpecIds.filter(id => !existingPowerSpecificationsIds.includes(id))].map(id => ({ id }))
+    },
     offenses: combat.offenses,
     powers: combat.powers.map(power => ({
       ...power,
       spells: undefined,
       spellsIds: power.spells.map(spell => spell.id),
-      powerSpecificationId: power.powerSpecification.id
     })),
     spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells), spellsIdsToConnect),
   };
@@ -312,9 +314,6 @@ function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: Spel
 {
   const relatedSpell = spellPersistenceModels
     .filter(spell => powerPersistenceModel.spellsIds.includes(spell.id));
-    
-  const relatedPowerSpecification = powerSpecificationPersistenceModels
-    .find(spec => spec.id === powerPersistenceModel.powerSpecificationId)!;
 
   return {
     ...toEntity(powerPersistenceModel),
@@ -323,7 +322,7 @@ function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: Spel
     essence: powerPersistenceModel.essence,
     type: powerPersistenceModel.type as PowerType,
     spells: relatedSpell.map(toSpell),
-    powerSpecification: toPowerSpecification(relatedPowerSpecification)
+    powerSpecificationId: powerPersistenceModel.powerSpecificationId
   };
 }
 

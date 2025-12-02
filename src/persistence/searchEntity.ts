@@ -1,5 +1,5 @@
 import { type SearchEntityPayload, type SearchByIdEntityPayload, SearchValueOutputs } from '@/common/global/SearchPayloads';
-import { createFiltering, createMapping, createSorting, SearchPayload, Select } from '@/common/global/SearchPayloads';
+import { createFiltering, createExcludeFiltering, createMapping, createSorting, SearchPayload, Select } from '@/common/global/SearchPayloads';
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 import prisma from '@/lib/prisma';
 
@@ -39,7 +39,7 @@ type FindInput =
 {
   include?: Record<string, boolean>;
   select?: Select;
-  where: Record<string, SearchValueOutputs> | { id: { gt: string; }; } | undefined;
+  where: Record<string, SearchValueOutputs> | { AND?: Array<Record<string, SearchValueOutputs> | { NOT: Record<string, SearchValueOutputs> }> } | { id: { gt: string; }; } | undefined;
   orderBy?: { [key: string]: "asc" | "desc" }[];
   take?: number;
   skip?: number;
@@ -47,12 +47,39 @@ type FindInput =
 
 function createSearchInput(payload: SearchPayload, includeFallback: Record<string, boolean> = {}): FindInput
 {
-  const filters = createFiltering(payload);
+  const includeFilters = createFiltering(payload);
+  const excludeFilters = createExcludeFiltering(payload);
   const sorting = createSorting(payload);
   const mapping = createMapping(payload, includeFallback);
   
+  // Build where clause with proper Prisma NOT syntax
+  let whereClause: FindInput['where'];
+  
+  if (includeFilters && excludeFilters) 
+  {
+    // Both include and exclude filters - use AND with NOT wrapper
+    const andConditions: Array<Record<string, SearchValueOutputs> | { NOT: Record<string, SearchValueOutputs> }> = 
+    [
+      includeFilters,
+      { NOT: excludeFilters }
+    ];
+    whereClause = { AND: andConditions };
+  } 
+  else if (includeFilters) 
+  {
+    whereClause = includeFilters;
+  } 
+  else if (excludeFilters) 
+  {
+    whereClause = { NOT: excludeFilters };
+  } 
+  else 
+  {
+    whereClause = undefined;
+  }
+  
   let findInput: FindInput = {
-    where: filters,
+    where: whereClause,
     orderBy: sorting,
     ...mapping
   };
@@ -67,13 +94,31 @@ function createSearchInput(payload: SearchPayload, includeFallback: Record<strin
 
   if (isKeysetPagination(payload.pagination)) 
   {
-    const { where, take } = createKeysetPagination(payload.pagination);
+    const { where: cursorWhere, take } = createKeysetPagination(payload.pagination);
 
-    findInput = { 
-      ...findInput,
-      where: { ...findInput.where, ...where },
-      take
-    };
+    // Merge cursor condition with existing where clause
+    if (whereClause && 'AND' in whereClause && whereClause.AND) {
+      // Already using AND - append cursor condition
+      findInput = { 
+        ...findInput,
+        where: { AND: [...whereClause.AND, cursorWhere] },
+        take
+      };
+    } else if (whereClause) {
+      // Single condition or NOT - wrap in AND with cursor
+      findInput = { 
+        ...findInput,
+        where: { AND: [whereClause, cursorWhere] },
+        take
+      };
+    } else {
+      // No filters - just cursor
+      findInput = { 
+        ...findInput,
+        where: cursorWhere,
+        take
+      };
+    }
   }
 
   return findInput;

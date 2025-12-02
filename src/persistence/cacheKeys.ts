@@ -5,7 +5,26 @@ import { Style } from "@/domain/characters/equipment/Weapon";
 // Characters
 const characterKey = 'characters';
 
-export const createSearchCharactersKey = (search: string, cursor: string, includeTags?: string[], pageSize?: number) => [characterKey, searchParamKey, search, cursor, includeTags?.join(',') || '', pageSize] as const;
+export function createSearchCharactersKey
+(
+    search: string, 
+    cursor: string, 
+    includeTags?: string[], 
+    pageSize?: number,
+    excludeTags?: string[]
+) 
+{
+    return [
+        characterKey, 
+        searchParamKey, 
+        search, 
+        cursor, 
+        includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
+
 export const allCharactersKey = [characterKey, 'all'] as const;
 export const createCharacterByIdKey = (id: string) => [characterKey, id] as const;
 
@@ -29,8 +48,9 @@ export function createKeysetSearchManeuversKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         maneuverKey, 
@@ -38,6 +58,7 @@ export function createKeysetSearchManeuversKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -50,8 +71,9 @@ export function createKeysetSearchPerksKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         perkKey, 
@@ -59,6 +81,7 @@ export function createKeysetSearchPerksKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -71,8 +94,9 @@ export function createKeysetSearchStancesKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         stanceKey, 
@@ -80,6 +104,7 @@ export function createKeysetSearchStancesKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -92,8 +117,9 @@ export function createKeysetSearchStatesKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         stateKey, 
@@ -101,6 +127,7 @@ export function createKeysetSearchStatesKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -113,8 +140,9 @@ export function createKeysetSearchSpellsKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         spellKey, 
@@ -122,6 +150,7 @@ export function createKeysetSearchSpellsKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -134,8 +163,9 @@ export function createKeysetSearchPowerSpecificationsKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         powerSpecificationKey, 
@@ -143,6 +173,7 @@ export function createKeysetSearchPowerSpecificationsKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -157,8 +188,9 @@ export function createKeysetSearchWeaponsKey
     cursor: string = emptyUlid, 
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    style?: Style | "All"
-) : readonly [string, string, string | undefined, string, string, string, number] 
+    style?: Style | "All",
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, string, number] 
 {
     return [
         weaponKey, 
@@ -167,6 +199,7 @@ export function createKeysetSearchWeaponsKey
         cursor, 
         includeTags?.join(',') || '', 
         style || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -175,8 +208,9 @@ export function createKeysetSearchWeaponsKeyWithoutStyle
     search: string | undefined, 
     cursor: string = emptyUlid, 
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         weaponKey, 
@@ -184,6 +218,7 @@ export function createKeysetSearchWeaponsKeyWithoutStyle
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -196,8 +231,9 @@ export function createKeysetSearchArmorsKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number]  
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number]  
 {
     return [
         armorKey, 
@@ -205,6 +241,7 @@ export function createKeysetSearchArmorsKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -217,8 +254,9 @@ export function createKeysetSearchShieldsKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         shieldKey, 
@@ -226,6 +264,7 @@ export function createKeysetSearchShieldsKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -238,8 +277,9 @@ export function createKeysetSearchInventoryKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         inventoryKey, 
@@ -247,6 +287,7 @@ export function createKeysetSearchInventoryKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -259,8 +300,9 @@ export function createKeysetSearchMountsKey
     search: string | undefined, 
     cursor: string = emptyUlid,
     includeTags?: string[],
-    pageSize: number = DEFAULT_PAGE_SIZE
-) : readonly [string, string, string | undefined, string, string, number] 
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, string, string, string, number] 
 {
     return [
         mountKey, 
@@ -268,6 +310,7 @@ export function createKeysetSearchMountsKey
         search || '', 
         cursor, 
         includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
         pageSize
     ] as const;
 }

@@ -191,9 +191,8 @@ export async function updateCharacterCombat(id: string, characterCombat: CombatD
   const spellEntities = characterCombat.powers.flatMap(power => power.spells);
   const existingSpellIds = await fetchExistingEntityIds(prisma.spell, spellEntities, idsOnCharacter.spellsIds);
   
-  // Power specifications need special handling because they come from powers
-  const powerSpecificationEntities = characterCombat.powers.map(power => power.powerSpecification);
-  const existingPowerSpecificationIds = await fetchExistingEntityIds(prisma.powerSpecification, powerSpecificationEntities, idsOnCharacter.powerSpecificationsIds);
+  // Power specifications - just collect the IDs from powers
+  const powerSpecificationIds = [...new Set(characterCombat.powers.map(power => power.powerSpecificationId))];
 
   const characterCombatPersistenceModel = toCharacterCombatPersistenceModel
   (
@@ -206,8 +205,8 @@ export async function updateCharacterCombat(id: string, characterCombat: CombatD
     existingManeuverIds,
     idsOnCharacter.spellsIds,
     existingSpellIds,
-    existingPowerSpecificationIds,
-    idsOnCharacter.powerSpecificationsIds
+    idsOnCharacter.powerSpecificationsIds,
+    powerSpecificationIds
   );
 
   const updatedCharacter = await prisma.character.update

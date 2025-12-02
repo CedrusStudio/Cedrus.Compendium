@@ -27,8 +27,8 @@ type ImportItemsSheetProps<TItem extends { id: string }> =
   currentItemsIds: string[];
   renderItem: (item: TItem, isSelected: boolean, onToggle: (id: string) => void) => React.ReactNode;
   entityType: EntityType;
-  createKeysetSearchKey: (search: string, cursor: string, includeTags: string[], pageSize: number) => readonly [string, string, string | undefined, string, string, number];
-  createKeysetQuery: (searchQuery: string, cursor: string, includeTags: string[], pageSize: number) => SearchEntityPayload;
+  createKeysetSearchKey: (search: string, cursor: string, includeTags: string[], pageSize: number, excludeTags?: string[]) => readonly [string, string, string | undefined, string, string, number] | readonly [string, string, string | undefined, string, string, string, number];
+  createKeysetQuery: (searchQuery: string, cursor: string, includeTags: string[], pageSize: number, excludeTags?: string[]) => SearchEntityPayload;
 };
 
 export default function ImportItemsSheet<TItem extends { id: string }>
@@ -58,14 +58,15 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   const [cursor, setCursor] = useState<string>(emptyUlid);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags(entityType);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
-  const queryKey = createKeysetSearchKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const queryKey = createKeysetSearchKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
   const { data: itemSearchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const query = createKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const query = createKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await searchClient.search<TItem[]>(query);
     },
     staleTime: 5_000
@@ -107,6 +108,12 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     setSearchTags(tags);
     clearResults();
   }, [clearResults]);
+
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
 
   useEffect(() => 
   {
@@ -190,6 +197,8 @@ export default function ImportItemsSheet<TItem extends { id: string }>
             tagsLoading={tagsLoading}
             handleSearchTagsChange={handleSearchTagsChange}
             handleSearchInputChange={handleSearchInputChange}
+            excludedTags={excludedTags}
+            handleExcludedTagsChange={handleExcludedTagsChange}
           >
             <div className="flex flex-col md:flex-row gap-2">
               {

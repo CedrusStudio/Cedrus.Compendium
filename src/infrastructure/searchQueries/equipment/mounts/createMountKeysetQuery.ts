@@ -7,7 +7,8 @@ export function createMountKeysetQuery
   searchQuery: string | undefined, 
   cursor: string = emptyUlid,
   includeTags?: string[],
-  pageSize: number = DEFAULT_PAGE_SIZE
+  pageSize: number = DEFAULT_PAGE_SIZE,
+  excludeTags?: string[]
 )
   : SearchEntityPayload
 { 
@@ -18,6 +19,11 @@ export function createMountKeysetQuery
   if (includeTags && includeTags.length > 0) 
   {
     builder.searchFilter("tags", includeTags);
+  }
+
+  if (excludeTags && excludeTags.length > 0) 
+  {
+    builder.excludeFilter("tags", excludeTags);
   }
 
   return builder.build();

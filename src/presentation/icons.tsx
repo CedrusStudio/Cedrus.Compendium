@@ -38,6 +38,7 @@ import { GrNext } from "react-icons/gr";
 import { GiHealthIncrease } from "react-icons/gi";
 import { GiHealthDecrease } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
+import { GiBoltSpellCast } from "react-icons/gi";
 
 import { IoIosArrowRoundUp } from "react-icons/io";
 import { IoIosArrowRoundDown } from "react-icons/io";
@@ -48,6 +49,8 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GiShadowGrasp } from "react-icons/gi";
 import { GiSeaDragon } from "react-icons/gi";
+import { LuSearchCheck } from "react-icons/lu";
+import { LuSearchX } from "react-icons/lu";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -144,3 +147,7 @@ export const showHideIcon = (isHidden: boolean, className?: string) => isHidden
 export const phantomIcon = (className?: string) => <GiShadowGrasp className={className} />;
 export const rollsIcon = (className?: string) => <GiRollingDices className={className} />;
 
+export const spellPowerIcon = (className?: string) => <GiBoltSpellCast className={className} />;
+
+export const banIcon = (className?: string) => <LuSearchX className={className} />;
+export const tagSearchIcon = (className?: string) => <LuSearchCheck className={className} />;

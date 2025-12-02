@@ -27,7 +27,6 @@ import PowersSpecificationView from "@/application/compendium/powers/PowerSpecif
 import PowerSpecificationEditableFields from "@/application/common/combat/PowerSpecificationEditableFields";
 
 const pageSize = DEFAULT_PAGE_SIZE;
-
 const EMPTY_ARRAY: never[] = [];
 
 export default function PowersSpecificationList()
@@ -36,18 +35,19 @@ export default function PowersSpecificationList()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('powerSpecifications');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
   const [displayedPowerSpecifications, setDisplayedPowerSpecifications] = useState<PowerSpecification[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchPowerSpecificationsKey(debouncedSearchTerm, cursor, searchTags, pageSize);
+  const queryKey = createKeysetSearchPowerSpecificationsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const powerSpecificationsQuery = createPowerSpecificationKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const powerSpecificationsQuery = createPowerSpecificationKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await searchClient.search<PowerSpecification[]>(powerSpecificationsQuery);
     },
     staleTime: 5_000
@@ -90,6 +90,12 @@ export default function PowersSpecificationList()
     clearResults();
   }, [clearResults]);
 
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -97,6 +103,8 @@ export default function PowersSpecificationList()
         handleSearchInputChange={handleSearchInputChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
+        excludedTags={excludedTags}
+        handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >
