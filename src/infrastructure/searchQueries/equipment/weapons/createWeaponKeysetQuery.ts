@@ -9,8 +9,8 @@ export function createWeaponKeysetQuery
   cursor: string = emptyUlid,
   includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
-  style?: Style | "All",
-  excludeTags?: string[]
+  excludeTags?: string[],
+  style?: Style | "All"
 )
   : SearchEntityPayload
 { 

@@ -270,8 +270,8 @@ export default function EditEquipmentView(input: { character: Character })
               isPending={isPending}
               currentItemsIds={weapons.map(weapon => weapon.id)}
               renderItem={renderWeaponItem}
-              createKeysetQuery={createWeaponKeysetQuery}
               createKeysetSearchKey={createKeysetSearchWeaponsKeyWithoutStyle}
+              createKeysetQuery={createWeaponKeysetQuery}
               entityType="weapons"
             />
           </ItemsView>

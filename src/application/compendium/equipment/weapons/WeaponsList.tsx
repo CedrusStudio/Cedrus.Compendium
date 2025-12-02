@@ -46,7 +46,7 @@ export default function WeaponsList()
     queryKey, 
     queryFn: async () => 
     {
-      const weaponsQuery = createWeaponKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, selectedStyle, excludedTags);
+      const weaponsQuery = createWeaponKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags, selectedStyle);
       return await searchClient.search<Weapon[]>(weaponsQuery);
     },
     staleTime: 5_000
