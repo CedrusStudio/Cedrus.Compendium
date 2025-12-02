@@ -58,8 +58,7 @@ export default function RaceEditSheet(input: EditSheetProps)
 
           <FormTagsInput<Race> path={'tags' as FieldPath<Race>} />
 
-          <div className="grid auto-rows-min gap-3">
-            <Label className='justify-center capitalize'>{displayedText.characteristics}</Label>
+          <div className="grid auto-rows-min gap-3 place-content-center place-items-center">
             <div className="grid grid-cols-2 gap-3">
               <div className="grid auto-rows-min gap-2">
                 <Label className='text-xs capitalize'>{displayedText.strength}</Label>

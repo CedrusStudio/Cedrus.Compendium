@@ -49,9 +49,8 @@ export default function RaceAddSheet({ isPending, formId, title }: RaceAddSheetP
 
           <FormTagsInput<RaceDto> path='tags' />
 
-          <div className="grid auto-rows-min gap-3 px-4">
-            <Label className='justify-center capitalize'>{displayedText.characteristics}</Label>
-            <div className="grid grid-cols-2 gap-3">
+          <div className="grid auto-rows-min place-items-center place-content-center gap-3 px-4">
+            <div className="grid grid-cols-2 gap-3 place-items-center place-content-center">
               <div className="grid auto-rows-min gap-2">
                 <Label className='text-xs capitalize'>{displayedText.strength}</Label>
                 <InputFormField<RaceDto> path='strengthModifier' inputClassName='w-20 h-10 text-center font-medium' />

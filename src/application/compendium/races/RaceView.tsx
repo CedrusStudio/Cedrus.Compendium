@@ -58,55 +58,57 @@ export default function RaceView({ race, disableEdit = false }: RaceViewProps)
 
       <SummaryView entity={race} />
 
-        <div className="flex flex-row place-items-center place-content-center">
+      <div className="flex flex-row place-items-center place-content-center">
 
-            <div className="p-2 rounded-md w-full border">
-                <Table>
-                <TableBody>
-                    {characteristics.map((char) => (
-                    <TableRow key={char.name}>
-                        <TableCell className="font-medium capitalize">{char.name}</TableCell>
-                        <TableCell className={`text-right ${getModifierColorClass(char.modifier)}`}>
-                        {formatModifier(char.modifier)}
-                        </TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-                </Table>
-            </div>
 
-            <PerkableBadgeView>
-                {
-                !disableEdit && (
-                    <CompendiumEditView>
-                    <DeleteButton id={race.id} isPending={isPending} deleteAction={deleteRace} />
-                    
-                    <EditFormForSheet<RaceDto> 
-                        entityId={race.id}
-                        defaultValues={race}
-                        schema={raceSchema}
-                        updateFn={client.update}
-                        formId={createCompendiumFormId.race(race.id)}
-                        renderSheetContent=
-                        {
-                        (isPending, formId) => (
-                            <RaceEditSheet
-                            isPending={isPending}
-                            formId={formId}
-                            displayedTitle={displayedText.editRace}
-                            />
-                        )
-                        }
-                        cacheKeys={['races']}
-                    />
-
-                    </CompendiumEditView>
+        <div className="p-2 rounded-md w-full border">
+          <Table>
+            <TableBody>
+            {
+              characteristics.map(char => (
+                <TableRow key={char.name}>
+                  <TableCell className="font-medium capitalize">{char.name}</TableCell>
+                  <TableCell className={`text-right ${getModifierColorClass(char.modifier)}`}>
+                  {formatModifier(char.modifier)}
+                  </TableCell>
+                </TableRow>
                 )
-                }
-            </PerkableBadgeView>
-     </div>
+              )
+            }
+            </TableBody>
+          </Table>
+        </div>
 
-      
+        <PerkableBadgeView>
+        {
+          !disableEdit && (
+            <CompendiumEditView>
+            <DeleteButton id={race.id} isPending={isPending} deleteAction={deleteRace} />
+            
+            <EditFormForSheet<RaceDto> 
+              entityId={race.id}
+              defaultValues={race}
+              schema={raceSchema}
+              updateFn={client.update}
+              formId={createCompendiumFormId.race(race.id)}
+              renderSheetContent=
+              {
+                (isPending, formId) => (
+                  <RaceEditSheet
+                    isPending={isPending}
+                    formId={formId}
+                    displayedTitle={displayedText.editRace}
+                  />
+                )
+              }
+              cacheKeys={['races']}
+            />
+
+            </CompendiumEditView>
+          )
+        }
+        </PerkableBadgeView>
+      </div>
     </CompendiumView>
   );
 }
