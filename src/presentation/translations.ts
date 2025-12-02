@@ -74,6 +74,7 @@ export const displayedText =
     statistics: translate("statistics"),
     characteristic: translate("characteristic"),
     characteristics: translate("characteristics"),
+    modifier: translate("modifier"),
     attribute: translate("attribute"),
     attributes: translate("attributes"),
     description: translate("description"),

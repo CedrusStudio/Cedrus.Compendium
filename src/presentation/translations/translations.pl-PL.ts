@@ -47,6 +47,7 @@ export const translations_plPL =
     statistics: "statystyki",
     characteristic: "cecha",
     characteristics: "cechy",
+    modifier: "modyfikator",
     attribute: "atrybut",
     attributes: "atrybuty",
     description: "opis",
