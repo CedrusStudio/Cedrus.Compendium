@@ -58,8 +58,7 @@ export default function RaceView({ race, disableEdit = false }: RaceViewProps)
 
       <SummaryView entity={race} />
 
-      <div className="flex flex-row place-items-center place-content-center">
-
+      <div className="flex flex-row place-items-center place-content-center gap-2">
 
         <div className="p-2 rounded-md w-full border">
           <Table>
