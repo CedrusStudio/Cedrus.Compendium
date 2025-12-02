@@ -2,14 +2,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
-import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
+import { UseFieldArrayRemove, useFormContext, useWatch } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { displayedText } from '@/presentation/translations';
-import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpell, powerFieldOrder, Spell, type Power } from '@/domain/characters/combat/Power';
+import { allowedPowerTypes, CreateDefaultSpell, pathToPowerField, pathToSpell, powerFieldOrder, Spell, type Power, PowerSpecification } from '@/domain/characters/combat/Power';
 import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
@@ -21,12 +21,17 @@ import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import SummaryView from '@/application/common/SummaryView';
 import EditCharacterCombatPerkSheet from '@/application/characters/edit/combat/EditCharacterCombatPerkSheet';
 import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
-import { battleIcon, cooldownIcon, costIcon } from '@/presentation/icons';
+import { battleIcon, cooldownIcon, costIcon, importIcon } from '@/presentation/icons';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/presentation/colors';
 import { createSpellKeysetQuery } from '@/infrastructure/searchQueries/spells/createSpellKeysetQuery';
 import { createKeysetSearchSpellsKey } from '@/persistence/cacheKeys';
 import PerkableEditView from '@/application/characters/edit/combat/PerkableEditView';
+import { SelectPowerSpecificationSheet } from '@/application/characters/combat/SelectPowerSpecificationSheet';
+import { Button } from '@/ui/button';
+import PowerSpecificationViewFields from '@/application/common/combat/PowerSpecificationViewFields';
+import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
+import { useQuery } from '@tanstack/react-query';
 
 type EditPowersCardProps =
 {
@@ -38,10 +43,27 @@ type EditPowersCardProps =
 
 export default function EditPowerCard({ index, power, remove, isPending }: EditPowersCardProps)
 {
-  const { control } = useFormContext<CombatDto>();
+  const { control, setValue } = useFormContext<CombatDto>();
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
   const [importedSpellIds, setImportedSpellIds] = useState<Set<string>>(new Set());
+  const [selectSpecOpen, setSelectSpecOpen] = useState(false);
   const prevIsPendingRef = useRef(isPending);
+
+  // Watch the powerSpecificationId field to react to form changes
+  const watchedPowerSpecId = useWatch
+  ({
+    control,
+    name: pathToPowerField(index, 'powerSpecificationId')
+  });
+
+  // Fetch the PowerSpecification when component mounts or powerSpecificationId changes
+  const { data: selectedSpecification } = useQuery
+  ({
+    queryKey: ['powerSpecification', watchedPowerSpecId],
+    queryFn: () => powerSpecificationsClient.get(watchedPowerSpecId as string),
+    enabled: !!watchedPowerSpecId && (watchedPowerSpecId as string).length > 0,
+    staleTime: 5_000
+  });
 
   useEffect(() =>
   {
@@ -52,6 +74,11 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
     }
     prevIsPendingRef.current = isPending;
   }, [isPending]);
+
+  const handleSelectSpecification = (spec: PowerSpecification) => 
+  {
+    setValue(pathToPowerField(index, 'powerSpecificationId'), spec.id, { shouldDirty: true, shouldValidate: true });
+  };
 
   const handleImportSpells = (importedSpells: Spell[]) => 
   {
@@ -73,7 +100,8 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
       });
     });
     
-    setImportedSpellIds(prev => {
+    setImportedSpellIds(prev => 
+    {
       const newSet = new Set(prev);
       importedSpells.forEach(spell => newSet.add(spell.id));
       return newSet;
@@ -123,6 +151,36 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
       <CardContent>
 
+        <div className='mb-4'>
+          <div className='flex flex-row items-center justify-between gap-3 mb-2'>
+            <Label className="text-lg font-semibold">Specyfikacja Mocy</Label>
+            <Button 
+              type="button" 
+              variant="outline" 
+              size="sm"
+              onClick={() => setSelectSpecOpen(true)}
+            >
+              {importIcon}
+              <span className='ml-2'>{selectedSpecification ? 'Zmień' : 'Wybierz'}</span>
+            </Button>
+          </div>
+          
+          {selectedSpecification ? (
+            <PowerSpecificationViewFields powerSpecification={selectedSpecification} collapsible={true} defaultOpen={false} />
+          ) : (
+            <div className='p-4 border-2 border-dashed rounded-md text-center text-muted-foreground'>
+              Nie wybrano specyfikacji mocy. Kliknij &quot;Wybierz&quot; aby wybrać.
+            </div>
+          )}
+        </div>
+
+        <SelectPowerSpecificationSheet
+          open={selectSpecOpen}
+          onOpenChange={setSelectSpecOpen}
+          onSelect={handleSelectSpecification}
+          currentSpecificationId={power.powerSpecificationId}
+        />
+
         <Separator className='mb-5 col-span-full' />
 
         <div className='flex flex-col sm:flex-row items-center justify-center gap-6'>
@@ -159,7 +217,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
 function NotNameOrTypeOrId(key: keyof PowerDto): boolean
 {
-  return key !== 'name' && key !== 'type' && key !== 'id' && key !== 'spells';
+  return key !== 'name' && key !== 'type' && key !== 'id' && key !== 'spells' && key !== 'powerSpecificationId';
 }
 
 function InputFormWithLabel(index: number, powerFieldName: keyof PowerDto)

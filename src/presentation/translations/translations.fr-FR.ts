@@ -135,6 +135,7 @@ export const translations_frFR =
     addSpell: "ajouter un sort",
     addStance: "ajouter une posture",
     addState: "ajouter un état",
+    addPowerSpecification: "ajouter une spécification de puissance",
     editManeuver: "modifier la manœuvre",
     editPower: "modifier la puissance",
     editSpell: "modifier le sort",

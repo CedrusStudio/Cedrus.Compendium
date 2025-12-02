@@ -162,6 +162,7 @@ export const displayedText =
     addSpell: translate("addSpell"),
     addStance: translate("addStance"),
     addState: translate("addState"),
+    addPowerSpecification: translate("addPowerSpecification"),
     editManeuver: translate("editManeuver"),
     editPower: translate("editPower"),
     editSpell: translate("editSpell"),

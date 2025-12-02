@@ -11,7 +11,8 @@ export type EntityType =
   | 'stances'
   | 'states'
   | 'inventory'
-  | 'mounts';
+  | 'mounts'
+  | 'powerSpecifications';
 
 const tagsClient = 
 {

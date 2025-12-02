@@ -57,6 +57,7 @@ export const useCreateCharacterFromCopy = ({ onSuccessCallback }: UseCreateChara
         maneuversIds: baseChar.maneuvers.map(maneuver => maneuver.id),
         perksIds: baseChar.perks.map(perk => perk.id),
         spellsIds: baseChar.powers.flatMap(power => power.spells.map(s => s.id)),
+        powerSpecificationsIds: baseChar.powers.map(power => power.powerSpecificationId)
       };
       
       const id = await charactersClient.copyCreate(copyCreateData);

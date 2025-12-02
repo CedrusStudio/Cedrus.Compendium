@@ -9,6 +9,7 @@ export type CharacterIncludeAllRelations = {
   shields: true;
   inventory: true;
   mounts: true;
+  powerSpecifications: true;
 };
 
 export const includeAllRelations: CharacterIncludeAllRelations =
@@ -22,5 +23,6 @@ export const includeAllRelations: CharacterIncludeAllRelations =
   armors: true,
   shields: true,
   inventory: true,
-  mounts: true
+  mounts: true,
+  powerSpecifications: true
 };

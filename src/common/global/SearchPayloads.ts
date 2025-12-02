@@ -2,7 +2,7 @@ import { OffsetPagination, KeysetPagination, isKeysetPagination } from "@/common
 import { Character } from "@/domain/characters/Character";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
 import { Mode } from "@/domain/characters/combat/Mode";
-import { Spell } from "@/domain/characters/combat/Power";
+import { PowerSpecification, Spell } from "@/domain/characters/combat/Power";
 import { Perk } from "@/domain/characters/Perk";
 import { Weapon } from "@/domain/characters/equipment/Weapon";
 import { Armor } from "@/domain/characters/equipment/Armor";
@@ -15,7 +15,7 @@ export function isAllowedSearchEntity(entity: string): boolean
   return allowedSearchEntities.includes(entity as typeof allowedSearchEntities[number]);
 }
 
-const allowedSearchEntities = ['character', 'maneuver', 'spell', 'perk', 'stance', 'state', 'weapon', 'armor', 'shield', 'inventoryItem', 'mount'] as const satisfies readonly string[];
+const allowedSearchEntities = ['character', 'maneuver', 'spell', 'perk', 'stance', 'state', 'weapon', 'armor', 'shield', 'inventoryItem', 'mount', 'powerSpecification'] as const satisfies readonly string[];
 export type EntityName = typeof allowedSearchEntities[number];
 export type EntityTypeMap = 
 {
@@ -30,6 +30,7 @@ export type EntityTypeMap =
   'shield': Shield;
   'inventoryItem': Item;
   'mount': Mount;
+  'powerSpecification': PowerSpecification;
 };
 
 export type SearchEntityPayload =
@@ -40,6 +41,7 @@ export type SearchEntityPayload =
 export type SearchPayload = 
 {
   search?: { [key: string]: SearchValueInput };
+  exclude?: { [key: string]: SearchValueInput };
   sort?: { [key: string]: 'asc' | 'desc' }[] | undefined;
   pagination?: OffsetPagination | KeysetPagination;
   select?: Select;
@@ -61,14 +63,21 @@ export type SearchValueInput = string | number | boolean | string[] | undefined;
 export type SearchValueOutputs =
   | { contains: string; mode: "insensitive" }
   | { equals: number | boolean }
-  | { hasEvery: string[] };
+  | { hasEvery: string[] }
+  | { hasSome: string[] };
 
-export function searchValuesMapping(value: SearchValueInput): SearchValueOutputs
+export function searchValuesMapping(value: SearchValueInput, isExclude = false): SearchValueOutputs
 {
   if (typeof value === 'string') return { contains: value, mode: "insensitive" };
   if (typeof value === 'number') return { equals: value };
   if (typeof value === 'boolean') return { equals: value };
-  if (Array.isArray(value)) return { hasEvery: value };
+  if (Array.isArray(value)) {
+    // For exclude, we use hasSome which will be wrapped in NOT at a higher level
+    if (isExclude) {
+      return { hasSome: value };
+    }
+    return { hasEvery: value };
+  }
   throw new Error('Unsupported search value type');
 }
 
@@ -78,9 +87,20 @@ export function createFiltering(payload: SearchPayload): Record<string, SearchVa
   
   const filters = Object.entries(payload.search)
     .filter(([, value]) => !!value)
-    .map(([key, value]) => [key, searchValuesMapping(value)]);
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: searchValuesMapping(value, false) }), {});
+  
+  return Object.keys(filters).length > 0 ? filters : undefined;
+}
 
-  return Object.fromEntries(filters);
+export function createExcludeFiltering(payload: SearchPayload): Record<string, SearchValueOutputs> | undefined
+{
+  if (!payload.exclude) return undefined;
+  
+  const filters = Object.entries(payload.exclude)
+    .filter(([, value]) => !!value)
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: searchValuesMapping(value, true) }), {});
+  
+  return Object.keys(filters).length > 0 ? filters : undefined;
 }
 
 export function createMapping(payload: { select?: Select }, includeFallback: Record<string, boolean> = {})
@@ -109,9 +129,11 @@ function createMappingRecursive(select: Select)
 export function createSorting(payload: SearchPayload)
 {
   if (!payload.sort) return undefined;
+  
   if (isKeysetPagination(payload.pagination))
   {
     return [ { id: 'asc' }, ...payload.sort ] as const satisfies { [key: string]: 'asc' | 'desc' }[];
   }
+
   return payload.sort;
 }

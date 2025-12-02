@@ -1,12 +1,10 @@
 "use client";
 
-import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense, toOffenseString, additionalDamageOffenseField, CreateDamageOffense } from '@/domain/characters/combat/Offense';
+import { Offense, DamageOffense, damageOffenseField, leadingOffenseField, secondaryOffenseField, WeaponOffense, pathToOffenseField, CreateWeaponOffense, additionalDamageOffenseField, CreateDamageOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { useController, UseFieldArrayRemove, useFormContext } from "react-hook-form";
 import Subcard from '@/common/components/Subcard';
-import { Badge } from '@/ui/badge';
-import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 import { useDamageOffenseForm } from '@/application/characters/edit/combat/useDamageOffenseForm';
 import { useWeaponOffenseForm } from '@/application/characters/edit/combat/useWeaponOffenseForm';
 import { Button } from '@/ui/button';
@@ -16,11 +14,11 @@ import { resolveSetState } from '@/common/global/resolveSetState';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
-import { addIcon, leftIcon, rightIcon } from '@/presentation/icons';
-import IncreaseButton from '@/common/components/buttons/IncreaseButton';
-import DecreaseButton from '@/common/components/buttons/DecreaseButton';
+import { addIcon } from '@/presentation/icons';
 import { displayedText } from '@/presentation/translations';
-import { Checkbox } from '@/common/components/ui/checkbox';
+import EditWeaponDamageView from '@/application/characters/edit/combat/offense/EditWeaponDamageView';
+import EditDamageBonusView from '@/application/characters/edit/combat/offense/EditDamageBonusView';
+import EditCriticalView from '@/application/characters/edit/combat/offense/EditCriticalView';
 
 type EditOffenseCardProps =
 {
@@ -163,64 +161,6 @@ function EditSecondaryWeaponOffenseSubcard({ offense, index }: EditSecondaryWeap
   );
 }
 
-type EditWeaponDamageViewProps =
-{
-  weaponOffense: WeaponOffense;
-  setAmount: React.Dispatch<React.SetStateAction<number>>;
-  setGrade: React.Dispatch<React.SetStateAction<number>>;
-  setBonus: React.Dispatch<React.SetStateAction<number>>;
-  setIsPhantom: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function EditWeaponDamageView({ weaponOffense, setAmount, setGrade, setBonus, setIsPhantom }: EditWeaponDamageViewProps) 
-{
-  return (
-    <div className='flex items-center'>
-      <VerticalChangeButtons setValue={setAmount} />
-      <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-        {toOffenseString(weaponOffense)}
-      </Badge>
-
-      <VerticalChangeButtons setValue={setGrade} />
-      <VerticalChangeButtons setValue={setBonus} />
-      <Checkbox checked={weaponOffense.isPhantom} onCheckedChange={() => setIsPhantom(prev => !prev)} />
-    </div>
-  );
-}
-
-type EditCriticalViewProps = 
-{
-  weaponOffense: WeaponOffense;
-  setRange: React.Dispatch<React.SetStateAction<number>>;
-  setPower: React.Dispatch<React.SetStateAction<number>>;
-};
-
-function EditCriticalView({ weaponOffense, setRange, setPower }: EditCriticalViewProps) 
-{
-  const calculatedRange = `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
-
-  return (
-    <div className='flex gap-x-1'>
-
-        <div className='flex items-center'>
-          <IncreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={leftIcon} />
-            <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-yellow-300">
-              {calculatedRange}
-            </Badge>
-          <DecreaseButton className='w-auto h-auto p-0' variant='ghost' value={1} setValue={setRange} icon={rightIcon} />
-        </div>
-        
-        <div className='flex items-center'>
-            <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-yellow-500">
-                {weaponOffense.critical.power > 0 ? '+' : ''}{weaponOffense.critical.power}
-            </Badge>
-            <VerticalChangeButtons setValue={setPower} />
-        </div>
-        
-    </div>
-  );
-}
-
 type EditDamageBonusSubcardProps =
 {
   defaultDamageOffense: DamageOffense;
@@ -311,29 +251,5 @@ function EditAdditionalDamageBonusSubcard({ defaultAdditionalDamageOffense, inde
         </div>
       </div>
     </Subcard>
-  );
-}
-
-type EditDamageBonusViewProps =
-{
-  damageOffense: DamageOffense;
-  setAmount: React.Dispatch<React.SetStateAction<number>>;
-  setGrade: React.Dispatch<React.SetStateAction<number>>;
-  setBonus: React.Dispatch<React.SetStateAction<number>>;
-  setIsPhantom: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function EditDamageBonusView({ damageOffense, setAmount, setGrade, setBonus, setIsPhantom }: EditDamageBonusViewProps) 
-{
-  return (
-    <div className='flex items-center'>
-      <VerticalChangeButtons setValue={setAmount} />
-        <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
-          {toOffenseString(damageOffense)}
-        </Badge>
-      <VerticalChangeButtons setValue={setGrade} />
-      <VerticalChangeButtons setValue={setBonus} />
-      <Checkbox checked={damageOffense.isPhantom} onCheckedChange={() => setIsPhantom(prev => !prev)} />
-  </div>
   );
 }

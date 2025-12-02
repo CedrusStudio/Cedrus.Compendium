@@ -2,6 +2,8 @@ import { Castable } from '@/domain/characters/Castable';
 import { ulid } from "ulid";
 import { Entity } from "@/domain/Entity";
 import { Perk } from "@/domain/characters/Perk";
+import { CreateDamageOffense, CreateWeaponOffense, DamageOffense, WeaponOffense } from '@/domain/characters/combat/Offense';
+import { Tag } from '@/domain/Tag';
 
 export type Power = Entity & 
 {
@@ -9,8 +11,27 @@ export type Power = Entity &
   level: number;
   bonus: number;
   essence: number;
+  powerSpecificationId: string;
   spells: Spell[];
 };
+
+export type PowerSpecification = Entity &
+{
+  description: string;
+  tags: Tag[];
+  offenses: PowerOffense[]
+};
+
+export type PowerOffense =
+{
+  spellOffense: SpellOffense;
+  spellDamage: SpellDamage;
+  description: string;
+  cost: number;
+};
+
+export type SpellDamage = DamageOffense;
+export type SpellOffense = WeaponOffense;
 
 export type PowerType = "arkana" | "wiara" | "moc" | "natura";
 export const allowedPowerTypes: PowerType[] = ["arkana", "wiara", "moc", "natura"];
@@ -47,9 +68,35 @@ export const defaultPower: Omit<Power, "id"> =
   type: "moc",
   level: 1, 
   bonus: 0,
+  powerSpecificationId: '',
   spells: []
 };
 
+export const defaultPowerOffense: PowerOffense =
+{
+  spellOffense: CreateWeaponOffense(),
+  spellDamage: CreateDamageOffense(),
+  description: 'Nowy opis ofensywy mocy.',
+  cost: 20
+};
+
+export const CreateDefaultPowerOffense = (): PowerOffense => 
+({
+  spellOffense: CreateWeaponOffense(),
+  spellDamage: { ...CreateDamageOffense(), amount: 0, grade: 1, bonus: 1 },
+  description: 'Nowy opis ofensywy mocy.',
+  cost: 20
+});
+
+export const defaultPowerSpecification: Omit<PowerSpecification, "id"> =
+{
+  name: 'Specyfikacja Mocy',
+  description: '',
+  tags: [],
+  offenses: []
+};
+
+export const CreateDefaultPowerSpecification = (): PowerSpecification => ({...defaultPowerSpecification, id: ulid()});
 export const CreateDefaultPower = (): Power => ({...defaultPower, id: ulid()});
 
 const powerFieldOrderArray: (keyof Power)[] = [
@@ -58,6 +105,7 @@ const powerFieldOrderArray: (keyof Power)[] = [
   'level',
   'bonus',
   'essence',
+  'powerSpecificationId',
   'spells'
 ];
 

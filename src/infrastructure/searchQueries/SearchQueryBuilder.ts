@@ -5,6 +5,7 @@ export class SearchQueryBuilder<TEntity>
 {
   private _entity: string;
   private _search?: Record<keyof TEntity, SearchValueInput>;
+  private _exclude?: Record<keyof TEntity, SearchValueInput>;
   private _sort?: Array<{ [key: string]: 'asc' | 'desc' }>;
   private _select?: Select;
   private _include?: Record<string, boolean>;
@@ -39,6 +40,22 @@ export class SearchQueryBuilder<TEntity>
     }
 
     this._search[key] = value;
+    return this;
+  }
+
+  excludeFilter(key: keyof TEntity, value: SearchValueInput): this 
+  {
+    if (!this._exclude) 
+    {
+      this._exclude = {} as Record<keyof TEntity, SearchValueInput>;
+    }
+
+    if (value === undefined || value === null || (typeof value === 'string' && value.trim() === '')) 
+    {
+      return this;
+    }
+
+    this._exclude[key] = value;
     return this;
   }
 
@@ -131,6 +148,11 @@ export class SearchQueryBuilder<TEntity>
     if (this._search && Object.keys(this._search).length > 0) 
     {
       query.search = this._search;
+    }
+
+    if (this._exclude && Object.keys(this._exclude).length > 0) 
+    {
+      query.exclude = this._exclude;
     }
 
     if (this._sort && this._sort.length > 0) 

@@ -1,25 +1,23 @@
 "use client";
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '@/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/ui/card';
 import { displayedText } from '@/presentation/translations';
 import { useSearchCharactersSummary } from '@/application/characters/hooks/useSearchCharactersSummary';
 import { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 import TagsView from '@/common/components/tags/TagsView';
-import { Input } from '@/ui/input';
-import { emptyUlid } from '@/common/global/pagination';
+import { DEFAULT_PAGE_SIZE, emptyUlid } from '@/common/global/pagination';
 import { useDebounce } from 'use-debounce';
+import { useEntityTags } from '@/common/hooks/useEntityTags';
+import ListHeader from '@/common/components/lists/ListHeader';
 
-type SelectBaseCharacterDialogProps = {
+const pageSize = DEFAULT_PAGE_SIZE;
+const EMPTY_ARRAY: never[] = [];
+
+type SelectBaseCharacterDialogProps = 
+{
   onSelectCharacter: (characterId: string) => void;
   selectedCharacterId?: string;
 };
@@ -29,15 +27,34 @@ export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedC
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
-  const { characters } = useSearchCharactersSummary(debouncedSearchTerm, emptyUlid);
+  
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
+  const { characters } = useSearchCharactersSummary(debouncedSearchTerm, emptyUlid, searchTags, pageSize, excludedTags);
   const selectedCharacter = characters.find(c => c.id === selectedCharacterId);
 
-  const handleSelect = (characterId: string) => 
+  const handleSelect = useCallback((characterId: string) =>
   {
     onSelectCharacter(characterId);
     setOpen(false);
-  };
+  }, [onSelectCharacter]);
+
+  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
+  {
+    setSearchTerm(e.target.value);
+  }, []);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+  }, []);
+
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+  }, []);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -45,7 +62,7 @@ export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedC
       <SheetTrigger asChild>
         <Button variant="outline" type="button" className="w-full">
             <span className='first-letter:capitalize'>
-                {selectedCharacter ? `${displayedText.selected}: ${selectedCharacter.name}` : displayedText.select_base_character}
+              {selectedCharacter ? `${displayedText.selected}: ${selectedCharacter.name}` : displayedText.select_base_character}
             </span>
         </Button>
       </SheetTrigger>
@@ -62,29 +79,33 @@ export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedC
         </SheetHeader>
 
         <div className="space-y-4">
-          <Input
-            placeholder={displayedText.searchByName}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full"
+          <ListHeader 
+            availableTags={availableTags} 
+            searchTags={searchTags}
+            searchInput={searchTerm}
+            tagsLoading={tagsLoading}
+            handleSearchTagsChange={handleSearchTagsChange}
+            handleSearchInputChange={handleSearchInputChange}
+            excludedTags={excludedTags}
+            handleExcludedTagsChange={handleExcludedTagsChange}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {
-              characters.length === 0 
-                  ? <NotFoundMessage />
-                  : (
-                      characters.map(summary => 
-                      (
-                        <CharacterSelectCard
-                            key={summary.id}
-                            summary={summary}
-                            onSelect={handleSelect}
-                            isSelected={summary.id === selectedCharacterId}
-                        />
-                      ))
-                  )
-            }
+          {
+            characters.length === 0 
+              ? <NotFoundMessage />
+              : (
+                  characters.map(summary => 
+                  (
+                    <CharacterSelectCard
+                        key={summary.id}
+                        summary={summary}
+                        onSelect={handleSelect}
+                        isSelected={summary.id === selectedCharacterId}
+                    />
+                  ))
+              )
+          }
           </div>
         </div>
       </SheetContent>
@@ -96,7 +117,7 @@ function NotFoundMessage()
 {
   return (
     <div className="col-span-2 text-center text-muted-foreground py-8">
-        {displayedText.no_characters_found}
+      {displayedText.no_characters_found}
     </div>
   );
 }

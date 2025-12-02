@@ -135,6 +135,7 @@ export const translations_deDE =
     addSpell: "zauber hinzufügen",
     addStance: "haltung hinzufügen",
     addState: "zustand hinzufügen",
+    addPowerSpecification: "kraftspezifikation hinzufügen",
     editManeuver: "manöver bearbeiten",
     editPower: "kraft bearbeiten",
     editSpell: "zauber bearbeiten",

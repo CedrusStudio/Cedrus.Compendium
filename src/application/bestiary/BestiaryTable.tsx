@@ -38,19 +38,20 @@ export default function BestiaryTable()
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
   const [displayedCharacters, setDisplayedCharacters] = useState<Character[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
 
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
 
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize);
+  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const charactersQuery = createCharacterQuery(debouncedSearchTerm, cursor, searchTags, pageSize);
+      const charactersQuery = createCharacterQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
       return await client.search<Character[]>(charactersQuery);
     },
     staleTime: 5_000
@@ -92,6 +93,12 @@ export default function BestiaryTable()
     setSearchTags(tags);
     clearResults();
   }, [clearResults]);
+  
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+    setCursor(emptyUlid);
+  }, []);
 
   const handleLoadMore = useCallback(() => 
   {
@@ -151,10 +158,12 @@ export default function BestiaryTable()
 
           <TagFilter 
             includedTags={searchTags} 
-            onTagsChange={handleSearchTagsChange}
+            onIncludedTagsChange={handleSearchTagsChange}
             availableTags={availableTags}
             isLoading={tagsLoading}
-            />
+            excludedTags={excludedTags}
+            onExcludedTagsChange={handleExcludedTagsChange}
+          />
         </div>
 
         <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 

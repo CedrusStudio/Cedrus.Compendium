@@ -15,6 +15,7 @@ const ENTITY_MODEL_MAP: Record<string, string> =
   'states': 'state',
   'inventory': 'inventoryItem',
   'mounts': 'mount',
+  'powerSpecifications': 'powerSpecification',
 };
 
 export async function GET(request: Request, { params }: { params: Promise<{ entity: string }> }) 

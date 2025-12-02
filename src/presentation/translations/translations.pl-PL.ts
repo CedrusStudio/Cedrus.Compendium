@@ -135,6 +135,7 @@ export const translations_plPL =
     addSpell: "dodaj zaklęcie",
     addStance: "dodaj postawę",
     addState: "dodaj stan",
+    addPowerSpecification: "dodaj specyfikację mocy",
     editManeuver: "edycja manewru",
     editPower: "edycja mocy",
     editSpell: "edycja zaklęcia",
