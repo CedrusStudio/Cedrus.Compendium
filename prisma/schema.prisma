@@ -25,6 +25,9 @@ model Character {
   description String
   tags        String[]
 
+  raceId      String?
+  race        Race?   @relation(fields: [raceId], references: [id])
+
   characteristics Characteristics
   attributes      Attributes
   talents         Talent[]
@@ -269,6 +272,8 @@ model Race {
   mindModifier         Int
   charismaModifier     Int
   spellbornModifier    Int
+
+  characters Character[]
 
   @@map("races")
 }

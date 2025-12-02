@@ -3,6 +3,9 @@ import { Separator } from "@/common/components/ui/separator";
 import { Character } from "@/domain/characters/Character";
 import PerksList from "@/application/characters/details/PerksList";
 import TagsView from "@/common/components/tags/TagsView";
+import Link from "next/link";
+import { Button } from "@/common/components/ui/button";
+import { displayedText } from "@/presentation/translations";
 
 export default function DetailsView({ character }: { character: Character }) 
 {
@@ -22,6 +25,19 @@ export default function DetailsView({ character }: { character: Character })
         </div>
 
         <TagsView tags={character.tags} />
+
+        {character.race && (
+          <div className="flex flex-col items-center gap-2 mt-2">
+            <div className="text-sm text-muted-foreground capitalize">
+              {displayedText.race || "Rasa"}
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link href={`/compendium/races?search=${encodeURIComponent(character.race.name)}`}>
+                <span className="font-medium">{character.race.name}</span>
+              </Link>
+            </Button>
+          </div>
+        )}
 
       </header>
 

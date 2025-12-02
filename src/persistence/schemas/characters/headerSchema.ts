@@ -14,6 +14,7 @@ export const headerSchema = z.object
   shortName: shortNameSchema,
   description: z.string().min(2, { message: "Opis musi mieć co najmniej 2 znaki." }).max(10_000, { message: "Opis nie może być dłuższy niż 10 000 znaków." }),
   tags: tagsSchema,
+  raceId: z.string().optional().nullable(),
 });
 
 export const detailsSchema = headerSchema.extend

@@ -141,10 +141,22 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
   const existingOnCharacterPerkIdsResponse = await prisma.character.findUnique
   ({ 
     where: { id },
-    select: { perksIds: true }
+    select: { perksIds: true, raceId: true }
   });
 
   if (!existingOnCharacterPerkIdsResponse) return false;
+
+  // Validate raceId exists if provided
+  if (characterDetails.raceId) {
+    const raceExists = await prisma.race.findUnique({
+      where: { id: characterDetails.raceId },
+      select: { id: true }
+    });
+    
+    if (!raceExists) {
+      throw new Error(`Race with id ${characterDetails.raceId} not found`);
+    }
+  }
 
   // Fetch existing perk IDs
   const existingPerkIds = await fetchExistingEntityIds(prisma.perk, characterDetails.perks, existingOnCharacterPerkIdsResponse.perksIds);
