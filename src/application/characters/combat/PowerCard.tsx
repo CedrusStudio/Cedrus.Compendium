@@ -17,6 +17,7 @@ import { PowerSpecification } from '@/domain/characters/combat/Power';
 import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
 import { colors } from '@/presentation/colors';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import PowerRollsCard from '@/application/characters/combat/power/PowerRollsCard';
 
 type PowerCardProps =
 {
@@ -119,15 +120,21 @@ export default function PowerCard({ power }: PowerCardProps)
         {
           powerSpecification && (
             <div className="col-span-full">
-              {
-                powerSpecification.offenses && powerSpecification.offenses.length > 0 && (
+            {
+              powerSpecification.offenses && powerSpecification.offenses.length > 0 && (
+                <>
                   <PowerOffenseSelector 
                     powerSpecification={powerSpecification}
                     selectedIndex={selectedOffenseIndex}
                     onSelectIndex={setSelectedOffenseIndex}
                   />
-                )
-              }
+                  <PowerRollsCard 
+                    offenses={powerSpecification.offenses}
+                    selectedIndex={Math.min(selectedOffenseIndex, powerSpecification.offenses.length - 1)}
+                  />
+                </>
+              )
+            }
             </div>
           )
         }
@@ -328,18 +335,21 @@ function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex
   };
 
   return (
-    <div className="col-span-full mt-4 pt-4 border-t border-border/40">
-      <div className="flex flex-col gap-3 p-4 bg-muted/30 rounded-lg">
-        <div className="flex items-center justify-between">
+    <div className="col-span-full mt-4 pt-2 border-t border-border/40">
+      <div className="flex flex-col gap-3 p-2 bg-muted/30 rounded-lg">
+        <div className="flex items-center justify-between gap-4">
           <h3 className="text-sm font-semibold">Siła zaklęcia</h3>
-          
+          {
+            offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
+          }
+
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="h-8 w-8 p-0"
+              className="h-8 w-8"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -351,18 +361,15 @@ function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex
               size="sm"
               onClick={handleNext}
               disabled={currentIndex === maxIndex}
-              className="h-8 w-8 p-0"
+              className="h-8 w-8"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          {
-            offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
-          }
-          
+        <div className="flex flex-row place-content-center gap-2">
+
           <div className="flex flex-wrap gap-2 items-center justify-center">
 
             <Badge variant="outline" className="font-mono">

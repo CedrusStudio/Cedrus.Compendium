@@ -195,6 +195,10 @@ export const displayedText =
     leading: translate("leading"),
     secondary: translate("secondary"),
     damageBonus: translate("damageBonus"),
+    powerAttack: translate("powerAttack"),
+    bonusDamage: translate("bonusDamage"),
+    rollPower: translate("rollPower"),
+    powerRolls: translate("powerRolls"),
 
     searchByName: translate("searchByName"),
     searchCharacter: translate("searchCharacter"),

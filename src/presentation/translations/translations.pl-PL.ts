@@ -168,6 +168,10 @@ export const translations_plPL =
     leading: "Wiodąca",
     secondary: "Wtórna",
     damageBonus: "Bonus",
+    powerAttack: "atak mocy",
+    bonusDamage: "bonus obrażeń",
+    rollPower: "rzuć mocą",
+    powerRolls: "rzuty mocy",
 
     searchByName: "Szukaj po nazwie...",
     searchCharacter: "Wyszukaj postać...",
