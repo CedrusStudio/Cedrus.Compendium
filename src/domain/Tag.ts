@@ -5,7 +5,7 @@ export type Tag = string;
 
 export function isValidTag(value: string): value is Tag 
 {
-  return value === value.toLowerCase() && !value.includes(' ');
+  return value.length > 0 && value === value.toLowerCase() && !value.includes(' ');
 }
 
 export const CharacterTag = 'postać';
