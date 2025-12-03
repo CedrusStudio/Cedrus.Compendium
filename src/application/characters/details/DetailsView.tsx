@@ -26,18 +26,20 @@ export default function DetailsView({ character }: { character: Character })
 
         <TagsView tags={character.tags} />
 
-        {character.race && (
-          <div className="flex flex-col items-center gap-2 mt-2">
-            <div className="text-sm text-muted-foreground capitalize">
-              {displayedText.race || "Rasa"}
+        {
+          character.race && (
+            <div className="flex flex-col items-center gap-2 mt-2">
+              <div className="text-sm text-muted-foreground capitalize">
+                {displayedText.race || "Rasa"}
+              </div>
+              <Button asChild variant="outline" size="sm">
+                <Link href={`/compendium/races?search=${encodeURIComponent(character.race.name)}`}>
+                  <span className="font-medium">{character.race.name}</span>
+                </Link>
+              </Button>
             </div>
-            <Button asChild variant="outline" size="sm">
-              <Link href={`/compendium/races?search=${encodeURIComponent(character.race.name)}`}>
-                <span className="font-medium">{character.race.name}</span>
-              </Link>
-            </Button>
-          </div>
-        )}
+          )
+        }
 
       </header>
 

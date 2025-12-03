@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, Activity } from "react";
 import { Control, useController } from "react-hook-form";
 import { Label } from "@/common/components/ui/label";
 import { Button } from "@/common/components/ui/button";
@@ -13,19 +13,22 @@ import { Race } from "@/domain/Race";
 import { emptyUlid } from "@/common/global/pagination";
 import { Input } from "@/common/components/ui/input";
 import { useDebounce } from "use-debounce";
-import { X, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import RaceCreateSheet from "@/application/characters/edit/details/RaceCreateSheet";
 import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import { createRaceKeysetQuery } from "@/infrastructure/searchQueries/races/createRaceKeysetQuery";
+import { deleteIcon } from "@/presentation/icons";
 
-type RaceSelectorProps = {
+type RaceSelectorProps = 
+{
   control: Control<DetailsDto>;
   currentRaceId?: string | null | undefined;
 };
 
 export default function RaceSelector({ control }: RaceSelectorProps) 
 {
-  const { field } = useController({
+  const { field } = useController
+  ({
     name: "raceId",
     control,
   });
@@ -35,7 +38,8 @@ export default function RaceSelector({ control }: RaceSelectorProps)
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const queryKey = createKeysetSearchRacesKey(debouncedSearch, emptyUlid, [], 20);
-  const { data: races = [] } = useQuery({
+  const { data: races = [] } = useQuery
+  ({
     queryKey,
     queryFn: async () => {
       const raceQuery = createRaceKeysetQuery(debouncedSearch, emptyUlid, [], 20);
@@ -45,64 +49,74 @@ export default function RaceSelector({ control }: RaceSelectorProps)
   });
 
   // Get currently selected race
-  const selectedRace = useMemo(() => {
+  const selectedRace = useMemo(() => 
+  {
     if (!field.value) return null;
     return races.find(r => r.id === field.value) ?? null;
   }, [field.value, races]);
 
-  const handleSelectRace = useCallback((raceId: string) => {
+  const handleSelectRace = useCallback((raceId: string) => 
+  {
     field.onChange(raceId);
     setIsSearchOpen(false);
     setSearchInput("");
   }, [field]);
 
-  const handleRemoveRace = useCallback(() => {
+  const handleRemoveRace = useCallback(() => 
+  {
     field.onChange(null);
   }, [field]);
 
-  const handleRaceCreated = useCallback((newRaceId: string) => {
+  const handleRaceCreated = useCallback((newRaceId: string) => 
+  {
     field.onChange(newRaceId);
   }, [field]);
 
   return (
     <div className="flex flex-col gap-4">
-      <Label className="text-base capitalize">
-        {displayedText.race || "Rasa"}
-      </Label>
 
-      {/* Current Race Display */}
-      {selectedRace ? (
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="text-base px-4 py-2">
-            {selectedRace.name}
-          </Badge>
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            onClick={handleRemoveRace}
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-      ) : (
-        <div className="text-sm text-muted-foreground">
-          {displayedText.noRaceSelected || "Brak wybranej rasy"}
-        </div>
-      )}
+      <div className="flex flex-row gap-3 ml-1 place-items-center">
+        <Label className="text-base capitalize">
+          {displayedText.race}
+        </Label>
+
+        {/* Current Race Display */}
+        {
+          selectedRace ? (
+            <div className="flex items-center">
+
+              <Badge variant="outline" className="p-2">
+                {selectedRace.name}
+              </Badge>
+
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={handleRemoveRace}
+                >
+                {deleteIcon}
+              </Button>
+            </div>
+          ) : (
+            <div className="text-sm text-muted-foreground">
+              {"Brak wybranej rasy"}
+            </div>
+          )
+        }
+        
+      </div>
 
       {/* Action Buttons */}
       <div className="flex gap-2">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => setIsSearchOpen(!isSearchOpen)}
-        >
-          <Search className="h-4 w-4 mr-2" />
-          {displayedText.selectRace || "Wybierz rasę"}
+        <Button type="button" variant="outline" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+          <Search className="h-4 w-4" />
+          {"Wybierz rasę"}
         </Button>
 
-        <RaceCreateSheet onRaceCreated={handleRaceCreated} />
+        <Activity mode={selectedRace ? "hidden" : "visible"}>
+          <RaceCreateSheet onRaceCreated={handleRaceCreated} />
+        </Activity>
       </div>
 
       {/* Race Search/Selection */}

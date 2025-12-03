@@ -21,13 +21,16 @@ import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import RaceAddSheet from "@/application/compendium/races/RaceAddSheet";
 import { displayedText } from "@/presentation/translations";
+import { useSearchParams } from "next/navigation";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
 
 export default function RacesList()
 {
-  const [searchInput, setSearchInput] = useState("");
+  const searchParams = useSearchParams();
+  const initialSearch = searchParams.get('search') || "";
+  const [searchInput, setSearchInput] = useState(initialSearch);
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('races');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);

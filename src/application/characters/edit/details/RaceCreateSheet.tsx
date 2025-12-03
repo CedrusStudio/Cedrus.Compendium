@@ -21,7 +21,8 @@ import { onSuccess, onError } from "@/common/global/onSaveCallbacks";
 import { useRouter } from "next/navigation";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 
-type RaceCreateSheetProps = {
+type RaceCreateSheetProps = 
+{
   onRaceCreated: (raceId: string) => void;
 };
 
@@ -32,21 +33,27 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
   const router = useRouter();
   const formId = `create-race-${ulid()}`;
 
-  const form = useForm<RaceDto>({
+  const form = useForm<RaceDto>
+  ({
     resolver: zodResolver(raceSchema),
-    defaultValues: {
+    defaultValues: 
+    {
       id: ulid(),
       ...defaultRace,
     },
   });
 
-  const mutation = useMutation({
-    mutationFn: async (data: RaceDto) => {
+  const mutation = useMutation
+  ({
+    mutationFn: async (data: RaceDto) => 
+    {
       const newRaceId = await racesClient.add(data);
       return newRaceId;
     },
-    onSuccess: (newRaceId: string) => {
-      onSuccess(() => {
+    onSuccess: (newRaceId: string) => 
+    {
+      onSuccess(() => 
+      {
         queryClient.invalidateQueries({ queryKey: ['races'] });
         router.refresh();
         onRaceCreated(newRaceId);
@@ -54,12 +61,14 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
         form.reset({ id: ulid(), ...defaultRace });
       }, "bottom-center");
     },
-    onError: (error: Error) => {
+    onError: (error: Error) => 
+    {
       onError(error, "bottom-center");
     },
   });
 
-  const handleSubmit = (data: RaceDto) => {
+  const handleSubmit = (data: RaceDto) => 
+  {
     mutation.mutate(data);
   };
 
@@ -67,18 +76,19 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button type="button" variant="outline">
-          <Plus className="h-4 w-4 mr-2" />
-          {displayedText.createNewRace || "Stwórz nową rasę"}
+          <Plus className="h-2 w-2" />
+          <span className="first-letter:uppercase">{displayedText.createNewRace}</span>
         </Button>
       </SheetTrigger>
 
-      <SheetContent className="w-full overflow-y-auto">
+      <SheetContent className="w-full">
+        
         <SheetHeader>
           <SheetTitle className="first-letter:uppercase">
-            {displayedText.createNewRace || "Stwórz nową rasę"}
+            {displayedText.createNewRace}
           </SheetTitle>
           <SheetDescription>
-            {displayedText.createRaceDescription || "Wypełnij poniższe pola aby stworzyć nową rasę"}
+            {displayedText.createRaceDescription}
           </SheetDescription>
         </SheetHeader>
 
@@ -86,11 +96,11 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
           <form 
             id={formId} 
             onSubmit={form.handleSubmit(handleSubmit)} 
-            className="space-y-6 mt-4"
+            className="space-y-6"
           >
-            <div className="space-y-4">
+            <div className="space-y-4 mx-4 flex flex-col">
               <div className="space-y-2">
-                <Label className="capitalize">{displayedText.name}</Label>
+                <Label className="capitalize place-items-center place-content-center">{displayedText.name}</Label>
                 <InputFormField<RaceDto> 
                   path="name" 
                   inputPlaceholder={displayedText.changeName} 
@@ -98,7 +108,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
               </div>
 
               <div className="space-y-2">
-                <Label className="capitalize">{displayedText.description}</Label>
+                <Label className="capitalize place-items-center place-content-center">{displayedText.description}</Label>
                 <AreaInputFormField<RaceDto> 
                   path="description" 
                   inputPlaceholder={displayedText.changeDescription} 
@@ -107,60 +117,67 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
 
               <FormTagsInput<RaceDto> path="tags" />
 
-              <div className="space-y-3">
+              <div className="space-y-3 flex flex-col place-content-center place-items-center">
                 <Label className="text-base">
-                  {displayedText.characteristicModifiers || "Modyfikatory cech"}
+                  <span className="first-letter:uppercase">{displayedText.characteristicModifiers}</span>
                 </Label>
                 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label className="text-xs capitalize">{displayedText.strength}</Label>
-                    <InputFormField<RaceDto> 
-                      path="strengthModifier" 
-                      inputClassName="h-10 text-center font-medium" 
-                    />
-                  </div>
+                <div className="grid grid-cols-2 gap-4 mx-4">
                   
-                  <div className="space-y-2">
-                    <Label className="text-xs capitalize">{displayedText.dexterity}</Label>
-                    <InputFormField<RaceDto> 
-                      path="dexterityModifier" 
-                      inputClassName="h-10 text-center font-medium" 
-                    />
+                  <div className="flex flex-col gap-2 place-content-center place-items-center">
+                    <div className="flex flex-col gap-2 place-content-center place-items-center">
+                      <Label className="text-xs capitalize">{displayedText.strength}</Label>
+                      <InputFormField<RaceDto> 
+                        path="strengthModifier" 
+                        inputClassName="max-w-[3rem] text-center font-medium" 
+                      />
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 place-content-center place-items-center">
+                      <Label className="text-xs capitalize">{displayedText.dexterity}</Label>
+                      <InputFormField<RaceDto> 
+                        path="dexterityModifier" 
+                        inputClassName="max-w-[3rem] text-center font-medium" 
+                      />
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 place-content-center place-items-center">
+                      <Label className="text-xs capitalize">{displayedText.constitution}</Label>
+                      <InputFormField<RaceDto> 
+                        path="constitutionModifier" 
+                        inputClassName="max-w-[3rem] text-center font-medium" 
+                      />
+                    </div>
                   </div>
-                  
-                  <div className="space-y-2">
-                    <Label className="text-xs capitalize">{displayedText.constitution}</Label>
-                    <InputFormField<RaceDto> 
-                      path="constitutionModifier" 
-                      inputClassName="h-10 text-center font-medium" 
-                    />
+
+                  <div className="flex flex-col gap-2 place-content-center place-items-center">
+                    <div className="flex flex-col gap-2 place-content-center place-items-center">
+                      <Label className="text-xs capitalize">{displayedText.mind}</Label>
+                      <InputFormField<RaceDto> 
+                        path="mindModifier" 
+                        inputClassName="max-w-[3rem] text-center font-medium" 
+                      />
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 place-content-center place-items-center">
+                      <Label className="text-xs capitalize">{displayedText.charisma}</Label>
+                      <InputFormField<RaceDto> 
+                        path="charismaModifier" 
+                        inputClassName="max-w-[3rem] text-center font-medium" 
+                      />
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 place-content-center place-items-center">
+                      <Label className="text-xs capitalize">{displayedText.spellborn}</Label>
+                      <InputFormField<RaceDto> 
+                        path="spellbornModifier" 
+                        inputClassName="max-w-[3rem] text-center font-medium" 
+                      />
+                    </div>
                   </div>
-                  
-                  <div className="space-y-2">
-                    <Label className="text-xs capitalize">{displayedText.mind}</Label>
-                    <InputFormField<RaceDto> 
-                      path="mindModifier" 
-                      inputClassName="h-10 text-center font-medium" 
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label className="text-xs capitalize">{displayedText.charisma}</Label>
-                    <InputFormField<RaceDto> 
-                      path="charismaModifier" 
-                      inputClassName="h-10 text-center font-medium" 
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label className="text-xs capitalize">{displayedText.spellborn}</Label>
-                    <InputFormField<RaceDto> 
-                      path="spellbornModifier" 
-                      inputClassName="h-10 text-center font-medium" 
-                    />
-                  </div>
+
                 </div>
+
               </div>
             </div>
           </form>
