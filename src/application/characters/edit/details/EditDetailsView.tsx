@@ -14,6 +14,7 @@ import { Separator } from "@/common/components/ui/separator";
 import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
 import client from "@/infrastructure/clients/charactersClient";
 import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
+import RaceSelector from "@/application/characters/edit/details/RaceSelector";
 
 export default function EditDetailsView(input: { character: Character })
 {
@@ -29,7 +30,8 @@ export default function EditDetailsView(input: { character: Character })
             shortName: character.shortName,
             tags: character.tags,
             description: character.description,
-            perks: character.perks
+            perks: character.perks,
+            raceId: character.race?.id ?? null
         },
         updateFn: async (id, data) => client.updateDetails(id, data),
         formId: FORM_IDS.DETAILS,
@@ -41,6 +43,11 @@ export default function EditDetailsView(input: { character: Character })
         <Form {...form}>
             <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
                 <EditHeader />
+                <Separator className="my-4" />
+                <RaceSelector 
+                  control={form.control} 
+                  currentRaceId={character.race?.id ?? null}
+                />
                 <Separator className="my-4" />
                 <EditPerksList isPending={isPending} perks={perks} append={appendPerk} remove={removePerk} />
                 <SubmitButton isPending={isPending} formName={formId} />

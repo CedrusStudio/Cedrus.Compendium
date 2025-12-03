@@ -25,6 +25,9 @@ model Character {
   description String
   tags        String[]
 
+  raceId      String?
+  race        Race?   @relation(fields: [raceId], references: [id])
+
   characteristics Characteristics
   attributes      Attributes
   talents         Talent[]
@@ -255,6 +258,24 @@ model PowerSpecification {
   
   characterIds String[]
   characters   Character[] @relation(fields: [characterIds], references: [id])
+}
+
+model Race {
+  id          String @id @default(ulid()) @map("_id")
+  name        String @unique
+  description String
+  tags        String[]
+
+  strengthModifier     Int
+  dexterityModifier    Int
+  constitutionModifier Int
+  mindModifier         Int
+  charismaModifier     Int
+  spellbornModifier    Int
+
+  characters Character[]
+
+  @@map("races")
 }
 
 // Value Objects

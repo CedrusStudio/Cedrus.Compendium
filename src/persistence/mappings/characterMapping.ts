@@ -18,6 +18,7 @@ import { SpellModel, toSpell } from '@/persistence/mappings/spellMappings';
 import { CharacterIncludeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
+import { toRace } from '@/persistence/mappings/raceMapping';
 
 export type CharacterWithRelations = Prisma.CharacterGetPayload<{ include: CharacterIncludeAllRelations }>;
 export type CharacterWithoutRelations = Prisma.CharacterGetPayload<null>;
@@ -29,6 +30,7 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     shortName: characterPersistenceModel.shortName,
     description: characterPersistenceModel.description,
     tags: characterPersistenceModel.tags,
+    race: characterPersistenceModel.race ? toRace(characterPersistenceModel.race) : undefined,
 
     characteristics: characterPersistenceModel.characteristics,
     attributes: characterPersistenceModel.attributes,
@@ -64,6 +66,12 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     shortName: copyCreateCharacter.shortName,
     description: copyCreateCharacter.description,
     tags: copyCreateCharacter.tags,
+
+    ...(copyCreateCharacter.raceId && {
+      race: {
+        connect: { id: copyCreateCharacter.raceId }
+      }
+    }),
 
     characteristics: copyCreateCharacter.characteristics,
     attributes: copyCreateCharacter.attributes,
@@ -136,6 +144,12 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
     description: header.description,
     tags: header.tags,
 
+    ...(header.raceId && {
+      race: {
+        connect: { id: header.raceId }
+      }
+    }),
+
     characteristics: 
     {
       strength: { grade: defaultDiceGrade, value: 0, bonus: 0, testBonus: 0 },
@@ -192,6 +206,11 @@ export function toCharacterDetailsPersistenceModel
     shortName: details.shortName,
     description: details.description,
     tags: details.tags,
+    ...(details.raceId !== undefined && {
+      race: details.raceId 
+        ? { connect: { id: details.raceId } }
+        : { disconnect: true }
+    }),
     perks: createUpsertPayload(existingOnCharacterPerkIds, details.perks, idsToConnect)
   };
 }

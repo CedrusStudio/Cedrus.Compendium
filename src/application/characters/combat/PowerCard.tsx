@@ -17,6 +17,11 @@ import { PowerSpecification } from '@/domain/characters/combat/Power';
 import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
 import { colors } from '@/presentation/colors';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import PowerRollsCard from '@/application/characters/combat/power/PowerRollsCard';
+import ChangeButtons from '@/common/components/buttons/ChangeButtons';
+import { Label } from '@/ui/label';
+import { gainIcon, lossIcon } from '@/presentation/icons';
+import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type PowerCardProps =
 {
@@ -27,6 +32,10 @@ export default function PowerCard({ power }: PowerCardProps)
 {
   const [usedSpells, setUsedSpells] = useState<(Spell | EndTurn)[]>([]);
   const [currentEssence, setCurrentEssence] = useState<number>(power.essence);
+  const [essenceIncrease, setEssenceIncrease] = useState<number>(0);
+  const [essenceIncreaseChangeAmount, setEssenceIncreaseChangeAmount] = useState<number>(1);
+  const [essenceLoss, setEssenceLoss] = useState<number>(0);
+  const [essenceLossChangeAmount, setEssenceLossChangeAmount] = useState<number>(1);
   
   // Calculate default offense index based on level + bonus
   const defaultOffenseIndex = power.level + power.bonus;
@@ -71,6 +80,18 @@ export default function PowerCard({ power }: PowerCardProps)
   const resetEssence = () =>
   {
     setCurrentEssence(power.essence);
+    setEssenceIncrease(0);
+    setEssenceLoss(0);
+  }
+
+  function setEssenceIncreaseIfPositive(dispatchInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, (value) => setEssenceIncrease(value), dispatchInput, essenceIncrease);
+  }
+
+  function setEssenceLossIfPositive(dispatchInput: DispatchSetInput<number>) 
+  {
+    setIf(newValue => newValue >= 0, (value) => setEssenceLoss(value), dispatchInput, essenceLoss);
   }
 
   return (
@@ -82,7 +103,7 @@ export default function PowerCard({ power }: PowerCardProps)
             <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
           </div>
 
-          <div className='flex flex-row justify-center items-center gap-6'>
+          <div className='flex flex-col sm:flex-row justify-center items-center gap-4'>
             <div className="grid grid-cols-3 gap-6 justify-center items-center">
 
               <div className="flex flex-col items-center">
@@ -98,12 +119,23 @@ export default function PowerCard({ power }: PowerCardProps)
               <div className="flex flex-col items-center">
                 <span className="text-xs text-muted-foreground mb-1">{displayedText.essence}</span>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-lg text-primary">{currentEssence}</span>
+                  <span className="font-bold text-lg text-primary">{currentEssence + essenceIncrease - essenceLoss}</span>
                   <span className="text-sm text-muted-foreground">/</span>
                   <span className="font-bold text-lg text-muted-foreground">{power.essence}</span>
                 </div>
               </div>
               
+            </div>
+
+            <div className='flex flex-col gap-y-2'>
+              <div className='flex gap-2 items-center justify-center'>
+                <Label className='text-xs text-muted-foreground'>{gainIcon("size-5")}</Label>
+                <ChangeButtons value={essenceIncreaseChangeAmount} setValue={setEssenceIncreaseIfPositive} setChangeAmount={setEssenceIncreaseChangeAmount} resetValue={0} />
+              </div>
+              <div className='flex gap-2 items-center justify-center'>
+                <Label className='text-xs text-muted-foreground'>{lossIcon("size-5")}</Label>
+                <ChangeButtons value={essenceLossChangeAmount} setValue={setEssenceLossIfPositive} setChangeAmount={setEssenceLossChangeAmount} resetValue={0} />
+              </div>
             </div>
             
             <Badge variant="outline" className="px-4 py-2 mt-1 text-base capitalize">
@@ -119,15 +151,21 @@ export default function PowerCard({ power }: PowerCardProps)
         {
           powerSpecification && (
             <div className="col-span-full">
-              {
-                powerSpecification.offenses && powerSpecification.offenses.length > 0 && (
+            {
+              powerSpecification.offenses && powerSpecification.offenses.length > 0 && (
+                <>
                   <PowerOffenseSelector 
                     powerSpecification={powerSpecification}
                     selectedIndex={selectedOffenseIndex}
                     onSelectIndex={setSelectedOffenseIndex}
                   />
-                )
-              }
+                  <PowerRollsCard 
+                    offenses={powerSpecification.offenses}
+                    selectedIndex={Math.min(selectedOffenseIndex, powerSpecification.offenses.length - 1)}
+                  />
+                </>
+              )
+            }
             </div>
           )
         }
@@ -328,18 +366,21 @@ function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex
   };
 
   return (
-    <div className="col-span-full mt-4 pt-4 border-t border-border/40">
-      <div className="flex flex-col gap-3 p-4 bg-muted/30 rounded-lg">
-        <div className="flex items-center justify-between">
+    <div className="col-span-full mt-4 pt-2 border-t border-border/40">
+      <div className="flex flex-col gap-3 p-2 bg-muted/30 rounded-lg">
+        <div className="flex items-center justify-between gap-4">
           <h3 className="text-sm font-semibold">Siła zaklęcia</h3>
-          
+          {
+            offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
+          }
+
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="h-8 w-8 p-0"
+              className="h-8 w-8"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -351,18 +392,15 @@ function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex
               size="sm"
               onClick={handleNext}
               disabled={currentIndex === maxIndex}
-              className="h-8 w-8 p-0"
+              className="h-8 w-8"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          {
-            offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
-          }
-          
+        <div className="flex flex-row place-content-center gap-2">
+
           <div className="flex flex-wrap gap-2 items-center justify-center">
 
             <Badge variant="outline" className="font-mono">

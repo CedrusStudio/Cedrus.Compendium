@@ -11,6 +11,7 @@ export const copyCreateCharacterSchema = z.object
   shortName: headerSchema.shape.shortName,
   description: headerSchema.shape.description,
   tags: headerSchema.shape.tags,
+  raceId: headerSchema.shape.raceId,
   
   // All other properties from the base character
   characteristics: statisticsSchema.shape.characteristics,

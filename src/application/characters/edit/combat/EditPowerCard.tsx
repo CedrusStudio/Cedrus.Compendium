@@ -153,7 +153,6 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
         <div className='mb-4'>
           <div className='flex flex-row items-center justify-between gap-3 mb-2'>
-            <Label className="text-lg font-semibold">Specyfikacja Mocy</Label>
             <Button 
               type="button" 
               variant="outline" 
@@ -166,7 +165,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
           </div>
           
           {selectedSpecification ? (
-            <PowerSpecificationViewFields powerSpecification={selectedSpecification} collapsible={true} defaultOpen={false} />
+            <PowerSpecificationViewFields powerSpecification={selectedSpecification} collapsible={true} defaultOpen={false} tagsVariant='default' />
           ) : (
             <div className='p-4 border-2 border-dashed rounded-md text-center text-muted-foreground'>
               Nie wybrano specyfikacji mocy. Kliknij &quot;Wybierz&quot; aby wybrać.

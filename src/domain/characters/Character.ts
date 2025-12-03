@@ -13,12 +13,14 @@ import { CreateDefaultPower, Power } from "@/domain/characters/combat/Power";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
 import { Tag } from "@/domain/Tag";
 import { Entity } from "@/domain/Entity";
+import { Race } from "@/domain/Race";
 
 export type Character = Entity &
 {
   shortName: string;
   description: string;
   tags: Tag[];
+  race?: Race;
 
   characteristics: Characteristics;
   attributes: Attributes;
@@ -43,6 +45,7 @@ const emptyCharacter: Character =
   shortName: "Nowa",
   tags: [],
   description: "Opis postaci",
+  race: undefined,
   characteristics: 
   {
     strength: { grade: defaultDiceGrade, value: 0, bonus: 0, testBonus: 0 },

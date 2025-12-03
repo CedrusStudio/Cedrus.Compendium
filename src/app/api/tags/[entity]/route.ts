@@ -10,6 +10,7 @@ const ENTITY_MODEL_MAP: Record<string, string> =
   'shields': 'shield',
   'spells': 'spell',
   'perks': 'perk',
+  'races': 'race',
   'maneuvers': 'maneuver',
   'stances': 'stance',
   'states': 'state',
