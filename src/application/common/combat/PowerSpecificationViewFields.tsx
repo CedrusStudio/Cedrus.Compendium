@@ -13,9 +13,10 @@ type PowerSpecificationViewFieldsProps =
   powerSpecification: PowerSpecification;
   collapsible?: boolean;
   defaultOpen?: boolean;
+  tagsVariant?: "default" | "secondary";
 }
 
-export default function PowerSpecificationViewFields({ powerSpecification, collapsible = false, defaultOpen = true }: PowerSpecificationViewFieldsProps)
+export default function PowerSpecificationViewFields({ powerSpecification, collapsible = false, defaultOpen = true, tagsVariant = "secondary" }: PowerSpecificationViewFieldsProps)
 {
   return (
     <div className='flex flex-col w-full gap-3'>
@@ -23,7 +24,7 @@ export default function PowerSpecificationViewFields({ powerSpecification, colla
       <div className="flex flex-col gap-2 rounded-md">
         <div className="flex flex-row flex-wrap gap-2 items-center">
           <p className="font-semibold text-lg">{powerSpecification.name}</p>
-          <TagsView tags={powerSpecification.tags} variant="secondary" />
+          <TagsView tags={powerSpecification.tags} variant={tagsVariant} />
         </div>
         {
           powerSpecification.description && <p className="text-sm text-muted-foreground break-words">{powerSpecification.description}</p>
