@@ -18,12 +18,16 @@ import RaceCreateSheet from "@/application/characters/edit/details/RaceCreateShe
 import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import { createRaceKeysetQuery } from "@/infrastructure/searchQueries/races/createRaceKeysetQuery";
 import { deleteIcon } from "@/presentation/icons";
+import { useEntityTags } from '@/common/hooks/useEntityTags';
+import TagFilter from "@/common/components/filters/TagFilter";
 
 type RaceSelectorProps = 
 {
   control: Control<DetailsDto>;
   currentRaceId?: string | null | undefined;
 };
+
+const EMPTY_ARRAY: string[] = [];
 
 export default function RaceSelector({ control }: RaceSelectorProps) 
 {
@@ -36,13 +40,17 @@ export default function RaceSelector({ control }: RaceSelectorProps)
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch] = useDebounce(searchInput, 300);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
+  const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  
+  const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('races');
 
-  const queryKey = createKeysetSearchRacesKey(debouncedSearch, emptyUlid, [], 20);
+  const queryKey = createKeysetSearchRacesKey(debouncedSearch, emptyUlid, searchTags, 20, excludedTags);
   const { data: races = [] } = useQuery
   ({
     queryKey,
     queryFn: async () => {
-      const raceQuery = createRaceKeysetQuery(debouncedSearch, emptyUlid, [], 20);
+      const raceQuery = createRaceKeysetQuery(debouncedSearch, emptyUlid, searchTags, 20, excludedTags);
       return await searchClient.search<Race[]>(raceQuery);
     },
     staleTime: 30_000,
@@ -60,6 +68,8 @@ export default function RaceSelector({ control }: RaceSelectorProps)
     field.onChange(raceId);
     setIsSearchOpen(false);
     setSearchInput("");
+    setSearchTags(EMPTY_ARRAY);
+    setExcludedTags(EMPTY_ARRAY);
   }, [field]);
 
   const handleRemoveRace = useCallback(() => 
@@ -71,6 +81,16 @@ export default function RaceSelector({ control }: RaceSelectorProps)
   {
     field.onChange(newRaceId);
   }, [field]);
+
+  const handleSearchTagsChange = useCallback((tags: string[]) => 
+  {
+    setSearchTags(tags);
+  }, []);
+
+  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  {
+    setExcludedTags(tags);
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">
@@ -119,44 +139,81 @@ export default function RaceSelector({ control }: RaceSelectorProps)
         </Activity>
       </div>
 
-      {/* Race Search/Selection */}
-      {isSearchOpen && (
-        <div className="border rounded-lg p-4 space-y-3">
-          <Input
-            placeholder={displayedText.searchRaces || "Szukaj rasy..."}
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            autoFocus
-          />
+        <Activity mode={isSearchOpen ? "visible" : "hidden"}>
+          <div className="border rounded-lg p-4 space-y-3">
 
-          <div className="h-64 overflow-y-auto border-t">
-            <div className="space-y-2 p-2">
-              {races.length === 0 ? (
+            <div className="flex flex-col sm:flex-row gap-2">
+
+              <Input
+                placeholder={displayedText.searchRaces}
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+                autoFocus
+                className="w-fit"
+              />
+
+              <TagFilter 
+                includedTags={searchTags} 
+                onIncludedTagsChange={handleSearchTagsChange} 
+                excludedTags={excludedTags}
+                onExcludedTagsChange={handleExcludedTagsChange}
+                availableTags={availableTags} 
+                isLoading={tagsLoading} 
+              />
+
+            </div>
+
+            <div className="h-64 overflow-y-auto border-t space-y-2 p-2">
+              <Activity mode={races.length === 0 ? "visible" : "hidden"}>
                 <div className="text-sm text-muted-foreground text-center py-4">
-                  {displayedText.noRacesFound || "Nie znaleziono ras"}
+                  {displayedText.noRacesFound}
                 </div>
-              ) : (
-                races.map((race) => (
-                  <Button
-                    key={race.id}
-                    type="button"
-                    variant={field.value === race.id ? "default" : "ghost"}
-                    className="w-full justify-start"
-                    onClick={() => handleSelectRace(race.id)}
-                  >
-                    <div className="flex flex-col items-start">
-                      <span className="font-medium">{race.name}</span>
-                      <span className="text-xs text-muted-foreground line-clamp-1">
-                        {race.description}
-                      </span>
-                    </div>
-                  </Button>
-                ))
-              )}
+              </Activity>
+
+              {
+                races.length > 0 && (
+                  races.map(race => (
+                    <Button
+                      key={race.id}
+                      type="button"
+                      variant={field.value === race.id ? "default" : "ghost"}
+                      className="w-full justify-start p-3 h-auto"
+                      onClick={() => handleSelectRace(race.id)}
+                    >
+                      <div className="flex flex-row gap-1 w-full">
+
+                        <div className="mr-2">
+                          <span className="text-base">{race.name}</span>
+                        </div>
+
+                        <div className="flex flex-col place-items-start place-content-center gap-2 w-full">
+                          <span className="text-xs text-muted-foreground line-clamp-2">
+                            {race.description}
+                          </span>
+                        </div>
+
+                        {
+                          race.tags && race.tags.length > 0 && (
+                            <div className="flex flex-row gap-1 mt-1">
+                            {
+                              race.tags.map(tag => (
+                                <Badge key={tag} variant="secondary" className="text-xs px-2 py-0">
+                                  {tag}
+                                </Badge>
+                              ))
+                            }
+                            </div>
+                          )
+                        }
+
+                      </div>
+                    </Button>
+                  ))
+                )
+              }
             </div>
           </div>
-        </div>
-      )}
+        </Activity>
     </div>
   );
 }

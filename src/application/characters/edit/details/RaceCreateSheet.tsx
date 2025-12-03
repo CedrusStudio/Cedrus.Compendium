@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/common/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/common/components/ui/sheet";
 import { Button } from "@/common/components/ui/button";
 import { Form } from "@/common/components/ui/form";
 import { Label } from "@/common/components/ui/label";
@@ -74,6 +74,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      
       <SheetTrigger asChild>
         <Button type="button" variant="outline">
           <Plus className="h-2 w-2" />
@@ -84,107 +85,108 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
       <SheetContent className="w-full">
         
         <SheetHeader>
-          <SheetTitle className="first-letter:uppercase">
-            {displayedText.createNewRace}
-          </SheetTitle>
-          <SheetDescription>
-            {displayedText.createRaceDescription}
-          </SheetDescription>
+          <SheetTitle className="first-letter:uppercase">{displayedText.createNewRace}</SheetTitle>
+          <SheetDescription>{displayedText.createRaceDescription}</SheetDescription>
         </SheetHeader>
 
-        <Form {...form}>
-          <form 
-            id={formId} 
-            onSubmit={form.handleSubmit(handleSubmit)} 
-            className="space-y-6"
-          >
-            <div className="space-y-4 mx-4 flex flex-col">
-              <div className="space-y-2">
-                <Label className="capitalize place-items-center place-content-center">{displayedText.name}</Label>
-                <InputFormField<RaceDto> 
-                  path="name" 
-                  inputPlaceholder={displayedText.changeName} 
-                />
-              </div>
+        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3">
+          <Form {...form}>
+            <form 
+              id={formId} 
+              onSubmit={form.handleSubmit(handleSubmit)} 
+              className="space-y-6"
+            >
+              <div className="space-y-4 mx-4 flex flex-col">
+                <div className="space-y-2">
+                  <Label className="capitalize place-items-center place-content-center">{displayedText.name}</Label>
+                  <InputFormField<RaceDto> 
+                    path="name" 
+                    inputPlaceholder={displayedText.changeName} 
+                  />
+                </div>
 
-              <div className="space-y-2">
-                <Label className="capitalize place-items-center place-content-center">{displayedText.description}</Label>
-                <AreaInputFormField<RaceDto> 
-                  path="description" 
-                  inputPlaceholder={displayedText.changeDescription} 
-                />
-              </div>
+                <div className="space-y-2">
+                  <Label className="capitalize place-items-center place-content-center">{displayedText.description}</Label>
+                  <AreaInputFormField<RaceDto> 
+                    path="description" 
+                    inputPlaceholder={displayedText.changeDescription} 
+                  />
+                </div>
 
-              <FormTagsInput<RaceDto> path="tags" />
+                <FormTagsInput<RaceDto> path="tags" />
 
-              <div className="space-y-3 flex flex-col place-content-center place-items-center">
-                <Label className="text-base">
-                  <span className="first-letter:uppercase">{displayedText.characteristicModifiers}</span>
-                </Label>
-                
-                <div className="grid grid-cols-2 gap-4 mx-4">
+                <div className="space-y-3 flex flex-col place-content-center place-items-center">
+                  <Label className="text-base">
+                    <span className="first-letter:uppercase">{displayedText.characteristicModifiers}</span>
+                  </Label>
                   
-                  <div className="flex flex-col gap-2 place-content-center place-items-center">
-                    <div className="flex flex-col gap-2 place-content-center place-items-center">
-                      <Label className="text-xs capitalize">{displayedText.strength}</Label>
-                      <InputFormField<RaceDto> 
-                        path="strengthModifier" 
-                        inputClassName="max-w-[3rem] text-center font-medium" 
-                      />
-                    </div>
+                  <div className="grid grid-cols-2 gap-4 mx-4">
                     
                     <div className="flex flex-col gap-2 place-content-center place-items-center">
-                      <Label className="text-xs capitalize">{displayedText.dexterity}</Label>
-                      <InputFormField<RaceDto> 
-                        path="dexterityModifier" 
-                        inputClassName="max-w-[3rem] text-center font-medium" 
-                      />
+                      <div className="flex flex-col gap-2 place-content-center place-items-center">
+                        <Label className="text-xs capitalize">{displayedText.strength}</Label>
+                        <InputFormField<RaceDto> 
+                          path="strengthModifier" 
+                          inputClassName="max-w-[3rem] text-center font-medium" 
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 place-content-center place-items-center">
+                        <Label className="text-xs capitalize">{displayedText.dexterity}</Label>
+                        <InputFormField<RaceDto> 
+                          path="dexterityModifier" 
+                          inputClassName="max-w-[3rem] text-center font-medium" 
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 place-content-center place-items-center">
+                        <Label className="text-xs capitalize">{displayedText.constitution}</Label>
+                        <InputFormField<RaceDto> 
+                          path="constitutionModifier" 
+                          inputClassName="max-w-[3rem] text-center font-medium" 
+                        />
+                      </div>
                     </div>
-                    
-                    <div className="flex flex-col gap-2 place-content-center place-items-center">
-                      <Label className="text-xs capitalize">{displayedText.constitution}</Label>
-                      <InputFormField<RaceDto> 
-                        path="constitutionModifier" 
-                        inputClassName="max-w-[3rem] text-center font-medium" 
-                      />
-                    </div>
-                  </div>
 
-                  <div className="flex flex-col gap-2 place-content-center place-items-center">
                     <div className="flex flex-col gap-2 place-content-center place-items-center">
-                      <Label className="text-xs capitalize">{displayedText.mind}</Label>
-                      <InputFormField<RaceDto> 
-                        path="mindModifier" 
-                        inputClassName="max-w-[3rem] text-center font-medium" 
-                      />
+                      <div className="flex flex-col gap-2 place-content-center place-items-center">
+                        <Label className="text-xs capitalize">{displayedText.mind}</Label>
+                        <InputFormField<RaceDto> 
+                          path="mindModifier" 
+                          inputClassName="max-w-[3rem] text-center font-medium" 
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 place-content-center place-items-center">
+                        <Label className="text-xs capitalize">{displayedText.charisma}</Label>
+                        <InputFormField<RaceDto> 
+                          path="charismaModifier" 
+                          inputClassName="max-w-[3rem] text-center font-medium" 
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-2 place-content-center place-items-center">
+                        <Label className="text-xs capitalize">{displayedText.spellborn}</Label>
+                        <InputFormField<RaceDto> 
+                          path="spellbornModifier" 
+                          inputClassName="max-w-[3rem] text-center font-medium" 
+                        />
+                      </div>
                     </div>
-                    
-                    <div className="flex flex-col gap-2 place-content-center place-items-center">
-                      <Label className="text-xs capitalize">{displayedText.charisma}</Label>
-                      <InputFormField<RaceDto> 
-                        path="charismaModifier" 
-                        inputClassName="max-w-[3rem] text-center font-medium" 
-                      />
-                    </div>
-                    
-                    <div className="flex flex-col gap-2 place-content-center place-items-center">
-                      <Label className="text-xs capitalize">{displayedText.spellborn}</Label>
-                      <InputFormField<RaceDto> 
-                        path="spellbornModifier" 
-                        inputClassName="max-w-[3rem] text-center font-medium" 
-                      />
-                    </div>
+
                   </div>
 
                 </div>
-
               </div>
-            </div>
-          </form>
-        </Form>
+            </form>
+          </Form>
+        </div>
 
-        <SheetFooter className="mt-6">
+        <SheetFooter>
           <SubmitButton isPending={mutation.isPending} formName={formId} className="w-full" />
+          <SheetClose className="capitalize" asChild>
+            <Button variant="outline" type='button'>{displayedText.close}</Button>
+          </SheetClose>
         </SheetFooter>
       </SheetContent>
     </Sheet>
