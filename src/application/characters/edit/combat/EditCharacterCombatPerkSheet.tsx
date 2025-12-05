@@ -1,9 +1,6 @@
 "use client";
 
-import { Button } from '@/ui/button';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
+import { EditSheet } from '@/common/components/sheets/EditSheet';
 import { PropsWithChildren } from 'react';
 import PerkEditableFields from '@/application/common/PerkEditableFields';
 
@@ -18,33 +15,15 @@ type EditCombatSheetProps =
 export default function EditCharacterCombatPerkSheet({ type, displayedTitle, children }: PropsWithChildren<EditCombatSheetProps>)
 {
     return (
-        <Sheet>
-
-            <SheetTrigger asChild>
-                <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-            </SheetTrigger>
-
-            <SheetContent className="w-full">
-                
-                <SheetHeader>
-                    <SheetTitle className='first-letter:uppercase'>{displayedTitle}</SheetTitle>
-                    <SheetDescription>
-                        {displayedText.clickSave}
-                    </SheetDescription>
-                </SheetHeader>
-
-                <div className="flex flex-col gap-3 px-4">
-                    <PerkEditableFields pathPrefix={`${type}.`} />
-                    {children}
-                </div>
-
-                <SheetFooter>
-                    <SheetClose className="capitalize" asChild>
-                        <Button variant="outline" type='button'>{displayedText.close}</Button>
-                    </SheetClose>
-                </SheetFooter>
-
-            </SheetContent>
-        </Sheet>
-  )
+        <EditSheet
+            title={displayedTitle}
+            isPending={false}
+            formId="combat-form"
+            triggerVariant="outline"
+            hasSubmitButton={false}
+        >
+            <PerkEditableFields pathPrefix={`${type}.`} />
+            {children}
+        </EditSheet>
+    )
 }
