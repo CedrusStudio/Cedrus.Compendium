@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getStatisticTotalTestValue, type Statistic } from '../Statistic';
+import { getStatisticTotalTestValue, type Statistic } from '@/domain/characters/statistics/Statistic';
 
 describe('Statistic - Statistic Calculation System', () => {
   // Test helper

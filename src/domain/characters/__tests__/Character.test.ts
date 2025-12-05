@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { CreateEmptyCharacter, type Character } from '../Character';
+import { CreateEmptyCharacter, type Character } from '@/domain/characters/Character';
 import { Tag } from '@/domain/Tag';
 import * as ulid from 'ulid';
 

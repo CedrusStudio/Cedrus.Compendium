@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { pathToPerkField, pathToPerk, CreateDefaultPerk } from '../Perk';
+import { pathToPerkField, pathToPerk, CreateDefaultPerk } from '@/domain/characters/Perk';
 
 describe('Perk', () => {
   describe('pathToPerkField', () => {

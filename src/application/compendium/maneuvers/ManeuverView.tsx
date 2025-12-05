@@ -45,7 +45,7 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-10 capitalize">
+        <Badge variant="secondary" className="h-9 w-11 capitalize">
           <div>{priceIcon}</div>
           <div>{maneuver.price}</div>
         </Badge>

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { canUseCastable, type Castable, type EndTurn } from '../Castable';
+import { canUseCastable, type Castable, type EndTurn } from '@/domain/characters/Castable';
 
 describe('Castable - Action Economy System', () => {
   // Test helpers

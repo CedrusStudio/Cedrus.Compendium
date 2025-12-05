@@ -43,7 +43,7 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-10 capitalize">
+        <Badge variant="secondary" className="h-9 w-11 capitalize">
           <div>{priceIcon}</div>
           <div>{state.price}</div>
         </Badge>

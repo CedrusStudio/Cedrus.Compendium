@@ -5,7 +5,7 @@ import {
   CharacterTag,
   SessionTagPrefix,
   type Tag,
-} from '../Tag';
+} from '@/domain/Tag';
 
 describe('Tag - Tag Validation System', () => {
   describe('isValidTag()', () => {

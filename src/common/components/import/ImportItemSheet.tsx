@@ -10,7 +10,7 @@ import { useDebounce } from 'use-debounce';
 import searchClient from '@/infrastructure/clients/searchClient';
 import { DEFAULT_PAGE_SIZE, emptyUlid } from '@/common/global/pagination';
 import { EntityType, useEntityTags } from '@/common/hooks/useEntityTags';
-import { WithScroll } from '../WithScroll';
+import { WithScroll } from '@/common/components/WithScroll';
 import { SearchEntityPayload } from '@/common/global/SearchPayloads';
 import ListHeader from '@/common/components/lists/ListHeader';
 

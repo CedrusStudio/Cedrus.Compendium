@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useCombatRolls } from '../useCombatRolls';
+import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import * as OffenseModule from '@/domain/characters/combat/Offense';
 import type { Offense, WeaponOffense, DamageOffense } from '@/domain/characters/combat/Offense';
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { calculateTotalHealth, type Health } from '../Health';
-import type { Statistic } from '../../statistics/Statistic';
+import { calculateTotalHealth, type Health } from '@/domain/characters/combat/Health';
+import type { Statistic } from '@/domain/characters/statistics/Statistic';
 
 describe('Health - Total Health Calculations', () => {
   const createHealth = (overrides?: Partial<Health>): Health => ({

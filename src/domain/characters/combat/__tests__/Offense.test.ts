@@ -10,7 +10,7 @@ import {
   handleDamageOffenseRolls,
   type WeaponOffense,
   type DamageOffense,
-} from '../Offense';
+} from '@/domain/characters/combat/Offense';
 
 describe('Offense - Dice Rolling and Damage Calculations', () => {
   afterEach(() => {
