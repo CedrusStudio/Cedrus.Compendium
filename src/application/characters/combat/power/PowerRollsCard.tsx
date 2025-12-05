@@ -56,7 +56,7 @@ export default function PowerRollsCard({ offenses, selectedIndex }: PowerRollsCa
         />
 
         <SpellDamageSubcard 
-            name={displayedText.bonusDamage}
+            name={displayedText.bonus}
             spellDamage={currentSpellDamage}
             baseSpellDamage={offense.spellDamage}
             rolls={spellDamageRolls}
