@@ -3,8 +3,9 @@
 import client from "@/infrastructure/clients/maneuversClient";
 import { type Maneuver } from "@/domain/characters/combat/Maneuver";
 import { displayedText } from '@/common/translations';
-import { battleIcon, cooldownIcon, priceIcon } from '@/common/icons';
+import { battleIcon, cooldownIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
+import PriceBadge from '@/common/components/badges/PriceBadge';
 import { getBadgeVariant } from '@/common/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
@@ -45,10 +46,7 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-11 capitalize">
-          <div>{priceIcon}</div>
-          <div>{maneuver.price}</div>
-        </Badge>
+        <PriceBadge price={maneuver.price} />
         
         <Badge className='h-9 w-10 p-2 rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
             <div>{cooldownIcon()}</div>

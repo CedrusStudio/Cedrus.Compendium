@@ -3,8 +3,7 @@
 import client from "@/infrastructure/clients/stancesClient";
 import { type Mode } from "@/domain/characters/combat/Mode";
 import { displayedText } from '@/common/translations';
-import { priceIcon } from '@/common/icons';
-import { Badge } from '@/common/components/ui/badge';
+import PriceBadge from '@/common/components/badges/PriceBadge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
@@ -43,10 +42,7 @@ export default function StanceView({ stance, disableEdit = false }: StanceViewPr
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-11 capitalize">
-          <div>{priceIcon}</div>
-          <div>{stance.price}</div>
-        </Badge>
+        <PriceBadge price={stance.price} />
         {
           !disableEdit && (
             <CompendiumEditView>

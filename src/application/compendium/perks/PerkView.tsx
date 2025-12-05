@@ -3,8 +3,7 @@
 import client from "@/infrastructure/clients/perksClient";
 import { type Perk } from "@/domain/characters/Perk";
 import { displayedText } from '@/common/translations';
-import { priceIcon } from '@/common/icons';
-import { Badge } from '@/common/components/ui/badge';
+import PriceBadge from '@/common/components/badges/PriceBadge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { PerkDto, perkSchema } from "@/persistence/schemas/characters/perkSchema";
@@ -43,10 +42,7 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-11 capitalize">
-          <div>{priceIcon}</div>
-          <div>{perk.price}</div>
-        </Badge>
+        <PriceBadge price={perk.price} />
         {
           !disableEdit && (
             <CompendiumEditView>
