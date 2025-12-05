@@ -1,6 +1,6 @@
 import { CastTime } from '@/domain/characters/Castable';
-import { getCastTimeColors } from '@/presentation/colors';
-import { displayedText } from "@/presentation/translations";
+import { getCastTimeColors } from '@/common/colors';
+import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
 
 type InfoContentWithTagsProps =

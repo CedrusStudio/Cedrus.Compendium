@@ -3,7 +3,7 @@
 import { Badge } from '@/common/components/ui/badge';
 import { type Armor } from '@/domain/characters/equipment/Armor';
 import DefensiveItemViewFields from '@/application/common/equipment/Views/DefensiveItemViewFields';
-import { immunityIcon, reductionArmorOrBlockIcon } from '@/presentation/icons';
+import { immunityIcon, reductionArmorOrBlockIcon } from '@/common/icons';
 
 type ArmorViewFieldsProps =
 {

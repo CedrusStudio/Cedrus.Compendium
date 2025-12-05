@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { RulebookSearchCommand } from "@/application/rulebook/RulebookSearchCommand";
 import { Button } from "@/ui/button";
 import { Search } from "lucide-react";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 export default function RuleBookNavbar()
 {

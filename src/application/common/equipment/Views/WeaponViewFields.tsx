@@ -1,6 +1,6 @@
 "use client";
 
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { Badge } from '@/common/components/ui/badge';
 import SummaryView from "@/application/common/SummaryView";
 import { type Weapon } from '@/domain/characters/equipment/Weapon';

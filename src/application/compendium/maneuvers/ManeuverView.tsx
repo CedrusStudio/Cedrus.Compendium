@@ -2,10 +2,10 @@
 
 import client from "@/infrastructure/clients/maneuversClient";
 import { type Maneuver } from "@/domain/characters/combat/Maneuver";
-import { displayedText } from '@/presentation/translations';
-import { battleIcon, cooldownIcon, priceIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { battleIcon, cooldownIcon, priceIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
-import { getBadgeVariant } from '@/presentation/colors';
+import { getBadgeVariant } from '@/common/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";

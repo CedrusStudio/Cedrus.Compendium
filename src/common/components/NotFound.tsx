@@ -1,4 +1,4 @@
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 type NotFoundProps = {
     subject: string;

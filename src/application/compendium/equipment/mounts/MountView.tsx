@@ -1,7 +1,7 @@
 "use client";
 
 import client from "@/infrastructure/clients/equipment/mountsClient";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { MountDto, mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";

@@ -14,11 +14,11 @@ import { useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
 import { useDeleteCharacterById } from "@/application/characters/hooks/useDeleteCharacterById";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import DetailsView from "@/application/characters/details/DetailsView";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
-import { editIcon } from "@/presentation/icons";
+import { editIcon } from "@/common/icons";
 import DeleteButton from "@/common/components/buttons/DeleteButton";
 import NotFound from '@/common/components/NotFound';
 

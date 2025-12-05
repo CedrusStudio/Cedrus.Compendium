@@ -6,9 +6,8 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/statesClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { AddModeDto, addModeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
-
 import { createKeysetSearchStatesKey } from "@/persistence/cacheKeys";
 import { createStateKeysetQuery } from "@/infrastructure/searchQueries/states/createStateKeysetQuery";
 import StateView from "@/application/compendium/states/StateView";

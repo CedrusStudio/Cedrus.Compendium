@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/common/components/ui/button";
-import { arrowDownIcon, arrowUpIcon } from "@/presentation/icons";
+import { arrowDownIcon, arrowUpIcon } from "@/common/icons";
 import { useState } from "react";
 
 type SortDirectionButtonProps =

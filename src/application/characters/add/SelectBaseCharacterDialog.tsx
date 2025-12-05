@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { Button } from '@/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/ui/card';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { useSearchCharactersSummary } from '@/application/characters/hooks/useSearchCharactersSummary';
 import { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 import TagsView from '@/common/components/tags/TagsView';

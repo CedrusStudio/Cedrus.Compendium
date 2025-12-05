@@ -6,8 +6,8 @@ import { Health } from '@/domain/characters/combat/Health';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { Field } from "@/common/components/fields";
-import { displayedText } from '@/presentation/translations';
-import { gainIcon, lossIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { gainIcon, lossIcon } from '@/common/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type BarrierCardProps = 

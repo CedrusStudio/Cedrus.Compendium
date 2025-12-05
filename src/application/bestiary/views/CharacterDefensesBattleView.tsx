@@ -1,16 +1,16 @@
 
 import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
 import { useState } from "react";
-import { immunityIcon, resistanceIcon } from "@/presentation/icons";
+import { immunityIcon, resistanceIcon } from "@/common/icons";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import { Field } from "@/common/components/fields";
 import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
 import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
-import { reductionIcons } from "@/presentation/icons";
+import { reductionIcons } from "@/common/icons";
 import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 import { Character } from "@/domain/characters/Character";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 export default function CharacterDefensesBattleView({ character }: { character : Character })
 {

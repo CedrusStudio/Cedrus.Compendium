@@ -1,6 +1,6 @@
 import { Equipment } from '@/domain/characters/equipment/Equipment';
 import ItemsView from '@/application/characters/equipment/ItemsView';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import InventoryItemViewFields from '@/application/common/equipment/Views/InventoryItemViewFields';
 import MountViewFields from '@/application/common/equipment/Views/MountViewFields';
 import ArmorViewFields from '@/application/common/equipment/Views/ArmorViewFields';

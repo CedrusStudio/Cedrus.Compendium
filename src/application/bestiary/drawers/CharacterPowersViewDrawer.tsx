@@ -1,9 +1,9 @@
 import { Field } from "@/common/components/fields";
 import { Badge } from "@/common/components/ui/badge";
 import { Power } from "@/domain/characters/combat/Power";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Spell } from "@/domain/characters/combat/Power";
-import { getCastTimeColors } from "@/presentation/colors";
+import { getCastTimeColors } from "@/common/colors";
 import { Character } from "@/domain/characters/Character";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
 

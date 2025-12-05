@@ -6,7 +6,7 @@ import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
-import { leftIcon, rightIcon } from '@/presentation/icons';
+import { leftIcon, rightIcon } from '@/common/icons';
 import Subcard from "@/common/components/Subcard";
 
 type WeaponDamageWithCriticalSubcardProps =

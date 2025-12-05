@@ -1,5 +1,5 @@
 import { Field } from "@/common/components/fields";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
 import { Mode } from "@/domain/characters/combat/Mode";
 import { Character } from "@/domain/characters/Character";

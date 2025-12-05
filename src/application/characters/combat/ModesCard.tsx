@@ -6,7 +6,7 @@ import { Label } from "@/ui/label";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select";
 import { Field } from "@/common/components/fields";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
 import { Separator } from "@/common/components/ui/separator";
 

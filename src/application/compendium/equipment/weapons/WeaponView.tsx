@@ -2,7 +2,7 @@
 
 import client from "@/infrastructure/clients/equipment/weaponsClient";
 import { type Weapon } from "@/domain/characters/equipment/Weapon";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";

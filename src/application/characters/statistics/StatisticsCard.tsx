@@ -1,7 +1,7 @@
 import { Statistic } from "@/domain/characters/statistics/Statistic";
 import { DataCard } from '@/common/components/cards/DataCard';
 import StatisticView from "@/application/characters/statistics/StatisticView";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 
 type StatisticsViewProps = 

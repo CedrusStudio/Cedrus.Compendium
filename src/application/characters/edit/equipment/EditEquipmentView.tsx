@@ -18,7 +18,7 @@ import { CreateDefaultArmor, Armor } from '@/domain/characters/equipment/Armor';
 import { CreateDefaultShield, Shield } from '@/domain/characters/equipment/Shield';
 import { CreateDefaultInventoryItem, Item } from '@/domain/characters/equipment/Item';
 import { CreateDefaultMount, Mount } from '@/domain/characters/equipment/Mount';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { FORM_IDS } from '@/application/characters/edit/editFormConstants';
 import { useCharacterForm } from '@/application/characters/edit/hooks/useCharacterForm';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';

@@ -14,7 +14,7 @@ import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import NotFound from "@/common/components/NotFound";
 
 type EditCharacterViewProps =

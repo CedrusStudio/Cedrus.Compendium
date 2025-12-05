@@ -1,6 +1,6 @@
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { Label } from "@/ui/label"
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { FieldPath, FieldValues } from 'react-hook-form';
 import { DefensiveItemDto } from '@/persistence/schemas/characters/equipment/defenseItemSchema';
 import { allowedResistances, allowedDexterityRestrictions, allowedInitiativeRestrictions, allowedStrengthRequirements, allowedReflexRestrictions } from "@/domain/characters/equipment/Item";

@@ -3,8 +3,8 @@
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { Button } from '@/common/components/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/common/components/ui/sheet";
-import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { editIcon } from '@/common/icons';
 import { Activity, PropsWithChildren, ReactNode } from "react";
 
 export interface EditSheetProps 

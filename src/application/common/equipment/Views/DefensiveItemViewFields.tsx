@@ -5,7 +5,7 @@ import SummaryView from "@/application/common/SummaryView";
 import { type Armor } from '@/domain/characters/equipment/Armor';
 import { type Shield } from '@/domain/characters/equipment/Shield';
 import { ReactNode } from 'react';
-import { attributePenaltyIcon, dexterityRestrictionIcon, initiativeRestrictionIcon, reflexRestrictionIcon, resistanceIcon, strengthRequirementIcon } from '@/presentation/icons';
+import { attributePenaltyIcon, dexterityRestrictionIcon, initiativeRestrictionIcon, reflexRestrictionIcon, resistanceIcon, strengthRequirementIcon } from '@/common/icons';
 
 type DefensiveItemViewFieldsProps =
 {

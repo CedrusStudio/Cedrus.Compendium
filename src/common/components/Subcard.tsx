@@ -1,7 +1,7 @@
 import { DataCard } from '@/common/components/cards/DataCard';
 import React, { PropsWithChildren } from 'react';
 import { Button } from '@/ui/button';
-import { resetIcon } from '@/presentation/icons';
+import { resetIcon } from '@/common/icons';
 import { FieldInfo } from './fields';
 
 type SubcardProps =

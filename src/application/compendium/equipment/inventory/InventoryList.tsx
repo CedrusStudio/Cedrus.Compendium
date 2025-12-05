@@ -20,7 +20,7 @@ import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 

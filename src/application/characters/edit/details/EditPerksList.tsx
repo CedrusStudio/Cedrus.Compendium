@@ -4,7 +4,7 @@ import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/ui
 import { CreateDefaultPerk, pathToPerk, Perk } from "@/domain/characters/Perk";
 import { FieldArrayWithId, UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import TagsView from "@/common/components/tags/TagsView";

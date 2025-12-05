@@ -13,7 +13,7 @@ import { type StatisticsDto } from "@/persistence/schemas/characters/statistics/
 import { useFormContext } from "react-hook-form";
 import { StatisticPath } from "@/application/characters/edit/statistics/EditStatisticsCard";
 import { useStatisticForm } from "@/application/characters/edit/statistics/useStatisticForm";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 type StatisticViewEditProps = 
 {

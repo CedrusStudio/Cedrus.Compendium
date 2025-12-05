@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/mountsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { MountDto, mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";
 import { createKeysetSearchMountsKey } from "@/persistence/cacheKeys";
 import { createMountKeysetQuery } from "@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery";

@@ -9,7 +9,7 @@ import { Textarea } from "@/common/components/ui/textarea";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { createExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { toast } from "sonner";
 import { FaUserPlus } from "react-icons/fa";
 

@@ -16,9 +16,9 @@ import LabeledFormInput from "@/common/components/inputs/LabeledFormInput";
 import { getErrors } from "@/common/global/validation";
 import LabeledFormSelectInput from "@/common/components/inputs/LabeledFormSelectInput";
 import { ulid } from "ulid";
-import { addIcon } from "@/presentation/icons";
+import { addIcon } from "@/common/icons";
 import { TalentPenalty, allowedTalentPenalties, allowedTalentCategories, defaultTalent, allowedTalentCharacteristics } from "@/domain/characters/Talent";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 type AddTalentViewProps =
 {

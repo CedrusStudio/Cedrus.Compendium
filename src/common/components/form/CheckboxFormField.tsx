@@ -1,6 +1,6 @@
 import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 import { FormField, FormItem, FormLabel } from '@/ui/form';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { Checkbox } from '@/ui/checkbox';
 
 export type CheckboxFormFieldProps<TFieldValues extends FieldValues> = 

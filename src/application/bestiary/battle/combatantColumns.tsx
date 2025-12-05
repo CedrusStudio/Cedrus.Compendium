@@ -5,7 +5,7 @@ import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons, resetIcon, sortIcon } from "@/presentation/icons";
+import { attributesIcons, characteristicIcons, resetIcon, sortIcon } from "@/common/icons";
 import { useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";
 import { useState } from "react";
@@ -13,7 +13,7 @@ import { Checkbox } from "@/common/components/ui/checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/dropdown-menu";
 import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
 import ExternalParticipantActionsCell from "@/application/bestiary/battle/ExternalParticipantActionsCell";
 import ExternalParticipantHealthCell from "@/application/bestiary/battle/ExternalParticipantHealthCell";

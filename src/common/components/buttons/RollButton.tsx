@@ -1,4 +1,4 @@
-import { rollIcon } from "@/presentation/icons";
+import { rollIcon } from "@/common/icons";
 import { Button } from "@/ui/button";
 
 export type RollButtonProps = 

@@ -5,13 +5,13 @@ import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { attributesIcons, characteristicIcons } from "@/presentation/icons";
+import { attributesIcons, characteristicIcons } from "@/common/icons";
 import { useState } from "react";
 import { Checkbox } from "@/common/components/ui/checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/dropdown-menu";
 import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
 import CharacterPerksViewDrawer from "@/application/bestiary/drawers/CharacterPerksViewDrawer";
 import CharacterPowersViewDrawer from "@/application/bestiary/drawers/CharacterPowersViewDrawer";

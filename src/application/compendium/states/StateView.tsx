@@ -2,8 +2,8 @@
 
 import client from "@/infrastructure/clients/statesClient";
 import { type Mode } from "@/domain/characters/combat/Mode";
-import { displayedText } from '@/presentation/translations';
-import { priceIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { priceIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";

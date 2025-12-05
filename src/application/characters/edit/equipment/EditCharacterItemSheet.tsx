@@ -1,7 +1,7 @@
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import { PropsWithChildren } from 'react';
 import { EquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 
 type EditItemSheetProps = 

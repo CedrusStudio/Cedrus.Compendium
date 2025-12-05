@@ -2,8 +2,8 @@
 
 import client from "@/infrastructure/clients/perksClient";
 import { type Perk } from "@/domain/characters/Perk";
-import { displayedText } from '@/presentation/translations';
-import { priceIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { priceIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";

@@ -4,7 +4,7 @@ import { Badge } from '@/common/components/ui/badge';
 import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
 import { PowerOffense, type PowerSpecification } from '@/domain/characters/combat/Power';
 import TagsView from '@/common/components/tags/TagsView';
-import { costIcon } from '@/presentation/icons';
+import { costIcon } from '@/common/icons';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/common/components/ui/accordion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/common/components/ui/table';
 

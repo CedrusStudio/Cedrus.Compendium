@@ -5,7 +5,7 @@ import PerksList from "@/application/characters/details/PerksList";
 import TagsView from "@/common/components/tags/TagsView";
 import Link from "next/link";
 import { Button } from "@/common/components/ui/button";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 export default function DetailsView({ character }: { character: Character }) 
 {

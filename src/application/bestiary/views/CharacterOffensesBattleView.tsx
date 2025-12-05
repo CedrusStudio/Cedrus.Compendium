@@ -1,14 +1,14 @@
 import { DamageOffense, toCriticalRangeString, toOffenseString, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import { Character } from "@/domain/characters/Character";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import OffenseHeader from "@/application/characters/combat/offense/OffenseHeader";
 import { WeaponDamageWithCriticalSubcard } from "@/application/characters/combat/offense/WeaponDamageWithCriticalSubcard";
 import DamageBonusSubcard from "@/application/characters/combat/offense/DamageBonusSubcard";
 import { useState } from "react";
-import { showHideIcon } from "@/presentation/icons";
+import { showHideIcon } from "@/common/icons";
 import { Button } from "@/common/components/ui/button";
-import { colors } from "@/presentation/colors";
+import { colors } from "@/common/colors";
 
 type CharacterOffensesBattleViewProps =
 {

@@ -2,7 +2,7 @@
 
 import client from "@/infrastructure/clients/racesClient";
 import { type Race } from "@/domain/Race";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { RaceDto, raceSchema } from "@/persistence/schemas/characters/raceSchema";

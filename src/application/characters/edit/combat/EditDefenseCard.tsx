@@ -7,7 +7,7 @@ import { DataCard } from '@/common/components/cards/DataCard';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { UseFieldArrayRemove } from 'react-hook-form';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 
 type EditDefenseCardProps =
 {

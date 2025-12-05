@@ -3,8 +3,8 @@ import { DataCard } from '@/common/components/cards/DataCard';
 import EditStatisticView from "@/application/characters/edit/statistics/EditStatisticView";
 import { type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { PathsFrom} from "@/common/global/pathTypes";
-import { attributesIcons, characteristicIcons } from "@/presentation/icons";
-import { displayedText } from "@/presentation/translations";
+import { attributesIcons, characteristicIcons } from "@/common/icons";
+import { displayedText } from "@/common/translations";
 
 export type AllowedRoots = "characteristics" | "attributes";
 

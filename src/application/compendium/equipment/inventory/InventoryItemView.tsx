@@ -2,7 +2,7 @@
 
 import client from "@/infrastructure/clients/equipment/inventoryClient";
 import { type Item } from "@/domain/characters/equipment/Item";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { InventoryItemDto, itemSchema } from "@/persistence/schemas/characters/equipment/itemSchema";

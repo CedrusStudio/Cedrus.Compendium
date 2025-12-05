@@ -2,8 +2,8 @@
 
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { Button } from "@/ui/button";
-import { addIcon } from "@/presentation/icons";
-import { displayedText } from "@/presentation/translations";
+import { addIcon } from "@/common/icons";
+import { displayedText } from "@/common/translations";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { PropsWithChildren, ReactNode } from "react";
 

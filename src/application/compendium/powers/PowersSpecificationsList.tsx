@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/powerSpecificationsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { AddPowerSpecificationDto, addPowerSpecificationSchema } from "@/persistence/schemas/characters/combat/powerSchema";
 import { createKeysetSearchPowerSpecificationsKey } from "@/persistence/cacheKeys";
 import { ulid } from "ulid";

@@ -6,7 +6,7 @@ import {
 } from "@/ui/dropdown-menu";
 import { Button } from "@/ui/button";
 import { Table } from "@tanstack/react-table";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 export default function ColumnFilter<TData>({ table }: { table: Table<TData> })
 {

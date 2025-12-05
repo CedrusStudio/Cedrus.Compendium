@@ -12,8 +12,8 @@ import {
   AlertDialogTrigger,
 } from "@/ui/alert-dialog";
 import { Button } from '@/ui/button';
-import { displayedText } from "@/presentation/translations";
-import { deleteIcon } from "@/presentation/icons";
+import { displayedText } from "@/common/translations";
+import { deleteIcon } from "@/common/icons";
 
 type DeleteButtonProps =
 {

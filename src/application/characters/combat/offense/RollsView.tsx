@@ -1,6 +1,6 @@
 import { Badge } from "@/common/components/ui/badge";
 import { Button } from "@/common/components/ui/button";
-import { rollsIcon } from "@/presentation/icons";
+import { rollsIcon } from "@/common/icons";
 
 export default function RollsView<T extends number | [number, boolean]>({ rolls, onReroll }: { rolls: T[], onReroll: (index: number) => void  }) 
 {  

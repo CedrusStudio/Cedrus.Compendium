@@ -2,7 +2,7 @@
 
 import client from "@/infrastructure/clients/equipment/armorsClient";
 import { type Armor } from "@/domain/characters/equipment/Armor";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ArmorDto, armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";

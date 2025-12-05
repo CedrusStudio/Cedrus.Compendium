@@ -2,7 +2,7 @@
 
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { RaceDto } from "@/persistence/schemas/characters/raceSchema";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import AddSheet from "@/common/components/sheets/AddSheet";

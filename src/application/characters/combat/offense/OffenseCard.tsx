@@ -2,7 +2,7 @@
 
 import { DamageOffense, Offense, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import OffenseHeader from '@/application/characters/combat/offense/OffenseHeader';
 import DamageBonusSubcard from '@/application/characters/combat/offense/DamageBonusSubcard';

@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
-import { displayedText } from '@/presentation/translations';
-import { importIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { importIcon } from '@/common/icons';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import searchClient from '@/infrastructure/clients/searchClient';

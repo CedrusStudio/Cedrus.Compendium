@@ -2,10 +2,10 @@
 
 import client from "@/infrastructure/clients/spellsClient";
 import { type Spell } from "@/domain/characters/combat/Power";
-import { displayedText } from '@/presentation/translations';
-import { battleIcon, cooldownIcon, costIcon, priceIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { battleIcon, cooldownIcon, costIcon, priceIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
-import { getBadgeVariant } from '@/presentation/colors';
+import { getBadgeVariant } from '@/common/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { SpellDto, spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";

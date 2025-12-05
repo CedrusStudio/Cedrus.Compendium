@@ -1,4 +1,4 @@
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Button } from "@/ui/button"
 
 type SubmitButtonProps =

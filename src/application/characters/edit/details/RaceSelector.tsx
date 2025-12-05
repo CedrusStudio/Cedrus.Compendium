@@ -5,7 +5,7 @@ import { Control, useController } from "react-hook-form";
 import { Label } from "@/common/components/ui/label";
 import { Button } from "@/common/components/ui/button";
 import { Badge } from "@/common/components/ui/badge";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { useQuery } from "@tanstack/react-query";
 import { createKeysetSearchRacesKey } from "@/persistence/cacheKeys";
 import searchClient from "@/infrastructure/clients/searchClient";
@@ -17,7 +17,7 @@ import { Search } from "lucide-react";
 import RaceCreateSheet from "@/application/characters/edit/details/RaceCreateSheet";
 import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import { createRaceKeysetQuery } from "@/infrastructure/searchQueries/races/createRaceKeysetQuery";
-import { deleteIcon } from "@/presentation/icons";
+import { deleteIcon } from "@/common/icons";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import TagFilter from "@/common/components/filters/TagFilter";
 

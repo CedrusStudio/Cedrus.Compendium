@@ -2,7 +2,7 @@
 
 import { PowerOffense } from '@/domain/characters/combat/Power';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { usePowerRolls } from '@/application/characters/combat/usePowerRolls';
 import RollButton from '@/common/components/buttons/RollButton';
 import { SpellOffenseSubcard } from '@/application/characters/combat/power/SpellOffenseSubcard';

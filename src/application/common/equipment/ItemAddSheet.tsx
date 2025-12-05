@@ -2,7 +2,7 @@
 
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { InventoryItemDto } from "@/persistence/schemas/characters/equipment/itemSchema";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { PropsWithChildren } from "react";
