@@ -101,11 +101,6 @@ export default function WeaponsList()
     clearResults();
   }, [clearResults]);
 
-  const onDelete = useCallback((id: string) =>
-  {
-    setDisplayedWeapons(prev => prev.filter(weapon => weapon.id !== id));
-  }, []);
-
   return (
     <>
       <ListHeader
