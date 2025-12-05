@@ -13,7 +13,8 @@ import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import PerkEditableFields from "@/application/common/PerkEditableFields";
 import CastablePerkEditableFields from "@/application/common/combat/CastablePerkEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
@@ -68,13 +69,14 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
                 renderSheetContent=
                 {
                   (isPending, formId) => (
-                    <PerkableEditSheet
+                    <EditSheet
                       isPending={isPending}
                       formId={formId}
-                      displayedTitle={displayedText.editManeuver}
+                      title={displayedText.editManeuver}
                     >
+                      <PerkEditableFields />
                       <CastablePerkEditableFields />
-                    </PerkableEditSheet>
+                    </EditSheet>
                   )
                 }
                 cacheKeys={['maneuvers']}

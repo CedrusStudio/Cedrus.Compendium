@@ -2,7 +2,7 @@
 
 import { calculateTotalHealth, Health } from '@/domain/characters/combat/Health';
 import { Statistic } from '@/domain/characters/statistics/Statistic';
-import { Card, CardContent, CardTitle } from '@/ui/card';
+import { DataCard } from '@/common/components/cards/DataCard';
 import { Field } from "@/common/components/fields";
 import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
@@ -37,11 +37,9 @@ export default function HealthCard(input: HealthCardProps)
   }
 
   return (
-    <Card className='bg-muted'>
-      <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.health}</CardTitle>
-      <CardContent className='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'>
+    <DataCard title={displayedText.health}  headerClassName='place-items-center' variant="muted" contentClassName='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'>
 
-        <div className='flex flex-row place-content-center place-items-center'>
+      <div className='flex flex-row place-content-center place-items-center'>
 
           <Field value={totalHealth + healthIncrease - damageTaken} className='gap-x-0' valueClassName='mx-2'>
             <Field.Value />
@@ -71,10 +69,9 @@ export default function HealthCard(input: HealthCardProps)
           </div>
         </div>
 
-      </CardContent>
-    </Card>
-  );
-};
+      </DataCard>
+    )
+  };
 
 function HealthInfoContent(input: { health: Health })
 {

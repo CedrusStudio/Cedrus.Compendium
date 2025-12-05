@@ -1,10 +1,5 @@
 import { Statistic } from "@/domain/characters/statistics/Statistic";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
+import { DataCard } from '@/common/components/cards/DataCard';
 import EditStatisticView from "@/application/characters/edit/statistics/EditStatisticView";
 import { type StatisticsDto } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { PathsFrom} from "@/common/global/pathTypes";
@@ -30,14 +25,11 @@ export default function EditStatisticsCard<TStats extends Record<string, Statist
   const overwriteTitleSingular = title === "attributes" ? displayedText.attribute : displayedText.characteristic;
 
   return (
-    <Card className="bg-muted">
-      <CardHeader>
-        <CardTitle className="text-center capitalize">
-          {overwriteTitle}
-        </CardTitle>
-      </CardHeader>
-
-      <CardContent className="flex flex-col gap-y-4">
+    <DataCard 
+      title={overwriteTitle} 
+      variant="muted"
+      contentClassName="flex flex-col gap-y-4"
+    >
 
         <div className="grid grid-cols-5 gap-5 items-center border-b border-border/50 pb-2">
           <div className="text-sm font-semibold text-muted-foreground text-center capitalize">
@@ -64,7 +56,6 @@ export default function EditStatisticsCard<TStats extends Record<string, Statist
       }
       </div> 
 
-      </CardContent>
-    </Card>
+    </DataCard>
   );
 };

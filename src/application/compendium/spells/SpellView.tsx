@@ -13,7 +13,8 @@ import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import PerkEditableFields from "@/application/common/PerkEditableFields";
 import SpellEditableFields from "@/application/common/combat/SpellEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
@@ -87,12 +88,13 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
 function EditSpellSheet({ isPending, formId }: { isPending: boolean, formId: string })
 {
   return (
-    <PerkableEditSheet
+    <EditSheet
       isPending={isPending}
       formId={formId}
-      displayedTitle={displayedText.editSpell}
+      title={displayedText.editSpell}
     >
+      <PerkEditableFields />
       <SpellEditableFields  />
-    </PerkableEditSheet>
+    </EditSheet>
   )
 }

@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/ui/card';
+import { DataCard } from '@/common/components/cards/DataCard';
 import { displayedText } from "@/presentation/translations";
 import { FieldPath } from "react-hook-form";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
@@ -22,23 +17,17 @@ type EditHealthCardProps =
 export default function EditHealthCard(input: EditHealthCardProps)
 {
   return (
-    <Card className='bg-muted border shadow-md'>
-      <CardContent >
-        
-        <CardHeader>
-          <CardTitle className='font-bold text-2xl capitalize text-center text-primary mb-6'>
-            {displayedText.health}
-          </CardTitle>
-        </CardHeader>
-        
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        { 
-          Object.keys(input.health).map(key => InputFormWithLabel(key as keyof HealthDto)) 
-        }
-        </div>
-
-      </CardContent>
-    </Card>
+    <DataCard 
+      title={displayedText.health} 
+      variant="muted"
+      className='border shadow-md'
+      headerClassName='mb-6'
+      contentClassName="grid grid-cols-2 lg:grid-cols-4 gap-6"
+    >
+      { 
+        Object.keys(input.health).map(key => InputFormWithLabel(key as keyof HealthDto)) 
+      }
+    </DataCard>
   );
 };
 

@@ -9,11 +9,16 @@ import { RaceDto, raceSchema } from "@/persistence/schemas/characters/raceSchema
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import RaceEditSheet from "@/application/compendium/races/RaceEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
 import { Table, TableBody, TableCell, TableRow } from "@/common/components/ui/table";
+import { Label } from "@/ui/label";
+import { InputFormField } from '@/common/components/form/InputFormField';
+import AreaInputFormField from '@/common/components/form/AreaInputFormField';
+import FormTagsInput from '@/common/components/inputs/FormTagsInput';
+import { FieldPath } from 'react-hook-form';
 
 type RaceViewProps =
 {
@@ -93,11 +98,78 @@ export default function RaceView({ race, disableEdit = false }: RaceViewProps)
               renderSheetContent=
               {
                 (isPending, formId) => (
-                  <RaceEditSheet
+                  <EditSheet
                     isPending={isPending}
                     formId={formId}
-                    displayedTitle={displayedText.editRace}
-                  />
+                    title={displayedText.editRace}
+                  >
+                    <div className="grid auto-rows-min gap-3">
+                      <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.name}</span></Label>
+                      <InputFormField<Race> 
+                        path={'name' as FieldPath<Race>}  
+                        inputPlaceholder={displayedText.changeName} 
+                        inputClassName='w-full' 
+                      />
+                    </div>
+
+                    <div className="grid auto-rows-min gap-3">
+                      <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.description}</span></Label>
+                      <AreaInputFormField<Race> 
+                        path={'description' as FieldPath<Race>} 
+                        inputPlaceholder={displayedText.changeDescription} 
+                        inputClassName='w-full' 
+                      />
+                    </div>
+
+                    <FormTagsInput<Race> path={'tags' as FieldPath<Race>} />
+
+                    <div className="grid auto-rows-min gap-3 place-content-center place-items-center">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="grid auto-rows-min gap-2">
+                          <Label className='text-xs capitalize'>{displayedText.strength}</Label>
+                          <InputFormField<Race> 
+                            path={'strengthModifier' as FieldPath<Race>} 
+                            inputClassName='w-20 h-10 text-center font-medium' 
+                          />
+                        </div>
+                        <div className="grid auto-rows-min gap-2">
+                          <Label className='text-xs capitalize'>{displayedText.dexterity}</Label>
+                          <InputFormField<Race> 
+                            path={'dexterityModifier' as FieldPath<Race>} 
+                            inputClassName='w-20 h-10 text-center font-medium' 
+                          />
+                        </div>
+                        <div className="grid auto-rows-min gap-2">
+                          <Label className='text-xs capitalize'>{displayedText.constitution}</Label>
+                          <InputFormField<Race> 
+                            path={'constitutionModifier' as FieldPath<Race>} 
+                            inputClassName='w-20 h-10 text-center font-medium' 
+                          />
+                        </div>
+                        <div className="grid auto-rows-min gap-2">
+                          <Label className='text-xs capitalize'>{displayedText.mind}</Label>
+                          <InputFormField<Race> 
+                            path={'mindModifier' as FieldPath<Race>} 
+                            inputClassName='w-20 h-10 text-center font-medium' 
+                          />
+                        </div>
+                        <div className="grid auto-rows-min gap-2">
+                          <Label className='text-xs capitalize'>{displayedText.charisma}</Label>
+                          <InputFormField<Race> 
+                            path={'charismaModifier' as FieldPath<Race>} 
+                            inputClassName='w-20 h-10 text-center font-medium' 
+                          />
+                        </div>
+                        <div className="grid auto-rows-min gap-2">
+                          <Label className='text-xs capitalize'>{displayedText.spellborn}</Label>
+                          <InputFormField<Race> 
+                            path={'spellbornModifier' as FieldPath<Race>} 
+                            inputClassName='w-20 h-10 text-center font-medium' 
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </EditSheet>
                 )
               }
               cacheKeys={['races']}

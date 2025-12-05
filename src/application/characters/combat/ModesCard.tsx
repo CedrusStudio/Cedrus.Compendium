@@ -1,7 +1,7 @@
 "use client";
 
 import { Mode } from "@/domain/characters/combat/Mode";
-import { Card, CardContent, CardTitle } from '@/ui/card';
+import { DataCard } from '@/common/components/cards/DataCard';
 import { Label } from "@/ui/label";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select";
@@ -16,10 +16,12 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
   const selectedModeObj = modes.find(mode => mode.name === selectedMode);
 
   return (
-    <Card className='bg-muted flex flex-col'>
-      <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{name}</CardTitle>
-
-      <CardContent className='flex flex-col place-content-start place-items-center gap-y-4 flex-1'>
+    <DataCard 
+      title={name} 
+      variant="muted" 
+      className='flex flex-col'
+      contentClassName='flex flex-col place-content-start place-items-center gap-y-4 flex-1'
+    >
 
         <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
           
@@ -60,7 +62,6 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
         }
         </div>
 
-      </CardContent>
-    </Card>
+    </DataCard>
   );
 };

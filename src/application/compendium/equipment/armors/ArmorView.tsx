@@ -7,7 +7,8 @@ import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ArmorDto, armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import ArmorViewFields from "@/application/common/equipment/Views/ArmorViewFields";
@@ -47,9 +48,10 @@ export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps
               renderSheetContent=
               {
                 (isPending, formId) => (
-                  <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                  <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
+                    <ItemEditableFields />
                     <ArmorEditableFields />
-                  </ItemEditSheet>
+                  </EditSheet>
                 )
               }
               cacheKeys={['armors']}

@@ -12,7 +12,8 @@ import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import PerkEditableFields from "@/application/common/PerkEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
@@ -60,11 +61,13 @@ export default function StateView({ state, disableEdit = false }: StateViewProps
                 renderSheetContent=
                 {
                   (isPending, formId) => (
-                    <PerkableEditSheet
+                    <EditSheet
                       isPending={isPending}
                       formId={formId}
-                      displayedTitle={displayedText.editState}
-                    />
+                      title={displayedText.editState}
+                    >
+                      <PerkEditableFields />
+                    </EditSheet>
                   )
                 }
                 cacheKeys={['states']}

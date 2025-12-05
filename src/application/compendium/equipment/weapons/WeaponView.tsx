@@ -8,7 +8,8 @@ import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { WeaponDto, weaponSchema } from "@/persistence/schemas/characters/equipment/weaponSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 import WeaponEditableFields from "@/application/common/equipment/EditSheets/WeaponEditableFields";
 import WeaponViewFields from "@/application/common/equipment/Views/WeaponViewFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
@@ -47,9 +48,10 @@ export default function WeaponView({ weapon, disableEdit = false }: WeaponViewPr
               renderSheetContent=
               {
                 (isPending, formId) => (
-                  <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                  <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
+                    <ItemEditableFields />
                     <WeaponEditableFields />
-                  </ItemEditSheet>
+                  </EditSheet>
                 )
               }
               cacheKeys={['weapons']}
