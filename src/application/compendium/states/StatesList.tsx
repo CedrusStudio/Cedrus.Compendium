@@ -64,7 +64,7 @@ export default function StatesList()
     setDisplayedStates(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(state => [state.id, state])).values());
     });
   }, [cursor, searchResults]);
 

@@ -64,7 +64,7 @@ export default function PerksList()
     setDisplayedPerks(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(perk => [perk.id, perk])).values());
     });
   }, [cursor, searchResults]);
 

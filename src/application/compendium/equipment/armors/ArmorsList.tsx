@@ -66,7 +66,7 @@ export default function ArmorsList()
     setDisplayedArmors(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(armor => [armor.id, armor])).values());
     });
   }, [cursor, searchResults]);
 

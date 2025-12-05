@@ -53,9 +53,11 @@ export default function MountsList()
 
   useEffect(() => 
   {
+    if (!searchResults) return;
+
     setHasMore(searchResults.length === pageSize);
 
-    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    if (cursor === emptyUlid)
     {
       setDisplayedMounts(searchResults);
       return;
@@ -64,9 +66,9 @@ export default function MountsList()
     setDisplayedMounts(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(mount => [mount.id, mount])).values());
     });
-  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
+  }, [cursor, searchResults]);
 
   const clearResults = useCallback(() =>
   {

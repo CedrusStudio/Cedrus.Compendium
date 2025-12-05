@@ -64,7 +64,7 @@ export default function StancesList()
     setDisplayedStances(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(stance => [stance.id, stance])).values());
     });
   }, [cursor, searchResults]);
 

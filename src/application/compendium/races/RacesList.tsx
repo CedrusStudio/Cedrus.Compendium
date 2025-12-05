@@ -67,7 +67,7 @@ export default function RacesList()
     setDisplayedRaces(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(race => [race.id, race])).values());
     });
   }, [cursor, searchResults]);
 

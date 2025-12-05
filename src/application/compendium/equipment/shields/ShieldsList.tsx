@@ -53,9 +53,11 @@ export default function ShieldsList()
 
   useEffect(() => 
   {
+    if (!searchResults) return;
+
     setHasMore(searchResults.length === pageSize);
 
-    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    if (cursor === emptyUlid)
     {
       setDisplayedShields(searchResults);
       return;
@@ -64,9 +66,9 @@ export default function ShieldsList()
     setDisplayedShields(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(shield => [shield.id, shield])).values());
     });
-  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
+  }, [cursor, searchTags, searchResults]);
 
   const clearResults = useCallback(() =>
   {

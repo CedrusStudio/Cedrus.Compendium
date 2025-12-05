@@ -67,7 +67,7 @@ export default function WeaponsList()
     setDisplayedWeapons(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(weapon => [weapon.id, weapon])).values());
     });
   }, [cursor, searchResults]);
 
@@ -100,6 +100,11 @@ export default function WeaponsList()
     setSelectedStyle(style);
     clearResults();
   }, [clearResults]);
+
+  const onDelete = useCallback((id: string) =>
+  {
+    setDisplayedWeapons(prev => prev.filter(weapon => weapon.id !== id));
+  }, []);
 
   return (
     <>

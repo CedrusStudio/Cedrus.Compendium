@@ -65,7 +65,7 @@ export default function PowersSpecificationList()
     setDisplayedPowerSpecifications(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(spec => [spec.id, spec])).values());
     });
   }, [cursor, searchResults]);
 
