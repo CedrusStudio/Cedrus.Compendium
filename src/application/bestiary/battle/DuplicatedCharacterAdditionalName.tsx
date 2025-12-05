@@ -10,7 +10,7 @@ type DuplicatedCharacterAdditionalNameProps =
 
 export default function DuplicatedCharacterAdditionalName({ duplicateNumber }: DuplicatedCharacterAdditionalNameProps)
 {
-  const [additionalName, setAdditionalName] = useState(`Imię ${duplicateNumber == 1 ? "" : duplicateNumber}`);
+  const [additionalName, setAdditionalName] = useState(`Imię ${duplicateNumber === 1 ? "" : duplicateNumber}`);
   const [hideInput, setHideInput] = useState(duplicateNumber === 1);
 
   const toggleInput = () =>

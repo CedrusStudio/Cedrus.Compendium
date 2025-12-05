@@ -55,9 +55,9 @@ export default function ExternalParticipantActionsCell({ participant }: External
 
   const handleEditSave = () => 
   {
-    const gradeValue = parseInt(initiativeGrade);
-    const valueValue = parseInt(initiativeValue);
-    const maxHealthValue = parseInt(maxHealth);
+    const gradeValue = parseInt(initiativeGrade, 10);
+    const valueValue = parseInt(initiativeValue, 10);
+    const maxHealthValue = parseInt(maxHealth, 10);
 
     if (isNaN(gradeValue) || gradeValue < 1) 
     {

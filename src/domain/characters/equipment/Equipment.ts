@@ -33,6 +33,6 @@ export const splitEquipmentItemTypes = (type: EquipmentItemTypes): { name: Equip
   const parts = type.split('.');
   return {
     name: parts[0] as EquipmentItemArraysTypes,
-    index: parseInt(parts[1]),
+    index: parseInt(parts[1], 10),
   };
 };

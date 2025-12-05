@@ -34,7 +34,7 @@ export default function InitiativeCell({ id, initiative }: InitiativeCellProps)
 
   const handleManualSet = () => 
   {
-    const value = parseInt(manualValue);
+    const value = parseInt(manualValue, 10);
 
     if (isNaN(value)) 
     {
