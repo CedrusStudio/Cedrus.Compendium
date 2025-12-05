@@ -70,7 +70,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <div className='flex flex-row gap-3'>
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
-                        <Button asChild variant="edit" size="icon" className='my-4'>
+                        <Button asChild variant="outline" size="icon" className='my-4'>
                             <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? defaultTab}`}>{editIcon}</Link>
                         </Button>
                     </div>

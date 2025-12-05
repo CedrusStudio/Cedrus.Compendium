@@ -32,7 +32,7 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
   return (
     <Tabs 
         defaultValue={tab} 
-        onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
+        onValueChange={v => { if (isCharacterTab(v)) setActiveTab(v); }}
         className='flex flex-col justify-center items-center lg:justify-stretch lg:grid lg:col-span-10 -mt-4'
     >
 
