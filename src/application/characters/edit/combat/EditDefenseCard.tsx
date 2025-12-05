@@ -3,7 +3,7 @@ import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSc
 import { type DefenseDto } from "@/persistence/schemas/characters/combat/defenseSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import { Label } from "@/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { DataCard } from '@/common/components/cards/DataCard';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { UseFieldArrayRemove } from 'react-hook-form';
@@ -19,31 +19,31 @@ type EditDefenseCardProps =
 export default function EditDefenseCard({ index, defense, remove }: EditDefenseCardProps)
 {
   return (
-    <Card className='bg-muted border shadow-md'>
-      <CardHeader>
-        <CardTitle className='flex justify-between items-center'>
-          <InputFormField<CombatDto> path={pathToDefenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
-          <RemoveFromArrayButton index={index} remove={remove} />
-        </CardTitle>
-      </CardHeader>
+    <DataCard 
+      variant="muted"
+      className='border shadow-md'
+      headerClassName='flex justify-between items-center gap-4'
+      contentClassName='flex flex-col gap-6 -mt-2'
+    >
+    <div className='flex justify-between items-center gap-4'>
+      <InputFormField<CombatDto> path={pathToDefenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
+      <RemoveFromArrayButton index={index} remove={remove} />
+    </div>
 
-      <CardContent className='flex flex-col gap-6 -mt-2'>
+      <AreaInputFormField<CombatDto> 
+        path={pathToDefenseField(index, 'description')}
+        inputPlaceholder={displayedText.changeDescription}
+      />
 
-        <AreaInputFormField<CombatDto> 
-          path={pathToDefenseField(index, 'description')}
-          inputPlaceholder={displayedText.changeDescription}
-        />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      { 
+        (Object.keys(defense) as (keyof DefenseDto)[])
+          .filter(NotNameOrDescriptionOrId)
+          .map(key => InputFormWithLabel(index, key as keyof DefenseDto)) 
+      }
+      </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        { 
-          (Object.keys(defense) as (keyof DefenseDto)[])
-            .filter(NotNameOrDescriptionOrId)
-            .map(key => InputFormWithLabel(index, key as keyof DefenseDto)) 
-        }
-        </div>
-
-      </CardContent>
-    </Card>
+    </DataCard>
   );
 };
 

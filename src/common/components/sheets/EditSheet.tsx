@@ -53,7 +53,7 @@ export function EditSheet
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
         
-        <div className="flex flex-col gap-3 px-4 py-6">
+        <div className="flex flex-col gap-3 px-4 place-items-center place-content-center">
           {children}
         </div>
         

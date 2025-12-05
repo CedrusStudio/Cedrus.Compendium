@@ -47,8 +47,8 @@ export function DataCard
           { 
             (title || icon) && (
               <CardTitle className="flex items-center gap-2 font-bold text-2xl capitalize text-center text-primary">
-                {icon}
                 <span>{title}</span>
+                {icon}
               </CardTitle>
             )
           }

@@ -40,8 +40,8 @@ function BaseWeaponDamageInfoView({ weaponOffense }: { weaponOffense: WeaponOffe
 {
   return (
     <div className='flex flex-row gap-3'>
-      <span>{toOffenseString(weaponOffense)}</span> 
-      <span>{toCriticalRangeString(weaponOffense)}, +{weaponOffense.critical.power}</span>
+      <span className='font-normal text-lg'>{toOffenseString(weaponOffense)}</span> 
+      <span className='font-normal text-lg'>{toCriticalRangeString(weaponOffense)}, +{weaponOffense.critical.power}</span>
     </div>
   );
 }

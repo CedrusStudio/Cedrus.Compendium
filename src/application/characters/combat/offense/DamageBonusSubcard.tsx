@@ -18,7 +18,7 @@ type DamageBonusSubcardViewProps =
 export default function DamageBonusSubcard({ damageBonus, currentDamageBonus, damageBonusRolls, handleDamageOffenseReroll, setCurrentDamageBonus, setDamageBonusRolls }: DamageBonusSubcardViewProps)
 {
   return (
-    <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)} childrenInfo={<span>{toOffenseString(damageBonus)}</span> } > 
+    <Subcard name='Bonus' className='col-span-3' callback={() => setCurrentDamageBonus(damageBonus)} childrenInfo={<span className='font-normal text-lg'>{toOffenseString(damageBonus)}</span> } > 
       <DamageBonusView 
         damageOffense={currentDamageBonus} 
         rolls={damageBonusRolls} 
