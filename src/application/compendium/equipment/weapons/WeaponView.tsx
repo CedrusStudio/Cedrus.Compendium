@@ -19,14 +19,16 @@ type WeaponViewProps =
 {
   weapon: Weapon;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function WeaponView({ weapon, disableEdit = false }: WeaponViewProps)
+export default function WeaponView({ weapon, disableEdit = false, onDelete }: WeaponViewProps)
 {
   const { deleteEntity: deleteWeapon, isPending } = useDeleteEntity({
     client,
     queryKey: ['weapons'],
-    redirectPath: '/compendium/equipment/weapons'
+    redirectPath: onDelete ? undefined : '/compendium/equipment/weapons',
+    onOptimisticDelete: onDelete
   });
 
   return (

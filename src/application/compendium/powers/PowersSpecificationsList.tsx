@@ -65,7 +65,7 @@ export default function PowersSpecificationList()
     setDisplayedPowerSpecifications(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(spec => [spec.id, spec])).values());
     });
   }, [cursor, searchResults]);
 
@@ -93,6 +93,11 @@ export default function PowersSpecificationList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedPowerSpecifications(prev => prev.filter(spec => spec.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -116,7 +121,7 @@ export default function PowersSpecificationList()
           if (displayedPowerSpecifications.length > 0) setCursor(displayedPowerSpecifications[displayedPowerSpecifications.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={powerSpecification => <PowersSpecificationView key={powerSpecification.id} powerSpecification={powerSpecification} />}
+        renderItem={powerSpecification => <PowersSpecificationView key={powerSpecification.id} powerSpecification={powerSpecification} onDelete={handleDelete} />}
       />
     </>
   );

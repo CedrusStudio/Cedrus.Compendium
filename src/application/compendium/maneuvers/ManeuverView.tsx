@@ -25,14 +25,16 @@ type ManeuverViewProps =
 {
   maneuver: Maneuver;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function ManeuverView({ maneuver, disableEdit = false }: ManeuverViewProps)
+export default function ManeuverView({ maneuver, disableEdit = false, onDelete }: ManeuverViewProps)
 {
   const { deleteEntity: deleteManeuver, isPending } = useDeleteEntity({
     client,
     queryKey: ['maneuvers'],
-    redirectPath: '/compendium/maneuvers'
+    redirectPath: onDelete ? undefined : '/compendium/maneuvers',
+    onOptimisticDelete: onDelete
   });
 
   return (

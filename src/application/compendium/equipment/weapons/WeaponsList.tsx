@@ -67,7 +67,7 @@ export default function WeaponsList()
     setDisplayedWeapons(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(weapon => [weapon.id, weapon])).values());
     });
   }, [cursor, searchResults]);
 
@@ -101,6 +101,11 @@ export default function WeaponsList()
     clearResults();
   }, [clearResults]);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedWeapons(prev => prev.filter(weapon => weapon.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -125,7 +130,7 @@ export default function WeaponsList()
           if (displayedWeapons.length > 0) setCursor(displayedWeapons[displayedWeapons.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={weapon => <WeaponView key={weapon.id} weapon={weapon} />}
+        renderItem={weapon => <WeaponView key={weapon.id} weapon={weapon} onDelete={handleDelete} />}
       />
     </>
   );

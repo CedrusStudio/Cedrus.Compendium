@@ -53,9 +53,11 @@ export default function MountsList()
 
   useEffect(() => 
   {
+    if (!searchResults) return;
+
     setHasMore(searchResults.length === pageSize);
 
-    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    if (cursor === emptyUlid)
     {
       setDisplayedMounts(searchResults);
       return;
@@ -64,9 +66,9 @@ export default function MountsList()
     setDisplayedMounts(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(mount => [mount.id, mount])).values());
     });
-  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
+  }, [cursor, searchResults]);
 
   const clearResults = useCallback(() =>
   {
@@ -92,6 +94,11 @@ export default function MountsList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedMounts(prev => prev.filter(mount => mount.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -115,7 +122,7 @@ export default function MountsList()
           if (displayedMounts.length > 0) setCursor(displayedMounts[displayedMounts.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={mount => <MountView key={mount.id} mount={mount} />}
+        renderItem={mount => <MountView key={mount.id} mount={mount} onDelete={handleDelete} />}
       />
     </>
   );

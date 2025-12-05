@@ -17,15 +17,17 @@ type PowersSpecificationViewProps =
 {
   powerSpecification: PowerSpecification;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function PowersSpecificationView({ powerSpecification, disableEdit = false }: PowersSpecificationViewProps)
+export default function PowersSpecificationView({ powerSpecification, disableEdit = false, onDelete }: PowersSpecificationViewProps)
 {
   const { deleteEntity: deletePowerSpecification, isPending } = useDeleteEntity
   ({
     client,
     queryKey: ['powerSpecifications'],
-    redirectPath: '/compendium/powers'
+    redirectPath: onDelete ? undefined : '/compendium/powers',
+    onOptimisticDelete: onDelete
   });
 
   return (

@@ -68,7 +68,7 @@ export default function ManeuversList()
     setDisplayedManeuvers(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(maneuver => [maneuver.id, maneuver])).values());
     });
   }, [cursor, searchResults]);
 
@@ -96,6 +96,11 @@ export default function ManeuversList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedManeuvers(prev => prev.filter(maneuver => maneuver.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -119,7 +124,7 @@ export default function ManeuversList()
           if (displayedManeuvers.length > 0) setCursor(displayedManeuvers[displayedManeuvers.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} />}
+        renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
       />
     </>
   );

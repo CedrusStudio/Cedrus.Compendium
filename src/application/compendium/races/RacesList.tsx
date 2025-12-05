@@ -67,7 +67,7 @@ export default function RacesList()
     setDisplayedRaces(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(race => [race.id, race])).values());
     });
   }, [cursor, searchResults]);
 
@@ -95,6 +95,11 @@ export default function RacesList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedRaces(prev => prev.filter(race => race.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -118,7 +123,7 @@ export default function RacesList()
           if (displayedRaces.length > 0) setCursor(displayedRaces[displayedRaces.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={race => <RaceView key={race.id} race={race} />}
+        renderItem={race => <RaceView key={race.id} race={race} onDelete={handleDelete} />}
       />
     </>
   );

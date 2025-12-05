@@ -19,14 +19,17 @@ type ArmorViewProps =
 {
   armor: Armor;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function ArmorView({ armor, disableEdit = false }: ArmorViewProps)
+export default function ArmorView({ armor, disableEdit = false, onDelete }: ArmorViewProps)
 {
-  const { deleteEntity: deleteArmor, isPending } = useDeleteEntity({
+  const { deleteEntity: deleteArmor, isPending } = useDeleteEntity
+  ({
     client,
     queryKey: ['armors'],
-    redirectPath: '/compendium/equipment/armors'
+    redirectPath: onDelete ? undefined : '/compendium/equipment/armors',
+    onOptimisticDelete: onDelete
   });
 
   return (

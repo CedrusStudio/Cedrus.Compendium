@@ -19,14 +19,16 @@ type MountViewProps =
 {
   mount: Mount;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function MountView({ mount, disableEdit = false }: MountViewProps)
+export default function MountView({ mount, disableEdit = false, onDelete }: MountViewProps)
 {
   const { deleteEntity: deleteMount, isPending } = useDeleteEntity({
     client,
     queryKey: ['mounts'],
-    redirectPath: '/compendium/equipment/mounts'
+    redirectPath: onDelete ? undefined : '/compendium/equipment/mounts',
+    onOptimisticDelete: onDelete
   });
 
   return (

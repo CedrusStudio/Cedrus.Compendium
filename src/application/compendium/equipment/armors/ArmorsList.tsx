@@ -66,7 +66,7 @@ export default function ArmorsList()
     setDisplayedArmors(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(armor => [armor.id, armor])).values());
     });
   }, [cursor, searchResults]);
 
@@ -94,6 +94,11 @@ export default function ArmorsList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedArmors(prev => prev.filter(armor => armor.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -117,7 +122,7 @@ export default function ArmorsList()
           if (displayedArmors.length > 0) setCursor(displayedArmors[displayedArmors.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={armor => <ArmorView key={armor.id} armor={armor} />}
+        renderItem={armor => <ArmorView key={armor.id} armor={armor} onDelete={handleDelete} />}
       />
     </>
   );

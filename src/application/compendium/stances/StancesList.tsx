@@ -64,7 +64,7 @@ export default function StancesList()
     setDisplayedStances(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(stance => [stance.id, stance])).values());
     });
   }, [cursor, searchResults]);
 
@@ -92,6 +92,11 @@ export default function StancesList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedStances(prev => prev.filter(stance => stance.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -115,7 +120,7 @@ export default function StancesList()
           if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={stance => <StanceView key={stance.id} stance={stance} />}
+        renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
       />
     </>
   );

@@ -7,10 +7,11 @@ type UseDeleteEntityConfig =
 {
   client: { delete: (id: string) => Promise<void> };
   queryKey: string[];
-  redirectPath: string;
+  redirectPath?: string;
+  onOptimisticDelete?: (id: string) => void;
 };
 
-export function useDeleteEntity({ client, queryKey, redirectPath }: UseDeleteEntityConfig)
+export function useDeleteEntity({ client, queryKey, redirectPath, onOptimisticDelete }: UseDeleteEntityConfig)
 {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -18,14 +19,25 @@ export function useDeleteEntity({ client, queryKey, redirectPath }: UseDeleteEnt
   const { mutate, isPending } = useMutation
   ({
     mutationFn: async (id: string) => await client.delete(id),
+    onMutate: async (id: string) =>
+    {
+      if (onOptimisticDelete)
+      {
+        onOptimisticDelete(id);
+      }
+    },
     onSuccess: () =>
     {
       queryClient.invalidateQueries({ queryKey });
-      router.push(redirectPath);
+      if (redirectPath)
+      {
+        router.push(redirectPath);
+      }
     },
     onError: (error) => 
     {
       console.error(`Error deleting ${queryKey.join(', ')}:`, error);
+      queryClient.invalidateQueries({ queryKey });
     }
   });
 

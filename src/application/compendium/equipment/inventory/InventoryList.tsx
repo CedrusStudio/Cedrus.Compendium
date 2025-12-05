@@ -52,9 +52,11 @@ export default function InventoryList()
 
   useEffect(() => 
   {
+    if (!searchResults) return;
+
     setHasMore(searchResults.length === pageSize);
 
-    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    if (cursor === emptyUlid)
     {
       setDisplayedInventory(searchResults);
       return;
@@ -63,9 +65,9 @@ export default function InventoryList()
     setDisplayedInventory(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(item => [item.id, item])).values());
     });
-  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
+  }, [cursor, searchResults]);
 
   const clearResults = useCallback(() =>
   {
@@ -91,6 +93,11 @@ export default function InventoryList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedInventory(prev => prev.filter(item => item.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -114,7 +121,7 @@ export default function InventoryList()
           if (displayedInventory.length > 0) setCursor(displayedInventory[displayedInventory.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={item => <InventoryItemView key={item.id} item={item} />}
+        renderItem={item => <InventoryItemView key={item.id} item={item} onDelete={handleDelete} />}
       />
     </>
   );

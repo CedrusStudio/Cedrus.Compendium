@@ -69,7 +69,7 @@ export default function SpellsList()
     setDisplayedSpells(prev =>  
     {
       if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
+      return Array.from(new Map([...prev, ...searchResults].map(spell => [spell.id, spell])).values());
     });
   }, [cursor, searchResults]);
 
@@ -97,6 +97,11 @@ export default function SpellsList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedSpells(prev => prev.filter(spell => spell.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -120,7 +125,7 @@ export default function SpellsList()
           if (displayedSpells.length > 0) setCursor(displayedSpells[displayedSpells.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={spell => <SpellView key={spell.id} spell={spell} />}
+        renderItem={spell => <SpellView key={spell.id} spell={spell} onDelete={handleDelete} />}
       />
     </>
   );
