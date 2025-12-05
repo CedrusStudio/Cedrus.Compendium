@@ -92,6 +92,11 @@ export default function StancesList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedStances(prev => prev.filter(stance => stance.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -115,7 +120,7 @@ export default function StancesList()
           if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={stance => <StanceView key={stance.id} stance={stance} />}
+        renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
       />
     </>
   );

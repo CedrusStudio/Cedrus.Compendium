@@ -94,6 +94,11 @@ export default function ShieldsList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedShields(prev => prev.filter(shield => shield.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -117,7 +122,7 @@ export default function ShieldsList()
           if (displayedShields.length > 0) setCursor(displayedShields[displayedShields.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={shield => <ShieldView key={shield.id} shield={shield} />}
+        renderItem={shield => <ShieldView key={shield.id} shield={shield} onDelete={handleDelete} />}
       />
     </>
   );

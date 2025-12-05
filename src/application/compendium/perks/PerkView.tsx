@@ -21,14 +21,16 @@ type PerkViewProps =
 {
   perk: Perk;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
+export default function PerkView({ perk, disableEdit = false, onDelete }: PerkViewProps)
 {
   const { deleteEntity: deletePerk, isPending } = useDeleteEntity({
     client,
     queryKey: ['perks'],
-    redirectPath: '/compendium/perks'
+    redirectPath: onDelete ? undefined : '/compendium/perks',
+    onOptimisticDelete: onDelete
   });
 
   return (

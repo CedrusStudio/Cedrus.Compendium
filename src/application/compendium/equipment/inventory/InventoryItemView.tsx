@@ -18,14 +18,16 @@ type InventoryItemViewProps =
 {
   item: Item;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function InventoryItemView({ item, disableEdit = false }: InventoryItemViewProps)
+export default function InventoryItemView({ item, disableEdit = false, onDelete }: InventoryItemViewProps)
 {
   const { deleteEntity: deleteInventoryItem, isPending } = useDeleteEntity({
     client,
     queryKey: ['inventory'],
-    redirectPath: '/compendium/equipment/inventory'
+    redirectPath: onDelete ? undefined : '/compendium/equipment/inventory',
+    onOptimisticDelete: onDelete
   });
 
   return (

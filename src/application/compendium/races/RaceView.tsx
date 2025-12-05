@@ -24,15 +24,17 @@ type RaceViewProps =
 {
   race: Race;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function RaceView({ race, disableEdit = false }: RaceViewProps)
+export default function RaceView({ race, disableEdit = false, onDelete }: RaceViewProps)
 {
   const { deleteEntity: deleteRace, isPending } = useDeleteEntity
   ({
     client,
     queryKey: ['races'],
-    redirectPath: '/compendium/races'
+    redirectPath: onDelete ? undefined : '/compendium/races',
+    onOptimisticDelete: onDelete
   });
 
   const getModifierColorClass = (modifier: number): string => 

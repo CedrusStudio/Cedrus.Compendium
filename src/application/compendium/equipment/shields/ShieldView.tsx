@@ -19,14 +19,16 @@ type ShieldViewProps =
 {
   shield: Shield;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function ShieldView({ shield, disableEdit = false }: ShieldViewProps)
+export default function ShieldView({ shield, disableEdit = false, onDelete }: ShieldViewProps)
 {
   const { deleteEntity: deleteShield, isPending } = useDeleteEntity({
     client,
     queryKey: ['shields'],
-    redirectPath: '/compendium/equipment/shields'
+    redirectPath: onDelete ? undefined : '/compendium/equipment/shields',
+    onOptimisticDelete: onDelete
   });
 
   return (

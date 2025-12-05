@@ -92,6 +92,11 @@ export default function PerksList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedPerks(prev => prev.filter(perk => perk.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -115,7 +120,7 @@ export default function PerksList()
           if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={perk => <PerkView key={perk.id} perk={perk} />}
+        renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
       />
     </>
   );

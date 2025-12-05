@@ -21,14 +21,16 @@ type StateViewProps =
 {
   state: Mode;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function StateView({ state, disableEdit = false }: StateViewProps)
+export default function StateView({ state, disableEdit = false, onDelete }: StateViewProps)
 {
   const { deleteEntity: deleteState, isPending } = useDeleteEntity({
     client,
     queryKey: ['states'],
-    redirectPath: '/compendium/states'
+    redirectPath: onDelete ? undefined : '/compendium/states',
+    onOptimisticDelete: onDelete
   });
 
   return (

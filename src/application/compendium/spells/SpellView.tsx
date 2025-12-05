@@ -25,14 +25,16 @@ type SpellViewProps =
 {
   spell: Spell;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function SpellView({ spell, disableEdit = false }: SpellViewProps)
+export default function SpellView({ spell, disableEdit = false, onDelete }: SpellViewProps)
 {
   const { deleteEntity: deleteSpell, isPending } = useDeleteEntity({
     client,
     queryKey: ['spells'],
-    redirectPath: '/compendium/spells'
+    redirectPath: onDelete ? undefined : '/compendium/spells',
+    onOptimisticDelete: onDelete
   });
 
   return (

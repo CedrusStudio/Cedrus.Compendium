@@ -92,6 +92,11 @@ export default function StatesList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedStates(prev => prev.filter(state => state.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -115,7 +120,7 @@ export default function StatesList()
           if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={state => <StateView key={state.id} state={state} />}
+        renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
       />
     </>
   );

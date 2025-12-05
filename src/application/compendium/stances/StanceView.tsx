@@ -21,14 +21,16 @@ type StanceViewProps =
 {
   stance: Mode;
   disableEdit?: boolean;
+  onDelete?: (id: string) => void;
 }
 
-export default function StanceView({ stance, disableEdit = false }: StanceViewProps)
+export default function StanceView({ stance, disableEdit = false, onDelete }: StanceViewProps)
 {
   const { deleteEntity: deleteStance, isPending } = useDeleteEntity({
     client,
     queryKey: ['stances'],
-    redirectPath: '/compendium/stances'
+    redirectPath: onDelete ? undefined : '/compendium/stances',
+    onOptimisticDelete: onDelete
   });
 
   return (

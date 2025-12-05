@@ -93,6 +93,11 @@ export default function InventoryList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedInventory(prev => prev.filter(item => item.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -116,7 +121,7 @@ export default function InventoryList()
           if (displayedInventory.length > 0) setCursor(displayedInventory[displayedInventory.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={item => <InventoryItemView key={item.id} item={item} />}
+        renderItem={item => <InventoryItemView key={item.id} item={item} onDelete={handleDelete} />}
       />
     </>
   );

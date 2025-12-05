@@ -94,6 +94,11 @@ export default function MountsList()
     setCursor(emptyUlid);
   }, []);
 
+  const handleDelete = useCallback((id: string) =>
+  {
+    setDisplayedMounts(prev => prev.filter(mount => mount.id !== id));
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -117,7 +122,7 @@ export default function MountsList()
           if (displayedMounts.length > 0) setCursor(displayedMounts[displayedMounts.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={mount => <MountView key={mount.id} mount={mount} />}
+        renderItem={mount => <MountView key={mount.id} mount={mount} onDelete={handleDelete} />}
       />
     </>
   );
