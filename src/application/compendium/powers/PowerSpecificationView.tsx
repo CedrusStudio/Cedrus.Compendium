@@ -11,11 +11,7 @@ import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PowerSpecificationEditableFields from "@/application/common/combat/PowerSpecificationEditableFields";
 import PowerSpecificationViewFields from "@/application/common/combat/PowerSpecificationViewFields";
-import SubmitButton from "@/common/components/form/SubmitButton";
-import { Button } from '@/ui/button';
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
+import { EditSheet } from "@/common/components/sheets/EditSheet";
 
 type PowersSpecificationViewProps =
 {
@@ -47,10 +43,18 @@ export default function PowersSpecificationView({ powerSpecification, disableEdi
               defaultValues={powerSpecification}
               schema={powerSpecificationSchema}
               updateFn={client.update}
-              formId={createCompendiumFormId.spell(powerSpecification.id)}
+              formId={createCompendiumFormId.powerSpecification(powerSpecification.id)}
               renderSheetContent=
               {
-                (isPending, formId) => <EditPowerSpecificationSheet isPending={isPending} formId={formId} />
+                (isPending, formId) => (
+                  <EditSheet
+                    isPending={isPending}
+                    formId={formId}
+                    title="Edycja specyfikacji mocy"
+                  >
+                    <PowerSpecificationEditableFields />
+                  </EditSheet>
+                )
               }
               cacheKeys={['powerSpecifications']}
             />
@@ -61,38 +65,4 @@ export default function PowersSpecificationView({ powerSpecification, disableEdi
 
     </CompendiumView>
   );
-}
-
-function EditPowerSpecificationSheet({ isPending, formId }: { isPending: boolean, formId: string })
-{
-  return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent className="w-full">
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>Edycja specyfikacji mocy</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="flex flex-col gap-3 px-4">
-          <PowerSpecificationEditableFields  />
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-
-    </Sheet>
-  )
 }

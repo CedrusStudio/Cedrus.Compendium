@@ -1,6 +1,6 @@
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { Label } from "@/ui/label"
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { CastablePerkDto } from '@/persistence/schemas/characters/combat/maneuverSchema';
 import { allowedCastTimes } from '@/domain/characters/Castable';

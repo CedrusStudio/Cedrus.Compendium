@@ -5,7 +5,7 @@ import {
   CreateDefaultDefense,
   type Defense,
   type ReductionType,
-} from '../Defense';
+} from '@/domain/characters/combat/Defense';
 
 describe('Defense - Defense Calculation System', () => {
   // Test helper

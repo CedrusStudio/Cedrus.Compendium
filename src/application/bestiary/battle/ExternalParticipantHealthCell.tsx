@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
 import { Input } from "@/common/components/ui/input";
 import { Button } from "@/common/components/ui/button";
-import { resetIcon } from "@/presentation/icons";
+import { resetIcon } from "@/common/icons";
 
 type ExternalParticipantHealthCellProps = 
 {

@@ -12,7 +12,7 @@ import {
   FormItem,
   FormLabel,
 } from '@/ui/form';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 
 export type SelectFormFieldProps<TFieldValues extends FieldValues> = 
 {

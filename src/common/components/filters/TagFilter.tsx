@@ -7,7 +7,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { isValidTag } from "@/domain/Tag";
-import { banIcon, tagSearchIcon } from "@/presentation/icons";
+import { banIcon, tagSearchIcon } from "@/common/icons";
 
 type TagFilterProps = 
 {

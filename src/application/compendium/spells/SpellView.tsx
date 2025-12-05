@@ -2,10 +2,11 @@
 
 import client from "@/infrastructure/clients/spellsClient";
 import { type Spell } from "@/domain/characters/combat/Power";
-import { displayedText } from '@/presentation/translations';
-import { battleIcon, cooldownIcon, costIcon, priceIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { battleIcon, cooldownIcon, costIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
-import { getBadgeVariant } from '@/presentation/colors';
+import PriceBadge from '@/common/components/badges/PriceBadge';
+import { getBadgeVariant } from '@/common/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { SpellDto, spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
@@ -13,7 +14,8 @@ import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import PerkEditableFields from "@/application/common/PerkEditableFields";
 import SpellEditableFields from "@/application/common/combat/SpellEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
@@ -44,10 +46,7 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-10 capitalize">
-          <div>{priceIcon}</div>
-          <div>{spell.price}</div>
-        </Badge>
+        <PriceBadge price={spell.price} />
 
         <Badge variant="cost" className="h-9 w-14 capitalize ">
           <div>{costIcon}</div>
@@ -87,12 +86,13 @@ export default function SpellView({ spell, disableEdit = false }: SpellViewProps
 function EditSpellSheet({ isPending, formId }: { isPending: boolean, formId: string })
 {
   return (
-    <PerkableEditSheet
+    <EditSheet
       isPending={isPending}
       formId={formId}
-      displayedTitle={displayedText.editSpell}
+      title={displayedText.editSpell}
     >
+      <PerkEditableFields />
       <SpellEditableFields  />
-    </PerkableEditSheet>
+    </EditSheet>
   )
 }

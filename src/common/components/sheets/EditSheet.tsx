@@ -3,9 +3,9 @@
 import SubmitButton from "@/common/components/form/SubmitButton";
 import { Button } from '@/common/components/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/common/components/ui/sheet";
-import { displayedText } from '@/presentation/translations';
-import { editIcon } from '@/presentation/icons';
-import { PropsWithChildren, ReactNode } from "react";
+import { displayedText } from '@/common/translations';
+import { editIcon } from '@/common/icons';
+import { Activity, PropsWithChildren, ReactNode } from "react";
 
 export interface EditSheetProps 
 {
@@ -18,6 +18,7 @@ export interface EditSheetProps
   triggerSize?: "default" | "sm" | "lg" | "icon";
   onOpenChange?: (open: boolean) => void;
   contentClassName?: string;
+  hasSubmitButton?: boolean;
 }
 
 export function EditSheet
@@ -33,6 +34,7 @@ export function EditSheet
     children,
     onOpenChange,
     contentClassName,
+    hasSubmitButton = true
   }
   : PropsWithChildren<EditSheetProps>
 ) 
@@ -53,13 +55,15 @@ export function EditSheet
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
         
-        <div className="flex flex-col gap-3 px-4 py-6">
+        <div className="flex flex-col gap-3 px-4 place-items-center place-content-center">
           {children}
         </div>
         
         <SheetFooter>
           
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
+          <Activity mode={hasSubmitButton ? "visible" : "hidden"}>
+            <SubmitButton isPending={isPending} className="w-full" formName={formId} />
+          </Activity>
 
           <SheetClose className="capitalize" asChild>
             <Button variant="outline" type="button">

@@ -16,7 +16,7 @@ export default function SelectOneOf<T extends { name: string; description?: stri
 {
   const handleOnSelectedChange = (value: string) => 
   {
-    setIndex(parseInt(value));
+    setIndex(parseInt(value, 10));
   };
 
   return (

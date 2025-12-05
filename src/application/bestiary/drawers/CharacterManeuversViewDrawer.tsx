@@ -1,6 +1,6 @@
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
-import { getCastTimeColors } from "@/presentation/colors";
-import { displayedText } from "@/presentation/translations";
+import { getCastTimeColors } from "@/common/colors";
+import { displayedText } from "@/common/translations";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
 import { Character } from "@/domain/characters/Character";
 import { Field } from "@/common/components/fields";

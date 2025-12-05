@@ -7,7 +7,7 @@ import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
-import { leftIcon, rightIcon } from '@/presentation/icons';
+import { leftIcon, rightIcon } from '@/common/icons';
 import Subcard from "@/common/components/Subcard";
 
 type SpellOffenseSubcardProps =
@@ -25,7 +25,7 @@ type SpellOffenseSubcardProps =
 export function SpellOffenseSubcard(input: SpellOffenseSubcardProps)
 {
   return (
-    <Subcard className='col-span-3' name={input.name} callback={input.resetCallback} childrenInfo={<BaseSpellOffenseInfoView spellOffense={input.baseSpellOffense} />}>
+    <Subcard className='min-w-60' name={input.name} callback={input.resetCallback} childrenInfo={<BaseSpellOffenseInfoView spellOffense={input.baseSpellOffense} />}>
       <SpellOffenseView
         spellOffense={input.spellOffense}
         rolls={input.rolls}
@@ -41,8 +41,8 @@ function BaseSpellOffenseInfoView({ spellOffense }: { spellOffense: SpellOffense
 {
   return (
     <div className='flex flex-row gap-3'>
-      <span>{toOffenseString(spellOffense)}</span> 
-      <span>{toCriticalRangeString(spellOffense)}, +{spellOffense.critical.power}</span>
+      <span className='font-normal text-lg'>{toOffenseString(spellOffense)}</span> 
+      <span className='font-normal text-lg'>{toCriticalRangeString(spellOffense)}, +{spellOffense.critical.power}</span>
     </div>
   );
 }

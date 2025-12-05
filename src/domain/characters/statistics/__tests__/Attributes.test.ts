@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { rollInitiative, rollInitiativeBase } from '../Attributes';
-import { Statistic } from '../Statistic';
+import { rollInitiative, rollInitiativeBase } from '@/domain/characters/statistics/Attributes';
+import { Statistic } from '@/domain/characters/statistics/Statistic';
 
 describe('Attributes - Initiative Rolling', () => {
   describe('rollInitiativeBase', () => {

@@ -5,7 +5,7 @@ import { Button } from "@/ui/button";
 import Link from "next/link";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
-import { battleIcon, bestiaryIcon } from "@/presentation/icons";
+import { battleIcon, bestiaryIcon } from "@/common/icons";
 
 export default function BestiaryNavbar() 
 {

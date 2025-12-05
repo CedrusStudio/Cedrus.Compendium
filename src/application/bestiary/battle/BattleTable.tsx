@@ -12,7 +12,7 @@ import {
 } from "@tanstack/react-table";
 
 import { useState, useEffect, useMemo } from "react";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { columnKeys } from "@/application/bestiary/columns";
 import { createCombatantColumns } from "@/application/bestiary/battle/combatantColumns";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
@@ -22,8 +22,8 @@ import { RootState } from "@/persistence/slices/store";
 import { Button } from "@/common/components/ui/button";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
-import { attributesIcons, removeIcon, resetIcon } from "@/presentation/icons";
-import { rollIcon } from "@/presentation/icons";
+import { attributesIcons, removeIcon, resetIcon } from "@/common/icons";
+import { rollIcon } from "@/common/icons";
 import { rollInitiative, rollInitiativeBase } from "@/domain/characters/statistics/Attributes";
 import BattleTableBody from "@/application/bestiary/battle/BattleTableBody";
 import BestiaryTableFooter from "@/application/bestiary/BestiaryTableFooter";

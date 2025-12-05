@@ -13,7 +13,7 @@ import {
   splitEquipmentItemTypes,
   type EquipmentItemTypes,
   type EquipmentItemArraysTypes
-} from '../Equipment';
+} from '@/domain/characters/equipment/Equipment';
 
 describe('Equipment - Path Builders and Parsers', () => {
   describe('pathToWeapons', () => {

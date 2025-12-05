@@ -10,7 +10,7 @@ import { allowedCastTimes } from "@/domain/characters/Castable";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { AddSpellDto, addSpellSchema, SpellDto } from "@/persistence/schemas/characters/combat/powerSchema";
 import { createKeysetSearchSpellsKey } from "@/persistence/cacheKeys";
 import { createSpellKeysetQuery } from "@/infrastructure/searchQueries/spells/createSpellKeysetQuery";

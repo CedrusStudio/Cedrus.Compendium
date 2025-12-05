@@ -1,5 +1,5 @@
 import { Perk } from "@/domain/characters/Perk";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import SummaryView from "@/application/common/SummaryView";
 
 export default function PerksList({ perks }: { perks: Perk[] })

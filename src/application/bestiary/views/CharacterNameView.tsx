@@ -1,6 +1,6 @@
 import { Character } from "@/domain/characters/Character";
 import { Button } from "@/common/components/ui/button";
-import { goToIcon } from "@/presentation/icons";
+import { goToIcon } from "@/common/icons";
 import Link from "next/link";
 
 export default function CharacterNameView({ character }: {character: Character})

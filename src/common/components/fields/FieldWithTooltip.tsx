@@ -1,4 +1,4 @@
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
 import { PropsWithChildren } from "react";
 

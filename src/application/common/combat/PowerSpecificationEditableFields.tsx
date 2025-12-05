@@ -1,7 +1,7 @@
 "use client";
 
 import { Label } from "@/ui/label"
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { CreateDefaultPowerOffense, PowerSpecification } from "@/domain/characters/combat/Power";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";

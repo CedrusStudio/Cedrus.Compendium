@@ -20,7 +20,7 @@ import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import RaceAddSheet from "@/application/compendium/races/RaceAddSheet";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { useSearchParams } from "next/navigation";
 
 const pageSize = DEFAULT_PAGE_SIZE;

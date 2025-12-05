@@ -9,7 +9,7 @@ import { Textarea } from "@/common/components/ui/textarea";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { createExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { toast } from "sonner";
 import { FaUserPlus } from "react-icons/fa";
 
@@ -31,9 +31,9 @@ export default function AddExternalParticipantDialog()
       return;
     }
 
-    const healthValue = parseInt(maxHealth) || 50;
-    const gradeValue = parseInt(initiativeGrade) || 3;
-    const valueValue = parseInt(initiativeTotalBonus) || 0;
+    const healthValue = parseInt(maxHealth, 10) || 50;
+    const gradeValue = parseInt(initiativeGrade, 10) || 3;
+    const valueValue = parseInt(initiativeTotalBonus, 10) || 0;
     const participant = createExternalParticipant(name.trim(), healthValue, gradeValue, valueValue, notes.trim());
     
     dispatch(actions.addExternalParticipant(participant));

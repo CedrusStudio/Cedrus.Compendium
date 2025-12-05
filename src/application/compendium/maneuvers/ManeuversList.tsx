@@ -10,7 +10,7 @@ import { allowedCastTimes } from "@/domain/characters/Castable";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { AddManeuverDto, addManeuverSchema, ManeuverDto } from "@/persistence/schemas/characters/combat/maneuverSchema";
 import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
 import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery";

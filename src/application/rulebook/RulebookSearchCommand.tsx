@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRulebookSearch, useRulebookCategories } from '@/infrastructure/hooks/useRulebook';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/common/components/ui/command';
 import { Badge } from '@/ui/badge';
 import type { RulebookCategory, RulebookCategoryId, RulebookSection } from '@/domain/rulebook/RulebookTypes';

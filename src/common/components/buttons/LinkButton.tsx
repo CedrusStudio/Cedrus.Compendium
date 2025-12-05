@@ -1,6 +1,6 @@
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 type LinkButtonProps =
 {

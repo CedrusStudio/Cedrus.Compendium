@@ -5,7 +5,7 @@ import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 import { PropsWithChildren } from "react";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { DefensiveItem } from "@/domain/characters/equipment/Item";
 
 type ItemAddSheetProps = 

@@ -13,7 +13,7 @@ import { WithScroll } from '@/common/components/WithScroll';
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { Input } from '@/common/components/ui/input';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { useQuery } from '@tanstack/react-query';
 import client from '@/infrastructure/clients/searchClient';
 import { createSearchCharactersKey } from '@/persistence/cacheKeys';

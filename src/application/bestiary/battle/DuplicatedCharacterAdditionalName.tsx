@@ -1,6 +1,6 @@
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
-import { showHideIcon } from "@/presentation/icons";
+import { showHideIcon } from "@/common/icons";
 import { useState } from "react";
 
 type DuplicatedCharacterAdditionalNameProps =
@@ -10,7 +10,7 @@ type DuplicatedCharacterAdditionalNameProps =
 
 export default function DuplicatedCharacterAdditionalName({ duplicateNumber }: DuplicatedCharacterAdditionalNameProps)
 {
-  const [additionalName, setAdditionalName] = useState(`Imię ${duplicateNumber == 1 ? "" : duplicateNumber}`);
+  const [additionalName, setAdditionalName] = useState(`Imię ${duplicateNumber === 1 ? "" : duplicateNumber}`);
   const [hideInput, setHideInput] = useState(duplicateNumber === 1);
 
   const toggleInput = () =>

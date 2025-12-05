@@ -1,8 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import { DataCard } from '@/common/components/cards/DataCard';
 import React, { PropsWithChildren } from 'react';
 import { Button } from '@/ui/button';
-import { resetIcon } from '@/presentation/icons';
-import { FieldInfo, FieldLabel } from './fields';
+import { resetIcon } from '@/common/icons';
+import { FieldInfo } from './fields';
 
 type SubcardProps =
 {
@@ -15,26 +15,24 @@ type SubcardProps =
 
 export default function Subcard({ name, className, children, callback, button, childrenInfo }: PropsWithChildren<SubcardProps>)
 {
+  const actions = (
+    <>
+      <Button type="button" variant="default" size="icon" onClick={callback}>
+        {resetIcon()}
+      </Button>
+      {button}
+    </>
+  );
+
   return (
-    <Card className={className}>
-      <CardHeader>
-
-        <CardTitle className='flex place-content-center place-items-center font-bold gap-3'>
-
-          <FieldLabel className='text-xl'>{name}</FieldLabel>
-          <FieldInfo>{childrenInfo}</FieldInfo>
-
-          <Button type="button" variant="default" size="icon" onClick={callback}>
-            {resetIcon()}
-          </Button>
-          {button}
-        </CardTitle>
-
-      </CardHeader>
-
-      <CardContent className='flex place-content-center place-items-center'>
-        {children}
-      </CardContent>
-    </Card>
+    <DataCard 
+      title={name}
+      icon={childrenInfo && <FieldInfo className=''>{childrenInfo}</FieldInfo>}
+      actions={actions}
+      className={className}
+      contentClassName='flex place-content-center place-items-center'
+    >
+      {children}
+    </DataCard>
   );
 };

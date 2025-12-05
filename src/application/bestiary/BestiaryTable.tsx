@@ -2,12 +2,12 @@
 
 import { ColumnFiltersState, SortingState, VisibilityState, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { useState, useEffect, useCallback } from "react";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import TagFilter from "@/common/components/filters/TagFilter";
 import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/presentation/icons";
+import { addIcon } from "@/common/icons";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";

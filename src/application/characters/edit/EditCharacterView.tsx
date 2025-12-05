@@ -14,7 +14,7 @@ import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import NotFound from "@/common/components/NotFound";
 
 type EditCharacterViewProps =
@@ -32,7 +32,7 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
   return (
     <Tabs 
         defaultValue={tab} 
-        onValueChange={(v) => { if (isCharacterTab(v)) setActiveTab(v); }}
+        onValueChange={v => { if (isCharacterTab(v)) setActiveTab(v); }}
         className='flex flex-col justify-center items-center lg:justify-stretch lg:grid lg:col-span-10 -mt-4'
     >
 

@@ -5,7 +5,7 @@ import { Talent } from "@/domain/characters/Talent"
 import { useState } from "react"
 import RollButton from "@/common/components/buttons/RollButton";
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 export const columns: AccessorKeyColumnDef<Talent>[] = 
 [

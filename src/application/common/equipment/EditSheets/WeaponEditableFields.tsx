@@ -2,7 +2,7 @@ import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { Label } from "@/ui/label"
 import { allowedCriticalPowers, allowedCriticalRanges, allowedDiceAmounts, allowedDiceBonuses, allowedDiceGrades } from '@/domain/characters/combat/Offense';
 import { allowedStyles, pathToWeaponDamageOffenseField, pathToWeaponOffenseCriticalField, pathToWeaponOffenseField } from '@/domain/characters/equipment/Weapon';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { FieldPath } from 'react-hook-form';
 import { WeaponDto } from '@/persistence/schemas/characters/equipment/weaponSchema';
 import CheckboxFormField from '@/common/components/form/CheckboxFormField';

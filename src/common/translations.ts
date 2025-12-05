@@ -1,6 +1,6 @@
-import { translations_deDE } from "@/presentation/translations/translations.de-DE";
-import { translations_plPL } from "@/presentation/translations/translations.pl-PL";
-import { translations_frFR } from "@/presentation/translations/translations.fr-FR";
+import { translations_deDE } from "@/common/translations/translations.de-DE";
+import { translations_plPL } from "@/common/translations/translations.pl-PL";
+import { translations_frFR } from "@/common/translations/translations.fr-FR";
 import { languageSettings } from "@/lib/env";
 
 function translate(key: string): string 

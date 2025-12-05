@@ -1,4 +1,4 @@
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Table as TableType } from "@tanstack/react-table";
 
 type BestiaryTableFooterProps<TData> = 

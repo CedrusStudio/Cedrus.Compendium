@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { rollInitiative } from "@/domain/characters/statistics/Attributes";
-import { displayedText } from "@/presentation/translations";
-import { cancelIcon, editIcon, okIcon, resetIcon, rollIcon } from "@/presentation/icons";
+import { displayedText } from "@/common/translations";
+import { cancelIcon, editIcon, okIcon, resetIcon, rollIcon } from "@/common/icons";
 import { Statistic } from "@/domain/characters/statistics/Statistic";
 
 type InitiativeCellProps = 
@@ -34,7 +34,7 @@ export default function InitiativeCell({ id, initiative }: InitiativeCellProps)
 
   const handleManualSet = () => 
   {
-    const value = parseInt(manualValue);
+    const value = parseInt(manualValue, 10);
 
     if (isNaN(value)) 
     {

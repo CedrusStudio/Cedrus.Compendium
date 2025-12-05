@@ -10,8 +10,8 @@ import { useState } from "react";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
-import { displayedText } from "@/presentation/translations";
-import { addIcon } from "@/presentation/icons";
+import { displayedText } from "@/common/translations";
+import { addIcon } from "@/common/icons";
 
 export type FormStringsInputProps<TFieldValues extends FieldValues> = 
 {

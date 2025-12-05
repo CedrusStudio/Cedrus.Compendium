@@ -9,7 +9,7 @@ import {
   CreateDefaultPower,
   powerFieldOrder,
   type Power
-} from '../Power';
+} from '@/domain/characters/combat/Power';
 
 describe('Power', () => {
   describe('pathToPowerField', () => {

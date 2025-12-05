@@ -1,13 +1,13 @@
 "use client";
 
-import { Card, CardContent, CardTitle } from '@/ui/card';
+import { DataCard } from '@/common/components/cards/DataCard';
 import { useState } from 'react';
 import { Health } from '@/domain/characters/combat/Health';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { Field } from "@/common/components/fields";
-import { displayedText } from '@/presentation/translations';
-import { gainIcon, lossIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { gainIcon, lossIcon } from '@/common/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type BarrierCardProps = 
@@ -33,11 +33,9 @@ export default function BarrierCard(input: BarrierCardProps)
   }
 
   return (
-    <Card className='bg-muted'>
-      <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.barrier}</CardTitle>
-      <CardContent className='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'>
+    <DataCard title={displayedText.barrier} headerClassName='place-items-center' variant="muted" contentClassName='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'>
 
-        <div className='flex flex-row place-content-center place-items-center'>
+      <div className='flex flex-row place-content-center place-items-center'>
 
           <Field value={input.health.barrier + barrierIncrease - damageTaken} className='gap-x-0' valueClassName='mx-2'>
             <Field.Value />
@@ -65,8 +63,7 @@ export default function BarrierCard(input: BarrierCardProps)
           </div>
         </div>
 
-        </CardContent>
-    </Card>
+    </DataCard>
   );
 };
 

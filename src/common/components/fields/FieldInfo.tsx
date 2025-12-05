@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 import { Info } from "lucide-react";
 import { Activity, PropsWithChildren, useState } from "react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
-import { Button } from "../ui/button";
-import { DataCard } from "../cards";
-import { closeIcon } from "@/presentation/icons";
+import { Button } from "@/ui/button";
+import { DataCard } from "@/common/components/cards";
+import { closeIcon } from "@/common/icons";
 
 interface FieldInfoProps 
 {

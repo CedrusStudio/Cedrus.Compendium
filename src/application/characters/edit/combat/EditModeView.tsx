@@ -6,7 +6,7 @@ import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButto
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import SummaryView from "@/application/common/SummaryView";
 import EditCharacterCombatPerkSheet from "./EditCharacterCombatPerkSheet";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import PerkableEditView from '@/application/characters/edit/combat/PerkableEditView';
 
 type EditModeViewProps =

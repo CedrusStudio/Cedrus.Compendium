@@ -14,11 +14,11 @@ import { useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
 import { useDeleteCharacterById } from "@/application/characters/hooks/useDeleteCharacterById";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import DetailsView from "@/application/characters/details/DetailsView";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
-import { editIcon } from "@/presentation/icons";
+import { editIcon } from "@/common/icons";
 import DeleteButton from "@/common/components/buttons/DeleteButton";
 import NotFound from '@/common/components/NotFound';
 
@@ -70,7 +70,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <div className='flex flex-row gap-3'>
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
-                        <Button asChild variant="edit" size="icon" className='my-4'>
+                        <Button asChild variant="outline" size="icon" className='my-4'>
                             <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? defaultTab}`}>{editIcon}</Link>
                         </Button>
                     </div>

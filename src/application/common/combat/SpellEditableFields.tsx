@@ -1,5 +1,5 @@
 import { Label } from "@/ui/label"
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { FieldPath } from 'react-hook-form';
 import { SpellDto } from "@/persistence/schemas/characters/combat/powerSchema";

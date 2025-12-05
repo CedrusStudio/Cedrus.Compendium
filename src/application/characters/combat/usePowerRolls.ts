@@ -3,11 +3,11 @@
 import { setWithSideEffect } from '@/common/global/setterUtils';
 import { calculateCriticalDamage, calculateWeaponDamageRoll, handleDamageOffenseRolls, handleWeaponDamageRolls, roll } from '@/domain/characters/combat/Offense';
 import { PowerOffense, SpellDamage, SpellOffense } from '@/domain/characters/combat/Power';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 
 export const usePowerRolls = (offenses: PowerOffense[], selectedIndex: number) => 
 {
-  const offense = offenses[selectedIndex];
+  const offense = useMemo(() => offenses[selectedIndex], [offenses, selectedIndex]);
 
   const [currentSpellOffense, setCurrentSpellOffense] = useState<SpellOffense>(offense.spellOffense);
   const [currentSpellDamage, setCurrentSpellDamage] = useState<SpellDamage>(offense.spellDamage);
@@ -17,11 +17,11 @@ export const usePowerRolls = (offenses: PowerOffense[], selectedIndex: number) =
 
   useEffect(() => 
 {
-    setCurrentSpellOffense(offenses[selectedIndex].spellOffense);
-    setCurrentSpellDamage(offenses[selectedIndex].spellDamage);
+    setCurrentSpellOffense(offense.spellOffense);
+    setCurrentSpellDamage(offense.spellDamage);
     setSpellOffenseRolls([]);
     setSpellDamageRolls([]);
-  }, [selectedIndex, offenses]);
+  }, [offense]);
 
   const handleRoll = () => 
   {

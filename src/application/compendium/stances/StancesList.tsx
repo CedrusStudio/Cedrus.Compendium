@@ -6,9 +6,8 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/stancesClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { AddModeDto, addModeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
-
 import { createKeysetSearchStancesKey } from "@/persistence/cacheKeys";
 import { createStanceKeysetQuery } from "@/infrastructure/searchQueries/stances/createStanceKeysetQuery";
 import StanceView from "@/application/compendium/stances/StanceView";

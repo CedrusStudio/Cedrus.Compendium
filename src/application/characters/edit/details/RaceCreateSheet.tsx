@@ -10,7 +10,7 @@ import { Label } from "@/common/components/ui/label";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Plus } from "lucide-react";
 import { RaceDto, raceSchema } from "@/persistence/schemas/characters/raceSchema";
 import racesClient from "@/infrastructure/clients/racesClient";

@@ -22,7 +22,7 @@ type SpellDamageSubcardProps =
 export default function SpellDamageSubcard(input: SpellDamageSubcardProps)
 {
   return (
-    <Subcard name={input.name} className='col-span-3' callback={input.resetCallback} childrenInfo={<span>{toOffenseString(input.baseSpellDamage)}</span> } > 
+    <Subcard name={input.name} className='min-w-50' callback={input.resetCallback} childrenInfo={<span>{toOffenseString(input.baseSpellDamage)}</span> } > 
       <SpellDamageView 
         spellDamage={input.spellDamage} 
         rolls={input.rolls} 

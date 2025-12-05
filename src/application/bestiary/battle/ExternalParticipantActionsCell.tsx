@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
 import { toast } from "sonner";
 import { ExternalParticipant, updateExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import {
   Dialog,
   DialogContent,
@@ -27,7 +27,7 @@ import {
 } from "@/ui/alert-dialog";
 import { Input } from "@/common/components/ui/input";
 import { Label } from "@/ui/label";
-import { deleteIcon, editIcon } from "@/presentation/icons";
+import { deleteIcon, editIcon } from "@/common/icons";
 import { Textarea } from "@/common/components/ui/textarea";
 
 type ExternalParticipantActionsCellProps = 
@@ -55,9 +55,9 @@ export default function ExternalParticipantActionsCell({ participant }: External
 
   const handleEditSave = () => 
   {
-    const gradeValue = parseInt(initiativeGrade);
-    const valueValue = parseInt(initiativeValue);
-    const maxHealthValue = parseInt(maxHealth);
+    const gradeValue = parseInt(initiativeGrade, 10);
+    const valueValue = parseInt(initiativeValue, 10);
+    const maxHealthValue = parseInt(maxHealth, 10);
 
     if (isNaN(gradeValue) || gradeValue < 1) 
     {

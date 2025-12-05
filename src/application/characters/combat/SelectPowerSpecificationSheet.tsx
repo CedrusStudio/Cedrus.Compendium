@@ -3,7 +3,7 @@ import { Card } from '@/ui/card';
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import { Sheet, SheetContent, SheetFooter } from '@/ui/sheet';
-import { importIcon } from '@/presentation/icons';
+import { importIcon } from '@/common/icons';
 import ListHeader from '@/common/components/lists/ListHeader';
 import { WithScroll } from '@/common/components/WithScroll';
 import { useQuery } from '@tanstack/react-query';

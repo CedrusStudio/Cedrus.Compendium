@@ -3,7 +3,7 @@ import {
   CreateDefaultManeuver,
   pathToManeuverField,
   pathToManeuvers
-} from '../Maneuver';
+} from '@/domain/characters/combat/Maneuver';
 
 describe('Maneuver', () => {
   describe('CreateDefaultManeuver', () => {

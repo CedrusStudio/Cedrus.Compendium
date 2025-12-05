@@ -3,11 +3,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
 import { Field } from '@/common/components/fields';
-import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
-import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, resetIcon } from '@/presentation/icons';
+import { getBadgeVariant, getCastTimeColors } from '@/common/colors';
+import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, resetIcon } from '@/common/icons';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
 import { useState } from 'react';
 import InfoContentWithTags from '@/common/components/tags/InfoContentWithTags';
@@ -15,12 +15,12 @@ import { useQuery } from '@tanstack/react-query';
 import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
 import { PowerSpecification } from '@/domain/characters/combat/Power';
 import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
-import { colors } from '@/presentation/colors';
+import { colors } from '@/common/colors';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import PowerRollsCard from '@/application/characters/combat/power/PowerRollsCard';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import { gainIcon, lossIcon } from '@/presentation/icons';
+import { gainIcon, lossIcon } from '@/common/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 
 type PowerCardProps =

@@ -1,4 +1,4 @@
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Input } from "@/ui/input";
 import { Table } from "@tanstack/react-table";
 

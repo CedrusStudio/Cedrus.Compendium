@@ -4,7 +4,7 @@ import {
   CreateDefaultState,
   pathToModeField,
   pathToMode
-} from '../Mode';
+} from '@/domain/characters/combat/Mode';
 
 describe('Mode', () => {
   describe('CreateDefaultStance', () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from '@/common/components/ui/button';
-import { addIcon } from '@/presentation/icons';
+import { addIcon } from '@/common/icons';
 import { DataCard, DataCardProps } from "./DataCard";
 import { PropsWithChildren } from "react";
 

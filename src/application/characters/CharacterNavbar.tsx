@@ -5,7 +5,7 @@ import { Button } from "@/ui/button";
 import Link from "next/link";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
-import { addIcon } from "@/presentation/icons";
+import { addIcon } from "@/common/icons";
 import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 
 export default function CharacterNavbar() 

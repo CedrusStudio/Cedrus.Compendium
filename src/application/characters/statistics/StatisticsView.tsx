@@ -1,7 +1,7 @@
 import StatisticsCard from "@/application/characters/statistics/StatisticsCard";
 import { Character } from "@/domain/characters/Character";
-import { displayedText } from "@/presentation/translations";
-import { attributesIcons, characteristicIcons } from "@/presentation/icons";
+import { displayedText } from "@/common/translations";
+import { attributesIcons, characteristicIcons } from "@/common/icons";
 
 export default function StatisticsView(input: { character: Character })
 {

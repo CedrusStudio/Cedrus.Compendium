@@ -19,7 +19,7 @@ import { type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
 import { useFieldArray, UseFieldArrayAppend, useFormContext } from "react-hook-form";
 import EditTalentRow from "@/application/characters/edit/talents/EditTalentRow";
 import { defaultColumnKeys } from "@/application/characters/talents/defaultColumns";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import SelectFilter from "@/common/components/table/SelectFilter";
 import AddTalentView from "@/application/characters/edit/talents/AddTalentView";
 import NameInputSearch from "@/common/components/table/NameInputSearch";
@@ -29,7 +29,7 @@ import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 import { Button } from "@/common/components/ui/button";
 import { toast } from "sonner";
-import { deleteIcon } from "@/presentation/icons";
+import { deleteIcon } from "@/common/icons";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog";
 import { Description } from "@radix-ui/react-dialog";
 

@@ -4,12 +4,12 @@ import { Field } from "@/common/components/fields";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
-import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
+import { getBadgeVariant, getCastTimeColors } from '@/common/colors';
 import { useState } from 'react';
 import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
-import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from "@/presentation/icons";
-import { displayedText } from "@/presentation/translations";
+import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from "@/common/icons";
+import { displayedText } from "@/common/translations";
 import InfoContentWithTags from "@/common/components/tags/InfoContentWithTags";
 
 type ManeuversViewProps =

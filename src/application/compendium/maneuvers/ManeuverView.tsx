@@ -2,10 +2,11 @@
 
 import client from "@/infrastructure/clients/maneuversClient";
 import { type Maneuver } from "@/domain/characters/combat/Maneuver";
-import { displayedText } from '@/presentation/translations';
-import { battleIcon, cooldownIcon, priceIcon } from '@/presentation/icons';
+import { displayedText } from '@/common/translations';
+import { battleIcon, cooldownIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
-import { getBadgeVariant } from '@/presentation/colors';
+import PriceBadge from '@/common/components/badges/PriceBadge';
+import { getBadgeVariant } from '@/common/colors';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ManeuverDto, maneuverSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
@@ -13,7 +14,8 @@ import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import PerkEditableFields from "@/application/common/PerkEditableFields";
 import CastablePerkEditableFields from "@/application/common/combat/CastablePerkEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
@@ -44,10 +46,7 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-10 capitalize">
-          <div>{priceIcon}</div>
-          <div>{maneuver.price}</div>
-        </Badge>
+        <PriceBadge price={maneuver.price} />
         
         <Badge className='h-9 w-10 p-2 rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
             <div>{cooldownIcon()}</div>
@@ -68,13 +67,14 @@ export default function ManeuverView({ maneuver, disableEdit = false }: Maneuver
                 renderSheetContent=
                 {
                   (isPending, formId) => (
-                    <PerkableEditSheet
+                    <EditSheet
                       isPending={isPending}
                       formId={formId}
-                      displayedTitle={displayedText.editManeuver}
+                      title={displayedText.editManeuver}
                     >
+                      <PerkEditableFields />
                       <CastablePerkEditableFields />
-                    </PerkableEditSheet>
+                    </EditSheet>
                   )
                 }
                 cacheKeys={['maneuvers']}

@@ -1,13 +1,14 @@
 "use client";
 
 import client from "@/infrastructure/clients/equipment/mountsClient";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { MountDto, mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 import MountEditableFields from "@/application/common/equipment/EditSheets/MountEditableFields";
 import { Mount } from "@/domain/characters/equipment/Mount";
 import MountViewFields from "@/application/common/equipment/Views/MountViewFields";
@@ -47,9 +48,10 @@ export default function MountView({ mount, disableEdit = false }: MountViewProps
               renderSheetContent=
               {
                 (isPending, formId) => (
-                  <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                  <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
+                    <ItemEditableFields />
                     <MountEditableFields />
-                  </ItemEditSheet>
+                  </EditSheet>
                 )
               }
               cacheKeys={['mounts']}

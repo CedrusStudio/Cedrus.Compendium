@@ -2,14 +2,15 @@
 
 import client from "@/infrastructure/clients/equipment/shieldsClient";
 import { type Shield } from "@/domain/characters/equipment/Shield";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
-import { ItemEditSheet } from "@/application/common/equipment/EditSheets/ItemEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 import ShieldViewFields from "@/application/common/equipment/Views/ShieldViewFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
@@ -47,9 +48,10 @@ export default function ShieldView({ shield, disableEdit = false }: ShieldViewPr
               renderSheetContent=
               {
                 (isPending, formId) => (
-                  <ItemEditSheet displayedTitle={displayedText.editingItem} isPending={isPending} formId={formId}>
+                  <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
+                    <ItemEditableFields />
                     <ShieldEditableFields />
-                  </ItemEditSheet>
+                  </EditSheet>
                 )
               }
               cacheKeys={['shields']}

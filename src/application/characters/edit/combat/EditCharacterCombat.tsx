@@ -15,7 +15,7 @@ import SubmitButton from "@/common/components/form/SubmitButton";
 import client from "@/infrastructure/clients/charactersClient";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { CreateDefaultPower } from "@/domain/characters/combat/Power";
 import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 import EditArraySection from "@/common/components/form/EditArraySection";

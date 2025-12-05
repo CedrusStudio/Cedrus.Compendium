@@ -1,6 +1,6 @@
 import { Field } from "@/common/components/fields";
 import { Defense, filteredDefenseKeys, ReductionType } from "@/domain/characters/combat/Defense";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 type DefenseReductionInfoContentProps =
 {

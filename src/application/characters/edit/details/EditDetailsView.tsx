@@ -7,7 +7,7 @@ import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import EditPerksList from "@/application/characters/edit/details/EditPerksList";
 import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 import { Separator } from "@/common/components/ui/separator";

@@ -7,7 +7,7 @@ import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 import { CreateDefaultStance, Mode } from '@/domain/characters/combat/Mode';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import StanceView from "@/application/compendium/stances/StanceView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";

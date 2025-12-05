@@ -1,4 +1,4 @@
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { toast } from "sonner"
 
 function onError(error: Error, position?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right") 

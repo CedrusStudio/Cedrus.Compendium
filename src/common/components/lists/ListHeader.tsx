@@ -1,6 +1,6 @@
 "use client";
 
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { Input } from "@/common/components/ui/input";
 import TagFilter from "@/common/components/filters/TagFilter";
 

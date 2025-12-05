@@ -7,7 +7,7 @@ import { type HeaderDto, headerSchema } from "@/persistence/schemas/characters/h
 import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { Button } from '@/ui/button';
 import SelectBaseCharacterDialog from '@/application/characters/add/SelectBaseCharacterDialog';

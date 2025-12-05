@@ -4,7 +4,7 @@ import { Breadcrumb,  BreadcrumbItem, BreadcrumbLink, BreadcrumbList, Breadcrumb
 import { useSelector } from "react-redux";
 import { RootState } from "@/persistence/slices/store";
 import { isValid } from 'ulid';
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 export default function NavbarBreadcrumb({ pathname }: { pathname: string })
 {

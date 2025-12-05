@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/shieldsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { ShieldDto, shieldSchema } from "@/persistence/schemas/characters/equipment/shieldSchema";
 import { createKeysetSearchShieldsKey } from "@/persistence/cacheKeys";
 import { createShieldKeysetQuery } from "@/infrastructure/searchQueries/equipment/shields/createShieldKeysetQuery";

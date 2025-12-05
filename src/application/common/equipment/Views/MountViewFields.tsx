@@ -1,10 +1,10 @@
 "use client";
 
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { Badge } from '@/common/components/ui/badge';
 import SummaryView from "@/application/common/SummaryView";
 import { type Mount } from '@/domain/characters/equipment/Mount';
-import { attributesIcons } from '@/presentation/icons';
+import { attributesIcons } from '@/common/icons';
 
 type MountViewFieldsProps =
 {

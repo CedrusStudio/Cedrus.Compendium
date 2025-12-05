@@ -2,9 +2,8 @@
 
 import client from "@/infrastructure/clients/perksClient";
 import { type Perk } from "@/domain/characters/Perk";
-import { displayedText } from '@/presentation/translations';
-import { priceIcon } from '@/presentation/icons';
-import { Badge } from '@/common/components/ui/badge';
+import { displayedText } from '@/common/translations';
+import PriceBadge from '@/common/components/badges/PriceBadge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { PerkDto, perkSchema } from "@/persistence/schemas/characters/perkSchema";
@@ -12,7 +11,8 @@ import RequirementsView from "@/application/common/RequirementsView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
-import { PerkableEditSheet } from "@/application/common/PerkableEditSheet";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
+import PerkEditableFields from "@/application/common/PerkEditableFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
@@ -42,10 +42,7 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
       
       <PerkableBadgeView>
 
-        <Badge variant="secondary" className="h-9 w-10 capitalize">
-          <div>{priceIcon}</div>
-          <div>{perk.price}</div>
-        </Badge>
+        <PriceBadge price={perk.price} />
         {
           !disableEdit && (
             <CompendiumEditView>
@@ -60,11 +57,13 @@ export default function PerkView({ perk, disableEdit = false }: PerkViewProps)
                 renderSheetContent=
                 {
                   (isPending, formId) => (
-                    <PerkableEditSheet
+                    <EditSheet
                       isPending={isPending}
                       formId={formId}
-                      displayedTitle={displayedText.editPerk}
-                    />
+                      title={displayedText.editPerk}
+                    >
+                      <PerkEditableFields />
+                    </EditSheet>
                   )
                 }
                 cacheKeys={['perks']}

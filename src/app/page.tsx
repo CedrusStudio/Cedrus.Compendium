@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 import { Users, BookOpen, Scroll, Swords } from "lucide-react";
 import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 

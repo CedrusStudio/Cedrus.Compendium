@@ -3,7 +3,7 @@ import { Label } from "@/ui/label";
 import { allowedItemAttributePenalties } from "@/domain/characters/equipment/Item";
 import { SelectFormField } from "@/common/components/form/SelectFormField";
 import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 type EditDefensiveItemViewProps = 
 {

@@ -1,5 +1,5 @@
 import { Label } from "@/ui/label"
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import { FieldPath } from 'react-hook-form';
 import { MountDto } from '@/persistence/schemas/characters/equipment/mountSchema';
 import { SelectFormField } from "@/common/components/form/SelectFormField";

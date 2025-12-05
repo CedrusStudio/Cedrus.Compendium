@@ -6,7 +6,7 @@ import { Badge } from '@/ui/badge';
 import VerticalChangeButtons from '@/common/components/buttons/VerticalChangeButtons';
 import IncreaseButton from '@/common/components/buttons/IncreaseButton';
 import DecreaseButton from '@/common/components/buttons/DecreaseButton';
-import { leftIcon, rightIcon } from '@/presentation/icons';
+import { leftIcon, rightIcon } from '@/common/icons';
 import Subcard from "@/common/components/Subcard";
 
 type WeaponDamageWithCriticalSubcardProps =
@@ -40,8 +40,8 @@ function BaseWeaponDamageInfoView({ weaponOffense }: { weaponOffense: WeaponOffe
 {
   return (
     <div className='flex flex-row gap-3'>
-      <span>{toOffenseString(weaponOffense)}</span> 
-      <span>{toCriticalRangeString(weaponOffense)}, +{weaponOffense.critical.power}</span>
+      <span className='font-normal text-lg'>{toOffenseString(weaponOffense)}</span> 
+      <span className='font-normal text-lg'>{toCriticalRangeString(weaponOffense)}, +{weaponOffense.critical.power}</span>
     </div>
   );
 }

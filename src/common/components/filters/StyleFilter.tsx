@@ -1,7 +1,7 @@
 "use client";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/common/components/ui/select";
-import { displayedText } from "@/presentation/translations";
+import { displayedText } from "@/common/translations";
 
 type StyleFilterProps<T extends string> = 
 {

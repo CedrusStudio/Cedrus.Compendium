@@ -7,7 +7,7 @@ import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import { useFormContext } from 'react-hook-form';
 import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
-import { displayedText } from '@/presentation/translations';
+import { displayedText } from '@/common/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import StateView from "@/application/compendium/states/StateView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
