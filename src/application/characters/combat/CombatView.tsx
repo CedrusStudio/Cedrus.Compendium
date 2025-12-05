@@ -5,7 +5,7 @@ import OffenseCard from "@/application/characters/combat/offense/OffenseCard";
 import ModesCard from "@/application/characters/combat/ModesCard";
 import BarrierCard from "@/application/characters/combat/BarrierCard";
 import ManeuversCard from "@/application/characters/combat/ManeuversCard";
-import PowerCard from "@/application/characters/combat/PowerCard";
+import PowerCard from "@/application/characters/combat/power/PowerCard";
 import { Activity } from "react";
 
 export default function CombatView({ character }: { character: Character })
