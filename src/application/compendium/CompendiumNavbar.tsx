@@ -13,7 +13,7 @@ const pathname = usePathname();
     <nav className="flex items-center justify-between py-4 px-10 gap-3">
 
         <div className="hidden md:block">
-            <NavbarBreadcrumb pathname={pathname} />
+          <NavbarBreadcrumb pathname={pathname} />
         </div>
 
         <div className="flex-1" />

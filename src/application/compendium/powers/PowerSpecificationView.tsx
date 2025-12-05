@@ -43,7 +43,7 @@ export default function PowersSpecificationView({ powerSpecification, disableEdi
               defaultValues={powerSpecification}
               schema={powerSpecificationSchema}
               updateFn={client.update}
-              formId={createCompendiumFormId.spell(powerSpecification.id)}
+              formId={createCompendiumFormId.powerSpecification(powerSpecification.id)}
               renderSheetContent=
               {
                 (isPending, formId) => (
