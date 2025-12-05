@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from '@/ui/card';
 
-import FieldView from "@/common/components/fields/FieldView";
 import { useEffect, useState } from 'react';
 import { Field } from "@/common/components/fields";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
@@ -75,23 +74,29 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
 
         <div className='flex flex-col place-content-center place-items-center gap-y-4'>
 
-          <FieldView value={immunity} childrenClassName='flex items-center gap-1'>
+          <Field value={immunity}>
+            <Field.Label className='flex items-center gap-1'>
               <FieldWithTooltip name={displayedText.immunity}>
                 <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]}>
                   {immunityIcon()}
                 </ResetButton>
               </FieldWithTooltip>
               <VerticalChangeButtons setValue={setImmunity} />
-          </FieldView>
+            </Field.Label>
+            <Field.Value />
+          </Field>
 
-          <FieldView value={resistance} childrenClassName='flex items-center gap-1'>
+          <Field value={resistance}>
+            <Field.Label className='flex items-center gap-1'>
               <FieldWithTooltip name={displayedText.resistance}>
                 <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]}>
                   {resistanceIcon()}
                 </ResetButton>
               </FieldWithTooltip>
               <VerticalChangeButtons setValue={setResistance} />
-          </FieldView>
+            </Field.Label>
+            <Field.Value />
+          </Field>
 
           <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 

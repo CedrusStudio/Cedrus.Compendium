@@ -3,7 +3,6 @@
 import { calculateTotalHealth, Health } from '@/domain/characters/combat/Health';
 import { Statistic } from '@/domain/characters/statistics/Statistic';
 import { Card, CardContent, CardTitle } from '@/ui/card';
-import FieldView from '@/common/components/fields/FieldView';
 import { Field } from "@/common/components/fields";
 import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
@@ -51,7 +50,7 @@ export default function HealthCard(input: HealthCardProps)
             </Field.Info>
           </Field>
 
-          <span className='mx-2'>/</span>
+          <span>/</span>
 
           <Field value={totalHealth} className='gap-x-0' valueClassName='mx-2'>
             <Field.Value />
@@ -80,11 +79,16 @@ export default function HealthCard(input: HealthCardProps)
 function HealthInfoContent(input: { health: Health })
 {
   return (
-    <div className='flex flex-wrap flex-col items-center'>
+    <div className='flex flex-wrap flex-col place-content-center place-items-start'>
     {
       Object.entries(input.health)
         .filter(([name]) => name !== 'barrier')
-        .map(([name, value]) => <FieldView key={name} value={value} childrenClassName="w-24">{displayedText[name as keyof typeof displayedText]}</FieldView>)
+        .map(([name, value]) => (
+          <Field key={name} value={value}>
+            <Field.Label className="w-30">{displayedText[name as keyof typeof displayedText]}</Field.Label>
+            <Field.Value />
+          </Field>
+        ))
     }
     </div>
   );
@@ -93,10 +97,23 @@ function HealthInfoContent(input: { health: Health })
 function CurrentHealthInfoContent(input: { totalHealth: number, damageTaken: number, healthIncrease: number })
 {
   return (
-    <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalHealth" value={input.totalHealth} childrenClassName="w-24">{displayedText.sum}</FieldView> }
-    { <FieldView key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600' childrenClassName="w-24">{displayedText.increase}</FieldView> }
-    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{displayedText.damage}</FieldView> }
+    <div className='flex flex-wrap flex-col place-content-center place-items-start'>
+
+      <Field key="totalHealth" value={input.totalHealth}>
+        <Field.Label className="w-24">{displayedText.sum}</Field.Label>
+        <Field.Value />
+      </Field>
+
+      <Field key="healthIncrease" value={input.healthIncrease} valueClassName='text-green-600'>
+        <Field.Label className="w-24">{displayedText.increase}</Field.Label>
+        <Field.Value />
+      </Field>
+
+      <Field key="damageTaken" value={input.damageTaken} valueClassName='text-red-500'>
+        <Field.Label className="w-24">{displayedText.damage}</Field.Label>
+        <Field.Value />
+      </Field>
+
     </div>
   );
 };

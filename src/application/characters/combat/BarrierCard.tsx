@@ -1,7 +1,6 @@
 "use client";
 
 import { Card, CardContent, CardTitle } from '@/ui/card';
-import FieldView from '@/common/components/fields/FieldView';
 import { useState } from 'react';
 import { Health } from '@/domain/characters/combat/Health';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
@@ -74,10 +73,23 @@ export default function BarrierCard(input: BarrierCardProps)
 function CurrentBarrierInfoContent(input: { totalBarrier: number, damageTaken: number, barrierIncrease: number })
 {
   return (
-    <div className='flex flex-wrap flex-col items-center'>
-    { <FieldView key="totalBarrier" value={input.totalBarrier} childrenClassName="w-24">{displayedText.sum}</FieldView> }
-    { <FieldView key="barrierIncrease" value={input.barrierIncrease} valueClassName='text-green-600' childrenClassName="w-24">{displayedText.increase}</FieldView> }
-    { <FieldView key="damageTaken" value={input.damageTaken}  valueClassName='text-red-500' childrenClassName="w-24">{displayedText.damage}</FieldView> }
+    <div className='flex flex-wrap flex-col place-content-center place-items-start'>
+
+      <Field key="totalBarrier" value={input.totalBarrier}>
+        <Field.Label className="w-24">{displayedText.sum}</Field.Label>
+        <Field.Value />
+      </Field>
+      
+      <Field key="barrierIncrease" value={input.barrierIncrease} valueClassName='text-green-600'>
+        <Field.Label className="w-24">{displayedText.increase}</Field.Label>
+        <Field.Value />
+      </Field>
+    
+      <Field key="damageTaken" value={input.damageTaken} valueClassName='text-red-500'>
+        <Field.Label className="w-24">{displayedText.damage}</Field.Label>
+        <Field.Value />
+      </Field>
+      
     </div>
   );
 }
