@@ -1,0 +1,68 @@
+"use client";
+
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
+import { Button } from "@/ui/button";
+import { addIcon } from "@/presentation/icons";
+import { displayedText } from "@/presentation/translations";
+import SubmitButton from "@/common/components/form/SubmitButton";
+import { PropsWithChildren, ReactNode } from "react";
+
+type AddSheetProps = PropsWithChildren<
+{
+  isPending: boolean;
+  formId: string;
+  title: string;
+  triggerIcon?: ReactNode;
+  triggerLabel?: string;
+}>;
+
+export default function AddSheet
+(
+  { 
+    isPending, 
+    formId, 
+    title, 
+    triggerIcon = addIcon(),
+    triggerLabel,
+    children 
+  }
+  : AddSheetProps
+)
+{
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        {
+          triggerLabel ? (
+              <Button variant="outline" type="button">
+                {triggerIcon}
+                <span className="first-letter:uppercase">{triggerLabel}</span>
+              </Button>
+            ) : (
+              <Button variant="outline" size='icon' type="button">
+                {triggerIcon}
+              </Button>
+            )
+        }
+      </SheetTrigger>
+
+      <SheetContent className="w-full">
+        <SheetHeader>
+          <SheetTitle className='first-letter:uppercase'>{title}</SheetTitle>
+          <SheetDescription>{displayedText.clickSave}</SheetDescription>
+        </SheetHeader>
+
+        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3">
+          {children}
+        </div>
+
+        <SheetFooter>
+          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
+          <SheetClose className="capitalize" asChild>
+            <Button variant="outline" type='button'>{displayedText.close}</Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+  );
+}

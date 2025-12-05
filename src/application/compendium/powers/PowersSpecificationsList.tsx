@@ -18,13 +18,10 @@ import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
-import SubmitButton from "@/common/components/form/SubmitButton";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
-import { Button } from "@/common/components/ui/button";
-import { addIcon } from "@/presentation/icons";
 import { createPowerSpecificationKeysetQuery } from "@/infrastructure/searchQueries/powers/createPowerSpecificationKeysetQuery";
 import PowersSpecificationView from "@/application/compendium/powers/PowerSpecificationView";
 import PowerSpecificationEditableFields from "@/application/common/combat/PowerSpecificationEditableFields";
+import AddSheet from "@/common/components/sheets/AddSheet";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -165,30 +162,8 @@ type PowerSpecificationAddSheetProps =
 function PowerSpecificationAddSheet({ isPending, formId }: PowerSpecificationAddSheetProps)
 {
   return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{addIcon()}</Button>
-      </SheetTrigger>
-
-      <SheetContent className="w-full">
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.addPowerSpecification}</SheetTitle>
-          <SheetDescription>{displayedText.clickSave}</SheetDescription>
-        </SheetHeader>
-
-        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3">
-          <PowerSpecificationEditableFields />
-        </div>
-
-        <SheetFooter>
-          <SubmitButton isPending={isPending} className="w-full" formName={formId} />
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+    <AddSheet isPending={isPending} formId={formId} title={displayedText.addPowerSpecification}>
+      <PowerSpecificationEditableFields />
+    </AddSheet>
   )
 }

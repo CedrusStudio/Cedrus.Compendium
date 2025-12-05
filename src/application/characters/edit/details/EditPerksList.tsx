@@ -1,12 +1,9 @@
 "use client";
 
 import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/ui/item";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/ui/sheet";
 import { CreateDefaultPerk, pathToPerk, Perk } from "@/domain/characters/Perk";
 import { FieldArrayWithId, UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
-import { Button } from "@/common/components/ui/button";
-import { editIcon } from "@/presentation/icons";
 import { displayedText } from "@/presentation/translations";
 import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
@@ -19,6 +16,7 @@ import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import PerkEditableFields from "@/application/common/PerkEditableFields";
 import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
 import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
+import { EditSheet } from "@/common/components/sheets/EditSheet";
 
 type EditPerksListProps =
 {
@@ -159,32 +157,14 @@ function EditPerkSheet({ index }: EditPerkSheetProps)
   const type = pathToPerk(index);
 
   return (
-    <Sheet>
-
-      <SheetTrigger asChild>
-        <Button variant="outline" size='icon' type="button">{editIcon}</Button>
-      </SheetTrigger>
-
-      <SheetContent className="w-full">
-        
-        <SheetHeader>
-          <SheetTitle className='first-letter:uppercase'>{displayedText.editPerk}</SheetTitle>
-          <SheetDescription>
-           {displayedText.clickSave}
-          </SheetDescription>
-        </SheetHeader>
-
-        <div className="flex flex-col gap-3 px-4">
-          <PerkEditableFields pathPrefix={`${type}.`} />
-        </div>
-
-        <SheetFooter>
-          <SheetClose className="capitalize" asChild>
-            <Button variant="outline" type='button'>{displayedText.close}</Button>
-          </SheetClose>
-        </SheetFooter>
-
-      </SheetContent>
-    </Sheet>
-  )
+    <EditSheet
+      isPending={false}
+      formId=""
+      title={displayedText.editPerk}
+      triggerVariant="outline"
+      hasSubmitButton={false}
+    >
+      <PerkEditableFields pathPrefix={`${type}.`} />
+    </EditSheet>
+  );
 }
