@@ -7,7 +7,7 @@ import RollButton from "@/common/components/buttons/RollButton";
 import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeButtons";
 import ResetButton from "@/common/components/buttons/ResetButton";
 import { getColorTextChange } from "@/presentation/colors";
-import FieldTooltip from "@/common/components/fields/FieldWithTooltip";
+import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 
 type StatisticViewProps = 
 {
@@ -31,11 +31,11 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
   return (
     <div className={'flex gap-x-2 items-center justify-around'}>
 
-      <FieldTooltip name={name} >
+      <FieldWithTooltip name={name} >
         <ResetButton variant='ghost' defaultValuesWithSetters={[[defaultBonus, setBonus]]}>
           {icon}
         </ResetButton>
-      </FieldTooltip>
+      </FieldWithTooltip>
 
       <div className="flex items-center">
         1k{statistic.grade * 2}+
