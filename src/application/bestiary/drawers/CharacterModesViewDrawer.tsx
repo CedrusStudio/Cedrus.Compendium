@@ -1,4 +1,4 @@
-import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
+import { Field } from "@/common/components/fields";
 import { displayedText } from "@/presentation/translations";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
 import { Mode } from "@/domain/characters/combat/Mode";
@@ -51,14 +51,13 @@ function ModeView({ mode }: { mode: Mode })
 {
   return (
     <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
-      <FieldViewWithInfo
-        value={mode.grade}
-        infoContent={<span>{mode.description}</span>}
-        className="gap-1"
-        nameClassName='w-4xs'
-      >
-        {mode.name}
-      </FieldViewWithInfo>
+      <Field value={mode.grade} className="gap-1">
+        <Field.Label className='w-4xs'>{mode.name}</Field.Label>
+        <Field.Value />
+        <Field.Info>
+          <span>{mode.description}</span>
+        </Field.Info>
+      </Field>
     </div>
   );
 }

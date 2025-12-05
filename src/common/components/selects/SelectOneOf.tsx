@@ -1,7 +1,6 @@
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
-import { BsInfoCircle } from "react-icons/bs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import { Dispatch, SetStateAction } from "react";
+import { Field } from "@/common/components/fields/index";
 
 type SelectOneOfProps<T> = 
 {
@@ -30,13 +29,10 @@ export default function SelectOneOf<T extends { name: string; description?: stri
       </div>
 
       {
-        disableInfo ? <></> : (
-          <HoverCard openDelay={350} closeDelay={100}>
-            <HoverCardTrigger>{<BsInfoCircle />}</HoverCardTrigger>
-            <HoverCardContent>
-                <span className={"text-sm"}>{items[index].description}</span>
-            </HoverCardContent>
-          </HoverCard>
+        !disableInfo && (
+          <Field.Info> 
+            {items[index].description}
+          </Field.Info> 
         )
       }
 
@@ -48,6 +44,7 @@ export default function SelectOneOf<T extends { name: string; description?: stri
           </SelectItem>
         ))
       }
+      
       </SelectContent>
 
     </Select>

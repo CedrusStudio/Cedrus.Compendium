@@ -3,7 +3,7 @@ import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from
 import { useState } from "react";
 import { immunityIcon, resistanceIcon } from "@/presentation/icons";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
+import { Field } from "@/common/components/fields";
 import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
 import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
 import { reductionIcons } from "@/presentation/icons";
@@ -55,12 +55,15 @@ export default function CharacterDefensesBattleView({ character }: { character :
           )
         }
 
-        <FieldViewWithInfo
-          value={calculateSelectedReduction(selectedDefense, selectedReductionType)} 
-          infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} />}
-        >
-          <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
-        </FieldViewWithInfo>
+        <Field value={calculateSelectedReduction(selectedDefense, selectedReductionType)}>
+          <Field.Label>
+            <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
+          </Field.Label>
+          <Field.Value />
+          <Field.Info>
+            <DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} />
+          </Field.Info>
+        </Field>
         
         <SelectContent>
         {

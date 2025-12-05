@@ -5,7 +5,7 @@ import { Card, CardContent, CardTitle } from '@/ui/card';
 import { Label } from "@/ui/label";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select";
-import FieldView from "@/common/components/fields/FieldView";
+import { Field } from "@/common/components/fields";
 import { displayedText } from "@/presentation/translations";
 import TagsView from "@/common/components/tags/TagsView";
 import { Separator } from "@/common/components/ui/separator";
@@ -23,7 +23,7 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
 
         <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
           
-          <SelectTrigger className="w-[180px] capitalize">
+          <SelectTrigger className="w-fit capitalize">
             <SelectValue />
           </SelectTrigger>
 
@@ -34,9 +34,10 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
                 <SelectItem key={mode.id} value={mode.name}>
                   <Label htmlFor={mode.name} className="flex items-center gap-3" >
                     <div className="flex items-start text-start gap-2">
-                      <FieldView value={mode.grade} className="gap-1" childrenClassName="w-4xs">
-                        {mode.name}
-                      </FieldView>
+                      <Field value={mode.grade} className="gap-1">
+                        <Field.Label className="w-4xs">{mode.name}</Field.Label>
+                        <Field.Value />
+                      </Field>
                     </div>
                   </Label>
                 </SelectItem>

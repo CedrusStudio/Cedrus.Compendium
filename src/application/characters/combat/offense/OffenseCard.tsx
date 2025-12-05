@@ -46,7 +46,8 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
   const additionalDamageBonus = offenses[selectedOffenseIndex].additionalDamageBonus;
 
   return (
-    <Card className='bg-muted'>
+    <Card className='bg-muted w-full'>
+
       <CardHeader>
         <CardTitle className='flex sm:flex-row justify-center items-center gap-3 font-bold'>
           <span className='capitalize text-2xl'>{displayedText.offense}</span>
@@ -60,7 +61,7 @@ export default function OffenseCard({ offenses }: OffenseCardProps)
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex flex-col flex-wrap md:flex-row gap-1 ">
+      <CardContent className="flex flex-col flex-wrap md:flex-row gap-1 place-content-center">
 
         <WeaponDamageWithCriticalSubcard 
           name={displayedText.leading}

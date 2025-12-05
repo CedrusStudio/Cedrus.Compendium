@@ -5,8 +5,8 @@ import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
 import { displayedText } from "@/presentation/translations";
 import { Power, Spell } from "@/domain/characters/combat/Power";
-import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
-import { getBadgeVariant } from '@/presentation/colors';
+import { Field } from '@/common/components/fields';
+import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
 import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, resetIcon } from '@/presentation/icons';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
 import { useState } from 'react';
@@ -97,34 +97,35 @@ export default function PowerCard({ power }: PowerCardProps)
   return (
     <Card className='bg-muted'>
       <CardHeader>
-        <CardTitle className="flex flex-col sm:flex-row items-center justify-between">
+        
+        <CardTitle className="flex flex-col lg:flex-row place-content-around place-item-center">
 
-          <div className="flex justify-center items-center mx-auto mb-4 sm:mb-0 lg:pl-65">
+          <div className="flex place-items-center place-content-center mb-4 gap-4">
             <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
+            <Badge variant="outline" className="p-2 capitalize">
+              {power.type}
+            </Badge>
+
+            <div className="flex flex-col items-center">
+              <span className="text-xs text-muted-foreground mb-1">{displayedText.level}</span>
+              <span className="font-bold text-lg text-primary">{power.level}</span>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <span className="text-xs text-muted-foreground mb-1">{displayedText.bonus}</span>
+              <span className="font-bold text-lg text-primary">{power.bonus}</span>
+            </div>
           </div>
 
           <div className='flex flex-col sm:flex-row justify-center items-center gap-4'>
-            <div className="grid grid-cols-3 gap-6 justify-center items-center">
 
-              <div className="flex flex-col items-center">
-                <span className="text-xs text-muted-foreground mb-1">{displayedText.level}</span>
-                <span className="font-bold text-lg text-primary">{power.level}</span>
+            <div className="flex flex-col items-center">
+              <span className="text-xs text-muted-foreground mb-1">{displayedText.essence}</span>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-lg text-primary">{currentEssence + essenceIncrease - essenceLoss}</span>
+                <span className="text-sm text-muted-foreground">/</span>
+                <span className="font-bold text-lg text-muted-foreground">{power.essence}</span>
               </div>
-
-              <div className="flex flex-col items-center">
-                <span className="text-xs text-muted-foreground mb-1">{displayedText.bonus}</span>
-                <span className="font-bold text-lg text-primary">{power.bonus}</span>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <span className="text-xs text-muted-foreground mb-1">{displayedText.essence}</span>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-lg text-primary">{currentEssence + essenceIncrease - essenceLoss}</span>
-                  <span className="text-sm text-muted-foreground">/</span>
-                  <span className="font-bold text-lg text-muted-foreground">{power.essence}</span>
-                </div>
-              </div>
-              
             </div>
 
             <div className='flex flex-col gap-y-2'>
@@ -138,10 +139,17 @@ export default function PowerCard({ power }: PowerCardProps)
               </div>
             </div>
             
-            <Badge variant="outline" className="px-4 py-2 mt-1 text-base capitalize">
-              {power.type}
-            </Badge>
           </div>
+
+          {
+            powerSpecification && (
+              <PowerOffenseSelector 
+                powerSpecification={powerSpecification!}
+                selectedIndex={selectedOffenseIndex}
+                onSelectIndex={setSelectedOffenseIndex}
+              />
+            )
+          }
 
         </CardTitle>
       </CardHeader>
@@ -149,23 +157,12 @@ export default function PowerCard({ power }: PowerCardProps)
       <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2'>
 
         {
-          powerSpecification && (
+          (powerSpecification && powerSpecification.offenses && powerSpecification.offenses.length > 0) && (
             <div className="col-span-full">
-            {
-              powerSpecification.offenses && powerSpecification.offenses.length > 0 && (
-                <>
-                  <PowerOffenseSelector 
-                    powerSpecification={powerSpecification}
-                    selectedIndex={selectedOffenseIndex}
-                    onSelectIndex={setSelectedOffenseIndex}
-                  />
-                  <PowerRollsCard 
-                    offenses={powerSpecification.offenses}
-                    selectedIndex={Math.min(selectedOffenseIndex, powerSpecification.offenses.length - 1)}
-                  />
-                </>
-              )
-            }
+              <PowerRollsCard 
+                offenses={powerSpecification.offenses}
+                selectedIndex={Math.min(selectedOffenseIndex, powerSpecification.offenses.length - 1)}
+              />
             </div>
           )
         }
@@ -302,14 +299,13 @@ function SpellView({ spell, addSpellToUsed, usedSpells, reduceEssence, currentEs
     <div className='flex m-1 p-1 w-full h-full'>
 
       <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
-        <FieldViewWithInfo
-          value={spell.grade}
-          infoContent={<InfoContentWithTags castable={spell} />}
-          className="gap-1"
-          nameClassName='w-4xs'
-        >
-          {spell.name}
-        </FieldViewWithInfo>
+        <Field value={spell.grade} className="gap-1">
+          <Field.Label className='w-4xs'>{spell.name}</Field.Label>
+          <Field.Value />
+          <Field.Info className={`${getCastTimeColors(spell.castTime).text}`}>
+            <InfoContentWithTags castable={spell} />
+          </Field.Info>
+        </Field>
       </div>
 
       <div className='flex items-center justify-center'>
@@ -366,10 +362,10 @@ function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex
   };
 
   return (
-    <div className="col-span-full mt-4 pt-2 border-t border-border/40">
+    <div className="mt-4 pt-2 lg:mt-0 lg:pt-0 border-t border-border/40 lg:border-0">
       <div className="flex flex-col gap-3 p-2 bg-muted/30 rounded-lg">
         <div className="flex items-center justify-between gap-4">
-          <h3 className="text-sm font-semibold">Siła zaklęcia</h3>
+          <h3 className="text-sm font-semibold">Siła zaklęcia {currentIndex}</h3>
           {
             offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
           }

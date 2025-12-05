@@ -51,6 +51,7 @@ import { GiShadowGrasp } from "react-icons/gi";
 import { GiSeaDragon } from "react-icons/gi";
 import { LuSearchCheck } from "react-icons/lu";
 import { LuSearchX } from "react-icons/lu";
+import { IoClose } from "react-icons/io5";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -151,3 +152,5 @@ export const spellPowerIcon = (className?: string) => <GiBoltSpellCast className
 
 export const banIcon = (className?: string) => <LuSearchX className={className} />;
 export const tagSearchIcon = (className?: string) => <LuSearchCheck className={className} />;
+
+export const closeIcon = <IoClose className="w-5 h-5" />;
