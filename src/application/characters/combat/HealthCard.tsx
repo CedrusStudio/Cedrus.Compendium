@@ -4,7 +4,7 @@ import { calculateTotalHealth, Health } from '@/domain/characters/combat/Health'
 import { Statistic } from '@/domain/characters/statistics/Statistic';
 import { Card, CardContent, CardTitle } from '@/ui/card';
 import FieldView from '@/common/components/fields/FieldView';
-import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
+import { Field } from "@/common/components/fields";
 import { useState } from 'react';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
@@ -44,21 +44,21 @@ export default function HealthCard(input: HealthCardProps)
 
         <div className='flex flex-row place-content-center place-items-center'>
 
-          <FieldViewWithInfo 
-            value={totalHealth + healthIncrease - damageTaken}
-            className='gap-x-0'
-            valueClassName='mx-2'
-            infoContent={<CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />} 
-          />
+          <Field value={totalHealth + healthIncrease - damageTaken} className='gap-x-0' valueClassName='mx-2'>
+            <Field.Value />
+            <Field.Info>
+              <CurrentHealthInfoContent totalHealth={totalHealth} damageTaken={damageTaken} healthIncrease={healthIncrease} />
+            </Field.Info>
+          </Field>
 
           <span className='mx-2'>/</span>
 
-          <FieldViewWithInfo 
-            value={totalHealth} 
-            className='gap-x-0'
-            valueClassName='mx-2' 
-            infoContent={<HealthInfoContent health={input.health} />} 
-          />
+          <Field value={totalHealth} className='gap-x-0' valueClassName='mx-2'>
+            <Field.Value />
+            <Field.Info>
+              <HealthInfoContent health={input.health} />
+            </Field.Info>
+          </Field>
         </div>
 
         <div className='flex flex-col gap-y-2'>

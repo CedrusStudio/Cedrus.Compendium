@@ -11,7 +11,7 @@ import {
 
 import FieldView from "@/common/components/fields/FieldView";
 import { useEffect, useState } from 'react';
-import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
+import { Field } from "@/common/components/fields";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { displayedText } from '@/presentation/translations';
@@ -64,55 +64,65 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
   }, [selectedDefense]);
   
   return (
-    <Card className='bg-muted'>
+    <Card className='bg-muted flex flex-col h-full w-full'>
 
       <CardHeader className='flex gap-4 items-center justify-center'>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.defense}</CardTitle>
         <SelectOneOf name='defense' defaultValue='0' index={selectedDefenseIndex} items={defenses} setIndex={setSelectedDefenseIndex} />
       </CardHeader>
 
-      <CardContent className='flex flex-col h-full gap-y-4'>
+      <CardContent className='flex flex-col flex-1 gap-5 place-items-center place-content-center'>
 
-        <FieldView value={immunity} childrenClassName='flex items-center gap-1'>
-            <FieldWithTooltip name={displayedText.immunity}>
-              <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]}>
-                {immunityIcon()}
-              </ResetButton>
-            </FieldWithTooltip>
-            <VerticalChangeButtons setValue={setImmunity} />
-        </FieldView>
+        <div className='flex flex-col place-content-center place-items-center gap-y-4'>
 
-        <FieldView value={resistance} childrenClassName='flex items-center gap-1'>
-            <FieldWithTooltip name={displayedText.resistance}>
-              <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]}>
-                {resistanceIcon()}
-              </ResetButton>
-            </FieldWithTooltip>
-            <VerticalChangeButtons setValue={setResistance} />
-        </FieldView>
+          <FieldView value={immunity} childrenClassName='flex items-center gap-1'>
+              <FieldWithTooltip name={displayedText.immunity}>
+                <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.immunity, setImmunity]]}>
+                  {immunityIcon()}
+                </ResetButton>
+              </FieldWithTooltip>
+              <VerticalChangeButtons setValue={setImmunity} />
+          </FieldView>
 
-        <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
+          <FieldView value={resistance} childrenClassName='flex items-center gap-1'>
+              <FieldWithTooltip name={displayedText.resistance}>
+                <ResetButton asChild variant='ghost' className='h-6 w-6' defaultValuesWithSetters={[[selectedDefense.resistance, setResistance]]}>
+                  {resistanceIcon()}
+                </ResetButton>
+              </FieldWithTooltip>
+              <VerticalChangeButtons setValue={setResistance} />
+          </FieldView>
 
-          <FieldViewWithInfo 
-            value={calculateSelectedReduction(selectedDefense, selectedReductionType) + reductionIncrease - damageTaken} 
-            infoContent={<DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} reductionIncrease={reductionIncrease} damageTaken={damageTaken} />} 
-            valueClassName='pr-3'
-          >
-            <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
-          </FieldViewWithInfo>
-  
-          <SelectContent>
-          {
-            allowedReductionTypes.map(reductionType => (
-              <SelectItem key={reductionType} value={reductionType}>
-                <span className='capitalize'>{reductionIcons[reductionType]}</span>
-              </SelectItem>
-            ))
-          }
-          </SelectContent>
-        </Select>
+          <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
-        <div className='flex-1 flex flex-col justify-end gap-y-2'>
+            <Field value={calculateSelectedReduction(selectedDefense, selectedReductionType) + reductionIncrease - damageTaken}>
+              
+              <Field.Label>
+                <SelectTrigger className='capitalize border-0'><SelectValue /></SelectTrigger>
+              </Field.Label>
+
+              <Field.Value />
+
+              <Field.Info>
+                <DefenseReductionInfoContent defense={selectedDefense} selectedReductionType={selectedReductionType} reductionIncrease={reductionIncrease} damageTaken={damageTaken} />
+              </Field.Info>
+              
+            </Field>
+    
+            <SelectContent>
+            {
+              allowedReductionTypes.map(reductionType => (
+                <SelectItem key={reductionType} value={reductionType}>
+                  <span className='capitalize'>{reductionIcons[reductionType]}</span>
+                </SelectItem>
+              ))
+            }
+            </SelectContent>
+          </Select>
+
+        </div>
+
+        <div className='flex flex-col gap-y-2 place-content-center place-items-center'>
           <div className='flex gap-4 items-center justify-center'>
             <Label className='text-sm text-muted-foreground'>{gainIcon("size-10")}</Label>
             <ChangeButtons value={reductionIncreaseChangeAmount} setValue={setReductionIncreaseIfPositive} setChangeAmount={setReductionIncreaseChangeAmount} resetValue={0} />

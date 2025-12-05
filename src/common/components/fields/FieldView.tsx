@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { Field } from "@/common/components/fields/index";
 import { PropsWithChildren } from "react";
 
 type FieldViewProps = 
@@ -9,12 +9,19 @@ type FieldViewProps =
   valueClassName?: string;
 };
 
+/**
+ * @deprecated Use the new Field compound component instead:
+ * <Field value={value}>
+ *   <Field.Label>Label</Field.Label>
+ *   <Field.Value />
+ * </Field>
+ */
 export default function FieldView(input: PropsWithChildren<FieldViewProps>) 
 {
   return (
-    <div className={cn('flex gap-x-6 items-center justify-around', input.className)}>
-      <div className={cn("capitalize", input.childrenClassName)}>{input.children}</div>
-      <div className={cn("w-8", input.valueClassName)}>{input.value}</div>
-    </div>
+    <Field value={input.value} className={input.className} valueClassName={input.valueClassName}>
+      <Field.Label className={input.childrenClassName}>{input.children}</Field.Label>
+      <Field.Value />
+    </Field>
   );
 };

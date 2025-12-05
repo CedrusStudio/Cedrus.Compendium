@@ -1,10 +1,10 @@
 "use client";
 
-import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
+import { Field } from "@/common/components/fields";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
-import { getBadgeVariant } from '@/presentation/colors';
+import { getBadgeVariant, getCastTimeColors } from '@/presentation/colors';
 import { useState } from 'react';
 import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
@@ -167,18 +167,17 @@ function CombatManeuverView({ maneuver, addManeuverToUsed, usedManeuvers }: Mane
     return (
         <div className='flex m-1 p-1 w-full h-full'>
 
-            <div className='flex items-center justify-center p-2 border rounded-l-md flex-1'>
-                <FieldViewWithInfo
-                    value={maneuver.grade}
-                    infoContent={<InfoContentWithTags castable={maneuver} />}
-                    className="gap-1"
-                    nameClassName='w-4xs'
-                >
-                    {maneuver.name}
-                </FieldViewWithInfo>
+            <div className='flex place-items-center place-content-center p-2 border rounded-l-md flex-1'>
+                <Field value={maneuver.grade} className="gap-1">
+                    <Field.Label className='w-4xs'>{maneuver.name}</Field.Label>
+                    <Field.Value />
+                    <Field.Info className={`${getCastTimeColors(maneuver.castTime).text}`}>
+                        <InfoContentWithTags castable={maneuver} />
+                    </Field.Info>
+                </Field>
             </div>
 
-            <div className='flex items-center justify-center border rounded-r-md border-l-0'>
+            <div className='flex place-items-center place-content-center border rounded-r-md border-l-0'>
                 <Button variant="ghost" className="h-full w-full p-0" onClick={() => addManeuverToUsed(maneuver)} disabled={!canUseCastable(maneuver, usedManeuvers)}>
                     <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none rounded-r-md' variant={getBadgeVariant(maneuver.castTime)}>
                         {cooldownIcon()}

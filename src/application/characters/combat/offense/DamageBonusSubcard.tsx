@@ -61,7 +61,7 @@ function DamageBonusView({ damageOffense, rolls, onReroll, setAmount, setGrade, 
     <div className='flex flex-col items-center gap-y-3'>
       <div className='flex place-items-center'>
         <VerticalChangeButtons setValue={setAmount} />
-          <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-red-500">
+          <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums bg-blue-500">
             {toOffenseString(damageOffense)}
           </Badge>
         <VerticalChangeButtons setValue={setGrade} />

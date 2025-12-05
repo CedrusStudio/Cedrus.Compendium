@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Health } from '@/domain/characters/combat/Health';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
-import FieldViewWithInfo from '@/common/components/fields/FieldViewWithInfo';
+import { Field } from "@/common/components/fields";
 import { displayedText } from '@/presentation/translations';
 import { gainIcon, lossIcon } from '@/presentation/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
@@ -40,16 +40,18 @@ export default function BarrierCard(input: BarrierCardProps)
 
         <div className='flex flex-row place-content-center place-items-center'>
 
-          <FieldView value={input.health.barrier} valueClassName='-mr-2' />
+          <Field value={input.health.barrier + barrierIncrease - damageTaken} className='gap-x-0' valueClassName='mx-2'>
+            <Field.Value />
+            <Field.Info>
+              <CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />
+            </Field.Info>
+          </Field>
 
-          <span className='mr-2'>/</span>
+          <span className='mx-2'>/</span>
           
-          <FieldViewWithInfo 
-            value={input.health.barrier + barrierIncrease - damageTaken} 
-            className='gap-x-0'
-            valueClassName='mx-2'
-            infoContent={<CurrentBarrierInfoContent totalBarrier={input.health.barrier} damageTaken={damageTaken} barrierIncrease={barrierIncrease} />} 
-          />
+          <Field value={input.health.barrier} className='gap-x-0'>
+            <Field.Value />
+          </Field>
 
         </div>
 

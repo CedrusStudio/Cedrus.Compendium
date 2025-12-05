@@ -1,11 +1,6 @@
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/ui/hover-card";
-import { BsInfoCircle } from "react-icons/bs";
-import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
+import { cn } from "@/lib/utils";
+import { Field } from "@/common/components/fields/index";
 
 type FieldViewWithInfoProps = 
 {
@@ -17,27 +12,27 @@ type FieldViewWithInfoProps =
   infoTriggerClassName?: string;
 };
 
+/**
+ * @deprecated Use the new Field compound component instead:
+ * ```tsx
+ * <Field value={value} className={className} valueClassName={valueClassName}>
+ *   <Field.Label className={nameClassName}>Label</Field.Label>
+ *   <Field.Value />
+ *   <Field.Info infoContent={infoContent} infoTriggerClassName={infoTriggerClassName} />
+ * </Field>
+ * ```
+ */
 export default function FieldViewWithInfo(input: PropsWithChildren<FieldViewWithInfoProps>) 
 {
   return (
-    <div className={cn('flex gap-x-1.5 justify-around', input.className)}>
-
-      <div className={cn("capitalize", input.nameClassName)}>
+    <Field value={input.value} className={input.className} valueClassName={input.valueClassName}>
+      <Field.Label className={cn("capitalize", input.nameClassName)}>
         {input.children}
-      </div>
-
-      <div className={cn("flex items-center gap-1.5", input.valueClassName)}>
-        {input.value}
-
-        <HoverCard openDelay={350} closeDelay={100}>
-          <HoverCardTrigger className={input.infoTriggerClassName}>{<BsInfoCircle />}</HoverCardTrigger>
-          <HoverCardContent>
-            {input.infoContent}
-          </HoverCardContent>
-        </HoverCard>
-        
-      </div>
-
-    </div>
+      </Field.Label>
+      <Field.Value />
+      <Field.Info className={input.infoTriggerClassName}>
+        {input.infoContent}
+      </Field.Info>
+    </Field>
   );
 };

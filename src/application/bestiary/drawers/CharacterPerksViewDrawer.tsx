@@ -1,4 +1,4 @@
-import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
+import { Field } from "@/common/components/fields";
 import { Character } from "@/domain/characters/Character";
 import { Perk } from "@/domain/characters/Perk";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
@@ -23,14 +23,13 @@ function PerkView({ perk }: { perk: Perk })
 {
   return (
     <div className='flex items-center justify-center p-2 border rounded-md min-w-50'>
-      <FieldViewWithInfo
-        value={perk.grade}
-        infoContent={<span>{perk.description}</span>}
-        className="gap-1"
-        nameClassName='w-4xs'
-      >
-        {perk.name}
-      </FieldViewWithInfo>
+      <Field value={perk.grade} className="gap-1">
+        <Field.Label className='w-4xs'>{perk.name}</Field.Label>
+        <Field.Value />
+        <Field.Info>
+          <span>{perk.description}</span>
+        </Field.Info>
+      </Field>
     </div>
   );
 }

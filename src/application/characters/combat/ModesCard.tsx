@@ -23,7 +23,7 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
 
         <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
           
-          <SelectTrigger className="w-[180px] capitalize">
+          <SelectTrigger className="w-fit capitalize">
             <SelectValue />
           </SelectTrigger>
 

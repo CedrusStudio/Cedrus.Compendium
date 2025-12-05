@@ -1,9 +1,5 @@
 import { displayedText } from "@/presentation/translations";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
 import { PropsWithChildren } from "react";
 
 type FieldWithTooltipProps =
@@ -15,12 +11,15 @@ export default function FieldWithTooltip({ children, name }: PropsWithChildren<F
 {
   return (
     <Tooltip>
+
       <TooltipTrigger asChild>
-      <div>{children}</div>
+        <div>{children}</div>
       </TooltipTrigger>
+
       <TooltipContent>
-      <p className="capitalize">{displayedText[name as keyof typeof displayedText] || name}</p>
+        <p className="capitalize">{displayedText[name as keyof typeof displayedText] || name}</p>
       </TooltipContent>
+
     </Tooltip>
   );
 };

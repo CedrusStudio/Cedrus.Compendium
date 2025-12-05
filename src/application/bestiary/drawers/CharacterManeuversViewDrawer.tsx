@@ -1,9 +1,9 @@
-import FieldViewWithInfo from "@/common/components/fields/FieldViewWithInfo";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
 import { getCastTimeColors } from "@/presentation/colors";
 import { displayedText } from "@/presentation/translations";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
 import { Character } from "@/domain/characters/Character";
+import { Field } from "@/common/components/fields";
 
 export default function CharacterManeuversViewDrawer({ character, open, onOpenChange }: { character: Character, open: boolean, onOpenChange: (open: boolean) => void })
 {
@@ -33,16 +33,15 @@ export default function CharacterManeuversViewDrawer({ character, open, onOpenCh
 function ManeuverView({ maneuver }: { maneuver: Maneuver })
 {
   return (
-    <div className='flex items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40'>
-      <FieldViewWithInfo
-        value={maneuver.grade}
-        infoContent={<span className="capitalize">{displayedText.action} <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>}
-        className="gap-1"
-        nameClassName='w-4xs'
-        infoTriggerClassName={`${getCastTimeColors(maneuver.castTime).text}`}
-      >
-        {maneuver.name}
-      </FieldViewWithInfo>
-    </div>
+    <Field value={maneuver.grade} className="flex gap-1 place-items-center justify-center p-2 border rounded-md flex-1 min-h-12 min-w-40" valueClassName='w-4xs'>
+
+      <Field.Label>{maneuver.name}</Field.Label>
+      <Field.Value />
+
+      <Field.Info className={`${getCastTimeColors(maneuver.castTime).text}`}>
+        <span>{displayedText.action} <span className={`${getCastTimeColors(maneuver.castTime).text}`}>{maneuver.castTime.toLowerCase()}</span>. {maneuver.description}</span>
+      </Field.Info>
+
+    </Field>
   );
 }
