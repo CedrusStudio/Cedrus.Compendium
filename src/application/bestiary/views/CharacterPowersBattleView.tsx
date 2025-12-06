@@ -4,7 +4,7 @@ import { toCriticalRangeString, toOffenseString } from "@/domain/characters/comb
 import { usePowerRolls } from '@/application/characters/combat/usePowerRolls';
 import { displayedText } from "@/common/translations";
 import { useState, useEffect, Activity, SetStateAction, Dispatch } from "react";
-import { showHideIcon } from "@/common/icons";
+import { showHideIcon, resetIcon } from "@/common/icons";
 import { Button } from "@/common/components/ui/button";
 import { colors } from "@/common/colors";
 import { SpellOffenseSubcard } from "@/application/characters/combat/power/SpellOffenseSubcard";
@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query';
 import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import PowerOffenseSelector from "@/application/characters/combat/power/PowerOffenseSelector";
+import { Input } from "@/common/components/ui/input";
 
 type CharacterPowersBattleViewProps =
 {
@@ -145,6 +146,8 @@ function AdvancedPowerCombat
   const currentIndex = Math.min(selectedOffenseIndex, maxIndex);
   const offense = offenses[currentIndex];
 
+  const [currentEssence, setCurrentEssence] = useState(power.essence);
+
   const {
     totalResult,
     handleRoll,
@@ -177,9 +180,26 @@ function AdvancedPowerCombat
                     Siła Zaklęcia: {power.level}+{power.bonus}
                 </Badge>
 
-                <Badge variant="default" className="text-xs">
-                    Essense: {power.essence}
-                </Badge>
+                {/* Essence Input and Reset */}
+                <div className="flex flex-row gap-1 items-center">
+                  <Input 
+                    id="essence" 
+                    type="number" 
+                    value={currentEssence} 
+                    onChange={e => setCurrentEssence(Number(e.target.value))} 
+                    className="w-16 h-8 text-xs"
+                  /> 
+                  <span className="text-xs">/ {power.essence}</span>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => setCurrentEssence(power.essence)} 
+                    title="Reset essence to max"
+                    className="h-8 w-8"
+                  >
+                    {resetIcon()}
+                  </Button>
+                </div>
                 
                 <Button onClick={() => setHideAdvanceSelector(!hideAdvanceSelector)} variant="ghost" size="sm">
                     {showHideIcon(hideAdvanceSelector)}
