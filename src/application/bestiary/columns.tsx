@@ -20,6 +20,7 @@ import CharacterNameView from "@/application/bestiary/views/CharacterNameView";
 import CharacterDefensesBattleView from "@/application/bestiary/views/CharacterDefensesBattleView";
 import CharacterOffensesBattleView from "@/application/bestiary/views/CharacterOffensesBattleView";
 import CharacterModesViewDrawer from "@/application/bestiary/drawers/CharacterModesViewDrawer";
+import CharacterPowersBattleView from "@/application/bestiary/views/CharacterPowersBattleView";
 
 export const columnKeys =
 {
@@ -31,6 +32,7 @@ export const columnKeys =
   barrier: "barrier",
   defense: "defense",
   offense: "offense",
+  powers: "powers",
   attributes: "attributes",
   characteristics: "characteristics",
   actions: "actions",
@@ -113,6 +115,14 @@ export const columns: AccessorKeyColumnDef<Character & { __initiative: number | 
     accessorKey: columnKeys.offense,
     cell: ({ row }) => row.original.offenses.length > 0 ? <CharacterOffensesBattleView character={row.original} /> : null,
     header: () => <span className="capitalize">{displayedText[columnKeys.offense]}</span>
+  },
+  {
+    id: columnKeys.powers,
+    accessorKey: columnKeys.powers,
+    cell: ({ row }) => row.original.powers.length > 0 && <CharacterPowersBattleView character={row.original} initiallyHideAdvancedCombat={true} />,
+    header: () => <span className="capitalize">{displayedText[columnKeys.powers]}</span>,
+    enableHiding: true,
+    meta: { initiallyHidden: true },
   },
   {
     id: columnKeys.characteristics,

@@ -1,16 +1,13 @@
 
 import { allowedReductionTypes, calculateSelectedReduction, ReductionType } from "@/domain/characters/combat/Defense";
-import { useState } from "react";
+import { Activity, useState } from "react";
 import { immunityIcon, resistanceIcon } from "@/common/icons";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import { Field } from "@/common/components/fields";
 import DefenseReductionInfoContent from "@/application/characters/combat/DefenseReductionInfoContent";
-import FieldWithIconView from "@/common/components/fields/FieldWithIconView";
 import { reductionIcons } from "@/common/icons";
-import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
 import { Character } from "@/domain/characters/Character";
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
-import { displayedText } from "@/common/translations";
 
 export default function CharacterDefensesBattleView({ character }: { character : Character })
 {
@@ -39,21 +36,19 @@ export default function CharacterDefensesBattleView({ character }: { character :
 
       <Select name='reduction' defaultValue={"full"} value={selectedReductionType} onValueChange={handleOnSelectedValueChange}>
 
-        {
-          selectedDefense.immunity > 0 && (
-            <FieldWithIconView value={selectedDefense.immunity} >
-              <FieldWithTooltip name={displayedText.immunity}>{immunityIcon("w-5 h-5")}</FieldWithTooltip>
-            </FieldWithIconView>
-          )
-        }        
+        <Activity mode={selectedDefense.immunity > 0 ? "visible" : "hidden"}>
+          <Field value={selectedDefense.immunity}>
+            <Field.Icon>{immunityIcon("w-5 h-5")}</Field.Icon>
+            <Field.Value />
+          </Field>
+        </Activity>
 
-        {
-          selectedDefense.resistance > 0 && (
-            <FieldWithIconView value={selectedDefense.resistance} >
-              <FieldWithTooltip name={displayedText.resistance}>{resistanceIcon("w-5 h-5")}</FieldWithTooltip>
-            </FieldWithIconView>
-          )
-        }
+        <Activity mode={selectedDefense.resistance > 0 ? "visible" : "hidden"}>
+          <Field value={selectedDefense.resistance}>
+            <Field.Icon>{resistanceIcon("w-5 h-5")}</Field.Icon>
+            <Field.Value />
+          </Field>
+        </Activity>
 
         <Field value={calculateSelectedReduction(selectedDefense, selectedReductionType)}>
           <Field.Label>
