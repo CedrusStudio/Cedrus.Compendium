@@ -13,15 +13,12 @@ import { useState } from 'react';
 import InfoContentWithTags from '@/common/components/tags/InfoContentWithTags';
 import { useQuery } from '@tanstack/react-query';
 import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
-import { PowerSpecification } from '@/domain/characters/combat/Power';
-import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
-import { colors } from '@/common/colors';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import PowerRollsCard from '@/application/characters/combat/power/PowerRollsCard';
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
 import { gainIcon, lossIcon } from '@/common/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
+import PowerOffenseSelector from '@/application/characters/combat/power/PowerOffenseSelector';
 
 type PowerCardProps =
 {
@@ -321,101 +318,6 @@ function SpellView({ spell, addSpellToUsed, usedSpells, reduceEssence, currentEs
         </Button>
       </div>
 
-    </div>
-  );
-}
-
-type PowerOffenseSelectorProps = 
-{
-  powerSpecification: PowerSpecification;
-  selectedIndex: number;
-  onSelectIndex: (index: number) => void;
-};
-
-function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex }: PowerOffenseSelectorProps) 
-{
-  const offenses = powerSpecification.offenses;
-  const maxIndex = offenses.length - 1;
-  const currentIndex = Math.min(selectedIndex, maxIndex);
-  const offense = offenses[currentIndex];
-
-  if (!offense) return null;
-
-  const attackString = toOffenseString(offense.spellOffense);
-  const damageString = toOffenseString(offense.spellDamage, true);
-  const criticalString = `${toCriticalRangeString(offense.spellOffense)}, ${offense.spellOffense.critical.power >= 0 ? "+" : ""}${offense.spellOffense.critical.power}`;
-
-  const handlePrevious = () => 
-  {
-    if (currentIndex > 0) 
-    {
-      onSelectIndex(currentIndex - 1);
-    }
-  };
-
-  const handleNext = () => 
-  {
-    if (currentIndex < maxIndex) 
-    {
-      onSelectIndex(currentIndex + 1);
-    }
-  };
-
-  return (
-    <div className="mt-4 pt-2 lg:mt-0 lg:pt-0 border-t border-border/40 lg:border-0">
-      <div className="flex flex-col gap-3 p-2 bg-muted/30 rounded-lg">
-        <div className="flex items-center justify-between gap-4">
-          <h3 className="text-sm font-semibold">Siła zaklęcia {currentIndex}</h3>
-          {
-            offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
-          }
-
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handlePrevious}
-              disabled={currentIndex === 0}
-              className="h-8 w-8"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <span className="text-sm font-medium min-w-[60px] text-center">
-              {currentIndex} / {maxIndex}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleNext}
-              disabled={currentIndex === maxIndex}
-              className="h-8 w-8"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex flex-row place-content-center gap-2">
-
-          <div className="flex flex-wrap gap-2 items-center justify-center">
-
-            <Badge variant="outline" className="font-mono">
-              <span className={colors.offense.leading}>{attackString}</span>
-              {damageString && <Badge variant="secondary" className="ml-1">{damageString}</Badge>}
-            </Badge>
-
-            <Badge variant="secondary" className="font-mono text-xs">
-              {criticalString}
-            </Badge>
-
-            <Badge variant="cost" className="h-8 w-20">
-              {costIcon}
-              <span className="ml-1">{offense.cost}</span>
-            </Badge>
-
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
