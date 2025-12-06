@@ -178,13 +178,13 @@ function AdvancedPowerCombat
                 </Badge>
 
                 <Badge variant="default" className="text-xs">
-                    Ess: {power.essence}
+                    Essense: {power.essence}
                 </Badge>
                 
                 <Button onClick={() => setHideAdvanceSelector(!hideAdvanceSelector)} variant="ghost" size="sm">
                     {showHideIcon(hideAdvanceSelector)}
                 </Button>
-                
+
             </div>
 
             <Activity mode={hideAdvanceSelector ? "visible" : "hidden"}>
