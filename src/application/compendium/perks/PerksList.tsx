@@ -143,6 +143,10 @@ export default function PerksList()
         <GroupedItemsList<Perk>
           items={displayedPerks}
           renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
+          triggerNext={() => {
+            if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
+          }}
+          hasMore={hasMore}
         />
       ) : (
         <WithScroll<Perk>

@@ -147,6 +147,10 @@ export default function ManeuversList()
         <GroupedItemsList<Maneuver>
           items={displayedManeuvers}
           renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
+          triggerNext={() => {
+            if (displayedManeuvers.length > 0) setCursor(displayedManeuvers[displayedManeuvers.length - 1].id);
+          }}
+          hasMore={hasMore}
         />
       ) : (
         <WithScroll<Maneuver>

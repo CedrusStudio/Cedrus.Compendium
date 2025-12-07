@@ -148,6 +148,10 @@ export default function SpellsList()
         <GroupedItemsList<Spell>
           items={displayedSpells}
           renderItem={spell => <SpellView key={spell.id} spell={spell} onDelete={handleDelete} />}
+          triggerNext={() => {
+            if (displayedSpells.length > 0) setCursor(displayedSpells[displayedSpells.length - 1].id);
+          }}
+          hasMore={hasMore}
         />
       ) : (
         <WithScroll<Spell>

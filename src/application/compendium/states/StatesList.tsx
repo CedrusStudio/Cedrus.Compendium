@@ -143,6 +143,10 @@ export default function StatesList()
         <GroupedItemsList<Mode>
           items={displayedStates}
           renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
+          triggerNext={() => {
+            if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
+          }}
+          hasMore={hasMore}
         />
       ) : (
         <WithScroll<Mode>

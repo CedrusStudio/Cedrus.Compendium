@@ -143,6 +143,10 @@ export default function StancesList()
         <GroupedItemsList<Mode>
           items={displayedStances}
           renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
+          triggerNext={() => {
+            if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
+          }}
+          hasMore={hasMore}
         />
       ) : (
         <WithScroll<Mode>

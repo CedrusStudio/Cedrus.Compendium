@@ -134,7 +134,7 @@ export function createSorting(payload: SearchPayload)
   
   if (isKeysetPagination(payload.pagination))
   {
-    return [ ...payload.sort, { id: 'asc' } ] as const satisfies { [key: string]: 'asc' | 'desc' }[];
+    return [ { id: 'asc' }, ...payload.sort ] as const satisfies { [key: string]: 'asc' | 'desc' }[];
   }
 
   return payload.sort;

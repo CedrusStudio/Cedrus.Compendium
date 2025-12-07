@@ -14,9 +14,7 @@ export function createManeuverKeysetQuery
 { 
   const builder = SearchQueryBuilder.for("maneuver")
     .searchFilter("name", searchQuery)
-    .cursorPagination(cursor, pageSize)
-    .sort("name", "asc")
-    .sort("grade", "asc");
+    .cursorPagination(cursor, pageSize);
 
   if (includeTags && includeTags.length > 0) 
   {
