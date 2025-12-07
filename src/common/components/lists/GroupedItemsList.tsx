@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useMemo, useEffect, useRef } from "react";
 import { groupByName, GroupedItem } from "@/common/global/grouping";
 import {
   Accordion,
@@ -34,6 +34,25 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
   className = "flex flex-col gap-2",
 }: GroupedItemsListProps<T>) {
   const groupedItems = useMemo(() => groupByName(items), [items]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-fetch more items if container is not scrollable and more data is available
+  useEffect(() => {
+    const checkScrollable = () => {
+      if (containerRef.current && hasMore) {
+        const isScrollable = document.documentElement.scrollHeight > window.innerHeight;
+        if (!isScrollable && items.length > 0) {
+          // Delay to avoid rapid successive calls
+          const timer = setTimeout(() => {
+            triggerNext();
+          }, 100);
+          return () => clearTimeout(timer);
+        }
+      }
+    };
+
+    checkScrollable();
+  }, [items.length, hasMore, triggerNext]);
 
   if (groupedItems.length === 0) {
     return null;
@@ -46,8 +65,9 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
       hasMore={hasMore}
       loader={<Loader />}
       endMessage={<EndSeparator />}
+      scrollThreshold={0.9}
     >
-      <div className={className}>
+      <div ref={containerRef} className={className} style={{ minHeight: '100vh' }}>
         <Accordion type="multiple" className="w-full space-y-2">
           {groupedItems.map((group: GroupedItem<T>) => (
             <AccordionItem
