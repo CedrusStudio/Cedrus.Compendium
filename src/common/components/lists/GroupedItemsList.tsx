@@ -119,7 +119,7 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
                       title={`Filter by "${group.name}"`}
                     >
                       <Search className="h-3 w-3 mr-1" />
-                      Scope
+                      Zawęź do grupy
                     </Button>
                   )}
                 </div>
