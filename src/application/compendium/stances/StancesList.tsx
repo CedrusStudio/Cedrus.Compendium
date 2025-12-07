@@ -21,6 +21,9 @@ import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
+import { Button } from "@/ui/button";
+import { List, Layers } from "lucide-react";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -32,6 +35,12 @@ export default function StancesList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('stances');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [isGroupedView, setIsGroupedView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('stances-grouped-view') === 'true';
+    }
+    return false;
+  });
 
   const [displayedStances, setDisplayedStances] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
@@ -97,6 +106,16 @@ export default function StancesList()
     setDisplayedStances(prev => prev.filter(stance => stance.id !== id));
   }, []);
 
+  const toggleViewMode = useCallback(() => {
+    setIsGroupedView(prev => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('stances-grouped-view', String(newValue));
+      }
+      return newValue;
+    });
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -109,19 +128,34 @@ export default function StancesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleViewMode}
+          title={isGroupedView ? "Switch to flat view" : "Switch to grouped view"}
+        >
+          {isGroupedView ? <List className="h-4 w-4" /> : <Layers className="h-4 w-4" />}
+        </Button>
         <AddStanceForm />
       </ListHeader>
 
-      <WithScroll<Mode>
-        parentClassName="flex flex-col gap-2"
-        items={displayedStances}
-        triggerNext={() => 
-        {
-          if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
-        }}
-        hasMore={hasMore}
-        renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
-      />
+      {isGroupedView ? (
+        <GroupedItemsList<Mode>
+          items={displayedStances}
+          renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
+        />
+      ) : (
+        <WithScroll<Mode>
+          parentClassName="flex flex-col gap-2"
+          items={displayedStances}
+          triggerNext={() => 
+          {
+            if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
+          }}
+          hasMore={hasMore}
+          renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
+        />
+      )}
     </>
   );
 };

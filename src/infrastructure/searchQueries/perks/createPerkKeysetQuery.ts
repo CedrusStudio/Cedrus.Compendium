@@ -14,7 +14,9 @@ export function createPerkKeysetQuery
 { 
   const builder = SearchQueryBuilder.for("perk")
     .searchFilter("name", searchQuery)
-    .cursorPagination(cursor, pageSize);
+    .cursorPagination(cursor, pageSize)
+    .sort("name", "asc")
+    .sort("grade", "asc");
 
   if (includeTags && includeTags.length > 0) 
   {

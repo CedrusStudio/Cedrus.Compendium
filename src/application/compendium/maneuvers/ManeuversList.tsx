@@ -25,6 +25,9 @@ import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
+import { Button } from "@/ui/button";
+import { List, Layers } from "lucide-react";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -36,6 +39,12 @@ export default function ManeuversList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('maneuvers');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [isGroupedView, setIsGroupedView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('maneuvers-grouped-view') === 'true';
+    }
+    return false;
+  });
 
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
@@ -101,6 +110,16 @@ export default function ManeuversList()
     setDisplayedManeuvers(prev => prev.filter(maneuver => maneuver.id !== id));
   }, []);
 
+  const toggleViewMode = useCallback(() => {
+    setIsGroupedView(prev => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('maneuvers-grouped-view', String(newValue));
+      }
+      return newValue;
+    });
+  }, []);
+
   return (
     <>
       <ListHeader
@@ -113,19 +132,34 @@ export default function ManeuversList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleViewMode}
+          title={isGroupedView ? "Switch to flat view" : "Switch to grouped view"}
+        >
+          {isGroupedView ? <List className="h-4 w-4" /> : <Layers className="h-4 w-4" />}
+        </Button>
         <AddManeuverForm />
       </ListHeader>
 
-      <WithScroll<Maneuver>
-        parentClassName="flex flex-col gap-2"
-        items={displayedManeuvers}
-        triggerNext={() => 
-        {
-          if (displayedManeuvers.length > 0) setCursor(displayedManeuvers[displayedManeuvers.length - 1].id);
-        }}
-        hasMore={hasMore}
-        renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
-      />
+      {isGroupedView ? (
+        <GroupedItemsList<Maneuver>
+          items={displayedManeuvers}
+          renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
+        />
+      ) : (
+        <WithScroll<Maneuver>
+          parentClassName="flex flex-col gap-2"
+          items={displayedManeuvers}
+          triggerNext={() => 
+          {
+            if (displayedManeuvers.length > 0) setCursor(displayedManeuvers[displayedManeuvers.length - 1].id);
+          }}
+          hasMore={hasMore}
+          renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
+        />
+      )}
     </>
   );
 };

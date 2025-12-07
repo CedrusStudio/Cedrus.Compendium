@@ -14,7 +14,9 @@ export function createStanceKeysetQuery
 { 
   const builder = SearchQueryBuilder.for("stance")
     .searchFilter("name", searchQuery)
-    .cursorPagination(cursor, pageSize);
+    .cursorPagination(cursor, pageSize)
+    .sort("name", "asc")
+    .sort("grade", "asc");
 
   if (includeTags && includeTags.length > 0) 
   {
