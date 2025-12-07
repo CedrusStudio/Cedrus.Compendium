@@ -8,15 +8,15 @@ import client from "@/infrastructure/clients/statesClient";
 import searchClient from "@/infrastructure/clients/searchClient";
 import { displayedText } from '@/common/translations';
 import { AddModeDto, addModeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
-import { createKeysetSearchStatesKey } from "@/persistence/cacheKeys";
-import { createStateKeysetQuery } from "@/infrastructure/searchQueries/states/createStateKeysetQuery";
+import { createOffsetSearchStatesKey } from "@/persistence/cacheKeys";
+import { createStateOffsetQuery } from "@/infrastructure/searchQueries/states/createStateOffsetQuery";
 import StateView from "@/application/compendium/states/StateView";
 import { ulid } from "ulid";
 import { CreateDefaultState, Mode } from "@/domain/characters/combat/Mode";
 import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useDebounce } from "use-debounce";
-import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { useEntityTags } from "@/common/hooks/useEntityTags";
 import ListHeader from "@/common/components/lists/ListHeader";
@@ -44,15 +44,15 @@ export default function StatesList()
 
   const [displayedStates, setDisplayedStates] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
-  const [cursor, setCursor] = useState<string>(emptyUlid);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   
-  const queryKey = createKeysetSearchStatesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const statesQuery = createStateKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
       return await searchClient.search<Mode[]>(statesQuery);
     },
     staleTime: 5_000
@@ -64,23 +64,19 @@ export default function StatesList()
     
     setHasMore(searchResults.length === pageSize);
 
-    if (cursor === emptyUlid)
+    if (pageNumber === 1)
     {
       setDisplayedStates(searchResults);
       return;
     }
 
-    setDisplayedStates(prev =>  
-    {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(state => [state.id, state])).values());
-    });
-  }, [cursor, searchResults]);
+    setDisplayedStates(prev => [...prev, ...searchResults]);
+  }, [pageNumber, searchResults]);
 
   const clearResults = useCallback(() =>
   {
     setDisplayedStates(EMPTY_ARRAY);
-    setCursor(emptyUlid);
+    setPageNumber(1);
   }, []);
 
   const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
@@ -98,8 +94,8 @@ export default function StatesList()
   const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
     setExcludedTags(tags);
-    setCursor(emptyUlid);
-  }, []);
+    clearResults();
+  }, [clearResults]);
 
   const handleDelete = useCallback((id: string) =>
   {
@@ -149,7 +145,7 @@ export default function StatesList()
           items={displayedStates}
           renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
           triggerNext={() => {
-            if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           onScopeToGroup={handleScopeToGroup}
@@ -160,7 +156,7 @@ export default function StatesList()
           items={displayedStates}
           triggerNext={() => 
           {
-            if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}

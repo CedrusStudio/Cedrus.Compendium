@@ -63,6 +63,26 @@ export function createKeysetSearchManeuversKey
     ] as const;
 }
 
+export function createOffsetSearchManeuversKey
+(
+    search: string | undefined, 
+    pageNumber: number = 1,
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, number, string, string, number] 
+{
+    return [
+        maneuverKey, 
+        searchParamKey, 
+        search || '', 
+        pageNumber, 
+        includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
+
 // Perks
 const perkKey = 'perks';
 export const createPerkByIdKey = (id: string) => [perkKey, id] as const;
@@ -80,6 +100,26 @@ export function createKeysetSearchPerksKey
         searchParamKey, 
         search || '', 
         cursor, 
+        includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
+
+export function createOffsetSearchPerksKey
+(
+    search: string | undefined, 
+    pageNumber: number = 1,
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, number, string, string, number] 
+{
+    return [
+        perkKey, 
+        searchParamKey, 
+        search || '', 
+        pageNumber, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
         pageSize
@@ -109,6 +149,26 @@ export function createKeysetSearchStancesKey
     ] as const;
 }
 
+export function createOffsetSearchStancesKey
+(
+    search: string | undefined, 
+    pageNumber: number = 1,
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, number, string, string, number] 
+{
+    return [
+        stanceKey, 
+        searchParamKey, 
+        search || '', 
+        pageNumber, 
+        includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
+
 // States
 const stateKey = 'states';
 export const createStateByIdKey = (id: string) => [stateKey, id] as const;
@@ -132,6 +192,26 @@ export function createKeysetSearchStatesKey
     ] as const;
 }
 
+export function createOffsetSearchStatesKey
+(
+    search: string | undefined, 
+    pageNumber: number = 1,
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, number, string, string, number] 
+{
+    return [
+        stateKey, 
+        searchParamKey, 
+        search || '', 
+        pageNumber, 
+        includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
+
 // Spells
 const spellKey = 'spells';
 export const createSpellByIdKey = (id: string) => [spellKey, id] as const;
@@ -149,6 +229,26 @@ export function createKeysetSearchSpellsKey
         searchParamKey, 
         search || '', 
         cursor, 
+        includeTags?.join(',') || '', 
+        excludeTags?.join(',') || '', 
+        pageSize
+    ] as const;
+}
+
+export function createOffsetSearchSpellsKey
+(
+    search: string | undefined, 
+    pageNumber: number = 1,
+    includeTags?: string[],
+    pageSize: number = DEFAULT_PAGE_SIZE,
+    excludeTags?: string[]
+) : readonly [string, string, string | undefined, number, string, string, number] 
+{
+    return [
+        spellKey, 
+        searchParamKey, 
+        search || '', 
+        pageNumber, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
         pageSize

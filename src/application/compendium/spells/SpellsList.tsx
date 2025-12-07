@@ -12,8 +12,8 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/common/translations';
 import { AddSpellDto, addSpellSchema, SpellDto } from "@/persistence/schemas/characters/combat/powerSchema";
-import { createKeysetSearchSpellsKey } from "@/persistence/cacheKeys";
-import { createSpellKeysetQuery } from "@/infrastructure/searchQueries/spells/createSpellKeysetQuery";
+import { createOffsetSearchSpellsKey } from "@/persistence/cacheKeys";
+import { createSpellOffsetQuery } from "@/infrastructure/searchQueries/spells/createSpellOffsetQuery";
 import SpellView from "@/application/compendium/spells/SpellView";
 import { ulid } from "ulid";
 import { CreateDefaultSpell, Spell } from "@/domain/characters/combat/Power";
@@ -21,7 +21,7 @@ import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
@@ -49,15 +49,15 @@ export default function SpellsList()
 
   const [displayedSpells, setDisplayedSpells] = useState<Spell[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
-  const [cursor, setCursor] = useState<string>(emptyUlid);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   
-  const queryKey = createKeysetSearchSpellsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const spellsQuery = createSpellKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000
@@ -69,23 +69,19 @@ export default function SpellsList()
     
     setHasMore(searchResults.length === pageSize);
 
-    if (cursor === emptyUlid)
+    if (pageNumber === 1)
     {
       setDisplayedSpells(searchResults);
       return;
     }
 
-    setDisplayedSpells(prev =>  
-    {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(spell => [spell.id, spell])).values());
-    });
-  }, [cursor, searchResults]);
+    setDisplayedSpells(prev => [...prev, ...searchResults]);
+  }, [pageNumber, searchResults]);
 
   const clearResults = useCallback(() =>
   {
     setDisplayedSpells(EMPTY_ARRAY);
-    setCursor(emptyUlid);
+    setPageNumber(1);
   }, []);
 
   const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
@@ -103,8 +99,8 @@ export default function SpellsList()
   const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
     setExcludedTags(tags);
-    setCursor(emptyUlid);
-  }, []);
+    clearResults();
+  }, [clearResults]);
 
   const handleDelete = useCallback((id: string) =>
   {
@@ -154,7 +150,7 @@ export default function SpellsList()
           items={displayedSpells}
           renderItem={spell => <SpellView key={spell.id} spell={spell} onDelete={handleDelete} />}
           triggerNext={() => {
-            if (displayedSpells.length > 0) setCursor(displayedSpells[displayedSpells.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           onScopeToGroup={handleScopeToGroup}
@@ -165,7 +161,7 @@ export default function SpellsList()
           items={displayedSpells}
           triggerNext={() => 
           {
-            if (displayedSpells.length > 0) setCursor(displayedSpells[displayedSpells.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           renderItem={spell => <SpellView key={spell.id} spell={spell} onDelete={handleDelete} />}
