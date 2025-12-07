@@ -8,8 +8,8 @@ import client from "@/infrastructure/clients/stancesClient";
 import searchClient from "@/infrastructure/clients/searchClient";
 import { displayedText } from '@/common/translations';
 import { AddModeDto, addModeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
-import { createKeysetSearchStancesKey } from "@/persistence/cacheKeys";
-import { createStanceKeysetQuery } from "@/infrastructure/searchQueries/stances/createStanceKeysetQuery";
+import { createOffsetSearchStancesKey } from "@/persistence/cacheKeys";
+import { createStanceOffsetQuery } from "@/infrastructure/searchQueries/stances/createStanceOffsetQuery";
 import StanceView from "@/application/compendium/stances/StanceView";
 import { ulid } from "ulid";
 import { CreateDefaultStance, Mode } from "@/domain/characters/combat/Mode";
@@ -17,7 +17,7 @@ import { useCallback, useEffect, useState } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
@@ -44,15 +44,15 @@ export default function StancesList()
 
   const [displayedStances, setDisplayedStances] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
-  const [cursor, setCursor] = useState<string>(emptyUlid);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   
-  const queryKey = createKeysetSearchStancesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const stancesQuery = createStanceKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      const stancesQuery = createStanceOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
       return await searchClient.search<Mode[]>(stancesQuery);
     },
     staleTime: 5_000
@@ -64,23 +64,19 @@ export default function StancesList()
     
     setHasMore(searchResults.length === pageSize);
 
-    if (cursor === emptyUlid)
+    if (pageNumber === 1)
     {
       setDisplayedStances(searchResults);
       return;
     }
 
-    setDisplayedStances(prev =>  
-    {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(stance => [stance.id, stance])).values());
-    });
-  }, [cursor, searchResults]);
+    setDisplayedStances(prev => [...prev, ...searchResults]);
+  }, [pageNumber, searchResults]);
 
   const clearResults = useCallback(() =>
   {
     setDisplayedStances(EMPTY_ARRAY);
-    setCursor(emptyUlid);
+    setPageNumber(1);
   }, []);
 
   const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
@@ -98,8 +94,8 @@ export default function StancesList()
   const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
     setExcludedTags(tags);
-    setCursor(emptyUlid);
-  }, []);
+    clearResults();
+  }, [clearResults]);
 
   const handleDelete = useCallback((id: string) =>
   {
@@ -149,7 +145,7 @@ export default function StancesList()
           items={displayedStances}
           renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
           triggerNext={() => {
-            if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           onScopeToGroup={handleScopeToGroup}
@@ -160,7 +156,7 @@ export default function StancesList()
           items={displayedStances}
           triggerNext={() => 
           {
-            if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}

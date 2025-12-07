@@ -12,8 +12,8 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/common/translations';
 import { AddManeuverDto, addManeuverSchema, ManeuverDto } from "@/persistence/schemas/characters/combat/maneuverSchema";
-import { createKeysetSearchManeuversKey } from "@/persistence/cacheKeys";
-import { createManeuverKeysetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery";
+import { createOffsetSearchManeuversKey } from "@/persistence/cacheKeys";
+import { createManeuverOffsetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverOffsetQuery";
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import { ulid } from "ulid";
 import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Maneuver";
@@ -21,7 +21,7 @@ import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
@@ -48,15 +48,15 @@ export default function ManeuversList()
 
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
-  const [cursor, setCursor] = useState<string>(emptyUlid);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   
-  const queryKey = createKeysetSearchManeuversKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const maneuversQuery = createManeuverKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000
@@ -68,23 +68,19 @@ export default function ManeuversList()
     
     setHasMore(searchResults.length === pageSize);
 
-    if (cursor === emptyUlid)
+    if (pageNumber === 1)
     {
       setDisplayedManeuvers(searchResults);
       return;
     }
 
-    setDisplayedManeuvers(prev =>  
-    {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(maneuver => [maneuver.id, maneuver])).values());
-    });
-  }, [cursor, searchResults]);
+    setDisplayedManeuvers(prev => [...prev, ...searchResults]);
+  }, [pageNumber, searchResults]);
 
   const clearResults = useCallback(() =>
   {
     setDisplayedManeuvers(EMPTY_ARRAY);
-    setCursor(emptyUlid);
+    setPageNumber(1);
   }, []);
 
   const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
@@ -102,8 +98,8 @@ export default function ManeuversList()
   const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
     setExcludedTags(tags);
-    setCursor(emptyUlid);
-  }, []);
+    clearResults();
+  }, [clearResults]);
 
   const handleDelete = useCallback((id: string) =>
   {
@@ -153,7 +149,7 @@ export default function ManeuversList()
           items={displayedManeuvers}
           renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
           triggerNext={() => {
-            if (displayedManeuvers.length > 0) setCursor(displayedManeuvers[displayedManeuvers.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           onScopeToGroup={handleScopeToGroup}
@@ -164,7 +160,7 @@ export default function ManeuversList()
           items={displayedManeuvers}
           triggerNext={() => 
           {
-            if (displayedManeuvers.length > 0) setCursor(displayedManeuvers[displayedManeuvers.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}

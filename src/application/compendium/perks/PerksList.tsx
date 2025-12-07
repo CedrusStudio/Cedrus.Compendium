@@ -7,8 +7,8 @@ import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/perksClient";
 import searchClient from "@/infrastructure/clients/searchClient";
 import { AddPerkDto, addPerkSchema } from "@/persistence/schemas/characters/perkSchema";
-import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
-import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
+import { createOffsetSearchPerksKey } from "@/persistence/cacheKeys";
+import { createPerkOffsetQuery } from "@/infrastructure/searchQueries/perks/createPerkOffsetQuery";
 import PerkView from "@/application/compendium/perks/PerkView";
 import { ulid } from "ulid";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
@@ -16,7 +16,7 @@ import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
-import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
@@ -44,15 +44,15 @@ export default function PerksList()
 
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
-  const [cursor, setCursor] = useState<string>(emptyUlid);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   
-  const queryKey = createKeysetSearchPerksKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const perksQuery = createPerkKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -64,23 +64,19 @@ export default function PerksList()
     
     setHasMore(searchResults.length === pageSize);
 
-    if (cursor === emptyUlid)
+    if (pageNumber === 1)
     {
       setDisplayedPerks(searchResults);
       return;
     }
 
-    setDisplayedPerks(prev =>  
-    {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(perk => [perk.id, perk])).values());
-    });
-  }, [cursor, searchResults]);
+    setDisplayedPerks(prev => [...prev, ...searchResults]);
+  }, [pageNumber, searchResults]);
 
   const clearResults = useCallback(() =>
   {
     setDisplayedPerks(EMPTY_ARRAY);
-    setCursor(emptyUlid);
+    setPageNumber(1);
   }, []);
 
   const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
@@ -98,8 +94,8 @@ export default function PerksList()
   const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
     setExcludedTags(tags);
-    setCursor(emptyUlid);
-  }, []);
+    clearResults();
+  }, [clearResults]);
 
   const handleDelete = useCallback((id: string) =>
   {
@@ -149,7 +145,7 @@ export default function PerksList()
           items={displayedPerks}
           renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
           triggerNext={() => {
-            if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           onScopeToGroup={handleScopeToGroup}
@@ -160,7 +156,7 @@ export default function PerksList()
           items={displayedPerks}
           triggerNext={() => 
           {
-            if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
+            setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
           renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
