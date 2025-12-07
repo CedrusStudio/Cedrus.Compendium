@@ -21,6 +21,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useEntityTags } from "@/common/hooks/useEntityTags";
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
+import { Button } from "@/ui/button";
+import { List, Layers } from "lucide-react";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -32,6 +35,12 @@ export default function StatesList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('states');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [isGroupedView, setIsGroupedView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('states-grouped-view') === 'true';
+    }
+    return false;
+  });
 
   const [displayedStates, setDisplayedStates] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
@@ -97,6 +106,21 @@ export default function StatesList()
     setDisplayedStates(prev => prev.filter(state => state.id !== id));
   }, []);
 
+  const toggleViewMode = useCallback(() => {
+    setIsGroupedView(prev => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('states-grouped-view', String(newValue));
+      }
+      return newValue;
+    });
+  }, []);
+
+  const handleScopeToGroup = useCallback((groupName: string) => {
+    setSearchInput(groupName);
+    clearResults();
+  }, [clearResults]);
+
   return (
     <>
       <ListHeader
@@ -109,24 +133,42 @@ export default function StatesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleViewMode}
+          title={isGroupedView ? "Switch to flat view" : "Switch to grouped view"}
+        >
+          {isGroupedView ? <List className="h-4 w-4" /> : <Layers className="h-4 w-4" />}
+        </Button>
         <AddStateForm />
       </ListHeader>
 
-      <WithScroll<Mode>
-        parentClassName="flex flex-col gap-2"
-        items={displayedStates}
-        triggerNext={() => 
-        {
-          if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
-        }}
-        hasMore={hasMore}
-        renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
-      />
+      {isGroupedView ? (
+        <GroupedItemsList<Mode>
+          items={displayedStates}
+          renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
+          triggerNext={() => {
+            if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
+          }}
+          hasMore={hasMore}
+          onScopeToGroup={handleScopeToGroup}
+        />
+      ) : (
+        <WithScroll<Mode>
+          parentClassName="flex flex-col gap-2"
+          items={displayedStates}
+          triggerNext={() => 
+          {
+            if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
+          }}
+          hasMore={hasMore}
+          renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
+        />
+      )}
     </>
   );
-};
-
-function AddStateForm()
+};function AddStateForm()
 {
   const initialValues: AddModeDto = CreateDefaultState();
 

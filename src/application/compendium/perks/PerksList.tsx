@@ -21,6 +21,9 @@ import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import { displayedText } from "@/common/translations";
+import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
+import { Button } from "@/ui/button";
+import { List, Layers } from "lucide-react";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -32,6 +35,12 @@ export default function PerksList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('perks');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [isGroupedView, setIsGroupedView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('perks-grouped-view') === 'true';
+    }
+    return false;
+  });
 
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
@@ -97,6 +106,21 @@ export default function PerksList()
     setDisplayedPerks(prev => prev.filter(perk => perk.id !== id));
   }, []);
 
+  const toggleViewMode = useCallback(() => {
+    setIsGroupedView(prev => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('perks-grouped-view', String(newValue));
+      }
+      return newValue;
+    });
+  }, []);
+
+  const handleScopeToGroup = useCallback((groupName: string) => {
+    setSearchInput(groupName);
+    clearResults();
+  }, [clearResults]);
+
   return (
     <>
       <ListHeader
@@ -109,19 +133,39 @@ export default function PerksList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
       >
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleViewMode}
+          title={isGroupedView ? "Switch to flat view" : "Switch to grouped view"}
+        >
+          {isGroupedView ? <List className="h-4 w-4" /> : <Layers className="h-4 w-4" />}
+        </Button>
         <AddPerkForm />
       </ListHeader>
 
-      <WithScroll<Perk>
-        parentClassName="flex flex-col gap-2"
-        items={displayedPerks}
-        triggerNext={() => 
-        {
-          if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
-        }}
-        hasMore={hasMore}
-        renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
-      />
+      {isGroupedView ? (
+        <GroupedItemsList<Perk>
+          items={displayedPerks}
+          renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
+          triggerNext={() => {
+            if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
+          }}
+          hasMore={hasMore}
+          onScopeToGroup={handleScopeToGroup}
+        />
+      ) : (
+        <WithScroll<Perk>
+          parentClassName="flex flex-col gap-2"
+          items={displayedPerks}
+          triggerNext={() => 
+          {
+            if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
+          }}
+          hasMore={hasMore}
+          renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
+        />
+      )}
     </>
   );
 };
