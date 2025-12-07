@@ -116,6 +116,11 @@ export default function StancesList()
     });
   }, []);
 
+  const handleScopeToGroup = useCallback((groupName: string) => {
+    setSearchInput(groupName);
+    clearResults();
+  }, [clearResults]);
+
   return (
     <>
       <ListHeader
@@ -147,6 +152,7 @@ export default function StancesList()
             if (displayedStances.length > 0) setCursor(displayedStances[displayedStances.length - 1].id);
           }}
           hasMore={hasMore}
+          onScopeToGroup={handleScopeToGroup}
         />
       ) : (
         <WithScroll<Mode>

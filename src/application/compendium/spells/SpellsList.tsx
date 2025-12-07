@@ -121,6 +121,11 @@ export default function SpellsList()
     });
   }, []);
 
+  const handleScopeToGroup = useCallback((groupName: string) => {
+    setSearchInput(groupName);
+    clearResults();
+  }, [clearResults]);
+
   return (
     <>
       <ListHeader
@@ -152,6 +157,7 @@ export default function SpellsList()
             if (displayedSpells.length > 0) setCursor(displayedSpells[displayedSpells.length - 1].id);
           }}
           hasMore={hasMore}
+          onScopeToGroup={handleScopeToGroup}
         />
       ) : (
         <WithScroll<Spell>

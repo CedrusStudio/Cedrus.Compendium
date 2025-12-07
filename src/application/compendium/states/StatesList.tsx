@@ -116,6 +116,11 @@ export default function StatesList()
     });
   }, []);
 
+  const handleScopeToGroup = useCallback((groupName: string) => {
+    setSearchInput(groupName);
+    clearResults();
+  }, [clearResults]);
+
   return (
     <>
       <ListHeader
@@ -147,6 +152,7 @@ export default function StatesList()
             if (displayedStates.length > 0) setCursor(displayedStates[displayedStates.length - 1].id);
           }}
           hasMore={hasMore}
+          onScopeToGroup={handleScopeToGroup}
         />
       ) : (
         <WithScroll<Mode>

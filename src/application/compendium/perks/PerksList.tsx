@@ -116,6 +116,11 @@ export default function PerksList()
     });
   }, []);
 
+  const handleScopeToGroup = useCallback((groupName: string) => {
+    setSearchInput(groupName);
+    clearResults();
+  }, [clearResults]);
+
   return (
     <>
       <ListHeader
@@ -147,6 +152,7 @@ export default function PerksList()
             if (displayedPerks.length > 0) setCursor(displayedPerks[displayedPerks.length - 1].id);
           }}
           hasMore={hasMore}
+          onScopeToGroup={handleScopeToGroup}
         />
       ) : (
         <WithScroll<Perk>

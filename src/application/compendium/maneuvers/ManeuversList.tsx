@@ -120,6 +120,11 @@ export default function ManeuversList()
     });
   }, []);
 
+  const handleScopeToGroup = useCallback((groupName: string) => {
+    setSearchInput(groupName);
+    clearResults();
+  }, [clearResults]);
+
   return (
     <>
       <ListHeader
@@ -151,6 +156,7 @@ export default function ManeuversList()
             if (displayedManeuvers.length > 0) setCursor(displayedManeuvers[displayedManeuvers.length - 1].id);
           }}
           hasMore={hasMore}
+          onScopeToGroup={handleScopeToGroup}
         />
       ) : (
         <WithScroll<Maneuver>
