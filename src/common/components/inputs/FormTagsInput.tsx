@@ -14,6 +14,7 @@ import { CharacterTag, isValidTag, SessionTagPrefix } from "@/domain/Tag";
 import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
 import { displayedText } from "@/common/translations";
 import { addIcon } from "@/common/icons";
+import SessionTagDropdown from "@/common/components/inputs/SessionTagDropdown";
 
 export type FormTagsInputProps<TFieldValues extends FieldValues> = 
 {
@@ -75,6 +76,24 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
           handleAddTag(CharacterTag);
         };
 
+        const handleSelectSessionTag = (tag: string) => 
+        {
+          if (tags.includes(tag)) 
+          {
+            setValidationError(displayedText.tagAlreadyExists);
+            return;
+          }
+
+          if (tags.length >= maxTags) 
+          {
+            setValidationError(`${displayedText.maximum} ${maxTags} ${displayedText.tagsAllowed}`);
+            return;
+          }
+
+          field.onChange([...tags, tag]);
+          setValidationError(null);
+        };
+
         const handleRemoveTag = (tagToRemove: string) => 
         {
           field.onChange(tags.filter((tag) => tag !== tagToRemove));
@@ -117,6 +136,12 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
                   {
                     beAbleToSetCharacterAndSessionTags && (
                       <>
+                        <SessionTagDropdown 
+                          currentTags={tags}
+                          maxTags={maxTags}
+                          onSelectTag={handleSelectSessionTag}
+                        />
+
                         <Button type="button" onClick={() => handleAddTag(SessionTagPrefix)} variant="outline">
                           {"Użyj prefix 'sesja-'"}
                         </Button>
