@@ -112,7 +112,7 @@ export default function TagFilter
             <PopoverContent className="w-[300px] p-0">
 
               <Command>
-                <CommandInput placeholder="Szukaj tagu..." />
+                <CommandInput placeholder="Szukaj tag..." />
                 <CommandList>
                   <CommandEmpty>Nie znaleziono tagów.</CommandEmpty>
                   <CommandGroup>
