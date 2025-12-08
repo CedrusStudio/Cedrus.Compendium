@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Card } from '@/ui/card';
 import { useDispatch } from 'react-redux';
 import { actions } from '@/persistence/slices/characterSlice';
-import { FaMagnifyingGlass } from "react-icons/fa6";
 import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 import TagsView from '@/common/components/tags/TagsView';
 import TagFilter from '@/common/components/filters/TagFilter';
@@ -53,20 +52,18 @@ export default function CharactersHeadersList()
 
   useEffect(() => 
   {
+    if (!searchResults) return;
+    
     setHasMore(searchResults.length === pageSize);
 
-    if (!debouncedSearchTerm && searchTags.length === 0 && cursor === emptyUlid)
+    if (cursor === emptyUlid)
     {
       setDisplayedCharacters(searchResults);
       return;
     }
 
-    setDisplayedCharacters(prev =>  
-    {
-      if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults]
-    });
-  }, [cursor, debouncedSearchTerm, searchTags, searchResults]);
+    setDisplayedCharacters(prev => [...prev, ...searchResults]);
+  }, [cursor, searchResults]);
   
   const clearResults = useCallback(() =>
   {
@@ -140,19 +137,22 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
     <Link 
       href={`/characters/${summary.id}`}
       onClick={() => dispatch(actions.clearCharacterNavbarSearch())}
-      className='block'
+      className='block group'
     >
-      <Card className='bg-muted hover:bg-muted/80 transition-colors border-l-4 border-l-primary/30 hover:border-l-primary lg:min-w-250'>
-        <div className='flex flex-row items-center gap-4 px-8'>
-          <h3 className='text-lg font-bold text-primary min-w-[200px]'>
-            {summary.name}
-          </h3>
+      <Card className='relative overflow-hidden bg-gradient-to-r from-slate-900/90 to-slate-800/90 hover:from-slate-800 hover:to-slate-700 border border-slate-700/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20 lg:min-w-250'>
+        <div className='absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+        <div className='relative flex flex-row items-center gap-4 px-6'>
+          <div className='flex items-center gap-2.5 min-w-[200px]'>
+            <div className='h-1.5 w-1.5 rounded-full bg-primary animate-pulse' />
+            <h3 className='text-base font-bold text-slate-100 group-hover:text-primary transition-colors duration-200'>
+              {summary.name}
+            </h3>
+          </div>
           
           <div className='flex-1'>
             <TagsView tags={summary.tags} variant="outline" />
           </div>
           
-          <FaMagnifyingGlass className="h-5 w-5 text-muted-foreground flex-shrink-0" />
         </div>
       </Card>
     </Link>
