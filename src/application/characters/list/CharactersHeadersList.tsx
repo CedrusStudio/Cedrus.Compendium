@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Card } from '@/ui/card';
 import { useDispatch } from 'react-redux';
 import { actions } from '@/persistence/slices/characterSlice';
-import { FaMagnifyingGlass } from "react-icons/fa6";
 import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 import TagsView from '@/common/components/tags/TagsView';
 import TagFilter from '@/common/components/filters/TagFilter';
