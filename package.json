@@ -1,5 +1,5 @@
 {
-  "name": "character-sheet",
+  "name": "cedrus-compendium",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,16 +12,7 @@
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
     "postinstall": "prisma generate",
-    "sync-rulebook": "tsx scripts/sync-rulebook.ts",
-    "seed": "tsx prisma/seed.ts",
-    "seed:stances": "tsx prisma/seeds/stanceSeed.ts",
-    "seed:states": "tsx prisma/seeds/stateSeed.ts",
-    "seed:maneuvers": "tsx prisma/seeds/maneuverSeed.ts",
-    "seed:perks": "tsx prisma/seeds/perkSeed.ts",
-    "seed:weapons": "tsx prisma/seeds/weaponSeed.ts",
-    "seed:armors": "tsx prisma/seeds/armorSeed.ts",
-    "seed:shields": "tsx prisma/seeds/shieldSeed.ts",
-    "seed:characters": "tsx prisma/seeds/charactersSeed.ts"
+    "sync-rulebook": "tsx scripts/sync-rulebook.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
