@@ -1,5 +1,5 @@
 {
-  "name": "character-sheet",
+  "name": "cedrus-compendium",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage",
-    "test:watch": "vitest --watch",
+    "test-ui": "vitest --ui",
+    "test-coverage": "vitest --coverage",
+    "test-watch": "vitest --watch",
     "postinstall": "prisma generate",
     "sync-rulebook": "tsx scripts/sync-rulebook.ts"
   },
