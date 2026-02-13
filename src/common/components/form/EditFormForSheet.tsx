@@ -6,7 +6,7 @@ import { DefaultValues, FieldValues, useForm, UseFormProps } from "react-hook-fo
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import { ZodType } from "zod";
 
-type EditWeaponFormProps<TFormData extends FieldValues> =
+type EditFormProps<TFormData extends FieldValues> =
 {
   entityId: string;
   schema: ZodType<TFormData, TFormData>;
@@ -19,7 +19,7 @@ type EditWeaponFormProps<TFormData extends FieldValues> =
   toastPosition?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
 }
 
-export function EditFormForSheet<TFormData extends FieldValues>(input: EditWeaponFormProps<TFormData>)
+export function EditFormForSheet<TFormData extends FieldValues>(input: EditFormProps<TFormData>)
 {
   const form = useForm<TFormData>
   ({
