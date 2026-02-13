@@ -4,6 +4,7 @@ import Providers from '@/infrastructure/providers/providers';
 import "./globals.css";
 import { type PropsWithChildren } from "react";
 import { languageSettings } from "@/lib/env";
+import ScrollToTopButton from "@/common/components/buttons/ScrollToTopButton";
 
 const geistSans = Geist
 ({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>)
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         <Providers>
           {children}
+          <ScrollToTopButton />
         </Providers>
       </body>
     </html>
