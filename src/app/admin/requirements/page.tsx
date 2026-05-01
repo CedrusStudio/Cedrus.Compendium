@@ -8,6 +8,7 @@ import requirementsManagementClient from '@/infrastructure/clients/requirementsM
 import { RequirementEntityType } from '@/infrastructure/clients/requirementsClient';
 import { Button } from '@/ui/button';
 import { leftIcon } from '@/common/icons';
+import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
 
 type PendingAction =
   | { type: 'rename'; requirement: string; count: number }
@@ -23,6 +24,7 @@ const entityLabels: Record<RequirementEntityType, string> = {
 };
 
 const entityOptions = Object.keys(entityLabels) as RequirementEntityType[];
+const entitySelectItems = entityOptions.map(entity => ({ label: entityLabels[entity], value: entity }));
 
 export default function RequirementsManagementPage()
 {
@@ -32,22 +34,26 @@ export default function RequirementsManagementPage()
   const [nextRequirementValue, setNextRequirementValue] = useState('');
   const queryClient = useQueryClient();
 
-  const { data: managedRequirements = [], isLoading, error } = useQuery({
+  const { data: managedRequirements = [], isLoading, error } = useQuery
+  ({
     queryKey: ['requirementsManagement', selectedEntity],
     queryFn: () => requirementsManagementClient.getRequirements(selectedEntity),
     staleTime: 5 * 60 * 1000,
     enabled: isLoaded && isAdmin,
   });
 
-  const invalidateEntityQueries = async (entity: RequirementEntityType) => {
-    await queryClient.invalidateQueries({
+  const invalidateEntityQueries = async (entity: RequirementEntityType) => 
+  {
+    await queryClient.invalidateQueries
+    ({
       predicate: query =>
         Array.isArray(query.queryKey)
         && query.queryKey.some(key => key === entity || key === 'requirementsManagement' || key === 'entityRequirements'),
     });
   };
 
-  const renameMutation = useMutation({
+  const renameMutation = useMutation
+  ({
     mutationFn: () => requirementsManagementClient.renameRequirement({
       entity: selectedEntity,
       oldRequirement: pendingAction?.requirement ?? '',
@@ -60,12 +66,14 @@ export default function RequirementsManagementPage()
     },
   });
 
-  const deleteMutation = useMutation({
+  const deleteMutation = useMutation
+  ({
     mutationFn: () => requirementsManagementClient.deleteRequirement({
       entity: selectedEntity,
       requirement: pendingAction?.requirement ?? '',
     }),
-    onSuccess: async () => {
+    onSuccess: async () => 
+    {
       await invalidateEntityQueries(selectedEntity);
       setPendingAction(null);
     },
@@ -88,9 +96,6 @@ export default function RequirementsManagementPage()
         <div className="rounded-lg border p-6 text-center">
           <h1 className="text-3xl font-bold">Zarzadzanie wymaganiami</h1>
           <p className="mt-3 text-sm text-muted-foreground">Ta sekcja jest dostepna tylko dla administratorow.</p>
-          <Link href="/personalization" className="mt-4 inline-flex rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-            Wroc do personalizacji
-          </Link>
         </div>
       </div>
     );
@@ -111,25 +116,20 @@ export default function RequirementsManagementPage()
         </Button>
       </div>
 
-      <div className="rounded-lg border p-4">
+      <div>
         <div className="space-y-2 md:max-w-sm">
-          <label htmlFor="requirement-entity-select" className="text-sm font-medium text-muted-foreground">Typ encji</label>
-          <select
+          <SelectOneOfStrings
             id="requirement-entity-select"
-            className="h-11 w-full rounded-md border bg-background px-3 py-2 text-sm shadow-sm"
             value={selectedEntity}
-            onChange={event => {
-              setSelectedEntity(event.target.value as RequirementEntityType);
+            items={entitySelectItems}
+            onChange={value => 
+            {
+              setSelectedEntity(value as RequirementEntityType);
               setPendingAction(null);
               setNextRequirementValue('');
             }}
-          >
-            {
-              entityOptions.map(entity => (
-                <option key={entity} value={entity}>{entityLabels[entity]}</option>
-              ))
-            }
-          </select>
+            triggerClassName="h-11 w-36 border bg-background px-3 py-2 text-sm shadow-sm"
+          />
         </div>
       </div>
 

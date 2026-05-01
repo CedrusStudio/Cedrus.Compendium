@@ -1,42 +1,48 @@
 "use client";
 
-import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
+import { cn } from '@/lib/utils';
 
 type SelectOneOfStringsProps = 
 {
-  defaultValue: string;
+  value: string;
   items: {label: string, value: string}[];
   onChange: (value: string) => void;
+  id?: string;
+  triggerClassName?: string;
+  contentClassName?: string;
+  placeholder?: string;
+  capitalize?: boolean;
 };
 
-export default function SelectOneOfStrings({ defaultValue, items, onChange }: SelectOneOfStringsProps)
+export default function SelectOneOfStrings
+({
+  value,
+  items,
+  onChange,
+  id,
+  triggerClassName,
+  contentClassName,
+  placeholder,
+  capitalize = true,
+}: SelectOneOfStringsProps)
 {
-  const [currentValue, setCurrentValue] = useState(defaultValue);
   const handleOnSelectedChange = (value: string) => 
   {
-    setCurrentValue(value);
     onChange(value);
   };
 
   return (
-    <Select defaultValue={defaultValue} onValueChange={handleOnSelectedChange} >
+    <Select value={value} onValueChange={handleOnSelectedChange}>
+      <SelectTrigger id={id} className={cn(capitalize && 'capitalize', triggerClassName)}>
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
 
-      <div className={"capitalize"}>
-        <SelectTrigger className='capitalize border-0'>
-          <SelectValue>
-          {
-            items.find(item => item.value === currentValue)?.label ?? currentValue
-          }
-          </SelectValue>
-        </SelectTrigger>
-      </div>
-
-      <SelectContent>
+      <SelectContent className={contentClassName}>
       {
-        items.map((item, index) => (
-          <SelectItem key={index} value={item.value}>
-            <span className='capitalize'>{item.label}</span>
+        items.map(item => (
+          <SelectItem key={item.value} value={item.value}>
+            <span className={cn(capitalize && 'capitalize')}>{item.label}</span>
           </SelectItem>
         ))
       }

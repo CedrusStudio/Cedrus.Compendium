@@ -57,7 +57,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
             onValueChange={v => { if (isCharacterTab(v)) setActiveTab(v); }}
             className='lg:col-span-10 lg:ml-6 flex flex-col lg:grid'
         >
-            <div className='lg:row-span-1'>
+            <div className='lg:row-span-1 -mt-4'>
                 
                 <div className='flex flex-col mt-4 sm:mt-0 sm:flex-row place-content-between place-items-center'>
 
@@ -68,7 +68,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                         <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                     </TabsList>
 
-                    <div className='flex flex-row gap-3'>
+                    <div className='flex flex-row place-items-center gap-3'>
                         <FavoriteCharacterButton characterId={character.id} showLabel />
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
