@@ -1,14 +1,32 @@
 "use client";
 
 import Link from 'next/link';
+import { useMemo } from 'react';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import { useFavoriteCharacters } from '@/application/personalization/useFavoriteCharacters';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
+import { mainCharacterIcon } from '@/common/icons';
 
 export default function FavoriteCharactersPage()
 {
   const { hasApiKey, isLoaded, profile } = usePersonalization();
   const { favoriteCharacters, isLoading } = useFavoriteCharacters();
+  const sortedFavoriteCharacters = useMemo(
+    () => favoriteCharacters
+      .map((character, index) => ({ character, index }))
+      .sort((left, right) => {
+        const leftIsMain = left.character.id === profile.mainCharacterId;
+        const rightIsMain = right.character.id === profile.mainCharacterId;
+
+        if (leftIsMain === rightIsMain) {
+          return left.index - right.index;
+        }
+
+        return leftIsMain ? -1 : 1;
+      })
+      .map(({ character }) => character),
+    [favoriteCharacters, profile.mainCharacterId],
+  );
 
   if (!isLoaded)
   {
@@ -43,17 +61,27 @@ export default function FavoriteCharactersPage()
       </div>
 
       {
-        isLoading ? <p className="text-muted-foreground">Ladowanie postaci...</p> : (
+        isLoading ? <p className="text-muted-foreground">Ładowanie postaci...</p> : (
           <div className="space-y-4">
             {
-              favoriteCharacters.map(character => (
+              sortedFavoriteCharacters.map(character => (
                 <div key={character.id} className="relative rounded-lg border p-5">
-                  <div className="absolute right-4 top-4">
+                  <div className="absolute inset-y-0 right-4 z-10 flex items-center">
                     <FavoriteCharacterButton characterId={character.id} />
                   </div>
 
                   <Link href={`/characters/${character.id}`} className="block pr-16">
-                    <h2 className="text-2xl font-semibold hover:underline">{character.name}</h2>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h2 className="text-2xl font-semibold">{character.name}</h2>
+                      {
+                        profile.mainCharacterId === character.id && (
+                          <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                            {mainCharacterIcon('h-3.5 w-3.5')}
+                            Main
+                          </span>
+                        )
+                      }
+                    </div>
                     <p className="mt-2 text-sm text-muted-foreground">{character.shortName}</p>
                   </Link>
                 </div>

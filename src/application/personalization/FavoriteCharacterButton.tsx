@@ -14,6 +14,12 @@ export default function FavoriteCharacterButton({ characterId, showLabel = false
 {
   const { hasApiKey, profile, toggleFavoriteCharacter } = usePersonalization();
   const isFavorite = profile.favoriteCharacterIds.includes(characterId);
+  const isMainCharacter = profile.mainCharacterId === characterId;
+
+  if (showLabel && isMainCharacter)
+  {
+    return null;
+  }
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) =>
   {

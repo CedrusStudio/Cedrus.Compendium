@@ -319,4 +319,5 @@ export const translations_deDE =
     selectExistingRequirement: "vorhandene anforderung auswählen",
     noRequirementsFound: "keine anforderungen gefunden",
     searchRequirements: "anforderungen suchen...",
+    favorites: "favoriten",
 } as const;

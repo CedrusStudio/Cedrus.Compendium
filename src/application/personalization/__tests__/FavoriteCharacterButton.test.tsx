@@ -52,4 +52,33 @@ describe('FavoriteCharacterButton', () => {
 
     expect(store.getState().personalization.profilesByApiKey.alpha.favoriteCharacterIds).toEqual([]);
   });
+
+  it('does not render the labeled favorite button when the character is already main', () => {
+    const store = configureStore({
+      reducer: {
+        personalization: personalizationReducer,
+      },
+      preloadedState: {
+        personalization: {
+          activeApiKey: 'alpha',
+          profilesByApiKey: {
+            alpha: {
+              ...createEmptyProfile(),
+              favoriteCharacterIds: ['character-1'],
+              mainCharacterId: 'character-1',
+            },
+          },
+        },
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <FavoriteCharacterButton characterId="character-1" showLabel />
+      </Provider>,
+    );
+
+    expect(screen.queryByRole('button', { name: 'Remove favorite character' })).toBeNull();
+    expect(screen.queryByText('Ulubiona')).toBeNull();
+  });
 });

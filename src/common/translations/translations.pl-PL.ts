@@ -319,5 +319,6 @@ export const translations_plPL =
     selectExistingRequirement: "wybierz istniejące wymaganie",
     noRequirementsFound: "nie znaleziono wymagań",
     searchRequirements: "szukaj wymagań...",
+    favorites: "ulubione",
 } as const;
 

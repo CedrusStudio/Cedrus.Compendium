@@ -346,4 +346,5 @@ export const displayedText =
     selectExistingRequirement: translate("selectExistingRequirement"),
     noRequirementsFound: translate("noRequirementsFound"),
     searchRequirements: translate("searchRequirements"),
+    favorites: translate("favorites"),
 } as const;

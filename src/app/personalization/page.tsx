@@ -4,29 +4,48 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { ulid } from 'ulid';
 import { ApiKeySettings } from '@/common/components/ApiKeySettings';
+import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
+import { Input } from '@/common/components/ui/input';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { useFavoriteCharacters } from '@/application/personalization/useFavoriteCharacters';
 import { personalizationContextLabels, personalizationRouteLabels, resolveQuickLinkHref } from '@/application/personalization/personalizationUtils';
-import { personalizationContexts, quickLinkRoutes, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
+import { personalizationContexts, quickLinkRoutes, QuickLink, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
 import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 import { displayedText } from '@/common/translations';
-import { homeIcon } from '@/common/icons';
+import { deleteIcon, editIcon, goToIcon, homeIcon, mainCharacterIcon } from '@/common/icons';
 import { Button } from "@/ui/button";
+
+const noneMainCharacterValue = '__none__';
+const contextSelectItems = personalizationContexts.map(context => ({
+  label: personalizationContextLabels[context],
+  value: context,
+}));
+const quickLinkRouteSelectItems = quickLinkRoutes.map(route => ({
+  label: personalizationRouteLabels[route],
+  value: route,
+}));
 
 export default function PersonalizationPage()
 {
-  const { apiKey, hasApiKey, isLoaded, profile, setUserName, setBestiaryColumnVisibility, clearBestiaryColumnVisibility, addQuickTag, removeQuickTag, removeFavoriteCharacter, setMainCharacter, addQuickLink, removeQuickLink } = usePersonalization();
+  const { apiKey, hasApiKey, isLoaded, profile, setUserName, setBestiaryColumnVisibility, clearBestiaryColumnVisibility, addQuickTag, removeQuickTag, removeFavoriteCharacter, setMainCharacter, addQuickLink, removeQuickLink, updateQuickLink } = usePersonalization();
   const { favoriteCharacters, isLoading } = useFavoriteCharacters();
   const [selectedContext, setSelectedContext] = useState(personalizationContexts[0]);
   const [quickTagInput, setQuickTagInput] = useState('');
   const [selectedRoute, setSelectedRoute] = useState<QuickLinkRoute>('/characters/favorites');
   const [quickLinkLabel, setQuickLinkLabel] = useState('');
+  const [editingQuickLinkId, setEditingQuickLinkId] = useState<string | null>(null);
+  const [editingQuickLinkLabel, setEditingQuickLinkLabel] = useState('');
+  const [editingQuickLinkRoute, setEditingQuickLinkRoute] = useState<QuickLinkRoute>('/characters/favorites');
   const [userNameInput, setUserNameInput] = useState('');
   const [bestiaryColumnVisibilityDraft, setBestiaryColumnVisibilityDraft] = useState(resolveBestiaryColumnVisibility());
 
   const favoriteCharacterOptions = useMemo(
-    () => favoriteCharacters.map(character => ({ id: character.id, label: character.name })),
+    () => favoriteCharacters.map(character => ({ value: character.id, label: character.name })),
     [favoriteCharacters],
+  );
+  const mainCharacterSelectItems = useMemo(
+    () => [{ value: noneMainCharacterValue, label: 'Brak glownej postaci' }, ...favoriteCharacterOptions],
+    [favoriteCharacterOptions],
   );
 
   useEffect(() => 
@@ -64,6 +83,36 @@ export default function PersonalizationPage()
     setQuickLinkLabel('');
   };
 
+  const handleStartQuickLinkEdit = (quickLink: Extract<QuickLink, { type: 'route' }>) =>
+  {
+    setEditingQuickLinkId(quickLink.id);
+    setEditingQuickLinkLabel(quickLink.label);
+    setEditingQuickLinkRoute(quickLink.href);
+  };
+
+  const handleCancelQuickLinkEdit = () =>
+  {
+    setEditingQuickLinkId(null);
+    setEditingQuickLinkLabel('');
+    setEditingQuickLinkRoute('/characters/favorites');
+  };
+
+  const handleSaveQuickLinkEdit = () =>
+  {
+    if (!editingQuickLinkId) return;
+
+    const label = editingQuickLinkLabel.trim();
+    if (!label) return;
+
+    updateQuickLink({
+      id: editingQuickLinkId,
+      label,
+      type: 'route',
+      href: editingQuickLinkRoute,
+    });
+    handleCancelQuickLinkEdit();
+  };
+
   return (
     <div className="container mx-auto px-6 py-12 max-w-6xl space-y-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -77,25 +126,25 @@ export default function PersonalizationPage()
         <div className="flex flex-wrap gap-3">
             <ApiKeySettings />
             <Button asChild variant="outline" size="icon">
-                <Link href="/">{homeIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+            <Link href="/" aria-label="Wroc do strony glownej">{homeIcon("h-[1.2rem] w-[1.2rem]")}</Link>
             </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="rounded-lg border p-4">
+      <div className="grid grid-cols-1 md:grid-cols-16 gap-4">
+        <div className="rounded-lg border p-4 md:col-span-4">
           <p className="text-sm text-muted-foreground">Nazwa uzytkownika</p>
           <p className="mt-2 font-medium break-all">{profile.userName ?? 'brak'}</p>
         </div>
-        <div className="rounded-lg border p-4">
+        <div className="rounded-lg border p-4 md:col-span-6">
           <p className="text-sm text-muted-foreground">Aktywny API key</p>
           <p className="mt-2 font-medium break-all">{apiKey ?? 'brak'}</p>
         </div>
-        <div className="rounded-lg border p-4">
+        <div className="rounded-lg border p-4 md:col-span-3">
           <p className="text-sm text-muted-foreground">Ulubione postacie</p>
           <p className="mt-2 text-2xl font-semibold">{profile.favoriteCharacterIds.length}</p>
         </div>
-        <div className="rounded-lg border p-4">
+        <div className="rounded-lg border p-4 md:col-span-3">
           <p className="text-sm text-muted-foreground">Szybkie linki</p>
           <p className="mt-2 text-2xl font-semibold">{profile.quickLinks.length}</p>
         </div>
@@ -118,27 +167,27 @@ export default function PersonalizationPage()
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
-                <input
-                  className="rounded-md border bg-background px-3 py-2 md:flex-1"
+                <Input
                   value={userNameInput}
                   onChange={event => setUserNameInput(event.target.value)}
                   placeholder="Nazwa uzytkownika dla tego API key"
+                  className="md:flex-1"
                 />
 
-                <button type="button" className="rounded-md border px-4 py-2 font-medium hover:bg-muted" onClick={() => setUserName(userNameInput)}>
+                <Button type="button" variant="outline" onClick={() => setUserName(userNameInput)}>
                   Zapisz nazwe
-                </button>
+                </Button>
 
-                <button
+                <Button
                   type="button"
-                  className="rounded-md border px-4 py-2 font-medium hover:bg-muted"
+                  variant="outline"
                   onClick={() => {
                     setUserName(undefined);
                     setUserNameInput('');
                   }}
                 >
                   Wyczysc nazwe
-                </button>
+                </Button>
               </div>
             </section>
 
@@ -149,24 +198,25 @@ export default function PersonalizationPage()
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
-                <select className="rounded-md border bg-background px-3 py-2" value={selectedContext} onChange={event => setSelectedContext(event.target.value as typeof selectedContext)}>
-                  {
-                    personalizationContexts.map(context => (
-                      <option key={context} value={context}>{personalizationContextLabels[context]}</option>
-                    ))
-                  }
-                </select>
+                <SelectOneOfStrings
+                  id="personalization-context-select"
+                  value={selectedContext}
+                  items={contextSelectItems}
+                  onChange={value => setSelectedContext(value as typeof selectedContext)}
+                  triggerClassName="w-full md:w-[220px]"
+                  capitalize={false}
+                />
 
-                <input
-                  className="rounded-md border bg-background px-3 py-2 md:flex-1"
+                <Input
                   value={quickTagInput}
                   onChange={event => setQuickTagInput(event.target.value)}
                   placeholder="Dodaj szybki tag"
+                  className="md:flex-1"
                 />
 
-                <button type="button" className="rounded-md border px-4 py-2 font-medium hover:bg-muted" onClick={handleAddQuickTag}>
+                <Button type="button" variant="outline" onClick={handleAddQuickTag}>
                   Dodaj tag
-                </button>
+                </Button>
               </div>
 
               <div className="space-y-3">
@@ -180,14 +230,20 @@ export default function PersonalizationPage()
                         <div className="mt-2 flex flex-wrap gap-2">
                           {
                             quickTags.length > 0 ? quickTags.map(tag => (
-                              <button
-                                key={`${context}-${tag}`}
-                                type="button"
-                                className="rounded-full border px-3 py-1 text-sm hover:bg-muted"
-                                onClick={() => removeQuickTag(context, tag)}
-                              >
-                                {tag}
-                              </button>
+                              <div key={`${context}-${tag}`} className="inline-flex items-center gap-2 rounded-full border pl-3 pr-1 py-1 text-sm">
+                                <span>{tag}</span>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon"
+                                  className="size-7 rounded-full"
+                                  aria-label={`Usun tag ${tag}`}
+                                  title={`Usun tag ${tag}`}
+                                  onClick={() => removeQuickTag(context, tag)}
+                                >
+                                  {deleteIcon}
+                                </Button>
+                              </div>
                             )) : <span className="text-sm text-muted-foreground">Brak zapisanych tagow.</span>
                           }
                         </div>
@@ -227,37 +283,31 @@ export default function PersonalizationPage()
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
-                <button
+                <Button
                   type="button"
-                  className="rounded-md border px-4 py-2 font-medium hover:bg-muted"
+                  variant="outline"
                   onClick={() => setBestiaryColumnVisibility(bestiaryColumnVisibilityDraft)}
                 >
                   Zapisz kolumny bestiariusza
-                </button>
+                </Button>
 
-                <button
+                <Button
                   type="button"
-                  className="rounded-md border px-4 py-2 font-medium hover:bg-muted"
+                  variant="outline"
                   onClick={() => {
                     clearBestiaryColumnVisibility();
                     setBestiaryColumnVisibilityDraft(resolveBestiaryColumnVisibility());
                   }}
                 >
                   Przywroc domyslne kolumny
-                </button>
+                </Button>
               </div>
             </section>
 
             <section className="rounded-lg border p-6 space-y-4">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <h2 className="text-2xl font-semibold">Ulubione postacie</h2>
-                  <p className="text-sm text-muted-foreground">Dodawaj je z listy postaci albo z widoku pojedynczej postaci.</p>
-                </div>
-
-                <Link href="/characters/favorites" className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-                  Otworz ulubione
-                </Link>
+              <div>
+                <h2 className="text-2xl font-semibold">Ulubione postacie</h2>
+                <p className="text-sm text-muted-foreground">Dodawaj je z listy postaci albo z widoku pojedynczej postaci.</p>
               </div>
 
               {
@@ -265,11 +315,39 @@ export default function PersonalizationPage()
                   <div className="space-y-3">
                     {
                       favoriteCharacterOptions.length > 0 ? favoriteCharacterOptions.map(character => (
-                        <div key={character.id} className="flex items-center justify-between gap-3 rounded-md border p-3">
-                          <Link href={`/characters/${character.id}`} className="font-medium hover:underline">{character.label}</Link>
-                          <button type="button" className="rounded-md border px-3 py-1 text-sm hover:bg-muted" onClick={() => removeFavoriteCharacter(character.id)}>
-                            Usun
-                          </button>
+                        <div key={character.value} className="flex items-center justify-between gap-3 rounded-md border p-3">
+                          <div className="flex min-w-0 items-center gap-2">
+                            <Link href={`/characters/${character.value}`} className="truncate font-medium hover:underline">{character.label}</Link>
+                            {
+                              profile.mainCharacterId === character.value && (
+                                <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                                  {mainCharacterIcon('h-3.5 w-3.5')}
+                                  Main
+                                </span>
+                              )
+                            }
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button asChild type="button" variant="outline" size="icon">
+                              <Link
+                                href={`/characters/${character.value}`}
+                                aria-label={`Przejdz do postaci ${character.label}`}
+                                title={`Przejdz do postaci ${character.label}`}
+                              >
+                                {goToIcon}
+                              </Link>
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="icon"
+                              aria-label={`Usun z ulubionych ${character.label}`}
+                              title={`Usun z ulubionych ${character.label}`}
+                              onClick={() => removeFavoriteCharacter(character.value)}
+                            >
+                              {deleteIcon}
+                            </Button>
+                          </div>
                         </div>
                       )) : <p className="text-sm text-muted-foreground">Brak ulubionych postaci dla tego profilu.</p>
                     }
@@ -279,18 +357,14 @@ export default function PersonalizationPage()
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Główna postać</label>
-                <select
-                  className="w-full rounded-md border bg-background px-3 py-2"
-                  value={profile.mainCharacterId ?? ''}
-                  onChange={event => setMainCharacter(event.target.value || undefined)}
-                >
-                  <option value="">Brak glownej postaci</option>
-                  {
-                    favoriteCharacterOptions.map(character => (
-                      <option key={character.id} value={character.id}>{character.label}</option>
-                    ))
-                  }
-                </select>
+                <SelectOneOfStrings
+                  id="main-character-select"
+                  value={profile.mainCharacterId ?? noneMainCharacterValue}
+                  items={mainCharacterSelectItems}
+                  onChange={value => setMainCharacter(value === noneMainCharacterValue ? undefined : value)}
+                  triggerClassName="w-full"
+                  capitalize={false}
+                />
               </div>
             </section>
 
@@ -301,34 +375,97 @@ export default function PersonalizationPage()
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
-                <input
-                  className="rounded-md border bg-background px-3 py-2 md:flex-1"
+                <Input
                   value={quickLinkLabel}
                   onChange={event => setQuickLinkLabel(event.target.value)}
                   placeholder="Nazwa linku"
+                  className="md:flex-1"
                 />
 
-                <select className="rounded-md border bg-background px-3 py-2" value={selectedRoute} onChange={event => setSelectedRoute(event.target.value as QuickLinkRoute)}>
-                  {
-                    quickLinkRoutes.map(route => (
-                      <option key={route} value={route}>{personalizationRouteLabels[route]}</option>
-                    ))
-                  }
-                </select>
+                <SelectOneOfStrings
+                  id="quick-link-route-select"
+                  value={selectedRoute}
+                  items={quickLinkRouteSelectItems}
+                  onChange={value => setSelectedRoute(value as QuickLinkRoute)}
+                  triggerClassName="w-full md:w-[260px]"
+                  capitalize={false}
+                />
 
-                <button type="button" className="rounded-md border px-4 py-2 font-medium hover:bg-muted" onClick={handleAddQuickLink}>
+                <Button type="button" variant="outline" onClick={handleAddQuickLink}>
                   Dodaj link
-                </button>
+                </Button>
               </div>
 
               <div className="space-y-3">
                 {
                   profile.quickLinks.length > 0 ? profile.quickLinks.map(quickLink => (
-                    <div key={quickLink.id} className="flex items-center justify-between gap-3 rounded-md border p-3">
-                      <Link href={resolveQuickLinkHref(quickLink)} className="font-medium hover:underline">{quickLink.label}</Link>
-                      <button type="button" className="rounded-md border px-3 py-1 text-sm hover:bg-muted" onClick={() => removeQuickLink(quickLink.id)}>
-                        Usun
-                      </button>
+                    <div key={quickLink.id} className="space-y-3 rounded-md border p-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <Link href={resolveQuickLinkHref(quickLink)} className="block truncate font-medium hover:underline">{quickLink.label}</Link>
+                          <p className="mt-1 text-sm text-muted-foreground">
+                            {quickLink.type === 'route' ? personalizationRouteLabels[quickLink.href] : 'Skrot do postaci'}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          {
+                            quickLink.type === 'route' && (
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="icon"
+                                aria-label={`Edytuj link ${quickLink.label}`}
+                                title={`Edytuj link ${quickLink.label}`}
+                                onClick={() => handleStartQuickLinkEdit(quickLink)}
+                              >
+                                {editIcon}
+                              </Button>
+                            )
+                          }
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="icon"
+                            aria-label={`Usun link ${quickLink.label}`}
+                            title={`Usun link ${quickLink.label}`}
+                            onClick={() => {
+                              if (editingQuickLinkId === quickLink.id) {
+                                handleCancelQuickLinkEdit();
+                              }
+                              removeQuickLink(quickLink.id);
+                            }}
+                          >
+                            {deleteIcon}
+                          </Button>
+                        </div>
+                      </div>
+
+                      {
+                        quickLink.type === 'route' && editingQuickLinkId === quickLink.id && (
+                          <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_240px_auto_auto]">
+                            <Input
+                              value={editingQuickLinkLabel}
+                              onChange={event => setEditingQuickLinkLabel(event.target.value)}
+                              placeholder="Nazwa linku"
+                            />
+                            <SelectOneOfStrings
+                              id={`quick-link-edit-route-${quickLink.id}`}
+                              value={editingQuickLinkRoute}
+                              items={quickLinkRouteSelectItems}
+                              onChange={value => setEditingQuickLinkRoute(value as QuickLinkRoute)}
+                              triggerClassName="w-full"
+                              capitalize={false}
+                            />
+                            <Button type="button" onClick={handleSaveQuickLinkEdit} disabled={!editingQuickLinkLabel.trim()}>
+                              Zapisz
+                            </Button>
+                            <Button type="button" variant="outline" onClick={handleCancelQuickLinkEdit}>
+                              Anuluj
+                            </Button>
+                          </div>
+                        )
+                      }
                     </div>
                   )) : <p className="text-sm text-muted-foreground">Brak zapisanych szybkich linkow.</p>
                 }

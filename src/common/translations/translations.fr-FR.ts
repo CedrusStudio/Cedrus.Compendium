@@ -319,4 +319,5 @@ export const translations_frFR =
     selectExistingRequirement: "sélectionner une exigence existante",
     noRequirementsFound: "aucune exigence trouvée",
     searchRequirements: "rechercher des exigences...",
+    favorites: "favoris",
 } as const;
