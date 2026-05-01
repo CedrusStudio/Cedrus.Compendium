@@ -22,9 +22,19 @@ export const personalizationRouteLabels: Record<QuickLinkRoute, string> = {
   '/characters/favorites': 'Ulubione postacie',
   '/bestiary': 'Bestiariusz',
   '/compendium': 'Kompendium',
+  '/compendium/maneuvers': 'Manewry',
+  '/compendium/stances': 'Postawy',
+  '/compendium/states': 'Stany',
   '/compendium/perks': 'Atuty',
   '/compendium/powers': 'Moce',
   '/compendium/spells': 'Zaklecia',
+  '/compendium/races': 'Rasy',
+  '/compendium/equipment': 'Ekwipunek',
+  '/compendium/equipment/weapons': 'Bronie',
+  '/compendium/equipment/armors': 'Zbroje',
+  '/compendium/equipment/shields': 'Tarcze',
+  '/compendium/equipment/inventory': 'Przedmioty',
+  '/compendium/equipment/mounts': 'Wierzchowce',
 };
 
 export const resolveQuickLinkHref = (quickLink: QuickLink) =>

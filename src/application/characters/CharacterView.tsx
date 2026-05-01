@@ -70,8 +70,8 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     </TabsList>
 
                     <div className='flex flex-row place-items-center gap-3'>
-                        <FavoriteCharacterButton characterId={character.id} showLabel />
-                        <MainCharacterButton characterId={character.id} showLabel />
+                        <FavoriteCharacterButton characterId={character.id} />
+                        <MainCharacterButton characterId={character.id} />
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
                         <Button asChild variant="outline" size="icon" className='my-4'>

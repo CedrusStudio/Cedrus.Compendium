@@ -4,8 +4,21 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 import { displayedText } from '@/common/translations';
 
+if (!HTMLElement.prototype.hasPointerCapture) {
+  HTMLElement.prototype.hasPointerCapture = () => false;
+}
+
+if (!HTMLElement.prototype.releasePointerCapture) {
+  HTMLElement.prototype.releasePointerCapture = () => {};
+}
+
+if (!HTMLElement.prototype.scrollIntoView) {
+  HTMLElement.prototype.scrollIntoView = () => {};
+}
+
 const usePersonalizationMock = vi.fn();
 const useFavoriteCharactersMock = vi.fn();
+const useEntityTagsMock = vi.fn();
 
 vi.mock('@/common/hooks/usePersonalization', () => ({
   usePersonalization: () => usePersonalizationMock(),
@@ -13,6 +26,10 @@ vi.mock('@/common/hooks/usePersonalization', () => ({
 
 vi.mock('@/application/personalization/useFavoriteCharacters', () => ({
   useFavoriteCharacters: () => useFavoriteCharactersMock(),
+}));
+
+vi.mock('@/common/hooks/useEntityTags', () => ({
+  useEntityTags: (entity: string) => useEntityTagsMock(entity),
 }));
 
 vi.mock('@/common/components/ApiKeySettings', () => ({
@@ -32,6 +49,8 @@ describe('PersonalizationPage', () => {
   beforeEach(() => {
     useFavoriteCharactersMock.mockReset();
     usePersonalizationMock.mockReset();
+    useEntityTagsMock.mockReset();
+    useEntityTagsMock.mockReturnValue({ tags: [], isLoading: false, error: null });
   });
 
   it('renders the stored profile user name and saves a new one', () => {
@@ -261,5 +280,80 @@ describe('PersonalizationPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Set main character' }));
 
     expect(setMainCharacter).toHaveBeenCalledWith('character-1');
+  });
+
+  it('shows the extended compendium routes in the quick link selector', async () => {
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: createEmptyProfile(),
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      addFavoriteCharacter: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    const quickLinkRouteSelect = document.getElementById('quick-link-route-select');
+
+    expect(quickLinkRouteSelect).not.toBeNull();
+
+    fireEvent.click(quickLinkRouteSelect!);
+
+    expect(await screen.findByText('Ekwipunek')).toBeTruthy();
+    expect(await screen.findByText('Bronie')).toBeTruthy();
+    expect(await screen.findByText('Lista postaci')).toBeTruthy();
+  });
+
+  it('adds a quick tag from the existing tags selector', async () => {
+    const addQuickTag = vi.fn();
+
+    useEntityTagsMock.mockImplementation((entity: string) => ({
+      tags: entity === 'characters' ? ['alchemy', 'witcher'] : [],
+      isLoading: false,
+      error: null,
+    }));
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: createEmptyProfile(),
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag,
+      removeQuickTag: vi.fn(),
+      addFavoriteCharacter: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    const existingTagSelect = document.getElementById('personalization-existing-tag-select');
+
+    expect(existingTagSelect).not.toBeNull();
+
+    fireEvent.click(existingTagSelect!);
+    fireEvent.click(await screen.findByText('alchemy'));
+
+    expect(addQuickTag).toHaveBeenCalledWith('characters', 'alchemy');
   });
 });

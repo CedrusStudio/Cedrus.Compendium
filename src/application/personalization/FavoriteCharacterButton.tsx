@@ -5,7 +5,8 @@ import { Star } from 'lucide-react';
 import { Button } from '@/ui/button';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 
-type FavoriteCharacterButtonProps = {
+type FavoriteCharacterButtonProps = 
+{
   characterId: string;
   showLabel?: boolean;
 };

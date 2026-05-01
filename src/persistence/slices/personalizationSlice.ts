@@ -27,9 +27,19 @@ export const quickLinkRoutes = [
   '/characters/favorites',
   '/bestiary',
   '/compendium',
+  '/compendium/maneuvers',
+  '/compendium/stances',
+  '/compendium/states',
   '/compendium/perks',
   '/compendium/powers',
   '/compendium/spells',
+  '/compendium/races',
+  '/compendium/equipment',
+  '/compendium/equipment/weapons',
+  '/compendium/equipment/armors',
+  '/compendium/equipment/shields',
+  '/compendium/equipment/inventory',
+  '/compendium/equipment/mounts',
 ] as const;
 
 export type PersonalizationContext = typeof personalizationContexts[number];

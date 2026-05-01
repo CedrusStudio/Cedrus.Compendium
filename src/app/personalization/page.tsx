@@ -5,12 +5,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { ulid } from 'ulid';
 import { ApiKeySettings } from '@/common/components/ApiKeySettings';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
+import ExistingTagSelect from '@/common/components/filters/ExistingTagSelect';
 import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
 import { Input } from '@/common/components/ui/input';
+import { type EntityType, useEntityTags } from '@/common/hooks/useEntityTags';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { useFavoriteCharacters } from '@/application/personalization/useFavoriteCharacters';
 import { personalizationContextLabels, personalizationRouteLabels, resolveQuickLinkHref } from '@/application/personalization/personalizationUtils';
-import { personalizationContexts, quickLinkRoutes, QuickLink, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
+import { MAX_QUICK_TAGS_PER_CONTEXT, type PersonalizationContext, personalizationContexts, quickLinkRoutes, QuickLink, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
 import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 import { displayedText } from '@/common/translations';
 import { deleteIcon, editIcon, goToIcon, homeIcon, mainCharacterIcon } from '@/common/icons';
@@ -26,6 +28,23 @@ const quickLinkRouteSelectItems = quickLinkRoutes.map(route => ({
   value: route,
 }));
 
+const personalizationTagEntities: Record<PersonalizationContext, EntityType> = {
+  characters: 'characters',
+  bestiary: 'characters',
+  maneuvers: 'maneuvers',
+  stances: 'stances',
+  states: 'states',
+  perks: 'perks',
+  powers: 'powerSpecifications',
+  spells: 'spells',
+  races: 'races',
+  weapons: 'weapons',
+  armors: 'armors',
+  shields: 'shields',
+  inventory: 'inventory',
+  mounts: 'mounts',
+};
+
 export default function PersonalizationPage()
 {
   const { apiKey, hasApiKey, isLoaded, profile, setUserName, setBestiaryColumnVisibility, clearBestiaryColumnVisibility, addQuickTag, removeQuickTag, removeFavoriteCharacter, setMainCharacter, addQuickLink, removeQuickLink, updateQuickLink } = usePersonalization();
@@ -39,11 +58,13 @@ export default function PersonalizationPage()
   const [editingQuickLinkRoute, setEditingQuickLinkRoute] = useState<QuickLinkRoute>('/characters/favorites');
   const [userNameInput, setUserNameInput] = useState('');
   const [bestiaryColumnVisibilityDraft, setBestiaryColumnVisibilityDraft] = useState(resolveBestiaryColumnVisibility());
+  const { tags: availableTagsForSelectedContext, isLoading: areSelectedContextTagsLoading } = useEntityTags(personalizationTagEntities[selectedContext]);
 
   const favoriteCharacterOptions = useMemo(
     () => favoriteCharacters.map(character => ({ value: character.id, label: character.name })),
     [favoriteCharacters],
   );
+  const selectedContextQuickTags = profile.quickTagsByContext[selectedContext] ?? [];
 
   useEffect(() => 
   {
@@ -216,6 +237,19 @@ export default function PersonalizationPage()
                 </Button>
               </div>
 
+              <div className="flex flex-col gap-3 md:flex-row md:items-center">
+                <p className="text-sm text-muted-foreground">Lub wybierz istniejący tag dla wybranego kontekstu.</p>
+                <ExistingTagSelect
+                  selectorId="personalization-existing-tag-select"
+                  availableTags={availableTagsForSelectedContext}
+                  selectedTags={selectedContextQuickTags}
+                  onSelectTag={tag => addQuickTag(selectedContext, tag)}
+                  isLoading={areSelectedContextTagsLoading}
+                  disabled={selectedContextQuickTags.length >= MAX_QUICK_TAGS_PER_CONTEXT}
+                  triggerClassName="w-full md:w-[260px]"
+                />
+              </div>
+
               <div className="space-y-3">
                 {
                   personalizationContexts.map(context => {
@@ -314,7 +348,7 @@ export default function PersonalizationPage()
                       favoriteCharacterOptions.length > 0 ? favoriteCharacterOptions.map(character => (
                         <div key={character.value} className="flex items-center justify-between gap-3 rounded-md border p-3">
                           <div className="flex min-w-0 items-center gap-2">
-                            <Link href={`/characters/${character.value}`} className="truncate font-medium hover:underline">{character.label}</Link>
+                            <Link href={`/characters/${character.value}`} className="truncate font-medium">{character.label}</Link>
                             {
                               profile.mainCharacterId === character.value && (
                                 <Badge
