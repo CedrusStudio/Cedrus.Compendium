@@ -66,8 +66,8 @@ describe('PersonalizationPage', () => {
     expect(screen.queryByRole('link', { name: 'Zarzadzaj tagami' })).toBeNull();
     expect(screen.getByRole('link', { name: 'Wroc do strony glownej' }).getAttribute('href')).toBe('/');
 
-    fireEvent.change(screen.getByPlaceholderText('Nazwa uzytkownika dla tego API key'), { target: { value: 'Anna' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Zapisz nazwe' }));
+    fireEvent.change(screen.getByPlaceholderText('Nazwa użytkownika dla tego API key'), { target: { value: 'Anna' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz nazwę' }));
 
     expect(setUserName).toHaveBeenCalledWith('Anna');
   });
@@ -100,7 +100,7 @@ describe('PersonalizationPage', () => {
 
     render(<PersonalizationPage />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Wyczysc nazwe' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Wyczyść nazwę' }));
 
     expect(setUserName).toHaveBeenCalledWith(undefined);
   });
@@ -142,7 +142,7 @@ describe('PersonalizationPage', () => {
       powers: true,
     });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Przywroc domyslne kolumny' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Przywróć domyślne kolumny' }));
 
     expect(clearBestiaryColumnVisibility).toHaveBeenCalled();
   });
@@ -223,5 +223,43 @@ describe('PersonalizationPage', () => {
 
     expect(screen.queryByRole('link', { name: 'Otworz ulubione' })).toBeNull();
     expect(screen.getByRole('link', { name: 'Przejdz do postaci Geralt' })).toHaveAttribute('href', '/characters/character-1');
+  });
+
+  it('allows selecting the main character directly from the favorites rows', () => {
+    const setMainCharacter = vi.fn();
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        favoriteCharacterIds: ['character-1'],
+      },
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      addFavoriteCharacter: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter,
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({
+      favoriteCharacters: [{ id: 'character-1', name: 'Geralt', shortName: 'Ger' }],
+      isLoading: false,
+    });
+
+    render(<PersonalizationPage />);
+
+    expect(screen.queryByText('Główna postać')).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Set main character' }));
+
+    expect(setMainCharacter).toHaveBeenCalledWith('character-1');
   });
 });

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { ulid } from 'ulid';
 import { ApiKeySettings } from '@/common/components/ApiKeySettings';
+import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
 import { Input } from '@/common/components/ui/input';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
@@ -16,7 +17,6 @@ import { deleteIcon, editIcon, goToIcon, homeIcon, mainCharacterIcon } from '@/c
 import { Button } from "@/ui/button";
 import { Badge } from '@/common/components/ui/badge';
 
-const noneMainCharacterValue = '__none__';
 const contextSelectItems = personalizationContexts.map(context => ({
   label: personalizationContextLabels[context],
   value: context,
@@ -43,10 +43,6 @@ export default function PersonalizationPage()
   const favoriteCharacterOptions = useMemo(
     () => favoriteCharacters.map(character => ({ value: character.id, label: character.name })),
     [favoriteCharacters],
-  );
-  const mainCharacterSelectItems = useMemo(
-    () => [{ value: noneMainCharacterValue, label: 'Brak glownej postaci' }, ...favoriteCharacterOptions],
-    [favoriteCharacterOptions],
   );
 
   useEffect(() => 
@@ -156,27 +152,27 @@ export default function PersonalizationPage()
           <div className="rounded-lg border p-6 text-center">
             <p className="text-lg font-medium">Najpierw ustaw API key.</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              Profile personalizacji sa rozdzielone per API key, wiec bez klucza nie da sie zapisac preferencji.
+              Profile personalizacji są rozdzielone per API key, więc bez klucza nie da się zapisać preferencji.
             </p>
           </div>
         ) : (
           <>
             <section className="rounded-lg border p-6 space-y-4">
               <div>
-                <h2 className="text-2xl font-semibold">Profil uzytkownika</h2>
-                <p className="text-sm text-muted-foreground">Powiaz czytelna nazwe z aktywnym API key bez zmiany samego klucza.</p>
+                <h2 className="text-2xl font-semibold">Profil użytkownika</h2>
+                <p className="text-sm text-muted-foreground">Powiąż czytelną nazwę z aktywnym API key bez zmiany samego klucza.</p>
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
                 <Input
                   value={userNameInput}
                   onChange={event => setUserNameInput(event.target.value)}
-                  placeholder="Nazwa uzytkownika dla tego API key"
+                  placeholder="Nazwa użytkownika dla tego API key"
                   className="md:flex-1"
                 />
 
                 <Button type="button" variant="outline" onClick={() => setUserName(userNameInput)}>
-                  Zapisz nazwe
+                  Zapisz nazwę
                 </Button>
 
                 <Button
@@ -187,7 +183,7 @@ export default function PersonalizationPage()
                     setUserNameInput('');
                   }}
                 >
-                  Wyczysc nazwe
+                  Wyczyść nazwę
                 </Button>
               </div>
             </section>
@@ -195,7 +191,7 @@ export default function PersonalizationPage()
             <section className="rounded-lg border p-6 space-y-4">
               <div>
                 <h2 className="text-2xl font-semibold">Szybkie tagi</h2>
-                <p className="text-sm text-muted-foreground">Mozesz zapisac maksymalnie 5 tagow na kontekst.</p>
+                <p className="text-sm text-muted-foreground">Możesz zapisać maksymalnie 5 tagów na kontekst.</p>
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
@@ -300,7 +296,7 @@ export default function PersonalizationPage()
                     setBestiaryColumnVisibilityDraft(resolveBestiaryColumnVisibility());
                   }}
                 >
-                  Przywroc domyslne kolumny
+                  Przywróć domyślne kolumny
                 </Button>
               </div>
             </section>
@@ -321,14 +317,19 @@ export default function PersonalizationPage()
                             <Link href={`/characters/${character.value}`} className="truncate font-medium hover:underline">{character.label}</Link>
                             {
                               profile.mainCharacterId === character.value && (
-                                <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                                <Badge
+                                  variant="secondary"
+                                  className="h-7 min-w-7 rounded-full border-amber-400/50 bg-amber-100/80 p-0 text-amber-700 shadow-sm dark:bg-amber-500/20 dark:text-amber-200"
+                                  title={`Główna postać ${character.label}`}
+                                >
                                   {mainCharacterIcon('h-3.5 w-3.5')}
-                                  Main
-                                </span>
+                                  <span className="sr-only">Główna postać {character.label}</span>
+                                </Badge>
                               )
                             }
                           </div>
                           <div className="flex items-center gap-2">
+                            <MainCharacterButton characterId={character.value} />
                             <Button asChild type="button" variant="outline" size="icon">
                               <Link
                                 href={`/characters/${character.value}`}
@@ -355,18 +356,6 @@ export default function PersonalizationPage()
                   </div>
                 )
               }
-
-              <div className="space-y-2">
-                <Badge variant="icon">{mainCharacterIcon('h-3.5 w-3.5')}</Badge>
-                <SelectOneOfStrings
-                  id="main-character-select"
-                  value={profile.mainCharacterId ?? noneMainCharacterValue}
-                  items={mainCharacterSelectItems}
-                  onChange={value => setMainCharacter(value === noneMainCharacterValue ? undefined : value)}
-                  triggerClassName="w-full"
-                  capitalize={false}
-                />
-              </div>
             </section>
 
             <section className="rounded-lg border p-6 space-y-4">
