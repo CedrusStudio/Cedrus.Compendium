@@ -6,6 +6,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAdminStatus } from '@/common/hooks/useAdminStatus';
 import tagManagementClient from '@/infrastructure/clients/tagManagementClient';
 import { EntityType } from '@/infrastructure/clients/tagsClient';
+import { Button } from '@/ui/button';
+import { leftIcon } from '@/common/icons';
 
 type PendingAction =
   | { type: 'rename'; tag: string; count: number }
@@ -109,28 +111,31 @@ export default function TagManagementPage()
           </p>
         </div>
 
-        <Link href="/admin" className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-          Wroc do panelu admina
-        </Link>
+        <Button asChild variant="outline" size="icon">
+          <Link href="/admin" aria-label="Wroc do panelu admina">{leftIcon}</Link>
+        </Button>
       </div>
 
       <div className="rounded-lg border p-4">
-        <label className="text-sm font-medium">Typ encji</label>
-        <select
-          className="mt-2 w-full rounded-md border bg-background px-3 py-2 md:max-w-sm"
-          value={selectedEntity}
-          onChange={event => {
-            setSelectedEntity(event.target.value as EntityType);
-            setPendingAction(null);
-            setNextTagValue('');
-          }}
-        >
-          {
-            entityOptions.map(entity => (
-              <option key={entity} value={entity}>{entityLabels[entity]}</option>
-            ))
-          }
-        </select>
+        <div className="space-y-2 md:max-w-sm">
+          <label htmlFor="tag-entity-select" className="text-sm font-medium text-muted-foreground">Typ encji</label>
+          <select
+            id="tag-entity-select"
+            className="h-11 w-full rounded-md border bg-background px-3 py-2 text-sm shadow-sm"
+            value={selectedEntity}
+            onChange={event => {
+              setSelectedEntity(event.target.value as EntityType);
+              setPendingAction(null);
+              setNextTagValue('');
+            }}
+          >
+            {
+              entityOptions.map(entity => (
+                <option key={entity} value={entity}>{entityLabels[entity]}</option>
+              ))
+            }
+          </select>
+        </div>
       </div>
 
       {
@@ -188,9 +193,9 @@ export default function TagManagementPage()
       }
 
       <div className="rounded-lg border overflow-hidden">
-        <div className="grid grid-cols-[1fr_120px_220px] gap-4 border-b bg-muted/40 px-4 py-3 text-sm font-medium">
+        <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_120px_180px] md:items-center md:gap-4 border-b bg-muted/40 px-4 py-3 text-sm font-medium">
           <span>Tag</span>
-          <span>Liczba uzyc</span>
+          <span className="text-center">Liczba uzyc</span>
           <span>Akcje</span>
         </div>
 
@@ -203,13 +208,21 @@ export default function TagManagementPage()
             <div className="px-4 py-6 text-sm text-muted-foreground">Brak tagow dla wybranego typu encji.</div>
           ) : (
             sortedTags.map(managedTag => (
-              <div key={managedTag.tag} className="grid grid-cols-[1fr_120px_220px] gap-4 border-t px-4 py-3 text-sm">
-                <span className="font-medium">{managedTag.tag}</span>
-                <span>{managedTag.count}</span>
-                <div className="flex flex-wrap gap-2">
+              <div key={managedTag.tag} className="grid gap-3 border-t px-4 py-4 text-sm md:grid-cols-[minmax(0,1fr)_120px_180px] md:items-center md:gap-4 md:py-3">
+                <div className="space-y-1 min-w-0">
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Tag</span>
+                  <div className="font-medium break-all">{managedTag.tag}</div>
+                </div>
+                <div className="flex items-center justify-between gap-3 md:block md:text-center">
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Liczba uzyc</span>
+                  <span className="inline-flex min-w-10 items-center justify-center rounded-full bg-muted px-2.5 py-1 font-medium">{managedTag.count}</span>
+                </div>
+                <div className="space-y-2">
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Akcje</span>
+                  <div className="flex flex-col gap-2 sm:flex-row md:flex-wrap">
                   <button
                     type="button"
-                    className="rounded-md border px-3 py-1 hover:bg-muted"
+                    className="w-full rounded-md border px-3 py-2 hover:bg-muted sm:w-auto"
                     onClick={() => {
                       setPendingAction({ type: 'rename', tag: managedTag.tag, count: managedTag.count });
                       setNextTagValue('');
@@ -219,7 +232,7 @@ export default function TagManagementPage()
                   </button>
                   <button
                     type="button"
-                    className="rounded-md border px-3 py-1 hover:bg-muted"
+                    className="w-full rounded-md border px-3 py-2 hover:bg-muted sm:w-auto"
                     onClick={() => {
                       setPendingAction({ type: 'delete', tag: managedTag.tag, count: managedTag.count });
                       setNextTagValue('');
@@ -228,6 +241,7 @@ export default function TagManagementPage()
                     Delete
                   </button>
                 </div>
+              </div>
               </div>
             ))
           )
