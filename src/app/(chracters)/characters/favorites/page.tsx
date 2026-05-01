@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useMemo } from 'react';
+import MainCharacterBadge from '@/application/personalization/MainCharacterBadge';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import { useFavoriteCharacters } from '@/application/personalization/useFavoriteCharacters';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
-import { mainCharacterIcon } from '@/common/icons';
 
 export default function FavoriteCharactersPage()
 {
@@ -75,10 +75,7 @@ export default function FavoriteCharactersPage()
                       <h2 className="text-2xl font-semibold">{character.name}</h2>
                       {
                         profile.mainCharacterId === character.id && (
-                          <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground">
-                            {mainCharacterIcon('h-3.5 w-3.5')}
-                            Main
-                          </span>
+                          <MainCharacterBadge characterLabel={character.name} />
                         )
                       }
                     </div>

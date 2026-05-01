@@ -57,6 +57,6 @@ describe('FavoriteCharactersPage', () => {
 
     expect(headings[0]).toHaveTextContent('Alpha');
     expect(headings[1]).toHaveTextContent('Beta');
-    expect(screen.getByText('Main')).toBeTruthy();
+    expect(screen.getByTitle('Główna postać Alpha')).toBeTruthy();
   });
 });

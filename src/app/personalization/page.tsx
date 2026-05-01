@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { ulid } from 'ulid';
 import { ApiKeySettings } from '@/common/components/ApiKeySettings';
+import MainCharacterBadge from '@/application/personalization/MainCharacterBadge';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 import ExistingTagSelect from '@/common/components/filters/ExistingTagSelect';
 import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
@@ -15,9 +16,8 @@ import { personalizationContextLabels, personalizationRouteLabels, resolveQuickL
 import { MAX_QUICK_TAGS_PER_CONTEXT, type PersonalizationContext, personalizationContexts, quickLinkRoutes, QuickLink, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
 import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 import { displayedText } from '@/common/translations';
-import { deleteIcon, editIcon, goToIcon, homeIcon, mainCharacterIcon } from '@/common/icons';
+import { deleteIcon, editIcon, goToIcon, homeIcon } from '@/common/icons';
 import { Button } from "@/ui/button";
-import { Badge } from '@/common/components/ui/badge';
 
 const contextSelectItems = personalizationContexts.map(context => ({
   label: personalizationContextLabels[context],
@@ -351,14 +351,7 @@ export default function PersonalizationPage()
                             <Link href={`/characters/${character.value}`} className="truncate font-medium">{character.label}</Link>
                             {
                               profile.mainCharacterId === character.value && (
-                                <Badge
-                                  variant="secondary"
-                                  className="h-7 min-w-7 rounded-full border-amber-400/50 bg-amber-100/80 p-0 text-amber-700 shadow-sm dark:bg-amber-500/20 dark:text-amber-200"
-                                  title={`Główna postać ${character.label}`}
-                                >
-                                  {mainCharacterIcon('h-3.5 w-3.5')}
-                                  <span className="sr-only">Główna postać {character.label}</span>
-                                </Badge>
+                                <MainCharacterBadge characterLabel={character.label} />
                               )
                             }
                           </div>
