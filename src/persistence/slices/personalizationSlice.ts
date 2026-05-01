@@ -3,6 +3,8 @@ import { getStoredApiKey } from '@/common/hooks/useApiKey';
 import { BestiaryColumnPreferenceKey, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
 const PERSONALIZATION_STORAGE_KEY = 'cedrus-personalization-profiles';
+const PERSONALIZATION_EXPORT_FORMAT = 'cedrus-personalization-profile';
+const PERSONALIZATION_EXPORT_VERSION = 1;
 export const MAX_QUICK_TAGS_PER_CONTEXT = 5;
 
 export const personalizationContexts = [
@@ -68,6 +70,12 @@ export type PersonalizationProfile = {
   mainCharacterId?: string;
 };
 
+export type PersonalizationProfileExport = {
+  format: typeof PERSONALIZATION_EXPORT_FORMAT;
+  version: typeof PERSONALIZATION_EXPORT_VERSION;
+  profile: PersonalizationProfile;
+};
+
 export type PersonalizationSliceState = {
   profilesByApiKey: Record<string, PersonalizationProfile>;
   activeApiKey: string | null;
@@ -77,6 +85,15 @@ type QuickTagPayload = {
   context: PersonalizationContext;
   tag: string;
 };
+
+const personalizationProfileKeys = [
+  'userName',
+  'bestiaryColumnVisibility',
+  'quickTagsByContext',
+  'favoriteCharacterIds',
+  'quickLinks',
+  'mainCharacterId',
+] as const;
 
 const createEmptyProfile = (): PersonalizationProfile => ({
   userName: undefined,
@@ -88,6 +105,10 @@ const createEmptyProfile = (): PersonalizationProfile => ({
 });
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null;
+
+const isQuickLinkRoute = (value: unknown): value is QuickLinkRoute => typeof value === 'string' && quickLinkRoutes.includes(value as QuickLinkRoute);
+
+const hasRecognizedProfileProperty = (value: Record<string, unknown>) => personalizationProfileKeys.some(key => key in value);
 
 const sanitizeProfile = (value: unknown): PersonalizationProfile => {
   if (!isRecord(value)) return createEmptyProfile();
@@ -111,7 +132,7 @@ const sanitizeProfile = (value: unknown): PersonalizationProfile => {
         }
 
         if (quickLink.type === 'route') {
-          return typeof quickLink.href === 'string';
+          return isQuickLinkRoute(quickLink.href);
         }
 
         if (quickLink.type === 'character') {
@@ -122,7 +143,9 @@ const sanitizeProfile = (value: unknown): PersonalizationProfile => {
       })
     : [];
 
-  const mainCharacterId = typeof value.mainCharacterId === 'string' ? value.mainCharacterId : undefined;
+  const mainCharacterId = typeof value.mainCharacterId === 'string' && favoriteCharacterIds.includes(value.mainCharacterId)
+    ? value.mainCharacterId
+    : undefined;
   const userName = typeof value.userName === 'string' && value.userName.trim().length > 0 ? value.userName.trim() : undefined;
   const bestiaryColumnVisibility = isRecord(value.bestiaryColumnVisibility)
     ? resolveBestiaryColumnVisibility(value.bestiaryColumnVisibility as Partial<Record<BestiaryColumnPreferenceKey, boolean>>)
@@ -136,6 +159,26 @@ const sanitizeProfile = (value: unknown): PersonalizationProfile => {
     quickLinks,
     mainCharacterId,
   };
+};
+
+const createPersonalizationProfileExport = (profile: PersonalizationProfile): PersonalizationProfileExport => ({
+  format: PERSONALIZATION_EXPORT_FORMAT,
+  version: PERSONALIZATION_EXPORT_VERSION,
+  profile: sanitizeProfile(profile),
+});
+
+const parsePersonalizationProfileImport = (value: unknown): PersonalizationProfile | null => {
+  if (!isRecord(value)) return null;
+
+  if (
+    value.format === PERSONALIZATION_EXPORT_FORMAT
+    && value.version === PERSONALIZATION_EXPORT_VERSION
+    && 'profile' in value
+  ) {
+    return sanitizeProfile(value.profile);
+  }
+
+  return hasRecognizedProfileProperty(value) ? sanitizeProfile(value) : null;
 };
 
 const loadProfilesFromLocalStorage = (): Record<string, PersonalizationProfile> => {
@@ -309,8 +352,20 @@ const personalizationSlice = createSlice({
       profile.quickLinks[index] = action.payload;
       persistProfiles(state);
     },
+    replaceProfile(state, action: PayloadAction<PersonalizationProfile>) {
+      if (!state.activeApiKey) return;
+
+      state.profilesByApiKey[state.activeApiKey] = sanitizeProfile(action.payload);
+      persistProfiles(state);
+    },
   },
 });
 
 export const { actions, reducer } = personalizationSlice;
-export { PERSONALIZATION_STORAGE_KEY, createEmptyProfile };
+export {
+  PERSONALIZATION_EXPORT_VERSION,
+  PERSONALIZATION_STORAGE_KEY,
+  createEmptyProfile,
+  createPersonalizationProfileExport,
+  parsePersonalizationProfileImport,
+};

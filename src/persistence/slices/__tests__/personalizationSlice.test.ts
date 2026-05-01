@@ -6,6 +6,7 @@ vi.mock('@/common/hooks/useApiKey', () => ({
 }));
 
 import { actions, createEmptyProfile, PERSONALIZATION_STORAGE_KEY, reducer, MAX_QUICK_TAGS_PER_CONTEXT, PersonalizationSliceState } from '@/persistence/slices/personalizationSlice';
+import { createPersonalizationProfileExport, parsePersonalizationProfileImport } from '@/persistence/slices/personalizationSlice';
 
 describe('personalizationSlice', () => {
   beforeEach(() => {
@@ -169,6 +170,20 @@ describe('personalizationSlice', () => {
     );
   });
 
+  it('creates a missing active profile on demand when a mutation runs', () => {
+    let state = createState({
+      activeApiKey: 'gamma',
+      profilesByApiKey: {},
+    });
+
+    state = reducer(state, actions.setUserName('Gamma'));
+
+    expect(state.profilesByApiKey.gamma).toEqual({
+      ...createEmptyProfile(),
+      userName: 'Gamma',
+    });
+  });
+
   it('ignores blank and duplicate quick tags and removes saved tags', () => {
     let state = createState();
 
@@ -261,5 +276,80 @@ describe('personalizationSlice', () => {
         href: '/compendium',
       },
     ]);
+  });
+
+  it('replaces the active profile from a sanitized import payload and persists it', () => {
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+    let state = createState();
+
+    const importedProfile = parsePersonalizationProfileImport({
+      format: 'cedrus-personalization-profile',
+      version: 1,
+      profile: {
+        userName: '  Anna  ',
+        favoriteCharacterIds: ['character-1'],
+        mainCharacterId: 'character-1',
+        quickTagsByContext: {
+          powers: ['fire', 'ice', 'earth', 'wind', 'light', 'shadow'],
+        },
+        quickLinks: [
+          {
+            id: 'valid-route',
+            label: 'Compendium',
+            type: 'route',
+            href: '/compendium',
+          },
+          {
+            id: 'invalid-route',
+            label: 'Broken',
+            type: 'route',
+            href: '/broken',
+          },
+        ],
+      },
+    });
+
+    expect(importedProfile).not.toBeNull();
+
+    state = reducer(state, actions.replaceProfile(importedProfile!));
+
+    expect(state.profilesByApiKey.alpha).toEqual({
+      ...createEmptyProfile(),
+      userName: 'Anna',
+      favoriteCharacterIds: ['character-1'],
+      mainCharacterId: 'character-1',
+      quickTagsByContext: {
+        powers: ['fire', 'ice', 'earth', 'wind', 'light'],
+      },
+      quickLinks: [
+        {
+          id: 'valid-route',
+          label: 'Compendium',
+          type: 'route',
+          href: '/compendium',
+        },
+      ],
+    });
+    expect(setItemSpy).toHaveBeenCalledWith(
+      PERSONALIZATION_STORAGE_KEY,
+      JSON.stringify(state.profilesByApiKey),
+    );
+  });
+
+  it('creates a versioned export payload and rejects unrelated import objects', () => {
+    const exportPayload = createPersonalizationProfileExport({
+      ...createEmptyProfile(),
+      userName: 'Marek',
+    });
+
+    expect(exportPayload).toEqual({
+      format: 'cedrus-personalization-profile',
+      version: 1,
+      profile: {
+        ...createEmptyProfile(),
+        userName: 'Marek',
+      },
+    });
+    expect(parsePersonalizationProfileImport({ foo: 'bar' })).toBeNull();
   });
 });
