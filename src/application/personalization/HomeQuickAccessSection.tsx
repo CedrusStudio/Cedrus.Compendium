@@ -22,12 +22,12 @@ export default function HomeQuickAccessSection()
       {
         !hasApiKey ? (
           <div className="mx-auto max-w-3xl rounded-lg border p-6 text-center">
-            <p className="text-lg font-medium">Ustaw API key, aby wlaczyc personalizacje.</p>
+            <p className="text-lg font-medium">Ustaw API key, aby włączyć personalizację.</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              Po konfiguracji zobaczysz tutaj szybkie linki, glowna postac i dostep do ulubionych.
+              Po konfiguracji zobaczysz tutaj szybkie linki, główną postać i dostęp do ulubionych.
             </p>
             <Link href="/personalization" className="mt-4 inline-flex rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-              Przejdz do personalizacji
+              Przejdź do personalizacji
             </Link>
           </div>
         ) : hasQuickAccess ? (
@@ -35,8 +35,8 @@ export default function HomeQuickAccessSection()
             {
               profile.mainCharacterId && (
                 <Link href={`/characters/${profile.mainCharacterId}`} className="rounded-lg border p-6 hover:bg-muted transition-colors">
-                  <h3 className="text-xl font-semibold">Glowna postac</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">Przejdz od razu do wybranej postaci.</p>
+                  <h3 className="text-xl font-semibold">Główna postać</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">Przejdź od razu do wybranej postaci.</p>
                 </Link>
               )
             }
@@ -55,7 +55,7 @@ export default function HomeQuickAccessSection()
                 <Link key={quickLink.id} href={resolveQuickLinkHref(quickLink)} className="rounded-lg border p-6 hover:bg-muted transition-colors">
                   <h3 className="text-xl font-semibold">{quickLink.label}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    {quickLink.type === 'route' ? personalizationRouteLabels[quickLink.href] : 'Skrot do postaci'}
+                    {quickLink.type === 'route' ? personalizationRouteLabels[quickLink.href] : 'Skrót do postaci'}
                   </p>
                 </Link>
               ))
@@ -63,12 +63,12 @@ export default function HomeQuickAccessSection()
           </div>
         ) : (
           <div className="mx-auto max-w-3xl rounded-lg border p-6 text-center">
-            <p className="text-lg font-medium">Profil jest aktywny, ale nie ma jeszcze zapisanych skrotow.</p>
+            <p className="text-lg font-medium">Profil jest aktywny, ale nie ma jeszcze zapisanych skrótów.</p>
             <p className="mt-2 text-sm text-muted-foreground">
               Dodaj szybkie tagi, ulubione postacie lub linki na stronie personalizacji.
             </p>
             <Link href="/personalization" className="mt-4 inline-flex rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-              Otworz personalizacje
+              Otwórz personalizację
             </Link>
           </div>
         )

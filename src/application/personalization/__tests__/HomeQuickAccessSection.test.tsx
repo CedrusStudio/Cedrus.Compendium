@@ -88,7 +88,7 @@ describe('HomeQuickAccessSection', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('link', { name: /Glowna postac/i })).toHaveAttribute('href', '/characters/character-1');
+    expect(screen.getByRole('link', { name: /Główna postać/i })).toHaveAttribute('href', '/characters/character-1');
     expect(screen.getByRole('link', { name: /Kompendium/ })).toHaveAttribute('href', '/compendium');
   });
 });

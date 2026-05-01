@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from 'next-themes';
 import { Button } from '@/ui/button';
@@ -9,6 +9,12 @@ import { displayedText } from '@/common/translations';
 export default function ThemeMode() 
 {
   const { resolvedTheme, setTheme, theme } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => 
+  {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => 
   {
@@ -20,12 +26,15 @@ export default function ThemeMode()
 
   const isDarkMode = (resolvedTheme ?? theme) === 'dark';
   const nextTheme = isDarkMode ? 'light' : 'dark';
+  const ariaLabel = isMounted
+    ? `Switch to ${nextTheme === 'light' ? displayedText.light : displayedText.dark}`
+    : 'Switch theme';
 
   return (
     <Button
       variant='outline'
       size='icon'
-      aria-label={`Switch to ${nextTheme === 'light' ? displayedText.light : displayedText.dark}`}
+      aria-label={ariaLabel}
       onClick={() => setTheme(nextTheme)}
     >
       <FiSun className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />

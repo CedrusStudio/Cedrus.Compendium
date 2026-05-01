@@ -61,7 +61,7 @@ describe('RequirementsManagementPage', () => {
 
     expect(await screen.findByText('Alchemia')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Rename' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Edytuj' }));
 
     expect(screen.getByText('Wymaganie Alchemia zostanie zmienione w 3 rekordach.')).toBeTruthy();
     expect(screen.getByPlaceholderText('Nowa wartosc wymagania')).toBeTruthy();
@@ -84,9 +84,9 @@ describe('RequirementsManagementPage', () => {
 
     expect(await screen.findByText('Alchemia')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Rename' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Edytuj' }));
     fireEvent.change(screen.getByPlaceholderText('Nowa wartosc wymagania'), { target: { value: 'Zrecznosc' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Potwierdz rename' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Potwierdz zmiane' }));
 
     await waitFor(() => {
       expect(renameRequirementMock).toHaveBeenCalledWith({ entity: 'perks', oldRequirement: 'Alchemia', newRequirement: 'Zrecznosc' });

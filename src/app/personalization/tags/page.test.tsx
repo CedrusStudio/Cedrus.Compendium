@@ -61,10 +61,10 @@ describe('TagManagementPage', () => {
 
     expect(await screen.findByText('miecze')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Rename' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Edytuj' }));
 
     expect(screen.getByText('Tag miecze zostanie zmieniony w 3 rekordach.')).toBeTruthy();
-    expect(screen.getByPlaceholderText('Nowa wartosc tagu')).toBeTruthy();
+    expect(screen.getByPlaceholderText('Nowa wartość tagu')).toBeTruthy();
   });
 
   it('shows an access message when the user is not an admin', async () => {
@@ -72,7 +72,7 @@ describe('TagManagementPage', () => {
 
     renderPage();
 
-    expect(screen.getByText('Ta sekcja jest dostepna tylko dla administratorow.')).toBeTruthy();
+    expect(screen.getByText('Ta sekcja jest dostępna tylko dla administratorów.')).toBeTruthy();
   });
 
   it('calls the rename mutation with the selected entity and confirmation value', async () => {
@@ -84,9 +84,9 @@ describe('TagManagementPage', () => {
 
     expect(await screen.findByText('miecze')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Rename' }));
-    fireEvent.change(screen.getByPlaceholderText('Nowa wartosc tagu'), { target: { value: 'ostrza' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Potwierdz rename' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Edytuj' }));
+    fireEvent.change(screen.getByPlaceholderText('Nowa wartość tagu'), { target: { value: 'ostrza' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Potwierdź zmianę' }));
 
     await waitFor(() => {
       expect(renameTagMock).toHaveBeenCalledWith({ entity: 'perks', oldTag: 'miecze', newTag: 'ostrza' });

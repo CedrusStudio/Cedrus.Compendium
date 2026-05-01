@@ -278,7 +278,7 @@ export default function PersonalizationPage()
               }
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Glowna postac</label>
+                <label className="text-sm font-medium">Główna postać</label>
                 <select
                   className="w-full rounded-md border bg-background px-3 py-2"
                   value={profile.mainCharacterId ?? ''}

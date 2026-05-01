@@ -1,19 +1,11 @@
 "use client";
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAdminStatus } from '@/common/hooks/useAdminStatus';
-import tagManagementClient from '@/infrastructure/clients/tagManagementClient';
+import tagManagementClient, { ManagedTag } from '@/infrastructure/clients/tagManagementClient';
 import { EntityType } from '@/infrastructure/clients/tagsClient';
-import { Button } from '@/ui/button';
-import { leftIcon } from '@/common/icons';
-import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
-
-type PendingAction =
-  | { type: 'rename'; tag: string; count: number }
-  | { type: 'delete'; tag: string; count: number }
-  | null;
+import AdminEntityManagementPanel from '@/app/admin/components/AdminEntityManagementPanel';
+import { useAdminEntityManagement } from '@/app/admin/components/useAdminEntityManagement';
 
 const entityLabels: Record<EntityType, string> = {
   characters: 'Postacie',
@@ -37,59 +29,16 @@ const entitySelectItems = entityOptions.map(entity => ({ label: entityLabels[ent
 export default function TagManagementPage()
 {
   const { isAdmin, isCheckingAdmin, isLoaded } = useAdminStatus();
-  const [selectedEntity, setSelectedEntity] = useState<EntityType>('perks');
-  const [pendingAction, setPendingAction] = useState<PendingAction>(null);
-  const [nextTagValue, setNextTagValue] = useState('');
-  const queryClient = useQueryClient();
-
-  const { data: managedTags = [], isLoading, error } = useQuery
-  ({
-    queryKey: ['tagManagement', selectedEntity],
-    queryFn: () => tagManagementClient.getTags(selectedEntity),
-    staleTime: 5 * 60 * 1000,
+  const management = useAdminEntityManagement<EntityType, ManagedTag>({
     enabled: isLoaded && isAdmin,
+    initialEntity: 'perks',
+    queryKeyPrefix: 'tagManagement',
+    invalidationKeys: ['entityTags'],
+    getRows: entity => tagManagementClient.getTags(entity),
+    toRow: row => ({ value: row.tag, count: row.count }),
+    renameRow: (entity, oldValue, newValue) => tagManagementClient.renameTag({ entity, oldTag: oldValue, newTag: newValue }),
+    deleteRow: (entity, value) => tagManagementClient.deleteTag({ entity, tag: value }),
   });
-
-  const invalidateEntityQueries = async (entity: EntityType) => 
-  {
-    await queryClient.invalidateQueries
-    ({
-      predicate: query =>
-        Array.isArray(query.queryKey)
-        && query.queryKey.some(key => key === entity || key === 'tagManagement' || key === 'entityTags'),
-    });
-  };
-
-  const renameMutation = useMutation
-  ({
-    mutationFn: () => tagManagementClient.renameTag({
-      entity: selectedEntity,
-      oldTag: pendingAction?.tag ?? '',
-      newTag: nextTagValue,
-    }),
-    onSuccess: async () => 
-    {
-      await invalidateEntityQueries(selectedEntity);
-      setPendingAction(null);
-      setNextTagValue('');
-    },
-  });
-
-  const deleteMutation = useMutation
-  ({
-    mutationFn: () => tagManagementClient.deleteTag
-    ({
-      entity: selectedEntity,
-      tag: pendingAction?.tag ?? '',
-    }),
-    onSuccess: async () => 
-    {
-      await invalidateEntityQueries(selectedEntity);
-      setPendingAction(null);
-    },
-  });
-
-  const sortedTags = useMemo(() => [...managedTags].sort((left, right) => left.tag.localeCompare(right.tag)), [managedTags]);
 
   if (!isLoaded || isCheckingAdmin)
   {
@@ -109,146 +58,37 @@ export default function TagManagementPage()
   }
 
   return (
-    <div className="container mx-auto px-6 py-12 max-w-6xl space-y-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-4xl font-bold">Zarządzanie tagami</h1>
-          <p className="mt-2 text-muted-foreground">
-            Przeglądaj tagi po typie encji, sprawdzaj liczbę wystąpień i wykonuj zbiorcze zmiany.
-          </p>
-        </div>
-
-        <Button asChild variant="outline" size="icon">
-          <Link href="/admin" aria-label="Wróć do panelu admina">{leftIcon}</Link>
-        </Button>
-      </div>
-
-      <div className="">
-        <div className="md:max-w-sm">
-          <SelectOneOfStrings
-            id="tag-entity-select"
-            value={selectedEntity}
-            items={entitySelectItems}
-            onChange={value => 
-            {
-              setSelectedEntity(value as EntityType);
-              setPendingAction(null);
-              setNextTagValue('');
-            }}
-            triggerClassName="h-11 w-36 border bg-background px-3 py-2 text-sm shadow-sm"
-          />
-        </div>
-      </div>
-
-      {
-        pendingAction && (
-          <div className="rounded-lg border p-6">
-            <div>
-              <h2 className="text-2xl font-semibold">Potwierdzenie operacji</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {pendingAction.type === 'rename'
-                  ? `Tag ${pendingAction.tag} zostanie zmieniony w ${pendingAction.count} rekordach.`
-                  : `Tag ${pendingAction.tag} zostanie usunięty z ${pendingAction.count} rekordów.`}
-              </p>
-            </div>
-
-            {
-              pendingAction.type === 'rename' && (
-                <input
-                  className="w-full rounded-md border bg-background px-3 py-2 md:max-w-sm"
-                  placeholder="Nowa wartość tagu"
-                  value={nextTagValue}
-                  onChange={event => setNextTagValue(event.target.value)}
-                />
-              )
-            }
-
-            <div className="flex flex-wrap gap-3">
-              {
-                pendingAction.type === 'rename' ? (
-                  <button
-                    type="button"
-                    className="rounded-md border px-4 py-2 font-medium hover:bg-muted disabled:opacity-50"
-                    onClick={() => renameMutation.mutate()}
-                    disabled={!nextTagValue.trim() || renameMutation.isPending}
-                  >
-                    Potwierdź zmianę
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="rounded-md border px-4 py-2 font-medium hover:bg-muted disabled:opacity-50"
-                    onClick={() => deleteMutation.mutate()}
-                    disabled={deleteMutation.isPending}
-                  >
-                    Potwierdź usunięcie
-                  </button>
-                )
-              }
-
-              <button type="button" className="rounded-md border px-4 py-2 font-medium hover:bg-muted" onClick={() => { setPendingAction(null); setNextTagValue(''); }}>
-                Anuluj
-              </button>
-            </div>
-          </div>
-        )
-      }
-
-      <div className="rounded-lg border overflow-hidden">
-        <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_120px_180px] md:items-center md:gap-4 border-b bg-muted/40 px-4 py-3 text-sm font-medium">
-          <span>Tag</span>
-          <span className="text-center">Liczba użyć</span>
-          <span>Akcje</span>
-        </div>
-
-        {
-          isLoading ? (
-            <div className="px-4 py-6 text-sm text-muted-foreground">Ładowanie tagów...</div>
-          ) : error ? (
-            <div className="px-4 py-6 text-sm text-destructive">Nie udało się pobrać listy tagów.</div>
-          ) : sortedTags.length === 0 ? (
-            <div className="px-4 py-6 text-sm text-muted-foreground">Brak tagów dla wybranego typu encji.</div>
-          ) : (
-            sortedTags.map(managedTag => (
-              <div key={managedTag.tag} className="grid gap-3 border-t px-4 py-4 text-sm md:grid-cols-[minmax(0,1fr)_120px_180px] md:items-center md:gap-4 md:py-3">
-                <div className="space-y-1 min-w-0">
-                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Tag</span>
-                  <div className="font-medium break-all">{managedTag.tag}</div>
-                </div>
-                <div className="flex items-center justify-between gap-3 md:block md:text-center">
-                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Liczba użyć</span>
-                  <span className="inline-flex min-w-10 items-center justify-center rounded-full bg-muted px-2.5 py-1 font-medium">{managedTag.count}</span>
-                </div>
-                <div className="space-y-2">
-                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Akcje</span>
-                  <div className="flex flex-col gap-2 sm:flex-row md:flex-wrap">
-                  <button
-                    type="button"
-                    className="w-full rounded-md border px-3 py-2 hover:bg-muted sm:w-auto"
-                    onClick={() => {
-                      setPendingAction({ type: 'rename', tag: managedTag.tag, count: managedTag.count });
-                      setNextTagValue('');
-                    }}
-                  >
-                    Zmień
-                  </button>
-                  <button
-                    type="button"
-                    className="w-full rounded-md border px-3 py-2 hover:bg-muted sm:w-auto"
-                    onClick={() => {
-                      setPendingAction({ type: 'delete', tag: managedTag.tag, count: managedTag.count });
-                      setNextTagValue('');
-                    }}
-                  >
-                    Usuń
-                  </button>
-                </div>
-              </div>
-              </div>
-            ))
-          )
-        }
-      </div>
-    </div>
+    <AdminEntityManagementPanel
+      title="Zarządzanie tagami"
+      description="Przeglądaj tagi po typie encji, sprawdzaj liczbę wystąpień i wykonuj zbiorcze zmiany."
+      itemLabel="Tag"
+      selectorId="tag-entity-select"
+      entitySelectItems={entitySelectItems}
+      selectedEntity={management.selectedEntity}
+      onSelectedEntityChange={value => management.setSelectedEntity(value as EntityType)}
+      pendingAction={management.pendingAction}
+      nextValue={management.nextValue}
+      onNextValueChange={management.setNextValue}
+      onCancelAction={management.cancelAction}
+      onOpenRename={management.openRename}
+      onOpenDelete={management.openDelete}
+      onConfirmRename={() => management.renameMutation.mutate()}
+      onConfirmDelete={() => management.deleteMutation.mutate()}
+      isRenamePending={management.renameMutation.isPending}
+      isDeletePending={management.deleteMutation.isPending}
+      rows={management.rows}
+      isLoading={management.isLoading}
+      hasError={management.hasError}
+      loadingMessage="Ładowanie tagów..."
+      errorMessage="Nie udało się pobrać listy tagów."
+      emptyMessage="Brak tagów dla wybranego typu encji."
+      renameInputPlaceholder="Nowa wartość tagu"
+      getRenameConfirmationMessage={(value, count) => `Tag ${value} zostanie zmieniony w ${count} rekordach.`}
+      getDeleteConfirmationMessage={(value, count) => `Tag ${value} zostanie usunięty z ${count} rekordów.`}
+      confirmRenameButtonLabel="Potwierdź zmianę"
+      confirmDeleteButtonLabel="Potwierdź usunięcie"
+      renameActionAriaLabel="Edytuj"
+      deleteActionAriaLabel="Usuń"
+    />
   );
 }

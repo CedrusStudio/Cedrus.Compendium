@@ -8,7 +8,7 @@ import HomeQuickAccessSection from '@/application/personalization/HomeQuickAcces
 
 import { Button } from "@/ui/button";
 import { useAdminStatus } from '@/common/hooks/useAdminStatus';
-import { adminIcon } from '@/common/icons';
+import { adminIcon, personalizationIcon } from '@/common/icons';
 
 export default function HomePage() 
 {
@@ -36,6 +36,9 @@ function HeroSection()
             </Button>
           )
         }
+        <Button asChild variant="outline" size="icon">
+          <Link href="/personalization" aria-label="Personalization">{personalizationIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+      </Button>
       </div>
       <h1 className="text-6xl lg:text-7xl font-bold mb-6">
         {displayedText.applicationHeading}

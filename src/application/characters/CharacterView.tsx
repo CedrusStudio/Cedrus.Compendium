@@ -22,6 +22,7 @@ import { editIcon } from "@/common/icons";
 import DeleteButton from "@/common/components/buttons/DeleteButton";
 import NotFound from '@/common/components/NotFound';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
+import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 
 type CharacterViewProps = 
 {
@@ -70,6 +71,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
                     <div className='flex flex-row place-items-center gap-3'>
                         <FavoriteCharacterButton characterId={character.id} showLabel />
+                        <MainCharacterButton characterId={character.id} showLabel />
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
                         <Button asChild variant="outline" size="icon" className='my-4'>

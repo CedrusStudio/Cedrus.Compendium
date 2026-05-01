@@ -145,7 +145,7 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
 
   return (
     <div className='relative'>
-      <div className='absolute right-4 top-3 z-10'>
+      <div className='absolute right-4 top-5 z-10'>
         <FavoriteCharacterButton characterId={summary.id} />
       </div>
 
