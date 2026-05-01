@@ -2,6 +2,25 @@
 
 import Link from 'next/link';
 import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
+import { Input } from '@/common/components/ui/input';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/common/components/ui/alert-dialog';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '@/common/components/ui/sheet';
 import { deleteIcon, editIcon, leftIcon } from '@/common/icons';
 import { Button } from '@/ui/button';
 import { ManagedEntityRow, PendingManagementAction } from '@/app/admin/components/useAdminEntityManagement';
@@ -79,6 +98,9 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
   deleteActionAriaLabel = 'Usun',
 }: AdminEntityManagementPanelProps<TEntity>)
 {
+  const isRenameOpen = pendingAction?.type === 'rename';
+  const isDeleteOpen = pendingAction?.type === 'delete';
+
   return (
     <div className="container mx-auto px-6 py-12 max-w-6xl space-y-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -100,61 +122,72 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
         triggerClassName="h-11 w-36 border bg-background px-3 py-2 text-sm shadow-sm md:w-36"
       />
 
-      {
-        pendingAction && (
-          <div className="rounded-lg border p-6 space-y-4">
-            <div>
-              <h2 className="text-2xl font-semibold">Potwierdzenie operacji</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {
-                  pendingAction.type === 'rename'
-                    ? getRenameConfirmationMessage(pendingAction.value, pendingAction.count)
-                    : getDeleteConfirmationMessage(pendingAction.value, pendingAction.count)
-                }
-              </p>
-            </div>
-
-            {
-              pendingAction.type === 'rename' && (
-                <input
-                  className="w-full rounded-md border bg-background px-3 py-2 md:max-w-sm"
-                  placeholder={renameInputPlaceholder}
-                  value={nextValue}
-                  onChange={event => onNextValueChange(event.target.value)}
-                />
-              )
-            }
-
-            <div className="flex flex-wrap gap-3">
+      <Sheet open={isRenameOpen} onOpenChange={open => { if (!open) onCancelAction(); }}>
+        <SheetContent className="w-full sm:max-w-md">
+          <SheetHeader>
+            <SheetTitle>Potwierdzenie operacji</SheetTitle>
+            <SheetDescription>
               {
-                pendingAction.type === 'rename' ? (
-                  <button
-                    type="button"
-                    className="rounded-md border px-4 py-2 font-medium hover:bg-muted disabled:opacity-50"
-                    onClick={onConfirmRename}
-                    disabled={!nextValue.trim() || isRenamePending}
-                  >
-                    {confirmRenameButtonLabel}
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="rounded-md border px-4 py-2 font-medium hover:bg-muted disabled:opacity-50"
-                    onClick={onConfirmDelete}
-                    disabled={isDeletePending}
-                  >
-                    {confirmDeleteButtonLabel}
-                  </button>
-                )
+                pendingAction?.type === 'rename'
+                  ? getRenameConfirmationMessage(pendingAction.value, pendingAction.count)
+                  : undefined
               }
+            </SheetDescription>
+          </SheetHeader>
 
-              <button type="button" className="rounded-md border px-4 py-2 font-medium hover:bg-muted" onClick={onCancelAction}>
+          <form
+            className="flex flex-1 flex-col gap-4 px-4"
+            onSubmit={event => {
+              event.preventDefault();
+              onConfirmRename();
+            }}
+          >
+            <Input
+              placeholder={renameInputPlaceholder}
+              value={nextValue}
+              onChange={event => onNextValueChange(event.target.value)}
+              autoFocus
+            />
+
+            <SheetFooter className="px-0 pb-0">
+              <Button type="submit" disabled={!nextValue.trim() || isRenamePending}>
+                {confirmRenameButtonLabel}
+              </Button>
+              <Button type="button" variant="outline" onClick={onCancelAction}>
                 {cancelButtonLabel}
-              </button>
-            </div>
-          </div>
-        )
-      }
+              </Button>
+            </SheetFooter>
+          </form>
+        </SheetContent>
+      </Sheet>
+
+      <AlertDialog open={isDeleteOpen} onOpenChange={open => { if (!open) onCancelAction(); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Potwierdzenie operacji</AlertDialogTitle>
+            <AlertDialogDescription>
+              {
+                pendingAction?.type === 'delete'
+                  ? getDeleteConfirmationMessage(pendingAction.value, pendingAction.count)
+                  : undefined
+              }
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter>
+            <AlertDialogCancel>{cancelButtonLabel}</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={isDeletePending}
+              onClick={event => {
+                event.preventDefault();
+                onConfirmDelete();
+              }}
+            >
+              {confirmDeleteButtonLabel}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <div className="rounded-lg border overflow-hidden">
         <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_120px_120px] md:items-center md:gap-4 border-b bg-muted/40 px-4 py-3 text-sm font-medium">

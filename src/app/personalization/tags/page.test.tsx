@@ -92,4 +92,24 @@ describe('TagManagementPage', () => {
       expect(renameTagMock).toHaveBeenCalledWith({ entity: 'perks', oldTag: 'miecze', newTag: 'ostrza' });
     });
   });
+
+  it('opens the delete popup and calls the delete mutation for the selected entity', async () => {
+    useAdminStatusMock.mockReturnValue({ isAdmin: true, isCheckingAdmin: false, isLoaded: true });
+    getTagsMock.mockResolvedValue([{ tag: 'miecze', count: 2 }]);
+    deleteTagMock.mockResolvedValue({ updatedCount: 2 });
+
+    renderPage();
+
+    expect(await screen.findByText('miecze')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Usuń' }));
+
+    expect(screen.getByText('Tag miecze zostanie usunięty z 2 rekordów.')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Potwierdź usunięcie' }));
+
+    await waitFor(() => {
+      expect(deleteTagMock).toHaveBeenCalledWith({ entity: 'perks', tag: 'miecze' });
+    });
+  });
 });

@@ -14,6 +14,7 @@ import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@
 import { displayedText } from '@/common/translations';
 import { deleteIcon, editIcon, goToIcon, homeIcon, mainCharacterIcon } from '@/common/icons';
 import { Button } from "@/ui/button";
+import { Badge } from '@/common/components/ui/badge';
 
 const noneMainCharacterValue = '__none__';
 const contextSelectItems = personalizationContexts.map(context => ({
@@ -356,7 +357,7 @@ export default function PersonalizationPage()
               }
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Główna postać</label>
+                <Badge variant="icon">{mainCharacterIcon('h-3.5 w-3.5')}</Badge>
                 <SelectOneOfStrings
                   id="main-character-select"
                   value={profile.mainCharacterId ?? noneMainCharacterValue}
