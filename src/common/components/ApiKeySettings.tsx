@@ -52,19 +52,18 @@ export function ApiKeySettings()
       <DialogTrigger asChild>
         <Button 
           variant={hasApiKey ? "default" : "outline"}
-          size="sm"
           className="gap-2"
         >
           {
             hasApiKey ? (
               <>
-                  <Check className="h-4 w-4" />
-                  <span className="hidden sm:inline">API Key Set</span>
+                <Check className="h-4 w-4" />
+                <span className="hidden sm:inline">API Key Set</span>
               </>
             ) : (
               <>
-                  <Key className="h-4 w-4" />
-                  <span className="hidden sm:inline">Set API Key</span>
+                <Key className="h-4 w-4" />
+                <span className="hidden sm:inline">Set API Key</span>
               </>
             )
           }

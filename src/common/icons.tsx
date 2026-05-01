@@ -32,7 +32,7 @@ import { GiMagicSwirl } from "react-icons/gi";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { LuMinus } from "react-icons/lu";
 import { IoMdCopy } from "react-icons/io";
-import { ArrowUpDown, ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
+import { ArrowUpDown, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Shield, SlidersHorizontal } from "lucide-react";
 import { RiDeleteBack2Line, RiResetLeftFill } from "react-icons/ri";
 import { GrNext } from "react-icons/gr";
 import { GiHealthIncrease } from "react-icons/gi";
@@ -45,8 +45,7 @@ import { IoIosArrowRoundDown } from "react-icons/io";
 import { BiImport } from "react-icons/bi";
 import { VscGoToSearch } from "react-icons/vsc";
 import { cn } from "@/lib/utils";
-import { FaCheck, FaTimes } from "react-icons/fa";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaCheck, FaEye, FaEyeSlash, FaHome, FaTimes } from "react-icons/fa";
 import { GiShadowGrasp } from "react-icons/gi";
 import { GiSeaDragon } from "react-icons/gi";
 import { LuSearchCheck } from "react-icons/lu";
@@ -96,6 +95,9 @@ export const rollIcon = <GiRollingDices className="w-5 h-5" />;
 
 export const bestiaryIcon = (className?: string) => <GiSeaDragon className={className} />;
 export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
+export const homeIcon = (className?: string) => <FaHome className={className} />;
+export const personalizationIcon = (className?: string) => <SlidersHorizontal className={className} />;
+export const adminIcon = (className?: string) => <Shield className={className} />;
 
 export const addIcon = (className?: string) => <LuPlus className={className} />;
 export const removeIcon = (className?: string) => <LuMinus className={className} />;

@@ -10,6 +10,8 @@ import { personalizationContextLabels, personalizationRouteLabels, resolveQuickL
 import { personalizationContexts, quickLinkRoutes, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
 import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 import { displayedText } from '@/common/translations';
+import { homeIcon } from '@/common/icons';
+import { Button } from "@/ui/button";
 
 export default function PersonalizationPage()
 {
@@ -73,10 +75,10 @@ export default function PersonalizationPage()
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <Link href="/" className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-            Wroc do strony glownej
-          </Link>
-          <ApiKeySettings />
+            <ApiKeySettings />
+            <Button asChild variant="outline" size="icon">
+                <Link href="/">{homeIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+            </Button>
         </div>
       </div>
 
