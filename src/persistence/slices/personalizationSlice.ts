@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getStoredApiKey } from '@/common/hooks/useApiKey';
+import { BestiaryColumnPreferenceKey, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
 const PERSONALIZATION_STORAGE_KEY = 'cedrus-personalization-profiles';
 export const MAX_QUICK_TAGS_PER_CONTEXT = 5;
@@ -49,6 +50,8 @@ export type QuickLink =
     };
 
 export type PersonalizationProfile = {
+  userName?: string;
+  bestiaryColumnVisibility?: Partial<Record<BestiaryColumnPreferenceKey, boolean>>;
   quickTagsByContext: Partial<Record<PersonalizationContext, string[]>>;
   favoriteCharacterIds: string[];
   quickLinks: QuickLink[];
@@ -66,6 +69,8 @@ type QuickTagPayload = {
 };
 
 const createEmptyProfile = (): PersonalizationProfile => ({
+  userName: undefined,
+  bestiaryColumnVisibility: undefined,
   quickTagsByContext: {},
   favoriteCharacterIds: [],
   quickLinks: [],
@@ -108,8 +113,14 @@ const sanitizeProfile = (value: unknown): PersonalizationProfile => {
     : [];
 
   const mainCharacterId = typeof value.mainCharacterId === 'string' ? value.mainCharacterId : undefined;
+  const userName = typeof value.userName === 'string' && value.userName.trim().length > 0 ? value.userName.trim() : undefined;
+  const bestiaryColumnVisibility = isRecord(value.bestiaryColumnVisibility)
+    ? resolveBestiaryColumnVisibility(value.bestiaryColumnVisibility as Partial<Record<BestiaryColumnPreferenceKey, boolean>>)
+    : undefined;
 
   return {
+    userName,
+    bestiaryColumnVisibility,
     quickTagsByContext,
     favoriteCharacterIds,
     quickLinks,
@@ -174,6 +185,27 @@ const personalizationSlice = createSlice({
         state.profilesByApiKey[state.activeApiKey] = createEmptyProfile();
         persistProfiles(state);
       }
+    },
+    setUserName(state, action: PayloadAction<string | undefined>) {
+      const profile = getActiveProfile(state);
+      if (!profile) return;
+
+      profile.userName = action.payload?.trim() || undefined;
+      persistProfiles(state);
+    },
+    setBestiaryColumnVisibility(state, action: PayloadAction<Partial<Record<BestiaryColumnPreferenceKey, boolean>>>) {
+      const profile = getActiveProfile(state);
+      if (!profile) return;
+
+      profile.bestiaryColumnVisibility = resolveBestiaryColumnVisibility(action.payload);
+      persistProfiles(state);
+    },
+    clearBestiaryColumnVisibility(state) {
+      const profile = getActiveProfile(state);
+      if (!profile) return;
+
+      profile.bestiaryColumnVisibility = undefined;
+      persistProfiles(state);
     },
     addQuickTag(state, action: PayloadAction<QuickTagPayload>) {
       const profile = getActiveProfile(state);

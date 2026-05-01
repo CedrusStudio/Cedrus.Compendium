@@ -722,7 +722,7 @@ Status: done
 
 ## 8. Persist bestiary column preferences per user profile
 
-Status: planned
+Status: done
 
 ### Bestiary column preferences: current state
 
@@ -776,6 +776,13 @@ Status: planned
 ### Bestiary column preferences: definition of done
 
 - Bestiary column visibility can be configured in personalization and defaults remain unchanged when no preference exists.
+
+### Bestiary column preferences: completion note
+
+- Added persisted `bestiaryColumnVisibility` to the personalization profile.
+- Added personalization UI for saving or clearing the preferred bestiary column set for the active API key.
+- Bestiary now hydrates from the saved preference when present and falls back to the existing default visibility when absent.
+- Added focused tests for default/merge logic, persistence, and personalization-page wiring.
 
 ## 9. Fix bestiary drawer accessibility titles
 
@@ -902,7 +909,7 @@ Status: planned
 
 ## 11. Bind a user name to each API-key personalization profile
 
-Status: planned
+Status: done
 
 ### Personalization profile naming: current state
 
@@ -951,3 +958,9 @@ Status: planned
 ### Personalization profile naming: definition of done
 
 - Each API-key profile can store and display its own user-friendly name without affecting other profiles.
+
+### Personalization profile naming: completion note
+
+- Added optional `userName` storage to the persisted personalization profile.
+- Extended the personalization page with save/clear controls for binding a readable user name to the active API key.
+- Added focused slice and page tests covering persistence, API-key isolation, and clearing the stored name.

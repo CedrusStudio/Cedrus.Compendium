@@ -1,27 +1,41 @@
 "use client";
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ulid } from 'ulid';
 import { ApiKeySettings } from '@/common/components/ApiKeySettings';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { useFavoriteCharacters } from '@/application/personalization/useFavoriteCharacters';
 import { personalizationContextLabels, personalizationRouteLabels, resolveQuickLinkHref } from '@/application/personalization/personalizationUtils';
 import { personalizationContexts, quickLinkRoutes, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
+import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
+import { displayedText } from '@/common/translations';
 
 export default function PersonalizationPage()
 {
-  const { apiKey, hasApiKey, isLoaded, profile, addQuickTag, removeQuickTag, removeFavoriteCharacter, setMainCharacter, addQuickLink, removeQuickLink } = usePersonalization();
+  const { apiKey, hasApiKey, isLoaded, profile, setUserName, setBestiaryColumnVisibility, clearBestiaryColumnVisibility, addQuickTag, removeQuickTag, removeFavoriteCharacter, setMainCharacter, addQuickLink, removeQuickLink } = usePersonalization();
   const { favoriteCharacters, isLoading } = useFavoriteCharacters();
   const [selectedContext, setSelectedContext] = useState(personalizationContexts[0]);
   const [quickTagInput, setQuickTagInput] = useState('');
   const [selectedRoute, setSelectedRoute] = useState<QuickLinkRoute>('/characters/favorites');
   const [quickLinkLabel, setQuickLinkLabel] = useState('');
+  const [userNameInput, setUserNameInput] = useState('');
+  const [bestiaryColumnVisibilityDraft, setBestiaryColumnVisibilityDraft] = useState(resolveBestiaryColumnVisibility());
 
   const favoriteCharacterOptions = useMemo(
     () => favoriteCharacters.map(character => ({ id: character.id, label: character.name })),
     [favoriteCharacters],
   );
+
+  useEffect(() => 
+  {
+    setUserNameInput(profile.userName ?? '');
+  }, [profile.userName]);
+
+  useEffect(() => 
+  {
+    setBestiaryColumnVisibilityDraft(resolveBestiaryColumnVisibility(profile.bestiaryColumnVisibility));
+  }, [profile.bestiaryColumnVisibility]);
 
   if (!isLoaded)
   {
@@ -66,7 +80,11 @@ export default function PersonalizationPage()
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="rounded-lg border p-4">
+          <p className="text-sm text-muted-foreground">Nazwa uzytkownika</p>
+          <p className="mt-2 font-medium break-all">{profile.userName ?? 'brak'}</p>
+        </div>
         <div className="rounded-lg border p-4">
           <p className="text-sm text-muted-foreground">Aktywny API key</p>
           <p className="mt-2 font-medium break-all">{apiKey ?? 'brak'}</p>
@@ -91,6 +109,37 @@ export default function PersonalizationPage()
           </div>
         ) : (
           <>
+            <section className="rounded-lg border p-6 space-y-4">
+              <div>
+                <h2 className="text-2xl font-semibold">Profil uzytkownika</h2>
+                <p className="text-sm text-muted-foreground">Powiaz czytelna nazwe z aktywnym API key bez zmiany samego klucza.</p>
+              </div>
+
+              <div className="flex flex-col gap-3 md:flex-row">
+                <input
+                  className="rounded-md border bg-background px-3 py-2 md:flex-1"
+                  value={userNameInput}
+                  onChange={event => setUserNameInput(event.target.value)}
+                  placeholder="Nazwa uzytkownika dla tego API key"
+                />
+
+                <button type="button" className="rounded-md border px-4 py-2 font-medium hover:bg-muted" onClick={() => setUserName(userNameInput)}>
+                  Zapisz nazwe
+                </button>
+
+                <button
+                  type="button"
+                  className="rounded-md border px-4 py-2 font-medium hover:bg-muted"
+                  onClick={() => {
+                    setUserName(undefined);
+                    setUserNameInput('');
+                  }}
+                >
+                  Wyczysc nazwe
+                </button>
+              </div>
+            </section>
+
             <section className="rounded-lg border p-6 space-y-4">
               <div>
                 <h2 className="text-2xl font-semibold">Szybkie tagi</h2>
@@ -144,6 +193,56 @@ export default function PersonalizationPage()
                     );
                   })
                 }
+              </div>
+            </section>
+
+            <section className="rounded-lg border p-6 space-y-4">
+              <div>
+                <h2 className="text-2xl font-semibold">Kolumny bestiariusza</h2>
+                <p className="text-sm text-muted-foreground">
+                  {profile.bestiaryColumnVisibility
+                    ? 'Dla tego profilu zapisano niestandardowy zestaw kolumn.'
+                    : 'Jesli nic nie zapiszesz, bestiariusz uzyje domyslnego zestawu kolumn.'}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {
+                  bestiaryColumnPreferenceKeys.map(columnKey => (
+                    <label key={columnKey} className="flex items-center gap-3 rounded-md border p-3 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={bestiaryColumnVisibilityDraft[columnKey]}
+                        onChange={event => setBestiaryColumnVisibilityDraft(current => ({
+                          ...current,
+                          [columnKey]: event.target.checked,
+                        }))}
+                      />
+                      <span className="capitalize">{displayedText[columnKey as keyof typeof displayedText]}</span>
+                    </label>
+                  ))
+                }
+              </div>
+
+              <div className="flex flex-col gap-3 md:flex-row">
+                <button
+                  type="button"
+                  className="rounded-md border px-4 py-2 font-medium hover:bg-muted"
+                  onClick={() => setBestiaryColumnVisibility(bestiaryColumnVisibilityDraft)}
+                >
+                  Zapisz kolumny bestiariusza
+                </button>
+
+                <button
+                  type="button"
+                  className="rounded-md border px-4 py-2 font-medium hover:bg-muted"
+                  onClick={() => {
+                    clearBestiaryColumnVisibility();
+                    setBestiaryColumnVisibilityDraft(resolveBestiaryColumnVisibility());
+                  }}
+                >
+                  Przywroc domyslne kolumny
+                </button>
               </div>
             </section>
 

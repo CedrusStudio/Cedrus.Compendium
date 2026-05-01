@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useApiKey } from '@/common/hooks/useApiKey';
 import { AppDispatch, RootState } from '@/persistence/slices/store';
 import { actions, createEmptyProfile, PersonalizationContext, QuickLink } from '@/persistence/slices/personalizationSlice';
+import { BestiaryColumnPreferenceKey } from '@/application/bestiary/bestiaryColumnPreferences';
 
 export function usePersonalization()
 {
@@ -24,6 +25,9 @@ export function usePersonalization()
     hasApiKey,
     isLoaded,
     profile,
+    setUserName: (userName?: string) => dispatch(actions.setUserName(userName)),
+    setBestiaryColumnVisibility: (visibility: Partial<Record<BestiaryColumnPreferenceKey, boolean>>) => dispatch(actions.setBestiaryColumnVisibility(visibility)),
+    clearBestiaryColumnVisibility: () => dispatch(actions.clearBestiaryColumnVisibility()),
     addQuickTag: (context: PersonalizationContext, tag: string) => dispatch(actions.addQuickTag({ context, tag })),
     removeQuickTag: (context: PersonalizationContext, tag: string) => dispatch(actions.removeQuickTag({ context, tag })),
     addFavoriteCharacter: (characterId: string) => dispatch(actions.addFavoriteCharacter(characterId)),

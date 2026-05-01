@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { defaultBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
 vi.mock('@/common/hooks/useApiKey', () => ({
   getStoredApiKey: () => 'alpha',
@@ -89,5 +90,63 @@ describe('personalizationSlice', () => {
     state = reducer(state, actions.addFavoriteCharacter('character-1'));
 
     expect(state.profilesByApiKey).toEqual({});
+  });
+
+  it('stores a user name per API key profile and persists it', () => {
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+    let state = createState();
+
+    state = reducer(state, actions.setUserName('Marek'));
+    state = reducer(state, actions.setActiveApiKey('beta'));
+    state = reducer(state, actions.setUserName('Anna'));
+
+    expect(state.profilesByApiKey.alpha.userName).toBe('Marek');
+    expect(state.profilesByApiKey.beta.userName).toBe('Anna');
+    expect(setItemSpy).toHaveBeenCalledWith(
+      PERSONALIZATION_STORAGE_KEY,
+      JSON.stringify(state.profilesByApiKey),
+    );
+  });
+
+  it('clears the stored user name when set to an empty value', () => {
+    let state = createState({
+      profilesByApiKey: {
+        alpha: {
+          ...createEmptyProfile(),
+          userName: 'Marek',
+        },
+      },
+    });
+
+    state = reducer(state, actions.setUserName('   '));
+
+    expect(state.profilesByApiKey.alpha.userName).toBeUndefined();
+  });
+
+  it('stores a bestiary column preference per API key profile', () => {
+    let state = createState();
+
+    state = reducer(state, actions.setBestiaryColumnVisibility({ powers: true, tags: true }));
+    state = reducer(state, actions.setActiveApiKey('beta'));
+    state = reducer(state, actions.setBestiaryColumnVisibility({ initiative: false }));
+
+    expect(state.profilesByApiKey.alpha.bestiaryColumnVisibility).toEqual({
+      ...defaultBestiaryColumnVisibility,
+      powers: true,
+      tags: true,
+    });
+    expect(state.profilesByApiKey.beta.bestiaryColumnVisibility).toEqual({
+      ...defaultBestiaryColumnVisibility,
+      initiative: false,
+    });
+  });
+
+  it('clears the saved bestiary column preference', () => {
+    let state = createState();
+
+    state = reducer(state, actions.setBestiaryColumnVisibility({ powers: true }));
+    state = reducer(state, actions.clearBestiaryColumnVisibility());
+
+    expect(state.profilesByApiKey.alpha.bestiaryColumnVisibility).toBeUndefined();
   });
 });

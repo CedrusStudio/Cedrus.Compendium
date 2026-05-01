@@ -1,0 +1,141 @@
+import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { defaultBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
+import { displayedText } from '@/common/translations';
+
+const usePersonalizationMock = vi.fn();
+const useFavoriteCharactersMock = vi.fn();
+
+vi.mock('@/common/hooks/usePersonalization', () => ({
+  usePersonalization: () => usePersonalizationMock(),
+}));
+
+vi.mock('@/application/personalization/useFavoriteCharacters', () => ({
+  useFavoriteCharacters: () => useFavoriteCharactersMock(),
+}));
+
+vi.mock('@/common/components/ApiKeySettings', () => ({
+  ApiKeySettings: () => <div>api key settings</div>,
+}));
+
+vi.mock('next/link', () => ({
+  default: ({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; children: React.ReactNode }) => (
+    <a href={href} {...props}>{children}</a>
+  ),
+}));
+
+import { createEmptyProfile } from '@/persistence/slices/personalizationSlice';
+import PersonalizationPage from '@/app/personalization/page';
+
+describe('PersonalizationPage', () => {
+  beforeEach(() => {
+    useFavoriteCharactersMock.mockReset();
+    usePersonalizationMock.mockReset();
+  });
+
+  it('renders the stored profile user name and saves a new one', () => {
+    const setUserName = vi.fn();
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        userName: 'Marek',
+      },
+      setUserName,
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    expect(screen.getByText('Marek')).toBeTruthy();
+
+    fireEvent.change(screen.getByPlaceholderText('Nazwa uzytkownika dla tego API key'), { target: { value: 'Anna' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz nazwe' }));
+
+    expect(setUserName).toHaveBeenCalledWith('Anna');
+  });
+
+  it('clears the profile user name', () => {
+    const setUserName = vi.fn();
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        userName: 'Marek',
+      },
+      setUserName,
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Wyczysc nazwe' }));
+
+    expect(setUserName).toHaveBeenCalledWith(undefined);
+  });
+
+  it('saves and clears a bestiary column preference', () => {
+    const setBestiaryColumnVisibility = vi.fn();
+    const clearBestiaryColumnVisibility = vi.fn();
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        bestiaryColumnVisibility: defaultBestiaryColumnVisibility,
+      },
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility,
+      clearBestiaryColumnVisibility,
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    fireEvent.click(screen.getByLabelText(displayedText.powers));
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz kolumny bestiariusza' }));
+
+    expect(setBestiaryColumnVisibility).toHaveBeenCalledWith({
+      ...defaultBestiaryColumnVisibility,
+      powers: true,
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Przywroc domyslne kolumny' }));
+
+    expect(clearBestiaryColumnVisibility).toHaveBeenCalled();
+  });
+});

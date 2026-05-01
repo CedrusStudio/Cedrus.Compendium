@@ -30,6 +30,7 @@ import BestiaryTableRow from "@/application/bestiary/BestiaryTableRow";
 import { Table as TableType } from "@tanstack/react-table";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
+import { usePersonalization } from '@/common/hooks/usePersonalization';
 
 const pageSize = 20;
 const EMPTY_ARRAY: never[] = [];
@@ -43,6 +44,7 @@ export default function BestiaryTable()
   const [displayedCharacters, setDisplayedCharacters] = useState<Character[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
+  const { profile } = usePersonalization();
 
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
 
@@ -121,8 +123,18 @@ export default function BestiaryTable()
       acc[column.accessorKey as string] = !(column.meta?.initiallyHidden);
       return acc;
     }, {});
+
+    if (profile.bestiaryColumnVisibility)
+    {
+      setColumnVisibility({
+        ...initialVisibility,
+        ...profile.bestiaryColumnVisibility,
+      });
+      return;
+    }
+
     setColumnVisibility(initialVisibility);
-  }, []);
+  }, [profile.bestiaryColumnVisibility]);
 
   const table = useReactTable<Character>
   ({
