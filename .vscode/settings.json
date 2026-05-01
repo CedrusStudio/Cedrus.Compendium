@@ -8,5 +8,11 @@
         "rulebook",
         "sesja",
         "Subcard"
-    ]
+    ],
+    "chat.tools.terminal.autoApprove": {
+        "/^\\$env:CI='1'; node \\.\\\\node_modules\\\\vitest\\\\vitest\\.mjs run src/application/bestiary/drawers/__tests__/BestiaryDrawersAccessibility\\.test\\.tsx --reporter=json --outputFile \\.vitest-drawer-accessibility\\.json; Write-Output \"EXIT:\\$LASTEXITCODE\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
 }

@@ -582,3 +582,372 @@ Status: done
 - Added `GET /api/tag-management/[entity]`, `POST /api/tag-management/rename`, and `POST /api/tag-management/delete` on top of the current denormalized `tags` arrays.
 - Added a dedicated `/personalization/tags` admin page with entity selection, rename/delete confirmation, and react-query invalidation for tag lists.
 - Kept the existing tag storage model and implemented deduping on rename when the target tag already exists on a record.
+
+## 6. Requirements management panel
+
+Status: planned
+
+### Requirements management: current state
+
+- The repo already has requirement discovery infrastructure for the requirement-bearing entity types only:
+  - `GET /api/requirements/[entity]`
+  - `src/infrastructure/clients/requirementsClient.ts`
+  - `src/common/hooks/useEntityRequirements.ts`
+- Supported requirement-bearing entities are currently limited to:
+  - `perks`
+  - `spells`
+  - `maneuvers`
+  - `stances`
+  - `states`
+- There is no requirement-management API for listing counts, renaming, or deleting requirement values across all affected records.
+- There is no admin UI for requirements equivalent to `src/app/personalization/tags/page.tsx`.
+- Requirements remain denormalized `string[]` arrays on the supported models, so management would need the same fan-out update approach as tag management.
+
+### Requirements management: goal
+
+- Build an admin-facing requirements management panel with the same core capabilities as tag management:
+  - list requirement values by entity type
+  - show usage counts
+  - rename a requirement across all matching records of one entity type
+  - delete a requirement across all matching records of one entity type
+
+### Requirements management: scope constraints
+
+- Keep the first iteration limited to entities that already persist generic `requirements: string[]`.
+- Do not widen scope to equipment `strengthRequirement` fields in the same task unless explicitly approved.
+- Reuse the current denormalized-string model instead of introducing a normalized requirement catalog.
+
+### Requirements management: implementation plan
+
+1. Add a requirements management API surface modeled after tag management.
+   - `GET /api/requirements-management/[entity]` -> list requirements with usage counts
+   - `POST /api/requirements-management/rename` -> `{ entity, oldRequirement, newRequirement }`
+   - `POST /api/requirements-management/delete` -> `{ entity, requirement }`
+2. Reuse the current Mongo aggregation strategy.
+   - flatten `requirements`
+   - group distinct values
+   - return counts, not just unique strings
+3. Implement rename/delete by rewriting affected `requirements` arrays in application code.
+   - trim inputs
+   - reject empty strings
+   - dedupe per record when renaming to an already-existing requirement
+4. Add a dedicated management page matching the current tag-management UX.
+   - entity selector
+   - value list with counts
+   - explicit confirmation step for rename/delete
+5. Invalidate relevant react-query caches on success.
+   - `requirements-management`
+   - `entityRequirements`
+   - any page-level queries that surface requirement filters
+6. Add focused tests.
+   - list endpoint returns counts
+   - rename updates all affected records
+   - delete removes the value from all affected records
+   - UI calls the correct mutation payloads
+
+### Requirements management: primary files
+
+- `src/app/api/requirements/[entity]/route.ts`
+- `src/infrastructure/clients/requirementsClient.ts`
+- `src/common/hooks/useEntityRequirements.ts`
+- `src/app/personalization/tags/page.tsx` as the reference UI to split out and mirror
+- new requirements-management API and page files
+
+### Requirements management: validation
+
+- Rename one requirement value for a single supported entity type and confirm:
+  - all affected records update
+  - the old requirement disappears from the management list
+  - the new requirement appears in existing-value dropdowns
+- Delete one requirement and confirm it no longer appears in forms or management results.
+- Confirm unsupported entity types still reject the operation cleanly.
+
+### Requirements management: definition of done
+
+- Admin can inspect, rename, and delete requirement values for all existing requirement-bearing entity types.
+- Existing requirement-selection forms reflect the updated values after cache invalidation.
+
+## 7. Restrict theme switching to dark and light only
+
+Status: done
+
+### Theme toggle: current state
+
+- `src/common/components/navbars/ThemeMode.tsx` currently renders a dropdown menu with explicit `light` and `dark` options.
+- `src/infrastructure/providers/providers.tsx` configures `ThemeProvider` with `defaultTheme='dark'` but does not disable `system`, so `next-themes` still supports system mode internally.
+- The requirement is stricter than a UI tweak: both the visible control and the provider configuration need to enforce a two-mode system.
+
+### Theme toggle: goal
+
+- Clicking the theme button should immediately toggle between `dark` and `light`.
+- No dropdown menu should open.
+- `system` mode should not be available as a runtime or persistence option.
+
+### Theme toggle: implementation plan
+
+1. Replace the dropdown-based control in `src/common/components/navbars/ThemeMode.tsx` with a single toggle button.
+   - detect current resolved theme
+   - switch `dark -> light` and `light -> dark`
+2. Update the theme provider configuration.
+   - set `enableSystem={false}`
+   - keep a deterministic default theme
+3. Decide how to handle any previously persisted `system` value.
+   - recommended default: coerce it to `dark` or `light` on first render, preferably `dark` to match current default
+4. Add focused tests.
+   - button click toggles theme once per click
+   - no dropdown/menu content is rendered
+   - persisted `system` values do not survive as a valid state
+
+### Theme toggle: primary files
+
+- `src/common/components/navbars/ThemeMode.tsx`
+- `src/infrastructure/providers/providers.tsx`
+- optional: `src/infrastructure/providers/theme-provider.tsx`
+
+### Theme toggle: validation
+
+- Repeated clicks alternate only between dark and light.
+- Refresh preserves either dark or light, never system.
+- Navbar layout remains unchanged.
+
+### Theme toggle: definition of done
+
+- Theme switching is a simple two-state toggle with no mode list and no system mode.
+
+### Theme toggle: completion note
+
+- Replaced the dropdown-based theme selector with a single toggle button in `ThemeMode`.
+- Disabled `system` mode at the root `ThemeProvider` level with `enableSystem={false}`.
+- Added focused tests for dark/light toggling and for provider configuration.
+
+## 8. Persist bestiary column preferences per user profile
+
+Status: planned
+
+### Bestiary column preferences: current state
+
+- `src/application/bestiary/BestiaryTable.tsx` initializes `columnVisibility` from `columns[].meta.initiallyHidden` on mount.
+- `src/common/components/table/ColumnFilter.tsx` only mutates in-memory table state.
+- There is no persistence for bestiary column visibility in Redux or local storage.
+- Current personalization data does not store any table-column preferences.
+
+### Bestiary column preferences: goal
+
+- Allow each user profile to save a predefined bestiary column selection.
+- If the user has not configured any preference, keep the current default column behavior unchanged.
+- Keep this preference scoped to the active API-key-based personalization profile.
+
+### Bestiary column preferences: recommended data model change
+
+- Extend the personalization profile with a bestiary-specific column preset, for example:
+  - `bestiaryColumnVisibility?: Record<string, boolean>`
+- Keep it optional so the current default behavior remains the fallback.
+
+### Bestiary column preferences: implementation plan
+
+1. Extend `PersonalizationProfile` in `src/persistence/slices/personalizationSlice.ts`.
+2. Add actions/selectors/hooks for reading and updating bestiary column visibility.
+3. Expose the setting in the personalization page.
+   - recommended UX: checkbox list of bestiary columns based on `columnKeys`
+   - optionally add a reset-to-default action
+4. Update `src/application/bestiary/BestiaryTable.tsx` to hydrate `columnVisibility` from the saved profile when present.
+5. Preserve current defaults when no saved preference exists.
+6. Decide how to handle newly added columns.
+   - recommended default: fall back to each column's `initiallyHidden` metadata for keys missing from the saved preference
+7. Add focused tests.
+   - saved preferences override defaults
+   - missing preference keeps current defaults
+   - reset restores default behavior
+
+### Bestiary column preferences: primary files
+
+- `src/application/bestiary/BestiaryTable.tsx`
+- `src/application/bestiary/columns.tsx`
+- `src/common/components/table/ColumnFilter.tsx`
+- `src/app/personalization/page.tsx`
+- `src/persistence/slices/personalizationSlice.ts`
+
+### Bestiary column preferences: validation
+
+- Save a custom column preset and confirm it persists across reloads.
+- Switch API keys and confirm the preference is profile-specific.
+- Clear the preference and confirm the table falls back to the current default column set.
+
+### Bestiary column preferences: definition of done
+
+- Bestiary column visibility can be configured in personalization and defaults remain unchanged when no preference exists.
+
+## 9. Fix bestiary drawer accessibility titles
+
+Status: done
+
+### Bestiary drawer accessibility: current state
+
+- `src/common/components/ui/drawer.tsx` wraps Vaul/Radix drawer content, which requires a title for accessible dialog semantics.
+- In bestiary actions, `CharacterModesViewDrawer` and `CharacterManeuversViewDrawer` can render `<DrawerContent>` without any `DrawerTitle` when the relevant arrays are empty.
+- `src/application/bestiary/columns.tsx` always exposes actions to open these drawers, so the missing-title path is reachable at runtime.
+- This is a local consumer bug, not a generic drawer primitive bug.
+
+### Bestiary drawer accessibility: goal
+
+- Eliminate the runtime accessibility warning by ensuring the bestiary drawers always provide a valid title.
+
+### Bestiary drawer accessibility: implementation plan
+
+1. Update the affected bestiary drawers to always include one top-level `DrawerTitle`.
+   - `src/application/bestiary/drawers/CharacterModesViewDrawer.tsx`
+   - `src/application/bestiary/drawers/CharacterManeuversViewDrawer.tsx`
+2. Keep section-specific titles if they still improve readability, but do not rely on conditional titles for the dialog contract.
+3. Add graceful empty-state content when the corresponding list is empty.
+4. Add focused regression tests for the empty-data path.
+   - open drawer with empty modes/maneuvers
+   - assert a title exists
+   - assert no crash and useful empty state
+
+### Bestiary drawer accessibility: primary files
+
+- `src/application/bestiary/drawers/CharacterModesViewDrawer.tsx`
+- `src/application/bestiary/drawers/CharacterManeuversViewDrawer.tsx`
+- `src/application/bestiary/columns.tsx`
+- `src/common/components/ui/drawer.tsx` as the underlying contract reference
+
+### Bestiary drawer accessibility: validation
+
+- Open the affected bestiary drawers for characters with empty modes or maneuvers.
+- Confirm the Radix/DrawerTitle accessibility warning no longer appears.
+- Confirm populated drawers still render the same content structure.
+
+### Bestiary drawer accessibility: definition of done
+
+- The bestiary drawers always satisfy the dialog title accessibility requirement.
+
+### Bestiary drawer accessibility: completion note
+
+- `CharacterModesViewDrawer` and `CharacterManeuversViewDrawer` now render an unconditional top-level `DrawerTitle`.
+- Added explicit empty-state content for the no-data path that previously triggered the accessibility warning.
+- Added a focused regression test covering empty modes and empty maneuvers drawer rendering.
+
+## 10. Separate admin tools from personalization
+
+Status: planned
+
+### Admin/personalization separation: investigation result
+
+- Admin tag management is currently nested under the personalization area:
+  - `src/app/personalization/tags/page.tsx`
+  - linked directly from `src/app/personalization/page.tsx`
+- The current client state only knows whether some API key is present via `useApiKey()`.
+  - it exposes `hasApiKey`
+  - it does not expose `isAdmin`
+  - it does not validate the current key against server-configured admin keys on the client
+- Server-side write protection is enforced in middleware/proxy via configured admin keys, but the UI structure still treats admin tooling as part of a user-personalization flow.
+- This mixes two different concerns:
+  - personalization is user-specific and keyed by the active API key profile
+  - tag/requirements management is global admin tooling affecting shared compendium data
+
+### Admin/personalization separation: goal
+
+- Move tag and requirements management out of personalization into a dedicated admin panel.
+- Show the admin-panel entry only when the current user/API key is recognized as admin.
+- Keep personalization focused on per-user preferences only.
+
+### Admin/personalization separation: architectural constraint
+
+- The current client cannot reliably infer admin status from `useApiKey()` alone.
+- A proper admin-only button likely requires one of these approaches:
+  - a lightweight authenticated endpoint such as `GET /api/auth/me` or `GET /api/admin/capabilities` returning admin status for the current API key
+  - or another trusted server-derived mechanism exposed to the client
+- Do not hardcode admin keys into client code.
+
+### Admin/personalization separation: implementation plan
+
+1. Create a dedicated admin route tree, for example:
+   - `src/app/admin/page.tsx`
+   - `src/app/admin/tags/page.tsx`
+   - `src/app/admin/requirements/page.tsx`
+2. Remove management-page links from personalization.
+3. Introduce an admin-capability check the client can trust.
+   - recommended: server endpoint resolving admin status for the active API key
+4. Add an admin-only navigation entry.
+   - visible only when the capability check returns admin
+5. Keep route-level protection in place.
+   - hiding the button is not sufficient
+   - reads and writes on admin pages should still require valid admin authorization where appropriate
+6. Reuse the existing tag-management implementation after moving it.
+7. Build the requirements-management panel under the same admin area instead of under personalization.
+8. Add focused tests.
+   - non-admin users do not see the admin button
+   - admin users do see it
+   - personalization page no longer exposes admin tooling links
+
+### Admin/personalization separation: primary files
+
+- `src/app/personalization/page.tsx`
+- `src/app/personalization/tags/page.tsx` as the page to relocate or replace
+- `src/common/components/navbars/NavbarDefaultButton.tsx`
+- `src/common/hooks/useApiKey.ts`
+- `src/lib/env.ts`
+- `src/proxy.ts`
+- new admin route and capability files
+
+### Admin/personalization separation: validation
+
+- A non-admin API key can still use personalization but cannot see or access admin tooling.
+- An admin API key can navigate to the admin panel and manage global tags/requirements.
+- Personalization remains scoped to the active API key profile and no longer contains shared admin actions.
+
+### Admin/personalization separation: definition of done
+
+- Personalization and admin tooling are separate navigation concepts, separate routes, and separate capability surfaces.
+
+## 11. Bind a user name to each API-key personalization profile
+
+Status: planned
+
+### Personalization profile naming: current state
+
+- Personalization is already keyed by `activeApiKey` in `src/persistence/slices/personalizationSlice.ts`.
+- The stored profile currently contains:
+  - `quickTagsByContext`
+  - `favoriteCharacterIds`
+  - `quickLinks`
+  - `mainCharacterId`
+- There is no display name or user name associated with a profile.
+- The personalization page currently shows the active API key string directly, which is functional but not user-friendly.
+
+### Personalization profile naming: goal
+
+- Allow the user to bind a human-readable user name to the active API key profile.
+- Keep the binding local and profile-specific, alongside the rest of personalization data.
+
+### Personalization profile naming: implementation plan
+
+1. Extend `PersonalizationProfile` with an optional user-name field.
+   - recommended: `userName?: string`
+2. Update sanitization and persistence logic in the personalization slice.
+3. Add slice actions and hook helpers for updating the name.
+4. Expose the field in `src/app/personalization/page.tsx`.
+   - editable text input
+   - clear/save behavior
+5. Use the saved name in the personalization summary UI where helpful.
+   - keep the raw API key visible as secondary technical information
+6. Add focused tests.
+   - user name persists across reloads
+   - user name is isolated per API key
+   - empty value clears back to unnamed behavior
+
+### Personalization profile naming: primary files
+
+- `src/persistence/slices/personalizationSlice.ts`
+- `src/common/hooks/usePersonalization.ts`
+- `src/app/personalization/page.tsx`
+
+### Personalization profile naming: validation
+
+- Save different user names for two API keys and confirm each profile shows the correct name.
+- Refresh and confirm the name persists.
+- Clear the name and confirm the UI falls back gracefully.
+
+### Personalization profile naming: definition of done
+
+- Each API-key profile can store and display its own user-friendly name without affecting other profiles.

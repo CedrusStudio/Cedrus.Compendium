@@ -12,16 +12,20 @@ export default function CharacterManeuversViewDrawer({ character, open, onOpenCh
       <DrawerContent>
         <div className="overflow-y-auto">
         <DrawerHeader className="flex flex-col place-content-center place-items-center flex-wrap">
+        <DrawerTitle className="capitalize">{displayedText.showManeuvers}</DrawerTitle>
         {
           character.maneuvers.length > 0 && (
             <div className="flex flex-col gap-4 place-content-center place-items-center">
-              <DrawerTitle className="capitalize">{displayedText.maneuvers}</DrawerTitle>
               
               <div className="flex flex-row flex-wrap md:grid md:grid-cols-4 gap-3 items-center justify-center">
               { character.maneuvers.map(maneuver => <ManeuverView maneuver={maneuver} key={maneuver.id} />) }
               </div>
+              
             </div>
           )
+        }
+        {
+          character.maneuvers.length === 0 && <p className="text-sm text-muted-foreground">Brak manewrow.</p>
         }
         </DrawerHeader>
         </div>
