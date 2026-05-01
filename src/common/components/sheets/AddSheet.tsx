@@ -52,7 +52,7 @@ export default function AddSheet
           <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3 overflow-y-auto flex-1 py-2">
+        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3 overflow-y-auto overflow-x-hidden flex-1 py-2">
           {children}
         </div>
 

@@ -1,8 +1,13 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 import { displayedText } from '@/common/translations';
+
+const sonnerMocks = vi.hoisted(() => ({
+  success: vi.fn(),
+  error: vi.fn(),
+}));
 
 if (!HTMLElement.prototype.hasPointerCapture) {
   HTMLElement.prototype.hasPointerCapture = () => false;
@@ -36,6 +41,13 @@ vi.mock('@/common/components/ApiKeySettings', () => ({
   ApiKeySettings: () => <div>api key settings</div>,
 }));
 
+vi.mock('sonner', () => ({
+  toast: {
+    success: sonnerMocks.success,
+    error: sonnerMocks.error,
+  },
+}));
+
 vi.mock('next/link', () => ({
   default: ({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; children: React.ReactNode }) => (
     <a href={href} {...props}>{children}</a>
@@ -51,6 +63,8 @@ describe('PersonalizationPage', () => {
     usePersonalizationMock.mockReset();
     useEntityTagsMock.mockReset();
     useEntityTagsMock.mockReturnValue({ tags: [], isLoading: false, error: null });
+    sonnerMocks.success.mockReset();
+    sonnerMocks.error.mockReset();
   });
 
   it('renders the stored profile user name and saves a new one', () => {
@@ -355,5 +369,108 @@ describe('PersonalizationPage', () => {
     fireEvent.click(await screen.findByText('alchemy'));
 
     expect(addQuickTag).toHaveBeenCalledWith('characters', 'alchemy');
+  });
+
+  it('exports the active profile as a JSON file', () => {
+    const createObjectURL = vi.fn(() => 'blob:personalization');
+    const revokeObjectURL = vi.fn();
+    const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+
+    Object.defineProperty(URL, 'createObjectURL', {
+      writable: true,
+      value: createObjectURL,
+    });
+    Object.defineProperty(URL, 'revokeObjectURL', {
+      writable: true,
+      value: revokeObjectURL,
+    });
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        userName: 'Marek',
+      },
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      addFavoriteCharacter: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Eksportuj konfiguracje JSON' }));
+
+    expect(createObjectURL).toHaveBeenCalledTimes(1);
+    expect(clickSpy).toHaveBeenCalledTimes(1);
+    expect(revokeObjectURL).toHaveBeenCalledWith('blob:personalization');
+    expect(sonnerMocks.success).toHaveBeenCalledWith('Wyeksportowano konfiguracje aktywnego profilu do pliku JSON.');
+
+    clickSpy.mockRestore();
+  });
+
+  it('imports a JSON configuration into the active profile', async () => {
+    const replaceProfile = vi.fn();
+    const fileContents = JSON.stringify({
+      format: 'cedrus-personalization-profile',
+      version: 1,
+      profile: {
+        userName: 'Anna',
+        favoriteCharacterIds: ['character-1'],
+        mainCharacterId: 'character-1',
+      },
+    });
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: createEmptyProfile(),
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      addFavoriteCharacter: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+      replaceProfile,
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    const importInput = screen.getByLabelText('Importuj konfiguracje JSON');
+    const file = new File([fileContents], 'profile.json', { type: 'application/json' });
+
+    Object.defineProperty(file, 'text', {
+      writable: true,
+      value: vi.fn().mockResolvedValue(fileContents),
+    });
+
+    fireEvent.change(importInput, { target: { files: [file] } });
+
+    await waitFor(() => expect(replaceProfile).toHaveBeenCalledWith({
+      ...createEmptyProfile(),
+      userName: 'Anna',
+      favoriteCharacterIds: ['character-1'],
+      mainCharacterId: 'character-1',
+    }));
+    expect(sonnerMocks.success).toHaveBeenCalledWith('Zaimportowano konfiguracje dla aktywnego API key.');
   });
 });

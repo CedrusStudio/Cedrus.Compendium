@@ -49,7 +49,7 @@ describe('AddSheet - scrollable content', () => {
     expect(content.className).toContain('flex-col');
   });
 
-  it('should render content area with overflow-y-auto and flex-1', () => {
+  it('should render content area with vertical scrolling only', () => {
     const { getByTestId } = render(
       <AddSheet isPending={false} formId="test-form" title="Test Sheet">
         <div>Child content</div>
@@ -59,6 +59,7 @@ describe('AddSheet - scrollable content', () => {
     const scrollableArea = content.querySelector('.overflow-y-auto');
     expect(scrollableArea).toBeTruthy();
     expect(scrollableArea?.className).toContain('flex-1');
+    expect(scrollableArea?.className).toContain('overflow-x-hidden');
   });
 
   it('should render footer outside the scrollable area', () => {

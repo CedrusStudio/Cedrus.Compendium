@@ -4,7 +4,7 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useApiKey } from '@/common/hooks/useApiKey';
 import { AppDispatch, RootState } from '@/persistence/slices/store';
-import { actions, createEmptyProfile, PersonalizationContext, QuickLink } from '@/persistence/slices/personalizationSlice';
+import { actions, createEmptyProfile, PersonalizationContext, PersonalizationProfile, QuickLink } from '@/persistence/slices/personalizationSlice';
 import { BestiaryColumnPreferenceKey } from '@/application/bestiary/bestiaryColumnPreferences';
 
 export function usePersonalization()
@@ -37,5 +37,6 @@ export function usePersonalization()
     addQuickLink: (quickLink: QuickLink) => dispatch(actions.addQuickLink(quickLink)),
     removeQuickLink: (quickLinkId: string) => dispatch(actions.removeQuickLink(quickLinkId)),
     updateQuickLink: (quickLink: QuickLink) => dispatch(actions.updateQuickLink(quickLink)),
+    replaceProfile: (profile: PersonalizationProfile) => dispatch(actions.replaceProfile(profile)),
   };
 }

@@ -27,8 +27,11 @@ function HeroSection()
 
   return (
     <div className="text-center mb-16">
-      <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:justify-end">
+      <div className="mb-6 flex flex-wrap items-center justify-center gap-2 md:justify-end">
         <ApiKeySettings />
+        <Button asChild variant="outline" size="icon">
+          <Link href="/personalization" aria-label="Personalization">{personalizationIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+        </Button>
         {
           isLoaded && !isCheckingAdmin && isAdmin && (
             <Button asChild variant="outline" size="icon">
@@ -36,9 +39,6 @@ function HeroSection()
             </Button>
           )
         }
-        <Button asChild variant="outline" size="icon">
-          <Link href="/personalization" aria-label="Personalization">{personalizationIcon("h-[1.2rem] w-[1.2rem]")}</Link>
-      </Button>
       </div>
       <h1 className="text-6xl lg:text-7xl font-bold mb-6">
         {displayedText.applicationHeading}
