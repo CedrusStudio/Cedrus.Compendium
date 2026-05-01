@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useApiKey } from '@/common/hooks/useApiKey';
+import { useAdminStatus } from '@/common/hooks/useAdminStatus';
 import tagManagementClient from '@/infrastructure/clients/tagManagementClient';
 import { EntityType } from '@/infrastructure/clients/tagsClient';
 
@@ -32,7 +32,7 @@ const entityOptions = Object.keys(entityLabels) as EntityType[];
 
 export default function TagManagementPage()
 {
-  const { hasApiKey, isLoaded } = useApiKey();
+  const { isAdmin, isCheckingAdmin, isLoaded } = useAdminStatus();
   const [selectedEntity, setSelectedEntity] = useState<EntityType>('perks');
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
   const [nextTagValue, setNextTagValue] = useState('');
@@ -42,6 +42,7 @@ export default function TagManagementPage()
     queryKey: ['tagManagement', selectedEntity],
     queryFn: () => tagManagementClient.getTags(selectedEntity),
     staleTime: 5 * 60 * 1000,
+    enabled: isLoaded && isAdmin,
   });
 
   const invalidateEntityQueries = async (entity: EntityType) => {
@@ -78,9 +79,24 @@ export default function TagManagementPage()
 
   const sortedTags = useMemo(() => [...managedTags].sort((left, right) => left.tag.localeCompare(right.tag)), [managedTags]);
 
-  if (!isLoaded)
+  if (!isLoaded || isCheckingAdmin)
   {
     return null;
+  }
+
+  if (!isAdmin)
+  {
+    return (
+      <div className="container mx-auto px-6 py-12 max-w-4xl">
+        <div className="rounded-lg border p-6 text-center">
+          <h1 className="text-3xl font-bold">Zarzadzanie tagami</h1>
+          <p className="mt-3 text-sm text-muted-foreground">Ta sekcja jest dostepna tylko dla administratorow.</p>
+          <Link href="/personalization" className="mt-4 inline-flex rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
+            Wroc do personalizacji
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -93,8 +109,8 @@ export default function TagManagementPage()
           </p>
         </div>
 
-        <Link href="/personalization" className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-          Wroc do personalizacji
+        <Link href="/admin" className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
+          Wroc do panelu admina
         </Link>
       </div>
 
@@ -115,14 +131,6 @@ export default function TagManagementPage()
             ))
           }
         </select>
-
-        {
-          !hasApiKey && (
-            <p className="mt-3 text-sm text-muted-foreground">
-              Odczyt tagow jest dostepny bez API key, ale zmiany rename/delete wymagaja aktywnego klucza administracyjnego.
-            </p>
-          )
-        }
       </div>
 
       {
@@ -155,7 +163,7 @@ export default function TagManagementPage()
                     type="button"
                     className="rounded-md border px-4 py-2 font-medium hover:bg-muted disabled:opacity-50"
                     onClick={() => renameMutation.mutate()}
-                    disabled={!hasApiKey || !nextTagValue.trim() || renameMutation.isPending}
+                    disabled={!nextTagValue.trim() || renameMutation.isPending}
                   >
                     Potwierdz rename
                   </button>
@@ -164,7 +172,7 @@ export default function TagManagementPage()
                     type="button"
                     className="rounded-md border px-4 py-2 font-medium hover:bg-muted disabled:opacity-50"
                     onClick={() => deleteMutation.mutate()}
-                    disabled={!hasApiKey || deleteMutation.isPending}
+                    disabled={deleteMutation.isPending}
                   >
                     Potwierdz usuniecie
                   </button>
@@ -201,8 +209,7 @@ export default function TagManagementPage()
                 <div className="flex flex-wrap gap-2">
                   <button
                     type="button"
-                    className="rounded-md border px-3 py-1 hover:bg-muted disabled:opacity-50"
-                    disabled={!hasApiKey}
+                    className="rounded-md border px-3 py-1 hover:bg-muted"
                     onClick={() => {
                       setPendingAction({ type: 'rename', tag: managedTag.tag, count: managedTag.count });
                       setNextTagValue('');
@@ -212,8 +219,7 @@ export default function TagManagementPage()
                   </button>
                   <button
                     type="button"
-                    className="rounded-md border px-3 py-1 hover:bg-muted disabled:opacity-50"
-                    disabled={!hasApiKey}
+                    className="rounded-md border px-3 py-1 hover:bg-muted"
                     onClick={() => {
                       setPendingAction({ type: 'delete', tag: managedTag.tag, count: managedTag.count });
                       setNextTagValue('');

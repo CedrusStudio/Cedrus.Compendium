@@ -1,22 +1,14 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { RequirementEntityType } from '@/infrastructure/clients/requirementsClient';
-
-const ENTITY_MODEL_MAP: Record<RequirementEntityType, string> =
-{
-  spells: 'spell',
-  perks: 'perk',
-  maneuvers: 'maneuver',
-  stances: 'stance',
-  states: 'state',
-};
+import { requirementEntityModelMap } from '@/lib/requirementEntityModels';
 
 export async function GET(request: Request, { params }: { params: Promise<{ entity: string }> })
 {
   try
   {
     const { entity } = await params;
-    const modelName = ENTITY_MODEL_MAP[entity as RequirementEntityType];
+    const modelName = requirementEntityModelMap[entity as RequirementEntityType];
 
     if (!modelName)
     {

@@ -61,6 +61,8 @@ describe('PersonalizationPage', () => {
     render(<PersonalizationPage />);
 
     expect(screen.getByText('Marek')).toBeTruthy();
+    expect(screen.queryByRole('link', { name: 'Zarzadzaj tagami' })).toBeNull();
+    expect(screen.getByRole('link', { name: 'Wroc do strony glownej' }).getAttribute('href')).toBe('/');
 
     fireEvent.change(screen.getByPlaceholderText('Nazwa uzytkownika dla tego API key'), { target: { value: 'Anna' } });
     fireEvent.click(screen.getByRole('button', { name: 'Zapisz nazwe' }));

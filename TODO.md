@@ -585,7 +585,7 @@ Status: done
 
 ## 6. Requirements management panel
 
-Status: planned
+Status: done
 
 ### Requirements management: current state
 
@@ -666,6 +666,13 @@ Status: planned
 
 - Admin can inspect, rename, and delete requirement values for all existing requirement-bearing entity types.
 - Existing requirement-selection forms reflect the updated values after cache invalidation.
+
+### Requirements management: completion note
+
+- Added `/api/requirements-management/[entity]`, `/api/requirements-management/rename`, and `/api/requirements-management/delete` for counted listing plus fan-out rename/delete operations on denormalized `requirements` arrays.
+- Extracted the shared requirement-entity model map so both requirement discovery and requirement management use the same supported entity set.
+- Added `src/infrastructure/clients/requirementsManagementClient.ts` and a new `/admin/requirements` page mirroring the tag-management workflow with entity selection, counts, and explicit rename/delete confirmation.
+- Linked the new requirements panel from `/admin` and validated the flow with focused route/UI tests plus a full Vitest run.
 
 ## 7. Restrict theme switching to dark and light only
 
@@ -836,7 +843,7 @@ Status: done
 
 ## 10. Separate admin tools from personalization
 
-Status: planned
+Status: done
 
 ### Admin/personalization separation: investigation result
 
@@ -906,6 +913,13 @@ Status: planned
 ### Admin/personalization separation: definition of done
 
 - Personalization and admin tooling are separate navigation concepts, separate routes, and separate capability surfaces.
+
+### Admin/personalization separation: completion note
+
+- Added `GET /api/admin/capabilities` and a client `useAdminStatus` hook so admin visibility is derived from a server-backed capability check instead of client-side key lists.
+- Moved tag management into a dedicated `/admin/tags` route and added an `/admin` landing page.
+- Removed admin-tool links from personalization and added an admin-only navbar button for the new admin area.
+- Added focused tests for the capability route, navbar visibility, personalization de-linking, and admin-only tag page access.
 
 ## 11. Bind a user name to each API-key personalization profile
 

@@ -3,14 +3,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const useApiKeyMock = vi.fn();
+const useAdminStatusMock = vi.fn();
 const getTagsMock = vi.fn();
 const renameTagMock = vi.fn();
 const deleteTagMock = vi.fn();
 
-vi.mock('@/common/hooks/useApiKey', () => ({
-  useApiKey: () => useApiKeyMock(),
-  getStoredApiKey: () => 'alpha',
+vi.mock('@/common/hooks/useAdminStatus', () => ({
+  useAdminStatus: () => useAdminStatusMock(),
 }));
 
 vi.mock('@/infrastructure/clients/tagManagementClient', () => ({
@@ -28,7 +27,7 @@ vi.mock('next/link', () => ({
   ),
 }));
 
-import TagManagementPage from '@/app/personalization/tags/page';
+import TagManagementPage from '@/app/admin/tags/page';
 
 function renderPage()
 {
@@ -48,14 +47,14 @@ function renderPage()
 
 describe('TagManagementPage', () => {
   beforeEach(() => {
-    useApiKeyMock.mockReset();
+    useAdminStatusMock.mockReset();
     getTagsMock.mockReset();
     renameTagMock.mockReset();
     deleteTagMock.mockReset();
   });
 
   it('renders fetched tags and opens the rename confirmation panel', async () => {
-    useApiKeyMock.mockReturnValue({ apiKey: 'alpha', hasApiKey: true, isLoaded: true, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
+    useAdminStatusMock.mockReturnValue({ isAdmin: true, isCheckingAdmin: false, isLoaded: true });
     getTagsMock.mockResolvedValue([{ tag: 'miecze', count: 3 }]);
 
     renderPage();
@@ -68,19 +67,16 @@ describe('TagManagementPage', () => {
     expect(screen.getByPlaceholderText('Nowa wartosc tagu')).toBeTruthy();
   });
 
-  it('disables destructive actions when no API key is configured', async () => {
-    useApiKeyMock.mockReturnValue({ apiKey: null, hasApiKey: false, isLoaded: true, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
-    getTagsMock.mockResolvedValue([{ tag: 'miecze', count: 1 }]);
+  it('shows an access message when the user is not an admin', async () => {
+    useAdminStatusMock.mockReturnValue({ isAdmin: false, isCheckingAdmin: false, isLoaded: true });
 
     renderPage();
 
-    expect(await screen.findByText('miecze')).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'Rename' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Delete' })).toBeDisabled();
+    expect(screen.getByText('Ta sekcja jest dostepna tylko dla administratorow.')).toBeTruthy();
   });
 
   it('calls the rename mutation with the selected entity and confirmation value', async () => {
-    useApiKeyMock.mockReturnValue({ apiKey: 'alpha', hasApiKey: true, isLoaded: true, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
+    useAdminStatusMock.mockReturnValue({ isAdmin: true, isCheckingAdmin: false, isLoaded: true });
     getTagsMock.mockResolvedValue([{ tag: 'miecze', count: 2 }]);
     renameTagMock.mockResolvedValue({ updatedCount: 2 });
 

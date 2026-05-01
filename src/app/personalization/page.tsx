@@ -73,8 +73,8 @@ export default function PersonalizationPage()
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <Link href="/personalization/tags" className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
-            Zarzadzaj tagami
+          <Link href="/" className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-muted">
+            Wroc do strony glownej
           </Link>
           <ApiKeySettings />
         </div>
