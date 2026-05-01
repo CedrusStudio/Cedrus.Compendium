@@ -20,6 +20,7 @@ import { createCharacterSummaryQuery } from '@/infrastructure/searchQueries/char
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import { CharacterTag, isCharacterOrSessionTag } from '@/domain/Tag';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
+import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -145,8 +146,9 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
 
   return (
     <div className='relative'>
-      <div className='absolute inset-y-0 right-4 z-10 flex items-center'>
+      <div className='absolute inset-y-0 right-4 z-10 flex items-center gap-2'>
         <FavoriteCharacterButton characterId={summary.id} />
+        <MainCharacterButton characterId={summary.id} />
       </div>
 
       <Link 
@@ -156,7 +158,7 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
       >
         <Card className='relative overflow-hidden bg-gradient-to-r from-slate-900/90 to-slate-800/90 hover:from-slate-800 hover:to-slate-700 border border-slate-700/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20 lg:min-w-250'>
           <div className='absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-          <div className='relative flex flex-row items-center gap-4 px-6 pr-18'>
+          <div className='relative flex flex-row items-center gap-4 px-6 pr-28'>
             <div className='flex items-center gap-2.5 min-w-[200px]'>
               <div className='h-1.5 w-1.5 rounded-full bg-primary animate-pulse' />
               <h3 className='text-base font-bold text-slate-100 group-hover:text-primary transition-colors duration-200'>
