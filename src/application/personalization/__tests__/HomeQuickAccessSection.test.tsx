@@ -43,8 +43,8 @@ describe('HomeQuickAccessSection', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Ustaw API key, aby wlaczyc personalizacje.')).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'Przejdz do personalizacji' })).toHaveAttribute('href', '/personalization');
+    expect(screen.getByText('Ustaw API key, aby włączyć personalizację.')).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Przejdź do personalizacji' })).toHaveAttribute('href', '/personalization');
   });
 
   it('renders the main character and configured quick links for the active profile', () => {
