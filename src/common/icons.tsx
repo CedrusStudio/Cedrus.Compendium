@@ -52,6 +52,8 @@ import { LuSearchCheck } from "react-icons/lu";
 import { LuSearchX } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 
+import { RiAdminLine } from "react-icons/ri";
+
 export const characteristicIcons: Record<string, ReactNode> = 
 {
   strength: <LuBicepsFlexed className="w-5 h-5" />,
@@ -97,7 +99,7 @@ export const bestiaryIcon = (className?: string) => <GiSeaDragon className={clas
 export const battleIcon = (className?: string) => <GiSwordsEmblem className={className} />;
 export const homeIcon = (className?: string) => <FaHome className={className} />;
 export const personalizationIcon = (className?: string) => <SlidersHorizontal className={className} />;
-export const adminIcon = (className?: string) => <Shield className={className} />;
+export const adminIcon = (className?: string) => <RiAdminLine className={className} />;
 
 export const addIcon = (className?: string) => <LuPlus className={className} />;
 export const removeIcon = (className?: string) => <LuMinus className={className} />;

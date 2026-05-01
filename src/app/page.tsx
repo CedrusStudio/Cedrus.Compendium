@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { displayedText } from "@/common/translations";
 import { Users, BookOpen, Scroll, Swords } from "lucide-react";
 import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 import HomeQuickAccessSection from '@/application/personalization/HomeQuickAccessSection';
+
+import { Button } from "@/ui/button";
+import { useAdminStatus } from '@/common/hooks/useAdminStatus';
+import { adminIcon } from '@/common/icons';
 
 export default function HomePage() 
 {
@@ -17,10 +23,19 @@ export default function HomePage()
 
 function HeroSection() 
 {
+  const { isAdmin, isCheckingAdmin, isLoaded } = useAdminStatus();
+
   return (
     <div className="text-center mb-16">
-      <div className="flex justify-end mb-4">
+      <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:justify-end">
         <ApiKeySettings />
+        {
+          isLoaded && !isCheckingAdmin && isAdmin && (
+            <Button asChild variant="outline" size="icon">
+              <Link href="/admin" aria-label="Admin panel">{adminIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+            </Button>
+          )
+        }
       </div>
       <h1 className="text-6xl lg:text-7xl font-bold mb-6">
         {displayedText.applicationHeading}

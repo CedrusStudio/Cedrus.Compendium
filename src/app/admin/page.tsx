@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useAdminStatus } from '@/common/hooks/useAdminStatus';
+import { Button } from "@/ui/button";
+import { homeIcon } from '@/common/icons';
 
 export default function AdminPage()
 {
@@ -26,9 +28,18 @@ export default function AdminPage()
 
   return (
     <div className="container mx-auto px-6 py-12 max-w-5xl space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold">Panel administracyjny</h1>
-        <p className="mt-2 text-muted-foreground">Zarzadzaj globalnymi danymi wspoldzielonymi przez wszystkich uzytkownikow.</p>
+
+
+      <div className="flex place-content-between place-items-center">
+
+        <div>
+          <h1 className="text-4xl font-bold">Panel administracyjny</h1>
+          <p className="mt-2 text-muted-foreground">Zarzadzaj globalnymi danymi wspoldzielonymi przez wszystkich uzytkownikow.</p>
+        </div>
+
+        <Button asChild variant="outline" size="icon">
+          <Link href="/">{homeIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+      </Button>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
