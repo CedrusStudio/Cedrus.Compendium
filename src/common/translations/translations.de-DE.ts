@@ -316,4 +316,7 @@ export const translations_deDE =
     selectExistingTag: "vorhandenen tag auswählen",
     noTagsFound: "keine tags gefunden",
     searchTags: "tags suchen...",
+    selectExistingRequirement: "vorhandene anforderung auswählen",
+    noRequirementsFound: "keine anforderungen gefunden",
+    searchRequirements: "anforderungen suchen...",
 } as const;

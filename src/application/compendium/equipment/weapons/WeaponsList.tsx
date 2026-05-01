@@ -117,6 +117,7 @@ export default function WeaponsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="weapons"
       >
         <StyleFilter selectedStyle={selectedStyle} onStyleChange={handleStyleChange} styles={allowedStyles} />
         <AddWeaponForm />

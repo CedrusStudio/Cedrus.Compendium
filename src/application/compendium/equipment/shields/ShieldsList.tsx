@@ -110,6 +110,7 @@ export default function ShieldsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="shields"
       >
         <AddShieldForm />
       </ListHeader>

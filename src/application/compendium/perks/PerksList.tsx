@@ -128,6 +128,7 @@ export default function PerksList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="perks"
       >
         <Button
           variant="outline"

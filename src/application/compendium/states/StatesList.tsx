@@ -128,6 +128,7 @@ export default function StatesList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="states"
       >
         <Button
           variant="outline"

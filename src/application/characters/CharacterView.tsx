@@ -21,6 +21,7 @@ import { actions } from "@/persistence/slices/characterSlice";
 import { editIcon } from "@/common/icons";
 import DeleteButton from "@/common/components/buttons/DeleteButton";
 import NotFound from '@/common/components/NotFound';
+import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 
 type CharacterViewProps = 
 {
@@ -68,6 +69,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     </TabsList>
 
                     <div className='flex flex-row gap-3'>
+                        <FavoriteCharacterButton characterId={character.id} showLabel />
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
                         <Button asChild variant="outline" size="icon" className='my-4'>

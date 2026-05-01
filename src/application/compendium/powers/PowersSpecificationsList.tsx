@@ -109,6 +109,7 @@ export default function PowersSpecificationList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="powers"
       >
         <AddPowerSpecificationForm />
       </ListHeader>

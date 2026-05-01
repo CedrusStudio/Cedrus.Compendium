@@ -12,16 +12,17 @@ const pathname = usePathname();
   return (
     <nav className="flex items-center justify-between py-4 px-10 gap-3">
 
-        <div className="hidden md:block">
-          <NavbarBreadcrumb pathname={pathname} />
-        </div>
+      <div className="hidden md:block">
+        <NavbarBreadcrumb pathname={pathname} />
+      </div>
 
-        <div className="flex-1" />
-        
-        <div className="flex gap-2 items-center">
-          <ApiKeySettings />
-          <NavbarDefaultButton />
-        </div>
+      <div className="flex-1" />
+      
+      <div className="flex gap-2 items-center">
+        <ApiKeySettings />
+        <NavbarDefaultButton />
+      </div>
+      
     </nav>
   );
 };

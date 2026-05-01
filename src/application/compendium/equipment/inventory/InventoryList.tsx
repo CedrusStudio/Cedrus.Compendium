@@ -109,6 +109,7 @@ export default function InventoryList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="inventory"
       >
         <AddInventoryItemForm />
       </ListHeader>

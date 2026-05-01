@@ -6,12 +6,12 @@ import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { Perk } from "@/domain/characters/Perk";
-import { EntityType } from "@/common/hooks/useEntityTags";
+import { RequirementEntityType } from "@/common/hooks/useEntityRequirements";
 
 type PerkEditableFieldsProps =
 {
     pathPrefix?: string;
-    entityType?: EntityType;
+    entityType?: RequirementEntityType;
 }
 
 export default function PerkEditableFields({ pathPrefix = "", entityType }: PerkEditableFieldsProps)
@@ -50,7 +50,7 @@ export default function PerkEditableFields({ pathPrefix = "", entityType }: Perk
         </div>
 
         <FormTagsInput<Perk> path={`${pathPrefix}tags` as FieldPath<Perk>} entityType={entityType} />
-        <FormStringsInput<Perk> path={`${pathPrefix}requirements` as FieldPath<Perk>} placeholder={displayedText.addRequirement} />
+        <FormStringsInput<Perk> path={`${pathPrefix}requirements` as FieldPath<Perk>} placeholder={displayedText.addRequirement} entityType={entityType} />
           
         <div className="grid auto-rows-min gap-3 px-4">
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.price}</span></Label>

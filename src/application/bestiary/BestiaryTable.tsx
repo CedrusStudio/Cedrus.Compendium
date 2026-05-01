@@ -29,6 +29,7 @@ import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import BestiaryTableRow from "@/application/bestiary/BestiaryTableRow";
 import { Table as TableType } from "@tanstack/react-table";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
+import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
 
 const pageSize = 20;
 const EMPTY_ARRAY: never[] = [];
@@ -176,6 +177,14 @@ export default function BestiaryTable()
         </Button> 
 
         <ColumnFilter table={table} />
+      </div>
+
+      <div className="mb-4">
+        <PersonalizedQuickTags
+          context="bestiary"
+          selectedTags={searchTags}
+          onSelectedTagsChange={handleSearchTagsChange}
+        />
       </div>
 
       <InfiniteScroll

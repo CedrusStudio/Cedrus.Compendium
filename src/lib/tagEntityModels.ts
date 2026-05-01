@@ -1,0 +1,15 @@
+export const tagEntityModelMap: Record<string, string> = {
+  characters: 'character',
+  weapons: 'weapon',
+  armors: 'armor',
+  shields: 'shield',
+  spells: 'spell',
+  perks: 'perk',
+  races: 'race',
+  maneuvers: 'maneuver',
+  stances: 'stance',
+  states: 'state',
+  inventory: 'inventoryItem',
+  mounts: 'mount',
+  powerSpecifications: 'powerSpecification',
+};

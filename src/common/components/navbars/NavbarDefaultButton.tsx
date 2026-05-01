@@ -1,5 +1,6 @@
 import ThemeMode from "@/common/components/navbars/ThemeMode";
 import { FaHome } from "react-icons/fa";
+import { SlidersHorizontal } from 'lucide-react';
 import { Button } from "@/ui/button";
 import Link from "next/link";
 
@@ -10,6 +11,9 @@ export default function NavbarDefaultButton()
         <Button asChild variant="outline" size="icon">
             <Link href="/"><FaHome className="h-[1.2rem] w-[1.2rem]" /></Link>
         </Button>
+      <Button asChild variant="outline" size="icon">
+        <Link href="/personalization" aria-label="Personalization"><SlidersHorizontal className="h-[1.2rem] w-[1.2rem]" /></Link>
+      </Button>
         <ThemeMode />
     </div>
   );

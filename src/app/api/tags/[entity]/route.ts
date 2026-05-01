@@ -1,30 +1,13 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-
-// Map entity names to Prisma model names
-const ENTITY_MODEL_MAP: Record<string, string> = 
-{
-  'characters': 'character',
-  'weapons': 'weapon',
-  'armors': 'armor',
-  'shields': 'shield',
-  'spells': 'spell',
-  'perks': 'perk',
-  'races': 'race',
-  'maneuvers': 'maneuver',
-  'stances': 'stance',
-  'states': 'state',
-  'inventory': 'inventoryItem',
-  'mounts': 'mount',
-  'powerSpecifications': 'powerSpecification',
-};
+import { tagEntityModelMap } from '@/lib/tagEntityModels';
 
 export async function GET(request: Request, { params }: { params: Promise<{ entity: string }> }) 
 {
   try 
   {
     const { entity } = await params;
-    const modelName = ENTITY_MODEL_MAP[entity];
+    const modelName = tagEntityModelMap[entity];
 
     if (!modelName) 
     {

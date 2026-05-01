@@ -132,6 +132,7 @@ export default function ManeuversList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="maneuvers"
       >
         <Button
           variant="outline"

@@ -110,6 +110,7 @@ export default function ArmorsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="armors"
       >
         <AddArmorForm />
       </ListHeader>

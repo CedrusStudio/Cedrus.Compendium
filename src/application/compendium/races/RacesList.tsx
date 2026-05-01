@@ -111,6 +111,7 @@ export default function RacesList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="races"
       >
         <AddRaceForm />
       </ListHeader>

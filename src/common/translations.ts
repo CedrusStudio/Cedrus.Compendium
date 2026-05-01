@@ -343,4 +343,7 @@ export const displayedText =
     selectExistingTag: translate("selectExistingTag"),
     noTagsFound: translate("noTagsFound"),
     searchTags: translate("searchTags"),
+    selectExistingRequirement: translate("selectExistingRequirement"),
+    noRequirementsFound: translate("noRequirementsFound"),
+    searchRequirements: translate("searchRequirements"),
 } as const;

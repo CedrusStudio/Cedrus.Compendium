@@ -110,6 +110,7 @@ export default function MountsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="mounts"
       >
         <AddMountForm />
       </ListHeader>

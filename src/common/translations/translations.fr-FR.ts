@@ -316,4 +316,7 @@ export const translations_frFR =
     selectExistingTag: "sélectionner un tag existant",
     noTagsFound: "aucun tag trouvé",
     searchTags: "rechercher des tags...",
+    selectExistingRequirement: "sélectionner une exigence existante",
+    noRequirementsFound: "aucune exigence trouvée",
+    searchRequirements: "rechercher des exigences...",
 } as const;

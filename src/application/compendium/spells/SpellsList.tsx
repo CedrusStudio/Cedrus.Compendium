@@ -133,6 +133,7 @@ export default function SpellsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="spells"
       >
         <Button
           variant="outline"

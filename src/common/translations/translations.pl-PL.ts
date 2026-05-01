@@ -316,5 +316,8 @@ export const translations_plPL =
     selectExistingTag: "wybierz istniejący tag",
     noTagsFound: "nie znaleziono tagów",
     searchTags: "szukaj tagów...",
+    selectExistingRequirement: "wybierz istniejące wymaganie",
+    noRequirementsFound: "nie znaleziono wymagań",
+    searchRequirements: "szukaj wymagań...",
 } as const;
 

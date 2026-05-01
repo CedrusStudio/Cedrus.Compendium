@@ -128,6 +128,7 @@ export default function StancesList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="stances"
       >
         <Button
           variant="outline"
