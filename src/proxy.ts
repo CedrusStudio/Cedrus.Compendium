@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { adminApiKeys } from '@/lib/env';
 
 export const API_KEY_HEADER = 'x-api-key';
 
@@ -17,14 +18,13 @@ export function proxy(request: NextRequest)
     return NextResponse.json({ error: 'Unauthorized', message: 'API key is required' }, { status: 401 });
   }
 
-  const expectedApiKey = process.env.NEXT_API_KEY;
-  if (!expectedApiKey)
+  if (adminApiKeys.length === 0)
   {
-    console.error('❌ NEXT_API_KEY environment variable is not set');
+    console.error('❌ NEXT_API_KEYS environment variable is not set');
     return NextResponse.json({ error: 'Server Configuration Error', message: 'API authentication not configured' }, { status: 500 });
   }
   
-  if (apiKey !== expectedApiKey) 
+  if (!adminApiKeys.includes(apiKey)) 
   {
     console.warn('🚫 Invalid API key for', request.method, pathname);
     return NextResponse.json({ error: 'Forbidden', message: 'Invalid API key' }, { status: 403 });

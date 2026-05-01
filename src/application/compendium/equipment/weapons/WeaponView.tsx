@@ -51,7 +51,7 @@ export default function WeaponView({ weapon, disableEdit = false, onDelete }: We
               {
                 (isPending, formId) => (
                   <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
-                    <ItemEditableFields />
+                    <ItemEditableFields entityType="weapons" />
                     <WeaponEditableFields />
                   </EditSheet>
                 )

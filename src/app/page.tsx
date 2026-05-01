@@ -1,25 +1,44 @@
+"use client";
+
 import Link from "next/link";
 import { displayedText } from "@/common/translations";
 import { Users, BookOpen, Scroll, Swords } from "lucide-react";
 import { ApiKeySettings } from "@/common/components/ApiKeySettings";
+import HomeQuickAccessSection from '@/application/personalization/HomeQuickAccessSection';
+
+import { Button } from "@/ui/button";
+import { useAdminStatus } from '@/common/hooks/useAdminStatus';
+import { adminIcon, personalizationIcon } from '@/common/icons';
 
 export default function HomePage() 
 {
   return (
-    <div className="container mx-auto px-6 py-12 max-w-7xl">
+    <div className="container mx-auto px-6 py-6 max-w-7xl">
       <HeroSection />
       <CategoryCards />
-      <FeaturesSection />
+      <HomeQuickAccessSection />
     </div>
   );
 }
 
 function HeroSection() 
 {
+  const { isAdmin, isCheckingAdmin, isLoaded } = useAdminStatus();
+
   return (
     <div className="text-center mb-16">
-      <div className="flex justify-end mb-4">
+      <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:justify-end">
         <ApiKeySettings />
+        {
+          isLoaded && !isCheckingAdmin && isAdmin && (
+            <Button asChild variant="outline" size="icon">
+              <Link href="/admin" aria-label="Admin panel">{adminIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+            </Button>
+          )
+        }
+        <Button asChild variant="outline" size="icon">
+          <Link href="/personalization" aria-label="Personalization">{personalizationIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+      </Button>
       </div>
       <h1 className="text-6xl lg:text-7xl font-bold mb-6">
         {displayedText.applicationHeading}
@@ -88,37 +107,6 @@ function CategoryCards()
             </p>
           </Link>
         ))}
-      </div>
-    </div>
-  );
-}
-
-function FeaturesSection()
-{
-  return (
-    <div className="border-t pt-12">
-      <h2 className="text-3xl font-bold mb-8 text-center">Funkcje Aplikacji</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-6 border rounded-lg">
-          <h3 className="font-semibold mb-2 text-lg">📊 Zarządzanie Postaciami</h3>
-          <p className="text-sm text-muted-foreground">
-            Twórz, edytuj i śledź rozwój swoich postaci. Pełna kontrola nad statystykami, ekwipunkiem i umiejętnościami.
-          </p>
-        </div>
-
-        <div className="p-6 border rounded-lg">
-          <h3 className="font-semibold mb-2 text-lg">📚 Kompletne Kompendium</h3>
-          <p className="text-sm text-muted-foreground">
-            Dostęp do bazy danych zaklęć, atutów, manewrów i przedmiotów. Wszystko czego potrzebujesz w jednym miejscu.
-          </p>
-        </div>
-
-        <div className="p-6 border rounded-lg">
-          <h3 className="font-semibold mb-2 text-lg">⚔️ System Walki</h3>
-          <p className="text-sm text-muted-foreground">
-            Szczegółowe zasady mechaniki walki, manewry bojowe i taktyki. Kompleksowy system RPG Cedrus.
-          </p>
-        </div>
       </div>
     </div>
   );

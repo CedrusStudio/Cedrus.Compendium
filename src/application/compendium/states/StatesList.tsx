@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/statesClient";
@@ -128,6 +128,7 @@ export default function StatesList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="states"
       >
         <Button
           variant="outline"
@@ -170,7 +171,7 @@ export default function StatesList()
 
   const form = useForm<AddModeDto>
   ({
-    resolver: zodResolver(addModeSchema),
+    resolver: typedZodResolver(addModeSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -189,7 +190,7 @@ export default function StatesList()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addState} />
+        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addState} entityType="states" />
       </form>
     </Form>
   )

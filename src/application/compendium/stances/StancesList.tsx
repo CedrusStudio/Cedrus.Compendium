@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/stancesClient";
@@ -128,6 +128,7 @@ export default function StancesList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="stances"
       >
         <Button
           variant="outline"
@@ -172,7 +173,7 @@ function AddStanceForm()
 
   const form = useForm<AddModeDto>
   ({
-    resolver: zodResolver(addModeSchema),
+    resolver: typedZodResolver(addModeSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -191,7 +192,7 @@ function AddStanceForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addStance} />
+        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addStance} entityType="stances" />
       </form>
     </Form>
   )

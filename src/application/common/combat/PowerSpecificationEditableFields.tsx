@@ -42,7 +42,7 @@ export default function PowerSpecificationEditableFields()
         />
       </div>
 
-      <FormTagsInput<PowerSpecification> path={'tags'} />
+      <FormTagsInput<PowerSpecification> path={'tags'} entityType="powerSpecifications" />
       <PowerOffenseArrayEditor />
     </>
   );

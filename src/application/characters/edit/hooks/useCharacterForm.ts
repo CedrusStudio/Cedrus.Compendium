@@ -7,7 +7,7 @@ import { ZodType } from "zod";
 type UseCharacterFormParams<TFormData extends FieldValues> = 
 {
   characterId: string;
-  schema: ZodType<TFormData, TFormData>;
+  schema: ZodType<TFormData, any, any>;
   defaultValues: DefaultValues<TFormData>;
   updateFn: (id: string, data: TFormData) => Promise<void>;
   formId?: string;
@@ -28,7 +28,8 @@ export function useCharacterForm<TFormData extends FieldValues>(input : UseChara
 {
   const form = useForm<TFormData>
   ({
-    resolver: zodResolver(input.schema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(input.schema) as any,
     defaultValues: input.defaultValues,
     mode: input.formMode || "onBlur",
   });

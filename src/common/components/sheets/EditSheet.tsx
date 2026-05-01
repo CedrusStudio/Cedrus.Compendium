@@ -48,14 +48,14 @@ export function EditSheet
         </Button>
       </SheetTrigger>
       
-      <SheetContent className={contentClassName || "w-full"}>
+      <SheetContent className={contentClassName || "w-full flex flex-col"}>
 
         <SheetHeader>
           <SheetTitle className="first-letter:uppercase">{title}</SheetTitle>
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
         
-        <div className="flex flex-col gap-3 px-4 place-items-center place-content-center">
+        <div className="flex flex-col gap-3 px-4 place-items-center place-content-center overflow-y-auto overflow-x-hidden flex-1 py-2">
           {children}
         </div>
         

@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/weaponsClient";
@@ -117,6 +117,7 @@ export default function WeaponsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="weapons"
       >
         <StyleFilter selectedStyle={selectedStyle} onStyleChange={handleStyleChange} styles={allowedStyles} />
         <AddWeaponForm />
@@ -142,7 +143,7 @@ function AddWeaponForm()
 
   const form = useForm<WeaponDto>
   ({
-    resolver: zodResolver(weaponSchema),
+    resolver: typedZodResolver(weaponSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -161,7 +162,7 @@ function AddWeaponForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.weapons}>
+        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.weapons} entityType="weapons">
           <WeaponEditableFields pathPrefix="" />
         </ItemAddSheet>
       </form>

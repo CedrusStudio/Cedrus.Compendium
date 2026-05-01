@@ -44,7 +44,7 @@ function CategoryCards()
   const categories = [
     {
       id: 'weapons',
-      title: 'Broń',
+      title: 'Bronie',
       icon: <Sword className="h-8 w-8" />,
       description: 'Miecze, topory, łuki i pozostała broń',
       href: '/compendium/equipment/weapons',

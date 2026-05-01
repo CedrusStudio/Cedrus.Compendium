@@ -93,7 +93,7 @@ function EditSpellSheet({ isPending, formId }: { isPending: boolean, formId: str
       formId={formId}
       title={displayedText.editSpell}
     >
-      <PerkEditableFields />
+      <PerkEditableFields entityType="spells" />
       <SpellEditableFields  />
     </EditSheet>
   )

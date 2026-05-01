@@ -52,20 +52,19 @@ export function ApiKeySettings()
       <DialogTrigger asChild>
         <Button 
           variant={hasApiKey ? "default" : "outline"}
-          size="sm"
           className="gap-2"
         >
           {
             hasApiKey ? (
-                <>
-                    <Check className="h-4 w-4" />
-                    <span className="hidden sm:inline">API Key Set</span>
-                </>
+              <>
+                <Check className="h-4 w-4" />
+                <span className="hidden sm:inline">API Key Set</span>
+              </>
             ) : (
-                <>
-                    <Key className="h-4 w-4" />
-                    <span className="hidden sm:inline">Set API Key</span>
-                </>
+              <>
+                <Key className="h-4 w-4" />
+                <span className="hidden sm:inline">Set API Key</span>
+              </>
             )
           }
         </Button>
@@ -113,24 +112,23 @@ export function ApiKeySettings()
             </div>
 
             {
-                hasApiKey && (
-                    <p className="text-xs text-green-600 dark:text-green-400">
-                        ✓ API key is currently set
-                    </p>
-                )
+              hasApiKey && (
+                <p className="text-xs text-green-600 dark:text-green-400">
+                    ✓ API key is currently set
+                </p>
+              )
             }
           </div>
 
           {
             hasApiKey && (
+              <div className="rounded-lg bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-900 p-3 text-sm">
+                <p className="font-semibold text-yellow-800 dark:text-yellow-200 mb-1">⚠️ Security Note</p>
 
-                <div className="rounded-lg bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-900 p-3 text-sm">
-                    <p className="font-semibold text-yellow-800 dark:text-yellow-200 mb-1">⚠️ Security Note</p>
-
-                    <p className="text-yellow-700 dark:text-yellow-300">
-                        Your API key is stored in browser localStorage. Clear it if you&apos;re on a shared computer.
-                    </p>
-                </div>
+                <p className="text-yellow-700 dark:text-yellow-300">
+                  Your API key is stored in browser localStorage. Clear it if you&apos;re on a shared computer.
+                </p>
+              </div>
             )
           } 
         </div>
@@ -138,10 +136,10 @@ export function ApiKeySettings()
         <DialogFooter className="gap-2">
           {
             hasApiKey && (
-                <Button type="button" variant="destructive" onClick={handleRemove}>
-                    <X className="h-4 w-4 mr-2" />
-                    Remove Key
-                </Button>
+              <Button type="button" variant="destructive" onClick={handleRemove}>
+                <X className="h-4 w-4 mr-2" />
+                Remove Key
+              </Button>
             )
           }
           

@@ -12,15 +12,18 @@ import { Button } from "@/ui/button";
 import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
 import { displayedText } from "@/common/translations";
 import { addIcon } from "@/common/icons";
+import ExistingRequirementDropdown from "@/common/components/inputs/ExistingRequirementDropdown";
+import { RequirementEntityType } from "@/common/hooks/useEntityRequirements";
 
 export type FormStringsInputProps<TFieldValues extends FieldValues> = 
 {
   path: FieldPath<TFieldValues>;
   placeholder?: string;
   maxCount?: number;
+  entityType?: RequirementEntityType;
 };
 
-export function FormStringsInput<TFieldValues extends FieldValues>({ path, placeholder = displayedText.addString, maxCount = 15 }: FormStringsInputProps<TFieldValues>) 
+export function FormStringsInput<TFieldValues extends FieldValues>({ path, placeholder = displayedText.addString, maxCount = 15, entityType }: FormStringsInputProps<TFieldValues>) 
 {
   const { control } = useFormContext<TFieldValues>();
   const [inputValue, setInputValue] = useState("");
@@ -34,31 +37,44 @@ export function FormStringsInput<TFieldValues extends FieldValues>({ path, place
       {
         const items = (Array.isArray(field.value) ? field.value : []) as string[];
 
-        const handleAddItem = () => 
+        const addItem = (value: string, trimValue = true) =>
         {
-          const trimmedValue = inputValue.trim();
-          setValidationError(null); // Clear previous validation error
-          
-          if (!trimmedValue) 
+          const nextValue = trimValue ? value.trim() : value;
+          setValidationError(null);
+
+          if (!nextValue)
           {
             setValidationError(displayedText.stringCannotBeEmpty);
-            return;
+            return false;
           }
 
-          if (items.includes(trimmedValue)) 
+          if (items.includes(nextValue))
           {
             setValidationError(displayedText.stringAlreadyExists);
-            return;
+            return false;
           }
 
-          if (items.length >= maxCount) 
+          if (items.length >= maxCount)
           {
             setValidationError(`${displayedText.maximum} ${maxCount} ${displayedText.stringAllowed}`);
-            return;
+            return false;
           }
 
-          field.onChange([...items, trimmedValue]);
-          setInputValue("");
+          field.onChange([...items, nextValue]);
+          return true;
+        };
+
+        const handleAddItem = () => 
+        {
+          if (addItem(inputValue))
+          {
+            setInputValue("");
+          }
+        };
+
+        const handleSelectRequirement = (requirement: string) => 
+        {
+          addItem(requirement, false);
         };
 
         const handleRemoveString = (stringToRemove: string) => 
@@ -79,24 +95,36 @@ export function FormStringsInput<TFieldValues extends FieldValues>({ path, place
           <FormItem>
             <FormControl>
               <div className="flex flex-col gap-3">
-                <div className="flex gap-2 items-center justify-center">
-                  <Input
-                    type="text"
-                    value={inputValue}
-                    onChange={e => 
-                    {
-                      setInputValue(e.target.value);
-                      setValidationError(null);
-                    }}
-                    onKeyDown={handleKeyDown}
-                    placeholder={placeholder}
-                    className="w-46"
-                  />
+                <div className="flex flex-col flex-wrap md:flex-row gap-2 place-items-center place-content-center">
+                  <div className="flex gap-2 items-center justify-center">
+                    <Input
+                      type="text"
+                      value={inputValue}
+                      onChange={e => 
+                      {
+                        setInputValue(e.target.value);
+                        setValidationError(null);
+                      }}
+                      onKeyDown={handleKeyDown}
+                      placeholder={placeholder}
+                      className="w-46"
+                    />
 
-                  <Button type="button" onClick={handleAddItem} variant="outline">
-                    {addIcon("scale-90")}
-                  </Button>
-                  
+                    <Button type="button" onClick={handleAddItem} variant="outline">
+                      {addIcon("scale-90")}
+                    </Button>
+                  </div>
+
+                  {
+                    entityType && (
+                      <ExistingRequirementDropdown
+                        entityType={entityType}
+                        currentRequirements={items}
+                        maxCount={maxCount}
+                        onSelectRequirement={handleSelectRequirement}
+                      />
+                    )
+                  }
                 </div>
 
                 { validationError && <p className="text-sm font-medium text-destructive flex place-content-center">{validationError}</p> }

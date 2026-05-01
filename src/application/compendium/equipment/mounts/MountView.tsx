@@ -51,7 +51,7 @@ export default function MountView({ mount, disableEdit = false, onDelete }: Moun
               {
                 (isPending, formId) => (
                   <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
-                    <ItemEditableFields />
+                    <ItemEditableFields entityType="mounts" />
                     <MountEditableFields />
                   </EditSheet>
                 )

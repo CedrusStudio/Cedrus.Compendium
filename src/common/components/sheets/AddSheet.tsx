@@ -46,13 +46,13 @@ export default function AddSheet
         }
       </SheetTrigger>
 
-      <SheetContent className="w-full">
+      <SheetContent className="w-full flex flex-col">
         <SheetHeader>
           <SheetTitle className='first-letter:uppercase'>{title}</SheetTitle>
           <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3">
+        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3 overflow-y-auto flex-1 py-2">
           {children}
         </div>
 

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-const API_KEY_STORAGE_KEY = 'cedrus-system-api-key';
+export const API_KEY_STORAGE_KEY = 'cedrus-system-api-key';
+export const API_KEY_CHANGED_EVENT = 'cedrus-api-key-changed';
 
 /**
  * Hook to manage API key in localStorage
@@ -12,29 +13,42 @@ export function useApiKey()
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load API key from localStorage on mount
   useEffect(() => 
   {
-    const storedKey = localStorage.getItem(API_KEY_STORAGE_KEY);
-    setApiKey(storedKey);
-    setIsLoaded(true);
+    const syncFromStorage = () => 
+    {
+      const storedKey = localStorage.getItem(API_KEY_STORAGE_KEY);
+      setApiKey(storedKey);
+      setIsLoaded(true);
+    };
+
+    syncFromStorage();
+
+    window.addEventListener('storage', syncFromStorage);
+    window.addEventListener(API_KEY_CHANGED_EVENT, syncFromStorage);
+
+    return () => 
+    {
+      window.removeEventListener('storage', syncFromStorage);
+      window.removeEventListener(API_KEY_CHANGED_EVENT, syncFromStorage);
+    };
   }, []);
 
-  // Save API key to localStorage
   const saveApiKey = (key: string) => 
   {
     if (key.trim()) 
     {
       localStorage.setItem(API_KEY_STORAGE_KEY, key.trim());
       setApiKey(key.trim());
+      window.dispatchEvent(new Event(API_KEY_CHANGED_EVENT));
     }
   };
 
-  // Remove API key from localStorage
   const removeApiKey = () => 
   {
     localStorage.removeItem(API_KEY_STORAGE_KEY);
     setApiKey(null);
+    window.dispatchEvent(new Event(API_KEY_CHANGED_EVENT));
   };
 
   return {

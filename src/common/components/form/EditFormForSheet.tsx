@@ -1,15 +1,15 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { DefaultValues, FieldValues, useForm, UseFormProps } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import { ZodType } from "zod";
+import { typedZodResolver } from "@/common/global/validation";
 
 type EditFormProps<TFormData extends FieldValues> =
 {
   entityId: string;
-  schema: ZodType<TFormData, TFormData>;
+  schema: ZodType<TFormData>;
   defaultValues: DefaultValues<TFormData>;
   updateFn: (id: string, data: TFormData) => Promise<void>;
   formId: string;
@@ -23,7 +23,7 @@ export function EditFormForSheet<TFormData extends FieldValues>(input: EditFormP
 {
   const form = useForm<TFormData>
   ({
-    resolver: zodResolver(input.schema),
+    resolver: typedZodResolver(input.schema),
     defaultValues: input.defaultValues,
     mode: input.formMode || "onBlur",
   });

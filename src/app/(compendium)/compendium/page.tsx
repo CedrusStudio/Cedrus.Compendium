@@ -29,20 +29,12 @@ function CategoryCards()
 {
   const categories = [
     {
-      id: 'perks',
-      title: 'Atuty',
-      icon: <Award className="h-8 w-8" />,
-      description: 'Specjalne umiejętności i zdolności postaci',
-      href: '/compendium/perks',
-      color: 'text-purple-500'
-    },
-    {
-      id: 'races',
-      title: 'Rasy',
-      icon: <Users className="h-8 w-8" />,
-      description: 'Rasy postaci i ich cechy charakterystyczne',
-      href: '/compendium/races',
-      color: 'text-green-500'
+      id: 'maneuvers',
+      title: 'Manewry',
+      icon: <Swords className="h-8 w-8" />,
+      description: 'Techniki bojowe i manewry walki',
+      href: '/compendium/maneuvers',
+      color: 'text-red-500'
     },
     {
       id: 'stances',
@@ -61,12 +53,20 @@ function CategoryCards()
       color: 'text-yellow-500'
     },
     {
-      id: 'maneuvers',
-      title: 'Manewry',
-      icon: <Swords className="h-8 w-8" />,
-      description: 'Techniki bojowe i manewry walki',
-      href: '/compendium/maneuvers',
-      color: 'text-red-500'
+      id: 'perks',
+      title: 'Atuty',
+      icon: <Award className="h-8 w-8" />,
+      description: 'Specjalne umiejętności i zdolności postaci',
+      href: '/compendium/perks',
+      color: 'text-purple-500'
+    },
+    {
+      id: 'powersSpecifications',
+      title: 'Moce',
+      icon: <GiSpellBook className="h-8 w-8" />,
+      description: 'Specyfikacje mocy i ich właściwości',
+      href: '/compendium/powers',
+      color: 'text-indigo-500'
     },
     {
       id: 'spells',
@@ -77,12 +77,12 @@ function CategoryCards()
       color: 'text-indigo-500'
     },
     {
-      id: 'powersSpecifications',
-      title: 'Moce',
-      icon: <GiSpellBook className="h-8 w-8" />,
-      description: 'Specyfikacje mocy i ich właściwości',
-      href: '/compendium/powers',
-      color: 'text-indigo-500'
+      id: 'races',
+      title: 'Rasy',
+      icon: <Users className="h-8 w-8" />,
+      description: 'Rasy postaci i ich cechy charakterystyczne',
+      href: '/compendium/races',
+      color: 'text-green-500'
     },
     {
       id: 'equipment',

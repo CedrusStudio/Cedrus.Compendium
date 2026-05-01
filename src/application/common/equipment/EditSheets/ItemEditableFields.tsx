@@ -5,13 +5,15 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import { InventoryItemDto } from '@/persistence/schemas/characters/equipment/itemSchema';
+import { EntityType } from '@/common/hooks/useEntityTags';
 
 type EditItemViewProps =
 {
     pathPrefix?: string;
+    entityType?: EntityType;
 }
 
-export default function ItemEditableFields({ pathPrefix = ""}: EditItemViewProps)
+export default function ItemEditableFields({ pathPrefix = "", entityType }: EditItemViewProps)
 {
   return (
     <>
@@ -33,7 +35,7 @@ export default function ItemEditableFields({ pathPrefix = ""}: EditItemViewProps
             />
         </div>
 
-        <FormTagsInput<InventoryItemDto> path={`${pathPrefix}tags` as FieldPath<InventoryItemDto>} />
+        <FormTagsInput<InventoryItemDto> path={`${pathPrefix}tags` as FieldPath<InventoryItemDto>} entityType={entityType} />
     </>
   );
 };

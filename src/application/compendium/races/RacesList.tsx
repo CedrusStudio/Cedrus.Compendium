@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/racesClient";
@@ -111,6 +111,7 @@ export default function RacesList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="races"
       >
         <AddRaceForm />
       </ListHeader>
@@ -135,7 +136,7 @@ function AddRaceForm()
 
   const form = useForm<AddRaceDto>
   ({
-    resolver: zodResolver(addRaceSchema),
+    resolver: typedZodResolver(addRaceSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });

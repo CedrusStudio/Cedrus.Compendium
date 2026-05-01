@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/ui/form";
+import { FormControl, FormField, FormItem, FormMessage } from "@/ui/form";
 import { useState } from "react";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
@@ -15,6 +10,8 @@ import { FieldPath, FieldValues, useFormContext } from "react-hook-form";
 import { displayedText } from "@/common/translations";
 import { addIcon } from "@/common/icons";
 import SessionTagDropdown from "@/common/components/inputs/SessionTagDropdown";
+import ExistingTagDropdown from "@/common/components/inputs/ExistingTagDropdown";
+import { EntityType } from "@/common/hooks/useEntityTags";
 
 export type FormTagsInputProps<TFieldValues extends FieldValues> = 
 {
@@ -22,9 +19,10 @@ export type FormTagsInputProps<TFieldValues extends FieldValues> =
   placeholder?: string;
   maxTags?: number;
   beAbleToSetCharacterAndSessionTags?: boolean;
+  entityType?: EntityType;
 };
 
-export function FormTagsInput<TFieldValues extends FieldValues>({ path, placeholder = displayedText.addTag, maxTags = 15, beAbleToSetCharacterAndSessionTags = false }: FormTagsInputProps<TFieldValues>) 
+export function FormTagsInput<TFieldValues extends FieldValues>({ path, placeholder = displayedText.addTag, maxTags = 15, beAbleToSetCharacterAndSessionTags = false, entityType }: FormTagsInputProps<TFieldValues>) 
 {
   const { control } = useFormContext<TFieldValues>();
   const [inputValue, setInputValue] = useState("");
@@ -112,13 +110,13 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
           <FormItem>
             <FormControl>
               <div className="flex flex-col gap-3">
-                <div className="flex flex-col md:flex-row gap-2 place-items-center place-content-center">
+                <div className="flex flex-col flex-wrap md:flex-row gap-2 place-items-center place-content-center">
 
                   <div className="flex flex-row gap-2">
                     <Input
                       type="text"
                       value={inputValue}
-                      onChange={(e) => 
+                      onChange={e => 
                         {
                           setInputValue(e.target.value);
                           setValidationError(null);
@@ -152,6 +150,26 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
                       </>
                     )
                   }
+
+                  {
+                    entityType && (
+                      <ExistingTagDropdown
+                        entityType={entityType}
+                        currentTags={tags}
+                        maxTags={maxTags}
+                        onSelectTag={tag => 
+                        {
+                          if (tags.includes(tag)) 
+                          {
+                            setValidationError(displayedText.tagAlreadyExists);
+                            return;
+                          }
+                          field.onChange([...tags, tag]);
+                          setValidationError(null);
+                        }}
+                      />
+                    )
+                  }
                 </div>
 
                 { validationError && <p className="text-sm font-medium text-destructive flex place-content-center">{validationError}</p> }
@@ -163,10 +181,10 @@ export function FormTagsInput<TFieldValues extends FieldValues>({ path, placehol
                       tags.map(tag => (
                         <Badge key={tag} variant="secondary" className="flex items-center gap-1">
                           <button
-                              type="button"
-                              onClick={() => handleRemoveTag(tag)}
-                              className="hover:text-destructive"
-                              aria-label={`Remove ${tag}`}
+                            type="button"
+                            onClick={() => handleRemoveTag(tag)}
+                            className="hover:text-destructive"
+                            aria-label={`Remove ${tag}`}
                           >
                             {tag}
                           </button>

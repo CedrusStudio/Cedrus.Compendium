@@ -64,7 +64,7 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
                       formId={formId}
                       title={displayedText.editState}
                     >
-                      <PerkEditableFields />
+                      <PerkEditableFields entityType="states" />
                     </EditSheet>
                   )
                 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/maneuversClient";
@@ -132,6 +132,7 @@ export default function ManeuversList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="maneuvers"
       >
         <Button
           variant="outline"
@@ -176,7 +177,7 @@ function AddManeuverForm()
 
   const form = useForm<AddManeuverDto>
   ({
-    resolver: zodResolver(addManeuverSchema),
+    resolver: typedZodResolver(addManeuverSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -195,7 +196,7 @@ function AddManeuverForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addManeuver} >
+        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addManeuver} entityType="maneuvers">
           <div className="grid grid-cols-2 gap-4">
 
             <div className="grid auto-rows-min gap-3 px-4">

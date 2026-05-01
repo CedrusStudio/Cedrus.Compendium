@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/spellsClient";
@@ -133,6 +133,7 @@ export default function SpellsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="spells"
       >
         <Button
           variant="outline"
@@ -177,7 +178,7 @@ function AddSpellForm()
 
   const form = useForm<AddSpellDto>
   ({
-    resolver: zodResolver(addSpellSchema),
+    resolver: typedZodResolver(addSpellSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -196,7 +197,7 @@ function AddSpellForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addSpell} >
+        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addSpell} entityType="spells">
           
           <div className="grid grid-cols-3 gap-4 place-items-center">
 

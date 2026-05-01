@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/mountsClient";
@@ -40,7 +40,7 @@ export default function MountsList()
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
   const queryKey = createKeysetSearchMountsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
-  const { data: searchResults = [] } = useQuery
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
@@ -110,6 +110,7 @@ export default function MountsList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="mounts"
       >
         <AddMountForm />
       </ListHeader>
@@ -134,7 +135,7 @@ function AddMountForm()
 
   const form = useForm<MountDto>
   ({
-    resolver: zodResolver(mountSchema),
+    resolver: typedZodResolver(mountSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -153,7 +154,7 @@ function AddMountForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.mounts}>
+        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.mounts} entityType="mounts">
           <MountEditableFields />
         </ItemAddSheet>
       </form>

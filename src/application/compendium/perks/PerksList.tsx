@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/perksClient";
@@ -128,6 +128,7 @@ export default function PerksList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="perks"
       >
         <Button
           variant="outline"
@@ -172,7 +173,7 @@ function AddPerkForm()
 
   const form = useForm<AddPerkDto>
   ({
-    resolver: zodResolver(addPerkSchema),
+    resolver: typedZodResolver(addPerkSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -191,7 +192,7 @@ function AddPerkForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addPerk} />
+        <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addPerk} entityType="perks" />
       </form>
     </Form>
   )

@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/powerSpecificationsClient";
@@ -109,6 +109,7 @@ export default function PowersSpecificationList()
         handleExcludedTagsChange={handleExcludedTagsChange}
         availableTags={availableTags}
         tagsLoading={tagsLoading}
+        personalizationContext="powers"
       >
         <AddPowerSpecificationForm />
       </ListHeader>
@@ -133,7 +134,7 @@ function AddPowerSpecificationForm()
 
   const form = useForm<AddPowerSpecificationDto>
   ({
-    resolver: zodResolver(addPowerSpecificationSchema),
+    resolver: typedZodResolver(addPowerSpecificationSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
