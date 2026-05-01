@@ -20,7 +20,7 @@ export function proxy(request: NextRequest)
 
   if (adminApiKeys.length === 0)
   {
-    console.error('❌ NEXT_API_KEYS or NEXT_API_KEY environment variable is not set');
+    console.error('❌ NEXT_API_KEYS environment variable is not set');
     return NextResponse.json({ error: 'Server Configuration Error', message: 'API authentication not configured' }, { status: 500 });
   }
   

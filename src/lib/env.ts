@@ -32,7 +32,6 @@ const parseLanguageEnvironmentVariables = () =>
 };
 
 export const languageSettings = parseLanguageEnvironmentVariables();
-export const apiKey = process.env.NEXT_API_KEY;
 
 const splitConfiguredApiKeys = (value: string | undefined) =>
 {
@@ -44,7 +43,4 @@ const splitConfiguredApiKeys = (value: string | undefined) =>
     .filter(Boolean);
 };
 
-export const adminApiKeys = Array.from(new Set([
-  ...splitConfiguredApiKeys(process.env.NEXT_API_KEYS),
-  ...splitConfiguredApiKeys(process.env.NEXT_API_KEY),
-]));
+export const adminApiKeys = splitConfiguredApiKeys(process.env.NEXT_API_KEYS);
