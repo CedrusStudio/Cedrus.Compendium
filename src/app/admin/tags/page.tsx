@@ -101,8 +101,8 @@ export default function TagManagementPage()
     return (
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         <div className="rounded-lg border p-6 text-center">
-          <h1 className="text-3xl font-bold">Zarzadzanie tagami</h1>
-          <p className="mt-3 text-sm text-muted-foreground">Ta sekcja jest dostepna tylko dla administratorow.</p>
+          <h1 className="text-3xl font-bold">Zarządzanie tagami</h1>
+          <p className="mt-3 text-sm text-muted-foreground">Ta sekcja jest dostępna tylko dla administratorów.</p>
         </div>
       </div>
     );
@@ -112,14 +112,14 @@ export default function TagManagementPage()
     <div className="container mx-auto px-6 py-12 max-w-6xl space-y-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-4xl font-bold">Zarzadzanie tagami</h1>
+          <h1 className="text-4xl font-bold">Zarządzanie tagami</h1>
           <p className="mt-2 text-muted-foreground">
-            Przegladaj tagi po typie encji, sprawdzaj liczbe wystapien i wykonuj zbiorcze zmiany.
+            Przeglądaj tagi po typie encji, sprawdzaj liczbę wystąpień i wykonuj zbiorcze zmiany.
           </p>
         </div>
 
         <Button asChild variant="outline" size="icon">
-          <Link href="/admin" aria-label="Wroc do panelu admina">{leftIcon}</Link>
+          <Link href="/admin" aria-label="Wróć do panelu admina">{leftIcon}</Link>
         </Button>
       </div>
 
@@ -129,7 +129,8 @@ export default function TagManagementPage()
             id="tag-entity-select"
             value={selectedEntity}
             items={entitySelectItems}
-            onChange={value => {
+            onChange={value => 
+            {
               setSelectedEntity(value as EntityType);
               setPendingAction(null);
               setNextTagValue('');
@@ -147,7 +148,7 @@ export default function TagManagementPage()
               <p className="mt-2 text-sm text-muted-foreground">
                 {pendingAction.type === 'rename'
                   ? `Tag ${pendingAction.tag} zostanie zmieniony w ${pendingAction.count} rekordach.`
-                  : `Tag ${pendingAction.tag} zostanie usuniety z ${pendingAction.count} rekordow.`}
+                  : `Tag ${pendingAction.tag} zostanie usunięty z ${pendingAction.count} rekordów.`}
               </p>
             </div>
 
@@ -155,7 +156,7 @@ export default function TagManagementPage()
               pendingAction.type === 'rename' && (
                 <input
                   className="w-full rounded-md border bg-background px-3 py-2 md:max-w-sm"
-                  placeholder="Nowa wartosc tagu"
+                  placeholder="Nowa wartość tagu"
                   value={nextTagValue}
                   onChange={event => setNextTagValue(event.target.value)}
                 />
@@ -171,7 +172,7 @@ export default function TagManagementPage()
                     onClick={() => renameMutation.mutate()}
                     disabled={!nextTagValue.trim() || renameMutation.isPending}
                   >
-                    Potwierdz rename
+                    Potwierdź zmianę
                   </button>
                 ) : (
                   <button
@@ -180,7 +181,7 @@ export default function TagManagementPage()
                     onClick={() => deleteMutation.mutate()}
                     disabled={deleteMutation.isPending}
                   >
-                    Potwierdz usuniecie
+                    Potwierdź usunięcie
                   </button>
                 )
               }
@@ -196,17 +197,17 @@ export default function TagManagementPage()
       <div className="rounded-lg border overflow-hidden">
         <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_120px_180px] md:items-center md:gap-4 border-b bg-muted/40 px-4 py-3 text-sm font-medium">
           <span>Tag</span>
-          <span className="text-center">Liczba uzyc</span>
+          <span className="text-center">Liczba użyć</span>
           <span>Akcje</span>
         </div>
 
         {
           isLoading ? (
-            <div className="px-4 py-6 text-sm text-muted-foreground">Ladowanie tagow...</div>
+            <div className="px-4 py-6 text-sm text-muted-foreground">Ładowanie tagów...</div>
           ) : error ? (
-            <div className="px-4 py-6 text-sm text-destructive">Nie udalo sie pobrac listy tagow.</div>
+            <div className="px-4 py-6 text-sm text-destructive">Nie udało się pobrać listy tagów.</div>
           ) : sortedTags.length === 0 ? (
-            <div className="px-4 py-6 text-sm text-muted-foreground">Brak tagow dla wybranego typu encji.</div>
+            <div className="px-4 py-6 text-sm text-muted-foreground">Brak tagów dla wybranego typu encji.</div>
           ) : (
             sortedTags.map(managedTag => (
               <div key={managedTag.tag} className="grid gap-3 border-t px-4 py-4 text-sm md:grid-cols-[minmax(0,1fr)_120px_180px] md:items-center md:gap-4 md:py-3">
@@ -215,7 +216,7 @@ export default function TagManagementPage()
                   <div className="font-medium break-all">{managedTag.tag}</div>
                 </div>
                 <div className="flex items-center justify-between gap-3 md:block md:text-center">
-                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Liczba uzyc</span>
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">Liczba użyć</span>
                   <span className="inline-flex min-w-10 items-center justify-center rounded-full bg-muted px-2.5 py-1 font-medium">{managedTag.count}</span>
                 </div>
                 <div className="space-y-2">
@@ -229,7 +230,7 @@ export default function TagManagementPage()
                       setNextTagValue('');
                     }}
                   >
-                    Rename
+                    Zmień
                   </button>
                   <button
                     type="button"
@@ -239,7 +240,7 @@ export default function TagManagementPage()
                       setNextTagValue('');
                     }}
                   >
-                    Delete
+                    Usuń
                   </button>
                 </div>
               </div>
