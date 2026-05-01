@@ -10,6 +10,7 @@ import { actions, createEmptyProfile, PERSONALIZATION_STORAGE_KEY, reducer, MAX_
 describe('personalizationSlice', () => {
   beforeEach(() => {
     localStorage.clear();
+    vi.restoreAllMocks();
   });
 
   const createState = (overrides?: Partial<PersonalizationSliceState>): PersonalizationSliceState => ({
@@ -148,5 +149,117 @@ describe('personalizationSlice', () => {
     state = reducer(state, actions.clearBestiaryColumnVisibility());
 
     expect(state.profilesByApiKey.alpha.bestiaryColumnVisibility).toBeUndefined();
+  });
+
+  it('trims a new active API key, creates a profile, and persists it', () => {
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+    let state = createState({
+      profilesByApiKey: {
+        alpha: createEmptyProfile(),
+      },
+    });
+
+    state = reducer(state, actions.setActiveApiKey('  beta  '));
+
+    expect(state.activeApiKey).toBe('beta');
+    expect(state.profilesByApiKey.beta).toEqual(createEmptyProfile());
+    expect(setItemSpy).toHaveBeenCalledWith(
+      PERSONALIZATION_STORAGE_KEY,
+      JSON.stringify(state.profilesByApiKey),
+    );
+  });
+
+  it('ignores blank and duplicate quick tags and removes saved tags', () => {
+    let state = createState();
+
+    state = reducer(state, actions.addQuickTag({ context: 'perks', tag: '   ' }));
+    state = reducer(state, actions.addQuickTag({ context: 'perks', tag: 'tag-1' }));
+    state = reducer(state, actions.addQuickTag({ context: 'perks', tag: 'tag-1' }));
+
+    expect(state.profilesByApiKey.alpha.quickTagsByContext.perks).toEqual(['tag-1']);
+
+    state = reducer(state, actions.removeQuickTag({ context: 'perks', tag: 'tag-1' }));
+    expect(state.profilesByApiKey.alpha.quickTagsByContext.perks).toEqual([]);
+  });
+
+  it('toggles favorites on and off and clears the main character on removal', () => {
+    let state = createState();
+
+    state = reducer(state, actions.toggleFavoriteCharacter('character-1'));
+    state = reducer(state, actions.setMainCharacter('character-1'));
+
+    expect(state.profilesByApiKey.alpha.favoriteCharacterIds).toEqual(['character-1']);
+    expect(state.profilesByApiKey.alpha.mainCharacterId).toBe('character-1');
+
+    state = reducer(state, actions.toggleFavoriteCharacter('character-1'));
+
+    expect(state.profilesByApiKey.alpha.favoriteCharacterIds).toEqual([]);
+    expect(state.profilesByApiKey.alpha.mainCharacterId).toBeUndefined();
+  });
+
+  it('ignores setting a main character that is not favorited', () => {
+    let state = createState();
+
+    state = reducer(state, actions.setMainCharacter('character-404'));
+
+    expect(state.profilesByApiKey.alpha.mainCharacterId).toBeUndefined();
+  });
+
+  it('updates and removes quick links and ignores updates for unknown links', () => {
+    let state = createState({
+      profilesByApiKey: {
+        alpha: {
+          ...createEmptyProfile(),
+          quickLinks: [
+            {
+              id: 'favorites',
+              label: 'Favorites',
+              type: 'route',
+              href: '/characters/favorites',
+            },
+            {
+              id: 'character-link',
+              label: 'Hero',
+              type: 'character',
+              characterId: 'character-1',
+            },
+          ],
+        },
+      },
+    });
+
+    state = reducer(state, actions.updateQuickLink({
+      id: 'favorites',
+      label: 'Compendium',
+      type: 'route',
+      href: '/compendium',
+    }));
+
+    expect(state.profilesByApiKey.alpha.quickLinks[0]).toEqual({
+      id: 'favorites',
+      label: 'Compendium',
+      type: 'route',
+      href: '/compendium',
+    });
+
+    const unchangedState = reducer(state, actions.updateQuickLink({
+      id: 'missing',
+      label: 'Missing',
+      type: 'route',
+      href: '/characters',
+    }));
+
+    expect(unchangedState.profilesByApiKey.alpha.quickLinks).toEqual(state.profilesByApiKey.alpha.quickLinks);
+
+    state = reducer(state, actions.removeQuickLink('character-link'));
+
+    expect(state.profilesByApiKey.alpha.quickLinks).toEqual([
+      {
+        id: 'favorites',
+        label: 'Compendium',
+        type: 'route',
+        href: '/compendium',
+      },
+    ]);
   });
 });
