@@ -50,7 +50,7 @@ export default function InventoryItemView({ item, disableEdit = false, onDelete 
               {
                 (isPending, formId) => (
                   <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
-                    <ItemEditableFields />
+                    <ItemEditableFields entityType="inventory" />
                   </EditSheet>
                 )
               }

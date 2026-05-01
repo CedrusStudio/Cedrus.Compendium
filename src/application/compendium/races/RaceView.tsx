@@ -50,15 +50,38 @@ export default function RaceView({ race, disableEdit = false, onDelete }: RaceVi
     return modifier.toString();
   };
 
-  const characteristics = 
+  const characteristicsLeft = 
   [
     { name: displayedText.strength, modifier: race.strengthModifier },
     { name: displayedText.dexterity, modifier: race.dexterityModifier },
     { name: displayedText.constitution, modifier: race.constitutionModifier },
+  ];
+
+  const characteristicsRight = 
+  [
     { name: displayedText.mind, modifier: race.mindModifier },
     { name: displayedText.charisma, modifier: race.charismaModifier },
     { name: displayedText.spellborn, modifier: race.spellbornModifier }
   ];
+
+  const renderCharacteristicsTable = (chars: { name: string; modifier: number }[]) => (
+    <div className="p-2 rounded-md border flex-1">
+      <Table>
+        <TableBody>
+        {
+          chars.map(char => (
+            <TableRow key={char.name}>
+              <TableCell className="font-medium capitalize">{char.name}</TableCell>
+              <TableCell className={`text-right ${getModifierColorClass(char.modifier)}`}>
+              {formatModifier(char.modifier)}
+              </TableCell>
+            </TableRow>
+          ))
+        }
+        </TableBody>
+      </Table>
+    </div>
+  );
 
   return (
     <CompendiumView>
@@ -67,22 +90,9 @@ export default function RaceView({ race, disableEdit = false, onDelete }: RaceVi
 
       <div className="flex flex-row place-items-center place-content-center gap-2">
 
-        <div className="p-2 rounded-md w-full border">
-          <Table>
-            <TableBody>
-            {
-              characteristics.map(char => (
-                <TableRow key={char.name}>
-                  <TableCell className="font-medium capitalize">{char.name}</TableCell>
-                  <TableCell className={`text-right ${getModifierColorClass(char.modifier)}`}>
-                  {formatModifier(char.modifier)}
-                  </TableCell>
-                </TableRow>
-                )
-              )
-            }
-            </TableBody>
-          </Table>
+        <div className="flex flex-row gap-2 w-full">
+          {renderCharacteristicsTable(characteristicsLeft)}
+          {renderCharacteristicsTable(characteristicsRight)}
         </div>
 
         <PerkableBadgeView>
@@ -123,7 +133,7 @@ export default function RaceView({ race, disableEdit = false, onDelete }: RaceVi
                       />
                     </div>
 
-                    <FormTagsInput<Race> path={'tags' as FieldPath<Race>} />
+                    <FormTagsInput<Race> path={'tags' as FieldPath<Race>} entityType="races" />
 
                     <div className="grid auto-rows-min gap-3 place-content-center place-items-center">
                       <div className="grid grid-cols-2 gap-3">

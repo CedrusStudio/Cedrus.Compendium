@@ -6,13 +6,15 @@ import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { Perk } from "@/domain/characters/Perk";
+import { EntityType } from "@/common/hooks/useEntityTags";
 
 type PerkEditableFieldsProps =
 {
     pathPrefix?: string;
+    entityType?: EntityType;
 }
 
-export default function PerkEditableFields({ pathPrefix = "" }: PerkEditableFieldsProps)
+export default function PerkEditableFields({ pathPrefix = "", entityType }: PerkEditableFieldsProps)
 {
   return (
     <>
@@ -47,7 +49,7 @@ export default function PerkEditableFields({ pathPrefix = "" }: PerkEditableFiel
             />
         </div>
 
-        <FormTagsInput<Perk> path={`${pathPrefix}tags` as FieldPath<Perk>} />
+        <FormTagsInput<Perk> path={`${pathPrefix}tags` as FieldPath<Perk>} entityType={entityType} />
         <FormStringsInput<Perk> path={`${pathPrefix}requirements` as FieldPath<Perk>} placeholder={displayedText.addRequirement} />
           
         <div className="grid auto-rows-min gap-3 px-4">

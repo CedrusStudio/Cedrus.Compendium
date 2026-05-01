@@ -312,5 +312,9 @@ export const translations_plPL =
     confirmDelete: "Czy na pewno chcesz usunąć tego uczestnika z bitwy?",
     initiativeUpdated: "Zaktualizowano inicjatywę",
     invalidGrade: "Nieprawidłowa wartość rangi",
+
+    selectExistingTag: "wybierz istniejący tag",
+    noTagsFound: "nie znaleziono tagów",
+    searchTags: "szukaj tagów...",
 } as const;
 

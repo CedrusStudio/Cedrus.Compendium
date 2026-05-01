@@ -51,7 +51,7 @@ export default function ShieldView({ shield, disableEdit = false, onDelete }: Sh
               {
                 (isPending, formId) => (
                   <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
-                    <ItemEditableFields />
+                    <ItemEditableFields entityType="shields" />
                     <ShieldEditableFields />
                   </EditSheet>
                 )

@@ -7,15 +7,17 @@ import { InventoryItemDto } from "@/persistence/schemas/characters/equipment/ite
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { PropsWithChildren } from "react";
 import AddSheet from "@/common/components/sheets/AddSheet";
+import { EntityType } from "@/common/hooks/useEntityTags";
 
 type ItemAddSheetProps = 
 {
   isPending: boolean;
   formId: string;
   title: string;
+  entityType?: EntityType;
 }
 
-export default function ItemAddSheet({ isPending, formId, title, children }: PropsWithChildren<ItemAddSheetProps>)
+export default function ItemAddSheet({ isPending, formId, title, entityType, children }: PropsWithChildren<ItemAddSheetProps>)
 {
   return (
     <AddSheet isPending={isPending} formId={formId} title={`${displayedText.add} ${title}`}>
@@ -31,7 +33,7 @@ export default function ItemAddSheet({ isPending, formId, title, children }: Pro
             <InputFormField<InventoryItemDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
           </div>
 
-          <FormTagsInput<InventoryItemDto> path='tags' />
+          <FormTagsInput<InventoryItemDto> path='tags' entityType={entityType} />
 
           {children}
       </div>

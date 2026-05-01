@@ -29,7 +29,7 @@ export default function RaceAddSheet({ isPending, formId, title }: RaceAddSheetP
         <InputFormField<RaceDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
       </div>
 
-      <FormTagsInput<RaceDto> path='tags' />
+      <FormTagsInput<RaceDto> path='tags' entityType="races" />
 
       <div className="grid auto-rows-min place-items-center place-content-center gap-3 px-4">
         <div className="grid grid-cols-2 gap-3 place-items-center place-content-center">

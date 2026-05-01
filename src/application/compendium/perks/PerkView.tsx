@@ -64,7 +64,7 @@ export default function PerkView({ perk, disableEdit = false, onDelete }: PerkVi
                       formId={formId}
                       title={displayedText.editPerk}
                     >
-                      <PerkEditableFields />
+                      <PerkEditableFields entityType="perks" />
                     </EditSheet>
                   )
                 }

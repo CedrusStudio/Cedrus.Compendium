@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/armorsClient";
@@ -134,7 +134,7 @@ function AddArmorForm()
 
   const form = useForm<ArmorDto>
   ({
-    resolver: zodResolver(armorSchema),
+    resolver: typedZodResolver(armorSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -153,7 +153,7 @@ function AddArmorForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.armor} >
+        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.armor} entityType="armors">
           <ArmorEditableFields />
         </ItemAddSheet>
       </form>

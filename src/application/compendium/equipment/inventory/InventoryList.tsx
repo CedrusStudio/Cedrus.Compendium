@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/inventoryClient";
@@ -39,7 +39,7 @@ export default function InventoryList()
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
   const queryKey = createKeysetSearchInventoryKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
-  const { data: searchResults = [] } = useQuery
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
@@ -133,7 +133,7 @@ function AddInventoryItemForm()
 
   const form = useForm<InventoryItemDto>
   ({
-    resolver: zodResolver(itemSchema),
+    resolver: typedZodResolver(itemSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -152,7 +152,7 @@ function AddInventoryItemForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.inventory} />
+        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.inventory} entityType="inventory" />
       </form>
     </Form>
   )

@@ -339,4 +339,8 @@ export const displayedText =
     confirmDelete: translate("confirmDelete"),
     initiativeUpdated: translate("initiativeUpdated"),
     invalidGrade: translate("invalidGrade"),
+
+    selectExistingTag: translate("selectExistingTag"),
+    noTagsFound: translate("noTagsFound"),
+    searchTags: translate("searchTags"),
 } as const;

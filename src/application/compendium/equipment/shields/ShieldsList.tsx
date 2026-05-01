@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/equipment/shieldsClient";
@@ -40,7 +40,7 @@ export default function ShieldsList()
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
   const queryKey = createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
-  const { data: searchResults = [] } = useQuery
+  const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
@@ -68,7 +68,7 @@ export default function ShieldsList()
       if (searchResults.length === 0) return prev;
       return Array.from(new Map([...prev, ...searchResults].map(shield => [shield.id, shield])).values());
     });
-  }, [cursor, searchTags, searchResults]);
+  }, [cursor, searchResults]);
 
   const clearResults = useCallback(() =>
   {
@@ -134,7 +134,7 @@ function AddShieldForm()
 
   const form = useForm<ShieldDto>
   ({
-    resolver: zodResolver(shieldSchema),
+    resolver: typedZodResolver(shieldSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
@@ -153,7 +153,7 @@ function AddShieldForm()
   return (
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.shields} >
+        <ItemAddSheet isPending={isPending} formId={formId} title={displayedText.shields} entityType="shields">
           <ShieldEditableFields />
         </ItemAddSheet>
       </form>

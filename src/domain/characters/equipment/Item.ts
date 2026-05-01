@@ -26,11 +26,11 @@ export const allowedResistances =
   41, 42, 43, 44, 45, 46, 47, 48, 49, 50
 ] as const satisfies readonly number[];
 
-export const allowedItemAttributePenalties = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
-export const allowedDexterityRestrictions = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
-export const allowedReflexRestrictions = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
-export const allowedInitiativeRestrictions = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
-export const allowedStrengthRequirements = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const satisfies readonly number[];
+export const allowedItemAttributePenalties = [ -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ] as const satisfies readonly number[];
+export const allowedDexterityRestrictions = [ -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ] as const satisfies readonly number[];
+export const allowedReflexRestrictions = [ -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ] as const satisfies readonly number[];
+export const allowedInitiativeRestrictions = [ -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ] as const satisfies readonly number[];
+export const allowedStrengthRequirements = [ -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ] as const satisfies readonly number[];
 
 export const defaultInventoryItem: Omit<Item, "id"> =
 {

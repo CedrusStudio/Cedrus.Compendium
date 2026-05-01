@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/common/components/ui/sheet";
 import { Button } from "@/common/components/ui/button";
 import { Form } from "@/common/components/ui/form";
@@ -35,7 +35,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
 
   const form = useForm<RaceDto>
   ({
-    resolver: zodResolver(raceSchema),
+    resolver: typedZodResolver(raceSchema),
     defaultValues: 
     {
       id: ulid(),
@@ -113,7 +113,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
                   />
                 </div>
 
-                <FormTagsInput<RaceDto> path="tags" />
+                <FormTagsInput<RaceDto> path="tags" entityType="races" />
 
                 <div className="space-y-3 flex flex-col place-content-center place-items-center">
                   <Label className="text-base">

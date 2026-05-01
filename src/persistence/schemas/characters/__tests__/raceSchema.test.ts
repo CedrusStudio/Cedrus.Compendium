@@ -96,6 +96,28 @@ describe('raceSchema', () => {
     });
   });
 
+  it('should default modifier to 0 when undefined', () => {
+    const { strengthModifier: _s, dexterityModifier: _d, constitutionModifier: _c, mindModifier: _m, charismaModifier: _ch, spellbornModifier: _sp, ...raceWithoutModifiers } = validRace;
+    const result = raceSchema.safeParse(raceWithoutModifiers);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.strengthModifier).toBe(0);
+      expect(result.data.dexterityModifier).toBe(0);
+      expect(result.data.constitutionModifier).toBe(0);
+      expect(result.data.mindModifier).toBe(0);
+      expect(result.data.charismaModifier).toBe(0);
+      expect(result.data.spellbornModifier).toBe(0);
+    }
+  });
+
+  it('should coerce empty string modifier to 0', () => {
+    const result = raceSchema.safeParse({ ...validRace, strengthModifier: '' });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.strengthModifier).toBe(0);
+    }
+  });
+
   it('should accept empty description', () => {
     const result = raceSchema.safeParse({ ...validRace, description: '' });
     expect(result.success).toBe(true);

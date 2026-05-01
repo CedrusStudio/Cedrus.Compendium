@@ -74,7 +74,7 @@ export default function ManeuverView({ maneuver, disableEdit = false, onDelete }
                       formId={formId}
                       title={displayedText.editManeuver}
                     >
-                      <PerkEditableFields />
+                      <PerkEditableFields entityType="maneuvers" />
                       <CastablePerkEditableFields />
                     </EditSheet>
                   )

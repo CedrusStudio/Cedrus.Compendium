@@ -312,4 +312,8 @@ export const translations_deDE =
     confirmDelete: "Möchten Sie diesen Teilnehmer wirklich aus dem Kampf entfernen?",
     initiativeUpdated: "Initiative aktualisiert",
     invalidGrade: "Ungültiger Rangwert",
+
+    selectExistingTag: "vorhandenen tag auswählen",
+    noTagsFound: "keine tags gefunden",
+    searchTags: "tags suchen...",
 } as const;

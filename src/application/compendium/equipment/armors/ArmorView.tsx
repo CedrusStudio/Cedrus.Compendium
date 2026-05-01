@@ -52,7 +52,7 @@ export default function ArmorView({ armor, disableEdit = false, onDelete }: Armo
               {
                 (isPending, formId) => (
                   <EditSheet title={displayedText.editingItem} isPending={isPending} formId={formId}>
-                    <ItemEditableFields />
+                    <ItemEditableFields entityType="armors" />
                     <ArmorEditableFields />
                   </EditSheet>
                 )

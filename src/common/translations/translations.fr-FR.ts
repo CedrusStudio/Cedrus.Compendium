@@ -312,4 +312,8 @@ export const translations_frFR =
     confirmDelete: "Êtes-vous sûr de vouloir retirer ce participant de la bataille?",
     initiativeUpdated: "Initiative mise à jour",
     invalidGrade: "Valeur de rang invalide",
+
+    selectExistingTag: "sélectionner un tag existant",
+    noTagsFound: "aucun tag trouvé",
+    searchTags: "rechercher des tags...",
 } as const;

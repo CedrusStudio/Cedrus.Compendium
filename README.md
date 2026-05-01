@@ -1,8 +1,4 @@
-## Jak odpalic synchronizacje .json plików rulebook
-
-> npm run sync-rulebook
-
-## Prioritized
+# Prioritized
 
 search -> with tag - without tag (dodawanie tagów i sie pojawia i tak samo)
 

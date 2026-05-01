@@ -8,15 +8,17 @@ import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { PropsWithChildren } from "react";
 import AddSheet from "@/common/components/sheets/AddSheet";
+import { EntityType } from "@/common/hooks/useEntityTags";
 
 type PerkableAddSheetProps =
 {
   isPending: boolean;
   formId: string;
   title: string;
+  entityType?: EntityType;
 }
 
-export default function PerkableAddSheet({ isPending, formId, title, children }: PropsWithChildren<PerkableAddSheetProps>)
+export default function PerkableAddSheet({ isPending, formId, title, entityType, children }: PropsWithChildren<PerkableAddSheetProps>)
 {
   return (
     <AddSheet isPending={isPending} formId={formId} title={title}>
@@ -40,7 +42,7 @@ export default function PerkableAddSheet({ isPending, formId, title, children }:
         <InputFormField<PerkDto> path='description' inputPlaceholder={displayedText.changeDescription} inputClassName='w-80' />
       </div>
 
-      <FormTagsInput<PerkDto> path='tags' />
+      <FormTagsInput<PerkDto> path='tags' entityType={entityType} />
       <FormStringsInput<PerkDto> path='requirements' placeholder={displayedText.addRequirement} />
 
       <div className="grid auto-rows-min gap-3">

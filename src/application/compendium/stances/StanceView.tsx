@@ -64,7 +64,7 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
                       formId={formId}
                       title={displayedText.editStance}
                     >
-                      <PerkEditableFields />
+                      <PerkEditableFields entityType="stances" />
                     </EditSheet>
                   )
                 }
