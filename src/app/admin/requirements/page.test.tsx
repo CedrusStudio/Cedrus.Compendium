@@ -92,4 +92,31 @@ describe('RequirementsManagementPage', () => {
       expect(renameRequirementMock).toHaveBeenCalledWith({ entity: 'perks', oldRequirement: 'Alchemia', newRequirement: 'Zrecznosc' });
     });
   });
-});
+
+  it('returns null while admin status is loading', () => {
+    useAdminStatusMock.mockReturnValue({ isAdmin: false, isCheckingAdmin: true, isLoaded: false });
+
+    const { container } = renderPage();
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('opens the delete confirmation panel and calls the delete mutation', async () => {
+    useAdminStatusMock.mockReturnValue({ isAdmin: true, isCheckingAdmin: false, isLoaded: true });
+    getRequirementsMock.mockResolvedValue([{ requirement: 'Alchemia', count: 3 }]);
+    deleteRequirementMock.mockResolvedValue({ updatedCount: 3 });
+
+    renderPage();
+
+    expect(await screen.findByText('Alchemia')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Usun' }));
+
+    expect(screen.getByText('Wymaganie Alchemia zostanie usuniete z 3 rekordow.')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Potwierdz usuniecie' }));
+
+    await waitFor(() => {
+      expect(deleteRequirementMock).toHaveBeenCalledWith({ entity: 'perks', requirement: 'Alchemia' });
+    });
+  });

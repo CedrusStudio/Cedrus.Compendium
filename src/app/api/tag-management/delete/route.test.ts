@@ -46,4 +46,50 @@ describe('POST /api/tag-management/delete', () => {
       data: { tags: ['stal'] },
     });
   });
+
+  it('returns 400 for an unsupported entity', async () => {
+    const response = await POST(new Request('http://localhost/api/tag-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'unknown', tag: 'miecze' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Invalid entity: unknown' });
+  });
+
+  it('returns 400 when tag is missing', async () => {
+    const response = await POST(new Request('http://localhost/api/tag-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', tag: '' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'tag is required' });
+  });
+
+  it('returns 400 for a tag that is not a lowercase single word', async () => {
+    const response = await POST(new Request('http://localhost/api/tag-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', tag: 'Nowy Tag' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Tags must be lowercase single words' });
+  });
+
+  it('returns 500 when the database throws', async () => {
+    findMany.mockRejectedValueOnce(new Error('db error'));
+
+    const response = await POST(new Request('http://localhost/api/tag-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', tag: 'miecze' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({ message: 'Server error' });
+  });
 });

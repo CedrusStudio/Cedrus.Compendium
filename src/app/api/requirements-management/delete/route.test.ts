@@ -46,4 +46,50 @@ describe('POST /api/requirements-management/delete', () => {
       data: { requirements: ['Zrecznosc'] },
     });
   });
+
+  it('returns 400 for an unsupported entity', async () => {
+    const response = await POST(new Request('http://localhost/api/requirements-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'weapons', requirement: 'Alchemia' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Invalid entity: weapons' });
+  });
+
+  it('returns 400 when requirement is missing', async () => {
+    const response = await POST(new Request('http://localhost/api/requirements-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', requirement: '' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'requirement is required' });
+  });
+
+  it('returns 400 when requirement exceeds the allowed length', async () => {
+    const response = await POST(new Request('http://localhost/api/requirements-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', requirement: 'a'.repeat(1001) }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Requirements must contain between 1 and 1000 characters' });
+  });
+
+  it('returns 500 when the database throws', async () => {
+    findMany.mockRejectedValueOnce(new Error('db error'));
+
+    const response = await POST(new Request('http://localhost/api/requirements-management/delete', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', requirement: 'Alchemia' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({ message: 'Server error' });
+  });
 });
