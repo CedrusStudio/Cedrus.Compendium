@@ -55,4 +55,15 @@ describe('GET /api/requirements/[entity]', () => {
     expect(response.status).toBe(400);
     await expect(response.json()).resolves.toEqual({ message: 'Invalid entity: weapons' });
   });
+
+  it('returns 500 when aggregation throws', async () => {
+    aggregateRaw.mockRejectedValueOnce(new Error('db error'));
+
+    const response = await GET(new Request('http://localhost/api/requirements/perks'), {
+      params: Promise.resolve({ entity: 'perks' }),
+    });
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({ message: 'Server error' });
+  });
 });

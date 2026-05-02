@@ -61,4 +61,50 @@ describe('POST /api/tag-management/rename', () => {
     expect(response.status).toBe(400);
     await expect(response.json()).resolves.toEqual({ message: 'Tags must be lowercase single words' });
   });
+
+  it('returns 400 for an unsupported entity', async () => {
+    const response = await POST(new Request('http://localhost/api/tag-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'unknown', oldTag: 'miecze', newTag: 'ostrza' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Invalid entity: unknown' });
+  });
+
+  it('returns 400 when newTag is missing', async () => {
+    const response = await POST(new Request('http://localhost/api/tag-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', oldTag: 'miecze', newTag: '' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Both oldTag and newTag are required' });
+  });
+
+  it('returns 400 when the old and new tag are identical', async () => {
+    const response = await POST(new Request('http://localhost/api/tag-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', oldTag: 'miecze', newTag: 'miecze' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'newTag must be different from oldTag' });
+  });
+
+  it('returns 500 when the database throws', async () => {
+    findMany.mockRejectedValueOnce(new Error('db error'));
+
+    const response = await POST(new Request('http://localhost/api/tag-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', oldTag: 'miecze', newTag: 'ostrza' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({ message: 'Server error' });
+  });
 });

@@ -56,4 +56,11 @@ describe('proxy', () => {
       message: 'API authentication not configured',
     });
   });
+
+  it('rejects write requests that carry no API key header', async () => {
+    const response = proxy(createRequest('/api/characters', 'POST'));
+
+    expect(response.status).toBe(401);
+    await expect(response.json()).resolves.toEqual({ error: 'Unauthorized', message: 'API key is required' });
+  });
 });

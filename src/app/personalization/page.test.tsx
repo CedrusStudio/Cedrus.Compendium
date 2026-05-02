@@ -473,4 +473,140 @@ describe('PersonalizationPage', () => {
     }));
     expect(sonnerMocks.success).toHaveBeenCalledWith('Zaimportowano konfiguracje dla aktywnego API key.');
   });
-});
+
+  it('cancels quick link edit state when deleting the link being edited', () => {
+    const removeQuickLink = vi.fn();
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        quickLinks: [
+          { id: 'link-1', label: 'Kompendium', type: 'route', href: '/compendium' },
+        ],
+      },
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink,
+      updateQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Edytuj link Kompendium' }));
+    expect(screen.getByDisplayValue('Kompendium')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Usun link Kompendium' }));
+
+    expect(removeQuickLink).toHaveBeenCalledWith('link-1');
+    expect(screen.queryByDisplayValue('Kompendium')).toBeNull();
+  });
+
+  it('updates the route when changed in the quick link edit panel', () => {
+    const updateQuickLink = vi.fn();
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        quickLinks: [
+          { id: 'link-1', label: 'Kompendium', type: 'route', href: '/compendium' },
+        ],
+      },
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink,
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Edytuj link Kompendium' }));
+
+    const routeSelect = document.getElementById('quick-link-edit-route-link-1');
+
+    expect(routeSelect).not.toBeNull();
+
+    fireEvent.click(routeSelect!);
+    fireEvent.click(screen.getByText('Lista postaci'));
+
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz' }));
+
+    expect(updateQuickLink).toHaveBeenCalledWith({
+      id: 'link-1',
+      label: 'Kompendium',
+      type: 'route',
+      href: '/characters',
+    });
+  });
+
+  it('updates the bestiary column draft when the profile changes after the initial render', () => {
+    const { rerender } = render(
+      (() => {
+        usePersonalizationMock.mockReturnValue({
+          apiKey: 'alpha',
+          hasApiKey: true,
+          isLoaded: true,
+          profile: createEmptyProfile(),
+          setUserName: vi.fn(),
+          setBestiaryColumnVisibility: vi.fn(),
+          clearBestiaryColumnVisibility: vi.fn(),
+          addQuickTag: vi.fn(),
+          removeQuickTag: vi.fn(),
+          removeFavoriteCharacter: vi.fn(),
+          setMainCharacter: vi.fn(),
+          addQuickLink: vi.fn(),
+          removeQuickLink: vi.fn(),
+          updateQuickLink: vi.fn(),
+        });
+
+        useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+        return <PersonalizationPage />;
+      })(),
+    );
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: {
+        ...createEmptyProfile(),
+        bestiaryColumnVisibility: { powers: true },
+      },
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+    });
+
+    rerender(<PersonalizationPage />);
+
+    expect(screen.getByLabelText('Moce')).toHaveAttribute('data-state', 'checked');
+  });

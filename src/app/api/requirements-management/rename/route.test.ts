@@ -57,4 +57,50 @@ describe('POST /api/requirements-management/rename', () => {
     expect(response.status).toBe(400);
     await expect(response.json()).resolves.toEqual({ message: 'Both oldRequirement and newRequirement are required' });
   });
+
+  it('returns 400 for an unsupported entity', async () => {
+    const response = await POST(new Request('http://localhost/api/requirements-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'weapons', oldRequirement: 'Alchemia', newRequirement: 'Zrecznosc' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Invalid entity: weapons' });
+  });
+
+  it('returns 400 when a requirement value exceeds the allowed length', async () => {
+    const response = await POST(new Request('http://localhost/api/requirements-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', oldRequirement: 'Alchemia', newRequirement: 'a'.repeat(1001) }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Requirements must contain between 1 and 1000 characters' });
+  });
+
+  it('returns 400 when the old and new requirement are identical', async () => {
+    const response = await POST(new Request('http://localhost/api/requirements-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', oldRequirement: 'Alchemia', newRequirement: 'Alchemia' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'newRequirement must be different from oldRequirement' });
+  });
+
+  it('returns 500 when the database throws', async () => {
+    findMany.mockRejectedValueOnce(new Error('db error'));
+
+    const response = await POST(new Request('http://localhost/api/requirements-management/rename', {
+      method: 'POST',
+      body: JSON.stringify({ entity: 'perks', oldRequirement: 'Alchemia', newRequirement: 'Zrecznosc' }),
+      headers: { 'content-type': 'application/json' },
+    }));
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({ message: 'Server error' });
+  });
 });

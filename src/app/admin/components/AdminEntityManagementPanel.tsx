@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
 import { Input } from '@/common/components/ui/input';
 import {
@@ -98,6 +99,16 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
   deleteActionAriaLabel = 'Usun',
 }: AdminEntityManagementPanelProps<TEntity>)
 {
+  const [filterText, setFilterText] = useState('');
+
+  useEffect(() => {
+    setFilterText('');
+  }, [selectedEntity]);
+
+  const filteredRows = filterText.trim()
+    ? rows.filter(row => row.value.toLowerCase().includes(filterText.toLowerCase()))
+    : rows;
+
   const isRenameOpen = pendingAction?.type === 'rename';
   const isDeleteOpen = pendingAction?.type === 'delete';
 
@@ -114,13 +125,21 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
         </Button>
       </div>
 
-      <SelectOneOfStrings
-        id={selectorId}
-        value={selectedEntity}
-        items={entitySelectItems}
-        onChange={value => onSelectedEntityChange(value as TEntity)}
-        triggerClassName="h-11 w-36 border bg-background px-3 py-2 text-sm shadow-sm md:w-36"
-      />
+      <div className="flex flex-wrap items-center gap-3">
+        <SelectOneOfStrings
+          id={selectorId}
+          value={selectedEntity}
+          items={entitySelectItems}
+          onChange={value => onSelectedEntityChange(value as TEntity)}
+          triggerClassName="h-11 w-36 border bg-background px-3 py-2 text-sm shadow-sm md:w-36"
+        />
+        <Input
+          placeholder="Filtruj..."
+          value={filterText}
+          onChange={event => setFilterText(event.target.value)}
+          className="h-9 w-70 border bg-background px-3 py-2 text-sm shadow-sm md:w-56"
+        />
+      </div>
 
       <Sheet open={isRenameOpen} onOpenChange={open => { if (!open) onCancelAction(); }}>
         <SheetContent className="w-full sm:max-w-md">
@@ -203,8 +222,10 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
             <div className="px-4 py-6 text-sm text-destructive">{errorMessage}</div>
           ) : rows.length === 0 ? (
             <div className="px-4 py-6 text-sm text-muted-foreground">{emptyMessage}</div>
+          ) : filteredRows.length === 0 ? (
+            <div className="px-4 py-6 text-sm text-muted-foreground">Brak wyników dla podanego filtra.</div>
           ) : (
-            rows.map(row => (
+            filteredRows.map(row => (
               <div key={row.value} className="grid gap-3 border-t px-4 py-4 text-sm md:grid-cols-[minmax(0,1fr)_120px_120px] md:items-center md:gap-4 md:py-3">
                 <div className="space-y-1 min-w-0">
                   <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">{itemLabel}</span>

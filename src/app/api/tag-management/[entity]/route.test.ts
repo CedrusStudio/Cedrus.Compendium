@@ -58,4 +58,24 @@ describe('GET /api/tag-management/[entity]', () => {
       ],
     });
   });
+
+  it('returns 400 for an unsupported entity', async () => {
+    const response = await GET(new Request('http://localhost/api/tag-management/unknown'), {
+      params: Promise.resolve({ entity: 'unknown' }),
+    });
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ message: 'Invalid entity: unknown' });
+  });
+
+  it('returns 500 when aggregation throws', async () => {
+    aggregateRaw.mockRejectedValueOnce(new Error('db error'));
+
+    const response = await GET(new Request('http://localhost/api/tag-management/perks'), {
+      params: Promise.resolve({ entity: 'perks' }),
+    });
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({ message: 'Server error' });
+  });
 });
