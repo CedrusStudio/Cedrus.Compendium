@@ -55,6 +55,7 @@ import { IoClose } from "react-icons/io5";
 
 import { RiAdminLine } from "react-icons/ri";
 import { GiPalette } from "react-icons/gi";
+import { RiFormula } from "react-icons/ri";
 
 export const characteristicIcons: Record<string, ReactNode> = 
 {
@@ -161,3 +162,4 @@ export const banIcon = (className?: string) => <LuSearchX className={className} 
 export const tagSearchIcon = (className?: string) => <LuSearchCheck className={className} />;
 
 export const closeIcon = <IoClose className="w-5 h-5" />;
+export const formulaIcon = <RiFormula className="w-5 h-5" />;
