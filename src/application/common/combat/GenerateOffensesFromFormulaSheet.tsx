@@ -60,8 +60,8 @@ export default function GenerateOffensesFromFormulaSheet({ replace }: GenerateOf
         <SheetHeader>
           <SheetTitle>Generuj z formuły</SheetTitle>
           <SheetDescription className="text-xs">
-            Użyj <code className="bg-muted px-1 rounded">x</code> jako indeks (1, 2, 3…).
-            Obsługuje: <code className="bg-muted px-1 rounded">k4</code>, <code className="bg-muted px-1 rounded">3k(x+1)</code>, <code className="bg-muted px-1 rounded">x/2(k6-1)+x</code>.
+            Użyj <code className="bg-muted px-1 rounded">x</code> jako indeks (1, 2, 3…). Obsługuje notację k-kości: <code className="bg-muted px-1 rounded">k6</code>, <code className="bg-muted px-1 rounded">3k(x+1)</code>.
+            W opisie użyj <code className="bg-muted px-1 rounded">[formuła]</code> np. <code className="bg-muted px-1 rounded">Precyzja [x/2], Siła [x]</code>.
             Wartości poza zakresem zostaną przycięte.
           </SheetDescription>
         </SheetHeader>

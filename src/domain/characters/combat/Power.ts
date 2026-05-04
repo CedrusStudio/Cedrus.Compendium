@@ -138,7 +138,7 @@ export const defaultPowerOffenseFormula: PowerOffenseFormula =
 
   costFormula: 'x * 10',
 
-  descriptionPrefix: 'Siła Zaklęcia x',
+  descriptionPrefix: 'Siła Zaklęcia [x]',
 };
 
 export const CreateDefaultPowerOffenseFormula = (): PowerOffenseFormula => ({ ...defaultPowerOffenseFormula });
@@ -172,14 +172,12 @@ const evaluateFormula = (formula: string, x: number): number =>
   }
 };
 
-// Evaluates formula tokens (no spaces) containing x inside a text template.
-// e.g. "Precyzja x/2, Siła Zaklęcia x" with x=4 → "Precyzja 2, Siła Zaklęcia 4"
+// Evaluates [formula] tokens inside a text template.
+// e.g. "Precyzja [x/2], Siła Zaklęcia [x]" with x=4 → "Precyzja 2, Siła Zaklęcia 4"
 const evaluateDescriptionTemplate = (template: string, x: number): string =>
-  template.replace(/[0-9xXk+\-*/().]+/g, (token) =>
-  {
-    if (!/[xX]/.test(token)) return token;
-    return String(Math.round(evaluateFormula(token, x)));
-  });
+  template.replace(/\[([^\]]+)\]/g, (_match, expr: string) =>
+    String(Math.round(evaluateFormula(expr.trim(), x)))
+  );
 
 export const generateOffensesFromFormula = (formula: PowerOffenseFormula): PowerOffense[] =>
 {
