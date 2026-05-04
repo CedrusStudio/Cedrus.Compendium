@@ -17,6 +17,7 @@ import { Card, CardContent } from "@/common/components/ui/card";
 import EditWeaponDamageView from '@/application/characters/edit/combat/offense/EditWeaponDamageView';
 import EditDamageBonusView from '@/application/characters/edit/combat/offense/EditDamageBonusView';
 import EditCriticalView from '@/application/characters/edit/combat/offense/EditCriticalView';
+import GenerateOffensesFromFormulaSheet from "@/application/common/combat/GenerateOffensesFromFormulaSheet";
 
 export default function PowerSpecificationEditableFields()
 {
@@ -51,7 +52,7 @@ export default function PowerSpecificationEditableFields()
 function PowerOffenseArrayEditor()
 {
   const { control } = useFormContext<PowerSpecificationDto>();
-  const { fields, append, remove } = useFieldArray
+  const { fields, append, remove, replace } = useFieldArray
   ({
     name: "offenses",
     control
@@ -99,15 +100,13 @@ function PowerOffenseArrayEditor()
           value={String(selectedOffenseIndex)} 
           onValueChange={val => setSelectedOffenseIndex(Number(val))}
         >
-          <SelectTrigger className="w-60">
+          <SelectTrigger className="w-40">
             <SelectValue />
           </SelectTrigger>
           
           <SelectContent>
           {
-            fields.map((field, index) => (
-              <SelectItem key={field.id} value={String(index)}>Siła zaklęcia {index}</SelectItem>
-            ))
+            fields.map((field, index) => <SelectItem key={field.id} value={String(index)}>Siła zaklęcia {index}</SelectItem>)
           }
           </SelectContent>
         </Select>
@@ -116,6 +115,10 @@ function PowerOffenseArrayEditor()
           append={append}
           toAdd={CreateDefaultPowerOffense}
           isPending={false}
+        />
+
+        <GenerateOffensesFromFormulaSheet
+          replace={replace}
         />
 
         {

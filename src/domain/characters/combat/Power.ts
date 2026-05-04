@@ -99,6 +99,123 @@ export const defaultPowerSpecification: Omit<PowerSpecification, "id"> =
 export const CreateDefaultPowerSpecification = (): PowerSpecification => ({...defaultPowerSpecification, id: ulid()});
 export const CreateDefaultPower = (): Power => ({...defaultPower, id: ulid()});
 
+export type PowerOffenseFormula =
+{
+  count: number;
+
+  offenseAmountFormula: string;
+  offenseGradeFormula: string;
+  offenseBonusFormula: string;
+  offenseIsPhantom: boolean;
+  offenseCriticalPowerFormula: string;
+  offenseCriticalRangeFormula: string;
+
+  damageAmountFormula: string;
+  damageGradeFormula: string;
+  damageBonusFormula: string;
+  damageIsPhantom: boolean;
+
+  costFormula: string;
+
+  descriptionPrefix: string;
+};
+
+export const defaultPowerOffenseFormula: PowerOffenseFormula =
+{
+  count: 5,
+
+  offenseAmountFormula: '1',
+  offenseGradeFormula: 'x + 2',
+  offenseBonusFormula: '0',
+  offenseIsPhantom: false,
+  offenseCriticalPowerFormula: '5',
+  offenseCriticalRangeFormula: '2',
+
+  damageAmountFormula: '0',
+  damageGradeFormula: '1',
+  damageBonusFormula: 'x',
+  damageIsPhantom: false,
+
+  costFormula: 'x * 10',
+
+  descriptionPrefix: 'Siła Zaklęcia x',
+};
+
+export const CreateDefaultPowerOffenseFormula = (): PowerOffenseFormula => ({ ...defaultPowerOffenseFormula });
+
+const clamp = (value: number, min: number, max: number): number => Math.min(Math.max(Math.round(value), min), max);
+
+// Allows digits, x/X, k (die notation), arithmetic operators and parentheses
+const FORMULA_SAFE_PATTERN = /^[0-9xXk\s+\-*/().]+$/;
+
+const normalizeFormula = (raw: string): string =>
+  raw
+    .replace(/(\d)k\(/g, '$1*(')   // 3k( → 3*(
+    .replace(/k(\d+)/gi, '$1')     // k4 → 4, k6 → 6
+    .replace(/(\d)\(/g, '$1*(')    // 2( → 2*(
+    .replace(/\)\(/g, ')*(')       // )( → )*(
+    .replace(/\)(\d)/g, ')*$1');   // )3 → )*3
+
+const evaluateFormula = (formula: string, x: number): number =>
+{
+  if (!formula || !FORMULA_SAFE_PATTERN.test(formula)) return 0;
+  try
+  {
+    const normalized = normalizeFormula(formula);
+    // eslint-disable-next-line no-new-func
+    const result = new Function('x', `"use strict"; return (${normalized})`)(x);
+    return typeof result === 'number' && isFinite(result) ? result : 0;
+  }
+  catch
+  {
+    return 0;
+  }
+};
+
+// Evaluates formula tokens (no spaces) containing x inside a text template.
+// e.g. "Precyzja x/2, Siła Zaklęcia x" with x=4 → "Precyzja 2, Siła Zaklęcia 4"
+const evaluateDescriptionTemplate = (template: string, x: number): string =>
+  template.replace(/[0-9xXk+\-*/().]+/g, (token) =>
+  {
+    if (!/[xX]/.test(token)) return token;
+    return String(Math.round(evaluateFormula(token, x)));
+  });
+
+export const generateOffensesFromFormula = (formula: PowerOffenseFormula): PowerOffense[] =>
+{
+  const offenses: PowerOffense[] = [];
+
+  for (let i = 1; i <= formula.count; i++)
+  {
+    offenses.push(
+    {
+      spellOffense:
+      {
+        amount: clamp(evaluateFormula(formula.offenseAmountFormula, i), 0, 10),
+        grade: clamp(evaluateFormula(formula.offenseGradeFormula, i), 1, 50),
+        bonus: clamp(evaluateFormula(formula.offenseBonusFormula, i), -10, 50),
+        isPhantom: formula.offenseIsPhantom,
+        critical:
+        {
+          power: clamp(evaluateFormula(formula.offenseCriticalPowerFormula, i), -5, 50),
+          range: clamp(evaluateFormula(formula.offenseCriticalRangeFormula, i), -5, 50),
+        },
+      },
+      spellDamage:
+      {
+        amount: clamp(evaluateFormula(formula.damageAmountFormula, i), 0, 10),
+        grade: clamp(evaluateFormula(formula.damageGradeFormula, i), 1, 50),
+        bonus: clamp(evaluateFormula(formula.damageBonusFormula, i), -10, 50),
+        isPhantom: formula.damageIsPhantom,
+      },
+      description: formula.descriptionPrefix ? evaluateDescriptionTemplate(formula.descriptionPrefix, i) : '',
+      cost: clamp(evaluateFormula(formula.costFormula, i), 0, 1000),
+    });
+  }
+
+  return offenses;
+};
+
 const powerFieldOrderArray: (keyof Power)[] = [
   'name',
   'type',

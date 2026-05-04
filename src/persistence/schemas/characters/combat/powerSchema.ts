@@ -43,8 +43,34 @@ export const powerSchema = entitySchema.extend
 
 export const powersSchema = z.array(powerSchema).max(100, { message: "Możesz mieć najwyżej 100 mocy." });
 
+const formulaFieldSchema = z.string()
+  .max(100, { message: "Formuła może mieć maksymalnie 100 znaków." })
+  .regex(/^[0-9xXk\s+\-*/().]*$/, { message: "Dozwolone znaki: cyfry, x, k, +, −, *, /, (, )." });
+
+export const powerOffenseFormulaSchema = z.object
+({
+  count: z.coerce.number<number>().int().min(1, { message: "Liczba ofensyw musi wynosić co najmniej 1." }).max(20, { message: "Liczba ofensyw musi wynosić najwyżej 20." }),
+
+  offenseAmountFormula: formulaFieldSchema,
+  offenseGradeFormula: formulaFieldSchema,
+  offenseBonusFormula: formulaFieldSchema,
+  offenseIsPhantom: z.boolean(),
+  offenseCriticalPowerFormula: formulaFieldSchema,
+  offenseCriticalRangeFormula: formulaFieldSchema,
+
+  damageAmountFormula: formulaFieldSchema,
+  damageGradeFormula: formulaFieldSchema,
+  damageBonusFormula: formulaFieldSchema,
+  damageIsPhantom: z.boolean(),
+
+  costFormula: formulaFieldSchema,
+
+  descriptionPrefix: z.string().max(200, { message: "Prefiks opisu może mieć maksymalnie 200 znaków." }),
+});
+
 export type SpellDto = z.infer<typeof spellSchema>;
 export type AddSpellDto = z.infer<typeof addSpellSchema>;
 export type PowerDto = z.infer<typeof powerSchema>;
 export type PowerSpecificationDto = z.infer<typeof powerSpecificationSchema>;
 export type AddPowerSpecificationDto = z.infer<typeof addPowerSpecificationSchema>;
+export type PowerOffenseFormulaDto = z.infer<typeof powerOffenseFormulaSchema>;
