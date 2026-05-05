@@ -40,13 +40,13 @@ describe('damageOffenseSchema', () => {
       expect(result.success).toBe(false);
     });
 
-    it('should accept amount of 10', () => {
-      const result = damageOffenseSchema.safeParse({ ...validDamage, amount: 10 });
+    it('should accept amount of 50', () => {
+      const result = damageOffenseSchema.safeParse({ ...validDamage, amount: 50 });
       expect(result.success).toBe(true);
     });
 
-    it('should reject amount greater than 10', () => {
-      const result = damageOffenseSchema.safeParse({ ...validDamage, amount: 11 });
+    it('should reject amount greater than 50', () => {
+      const result = damageOffenseSchema.safeParse({ ...validDamage, amount: 51 });
       expect(result.success).toBe(false);
     });
   });
