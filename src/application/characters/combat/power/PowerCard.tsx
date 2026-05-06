@@ -100,8 +100,8 @@ export default function PowerCard({ power }: PowerCardProps)
         
         <CardTitle className="flex flex-col lg:flex-row place-content-around place-item-center">
 
-          <div className="mb-4 flex flex-col gap-3 lg:mb-0">
-            <div className="flex flex-wrap place-items-center place-content-center gap-4">
+          <div className="mb-4 flex w-fit max-w-full flex-col items-center gap-3 self-center lg:mb-0 lg:items-start lg:self-auto">
+            <div className="flex w-fit max-w-full flex-wrap place-items-center place-content-center gap-4">
               <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
               <Badge variant="outline" className="p-2 capitalize">
                 {power.type}
@@ -119,7 +119,7 @@ export default function PowerCard({ power }: PowerCardProps)
             </div>
 
             {
-              powerSpecification && <PowerSpecificationSummary powerSpecification={powerSpecification} compact className="max-w-2xl self-center lg:self-start" />
+              powerSpecification && <PowerSpecificationSummary powerSpecification={powerSpecification} compact className="w-full self-center lg:self-start" />
             }
           </div>
 
@@ -205,7 +205,7 @@ export default function PowerCard({ power }: PowerCardProps)
         <div className={compact ? "flex flex-col gap-2" : "flex flex-col gap-3"}>
 
           <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
-            <div className="flex flex-row place-content-end gap-2 place-items-center">
+            <div className="flex flex-row place-content-between gap-2 place-items-center">
               <p className={compact ? "text-sm font-semibold leading-snug" : "text-base font-semibold leading-tight"}>{powerSpecification.name}</p>
               <TagsView tags={powerSpecification.tags} variant="secondary" />
             </div>
