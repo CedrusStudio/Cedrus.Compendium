@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
 import { displayedText } from "@/common/translations";
-import { Power, Spell } from "@/domain/characters/combat/Power";
+import { Power, Spell, type PowerSpecification } from "@/domain/characters/combat/Power";
 import { Field } from '@/common/components/fields';
 import { getBadgeVariant, getCastTimeColors } from '@/common/colors';
 import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, resetIcon } from '@/common/icons';
@@ -19,6 +19,8 @@ import { Label } from '@/ui/label';
 import { gainIcon, lossIcon } from '@/common/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 import PowerOffenseSelector from '@/application/characters/combat/power/PowerOffenseSelector';
+import TagsView from '@/common/components/tags/TagsView';
+import { cn } from '@/lib/utils';
 
 type PowerCardProps =
 {
@@ -46,6 +48,7 @@ export default function PowerCard({ power }: PowerCardProps)
     enabled: !!power.powerSpecificationId && power.powerSpecificationId.length > 0,
     staleTime: 5_000
   });
+  const hasPowerOffenses = !!(powerSpecification && powerSpecification.offenses && powerSpecification.offenses.length > 0);
 
   const addSpellToUsed = (spell: Spell | EndTurn) =>
   {
@@ -97,21 +100,27 @@ export default function PowerCard({ power }: PowerCardProps)
         
         <CardTitle className="flex flex-col lg:flex-row place-content-around place-item-center">
 
-          <div className="flex place-items-center place-content-center mb-4 gap-4">
-            <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
-            <Badge variant="outline" className="p-2 capitalize">
-              {power.type}
-            </Badge>
+          <div className="mb-4 flex w-fit max-w-full flex-col items-center gap-3 self-center lg:mb-0 lg:items-start lg:self-auto">
+            <div className="flex w-fit max-w-full flex-wrap place-items-center place-content-center gap-4">
+              <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
+              <Badge variant="outline" className="p-2 capitalize">
+                {power.type}
+              </Badge>
 
-            <div className="flex flex-col items-center">
-              <span className="text-xs text-muted-foreground mb-1">{displayedText.level}</span>
-              <span className="font-bold text-lg text-primary">{power.level}</span>
+              <div className="flex flex-col items-center">
+                <span className="text-xs text-muted-foreground mb-1">{displayedText.level}</span>
+                <span className="font-bold text-lg text-primary">{power.level}</span>
+              </div>
+
+              <div className="flex flex-col items-center">
+                <span className="text-xs text-muted-foreground mb-1">{displayedText.bonus}</span>
+                <span className="font-bold text-lg text-primary">{power.bonus}</span>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center">
-              <span className="text-xs text-muted-foreground mb-1">{displayedText.bonus}</span>
-              <span className="font-bold text-lg text-primary">{power.bonus}</span>
-            </div>
+            {
+              powerSpecification && <PowerSpecificationSummary powerSpecification={powerSpecification} compact className="w-full self-center lg:self-start" />
+            }
           </div>
 
           <div className='flex flex-col sm:flex-row justify-center items-center gap-4'>
@@ -154,7 +163,7 @@ export default function PowerCard({ power }: PowerCardProps)
       <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2'>
 
         {
-          (powerSpecification && powerSpecification.offenses && powerSpecification.offenses.length > 0) && (
+          hasPowerOffenses && powerSpecification && (
             <div className="col-span-full">
               <PowerRollsCard 
                 offenses={powerSpecification.offenses}
@@ -176,6 +185,44 @@ export default function PowerCard({ power }: PowerCardProps)
     </Card>
   );
 };
+
+  type PowerSpecificationSummaryProps =
+  {
+    powerSpecification: PowerSpecification;
+    compact?: boolean;
+    className?: string;
+  }
+
+  function PowerSpecificationSummary({ powerSpecification, compact = false, className }: PowerSpecificationSummaryProps)
+  {
+    return (
+      <div className={cn(
+        compact
+          ? "rounded-md border border-border/20 bg-background/40 px-3 py-2"
+          : "col-span-full rounded-lg border border-border/40 bg-background/70 px-4 py-3",
+        className
+      )}>
+        <div className={compact ? "flex flex-col gap-2" : "flex flex-col gap-3"}>
+
+          <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex flex-row place-content-between gap-2 place-items-center">
+              <p className={compact ? "text-sm font-semibold leading-snug" : "text-base font-semibold leading-tight"}>{powerSpecification.name}</p>
+              <TagsView tags={powerSpecification.tags} variant="secondary" />
+            </div>
+          </div>
+
+          {
+            powerSpecification.description && (
+              <p className={compact ? "max-w-3xl text-xs leading-relaxed text-muted-foreground break-words" : "max-w-4xl text-sm leading-relaxed text-muted-foreground break-words"}>
+                {powerSpecification.description}
+              </p>
+            )
+          }
+
+        </div>
+      </div>
+    );
+  }
 
 type UsedSpellsViewProps =
 {

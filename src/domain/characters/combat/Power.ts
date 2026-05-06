@@ -122,21 +122,21 @@ export type PowerOffenseFormula =
 
 export const defaultPowerOffenseFormula: PowerOffenseFormula =
 {
-  count: 5,
+  count: 15,
 
-  offenseAmountFormula: '1',
-  offenseGradeFormula: 'x + 2',
+  offenseAmountFormula: 'x',
+  offenseGradeFormula: '3',
   offenseBonusFormula: '0',
   offenseIsPhantom: false,
-  offenseCriticalPowerFormula: '5',
-  offenseCriticalRangeFormula: '2',
+  offenseCriticalPowerFormula: '0',
+  offenseCriticalRangeFormula: '0',
 
   damageAmountFormula: '0',
   damageGradeFormula: '1',
-  damageBonusFormula: 'x',
+  damageBonusFormula: '2 * x',
   damageIsPhantom: false,
 
-  costFormula: 'x * 10',
+  costFormula: '5 + (x * 2)',
 
   descriptionPrefix: 'Siła Zaklęcia [x]',
 };

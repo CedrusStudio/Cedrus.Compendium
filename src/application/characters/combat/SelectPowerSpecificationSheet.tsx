@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/ui/card';
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
-import { Sheet, SheetContent, SheetFooter } from '@/ui/sheet';
+import { Sheet, SheetContent, SheetFooter, SheetTitle } from '@/ui/sheet';
 import { importIcon } from '@/common/icons';
 import ListHeader from '@/common/components/lists/ListHeader';
 import { WithScroll } from '@/common/components/WithScroll';
@@ -61,6 +61,11 @@ export function SelectPowerSpecificationSheet
 
   useEffect(() => 
   {
+    setSelectedSpecId(currentSpecificationId);
+  }, [currentSpecificationId, open]);
+
+  useEffect(() => 
+  {
     if (!searchResults) return;
     
     setHasMore(searchResults.length === pageSize);
@@ -112,6 +117,8 @@ export function SelectPowerSpecificationSheet
   const handleSelectSpec = (spec: PowerSpecification) => 
   {
     setSelectedSpecId(spec.id);
+    onSelect(spec);
+    onOpenChange(false);
   };
 
   const handleConfirm = () => 
@@ -135,7 +142,7 @@ export function SelectPowerSpecificationSheet
           
           <div className="flex items-center gap-2">
             {importIcon}
-            <h2 className="text-lg font-semibold">Wybierz Moc</h2>
+            <SheetTitle className="text-lg">Wybierz Moc</SheetTitle>
           </div>
 
           <ListHeader
