@@ -61,6 +61,11 @@ export function SelectPowerSpecificationSheet
 
   useEffect(() => 
   {
+    setSelectedSpecId(currentSpecificationId);
+  }, [currentSpecificationId, open]);
+
+  useEffect(() => 
+  {
     if (!searchResults) return;
     
     setHasMore(searchResults.length === pageSize);
@@ -112,6 +117,8 @@ export function SelectPowerSpecificationSheet
   const handleSelectSpec = (spec: PowerSpecification) => 
   {
     setSelectedSpecId(spec.id);
+    onSelect(spec);
+    onOpenChange(false);
   };
 
   const handleConfirm = () => 

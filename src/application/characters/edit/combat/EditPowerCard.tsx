@@ -32,6 +32,7 @@ import { Button } from '@/ui/button';
 import PowerSpecificationViewFields from '@/application/common/combat/PowerSpecificationViewFields';
 import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
 import { useQuery } from '@tanstack/react-query';
+import { FormField, FormItem, FormMessage } from '@/ui/form';
 
 type EditPowersCardProps =
 {
@@ -44,6 +45,7 @@ type EditPowersCardProps =
 export default function EditPowerCard({ index, power, remove, isPending }: EditPowersCardProps)
 {
   const { control, setValue } = useFormContext<CombatDto>();
+  const powerSpecificationFieldPath = pathToPowerField(index, 'powerSpecificationId');
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
   const [importedSpellIds, setImportedSpellIds] = useState<Set<string>>(new Set());
   const [selectSpecOpen, setSelectSpecOpen] = useState(false);
@@ -53,7 +55,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
   const watchedPowerSpecId = useWatch
   ({
     control,
-    name: pathToPowerField(index, 'powerSpecificationId')
+    name: powerSpecificationFieldPath
   });
 
   // Fetch the PowerSpecification when component mounts or powerSpecificationId changes
@@ -77,7 +79,7 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
   const handleSelectSpecification = (spec: PowerSpecification) => 
   {
-    setValue(pathToPowerField(index, 'powerSpecificationId'), spec.id, { shouldDirty: true, shouldValidate: true });
+    setValue(powerSpecificationFieldPath, spec.id, { shouldDirty: true, shouldValidate: true, shouldTouch: true });
   };
 
   const handleImportSpells = (importedSpells: Spell[]) => 
@@ -172,13 +174,23 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
               </div>
               )
           }
+
+          <FormField
+            control={control}
+            name={powerSpecificationFieldPath}
+            render={() => (
+              <FormItem className='mt-2'>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <SelectPowerSpecificationSheet
           open={selectSpecOpen}
           onOpenChange={setSelectSpecOpen}
           onSelect={handleSelectSpecification}
-          currentSpecificationId={power.powerSpecificationId}
+          currentSpecificationId={watchedPowerSpecId}
         />
 
         <Separator className='mb-5 col-span-full' />
