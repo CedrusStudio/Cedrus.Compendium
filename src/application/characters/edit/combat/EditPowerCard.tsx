@@ -164,13 +164,14 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
             </Button>
           </div>
           
-          {selectedSpecification ? (
-            <PowerSpecificationViewFields powerSpecification={selectedSpecification} collapsible={true} defaultOpen={false} tagsVariant='default' />
-          ) : (
-            <div className='p-4 border-2 border-dashed rounded-md text-center text-muted-foreground'>
-              Nie wybrano specyfikacji mocy. Kliknij &quot;Wybierz&quot; aby wybrać.
-            </div>
-          )}
+          {
+            selectedSpecification ? <PowerSpecificationViewFields powerSpecification={selectedSpecification} collapsible={true} defaultOpen={false} tagsVariant='default' />
+             : (
+              <div className='p-4 border-2 border-dashed rounded-md text-center text-muted-foreground'>
+                Nie wybrano specyfikacji mocy. Kliknij &quot;Wybierz&quot;
+              </div>
+              )
+          }
         </div>
 
         <SelectPowerSpecificationSheet
