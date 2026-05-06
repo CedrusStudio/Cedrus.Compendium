@@ -189,7 +189,7 @@ export const generateOffensesFromFormula = (formula: PowerOffenseFormula): Power
     {
       spellOffense:
       {
-        amount: clamp(evaluateFormula(formula.offenseAmountFormula, i), 0, 10),
+        amount: clamp(evaluateFormula(formula.offenseAmountFormula, i), 0, 50),
         grade: clamp(evaluateFormula(formula.offenseGradeFormula, i), 1, 50),
         bonus: clamp(evaluateFormula(formula.offenseBonusFormula, i), -10, 50),
         isPhantom: formula.offenseIsPhantom,
@@ -201,7 +201,7 @@ export const generateOffensesFromFormula = (formula: PowerOffenseFormula): Power
       },
       spellDamage:
       {
-        amount: clamp(evaluateFormula(formula.damageAmountFormula, i), 0, 10),
+        amount: clamp(evaluateFormula(formula.damageAmountFormula, i), 0, 50),
         grade: clamp(evaluateFormula(formula.damageGradeFormula, i), 1, 50),
         bonus: clamp(evaluateFormula(formula.damageBonusFormula, i), -10, 50),
         isPhantom: formula.damageIsPhantom,
