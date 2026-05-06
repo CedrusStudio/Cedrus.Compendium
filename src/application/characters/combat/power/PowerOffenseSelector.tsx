@@ -47,7 +47,7 @@ export default function PowerOffenseSelector({ powerSpecification, selectedIndex
     <div className="mt-4 pt-2 lg:mt-0 lg:pt-0 border-t border-border/40 lg:border-0">
       <div className="flex flex-col gap-3 p-2 bg-muted/30 rounded-lg">
         <div className="flex items-center justify-between gap-4">
-          <h3 className="text-sm font-semibold">Siła zaklęcia {currentIndex}</h3>
+          <h3 className="text-sm font-semibold">Siła zaklęcia {currentIndex + 1}</h3>
           {
             offense.description && <p className="text-sm text-muted-foreground">{offense.description}</p>
           }

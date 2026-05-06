@@ -106,7 +106,7 @@ function PowerOffenseArrayEditor()
           
           <SelectContent>
           {
-            fields.map((field, index) => <SelectItem key={field.id} value={String(index)}>Siła zaklęcia {index}</SelectItem>)
+            fields.map((field, index) => <SelectItem key={field.id} value={String(index)}>Siła zaklęcia {index + 1}</SelectItem>)
           }
           </SelectContent>
         </Select>
