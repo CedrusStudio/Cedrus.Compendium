@@ -50,7 +50,7 @@ export function toOffenseString(offense: { amount: number; grade: number; bonus:
     return bonusValueWithSign;
   }
 
-  return `${usePlusSignWhenDiceIsPresent ? "+" : ""}${offense.amount}k${offense.grade * 2}${offense.isPhantom ? "w" : ""}${bonusValueWithSign}`
+  return `${usePlusSignWhenDiceIsPresent ? "+" : ""}${offense.amount}${offense.amount > 1 ? "(" : ""}k${offense.grade * 2}${offense.isPhantom ? "w" : ""}${bonusValueWithSign}${offense.amount > 1 ? ")" : ""}`;
 }
 
 export function toCriticalRangeString(weaponOffense: WeaponOffense): string
