@@ -122,6 +122,8 @@ export const translations_plPL =
     changeName: "zmień nazwę...",
     changeShortName: "zmień krótką nazwę...",
     changeGrade: "zmień rangę...",
+    showDescription: "pokaż opis",
+    hideDescription: "ukryj opis",
     addTalent: "dodaj umiejętność",
     clear: "wyczyść",
     cancel: "anuluj",
