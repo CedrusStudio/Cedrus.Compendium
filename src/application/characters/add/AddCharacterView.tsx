@@ -181,7 +181,7 @@ function CharacterHeaderFields()
                 inputClassName="lg:w-xl"
             />
 
-            <FormTagsInput<HeaderDto> path="tags" beAbleToSetCharacterAndSessionTags={true} />
+            <FormTagsInput<HeaderDto> path="tags" beAbleToSetCharacterAndSessionTags={true} entityType="characters" />
 
             <AreaInputFormField<HeaderDto> 
                 path="description" 
