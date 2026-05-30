@@ -371,6 +371,54 @@ describe('PersonalizationPage', () => {
     expect(addQuickTag).toHaveBeenCalledWith('characters', 'alchemy');
   });
 
+  it('adds an exclude quick tag from the existing tags selector', async () => {
+    const addQuickExcludeTag = vi.fn();
+
+    useEntityTagsMock.mockImplementation((entity: string) => ({
+      tags: entity === 'characters' ? ['alchemy', 'cursed'] : [],
+      isLoading: false,
+      error: null,
+    }));
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      profile: createEmptyProfile(),
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      addQuickExcludeTag,
+      removeQuickTag: vi.fn(),
+      removeQuickExcludeTag: vi.fn(),
+      addFavoriteCharacter: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    const tagModeSelect = document.getElementById('personalization-tag-mode-select');
+    expect(tagModeSelect).not.toBeNull();
+
+    fireEvent.click(tagModeSelect!);
+    fireEvent.click(await screen.findByRole('option', { name: 'Wykluczające' }));
+
+    const existingTagSelect = document.getElementById('personalization-existing-tag-select');
+    expect(existingTagSelect).not.toBeNull();
+
+    fireEvent.click(existingTagSelect!);
+    fireEvent.click(await screen.findByText('cursed'));
+
+    expect(addQuickExcludeTag).toHaveBeenCalledWith('characters', 'cursed');
+  });
+
   it('exports the active profile as a JSON file', () => {
     const createObjectURL = vi.fn(() => 'blob:personalization');
     const revokeObjectURL = vi.fn();
@@ -560,7 +608,7 @@ describe('PersonalizationPage', () => {
     });
   });
 
-  it('updates the bestiary column draft when the profile changes after the initial render', () => {
+  it('updates the bestiary column draft when the profile changes after the initial render', async () => {
     const { rerender } = render(
       (() => {
         usePersonalizationMock.mockReturnValue({
@@ -608,5 +656,8 @@ describe('PersonalizationPage', () => {
 
     rerender(<PersonalizationPage />);
 
-    expect(screen.getByLabelText('Moce')).toHaveAttribute('data-state', 'checked');
+    await waitFor(() => {
+      expect(screen.getByRole('checkbox', { name: /moce/i })).toHaveProperty('checked', true);
+    });
   });
+});

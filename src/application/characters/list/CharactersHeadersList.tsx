@@ -25,16 +25,17 @@ import PersonalizedQuickTags from '@/application/personalization/PersonalizedQui
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
+const sanitizeCharactersViewTags = (tags: string[]) => tags.filter(tag => tag !== CharacterTag);
 
 export default function CharactersHeadersList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
-  const [searchTags, setSearchTags] = useState<string[]>([CharacterTag]);
+  const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
   
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
-  const availableTagsOnlyForCharacters = availableTags.filter(isCharacterOrSessionTag);
+  const availableTagsOnlyForCharacters = availableTags.filter(tag => isCharacterOrSessionTag(tag) && tag !== CharacterTag);
 
   const [displayedCharacters, setDisplayedCharacters] = useState<CharacterSummary[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
@@ -82,51 +83,63 @@ export default function CharactersHeadersList()
   
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
-    setSearchTags(tags);
+    setSearchTags(sanitizeCharactersViewTags(tags));
     clearResults();
   }, [clearResults]);
 
   const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
-    setExcludedTags(tags);
+    setExcludedTags(sanitizeCharactersViewTags(tags));
     setCursor(emptyUlid);
     clearResults();
   }, [clearResults]);
 
   return (
-    <div className='flex flex-col items-center justify-end'>
+    <div className='flex flex-col items-center'>
 
-      <div className='flex flex-row gap-4 justify-center mt-4 w-full max-w-7xl px-4'>
+      <div className='mt-4 w-full px-4'>
+        <div className='mx-auto flex w-full max-w-5xl flex-col items-center gap-3'>
 
-        <Input 
-          name="search" 
-          type="text" 
-          placeholder={displayedText.searchByName}
-          value={searchInput}
-          onChange={handleSearchInputChange}
-          className="w-md"
-        />
+          <div className='flex w-full flex-col items-stretch gap-3 md:flex-row md:items-start md:justify-center'>
+            <Input 
+              name="search" 
+              type="text" 
+              placeholder={displayedText.searchByName}
+              value={searchInput}
+              onChange={handleSearchInputChange}
+              className="w-full md:max-w-sm"
+            />
 
-        <TagFilter 
-          includedTags={searchTags} 
-          onIncludedTagsChange={handleSearchTagsChange}
-          availableTags={availableTagsOnlyForCharacters}
-          isLoading={tagsLoading}
-          excludedTags={excludedTags}
-          onExcludedTagsChange={handleExcludedTagsChange}
-        />
-      </div>
+            <div className='flex w-full justify-center md:w-auto'>
+              <TagFilter 
+                includedTags={searchTags} 
+                onIncludedTagsChange={handleSearchTagsChange}
+                availableTags={availableTagsOnlyForCharacters}
+                isLoading={tagsLoading}
+                excludedTags={excludedTags}
+                onExcludedTagsChange={handleExcludedTagsChange}
+              />
+            </div>
+          </div>
 
-      <div className='mt-3 w-full max-w-7xl px-4'>
-        <PersonalizedQuickTags
-          context="characters"
-          selectedTags={searchTags}
-          onSelectedTagsChange={handleSearchTagsChange}
-        />
+          <div className='flex max-w-full flex-col items-center gap-2'>
+            <PersonalizedQuickTags
+              context="characters"
+              selectedTags={searchTags}
+              onSelectedTagsChange={handleSearchTagsChange}
+            />
+            <PersonalizedQuickTags
+              context="characters"
+              mode="exclude"
+              selectedTags={excludedTags}
+              onSelectedTagsChange={handleExcludedTagsChange}
+            />
+          </div>
+        </div>
       </div>
 
       <WithScroll<CharacterSummary>
-        parentClassName='flex flex-col gap-2 mt-6 mx-auto w-full max-w-7xl px-4'
+        parentClassName='mt-6 mx-auto flex w-full max-w-[88rem] flex-col gap-3 px-4'
         items={displayedCharacters}
         triggerNext={() => 
         {
@@ -145,8 +158,8 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
   const dispatch = useDispatch();
 
   return (
-    <div className='relative'>
-      <div className='absolute inset-y-0 right-4 z-10 flex items-center gap-2'>
+    <div className='relative w-full'>
+      <div className='absolute inset-y-0 right-6 z-10 flex items-center gap-3'>
         <FavoriteCharacterButton characterId={summary.id} />
         <MainCharacterButton characterId={summary.id} />
       </div>
@@ -154,22 +167,22 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
       <Link 
         href={`/characters/${summary.id}`}
         onClick={() => dispatch(actions.clearCharacterNavbarSearch())}
-        className='block group'
+        className='block w-full'
       >
-        <Card className='relative overflow-hidden bg-gradient-to-r from-slate-900/90 to-slate-800/90 hover:from-slate-800 hover:to-slate-700 border border-slate-700/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20 lg:min-w-250'>
-          <div className='absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-          <div className='relative flex flex-row items-center gap-4 px-6 pr-28'>
-            <div className='flex items-center gap-2.5 min-w-[200px]'>
-              <div className='h-1.5 w-1.5 rounded-full bg-primary animate-pulse' />
-              <h3 className='text-base font-bold text-slate-100 group-hover:text-primary transition-colors duration-200'>
+        <Card className='w-full gap-0 border-border/60 py-6 transition-colors hover:bg-accent/40'>
+          <div className='flex flex-col gap-4 px-7 pr-32 sm:flex-row sm:items-center sm:gap-6 sm:pr-36 lg:pr-40'>
+            <div className='min-w-0 space-y-1 sm:min-w-[16rem] lg:min-w-[20rem]'>
+              <h3 className='truncate text-xl font-semibold'>
                 {summary.name}
               </h3>
+              <p className='text-sm text-muted-foreground'>
+                {summary.shortName}
+              </p>
             </div>
             
-            <div className='flex-1'>
-              <TagsView tags={summary.tags} variant="outline" />
+            <div className='min-w-0 flex-1'>
+              <TagsView tags={summary.tags} variant="outline" className='w-full justify-start' />
             </div>
-            
           </div>
         </Card>
       </Link>

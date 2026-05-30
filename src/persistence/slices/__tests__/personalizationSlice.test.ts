@@ -190,11 +190,27 @@ describe('personalizationSlice', () => {
     state = reducer(state, actions.addQuickTag({ context: 'perks', tag: '   ' }));
     state = reducer(state, actions.addQuickTag({ context: 'perks', tag: 'tag-1' }));
     state = reducer(state, actions.addQuickTag({ context: 'perks', tag: 'tag-1' }));
+    state = reducer(state, actions.addQuickExcludeTag({ context: 'perks', tag: 'tag-1' }));
 
     expect(state.profilesByApiKey.alpha.quickTagsByContext.perks).toEqual(['tag-1']);
+    expect(state.profilesByApiKey.alpha.quickExcludeTagsByContext.perks).toBeUndefined();
 
     state = reducer(state, actions.removeQuickTag({ context: 'perks', tag: 'tag-1' }));
     expect(state.profilesByApiKey.alpha.quickTagsByContext.perks).toEqual([]);
+  });
+
+  it('stores exclude quick tags separately per context', () => {
+    let state = createState();
+
+    state = reducer(state, actions.addQuickExcludeTag({ context: 'perks', tag: 'cursed' }));
+    state = reducer(state, actions.addQuickTag({ context: 'perks', tag: 'cursed' }));
+
+    expect(state.profilesByApiKey.alpha.quickExcludeTagsByContext.perks).toEqual(['cursed']);
+    expect(state.profilesByApiKey.alpha.quickTagsByContext.perks).toBeUndefined();
+
+    state = reducer(state, actions.removeQuickExcludeTag({ context: 'perks', tag: 'cursed' }));
+
+    expect(state.profilesByApiKey.alpha.quickExcludeTagsByContext.perks).toEqual([]);
   });
 
   it('toggles favorites on and off and clears the main character on removal', () => {

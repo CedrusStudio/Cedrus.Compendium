@@ -6,19 +6,24 @@ import { PersonalizationContext } from '@/persistence/slices/personalizationSlic
 
 type PersonalizedQuickTagsProps = {
   context: PersonalizationContext;
+  mode?: 'include' | 'exclude';
   selectedTags: string[];
   onSelectedTagsChange: (tags: string[]) => void;
 };
 
-export default function PersonalizedQuickTags({ context, selectedTags, onSelectedTagsChange }: PersonalizedQuickTagsProps)
+export default function PersonalizedQuickTags({ context, mode = 'include', selectedTags, onSelectedTagsChange }: PersonalizedQuickTagsProps)
 {
   const { hasApiKey, profile } = usePersonalization();
-  const quickTags = profile.quickTagsByContext[context] ?? [];
+  const quickTags = mode === 'exclude'
+    ? (profile.quickExcludeTagsByContext[context] ?? [])
+    : (profile.quickTagsByContext[context] ?? []);
 
   if (!hasApiKey || quickTags.length === 0)
   {
     return null;
   }
+
+  const label = mode === 'exclude' ? 'Szybkie tagi wykluczające' : 'Szybkie tagi dołączające';
 
   const toggleTag = (tag: string) =>
   {
@@ -33,13 +38,13 @@ export default function PersonalizedQuickTags({ context, selectedTags, onSelecte
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs uppercase tracking-wide text-muted-foreground">Szybkie tagi</span>
+      <span className="text-xs uppercase tracking-wide text-muted-foreground">{label}</span>
       {
         quickTags.map(tag => (
           <Button
             key={tag}
             type="button"
-            variant={selectedTags.includes(tag) ? 'default' : 'outline'}
+            variant={selectedTags.includes(tag) ? (mode === 'exclude' ? 'destructive' : 'default') : 'outline'}
             size="sm"
             onClick={() => toggleTag(tag)}
           >
