@@ -46,6 +46,11 @@ describe('defenseSchema', () => {
   });
 
   describe('description field', () => {
+    it('should accept empty description', () => {
+      const result = defenseSchema.safeParse({ ...validDefense, description: '' });
+      expect(result.success).toBe(true);
+    });
+
     it('should reject description less than 2 characters', () => {
       const result = defenseSchema.safeParse({ ...validDefense, description: 'A' });
       expect(result.success).toBe(false);
