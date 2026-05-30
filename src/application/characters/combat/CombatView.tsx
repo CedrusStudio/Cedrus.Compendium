@@ -10,6 +10,10 @@ import { Activity } from "react";
 
 export default function CombatView({ character }: { character: Character })
 {
+  const hasStances = character.stances.length > 0;
+  const hasStates = character.states.length > 0;
+  const hasSplitModesLayout = hasStances && hasStates;
+
   return (
     <div className='flex flex-col gap-3'>
 
@@ -28,10 +32,18 @@ export default function CombatView({ character }: { character: Character })
 
       </div>
 
-      <div className="flex flex-col gap-3 lg:grid lg:grid-cols-2">
-        <ModesCard name="Postawy" modes={character.stances} />
-        <ModesCard name="Stany" modes={character.states} />
-      </div>
+      {
+        (hasStances || hasStates) && (
+          <div className={hasSplitModesLayout ? "flex flex-col gap-3 lg:grid lg:grid-cols-2" : "flex flex-col gap-3"}>
+            {
+              hasStances && <ModesCard name="Postawy" modes={character.stances} />
+            }
+            {
+              hasStates && <ModesCard name="Stany" modes={character.states} />
+            }
+          </div>
+        )
+      }
 
       <Activity mode={character.offenses.length > 0 ? "visible" : "hidden"}>
         <div className="lg:col-span-2 flex w-full">

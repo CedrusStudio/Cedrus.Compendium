@@ -61,10 +61,14 @@ export type QuickLink =
       characterId: string;
     };
 
+type QuickTagsByContext = Partial<Record<PersonalizationContext, string[]>>;
+type QuickTagBucketKey = 'quickTagsByContext' | 'quickExcludeTagsByContext';
+
 export type PersonalizationProfile = {
   userName?: string;
   bestiaryColumnVisibility?: Partial<Record<BestiaryColumnPreferenceKey, boolean>>;
-  quickTagsByContext: Partial<Record<PersonalizationContext, string[]>>;
+  quickTagsByContext: QuickTagsByContext;
+  quickExcludeTagsByContext: QuickTagsByContext;
   favoriteCharacterIds: string[];
   quickLinks: QuickLink[];
   mainCharacterId?: string;
@@ -90,6 +94,7 @@ const personalizationProfileKeys = [
   'userName',
   'bestiaryColumnVisibility',
   'quickTagsByContext',
+  'quickExcludeTagsByContext',
   'favoriteCharacterIds',
   'quickLinks',
   'mainCharacterId',
@@ -99,6 +104,7 @@ const createEmptyProfile = (): PersonalizationProfile => ({
   userName: undefined,
   bestiaryColumnVisibility: undefined,
   quickTagsByContext: {},
+  quickExcludeTagsByContext: {},
   favoriteCharacterIds: [],
   quickLinks: [],
   mainCharacterId: undefined,
@@ -110,16 +116,23 @@ const isQuickLinkRoute = (value: unknown): value is QuickLinkRoute => typeof val
 
 const hasRecognizedProfileProperty = (value: Record<string, unknown>) => personalizationProfileKeys.some(key => key in value);
 
+const sanitizeQuickTagsByContext = (value: unknown): QuickTagsByContext => {
+  if (!isRecord(value)) {
+    return {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(value)
+      .filter(([context, tags]) => personalizationContexts.includes(context as PersonalizationContext) && Array.isArray(tags))
+      .map(([context, tags]) => [context, (tags as unknown[]).filter((tag): tag is string => typeof tag === 'string').slice(0, MAX_QUICK_TAGS_PER_CONTEXT)]),
+  ) as QuickTagsByContext;
+};
+
 const sanitizeProfile = (value: unknown): PersonalizationProfile => {
   if (!isRecord(value)) return createEmptyProfile();
 
-  const quickTagsByContext = isRecord(value.quickTagsByContext)
-    ? Object.fromEntries(
-        Object.entries(value.quickTagsByContext)
-          .filter(([context, tags]) => personalizationContexts.includes(context as PersonalizationContext) && Array.isArray(tags))
-          .map(([context, tags]) => [context, (tags as unknown[]).filter((tag): tag is string => typeof tag === 'string').slice(0, MAX_QUICK_TAGS_PER_CONTEXT)]),
-      ) as Partial<Record<PersonalizationContext, string[]>>
-    : {};
+  const quickTagsByContext = sanitizeQuickTagsByContext(value.quickTagsByContext);
+  const quickExcludeTagsByContext = sanitizeQuickTagsByContext(value.quickExcludeTagsByContext);
 
   const favoriteCharacterIds = Array.isArray(value.favoriteCharacterIds)
     ? value.favoriteCharacterIds.filter((characterId): characterId is string => typeof characterId === 'string')
@@ -155,6 +168,7 @@ const sanitizeProfile = (value: unknown): PersonalizationProfile => {
     userName,
     bestiaryColumnVisibility,
     quickTagsByContext,
+    quickExcludeTagsByContext,
     favoriteCharacterIds,
     quickLinks,
     mainCharacterId,
@@ -222,6 +236,29 @@ const persistProfiles = (state: PersonalizationSliceState) => {
   saveProfilesToLocalStorage(state.profilesByApiKey);
 };
 
+const getOppositeQuickTagBucketKey = (bucketKey: QuickTagBucketKey): QuickTagBucketKey => bucketKey === 'quickTagsByContext'
+  ? 'quickExcludeTagsByContext'
+  : 'quickTagsByContext';
+
+const addQuickTagToBucket = (profile: PersonalizationProfile, payload: QuickTagPayload, bucketKey: QuickTagBucketKey) => {
+  const tag = payload.tag.trim();
+  if (!tag) return false;
+
+  const existingTags = profile[bucketKey][payload.context] ?? [];
+  const oppositeTags = profile[getOppositeQuickTagBucketKey(bucketKey)][payload.context] ?? [];
+  if (existingTags.includes(tag) || oppositeTags.includes(tag) || existingTags.length >= MAX_QUICK_TAGS_PER_CONTEXT) {
+    return false;
+  }
+
+  profile[bucketKey][payload.context] = [...existingTags, tag];
+  return true;
+};
+
+const removeQuickTagFromBucket = (profile: PersonalizationProfile, payload: QuickTagPayload, bucketKey: QuickTagBucketKey) => {
+  const existingTags = profile[bucketKey][payload.context] ?? [];
+  profile[bucketKey][payload.context] = existingTags.filter(tag => tag !== payload.tag);
+};
+
 const initialState: PersonalizationSliceState = {
   profilesByApiKey: loadProfilesFromLocalStorage(),
   activeApiKey: getStoredApiKey(),
@@ -264,21 +301,30 @@ const personalizationSlice = createSlice({
       const profile = getActiveProfile(state);
       if (!profile) return;
 
-      const tag = action.payload.tag.trim();
-      if (!tag) return;
+      if (!addQuickTagToBucket(profile, action.payload, 'quickTagsByContext')) return;
 
-      const existingTags = profile.quickTagsByContext[action.payload.context] ?? [];
-      if (existingTags.includes(tag) || existingTags.length >= MAX_QUICK_TAGS_PER_CONTEXT) return;
+      persistProfiles(state);
+    },
+    addQuickExcludeTag(state, action: PayloadAction<QuickTagPayload>) {
+      const profile = getActiveProfile(state);
+      if (!profile) return;
 
-      profile.quickTagsByContext[action.payload.context] = [...existingTags, tag];
+      if (!addQuickTagToBucket(profile, action.payload, 'quickExcludeTagsByContext')) return;
+
       persistProfiles(state);
     },
     removeQuickTag(state, action: PayloadAction<QuickTagPayload>) {
       const profile = getActiveProfile(state);
       if (!profile) return;
 
-      const existingTags = profile.quickTagsByContext[action.payload.context] ?? [];
-      profile.quickTagsByContext[action.payload.context] = existingTags.filter(tag => tag !== action.payload.tag);
+      removeQuickTagFromBucket(profile, action.payload, 'quickTagsByContext');
+      persistProfiles(state);
+    },
+    removeQuickExcludeTag(state, action: PayloadAction<QuickTagPayload>) {
+      const profile = getActiveProfile(state);
+      if (!profile) return;
+
+      removeQuickTagFromBucket(profile, action.payload, 'quickExcludeTagsByContext');
       persistProfiles(state);
     },
     addFavoriteCharacter(state, action: PayloadAction<string>) {

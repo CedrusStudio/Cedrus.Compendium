@@ -30,6 +30,12 @@ const quickLinkRouteSelectItems = quickLinkRoutes.map(route => ({
   label: personalizationRouteLabels[route],
   value: route,
 }));
+const quickTagModeSelectItems = [
+  { label: 'Dołączające', value: 'include' },
+  { label: 'Wykluczające', value: 'exclude' },
+] as const;
+
+type QuickTagMode = typeof quickTagModeSelectItems[number]['value'];
 
 const personalizationTagEntities: Record<PersonalizationContext, EntityType> = {
   characters: 'characters',
@@ -50,10 +56,29 @@ const personalizationTagEntities: Record<PersonalizationContext, EntityType> = {
 
 export default function PersonalizationPage()
 {
-  const { apiKey, hasApiKey, isLoaded, profile, setUserName, setBestiaryColumnVisibility, clearBestiaryColumnVisibility, addQuickTag, removeQuickTag, removeFavoriteCharacter, setMainCharacter, addQuickLink, removeQuickLink, updateQuickLink, replaceProfile = () => undefined } = usePersonalization();
+  const {
+    apiKey,
+    hasApiKey,
+    isLoaded,
+    profile,
+    setUserName,
+    setBestiaryColumnVisibility,
+    clearBestiaryColumnVisibility,
+    addQuickTag,
+    addQuickExcludeTag = () => undefined,
+    removeQuickTag,
+    removeQuickExcludeTag = () => undefined,
+    removeFavoriteCharacter,
+    setMainCharacter,
+    addQuickLink,
+    removeQuickLink,
+    updateQuickLink,
+    replaceProfile = () => undefined,
+  } = usePersonalization();
   const { favoriteCharacters, isLoading } = useFavoriteCharacters();
   const importInputRef = useRef<HTMLInputElement>(null);
   const [selectedContext, setSelectedContext] = useState(personalizationContexts[0]);
+  const [selectedQuickTagMode, setSelectedQuickTagMode] = useState<QuickTagMode>('include');
   const [quickTagInput, setQuickTagInput] = useState('');
   const [selectedRoute, setSelectedRoute] = useState<QuickLinkRoute>('/characters/favorites');
   const [quickLinkLabel, setQuickLinkLabel] = useState('');
@@ -68,7 +93,10 @@ export default function PersonalizationPage()
     () => favoriteCharacters.map(character => ({ value: character.id, label: character.name })),
     [favoriteCharacters],
   );
-  const selectedContextQuickTags = profile.quickTagsByContext[selectedContext] ?? [];
+  const selectedContextIncludeQuickTags = profile.quickTagsByContext[selectedContext] ?? [];
+  const selectedContextExcludeQuickTags = profile.quickExcludeTagsByContext[selectedContext] ?? [];
+  const selectedContextQuickTags = selectedQuickTagMode === 'include' ? selectedContextIncludeQuickTags : selectedContextExcludeQuickTags;
+  const selectedContextConfiguredQuickTags = [...selectedContextIncludeQuickTags, ...selectedContextExcludeQuickTags];
 
   useEffect(() => 
   {
@@ -87,8 +115,31 @@ export default function PersonalizationPage()
 
   const handleAddQuickTag = () =>
   {
-    addQuickTag(selectedContext, quickTagInput);
+    if (selectedQuickTagMode === 'include') {
+      addQuickTag(selectedContext, quickTagInput);
+    } else {
+      addQuickExcludeTag(selectedContext, quickTagInput);
+    }
+
     setQuickTagInput('');
+  };
+
+  const handleSelectExistingQuickTag = (tag: string) => {
+    if (selectedQuickTagMode === 'include') {
+      addQuickTag(selectedContext, tag);
+      return;
+    }
+
+    addQuickExcludeTag(selectedContext, tag);
+  };
+
+  const handleRemoveSavedQuickTag = (context: PersonalizationContext, tag: string, mode: QuickTagMode) => {
+    if (mode === 'include') {
+      removeQuickTag(context, tag);
+      return;
+    }
+
+    removeQuickExcludeTag(context, tag);
   };
 
   const handleAddQuickLink = () =>
@@ -284,7 +335,7 @@ export default function PersonalizationPage()
             <section className="rounded-lg border p-6 space-y-4">
               <div>
                 <h2 className="text-2xl font-semibold">Szybkie tagi</h2>
-                <p className="text-sm text-muted-foreground">Możesz zapisać maksymalnie 5 tagów na kontekst.</p>
+                <p className="text-sm text-muted-foreground">Możesz zapisać maksymalnie 5 tagów dołączających i 5 wykluczających na kontekst.</p>
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
@@ -297,25 +348,34 @@ export default function PersonalizationPage()
                   capitalize={false}
                 />
 
+                <SelectOneOfStrings
+                  id="personalization-tag-mode-select"
+                  value={selectedQuickTagMode}
+                  items={quickTagModeSelectItems as unknown as { label: string; value: string }[]}
+                  onChange={value => setSelectedQuickTagMode(value as QuickTagMode)}
+                  triggerClassName="w-full md:w-[220px]"
+                  capitalize={false}
+                />
+
                 <Input
                   value={quickTagInput}
                   onChange={event => setQuickTagInput(event.target.value)}
-                  placeholder="Dodaj szybki tag"
+                  placeholder={selectedQuickTagMode === 'include' ? 'Dodaj szybki tag dołączający' : 'Dodaj szybki tag wykluczający'}
                   className="md:flex-1"
                 />
 
                 <Button type="button" variant="outline" onClick={handleAddQuickTag}>
-                  Dodaj tag
+                  {selectedQuickTagMode === 'include' ? 'Dodaj tag dołączający' : 'Dodaj tag wykluczający'}
                 </Button>
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row md:items-center">
-                <p className="text-sm text-muted-foreground">Lub wybierz istniejący tag dla wybranego kontekstu.</p>
+                <p className="text-sm text-muted-foreground">Lub wybierz istniejący tag dla wybranego kontekstu i typu.</p>
                 <ExistingTagSelect
                   selectorId="personalization-existing-tag-select"
                   availableTags={availableTagsForSelectedContext}
-                  selectedTags={selectedContextQuickTags}
-                  onSelectTag={tag => addQuickTag(selectedContext, tag)}
+                  selectedTags={selectedContextConfiguredQuickTags}
+                  onSelectTag={handleSelectExistingQuickTag}
                   isLoading={areSelectedContextTagsLoading}
                   disabled={selectedContextQuickTags.length >= MAX_QUICK_TAGS_PER_CONTEXT}
                   triggerClassName="w-full md:w-[260px]"
@@ -325,29 +385,46 @@ export default function PersonalizationPage()
               <div className="space-y-3">
                 {
                   personalizationContexts.map(context => {
-                    const quickTags = profile.quickTagsByContext[context] ?? [];
+                    const includeQuickTags = profile.quickTagsByContext[context] ?? [];
+                    const excludeQuickTags = profile.quickExcludeTagsByContext[context] ?? [];
+                    const quickTagGroups = [
+                      { label: 'Dołączające', mode: 'include' as const, tags: includeQuickTags },
+                      { label: 'Wykluczające', mode: 'exclude' as const, tags: excludeQuickTags },
+                    ];
 
                     return (
                       <div key={context}>
                         <p className="text-sm font-medium">{personalizationContextLabels[context]}</p>
-                        <div className="mt-2 flex flex-wrap gap-2">
+                        <div className="mt-2 space-y-3">
                           {
-                            quickTags.length > 0 ? quickTags.map(tag => (
-                              <div key={`${context}-${tag}`} className="inline-flex items-center gap-2 rounded-full border pl-3 pr-1 py-1 text-sm">
-                                <span>{tag}</span>
-                                <Button
-                                  type="button"
-                                  variant="ghost"
-                                  size="icon"
-                                  className="size-7 rounded-full"
-                                  aria-label={`Usun tag ${tag}`}
-                                  title={`Usun tag ${tag}`}
-                                  onClick={() => removeQuickTag(context, tag)}
-                                >
-                                  {deleteIcon}
-                                </Button>
+                            quickTagGroups.map(quickTagGroup => (
+                              <div key={`${context}-${quickTagGroup.mode}`}>
+                                <p className="text-xs uppercase tracking-wide text-muted-foreground">{quickTagGroup.label}</p>
+                                <div className="mt-2 flex flex-wrap gap-2">
+                                  {
+                                    quickTagGroup.tags.length > 0 ? quickTagGroup.tags.map(tag => (
+                                      <div
+                                        key={`${context}-${quickTagGroup.mode}-${tag}`}
+                                        className={`inline-flex items-center gap-2 rounded-full border pl-3 pr-1 py-1 text-sm ${quickTagGroup.mode === 'exclude' ? 'border-destructive/30 bg-destructive/5' : ''}`}
+                                      >
+                                        <span>{tag}</span>
+                                        <Button
+                                          type="button"
+                                          variant="ghost"
+                                          size="icon"
+                                          className="size-7 rounded-full"
+                                          aria-label={`Usun tag ${tag}`}
+                                          title={`Usun tag ${tag}`}
+                                          onClick={() => handleRemoveSavedQuickTag(context, tag, quickTagGroup.mode)}
+                                        >
+                                          {deleteIcon}
+                                        </Button>
+                                      </div>
+                                    )) : <span className="text-sm text-muted-foreground">Brak zapisanych tagów.</span>
+                                  }
+                                </div>
                               </div>
-                            )) : <span className="text-sm text-muted-foreground">Brak zapisanych tagow.</span>
+                            ))
                           }
                         </div>
                       </div>

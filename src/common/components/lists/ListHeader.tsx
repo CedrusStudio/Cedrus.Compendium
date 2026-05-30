@@ -36,16 +36,16 @@ export default function ListHeader
   : React.PropsWithChildren<ListHeaderProps>)
 {
   return (
-    <div className='flex md:ml-12 sm:flex-row gap-2 sm:gap-2 lg:gap-4 m-3 place-items-center sticky top-0 bg-background z-10'>
-      <div className="flex flex-col gap-2 sm:gap-2 lg:gap-4 place-items-start">
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-2 lg:gap-4 place-items-start">
+    <div className='sticky top-0 z-10 m-3 flex flex-col gap-2 bg-background md:ml-12 lg:flex-row lg:items-start lg:justify-between'>
+      <div className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-2 lg:gap-4">
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-start lg:gap-4">
           <Input 
             name="search" 
             type="text" 
             placeholder={displayedText.searchByName}
             value={searchInput}
             onChange={handleSearchInputChange}
-            className="max-w-max"
+            className="w-full sm:max-w-xs md:max-w-sm"
             />
 
           <TagFilter 
@@ -60,15 +60,30 @@ export default function ListHeader
 
         {
           personalizationContext && (
-            <PersonalizedQuickTags
-              context={personalizationContext}
-              selectedTags={searchTags}
-              onSelectedTagsChange={handleSearchTagsChange}
-            />
+            <div className="space-y-2">
+              <PersonalizedQuickTags
+                context={personalizationContext}
+                selectedTags={searchTags}
+                onSelectedTagsChange={handleSearchTagsChange}
+              />
+              <PersonalizedQuickTags
+                context={personalizationContext}
+                mode="exclude"
+                selectedTags={excludedTags}
+                onSelectedTagsChange={handleExcludedTagsChange}
+              />
+            </div>
           )
         }
       </div>
-      {children}
+
+      {
+        children && (
+          <div className="flex w-full flex-wrap items-start gap-2 lg:w-auto lg:flex-none lg:justify-end">
+            {children}
+          </div>
+        )
+      }
     </div>
   );
 };

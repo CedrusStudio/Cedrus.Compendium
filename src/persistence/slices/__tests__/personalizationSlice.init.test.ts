@@ -56,6 +56,7 @@ describe('personalizationSlice initialization', () => {
       quickTagsByContext: {
         perks: ['tag-1', 'tag-2', 'tag-3', 'tag-4', 'tag-5'],
       },
+      quickExcludeTagsByContext: {},
       favoriteCharacterIds: ['character-1'],
       quickLinks: [
         { id: 'route-link', label: 'Favorites', type: 'route', href: '/characters/favorites' },

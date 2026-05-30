@@ -191,11 +191,17 @@ export default function BestiaryTable()
         <ColumnFilter table={table} />
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4 space-y-2">
         <PersonalizedQuickTags
           context="bestiary"
           selectedTags={searchTags}
           onSelectedTagsChange={handleSearchTagsChange}
+        />
+        <PersonalizedQuickTags
+          context="bestiary"
+          mode="exclude"
+          selectedTags={excludedTags}
+          onSelectedTagsChange={handleExcludedTagsChange}
         />
       </div>
 
