@@ -10,6 +10,7 @@ import { Label } from '@/ui/label';
 import { displayedText } from '@/common/translations';
 import { gainIcon, lossIcon } from '@/common/icons';
 import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
+import { Badge } from '@/ui/badge';
 
 type HealthCardProps = 
 {
@@ -37,7 +38,22 @@ export default function HealthCard(input: HealthCardProps)
   }
 
   return (
-    <DataCard title={displayedText.health}  headerClassName='place-items-center' variant="muted" contentClassName='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'>
+    <DataCard
+      title={displayedText.health}
+      icon={
+        <Badge
+          variant="outline"
+          className='font-mono uppercase mt-1.5'
+          aria-label={`${displayedText.recoveryLevel}: ${input.health.recoveryLevel}`}
+          title={displayedText.recoveryLevel}
+        >
+          {`PL ${input.health.recoveryLevel}`}
+        </Badge>
+      }
+      headerClassName='place-items-center'
+      variant="muted"
+      contentClassName='flex flex-col lg:flex-row gap-6 place-content-center h-full gap-y-4'
+    >
 
       <div className='flex flex-row place-content-center place-items-center'>
 
