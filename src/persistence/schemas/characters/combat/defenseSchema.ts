@@ -1,9 +1,14 @@
 import { z } from "zod";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
 
+const optionalCombatDescriptionSchema = z.union([
+  z.literal(""),
+  z.string().min(2).max(1000),
+]).optional();
+
 export const defenseSchema = entitySchema.extend
 ({
-  description: z.string().min(2).max(1000).optional(),
+  description: optionalCombatDescriptionSchema,
   immunity: z.coerce.number<number>().int().min(0, { message: "Niewrażliwość musi mieć co najmniej 0." }).max(50, { message: "Niewrażliwość musi mieć najwyżej 50." }),
   resistance: z.coerce.number<number>().int().min(0, { message: "Odporność musi mieć co najmniej 0." }).max(50, { message: "Odporność musi mieć najwyżej 50." }),
   protection: z.coerce.number<number>().int().min(0, { message: "Pancerz musi mieć co najmniej 0." }).max(50, { message: "Pancerz musi mieć najwyżej 50." }),

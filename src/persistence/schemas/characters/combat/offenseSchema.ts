@@ -1,6 +1,11 @@
 import { z } from "zod";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
 
+const optionalCombatDescriptionSchema = z.union([
+  z.literal(""),
+  z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
+]).optional();
+
 const criticalSchema = z.object
 ({
   power: z.coerce.number<number>().int().min(-5, { message: "Sia Krytyka musi mieć co najmniej -5." }).max(50, { message: "Sia Krytyka musi mieć najwyżej 50." }),
@@ -22,7 +27,7 @@ export const weaponOffenseSchema = damageOffenseSchema.extend
 
 export const offenseSchema = entitySchema.extend
 ({
-  description: z.string().min(2).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }).optional(),
+  description: optionalCombatDescriptionSchema,
   leadingWeapon: weaponOffenseSchema,
   secondaryWeapon: weaponOffenseSchema.optional(),
   damageBonus: damageOffenseSchema,

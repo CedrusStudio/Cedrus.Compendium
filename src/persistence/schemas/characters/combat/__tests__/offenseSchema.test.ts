@@ -249,6 +249,11 @@ describe('offenseSchema', () => {
     expect(result.success).toBe(true);
   });
 
+  it('should accept empty description', () => {
+    const result = offenseSchema.safeParse({ ...validOffense, description: '' });
+    expect(result.success).toBe(true);
+  });
+
   it('should reject description less than 2 characters', () => {
     const result = offenseSchema.safeParse({ ...validOffense, description: 'A' });
     expect(result.success).toBe(false);
