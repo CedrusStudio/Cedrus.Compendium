@@ -149,6 +149,8 @@ export const displayedText =
     changeName: translate("changeName"),
     changeShortName: translate("changeShortName"),
     changeGrade: translate("changeGrade"),
+    showDescription: translate("showDescription"),
+    hideDescription: translate("hideDescription"),
     addTalent: translate("addTalent"),
     clear: translate("clear"),
     cancel: translate("cancel"),

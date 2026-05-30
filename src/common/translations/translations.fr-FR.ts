@@ -122,6 +122,8 @@ export const translations_frFR =
     changeName: "modifier le nom...",
     changeShortName: "modifier le nom court...",
     changeGrade: "modifier le niveau...",
+    showDescription: "afficher la description",
+    hideDescription: "masquer la description",
     addTalent: "ajouter un talent",
     clear: "effacer",
     cancel: "annuler",
