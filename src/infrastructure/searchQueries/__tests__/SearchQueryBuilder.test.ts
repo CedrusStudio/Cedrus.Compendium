@@ -39,6 +39,24 @@ describe('SearchQueryBuilder', () => {
       
       expect(query.search).toBeUndefined();
     });
+
+    it('should build query with scalar multi-value search filters', () => {
+      const query = SearchQueryBuilder.for('spell')
+        .searchInFilter('castTime', ['Standardowa', 'Natychmiastowa'])
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.search).toEqual({ castTime: { anyOf: ['Standardowa', 'Natychmiastowa'] } });
+    });
+
+    it('should skip empty scalar multi-value search filters', () => {
+      const query = SearchQueryBuilder.for('spell')
+        .searchInFilter('castTime', [])
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.search).toBeUndefined();
+    });
   });
 
   describe('Exclude filters', () => {
@@ -58,6 +76,15 @@ describe('SearchQueryBuilder', () => {
         .build();
       
       expect(query.exclude).toBeUndefined();
+    });
+
+    it('should build query with scalar multi-value exclude filters', () => {
+      const query = SearchQueryBuilder.for('spell')
+        .excludeInFilter('castTime', ['Pełnorundowa'])
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.exclude).toEqual({ castTime: { anyOf: ['Pełnorundowa'] } });
     });
   });
 

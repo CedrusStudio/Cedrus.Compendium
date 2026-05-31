@@ -61,15 +61,38 @@ export type SearchByIdPayload =
 
 export type Select = { [key: string]: boolean | Select };
 
-export type SearchValueInput = string | number | boolean | string[] | undefined;
+export type SearchScalarValueInput = string | number | boolean;
+export type SearchAnyOfInput = { anyOf: SearchScalarValueInput[] };
+export type SearchValueInput = SearchScalarValueInput | string[] | SearchAnyOfInput | undefined;
 export type SearchValueOutputs =
   | { contains: string; mode: "insensitive" }
   | { equals: number | boolean }
   | { hasEvery: string[] }
-  | { hasSome: string[] };
+  | { hasSome: string[] }
+  | { in: SearchScalarValueInput[] };
+
+export function anyOfValues(values: SearchScalarValueInput[]): SearchAnyOfInput
+{
+  return { anyOf: values };
+}
+
+function isSearchAnyOfInput(value: SearchValueInput): value is SearchAnyOfInput
+{
+  return typeof value === 'object' && value !== null && 'anyOf' in value && Array.isArray(value.anyOf);
+}
+
+function hasSearchValue(value: SearchValueInput): boolean
+{
+  if (value === undefined || value === null) return false;
+  if (typeof value === 'string') return value.trim().length > 0;
+  if (Array.isArray(value)) return value.length > 0;
+  if (isSearchAnyOfInput(value)) return value.anyOf.length > 0;
+  return true;
+}
 
 export function searchValuesMapping(value: SearchValueInput, isExclude = false): SearchValueOutputs
 {
+  if (isSearchAnyOfInput(value)) return { in: value.anyOf };
   if (typeof value === 'string') return { contains: value, mode: "insensitive" };
   if (typeof value === 'number') return { equals: value };
   if (typeof value === 'boolean') return { equals: value };
@@ -88,7 +111,7 @@ export function createFiltering(payload: SearchPayload): Record<string, SearchVa
   if (!payload.search) return undefined;
   
   const filters = Object.entries(payload.search)
-    .filter(([, value]) => !!value)
+    .filter(([, value]) => hasSearchValue(value))
     .reduce((acc, [key, value]) => ({ ...acc, [key]: searchValuesMapping(value, false) }), {});
   
   return Object.keys(filters).length > 0 ? filters : undefined;
@@ -99,7 +122,7 @@ export function createExcludeFiltering(payload: SearchPayload): Record<string, S
   if (!payload.exclude) return undefined;
   
   const filters = Object.entries(payload.exclude)
-    .filter(([, value]) => !!value)
+    .filter(([, value]) => hasSearchValue(value))
     .reduce((acc, [key, value]) => ({ ...acc, [key]: searchValuesMapping(value, true) }), {});
   
   return Object.keys(filters).length > 0 ? filters : undefined;

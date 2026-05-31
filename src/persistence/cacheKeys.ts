@@ -69,8 +69,9 @@ export function createOffsetSearchManeuversKey
     pageNumber: number = 1,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, number, string, string, number] 
+    excludeTags?: string[],
+    castTimes?: string[]
+) : readonly [string, string, string | undefined, number, string, string, string, number] 
 {
     return [
         maneuverKey, 
@@ -79,6 +80,7 @@ export function createOffsetSearchManeuversKey
         pageNumber, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        castTimes?.join(',') || '', 
         pageSize
     ] as const;
 }
@@ -241,8 +243,9 @@ export function createOffsetSearchSpellsKey
     pageNumber: number = 1,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, number, string, string, number] 
+    excludeTags?: string[],
+    castTimes?: string[]
+) : readonly [string, string, string | undefined, number, string, string, string, number] 
 {
     return [
         spellKey, 
@@ -251,6 +254,7 @@ export function createOffsetSearchSpellsKey
         pageNumber, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        castTimes?.join(',') || '', 
         pageSize
     ] as const;
 }

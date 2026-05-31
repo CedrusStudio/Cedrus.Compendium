@@ -1,5 +1,5 @@
 import { DEFAULT_PAGE_SIZE, isKeysetPagination, isOffsetPagination, KeysetPagination, OffsetPagination } from "@/common/global/pagination";
-import { EntityName, EntityTypeMap, SearchEntityPayload, SearchValueInput, Select } from "@/common/global/SearchPayloads";
+import { anyOfValues, EntityName, EntityTypeMap, SearchEntityPayload, SearchScalarValueInput, SearchValueInput, Select } from "@/common/global/SearchPayloads";
 
 export class SearchQueryBuilder<TEntity> 
 {
@@ -43,6 +43,16 @@ export class SearchQueryBuilder<TEntity>
     return this;
   }
 
+  searchInFilter(key: keyof TEntity, values: SearchScalarValueInput[]): this
+  {
+    if (values.length === 0)
+    {
+      return this;
+    }
+
+    return this.searchFilter(key, anyOfValues(values));
+  }
+
   excludeFilter(key: keyof TEntity, value: SearchValueInput): this 
   {
     if (!this._exclude) 
@@ -57,6 +67,16 @@ export class SearchQueryBuilder<TEntity>
 
     this._exclude[key] = value;
     return this;
+  }
+
+  excludeInFilter(key: keyof TEntity, values: SearchScalarValueInput[]): this
+  {
+    if (values.length === 0)
+    {
+      return this;
+    }
+
+    return this.excludeFilter(key, anyOfValues(values));
   }
 
   sort(field: keyof TEntity | undefined, direction: 'asc' | 'desc' = 'asc', fallback: Array<{ [key: string]: 'asc' | 'desc' }> = []): this 

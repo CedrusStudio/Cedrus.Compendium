@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/spellsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { allowedCastTimes } from "@/domain/characters/Castable";
+import { allowedCastTimes, type CastTime } from "@/domain/characters/Castable";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
@@ -28,6 +28,7 @@ import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
+import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -40,6 +41,7 @@ export default function SpellsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('spells');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('spells-grouped-view') === 'true';
@@ -51,13 +53,13 @@ export default function SpellsList()
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   
-  const queryKey = createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+      const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes);
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000
@@ -102,6 +104,12 @@ export default function SpellsList()
     clearResults();
   }, [clearResults]);
 
+  const handleSelectedCastTimesChange = useCallback((castTimes: CastTime[]) =>
+  {
+    setSelectedCastTimes(castTimes);
+    clearResults();
+  }, [clearResults]);
+
   const handleDelete = useCallback((id: string) =>
   {
     setDisplayedSpells(prev => prev.filter(spell => spell.id !== id));
@@ -135,6 +143,7 @@ export default function SpellsList()
         tagsLoading={tagsLoading}
         personalizationContext="spells"
       >
+        <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />
         <Button
           variant="outline"
           size="icon"

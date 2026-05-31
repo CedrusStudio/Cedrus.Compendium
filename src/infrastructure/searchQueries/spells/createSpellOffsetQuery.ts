@@ -1,5 +1,6 @@
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { SearchEntityPayload } from "@/common/global/SearchPayloads";
+import { CastTime } from "@/domain/characters/Castable";
 import { SearchQueryBuilder } from "@/infrastructure/searchQueries/SearchQueryBuilder";
 
 export function createSpellOffsetQuery
@@ -8,7 +9,8 @@ export function createSpellOffsetQuery
   pageNumber: number = 1,
   includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
-  excludeTags?: string[]
+  excludeTags?: string[],
+  castTimes?: CastTime[]
 )
   : SearchEntityPayload
 { 
@@ -27,6 +29,11 @@ export function createSpellOffsetQuery
   if (excludeTags && excludeTags.length > 0) 
   {
     builder.excludeFilter("tags", excludeTags);
+  }
+
+  if (castTimes && castTimes.length > 0)
+  {
+    builder.searchInFilter("castTime", castTimes);
   }
 
   return builder.build();
