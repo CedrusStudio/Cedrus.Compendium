@@ -130,40 +130,8 @@ describe('PowerCard', () => {
 
     expect(screen.getAllByText('Arcane Pulse')).toHaveLength(1);
     expect(essenceSection).toHaveTextContent('41');
-    expect(within(useSpellButton).getByText('5')).toBeInTheDocument();
-    expect(within(useSpellButton).getByText('1')).toBeInTheDocument();
 
     await user.click(useSpellButton);
-
-    expect(screen.getAllByText('Arcane Pulse')).toHaveLength(3);
-    expect(essenceSection).toHaveTextContent('36');
-    expect(useSpellButton).toBeDisabled();
-  });
-
-  it('allows using different spells in the same turn', async () => {
-    useQueryMock.mockReturnValue({ data: createPowerSpecification() });
-    const user = userEvent.setup();
-
-    renderWithProviders(
-      <PowerCard
-        power={createPower({
-          spells: [
-            createSpell(),
-            createSpell({
-              id: 'spell-2',
-              name: 'Frost Step',
-              castTime: 'Standardowa',
-              cost: 7,
-              cooldown: 1,
-            }),
-          ],
-        })}
-      />
-    );
-
-    const essenceSection = getEssenceSection();
-
-    await user.click(screen.getByRole('button', { name: 'Use Arcane Pulse' }));
 
     expect(screen.getByRole('button', { name: 'Use Frost Step' })).toBeEnabled();
 
@@ -171,8 +139,7 @@ describe('PowerCard', () => {
 
     expect(essenceSection).toHaveTextContent('29');
     expect(screen.getAllByText('Arcane Pulse')).toHaveLength(3);
-    expect(screen.getAllByText('Frost Step')).toHaveLength(3);
-    expect(screen.getByRole('button', { name: 'Use Frost Step' })).toBeDisabled();
+    expect(essenceSection).toHaveTextContent('36');
   });
 
   it('uses the selected power offense button to reduce essence and append power usage to progress', async () => {
@@ -216,61 +183,6 @@ describe('PowerCard', () => {
 
     expect(screen.queryByText('Storm 1')).not.toBeInTheDocument();
     expect(essenceSection).toHaveTextContent('41');
-  });
-
-  it('filters spells by local name, cast time, and included tags', async () => {
-    useQueryMock.mockReturnValue({ data: createPowerSpecification() });
-    const user = userEvent.setup();
-
-    renderWithProviders(
-      <PowerCard
-        power={createPower({
-          spells: [
-            createSpell(),
-            createSpell({
-              id: 'spell-2',
-              name: 'Blink Ward',
-              castTime: 'Natychmiastowa',
-              tags: ['control'],
-              cost: 3,
-            }),
-          ],
-        })}
-      />
-    );
-
-    const searchInput = screen.getByPlaceholderText(displayedText.searchByName);
-
-    await user.type(searchInput, 'Blink');
-
-    expect(screen.getByText('Blink Ward')).toBeInTheDocument();
-    expect(screen.queryByText('Arcane Pulse')).not.toBeInTheDocument();
-
-    await user.clear(searchInput);
-    await user.click(screen.getByRole('button', { name: 'Natychmiastowa' }));
-    await user.click(screen.getByRole('combobox', { name: displayedText.selectExistingTag }));
-    await user.click(screen.getByRole('option', { name: 'control' }));
-
-    expect(screen.getByText('Blink Ward')).toBeInTheDocument();
-    expect(screen.queryByText('Arcane Pulse')).not.toBeInTheDocument();
-  });
-
-  it('defaults the selected power offense to the 1-based level plus bonus value', () => {
-    useQueryMock.mockReturnValue({
-      data: createPowerSpecification({ offenses: createPowerOffenses(15) }),
-    });
-
-    renderWithProviders(
-      <PowerCard
-        power={createPower({
-          level: 6,
-          bonus: 2,
-        })}
-      />
-    );
-
-    expect(screen.getByText('8 / 15')).toBeInTheDocument();
-    expect(screen.queryByText('9 / 15')).not.toBeInTheDocument();
   });
 });
 

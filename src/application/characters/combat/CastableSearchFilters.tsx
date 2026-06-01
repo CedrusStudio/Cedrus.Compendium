@@ -54,10 +54,11 @@ export default function CastableSearchFilters({
           className="w-full"
         />
 
-        <ExistingTagSelect
-          availableTags={availableTags}
-          selectedTags={selectedTags}
-          onSelectTag={addSelectedTag}
+        <div className="flex flex-col gap-2 lg:items-end">
+          <ExistingTagSelect
+            availableTags={availableTags}
+            selectedTags={selectedTags}
+            onSelectTag={addSelectedTag}
           triggerClassName="w-full"
         />
 
@@ -69,26 +70,33 @@ export default function CastableSearchFilters({
         </div>
       </div>
 
-      {
-        selectedTags.length > 0 && (
+          {
+            selectedTags.length > 0 && (
           <div className="flex flex-wrap gap-2">
-            {
-              selectedTags.map(tag => (
-                <Button
-                  key={tag}
-                  type="button"
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => removeSelectedTag(tag)}
-                  aria-label={`Remove tag ${tag}`}
-                >
-                  {tag}
-                </Button>
-              ))
-            }
-          </div>
-        )
-      }
+                {
+                  selectedTags.map(tag => (
+                    <Button
+                      key={tag}
+                      type="button"
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => removeSelectedTag(tag)}
+                      aria-label={`Remove tag ${tag}`}
+                    >
+                      {tag}
+                    </Button>
+                  ))
+                }
+              </div>
+            )
+          }
+        </div>
+      </div>
+
+      <CastTimeFilter
+        selectedCastTimes={selectedCastTimes}
+        onSelectedCastTimesChange={onSelectedCastTimesChange}
+      />
     </div>
   );
 }
