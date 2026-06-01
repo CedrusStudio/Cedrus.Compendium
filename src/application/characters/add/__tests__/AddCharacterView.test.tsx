@@ -8,6 +8,7 @@ const useCharacterCreationModeMock = vi.fn();
 const useBaseCharacterMock = vi.fn();
 const useCreateCharacterFromScratchMock = vi.fn();
 const useCreateCharacterFromCopyMock = vi.fn();
+const selectBaseCharacterDialogSpy = vi.fn();
 
 vi.mock('@hookform/resolvers/zod', () => ({
   zodResolver: vi.fn(),
@@ -61,7 +62,10 @@ vi.mock('@/ui/button', () => ({
 
 vi.mock('@/application/characters/add/SelectBaseCharacterDialog', () => ({
   __esModule: true,
-  default: () => <div data-testid="select-base-character-dialog" />,
+  default: (props: unknown) => {
+    selectBaseCharacterDialogSpy(props);
+    return <div data-testid="select-base-character-dialog" />;
+  },
 }));
 
 vi.mock('@/ui/separator', () => ({
@@ -69,7 +73,7 @@ vi.mock('@/ui/separator', () => ({
 }));
 
 vi.mock('@/application/characters/add/useCharacterCreationMode', () => ({
-  useCharacterCreationMode: () => useCharacterCreationModeMock(),
+  useCharacterCreationMode: (...args: unknown[]) => useCharacterCreationModeMock(...args),
 }));
 
 vi.mock('@/application/characters/add/useBaseCharacter', () => ({
@@ -89,6 +93,7 @@ import AddCharacterView from '../AddCharacterView';
 describe('AddCharacterView', () => {
   beforeEach(() => {
     formTagsInputSpy.mockClear();
+    selectBaseCharacterDialogSpy.mockClear();
     useFormMock.mockReset();
     useCharacterCreationModeMock.mockReset();
     useBaseCharacterMock.mockReset();
@@ -110,7 +115,7 @@ describe('AddCharacterView', () => {
     });
 
     useBaseCharacterMock.mockReturnValue({
-      baseCharacter: { id: 'character-1' },
+      baseCharacter: { id: 'character-1', name: 'Base Hero', shortName: 'BH', tags: ['session'] },
     });
 
     useCreateCharacterFromScratchMock.mockReturnValue({
@@ -133,6 +138,28 @@ describe('AddCharacterView', () => {
         path: 'tags',
         beAbleToSetCharacterAndSessionTags: true,
         entityType: 'characters',
+      }),
+    );
+  });
+
+  it('forwards the initial copy state to the creation mode hook', () => {
+    render(<AddCharacterView initialMode="copy" initialSelectedCharacterId="character-2" />);
+
+    expect(useCharacterCreationModeMock).toHaveBeenCalledWith({
+      initialMode: 'copy',
+      initialSelectedCharacterId: 'character-2',
+    });
+  });
+
+  it('passes the loaded base character details to the selector when copy mode is active', () => {
+    render(<AddCharacterView initialMode="copy" initialSelectedCharacterId="character-1" />);
+
+    expect(selectBaseCharacterDialogSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selectedCharacterId: 'character-1',
+        selectedCharacterName: 'Base Hero',
+        selectedCharacterShortName: 'BH',
+        selectedCharacterTags: ['session'],
       }),
     );
   });

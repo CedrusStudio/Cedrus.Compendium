@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import InitiativeCell from "@/application/bestiary/battle/InitiativeCell";
 import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
@@ -16,6 +17,8 @@ import CharacterDefensesBattleView from "@/application/bestiary/views/CharacterD
 import CharacterOffensesBattleView from "@/application/bestiary/views/CharacterOffensesBattleView";
 import CharacterPowersBattleView from "@/application/bestiary/views/CharacterPowersBattleView";
 import CharacterMoreActionsMenu from "@/application/bestiary/CharacterMoreActionsMenu";
+import { DropdownMenuItem } from "@/ui/dropdown-menu";
+import { createCharacterCopyHref } from '@/application/characters/add/characterCopyRoute';
 
 export const columnKeys =
 {
@@ -173,5 +176,16 @@ function CharacterHealthBattleView({ character }: {character: Character})
 
 export function MoreBattleActions({ character }: { character: Character })
 {
-  return <CharacterMoreActionsMenu character={character} />;
+  return (
+    <CharacterMoreActionsMenu
+      character={character}
+      extraMenuItems={
+        <DropdownMenuItem asChild className="mt-2 border-t pt-3">
+          <Link href={createCharacterCopyHref(character.id)}>
+            <span className="first-letter:uppercase">{displayedText.duplicateCharacter}</span>
+          </Link>
+        </DropdownMenuItem>
+      }
+    />
+  );
 }

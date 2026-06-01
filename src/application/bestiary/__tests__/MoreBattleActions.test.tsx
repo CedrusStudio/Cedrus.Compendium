@@ -2,6 +2,10 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
+vi.mock('next/link', () => ({
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
+}));
+
 vi.mock('@/ui/dropdown-menu', () => ({
   DropdownMenu: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   DropdownMenuTrigger: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
@@ -104,9 +108,17 @@ describe('MoreBattleActions', () => {
     expect(screen.queryByText(displayedText.showPerks)).toBeNull();
   });
 
+  it('shows a separated duplicate action that opens the create-from-copy flow', () => {
+    render(<MoreBattleActions character={createCharacter()} />);
+
+    const duplicateLink = screen.getByRole('link', { name: displayedText.duplicateCharacter });
+
+    expect(duplicateLink.getAttribute('href')).toBe('/characters/add?mode=copy&id=character-1');
+  });
+
   it('does not render the actions trigger when the character has nothing to show', () => {
     render(<MoreBattleActions character={createCharacter()} />);
 
-    expect(screen.queryByRole('button', { name: displayedText.actions })).toBeNull();
+    expect(screen.getByRole('button', { name: displayedText.actions })).toBeTruthy();
   });
 });

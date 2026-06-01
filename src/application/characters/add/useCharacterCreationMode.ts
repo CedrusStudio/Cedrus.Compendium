@@ -2,12 +2,16 @@
 
 import { useState } from 'react';
 
-export type CharacterCreationMode = 'scratch' | 'copy';
+import { CharacterCreationInitialState, CharacterCreationMode } from '@/application/characters/add/characterCopyRoute';
 
-export const useCharacterCreationMode = () => 
+export const useCharacterCreationMode = ({ initialMode, initialSelectedCharacterId }: CharacterCreationInitialState = {}) => 
 {
-  const [mode, setMode] = useState<CharacterCreationMode>('scratch');
-  const [selectedCharacterId, setSelectedCharacterId] = useState<string | undefined>();
+  const [mode, setMode] = useState<CharacterCreationMode>(
+    initialMode === 'copy' && initialSelectedCharacterId ? 'copy' : 'scratch'
+  );
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string | undefined>(
+    initialMode === 'copy' ? initialSelectedCharacterId : undefined
+  );
 
   const switchToScratch = () => 
   {

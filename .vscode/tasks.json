@@ -13,6 +13,48 @@
 				"src/application/compendium/spells/__tests__/SpellsList.test.tsx"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "focused-character-duplicate-tests",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vitest",
+				"run",
+				"src/application/characters/add/__tests__/AddCharacterView.test.tsx",
+				"src/application/characters/add/__tests__/characterCopyRoute.test.ts",
+				"src/application/bestiary/__tests__/MoreBattleActions.test.tsx"
+			],
+			"isBackground": false,
+			"group": "test"
+		},
+		{
+			"label": "focused-character-duplicate-tests",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vitest",
+				"run",
+				"src/application/characters/add/__tests__/AddCharacterView.test.tsx",
+				"src/application/characters/add/__tests__/characterCopyRoute.test.ts",
+				"src/application/bestiary/__tests__/MoreBattleActions.test.tsx"
+			],
+			"isBackground": false,
+			"group": "test"
+		},
+		{
+			"label": "focused-character-duplicate-tests",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vitest",
+				"run",
+				"src/application/characters/add/__tests__/AddCharacterView.test.tsx",
+				"src/application/characters/add/__tests__/characterCopyRoute.test.ts",
+				"src/application/bestiary/__tests__/MoreBattleActions.test.tsx"
+			],
+			"isBackground": false,
+			"group": "test"
 		}
 	]
 }

@@ -19,10 +19,19 @@ const EMPTY_ARRAY: never[] = [];
 type SelectBaseCharacterDialogProps = 
 {
   onSelectCharacter: (characterId: string) => void;
+  selectedCharacterName?: string;
+  selectedCharacterShortName?: string;
+  selectedCharacterTags?: string[];
   selectedCharacterId?: string;
 };
 
-export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedCharacterId }: SelectBaseCharacterDialogProps) 
+export default function SelectBaseCharacterDialog({
+  onSelectCharacter,
+  selectedCharacterName,
+  selectedCharacterShortName,
+  selectedCharacterTags,
+  selectedCharacterId,
+}: SelectBaseCharacterDialogProps) 
 {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,7 +42,21 @@ export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedC
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
   const { characters } = useSearchCharactersSummary(debouncedSearchTerm, emptyUlid, searchTags, pageSize, excludedTags);
-  const selectedCharacter = characters.find(c => c.id === selectedCharacterId);
+  const selectedCharacter = characters.find(c => c.id === selectedCharacterId) ?? (
+    selectedCharacterId && selectedCharacterName
+      ? {
+          id: selectedCharacterId,
+          name: selectedCharacterName,
+          shortName: selectedCharacterShortName ?? '',
+          tags: selectedCharacterTags ?? [],
+        }
+      : undefined
+  );
+
+  const displayedCharacters =
+    selectedCharacter && !characters.some(character => character.id === selectedCharacter.id)
+      ? [selectedCharacter, ...characters]
+      : characters;
 
   const handleSelect = useCallback((characterId: string) =>
   {
@@ -92,10 +115,10 @@ export default function SelectBaseCharacterDialog({ onSelectCharacter, selectedC
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {
-            characters.length === 0 
+            displayedCharacters.length === 0 
               ? <NotFoundMessage />
               : (
-                  characters.map(summary => 
+                  displayedCharacters.map(summary => 
                   (
                     <CharacterSelectCard
                         key={summary.id}
