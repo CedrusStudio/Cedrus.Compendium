@@ -84,6 +84,27 @@ function createPowerSpecification(overrides: Partial<PowerSpecification> = {}): 
   };
 }
 
+function createPowerOffenses(count: number)
+{
+  return Array.from({ length: count }, (_value, index) => ({
+    spellOffense: {
+      amount: 1,
+      grade: 3,
+      bonus: 0,
+      isPhantom: false,
+      critical: { power: 0, range: 0 },
+    },
+    spellDamage: {
+      amount: 0,
+      grade: 1,
+      bonus: 0,
+      isPhantom: false,
+    },
+    description: `Tier ${index + 1}`,
+    cost: 20 + index,
+  }));
+}
+
 function getEssenceSection(): HTMLElement
 {
   const essenceSection = screen.getByText(displayedText.essence).parentElement;
@@ -117,6 +138,41 @@ describe('PowerCard', () => {
     expect(screen.getAllByText('Arcane Pulse')).toHaveLength(3);
     expect(essenceSection).toHaveTextContent('36');
     expect(useSpellButton).toBeDisabled();
+  });
+
+  it('allows using different spells in the same turn', async () => {
+    useQueryMock.mockReturnValue({ data: createPowerSpecification() });
+    const user = userEvent.setup();
+
+    renderWithProviders(
+      <PowerCard
+        power={createPower({
+          spells: [
+            createSpell(),
+            createSpell({
+              id: 'spell-2',
+              name: 'Frost Step',
+              castTime: 'Standardowa',
+              cost: 7,
+              cooldown: 1,
+            }),
+          ],
+        })}
+      />
+    );
+
+    const essenceSection = getEssenceSection();
+
+    await user.click(screen.getByRole('button', { name: 'Use Arcane Pulse' }));
+
+    expect(screen.getByRole('button', { name: 'Use Frost Step' })).toBeEnabled();
+
+    await user.click(screen.getByRole('button', { name: 'Use Frost Step' }));
+
+    expect(essenceSection).toHaveTextContent('29');
+    expect(screen.getAllByText('Arcane Pulse')).toHaveLength(3);
+    expect(screen.getAllByText('Frost Step')).toHaveLength(3);
+    expect(screen.getByRole('button', { name: 'Use Frost Step' })).toBeDisabled();
   });
 
   it('uses the selected power offense button to reduce essence and append power usage to progress', async () => {
@@ -193,10 +249,28 @@ describe('PowerCard', () => {
     await user.clear(searchInput);
     await user.click(screen.getByRole('button', { name: 'Natychmiastowa' }));
     await user.click(screen.getByRole('combobox', { name: displayedText.selectExistingTag }));
-    await user.click(screen.getByText('control'));
+    await user.click(screen.getByRole('option', { name: 'control' }));
 
     expect(screen.getByText('Blink Ward')).toBeInTheDocument();
     expect(screen.queryByText('Arcane Pulse')).not.toBeInTheDocument();
+  });
+
+  it('defaults the selected power offense to the 1-based level plus bonus value', () => {
+    useQueryMock.mockReturnValue({
+      data: createPowerSpecification({ offenses: createPowerOffenses(15) }),
+    });
+
+    renderWithProviders(
+      <PowerCard
+        power={createPower({
+          level: 6,
+          bonus: 2,
+        })}
+      />
+    );
+
+    expect(screen.getByText('8 / 15')).toBeInTheDocument();
+    expect(screen.queryByText('9 / 15')).not.toBeInTheDocument();
   });
 });
 

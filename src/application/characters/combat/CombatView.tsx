@@ -51,7 +51,9 @@ export default function CombatView({ character }: { character: Character })
         </div>
       </Activity>
 
-      <ManeuversCard maneuvers={character.maneuvers} />
+      {
+        character.maneuvers.length > 0 && <ManeuversCard maneuvers={character.maneuvers} />
+      }
 
       {
         character.powers.map(power => <PowerCard power={power} key={power.id} />)
