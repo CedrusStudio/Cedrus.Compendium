@@ -3,14 +3,16 @@
 import { Field } from "@/common/components/fields";
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
-import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
+import { canUseCastable, EndTurn, type CastTime } from '@/domain/characters/Castable';
 import { getBadgeVariant, getCastTimeColors } from '@/common/colors';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Button } from '@/ui/button';
 import { Badge } from '@/ui/badge';
 import { battleIcon, cooldownIcon, nextIcon, removePreviousIcon, resetIcon } from "@/common/icons";
 import { displayedText } from "@/common/translations";
 import InfoContentWithTags from "@/common/components/tags/InfoContentWithTags";
+import CastableSearchFilters from '@/application/characters/combat/CastableSearchFilters';
+import { filterCastables, getAvailableCastableTags } from '@/application/characters/combat/castableFilters';
 
 type ManeuversViewProps =
 {
@@ -20,6 +22,17 @@ type ManeuversViewProps =
 export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
 {
   const [usedManeuvers, setUsedManeuvers] = useState<(Maneuver | EndTurn)[]>([]);
+    const [searchInput, setSearchInput] = useState("");
+    const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>([]);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+    const availableTags = useMemo(() => getAvailableCastableTags(maneuvers), [maneuvers]);
+    const filteredManeuvers = useMemo(() => filterCastables(maneuvers,
+    {
+        searchTerm: searchInput,
+        selectedCastTimes,
+        selectedTags,
+    }), [maneuvers, searchInput, selectedCastTimes, selectedTags]);
 
   const addManeuverToUsed = (maneuver: Maneuver | EndTurn) =>
   {
@@ -39,13 +52,35 @@ export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
   return (
     <Card className='bg-muted'>
 
-        <CardHeader>
+        <CardHeader className='gap-4'>
             <CardTitle className='font-bold text-2xl capitalize text-center text-primary'>{displayedText.maneuvers}</CardTitle>
+
+            {
+                maneuvers.length > 0 && (
+                    <CastableSearchFilters
+                        searchInput={searchInput}
+                        onSearchInputChange={setSearchInput}
+                        selectedCastTimes={selectedCastTimes}
+                        onSelectedCastTimesChange={setSelectedCastTimes}
+                        selectedTags={selectedTags}
+                        onSelectedTagsChange={setSelectedTags}
+                        availableTags={availableTags}
+                    />
+                )
+            }
         </CardHeader>
 
-        <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
+        <CardContent className='grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
             {
-                maneuvers.map(maneuver => <CombatManeuverView key={maneuver.id} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
+                filteredManeuvers.map(maneuver => <CombatManeuverView key={maneuver.id} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
+            }
+
+            {
+                filteredManeuvers.length === 0 && (
+                    <p className='col-span-full text-center text-sm text-muted-foreground'>
+                        {displayedText.no_maneuvers_found}
+                    </p>
+                )
             }
 
             <SmallUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />

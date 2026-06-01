@@ -45,6 +45,7 @@ export default function ExistingTagSelect({
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          aria-label={displayedText.selectExistingTag}
           className={cn('justify-between', triggerClassName)}
           disabled={isDisabled}
         >
