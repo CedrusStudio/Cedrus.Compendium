@@ -1,13 +1,23 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
+const API_KEY_STORAGE_KEY = 'cedrus-system-api-key';
 const STORAGE_KEY = 'cedrus-personalization-profiles';
 
-const importPersonalizationSlice = async (storedApiKey: string | null = 'alpha') => {
+const importPersonalizationSlice = async (
+  storedApiKey: string | null = 'alpha',
+  persistedProfiles?: string,
+) => {
   vi.resetModules();
-  vi.doMock('@/common/hooks/useApiKey', () => ({
-    getStoredApiKey: () => storedApiKey,
-  }));
+  localStorage.clear();
+
+  if (storedApiKey) {
+    localStorage.setItem(API_KEY_STORAGE_KEY, storedApiKey);
+  }
+
+  if (persistedProfiles !== undefined) {
+    localStorage.setItem(STORAGE_KEY, persistedProfiles);
+  }
 
   return import('@/persistence/slices/personalizationSlice');
 };
@@ -19,9 +29,7 @@ describe('personalizationSlice initialization', () => {
   });
 
   it('loads and sanitizes persisted profiles from localStorage', async () => {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
+    const persistedProfiles = JSON.stringify({
         alpha: {
           userName: '  Marek  ',
           bestiaryColumnVisibility: { powers: true },
@@ -40,10 +48,9 @@ describe('personalizationSlice initialization', () => {
           mainCharacterId: 'character-1',
         },
         beta: null,
-      }),
-    );
+      });
 
-    const module = await importPersonalizationSlice('alpha');
+    const module = await importPersonalizationSlice('alpha', persistedProfiles);
     const state = module.reducer(undefined, { type: '@@INIT' });
 
     expect(state.activeApiKey).toBe('alpha');
@@ -68,9 +75,7 @@ describe('personalizationSlice initialization', () => {
   });
 
   it('falls back to empty profiles when persisted JSON is invalid', async () => {
-    localStorage.setItem(STORAGE_KEY, '{invalid-json');
-
-    const module = await importPersonalizationSlice(null);
+    const module = await importPersonalizationSlice(null, '{invalid-json');
     const state = module.reducer(undefined, { type: '@@INIT' });
 
     expect(state.profilesByApiKey).toEqual({});

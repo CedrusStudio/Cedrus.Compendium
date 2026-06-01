@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { API_KEY_CHANGED_EVENT, API_KEY_STORAGE_KEY, getStoredApiKey } from '@/lib/apiKeyStorage';
 
-export const API_KEY_STORAGE_KEY = 'cedrus-system-api-key';
-export const API_KEY_CHANGED_EVENT = 'cedrus-api-key-changed';
+export { API_KEY_CHANGED_EVENT, API_KEY_STORAGE_KEY, getStoredApiKey } from '@/lib/apiKeyStorage';
 
 /**
  * Hook to manage API key in localStorage
@@ -17,7 +17,7 @@ export function useApiKey()
   {
     const syncFromStorage = () => 
     {
-      const storedKey = localStorage.getItem(API_KEY_STORAGE_KEY);
+      const storedKey = getStoredApiKey();
       setApiKey(storedKey);
       setIsLoaded(true);
     };
@@ -58,13 +58,4 @@ export function useApiKey()
     saveApiKey,
     removeApiKey,
   };
-}
-
-/**
- * Get API key from localStorage (synchronous - for use in interceptors)
- */
-export function getStoredApiKey(): string | null 
-{
-  if (typeof window === 'undefined') return null;
-  return localStorage.getItem(API_KEY_STORAGE_KEY);
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { type ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { ulid } from 'ulid';
 import { ApiKeySettings } from '@/common/components/ApiKeySettings';
@@ -11,16 +11,14 @@ import ExistingTagSelect from '@/common/components/filters/ExistingTagSelect';
 import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
 import { Input } from '@/common/components/ui/input';
 import { type EntityType, useEntityTags } from '@/common/hooks/useEntityTags';
+import { MAX_QUICK_TAGS_PER_CONTEXT, type PersonalizationContext, personalizationContexts, quickLinkRoutes, type QuickLink, type QuickLinkRoute } from '@/common/personalization/personalizationProfile';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { useFavoriteCharacters } from '@/application/personalization/useFavoriteCharacters';
 import { personalizationContextLabels, personalizationRouteLabels, resolveQuickLinkHref } from '@/application/personalization/personalizationUtils';
-import { createPersonalizationProfileExport, MAX_QUICK_TAGS_PER_CONTEXT, parsePersonalizationProfileImport, type PersonalizationContext, personalizationContexts, quickLinkRoutes, QuickLink, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
 import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 import { displayedText } from '@/common/translations';
 import { deleteIcon, editIcon, goToIcon, homeIcon } from '@/common/icons';
 import { Button } from "@/ui/button";
-
-const PERSONALIZATION_EXPORT_FILE_NAME = 'cedrus-personalization-profile.json';
 
 const contextSelectItems = personalizationContexts.map(context => ({
   label: personalizationContextLabels[context],
@@ -60,6 +58,7 @@ export default function PersonalizationPage()
     apiKey,
     hasApiKey,
     isLoaded,
+    isSavingToDatabase = false,
     profile,
     setUserName,
     setBestiaryColumnVisibility,
@@ -73,10 +72,9 @@ export default function PersonalizationPage()
     addQuickLink,
     removeQuickLink,
     updateQuickLink,
-    replaceProfile = () => undefined,
+    saveToDatabase = async () => profile,
   } = usePersonalization();
   const { favoriteCharacters, isLoading } = useFavoriteCharacters();
-  const importInputRef = useRef<HTMLInputElement>(null);
   const [selectedContext, setSelectedContext] = useState(personalizationContexts[0]);
   const [selectedQuickTagMode, setSelectedQuickTagMode] = useState<QuickTagMode>('include');
   const [quickTagInput, setQuickTagInput] = useState('');
@@ -186,45 +184,13 @@ export default function PersonalizationPage()
     handleCancelQuickLinkEdit();
   };
 
-  const handleExportProfile = () =>
+  const handleSaveToDatabase = async () =>
   {
-    const exportPayload = createPersonalizationProfileExport(profile);
-    const fileUrl = URL.createObjectURL(new Blob([JSON.stringify(exportPayload, null, 2)], { type: 'application/json' }));
-    const downloadLink = document.createElement('a');
-
-    downloadLink.href = fileUrl;
-    downloadLink.download = PERSONALIZATION_EXPORT_FILE_NAME;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-    URL.revokeObjectURL(fileUrl);
-
-    toast.success('Wyeksportowano konfiguracje aktywnego profilu do pliku JSON.');
-  };
-
-  const handleImportProfile = async (event: ChangeEvent<HTMLInputElement>) =>
-  {
-    const file = event.target.files?.[0];
-
-    event.target.value = '';
-
-    if (!file) return;
-
     try {
-      const importedProfile = parsePersonalizationProfileImport(JSON.parse(await file.text()));
-
-      if (!importedProfile) {
-        toast.error('Wybrany plik nie zawiera poprawnej konfiguracji personalizacji.');
-        return;
-      }
-
-      replaceProfile(importedProfile);
-      handleCancelQuickLinkEdit();
-      setQuickLinkLabel('');
-      setQuickTagInput('');
-      toast.success('Zaimportowano konfiguracje dla aktywnego API key.');
+      await saveToDatabase();
+      toast.success('Zapisano konfiguracje aktywnego profilu w bazie danych.');
     } catch {
-      toast.error('Nie udalo sie odczytac pliku JSON z konfiguracja.');
+      toast.error('Nie udalo sie zapisac konfiguracji aktywnego profilu w bazie danych.');
     }
   };
 
@@ -240,6 +206,13 @@ export default function PersonalizationPage()
 
         <div className="flex flex-wrap gap-3">
             <ApiKeySettings />
+            {
+              hasApiKey && (
+                <Button type="button" onClick={handleSaveToDatabase} disabled={isSavingToDatabase}>
+                  {isSavingToDatabase ? 'Zapisywanie...' : 'Save to database'}
+                </Button>
+              )
+            }
             <Button asChild variant="outline" size="icon">
             <Link href="/" aria-label="Wroc do strony glownej">{homeIcon("h-[1.2rem] w-[1.2rem]")}</Link>
             </Button>
@@ -303,32 +276,6 @@ export default function PersonalizationPage()
                 >
                   Wyczyść nazwę
                 </Button>
-              </div>
-            </section>
-
-            <section className="rounded-lg border p-6 space-y-4">
-              <div>
-                <h2 className="text-2xl font-semibold">Import i eksport</h2>
-                <p className="text-sm text-muted-foreground">Przenos konfiguracje aktywnego profilu w pliku JSON bez eksportowania samego API key.</p>
-              </div>
-
-              <div className="flex flex-col gap-3 md:flex-row">
-                <Button type="button" variant="outline" onClick={handleExportProfile}>
-                  Eksportuj konfiguracje JSON
-                </Button>
-
-                <Button type="button" variant="outline" onClick={() => importInputRef.current?.click()}>
-                  Importuj konfiguracje JSON
-                </Button>
-
-                <input
-                  ref={importInputRef}
-                  type="file"
-                  accept="application/json,.json"
-                  className="hidden"
-                  aria-label="Importuj konfiguracje JSON"
-                  onChange={handleImportProfile}
-                />
               </div>
             </section>
 

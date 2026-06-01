@@ -1,5 +1,6 @@
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { SearchEntityPayload } from "@/common/global/SearchPayloads";
+import { CastTime } from "@/domain/characters/Castable";
 import { SearchQueryBuilder } from "@/infrastructure/searchQueries/SearchQueryBuilder";
 
 export function createManeuverOffsetQuery
@@ -8,12 +9,15 @@ export function createManeuverOffsetQuery
   pageNumber: number = 1,
   includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
-  excludeTags?: string[]
+  excludeTags?: string[],
+  castTimes?: CastTime[],
+  grade?: number
 )
   : SearchEntityPayload
 { 
   const builder = SearchQueryBuilder.for("maneuver")
     .searchFilter("name", searchQuery)
+    .searchFilter("grade", grade)
     .offsetPagination(pageNumber, pageSize)
     .sort("name", "asc")
     .sort("grade", "asc")
@@ -27,6 +31,11 @@ export function createManeuverOffsetQuery
   if (excludeTags && excludeTags.length > 0) 
   {
     builder.excludeFilter("tags", excludeTags);
+  }
+
+  if (castTimes && castTimes.length > 0)
+  {
+    builder.searchInFilter("castTime", castTimes);
   }
 
   return builder.build();

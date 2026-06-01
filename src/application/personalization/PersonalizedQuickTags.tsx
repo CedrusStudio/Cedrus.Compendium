@@ -2,7 +2,7 @@
 
 import { Button } from '@/ui/button';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
-import { PersonalizationContext } from '@/persistence/slices/personalizationSlice';
+import { type PersonalizationContext } from '@/common/personalization/personalizationProfile';
 
 type PersonalizedQuickTagsProps = {
   context: PersonalizationContext;

@@ -4,12 +4,15 @@ import { displayedText } from '@/common/translations';
 import { Input } from "@/common/components/ui/input";
 import TagFilter from "@/common/components/filters/TagFilter";
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
-import { PersonalizationContext } from '@/persistence/slices/personalizationSlice';
+import { MAX_GRADE_FILTER, MIN_GRADE_FILTER } from '@/common/global/gradeFilter';
+import { type PersonalizationContext } from '@/common/personalization/personalizationProfile';
 
 type ListHeaderProps = 
 {
   searchInput: string;
   handleSearchInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  gradeFilter?: string;
+  handleGradeFilterChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   searchTags: string[];
   handleSearchTagsChange: (tags: string[]) => void;
   excludedTags: string[];
@@ -25,6 +28,8 @@ export default function ListHeader
     children, 
     searchInput, 
     handleSearchInputChange, 
+    gradeFilter,
+    handleGradeFilterChange,
     searchTags, 
     handleSearchTagsChange,
     excludedTags,
@@ -46,7 +51,25 @@ export default function ListHeader
             value={searchInput}
             onChange={handleSearchInputChange}
             className="w-full sm:max-w-xs md:max-w-sm"
-            />
+          />
+
+          {
+            handleGradeFilterChange && (
+              <Input
+                name="grade"
+                type="number"
+                min={MIN_GRADE_FILTER}
+                max={MAX_GRADE_FILTER}
+                step={1}
+                inputMode="numeric"
+                aria-label={displayedText.grade}
+                placeholder={`${displayedText.grade} ${MIN_GRADE_FILTER}-${MAX_GRADE_FILTER}`}
+                value={gradeFilter ?? ""}
+                onChange={handleGradeFilterChange}
+                className="w-full sm:max-w-28"
+              />
+            )
+          }
 
           <TagFilter 
             includedTags={searchTags} 

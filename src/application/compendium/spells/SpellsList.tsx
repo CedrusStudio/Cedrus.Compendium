@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/spellsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { allowedCastTimes } from "@/domain/characters/Castable";
+import { allowedCastTimes, type CastTime } from "@/domain/characters/Castable";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
@@ -21,6 +21,7 @@ import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
+import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
@@ -28,6 +29,7 @@ import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
+import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -37,9 +39,12 @@ export default function SpellsList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [gradeFilter, setGradeFilter] = useState("");
+  const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('spells');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('spells-grouped-view') === 'true';
@@ -50,14 +55,15 @@ export default function SpellsList()
   const [displayedSpells, setDisplayedSpells] = useState<Spell[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
   
-  const queryKey = createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+      const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000
@@ -90,6 +96,12 @@ export default function SpellsList()
     setSearchInput(e.target.value);
   }, [clearResults]);
 
+  const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
+  {
+    clearResults();
+    setGradeFilter(normalizeGradeFilterInput(e.target.value));
+  }, [clearResults]);
+
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
@@ -99,6 +111,12 @@ export default function SpellsList()
   const handleExcludedTagsChange = useCallback((tags: string[]) => 
   {
     setExcludedTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleSelectedCastTimesChange = useCallback((castTimes: CastTime[]) =>
+  {
+    setSelectedCastTimes(castTimes);
     clearResults();
   }, [clearResults]);
 
@@ -127,6 +145,8 @@ export default function SpellsList()
       <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
+        gradeFilter={gradeFilter}
+        handleGradeFilterChange={handleGradeFilterChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
         excludedTags={excludedTags}
@@ -135,6 +155,7 @@ export default function SpellsList()
         tagsLoading={tagsLoading}
         personalizationContext="spells"
       >
+        <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />
         <Button
           variant="outline"
           size="icon"

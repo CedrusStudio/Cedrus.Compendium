@@ -27,9 +27,65 @@ type PowerCardProps =
   power: Power;
 }
 
+type UsedPowerOffense =
+{
+  entryType: "power-offense";
+  label: string;
+  cost: number;
+}
+
+type UsedPowerAction = Spell | UsedPowerOffense | EndTurn;
+
+function isUsedPowerOffense(action: UsedPowerAction): action is UsedPowerOffense
+{
+  return action !== "end" && "entryType" in action && action.entryType === "power-offense";
+}
+
+function toCastableHistory(usedActions: UsedPowerAction[]): (Spell | EndTurn)[]
+{
+  const castableHistory: (Spell | EndTurn)[] = [];
+
+  usedActions.forEach(action =>
+  {
+    if (action === "end" || !isUsedPowerOffense(action))
+    {
+      castableHistory.push(action);
+    }
+  });
+
+  return castableHistory;
+}
+
+function renderUsedActionBadge(usedAction: UsedPowerAction, index: number)
+{
+  if (usedAction === "end")
+  {
+    return (
+      <Badge key={index} variant="destructive" className='m-1' >
+        {nextIcon()}
+      </Badge>
+    );
+  }
+
+  if (isUsedPowerOffense(usedAction))
+  {
+    return (
+      <Badge key={index} variant="cost" className='m-1' >
+        {usedAction.label}
+      </Badge>
+    );
+  }
+
+  return (
+    <Badge key={index} variant={getBadgeVariant(usedAction.castTime)} className='m-1' >
+      {usedAction.name}
+    </Badge>
+  );
+}
+
 export default function PowerCard({ power }: PowerCardProps)
 {
-  const [usedSpells, setUsedSpells] = useState<(Spell | EndTurn)[]>([]);
+  const [usedActions, setUsedActions] = useState<UsedPowerAction[]>([]);
   const [currentEssence, setCurrentEssence] = useState<number>(power.essence);
   const [essenceIncrease, setEssenceIncrease] = useState<number>(0);
   const [essenceIncreaseChangeAmount, setEssenceIncreaseChangeAmount] = useState<number>(1);
@@ -49,27 +105,59 @@ export default function PowerCard({ power }: PowerCardProps)
     staleTime: 5_000
   });
   const hasPowerOffenses = !!(powerSpecification && powerSpecification.offenses && powerSpecification.offenses.length > 0);
+  const selectedPowerOffenseIndex = powerSpecification && powerSpecification.offenses.length > 0
+    ? Math.min(selectedOffenseIndex, powerSpecification.offenses.length - 1)
+    : -1;
+  const selectedPowerOffense = selectedPowerOffenseIndex >= 0
+    ? powerSpecification?.offenses[selectedPowerOffenseIndex]
+    : undefined;
+  const availableEssence = currentEssence + essenceIncrease - essenceLoss;
 
-  const addSpellToUsed = (spell: Spell | EndTurn) =>
+  const addSpellUse = (spell: Spell) =>
   {
-    setUsedSpells(prev => [...prev, spell]);
+    setUsedActions(prev => [...prev, spell]);
   }
 
-  const removeLastSpell = () =>
+  const addSelectedPowerOffenseUse = (index: number) =>
   {
-    const lastSpell = usedSpells[usedSpells.length - 1];
-
-    if (lastSpell && lastSpell !== "end")
+    if (!powerSpecification || powerSpecification.offenses.length === 0)
     {
-      setCurrentEssence(prev => Math.min(power.essence, prev + lastSpell.cost));
+      return;
     }
 
-    setUsedSpells(prev => prev.slice(0, -1));
+    const offenseIndex = Math.min(index, powerSpecification.offenses.length - 1);
+    const offense = powerSpecification.offenses[offenseIndex];
+
+    if (!offense || availableEssence < offense.cost)
+    {
+      return;
+    }
+
+    setUsedActions(prev => [...prev,
+    {
+      entryType: "power-offense",
+      label: `${power.name} ${offenseIndex + 1}`,
+      cost: offense.cost,
+    }]);
+
+    reduceEssence(offense.cost);
+  }
+
+  const removeLastUsage = () =>
+  {
+    const lastAction = usedActions[usedActions.length - 1];
+
+    if (lastAction && lastAction !== "end")
+    {
+      setCurrentEssence(prev => Math.min(power.essence, prev + lastAction.cost));
+    }
+
+    setUsedActions(prev => prev.slice(0, -1));
   }
 
   const endTurn = () =>
   {
-    setUsedSpells(prev => [...prev, "end"]);
+    setUsedActions(prev => [...prev, "end"]);
   }
 
   const reduceEssence = (cost: number) =>
@@ -128,7 +216,7 @@ export default function PowerCard({ power }: PowerCardProps)
             <div className="flex flex-col items-center">
               <span className="text-xs text-muted-foreground mb-1">{displayedText.essence}</span>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-lg text-primary">{currentEssence + essenceIncrease - essenceLoss}</span>
+                <span className="font-bold text-lg text-primary">{availableEssence}</span>
                 <span className="text-sm text-muted-foreground">/</span>
                 <span className="font-bold text-lg text-muted-foreground">{power.essence}</span>
               </div>
@@ -153,6 +241,9 @@ export default function PowerCard({ power }: PowerCardProps)
                 powerSpecification={powerSpecification!}
                 selectedIndex={selectedOffenseIndex}
                 onSelectIndex={setSelectedOffenseIndex}
+                onUseSelectedOffense={addSelectedPowerOffenseUse}
+                isUseDisabled={!selectedPowerOffense || availableEssence < selectedPowerOffense.cost}
+                useButtonLabel={selectedPowerOffense ? `Use ${power.name} ${selectedPowerOffenseIndex + 1}` : undefined}
               />
             )
           }
@@ -174,11 +265,11 @@ export default function PowerCard({ power }: PowerCardProps)
         }
 
         {
-          power.spells.map(spell => <SpellView key={spell.id} spell={spell} addSpellToUsed={addSpellToUsed} usedSpells={usedSpells} reduceEssence={reduceEssence} currentEssence={currentEssence} />)
+          power.spells.map(spell => <SpellView key={spell.id} spell={spell} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
         }
 
-        <MediumUsedSpellsView usedSpells={usedSpells} removeLastSpell={removeLastSpell} setUsedSpells={setUsedSpells} endTurn={endTurn} resetEssence={resetEssence} />
-        <SmallUsedSpellsView usedSpells={usedSpells} removeLastSpell={removeLastSpell} setUsedSpells={setUsedSpells} endTurn={endTurn} resetEssence={resetEssence} />
+        <MediumUsedActionsView usedActions={usedActions} removeLastUsage={removeLastUsage} setUsedActions={setUsedActions} endTurn={endTurn} resetEssence={resetEssence} />
+        <SmallUsedActionsView usedActions={usedActions} removeLastUsage={removeLastUsage} setUsedActions={setUsedActions} endTurn={endTurn} resetEssence={resetEssence} />
       
       </CardContent>
 
@@ -224,49 +315,36 @@ export default function PowerCard({ power }: PowerCardProps)
     );
   }
 
-type UsedSpellsViewProps =
+type UsedActionsViewProps =
 {
-  usedSpells: (Spell | EndTurn)[];
-  removeLastSpell: () => void;
-  setUsedSpells: (usedSpells: (Spell | EndTurn)[]) => void;
+  usedActions: UsedPowerAction[];
+  removeLastUsage: () => void;
+  setUsedActions: (usedActions: UsedPowerAction[]) => void;
   endTurn: () => void;
   resetEssence: () => void;
 }
 
-function SmallUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn, resetEssence }: UsedSpellsViewProps)
+function SmallUsedActionsView({ usedActions, removeLastUsage, setUsedActions, endTurn, resetEssence }: UsedActionsViewProps)
 {
   return (
     <div className="lg:grid-cols-13 col-span-full lg:hidden">
 
       <div className="text-sm lg:col-span-10 text-muted-foreground italic flex flex-wrap sm:gap-1 lg:gap-2 py-3">
       {
-        usedSpells.map((usedSpell, index) => 
-        {
-          if (usedSpell === "end") return (
-            <Badge key={index} variant="destructive" className='m-1' >
-              {nextIcon()}
-            </Badge>
-          );
-
-          return (
-            <Badge key={index} variant={getBadgeVariant(usedSpell.castTime)} className='m-1' >
-              {usedSpell.name}
-            </Badge>
-          );
-        })
+        usedActions.map((usedAction, index) => renderUsedActionBadge(usedAction, index))
       }
       </div>
 
       <div className="flex gap-4 justify-center items-center">
-        <Button variant="default" className='flex-1 lg:flex-0' onClick={() => { setUsedSpells([]); resetEssence(); }}>
+        <Button variant="default" className='flex-1 lg:flex-0' onClick={() => { setUsedActions([]); resetEssence(); }} aria-label="Reset power usage" title="Reset power usage">
           {resetIcon()}
         </Button>
 
-        <Button variant="default" className='flex-1 lg:flex-0' onClick={removeLastSpell}>
+        <Button variant="default" className='flex-1 lg:flex-0' onClick={removeLastUsage} aria-label="Undo last power usage" title="Undo last power usage">
           {removePreviousIcon()}
         </Button>
 
-        <Button variant="default" className='flex-1 lg:flex-0' onClick={endTurn}>
+        <Button variant="default" className='flex-1 lg:flex-0' onClick={endTurn} aria-label="End power turn" title="End power turn">
           {nextIcon()}
         </Button>
       </div>
@@ -274,41 +352,28 @@ function SmallUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTu
   );
 }
 
-function MediumUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endTurn, resetEssence }: UsedSpellsViewProps)
+function MediumUsedActionsView({ usedActions, removeLastUsage, setUsedActions, endTurn, resetEssence }: UsedActionsViewProps)
 {
   return (
     <div className="hidden lg:grid grid-cols-13 items-center justify-center gap-3 mt-3 pt-4 border-t border-border/40 col-span-full">
 
-      <Button variant="default" className='col-span-1' onClick={() => { setUsedSpells([]); resetEssence(); }}>
+      <Button variant="default" className='col-span-1' onClick={() => { setUsedActions([]); resetEssence(); }} aria-label="Reset power usage" title="Reset power usage">
         {resetIcon()}
       </Button>
 
       <p className="text-sm col-span-10">
         <span className='text-muted-foreground italic'>
         {
-          usedSpells.map((usedSpell, index) => 
-          {
-            if (usedSpell === "end") return (
-              <Badge key={index} variant="destructive" className='m-1' >
-                {nextIcon()}
-              </Badge>
-            );
-
-            return (
-              <Badge key={index} variant={getBadgeVariant(usedSpell.castTime)} className='m-1' >
-                {usedSpell.name}
-              </Badge>
-            );
-          })
+          usedActions.map((usedAction, index) => renderUsedActionBadge(usedAction, index))
         }
         </span>
       </p>
 
-      <Button variant="default" className='col-span-1' onClick={removeLastSpell}>
+      <Button variant="default" className='col-span-1' onClick={removeLastUsage} aria-label="Undo last power usage" title="Undo last power usage">
         {removePreviousIcon()}
       </Button>
 
-      <Button variant="default" className='col-span-1' onClick={endTurn}>
+      <Button variant="default" className='col-span-1' onClick={endTurn} aria-label="End power turn" title="End power turn">
         {nextIcon()}
       </Button>
     </div>
@@ -318,24 +383,29 @@ function MediumUsedSpellsView({ usedSpells, removeLastSpell, setUsedSpells, endT
 type SpellViewProps =
 {
   spell: Spell;
-  addSpellToUsed: (spell: Spell | EndTurn) => void;
-  usedSpells: (Spell | EndTurn)[];
+  addSpellUse: (spell: Spell) => void;
+  usedActions: UsedPowerAction[];
   reduceEssence: (cost: number) => void;
-  currentEssence: number;
+  availableEssence: number;
 }
 
-function SpellView({ spell, addSpellToUsed, usedSpells, reduceEssence, currentEssence }: SpellViewProps) 
+function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEssence }: SpellViewProps) 
 {
-  const canAffordSpell = currentEssence >= spell.cost;
+  const canAffordSpell = availableEssence >= spell.cost;
 
-  const canUseSpell = (spell: Spell, usedSpells: (Spell | EndTurn)[]) =>
+  const canUseSpell = (spell: Spell, usedActions: UsedPowerAction[]) =>
   {
-    return canUseCastable(spell, usedSpells) && canAffordSpell;
+    return canUseCastable(spell, toCastableHistory(usedActions)) && canAffordSpell;
   };
 
   const handleUseSpell = (spell: Spell) =>
   {
-    addSpellToUsed(spell);
+    if (!canUseSpell(spell, usedActions))
+    {
+      return;
+    }
+
+    addSpellUse(spell);
     reduceEssence(spell.cost);
   };
 
@@ -353,16 +423,16 @@ function SpellView({ spell, addSpellToUsed, usedSpells, reduceEssence, currentEs
       </div>
 
       <div className='flex items-center justify-center'>
-        <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-none' variant="cost">
-          <span className="scale-100">{costIcon}</span>
-          <span>{spell.cost}</span>
-        </Badge>
-        <Button variant="ghost" className="h-full p-0" onClick={() => handleUseSpell(spell)} disabled={!canUseSpell(spell, usedSpells)}>
-          <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none' variant={getBadgeVariant(spell.castTime)}>
-            {cooldownIcon()}
-            <span>{spell.cooldown || battleIcon("scale-80")}</span>
+        <Button type="button" variant="ghost" className="h-full p-0" onClick={() => handleUseSpell(spell)} disabled={!canUseSpell(spell, usedActions)} aria-label={`Use ${spell.name}`} title={`Use ${spell.name}`}>
+          <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-r-none' variant="cost">
+            <span className="scale-100">{costIcon}</span>
+            <span>{spell.cost}</span>
           </Badge>
         </Button>
+        <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none' variant={getBadgeVariant(spell.castTime)}>
+          {cooldownIcon()}
+          <span>{spell.cooldown || battleIcon("scale-80")}</span>
+        </Badge>
       </div>
 
     </div>

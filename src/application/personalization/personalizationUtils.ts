@@ -1,4 +1,4 @@
-import { PersonalizationContext, QuickLink, QuickLinkRoute } from '@/persistence/slices/personalizationSlice';
+import { type PersonalizationContext, type QuickLink, type QuickLinkRoute } from '@/common/personalization/personalizationProfile';
 
 export const personalizationContextLabels: Record<PersonalizationContext, string> = {
   characters: 'Postacie',

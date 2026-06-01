@@ -12,9 +12,12 @@ type PowerOffenseSelectorProps =
   powerSpecification: PowerSpecification;
   selectedIndex: number;
   onSelectIndex: (index: number) => void;
+  onUseSelectedOffense?: (index: number) => void;
+  isUseDisabled?: boolean;
+  useButtonLabel?: string;
 };
 
-export default function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex }: PowerOffenseSelectorProps) 
+export default function PowerOffenseSelector({ powerSpecification, selectedIndex, onSelectIndex, onUseSelectedOffense, isUseDisabled = false, useButtonLabel }: PowerOffenseSelectorProps) 
 {
   const offenses = powerSpecification.offenses;
   const maxIndex = offenses.length - 1;
@@ -42,6 +45,13 @@ export default function PowerOffenseSelector({ powerSpecification, selectedIndex
       onSelectIndex(currentIndex + 1);
     }
   };
+
+  const costBadge = (
+    <Badge variant="cost" className="h-8 w-20">
+      {costIcon}
+      <span className="ml-1">{offense.cost}</span>
+    </Badge>
+  );
 
   return (
     <div className="mt-4 pt-2 lg:mt-0 lg:pt-0 border-t border-border/40 lg:border-0">
@@ -89,10 +99,23 @@ export default function PowerOffenseSelector({ powerSpecification, selectedIndex
               {criticalString}
             </Badge>
 
-            <Badge variant="cost" className="h-8 w-20">
-              {costIcon}
-              <span className="ml-1">{offense.cost}</span>
-            </Badge>
+            {
+              onUseSelectedOffense
+                ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="h-8 p-0"
+                    onClick={() => onUseSelectedOffense(currentIndex)}
+                    disabled={isUseDisabled}
+                    aria-label={useButtonLabel}
+                    title={useButtonLabel}
+                  >
+                    {costBadge}
+                  </Button>
+                )
+                : costBadge
+            }
 
           </div>
         </div>

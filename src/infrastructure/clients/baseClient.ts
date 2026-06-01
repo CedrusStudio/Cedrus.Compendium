@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getStoredApiKey } from '@/common/hooks/useApiKey';
+import { getStoredApiKey } from '@/lib/apiKeyStorage';
 import { API_KEY_HEADER } from '@/proxy';
 
 const client = axios.create

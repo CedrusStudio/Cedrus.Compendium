@@ -1,14 +1,25 @@
 import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const useApiKeyMock = vi.fn();
+const { useApiKeyMock, getProfileMock, saveProfileMock } = vi.hoisted(() => ({
+  useApiKeyMock: vi.fn(),
+  getProfileMock: vi.fn(),
+  saveProfileMock: vi.fn(),
+}));
 
 vi.mock('@/common/hooks/useApiKey', () => ({
   useApiKey: () => useApiKeyMock(),
   getStoredApiKey: () => 'alpha',
+}));
+
+vi.mock('@/infrastructure/clients/personalizationClient', () => ({
+  default: {
+    getProfile: getProfileMock,
+    saveProfile: saveProfileMock,
+  },
 }));
 
 vi.mock('next/link', () => ({
@@ -24,9 +35,13 @@ describe('HomeQuickAccessSection', () => {
   beforeEach(() => {
     localStorage.clear();
     useApiKeyMock.mockReset();
+    getProfileMock.mockReset();
+    saveProfileMock.mockReset();
+    getProfileMock.mockResolvedValue(null);
+    saveProfileMock.mockImplementation(async (profile) => profile);
   });
 
-  it('shows an actionable empty state when no API key is set', () => {
+  it('shows an actionable empty state when no API key is set', async () => {
     useApiKeyMock.mockReturnValue({
       apiKey: null,
       hasApiKey: false,
@@ -43,11 +58,11 @@ describe('HomeQuickAccessSection', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Ustaw API key, aby włączyć personalizację.')).toBeTruthy();
+    await waitFor(() => expect(screen.getByText('Ustaw API key, aby włączyć personalizację.')).toBeTruthy());
     expect(screen.getByRole('link', { name: 'Przejdź do personalizacji' })).toHaveAttribute('href', '/personalization');
   });
 
-  it('renders the main character and configured quick links for the active profile', () => {
+  it('renders the main character and configured quick links for the active profile', async () => {
     useApiKeyMock.mockReturnValue({
       apiKey: 'alpha',
       hasApiKey: true,
@@ -88,7 +103,7 @@ describe('HomeQuickAccessSection', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('link', { name: /Główna postać/i })).toHaveAttribute('href', '/characters/character-1');
+    await waitFor(() => expect(screen.getByRole('link', { name: /Główna postać/i })).toHaveAttribute('href', '/characters/character-1'));
     expect(screen.getByRole('link', { name: /Kompendium/ })).toHaveAttribute('href', '/compendium');
   });
 });

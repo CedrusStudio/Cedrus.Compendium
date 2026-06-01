@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
-vi.mock('@/common/hooks/useApiKey', () => ({
+vi.mock('@/lib/apiKeyStorage', () => ({
   getStoredApiKey: () => 'alpha',
 }));
 
 import { actions, createEmptyProfile, PERSONALIZATION_STORAGE_KEY, reducer, MAX_QUICK_TAGS_PER_CONTEXT, PersonalizationSliceState } from '@/persistence/slices/personalizationSlice';
-import { createPersonalizationProfileExport, parsePersonalizationProfileImport } from '@/persistence/slices/personalizationSlice';
 
 describe('personalizationSlice', () => {
   beforeEach(() => {
@@ -294,40 +293,32 @@ describe('personalizationSlice', () => {
     ]);
   });
 
-  it('replaces the active profile from a sanitized import payload and persists it', () => {
+  it('sanitizes a replaced active profile and persists it', () => {
     const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
     let state = createState();
 
-    const importedProfile = parsePersonalizationProfileImport({
-      format: 'cedrus-personalization-profile',
-      version: 1,
-      profile: {
-        userName: '  Anna  ',
-        favoriteCharacterIds: ['character-1'],
-        mainCharacterId: 'character-1',
-        quickTagsByContext: {
-          powers: ['fire', 'ice', 'earth', 'wind', 'light', 'shadow'],
-        },
-        quickLinks: [
-          {
-            id: 'valid-route',
-            label: 'Compendium',
-            type: 'route',
-            href: '/compendium',
-          },
-          {
-            id: 'invalid-route',
-            label: 'Broken',
-            type: 'route',
-            href: '/broken',
-          },
-        ],
+    state = reducer(state, actions.replaceProfile({
+      userName: '  Anna  ',
+      favoriteCharacterIds: ['character-1'],
+      mainCharacterId: 'character-1',
+      quickTagsByContext: {
+        powers: ['fire', 'ice', 'earth', 'wind', 'light', 'shadow'],
       },
-    });
-
-    expect(importedProfile).not.toBeNull();
-
-    state = reducer(state, actions.replaceProfile(importedProfile!));
+      quickLinks: [
+        {
+          id: 'valid-route',
+          label: 'Compendium',
+          type: 'route',
+          href: '/compendium',
+        },
+        {
+          id: 'invalid-route',
+          label: 'Broken',
+          type: 'route',
+          href: '/broken',
+        },
+      ],
+    } as any));
 
     expect(state.profilesByApiKey.alpha).toEqual({
       ...createEmptyProfile(),
@@ -350,22 +341,5 @@ describe('personalizationSlice', () => {
       PERSONALIZATION_STORAGE_KEY,
       JSON.stringify(state.profilesByApiKey),
     );
-  });
-
-  it('creates a versioned export payload and rejects unrelated import objects', () => {
-    const exportPayload = createPersonalizationProfileExport({
-      ...createEmptyProfile(),
-      userName: 'Marek',
-    });
-
-    expect(exportPayload).toEqual({
-      format: 'cedrus-personalization-profile',
-      version: 1,
-      profile: {
-        ...createEmptyProfile(),
-        userName: 'Marek',
-      },
-    });
-    expect(parsePersonalizationProfileImport({ foo: 'bar' })).toBeNull();
   });
 });
