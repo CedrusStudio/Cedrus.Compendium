@@ -55,6 +55,18 @@
 			],
 			"isBackground": false,
 			"group": "test"
+		},
+		{
+			"label": "focused-character-navbar-test",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"vitest",
+				"run",
+				"src/application/characters/__tests__/CharacterNavbar.test.tsx"
+			],
+			"isBackground": false,
+			"group": "test"
 		}
 	]
 }

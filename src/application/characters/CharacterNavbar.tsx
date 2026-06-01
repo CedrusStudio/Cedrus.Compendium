@@ -5,7 +5,7 @@ import { Button } from "@/ui/button";
 import Link from "next/link";
 import NavbarBreadcrumb from "@/common/components/navbars/NavbarBreadcrumb";
 import NavbarDefaultButton from "@/common/components/navbars/NavbarDefaultButton";
-import { addIcon } from "@/common/icons";
+import { addIcon, bestiaryIcon } from "@/common/icons";
 import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 
 export default function CharacterNavbar() 
@@ -25,6 +25,9 @@ export default function CharacterNavbar()
                 <ApiKeySettings />
                 <Button asChild variant="outline" size="icon">
                     <Link href="/characters/add">{addIcon("h-[1.2rem] w-[1.2rem]")}</Link>
+                </Button>
+                <Button asChild variant="outline" size="icon">
+                    <Link href="/bestiary" aria-label="Bestiary">{bestiaryIcon("h-[1.2rem] w-[1.2rem]")}</Link>
                 </Button>
                 <NavbarDefaultButton />
             </div>
