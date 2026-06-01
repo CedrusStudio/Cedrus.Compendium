@@ -12,10 +12,11 @@ import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { Button } from '@/ui/button';
 import SelectBaseCharacterDialog from '@/application/characters/add/SelectBaseCharacterDialog';
 import { Separator } from '@/ui/separator';
-import { CharacterCreationMode, useCharacterCreationMode } from '@/application/characters/add/useCharacterCreationMode';
+import { useCharacterCreationMode } from '@/application/characters/add/useCharacterCreationMode';
 import { useBaseCharacter } from '@/application/characters/add/useBaseCharacter';
 import { useCreateCharacterFromScratch } from '@/application/characters/add/useCreateCharacterFromScratch';
 import { useCreateCharacterFromCopy } from '@/application/characters/add/useCreateCharacterFromCopy';
+import { CharacterCreationInitialState, CharacterCreationMode } from '@/application/characters/add/characterCopyRoute';
 
 const initialHeaderValues: HeaderDto = 
 {
@@ -25,7 +26,7 @@ const initialHeaderValues: HeaderDto =
     description: "",
 };
 
-export default function AddCharacterView()
+export default function AddCharacterView({ initialMode, initialSelectedCharacterId }: CharacterCreationInitialState)
 {
     const form = useForm<HeaderDto>
     ({
@@ -40,7 +41,7 @@ export default function AddCharacterView()
         switchToCopy, 
         selectBaseCharacter, 
         resetMode 
-    } = useCharacterCreationMode();
+    } = useCharacterCreationMode({ initialMode, initialSelectedCharacterId });
 
     const { baseCharacter } = useBaseCharacter
     ({ 
@@ -95,6 +96,9 @@ export default function AddCharacterView()
                 {
                     mode === 'copy' && (
                         <CopyModeSection
+                            selectedCharacterName={baseCharacter?.name}
+                            selectedCharacterShortName={baseCharacter?.shortName}
+                            selectedCharacterTags={baseCharacter?.tags}
                             selectedCharacterId={selectedCharacterId}
                             onSelectCharacter={selectBaseCharacter}
                         />
@@ -148,16 +152,28 @@ function ModeSelector({ mode, onScratchClick, onCopyClick }: ModeSelectorProps)
 
 type CopyModeSectionProps = 
 {
+    selectedCharacterName?: string;
+    selectedCharacterShortName?: string;
+    selectedCharacterTags?: string[];
     selectedCharacterId: string | undefined;
     onSelectCharacter: (id: string) => void;
 };
 
-function CopyModeSection({ selectedCharacterId, onSelectCharacter }: CopyModeSectionProps) 
+function CopyModeSection({ 
+    selectedCharacterName,
+    selectedCharacterShortName,
+    selectedCharacterTags,
+    selectedCharacterId,
+    onSelectCharacter,
+}: CopyModeSectionProps) 
 {
     return (
         <>
             <SelectBaseCharacterDialog
                 onSelectCharacter={onSelectCharacter}
+                selectedCharacterName={selectedCharacterName}
+                selectedCharacterShortName={selectedCharacterShortName}
+                selectedCharacterTags={selectedCharacterTags}
                 selectedCharacterId={selectedCharacterId}
             />
             <Separator />

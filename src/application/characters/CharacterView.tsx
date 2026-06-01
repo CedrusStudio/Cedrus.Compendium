@@ -23,6 +23,7 @@ import DeleteButton from "@/common/components/buttons/DeleteButton";
 import NotFound from '@/common/components/NotFound';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
+import { createCharacterCopyHref } from '@/application/characters/add/characterCopyRoute';
 
 type CharacterViewProps = 
 {
@@ -72,6 +73,11 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <div className='flex flex-row place-items-center gap-3'>
                         <FavoriteCharacterButton characterId={character.id} />
                         <MainCharacterButton characterId={character.id} />
+                        <Button asChild variant="outline" className='my-4'>
+                            <Link href={createCharacterCopyHref(character.id)}>
+                                <span className="first-letter:uppercase">{displayedText.duplicateCharacter}</span>
+                            </Link>
+                        </Button>
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
                         <Button asChild variant="outline" size="icon" className='my-4'>
