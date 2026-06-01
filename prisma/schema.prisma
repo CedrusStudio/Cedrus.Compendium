@@ -260,6 +260,14 @@ model PowerSpecification {
   characters   Character[] @relation(fields: [characterIds], references: [id])
 }
 
+model PersonalizationProfileRecord {
+  id         String   @id @default(ulid()) @map("_id")
+  apiKeyHash String   @unique
+  profile    String
+
+  @@map("personalizationProfiles")
+}
+
 model Race {
   id          String @id @default(ulid()) @map("_id")
   name        String @unique

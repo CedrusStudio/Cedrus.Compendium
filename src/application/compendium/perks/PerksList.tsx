@@ -16,6 +16,7 @@ import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
+import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
@@ -32,6 +33,8 @@ export default function PerksList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [gradeFilter, setGradeFilter] = useState("");
+  const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('perks');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
@@ -45,14 +48,15 @@ export default function PerksList()
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
   
-  const queryKey = createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+      const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -83,6 +87,12 @@ export default function PerksList()
   {
     clearResults();
     setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
+  {
+    clearResults();
+    setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -122,6 +132,8 @@ export default function PerksList()
       <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
+        gradeFilter={gradeFilter}
+        handleGradeFilterChange={handleGradeFilterChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
         excludedTags={excludedTags}

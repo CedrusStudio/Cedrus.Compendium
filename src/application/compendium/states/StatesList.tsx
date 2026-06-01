@@ -16,6 +16,7 @@ import { CreateDefaultState, Mode } from "@/domain/characters/combat/Mode";
 import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useDebounce } from "use-debounce";
+import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { useEntityTags } from "@/common/hooks/useEntityTags";
@@ -32,6 +33,8 @@ export default function StatesList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [gradeFilter, setGradeFilter] = useState("");
+  const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('states');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
@@ -45,14 +48,15 @@ export default function StatesList()
   const [displayedStates, setDisplayedStates] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
   
-  const queryKey = createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+      const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       return await searchClient.search<Mode[]>(statesQuery);
     },
     staleTime: 5_000
@@ -83,6 +87,12 @@ export default function StatesList()
   {
     clearResults();
     setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
+  {
+    clearResults();
+    setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -122,6 +132,8 @@ export default function StatesList()
       <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
+        gradeFilter={gradeFilter}
+        handleGradeFilterChange={handleGradeFilterChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
         excludedTags={excludedTags}

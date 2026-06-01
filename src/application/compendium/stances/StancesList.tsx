@@ -17,6 +17,7 @@ import { useCallback, useEffect, useState } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
+import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
@@ -32,6 +33,8 @@ export default function StancesList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [gradeFilter, setGradeFilter] = useState("");
+  const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('stances');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
@@ -45,14 +48,15 @@ export default function StancesList()
   const [displayedStances, setDisplayedStances] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
   
-  const queryKey = createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+  const queryKey = createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const stancesQuery = createStanceOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags);
+      const stancesQuery = createStanceOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       return await searchClient.search<Mode[]>(stancesQuery);
     },
     staleTime: 5_000
@@ -83,6 +87,12 @@ export default function StancesList()
   {
     clearResults();
     setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
+  {
+    clearResults();
+    setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -122,6 +132,8 @@ export default function StancesList()
       <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
+        gradeFilter={gradeFilter}
+        handleGradeFilterChange={handleGradeFilterChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
         excludedTags={excludedTags}

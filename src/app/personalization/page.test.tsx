@@ -138,6 +138,38 @@ describe('PersonalizationPage', () => {
     expect(setUserName).toHaveBeenCalledWith(undefined);
   });
 
+  it('renders an explicit save-to-database button and calls the hook action', async () => {
+    const saveToDatabase = vi.fn().mockResolvedValue(createEmptyProfile());
+
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'alpha',
+      hasApiKey: true,
+      isLoaded: true,
+      isSavingToDatabase: false,
+      profile: createEmptyProfile(),
+      setUserName: vi.fn(),
+      setBestiaryColumnVisibility: vi.fn(),
+      clearBestiaryColumnVisibility: vi.fn(),
+      addQuickTag: vi.fn(),
+      removeQuickTag: vi.fn(),
+      removeFavoriteCharacter: vi.fn(),
+      setMainCharacter: vi.fn(),
+      addQuickLink: vi.fn(),
+      removeQuickLink: vi.fn(),
+      updateQuickLink: vi.fn(),
+      saveToDatabase,
+    });
+
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+
+    render(<PersonalizationPage />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Save to database' }));
+
+    await waitFor(() => expect(saveToDatabase).toHaveBeenCalledTimes(1));
+    expect(sonnerMocks.success).toHaveBeenCalledWith('Zapisano konfiguracje aktywnego profilu w bazie danych.');
+  });
+
   it('saves and clears a bestiary column preference', () => {
     const setBestiaryColumnVisibility = vi.fn();
     const clearBestiaryColumnVisibility = vi.fn();

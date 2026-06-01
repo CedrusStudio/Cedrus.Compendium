@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getStoredApiKey } from '@/common/hooks/useApiKey';
+import { getStoredApiKey } from '@/lib/apiKeyStorage';
 import { BestiaryColumnPreferenceKey, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
 const PERSONALIZATION_STORAGE_KEY = 'cedrus-personalization-profiles';
@@ -414,4 +414,5 @@ export {
   createEmptyProfile,
   createPersonalizationProfileExport,
   parsePersonalizationProfileImport,
+  sanitizeProfile,
 };

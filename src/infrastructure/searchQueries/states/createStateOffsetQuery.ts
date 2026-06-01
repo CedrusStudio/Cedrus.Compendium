@@ -8,12 +8,14 @@ export function createStateOffsetQuery
   pageNumber: number = 1,
   includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
-  excludeTags?: string[]
+  excludeTags?: string[],
+  grade?: number
 )
   : SearchEntityPayload
 { 
   const builder = SearchQueryBuilder.for("state")
     .searchFilter("name", searchQuery)
+    .searchFilter("grade", grade)
     .offsetPagination(pageNumber, pageSize)
     .sort("name", "asc")
     .sort("grade", "asc")

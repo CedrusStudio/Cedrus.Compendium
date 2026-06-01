@@ -4,6 +4,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from '@/__tests__/utils/testUtils';
 
+const setGradeFilter = vi.fn();
+
 vi.mock('@/infrastructure/clients/spellsClient', () => ({
   default: { add: vi.fn(), update: vi.fn(), delete: vi.fn() }
 }));
@@ -48,7 +50,19 @@ vi.mock('@/ui/form', () => ({
 }));
 
 vi.mock('@/common/components/lists/ListHeader', () => ({
-  default: ({ children }: { children: React.ReactNode }) => <div data-testid="list-header">{children}</div>
+  default: ({ children, handleGradeFilterChange }: { children: React.ReactNode; handleGradeFilterChange?: (event: React.ChangeEvent<HTMLInputElement>) => void }) => (
+    <div data-testid="list-header">
+      <button
+        type="button"
+        onClick={() =>
+          handleGradeFilterChange?.({ target: { value: '7' } } as React.ChangeEvent<HTMLInputElement>)
+        }
+      >
+        Set grade filter
+      </button>
+      {children}
+    </div>
+  )
 }));
 
 vi.mock('@/application/common/PerkableAddSheet', () => ({
@@ -76,6 +90,7 @@ describe('SpellsList', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
+    setGradeFilter.mockReset();
   });
 
   it('sends selected cast times into the spell search payload', async () => {
@@ -99,6 +114,33 @@ describe('SpellsList', () => {
         expect.objectContaining({
           search: expect.objectContaining({
             castTime: { anyOf: ['Standardowa'] },
+          }),
+        })
+      )
+    );
+  });
+
+  it('sends the selected grade into the spell search payload', async () => {
+    const { default: searchClient } = await import('@/infrastructure/clients/searchClient');
+    const user = userEvent.setup();
+
+    const queryClient = createTestQueryClient();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <SpellsList />
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => expect(searchClient.search).toHaveBeenCalled());
+
+    await user.click(screen.getByRole('button', { name: 'Set grade filter' }));
+
+    await waitFor(() =>
+      expect(searchClient.search).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          search: expect.objectContaining({
+            grade: 7,
           }),
         })
       )

@@ -5,7 +5,7 @@ const STORAGE_KEY = 'cedrus-personalization-profiles';
 
 const importPersonalizationSlice = async (storedApiKey: string | null = 'alpha') => {
   vi.resetModules();
-  vi.doMock('@/common/hooks/useApiKey', () => ({
+  vi.doMock('@/lib/apiKeyStorage', () => ({
     getStoredApiKey: () => storedApiKey,
   }));
 

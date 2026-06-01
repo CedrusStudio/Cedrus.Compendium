@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { defaultBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
-vi.mock('@/common/hooks/useApiKey', () => ({
+vi.mock('@/lib/apiKeyStorage', () => ({
   getStoredApiKey: () => 'alpha',
 }));
 

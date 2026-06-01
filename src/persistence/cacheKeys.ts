@@ -70,8 +70,9 @@ export function createOffsetSearchManeuversKey
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
     excludeTags?: string[],
-    castTimes?: string[]
-) : readonly [string, string, string | undefined, number, string, string, string, number] 
+    castTimes?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, number, string, string, string, string, number] 
 {
     return [
         maneuverKey, 
@@ -81,6 +82,7 @@ export function createOffsetSearchManeuversKey
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
         castTimes?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -114,8 +116,9 @@ export function createOffsetSearchPerksKey
     pageNumber: number = 1,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, number, string, string, number] 
+    excludeTags?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, number, string, string, string, number] 
 {
     return [
         perkKey, 
@@ -124,6 +127,7 @@ export function createOffsetSearchPerksKey
         pageNumber, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -157,8 +161,9 @@ export function createOffsetSearchStancesKey
     pageNumber: number = 1,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, number, string, string, number] 
+    excludeTags?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, number, string, string, string, number] 
 {
     return [
         stanceKey, 
@@ -167,6 +172,7 @@ export function createOffsetSearchStancesKey
         pageNumber, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -200,8 +206,9 @@ export function createOffsetSearchStatesKey
     pageNumber: number = 1,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, number, string, string, number] 
+    excludeTags?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, number, string, string, string, number] 
 {
     return [
         stateKey, 
@@ -210,6 +217,7 @@ export function createOffsetSearchStatesKey
         pageNumber, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -244,8 +252,9 @@ export function createOffsetSearchSpellsKey
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
     excludeTags?: string[],
-    castTimes?: string[]
-) : readonly [string, string, string | undefined, number, string, string, string, number] 
+    castTimes?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, number, string, string, string, string, number] 
 {
     return [
         spellKey, 
@@ -255,6 +264,7 @@ export function createOffsetSearchSpellsKey
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
         castTimes?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }

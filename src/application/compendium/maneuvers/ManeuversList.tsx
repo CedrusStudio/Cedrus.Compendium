@@ -21,6 +21,7 @@ import { useState, useEffect, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
+import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
@@ -37,6 +38,8 @@ export default function ManeuversList()
 {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
+  const [gradeFilter, setGradeFilter] = useState("");
+  const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('maneuvers');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
@@ -51,14 +54,15 @@ export default function ManeuversList()
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
   
-  const queryKey = createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes);
+  const queryKey = createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes);
+      const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000
@@ -89,6 +93,12 @@ export default function ManeuversList()
   {
     clearResults();
     setSearchInput(e.target.value);
+  }, [clearResults]);
+
+  const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
+  {
+    clearResults();
+    setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -134,6 +144,8 @@ export default function ManeuversList()
       <ListHeader
         searchInput={searchInput}
         handleSearchInputChange={handleSearchInputChange}
+        gradeFilter={gradeFilter}
+        handleGradeFilterChange={handleGradeFilterChange}
         searchTags={searchTags}
         handleSearchTagsChange={handleSearchTagsChange}
         excludedTags={excludedTags}

@@ -10,12 +10,14 @@ export function createManeuverOffsetQuery
   includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
   excludeTags?: string[],
-  castTimes?: CastTime[]
+  castTimes?: CastTime[],
+  grade?: number
 )
   : SearchEntityPayload
 { 
   const builder = SearchQueryBuilder.for("maneuver")
     .searchFilter("name", searchQuery)
+    .searchFilter("grade", grade)
     .offsetPagination(pageNumber, pageSize)
     .sort("name", "asc")
     .sort("grade", "asc")

@@ -60,6 +60,7 @@ export default function PersonalizationPage()
     apiKey,
     hasApiKey,
     isLoaded,
+    isSavingToDatabase = false,
     profile,
     setUserName,
     setBestiaryColumnVisibility,
@@ -74,6 +75,7 @@ export default function PersonalizationPage()
     removeQuickLink,
     updateQuickLink,
     replaceProfile = () => undefined,
+    saveToDatabase = async () => profile,
   } = usePersonalization();
   const { favoriteCharacters, isLoading } = useFavoriteCharacters();
   const importInputRef = useRef<HTMLInputElement>(null);
@@ -228,6 +230,16 @@ export default function PersonalizationPage()
     }
   };
 
+  const handleSaveToDatabase = async () =>
+  {
+    try {
+      await saveToDatabase();
+      toast.success('Zapisano konfiguracje aktywnego profilu w bazie danych.');
+    } catch {
+      toast.error('Nie udalo sie zapisac konfiguracji aktywnego profilu w bazie danych.');
+    }
+  };
+
   return (
     <div className="container mx-auto px-6 py-12 max-w-6xl space-y-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -240,6 +252,13 @@ export default function PersonalizationPage()
 
         <div className="flex flex-wrap gap-3">
             <ApiKeySettings />
+            {
+              hasApiKey && (
+                <Button type="button" onClick={handleSaveToDatabase} disabled={isSavingToDatabase}>
+                  {isSavingToDatabase ? 'Zapisywanie...' : 'Save to database'}
+                </Button>
+              )
+            }
             <Button asChild variant="outline" size="icon">
             <Link href="/" aria-label="Wroc do strony glownej">{homeIcon("h-[1.2rem] w-[1.2rem]")}</Link>
             </Button>
