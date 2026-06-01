@@ -18,6 +18,15 @@ const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
 const scrollableTargetId = 'import-sheet-scrollable';
 
+type ImportSheetSearchParams =
+{
+  searchQuery: string;
+  cursor: string;
+  includeTags: string[];
+  pageSize: number;
+  excludeTags: string[];
+}
+
 type ImportItemsSheetProps<TItem extends { id: string }> = 
 {
   importTitle: string;
@@ -27,8 +36,11 @@ type ImportItemsSheetProps<TItem extends { id: string }> =
   currentItemsIds: string[];
   renderItem: (item: TItem, isSelected: boolean, onToggle: (id: string) => void) => React.ReactNode;
   entityType: EntityType;
-  createKeysetSearchKey: (search: string, cursor: string, includeTags: string[], pageSize: number, excludeTags?: string[]) => readonly [string, string, string | undefined, string, string, number] | readonly [string, string, string | undefined, string, string, string, number];
-  createKeysetQuery: (searchQuery: string, cursor: string, includeTags: string[], pageSize: number, excludeTags?: string[]) => SearchEntityPayload;
+  createKeysetSearchKey: (params: ImportSheetSearchParams) => readonly unknown[];
+  createKeysetQuery: (params: ImportSheetSearchParams) => SearchEntityPayload;
+  gradeFilter?: string;
+  onGradeFilterChange?: (value: string) => void;
+  renderHeaderContent?: (helpers: { clearResults: () => void }) => React.ReactNode;
 };
 
 export default function ImportItemsSheet<TItem extends { id: string }>
@@ -43,6 +55,9 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     entityType,
     createKeysetSearchKey,
     createKeysetQuery,
+    gradeFilter,
+    onGradeFilterChange,
+    renderHeaderContent,
   }
     : ImportItemsSheetProps<TItem>
 ) 
@@ -60,13 +75,22 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
-  const queryKey = createKeysetSearchKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const searchParams: ImportSheetSearchParams =
+  {
+    searchQuery: debouncedSearchTerm,
+    cursor,
+    includeTags: searchTags,
+    pageSize,
+    excludeTags: excludedTags,
+  };
+
+  const queryKey = createKeysetSearchKey(searchParams);
   const { data: itemSearchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
-      const query = createKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      const query = createKeysetQuery(searchParams);
       return await searchClient.search<TItem[]>(query);
     },
     staleTime: 5_000
@@ -114,6 +138,17 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     setExcludedTags(tags);
     setCursor(emptyUlid);
   }, []);
+
+  const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
+  {
+    if (!onGradeFilterChange)
+    {
+      return;
+    }
+
+    clearResults();
+    onGradeFilterChange(e.target.value);
+  }, [clearResults, onGradeFilterChange]);
 
   useEffect(() => 
   {
@@ -169,6 +204,21 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   const allSelected = displayedItems.length > 0 && selectedItemsIds.size === displayedItems.length;
   const visibleSelectedCount = displayedItems.filter(p => selectedItemsIds.has(p.id)).length;
   const hiddenSelectedCount = selectedCount - visibleSelectedCount;
+  const headerContent = renderHeaderContent?.({ clearResults });
+  const actionButtons = (
+    <div className="flex flex-col md:flex-row gap-2">
+      {
+        availableItems.length > 0 && (
+          <Button variant="outline" type="button" onClick={handleToggleAll}>
+            <span className='first-letter:capitalize'>{allSelected ? displayedText.deselect_all : displayedText.select_all}</span>
+          </Button>
+        )
+      }
+      <Button variant="default" type="button" onClick={handleImport} disabled={selectedCount === 0}>
+        <span className='first-letter:capitalize'>{displayedText.import} ({selectedCount})</span>
+      </Button>
+    </div>
+  );
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -199,19 +249,11 @@ export default function ImportItemsSheet<TItem extends { id: string }>
             handleSearchInputChange={handleSearchInputChange}
             excludedTags={excludedTags}
             handleExcludedTagsChange={handleExcludedTagsChange}
+            gradeFilter={gradeFilter}
+            handleGradeFilterChange={onGradeFilterChange ? handleGradeFilterChange : undefined}
           >
-            <div className="flex flex-col md:flex-row gap-2">
-              {
-                availableItems.length > 0 && (
-                  <Button variant="outline" type="button" onClick={handleToggleAll}>
-                    <span className='first-letter:capitalize'>{allSelected ? displayedText.deselect_all : displayedText.select_all}</span>
-                  </Button>
-                )
-              }
-              <Button variant="default" type="button" onClick={handleImport} disabled={selectedCount === 0}>
-                <span className='first-letter:capitalize'>{displayedText.import} ({selectedCount})</span>
-              </Button>
-            </div>
+            {headerContent}
+            {actionButtons}
           </ListHeader>
 
           <WithScroll<TItem>

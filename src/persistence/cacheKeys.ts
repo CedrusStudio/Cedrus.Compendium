@@ -1,5 +1,6 @@
 import { searchParamKey } from "@/common/global/httpUtils";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
+import { CastTime } from "@/domain/characters/Castable";
 import { Style } from "@/domain/characters/equipment/Weapon";
 
 // Characters
@@ -49,8 +50,10 @@ export function createKeysetSearchManeuversKey
     cursor: string = emptyUlid,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, string, string, string, number] 
+    excludeTags?: string[],
+    castTimes?: CastTime[],
+    grade?: number
+) : readonly [string, string, string | undefined, string, string, string, string, string, number] 
 {
     return [
         maneuverKey, 
@@ -59,6 +62,8 @@ export function createKeysetSearchManeuversKey
         cursor, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        castTimes?.join(',') || '',
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -96,8 +101,9 @@ export function createKeysetSearchPerksKey
     cursor: string = emptyUlid,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, string, string, string, number] 
+    excludeTags?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, string, string, string, string, number] 
 {
     return [
         perkKey, 
@@ -106,6 +112,7 @@ export function createKeysetSearchPerksKey
         cursor, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -141,8 +148,9 @@ export function createKeysetSearchStancesKey
     cursor: string = emptyUlid,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, string, string, string, number] 
+    excludeTags?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, string, string, string, string, number] 
 {
     return [
         stanceKey, 
@@ -151,6 +159,7 @@ export function createKeysetSearchStancesKey
         cursor, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -186,8 +195,9 @@ export function createKeysetSearchStatesKey
     cursor: string = emptyUlid,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, string, string, string, number] 
+    excludeTags?: string[],
+    grade?: number
+) : readonly [string, string, string | undefined, string, string, string, string, number] 
 {
     return [
         stateKey, 
@@ -196,6 +206,7 @@ export function createKeysetSearchStatesKey
         cursor, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        grade?.toString() || '',
         pageSize
     ] as const;
 }
@@ -231,8 +242,10 @@ export function createKeysetSearchSpellsKey
     cursor: string = emptyUlid,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
-) : readonly [string, string, string | undefined, string, string, string, number] 
+    excludeTags?: string[],
+    castTimes?: CastTime[],
+    grade?: number
+) : readonly [string, string, string | undefined, string, string, string, string, string, number] 
 {
     return [
         spellKey, 
@@ -241,6 +254,8 @@ export function createKeysetSearchSpellsKey
         cursor, 
         includeTags?.join(',') || '', 
         excludeTags?.join(',') || '', 
+        castTimes?.join(',') || '',
+        grade?.toString() || '',
         pageSize
     ] as const;
 }

@@ -22,6 +22,9 @@ import CastablePerkEditableFields from '@/application/common/combat/CastablePerk
 import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery';
 import { createKeysetSearchManeuversKey } from '@/persistence/cacheKeys';
 import PerkableEditView from '@/application/characters/edit/combat/PerkableEditView';
+import CastTimeFilter from '@/common/components/filters/CastTimeFilter';
+import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
+import { type CastTime } from '@/domain/characters/Castable';
 
 type EditManeuversCardProps = 
 {
@@ -33,7 +36,10 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
   const [importedManeuverIds, setImportedManeuverIds] = useState<Set<string>>(new Set());
+  const [maneuverGradeFilter, setManeuverGradeFilter] = useState("");
+  const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>([]);
   const prevIsPendingRef = useRef(isPending);
+  const selectedGrade = parseGradeFilterInput(maneuverGradeFilter);
 
   useEffect(() =>
   {
@@ -94,8 +100,24 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
             isPending={isPending}
             currentItemsIds={watchedArray.map(maneuver => maneuver.id)}
             renderItem={renderManeuverItem}
-            createKeysetQuery={createManeuverKeysetQuery}
-            createKeysetSearchKey={createKeysetSearchManeuversKey}
+            gradeFilter={maneuverGradeFilter}
+            onGradeFilterChange={value => setManeuverGradeFilter(normalizeGradeFilterInput(value))}
+            renderHeaderContent={({ clearResults }) => (
+              <CastTimeFilter
+                selectedCastTimes={selectedCastTimes}
+                onSelectedCastTimesChange={castTimes =>
+                {
+                  clearResults();
+                  setSelectedCastTimes(castTimes);
+                }}
+              />
+            )}
+            createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+              createManeuverKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedCastTimes, selectedGrade)
+            }
+            createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+              createKeysetSearchManeuversKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedCastTimes, selectedGrade)
+            }
             entityType="maneuvers"
           />
         </CardTitle>

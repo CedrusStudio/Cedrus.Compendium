@@ -8,12 +8,14 @@ export function createStanceKeysetQuery
   cursor: string = emptyUlid,
   includeTags?: string[],
   pageSize: number = DEFAULT_PAGE_SIZE,
-  excludeTags?: string[]
+  excludeTags?: string[],
+  grade?: number
 )
   : SearchEntityPayload
 { 
   const builder = SearchQueryBuilder.for("stance")
     .searchFilter("name", searchQuery)
+    .searchFilter("grade", grade)
     .cursorPagination(cursor, pageSize);
 
   if (includeTags && includeTags.length > 0) 

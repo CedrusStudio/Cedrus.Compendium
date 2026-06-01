@@ -17,6 +17,7 @@ import PerkEditableFields from "@/application/common/PerkEditableFields";
 import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
 import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
+import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
 
 type EditPerksListProps =
 {
@@ -29,7 +30,9 @@ type EditPerksListProps =
 export default function EditPerksList({ isPending, perks, append, remove }: EditPerksListProps)
 {
   const [importedPerkIds, setImportedPerkIds] = useState<Set<string>>(new Set());
+  const [gradeFilter, setGradeFilter] = useState("");
   const prevIsPendingRef = useRef(isPending);
+  const selectedGrade = parseGradeFilterInput(gradeFilter);
 
   useEffect(() =>
   {
@@ -96,8 +99,14 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
             isPending={isPending}
             currentItemsIds={perks.map(perk => perk.id)}
             renderItem={renderPerkItem}
-            createKeysetQuery={createPerkKeysetQuery}
-            createKeysetSearchKey={createKeysetSearchPerksKey}
+            gradeFilter={gradeFilter}
+            onGradeFilterChange={value => setGradeFilter(normalizeGradeFilterInput(value))}
+            createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+              createPerkKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedGrade)
+            }
+            createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+              createKeysetSearchPerksKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedGrade)
+            }
             entityType="perks"
           />
         </div>

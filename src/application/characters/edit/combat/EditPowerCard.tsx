@@ -33,6 +33,9 @@ import PowerSpecificationViewFields from '@/application/common/combat/PowerSpeci
 import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
 import { useQuery } from '@tanstack/react-query';
 import { FormField, FormItem, FormMessage } from '@/ui/form';
+import CastTimeFilter from '@/common/components/filters/CastTimeFilter';
+import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
+import { type CastTime } from '@/domain/characters/Castable';
 
 type EditPowersCardProps =
 {
@@ -49,7 +52,10 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
   const [importedSpellIds, setImportedSpellIds] = useState<Set<string>>(new Set());
   const [selectSpecOpen, setSelectSpecOpen] = useState(false);
+  const [spellGradeFilter, setSpellGradeFilter] = useState("");
+  const [selectedSpellCastTimes, setSelectedSpellCastTimes] = useState<CastTime[]>([]);
   const prevIsPendingRef = useRef(isPending);
+  const selectedSpellGrade = parseGradeFilterInput(spellGradeFilter);
 
   // Watch the powerSpecificationId field to react to form changes
   const watchedPowerSpecId = useWatch
@@ -208,8 +214,24 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
               isPending={isPending}
               currentItemsIds={spells.map(spell => spell.id)}
               renderItem={renderSpellItem}
-              createKeysetQuery={createSpellKeysetQuery}
-              createKeysetSearchKey={createKeysetSearchSpellsKey}
+              gradeFilter={spellGradeFilter}
+              onGradeFilterChange={value => setSpellGradeFilter(normalizeGradeFilterInput(value))}
+              renderHeaderContent={({ clearResults }) => (
+                <CastTimeFilter
+                  selectedCastTimes={selectedSpellCastTimes}
+                  onSelectedCastTimesChange={castTimes =>
+                  {
+                    clearResults();
+                    setSelectedSpellCastTimes(castTimes);
+                  }}
+                />
+              )}
+              createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createSpellKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedSpellCastTimes, selectedSpellGrade)
+              }
+              createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createKeysetSearchSpellsKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedSpellCastTimes, selectedSpellGrade)
+              }
               entityType="spells"
             />
 
