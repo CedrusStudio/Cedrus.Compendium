@@ -102,7 +102,7 @@ function PowerOffenseRow({ offense, index }: PowerOffenseRowProps)
   return (
     <TableRow className="hover:bg-muted/30">
 
-      <TableCell className="text-center font-medium">{index}</TableCell>
+      <TableCell className="text-center font-medium">{index + 1}</TableCell>
 
       <TableCell>
         <p className="text-sm break-words" title={offense.description}>
