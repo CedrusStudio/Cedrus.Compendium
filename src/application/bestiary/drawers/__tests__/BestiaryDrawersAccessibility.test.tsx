@@ -11,6 +11,8 @@ vi.mock('@/ui/drawer', () => ({
 
 import CharacterManeuversViewDrawer from '@/application/bestiary/drawers/CharacterManeuversViewDrawer';
 import CharacterModesViewDrawer from '@/application/bestiary/drawers/CharacterModesViewDrawer';
+import CharacterSpellsViewDrawer from '@/application/bestiary/drawers/CharacterSpellsViewDrawer';
+import { displayedText } from '@/common/translations';
 import type { Character } from '@/domain/characters/Character';
 
 describe('bestiary drawer accessibility', () => {
@@ -35,5 +37,16 @@ describe('bestiary drawer accessibility', () => {
 
     expect(screen.getByTestId('drawer-title').textContent).toBeTruthy();
     expect(screen.getByText('Brak manewrow.')).toBeTruthy();
+  });
+
+  it('renders a drawer title and empty state for spells when the character has no spells', () => {
+    const character = {
+      powers: [],
+    } as Character;
+
+    render(<CharacterSpellsViewDrawer character={character} open onOpenChange={vi.fn()} />);
+
+    expect(screen.getByTestId('drawer-title').textContent).toBeTruthy();
+    expect(screen.getByText(displayedText.no_spells_found)).toBeTruthy();
   });
 });

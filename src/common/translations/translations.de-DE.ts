@@ -197,6 +197,7 @@ export const translations_deDE =
     showStancesStates: "haltungen und zustände anzeigen",
     showManeuvers: "manöver anzeigen",
     showPowers: "kräfte anzeigen",
+    showSpells: "zauber anzeigen",
     showPerks: "vorteile anzeigen",
     goToCharacterView: "zur charakteransicht wechseln",
     

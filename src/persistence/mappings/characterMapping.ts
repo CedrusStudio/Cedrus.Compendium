@@ -57,6 +57,11 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
   };
 }
 
+export function toCharacters(characterPersistenceModels: CharacterWithRelations[]): Character[]
+{
+  return characterPersistenceModels.map(toCharacter);
+}
+
 export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCreateCharacterDto)
   : Prisma.CharacterCreateInput
 {
