@@ -8,7 +8,7 @@ import { Power, Spell, type PowerSpecification } from "@/domain/characters/comba
 import { Field } from '@/common/components/fields';
 import { getBadgeVariant, getCastTimeColors } from '@/common/colors';
 import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, resetIcon } from '@/common/icons';
-import { canUseCastable, EndTurn, type CastTime } from '@/domain/characters/Castable';
+import { canUseSpell, EndTurn, type CastTime } from '@/domain/characters/Castable';
 import { useMemo, useState } from 'react';
 import InfoContentWithTags from '@/common/components/tags/InfoContentWithTags';
 import { useQuery } from '@tanstack/react-query';
@@ -97,8 +97,8 @@ export default function PowerCard({ power }: PowerCardProps)
   const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   
-  // Calculate default offense index based on level + bonus
-  const defaultOffenseIndex = power.level + power.bonus;
+  // Power offense labels are 1-based, but selector state is 0-based.
+  const defaultOffenseIndex = Math.max(0, power.level + power.bonus - 1);
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(defaultOffenseIndex);
   const availableSpellTags = useMemo(() => getAvailableCastableTags(power.spells), [power.spells]);
   const filteredSpells = useMemo(() => filterCastables(power.spells,
@@ -429,14 +429,14 @@ function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEs
 {
   const canAffordSpell = availableEssence >= spell.cost;
 
-  const canUseSpell = (spell: Spell, usedActions: UsedPowerAction[]) =>
+  const canUseCurrentSpell = (spellToUse: Spell, currentUsedActions: UsedPowerAction[]) =>
   {
-    return canUseCastable(spell, toCastableHistory(usedActions)) && canAffordSpell;
+    return canUseSpell(spellToUse, toCastableHistory(currentUsedActions)) && canAffordSpell;
   };
 
   const handleUseSpell = (spell: Spell) =>
   {
-    if (!canUseSpell(spell, usedActions))
+    if (!canUseCurrentSpell(spell, usedActions))
     {
       return;
     }
@@ -445,7 +445,7 @@ function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEs
     reduceEssence(spell.cost);
   };
 
-  const isSpellDisabled = !canUseSpell(spell, usedActions);
+  const isSpellDisabled = !canUseCurrentSpell(spell, usedActions);
 
   return (
     <div className='flex m-1 p-1 w-full h-full'>

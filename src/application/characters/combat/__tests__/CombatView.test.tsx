@@ -56,6 +56,12 @@ function createCharacter(overrides: Partial<Character> = {}): Character
 }
 
 describe('CombatView', () => {
+  it('does not render the maneuvers card when the character has no maneuvers', () => {
+    render(<CombatView character={createCharacter({ maneuvers: [] })} />);
+
+    expect(screen.queryByText('Maneuvers card')).not.toBeInTheDocument();
+  });
+
   it('does not render the modes section when the character has no stances and no states', () => {
     render(<CombatView character={createCharacter({ stances: [], states: [] })} />);
 

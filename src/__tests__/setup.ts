@@ -66,6 +66,10 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {}
 } as unknown as typeof ResizeObserver;
 
+if (!HTMLElement.prototype.scrollIntoView) {
+  HTMLElement.prototype.scrollIntoView = () => {};
+}
+
 // Extend Vitest matchers
 expect.extend({
   toBeWithinRange(received: number, floor: number, ceiling: number) {

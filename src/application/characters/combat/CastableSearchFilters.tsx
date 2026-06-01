@@ -44,51 +44,51 @@ export default function CastableSearchFilters({
 
   return (
     <div className="flex flex-col gap-3 rounded-lg border border-border/40 bg-background/40 p-3">
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+      <div className="grid gap-3 xl:grid-cols-[minmax(0,22rem)_16rem_minmax(0,1fr)] xl:items-start">
         <Input
           name="search"
           type="text"
           placeholder={displayedText.searchByName}
           value={searchInput}
           onChange={event => onSearchInputChange(event.target.value)}
-          className="w-full lg:max-w-sm"
+          className="w-full"
         />
 
-        <div className="flex flex-col gap-2 lg:items-end">
-          <ExistingTagSelect
-            availableTags={availableTags}
-            selectedTags={selectedTags}
-            onSelectTag={addSelectedTag}
-            triggerClassName="w-full sm:w-64"
-          />
+        <ExistingTagSelect
+          availableTags={availableTags}
+          selectedTags={selectedTags}
+          onSelectTag={addSelectedTag}
+          triggerClassName="w-full"
+        />
 
-          {
-            selectedTags.length > 0 && (
-              <div className="flex flex-wrap gap-2 lg:justify-end">
-                {
-                  selectedTags.map(tag => (
-                    <Button
-                      key={tag}
-                      type="button"
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => removeSelectedTag(tag)}
-                      aria-label={`Remove tag ${tag}`}
-                    >
-                      {tag}
-                    </Button>
-                  ))
-                }
-              </div>
-            )
-          }
+        <div className="flex xl:justify-end">
+          <CastTimeFilter
+            selectedCastTimes={selectedCastTimes}
+            onSelectedCastTimesChange={onSelectedCastTimesChange}
+          />
         </div>
       </div>
 
-      <CastTimeFilter
-        selectedCastTimes={selectedCastTimes}
-        onSelectedCastTimesChange={onSelectedCastTimesChange}
-      />
+      {
+        selectedTags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {
+              selectedTags.map(tag => (
+                <Button
+                  key={tag}
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => removeSelectedTag(tag)}
+                  aria-label={`Remove tag ${tag}`}
+                >
+                  {tag}
+                </Button>
+              ))
+            }
+          </div>
+        )
+      }
     </div>
   );
 }

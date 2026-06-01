@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { canUseCastable, type Castable, type EndTurn } from '@/domain/characters/Castable';
+import { canUseCastable, canUseSpell, type Castable, type EndTurn } from '@/domain/characters/Castable';
 
 describe('Castable - Action Economy System', () => {
   // Test helpers
@@ -247,6 +247,25 @@ describe('Castable - Action Economy System', () => {
       expect(canUseCastable(standard2, history)).toBe(true);
       const full2 = createCastable('Full 2', 'Pełnorundowa', 1);
       expect(canUseCastable(full2, history)).toBe(true);
+    });
+  });
+
+  describe('Spell-specific usage rules', () => {
+    it('should allow different spells in the same turn even when maneuver action profiles would block them', () => {
+      const standard2 = createCastable('Standard 2', 'Standardowa', 1);
+      const full2 = createCastable('Full 2', 'Pełnorundowa', 1);
+
+      expect(canUseSpell(standard2, [standard])).toBe(true);
+      expect(canUseSpell(full2, [standard, immediate, overimmediate])).toBe(true);
+    });
+
+    it('should still block the same spell twice in one turn', () => {
+      expect(canUseSpell(standard, [standard])).toBe(false);
+    });
+
+    it('should still respect spell cooldowns across turns', () => {
+      expect(canUseSpell(cooldownSpell, [cooldownSpell, 'end'])).toBe(false);
+      expect(canUseSpell(cooldownSpell, [cooldownSpell, 'end', 'end'])).toBe(true);
     });
   });
 });

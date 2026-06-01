@@ -48,7 +48,7 @@ describe('ManeuversCard', () => {
     await user.clear(searchInput);
     await user.click(screen.getByRole('button', { name: 'Natychmiastowa' }));
     await user.click(screen.getByRole('combobox', { name: displayedText.selectExistingTag }));
-    await user.click(screen.getByText('mobility'));
+    await user.click(screen.getByRole('option', { name: 'mobility' }));
 
     expect(screen.getByText('Blink Step')).toBeInTheDocument();
     expect(screen.queryByText('Heavy Sweep')).not.toBeInTheDocument();

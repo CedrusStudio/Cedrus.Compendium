@@ -18,6 +18,7 @@ export const allowedCastTimes = [
 export type EndTurn = "end";
 type ActionCounts = { full: number; standard: number; immediate: number; overimmediate: number };
 type AllowedCastableCombination = Readonly<ActionCounts>;
+type CurrentTurnUsageRule = (castablesInCurrentTurn: Castable[], castable: Castable) => boolean;
 
 const CASTABLE_COMBINATION_PROFILES: readonly AllowedCastableCombination[] = 
 [
@@ -36,11 +37,22 @@ const fitsProfile = (counts: ActionCounts, allowedCombinations: AllowedCastableC
 
 export function canUseCastable(castable: Castable, usedCastables: (Castable | EndTurn)[]): boolean
 {
+  return canUseCastableByRule(castable, usedCastables,
+    (castablesInCurrentTurn, nextCastable) => canUseCastTime(castablesInCurrentTurn, nextCastable.castTime));
+}
+
+export function canUseSpell(castable: Castable, usedCastables: (Castable | EndTurn)[]): boolean
+{
+  return canUseCastableByRule(castable, usedCastables, () => true);
+}
+
+function canUseCastableByRule(castable: Castable, usedCastables: (Castable | EndTurn)[], currentTurnUsageRule: CurrentTurnUsageRule): boolean
+{
   if (usedCastables.length === 0) return true;
   const castablesInCurrentTurn = getCastablesInCurrentTurn(usedCastables);
   if (usedInCurrentTurn(castablesInCurrentTurn, castable.name)) return false;
   if (onCooldown(usedCastables, castable, castable.name)) return false;
-  return canUseCastTime(castablesInCurrentTurn, castable.castTime);
+  return currentTurnUsageRule(castablesInCurrentTurn, castable);
 }
 
 function getCastablesInCurrentTurn(usedCastables: (Castable | EndTurn)[]): Castable[]
