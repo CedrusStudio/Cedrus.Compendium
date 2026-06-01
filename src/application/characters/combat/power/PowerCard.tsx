@@ -293,22 +293,6 @@ export default function PowerCard({ power }: PowerCardProps)
         }
 
         {
-          power.spells.length > 0 && (
-            <div className="col-span-full">
-              <CastableSearchFilters
-                searchInput={searchInput}
-                onSearchInputChange={setSearchInput}
-                selectedCastTimes={selectedCastTimes}
-                onSelectedCastTimesChange={setSelectedCastTimes}
-                selectedTags={selectedTags}
-                onSelectedTagsChange={setSelectedTags}
-                availableTags={availableSpellTags}
-              />
-            </div>
-          )
-        }
-
-        {
           filteredSpells.map(spell => <SpellView key={spell.id} spell={spell} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
         }
 
