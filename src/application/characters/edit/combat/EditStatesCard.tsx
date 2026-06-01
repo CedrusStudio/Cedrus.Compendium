@@ -14,6 +14,7 @@ import SelectableItemWrapper from "@/common/components/import/SelectableItemWrap
 import { useState, useEffect, useRef } from 'react';
 import { createKeysetSearchStatesKey } from '@/persistence/cacheKeys';
 import { createStateKeysetQuery } from '@/infrastructure/searchQueries/states/createStateKeysetQuery';
+import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
 
 type EditStatesCardProps = 
 {
@@ -25,7 +26,9 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("states", control);
   const [importedStateIds, setImportedStateIds] = useState<Set<string>>(new Set());
+  const [gradeFilter, setGradeFilter] = useState("");
   const prevIsPendingRef = useRef(isPending);
+  const selectedGrade = parseGradeFilterInput(gradeFilter);
 
   useEffect(() =>
   {
@@ -83,8 +86,14 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
             isPending={isPending}
             currentItemsIds={watchedArray.map(state => state.id)}
             renderItem={renderStateItem}
-            createKeysetQuery={createStateKeysetQuery}
-            createKeysetSearchKey={createKeysetSearchStatesKey}
+            gradeFilter={gradeFilter}
+            onGradeFilterChange={value => setGradeFilter(normalizeGradeFilterInput(value))}
+            createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+              createStateKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedGrade)
+            }
+            createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+              createKeysetSearchStatesKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedGrade)
+            }
             entityType="states"
           />
         </CardTitle>

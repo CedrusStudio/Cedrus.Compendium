@@ -4,23 +4,18 @@ import InitiativeCell from "@/application/bestiary/battle/InitiativeCell";
 import { Button } from "@/common/components/ui/button";
 import { Character } from "@/domain/characters/Character";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { attributesIcons, characteristicIcons } from "@/common/icons";
-import { useState } from "react";
 import { Checkbox } from "@/common/components/ui/checkbox";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/dropdown-menu";
 import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
 import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
-import CharacterPerksViewDrawer from "@/application/bestiary/drawers/CharacterPerksViewDrawer";
-import CharacterPowersViewDrawer from "@/application/bestiary/drawers/CharacterPowersViewDrawer";
-import CharacterManeuversViewDrawer from "@/application/bestiary/drawers/CharacterManeuversViewDrawer";
 import CharacterNameView from "@/application/bestiary/views/CharacterNameView";
 import CharacterDefensesBattleView from "@/application/bestiary/views/CharacterDefensesBattleView";
 import CharacterOffensesBattleView from "@/application/bestiary/views/CharacterOffensesBattleView";
-import CharacterModesViewDrawer from "@/application/bestiary/drawers/CharacterModesViewDrawer";
 import CharacterPowersBattleView from "@/application/bestiary/views/CharacterPowersBattleView";
+import CharacterMoreActionsMenu from "@/application/bestiary/CharacterMoreActionsMenu";
 
 export const columnKeys =
 {
@@ -176,54 +171,7 @@ function CharacterHealthBattleView({ character }: {character: Character})
   );
 }
 
-function MoreBattleActions({ character }: { character: Character })
+export function MoreBattleActions({ character }: { character: Character })
 {
-  const [isModesDrawerOpen, setIsModesDrawerOpen] = useState(false);
-  const [isManeuversDrawerOpen, setIsManeuversDrawerOpen] = useState(false);
-  const [isPowersDrawerOpen, setIsPowersDrawerOpen] = useState(false);
-  const [isPerksDrawerOpen, setIsPerksDrawerOpen] = useState(false);
-
-  return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <MoreHorizontal />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel className="capitalize">{displayedText.actions}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsModesDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStates}</span></DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showManeuvers}</span></DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsPerksDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPerks}</span></DropdownMenuItem>
-          { character.powers.length > 0 && <DropdownMenuItem onClick={() => setIsPowersDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPowers}</span></DropdownMenuItem>}
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      <CharacterModesViewDrawer
-        character={character}
-        open={isModesDrawerOpen}
-        onOpenChange={setIsModesDrawerOpen}
-      />
-
-      <CharacterManeuversViewDrawer
-        character={character}
-        open={isManeuversDrawerOpen}
-        onOpenChange={setIsManeuversDrawerOpen}
-      />
-
-      <CharacterPowersViewDrawer
-        character={character}
-        open={isPowersDrawerOpen}
-        onOpenChange={setIsPowersDrawerOpen}
-      />
-
-      <CharacterPerksViewDrawer
-        character={character}
-        open={isPerksDrawerOpen}
-        onOpenChange={setIsPerksDrawerOpen}
-      />
-    </>
-  );
+  return <CharacterMoreActionsMenu character={character} />;
 }

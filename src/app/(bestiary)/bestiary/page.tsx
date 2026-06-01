@@ -10,6 +10,7 @@ import BestiaryTable from "@/application/bestiary/BestiaryTable";
 import BestiaryGridSkeleton from "@/application/bestiary/BestiaryTableSkeleton";
 import { allCharactersKey } from "@/persistence/cacheKeys";
 import { createCharacterQuery } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
+import { CharacterWithRelations, toCharacters } from '@/persistence/mappings/characterMapping';
 
 export default async function BestiaryPage()
 {
@@ -18,7 +19,7 @@ export default async function BestiaryPage()
   await queryClient.prefetchQuery<Character[]>
   ({
     queryKey: allCharactersKey,
-    queryFn: () => searchEntity<Character>(createCharacterQuery())
+    queryFn: async () => toCharacters(await searchEntity<CharacterWithRelations>(createCharacterQuery()))
   });
 
   return (

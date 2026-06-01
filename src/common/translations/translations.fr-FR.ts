@@ -197,6 +197,7 @@ export const translations_frFR =
     showStancesStates: "afficher les postures et états",
     showManeuvers: "afficher les manœuvres",
     showPowers: "afficher les pouvoirs",
+    showSpells: "afficher les sorts",
     showPerks: "afficher les avantages",
     goToCharacterView: "aller à la vue du personnage",
     

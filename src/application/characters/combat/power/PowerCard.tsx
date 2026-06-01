@@ -8,8 +8,8 @@ import { Power, Spell, type PowerSpecification } from "@/domain/characters/comba
 import { Field } from '@/common/components/fields';
 import { getBadgeVariant, getCastTimeColors } from '@/common/colors';
 import { battleIcon, cooldownIcon, costIcon, nextIcon, removePreviousIcon, resetIcon } from '@/common/icons';
-import { canUseCastable, EndTurn } from '@/domain/characters/Castable';
-import { useState } from 'react';
+import { canUseCastable, EndTurn, type CastTime } from '@/domain/characters/Castable';
+import { useMemo, useState } from 'react';
 import InfoContentWithTags from '@/common/components/tags/InfoContentWithTags';
 import { useQuery } from '@tanstack/react-query';
 import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificationsClient';
@@ -21,6 +21,8 @@ import { DispatchSetInput, setIf } from '@/common/global/resolveSetState';
 import PowerOffenseSelector from '@/application/characters/combat/power/PowerOffenseSelector';
 import TagsView from '@/common/components/tags/TagsView';
 import { cn } from '@/lib/utils';
+import CastableSearchFilters from '@/application/characters/combat/CastableSearchFilters';
+import { filterCastables, getAvailableCastableTags } from '@/application/characters/combat/castableFilters';
 
 type PowerCardProps =
 {
@@ -91,10 +93,20 @@ export default function PowerCard({ power }: PowerCardProps)
   const [essenceIncreaseChangeAmount, setEssenceIncreaseChangeAmount] = useState<number>(1);
   const [essenceLoss, setEssenceLoss] = useState<number>(0);
   const [essenceLossChangeAmount, setEssenceLossChangeAmount] = useState<number>(1);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   
   // Calculate default offense index based on level + bonus
   const defaultOffenseIndex = power.level + power.bonus;
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(defaultOffenseIndex);
+  const availableSpellTags = useMemo(() => getAvailableCastableTags(power.spells), [power.spells]);
+  const filteredSpells = useMemo(() => filterCastables(power.spells,
+  {
+    searchTerm: searchInput,
+    selectedCastTimes,
+    selectedTags,
+  }), [power.spells, searchInput, selectedCastTimes, selectedTags]);
 
   // Fetch the PowerSpecification
   const { data: powerSpecification } = useQuery
@@ -184,7 +196,7 @@ export default function PowerCard({ power }: PowerCardProps)
 
   return (
     <Card className='bg-muted'>
-      <CardHeader>
+      <CardHeader className='gap-4'>
         
         <CardTitle className="flex flex-col lg:flex-row place-content-around place-item-center">
 
@@ -265,7 +277,31 @@ export default function PowerCard({ power }: PowerCardProps)
         }
 
         {
-          power.spells.map(spell => <SpellView key={spell.id} spell={spell} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
+          power.spells.length > 0 && (
+            <div className="col-span-full">
+              <CastableSearchFilters
+                searchInput={searchInput}
+                onSearchInputChange={setSearchInput}
+                selectedCastTimes={selectedCastTimes}
+                onSelectedCastTimesChange={setSelectedCastTimes}
+                selectedTags={selectedTags}
+                onSelectedTagsChange={setSelectedTags}
+                availableTags={availableSpellTags}
+              />
+            </div>
+          )
+        }
+
+        {
+          filteredSpells.map(spell => <SpellView key={spell.id} spell={spell} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
+        }
+
+        {
+          filteredSpells.length === 0 && (
+            <p className='col-span-full text-center text-sm text-muted-foreground'>
+              {displayedText.no_spells_found}
+            </p>
+          )
         }
 
         <MediumUsedActionsView usedActions={usedActions} removeLastUsage={removeLastUsage} setUsedActions={setUsedActions} endTurn={endTurn} resetEssence={resetEssence} />
@@ -409,6 +445,8 @@ function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEs
     reduceEssence(spell.cost);
   };
 
+  const isSpellDisabled = !canUseSpell(spell, usedActions);
+
   return (
     <div className='flex m-1 p-1 w-full h-full'>
 
@@ -423,16 +461,16 @@ function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEs
       </div>
 
       <div className='flex items-center justify-center'>
-        <Button type="button" variant="ghost" className="h-full p-0" onClick={() => handleUseSpell(spell)} disabled={!canUseSpell(spell, usedActions)} aria-label={`Use ${spell.name}`} title={`Use ${spell.name}`}>
+        <Button type="button" variant="ghost" className="h-full gap-0 p-0" onClick={() => handleUseSpell(spell)} disabled={isSpellDisabled} aria-label={`Use ${spell.name}`} title={`Use ${spell.name}`}>
           <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-r-none' variant="cost">
             <span className="scale-100">{costIcon}</span>
             <span>{spell.cost}</span>
           </Badge>
+          <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none' variant={getBadgeVariant(spell.castTime)}>
+            {cooldownIcon()}
+            <span>{spell.cooldown || battleIcon("scale-80")}</span>
+          </Badge>
         </Button>
-        <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none' variant={getBadgeVariant(spell.castTime)}>
-          {cooldownIcon()}
-          <span>{spell.cooldown || battleIcon("scale-80")}</span>
-        </Badge>
       </div>
 
     </div>

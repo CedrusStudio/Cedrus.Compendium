@@ -197,6 +197,7 @@ export const translations_plPL =
     showStancesStates: "wyświetl postawy i stany",
     showManeuvers: "wyświetl manewry",
     showPowers: "wyświetl moce",
+    showSpells: "wyświetl zaklęcia",
     showPerks: "wyświetl atuty",
     goToCharacterView: "przejdź do widoku postaci",
     

@@ -224,6 +224,7 @@ export const displayedText =
     showStancesStates: translate("showStancesStates"),
     showManeuvers: translate("showManeuvers"),
     showPowers: translate("showPowers"),
+    showSpells: translate("showSpells"),
     showPerks: translate("showPerks"),
     goToCharacterView: translate("goToCharacterView"),
 

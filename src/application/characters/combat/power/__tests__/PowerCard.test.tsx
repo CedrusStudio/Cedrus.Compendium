@@ -4,7 +4,7 @@ import { displayedText } from '@/common/translations';
 import type { Power, PowerSpecification, Spell } from '@/domain/characters/combat/Power';
 import PowerCard from '@/application/characters/combat/power/PowerCard';
 import PowerOffenseSelector from '@/application/characters/combat/power/PowerOffenseSelector';
-import { renderWithProviders, screen, userEvent } from '@/__tests__/utils/testUtils';
+import { renderWithProviders, screen, userEvent, within } from '@/__tests__/utils/testUtils';
 
 const useQueryMock = vi.fn();
 
@@ -105,14 +105,18 @@ describe('PowerCard', () => {
     renderWithProviders(<PowerCard power={createPower()} />);
 
     const essenceSection = getEssenceSection();
+    const useSpellButton = screen.getByRole('button', { name: 'Use Arcane Pulse' });
 
     expect(screen.getAllByText('Arcane Pulse')).toHaveLength(1);
     expect(essenceSection).toHaveTextContent('41');
+    expect(within(useSpellButton).getByText('5')).toBeInTheDocument();
+    expect(within(useSpellButton).getByText('1')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Use Arcane Pulse' }));
+    await user.click(useSpellButton);
 
     expect(screen.getAllByText('Arcane Pulse')).toHaveLength(3);
     expect(essenceSection).toHaveTextContent('36');
+    expect(useSpellButton).toBeDisabled();
   });
 
   it('uses the selected power offense button to reduce essence and append power usage to progress', async () => {
@@ -156,6 +160,43 @@ describe('PowerCard', () => {
 
     expect(screen.queryByText('Storm 1')).not.toBeInTheDocument();
     expect(essenceSection).toHaveTextContent('41');
+  });
+
+  it('filters spells by local name, cast time, and included tags', async () => {
+    useQueryMock.mockReturnValue({ data: createPowerSpecification() });
+    const user = userEvent.setup();
+
+    renderWithProviders(
+      <PowerCard
+        power={createPower({
+          spells: [
+            createSpell(),
+            createSpell({
+              id: 'spell-2',
+              name: 'Blink Ward',
+              castTime: 'Natychmiastowa',
+              tags: ['control'],
+              cost: 3,
+            }),
+          ],
+        })}
+      />
+    );
+
+    const searchInput = screen.getByPlaceholderText(displayedText.searchByName);
+
+    await user.type(searchInput, 'Blink');
+
+    expect(screen.getByText('Blink Ward')).toBeInTheDocument();
+    expect(screen.queryByText('Arcane Pulse')).not.toBeInTheDocument();
+
+    await user.clear(searchInput);
+    await user.click(screen.getByRole('button', { name: 'Natychmiastowa' }));
+    await user.click(screen.getByRole('combobox', { name: displayedText.selectExistingTag }));
+    await user.click(screen.getByText('control'));
+
+    expect(screen.getByText('Blink Ward')).toBeInTheDocument();
+    expect(screen.queryByText('Arcane Pulse')).not.toBeInTheDocument();
   });
 });
 

@@ -31,6 +31,7 @@ import { Table as TableType } from "@tanstack/react-table";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
+import { CharacterWithRelations, toCharacters } from '@/persistence/mappings/characterMapping';
 
 const pageSize = 20;
 const EMPTY_ARRAY: never[] = [];
@@ -55,7 +56,8 @@ export default function BestiaryTable()
     queryFn: async () => 
     {
       const charactersQuery = createCharacterQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
-      return await client.search<Character[]>(charactersQuery);
+      const rawCharacters = await client.search<CharacterWithRelations[]>(charactersQuery);
+      return toCharacters(rawCharacters);
     },
     staleTime: 5_000
   });

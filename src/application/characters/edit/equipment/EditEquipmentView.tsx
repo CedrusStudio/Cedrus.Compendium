@@ -13,7 +13,7 @@ import SubmitButton from '@/common/components/form/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from '@/application/characters/edit/equipment/EditInventoryItemView';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
-import { CreateDefaultWeapon, Weapon } from '@/domain/characters/equipment/Weapon';
+import { allowedStyles, CreateDefaultWeapon, type Style, Weapon } from '@/domain/characters/equipment/Weapon';
 import { CreateDefaultArmor, Armor } from '@/domain/characters/equipment/Armor';
 import { CreateDefaultShield, Shield } from '@/domain/characters/equipment/Shield';
 import { CreateDefaultInventoryItem, Item } from '@/domain/characters/equipment/Item';
@@ -30,11 +30,12 @@ import ShieldViewFields from '@/application/common/equipment/Views/ShieldViewFie
 import WeaponViewFields from '@/application/common/equipment/Views/WeaponViewFields';
 import InventoryItemViewFields from '@/application/common/equipment/Views/InventoryItemViewFields';
 import { createArmorKeysetQuery } from '@/infrastructure/searchQueries/equipment/armors/createArmorKeysetQuery';
-import { createKeysetSearchArmorsKey, createKeysetSearchInventoryKey, createKeysetSearchMountsKey, createKeysetSearchShieldsKey, createKeysetSearchWeaponsKeyWithoutStyle } from '@/persistence/cacheKeys';
+import { createKeysetSearchArmorsKey, createKeysetSearchInventoryKey, createKeysetSearchMountsKey, createKeysetSearchShieldsKey, createKeysetSearchWeaponsKey } from '@/persistence/cacheKeys';
 import { createShieldKeysetQuery } from '@/infrastructure/searchQueries/equipment/shields/createShieldKeysetQuery';
 import { createInventoryItemKeysetQuery } from '@/infrastructure/searchQueries/equipment/inventory/createInventoryItemKeysetQuery';
 import { createMountKeysetQuery } from '@/infrastructure/searchQueries/equipment/mounts/createMountKeysetQuery';
 import { createWeaponKeysetQuery } from '@/infrastructure/searchQueries/equipment/weapons/createWeaponKeysetQuery';
+import StyleFilter from '@/common/components/filters/StyleFilter';
 
 export default function EditEquipmentView(input: { character: Character })
 {
@@ -60,6 +61,7 @@ export default function EditEquipmentView(input: { character: Character })
   const [importedShieldIds, setImportedShieldIds] = useState<Set<string>>(new Set());
   const [importedInventoryIds, setImportedInventoryIds] = useState<Set<string>>(new Set());
   const [importedMountIds, setImportedMountIds] = useState<Set<string>>(new Set());
+  const [weaponStyleFilter, setWeaponStyleFilter] = useState<Style | "All">("All");
   const prevIsPendingRef = useRef(isPending);
 
   useEffect(() =>
@@ -270,8 +272,23 @@ export default function EditEquipmentView(input: { character: Character })
               isPending={isPending}
               currentItemsIds={weapons.map(weapon => weapon.id)}
               renderItem={renderWeaponItem}
-              createKeysetSearchKey={createKeysetSearchWeaponsKeyWithoutStyle}
-              createKeysetQuery={createWeaponKeysetQuery}
+              renderHeaderContent={({ clearResults }) => (
+                <StyleFilter
+                  selectedStyle={weaponStyleFilter}
+                  onStyleChange={style =>
+                  {
+                    clearResults();
+                    setWeaponStyleFilter(style);
+                  }}
+                  styles={allowedStyles}
+                />
+              )}
+              createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createKeysetSearchWeaponsKey(searchQuery, cursor, includeTags, pageSize, weaponStyleFilter, excludeTags)
+              }
+              createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createWeaponKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags, weaponStyleFilter)
+              }
               entityType="weapons"
             />
           </ItemsView>
@@ -293,8 +310,12 @@ export default function EditEquipmentView(input: { character: Character })
               isPending={isPending}
               currentItemsIds={armors.map(armor => armor.id)}
               renderItem={renderArmorItem}
-              createKeysetQuery={createArmorKeysetQuery}
-              createKeysetSearchKey={createKeysetSearchArmorsKey}
+              createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createArmorKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
+              createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createKeysetSearchArmorsKey(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
               entityType="armors"
             />
           </ItemsView>
@@ -316,8 +337,12 @@ export default function EditEquipmentView(input: { character: Character })
               isPending={isPending}
               currentItemsIds={shields.map(shield => shield.id)}
               renderItem={renderShieldItem}
-              createKeysetQuery={createShieldKeysetQuery}
-              createKeysetSearchKey={createKeysetSearchShieldsKey}
+              createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createShieldKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
+              createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createKeysetSearchShieldsKey(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
               entityType="shields"
             />
           </ItemsView>
@@ -339,8 +364,12 @@ export default function EditEquipmentView(input: { character: Character })
               isPending={isPending}
               currentItemsIds={inventory.map(item => item.id)}
               renderItem={renderInventoryItem}
-              createKeysetQuery={createInventoryItemKeysetQuery}
-              createKeysetSearchKey={createKeysetSearchInventoryKey}
+              createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createInventoryItemKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
+              createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createKeysetSearchInventoryKey(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
               entityType="inventory"
             />
           </ItemsView>
@@ -362,8 +391,12 @@ export default function EditEquipmentView(input: { character: Character })
               isPending={isPending}
               currentItemsIds={mounts.map(mount => mount.id)}
               renderItem={renderMountItem}
-              createKeysetQuery={createMountKeysetQuery}
-              createKeysetSearchKey={createKeysetSearchMountsKey}
+              createKeysetQuery={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createMountKeysetQuery(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
+              createKeysetSearchKey={({ searchQuery, cursor, includeTags, pageSize, excludeTags }) =>
+                createKeysetSearchMountsKey(searchQuery, cursor, includeTags, pageSize, excludeTags)
+              }
               entityType="mounts"
             />
           </ItemsView>
