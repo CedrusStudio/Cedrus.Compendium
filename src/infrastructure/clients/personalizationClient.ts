@@ -1,5 +1,5 @@
 import client from '@/infrastructure/clients/baseClient';
-import type { PersonalizationProfile } from '@/persistence/slices/personalizationSlice';
+import type { PersonalizationProfile } from '@/common/personalization/personalizationProfile';
 
 const personalizationClient = {
   async getProfile(): Promise<PersonalizationProfile | null>

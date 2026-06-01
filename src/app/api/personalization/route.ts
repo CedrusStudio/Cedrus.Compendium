@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { adminApiKeys } from '@/lib/env';
 import { hashApiKey } from '@/lib/apiKeyHash';
 import prisma from '@/lib/prisma';
-import { sanitizeProfile } from '@/persistence/slices/personalizationSlice';
+import { sanitizeProfile } from '@/common/personalization/personalizationProfile';
 import { API_KEY_HEADER } from '@/proxy';
 
 function getValidatedApiKey(request: Request): string | Response

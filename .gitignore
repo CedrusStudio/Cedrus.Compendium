@@ -48,3 +48,5 @@ next-env.d.ts
 /src/generated/prisma
 /.vs
 .next-build.log
+.next-build-step1.log
+.next-build-step2.log

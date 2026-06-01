@@ -5,7 +5,7 @@ import { Input } from "@/common/components/ui/input";
 import TagFilter from "@/common/components/filters/TagFilter";
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
 import { MAX_GRADE_FILTER, MIN_GRADE_FILTER } from '@/common/global/gradeFilter';
-import { PersonalizationContext } from '@/persistence/slices/personalizationSlice';
+import { type PersonalizationContext } from '@/common/personalization/personalizationProfile';
 
 type ListHeaderProps = 
 {

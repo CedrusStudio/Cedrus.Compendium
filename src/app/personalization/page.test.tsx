@@ -98,6 +98,9 @@ describe('PersonalizationPage', () => {
     expect(screen.getByText('Marek')).toBeTruthy();
     expect(screen.queryByRole('link', { name: 'Zarzadzaj tagami' })).toBeNull();
     expect(screen.getByRole('link', { name: 'Wroc do strony glownej' }).getAttribute('href')).toBe('/');
+  expect(screen.queryByText('Import i eksport')).toBeNull();
+  expect(screen.queryByRole('button', { name: 'Eksportuj konfiguracje JSON' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'Importuj konfiguracje JSON' })).toBeNull();
 
     fireEvent.change(screen.getByPlaceholderText('Nazwa użytkownika dla tego API key'), { target: { value: 'Anna' } });
     fireEvent.click(screen.getByRole('button', { name: 'Zapisz nazwę' }));
@@ -449,109 +452,6 @@ describe('PersonalizationPage', () => {
     fireEvent.click(await screen.findByText('cursed'));
 
     expect(addQuickExcludeTag).toHaveBeenCalledWith('characters', 'cursed');
-  });
-
-  it('exports the active profile as a JSON file', () => {
-    const createObjectURL = vi.fn(() => 'blob:personalization');
-    const revokeObjectURL = vi.fn();
-    const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
-
-    Object.defineProperty(URL, 'createObjectURL', {
-      writable: true,
-      value: createObjectURL,
-    });
-    Object.defineProperty(URL, 'revokeObjectURL', {
-      writable: true,
-      value: revokeObjectURL,
-    });
-
-    usePersonalizationMock.mockReturnValue({
-      apiKey: 'alpha',
-      hasApiKey: true,
-      isLoaded: true,
-      profile: {
-        ...createEmptyProfile(),
-        userName: 'Marek',
-      },
-      setUserName: vi.fn(),
-      setBestiaryColumnVisibility: vi.fn(),
-      clearBestiaryColumnVisibility: vi.fn(),
-      addQuickTag: vi.fn(),
-      removeQuickTag: vi.fn(),
-      addFavoriteCharacter: vi.fn(),
-      removeFavoriteCharacter: vi.fn(),
-      setMainCharacter: vi.fn(),
-      addQuickLink: vi.fn(),
-      removeQuickLink: vi.fn(),
-      updateQuickLink: vi.fn(),
-    });
-
-    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
-
-    render(<PersonalizationPage />);
-
-    fireEvent.click(screen.getByRole('button', { name: 'Eksportuj konfiguracje JSON' }));
-
-    expect(createObjectURL).toHaveBeenCalledTimes(1);
-    expect(clickSpy).toHaveBeenCalledTimes(1);
-    expect(revokeObjectURL).toHaveBeenCalledWith('blob:personalization');
-    expect(sonnerMocks.success).toHaveBeenCalledWith('Wyeksportowano konfiguracje aktywnego profilu do pliku JSON.');
-
-    clickSpy.mockRestore();
-  });
-
-  it('imports a JSON configuration into the active profile', async () => {
-    const replaceProfile = vi.fn();
-    const fileContents = JSON.stringify({
-      format: 'cedrus-personalization-profile',
-      version: 1,
-      profile: {
-        userName: 'Anna',
-        favoriteCharacterIds: ['character-1'],
-        mainCharacterId: 'character-1',
-      },
-    });
-
-    usePersonalizationMock.mockReturnValue({
-      apiKey: 'alpha',
-      hasApiKey: true,
-      isLoaded: true,
-      profile: createEmptyProfile(),
-      setUserName: vi.fn(),
-      setBestiaryColumnVisibility: vi.fn(),
-      clearBestiaryColumnVisibility: vi.fn(),
-      addQuickTag: vi.fn(),
-      removeQuickTag: vi.fn(),
-      addFavoriteCharacter: vi.fn(),
-      removeFavoriteCharacter: vi.fn(),
-      setMainCharacter: vi.fn(),
-      addQuickLink: vi.fn(),
-      removeQuickLink: vi.fn(),
-      updateQuickLink: vi.fn(),
-      replaceProfile,
-    });
-
-    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
-
-    render(<PersonalizationPage />);
-
-    const importInput = screen.getByLabelText('Importuj konfiguracje JSON');
-    const file = new File([fileContents], 'profile.json', { type: 'application/json' });
-
-    Object.defineProperty(file, 'text', {
-      writable: true,
-      value: vi.fn().mockResolvedValue(fileContents),
-    });
-
-    fireEvent.change(importInput, { target: { files: [file] } });
-
-    await waitFor(() => expect(replaceProfile).toHaveBeenCalledWith({
-      ...createEmptyProfile(),
-      userName: 'Anna',
-      favoriteCharacterIds: ['character-1'],
-      mainCharacterId: 'character-1',
-    }));
-    expect(sonnerMocks.success).toHaveBeenCalledWith('Zaimportowano konfiguracje dla aktywnego API key.');
   });
 
   it('cancels quick link edit state when deleting the link being edited', () => {

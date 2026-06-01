@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useApiKey } from '@/common/hooks/useApiKey';
+import { createEmptyProfile, type PersonalizationContext, type PersonalizationProfile, type QuickLink } from '@/common/personalization/personalizationProfile';
 import personalizationClient from '@/infrastructure/clients/personalizationClient';
 import { AppDispatch, RootState } from '@/persistence/slices/store';
-import { actions, createEmptyProfile, PersonalizationContext, PersonalizationProfile, QuickLink } from '@/persistence/slices/personalizationSlice';
+import { actions } from '@/persistence/slices/personalizationSlice';
 import { BestiaryColumnPreferenceKey } from '@/application/bestiary/bestiaryColumnPreferences';
 
 const EMPTY_PROFILE_JSON = JSON.stringify(createEmptyProfile());
