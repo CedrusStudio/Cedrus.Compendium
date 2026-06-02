@@ -28,7 +28,7 @@ type EditCharacterCombatProps =
 
 export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
-  const { form, handleSubmit, isPending, formId } = useCharacterForm<CombatDto>
+  const { form, handleSubmit, isPending, isSuccess, formId } = useCharacterForm<CombatDto>
   ({
     characterId: character.id,
     schema: combatSchema,
@@ -72,18 +72,18 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         />
 
         <div className="grid gap-3 lg:grid-cols-2">
-          <EditStancesCard isPending={isPending} />
-          <EditStatesCard isPending={isPending} />
+          <EditStancesCard isPending={isPending} isSuccess={isSuccess} initialStances={character.stances} />
+          <EditStatesCard isPending={isPending} isSuccess={isSuccess} initialStates={character.states} />
         </div>
 
-        <EditManeuversCard isPending={isPending} />
+        <EditManeuversCard isPending={isPending} isSuccess={isSuccess} initialManeuvers={character.maneuvers} />
 
         <EditArraySection<CombatDto, "powers">
           title={displayedText.powers}
           fieldArray={useFieldArray({ name: "powers", control: form.control })}
           createDefault={CreateDefaultPower}
           isPending={isPending}
-          renderItem={(power, index, remove) => <EditPowerCard key={power.id} power={power} isPending={isPending} index={index} remove={remove} /> }
+          renderItem={(power, index, remove) => <EditPowerCard key={power.id} power={power} isPending={isPending} isSuccess={isSuccess} index={index} remove={remove} /> }
           gridCols={1}
         />
 

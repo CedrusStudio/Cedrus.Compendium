@@ -307,6 +307,8 @@ export const translations_plPL =
     currentHealth: "Bieżące zdrowie",
     nameRequired: "Imię jest wymagane",
     changesSaved: "Zmiany zapisane",
+    added: "Dodano",
+    restore: "przywróć",
     removed: "usunięto",
     initiativeGrade: "Ranga kości inicjatywy",
     editInitiative: "Edytuj inicjatywę",

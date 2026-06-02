@@ -20,6 +20,7 @@ type UseCharacterFormReturn<TFormData extends FieldValues> =
   form: UseFormReturn<TFormData>;
   handleSubmit: (data: TFormData) => void;
   isPending: boolean;
+  isSuccess: boolean;
   formId?: string;
 };
 
@@ -34,7 +35,7 @@ export function useCharacterForm<TFormData extends FieldValues>(input : UseChara
     mode: input.formMode || "onBlur",
   });
 
-  const { handleSubmit, isPending } = useFormMutation
+  const { handleSubmit, isPending, isSuccess } = useFormMutation
   (
     async (data: TFormData) => await input.updateFn(input.characterId, data),
     {
@@ -47,6 +48,7 @@ export function useCharacterForm<TFormData extends FieldValues>(input : UseChara
     form,
     handleSubmit,
     isPending,
+    isSuccess,
     formId: input.formId,
   };
 }

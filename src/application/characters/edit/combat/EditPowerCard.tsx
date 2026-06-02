@@ -16,8 +16,9 @@ import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import SpellView from "@/application/compendium/spells/SpellView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import RemovedBadge from '@/common/components/labels/RemovedBadge';
 import SummaryView from '@/application/common/SummaryView';
 import EditCharacterCombatPerkSheet from '@/application/characters/edit/combat/EditCharacterCombatPerkSheet';
 import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
@@ -36,6 +37,8 @@ import { FormField, FormItem, FormMessage } from '@/ui/form';
 import CastTimeFilter from '@/common/components/filters/CastTimeFilter';
 import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
 import { type CastTime } from '@/domain/characters/Castable';
+import RestoreItemButton from '@/common/components/form/RestoreItemButton';
+import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
 type EditPowersCardProps =
 {
@@ -43,19 +46,50 @@ type EditPowersCardProps =
   power: Power;
   remove: UseFieldArrayRemove;
   isPending: boolean;
+  isSuccess: boolean;
 }
 
-export default function EditPowerCard({ index, power, remove, isPending }: EditPowersCardProps)
+const cloneSpell = (spell: Spell): Spell =>
+({
+  id: spell.id,
+  name: spell.name,
+  grade: spell.grade,
+  description: spell.description,
+  requirements: [...spell.requirements],
+  price: spell.price,
+  tags: [...spell.tags],
+  castTime: spell.castTime,
+  cooldown: spell.cooldown,
+  cost: spell.cost
+});
+
+export default function EditPowerCard({ index, power, remove, isPending, isSuccess }: EditPowersCardProps)
 {
   const { control, setValue } = useFormContext<CombatDto>();
   const powerSpecificationFieldPath = pathToPowerField(index, 'powerSpecificationId');
   const { remove: removeSpell, watchedArray: spells, append: appendSpell } = useWatchedFormArray(pathToPowerField(index, 'spells'), control);
-  const [importedSpellIds, setImportedSpellIds] = useState<Set<string>>(new Set());
   const [selectSpecOpen, setSelectSpecOpen] = useState(false);
   const [spellGradeFilter, setSpellGradeFilter] = useState("");
   const [selectedSpellCastTimes, setSelectedSpellCastTimes] = useState<CastTime[]>([]);
-  const prevIsPendingRef = useRef(isPending);
   const selectedSpellGrade = parseGradeFilterInput(spellGradeFilter);
+  const {
+    importedIds,
+    registerImportedItems,
+    removedItemIds,
+    removedItems,
+    removeItemAtIndex,
+    removeItemById,
+    restoreRemovedItem,
+  } = useDraftRemovableItems<Spell>
+  ({
+    items: spells,
+    initialItems: power.spells,
+    isPending,
+    isSuccess,
+    append: appendSpell,
+    remove: removeSpell,
+    cloneItem: cloneSpell,
+  });
 
   // Watch the powerSpecificationId field to react to form changes
   const watchedPowerSpecId = useWatch
@@ -73,16 +107,6 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
     staleTime: 5_000
   });
 
-  useEffect(() =>
-  {
-    // Clear imported IDs when submission completes (isPending: true → false)
-    if (prevIsPendingRef.current && !isPending)
-    {
-      setImportedSpellIds(new Set());
-    }
-    prevIsPendingRef.current = isPending;
-  }, [isPending]);
-
   const handleSelectSpecification = (spec: PowerSpecification) => 
   {
     setValue(powerSpecificationFieldPath, spec.id, { shouldDirty: true, shouldValidate: true, shouldTouch: true });
@@ -90,36 +114,13 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
   const handleImportSpells = (importedSpells: Spell[]) => 
   {
-    importedSpells.forEach(spell => 
-    {
-      appendSpell({ 
-        id: spell.id,
-        name: spell.name,
-        grade: spell.grade,
-        description: spell.description,
-        requirements: [...spell.requirements],
-        price: spell.price,
-        tags: [...spell.tags],
-
-        castTime: spell.castTime,
-        cooldown: spell.cooldown,
-
-        cost: spell.cost
-      });
-    });
-    
-    setImportedSpellIds(prev => 
-    {
-      const newSet = new Set(prev);
-      importedSpells.forEach(spell => newSet.add(spell.id));
-      return newSet;
-    });
+    registerImportedItems(importedSpells);
   };
 
-  const renderSpellItem = (spell: Spell, isSelected: boolean, onToggle: (id: string) => void) => 
+  const renderSpellItem = (spell: Spell, isSelected: boolean, onToggle: (id: string) => void, itemState: 'available' | 'selected' | 'owned' | 'removed') => 
   {
     return (
-      <SelectableItemWrapper key={spell.id} isSelected={isSelected} onToggle={() => onToggle(spell.id)} cannotSelect={spells.map(spell => spell.id).includes(spell.id)}>
+      <SelectableItemWrapper key={spell.id} isSelected={isSelected} onToggle={() => onToggle(spell.id)} state={itemState}>
         <SpellView spell={spell} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -213,6 +214,9 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
               onImport={handleImportSpells}
               isPending={isPending}
               currentItemsIds={spells.map(spell => spell.id)}
+              removedItemsIds={removedItemIds}
+              onToggleCurrentItem={removeItemById}
+              onToggleRemovedItem={restoreRemovedItem}
               renderItem={renderSpellItem}
               gradeFilter={spellGradeFilter}
               onGradeFilterChange={value => setSpellGradeFilter(normalizeGradeFilterInput(value))}
@@ -239,7 +243,10 @@ export default function EditPowerCard({ index, power, remove, isPending }: EditP
 
           <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
           {
-            spells.map((spell, spellIndex) => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={spellIndex} remove={removeSpell} isImported={importedSpellIds.has(spell.id)} />) 
+            spells.map((spell, spellIndex) => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={spellIndex} onRemove={() => removeItemAtIndex(spellIndex)} isImported={importedIds.has(spell.id)} isRemoved={false} />) 
+          }
+          {
+            removedItems.map(spell => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={-1} onRestore={() => restoreRemovedItem(spell.id)} isImported={false} isRemoved={true} />)
           }
           </div>
         </div>
@@ -271,17 +278,19 @@ type EditSpellViewProps =
   spell: Spell;
   powerIndex: number;
   spellIndex: number;
-  remove: UseFieldArrayRemove;
   isImported: boolean;
+  isRemoved: boolean;
+  onRemove?: () => void;
+  onRestore?: () => void;
 }
 
-function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: EditSpellViewProps)
+function EditSpellView({ spell, powerIndex, spellIndex, isImported, isRemoved, onRemove, onRestore }: EditSpellViewProps)
 {
   return (
     <PerkableEditView>
 
       <SummaryView entity={spell} tagsVariant="outline" />
-      <ImportedBadge isImported={isImported} />
+      {isRemoved ? <RemovedBadge /> : <ImportedBadge isImported={isImported} />}
 
       <div className="flex flex-row gap-2">
         <Badge variant="cost" className="h-9 w-14 capitalize ">
@@ -292,8 +301,8 @@ function EditSpellView({ spell, powerIndex, spellIndex, remove, isImported }: Ed
           {cooldownIcon()}
           <span>{spell.cooldown || battleIcon("scale-80")}</span>
         </Badge>
-        <RemoveFromArrayButton remove={remove} index={spellIndex} />
-        {!isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
+        {isRemoved ? <RestoreItemButton onRestore={onRestore ?? (() => {})} /> : <RemoveFromArrayButton onRemove={onRemove} />}
+        {!isRemoved && !isImported && <EditSpellSheet spellIndex={spellIndex} powerIndex={powerIndex} />}
       </div>
 
     </PerkableEditView>
