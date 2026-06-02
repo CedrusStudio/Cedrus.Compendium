@@ -11,67 +11,70 @@ import TagsView from "@/common/components/tags/TagsView";
 import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
 import PerkView from "@/application/compendium/perks/PerkView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import RemovedBadge from '@/common/components/labels/RemovedBadge';
 import PerkEditableFields from "@/application/common/PerkEditableFields";
 import { createPerkKeysetQuery } from "@/infrastructure/searchQueries/perks/createPerkKeysetQuery";
 import { createKeysetSearchPerksKey } from "@/persistence/cacheKeys";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
+import RestoreItemButton from '@/common/components/form/RestoreItemButton';
+import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
 type EditPerksListProps =
 {
   isPending: boolean;
+  isSuccess: boolean;
+  initialPerks: Perk[];
   perks: FieldArrayWithId<DetailsDto, "perks">[];
   append: UseFieldArrayAppend<DetailsDto, "perks">;
   remove: UseFieldArrayRemove;
 }
 
-export default function EditPerksList({ isPending, perks, append, remove }: EditPerksListProps)
-{
-  const [importedPerkIds, setImportedPerkIds] = useState<Set<string>>(new Set());
-  const [gradeFilter, setGradeFilter] = useState("");
-  const prevIsPendingRef = useRef(isPending);
-  const selectedGrade = parseGradeFilterInput(gradeFilter);
+const clonePerk = (perk: Perk): Perk =>
+({
+  id: perk.id,
+  name: perk.name,
+  grade: perk.grade,
+  description: perk.description,
+  requirements: [...perk.requirements],
+  price: perk.price,
+  tags: [...perk.tags]
+});
 
-  useEffect(() =>
-  {
-    // Clear imported IDs when submission completes (isPending: true → false)
-    if (prevIsPendingRef.current && !isPending)
-    {
-      setImportedPerkIds(new Set());
-    }
-    prevIsPendingRef.current = isPending;
-  }, [isPending]);
+export default function EditPerksList({ isPending, isSuccess, initialPerks, perks, append, remove }: EditPerksListProps)
+{
+  const [gradeFilter, setGradeFilter] = useState("");
+  const selectedGrade = parseGradeFilterInput(gradeFilter);
+  const {
+    importedIds,
+    registerImportedItems,
+    removedItemIds,
+    removedItems,
+    removeItemAtIndex,
+    removeItemById,
+    restoreRemovedItem,
+  } = useDraftRemovableItems<Perk>
+  ({
+    items: perks,
+    initialItems: initialPerks,
+    isPending,
+    isSuccess,
+    append,
+    remove,
+    cloneItem: clonePerk,
+  });
 
   const handleImportPerks = (importedPerks: Perk[]) => 
   {
-    importedPerks.forEach(perk => 
-    {
-      append
-      ({ 
-        id: perk.id,
-        name: perk.name,
-        grade: perk.grade,
-        description: perk.description,
-        requirements: [...perk.requirements],
-        price: perk.price,
-        tags: [...perk.tags]
-      });
-    });
-    
-    setImportedPerkIds(prev => 
-    {
-      const newSet = new Set(prev);
-      importedPerks.forEach(perk => newSet.add(perk.id));
-      return newSet;
-    });
+    registerImportedItems(importedPerks);
   };
 
-  const renderPerkItem = (perk: Perk, isSelected: boolean, onToggle: (id: string) => void) => 
+  const renderPerkItem = (perk: Perk, isSelected: boolean, onToggle: (id: string) => void, itemState: 'available' | 'selected' | 'owned' | 'removed') => 
   {
     return (
-      <SelectableItemWrapper key={perk.id} isSelected={isSelected} onToggle={() => onToggle(perk.id)} cannotSelect={perks.map(perk => perk.id).includes(perk.id)}>
+      <SelectableItemWrapper key={perk.id} isSelected={isSelected} onToggle={() => onToggle(perk.id)} state={itemState}>
         <PerkView perk={perk} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -98,6 +101,9 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
             onImport={handleImportPerks}
             isPending={isPending}
             currentItemsIds={perks.map(perk => perk.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
             renderItem={renderPerkItem}
             gradeFilter={gradeFilter}
             onGradeFilterChange={value => setGradeFilter(normalizeGradeFilterInput(value))}
@@ -117,7 +123,14 @@ export default function EditPerksList({ isPending, perks, append, remove }: Edit
       {
         perks.map((perk, index) => (
           <li key={index} className="text-md text-primary">
-            <EditPerkView perk={perk} index={index} remove={remove} isImported={importedPerkIds.has(perk.id)} />
+            <EditPerkView perk={perk} index={index} onRemove={() => removeItemAtIndex(index)} isImported={importedIds.has(perk.id)} isRemoved={false} />
+          </li>
+        ))
+      }
+      {
+        removedItems.map(perk => (
+          <li key={perk.id} className="text-md text-primary">
+            <EditPerkView perk={perk} index={-1} onRestore={() => restoreRemovedItem(perk.id)} isImported={false} isRemoved={true} />
           </li>
         ))
       }
@@ -130,18 +143,20 @@ type EditPerkViewProps =
 {
   perk: Perk;
   index: number;
-  remove: UseFieldArrayRemove;
   isImported: boolean;
+  isRemoved: boolean;
+  onRemove?: () => void;
+  onRestore?: () => void;
 };
 
-function EditPerkView({ perk, index, remove, isImported }: EditPerkViewProps)
+function EditPerkView({ perk, index, isImported, isRemoved, onRemove, onRestore }: EditPerkViewProps)
 {
   return (
-    <Item variant="muted">
+    <Item variant="muted" className={isRemoved ? 'opacity-70' : undefined}>
       <ItemContent>
         <ItemTitle>
           {perk.name} {perk.grade} <TagsView tags={perk.tags} />
-          <ImportedBadge isImported={isImported} />
+          {isRemoved ? <RemovedBadge /> : <ImportedBadge isImported={isImported} />}
         </ItemTitle>
         <ItemDescription>
             {perk.description}
@@ -149,8 +164,8 @@ function EditPerkView({ perk, index, remove, isImported }: EditPerkViewProps)
       </ItemContent>
 
       <ItemActions>
-        <RemoveFromArrayButton remove={remove} index={index} />
-        {!isImported && <EditPerkSheet index={index} />}
+        {isRemoved ? <RestoreItemButton onRestore={onRestore ?? (() => {})} /> : <RemoveFromArrayButton onRemove={onRemove} />}
+        {!isRemoved && !isImported && <EditPerkSheet index={index} />}
       </ItemActions>
     </Item>
   );

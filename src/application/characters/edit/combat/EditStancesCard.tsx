@@ -11,61 +11,64 @@ import { displayedText } from '@/common/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import StanceView from "@/application/compendium/stances/StanceView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { createKeysetSearchStancesKey } from '@/persistence/cacheKeys';
 import { createStanceKeysetQuery } from '@/infrastructure/searchQueries/stances/createStanceKeysetQuery';
 import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
+import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
 type EditStancesCardProps = 
 {
   isPending: boolean;
+  isSuccess: boolean;
+  initialStances: Mode[];
 }
 
-export default function EditStancesCard({ isPending }: EditStancesCardProps) 
+const cloneMode = (mode: Mode): Mode =>
+({
+  id: mode.id,
+  name: mode.name,
+  grade: mode.grade,
+  description: mode.description,
+  requirements: [...mode.requirements],
+  price: mode.price,
+  tags: [...mode.tags]
+});
+
+export default function EditStancesCard({ isPending, isSuccess, initialStances }: EditStancesCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
-  const [importedStanceIds, setImportedStanceIds] = useState<Set<string>>(new Set());
   const [gradeFilter, setGradeFilter] = useState("");
-  const prevIsPendingRef = useRef(isPending);
   const selectedGrade = parseGradeFilterInput(gradeFilter);
-
-  useEffect(() =>
-  {
-    // Clear imported IDs when submission completes (isPending: true → false)
-    if (prevIsPendingRef.current && !isPending)
-    {
-      setImportedStanceIds(new Set());
-    }
-    prevIsPendingRef.current = isPending;
-  }, [isPending]);
+  const {
+    importedIds,
+    registerImportedItems,
+    removedItemIds,
+    removedItems,
+    removeItemAtIndex,
+    removeItemById,
+    restoreRemovedItem,
+  } = useDraftRemovableItems<Mode>
+  ({
+    items: watchedArray,
+    initialItems: initialStances,
+    isPending,
+    isSuccess,
+    append,
+    remove,
+    cloneItem: cloneMode,
+  });
 
   const handleImportStances = (importedStances: Mode[]) => 
   {
-    importedStances.forEach(stance => 
-    {
-      append({ 
-        id: stance.id,
-        name: stance.name,
-        grade: stance.grade,
-        description: stance.description,
-        requirements: [...stance.requirements],
-        price: stance.price,
-        tags: [...stance.tags]
-      });
-    });
-    
-    setImportedStanceIds(prev => {
-      const newSet = new Set(prev);
-      importedStances.forEach(stance => newSet.add(stance.id));
-      return newSet;
-    });
+    registerImportedItems(importedStances);
   };
 
-  const renderStanceItem = (stance: Mode, isSelected: boolean, onToggle: (id: string) => void) => 
+  const renderStanceItem = (stance: Mode, isSelected: boolean, onToggle: (id: string) => void, itemState: 'available' | 'selected' | 'owned' | 'removed') => 
   {
     return (
-      <SelectableItemWrapper key={stance.id} isSelected={isSelected} onToggle={() => onToggle(stance.id)} cannotSelect={watchedArray.map(stance => stance.id).includes(stance.id)}>
+      <SelectableItemWrapper key={stance.id} isSelected={isSelected} onToggle={() => onToggle(stance.id)} state={itemState}>
         <StanceView stance={stance} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -85,6 +88,9 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
             onImport={handleImportStances}
             isPending={isPending}
             currentItemsIds={watchedArray.map(stance => stance.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
             renderItem={renderStanceItem}
             gradeFilter={gradeFilter}
             onGradeFilterChange={value => setGradeFilter(normalizeGradeFilterInput(value))}
@@ -107,8 +113,22 @@ export default function EditStancesCard({ isPending }: EditStancesCardProps)
             key={stance.id} 
             modeType='stances' 
             index={index} 
-            remove={remove}
-            isImported={importedStanceIds.has(stance.id)}
+            onRemove={() => removeItemAtIndex(index)}
+            isImported={importedIds.has(stance.id)}
+            isRemoved={false}
+          />
+        ))
+      }
+      {
+        removedItems.map(stance => (
+          <EditModeView
+            mode={stance}
+            key={stance.id}
+            modeType='stances'
+            index={-1}
+            onRestore={() => restoreRemovedItem(stance.id)}
+            isImported={false}
+            isRemoved={true}
           />
         ))
       }

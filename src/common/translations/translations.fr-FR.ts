@@ -307,6 +307,8 @@ export const translations_frFR =
     currentHealth: "Santé actuelle",
     nameRequired: "Le nom est requis",
     changesSaved: "Modifications enregistrées",
+    added: "Ajouté",
+    restore: "restaurer",
     removed: "supprimé",
     initiativeGrade: "Rang de dés d'initiative",
     editInitiative: "Modifier l'initiative",

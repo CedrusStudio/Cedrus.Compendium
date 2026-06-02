@@ -20,7 +20,7 @@ export default function EditDetailsView(input: { character: Character })
 {
     const { character } = input;
 
-    const { form, handleSubmit, isPending, formId } = useCharacterForm<DetailsDto>
+    const { form, handleSubmit, isPending, isSuccess, formId } = useCharacterForm<DetailsDto>
     ({
         characterId: character.id,
         schema: detailsSchema,
@@ -49,7 +49,7 @@ export default function EditDetailsView(input: { character: Character })
                   currentRaceId={character.race?.id ?? null}
                 />
                 <Separator className="my-4" />
-                <EditPerksList isPending={isPending} perks={perks} append={appendPerk} remove={removePerk} />
+                                <EditPerksList isPending={isPending} isSuccess={isSuccess} initialPerks={character.perks} perks={perks} append={appendPerk} remove={removePerk} />
                 <SubmitButton isPending={isPending} formName={formId} />
             </form>
         </Form>

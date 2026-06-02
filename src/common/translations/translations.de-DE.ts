@@ -307,6 +307,8 @@ export const translations_deDE =
     currentHealth: "Aktuelle Gesundheit",
     nameRequired: "Name ist erforderlich",
     changesSaved: "Änderungen gespeichert",
+    added: "Hinzugefügt",
+    restore: "wiederherstellen",
     removed: "entfernt",
     initiativeGrade: "Initiative Würfelrang",
     editInitiative: "Initiative bearbeiten",

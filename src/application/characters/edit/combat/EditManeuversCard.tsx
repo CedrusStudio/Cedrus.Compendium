@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { CreateDefaultManeuver, pathToManeuvers, type Maneuver } from "@/domain/characters/combat/Maneuver";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
-import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
@@ -14,8 +14,9 @@ import { getBadgeVariant } from '@/common/colors';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
+import RemovedBadge from '@/common/components/labels/RemovedBadge';
 import SummaryView from '@/application/common/SummaryView';
 import EditCharacterCombatPerkSheet from './EditCharacterCombatPerkSheet';
 import CastablePerkEditableFields from '@/application/common/combat/CastablePerkEditableFields';
@@ -25,61 +26,64 @@ import PerkableEditView from '@/application/characters/edit/combat/PerkableEditV
 import CastTimeFilter from '@/common/components/filters/CastTimeFilter';
 import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
 import { type CastTime } from '@/domain/characters/Castable';
+import RestoreItemButton from '@/common/components/form/RestoreItemButton';
+import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
 type EditManeuversCardProps = 
 {
   isPending: boolean;
+  isSuccess: boolean;
+  initialManeuvers: Maneuver[];
 }
 
-export default function EditManeuversCard({ isPending }: EditManeuversCardProps) 
+const cloneManeuver = (maneuver: Maneuver): Maneuver =>
+({
+  id: maneuver.id,
+  name: maneuver.name,
+  grade: maneuver.grade,
+  description: maneuver.description,
+  requirements: [...maneuver.requirements],
+  price: maneuver.price,
+  tags: [...maneuver.tags],
+  castTime: maneuver.castTime,
+  cooldown: maneuver.cooldown
+});
+
+export default function EditManeuversCard({ isPending, isSuccess, initialManeuvers }: EditManeuversCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
-  const [importedManeuverIds, setImportedManeuverIds] = useState<Set<string>>(new Set());
   const [maneuverGradeFilter, setManeuverGradeFilter] = useState("");
   const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>([]);
-  const prevIsPendingRef = useRef(isPending);
   const selectedGrade = parseGradeFilterInput(maneuverGradeFilter);
-
-  useEffect(() =>
-  {
-    // Clear imported IDs when submission completes (isPending: true → false)
-    if (prevIsPendingRef.current && !isPending)
-    {
-      setImportedManeuverIds(new Set());
-    }
-    prevIsPendingRef.current = isPending;
-  }, [isPending]);
+  const {
+    importedIds,
+    registerImportedItems,
+    removedItemIds,
+    removedItems,
+    removeItemAtIndex,
+    removeItemById,
+    restoreRemovedItem,
+  } = useDraftRemovableItems<Maneuver>
+  ({
+    items: watchedArray,
+    initialItems: initialManeuvers,
+    isPending,
+    isSuccess,
+    append,
+    remove,
+    cloneItem: cloneManeuver,
+  });
 
   const handleImportManeuvers = (importedManeuvers: Maneuver[]) => 
   {
-    importedManeuvers.forEach(maneuver => 
-    {
-      append({ 
-        id: maneuver.id,
-        name: maneuver.name,
-        grade: maneuver.grade,
-        description: maneuver.description,
-        requirements: [...maneuver.requirements],
-        price: maneuver.price,
-        tags: [...maneuver.tags],
-
-        castTime: maneuver.castTime,
-        cooldown: maneuver.cooldown
-      });
-    });
-    
-    setImportedManeuverIds(prev => {
-      const newSet = new Set(prev);
-      importedManeuvers.forEach(maneuver => newSet.add(maneuver.id));
-      return newSet;
-    });
+    registerImportedItems(importedManeuvers);
   };
 
-  const renderManeuverItem = (maneuver: Maneuver, isSelected: boolean, onToggle: (id: string) => void) => 
+  const renderManeuverItem = (maneuver: Maneuver, isSelected: boolean, onToggle: (id: string) => void, itemState: 'available' | 'selected' | 'owned' | 'removed') => 
   {
     return (
-      <SelectableItemWrapper key={maneuver.id} isSelected={isSelected} onToggle={() => onToggle(maneuver.id)} cannotSelect={watchedArray.map(maneuver => maneuver.id).includes(maneuver.id)}>
+      <SelectableItemWrapper key={maneuver.id} isSelected={isSelected} onToggle={() => onToggle(maneuver.id)} state={itemState}>
         <ManeuverView maneuver={maneuver} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -99,6 +103,9 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
             onImport={handleImportManeuvers}
             isPending={isPending}
             currentItemsIds={watchedArray.map(maneuver => maneuver.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
             renderItem={renderManeuverItem}
             gradeFilter={maneuverGradeFilter}
             onGradeFilterChange={value => setManeuverGradeFilter(normalizeGradeFilterInput(value))}
@@ -125,7 +132,10 @@ export default function EditManeuversCard({ isPending }: EditManeuversCardProps)
 
       <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 '>
       {
-        watchedArray.map((maneuver, index) => <EditManeuverView key={maneuver.id} maneuver={maneuver} index={index} remove={remove} isImported={importedManeuverIds.has(maneuver.id)} />)
+        watchedArray.map((maneuver, index) => <EditManeuverView key={maneuver.id} maneuver={maneuver} index={index} onRemove={() => removeItemAtIndex(index)} isImported={importedIds.has(maneuver.id)} isRemoved={false} />)
+      }
+      {
+        removedItems.map(maneuver => <EditManeuverView key={maneuver.id} maneuver={maneuver} index={-1} onRestore={() => restoreRemovedItem(maneuver.id)} isImported={false} isRemoved={true} />)
       }
       </CardContent>
 
@@ -137,25 +147,27 @@ type EditManeuverViewProps =
 {
   maneuver: Maneuver;
   index: number;
-  remove: UseFieldArrayRemove;
   isImported: boolean;
+  isRemoved: boolean;
+  onRemove?: () => void;
+  onRestore?: () => void;
 }
 
-function EditManeuverView({ maneuver, index, remove, isImported }: EditManeuverViewProps)
+function EditManeuverView({ maneuver, index, isImported, isRemoved, onRemove, onRestore }: EditManeuverViewProps)
 {
   return (
     <PerkableEditView>
 
       <SummaryView entity={maneuver} tagsVariant="outline" />
-      <ImportedBadge isImported={isImported} />
+      {isRemoved ? <RemovedBadge /> : <ImportedBadge isImported={isImported} />}
 
       <div className="flex flex-row gap-2">
         <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(maneuver.castTime)}>
           {cooldownIcon()}
           <span>{maneuver.cooldown || battleIcon("scale-80")}</span>
         </Badge>
-        <RemoveFromArrayButton remove={remove} index={index} />
-        {!isImported && <EditManeuverSheet index={index}/>}
+        {isRemoved ? <RestoreItemButton onRestore={onRestore ?? (() => {})} /> : <RemoveFromArrayButton onRemove={onRemove} />}
+        {!isRemoved && !isImported && <EditManeuverSheet index={index}/>}
       </div>
 
     </PerkableEditView>

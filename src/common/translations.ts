@@ -334,6 +334,8 @@ export const displayedText =
     currentHealth: translate("currentHealth"),
     nameRequired: translate("nameRequired"),
     changesSaved: translate("changesSaved"),
+    added: translate("added"),
+    restore: translate("restore"),
     removed: translate("removed"),
     initiativeGrade: translate("initiativeGrade"),
     editInitiative: translate("editInitiative"),

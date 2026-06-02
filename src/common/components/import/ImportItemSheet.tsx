@@ -18,6 +18,8 @@ const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
 const scrollableTargetId = 'import-sheet-scrollable';
 
+export type ImportItemState = 'available' | 'selected' | 'owned' | 'removed';
+
 type ImportSheetSearchParams =
 {
   searchQuery: string;
@@ -34,7 +36,10 @@ type ImportItemsSheetProps<TItem extends { id: string }> =
   onImport: (items: TItem[]) => void;
   isPending: boolean;
   currentItemsIds: string[];
-  renderItem: (item: TItem, isSelected: boolean, onToggle: (id: string) => void) => React.ReactNode;
+  removedItemsIds?: string[];
+  onToggleCurrentItem?: (id: string) => void;
+  onToggleRemovedItem?: (id: string) => void;
+  renderItem: (item: TItem, isSelected: boolean, onToggle: (id: string) => void, itemState: ImportItemState) => React.ReactNode;
   entityType: EntityType;
   createKeysetSearchKey: (params: ImportSheetSearchParams) => readonly unknown[];
   createKeysetQuery: (params: ImportSheetSearchParams) => SearchEntityPayload;
@@ -51,6 +56,9 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     onImport,
     isPending,
     currentItemsIds,
+    removedItemsIds = EMPTY_ARRAY,
+    onToggleCurrentItem,
+    onToggleRemovedItem,
     renderItem,
     entityType,
     createKeysetSearchKey,
@@ -74,6 +82,26 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags(entityType);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+
+  const getItemState = useCallback((itemId: string): ImportItemState =>
+  {
+    if (removedItemsIds.includes(itemId))
+    {
+      return 'removed';
+    }
+
+    if (currentItemsIds.includes(itemId))
+    {
+      return 'owned';
+    }
+
+    if (selectedItemsIds.has(itemId))
+    {
+      return 'selected';
+    }
+
+    return 'available';
+  }, [currentItemsIds, removedItemsIds, selectedItemsIds]);
 
   const searchParams: ImportSheetSearchParams =
   {
@@ -160,6 +188,20 @@ export default function ImportItemsSheet<TItem extends { id: string }>
 
   const handleToggleItem = (itemId: string) => 
   {
+    const itemState = getItemState(itemId);
+
+    if (itemState === 'owned')
+    {
+      onToggleCurrentItem?.(itemId);
+      return;
+    }
+
+    if (itemState === 'removed')
+    {
+      onToggleRemovedItem?.(itemId);
+      return;
+    }
+
     setSelectedItemsIds(prev => 
     {
       const newSet = new Set(prev);
@@ -175,7 +217,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     });
   };
 
-  const availableItems = displayedItems.filter(p => !currentItemsIds.includes(p.id));
+  const availableItems = displayedItems.filter(item => getItemState(item.id) === 'available');
 
   const handleToggleAll = () => 
   {
@@ -201,8 +243,8 @@ export default function ImportItemsSheet<TItem extends { id: string }>
   };
 
   const selectedCount = selectedItemsIds.size;
-  const allSelected = displayedItems.length > 0 && selectedItemsIds.size === displayedItems.length;
-  const visibleSelectedCount = displayedItems.filter(p => selectedItemsIds.has(p.id)).length;
+  const allSelected = availableItems.length > 0 && availableItems.every(item => selectedItemsIds.has(item.id));
+  const visibleSelectedCount = displayedItems.filter(item => selectedItemsIds.has(item.id)).length;
   const hiddenSelectedCount = selectedCount - visibleSelectedCount;
   const headerContent = renderHeaderContent?.({ clearResults });
   const actionButtons = (
@@ -264,7 +306,7 @@ export default function ImportItemsSheet<TItem extends { id: string }>
               if (displayedItems.length > 0) setCursor(displayedItems[displayedItems.length - 1].id);
             }}
             hasMore={hasMore}
-            renderItem={item => renderItem(item, selectedItemsIds.has(item.id), handleToggleItem)}
+            renderItem={item => renderItem(item, selectedItemsIds.has(item.id), handleToggleItem, getItemState(item.id))}
             scrollableTarget={scrollableTargetId}
           />
 

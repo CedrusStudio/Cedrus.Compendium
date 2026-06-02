@@ -1,4 +1,5 @@
 import { Badge } from "@/common/components/ui/badge";
+import { displayedText } from '@/common/translations';
 
 type ImportedBadgeProps = 
 {
@@ -14,7 +15,7 @@ export default function ImportedBadge({ isImported }: ImportedBadgeProps)
 
   return (
     <Badge variant="full" className="ml-2">
-      Imported
+      {displayedText.added}
     </Badge>
   );
 }

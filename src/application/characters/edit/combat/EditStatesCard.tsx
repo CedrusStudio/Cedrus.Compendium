@@ -11,61 +11,64 @@ import { displayedText } from '@/common/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import StateView from "@/application/compendium/states/StateView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { createKeysetSearchStatesKey } from '@/persistence/cacheKeys';
 import { createStateKeysetQuery } from '@/infrastructure/searchQueries/states/createStateKeysetQuery';
 import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
+import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
 type EditStatesCardProps = 
 {
   isPending: boolean;
+  isSuccess: boolean;
+  initialStates: Mode[];
 }
 
-export default function EditStatesCard({ isPending }: EditStatesCardProps) 
+const cloneMode = (mode: Mode): Mode =>
+({
+  id: mode.id,
+  name: mode.name,
+  grade: mode.grade,
+  description: mode.description,
+  requirements: [...mode.requirements],
+  price: mode.price,
+  tags: [...mode.tags]
+});
+
+export default function EditStatesCard({ isPending, isSuccess, initialStates }: EditStatesCardProps) 
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("states", control);
-  const [importedStateIds, setImportedStateIds] = useState<Set<string>>(new Set());
   const [gradeFilter, setGradeFilter] = useState("");
-  const prevIsPendingRef = useRef(isPending);
   const selectedGrade = parseGradeFilterInput(gradeFilter);
-
-  useEffect(() =>
-  {
-    // Clear imported IDs when submission completes (isPending: true → false)
-    if (prevIsPendingRef.current && !isPending)
-    {
-      setImportedStateIds(new Set());
-    }
-    prevIsPendingRef.current = isPending;
-  }, [isPending]);
+  const {
+    importedIds,
+    registerImportedItems,
+    removedItemIds,
+    removedItems,
+    removeItemAtIndex,
+    removeItemById,
+    restoreRemovedItem,
+  } = useDraftRemovableItems<Mode>
+  ({
+    items: watchedArray,
+    initialItems: initialStates,
+    isPending,
+    isSuccess,
+    append,
+    remove,
+    cloneItem: cloneMode,
+  });
 
   const handleImportStates = (importedStates: Mode[]) => 
   {
-    importedStates.forEach(state => 
-    {
-      append({ 
-        id: state.id,
-        name: state.name,
-        grade: state.grade,
-        description: state.description,
-        requirements: [...state.requirements],
-        price: state.price,
-        tags: [...state.tags]
-      });
-    });
-    
-    setImportedStateIds(prev => {
-      const newSet = new Set(prev);
-      importedStates.forEach(state => newSet.add(state.id));
-      return newSet;
-    });
+    registerImportedItems(importedStates);
   };
 
-  const renderStateItem = (state: Mode, isSelected: boolean, onToggle: (id: string) => void) => 
+  const renderStateItem = (state: Mode, isSelected: boolean, onToggle: (id: string) => void, itemState: 'available' | 'selected' | 'owned' | 'removed') => 
   {
     return (
-      <SelectableItemWrapper key={state.id} isSelected={isSelected} onToggle={() => onToggle(state.id)} cannotSelect={watchedArray.map(state => state.id).includes(state.id)}>
+      <SelectableItemWrapper key={state.id} isSelected={isSelected} onToggle={() => onToggle(state.id)} state={itemState}>
         <StateView state={state} disableEdit={true} />
       </SelectableItemWrapper>
     );
@@ -85,6 +88,9 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
             onImport={handleImportStates}
             isPending={isPending}
             currentItemsIds={watchedArray.map(state => state.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
             renderItem={renderStateItem}
             gradeFilter={gradeFilter}
             onGradeFilterChange={value => setGradeFilter(normalizeGradeFilterInput(value))}
@@ -107,8 +113,22 @@ export default function EditStatesCard({ isPending }: EditStatesCardProps)
             key={state.id} 
             modeType='states' 
             index={index} 
-            remove={remove}
-            isImported={importedStateIds.has(state.id)}
+            onRemove={() => removeItemAtIndex(index)}
+            isImported={importedIds.has(state.id)}
+            isRemoved={false}
+          />
+        ))
+      }
+      {
+        removedItems.map(state => (
+          <EditModeView
+            mode={state}
+            key={state.id}
+            modeType='states'
+            index={-1}
+            onRestore={() => restoreRemovedItem(state.id)}
+            isImported={false}
+            isRemoved={true}
           />
         ))
       }
