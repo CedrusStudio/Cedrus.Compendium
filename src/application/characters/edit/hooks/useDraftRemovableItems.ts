@@ -52,24 +52,12 @@ export function useDraftRemovableItems<TItem extends { id: string }>
       return;
     }
 
-    if (initialItemIdsRef.current.has(item.id))
+    setRemovedItemsById(prev =>
     {
-      setRemovedItemsById(prev =>
-      {
-        const next = new Map(prev);
-        next.set(item.id, cloneItem(item));
-        return next;
-      });
-    }
-    else
-    {
-      setImportedIds(prev =>
-      {
-        const next = new Set(prev);
-        next.delete(item.id);
-        return next;
-      });
-    }
+      const next = new Map(prev);
+      next.set(item.id, cloneItem(item));
+      return next;
+    });
 
     remove(index);
   }, [cloneItem, items, remove]);
