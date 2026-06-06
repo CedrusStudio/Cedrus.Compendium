@@ -18,9 +18,11 @@ import type { Character } from '@/domain/characters/Character';
 describe('bestiary drawer accessibility', () => {
   it('renders a drawer title and empty state for modes when the character has no stances or states', () => {
     const character = {
+      id: 'character-1',
+      name: 'Hero',
       stances: [],
       states: [],
-    } as Character;
+    } as unknown as Character;
 
     render(<CharacterModesViewDrawer character={character} open onOpenChange={vi.fn()} />);
 
@@ -30,8 +32,10 @@ describe('bestiary drawer accessibility', () => {
 
   it('renders a drawer title and empty state for maneuvers when the character has no maneuvers', () => {
     const character = {
+      id: 'character-1',
+      name: 'Hero',
       maneuvers: [],
-    } as Character;
+    } as unknown as Character;
 
     render(<CharacterManeuversViewDrawer character={character} open onOpenChange={vi.fn()} />);
 
@@ -41,8 +45,10 @@ describe('bestiary drawer accessibility', () => {
 
   it('renders a drawer title and empty state for spells when the character has no spells', () => {
     const character = {
+      id: 'character-1',
+      name: 'Hero',
       powers: [],
-    } as Character;
+    } as unknown as Character;
 
     render(<CharacterSpellsViewDrawer character={character} open onOpenChange={vi.fn()} />);
 

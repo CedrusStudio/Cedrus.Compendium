@@ -25,7 +25,7 @@ vi.mock('use-debounce', () => ({
 }));
 
 vi.mock('@/common/components/WithScroll', () => ({
-  WithScroll: ({ items, renderItem }: { items: unknown[]; renderItem: (item: unknown) => React.ReactNode }) => (
+  WithScroll: ({ items, renderItem }: { items: unknown[]; renderItem: (item: unknown, index: number) => React.ReactNode }) => (
     <div>{items.map((item, index) => renderItem(item, index))}</div>
   )
 }));
