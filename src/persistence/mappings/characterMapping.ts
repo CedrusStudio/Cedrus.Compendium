@@ -3,7 +3,7 @@ import { CreateDefaultDefense, Defense } from '@/domain/characters/combat/Defens
 import { Maneuver } from '@/domain/characters/combat/Maneuver';
 import { Mode } from '@/domain/characters/combat/Mode';
 import { CreateDefaultOffense, Offense } from '@/domain/characters/combat/Offense';
-import { Power, PowerSpecification, PowerType } from '@/domain/characters/combat/Power';
+import { normalizePowerType, Power, PowerSpecification } from '@/domain/characters/combat/Power';
 import { Perk } from '@/domain/characters/Perk';
 import { Talent, TalentPenalty } from '@/domain/characters/Talent';
 import { Prisma } from '@prisma/client';
@@ -250,6 +250,7 @@ export function toCharacterCombatPersistenceModel
     offenses: combat.offenses,
     powers: combat.powers.map(power => ({
       ...power,
+      type: normalizePowerType(power.type),
       spells: undefined,
       spellsIds: power.spells.map(spell => spell.id),
     })),
@@ -344,7 +345,7 @@ function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: Spel
     bonus: powerPersistenceModel.bonus,
     level: powerPersistenceModel.level,
     essence: powerPersistenceModel.essence,
-    type: powerPersistenceModel.type as PowerType,
+    type: normalizePowerType(powerPersistenceModel.type),
     spells: relatedSpell.map(toSpell),
     powerSpecificationId: powerPersistenceModel.powerSpecificationId
   };

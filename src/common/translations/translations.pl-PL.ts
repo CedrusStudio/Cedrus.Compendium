@@ -212,6 +212,7 @@ export const translations_plPL =
     error: "Błąd",
     perk: "atut",
     perks: "atuty",
+    wiez: "więź",
 
     type: "rodzaj",
     level: "poziom",

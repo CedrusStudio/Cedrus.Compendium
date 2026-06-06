@@ -1,10 +1,12 @@
 import { z } from "zod";
-import { allowedPowerTypes } from "@/domain/characters/combat/Power";
+import { acceptedPowerTypes, normalizePowerType } from "@/domain/characters/combat/Power";
 import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { castableSchema } from "@/persistence/schemas/characters/castableSchema";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
 import { weaponOffenseSchema, damageOffenseSchema } from "@/persistence/schemas/characters/combat/offenseSchema";
 import { tagsSchema } from "@/persistence/schemas/tagSchema";
+
+const powerTypeSchema = z.enum(acceptedPowerTypes).transform(normalizePowerType);
 
 export const spellSchema = perkSchema.extend
 ({
@@ -33,7 +35,7 @@ export const addPowerSpecificationSchema = powerSpecificationSchema.omit({ id: t
 
 export const powerSchema = entitySchema.extend
 ({
-  type: z.enum(allowedPowerTypes),
+  type: powerTypeSchema,
   level: z.coerce.number<number>().int().min(0, { message: "Poziom musi mieć co najmniej 0." }).max(20, { message: "Poziom musi być najwyżej 20." }),
   bonus: z.coerce.number<number>().int().min(0, { message: "Bonus musi mieć co najmniej 0." }).max(10, { message: "Bonus musi mieć najwyżej 10." }),
   essence: z.coerce.number<number>().int().min(0, { message: "Esencja musi mieć co najmniej 0." }).max(15_000, { message: "Esencja musi mieć najwyżej 15000." }),

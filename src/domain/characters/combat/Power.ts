@@ -33,8 +33,26 @@ export type PowerOffense =
 export type SpellDamage = DamageOffense;
 export type SpellOffense = WeaponOffense;
 
-export type PowerType = "arkana" | "wiara" | "moc" | "natura";
-export const allowedPowerTypes: PowerType[] = ["arkana", "wiara", "moc", "natura"];
+export const allowedPowerTypes = ["moc", "wiez"] as const;
+export const acceptedPowerTypes = ["moc", "wiez", "więź", "arkana", "wiara", "natura"] as const;
+
+export type PowerType = typeof allowedPowerTypes[number];
+
+export function normalizePowerType(rawType: string | null | undefined): PowerType
+{
+  if (!rawType) return 'moc';
+
+  const normalizedType = rawType.trim().toLowerCase();
+
+  if (normalizedType === 'moc') return 'moc';
+
+  if (normalizedType === 'więź' || normalizedType === 'wiez' || normalizedType === 'arkana' || normalizedType === 'wiara' || normalizedType === 'natura')
+  {
+    return 'wiez';
+  }
+
+  return 'moc';
+}
 
 export const pathToPowerField = <K extends keyof Power>(index: number, field: K): `powers.${number}.${K}` => `powers.${index}.${field}`;
 

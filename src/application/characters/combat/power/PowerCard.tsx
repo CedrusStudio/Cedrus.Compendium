@@ -204,7 +204,7 @@ export default function PowerCard({ power }: PowerCardProps)
             <div className="flex w-fit max-w-full flex-wrap place-items-center place-content-center gap-4">
               <span className="capitalize font-bold text-2xl text-primary">{power.name}</span>
               <Badge variant="outline" className="p-2 capitalize">
-                {power.type}
+                {displayedText[power.type as keyof typeof displayedText] || power.type}
               </Badge>
 
               <div className="flex flex-col items-center">

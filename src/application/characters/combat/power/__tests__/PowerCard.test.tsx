@@ -140,6 +140,14 @@ describe('PowerCard', () => {
     expect(useSpellButton).toBeDisabled();
   });
 
+  it('renders więź as the visible power type label for wiez type', () => {
+    useQueryMock.mockReturnValue({ data: createPowerSpecification() });
+
+    renderWithProviders(<PowerCard power={createPower({ type: 'wiez' })} />);
+
+    expect(screen.getByText('więź')).toBeInTheDocument();
+  });
+
   it('allows using different spells in the same turn', async () => {
     useQueryMock.mockReturnValue({ data: createPowerSpecification() });
     const user = userEvent.setup();

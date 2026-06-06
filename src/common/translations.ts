@@ -239,6 +239,7 @@ export const displayedText =
     error: translate("error"),
     perk: translate("perk"),
     perks: translate("perks"),
+    wiez: translate("wiez"),
 
     type: translate("type"),
     level: translate("level"),
