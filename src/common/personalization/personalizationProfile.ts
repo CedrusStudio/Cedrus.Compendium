@@ -1,6 +1,6 @@
 import { BestiaryColumnPreferenceKey, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
 
-export const MAX_QUICK_TAGS_PER_CONTEXT = 5;
+export const MAX_QUICK_TAGS_PER_CONTEXT = 10;
 
 export const personalizationContexts = [
   'characters',

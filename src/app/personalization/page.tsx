@@ -282,7 +282,9 @@ export default function PersonalizationPage()
             <section className="rounded-lg border p-6 space-y-4">
               <div>
                 <h2 className="text-2xl font-semibold">Szybkie tagi</h2>
-                <p className="text-sm text-muted-foreground">Możesz zapisać maksymalnie 5 tagów dołączających i 5 wykluczających na kontekst.</p>
+                <p className="text-sm text-muted-foreground">
+                  Możesz zapisać maksymalnie {MAX_QUICK_TAGS_PER_CONTEXT} tagów dołączających i {MAX_QUICK_TAGS_PER_CONTEXT} wykluczających na kontekst.
+                </p>
               </div>
 
               <div className="flex flex-col gap-3 md:flex-row">
