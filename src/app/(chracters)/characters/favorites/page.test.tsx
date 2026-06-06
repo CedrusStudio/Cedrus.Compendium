@@ -131,3 +131,4 @@ describe('FavoriteCharactersPage', () => {
 
     expect(screen.getByText('Nie zapisano jeszcze zadnych ulubionych postaci.')).toBeTruthy();
   });
+});

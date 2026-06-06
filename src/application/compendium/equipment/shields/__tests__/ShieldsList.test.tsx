@@ -21,7 +21,7 @@ vi.mock('@/infrastructure/hooks/useFormMutation', () => ({
 }));
 
 vi.mock('@/common/components/WithScroll', () => ({
-  WithScroll: ({ items, renderItem }: { items: unknown[]; renderItem: (item: unknown) => React.ReactNode }) => (
+  WithScroll: ({ items, renderItem }: { items: unknown[]; renderItem: (item: unknown, index: number) => React.ReactNode }) => (
     <div>{items.map((item, i) => renderItem(item, i))}</div>
   )
 }));

@@ -212,6 +212,7 @@ export const translations_deDE =
     error: "fehler",
     perk: "vorteil",
     perks: "vorteile",
+    wiez: "bindung",
 
     type: "typ",
     level: "stufe",

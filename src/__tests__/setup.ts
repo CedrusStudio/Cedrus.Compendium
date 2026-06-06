@@ -92,7 +92,7 @@ expect.extend({
 
 // Declare custom matcher types
 declare module 'vitest' {
-  interface Assertion<T = unknown> {
+  interface Assertion<T> {
     toBeWithinRange(floor: number, ceiling: number): T;
   }
   interface AsymmetricMatchersContaining {

@@ -29,7 +29,9 @@ vi.mock('next/link', () => ({
 }));
 
 import HomeQuickAccessSection from '@/application/personalization/HomeQuickAccessSection';
+import type { QuickLink } from '@/common/personalization/personalizationProfile';
 import { createEmptyProfile, reducer as personalizationReducer } from '@/persistence/slices/personalizationSlice';
+import type { PersonalizationSliceState } from '@/persistence/slices/personalizationSlice';
 
 describe('HomeQuickAccessSection', () => {
   beforeEach(() => {
@@ -71,29 +73,31 @@ describe('HomeQuickAccessSection', () => {
       removeApiKey: vi.fn(),
     });
 
+    const preloadedPersonalization: PersonalizationSliceState = {
+      activeApiKey: 'alpha',
+      profilesByApiKey: {
+        alpha: {
+          ...createEmptyProfile(),
+          favoriteCharacterIds: ['character-1'],
+          mainCharacterId: 'character-1',
+          quickLinks: [
+            {
+              id: 'compendium',
+              label: 'Kompendium',
+              type: 'route',
+              href: '/compendium',
+            } satisfies QuickLink,
+          ],
+        },
+      },
+    };
+
     const store = configureStore({
       reducer: {
         personalization: personalizationReducer,
       },
       preloadedState: {
-        personalization: {
-          activeApiKey: 'alpha',
-          profilesByApiKey: {
-            alpha: {
-              ...createEmptyProfile(),
-              favoriteCharacterIds: ['character-1'],
-              mainCharacterId: 'character-1',
-              quickLinks: [
-                {
-                  id: 'compendium',
-                  label: 'Kompendium',
-                  type: 'route',
-                  href: '/compendium',
-                },
-              ],
-            },
-          },
-        },
+        personalization: preloadedPersonalization,
       },
     });
 

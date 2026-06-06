@@ -59,7 +59,7 @@ describe('createUpsertPayload', () => {
       const result = createUpsertPayload(existing, incoming);
 
       expect(result.update[0].data).toEqual({ name: 'Updated', id: undefined });
-      expect(result.update[0].data.id).toBeUndefined();
+      expect((result.update[0].data as Record<string, unknown>).id).toBeUndefined();
     });
 
     it('should not update items in idsToConnect', () => {

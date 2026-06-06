@@ -21,9 +21,7 @@ describe('entityMapping', () => {
       const persistenceModel = {
         id: '01HXYZ12345678901234567890',
         name: 'Test Entity',
-        // @ts-expect-error - Testing with extra fields
         extraField: 'should be ignored',
-        // @ts-expect-error
         anotherField: 123
       };
 
