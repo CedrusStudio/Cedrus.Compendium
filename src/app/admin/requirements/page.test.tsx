@@ -120,3 +120,4 @@ describe('RequirementsManagementPage', () => {
       expect(deleteRequirementMock).toHaveBeenCalledWith({ entity: 'perks', requirement: 'Alchemia' });
     });
   });
+});
