@@ -52,3 +52,4 @@ next-env.d.ts
 .next-build-step2.log
 src/application/characters/combat/power/PowerCard.tsx
 .next-build-check.log
+.build-check.log

@@ -212,6 +212,7 @@ export const translations_frFR =
     error: "erreur",
     perk: "avantage",
     perks: "avantages",
+    wiez: "lien",
 
     type: "type",
     level: "niveau",
