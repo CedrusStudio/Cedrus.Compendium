@@ -29,6 +29,7 @@ describe('personalizationSlice initialization', () => {
   });
 
   it('loads and sanitizes persisted profiles from localStorage', async () => {
+    const persistedPerkTags = ['tag-1', 'tag-2', 'tag-3', 'tag-4', 'tag-5', 'tag-6'];
     const persistedProfiles = JSON.stringify({
         alpha: {
           userName: '  Marek  ',
@@ -61,7 +62,7 @@ describe('personalizationSlice initialization', () => {
         powers: true,
       },
       quickTagsByContext: {
-        perks: ['tag-1', 'tag-2', 'tag-3', 'tag-4', 'tag-5'],
+        perks: persistedPerkTags.slice(0, module.MAX_QUICK_TAGS_PER_CONTEXT),
       },
       quickExcludeTagsByContext: {},
       favoriteCharacterIds: ['character-1'],

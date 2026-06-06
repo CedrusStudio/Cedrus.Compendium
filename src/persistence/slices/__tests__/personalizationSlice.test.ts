@@ -40,13 +40,9 @@ describe('personalizationSlice', () => {
       state = reducer(state, actions.addQuickTag({ context: 'perks', tag: `tag-${index}` }));
     }
 
-    expect(state.profilesByApiKey.alpha.quickTagsByContext.perks).toEqual([
-      'tag-0',
-      'tag-1',
-      'tag-2',
-      'tag-3',
-      'tag-4',
-    ]);
+    expect(state.profilesByApiKey.alpha.quickTagsByContext.perks).toEqual(
+      Array.from({ length: MAX_QUICK_TAGS_PER_CONTEXT }, (_, index) => `tag-${index}`),
+    );
   });
 
   it('clears the main character when that favorite is removed', () => {
@@ -296,13 +292,14 @@ describe('personalizationSlice', () => {
   it('sanitizes a replaced active profile and persists it', () => {
     const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
     let state = createState();
+    const replacementPowerTags = ['fire', 'ice', 'earth', 'wind', 'light', 'shadow'];
 
     state = reducer(state, actions.replaceProfile({
       userName: '  Anna  ',
       favoriteCharacterIds: ['character-1'],
       mainCharacterId: 'character-1',
       quickTagsByContext: {
-        powers: ['fire', 'ice', 'earth', 'wind', 'light', 'shadow'],
+        powers: replacementPowerTags,
       },
       quickLinks: [
         {
@@ -326,7 +323,7 @@ describe('personalizationSlice', () => {
       favoriteCharacterIds: ['character-1'],
       mainCharacterId: 'character-1',
       quickTagsByContext: {
-        powers: ['fire', 'ice', 'earth', 'wind', 'light'],
+        powers: replacementPowerTags.slice(0, MAX_QUICK_TAGS_PER_CONTEXT),
       },
       quickLinks: [
         {
