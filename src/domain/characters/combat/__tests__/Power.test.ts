@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
+  allowedPowerTypes,
+  normalizePowerType,
   pathToPowerField,
   pathToSpell,
   pathToSpellField,
@@ -12,6 +14,24 @@ import {
 } from '@/domain/characters/combat/Power';
 
 describe('Power', () => {
+  describe('normalizePowerType', () => {
+    it('should keep moc as moc', () => {
+      expect(normalizePowerType('moc')).toBe('moc');
+    });
+
+    it('should map legacy bond-like types to wiez', () => {
+      expect(normalizePowerType('arkana')).toBe('wiez');
+      expect(normalizePowerType('wiara')).toBe('wiez');
+      expect(normalizePowerType('natura')).toBe('wiez');
+      expect(normalizePowerType('wiez')).toBe('wiez');
+      expect(normalizePowerType('więź')).toBe('wiez');
+    });
+
+    it('should expose only moc and wiez as allowed power types', () => {
+      expect(allowedPowerTypes).toEqual(['moc', 'wiez']);
+    });
+  });
+
   describe('pathToPowerField', () => {
     it('should generate correct path for power field', () => {
       const path = pathToPowerField(0, 'name');

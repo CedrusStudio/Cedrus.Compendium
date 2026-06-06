@@ -25,6 +25,9 @@ export type SelectFormFieldProps<TFieldValues extends FieldValues> =
 export function SelectFormField<TFieldValues extends FieldValues>({ path, items, labelText, noLabel }: SelectFormFieldProps<TFieldValues>)
 {
     const { control } = useFormContext<TFieldValues>();
+    const getItemLabel = (item: string | number) => typeof item === 'string'
+      ? displayedText[item as keyof typeof displayedText] || item
+      : String(item);
     
     return (
         <FormField control={control} name={path} render={({field}) => (
@@ -43,7 +46,7 @@ export function SelectFormField<TFieldValues extends FieldValues>({ path, items,
                     {
                         items.map(item => (
                             <SelectItem key={item} value={String(item)}>
-                                {item}
+                                {getItemLabel(item)}
                             </SelectItem>
                         ))
                     }
