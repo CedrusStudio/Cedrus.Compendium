@@ -55,9 +55,11 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
     {
       onSuccess(() => 
       {
+        const { id: _draftRaceId, ...persistedRace } = newRace;
+
         queryClient.invalidateQueries({ queryKey: ['races'] });
         router.refresh();
-        onRaceCreated({ id: newRaceId, ...newRace });
+        onRaceCreated({ ...persistedRace, id: newRaceId });
         setIsOpen(false);
         form.reset({ id: ulid(), ...defaultRace });
       }, "bottom-center");
