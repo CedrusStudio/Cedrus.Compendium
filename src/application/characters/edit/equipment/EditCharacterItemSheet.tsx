@@ -1,6 +1,6 @@
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import { PropsWithChildren } from 'react';
-import { EquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
+import { EquipmentItemTypes, splitEquipmentItemTypes } from "@/domain/characters/equipment/Equipment";
 import { displayedText } from "@/common/translations";
 import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 
@@ -11,6 +11,8 @@ type EditItemSheetProps =
 
 export default function EditCharacterItemSheet({ type, children }: PropsWithChildren<EditItemSheetProps>)
 {
+  const { name: entityType } = splitEquipmentItemTypes(type);
+
   return (
     <EditSheet
       title={displayedText.editingItem}
@@ -19,7 +21,7 @@ export default function EditCharacterItemSheet({ type, children }: PropsWithChil
       triggerVariant="outline"
       hasSubmitButton={false}
     >
-      <ItemEditableFields pathPrefix={`${type}.`} />
+      <ItemEditableFields pathPrefix={`${type}.`} entityType={entityType} />
       {children}
     </EditSheet>
   )

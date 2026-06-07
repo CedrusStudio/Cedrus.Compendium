@@ -18,6 +18,7 @@ export function calculateTotalHealthForCharacter(character: Character): number
     + character.health.toughness * character.characteristics.constitution.value
     + character.characteristics.constitution.bonus 
     + character.attributes.fortitude.value
+    + character.attributes.fortitude.bonus
     + character.health.bonus;
 }
 
@@ -27,6 +28,7 @@ export function calculateTotalHealth(health: Health, constitution: Statistic, fo
     + health.toughness * constitution.value
     + constitution.bonus 
     + fortitude.value
+    + fortitude.bonus
     + health.bonus;
 }
 

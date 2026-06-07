@@ -137,6 +137,7 @@ describe('Power', () => {
       expect(power.type).toBe('moc');
       expect(power.level).toBe(1);
       expect(power.bonus).toBe(0);
+      expect(power.description).toBe('');
       expect(power.powerSpecificationId).toBe('');
       expect(power.spells).toEqual([]);
     });

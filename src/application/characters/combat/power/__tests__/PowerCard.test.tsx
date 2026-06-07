@@ -48,6 +48,7 @@ function createPower(overrides: Partial<Power> = {}): Power
     level: 1,
     bonus: 0,
     essence: 41,
+    description: '',
     powerSpecificationId: 'spec-1',
     spells: overrides.spells ?? [createSpell()],
     ...overrides,
@@ -146,6 +147,19 @@ describe('PowerCard', () => {
     renderWithProviders(<PowerCard power={createPower({ type: 'wiez' })} />);
 
     expect(screen.getByText('więź')).toBeInTheDocument();
+  });
+
+  it('renders the character-specific power description above the specification summary', () => {
+    useQueryMock.mockReturnValue({ data: createPowerSpecification() });
+
+    renderWithProviders(<PowerCard power={createPower({ description: 'Regeneracja 3 / turę\nDodatkowy efekt.' })} />);
+
+    const description = screen.getByText(
+      (_content, element) => element?.tagName === 'P' && element.textContent === 'Regeneracja 3 / turę\nDodatkowy efekt.'
+    );
+
+    expect(description).toHaveClass('whitespace-pre-wrap');
+    expect(description).toHaveClass('break-words');
   });
 
   it('allows using different spells in the same turn', async () => {

@@ -11,6 +11,7 @@ export type Power = Entity &
   level: number;
   bonus: number;
   essence: number;
+  description: string;
   powerSpecificationId: string;
   spells: Spell[];
 };
@@ -86,6 +87,7 @@ export const defaultPower: Omit<Power, "id"> =
   type: "moc",
   level: 1, 
   bonus: 0,
+  description: '',
   powerSpecificationId: '',
   spells: []
 };
@@ -234,6 +236,7 @@ export const generateOffensesFromFormula = (formula: PowerOffenseFormula): Power
 
 const powerFieldOrderArray: (keyof Power)[] = [
   'name',
+  'description',
   'type',
   'level',
   'bonus',

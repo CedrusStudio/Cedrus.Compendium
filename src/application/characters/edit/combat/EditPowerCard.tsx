@@ -6,6 +6,7 @@ import { UseFieldArrayRemove, useFormContext, useWatch } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
+import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { displayedText } from '@/common/translations';
@@ -161,6 +162,14 @@ export default function EditPowerCard({ index, power, remove, isPending, isSucce
       <CardContent>
 
         <div className='mb-4'>
+          <Label className='mb-2 block text-center capitalize'>{displayedText.description}</Label>
+          <AreaInputFormField<CombatDto>
+            path={pathToPowerField(index, 'description')}
+            inputPlaceholder={displayedText.changeDescription}
+          />
+        </div>
+
+        <div className='mb-4'>
           <div className='flex flex-row items-center justify-between gap-3 mb-2'>
             <Button 
               type="button" 
@@ -258,7 +267,7 @@ export default function EditPowerCard({ index, power, remove, isPending, isSucce
 
 function NotNameOrTypeOrId(key: keyof PowerDto): boolean
 {
-  return key !== 'name' && key !== 'type' && key !== 'id' && key !== 'spells' && key !== 'powerSpecificationId';
+  return key !== 'name' && key !== 'description' && key !== 'type' && key !== 'id' && key !== 'spells' && key !== 'powerSpecificationId';
 }
 
 function InputFormWithLabel(index: number, powerFieldName: keyof PowerDto)

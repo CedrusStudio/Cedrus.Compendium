@@ -124,6 +124,7 @@ export default function PowerCard({ power }: PowerCardProps)
     ? powerSpecification?.offenses[selectedPowerOffenseIndex]
     : undefined;
   const availableEssence = currentEssence + essenceIncrease - essenceLoss;
+  const powerDescription = power.description.trim();
 
   const addSpellUse = (spell: Spell) =>
   {
@@ -217,6 +218,14 @@ export default function PowerCard({ power }: PowerCardProps)
                 <span className="font-bold text-lg text-primary">{power.bonus}</span>
               </div>
             </div>
+
+            {
+              powerDescription && (
+                <p className="w-full max-w-3xl rounded-md border border-border/20 bg-background/40 px-3 py-2 text-sm leading-relaxed text-muted-foreground whitespace-pre-wrap break-words">
+                  {powerDescription}
+                </p>
+              )
+            }
 
             {
               powerSpecification && <PowerSpecificationSummary powerSpecification={powerSpecification} compact className="w-full self-center lg:self-start" />

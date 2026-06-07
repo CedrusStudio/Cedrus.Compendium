@@ -46,7 +46,7 @@ export default function EditDetailsView(input: { character: Character })
                 <Separator className="my-4" />
                 <RaceSelector 
                   control={form.control} 
-                  currentRaceId={character.race?.id ?? null}
+                                    currentRace={character.race ?? null}
                 />
                 <Separator className="my-4" />
                                 <EditPerksList isPending={isPending} isSuccess={isSuccess} initialPerks={character.perks} perks={perks} append={appendPerk} remove={removePerk} />

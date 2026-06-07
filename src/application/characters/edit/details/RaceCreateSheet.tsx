@@ -20,10 +20,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { onSuccess, onError } from "@/common/global/onSaveCallbacks";
 import { useRouter } from "next/navigation";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
+import { type Race } from "@/domain/Race";
 
 type RaceCreateSheetProps = 
 {
-  onRaceCreated: (raceId: string) => void;
+  onRaceCreated: (race: Race) => void;
 };
 
 export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps) 
@@ -50,13 +51,15 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
       const newRaceId = await racesClient.add(data);
       return newRaceId;
     },
-    onSuccess: (newRaceId: string) => 
+    onSuccess: (newRaceId: string, newRace: RaceDto) => 
     {
       onSuccess(() => 
       {
+        const { id: _draftRaceId, ...persistedRace } = newRace;
+
         queryClient.invalidateQueries({ queryKey: ['races'] });
         router.refresh();
-        onRaceCreated(newRaceId);
+        onRaceCreated({ ...persistedRace, id: newRaceId });
         setIsOpen(false);
         form.reset({ id: ulid(), ...defaultRace });
       }, "bottom-center");
