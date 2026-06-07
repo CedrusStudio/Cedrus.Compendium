@@ -103,7 +103,7 @@ export function toSpellCostPersistence(spellCost: SpellCost | number): Normalize
   };
 }
 
-export function calculateSpellCost(spellCost: SpellCost | number, spellStrength: number): number
+export function calculateSpellCost(spellCost: SpellCostInput, spellStrength: number): number
 {
   const normalizedCost = normalizeSpellCost(spellCost);
 
@@ -121,7 +121,7 @@ export function calculateSpellCost(spellCost: SpellCost | number, spellStrength:
   return normalizedCost.baseCost + scaledValue;
 }
 
-export function formatSpellCost(spellCost: SpellCost | number): string
+export function formatSpellCost(spellCost: SpellCostInput): string
 {
   const normalizedCost = normalizeSpellCost(spellCost);
 

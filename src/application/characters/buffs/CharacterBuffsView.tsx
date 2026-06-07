@@ -3,6 +3,7 @@
 import { createCharacterCacheKeys } from '@/application/characters/edit/editFormConstants';
 import { Character } from '@/domain/characters/Character';
 import { BuffProfile, DamageOffenseBuff, StatisticBuff, WeaponOffenseBuff } from '@/domain/characters/buffs/BuffProfile';
+import Link from 'next/link';
 import client from '@/infrastructure/clients/charactersClient';
 import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
@@ -29,7 +30,8 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
 
   const selectedBuffProfile = character.buffProfiles.find(profile => profile.id === selectedBuffProfileId) ?? character.buffProfiles[0];
   const activeBuffProfile = character.buffProfiles.find(profile => profile.id === character.activeBuffProfileId);
-  const modifiers = useMemo(() => selectedBuffProfile ? collectBuffProfileModifiers(selectedBuffProfile) : [], [selectedBuffProfile]);
+  const modifierSections = useMemo(() => selectedBuffProfile ? collectBuffProfileModifierSections(selectedBuffProfile) : [], [selectedBuffProfile]);
+  const modifierCount = modifierSections.reduce((total, section) => total + section.modifiers.length, 0);
 
   const { handleSubmit, isPending } = useFormMutation<BuffsDto>
   (
@@ -67,13 +69,30 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
         <div className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between'>
           <div className='flex flex-col gap-2'>
             <CardTitle className='text-2xl font-bold capitalize'>{displayedText.buffs}</CardTitle>
-            {
-              activeBuffProfile ? (
-                <Badge className='w-fit'>{`${displayedText.activeBuff}: ${activeBuffProfile.name}`}</Badge>
-              ) : (
-                <Badge variant='outline' className='w-fit'>{displayedText.noActiveBuff}</Badge>
-              )
-            }
+            <div className='flex flex-wrap gap-2'>
+              {
+                activeBuffProfile ? (
+                  <Badge className='w-fit'>{`${displayedText.activeBuff}: ${activeBuffProfile.name}`}</Badge>
+                ) : (
+                  <Badge variant='outline' className='w-fit'>{displayedText.noActiveBuff}</Badge>
+                )
+              }
+              {
+                selectedBuffProfile && (
+                  <Badge variant='secondary' className='w-fit'>{`${displayedText.selected}: ${selectedBuffProfile.name}`}</Badge>
+                )
+              }
+              {
+                selectedBuffProfile && (
+                  <Badge variant='outline' className='w-fit'>{`${modifierCount} ${displayedText.effects}`}</Badge>
+                )
+              }
+              {
+                selectedBuffProfile && (
+                  <Badge variant='outline' className='w-fit'>{`${modifierSections.length} ${displayedText.sections}`}</Badge>
+                )
+              }
+            </div>
           </div>
 
           <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
@@ -90,6 +109,10 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
               </SelectContent>
             </Select>
 
+            <Button asChild type='button' variant='secondary'>
+              <Link href={`/characters/${character.id}/edit?tab=buffs`}>{displayedText.edit}</Link>
+            </Button>
+
             <Button type='button' onClick={handleApply} disabled={isPending || !selectedBuffProfile || selectedBuffProfile.id === character.activeBuffProfileId}>
               {displayedText.applyBuff}
             </Button>
@@ -104,9 +127,14 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
       <CardContent>
         {
           character.buffProfiles.length === 0 ? (
-            <p className='text-sm text-muted-foreground'>{displayedText.noBuffProfiles}</p>
+            <div className='flex flex-col items-start gap-3 rounded-lg border border-dashed border-border/70 bg-background/40 p-4'>
+              <p className='text-sm text-muted-foreground'>{displayedText.noBuffProfiles}</p>
+              <Button asChild type='button' variant='outline'>
+                <Link href={`/characters/${character.id}/edit?tab=buffs`}>{displayedText.edit}</Link>
+              </Button>
+            </div>
           ) : selectedBuffProfile ? (
-            <div className='space-y-3'>
+            <div className='space-y-4'>
               {
                 selectedBuffProfile.description?.trim() && (
                   <p className='text-sm italic text-muted-foreground'>{selectedBuffProfile.description}</p>
@@ -114,12 +142,24 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
               }
 
               {
-                modifiers.length > 0 ? (
-                  <div className='grid gap-2 lg:grid-cols-2'>
+                modifierSections.length > 0 ? (
+                  <div className='grid gap-3 lg:grid-cols-2'>
                     {
-                      modifiers.map(modifier => (
-                        <div key={modifier} className='rounded-md border border-border/60 bg-background/60 px-3 py-2 text-sm'>
-                          {modifier}
+                      modifierSections.map(section => (
+                        <div key={section.title} className='rounded-lg border border-border/60 bg-background/60 p-4'>
+                          <div className='mb-3 flex items-center justify-between gap-3'>
+                            <h3 className='text-sm font-semibold capitalize text-primary'>{section.title}</h3>
+                            <Badge variant='outline'>{section.modifiers.length}</Badge>
+                          </div>
+                          <div className='space-y-2'>
+                            {
+                              section.modifiers.map(modifier => (
+                                <div key={`${section.title}-${modifier}`} className='rounded-md border border-border/40 bg-background px-3 py-2 text-sm'>
+                                  {modifier}
+                                </div>
+                              ))
+                            }
+                          </div>
                         </div>
                       ))
                     }
@@ -136,15 +176,15 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
   );
 }
 
-function collectBuffProfileModifiers(profile: BuffProfile): string[]
+function collectBuffProfileModifierSections(profile: BuffProfile): { title: string; modifiers: string[] }[]
 {
   return [
-    ...collectStatisticSectionModifiers(profile.characteristics),
-    ...collectStatisticSectionModifiers(profile.attributes),
-    ...collectSimpleModifiers(profile.health),
-    ...collectSimpleModifiers(profile.defense),
-    ...collectOffenseModifiers(profile),
-  ];
+    { title: displayedText.characteristics, modifiers: collectStatisticSectionModifiers(profile.characteristics) },
+    { title: displayedText.attributes, modifiers: collectStatisticSectionModifiers(profile.attributes) },
+    { title: displayedText.health, modifiers: collectSimpleModifiers(profile.health) },
+    { title: displayedText.defense, modifiers: collectSimpleModifiers(profile.defense) },
+    { title: displayedText.offense, modifiers: collectOffenseModifiers(profile) },
+  ].filter(section => section.modifiers.length > 0);
 }
 
 function collectStatisticSectionModifiers(section: Record<string, StatisticBuff>): string[]

@@ -90,6 +90,8 @@ export const displayedText =
     testBonus: translate("testBonus"),
     value: translate("value"),
     values: translate("values"),
+    effects: translate("effects"),
+    sections: translate("sections"),
     
     defense: translate("defense"),
     defenses: translate("defenses"),

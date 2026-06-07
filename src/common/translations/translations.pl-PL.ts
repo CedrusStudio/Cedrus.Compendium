@@ -63,6 +63,8 @@ export const translations_plPL =
     testBonus: "bonus testu",
     value: "wartość",
     values: "wartości",
+    effects: "efektów",
+    sections: "sekcji",
     
     defense: "defensywa",
     defenses: "defensywy",

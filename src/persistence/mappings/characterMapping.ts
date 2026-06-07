@@ -56,7 +56,10 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     maneuvers: characterPersistenceModel.maneuvers.map(toCastablePerk<Maneuver>),
     powers: characterPersistenceModel.powers.map(power => toPower(power, characterPersistenceModel.spells, characterPersistenceModel.powerSpecifications)),
     perks: characterPersistenceModel.perks.map(toPerk<Perk>),
-    buffProfiles: characterPersistenceModel.buffProfiles,
+    buffProfiles: characterPersistenceModel.buffProfiles.map(buffProfile => ({
+      ...buffProfile,
+      description: buffProfile.description ?? undefined,
+    })),
     activeBuffProfileId: characterPersistenceModel.activeBuffProfileId ?? undefined,
   };
 }
