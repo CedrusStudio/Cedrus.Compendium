@@ -6,12 +6,9 @@ import { useForm } from "react-hook-form";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import client from "@/infrastructure/clients/spellsClient";
 import searchClient from "@/infrastructure/clients/searchClient";
-import { allowedCastTimes, type CastTime } from "@/domain/characters/Castable";
-import { Label } from "@/ui/label";
-import { InputFormField } from '@/common/components/form/InputFormField';
-import { SelectFormField } from '@/common/components/form/SelectFormField';
+import { type CastTime } from "@/domain/characters/Castable";
 import { displayedText } from '@/common/translations';
-import { AddSpellDto, addSpellSchema, SpellDto } from "@/persistence/schemas/characters/combat/powerSchema";
+import { AddSpellDto, addSpellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
 import { createOffsetSearchSpellsKey } from "@/persistence/cacheKeys";
 import { createSpellOffsetQuery } from "@/infrastructure/searchQueries/spells/createSpellOffsetQuery";
 import SpellView from "@/application/compendium/spells/SpellView";
@@ -30,6 +27,7 @@ import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
 import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
+import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 
@@ -219,25 +217,7 @@ function AddSpellForm()
     <Form {...form}>
       <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
         <PerkableAddSheet isPending={isPending} formId={formId} title={displayedText.addSpell} entityType="spells">
-          
-          <div className="grid grid-cols-3 gap-4 place-items-center">
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
-              <InputFormField<SpellDto> path='cooldown' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-
-            <div className="flex flex-col items-center gap-3 px-4">
-              <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.castTime}</span></Label>
-              <SelectFormField<SpellDto> path='castTime' labelText={displayedText.castTime} items={allowedCastTimes} />
-            </div>
-
-            <div className="grid auto-rows-min gap-3 px-4">
-              <Label className='justify-center capitalize'>{displayedText.cost}</Label>
-              <InputFormField<SpellDto> path='cost' inputClassName='w-11 h-10 text-center font-medium' />
-            </div>
-
-          </div>
+          <SpellEditableFields />
         </PerkableAddSheet>
       </form>
     </Form>

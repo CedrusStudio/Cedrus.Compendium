@@ -14,7 +14,7 @@ import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema'
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { createUpsertPayload } from '@/persistence/mappings/createUpsertPayload';
 import { toEntity } from '@/persistence/mappings/entityMapping';
-import { SpellModel, toSpell } from '@/persistence/mappings/spellMappings';
+import { SpellModel, toSpell, toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
 import { CharacterIncludeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
@@ -254,7 +254,7 @@ export function toCharacterCombatPersistenceModel
       spells: undefined,
       spellsIds: power.spells.map(spell => spell.id),
     })),
-    spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells), spellsIdsToConnect),
+    spells: createUpsertPayload(existingSpellsIds, combat.powers.flatMap(power => power.spells).map(toSpellPersistenceModel), spellsIdsToConnect),
   };
 }
 

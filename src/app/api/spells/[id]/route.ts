@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
-import { createCommonRepository } from '@/persistence/common/createCommonRepository';
+import { toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
+import type { SpellDto } from '@/persistence/schemas/characters/combat/powerSchema';
 
 type RouteParams = Promise<{ id: string }>
 
@@ -13,8 +14,12 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
     const spell = await request.json();
     if (!spell) return NextResponse.json({ message: 'Spell data is required' }, { status: 400 });
     if (spell.id !== id) return NextResponse.json({ message: 'Spell ID mismatch' }, { status: 400 });
-    const repository = await createCommonRepository(prisma.spell);
-    const updated = await repository.update(spell);
+    const { id: _spellId, ...spellData } = toSpellPersistenceModel(spell as SpellDto);
+    const updatedSpell = await prisma.spell.update({
+      where: { id },
+      data: spellData,
+    });
+    const updated = !!updatedSpell;
     return NextResponse.json({ status: updated ? 200 : 500 });
   } 
   catch (error) 
@@ -32,8 +37,7 @@ export async function DELETE(request: NextRequest, segmentData: { params: RouteP
     if (!id) return NextResponse.json({ message: 'Spell ID is required' }, { status: 400 });
     try 
     {
-      const repository = await createCommonRepository(prisma.spell);
-      await repository.delete(id);
+      await prisma.spell.delete({ where: { id } });
       return NextResponse.json({ status: 204 });
     } 
     catch 

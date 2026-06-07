@@ -108,7 +108,18 @@ describe('RaceSelector', () => {
   });
 
   it('shows the current race even when it is outside the current search results', () => {
-    render(<Harness currentRace={{ id: 'race-elf', name: 'Elf', description: 'Forest scout', tags: ['forest'] }} />);
+    render(<Harness currentRace={{
+      id: 'race-elf',
+      name: 'Elf',
+      description: 'Forest scout',
+      tags: ['forest'],
+      strengthModifier: 0,
+      dexterityModifier: 0,
+      constitutionModifier: 0,
+      mindModifier: 0,
+      charismaModifier: 0,
+      spellbornModifier: 0,
+    }} />);
 
     expect(screen.getByText('Elf')).toBeInTheDocument();
     expect(screen.queryByText('Brak wybranej rasy')).not.toBeInTheDocument();

@@ -12,6 +12,7 @@ import {
   powerFieldOrder,
   type Power
 } from '@/domain/characters/combat/Power';
+import { createFixedSpellCost } from '@/domain/characters/combat/SpellCost';
 
 describe('Power', () => {
   describe('normalizePowerType', () => {
@@ -88,7 +89,7 @@ describe('Power', () => {
       expect(spell.description).toBe('Nowy opis zaklęcia.');
       expect(spell.grade).toBe(1);
       expect(spell.castTime).toBe('Standardowa');
-      expect(spell.cost).toBe(20);
+      expect(spell.cost).toEqual(createFixedSpellCost(20));
       expect(spell.price).toBe(9);
       expect(spell.cooldown).toBe(1);
       expect(spell.requirements).toEqual([]);

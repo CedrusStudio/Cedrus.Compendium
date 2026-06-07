@@ -4,17 +4,19 @@ import { displayedText } from "@/common/translations";
 import { getCastTimeColors } from "@/common/colors";
 import { Character } from "@/domain/characters/Character";
 import { Spell } from "@/domain/characters/combat/Power";
+import { calculateSpellCost, formatSpellCost } from '@/domain/characters/combat/SpellCost';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/ui/drawer";
 
 type CharacterSpellEntry = {
   powerName: string;
+  powerStrength: number;
   spell: Spell;
 };
 
 export default function CharacterSpellsViewDrawer({ character, open, onOpenChange }: { character: Character, open: boolean, onOpenChange: (open: boolean) => void })
 {
   const spells = character.powers.flatMap<CharacterSpellEntry>(power =>
-    (power.spells ?? []).map(spell => ({ powerName: power.name, spell }))
+    (power.spells ?? []).map(spell => ({ powerName: power.name, powerStrength: power.level + power.bonus, spell }))
   );
 
   return (
@@ -24,7 +26,7 @@ export default function CharacterSpellsViewDrawer({ character, open, onOpenChang
         <DrawerHeader className="flex flex-row flex-wrap place-content-center place-items-center">
         {
           spells.length > 0
-            ? spells.map(({ powerName, spell }) => <SpellView spell={spell} powerName={powerName} key={`${spell.id}-${powerName}`} />)
+            ? spells.map(({ powerName, powerStrength, spell }) => <SpellView spell={spell} powerName={powerName} powerStrength={powerStrength} key={`${spell.id}-${powerName}`} />)
             : <p className="text-sm text-muted-foreground">{displayedText.no_spells_found}</p>
         }
         </DrawerHeader>
@@ -33,8 +35,11 @@ export default function CharacterSpellsViewDrawer({ character, open, onOpenChang
   );
 }
 
-function SpellView({ spell, powerName }: { spell: Spell, powerName: string })
+function SpellView({ spell, powerName, powerStrength }: { spell: Spell, powerName: string, powerStrength: number })
 {
+  const actualCost = calculateSpellCost(spell.cost, powerStrength);
+  const formattedCost = formatSpellCost(spell.cost);
+
   return (
     <div className="m-2 flex min-w-64 flex-col gap-3 rounded-md border p-4">
       <Field value={spell.grade} className="gap-1">
@@ -47,7 +52,10 @@ function SpellView({ spell, powerName }: { spell: Spell, powerName: string })
 
       <div className="flex flex-wrap gap-2">
         <Badge variant="secondary" className="capitalize">{displayedText.power}: {powerName}</Badge>
-        <Badge variant="outline" className="capitalize">{displayedText.cost}: {spell.cost}</Badge>
+        <Badge variant="outline" className="capitalize">{displayedText.cost}: {actualCost}</Badge>
+        {
+          formattedCost !== String(actualCost) && <Badge variant="secondary">{formattedCost}</Badge>
+        }
       </div>
     </div>
   );

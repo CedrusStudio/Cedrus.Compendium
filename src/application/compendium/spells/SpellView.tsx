@@ -2,6 +2,7 @@
 
 import client from "@/infrastructure/clients/spellsClient";
 import { type Spell } from "@/domain/characters/combat/Power";
+import { formatSpellCost } from '@/domain/characters/combat/SpellCost';
 import { displayedText } from '@/common/translations';
 import { battleIcon, cooldownIcon, costIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
@@ -50,9 +51,9 @@ export default function SpellView({ spell, disableEdit = false, onDelete }: Spel
 
         <PriceBadge price={spell.price} />
 
-        <Badge variant="cost" className="h-9 w-14 capitalize ">
+        <Badge variant="cost" className="min-h-9 max-w-full px-2 capitalize">
           <div>{costIcon}</div>
-          <div>{spell.cost}</div>
+          <div>{formatSpellCost(spell.cost)}</div>
         </Badge>
         <Badge className='h-9 w-10 p-2 rounded-r-md pointer-events-none' variant={getBadgeVariant(spell.castTime)}>
             <div>{cooldownIcon()}</div>
