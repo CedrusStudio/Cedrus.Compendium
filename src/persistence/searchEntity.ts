@@ -2,6 +2,7 @@ import { type SearchEntityPayload, type SearchByIdEntityPayload, SearchValueOutp
 import { createFiltering, createExcludeFiltering, createMapping, createSorting, SearchPayload, Select } from '@/common/global/SearchPayloads';
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 import prisma from '@/lib/prisma';
+import { toSpell } from '@/persistence/mappings/spellMappings';
 
 //TODO: perform mapping here based on payload.mapping
 export async function searchEntityById<TMappedResult>(id: string, payload: SearchByIdEntityPayload): Promise<TMappedResult[]>
@@ -32,7 +33,14 @@ export async function searchEntity<TMappedResult>(payload: SearchEntityPayload):
 {
   const findInput = createSearchInput(payload, payload.include);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return await (prisma[payload.entity as any] as any).findMany(findInput) as TMappedResult[];
+  const results = await (prisma[payload.entity as any] as any).findMany(findInput);
+
+  if (payload.entity === 'spell')
+  {
+    return results.map(toSpell) as TMappedResult[];
+  }
+
+  return results as TMappedResult[];
 }
 
 // Type definitions for Prisma where clause structure

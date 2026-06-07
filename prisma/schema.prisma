@@ -151,6 +151,10 @@ model Spell {
   castTime     String
   cooldown     Int?
   cost         Int
+  costBase         Int?
+  costScalingMode  String?
+  costScalingValue Int?
+  costRounding     String?
   tags         String[]
 
   // Required by prisma, can be null

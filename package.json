@@ -13,7 +13,8 @@
     "test:watch": "vitest --watch",
     "postinstall": "prisma generate",
     "sync-rulebook": "tsx scripts/sync-rulebook.ts",
-    "backfill-power-types": "tsx scripts/backfill-power-types.ts"
+    "backfill-power-types": "tsx scripts/backfill-power-types.ts",
+    "backfill-spell-costs": "tsx scripts/backfill-spell-costs.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

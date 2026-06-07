@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { acceptedPowerTypes, normalizePowerType } from "@/domain/characters/combat/Power";
+import { spellCostRoundings, spellCostScalingModes } from "@/domain/characters/combat/SpellCost";
 import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { castableSchema } from "@/persistence/schemas/characters/castableSchema";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
@@ -7,11 +8,20 @@ import { weaponOffenseSchema, damageOffenseSchema } from "@/persistence/schemas/
 import { tagsSchema } from "@/persistence/schemas/tagSchema";
 
 const powerTypeSchema = z.enum(acceptedPowerTypes).transform(normalizePowerType);
+const spellCostValueSchema = z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." });
+
+export const spellCostSchema = z.object
+({
+  baseCost: spellCostValueSchema,
+  scalingMode: z.enum(spellCostScalingModes),
+  scalingValue: z.coerce.number<number>().int().min(1, { message: "Wartość skali musi mieć co najmniej 1." }).max(100, { message: "Wartość skali musi być najwyżej 100." }),
+  rounding: z.enum(spellCostRoundings),
+});
 
 export const spellSchema = perkSchema.extend
 ({
   ...castableSchema.shape,
-  cost: z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." })
+  cost: spellCostSchema,
 });
 
 export const addSpellSchema = spellSchema.omit({ id: true });
@@ -73,6 +83,7 @@ export const powerOffenseFormulaSchema = z.object
 
 export type SpellDto = z.infer<typeof spellSchema>;
 export type AddSpellDto = z.infer<typeof addSpellSchema>;
+export type SpellCostDto = z.infer<typeof spellCostSchema>;
 export type PowerDto = z.infer<typeof powerSchema>;
 export type PowerSpecificationDto = z.infer<typeof powerSpecificationSchema>;
 export type AddPowerSpecificationDto = z.infer<typeof addPowerSpecificationSchema>;

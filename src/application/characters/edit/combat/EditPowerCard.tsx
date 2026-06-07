@@ -40,6 +40,7 @@ import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/globa
 import { type CastTime } from '@/domain/characters/Castable';
 import RestoreItemButton from '@/common/components/form/RestoreItemButton';
 import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
+import { calculateSpellCost, formatSpellCost, normalizeSpellCost } from '@/domain/characters/combat/SpellCost';
 
 type EditPowersCardProps =
 {
@@ -61,7 +62,7 @@ const cloneSpell = (spell: Spell): Spell =>
   tags: [...spell.tags],
   castTime: spell.castTime,
   cooldown: spell.cooldown,
-  cost: spell.cost
+  cost: normalizeSpellCost(spell.cost)
 });
 
 export default function EditPowerCard({ index, power, remove, isPending, isSuccess }: EditPowersCardProps)
@@ -252,10 +253,10 @@ export default function EditPowerCard({ index, power, remove, isPending, isSucce
 
           <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
           {
-            spells.map((spell, spellIndex) => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={spellIndex} onRemove={() => removeItemAtIndex(spellIndex)} isImported={importedIds.has(spell.id)} isRemoved={false} />) 
+            spells.map((spell, spellIndex) => <EditSpellView key={spell.id} spell={spell} powerIndex={index} powerStrength={power.level + power.bonus} spellIndex={spellIndex} onRemove={() => removeItemAtIndex(spellIndex)} isImported={importedIds.has(spell.id)} isRemoved={false} />) 
           }
           {
-            removedItems.map(spell => <EditSpellView key={spell.id} spell={spell} powerIndex={index} spellIndex={-1} onRestore={() => restoreRemovedItem(spell.id)} isImported={false} isRemoved={true} />)
+            removedItems.map(spell => <EditSpellView key={spell.id} spell={spell} powerIndex={index} powerStrength={power.level + power.bonus} spellIndex={-1} onRestore={() => restoreRemovedItem(spell.id)} isImported={false} isRemoved={true} />)
           }
           </div>
         </div>
@@ -286,6 +287,7 @@ type EditSpellViewProps =
 {
   spell: Spell;
   powerIndex: number;
+  powerStrength: number;
   spellIndex: number;
   isImported: boolean;
   isRemoved: boolean;
@@ -293,8 +295,11 @@ type EditSpellViewProps =
   onRestore?: () => void;
 }
 
-function EditSpellView({ spell, powerIndex, spellIndex, isImported, isRemoved, onRemove, onRestore }: EditSpellViewProps)
+function EditSpellView({ spell, powerIndex, powerStrength, spellIndex, isImported, isRemoved, onRemove, onRestore }: EditSpellViewProps)
 {
+  const actualSpellCost = calculateSpellCost(spell.cost, powerStrength);
+  const formattedSpellCost = formatSpellCost(spell.cost);
+
   return (
     <PerkableEditView>
 
@@ -302,9 +307,9 @@ function EditSpellView({ spell, powerIndex, spellIndex, isImported, isRemoved, o
       {isRemoved ? <RemovedBadge /> : <ImportedBadge isImported={isImported} />}
 
       <div className="flex flex-row gap-2">
-        <Badge variant="cost" className="h-9 w-14 capitalize ">
+        <Badge variant="cost" className="h-9 w-14 capitalize " title={formattedSpellCost}>
           <div>{costIcon}</div>
-          <div>{spell.cost}</div>
+          <div>{actualSpellCost}</div>
         </Badge>
         <Badge className='flex p-2 items-center justify-center rounded-r-md pointer-events-none' variant={getBadgeVariant(spell.castTime)}>
           {cooldownIcon()}

@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
-import { createCommonRepository } from '@/persistence/common/createCommonRepository';
+import { toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
+import type { SpellDto } from '@/persistence/schemas/characters/combat/powerSchema';
 
 export async function POST(request: NextRequest)
 {
@@ -8,8 +9,13 @@ export async function POST(request: NextRequest)
   {
     const spell = await request.json();
     if (!spell) return NextResponse.json({ message: 'Spell data is required' }, { status: 400 });
-    const repository = await createCommonRepository(prisma.spell);
-    const id = await repository.add(spell);
+    const createdSpell = await prisma.spell.create({
+      data: {
+        ...toSpellPersistenceModel(spell as SpellDto),
+        characterIds: [],
+      },
+    });
+    const id = createdSpell.id;
     if (!id) return NextResponse.json({ message: 'Failed to add spell' }, { status: 500 });
     return NextResponse.json({ id }, { status: 201 });
   } 

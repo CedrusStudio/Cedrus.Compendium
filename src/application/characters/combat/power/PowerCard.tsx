@@ -23,6 +23,7 @@ import TagsView from '@/common/components/tags/TagsView';
 import { cn } from '@/lib/utils';
 import CastableSearchFilters from '@/application/characters/combat/CastableSearchFilters';
 import { filterCastables, getAvailableCastableTags } from '@/application/characters/combat/castableFilters';
+import { calculateSpellCost, formatSpellCost } from '@/domain/characters/combat/SpellCost';
 
 type PowerCardProps =
 {
@@ -36,7 +37,21 @@ type UsedPowerOffense =
   cost: number;
 }
 
-type UsedPowerAction = Spell | UsedPowerOffense | EndTurn;
+type UsedSpellAction =
+{
+  entryType: "spell";
+  spell: Spell;
+  name: string;
+  castTime: Spell['castTime'];
+  cost: number;
+};
+
+type UsedPowerAction = UsedSpellAction | UsedPowerOffense | EndTurn;
+
+function isUsedSpellAction(action: UsedPowerAction): action is UsedSpellAction
+{
+  return action !== "end" && "entryType" in action && action.entryType === "spell";
+}
 
 function isUsedPowerOffense(action: UsedPowerAction): action is UsedPowerOffense
 {
@@ -49,9 +64,15 @@ function toCastableHistory(usedActions: UsedPowerAction[]): (Spell | EndTurn)[]
 
   usedActions.forEach(action =>
   {
-    if (action === "end" || !isUsedPowerOffense(action))
+    if (action === "end")
     {
       castableHistory.push(action);
+      return;
+    }
+
+    if (isUsedSpellAction(action))
+    {
+      castableHistory.push(action.spell);
     }
   });
 
@@ -78,11 +99,16 @@ function renderUsedActionBadge(usedAction: UsedPowerAction, index: number)
     );
   }
 
-  return (
-    <Badge key={index} variant={getBadgeVariant(usedAction.castTime)} className='m-1' >
-      {usedAction.name}
-    </Badge>
-  );
+  if (isUsedSpellAction(usedAction))
+  {
+    return (
+      <Badge key={index} variant={getBadgeVariant(usedAction.castTime)} className='m-1' >
+        {usedAction.name}
+      </Badge>
+    );
+  }
+
+  return null;
 }
 
 export default function PowerCard({ power }: PowerCardProps)
@@ -125,10 +151,20 @@ export default function PowerCard({ power }: PowerCardProps)
     : undefined;
   const availableEssence = currentEssence + essenceIncrease - essenceLoss;
   const powerDescription = power.description.trim();
+  const spellStrength = selectedPowerOffenseIndex >= 0
+    ? selectedPowerOffenseIndex + 1
+    : power.level + power.bonus;
 
-  const addSpellUse = (spell: Spell) =>
+  const addSpellUse = (spell: Spell, spellCost: number) =>
   {
-    setUsedActions(prev => [...prev, spell]);
+    setUsedActions(prev => [...prev,
+    {
+      entryType: 'spell',
+      spell,
+      name: spell.name,
+      castTime: spell.castTime,
+      cost: spellCost,
+    }]);
   }
 
   const addSelectedPowerOffenseUse = (index: number) =>
@@ -302,7 +338,7 @@ export default function PowerCard({ power }: PowerCardProps)
         }
 
         {
-          filteredSpells.map(spell => <SpellView key={spell.id} spell={spell} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
+          filteredSpells.map(spell => <SpellView key={spell.id} spell={spell} spellStrength={spellStrength} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
         }
 
         {
@@ -428,15 +464,18 @@ function MediumUsedActionsView({ usedActions, removeLastUsage, setUsedActions, e
 type SpellViewProps =
 {
   spell: Spell;
-  addSpellUse: (spell: Spell) => void;
+  spellStrength: number;
+  addSpellUse: (spell: Spell, spellCost: number) => void;
   usedActions: UsedPowerAction[];
   reduceEssence: (cost: number) => void;
   availableEssence: number;
 }
 
-function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEssence }: SpellViewProps) 
+function SpellView({ spell, spellStrength, addSpellUse, usedActions, reduceEssence, availableEssence }: SpellViewProps) 
 {
-  const canAffordSpell = availableEssence >= spell.cost;
+  const calculatedSpellCost = calculateSpellCost(spell.cost, spellStrength);
+  const formattedSpellCost = formatSpellCost(spell.cost);
+  const canAffordSpell = availableEssence >= calculatedSpellCost;
 
   const canUseCurrentSpell = (spellToUse: Spell, currentUsedActions: UsedPowerAction[]) =>
   {
@@ -450,8 +489,8 @@ function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEs
       return;
     }
 
-    addSpellUse(spell);
-    reduceEssence(spell.cost);
+    addSpellUse(spell, calculatedSpellCost);
+    reduceEssence(calculatedSpellCost);
   };
 
   const isSpellDisabled = !canUseCurrentSpell(spell, usedActions);
@@ -471,9 +510,9 @@ function SpellView({ spell, addSpellUse, usedActions, reduceEssence, availableEs
 
       <div className='flex items-center justify-center'>
         <Button type="button" variant="ghost" className="h-full gap-0 p-0" onClick={() => handleUseSpell(spell)} disabled={isSpellDisabled} aria-label={`Use ${spell.name}`} title={`Use ${spell.name}`}>
-          <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-r-none' variant="cost">
+          <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-r-none' variant="cost" title={formattedSpellCost}>
             <span className="scale-100">{costIcon}</span>
-            <span>{spell.cost}</span>
+            <span>{calculatedSpellCost}</span>
           </Badge>
           <Badge className='flex p-2 w-15 h-full items-center justify-center rounded-l-none' variant={getBadgeVariant(spell.castTime)}>
             {cooldownIcon()}

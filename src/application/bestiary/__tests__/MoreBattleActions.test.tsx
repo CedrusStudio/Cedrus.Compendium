@@ -24,6 +24,7 @@ import { displayedText } from '@/common/translations';
 import { MoreBattleActions } from '@/application/bestiary/columns';
 import type { Character } from '@/domain/characters/Character';
 import type { Power } from '@/domain/characters/combat/Power';
+import { createFixedSpellCost } from '@/domain/characters/combat/SpellCost';
 
 function createCharacter({
   powers = [],
@@ -61,6 +62,7 @@ function createPowerWithSpells(spellCount: number): Power {
     level: 1,
     bonus: 0,
     essence: 1,
+    description: '',
     powerSpecificationId: '',
     spells: Array.from({ length: spellCount }, (_, index) => ({
       id: `spell-${index + 1}`,
@@ -68,7 +70,7 @@ function createPowerWithSpells(spellCount: number): Power {
       description: 'Spell description',
       grade: 1,
       castTime: 'Standardowa',
-      cost: 5,
+      cost: createFixedSpellCost(5),
       price: 1,
       cooldown: 1,
       requirements: [],

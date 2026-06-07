@@ -4,6 +4,7 @@ import { Entity } from "@/domain/Entity";
 import { Perk } from "@/domain/characters/Perk";
 import { CreateDamageOffense, CreateWeaponOffense, DamageOffense, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Tag } from '@/domain/Tag';
+import { type SpellCost, createFixedSpellCost } from '@/domain/characters/combat/SpellCost';
 
 export type Power = Entity & 
 {
@@ -59,7 +60,7 @@ export const pathToPowerField = <K extends keyof Power>(index: number, field: K)
 
 export type Spell = Perk & Castable &
 {
-  cost: number;
+  cost: SpellCost;
 };
 
 export const pathToSpell = (powerIndex: number, spellIndex: number): `powers.${number}.spells.${number}` => `powers.${powerIndex}.spells.${spellIndex}`;
@@ -71,7 +72,7 @@ export const defaultSpell: Omit<Spell, "id"> =
   description: 'Nowy opis zaklęcia.',
   grade: 1,
   castTime: 'Standardowa',
-  cost: 20,
+  cost: createFixedSpellCost(20),
   price: 9,
   cooldown: 1,
   requirements: [],

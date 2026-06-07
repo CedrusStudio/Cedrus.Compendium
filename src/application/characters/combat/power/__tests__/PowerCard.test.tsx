@@ -2,6 +2,7 @@ import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { displayedText } from '@/common/translations';
 import type { Power, PowerSpecification, Spell } from '@/domain/characters/combat/Power';
+import { createFixedSpellCost } from '@/domain/characters/combat/SpellCost';
 import PowerCard from '@/application/characters/combat/power/PowerCard';
 import PowerOffenseSelector from '@/application/characters/combat/power/PowerOffenseSelector';
 import { renderWithProviders, screen, userEvent, within } from '@/__tests__/utils/testUtils';
@@ -33,7 +34,7 @@ function createSpell(overrides: Partial<Spell> = {}): Spell
     price: 1,
     tags: [],
     castTime: 'Standardowa',
-    cost: 5,
+    cost: createFixedSpellCost(5),
     cooldown: 1,
     ...overrides,
   };
@@ -175,7 +176,7 @@ describe('PowerCard', () => {
               id: 'spell-2',
               name: 'Frost Step',
               castTime: 'Standardowa',
-              cost: 7,
+              cost: createFixedSpellCost(7),
               cooldown: 1,
             }),
           ],
@@ -254,7 +255,7 @@ describe('PowerCard', () => {
               name: 'Blink Ward',
               castTime: 'Natychmiastowa',
               tags: ['control'],
-              cost: 3,
+              cost: createFixedSpellCost(3),
             }),
           ],
         })}
@@ -293,6 +294,50 @@ describe('PowerCard', () => {
 
     expect(screen.getByText('8 / 15')).toBeInTheDocument();
     expect(screen.queryByText('9 / 15')).not.toBeInTheDocument();
+  });
+
+  it('calculates a scaled spell cost from the current power strength', async () => {
+    useQueryMock.mockReturnValue({ data: createPowerSpecification({ offenses: createPowerOffenses(15) }) });
+    const user = userEvent.setup();
+
+    renderWithProviders(
+      <PowerCard
+        power={createPower({
+          level: 4,
+          bonus: 1,
+          spells: [createSpell({
+            cost: {
+              baseCost: 5,
+              scalingMode: 'multiply',
+              scalingValue: 2,
+              rounding: 'floor',
+            },
+          })],
+        })}
+      />
+    );
+
+    const essenceSection = getEssenceSection();
+    let useSpellButton = screen.getByRole('button', { name: 'Use Arcane Pulse' });
+
+    expect(within(useSpellButton).getByText('15')).toBeInTheDocument();
+
+    const selectorControls = screen.getByText('5 / 15').parentElement;
+
+    expect(selectorControls).not.toBeNull();
+
+    const [previousButton] = within(selectorControls!).getAllByRole('button');
+
+    await user.click(previousButton);
+
+    expect(screen.getByText('4 / 15')).toBeInTheDocument();
+
+    useSpellButton = screen.getByRole('button', { name: 'Use Arcane Pulse' });
+    expect(within(useSpellButton).getByText('13')).toBeInTheDocument();
+
+    await user.click(useSpellButton);
+
+    expect(essenceSection).toHaveTextContent('28');
   });
 });
 
