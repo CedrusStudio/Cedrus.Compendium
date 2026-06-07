@@ -151,7 +151,9 @@ export default function PowerCard({ power }: PowerCardProps)
     : undefined;
   const availableEssence = currentEssence + essenceIncrease - essenceLoss;
   const powerDescription = power.description.trim();
-  const spellStrength = power.level + power.bonus;
+  const spellStrength = selectedPowerOffenseIndex >= 0
+    ? selectedPowerOffenseIndex + 1
+    : power.level + power.bonus;
 
   const addSpellUse = (spell: Spell, spellCost: number) =>
   {

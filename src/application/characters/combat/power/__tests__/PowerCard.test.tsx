@@ -297,7 +297,7 @@ describe('PowerCard', () => {
   });
 
   it('calculates a scaled spell cost from the current power strength', async () => {
-    useQueryMock.mockReturnValue({ data: createPowerSpecification() });
+    useQueryMock.mockReturnValue({ data: createPowerSpecification({ offenses: createPowerOffenses(15) }) });
     const user = userEvent.setup();
 
     renderWithProviders(
@@ -318,13 +318,26 @@ describe('PowerCard', () => {
     );
 
     const essenceSection = getEssenceSection();
-    const useSpellButton = screen.getByRole('button', { name: 'Use Arcane Pulse' });
+    let useSpellButton = screen.getByRole('button', { name: 'Use Arcane Pulse' });
 
     expect(within(useSpellButton).getByText('15')).toBeInTheDocument();
 
+    const selectorControls = screen.getByText('5 / 15').parentElement;
+
+    expect(selectorControls).not.toBeNull();
+
+    const [previousButton] = within(selectorControls!).getAllByRole('button');
+
+    await user.click(previousButton);
+
+    expect(screen.getByText('4 / 15')).toBeInTheDocument();
+
+    useSpellButton = screen.getByRole('button', { name: 'Use Arcane Pulse' });
+    expect(within(useSpellButton).getByText('13')).toBeInTheDocument();
+
     await user.click(useSpellButton);
 
-    expect(essenceSection).toHaveTextContent('26');
+    expect(essenceSection).toHaveTextContent('28');
   });
 });
 
