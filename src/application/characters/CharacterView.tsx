@@ -24,6 +24,7 @@ import NotFound from '@/common/components/NotFound';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 import { createCharacterCopyHref } from '@/application/characters/add/characterCopyRoute';
+import CharacterBuffsView from '@/application/characters/buffs/CharacterBuffsView';
 
 type CharacterViewProps = 
 {
@@ -66,6 +67,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <TabsList>
                         <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
                         <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
+                        <TabsTriggerCapitalized value="buffs" overrideValue={displayedText.buffs} />
                         <TabsTriggerCapitalized value="talents" overrideValue={displayedText.talents} />
                         <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                     </TabsList>
@@ -102,6 +104,10 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
                 <TabsContent value="combat">
                     <CombatView character={character} />
+                </TabsContent>
+
+                <TabsContent value="buffs">
+                    <CharacterBuffsView character={character} />
                 </TabsContent>
 
                 <TabsContent value="talents">

@@ -59,6 +59,8 @@ describe('EditSheet - scrollable content', () => {
     const scrollableArea = content.querySelector('.overflow-y-auto');
     expect(scrollableArea).toBeTruthy();
     expect(scrollableArea?.className).toContain('flex-1');
+    expect(scrollableArea?.className).toContain('min-h-0');
+    expect(scrollableArea?.className).toContain('justify-start');
   });
 
   it('should render footer outside the scrollable area', () => {

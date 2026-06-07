@@ -11,6 +11,7 @@ import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Mane
 import { defaultDiceGrade, defaultWeaponDiceAmount } from "@/domain/diceDefaults";
 import { CreateDefaultPower, Power } from "@/domain/characters/combat/Power";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
+import { BuffProfile, createDefaultBuffProfile } from "@/domain/characters/buffs/BuffProfile";
 import { Tag } from "@/domain/Tag";
 import { Entity } from "@/domain/Entity";
 import { Race } from "@/domain/Race";
@@ -36,6 +37,8 @@ export type Character = Entity &
   maneuvers: Maneuver[];
   powers: Power[];
   perks: Perk[];
+  buffProfiles: BuffProfile[];
+  activeBuffProfileId?: string;
 };
 
 const emptyCharacter: Character = 
@@ -165,6 +168,8 @@ const emptyCharacter: Character =
     mounts: []
   },
   powers: [],
+  buffProfiles: [],
+  activeBuffProfileId: undefined,
   perks: 
   [
     {
@@ -189,6 +194,7 @@ export function CreateEmptyCharacter({name, shortName, tags, description}: {name
   newCharacter.states = [CreateDefaultState()];
   newCharacter.talents = [CreateDefaultTalent()];
   newCharacter.powers = [CreateDefaultPower()];
+  newCharacter.buffProfiles = [createDefaultBuffProfile()];
   newCharacter.perks = [CreateDefaultPerk()];
   return newCharacter;
 };

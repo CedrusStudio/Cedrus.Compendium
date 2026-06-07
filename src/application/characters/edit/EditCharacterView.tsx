@@ -13,6 +13,7 @@ import EditEquipmentView from '@/application/characters/edit/equipment/EditEquip
 import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
+import EditCharacterBuffs from "@/application/characters/edit/buffs/EditCharacterBuffs";
 import { useGetCharacterById } from "@/application/characters/hooks/useGetCharacterById";
 import { displayedText } from "@/common/translations";
 import NotFound from "@/common/components/NotFound";
@@ -42,6 +43,7 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
                     <TabsTriggerCapitalized value="statistics" overrideValue={displayedText.statistics} />
                     <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
                     <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
+                    <TabsTriggerCapitalized value="buffs" overrideValue={displayedText.buffs} />
                     <TabsTriggerCapitalized value="talents" overrideValue={displayedText.talents} />
                     <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                 </TabsList>
@@ -65,6 +67,10 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
 
             <TabsContent value="combat">
                 <EditCharacterCombat character={character} />
+            </TabsContent>
+
+            <TabsContent value="buffs">
+                <EditCharacterBuffs character={character} />
             </TabsContent>
 
             <TabsContent value="talents">

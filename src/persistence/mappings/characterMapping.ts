@@ -19,6 +19,8 @@ import { CharacterIncludeAllRelations } from '@/infrastructure/searchQueries/cha
 import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 import { toRace } from '@/persistence/mappings/raceMapping';
+import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
+import { createDefaultBuffProfile } from '@/domain/characters/buffs/BuffProfile';
 
 export type CharacterWithRelations = Prisma.CharacterGetPayload<{ include: CharacterIncludeAllRelations }>;
 export type CharacterWithoutRelations = Prisma.CharacterGetPayload<null>;
@@ -54,6 +56,8 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     maneuvers: characterPersistenceModel.maneuvers.map(toCastablePerk<Maneuver>),
     powers: characterPersistenceModel.powers.map(power => toPower(power, characterPersistenceModel.spells, characterPersistenceModel.powerSpecifications)),
     perks: characterPersistenceModel.perks.map(toPerk<Perk>),
+    buffProfiles: characterPersistenceModel.buffProfiles,
+    activeBuffProfileId: characterPersistenceModel.activeBuffProfileId ?? undefined,
   };
 }
 
@@ -84,6 +88,8 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     health: copyCreateCharacter.health,
     defenses: copyCreateCharacter.defenses,
     offenses: copyCreateCharacter.offenses,
+    buffProfiles: copyCreateCharacter.buffProfiles,
+    activeBuffProfileId: copyCreateCharacter.activeBuffProfileId ?? undefined,
 
     weapons : {
       connect: copyCreateCharacter.weaponsIds.map(id => ({ id }))
@@ -191,6 +197,8 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
 
     defenses: [ CreateDefaultDefense() ],
     offenses: [ CreateDefaultOffense() ],
+  buffProfiles: [ createDefaultBuffProfile() ],
+  activeBuffProfileId: undefined,
     talents: [],
 
     // equipment relations start as empty arrays
@@ -359,5 +367,13 @@ function toPowerSpecification(powerSpecificationPersistenceModel: PowerSpecifica
     description: powerSpecificationPersistenceModel.description,
     tags: powerSpecificationPersistenceModel.tags,
     offenses: powerSpecificationPersistenceModel.offenses
+  };
+}
+
+export function toCharacterBuffsPersistenceModel(buffs: BuffsDto): Prisma.CharacterUpdateInput
+{
+  return {
+    buffProfiles: buffs.buffProfiles,
+    activeBuffProfileId: buffs.activeBuffProfileId ?? null,
   };
 }

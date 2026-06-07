@@ -11,8 +11,9 @@ import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipme
 import { CombatDto } from '@/persistence/schemas/characters/combat/combatSchema';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 import { Character } from '@/domain/characters/Character';
-import { toCharacter } from '@/persistence/mappings/characterMapping';
+import { toCharacter, toCharacterBuffsPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { includeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
+import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 
 //Queries
 export async function getCharactersByIds(ids: string[])
@@ -225,6 +226,18 @@ export async function updateCharacterCombat(id: string, characterCombat: CombatD
   ({
     where: { id },
     data: characterCombatPersistenceModel
+  });
+
+  return !!updatedCharacter;
+}
+
+export async function updateCharacterBuffs(id: string, characterBuffs: BuffsDto)
+  : Promise<boolean>
+{
+  const updatedCharacter = await prisma.character.update
+  ({
+    where: { id },
+    data: toCharacterBuffsPersistenceModel(characterBuffs)
   });
 
   return !!updatedCharacter;

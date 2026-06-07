@@ -34,6 +34,8 @@ model Character {
   health          Health
   defenses        Defense[]
   offenses        Offense[]
+  buffProfiles    BuffProfile[]
+  activeBuffProfileId String?
 
   stancesIds String[]
   stances    Stance[] @relation(fields: [stancesIds], references: [id])
@@ -371,6 +373,86 @@ type Offense {
   secondaryWeapon WeaponOffense?
   damageBonus     DamageOffense
   additionalDamageBonus DamageOffense?
+}
+
+type BuffProfile {
+  id              String
+  name            String
+  description     String?
+  characteristics CharacteristicsBuff
+  attributes      AttributesBuff
+  health          HealthBuff
+  defense         DefenseBuff
+  offense         OffenseBuff
+}
+
+type CharacteristicsBuff {
+  strength     StatisticBuff
+  dexterity    StatisticBuff
+  constitution StatisticBuff
+  mind         StatisticBuff
+  charisma     StatisticBuff
+  spellborn    StatisticBuff
+}
+
+type AttributesBuff {
+  fencing      StatisticBuff
+  artifice     StatisticBuff
+  precision    StatisticBuff
+  initiative   StatisticBuff
+  martialArt   StatisticBuff
+  horsemanship StatisticBuff
+  fortitude    StatisticBuff
+  reflex       StatisticBuff
+  willpower    StatisticBuff
+}
+
+type StatisticBuff {
+  grade     Int
+  value     Int
+  bonus     Int
+  testBonus Int
+}
+
+type HealthBuff {
+  barrier       Int
+  vitality      Int
+  toughness     Int
+  recoveryLevel Int
+  lethalHealth  Int
+  lethalRounds  Int
+  bonus         Int
+}
+
+type DefenseBuff {
+  immunity    Int
+  resistance  Int
+  protection  Int
+  block       Int
+  parry       Int
+  dodge       Int
+  bonus       Int
+}
+
+type OffenseBuff {
+  leadingWeapon         WeaponOffenseBuff
+  secondaryWeapon       WeaponOffenseBuff
+  damageBonus           DamageOffenseBuff
+  additionalDamageBonus DamageOffenseBuff
+}
+
+type DamageOffenseBuff {
+  amount Int
+  grade  Int
+  bonus  Int
+}
+
+type WeaponOffenseBuff {
+  amount        Int
+  grade         Int
+  bonus         Int
+  criticalPower Int
+  criticalRange Int
 }
 
 type WeaponOffense {
