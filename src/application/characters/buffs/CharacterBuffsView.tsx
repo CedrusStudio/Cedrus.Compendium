@@ -3,7 +3,6 @@
 import { createCharacterCacheKeys } from '@/application/characters/edit/editFormConstants';
 import { Character } from '@/domain/characters/Character';
 import { BuffProfile, DamageOffenseBuff, StatisticBuff, WeaponOffenseBuff } from '@/domain/characters/buffs/BuffProfile';
-import Link from 'next/link';
 import client from '@/infrastructure/clients/charactersClient';
 import { useFormMutation } from '@/infrastructure/hooks/useFormMutation';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
@@ -109,10 +108,6 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
               </SelectContent>
             </Select>
 
-            <Button asChild type='button' variant='secondary'>
-              <Link href={`/characters/${character.id}/edit?tab=buffs`}>{displayedText.edit}</Link>
-            </Button>
-
             <Button type='button' onClick={handleApply} disabled={isPending || !selectedBuffProfile || selectedBuffProfile.id === character.activeBuffProfileId}>
               {displayedText.applyBuff}
             </Button>
@@ -129,9 +124,6 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
           character.buffProfiles.length === 0 ? (
             <div className='flex flex-col items-start gap-3 rounded-lg border border-dashed border-border/70 bg-background/40 p-4'>
               <p className='text-sm text-muted-foreground'>{displayedText.noBuffProfiles}</p>
-              <Button asChild type='button' variant='outline'>
-                <Link href={`/characters/${character.id}/edit?tab=buffs`}>{displayedText.edit}</Link>
-              </Button>
             </div>
           ) : selectedBuffProfile ? (
             <div className='space-y-4'>

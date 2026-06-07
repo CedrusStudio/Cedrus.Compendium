@@ -6,10 +6,6 @@ import { createDefaultBuffProfile } from '@/domain/characters/buffs/BuffProfile'
 
 const handleSubmitSpy = vi.fn();
 
-vi.mock('next/link', () => ({
-  default: ({ href, children }: { href: string; children: React.ReactNode }) => <a href={href}>{children}</a>,
-}));
-
 vi.mock('@/infrastructure/hooks/useFormMutation', () => ({
   useFormMutation: () => ({
     handleSubmit: handleSubmitSpy,
@@ -96,12 +92,10 @@ describe('CharacterBuffsView', () => {
     });
   });
 
-  it('renders an empty state with a direct edit link when no buff profiles exist', () => {
+  it('renders an empty state without duplicating the global edit navigation', () => {
     render(<CharacterBuffsView character={createCharacter()} />);
 
     expect(screen.getByText('brak zdefiniowanych profili wzmocnień')).toBeTruthy();
-
-    const editLinks = screen.getAllByRole('link', { name: 'edycja' });
-    expect(editLinks[0]).toHaveAttribute('href', '/characters/character-1/edit?tab=buffs');
+    expect(screen.queryByRole('link', { name: 'edycja' })).toBeNull();
   });
 });
