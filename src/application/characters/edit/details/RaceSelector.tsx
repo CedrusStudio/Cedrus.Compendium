@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, Activity } from "react";
+import { useState, useCallback, useEffect, Activity } from "react";
 import { Control, useController } from "react-hook-form";
 import { Label } from "@/common/components/ui/label";
 import { Button } from "@/common/components/ui/button";
@@ -24,12 +24,12 @@ import TagFilter from "@/common/components/filters/TagFilter";
 type RaceSelectorProps = 
 {
   control: Control<DetailsDto>;
-  currentRaceId?: string | null | undefined;
+  currentRace?: Race | null | undefined;
 };
 
 const EMPTY_ARRAY: string[] = [];
 
-export default function RaceSelector({ control }: RaceSelectorProps) 
+export default function RaceSelector({ control, currentRace }: RaceSelectorProps) 
 {
   const { field } = useController
   ({
@@ -42,6 +42,7 @@ export default function RaceSelector({ control }: RaceSelectorProps)
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [selectedRace, setSelectedRace] = useState<Race | null>(currentRace ?? null);
   
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('races');
 
@@ -56,30 +57,49 @@ export default function RaceSelector({ control }: RaceSelectorProps)
     staleTime: 30_000,
   });
 
-  // Get currently selected race
-  const selectedRace = useMemo(() => 
+  useEffect(() =>
   {
-    if (!field.value) return null;
-    return races.find(r => r.id === field.value) ?? null;
-  }, [field.value, races]);
+    if (!field.value)
+    {
+      setSelectedRace(null);
+      return;
+    }
+
+    const matchingRace = races.find(race => race.id === field.value)
+      ?? (currentRace?.id === field.value ? currentRace : null);
+
+    if (matchingRace)
+    {
+      setSelectedRace(matchingRace);
+    }
+  }, [currentRace, field.value, races]);
 
   const handleSelectRace = useCallback((raceId: string) => 
   {
+    const race = races.find(candidate => candidate.id === raceId) ?? null;
+
+    if (race)
+    {
+      setSelectedRace(race);
+    }
+
     field.onChange(raceId);
     setIsSearchOpen(false);
     setSearchInput("");
     setSearchTags(EMPTY_ARRAY);
     setExcludedTags(EMPTY_ARRAY);
-  }, [field]);
+  }, [field, races]);
 
   const handleRemoveRace = useCallback(() => 
   {
+    setSelectedRace(null);
     field.onChange(null);
   }, [field]);
 
-  const handleRaceCreated = useCallback((newRaceId: string) => 
+  const handleRaceCreated = useCallback((newRace: Race) => 
   {
-    field.onChange(newRaceId);
+    setSelectedRace(newRace);
+    field.onChange(newRace.id);
   }, [field]);
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 

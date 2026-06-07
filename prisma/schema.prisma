@@ -418,6 +418,7 @@ type Power {
   level   Int
   bonus   Int
   essence Int
+  description String?
 
   powerSpecificationId String
   spellsIds String[]

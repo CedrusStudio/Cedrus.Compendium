@@ -45,7 +45,7 @@ export default function DetailsView({ character }: { character: Character })
 
       <article>
 
-        <p className="text-md text-center text-primary pb-8 first-letter:uppercase">
+        <p className="text-md text-center text-primary pb-8 first-letter:uppercase whitespace-pre-wrap break-words">
           {character.description}
         </p>
 

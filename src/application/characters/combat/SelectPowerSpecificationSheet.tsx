@@ -18,6 +18,7 @@ import { Check } from 'lucide-react';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
+const scrollableTargetId = 'select-power-specification-scrollable';
 
 interface SelectPowerSpecificationSheetProps 
 {
@@ -137,7 +138,7 @@ export function SelectPowerSpecificationSheet
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left" className="w-full sm:max-w-4xl">
+      <SheetContent side="left" className="w-full sm:max-w-4xl overflow-y-auto" id={scrollableTargetId}>
         <div className="flex flex-col h-full gap-4 py-4">
           
           <div className="flex items-center gap-2">
@@ -161,6 +162,7 @@ export function SelectPowerSpecificationSheet
             triggerNext={loadMore}
             hasMore={hasMore}
             parentClassName="flex-1 overflow-y-auto space-y-2 px-1"
+            scrollableTarget={scrollableTargetId}
             renderItem={(spec: PowerSpecification) => (
               <Card
                 key={spec.id}

@@ -188,7 +188,7 @@ function EditPerkSheet({ index }: EditPerkSheetProps)
       triggerVariant="outline"
       hasSubmitButton={false}
     >
-      <PerkEditableFields pathPrefix={`${type}.`} />
+      <PerkEditableFields pathPrefix={`${type}.`} entityType="perks" />
     </EditSheet>
   );
 }

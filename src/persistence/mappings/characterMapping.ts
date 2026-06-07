@@ -343,6 +343,7 @@ function toPower(powerPersistenceModel: PowerModel, spellPersistenceModels: Spel
   return {
     ...toEntity(powerPersistenceModel),
     bonus: powerPersistenceModel.bonus,
+    description: powerPersistenceModel.description ?? '',
     level: powerPersistenceModel.level,
     essence: powerPersistenceModel.essence,
     type: normalizePowerType(powerPersistenceModel.type),

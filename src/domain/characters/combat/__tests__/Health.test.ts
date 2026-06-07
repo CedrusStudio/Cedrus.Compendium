@@ -40,6 +40,15 @@ describe('Health - Total Health Calculations', () => {
       expect(calculateTotalHealth(health, constitution, fortitude)).toBe(32);
     });
 
+    it('should include fortitude bonus', () => {
+      const health = createHealth({ vitality: 10, toughness: 5, bonus: 0 });
+      const constitution = createStatistic(3, 0);
+      const fortitude = createStatistic(2, 4);
+
+      // 10 + (5 * 3) + 0 + 2 + 4 + 0 = 31
+      expect(calculateTotalHealth(health, constitution, fortitude)).toBe(31);
+    });
+
     it('should include health bonus', () => {
       const health = createHealth({ vitality: 10, toughness: 5, bonus: 8 });
       const constitution = createStatistic(3, 0);
