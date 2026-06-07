@@ -32,6 +32,18 @@ export type NormalizedSpellCostPersistenceFields =
 
 export const spellCostPreviewStrengths = [1, 5, 10] as const;
 
+type SpellCostInput =
+  | SpellCost
+  | number
+  | null
+  | undefined
+  | {
+      baseCost?: number | string | null;
+      scalingMode?: string | null;
+      scalingValue?: number | string | null;
+      rounding?: string | null;
+    };
+
 export const defaultSpellCost: SpellCost =
 {
   baseCost: 20,
@@ -48,7 +60,7 @@ export function createFixedSpellCost(baseCost: number): SpellCost
   };
 }
 
-export function normalizeSpellCost(rawCost: SpellCost | number | null | undefined): SpellCost
+export function normalizeSpellCost(rawCost: SpellCostInput): SpellCost
 {
   if (typeof rawCost === 'number')
   {
@@ -61,9 +73,9 @@ export function normalizeSpellCost(rawCost: SpellCost | number | null | undefine
   }
 
   return {
-    baseCost: rawCost.baseCost,
+    baseCost: normalizeSpellCostNumber(rawCost.baseCost, defaultSpellCost.baseCost),
     scalingMode: normalizeSpellCostScalingMode(rawCost.scalingMode),
-    scalingValue: rawCost.scalingValue,
+    scalingValue: normalizeSpellCostNumber(rawCost.scalingValue, defaultSpellCost.scalingValue),
     rounding: normalizeSpellCostRounding(rawCost.rounding),
   };
 }
@@ -91,7 +103,7 @@ export function toSpellCostPersistence(spellCost: SpellCost | number): Normalize
   };
 }
 
-export function calculateSpellCost(spellCost: SpellCost | number, spellStrength: number): number
+export function calculateSpellCost(spellCost: SpellCostInput, spellStrength: number): number
 {
   const normalizedCost = normalizeSpellCost(spellCost);
 
@@ -109,7 +121,7 @@ export function calculateSpellCost(spellCost: SpellCost | number, spellStrength:
   return normalizedCost.baseCost + scaledValue;
 }
 
-export function formatSpellCost(spellCost: SpellCost | number): string
+export function formatSpellCost(spellCost: SpellCostInput): string
 {
   const normalizedCost = normalizeSpellCost(spellCost);
 
@@ -140,6 +152,33 @@ function applyRounding(value: number, rounding: SpellCostRounding): number
     default:
       return Math.floor(value);
   }
+}
+
+function normalizeSpellCostNumber(rawValue: number | string | null | undefined, fallback: number): number
+{
+  if (typeof rawValue === 'number' && Number.isFinite(rawValue))
+  {
+    return rawValue;
+  }
+
+  if (typeof rawValue === 'string')
+  {
+    const normalizedValue = rawValue.trim();
+
+    if (normalizedValue.length === 0)
+    {
+      return fallback;
+    }
+
+    const parsedValue = Number(normalizedValue);
+
+    if (Number.isFinite(parsedValue))
+    {
+      return parsedValue;
+    }
+  }
+
+  return fallback;
 }
 
 function normalizeSpellCostScalingMode(rawMode: string | null | undefined): SpellCostScalingMode

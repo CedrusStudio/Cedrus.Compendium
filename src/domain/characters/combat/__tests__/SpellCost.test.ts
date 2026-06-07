@@ -16,6 +16,20 @@ describe('SpellCost', () => {
       });
     });
 
+    it('coerces numeric form values before preview calculations', () => {
+      expect(normalizeSpellCost({
+        baseCost: '2',
+        scalingMode: 'multiply',
+        scalingValue: '2',
+        rounding: 'floor',
+      })).toEqual({
+        baseCost: 2,
+        scalingMode: 'multiply',
+        scalingValue: 2,
+        rounding: 'floor',
+      });
+    });
+
     it('returns the default structure when cost is missing', () => {
       expect(normalizeSpellCost(undefined)).toEqual(defaultSpellCost);
     });
@@ -33,6 +47,15 @@ describe('SpellCost', () => {
         scalingValue: 2,
         rounding: 'floor',
       }, 4)).toBe(13);
+    });
+
+    it('handles string-based form state for multiplier previews', () => {
+      expect(calculateSpellCost({
+        baseCost: '2',
+        scalingMode: 'multiply',
+        scalingValue: '2',
+        rounding: 'floor',
+      }, 1)).toBe(4);
     });
 
     it('adds a floored divider-based SZ component', () => {

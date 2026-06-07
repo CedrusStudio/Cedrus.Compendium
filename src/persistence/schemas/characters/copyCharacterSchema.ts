@@ -3,6 +3,7 @@ import { headerSchema } from "@/persistence/schemas/characters/headerSchema";
 import { statisticsSchema } from "@/persistence/schemas/characters/statistics/statisticsSchema";
 import { talentsSchema } from "@/persistence/schemas/characters/talentSchema";
 import { combatSchema } from "@/persistence/schemas/characters/combat/combatSchema";
+import { buffsSchema } from "@/persistence/schemas/characters/buffs/buffsSchema";
 
 export const copyCreateCharacterSchema = z.object
 ({
@@ -21,6 +22,8 @@ export const copyCreateCharacterSchema = z.object
   defenses: combatSchema.shape.defenses,
   offenses: combatSchema.shape.offenses,
   powers: combatSchema.shape.powers,
+  buffProfiles: buffsSchema.shape.buffProfiles,
+  activeBuffProfileId: buffsSchema.shape.activeBuffProfileId,
 
   // Relation ids for equipment
   weaponsIds: z.array(z.string()),

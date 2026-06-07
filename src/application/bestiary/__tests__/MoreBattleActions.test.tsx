@@ -51,6 +51,8 @@ function createCharacter({
     maneuvers,
     powers,
     perks,
+    buffProfiles: [],
+    activeBuffProfileId: undefined,
   } as Character;
 }
 

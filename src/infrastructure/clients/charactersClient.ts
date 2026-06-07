@@ -4,6 +4,7 @@ import { StatisticsDto } from '@/persistence/schemas/characters/statistics/stati
 import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
+import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 import client from '@/infrastructure/clients/baseClient';
 
 const characterPathSegment = '/characters';
@@ -53,6 +54,10 @@ const charactersClient =
     updateTalents: async (id: string, talent: TalentsDto): Promise<void> =>
     {
         await client.put(`${characterPathSegment}/${id}/talents`, talent);
+    },
+    updateBuffs: async (id: string, buffs: BuffsDto): Promise<void> =>
+    {
+        await client.put(`${characterPathSegment}/${id}/buffs`, buffs);
     }
 }
 

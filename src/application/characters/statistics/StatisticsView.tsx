@@ -2,10 +2,11 @@ import StatisticsCard from "@/application/characters/statistics/StatisticsCard";
 import { Character } from "@/domain/characters/Character";
 import { displayedText } from "@/common/translations";
 import { attributesIcons, characteristicIcons } from "@/common/icons";
+import { applyActiveBuffProfile } from "@/domain/characters/buffs/applyBuffProfile";
 
 export default function StatisticsView(input: { character: Character })
 {
-  const { character } = input;
+  const character = applyActiveBuffProfile(input.character);
 
   return (
     <div className="flex flex-col gap-4">

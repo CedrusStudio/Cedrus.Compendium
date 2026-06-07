@@ -7,11 +7,13 @@ import BarrierCard from "@/application/characters/combat/BarrierCard";
 import ManeuversCard from "@/application/characters/combat/ManeuversCard";
 import PowerCard from "@/application/characters/combat/power/PowerCard";
 import { Activity } from "react";
+import { applyActiveBuffProfile } from "@/domain/characters/buffs/applyBuffProfile";
 
 export default function CombatView({ character }: { character: Character })
 {
-  const hasStances = character.stances.length > 0;
-  const hasStates = character.states.length > 0;
+  const buffedCharacter = applyActiveBuffProfile(character);
+  const hasStances = buffedCharacter.stances.length > 0;
+  const hasStates = buffedCharacter.states.length > 0;
   const hasSplitModesLayout = hasStances && hasStates;
 
   return (
@@ -20,13 +22,13 @@ export default function CombatView({ character }: { character: Character })
       <div className='flex flex-col lg:grid lg:grid-cols-5 gap-3'>
         
         <div className="flex flex-col gap-2 lg:col-span-3">
-          <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
-          <BarrierCard health={character.health} />
+          <HealthCard health={buffedCharacter.health} constitution={buffedCharacter.characteristics.constitution} fortitude={buffedCharacter.attributes.fortitude} />
+          <BarrierCard health={buffedCharacter.health} />
         </div>
 
-        <Activity mode={character.defenses.length > 0 ? "visible" : "hidden"}>
+        <Activity mode={buffedCharacter.defenses.length > 0 ? "visible" : "hidden"}>
           <div className="lg:col-span-2 flex w-full">
-            <DefenseCard defenses={character.defenses} />
+            <DefenseCard defenses={buffedCharacter.defenses} />
           </div>
         </Activity>
 
@@ -36,27 +38,27 @@ export default function CombatView({ character }: { character: Character })
         (hasStances || hasStates) && (
           <div className={hasSplitModesLayout ? "flex flex-col gap-3 lg:grid lg:grid-cols-2" : "flex flex-col gap-3"}>
             {
-              hasStances && <ModesCard name="Postawy" modes={character.stances} />
+              hasStances && <ModesCard name="Postawy" modes={buffedCharacter.stances} />
             }
             {
-              hasStates && <ModesCard name="Stany" modes={character.states} />
+              hasStates && <ModesCard name="Stany" modes={buffedCharacter.states} />
             }
           </div>
         )
       }
 
-      <Activity mode={character.offenses.length > 0 ? "visible" : "hidden"}>
+      <Activity mode={buffedCharacter.offenses.length > 0 ? "visible" : "hidden"}>
         <div className="lg:col-span-2 flex w-full">
-          <OffenseCard offenses={character.offenses} />
+          <OffenseCard offenses={buffedCharacter.offenses} />
         </div>
       </Activity>
 
       {
-        character.maneuvers.length > 0 && <ManeuversCard maneuvers={character.maneuvers} />
+        buffedCharacter.maneuvers.length > 0 && <ManeuversCard maneuvers={buffedCharacter.maneuvers} />
       }
 
       {
-        character.powers.map(power => <PowerCard power={power} key={power.id} />)
+        buffedCharacter.powers.map(power => <PowerCard power={power} key={power.id} />)
       }
 
     </div>

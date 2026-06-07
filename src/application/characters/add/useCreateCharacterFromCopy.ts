@@ -38,6 +38,7 @@ export const useCreateCharacterFromCopy = ({ onSuccessCallback }: UseCreateChara
         shortName: header.shortName,
         description: header.description,
         tags: header.tags,
+        raceId: header.raceId,
         characteristics: baseChar.characteristics,
         attributes: baseChar.attributes,
         talents: baseChar.talents,
@@ -45,6 +46,8 @@ export const useCreateCharacterFromCopy = ({ onSuccessCallback }: UseCreateChara
         defenses: baseChar.defenses,
         offenses: baseChar.offenses,
         powers: baseChar.powers,
+        buffProfiles: baseChar.buffProfiles,
+        activeBuffProfileId: baseChar.activeBuffProfileId ?? null,
 
         weaponsIds: baseChar.equipment.weapons.map(weapon => weapon.id),
         armorsIds: baseChar.equipment.armors.map(armor => armor.id),
