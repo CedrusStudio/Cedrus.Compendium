@@ -9,6 +9,7 @@ import { Field } from "@/common/components/fields";
 import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
 import { Separator } from "@/common/components/ui/separator";
+import { Button } from "@/ui/button";
 
 type ModesCardProps =
 {
@@ -16,11 +17,21 @@ type ModesCardProps =
   modes: Mode[];
   selectedModeId?: string;
   onSelectedModeIdChange?: (modeId: string | undefined) => void;
+  linkedProfiles?: LinkedModeProfile[];
+};
+
+type LinkedModeProfile =
+{
+  id: string;
+  name: string;
+  isActive: boolean;
+  onApply: () => void;
+  onWithdraw: () => void;
 };
 
 const NONE_SELECTED_MODE = '__none__';
 
-export default function ModesCard({ name, modes, selectedModeId, onSelectedModeIdChange }: ModesCardProps)
+export default function ModesCard({ name, modes, selectedModeId, onSelectedModeIdChange, linkedProfiles = [] }: ModesCardProps)
 {  
   const [internalSelectedModeId, setInternalSelectedModeId] = useState<string | undefined>(undefined);
   const resolvedSelectedModeId = selectedModeId ?? internalSelectedModeId;
@@ -81,6 +92,34 @@ export default function ModesCard({ name, modes, selectedModeId, onSelectedModeI
                 {selectedModeObj.description}
               </p>
               <TagsView tags={selectedModeObj.tags} variant="outline" />
+
+              {
+                linkedProfiles.length > 0 && (
+                  <div className="mt-2 flex w-full flex-col gap-2 rounded-lg border border-border/60 bg-background/60 p-3">
+                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      {displayedText.linkedProfile}
+                    </p>
+
+                    {
+                      linkedProfiles.map(profile => (
+                        <div key={profile.id} className="flex flex-col gap-2 rounded-md border border-border/40 bg-background p-3 sm:flex-row sm:items-center sm:justify-between">
+                          <span className="text-sm font-medium">{profile.name}</span>
+
+                          <div className="flex items-center gap-2">
+                            <Button type="button" size="sm" onClick={profile.onApply} disabled={profile.isActive}>
+                              {displayedText.applyBuff}
+                            </Button>
+
+                            <Button type="button" size="sm" variant="outline" onClick={profile.onWithdraw} disabled={!profile.isActive}>
+                              {displayedText.withdrawBuff}
+                            </Button>
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </div>
+                )
+              }
             </div>
           )
         }

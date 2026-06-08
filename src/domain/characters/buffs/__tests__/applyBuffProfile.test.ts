@@ -194,7 +194,7 @@ describe('applyBuffProfile', () => {
     expect(result.offenses[0].damageBonus.bonus).toBe(2);
   });
 
-  it('automatically applies linked stance and state profiles for selected modes', () => {
+  it('does not automatically apply linked stance and state profiles for selected modes', () => {
     const character = createCharacter();
     const linkedStanceProfile = createProfileWithId('stance-linked-profile');
     const linkedStateProfile = createProfileWithId('state-linked-profile');
@@ -210,13 +210,9 @@ describe('applyBuffProfile', () => {
     character.stanceModifierProfiles = [linkedStanceProfile];
     character.stateModifierProfiles = [linkedStateProfile];
 
-    const result = applyActiveBuffProfile(character, {
-      selectedStanceIds: ['stance-1'],
-      selectedStateIds: ['state-1'],
-    });
+    const result = applyActiveBuffProfile(character);
 
-    expect(result.characteristics.strength.value).toBe(7);
-    expect(result.defenses[0].block).toBe(8);
+    expect(result).toBe(character);
   });
 
   it('does nothing when selected modes have no linked profiles', () => {
@@ -227,9 +223,7 @@ describe('applyBuffProfile', () => {
     profile.characteristics.strength.value = 3;
     character.stanceModifierProfiles = [profile];
 
-    const result = applyActiveBuffProfile(character, {
-      selectedStanceIds: ['stance-1'],
-    });
+    const result = applyActiveBuffProfile(character);
 
     expect(result).toBe(character);
   });

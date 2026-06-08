@@ -69,4 +69,41 @@ describe('ModesCard', () => {
 
     expect(onSelectedModeIdChange).toHaveBeenCalledWith(undefined);
   });
+
+  it('renders apply and withdraw buttons for linked profiles next to the selected mode', () => {
+    const onApply = vi.fn();
+    const onWithdraw = vi.fn();
+
+    render(
+      <ModesCard
+        name="Postawy"
+        modes={[createMode('stance-1', 'Wilk')]}
+        selectedModeId="stance-1"
+        linkedProfiles={[
+          {
+            id: 'profile-apply',
+            name: 'Wilczy krok',
+            isActive: false,
+            onApply,
+            onWithdraw,
+          },
+          {
+            id: 'profile-withdraw',
+            name: 'Wilczy pazur',
+            isActive: true,
+            onApply: vi.fn(),
+            onWithdraw,
+          },
+        ]}
+      />,
+    );
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'zastosuj' })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: 'wycofaj' })[1]);
+
+    expect(screen.getByText('Wilczy krok')).toBeTruthy();
+    expect(screen.getByText('Wilczy pazur')).toBeTruthy();
+    expect(onApply).toHaveBeenCalledTimes(1);
+    expect(onWithdraw).toHaveBeenCalledTimes(1);
+  });
 });

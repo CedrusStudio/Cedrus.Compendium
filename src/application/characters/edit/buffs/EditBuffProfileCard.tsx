@@ -7,6 +7,7 @@ import { DataCard } from '@/common/components/cards/DataCard';
 import { BuffProfile } from '@/domain/characters/buffs/BuffProfile';
 import { displayedText } from '@/common/translations';
 import { Label } from '@/ui/label';
+import { Badge } from '@/ui/badge';
 import { FieldPath } from 'react-hook-form';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 import { FormControl, FormField, FormItem, FormLabel } from '@/ui/form';
@@ -40,6 +41,7 @@ const NO_LINKED_ENTITY = '__none__';
 export default function EditBuffProfileCard({ fieldName, index, buffProfile, linkedEntities, linkedEntityLabel, isActive, onToggleActive, onRemove }: EditBuffProfileCardProps)
 {
   const { control } = useFormContext<BuffsDto>();
+  const linkedEntity = linkedEntities?.find(entity => entity.id === buffProfile.linkedEntityId);
 
   return (
     <DataCard
@@ -49,7 +51,18 @@ export default function EditBuffProfileCard({ fieldName, index, buffProfile, lin
       contentClassName='space-y-6 -mt-2'
     >
       <div className='flex justify-between items-center gap-4'>
-        <InputFormField<BuffsDto> path={toBuffProfilePath(fieldName, index, 'name')} inputClassName='w-50 sm:w-80 h-10 text-center font-medium' />
+        <div className='flex flex-1 flex-col gap-2'>
+          <InputFormField<BuffsDto> path={toBuffProfilePath(fieldName, index, 'name')} inputClassName='w-50 sm:w-80 h-10 text-center font-medium' />
+          {
+            linkedEntity && linkedEntityLabel && (
+              <div className='flex flex-wrap gap-2'>
+                <Badge variant='outline' className='w-fit'>
+                  {`${linkedEntityLabel}: ${linkedEntity.name}${linkedEntity.grade !== undefined ? ` (${linkedEntity.grade})` : ''}`}
+                </Badge>
+              </div>
+            )
+          }
+        </div>
         <div className='flex items-center gap-2'>
           <button
             type='button'

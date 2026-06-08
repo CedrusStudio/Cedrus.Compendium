@@ -7,6 +7,13 @@ import BarrierCard from "@/application/characters/combat/BarrierCard";
 import ManeuversCard from "@/application/characters/combat/ManeuversCard";
 import PowerCard from "@/application/characters/combat/power/PowerCard";
 import { Activity } from "react";
+import charactersClient from "@/infrastructure/clients/charactersClient";
+import { createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
+import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
+import { BuffsDto } from "@/persistence/schemas/characters/buffs/buffsSchema";
+
+type ModifierProfilesFieldName = 'buffProfiles' | 'stanceModifierProfiles' | 'stateModifierProfiles' | 'otherModifierProfiles';
+type ActiveModifierProfileIdsFieldName = 'activeBuffProfileIds' | 'activeStanceModifierProfileIds' | 'activeStateModifierProfileIds' | 'activeOtherModifierProfileIds';
 
 type CombatViewProps =
 {
@@ -22,6 +29,35 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
   const hasStances = character.stances.length > 0;
   const hasStates = character.states.length > 0;
   const hasSplitModesLayout = hasStances && hasStates;
+
+  const { handleSubmit, isPending } = useFormMutation<BuffsDto>
+  (
+    async (data) => await charactersClient.updateBuffs(character.id, data),
+    {
+      invalidateOnSuccess: createCharacterCacheKeys(character.id),
+      toastPosition: 'bottom-left',
+    }
+  );
+
+  const linkedStanceProfiles = createLinkedModeProfiles
+  (
+    character,
+    character.stanceModifierProfiles,
+    'activeStanceModifierProfileIds',
+    selectedStanceId,
+    handleSubmit,
+    isPending,
+  );
+
+  const linkedStateProfiles = createLinkedModeProfiles
+  (
+    character,
+    character.stateModifierProfiles,
+    'activeStateModifierProfileIds',
+    selectedStateId,
+    handleSubmit,
+    isPending,
+  );
 
   return (
     <div className='flex flex-col gap-3'>
@@ -51,6 +87,7 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
                   modes={character.stances}
                   selectedModeId={selectedStanceId}
                   onSelectedModeIdChange={onSelectedStanceIdChange}
+                  linkedProfiles={linkedStanceProfiles}
                 />
               )
             }
@@ -61,6 +98,7 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
                   modes={character.states}
                   selectedModeId={selectedStateId}
                   onSelectedModeIdChange={onSelectedStateIdChange}
+                  linkedProfiles={linkedStateProfiles}
                 />
               )
             }
@@ -85,3 +123,51 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
     </div>
   );
 };
+
+function createLinkedModeProfiles(
+  character: Character,
+  profiles: Character['stanceModifierProfiles'] | Character['stateModifierProfiles'],
+  activeIdsFieldName: ActiveModifierProfileIdsFieldName,
+  selectedModeId: string | undefined,
+  handleSubmit: (data: BuffsDto) => void,
+  isPending: boolean,
+)
+{
+  if (!selectedModeId)
+  {
+    return [];
+  }
+
+  return profiles
+    .filter(profile => profile.linkedEntityId === selectedModeId)
+    .map(profile => ({
+      id: profile.id,
+      name: profile.name,
+      isActive: character[activeIdsFieldName].includes(profile.id) || isPending,
+      onApply: () => handleSubmit(createBuffsPayload(character,
+      {
+        [activeIdsFieldName]: character[activeIdsFieldName].includes(profile.id)
+          ? character[activeIdsFieldName]
+          : [...character[activeIdsFieldName], profile.id],
+      })),
+      onWithdraw: () => handleSubmit(createBuffsPayload(character,
+      {
+        [activeIdsFieldName]: character[activeIdsFieldName].filter(activeId => activeId !== profile.id),
+      })),
+    }));
+}
+
+function createBuffsPayload(character: Character, overrides: Partial<BuffsDto>): BuffsDto
+{
+  return {
+    buffProfiles: character.buffProfiles,
+    activeBuffProfileIds: character.activeBuffProfileIds,
+    stanceModifierProfiles: character.stanceModifierProfiles,
+    activeStanceModifierProfileIds: character.activeStanceModifierProfileIds,
+    stateModifierProfiles: character.stateModifierProfiles,
+    activeStateModifierProfileIds: character.activeStateModifierProfileIds,
+    otherModifierProfiles: character.otherModifierProfiles,
+    activeOtherModifierProfileIds: character.activeOtherModifierProfileIds,
+    ...overrides,
+  };
+}

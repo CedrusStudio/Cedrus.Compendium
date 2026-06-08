@@ -140,4 +140,26 @@ describe('CharacterBuffsView', () => {
     expect(screen.getAllByText('brak zdefiniowanych profili w tej kategorii')).toHaveLength(4);
     expect(screen.queryByRole('link', { name: 'edycja' })).toBeNull();
   });
+
+  it('shows when a linked stance profile matches the current stance and uses the linked apply label', () => {
+    const linkedProfile = {
+      ...createDefaultBuffProfile(),
+      id: 'stance-profile-linked',
+      name: 'Wilczy krok',
+      linkedEntityId: 'stance-1',
+    };
+
+    render(
+      <CharacterBuffsView
+        character={createCharacter({
+          stances: [{ id: 'stance-1', name: 'Wilk', grade: 1, description: '', requirements: [], price: 0, tags: [] } as Character['stances'][number]],
+          stanceModifierProfiles: [linkedProfile],
+        })}
+        selectedStanceId="stance-1"
+      />,
+    );
+
+    expect(screen.getByText('powiązany z aktualnym wyborem: Wilk')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'zastosuj powiązany profil' })).toBeEnabled();
+  });
 });
