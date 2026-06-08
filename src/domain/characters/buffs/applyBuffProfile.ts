@@ -5,26 +5,46 @@ import { Health } from "@/domain/characters/combat/Health";
 import { Defense } from "@/domain/characters/combat/Defense";
 import { DamageOffense, Offense, WeaponOffense } from "@/domain/characters/combat/Offense";
 
-export function getActiveBuffProfile(character: Character): BuffProfile | undefined
+export function getActiveBuffProfiles(character: Character): BuffProfile[]
 {
-  if (!character.activeBuffProfileId)
-  {
-    return undefined;
-  }
+  return resolveActiveProfiles(character.buffProfiles, character.activeBuffProfileIds);
+}
 
-  return character.buffProfiles.find(profile => profile.id === character.activeBuffProfileId);
+export function getActiveStanceModifierProfiles(character: Character): BuffProfile[]
+{
+  return resolveActiveProfiles(character.stanceModifierProfiles, character.activeStanceModifierProfileIds);
+}
+
+export function getActiveStateModifierProfiles(character: Character): BuffProfile[]
+{
+  return resolveActiveProfiles(character.stateModifierProfiles, character.activeStateModifierProfileIds);
+}
+
+export function getActiveOtherModifierProfiles(character: Character): BuffProfile[]
+{
+  return resolveActiveProfiles(character.otherModifierProfiles, character.activeOtherModifierProfileIds);
 }
 
 export function applyActiveBuffProfile(character: Character): Character
 {
-  const activeBuffProfile = getActiveBuffProfile(character);
+  const activeProfiles = [
+    ...getActiveBuffProfiles(character),
+    ...getActiveStanceModifierProfiles(character),
+    ...getActiveStateModifierProfiles(character),
+    ...getActiveOtherModifierProfiles(character),
+  ];
 
-  if (!activeBuffProfile)
+  if (activeProfiles.length === 0)
   {
     return character;
   }
 
-  return applyBuffProfile(character, activeBuffProfile);
+  return applyBuffProfiles(character, activeProfiles);
+}
+
+export function applyBuffProfiles(character: Character, buffProfiles: BuffProfile[]): Character
+{
+  return buffProfiles.reduce(applyBuffProfile, character);
 }
 
 export function applyBuffProfile(character: Character, buffProfile: BuffProfile): Character
@@ -126,4 +146,14 @@ function applyWeaponOffenseBuff(offense: WeaponOffense, buff: WeaponOffenseBuff)
       range: offense.critical.range + buff.criticalRange,
     },
   };
+}
+
+function resolveActiveProfiles(profiles: BuffProfile[], activeProfileIds: string[]): BuffProfile[]
+{
+  if (activeProfileIds.length === 0)
+  {
+    return [];
+  }
+
+  return profiles.filter(profile => activeProfileIds.includes(profile.id));
 }

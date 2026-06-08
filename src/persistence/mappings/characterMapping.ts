@@ -20,7 +20,6 @@ import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 import { toRace } from '@/persistence/mappings/raceMapping';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
-import { createDefaultBuffProfile } from '@/domain/characters/buffs/BuffProfile';
 
 export type CharacterWithRelations = Prisma.CharacterGetPayload<{ include: CharacterIncludeAllRelations }>;
 export type CharacterWithoutRelations = Prisma.CharacterGetPayload<null>;
@@ -56,11 +55,14 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     maneuvers: characterPersistenceModel.maneuvers.map(toCastablePerk<Maneuver>),
     powers: characterPersistenceModel.powers.map(power => toPower(power, characterPersistenceModel.spells, characterPersistenceModel.powerSpecifications)),
     perks: characterPersistenceModel.perks.map(toPerk<Perk>),
-    buffProfiles: characterPersistenceModel.buffProfiles.map(buffProfile => ({
-      ...buffProfile,
-      description: buffProfile.description ?? undefined,
-    })),
-    activeBuffProfileId: characterPersistenceModel.activeBuffProfileId ?? undefined,
+    buffProfiles: normalizeModifierProfiles(characterPersistenceModel.buffProfiles),
+    activeBuffProfileIds: characterPersistenceModel.activeBuffProfileIds,
+    stanceModifierProfiles: normalizeModifierProfiles(characterPersistenceModel.stanceModifierProfiles),
+    activeStanceModifierProfileIds: characterPersistenceModel.activeStanceModifierProfileIds,
+    stateModifierProfiles: normalizeModifierProfiles(characterPersistenceModel.stateModifierProfiles),
+    activeStateModifierProfileIds: characterPersistenceModel.activeStateModifierProfileIds,
+    otherModifierProfiles: normalizeModifierProfiles(characterPersistenceModel.otherModifierProfiles),
+    activeOtherModifierProfileIds: characterPersistenceModel.activeOtherModifierProfileIds,
   };
 }
 
@@ -92,7 +94,13 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     defenses: copyCreateCharacter.defenses,
     offenses: copyCreateCharacter.offenses,
     buffProfiles: copyCreateCharacter.buffProfiles,
-    activeBuffProfileId: copyCreateCharacter.activeBuffProfileId ?? undefined,
+    activeBuffProfileIds: copyCreateCharacter.activeBuffProfileIds,
+    stanceModifierProfiles: copyCreateCharacter.stanceModifierProfiles,
+    activeStanceModifierProfileIds: copyCreateCharacter.activeStanceModifierProfileIds,
+    stateModifierProfiles: copyCreateCharacter.stateModifierProfiles,
+    activeStateModifierProfileIds: copyCreateCharacter.activeStateModifierProfileIds,
+    otherModifierProfiles: copyCreateCharacter.otherModifierProfiles,
+    activeOtherModifierProfileIds: copyCreateCharacter.activeOtherModifierProfileIds,
 
     weapons : {
       connect: copyCreateCharacter.weaponsIds.map(id => ({ id }))
@@ -200,8 +208,14 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
 
     defenses: [ CreateDefaultDefense() ],
     offenses: [ CreateDefaultOffense() ],
-  buffProfiles: [ createDefaultBuffProfile() ],
-  activeBuffProfileId: undefined,
+  buffProfiles: [],
+    activeBuffProfileIds: [],
+    stanceModifierProfiles: [],
+    activeStanceModifierProfileIds: [],
+    stateModifierProfiles: [],
+    activeStateModifierProfileIds: [],
+    otherModifierProfiles: [],
+    activeOtherModifierProfileIds: [],
     talents: [],
 
     // equipment relations start as empty arrays
@@ -377,6 +391,20 @@ export function toCharacterBuffsPersistenceModel(buffs: BuffsDto): Prisma.Charac
 {
   return {
     buffProfiles: buffs.buffProfiles,
-    activeBuffProfileId: buffs.activeBuffProfileId ?? null,
+    activeBuffProfileIds: buffs.activeBuffProfileIds,
+    stanceModifierProfiles: buffs.stanceModifierProfiles,
+    activeStanceModifierProfileIds: buffs.activeStanceModifierProfileIds,
+    stateModifierProfiles: buffs.stateModifierProfiles,
+    activeStateModifierProfileIds: buffs.activeStateModifierProfileIds,
+    otherModifierProfiles: buffs.otherModifierProfiles,
+    activeOtherModifierProfileIds: buffs.activeOtherModifierProfileIds,
   };
+}
+
+function normalizeModifierProfiles(buffProfiles: CharacterWithRelations['buffProfiles']): Character['buffProfiles']
+{
+  return buffProfiles.map(buffProfile => ({
+    ...buffProfile,
+    description: buffProfile.description ?? undefined,
+  }));
 }

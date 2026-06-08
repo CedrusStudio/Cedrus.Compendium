@@ -98,7 +98,13 @@ function createCharacter(): Character
     powers: [],
     perks: [],
     buffProfiles: [],
-    activeBuffProfileId: undefined,
+    activeBuffProfileIds: [],
+    stanceModifierProfiles: [],
+    activeStanceModifierProfileIds: [],
+    stateModifierProfiles: [],
+    activeStateModifierProfileIds: [],
+    otherModifierProfiles: [],
+    activeOtherModifierProfileIds: [],
   };
 }
 
@@ -133,20 +139,52 @@ describe('applyBuffProfile', () => {
     expect(character.offenses[0].leadingWeapon.bonus).toBe(1);
   });
 
-  it('uses the active buff profile and clamps offense dice amount and grade to safe minimums', () => {
+  it('uses all active profiles in a category and clamps offense dice amount and grade to safe minimums', () => {
     const character = createCharacter();
     const buffProfile = createDefaultBuffProfile();
+    const secondBuffProfile = createDefaultBuffProfile();
 
     buffProfile.offense.leadingWeapon.amount = -10;
     buffProfile.offense.leadingWeapon.grade = -10;
+    secondBuffProfile.attributes.fortitude.bonus = 2;
 
-    character.buffProfiles = [buffProfile];
-    character.activeBuffProfileId = buffProfile.id;
+    character.buffProfiles = [buffProfile, secondBuffProfile];
+    character.activeBuffProfileIds = [buffProfile.id, secondBuffProfile.id];
 
     const result = applyActiveBuffProfile(character);
 
     expect(result.offenses[0].leadingWeapon.amount).toBe(0);
     expect(result.offenses[0].leadingWeapon.grade).toBe(1);
+    expect(result.attributes.fortitude.bonus).toBe(3);
+  });
+
+  it('combines active profiles from buffs, stances, states, and other modifiers', () => {
+    const character = createCharacter();
+    const buffProfile = createDefaultBuffProfile();
+    const stanceProfile = createDefaultBuffProfile();
+    const stateProfile = createDefaultBuffProfile();
+    const otherProfile = createDefaultBuffProfile();
+
+    buffProfile.characteristics.strength.value = 1;
+    stanceProfile.health.vitality = 10;
+    stateProfile.defense.block = 3;
+    otherProfile.offense.damageBonus.bonus = 2;
+
+    character.buffProfiles = [buffProfile];
+    character.activeBuffProfileIds = [buffProfile.id];
+    character.stanceModifierProfiles = [stanceProfile];
+    character.activeStanceModifierProfileIds = [stanceProfile.id];
+    character.stateModifierProfiles = [stateProfile];
+    character.activeStateModifierProfileIds = [stateProfile.id];
+    character.otherModifierProfiles = [otherProfile];
+    character.activeOtherModifierProfileIds = [otherProfile.id];
+
+    const result = applyActiveBuffProfile(character);
+
+    expect(result.characteristics.strength.value).toBe(6);
+    expect(result.health.vitality).toBe(20);
+    expect(result.defenses[0].block).toBe(7);
+    expect(result.offenses[0].damageBonus.bonus).toBe(2);
   });
 
   it('returns the original character when no active buff profile exists', () => {

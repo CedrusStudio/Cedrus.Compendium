@@ -11,7 +11,7 @@ import { CreateDefaultManeuver, Maneuver } from "@/domain/characters/combat/Mane
 import { defaultDiceGrade, defaultWeaponDiceAmount } from "@/domain/diceDefaults";
 import { CreateDefaultPower, Power } from "@/domain/characters/combat/Power";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
-import { BuffProfile, createDefaultBuffProfile } from "@/domain/characters/buffs/BuffProfile";
+import { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 import { Tag } from "@/domain/Tag";
 import { Entity } from "@/domain/Entity";
 import { Race } from "@/domain/Race";
@@ -38,7 +38,13 @@ export type Character = Entity &
   powers: Power[];
   perks: Perk[];
   buffProfiles: BuffProfile[];
-  activeBuffProfileId?: string;
+  activeBuffProfileIds: string[];
+  stanceModifierProfiles: BuffProfile[];
+  activeStanceModifierProfileIds: string[];
+  stateModifierProfiles: BuffProfile[];
+  activeStateModifierProfileIds: string[];
+  otherModifierProfiles: BuffProfile[];
+  activeOtherModifierProfileIds: string[];
 };
 
 const emptyCharacter: Character = 
@@ -169,7 +175,13 @@ const emptyCharacter: Character =
   },
   powers: [],
   buffProfiles: [],
-  activeBuffProfileId: undefined,
+  activeBuffProfileIds: [],
+  stanceModifierProfiles: [],
+  activeStanceModifierProfileIds: [],
+  stateModifierProfiles: [],
+  activeStateModifierProfileIds: [],
+  otherModifierProfiles: [],
+  activeOtherModifierProfileIds: [],
   perks: 
   [
     {
@@ -194,7 +206,14 @@ export function CreateEmptyCharacter({name, shortName, tags, description}: {name
   newCharacter.states = [CreateDefaultState()];
   newCharacter.talents = [CreateDefaultTalent()];
   newCharacter.powers = [CreateDefaultPower()];
-  newCharacter.buffProfiles = [createDefaultBuffProfile()];
+  newCharacter.buffProfiles = [];
+  newCharacter.activeBuffProfileIds = [];
+  newCharacter.stanceModifierProfiles = [];
+  newCharacter.activeStanceModifierProfileIds = [];
+  newCharacter.stateModifierProfiles = [];
+  newCharacter.activeStateModifierProfileIds = [];
+  newCharacter.otherModifierProfiles = [];
+  newCharacter.activeOtherModifierProfileIds = [];
   newCharacter.perks = [CreateDefaultPerk()];
   return newCharacter;
 };

@@ -23,7 +23,13 @@ export const copyCreateCharacterSchema = z.object
   offenses: combatSchema.shape.offenses,
   powers: combatSchema.shape.powers,
   buffProfiles: buffsSchema.shape.buffProfiles,
-  activeBuffProfileId: buffsSchema.shape.activeBuffProfileId,
+  activeBuffProfileIds: buffsSchema.shape.activeBuffProfileIds,
+  stanceModifierProfiles: buffsSchema.shape.stanceModifierProfiles,
+  activeStanceModifierProfileIds: buffsSchema.shape.activeStanceModifierProfileIds,
+  stateModifierProfiles: buffsSchema.shape.stateModifierProfiles,
+  activeStateModifierProfileIds: buffsSchema.shape.activeStateModifierProfileIds,
+  otherModifierProfiles: buffsSchema.shape.otherModifierProfiles,
+  activeOtherModifierProfileIds: buffsSchema.shape.activeOtherModifierProfileIds,
 
   // Relation ids for equipment
   weaponsIds: z.array(z.string()),
