@@ -11,11 +11,13 @@ import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type CharacterBuffsViewProps =
 {
   character: Character;
+  selectedStanceId?: string;
+  selectedStateId?: string;
 };
 
 type ModifierProfilesFieldName = 'buffProfiles' | 'stanceModifierProfiles' | 'stateModifierProfiles' | 'otherModifierProfiles';
@@ -52,7 +54,7 @@ const modifierCategories: ModifierCategoryConfig[] =
   },
 ] as const;
 
-export default function CharacterBuffsView({ character }: CharacterBuffsViewProps)
+export default function CharacterBuffsView({ character, selectedStanceId, selectedStateId }: CharacterBuffsViewProps)
 {
   const [selectedProfileIds, setSelectedProfileIds] = useState<Record<ModifierProfilesFieldName, string>>(() => createSelectedProfileIdsState(character));
 
@@ -60,6 +62,31 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
   {
     setSelectedProfileIds(createSelectedProfileIdsState(character));
   }, [character]);
+
+  useEffect(() =>
+  {
+    setSelectedProfileIds(previousValue =>
+    {
+      const nextValue = { ...previousValue };
+      let changed = false;
+
+      const linkedStanceProfileId = resolveLinkedProfileId(character.stanceModifierProfiles, selectedStanceId);
+      if (linkedStanceProfileId && linkedStanceProfileId !== previousValue.stanceModifierProfiles)
+      {
+        nextValue.stanceModifierProfiles = linkedStanceProfileId;
+        changed = true;
+      }
+
+      const linkedStateProfileId = resolveLinkedProfileId(character.stateModifierProfiles, selectedStateId);
+      if (linkedStateProfileId && linkedStateProfileId !== previousValue.stateModifierProfiles)
+      {
+        nextValue.stateModifierProfiles = linkedStateProfileId;
+        changed = true;
+      }
+
+      return changed ? nextValue : previousValue;
+    });
+  }, [character.stanceModifierProfiles, character.stateModifierProfiles, selectedStanceId, selectedStateId]);
 
   const { handleSubmit, isPending } = useFormMutation<BuffsDto>
   (
@@ -134,6 +161,9 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
               const activeProfiles = profiles.filter(profile => activeProfileIds.includes(profile.id));
               const modifierSections = selectedProfile ? collectBuffProfileModifierSections(selectedProfile) : [];
               const modifierCount = modifierSections.reduce((total, section) => total + section.modifiers.length, 0);
+              const selectedLinkedEntityId = resolveSelectedLinkedEntityId(category.profilesFieldName, selectedStanceId, selectedStateId);
+              const isSelectedProfileLinkedToCurrentMode = Boolean(selectedProfile?.linkedEntityId && selectedProfile.linkedEntityId === selectedLinkedEntityId);
+              const linkedEntityName = selectedProfile ? resolveLinkedEntityName(character, category.profilesFieldName, selectedProfile.linkedEntityId) : undefined;
 
               return (
                 <ModifierCategoryCard
@@ -153,6 +183,9 @@ export default function CharacterBuffsView({ character }: CharacterBuffsViewProp
                   onApply={() => handleApply(category.profilesFieldName, category.activeIdsFieldName)}
                   onWithdraw={() => handleWithdraw(category.profilesFieldName, category.activeIdsFieldName)}
                   isSelectedProfileActive={Boolean(selectedProfile && activeProfileIds.includes(selectedProfile.id))}
+                  isSelectedProfileLinkedToCurrentMode={isSelectedProfileLinkedToCurrentMode}
+                  linkedEntityName={linkedEntityName}
+                  isLinkedCategory={category.profilesFieldName === 'stanceModifierProfiles' || category.profilesFieldName === 'stateModifierProfiles'}
                 />
               );
             })
@@ -174,6 +207,9 @@ type ModifierCategoryCardProps =
   modifierSections: { title: string; modifiers: string[] }[];
   isPending: boolean;
   isSelectedProfileActive: boolean;
+  isSelectedProfileLinkedToCurrentMode: boolean;
+  linkedEntityName?: string;
+  isLinkedCategory: boolean;
   onSelectProfile: (profileId: string) => void;
   onApply: () => void;
   onWithdraw: () => void;
@@ -191,27 +227,30 @@ function ModifierCategoryCard
     modifierSections,
     isPending,
     isSelectedProfileActive,
+    isSelectedProfileLinkedToCurrentMode,
+    linkedEntityName,
+    isLinkedCategory,
     onSelectProfile,
     onApply,
     onWithdraw,
   }: ModifierCategoryCardProps
 )
 {
+  const applyButtonLabel = isSelectedProfileLinkedToCurrentMode ? displayedText.applyLinkedProfile : displayedText.applyBuff;
+
   return (
-    <div className='rounded-lg border border-border/60 bg-background/30 p-4'>
+    <div className='rounded-xl border border-border/60 bg-background/30 p-4 shadow-sm'>
       <div className='mb-4 flex flex-col gap-3'>
-        <div className='flex flex-col gap-2'>
-          <h3 className='text-lg font-semibold capitalize text-primary'>{title}</h3>
+        <div className='flex flex-col gap-2 rounded-md border border-border/50 bg-background/50 p-3'>
+          <div className='flex items-center justify-between gap-3'>
+            <h3 className='text-lg font-semibold capitalize text-primary'>{title}</h3>
+            <Badge variant='outline'>{profiles.length}</Badge>
+          </div>
           <div className='flex flex-wrap gap-2'>
             {
               activeProfiles.length > 0 ? activeProfiles.map(activeProfile => (
                 <Badge key={activeProfile.id} className='w-fit'>{activeProfile.name}</Badge>
               )) : <Badge variant='outline' className='w-fit'>{displayedText.noActiveBuff}</Badge>
-            }
-            {
-              selectedProfile && (
-                <Badge variant='secondary' className='w-fit'>{`${displayedText.selected}: ${selectedProfile.name}`}</Badge>
-              )
             }
             {
               selectedProfile && (
@@ -223,6 +262,15 @@ function ModifierCategoryCard
                 <Badge variant='outline' className='w-fit'>{`${modifierSections.length} ${displayedText.sections}`}</Badge>
               )
             }
+            {
+              linkedEntityName && (
+                <Badge variant={isSelectedProfileLinkedToCurrentMode ? 'default' : 'outline'} className='w-fit'>
+                  {isSelectedProfileLinkedToCurrentMode
+                    ? `${displayedText.linkedProfileReady}: ${linkedEntityName}`
+                    : `${displayedText.linkedProfile}: ${linkedEntityName}`}
+                </Badge>
+              )
+            }
           </div>
         </div>
 
@@ -230,7 +278,7 @@ function ModifierCategoryCard
           profiles.length > 0 ? (
             <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
               <Select value={selectedProfileId} onValueChange={onSelectProfile}>
-                <SelectTrigger className='min-w-60'>
+                <SelectTrigger className='w-full sm:min-w-60'>
                   <SelectValue placeholder={displayedText.selectModifierProfile} />
                 </SelectTrigger>
                 <SelectContent>
@@ -241,9 +289,9 @@ function ModifierCategoryCard
                   }
                 </SelectContent>
               </Select>
-                    )) : <Badge variant='outline' className='w-fit'>{displayedText.noActiveProfiles}</Badge>
+
               <Button type='button' onClick={onApply} disabled={isPending || !selectedProfile || isSelectedProfileActive}>
-                {displayedText.applyBuff}
+                {applyButtonLabel}
               </Button>
 
               <Button type='button' variant='outline' onClick={onWithdraw} disabled={isPending || !selectedProfile || !isSelectedProfileActive}>
@@ -254,6 +302,12 @@ function ModifierCategoryCard
             <div className='flex flex-col items-start gap-3 rounded-lg border border-dashed border-border/70 bg-background/40 p-4'>
               <p className='text-sm text-muted-foreground'>{displayedText.noModifierProfiles}</p>
             </div>
+          )
+        }
+
+        {
+          isLinkedCategory && selectedProfile?.linkedEntityId && !linkedEntityName && (
+            <p className='text-sm text-muted-foreground'>{displayedText.linkedProfileMissing}</p>
           )
         }
       </div>
@@ -398,4 +452,49 @@ function getModifierProfiles(character: Character, fieldName: ModifierProfilesFi
 function getActiveProfileIds(character: Character, fieldName: ActiveModifierProfileIdsFieldName): string[]
 {
   return character[fieldName];
+}
+
+function resolveLinkedEntityName(character: Character, fieldName: ModifierProfilesFieldName, linkedEntityId?: string): string | undefined
+{
+  if (!linkedEntityId)
+  {
+    return undefined;
+  }
+
+  if (fieldName === 'stanceModifierProfiles')
+  {
+    return character.stances.find(stance => stance.id === linkedEntityId)?.name;
+  }
+
+  if (fieldName === 'stateModifierProfiles')
+  {
+    return character.states.find(state => state.id === linkedEntityId)?.name;
+  }
+
+  return undefined;
+}
+
+function resolveSelectedLinkedEntityId(fieldName: ModifierProfilesFieldName, selectedStanceId?: string, selectedStateId?: string): string | undefined
+{
+  if (fieldName === 'stanceModifierProfiles')
+  {
+    return selectedStanceId;
+  }
+
+  if (fieldName === 'stateModifierProfiles')
+  {
+    return selectedStateId;
+  }
+
+  return undefined;
+}
+
+function resolveLinkedProfileId(profiles: BuffProfile[], linkedEntityId?: string): string | undefined
+{
+  if (!linkedEntityId)
+  {
+    return undefined;
+  }
+
+  return profiles.find(profile => profile.linkedEntityId === linkedEntityId)?.id;
 }

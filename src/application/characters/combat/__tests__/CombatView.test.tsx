@@ -39,6 +39,13 @@ vi.mock('@/application/characters/combat/power/PowerCard', () => ({
   default: () => <div>Power card</div>,
 }));
 
+vi.mock('@/infrastructure/hooks/useFormMutation', () => ({
+  useFormMutation: () => ({
+    handleSubmit: vi.fn(),
+    isPending: false,
+  }),
+}));
+
 import CombatView from '@/application/characters/combat/CombatView';
 
 function createCharacter(overrides: Partial<Character> = {}): Character

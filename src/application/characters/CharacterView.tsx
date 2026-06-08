@@ -51,11 +51,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
   if (!character) return <NotFound subject={displayedText.character} />;
 
-    const effectiveCharacter = applyActiveBuffProfile(character,
-    {
-        selectedStanceIds: selectedStanceId ? [selectedStanceId] : [],
-        selectedStateIds: selectedStateId ? [selectedStateId] : [],
-    });
+    const effectiveCharacter = applyActiveBuffProfile(character);
 
   return (
     <div className='flex flex-col-reverse gap-4 lg:grid lg:grid-cols-12'>
@@ -122,7 +118,11 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 </TabsContent>
 
                 <TabsContent value="buffs">
-                    <CharacterBuffsView character={character} />
+                                        <CharacterBuffsView
+                                            character={character}
+                                            selectedStanceId={selectedStanceId}
+                                            selectedStateId={selectedStateId}
+                                        />
                 </TabsContent>
 
                 <TabsContent value="talents">

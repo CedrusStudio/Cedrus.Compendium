@@ -5,12 +5,6 @@ import { Health } from "@/domain/characters/combat/Health";
 import { Defense } from "@/domain/characters/combat/Defense";
 import { DamageOffense, Offense, WeaponOffense } from "@/domain/characters/combat/Offense";
 
-type SelectedModeIdsInput =
-{
-  selectedStanceIds?: string[];
-  selectedStateIds?: string[];
-};
-
 export function getActiveBuffProfiles(character: Character): BuffProfile[]
 {
   return resolveActiveProfiles(character.buffProfiles, character.activeBuffProfileIds);
@@ -31,15 +25,13 @@ export function getActiveOtherModifierProfiles(character: Character): BuffProfil
   return resolveActiveProfiles(character.otherModifierProfiles, character.activeOtherModifierProfileIds);
 }
 
-export function applyActiveBuffProfile(character: Character, selectedModeIds: SelectedModeIdsInput = {}): Character
+export function applyActiveBuffProfile(character: Character): Character
 {
   const activeProfiles = dedupeProfilesById([
     ...getActiveBuffProfiles(character),
     ...getActiveStanceModifierProfiles(character),
     ...getActiveStateModifierProfiles(character),
     ...getActiveOtherModifierProfiles(character),
-    ...resolveLinkedProfiles(character.stanceModifierProfiles, selectedModeIds.selectedStanceIds),
-    ...resolveLinkedProfiles(character.stateModifierProfiles, selectedModeIds.selectedStateIds),
   ]);
 
   if (activeProfiles.length === 0)
@@ -164,16 +156,6 @@ function resolveActiveProfiles(profiles: BuffProfile[], activeProfileIds: string
   }
 
   return profiles.filter(profile => activeProfileIds.includes(profile.id));
-}
-
-function resolveLinkedProfiles(profiles: BuffProfile[], selectedEntityIds: string[] = []): BuffProfile[]
-{
-  if (selectedEntityIds.length === 0)
-  {
-    return [];
-  }
-
-  return profiles.filter(profile => profile.linkedEntityId && selectedEntityIds.includes(profile.linkedEntityId));
 }
 
 function dedupeProfilesById(profiles: BuffProfile[]): BuffProfile[]

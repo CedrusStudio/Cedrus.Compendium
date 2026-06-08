@@ -2,12 +2,14 @@
 
 import { setWithSideEffect } from '@/common/global/setterUtils';
 import { calculateCriticalDamage, calculateWeaponDamageRoll, DamageOffense, handleDamageOffenseRolls, handleWeaponDamageRolls, Offense, roll, WeaponOffense } from '@/domain/characters/combat/Offense';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 
 export const useCombatRolls = (offenses: Offense[]) => 
 {
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
-  const offense = offenses[selectedOffenseIndex];
+  const safeSelectedOffenseIndex = offenses.length === 0 ? 0 : Math.min(selectedOffenseIndex, offenses.length - 1);
+  const offense = offenses[safeSelectedOffenseIndex]!;
+  const offenseSignature = useMemo(() => JSON.stringify(offense), [offense]);
 
   const [currentLeadingOffense, setCurrentLeadingOffense] = useState<WeaponOffense>(offense.leadingWeapon);
   const [currentSecondaryOffense, setCurrentSecondaryOffense] = useState<WeaponOffense | undefined>(offense.secondaryWeapon);
@@ -94,7 +96,31 @@ export const useCombatRolls = (offenses: Offense[]) =>
     setLeadingRolls([]);
     setSecondaryRolls([]);
     setDamageBonusRolls([]);
+    setAdditionalDamageBonusRolls([]);
   };
+
+  useEffect(() =>
+  {
+    if (offenses.length === 0)
+    {
+      return;
+    }
+
+    if (selectedOffenseIndex !== safeSelectedOffenseIndex)
+    {
+      setSelectedOffenseIndex(safeSelectedOffenseIndex);
+      return;
+    }
+
+    setCurrentLeadingOffense(offense.leadingWeapon);
+    setCurrentSecondaryOffense(offense.secondaryWeapon);
+    setCurrentDamageBonus(offense.damageBonus);
+    setCurrentAdditionalDamageBonus(offense.additionalDamageBonus);
+    setLeadingRolls([]);
+    setSecondaryRolls([]);
+    setDamageBonusRolls([]);
+    setAdditionalDamageBonusRolls([]);
+  }, [offenseSignature, offenses.length, offense, safeSelectedOffenseIndex, selectedOffenseIndex]);
 
   return { 
     totalResult: () => calculateTotalDamage(),
@@ -117,7 +143,7 @@ export const useCombatRolls = (offenses: Offense[]) =>
     setCurrentDamageBonus: setCurrentDamageBonus,
     currentAdditionalDamageBonus,
     setCurrentAdditionalDamageBonus: setCurrentAdditionalDamageBonus,
-    selectedOffenseIndex,
+    selectedOffenseIndex: safeSelectedOffenseIndex,
     setSelectedOffenseIndex: setWithSideEffect(setSelectedOffenseIndex, handleChangeOffense)
   };
 };

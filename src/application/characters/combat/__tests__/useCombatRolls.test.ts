@@ -538,7 +538,7 @@ describe('useCombatRolls', () => {
       expect(result.current.damageBonusRolls).toEqual([]);
     });
 
-    it('should not reset additionalDamageBonusRolls in handleChangeOffense', () => {
+    it('should reset additionalDamageBonusRolls in handleChangeOffense', () => {
       const { result } = renderHook(() => useCombatRolls(mockOffenses));
 
       act(() => {
@@ -549,9 +549,7 @@ describe('useCombatRolls', () => {
         result.current.setSelectedOffenseIndex(1);
       });
 
-      // Note: Based on the code, additionalDamageBonusRolls is NOT reset
-      // This might be a bug, but we test the actual behavior
-      expect(result.current.additionalDamageBonusRolls).toEqual([5]);
+      expect(result.current.additionalDamageBonusRolls).toEqual([]);
     });
   });
 
@@ -803,6 +801,35 @@ describe('useCombatRolls', () => {
       expect(result.current.leadingRolls).toEqual([]);
       expect(result.current.damageBonusRolls).toEqual([]);
       expect(result.current.totalResult()).toBe(0);
+    });
+
+    it('should reset current offense state when offense props change after rerender', () => {
+      const { result, rerender } = renderHook(({ offenses }) => useCombatRolls(offenses), {
+        initialProps: { offenses: mockOffenses },
+      });
+
+      act(() => {
+        result.current.setCurrentLeadingOffense(createWeaponOffense({ amount: 5, bonus: 9 }));
+        result.current.setCurrentDamageBonus(createDamageOffense({ amount: 4, bonus: 7 }));
+        result.current.setLeadingRolls([[8, false]]);
+        result.current.setDamageBonusRolls([3]);
+      });
+
+      const updatedOffenses = [
+        createOffense({
+          id: 'offense-1-updated',
+          leadingWeapon: createWeaponOffense({ amount: 1, grade: 8, bonus: 12 }),
+          damageBonus: createDamageOffense({ amount: 2, grade: 6, bonus: 5 }),
+        }),
+        mockOffenses[1],
+      ];
+
+      rerender({ offenses: updatedOffenses });
+
+      expect(result.current.currentLeadingOffense).toEqual(updatedOffenses[0].leadingWeapon);
+      expect(result.current.currentDamageBonus).toEqual(updatedOffenses[0].damageBonus);
+      expect(result.current.leadingRolls).toEqual([]);
+      expect(result.current.damageBonusRolls).toEqual([]);
     });
   });
 });
