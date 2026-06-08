@@ -39,9 +39,9 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
 
     health: characterPersistenceModel.health,
     defenses: characterPersistenceModel.defenses.map(toDefense),
-    defaultDefenseId: characterPersistenceModel.defaultDefenseId,
+    defaultDefenseId: characterPersistenceModel.defaultDefenseId ?? undefined,
     offenses: characterPersistenceModel.offenses.map(toOffense),
-    defaultOffenseId: characterPersistenceModel.defaultOffenseId,
+    defaultOffenseId: characterPersistenceModel.defaultOffenseId ?? undefined,
 
     equipment: toEquipment
     (
