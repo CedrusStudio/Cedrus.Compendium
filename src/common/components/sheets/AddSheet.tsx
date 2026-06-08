@@ -46,17 +46,17 @@ export default function AddSheet
         }
       </SheetTrigger>
 
-      <SheetContent className="w-full flex flex-col">
-        <SheetHeader>
+      <SheetContent className="w-full flex min-h-0 flex-col">
+        <SheetHeader className="shrink-0">
           <SheetTitle className='first-letter:uppercase'>{title}</SheetTitle>
           <SheetDescription>{displayedText.clickSave}</SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col place-content-center place-items-center auto-rows-min gap-3 overflow-y-auto overflow-x-hidden flex-1 py-2">
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-start gap-3 overflow-y-auto overflow-x-hidden px-4 py-4">
           {children}
         </div>
 
-        <SheetFooter>
+        <SheetFooter className="shrink-0">
           <SubmitButton isPending={isPending} className="w-full" formName={formId} />
           <SheetClose className="capitalize" asChild>
             <Button variant="outline" type='button'>{displayedText.close}</Button>
