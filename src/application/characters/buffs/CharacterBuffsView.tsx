@@ -254,11 +254,6 @@ function ModifierCategoryCard
             }
             {
               selectedProfile && (
-                <Badge variant='secondary' className='w-fit'>{`${displayedText.selected}: ${selectedProfile.name}`}</Badge>
-              )
-            }
-            {
-              selectedProfile && (
                 <Badge variant='outline' className='w-fit'>{`${modifierCount} ${displayedText.effects}`}</Badge>
               )
             }
