@@ -385,6 +385,7 @@ type BuffProfile {
   id              String
   name            String
   description     String?
+  linkedEntityId  String?
   characteristics CharacteristicsBuff
   attributes      AttributesBuff
   health          HealthBuff

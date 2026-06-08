@@ -406,5 +406,6 @@ function normalizeModifierProfiles(buffProfiles: CharacterWithRelations['buffPro
   return buffProfiles.map(buffProfile => ({
     ...buffProfile,
     description: buffProfile.description ?? undefined,
+    linkedEntityId: buffProfile.linkedEntityId ?? undefined,
   }));
 }

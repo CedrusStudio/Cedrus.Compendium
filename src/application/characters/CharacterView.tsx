@@ -25,6 +25,7 @@ import FavoriteCharacterButton from '@/application/personalization/FavoriteChara
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 import { createCharacterCopyHref } from '@/application/characters/add/characterCopyRoute';
 import CharacterBuffsView from '@/application/characters/buffs/CharacterBuffsView';
+import { applyActiveBuffProfile } from '@/domain/characters/buffs/applyBuffProfile';
 
 type CharacterViewProps = 
 {
@@ -37,6 +38,8 @@ export default function CharacterView({ tab }: CharacterViewProps)
 {
   const { character } = useGetCharacterById();
   const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? defaultTab);
+    const [selectedStanceId, setSelectedStanceId] = useState<string | undefined>(undefined);
+    const [selectedStateId, setSelectedStateId] = useState<string | undefined>(undefined);
   const { deleteCharacter, isPending } = useDeleteCharacterById();
   const dispatch = useDispatch();
 
@@ -48,11 +51,17 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
   if (!character) return <NotFound subject={displayedText.character} />;
 
+    const effectiveCharacter = applyActiveBuffProfile(character,
+    {
+        selectedStanceIds: selectedStanceId ? [selectedStanceId] : [],
+        selectedStateIds: selectedStateId ? [selectedStateId] : [],
+    });
+
   return (
     <div className='flex flex-col-reverse gap-4 lg:grid lg:grid-cols-12'>
 
         <div className='hidden md:block md:col-span-2'>
-            <StatisticsView character={character} />
+                        <StatisticsView character={effectiveCharacter} />
         </div>
 
         <Tabs 
@@ -97,13 +106,19 @@ export default function CharacterView({ tab }: CharacterViewProps)
 
                     <DetailsView character={character} />
                     <div className="my-4 md:hidden md:my-0">
-                        <StatisticsView character={character} />
+                        <StatisticsView character={effectiveCharacter} />
                     </div>
                     
                 </TabsContent>
 
                 <TabsContent value="combat">
-                    <CombatView character={character} />
+                    <CombatView
+                      character={effectiveCharacter}
+                      selectedStanceId={selectedStanceId}
+                      selectedStateId={selectedStateId}
+                      onSelectedStanceIdChange={setSelectedStanceId}
+                      onSelectedStateIdChange={setSelectedStateId}
+                    />
                 </TabsContent>
 
                 <TabsContent value="buffs">

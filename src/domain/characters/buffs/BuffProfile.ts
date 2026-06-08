@@ -78,6 +78,7 @@ export type OffenseBuff =
 export type BuffProfile = Entity &
 {
   description?: string;
+  linkedEntityId?: string;
   characteristics: CharacteristicsBuff;
   attributes: AttributesBuff;
   health: HealthBuff;
@@ -149,6 +150,7 @@ export function createDefaultModifierProfile
     id: ulid(),
     name,
     description,
+    linkedEntityId: undefined,
     characteristics:
     {
       strength: createDefaultStatisticBuff(),

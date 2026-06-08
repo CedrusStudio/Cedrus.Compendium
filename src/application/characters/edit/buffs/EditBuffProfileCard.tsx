@@ -9,23 +9,38 @@ import { displayedText } from '@/common/translations';
 import { Label } from '@/ui/label';
 import { FieldPath } from 'react-hook-form';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
+import { FormControl, FormField, FormItem, FormLabel } from '@/ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
+import { useFormContext } from 'react-hook-form';
 
 export type ModifierProfilesFieldName = 'buffProfiles' | 'stanceModifierProfiles' | 'stateModifierProfiles' | 'otherModifierProfiles';
+
+type LinkedEntityOption =
+{
+  id: string;
+  name: string;
+  grade?: number;
+};
 
 type EditBuffProfileCardProps =
 {
   fieldName: ModifierProfilesFieldName;
   index: number;
   buffProfile: BuffProfile;
+  linkedEntities?: LinkedEntityOption[];
+  linkedEntityLabel?: string;
   isActive: boolean;
   onToggleActive: () => void;
   onRemove: () => void;
 };
 
 const statisticBuffFields = ['value', 'bonus', 'testBonus', 'grade'] as const;
+const NO_LINKED_ENTITY = '__none__';
 
-export default function EditBuffProfileCard({ fieldName, index, buffProfile, isActive, onToggleActive, onRemove }: EditBuffProfileCardProps)
+export default function EditBuffProfileCard({ fieldName, index, buffProfile, linkedEntities, linkedEntityLabel, isActive, onToggleActive, onRemove }: EditBuffProfileCardProps)
 {
+  const { control } = useFormContext<BuffsDto>();
+
   return (
     <DataCard
       variant='muted'
@@ -51,6 +66,37 @@ export default function EditBuffProfileCard({ fieldName, index, buffProfile, isA
         path={toBuffProfilePath(fieldName, index, 'description')}
         inputPlaceholder={displayedText.changeDescription}
       />
+
+      {
+        linkedEntities && linkedEntities.length > 0 && (
+          <FormField
+            control={control}
+            name={toBuffProfilePath(fieldName, index, 'linkedEntityId')}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='capitalize'>{linkedEntityLabel}</FormLabel>
+                <Select value={typeof field.value === 'string' ? field.value : NO_LINKED_ENTITY} onValueChange={value => field.onChange(value === NO_LINKED_ENTITY ? null : value)}>
+                  <FormControl>
+                    <SelectTrigger className='w-full'>
+                      <SelectValue placeholder={displayedText.selectLinkedEntity} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value={NO_LINKED_ENTITY}>{displayedText.none}</SelectItem>
+                    {
+                      linkedEntities.map(entity => (
+                        <SelectItem key={entity.id} value={entity.id}>
+                          {entity.grade !== undefined ? `${entity.name} (${entity.grade})` : entity.name}
+                        </SelectItem>
+                      ))
+                    }
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+        )
+      }
 
       <SectionTitle title={displayedText.characteristics} />
       <div className='grid gap-4 lg:grid-cols-2'>

@@ -93,6 +93,7 @@ export default function EditCharacterBuffs({ character }: { character: Character
             <EditModifierCategorySection
               key={category.title}
               category={category}
+              character={character}
               form={form}
               isPending={isPending}
             />
@@ -109,11 +110,13 @@ function EditModifierCategorySection
 (
   {
     category,
+    character,
     form,
     isPending,
   }:
   {
     category: ModifierCategoryConfig;
+    character: Character;
     form: ReturnType<typeof useCharacterForm<BuffsDto>>['form'];
     isPending: boolean;
   }
@@ -167,8 +170,13 @@ function EditModifierCategorySection
           <EditBuffProfileCard
             key={buffProfile.id}
             fieldName={category.profilesFieldName}
-            buffProfile={buffProfile}
+            buffProfile={{
+              ...buffProfile,
+              linkedEntityId: buffProfile.linkedEntityId ?? undefined,
+            }}
             index={index}
+            linkedEntities={resolveLinkedEntities(character, category.profilesFieldName)}
+            linkedEntityLabel={resolveLinkedEntityLabel(category.profilesFieldName)}
             isActive={activeProfileIds.includes(buffProfile.id)}
             onToggleActive={() => toggleActiveProfile(buffProfile.id)}
             onRemove={() => handleRemoveProfile(index, buffProfile.id)}
@@ -178,4 +186,34 @@ function EditModifierCategorySection
       />
     </div>
   );
+}
+
+function resolveLinkedEntities(character: Character, fieldName: ModifierProfilesFieldName)
+{
+  if (fieldName === 'stanceModifierProfiles')
+  {
+    return character.stances;
+  }
+
+  if (fieldName === 'stateModifierProfiles')
+  {
+    return character.states;
+  }
+
+  return undefined;
+}
+
+function resolveLinkedEntityLabel(fieldName: ModifierProfilesFieldName): string | undefined
+{
+  if (fieldName === 'stanceModifierProfiles')
+  {
+    return displayedText.linkedStance;
+  }
+
+  if (fieldName === 'stateModifierProfiles')
+  {
+    return displayedText.linkedState;
+  }
+
+  return undefined;
 }

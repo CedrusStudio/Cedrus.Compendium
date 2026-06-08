@@ -7,13 +7,20 @@ import BarrierCard from "@/application/characters/combat/BarrierCard";
 import ManeuversCard from "@/application/characters/combat/ManeuversCard";
 import PowerCard from "@/application/characters/combat/power/PowerCard";
 import { Activity } from "react";
-import { applyActiveBuffProfile } from "@/domain/characters/buffs/applyBuffProfile";
 
-export default function CombatView({ character }: { character: Character })
+type CombatViewProps =
 {
-  const buffedCharacter = applyActiveBuffProfile(character);
-  const hasStances = buffedCharacter.stances.length > 0;
-  const hasStates = buffedCharacter.states.length > 0;
+  character: Character;
+  selectedStanceId?: string;
+  selectedStateId?: string;
+  onSelectedStanceIdChange?: (modeId: string | undefined) => void;
+  onSelectedStateIdChange?: (modeId: string | undefined) => void;
+};
+
+export default function CombatView({ character, selectedStanceId, selectedStateId, onSelectedStanceIdChange, onSelectedStateIdChange }: CombatViewProps)
+{
+  const hasStances = character.stances.length > 0;
+  const hasStates = character.states.length > 0;
   const hasSplitModesLayout = hasStances && hasStates;
 
   return (
@@ -22,13 +29,13 @@ export default function CombatView({ character }: { character: Character })
       <div className='flex flex-col lg:grid lg:grid-cols-5 gap-3'>
         
         <div className="flex flex-col gap-2 lg:col-span-3">
-          <HealthCard health={buffedCharacter.health} constitution={buffedCharacter.characteristics.constitution} fortitude={buffedCharacter.attributes.fortitude} />
-          <BarrierCard health={buffedCharacter.health} />
+          <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
+          <BarrierCard health={character.health} />
         </div>
 
-        <Activity mode={buffedCharacter.defenses.length > 0 ? "visible" : "hidden"}>
+        <Activity mode={character.defenses.length > 0 ? "visible" : "hidden"}>
           <div className="lg:col-span-2 flex w-full">
-            <DefenseCard defenses={buffedCharacter.defenses} />
+            <DefenseCard defenses={character.defenses} />
           </div>
         </Activity>
 
@@ -38,27 +45,41 @@ export default function CombatView({ character }: { character: Character })
         (hasStances || hasStates) && (
           <div className={hasSplitModesLayout ? "flex flex-col gap-3 lg:grid lg:grid-cols-2" : "flex flex-col gap-3"}>
             {
-              hasStances && <ModesCard name="Postawy" modes={buffedCharacter.stances} />
+              hasStances && (
+                <ModesCard
+                  name="Postawy"
+                  modes={character.stances}
+                  selectedModeId={selectedStanceId}
+                  onSelectedModeIdChange={onSelectedStanceIdChange}
+                />
+              )
             }
             {
-              hasStates && <ModesCard name="Stany" modes={buffedCharacter.states} />
+              hasStates && (
+                <ModesCard
+                  name="Stany"
+                  modes={character.states}
+                  selectedModeId={selectedStateId}
+                  onSelectedModeIdChange={onSelectedStateIdChange}
+                />
+              )
             }
           </div>
         )
       }
 
-      <Activity mode={buffedCharacter.offenses.length > 0 ? "visible" : "hidden"}>
+      <Activity mode={character.offenses.length > 0 ? "visible" : "hidden"}>
         <div className="lg:col-span-2 flex w-full">
-          <OffenseCard offenses={buffedCharacter.offenses} />
+          <OffenseCard offenses={character.offenses} />
         </div>
       </Activity>
 
       {
-        buffedCharacter.maneuvers.length > 0 && <ManeuversCard maneuvers={buffedCharacter.maneuvers} />
+        character.maneuvers.length > 0 && <ManeuversCard maneuvers={character.maneuvers} />
       }
 
       {
-        buffedCharacter.powers.map(power => <PowerCard power={power} key={power.id} />)
+        character.powers.map(power => <PowerCard power={power} key={power.id} />)
       }
 
     </div>
