@@ -33,7 +33,9 @@ model Character {
   talents         Talent[]
   health          Health
   defenses        Defense[]
+  defaultDefenseId String?
   offenses        Offense[]
+  defaultOffenseId String?
   buffProfiles    BuffProfile[]
   activeBuffProfileIds String[]
   stanceModifierProfiles BuffProfile[]

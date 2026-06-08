@@ -39,7 +39,9 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
 
     health: characterPersistenceModel.health,
     defenses: characterPersistenceModel.defenses.map(toDefense),
+    defaultDefenseId: characterPersistenceModel.defaultDefenseId,
     offenses: characterPersistenceModel.offenses.map(toOffense),
+    defaultOffenseId: characterPersistenceModel.defaultOffenseId,
 
     equipment: toEquipment
     (
@@ -92,7 +94,9 @@ export function toCharacterFromCopyPersistenceModel(copyCreateCharacter: CopyCre
     talents: copyCreateCharacter.talents,
     health: copyCreateCharacter.health,
     defenses: copyCreateCharacter.defenses,
+    defaultDefenseId: copyCreateCharacter.defaultDefenseId,
     offenses: copyCreateCharacter.offenses,
+    defaultOffenseId: copyCreateCharacter.defaultOffenseId,
     buffProfiles: copyCreateCharacter.buffProfiles,
     activeBuffProfileIds: copyCreateCharacter.activeBuffProfileIds,
     stanceModifierProfiles: copyCreateCharacter.stanceModifierProfiles,
@@ -159,6 +163,9 @@ const defaultDiceGrade = 3;
 export function toCharacterHeaderPersistenceModel(header: HeaderDto)
   : Prisma.CharacterCreateInput
 {
+  const defaultDefense = CreateDefaultDefense();
+  const defaultOffense = CreateDefaultOffense();
+  
   return {
     id: ulid(),
     name: header.name,
@@ -206,8 +213,10 @@ export function toCharacterHeaderPersistenceModel(header: HeaderDto)
       bonus: 0
     },
 
-    defenses: [ CreateDefaultDefense() ],
-    offenses: [ CreateDefaultOffense() ],
+    defenses: [ defaultDefense ],
+    defaultDefenseId: defaultDefense.id,
+    offenses: [ defaultOffense ],
+    defaultOffenseId: defaultOffense.id,
   buffProfiles: [],
     activeBuffProfileIds: [],
     stanceModifierProfiles: [],
@@ -266,6 +275,7 @@ export function toCharacterCombatPersistenceModel
   return {
     health: combat.health,
     defenses: combat.defenses,
+    defaultDefenseId: combat.defaultDefenseId,
     stances: createUpsertPayload(existingStancesIds, combat.stances, stancesIdsToConnect),
     states: createUpsertPayload(existingStatesIds, combat.states, statesIdsToConnect),
     maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers, maneuversIdsToConnect),
@@ -273,6 +283,7 @@ export function toCharacterCombatPersistenceModel
       connect: [...powerSpecificationsIdsToConnect, ...uniquePowerSpecIds.filter(id => !existingPowerSpecificationsIds.includes(id))].map(id => ({ id }))
     },
     offenses: combat.offenses,
+    defaultOffenseId: combat.defaultOffenseId,
     powers: combat.powers.map(power => ({
       ...power,
       type: normalizePowerType(power.type),

@@ -10,10 +10,12 @@ export const combatSchema = z.object
 ({
   health: healthSchema,
   defenses: z.array(defenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów obrony." }),
+  defaultDefenseId: z.string().optional().nullable(),
   stances: modesSchema,
   states: modesSchema,
   maneuvers: maneuversSchema,
   offenses: z.array(offenseSchema).max(10, { message: "Możesz mieć najwyżej 10 zestawów ataku." }),
+  defaultOffenseId: z.string().optional().nullable(),
   powers: powersSchema
 });
 

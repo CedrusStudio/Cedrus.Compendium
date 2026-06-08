@@ -35,11 +35,13 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
     defaultValues: 
     {
       defenses: character.defenses,
+      defaultDefenseId: character.defaultDefenseId,
       health: character.health,
       stances: character.stances,
       states: character.states,
       maneuvers: character.maneuvers,
       offenses: character.offenses,
+      defaultOffenseId: character.defaultOffenseId,
       powers: character.powers
     },
     updateFn: client.updateCombat,

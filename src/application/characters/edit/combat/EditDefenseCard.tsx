@@ -6,8 +6,9 @@ import { Label } from "@/ui/label";
 import { DataCard } from '@/common/components/cards/DataCard';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
-import { UseFieldArrayRemove } from 'react-hook-form';
+import { UseFieldArrayRemove, useFormContext } from 'react-hook-form';
 import { displayedText } from '@/common/translations';
+import { Button } from '@/ui/button';
 
 type EditDefenseCardProps =
 {
@@ -18,6 +19,15 @@ type EditDefenseCardProps =
 
 export default function EditDefenseCard({ index, defense, remove }: EditDefenseCardProps)
 {
+  const { watch, setValue } = useFormContext<CombatDto>();
+  const defaultDefenseId = watch('defaultDefenseId');
+  const actualDefenseId = watch(`defenses.${index}.id`);
+  const isDefault = defaultDefenseId === actualDefenseId;
+
+  const handleSetAsDefault = () => {
+    setValue('defaultDefenseId', actualDefenseId);
+  };
+
   return (
     <DataCard 
       variant="muted"
@@ -27,7 +37,17 @@ export default function EditDefenseCard({ index, defense, remove }: EditDefenseC
     >
     <div className='flex justify-between items-center gap-4'>
       <InputFormField<CombatDto> path={pathToDefenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
-      <RemoveFromArrayButton index={index} remove={remove} />
+      <div className='flex gap-2'>
+        <Button 
+          type='button'
+          variant={isDefault ? "default" : "outline"}
+          onClick={handleSetAsDefault}
+          className='text-xs'
+        >
+          {isDefault ? '✓ Default' : 'Set as Default'}
+        </Button>
+        <RemoveFromArrayButton index={index} remove={remove} />
+      </div>
     </div>
 
       <AreaInputFormField<CombatDto> 

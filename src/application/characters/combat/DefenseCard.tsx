@@ -27,9 +27,10 @@ import { Button } from '@/ui/button';
 type DefenseCardProps = 
 {
   defenses: Defense[];
+  defaultDefenseId?: string;
 };
 
-export default function DefenseCard({ defenses }: DefenseCardProps)
+export default function DefenseCard({ defenses, defaultDefenseId }: DefenseCardProps)
 {
   const [reductionIncreaseChangeAmount, setReductionIncreaseChangeAmount] = useState<number>(1);
   const [damageTakenChangeAmount, setDamageTakenChangeAmount] = useState<number>(1);
@@ -37,7 +38,13 @@ export default function DefenseCard({ defenses }: DefenseCardProps)
   const [damageTaken, setDamageTaken] = useState<number>(0);
   const [selectedReductionType, setSelectedReductionType] = useState<ReductionType>("full");
 
-  const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(0);
+  const getInitialDefenseIndex = () => {
+    if (!defaultDefenseId) return 0;
+    const index = defenses.findIndex(d => d.id === defaultDefenseId);
+    return index >= 0 ? index : 0;
+  };
+
+  const [selectedDefenseIndex, setSelectedDefenseIndex] = useState<number>(getInitialDefenseIndex());
   const safeSelectedDefenseIndex = defenses.length === 0 ? 0 : Math.min(selectedDefenseIndex, defenses.length - 1);
   const selectedDefense = defenses[safeSelectedDefenseIndex];
   const [immunity, setImmunity] = useState<number>(selectedDefense?.immunity ?? 0);
