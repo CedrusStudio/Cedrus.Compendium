@@ -203,6 +203,7 @@ export const translations_deDE =
     noBuffProfiles: "keine verstärkungsprofile definiert",
     noModifierProfiles: "keine profile in dieser kategorie definiert",
     noBuffModifiers: "das ausgewählte profil hat keine modifikatoren",
+    modifierDetails: "modifizierungsdetails",
     deleteConfirmation: "bist du sicher, dass du das tun möchtest?",
     deleteConfirmationDescription: "Diese Aktion ist unwiderruflich. Dadurch wird die Ressource dauerhaft aus der Datenbank auf dem Server gelöscht.",
 

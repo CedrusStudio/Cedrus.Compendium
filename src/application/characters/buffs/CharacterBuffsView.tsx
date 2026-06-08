@@ -11,6 +11,8 @@ import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/common/components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 type CharacterBuffsViewProps =
@@ -314,41 +316,59 @@ function ModifierCategoryCard
 
       {
         profiles.length > 0 && selectedProfile ? (
-          <div className='space-y-4'>
-            {
-              selectedProfile.description?.trim() && (
-                <p className='text-sm italic text-muted-foreground'>{selectedProfile.description}</p>
-              )
-            }
+          <Collapsible defaultOpen={false}>
+            <CollapsibleTrigger asChild>
+              <Button
+                variant='ghost'
+                className='w-full justify-start gap-2 px-0 hover:bg-transparent'
+              >
+                <ChevronDown className='h-4 w-4 transition-transform data-[state=open]:rotate-180' />
+                <span className='text-sm font-semibold capitalize'>
+                  {displayedText.modifierDetails}
+                </span>
+                {selectedProfile.description?.trim() && (
+                  <span className='ml-auto text-xs text-muted-foreground'>
+                    {selectedProfile.description.substring(0, 50)}{selectedProfile.description.length > 50 ? '...' : ''}
+                  </span>
+                )}
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className='space-y-4 pt-4'>
+              {
+                selectedProfile.description?.trim() && (
+                  <p className='text-sm italic text-muted-foreground'>{selectedProfile.description}</p>
+                )
+              }
 
-            {
-              modifierSections.length > 0 ? (
-                <div className='grid gap-3'>
-                  {
-                    modifierSections.map(section => (
-                      <div key={section.title} className='rounded-lg border border-border/60 bg-background/60 p-4'>
-                        <div className='mb-3 flex items-center justify-between gap-3'>
-                          <h4 className='text-sm font-semibold capitalize text-primary'>{section.title}</h4>
-                          <Badge variant='outline'>{section.modifiers.length}</Badge>
+              {
+                modifierSections.length > 0 ? (
+                  <div className='grid gap-3'>
+                    {
+                      modifierSections.map(section => (
+                        <div key={section.title} className='rounded-lg border border-border/60 bg-background/60 p-4'>
+                          <div className='mb-3 flex items-center justify-between gap-3'>
+                            <h4 className='text-sm font-semibold capitalize text-primary'>{section.title}</h4>
+                            <Badge variant='outline'>{section.modifiers.length}</Badge>
+                          </div>
+                          <div className='space-y-2'>
+                            {
+                              section.modifiers.map(modifier => (
+                                <div key={`${section.title}-${modifier}`} className='rounded-md border border-border/40 bg-background px-3 py-2 text-sm'>
+                                  {modifier}
+                                </div>
+                              ))
+                            }
+                          </div>
                         </div>
-                        <div className='space-y-2'>
-                          {
-                            section.modifiers.map(modifier => (
-                              <div key={`${section.title}-${modifier}`} className='rounded-md border border-border/40 bg-background px-3 py-2 text-sm'>
-                                {modifier}
-                              </div>
-                            ))
-                          }
-                        </div>
-                      </div>
-                    ))
-                  }
-                </div>
-              ) : (
-                <p className='text-sm text-muted-foreground'>{displayedText.noBuffModifiers}</p>
-              )
-            }
-          </div>
+                      ))
+                    }
+                  </div>
+                ) : (
+                  <p className='text-sm text-muted-foreground'>{displayedText.noBuffModifiers}</p>
+                )
+              }
+            </CollapsibleContent>
+          </Collapsible>
         ) : null
       }
     </div>

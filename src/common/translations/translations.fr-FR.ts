@@ -203,6 +203,7 @@ export const translations_frFR =
     noBuffProfiles: "aucun profil d'améliorations défini",
     noModifierProfiles: "aucun profil défini dans cette catégorie",
     noBuffModifiers: "le profil sélectionné n'a aucun modificateur",
+    modifierDetails: "détails des modificateurs",
     deleteConfirmation: "êtes-vous sûr de vouloir faire cela ?",
     deleteConfirmationDescription: "Cette action est irréversible. Elle entraînera la suppression définitive de la ressource dans la base de données du serveur.",
 
