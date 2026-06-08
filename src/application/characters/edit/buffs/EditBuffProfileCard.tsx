@@ -12,6 +12,9 @@ import { FieldPath } from 'react-hook-form';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 import { FormControl, FormField, FormItem, FormLabel } from '@/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/common/components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
+import { Button } from '@/ui/button';
 import { useFormContext } from 'react-hook-form';
 
 export type ModifierProfilesFieldName = 'buffProfiles' | 'stanceModifierProfiles' | 'stateModifierProfiles' | 'otherModifierProfiles';
@@ -111,97 +114,110 @@ export default function EditBuffProfileCard({ fieldName, index, buffProfile, lin
         )
       }
 
-      <SectionTitle title={displayedText.characteristics} />
-      <div className='grid gap-4 lg:grid-cols-2'>
-        {
-          (Object.keys(buffProfile.characteristics) as (keyof BuffProfile['characteristics'])[])
-            .map(statisticName => (
-              <StatisticBuffEditor
-                key={statisticName}
-                fieldName={fieldName}
-                index={index}
-                sectionName='characteristics'
-                statisticName={statisticName}
-              />
-            ))
-        }
-      </div>
+      <Collapsible defaultOpen={false}>
+        <CollapsibleTrigger asChild>
+          <Button
+            variant='ghost'
+            className='w-full justify-start gap-2 px-0 hover:bg-transparent'
+          >
+            <ChevronDown className='h-4 w-4 transition-transform data-[state=open]:rotate-180' />
+            <span className='text-base font-semibold'>{displayedText.modifierDetails}</span>
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent className='space-y-6 pt-4'>
+          <SectionTitle title={displayedText.characteristics} />
+          <div className='grid gap-4 lg:grid-cols-2'>
+            {
+              (Object.keys(buffProfile.characteristics) as (keyof BuffProfile['characteristics'])[])
+                .map(statisticName => (
+                  <StatisticBuffEditor
+                    key={statisticName}
+                    fieldName={fieldName}
+                    index={index}
+                    sectionName='characteristics'
+                    statisticName={statisticName}
+                  />
+                ))
+            }
+          </div>
 
-      <SectionTitle title={displayedText.attributes} />
-      <div className='grid gap-4 lg:grid-cols-2'>
-        {
-          (Object.keys(buffProfile.attributes) as (keyof BuffProfile['attributes'])[])
-            .map(statisticName => (
-              <StatisticBuffEditor
-                key={statisticName}
-                fieldName={fieldName}
-                index={index}
-                sectionName='attributes'
-                statisticName={statisticName}
-              />
-            ))
-        }
-      </div>
+          <SectionTitle title={displayedText.attributes} />
+          <div className='grid gap-4 lg:grid-cols-2'>
+            {
+              (Object.keys(buffProfile.attributes) as (keyof BuffProfile['attributes'])[])
+                .map(statisticName => (
+                  <StatisticBuffEditor
+                    key={statisticName}
+                    fieldName={fieldName}
+                    index={index}
+                    sectionName='attributes'
+                    statisticName={statisticName}
+                  />
+                ))
+            }
+          </div>
 
-      <SectionTitle title={displayedText.health} />
-      <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
-        {
-          (Object.keys(buffProfile.health) as (keyof BuffProfile['health'])[])
-            .map(healthFieldName => (
-              <LabeledBuffInput
-                key={healthFieldName}
-                path={toNestedBuffPath(fieldName, index, `health.${healthFieldName}`)}
-                label={displayedText[healthFieldName as keyof typeof displayedText]}
-              />
-            ))
-        }
-      </div>
+          <SectionTitle title={displayedText.health} />
+          <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
+            {
+              (Object.keys(buffProfile.health) as (keyof BuffProfile['health'])[])
+                .map(healthFieldName => (
+                  <LabeledBuffInput
+                    key={healthFieldName}
+                    path={toNestedBuffPath(fieldName, index, `health.${healthFieldName}`)}
+                    label={displayedText[healthFieldName as keyof typeof displayedText]}
+                  />
+                ))
+            }
+          </div>
 
-      <SectionTitle title={displayedText.defense} />
-      <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
-        {
-          (Object.keys(buffProfile.defense) as (keyof BuffProfile['defense'])[])
-            .map(defenseFieldName => (
-              <LabeledBuffInput
-                key={defenseFieldName}
-                path={toNestedBuffPath(fieldName, index, `defense.${defenseFieldName}`)}
-                label={displayedText[defenseFieldName as keyof typeof displayedText]}
-              />
-            ))
-        }
-      </div>
+          <SectionTitle title={displayedText.defense} />
+          <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
+            {
+              (Object.keys(buffProfile.defense) as (keyof BuffProfile['defense'])[])
+                .map(defenseFieldName => (
+                  <LabeledBuffInput
+                    key={defenseFieldName}
+                    path={toNestedBuffPath(fieldName, index, `defense.${defenseFieldName}`)}
+                    label={displayedText[defenseFieldName as keyof typeof displayedText]}
+                  />
+                ))
+            }
+          </div>
 
-      <SectionTitle title={displayedText.offense} />
-      <div className='grid gap-4 lg:grid-cols-2'>
-        <OffenseBuffEditor
-          fieldNamePrefix={fieldName}
-          index={index}
-          title={displayedText.leading}
-          fieldName='leadingWeapon'
-          fields={Object.keys(buffProfile.offense.leadingWeapon) as (keyof BuffProfile['offense']['leadingWeapon'])[]}
-        />
-        <OffenseBuffEditor
-          fieldNamePrefix={fieldName}
-          index={index}
-          title={displayedText.secondary}
-          fieldName='secondaryWeapon'
-          fields={Object.keys(buffProfile.offense.secondaryWeapon) as (keyof BuffProfile['offense']['secondaryWeapon'])[]}
-        />
-        <OffenseBuffEditor
-          fieldNamePrefix={fieldName}
-          index={index}
-          title={displayedText.damageBonus}
-          fieldName='damageBonus'
-          fields={Object.keys(buffProfile.offense.damageBonus) as (keyof BuffProfile['offense']['damageBonus'])[]}
-        />
-        <OffenseBuffEditor
-          fieldNamePrefix={fieldName}
-          index={index}
-          title={displayedText.bonusDamage}
-          fieldName='additionalDamageBonus'
-          fields={Object.keys(buffProfile.offense.additionalDamageBonus) as (keyof BuffProfile['offense']['additionalDamageBonus'])[]}
-        />
-      </div>
+          <SectionTitle title={displayedText.offense} />
+          <div className='grid gap-4 lg:grid-cols-2'>
+            <OffenseBuffEditor
+              fieldNamePrefix={fieldName}
+              index={index}
+              title={displayedText.leading}
+              fieldName='leadingWeapon'
+              fields={Object.keys(buffProfile.offense.leadingWeapon) as (keyof BuffProfile['offense']['leadingWeapon'])[]}
+            />
+            <OffenseBuffEditor
+              fieldNamePrefix={fieldName}
+              index={index}
+              title={displayedText.secondary}
+              fieldName='secondaryWeapon'
+              fields={Object.keys(buffProfile.offense.secondaryWeapon) as (keyof BuffProfile['offense']['secondaryWeapon'])[]}
+            />
+            <OffenseBuffEditor
+              fieldNamePrefix={fieldName}
+              index={index}
+              title={displayedText.damageBonus}
+              fieldName='damageBonus'
+              fields={Object.keys(buffProfile.offense.damageBonus) as (keyof BuffProfile['offense']['damageBonus'])[]}
+            />
+            <OffenseBuffEditor
+              fieldNamePrefix={fieldName}
+              index={index}
+              title={displayedText.bonusDamage}
+              fieldName='additionalDamageBonus'
+              fields={Object.keys(buffProfile.offense.additionalDamageBonus) as (keyof BuffProfile['offense']['additionalDamageBonus'])[]}
+            />
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     </DataCard>
   );
 }

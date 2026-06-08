@@ -71,7 +71,7 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
 
         <Activity mode={character.defenses.length > 0 ? "visible" : "hidden"}>
           <div className="lg:col-span-2 flex w-full">
-            <DefenseCard defenses={character.defenses} />
+            <DefenseCard defenses={character.defenses} defaultDefenseId={character.defaultDefenseId} />
           </div>
         </Activity>
 
@@ -108,7 +108,7 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
 
       <Activity mode={character.offenses.length > 0 ? "visible" : "hidden"}>
         <div className="lg:col-span-2 flex w-full">
-          <OffenseCard offenses={character.offenses} />
+          <OffenseCard offenses={character.offenses} defaultOffenseId={character.defaultOffenseId} />
         </div>
       </Activity>
 

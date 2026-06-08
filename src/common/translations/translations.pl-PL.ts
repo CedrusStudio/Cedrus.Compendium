@@ -203,6 +203,7 @@ export const translations_plPL =
     noBuffProfiles: "brak zdefiniowanych profili wzmocnień",
     noModifierProfiles: "brak zdefiniowanych profili w tej kategorii",
     noBuffModifiers: "wybrany profil nie zawiera żadnych modyfikatorów",
+    modifierDetails: "szczegóły modyfikatorów",
     deleteConfirmation: "Czy na pewno chcesz to zrobić?",
     deleteConfirmationDescription: "Ta akcja jest nieodwracalna. Spowoduje to trwałe usunięcie zasobu z bazy danych na serwerze.",
 

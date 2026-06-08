@@ -4,9 +4,15 @@ import { setWithSideEffect } from '@/common/global/setterUtils';
 import { calculateCriticalDamage, calculateWeaponDamageRoll, DamageOffense, handleDamageOffenseRolls, handleWeaponDamageRolls, Offense, roll, WeaponOffense } from '@/domain/characters/combat/Offense';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 
-export const useCombatRolls = (offenses: Offense[]) => 
+export const useCombatRolls = (offenses: Offense[], defaultOffenseId?: string) => 
 {
-  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(0);
+  const getInitialIndex = () => {
+    if (!defaultOffenseId) return 0;
+    const index = offenses.findIndex(o => o.id === defaultOffenseId);
+    return index >= 0 ? index : 0;
+  };
+
+  const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(getInitialIndex());
   const safeSelectedOffenseIndex = offenses.length === 0 ? 0 : Math.min(selectedOffenseIndex, offenses.length - 1);
   const offense = offenses[safeSelectedOffenseIndex]!;
   const offenseSignature = useMemo(() => JSON.stringify(offense), [offense]);

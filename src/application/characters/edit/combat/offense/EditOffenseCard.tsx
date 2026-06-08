@@ -29,13 +29,32 @@ type EditOffenseCardProps =
 
 export default function EditOffenseCard({ offense, index, remove }: EditOffenseCardProps)
 {
+  const { watch, setValue } = useFormContext<CombatDto>();
+  const defaultOffenseId = watch('defaultOffenseId');
+  const actualOffenseId = watch(`offenses.${index}.id`);
+  const isDefault = defaultOffenseId === actualOffenseId;
+
+  const handleSetAsDefault = () => {
+    setValue('defaultOffenseId', actualOffenseId);
+  };
+
   return (
     <Card className='bg-muted'>
 
       <CardHeader>
         <CardTitle className='mb-6 flex justify-between items-center'>
           <InputFormField<CombatDto> path={pathToOffenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
-          <RemoveFromArrayButton index={index} remove={remove} />
+          <div className='flex gap-2'>
+            <Button 
+              type='button'
+              variant={isDefault ? "default" : "outline"}
+              onClick={handleSetAsDefault}
+              className='text-xs'
+            >
+              {isDefault ? '✓ Default' : 'Set as Default'}
+            </Button>
+            <RemoveFromArrayButton index={index} remove={remove} />
+          </div>
         </CardTitle>
       </CardHeader>
 

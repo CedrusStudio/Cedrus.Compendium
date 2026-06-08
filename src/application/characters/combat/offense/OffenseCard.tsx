@@ -14,19 +14,20 @@ import { showHideIcon } from '@/common/icons';
 type OffenseCardProps = 
 {
   offenses: Offense[];
+  defaultOffenseId?: string;
 };
 
-export default function OffenseCard({ offenses }: OffenseCardProps)
+export default function OffenseCard({ offenses, defaultOffenseId }: OffenseCardProps)
 {
   if (offenses.length === 0)
   {
     return null;
   }
 
-  return <OffenseCardContent offenses={offenses} />;
+  return <OffenseCardContent offenses={offenses} defaultOffenseId={defaultOffenseId} />;
 }
 
-function OffenseCardContent({ offenses }: OffenseCardProps)
+function OffenseCardContent({ offenses, defaultOffenseId }: OffenseCardProps)
 {
   const { 
     totalResult,
@@ -51,7 +52,7 @@ function OffenseCardContent({ offenses }: OffenseCardProps)
     setCurrentAdditionalDamageBonus,
     selectedOffenseIndex,
     setSelectedOffenseIndex
-  } = useCombatRolls(offenses);
+  } = useCombatRolls(offenses, defaultOffenseId);
 
   const selectedOffense = offenses[selectedOffenseIndex];
   const leadingOffense = selectedOffense.leadingWeapon;

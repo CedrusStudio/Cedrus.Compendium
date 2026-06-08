@@ -230,6 +230,7 @@ export const displayedText =
     noBuffProfiles: translate("noBuffProfiles"),
     noModifierProfiles: translate("noModifierProfiles"),
     noBuffModifiers: translate("noBuffModifiers"),
+    modifierDetails: translate("modifierDetails"),
     deleteConfirmation: translate("deleteConfirmation"),
     deleteConfirmationDescription: translate("deleteConfirmationDescription"),
 

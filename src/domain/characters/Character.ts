@@ -29,7 +29,9 @@ export type Character = Entity &
   
   health: Health;
   defenses: Defense[];
+  defaultDefenseId?: string;
   offenses: Offense[];
+  defaultOffenseId?: string;
   equipment: Equipment;
   
   stances: Mode[];
@@ -90,7 +92,9 @@ const emptyCharacter: Character =
   },
 
   defenses: [],
+  defaultDefenseId: undefined,
   offenses: [],
+  defaultOffenseId: undefined,
   stances: [],
   states: [],
   maneuvers: [],
@@ -199,8 +203,12 @@ const emptyCharacter: Character =
 export function CreateEmptyCharacter({name, shortName, tags, description}: {name: string, shortName: string, tags: Tag[], description: string}): Character
 {
   const newCharacter = { ...emptyCharacter, id: ulid(), name, shortName, tags, description };
-  newCharacter.offenses = [CreateDefaultOffense()];
-  newCharacter.defenses = [CreateDefaultDefense()];
+  const defaultOffense = CreateDefaultOffense();
+  const defaultDefense = CreateDefaultDefense();
+  newCharacter.offenses = [defaultOffense];
+  newCharacter.defaultOffenseId = defaultOffense.id;
+  newCharacter.defenses = [defaultDefense];
+  newCharacter.defaultDefenseId = defaultDefense.id;
   newCharacter.maneuvers = [CreateDefaultManeuver()];
   newCharacter.stances = [CreateDefaultStance()];
   newCharacter.states = [CreateDefaultState()];
