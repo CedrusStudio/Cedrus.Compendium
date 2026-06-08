@@ -35,7 +35,13 @@ model Character {
   defenses        Defense[]
   offenses        Offense[]
   buffProfiles    BuffProfile[]
-  activeBuffProfileId String?
+  activeBuffProfileIds String[]
+  stanceModifierProfiles BuffProfile[]
+  activeStanceModifierProfileIds String[]
+  stateModifierProfiles BuffProfile[]
+  activeStateModifierProfileIds String[]
+  otherModifierProfiles BuffProfile[]
+  activeOtherModifierProfileIds String[]
 
   stancesIds String[]
   stances    Stance[] @relation(fields: [stancesIds], references: [id])
@@ -379,6 +385,7 @@ type BuffProfile {
   id              String
   name            String
   description     String?
+  linkedEntityId  String?
   characteristics CharacteristicsBuff
   attributes      AttributesBuff
   health          HealthBuff

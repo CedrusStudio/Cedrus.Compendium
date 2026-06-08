@@ -52,7 +52,13 @@ function createCharacter({
     powers,
     perks,
     buffProfiles: [],
-    activeBuffProfileId: undefined,
+    activeBuffProfileIds: [],
+    stanceModifierProfiles: [],
+    activeStanceModifierProfileIds: [],
+    stateModifierProfiles: [],
+    activeStateModifierProfileIds: [],
+    otherModifierProfiles: [],
+    activeOtherModifierProfileIds: [],
   } as Character;
 }
 

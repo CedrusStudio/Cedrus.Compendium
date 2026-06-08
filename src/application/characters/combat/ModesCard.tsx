@@ -10,10 +10,34 @@ import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
 import { Separator } from "@/common/components/ui/separator";
 
-export default function ModesCard({ name, modes }: { name: string, modes: Mode[]})
+type ModesCardProps =
+{
+  name: string;
+  modes: Mode[];
+  selectedModeId?: string;
+  onSelectedModeIdChange?: (modeId: string | undefined) => void;
+};
+
+const NONE_SELECTED_MODE = '__none__';
+
+export default function ModesCard({ name, modes, selectedModeId, onSelectedModeIdChange }: ModesCardProps)
 {  
-  const [selectedMode, setSelectedMode] = useState<string>(displayedText.none);
-  const selectedModeObj = modes.find(mode => mode.name === selectedMode);
+  const [internalSelectedModeId, setInternalSelectedModeId] = useState<string | undefined>(undefined);
+  const resolvedSelectedModeId = selectedModeId ?? internalSelectedModeId;
+  const selectedModeObj = modes.find(mode => mode.id === resolvedSelectedModeId);
+
+  const handleSelectedModeChange = (value: string) =>
+  {
+    const nextSelectedModeId = value === NONE_SELECTED_MODE ? undefined : value;
+
+    if (onSelectedModeIdChange)
+    {
+      onSelectedModeIdChange(nextSelectedModeId);
+      return;
+    }
+
+    setInternalSelectedModeId(nextSelectedModeId);
+  };
 
   return (
     <DataCard 
@@ -23,18 +47,18 @@ export default function ModesCard({ name, modes }: { name: string, modes: Mode[]
       contentClassName='flex flex-col place-content-start place-items-center gap-y-4 flex-1'
     >
 
-        <Select defaultValue={displayedText.none} onValueChange={setSelectedMode}>
+        <Select value={resolvedSelectedModeId ?? NONE_SELECTED_MODE} onValueChange={handleSelectedModeChange}>
           
           <SelectTrigger className="w-fit capitalize">
             <SelectValue />
           </SelectTrigger>
 
           <SelectContent>
-            <SelectItem value={displayedText.none}>{displayedText.none}</SelectItem>
+            <SelectItem value={NONE_SELECTED_MODE}>{displayedText.none}</SelectItem>
             {
               modes.map(mode => (
-                <SelectItem key={mode.id} value={mode.name}>
-                  <Label htmlFor={mode.name} className="flex items-center gap-3" >
+                <SelectItem key={mode.id} value={mode.id}>
+                  <Label htmlFor={mode.id} className="flex items-center gap-3" >
                     <div className="flex items-start text-start gap-2">
                       <Field value={mode.grade} className="gap-1">
                         <Field.Label className="w-4xs">{mode.name}</Field.Label>

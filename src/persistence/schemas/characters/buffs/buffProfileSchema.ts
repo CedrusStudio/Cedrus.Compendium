@@ -83,6 +83,7 @@ const offenseBuffSchema = z.object
 export const buffProfileSchema = entitySchema.extend
 ({
   description: optionalBuffDescriptionSchema,
+  linkedEntityId: z.ulid().optional().nullable(),
   characteristics: characteristicsBuffSchema,
   attributes: attributesBuffSchema,
   health: healthBuffSchema,

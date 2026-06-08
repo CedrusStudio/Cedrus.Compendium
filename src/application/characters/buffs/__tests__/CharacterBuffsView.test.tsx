@@ -38,7 +38,13 @@ function createCharacter(overrides?: Partial<Character>): Character
   return {
     id: 'character-1',
     buffProfiles: [],
-    activeBuffProfileId: undefined,
+    activeBuffProfileIds: [],
+    stanceModifierProfiles: [],
+    activeStanceModifierProfileIds: [],
+    stateModifierProfiles: [],
+    activeStateModifierProfileIds: [],
+    otherModifierProfiles: [],
+    activeOtherModifierProfileIds: [],
     ...overrides,
   } as unknown as Character;
 }
@@ -48,7 +54,7 @@ describe('CharacterBuffsView', () => {
     handleSubmitSpy.mockReset();
   });
 
-  it('submits the selected buff profile on apply and clears it on withdraw', () => {
+  it('submits the selected buff profile on apply', () => {
     const activeProfile = {
       ...createDefaultBuffProfile(),
       id: 'buff-profile-active',
@@ -68,7 +74,7 @@ describe('CharacterBuffsView', () => {
       <CharacterBuffsView
         character={createCharacter({
           buffProfiles: [activeProfile, secondaryProfile],
-          activeBuffProfileId: activeProfile.id,
+          activeBuffProfileIds: [activeProfile.id],
         })}
       />,
     );
@@ -77,25 +83,61 @@ describe('CharacterBuffsView', () => {
     expect(screen.getByText('ofensywa')).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: 'Tarcza' }));
-    fireEvent.click(screen.getByRole('button', { name: 'zastosuj' }));
+    fireEvent.click(screen.getAllByRole('button', { name: 'zastosuj' })[0]);
 
     expect(handleSubmitSpy).toHaveBeenNthCalledWith(1, {
       buffProfiles: [activeProfile, secondaryProfile],
-      activeBuffProfileId: secondaryProfile.id,
+      activeBuffProfileIds: [activeProfile.id, secondaryProfile.id],
+      stanceModifierProfiles: [],
+      activeStanceModifierProfileIds: [],
+      stateModifierProfiles: [],
+      activeStateModifierProfileIds: [],
+      otherModifierProfiles: [],
+      activeOtherModifierProfileIds: [],
     });
+  });
 
-    fireEvent.click(screen.getByRole('button', { name: 'wycofaj' }));
+  it('removes the selected active buff profile on withdraw', () => {
+    const activeProfile = {
+      ...createDefaultBuffProfile(),
+      id: 'buff-profile-active',
+    };
+    activeProfile.name = 'Furia';
 
-    expect(handleSubmitSpy).toHaveBeenNthCalledWith(2, {
+    const secondaryProfile = {
+      ...createDefaultBuffProfile(),
+      id: 'buff-profile-secondary',
+    };
+    secondaryProfile.name = 'Tarcza';
+
+    render(
+      <CharacterBuffsView
+        character={createCharacter({
+          buffProfiles: [activeProfile, secondaryProfile],
+          activeBuffProfileIds: [secondaryProfile.id],
+        })}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Tarcza' }));
+    fireEvent.click(screen.getAllByRole('button', { name: 'wycofaj' })[0]);
+
+    expect(handleSubmitSpy).toHaveBeenNthCalledWith(1, {
       buffProfiles: [activeProfile, secondaryProfile],
-      activeBuffProfileId: null,
+      activeBuffProfileIds: [],
+      stanceModifierProfiles: [],
+      activeStanceModifierProfileIds: [],
+      stateModifierProfiles: [],
+      activeStateModifierProfileIds: [],
+      otherModifierProfiles: [],
+      activeOtherModifierProfileIds: [],
     });
   });
 
   it('renders an empty state without duplicating the global edit navigation', () => {
     render(<CharacterBuffsView character={createCharacter()} />);
 
-    expect(screen.getByText('brak zdefiniowanych profili wzmocnień')).toBeTruthy();
+    expect(screen.getAllByText('brak zdefiniowanych profili w tej kategorii')).toHaveLength(4);
     expect(screen.queryByRole('link', { name: 'edycja' })).toBeNull();
   });
 });

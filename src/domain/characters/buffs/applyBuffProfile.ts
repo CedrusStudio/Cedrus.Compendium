@@ -5,26 +5,54 @@ import { Health } from "@/domain/characters/combat/Health";
 import { Defense } from "@/domain/characters/combat/Defense";
 import { DamageOffense, Offense, WeaponOffense } from "@/domain/characters/combat/Offense";
 
-export function getActiveBuffProfile(character: Character): BuffProfile | undefined
+type SelectedModeIdsInput =
 {
-  if (!character.activeBuffProfileId)
-  {
-    return undefined;
-  }
+  selectedStanceIds?: string[];
+  selectedStateIds?: string[];
+};
 
-  return character.buffProfiles.find(profile => profile.id === character.activeBuffProfileId);
+export function getActiveBuffProfiles(character: Character): BuffProfile[]
+{
+  return resolveActiveProfiles(character.buffProfiles, character.activeBuffProfileIds);
 }
 
-export function applyActiveBuffProfile(character: Character): Character
+export function getActiveStanceModifierProfiles(character: Character): BuffProfile[]
 {
-  const activeBuffProfile = getActiveBuffProfile(character);
+  return resolveActiveProfiles(character.stanceModifierProfiles, character.activeStanceModifierProfileIds);
+}
 
-  if (!activeBuffProfile)
+export function getActiveStateModifierProfiles(character: Character): BuffProfile[]
+{
+  return resolveActiveProfiles(character.stateModifierProfiles, character.activeStateModifierProfileIds);
+}
+
+export function getActiveOtherModifierProfiles(character: Character): BuffProfile[]
+{
+  return resolveActiveProfiles(character.otherModifierProfiles, character.activeOtherModifierProfileIds);
+}
+
+export function applyActiveBuffProfile(character: Character, selectedModeIds: SelectedModeIdsInput = {}): Character
+{
+  const activeProfiles = dedupeProfilesById([
+    ...getActiveBuffProfiles(character),
+    ...getActiveStanceModifierProfiles(character),
+    ...getActiveStateModifierProfiles(character),
+    ...getActiveOtherModifierProfiles(character),
+    ...resolveLinkedProfiles(character.stanceModifierProfiles, selectedModeIds.selectedStanceIds),
+    ...resolveLinkedProfiles(character.stateModifierProfiles, selectedModeIds.selectedStateIds),
+  ]);
+
+  if (activeProfiles.length === 0)
   {
     return character;
   }
 
-  return applyBuffProfile(character, activeBuffProfile);
+  return applyBuffProfiles(character, activeProfiles);
+}
+
+export function applyBuffProfiles(character: Character, buffProfiles: BuffProfile[]): Character
+{
+  return buffProfiles.reduce(applyBuffProfile, character);
 }
 
 export function applyBuffProfile(character: Character, buffProfile: BuffProfile): Character
@@ -126,4 +154,29 @@ function applyWeaponOffenseBuff(offense: WeaponOffense, buff: WeaponOffenseBuff)
       range: offense.critical.range + buff.criticalRange,
     },
   };
+}
+
+function resolveActiveProfiles(profiles: BuffProfile[], activeProfileIds: string[]): BuffProfile[]
+{
+  if (activeProfileIds.length === 0)
+  {
+    return [];
+  }
+
+  return profiles.filter(profile => activeProfileIds.includes(profile.id));
+}
+
+function resolveLinkedProfiles(profiles: BuffProfile[], selectedEntityIds: string[] = []): BuffProfile[]
+{
+  if (selectedEntityIds.length === 0)
+  {
+    return [];
+  }
+
+  return profiles.filter(profile => profile.linkedEntityId && selectedEntityIds.includes(profile.linkedEntityId));
+}
+
+function dedupeProfilesById(profiles: BuffProfile[]): BuffProfile[]
+{
+  return [...new Map(profiles.map(profile => [profile.id, profile])).values()];
 }

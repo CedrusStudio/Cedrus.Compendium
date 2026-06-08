@@ -78,12 +78,15 @@ export type OffenseBuff =
 export type BuffProfile = Entity &
 {
   description?: string;
+  linkedEntityId?: string;
   characteristics: CharacteristicsBuff;
   attributes: AttributesBuff;
   health: HealthBuff;
   defense: DefenseBuff;
   offense: OffenseBuff;
 };
+
+export type ModifierProfile = BuffProfile;
 
 export const createDefaultStatisticBuff = (): StatisticBuff =>
 ({
@@ -131,39 +134,76 @@ export const createDefaultWeaponOffenseBuff = (): WeaponOffenseBuff =>
   criticalRange: 0,
 });
 
-export const createDefaultBuffProfile = (): BuffProfile =>
+export function createDefaultModifierProfile
+(
+  {
+    name = "Nowy profil modyfikacji",
+    description = "Opis profilu modyfikacji",
+  }:
+  {
+    name?: string;
+    description?: string;
+  } = {}
+): ModifierProfile
+{
+  return {
+    id: ulid(),
+    name,
+    description,
+    linkedEntityId: undefined,
+    characteristics:
+    {
+      strength: createDefaultStatisticBuff(),
+      dexterity: createDefaultStatisticBuff(),
+      constitution: createDefaultStatisticBuff(),
+      mind: createDefaultStatisticBuff(),
+      charisma: createDefaultStatisticBuff(),
+      spellborn: createDefaultStatisticBuff(),
+    },
+    attributes:
+    {
+      fencing: createDefaultStatisticBuff(),
+      artifice: createDefaultStatisticBuff(),
+      precision: createDefaultStatisticBuff(),
+      initiative: createDefaultStatisticBuff(),
+      martialArt: createDefaultStatisticBuff(),
+      horsemanship: createDefaultStatisticBuff(),
+      fortitude: createDefaultStatisticBuff(),
+      reflex: createDefaultStatisticBuff(),
+      willpower: createDefaultStatisticBuff(),
+    },
+    health: createDefaultHealthBuff(),
+    defense: createDefaultDefenseBuff(),
+    offense:
+    {
+      leadingWeapon: createDefaultWeaponOffenseBuff(),
+      secondaryWeapon: createDefaultWeaponOffenseBuff(),
+      damageBonus: createDefaultDamageOffenseBuff(),
+      additionalDamageBonus: createDefaultDamageOffenseBuff(),
+    },
+  };
+}
+
+export const createDefaultBuffProfile = (): BuffProfile => createDefaultModifierProfile
 ({
-  id: ulid(),
   name: "Nowy profil wzmocnień",
   description: "Opis profilu wzmocnień",
-  characteristics:
-  {
-    strength: createDefaultStatisticBuff(),
-    dexterity: createDefaultStatisticBuff(),
-    constitution: createDefaultStatisticBuff(),
-    mind: createDefaultStatisticBuff(),
-    charisma: createDefaultStatisticBuff(),
-    spellborn: createDefaultStatisticBuff(),
-  },
-  attributes:
-  {
-    fencing: createDefaultStatisticBuff(),
-    artifice: createDefaultStatisticBuff(),
-    precision: createDefaultStatisticBuff(),
-    initiative: createDefaultStatisticBuff(),
-    martialArt: createDefaultStatisticBuff(),
-    horsemanship: createDefaultStatisticBuff(),
-    fortitude: createDefaultStatisticBuff(),
-    reflex: createDefaultStatisticBuff(),
-    willpower: createDefaultStatisticBuff(),
-  },
-  health: createDefaultHealthBuff(),
-  defense: createDefaultDefenseBuff(),
-  offense:
-  {
-    leadingWeapon: createDefaultWeaponOffenseBuff(),
-    secondaryWeapon: createDefaultWeaponOffenseBuff(),
-    damageBonus: createDefaultDamageOffenseBuff(),
-    additionalDamageBonus: createDefaultDamageOffenseBuff(),
-  },
+});
+
+export const createDefaultStanceModifierProfile = (): ModifierProfile => createDefaultModifierProfile
+({
+  name: "Nowy profil postawy",
+  description: "Opis profilu postawy",
+});
+
+export const createDefaultStateModifierProfile = (): ModifierProfile => createDefaultModifierProfile
+({
+  name: "Nowy profil stanu",
+  description: "Opis profilu stanu",
+});
+
+export const createDefaultOtherModifierProfile = (): ModifierProfile => createDefaultModifierProfile
+({
+  name: "Nowy profil innych wpływów",
+  description: "Opis profilu innych wpływów",
 });
