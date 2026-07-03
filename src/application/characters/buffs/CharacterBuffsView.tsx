@@ -131,8 +131,8 @@ export default function CharacterBuffsView({ character, selectedStanceId, select
   };
 
   return (
-    <Card className='bg-muted w-full'>
-      <CardHeader className='gap-3'>
+    <Card className='bg-muted w-full min-w-0'>
+      <CardHeader className='gap-3 min-w-0'>
         <div className='flex flex-col gap-2'>
           <CardTitle className='text-2xl font-bold capitalize'>{displayedText.buffs}</CardTitle>
           <div className='flex flex-wrap gap-2'>
@@ -153,7 +153,7 @@ export default function CharacterBuffsView({ character, selectedStanceId, select
       </CardHeader>
 
       <CardContent>
-        <div className='grid gap-4 xl:grid-cols-2'>
+        <div className='grid gap-4 xl:grid-cols-2 min-w-0'>
           {
             modifierCategories.map(category => {
               const profiles = getModifierProfiles(character, category.profilesFieldName);
@@ -241,14 +241,14 @@ function ModifierCategoryCard
   const applyButtonLabel = isSelectedProfileLinkedToCurrentMode ? displayedText.applyLinkedProfile : displayedText.applyBuff;
 
   return (
-    <div className='rounded-xl border border-border/60 bg-background/30 p-4 shadow-sm'>
+    <div className='rounded-xl border border-border/60 bg-background/30 p-4 shadow-sm min-w-0'>
       <div className='mb-4 flex flex-col gap-3'>
         <div className='flex flex-col gap-2 rounded-md border border-border/50 bg-background/50 p-3'>
           <div className='flex items-center justify-between gap-3'>
             <h3 className='text-lg font-semibold capitalize text-primary'>{title}</h3>
             <Badge variant='outline'>{profiles.length}</Badge>
           </div>
-          <div className='flex flex-wrap gap-2'>
+          <div className='flex flex-wrap gap-2 overflow-x-auto min-w-0'>
             {
               activeProfiles.length > 0 ? activeProfiles.map(activeProfile => (
                 <Badge key={activeProfile.id} className='w-fit'>{activeProfile.name}</Badge>
@@ -280,7 +280,7 @@ function ModifierCategoryCard
           profiles.length > 0 ? (
             <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
               <Select value={selectedProfileId} onValueChange={onSelectProfile}>
-                <SelectTrigger className='w-full sm:min-w-60'>
+                <SelectTrigger className='w-full sm:w-auto min-w-0'>
                   <SelectValue placeholder={displayedText.selectModifierProfile} />
                 </SelectTrigger>
                 <SelectContent>
@@ -320,14 +320,14 @@ function ModifierCategoryCard
             <CollapsibleTrigger asChild>
               <Button
                 variant='ghost'
-                className='w-full justify-start gap-2 px-0 hover:bg-transparent'
+                className='w-full flex-wrap justify-start gap-2 px-0 hover:bg-transparent whitespace-normal'
               >
                 <ChevronDown className='h-4 w-4 transition-transform data-[state=open]:rotate-180' />
-                <span className='text-sm font-semibold capitalize'>
+                <span className='text-sm font-semibold capitalize break-words'>
                   {displayedText.modifierDetails}
                 </span>
                 {selectedProfile.description?.trim() && (
-                  <span className='ml-auto text-xs text-muted-foreground'>
+                  <span className='ml-auto min-w-0 text-xs text-muted-foreground break-words'>
                     {selectedProfile.description.substring(0, 50)}{selectedProfile.description.length > 50 ? '...' : ''}
                   </span>
                 )}
@@ -353,7 +353,7 @@ function ModifierCategoryCard
                           <div className='space-y-2'>
                             {
                               section.modifiers.map(modifier => (
-                                <div key={`${section.title}-${modifier}`} className='rounded-md border border-border/40 bg-background px-3 py-2 text-sm'>
+                                <div key={`${section.title}-${modifier}`} className='rounded-md border border-border/40 bg-background px-3 py-2 text-sm break-words'>
                                   {modifier}
                                 </div>
                               ))
