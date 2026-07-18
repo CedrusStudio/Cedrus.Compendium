@@ -16,7 +16,8 @@
     "backfill-power-types": "tsx scripts/backfill-power-types.ts",
     "backfill-spell-costs": "tsx scripts/backfill-spell-costs.ts",
     "backfill-character-api-keys": "tsx scripts/backfill-character-api-keys.ts",
-    "diag-apikeys": "tsx scripts/diag-apikeys.ts"
+    "diag-apikeys": "tsx scripts/diag-apikeys.ts",
+    "diag-duplicate-shortnames": "tsx scripts/diag-duplicate-shortnames.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

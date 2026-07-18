@@ -16,6 +16,7 @@ import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { useFavoriteCharacters } from '@/application/personalization/useFavoriteCharacters';
 import { personalizationContextLabels, personalizationRouteLabels, resolveQuickLinkHref } from '@/application/personalization/personalizationUtils';
 import { bestiaryColumnPreferenceKeys, resolveBestiaryColumnVisibility } from '@/application/bestiary/bestiaryColumnPreferences';
+import BattlePresetsManagementSection from '@/application/battlePresets/components/BattlePresetsManagementSection';
 import { displayedText } from '@/common/translations';
 import { deleteIcon, editIcon, goToIcon, homeIcon } from '@/common/icons';
 import { Button } from "@/ui/button";
@@ -432,6 +433,8 @@ export default function PersonalizationPage()
                 </Button>
               </div>
             </section>
+
+            <BattlePresetsManagementSection />
 
             <section className="rounded-lg border p-6 space-y-4">
               <div>

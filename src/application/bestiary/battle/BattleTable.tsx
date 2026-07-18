@@ -32,6 +32,7 @@ import charactersClient from "@/infrastructure/clients/charactersClient";
 import { Character } from "@/domain/characters/Character";
 import AddExternalParticipantDialog from "@/application/bestiary/battle/AddExternalParticipantDialog";
 import { BattleCombatant, isCharacter, isExternalParticipant, isDuplicatedCharacter } from "@/application/bestiary/battle/BattleCombatants";
+import BattlePresetsPanel from "@/application/battlePresets/components/BattlePresetsPanel";
 
 const EMPTY_ARRAY: never[] = [];
 
@@ -122,6 +123,10 @@ export default function BattleTable()
 
   return (
     <div className="mx-3">
+      <div className="flex justify-center pt-4">
+        <BattlePresetsPanel />
+      </div>
+
       <div className="flex flex-wrap items-center justify-center py-4 gap-3 sticky top-0 bg-background z-10">
         <NameInputSearch table={table} defaultColumnKeys={columnKeys} />
 

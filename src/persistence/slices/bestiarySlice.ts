@@ -5,6 +5,7 @@ const BATTLE_STORAGE_KEY = 'charactersInBattle';
 const INITIATIVES_STORAGE_KEY = 'battleInitiatives';
 const EXTERNAL_PARTICIPANTS_STORAGE_KEY = 'externalParticipants';
 const DUPLICATED_CHARACTERS_STORAGE_KEY = 'duplicatedCharacters';
+const LOADED_PRESET_ID_STORAGE_KEY = 'loadedBattlePresetId';
 
 export type InitiativeEntry = 
 {
@@ -102,33 +103,59 @@ const loadDuplicatedCharactersFromSessionStorage = (): DuplicatedCharacter[] =>
 };
 
 // Helper to save duplicated characters to session storage
-const saveDuplicatedCharactersToSessionStorage = (duplicates: DuplicatedCharacter[]) => 
+const saveDuplicatedCharactersToSessionStorage = (duplicates: DuplicatedCharacter[]) =>
 {
   if (typeof window === 'undefined') return;
-  try 
+  try
   {
     sessionStorage.setItem(DUPLICATED_CHARACTERS_STORAGE_KEY, JSON.stringify(duplicates));
-  } 
-  catch (e) 
+  }
+  catch (e)
   {
     console.error('Session storage full. Cannot save duplicates.', e);
   }
 };
 
-export type BestiarySliceState = 
+// Helper to load the currently-loaded battle preset id from session storage.
+// Tracked here (not as component-local state) so "Save Current" still knows
+// which preset it's overwriting after a page refresh — the rest of the
+// battle state already survives refresh via sessionStorage, this should too.
+const loadLoadedPresetIdFromSessionStorage = (): string | null =>
+{
+  if (typeof window === 'undefined') return null;
+  return sessionStorage.getItem(LOADED_PRESET_ID_STORAGE_KEY);
+};
+
+// Helper to save the currently-loaded battle preset id to session storage
+const saveLoadedPresetIdToSessionStorage = (presetId: string | null) =>
+{
+  if (typeof window === 'undefined') return;
+  if (presetId === null)
+  {
+    sessionStorage.removeItem(LOADED_PRESET_ID_STORAGE_KEY);
+  }
+  else
+  {
+    sessionStorage.setItem(LOADED_PRESET_ID_STORAGE_KEY, presetId);
+  }
+};
+
+export type BestiarySliceState =
 {
   addedToBattle: string[];
   initiatives: Record<string, InitiativeEntry>;
   externalParticipants: ExternalParticipant[];
   duplicatedCharacters: DuplicatedCharacter[];
+  loadedPresetId: string | null;
 };
 
-const initialState: BestiarySliceState = 
+const initialState: BestiarySliceState =
 {
   addedToBattle: loadCharactersFromSessionStorage(),
   initiatives: loadInitiativesFromSessionStorage(),
   externalParticipants: loadExternalParticipantsFromSessionStorage(),
-  duplicatedCharacters: loadDuplicatedCharactersFromSessionStorage()
+  duplicatedCharacters: loadDuplicatedCharactersFromSessionStorage(),
+  loadedPresetId: loadLoadedPresetIdFromSessionStorage()
 };
 
 const bestiarySlice = createSlice
@@ -156,16 +183,23 @@ const bestiarySlice = createSlice
       saveCharactersToSessionStorage(state.addedToBattle);
       saveInitiativesToSessionStorage(state.initiatives);
     },
-    clearBattle(state) 
+    clearBattle(state)
     {
       state.addedToBattle = [];
       state.initiatives = {};
       state.externalParticipants = [];
       state.duplicatedCharacters = [];
+      state.loadedPresetId = null;
       saveCharactersToSessionStorage(state.addedToBattle);
       saveInitiativesToSessionStorage(state.initiatives);
       saveExternalParticipantsToSessionStorage(state.externalParticipants);
       saveDuplicatedCharactersToSessionStorage(state.duplicatedCharacters);
+      saveLoadedPresetIdToSessionStorage(state.loadedPresetId);
+    },
+    setLoadedPresetId(state, action: PayloadAction<string | null>)
+    {
+      state.loadedPresetId = action.payload;
+      saveLoadedPresetIdToSessionStorage(state.loadedPresetId);
     },
     setInitiative(state, action: PayloadAction<{ characterId: string; initiative: number | null; }>) 
     {

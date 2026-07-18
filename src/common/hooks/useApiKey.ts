@@ -12,6 +12,12 @@ export { API_KEY_CHANGED_EVENT, API_KEY_STORAGE_KEY, getStoredApiKey } from '@/l
 // both views.
 const CHARACTERS_QUERY_KEY_PREFIX = ['characters'] as const;
 
+// Battle presets are scoped per API key (see
+// features-to-implement/battle-configurations-implementation-plan.md) —
+// switching or clearing the key must refresh the preset list, same
+// reasoning as CHARACTERS_QUERY_KEY_PREFIX above.
+const BATTLE_PRESETS_QUERY_KEY_PREFIX = ['battle-presets'] as const;
+
 /**
  * Hook to manage API key in localStorage
  */
@@ -50,6 +56,7 @@ export function useApiKey()
       setApiKey(key.trim());
       window.dispatchEvent(new Event(API_KEY_CHANGED_EVENT));
       queryClient.invalidateQueries({ queryKey: CHARACTERS_QUERY_KEY_PREFIX });
+      queryClient.invalidateQueries({ queryKey: BATTLE_PRESETS_QUERY_KEY_PREFIX });
     }
   };
 
@@ -59,6 +66,7 @@ export function useApiKey()
     setApiKey(null);
     window.dispatchEvent(new Event(API_KEY_CHANGED_EVENT));
     queryClient.invalidateQueries({ queryKey: CHARACTERS_QUERY_KEY_PREFIX });
+    queryClient.invalidateQueries({ queryKey: BATTLE_PRESETS_QUERY_KEY_PREFIX });
   };
 
   return {

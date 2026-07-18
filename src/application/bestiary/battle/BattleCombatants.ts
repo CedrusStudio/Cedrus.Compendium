@@ -73,6 +73,54 @@ export type DuplicatedCharacter =
   duplicateNumber: number; // Which duplicate this is (2, 3, 4, etc.)
 };
 
+// Deep-clones a character and renames it for the given duplicate number.
+// Shared by createDuplicatedCharacter (new duplicate, session only) and
+// restoreDuplicatedCharacter (battle preset Load, see
+// src/application/battlePresets) so both produce an identically-shaped
+// character body from the same renaming rules.
+function cloneAndRenameCharacter(sourceCharacter: Character, duplicateNumber: number): Character
+{
+  // Deep clone character using JSON serialization to ensure all nested objects are copied
+  let duplicatedCharacter: Character;
+  try
+  {
+    duplicatedCharacter = JSON.parse(JSON.stringify(sourceCharacter));
+  }
+  catch (e)
+  {
+    console.error('Failed to deep clone character, using shallow copy', e);
+    duplicatedCharacter = { ...sourceCharacter };
+  }
+
+  // Ensure all required properties exist after cloning
+  if (!duplicatedCharacter.attributes)
+  {
+    duplicatedCharacter.attributes = sourceCharacter.attributes;
+  }
+  if (!duplicatedCharacter.characteristics)
+  {
+    duplicatedCharacter.characteristics = sourceCharacter.characteristics;
+  }
+  if (!duplicatedCharacter.tags)
+  {
+    duplicatedCharacter.tags = sourceCharacter.tags || [];
+  }
+  if (!duplicatedCharacter.defenses)
+  {
+    duplicatedCharacter.defenses = sourceCharacter.defenses || [];
+  }
+  if (!duplicatedCharacter.offenses)
+  {
+    duplicatedCharacter.offenses = sourceCharacter.offenses || [];
+  }
+
+  // Update only the necessary fields after deep cloning
+  duplicatedCharacter.name = `${sourceCharacter.name.replace(/\s+\d+$/, '')} ${duplicateNumber}`;
+  duplicatedCharacter.shortName = `${sourceCharacter.shortName.replace(/\d+$/, '')}${duplicateNumber}`;
+
+  return duplicatedCharacter;
+}
+
 // Create a duplicated character for battle session only
 export function createDuplicatedCharacter
 (
@@ -80,10 +128,10 @@ export function createDuplicatedCharacter
   existingDuplicates: DuplicatedCharacter[],
   originalCharacterId?: string
 )
-  : DuplicatedCharacter 
+  : DuplicatedCharacter
 {
   const originalId = originalCharacterId ?? sourceCharacter.id;
-  
+
   // Find highest duplicate number for this original character
   const sameDuplicates = existingDuplicates.filter(d => d.originalCharacterId === originalId);
   const maxDuplicateNumber = sameDuplicates.length > 0
@@ -92,49 +140,34 @@ export function createDuplicatedCharacter
 
   const nextNumber = maxDuplicateNumber + 1;
 
-  // Deep clone character using JSON serialization to ensure all nested objects are copied
-  let duplicatedCharacter: Character;
-  try 
-  {
-    duplicatedCharacter = JSON.parse(JSON.stringify(sourceCharacter));
-  } 
-  catch (e) 
-  {
-    console.error('Failed to deep clone character, using shallow copy', e);
-    duplicatedCharacter = { ...sourceCharacter };
-  }
-  
-  // Ensure all required properties exist after cloning
-  if (!duplicatedCharacter.attributes) 
-  {
-    duplicatedCharacter.attributes = sourceCharacter.attributes;
-  }
-  if (!duplicatedCharacter.characteristics) 
-  {
-    duplicatedCharacter.characteristics = sourceCharacter.characteristics;
-  }
-  if (!duplicatedCharacter.tags) 
-  {
-    duplicatedCharacter.tags = sourceCharacter.tags || [];
-  }
-  if (!duplicatedCharacter.defenses) 
-  {
-    duplicatedCharacter.defenses = sourceCharacter.defenses || [];
-  }
-  if (!duplicatedCharacter.offenses) 
-  {
-    duplicatedCharacter.offenses = sourceCharacter.offenses || [];
-  }
-  
-  // Update only the necessary fields after deep cloning
-  duplicatedCharacter.name = `${sourceCharacter.name.replace(/\s+\d+$/, '')} ${nextNumber}`;
-  duplicatedCharacter.shortName = `${sourceCharacter.shortName.replace(/\d+$/, '')}${nextNumber}`;
-
   return {
     id: `dup_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`,
     originalCharacterId: originalId,
-    character: duplicatedCharacter,
+    character: cloneAndRenameCharacter(sourceCharacter, nextNumber),
     isDuplicate: true,
     duplicateNumber: nextNumber,
+  };
+}
+
+/**
+ * Rebuilds a DuplicatedCharacter from a battle preset's lightweight
+ * DuplicatedCharacterRef, using the *current* character data (fetched
+ * fresh, not the frozen snapshot the preset would otherwise carry — see
+ * "Ustalenia wstępne" in
+ * features-to-implement/battle-configurations-implementation-plan.md).
+ *
+ * Unlike createDuplicatedCharacter, the id and duplicateNumber are taken
+ * verbatim from the ref (not regenerated), so that initiative entries keyed
+ * by the duplicate's id in the restored BattleConfiguration still resolve
+ * to the right combatant after Load.
+ */
+export function restoreDuplicatedCharacter(sourceCharacter: Character, ref: { id: string; originalCharacterId: string; duplicateNumber: number }): DuplicatedCharacter
+{
+  return {
+    id: ref.id,
+    originalCharacterId: ref.originalCharacterId,
+    character: cloneAndRenameCharacter(sourceCharacter, ref.duplicateNumber),
+    isDuplicate: true,
+    duplicateNumber: ref.duplicateNumber,
   };
 }
