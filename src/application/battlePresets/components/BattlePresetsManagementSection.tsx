@@ -88,7 +88,7 @@ export default function BattlePresetsManagementSection()
   return (
     <section className="rounded-lg border p-6 space-y-4">
       <div>
-        <h2 className="text-2xl font-semibold capitalize">{displayedText.battlePresets}</h2>
+        <h2 className="text-2xl font-semibold first-letter:capitalize">{displayedText.battlePresets}</h2>
         <p className="text-sm text-muted-foreground">{displayedText.manageBattlePresets}</p>
       </div>
 
@@ -107,10 +107,10 @@ export default function BattlePresetsManagementSection()
                           className="flex-1"
                         />
                         <Button type="button" size="sm" disabled={updateMutation.isPending} onClick={saveEdit}>
-                          {displayedText.save}
+                          <span className="first-letter:capitalize">{displayedText.save}</span>
                         </Button>
                         <Button type="button" size="sm" variant="outline" onClick={cancelEdit}>
-                          {displayedText.cancel}
+                          <span className="first-letter:capitalize">{displayedText.cancel}</span>
                         </Button>
                       </div>
                     ) : (
@@ -134,8 +134,8 @@ export default function BattlePresetsManagementSection()
                                 type="button"
                                 variant="destructive"
                                 size="icon"
-                                aria-label={`Usun ${preset.name}`}
-                                title={`Usun ${preset.name}`}
+                                aria-label={`Usuń ${preset.name}`}
+                                title={`Usuń ${preset.name}`}
                                 disabled={deleteMutation.isPending}
                               >
                                 {deleteIcon}

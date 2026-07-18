@@ -56,6 +56,7 @@ export default function BattlePresetsPanel()
 
   const presetItems = presets.map(preset => ({ label: preset.name, value: preset.id }));
   const loadedPresetStillExists = loadedPresetId !== null && presets.some(preset => preset.id === loadedPresetId);
+  const selectedPresetName = presets.find(preset => preset.id === selectedPresetId)?.name ?? '';
 
   const buildCurrentConfiguration = () => toBattleConfiguration({
     addedToBattle,
@@ -171,7 +172,7 @@ export default function BattlePresetsPanel()
 
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-lg border p-3">
-      <span className="text-sm font-medium">{displayedText.battlePresets}</span>
+      <span className="text-sm font-medium first-letter:capitalize">{displayedText.battlePresets}</span>
 
       {
         presetItems.length > 0 ? (
@@ -196,7 +197,7 @@ export default function BattlePresetsPanel()
         onClick={handleLoad}
         title={displayedText.loadClearsCurrentBattle}
       >
-        {displayedText.loadPreset}
+        <span className="first-letter:capitalize">{displayedText.loadPreset}</span>
       </Button>
 
       <Button
@@ -205,23 +206,25 @@ export default function BattlePresetsPanel()
         disabled={!loadedPresetId || !loadedPresetStillExists || updateMutation.isPending}
         onClick={handleSaveCurrent}
       >
-        {displayedText.saveCurrentPreset}
+        <span className="first-letter:capitalize">{displayedText.saveCurrentPreset}</span>
       </Button>
 
       <Dialog open={saveAsOpen} onOpenChange={setSaveAsOpen}>
         <DialogTrigger asChild>
           <Button type="button" variant="outline">
-            {displayedText.saveAsNewPreset}
+            <span className="first-letter:capitalize">{displayedText.saveAsNewPreset}</span>
           </Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[420px]">
           <DialogHeader>
-            <DialogTitle>{displayedText.saveAsNewPreset}</DialogTitle>
+            <DialogTitle className="first-letter:capitalize">{displayedText.saveAsNewPreset}</DialogTitle>
           </DialogHeader>
 
           <div className="grid grid-cols-4 items-center gap-4 py-4">
-            <Label htmlFor="battle-preset-name">{displayedText.battlePresetName}</Label>
+            <Label htmlFor="battle-preset-name">
+              <span className="first-letter:capitalize">{displayedText.battlePresetName}</span>
+            </Label>
             <Input
               id="battle-preset-name"
               value={saveAsName}
@@ -232,10 +235,10 @@ export default function BattlePresetsPanel()
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setSaveAsOpen(false)}>
-              {displayedText.cancel}
+              <span className="first-letter:capitalize">{displayedText.cancel}</span>
             </Button>
             <Button type="button" disabled={createMutation.isPending} onClick={handleSaveAs}>
-              {displayedText.save}
+              <span className="first-letter:capitalize">{displayedText.save}</span>
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -245,7 +248,14 @@ export default function BattlePresetsPanel()
         selectedPresetId && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button type="button" variant="destructive" size="icon" disabled={deleteMutation.isPending}>
+              <Button
+                type="button"
+                variant="destructive"
+                size="icon"
+                disabled={deleteMutation.isPending}
+                aria-label={`Usuń ${selectedPresetName}`}
+                title={`Usuń ${selectedPresetName}`}
+              >
                 {deleteIcon}
               </Button>
             </AlertDialogTrigger>

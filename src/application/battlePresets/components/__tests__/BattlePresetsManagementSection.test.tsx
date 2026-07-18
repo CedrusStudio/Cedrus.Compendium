@@ -64,7 +64,7 @@ describe('BattlePresetsManagementSection', () => {
 
     expect(await screen.findByText('Boss Fight Setup')).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Usun Boss Fight Setup' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Usuń Boss Fight Setup' }));
     fireEvent.click(screen.getByRole('button', { name: displayedText.delete }));
 
     await waitFor(() => expect(remove).toHaveBeenCalledWith('preset-1'));
