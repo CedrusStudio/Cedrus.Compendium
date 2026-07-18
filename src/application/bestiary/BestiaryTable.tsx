@@ -32,6 +32,7 @@ import DefaultTableBody from "@/common/components/table/DefaultTableBody";
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { CharacterWithRelations, toCharacters } from '@/persistence/mappings/characterMapping';
+import { useApiKey } from '@/common/hooks/useApiKey';
 
 const pageSize = 20;
 const EMPTY_ARRAY: never[] = [];
@@ -46,10 +47,11 @@ export default function BestiaryTable()
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   const { profile } = usePersonalization();
+  const { apiKey } = useApiKey();
 
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
 
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize, excludedTags);
+  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize, excludedTags, apiKey);
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 

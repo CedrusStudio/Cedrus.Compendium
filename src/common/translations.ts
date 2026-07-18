@@ -390,4 +390,10 @@ export const displayedText =
     noRequirementsFound: translate("noRequirementsFound"),
     searchRequirements: translate("searchRequirements"),
     favorites: translate("favorites"),
+
+    apiKeys: translate("apiKeys"),
+    apiKeysDescription: translate("apiKeysDescription"),
+    assignCurrentApiKey: translate("assignCurrentApiKey"),
+    noApiKeySet: translate("noApiKeySet"),
+    apiKeyAlreadyAssigned: translate("apiKeyAlreadyAssigned"),
 } as const;

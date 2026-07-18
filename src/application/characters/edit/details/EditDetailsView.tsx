@@ -1,5 +1,6 @@
 "use client";
 
+import type { UseFormReturn } from "react-hook-form";
 import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { type DetailsDto, detailsSchema } from "@/persistence/schemas/characters/headerSchema";
@@ -7,6 +8,7 @@ import { InputFormField } from "@/common/components/form/InputFormField";
 import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
+import FormStringsInput from "@/common/components/inputs/FormStringsInput";
 import { displayedText } from "@/common/translations";
 import EditPerksList from "@/application/characters/edit/details/EditPerksList";
 import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
@@ -15,6 +17,8 @@ import { useCharacterForm } from "@/application/characters/edit/hooks/useCharact
 import client from "@/infrastructure/clients/charactersClient";
 import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 import RaceSelector from "@/application/characters/edit/details/RaceSelector";
+import { Button } from "@/ui/button";
+import { useApiKey } from "@/common/hooks/useApiKey";
 
 export default function EditDetailsView(input: { character: Character })
 {
@@ -31,7 +35,8 @@ export default function EditDetailsView(input: { character: Character })
             tags: character.tags,
             description: character.description,
             perks: character.perks,
-            raceId: character.race?.id ?? null
+            raceId: character.race?.id ?? null,
+            apiKeys: character.apiKeys ?? []
         },
         updateFn: async (id, data) => client.updateDetails(id, data),
         formId: FORM_IDS.DETAILS,
@@ -44,7 +49,9 @@ export default function EditDetailsView(input: { character: Character })
             <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
                 <EditHeader />
                 <Separator className="my-4" />
-                <RaceSelector 
+                <EditApiKeysSection form={form} />
+                <Separator className="my-4" />
+                <RaceSelector
                   control={form.control} 
                                     currentRace={character.race ?? null}
                 />
@@ -82,10 +89,60 @@ function EditHeader()
 
             <FormTagsInput<DetailsDto> path="tags" beAbleToSetCharacterAndSessionTags={true} entityType="characters" />
     
-            <AreaInputFormField<DetailsDto> 
-                path="description" 
-                inputPlaceholder={displayedText.changeDescription} 
+            <AreaInputFormField<DetailsDto>
+                path="description"
+                inputPlaceholder={displayedText.changeDescription}
             />
         </div>
     )
+}
+
+function EditApiKeysSection({ form }: { form: UseFormReturn<DetailsDto> })
+{
+    return (
+        <div className="flex flex-col items-center gap-2 pt-2">
+            <p className="text-sm font-medium capitalize">{displayedText.apiKeys}</p>
+            <p className="max-w-md text-center text-xs text-muted-foreground">{displayedText.apiKeysDescription}</p>
+
+            <FormStringsInput<DetailsDto>
+                path="apiKeys"
+                placeholder={displayedText.apiKeys}
+                maxCount={20}
+            />
+
+            <AssignCurrentApiKeyButton form={form} />
+        </div>
+    );
+}
+
+// Takes `form` as a prop (instead of reading it via useFormContext) so it
+// doesn't depend on being rendered inside a real react-hook-form FormProvider
+// — EditDetailsView.test.tsx (and other tests in this codebase) mock "@/ui/form"'s
+// <Form> with a plain <div>, which provides no such context.
+function AssignCurrentApiKeyButton({ form }: { form: UseFormReturn<DetailsDto> })
+{
+    const { apiKey } = useApiKey();
+
+    const handleAssignCurrentApiKey = () =>
+    {
+        if (!apiKey) return;
+
+        const currentApiKeys = form.getValues("apiKeys") ?? [];
+        if (currentApiKeys.includes(apiKey)) return;
+
+        form.setValue("apiKeys", [...currentApiKeys, apiKey], { shouldDirty: true });
+    };
+
+    return (
+        <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={!apiKey}
+            title={apiKey ? undefined : displayedText.noApiKeySet}
+            onClick={handleAssignCurrentApiKey}
+        >
+            {displayedText.assignCurrentApiKey}
+        </Button>
+    );
 }

@@ -4,14 +4,24 @@ import React from 'react';
 
 const formTagsInputSpy = vi.fn();
 
-vi.mock('react-hook-form', () => ({
-  useFormContext: () => ({ control: {} }),
-  useFieldArray: () => ({
-    fields: [],
-    append: vi.fn(),
-    remove: vi.fn(),
-  }),
-}));
+// Partial mock: keep the real module (FormProvider, useForm, ...) so that
+// GenerateOffensesFromFormulaSheet — introduced by "feat: specification
+// formulas (#60)", c7aa342, after this test/mock was last touched — can use
+// its own real useForm()/FormProvider, while still stubbing useFormContext/
+// useFieldArray for the component under test.
+vi.mock('react-hook-form', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('react-hook-form')>();
+
+  return {
+    ...actual,
+    useFormContext: () => ({ control: {} }),
+    useFieldArray: () => ({
+      fields: [],
+      append: vi.fn(),
+      remove: vi.fn(),
+    }),
+  };
+});
 
 vi.mock('@/common/translations', () => ({
   displayedText: {

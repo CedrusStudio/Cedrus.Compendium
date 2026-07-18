@@ -12,22 +12,22 @@ const client = axios.create
   validateStatus: (status) => status >= 200 && status < 300,
 });
 
-// Add API key interceptor
+// Add API key interceptor.
+// Note: the key is attached to every request, including POST /search — the
+// proxy (src/proxy.ts) does not require it there, but /api/search uses it to
+// scope character visibility (see src/persistence/characterVisibility.ts).
 client.interceptors.request.use
 (
-  (config) => 
+  (config) =>
   {
     if (!config.method) return config;
-    const method = config.method.toUpperCase();
-    const isSearchPost = method === 'POST' && config.url?.includes('/search');
-    if (method === 'GET' && isSearchPost) return config;
-    
+
     const apiKey = getStoredApiKey();
-    if (apiKey) 
+    if (apiKey)
     {
       config.headers[API_KEY_HEADER] = apiKey;
     }
-    
+
     return config;
   },
   (error) => 

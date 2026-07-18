@@ -79,6 +79,14 @@ describe('CharacterBuffsView', () => {
       />,
     );
 
+    // Modifier details (per-section breakdown, incl. "cechy"/"ofensywa") live inside
+    // a Radix Collapsible that's closed by default (see "fix: add sheet spell (#82)",
+    // 9c4c6eb) — its content isn't in the DOM until expanded.
+    // The trigger's accessible name also includes the profile description
+    // span rendered inside the same button, so match on a prefix instead of
+    // the exact label.
+    fireEvent.click(screen.getByRole('button', { name: /^szczegóły modyfikatorów/ }));
+
     expect(screen.getByText('cechy')).toBeTruthy();
     expect(screen.getByText('ofensywa')).toBeTruthy();
 

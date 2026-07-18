@@ -25,6 +25,9 @@ model Character {
   description String
   tags        String[]
 
+  // API keys allowed to see this character. Empty (or missing on legacy records) = visible to everyone.
+  apiKeys     String[] @default([])
+
   raceId      String?
   race        Race?   @relation(fields: [raceId], references: [id])
 

@@ -363,4 +363,10 @@ export const translations_deDE =
     noRequirementsFound: "keine anforderungen gefunden",
     searchRequirements: "anforderungen suchen...",
     favorites: "favoriten",
+
+    apiKeys: "API-Schlüssel",
+    apiKeysDescription: "Charakter nur für die angegebenen API-Schlüssel sichtbar. Leer lassen, damit der Charakter für alle sichtbar ist.",
+    assignCurrentApiKey: "aktuellen Schlüssel zuweisen",
+    noApiKeySet: "kein API-Schlüssel eingestellt",
+    apiKeyAlreadyAssigned: "dieser Schlüssel ist bereits zugewiesen",
 } as const;
