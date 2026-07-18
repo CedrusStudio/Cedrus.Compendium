@@ -41,6 +41,17 @@ vi.mock('@/common/components/ApiKeySettings', () => ({
   ApiKeySettings: () => <div>api key settings</div>,
 }));
 
+// BattlePresetsManagementSection calls the real useBattlePresets() (React
+// Query + useApiKey), which this test's render tree doesn't provide a
+// QueryClientProvider for — this page test mocks out every other
+// self-contained section/hook the same way (see ApiKeySettings,
+// useFavoriteCharacters, useEntityTags above), so this follows the same
+// pattern rather than wiring React Query into a test that isn't about
+// Battle Presets.
+vi.mock('@/application/battlePresets/components/BattlePresetsManagementSection', () => ({
+  default: () => <div>battle presets management</div>,
+}));
+
 vi.mock('sonner', () => ({
   toast: {
     success: sonnerMocks.success,

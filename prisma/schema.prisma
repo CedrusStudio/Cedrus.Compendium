@@ -285,6 +285,20 @@ model PersonalizationProfileRecord {
   @@map("personalizationProfiles")
 }
 
+model BattlePreset {
+  id            String   @id @default(ulid()) @map("_id")
+  name          String
+  apiKeyHash    String
+
+  configuration Json
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([apiKeyHash])
+  @@map("battlePresets")
+}
+
 model Race {
   id          String @id @default(ulid()) @map("_id")
   name        String @unique

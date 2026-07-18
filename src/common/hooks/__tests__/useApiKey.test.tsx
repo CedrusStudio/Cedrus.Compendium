@@ -87,6 +87,29 @@ describe('useApiKey', () => {
     expect(invalidateQueriesSpy).toHaveBeenCalledWith({ queryKey: ['characters'] });
   });
 
+  it('invalidates the battle-presets query cache when the API key is saved or removed (Test 6: lista presetów odświeżona)', async () => {
+    const queryClient = createTestQueryClient();
+    const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');
+
+    const { result } = renderHook(() => useApiKey(), { wrapper: createWrapper(queryClient) });
+
+    await waitFor(() => expect(result.current.isLoaded).toBe(true));
+
+    act(() => {
+      result.current.saveApiKey('alpha');
+    });
+
+    expect(invalidateQueriesSpy).toHaveBeenCalledWith({ queryKey: ['battle-presets'] });
+
+    invalidateQueriesSpy.mockClear();
+
+    act(() => {
+      result.current.removeApiKey();
+    });
+
+    expect(invalidateQueriesSpy).toHaveBeenCalledWith({ queryKey: ['battle-presets'] });
+  });
+
   it('does not invalidate the characters query cache for blank keys', async () => {
     const queryClient = createTestQueryClient();
     const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');

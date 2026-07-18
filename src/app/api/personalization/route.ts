@@ -1,26 +1,8 @@
 import { NextResponse } from 'next/server';
-import { adminApiKeys } from '@/lib/env';
 import { hashApiKey } from '@/lib/apiKeyHash';
+import { getValidatedApiKey } from '@/lib/apiKeyValidation';
 import prisma from '@/lib/prisma';
 import { sanitizeProfile } from '@/common/personalization/personalizationProfile';
-import { API_KEY_HEADER } from '@/proxy';
-
-function getValidatedApiKey(request: Request): string | Response
-{
-  const apiKey = request.headers.get(API_KEY_HEADER)?.trim();
-
-  if (!apiKey) 
-  {
-    return NextResponse.json({ error: 'Missing API key.' }, { status: 401 });
-  }
-
-  if (!adminApiKeys.includes(apiKey)) 
-  {
-    return NextResponse.json({ error: 'Invalid API key.' }, { status: 403 });
-  }
-
-  return apiKey;
-}
 
 export async function GET(request: Request)
 {

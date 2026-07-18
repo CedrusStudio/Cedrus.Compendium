@@ -54,6 +54,11 @@ export default defineConfig({
     alias: {
       '@/ui': path.resolve(__dirname, './src/common/components/ui'),
       '@': path.resolve(__dirname, './src'),
+      // The real `server-only` package throws unconditionally under the
+      // resolution condition Vite/Vitest use (see
+      // src/__tests__/mocks/serverOnlyStub.ts for the full explanation).
+      // Aliased to a no-op here only for tests.
+      'server-only': path.resolve(__dirname, './src/__tests__/mocks/serverOnlyStub.ts'),
     },
   },
 });
