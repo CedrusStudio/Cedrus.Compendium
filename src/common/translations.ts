@@ -212,6 +212,9 @@ export const displayedText =
 
     searchByName: translate("searchByName"),
     searchCharacter: translate("searchCharacter"),
+    characterVisibilityAll: translate("characterVisibilityAll"),
+    characterVisibilityMineOnly: translate("characterVisibilityMineOnly"),
+    characterVisibilityPublicOnly: translate("characterVisibilityPublicOnly"),
     saving: translate("saving"),
     save: translate("save"),
     activeBuff: translate("activeBuff"),

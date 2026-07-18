@@ -1,5 +1,5 @@
 import { DEFAULT_PAGE_SIZE, isKeysetPagination, isOffsetPagination, KeysetPagination, OffsetPagination } from "@/common/global/pagination";
-import { anyOfValues, EntityName, EntityTypeMap, SearchEntityPayload, SearchScalarValueInput, SearchValueInput, Select } from "@/common/global/SearchPayloads";
+import { anyOfValues, CharacterVisibilityMode, EntityName, EntityTypeMap, SearchEntityPayload, SearchScalarValueInput, SearchValueInput, Select } from "@/common/global/SearchPayloads";
 
 export class SearchQueryBuilder<TEntity> 
 {
@@ -10,6 +10,7 @@ export class SearchQueryBuilder<TEntity>
   private _select?: Select;
   private _include?: Record<string, boolean>;
   private _pagination?: OffsetPagination | KeysetPagination;
+  private _characterVisibilityMode?: CharacterVisibilityMode;
 
   private constructor(entity: string) 
   {
@@ -79,7 +80,14 @@ export class SearchQueryBuilder<TEntity>
     return this.excludeFilter(key, anyOfValues(values));
   }
 
-  sort(field: keyof TEntity | undefined, direction: 'asc' | 'desc' = 'asc', fallback: Array<{ [key: string]: 'asc' | 'desc' }> = []): this 
+  visibilityFilter(mode: CharacterVisibilityMode | undefined): this
+  {
+    if (!mode || mode === 'all') return this; // 'all' = omit the field, same as today's payload
+    this._characterVisibilityMode = mode;
+    return this;
+  }
+
+  sort(field: keyof TEntity | undefined, direction: 'asc' | 'desc' = 'asc', fallback: Array<{ [key: string]: 'asc' | 'desc' }> = []): this
   {
     if (!field) 
     {
@@ -180,9 +188,14 @@ export class SearchQueryBuilder<TEntity>
       query.sort = this._sort;
     }
 
-    if (this._pagination) 
+    if (this._pagination)
     {
       query.pagination = this._pagination;
+    }
+
+    if (this._characterVisibilityMode)
+    {
+      query.characterVisibilityMode = this._characterVisibilityMode;
     }
 
     const hasSelect = this._select && Object.keys(this._select).length > 0;

@@ -3,7 +3,7 @@ import { createFiltering, createExcludeFiltering, createMapping, createSorting, 
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 import prisma from '@/lib/prisma';
 import { toSpell } from '@/persistence/mappings/spellMappings';
-import { characterVisibilityWhere, isCharacterVisible, CharacterVisibilityWhere } from '@/persistence/characterVisibility';
+import { characterVisibilityWhere, isCharacterVisible, canUseMineOnlyVisibility, CharacterVisibilityWhere } from '@/persistence/characterVisibility';
 
 const CHARACTER_ENTITY = 'character';
 
@@ -66,6 +66,15 @@ function wasApiKeysFieldRequested(payload: SearchByIdEntityPayload): boolean
 
 export async function searchEntity<TMappedResult>(payload: SearchEntityPayload, apiKey?: string | null): Promise<TMappedResult[]>
 {
+  // `mineOnly` visibility mode requires an API key. Short-circuit before
+  // touching the database instead of letting characterVisibilityWhere throw
+  // — the UI already disables this mode without a key, this is the backend
+  // defense-in-depth guard for direct/manual API calls.
+  if (payload.entity === CHARACTER_ENTITY && payload.characterVisibilityMode === 'mineOnly' && !canUseMineOnlyVisibility(apiKey))
+  {
+    return [] as TMappedResult[];
+  }
+
   const findInput = createSearchInput(payload, apiKey, payload.include);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const results = await (prisma[payload.entity as any] as any).findMany(findInput);
@@ -117,7 +126,7 @@ function createSearchInput(payload: SearchEntityPayload, apiKey: string | null |
 
   if (includeFilters) conditions.push(includeFilters);
   if (excludeFilters) conditions.push({ NOT: excludeFilters });
-  if (payload.entity === CHARACTER_ENTITY) conditions.push(characterVisibilityWhere(apiKey));
+  if (payload.entity === CHARACTER_ENTITY) conditions.push(characterVisibilityWhere(apiKey, payload.characterVisibilityMode ?? 'all'));
 
   let whereClause: PrismaWhereClause;
 

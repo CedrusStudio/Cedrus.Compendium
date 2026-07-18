@@ -6,6 +6,7 @@ import { displayedText } from "@/common/translations";
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
 import TagFilter from "@/common/components/filters/TagFilter";
+import CharacterVisibilityFilter from "@/common/components/filters/CharacterVisibilityFilter";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/common/icons";
 import { useDispatch } from "react-redux";
@@ -33,6 +34,7 @@ import PersonalizedQuickTags from '@/application/personalization/PersonalizedQui
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { CharacterWithRelations, toCharacters } from '@/persistence/mappings/characterMapping';
 import { useApiKey } from '@/common/hooks/useApiKey';
+import { CharacterVisibilityMode } from '@/common/global/SearchPayloads';
 
 const pageSize = 20;
 const EMPTY_ARRAY: never[] = [];
@@ -46,18 +48,27 @@ export default function BestiaryTable()
   const [displayedCharacters, setDisplayedCharacters] = useState<Character[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
+  const [visibilityMode, setVisibilityMode] = useState<CharacterVisibilityMode>('all');
   const { profile } = usePersonalization();
-  const { apiKey } = useApiKey();
+  const { apiKey, hasApiKey } = useApiKey();
+
+  // If the API key disappears (e.g. removed in another tab) while "mine
+  // only" is selected, fall back to "all" instead of silently showing an
+  // empty list forever.
+  useEffect(() =>
+  {
+    if (!hasApiKey && visibilityMode === 'mineOnly') setVisibilityMode('all');
+  }, [hasApiKey, visibilityMode]);
 
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
 
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize, excludedTags, apiKey);
+  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize, excludedTags, apiKey, visibilityMode);
   const { data: searchResults } = useQuery
-  ({ 
-    queryKey, 
-    queryFn: async () => 
+  ({
+    queryKey,
+    queryFn: async () =>
     {
-      const charactersQuery = createCharacterQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      const charactersQuery = createCharacterQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags, visibilityMode);
       const rawCharacters = await client.search<CharacterWithRelations[]>(charactersQuery);
       return toCharacters(rawCharacters);
     },
@@ -101,11 +112,17 @@ export default function BestiaryTable()
     clearResults();
   }, [clearResults]);
   
-  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  const handleExcludedTagsChange = useCallback((tags: string[]) =>
   {
     setExcludedTags(tags);
     setCursor(emptyUlid);
   }, []);
+
+  const handleVisibilityModeChange = useCallback((mode: CharacterVisibilityMode) =>
+  {
+    setVisibilityMode(mode);
+    clearResults();
+  }, [clearResults]);
 
   const handleLoadMore = useCallback(() => 
   {
@@ -173,13 +190,19 @@ export default function BestiaryTable()
             className="max-w-md"
           />
 
-          <TagFilter 
-            includedTags={searchTags} 
+          <TagFilter
+            includedTags={searchTags}
             onIncludedTagsChange={handleSearchTagsChange}
             availableTags={availableTags}
             isLoading={tagsLoading}
             excludedTags={excludedTags}
             onExcludedTagsChange={handleExcludedTagsChange}
+          />
+
+          <CharacterVisibilityFilter
+            value={visibilityMode}
+            onValueChange={handleVisibilityModeChange}
+            mineOnlyDisabled={!hasApiKey}
           />
         </div>
 

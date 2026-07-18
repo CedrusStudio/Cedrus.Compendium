@@ -185,6 +185,9 @@ export const translations_plPL =
 
     searchByName: "Szukaj po nazwie...",
     searchCharacter: "Wyszukaj postać...",
+    characterVisibilityAll: "Wszystkie",
+    characterVisibilityMineOnly: "Tylko moje",
+    characterVisibilityPublicOnly: "Tylko publiczne",
     saving: "Zapisuję...",
     save: "Zapisz",
     activeBuff: "aktywny profil",

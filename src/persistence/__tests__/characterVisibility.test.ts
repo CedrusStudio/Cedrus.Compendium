@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { characterVisibilityWhere, isCharacterVisible, normalizeApiKey } from '@/persistence/characterVisibility';
+import { characterVisibilityWhere, isCharacterVisible, normalizeApiKey, canUseMineOnlyVisibility } from '@/persistence/characterVisibility';
 
 // Cases 1-6 mirror the source document
 // (features-to-implement/visible-only-to-api-keys.md, "Testy obowiazkowe").
@@ -46,6 +46,46 @@ describe('characterVisibilityWhere', () => {
         { apiKeys: { has: 'ABC' } },
       ],
     });
+  });
+});
+
+describe('characterVisibilityWhere with an explicit mode', () => {
+  it('defaults to mode "all" (same behavior as before the mode parameter existed)', () => {
+    expect(characterVisibilityWhere('ABC')).toEqual(characterVisibilityWhere('ABC', 'all'));
+    expect(characterVisibilityWhere(undefined)).toEqual(characterVisibilityWhere(undefined, 'all'));
+  });
+
+  it('mode "publicOnly" always returns the isEmpty condition, regardless of the key', () => {
+    expect(characterVisibilityWhere(undefined, 'publicOnly')).toEqual({ apiKeys: { isEmpty: true } });
+    expect(characterVisibilityWhere('ABC', 'publicOnly')).toEqual({ apiKeys: { isEmpty: true } });
+    expect(characterVisibilityWhere('   ', 'publicOnly')).toEqual({ apiKeys: { isEmpty: true } });
+  });
+
+  it('mode "mineOnly" with a key returns a has() condition scoped to that key', () => {
+    expect(characterVisibilityWhere('ABC', 'mineOnly')).toEqual({ apiKeys: { has: 'ABC' } });
+  });
+
+  it('mode "mineOnly" trims the key before building the has() condition', () => {
+    expect(characterVisibilityWhere('  ABC  ', 'mineOnly')).toEqual({ apiKeys: { has: 'ABC' } });
+  });
+
+  it('mode "mineOnly" without a usable key throws instead of returning a falsely-permissive where', () => {
+    expect(() => characterVisibilityWhere(undefined, 'mineOnly')).toThrow();
+    expect(() => characterVisibilityWhere(null, 'mineOnly')).toThrow();
+    expect(() => characterVisibilityWhere('   ', 'mineOnly')).toThrow();
+  });
+});
+
+describe('canUseMineOnlyVisibility', () => {
+  it('returns false for missing, empty, or whitespace-only keys', () => {
+    expect(canUseMineOnlyVisibility(undefined)).toBe(false);
+    expect(canUseMineOnlyVisibility(null)).toBe(false);
+    expect(canUseMineOnlyVisibility('')).toBe(false);
+    expect(canUseMineOnlyVisibility('   ')).toBe(false);
+  });
+
+  it('returns true for a usable key', () => {
+    expect(canUseMineOnlyVisibility('ABC')).toBe(true);
   });
 });
 

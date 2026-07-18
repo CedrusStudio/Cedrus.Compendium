@@ -81,6 +81,41 @@ describe('searchEntity - character visibility', () => {
     ]));
   });
 
+  it('mode "publicOnly": filters to public characters (isEmpty) even with an API key present', async () => {
+    await searchEntity(characterListPayload({ characterVisibilityMode: 'publicOnly' }), 'ABC');
+
+    const where = characterFindMany.mock.calls[0][0].where;
+    expect(where).toEqual({ apiKeys: { isEmpty: true } });
+  });
+
+  it('mode "mineOnly": filters to characters scoped to the current API key only (no OR with public)', async () => {
+    await searchEntity(characterListPayload({ characterVisibilityMode: 'mineOnly' }), 'ABC');
+
+    const where = characterFindMany.mock.calls[0][0].where;
+    expect(where).toEqual({ apiKeys: { has: 'ABC' } });
+  });
+
+  it('mode "mineOnly" without an API key short-circuits to an empty result without querying the database', async () => {
+    const result = await searchEntity(characterListPayload({ characterVisibilityMode: 'mineOnly' }), null);
+
+    expect(result).toEqual([]);
+    expect(characterFindMany).not.toHaveBeenCalled();
+  });
+
+  it('mode "mineOnly" with a blank API key short-circuits the same as no key', async () => {
+    const result = await searchEntity(characterListPayload({ characterVisibilityMode: 'mineOnly' }), '   ');
+
+    expect(result).toEqual([]);
+    expect(characterFindMany).not.toHaveBeenCalled();
+  });
+
+  it('omitting characterVisibilityMode behaves the same as mode "all" (regression)', async () => {
+    await searchEntity(characterListPayload(), 'ABC');
+
+    const where = characterFindMany.mock.calls[0][0].where;
+    expect(where).toEqual({ OR: [{ apiKeys: { isEmpty: true } }, { apiKeys: { has: 'ABC' } }] });
+  });
+
   it('does not apply the visibility condition to non-character entities', async () => {
     const payload: SearchEntityPayload =
     {
@@ -106,6 +141,20 @@ describe('searchEntity - character visibility', () => {
 
     const where = maneuverFindMany.mock.calls[0][0].where;
     expect(where).toEqual({ name: { contains: 'Cios', mode: 'insensitive' } });
+  });
+
+  it('ignores characterVisibilityMode for non-character entities instead of erroring', async () => {
+    const payload: SearchEntityPayload =
+    {
+      entity: 'spell',
+      select: { id: true },
+      characterVisibilityMode: 'mineOnly',
+    } as SearchEntityPayload;
+
+    const result = await searchEntity(payload, null);
+
+    expect(result).toEqual([]);
+    expect(spellFindMany).toHaveBeenCalledTimes(1);
   });
 });
 
