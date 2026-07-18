@@ -8,26 +8,31 @@ const characterKey = 'characters';
 
 export function createSearchCharactersKey
 (
-    search: string, 
-    cursor: string, 
-    includeTags?: string[], 
+    search: string,
+    cursor: string,
+    includeTags?: string[],
     pageSize?: number,
-    excludeTags?: string[]
-) 
+    excludeTags?: string[],
+    apiKey?: string | null
+)
 {
     return [
-        characterKey, 
-        searchParamKey, 
-        search, 
-        cursor, 
-        includeTags?.join(',') || '', 
-        excludeTags?.join(',') || '', 
-        pageSize
+        characterKey,
+        searchParamKey,
+        search,
+        cursor,
+        includeTags?.join(',') || '',
+        excludeTags?.join(',') || '',
+        pageSize,
+        apiKey || ''
     ] as const;
 }
 
 export const allCharactersKey = [characterKey, 'all'] as const;
-export const createCharacterByIdKey = (id: string) => [characterKey, id] as const;
+// `apiKey` is included so a client holding a key immediately refetches
+// instead of reusing an SSR-hydrated result that was fetched without one
+// (SSR has no access to the key, which lives in localStorage).
+export const createCharacterByIdKey = (id: string, apiKey?: string | null) => [characterKey, id, apiKey || ''] as const;
 
 // Maneuvers
 const maneuverKey = 'maneuvers';

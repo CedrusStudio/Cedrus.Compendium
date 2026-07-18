@@ -3,6 +3,7 @@
 //Tip: mark your repository as server-only so it can't be imported in client components by mistake.
 import 'server-only';
 import prisma from '@/lib/prisma';
+import { adminApiKeys } from '@/lib/env';
 import { toCharacterCombatPersistenceModel, toCharacterDetailsPersistenceModel, toCharacterEquipmentPersistenceModel, toCharacterFromCopyPersistenceModel, toCharacterHeaderPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { DetailsDto, HeaderDto } from '@/persistence/schemas/characters/headerSchema';
 import { StatisticsDto } from '@/persistence/schemas/characters/statistics/statisticsSchema';
@@ -14,6 +15,7 @@ import { Character } from '@/domain/characters/Character';
 import { toCharacter, toCharacterBuffsPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { includeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
+import { CharacterValidationError } from '@/persistence/characters/characterErrors';
 
 //Queries
 export async function getCharactersByIds(ids: string[])
@@ -147,15 +149,27 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
 
   if (!existingOnCharacterPerkIdsResponse) return false;
 
+  // Character apiKeys must come from the same pool as the configured admin
+  // API keys (NEXT_API_KEYS) — see features-to-implement/visible-only-to-api-keys.md.
+  // Enforced here (server-only) rather than in the Zod schema, since that
+  // schema also runs client-side and adminApiKeys is a server-only secret.
+  if (characterDetails.apiKeys && characterDetails.apiKeys.length > 0) {
+    const invalidApiKeys = characterDetails.apiKeys.filter(apiKey => !adminApiKeys.includes(apiKey));
+
+    if (invalidApiKeys.length > 0) {
+      throw new CharacterValidationError(`Invalid API key(s), not part of the configured admin keys: ${invalidApiKeys.join(', ')}`);
+    }
+  }
+
   // Validate raceId exists if provided
   if (characterDetails.raceId) {
     const raceExists = await prisma.race.findUnique({
       where: { id: characterDetails.raceId },
       select: { id: true }
     });
-    
+
     if (!raceExists) {
-      throw new Error(`Race with id ${characterDetails.raceId} not found`);
+      throw new CharacterValidationError(`Race with id ${characterDetails.raceId} not found`);
     }
   }
 

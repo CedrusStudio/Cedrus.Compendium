@@ -33,11 +33,24 @@ vi.mock('@/common/components/inputs/FormTagsInput', () => ({
   },
 }));
 
+vi.mock('@/common/components/inputs/FormStringsInput', () => ({
+  __esModule: true,
+  default: () => <div data-testid="form-strings-input" />,
+}));
+
+vi.mock('@/common/hooks/useApiKey', () => ({
+  useApiKey: () => ({ apiKey: null, isLoaded: true, hasApiKey: false, saveApiKey: vi.fn(), removeApiKey: vi.fn() }),
+}));
+
 vi.mock('@/common/translations', () => ({
   displayedText: {
     changeName: 'change name',
     changeShortName: 'change short name',
     changeDescription: 'change description',
+    apiKeys: 'api keys',
+    apiKeysDescription: 'api keys description',
+    assignCurrentApiKey: 'assign current api key',
+    noApiKeySet: 'no api key set',
   },
 }));
 

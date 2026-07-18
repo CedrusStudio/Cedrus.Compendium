@@ -23,6 +23,12 @@ export type Character = Entity &
   tags: Tag[];
   race?: Race;
 
+  /**
+   * API keys allowed to see this character.
+   * `undefined`/empty means the character is public (visible to everyone).
+   */
+  apiKeys?: string[];
+
   characteristics: Characteristics;
   attributes: Attributes;
   talents: Talent[];
@@ -57,6 +63,7 @@ const emptyCharacter: Character =
   tags: [],
   description: "Opis postaci",
   race: undefined,
+  apiKeys: [],
   characteristics: 
   {
     strength: { grade: defaultDiceGrade, value: 0, bonus: 0, testBonus: 0 },

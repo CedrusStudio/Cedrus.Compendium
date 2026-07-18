@@ -45,9 +45,13 @@ describe('Offense - Dice Rolling and Damage Calculations', () => {
     });
   });
 
+  // Note: toOffenseString() wraps the dice notation in parentheses when
+  // `amount > 1` (see "fix: small visual fixes (#63)", 4791032, which added
+  // this intentionally) — e.g. "2(k10+3)" rather than "2k10+3". For amount
+  // === 1 there's nothing to disambiguate, so no parentheses are added.
   describe('toOffenseString()', () => {
     it('should format offense with dice and positive bonus', () => {
-      expect(toOffenseString({ amount: 2, grade: 5, bonus: 3, isPhantom: false })).toBe('2k10+3');
+      expect(toOffenseString({ amount: 2, grade: 5, bonus: 3, isPhantom: false })).toBe('2(k10+3)');
     });
 
     it('should format offense with dice and negative bonus', () => {
@@ -55,7 +59,7 @@ describe('Offense - Dice Rolling and Damage Calculations', () => {
     });
 
     it('should format offense with dice and no bonus', () => {
-      expect(toOffenseString({ amount: 3, grade: 4, bonus: 0, isPhantom: false })).toBe('3k8');
+      expect(toOffenseString({ amount: 3, grade: 4, bonus: 0, isPhantom: false })).toBe('3(k8)');
     });
 
     it('should format offense with only bonus (no dice)', () => {
@@ -64,21 +68,25 @@ describe('Offense - Dice Rolling and Damage Calculations', () => {
     });
 
     it('should format offense with phantom dice', () => {
-      expect(toOffenseString({ amount: 2, grade: 5, bonus: 0, isPhantom: true })).toBe('2k10w');
+      expect(toOffenseString({ amount: 2, grade: 5, bonus: 0, isPhantom: true })).toBe('2(k10w)');
       expect(toOffenseString({ amount: 1, grade: 3, bonus: 4, isPhantom: true })).toBe('1k6w+4');
     });
 
     it('should format with plus sign when requested and dice present', () => {
-      expect(toOffenseString({ amount: 2, grade: 5, bonus: 0, isPhantom: false }, true)).toBe('+2k10');
+      expect(toOffenseString({ amount: 2, grade: 5, bonus: 0, isPhantom: false }, true)).toBe('+2(k10)');
       expect(toOffenseString({ amount: 1, grade: 3, bonus: 2, isPhantom: false }, true)).toBe('+1k6+2');
     });
 
     it('should handle zero bonus', () => {
-      expect(toOffenseString({ amount: 2, grade: 5, bonus: 0, isPhantom: false })).toBe('2k10');
+      expect(toOffenseString({ amount: 2, grade: 5, bonus: 0, isPhantom: false })).toBe('2(k10)');
     });
 
     it('should return only bonus when no dice and no bonus', () => {
       expect(toOffenseString({ amount: 0, grade: 0, bonus: 0, isPhantom: false })).toBe('');
+    });
+
+    it('does not add parentheses when amount is exactly 1', () => {
+      expect(toOffenseString({ amount: 1, grade: 5, bonus: 0, isPhantom: false })).toBe('1k10');
     });
   });
 

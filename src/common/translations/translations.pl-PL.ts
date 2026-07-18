@@ -363,5 +363,11 @@ export const translations_plPL =
     noRequirementsFound: "nie znaleziono wymagań",
     searchRequirements: "szukaj wymagań...",
     favorites: "ulubione",
+
+    apiKeys: "klucze API",
+    apiKeysDescription: "Postać widoczna tylko dla wskazanych kluczy API. Pozostaw puste, aby postać była widoczna dla wszystkich.",
+    assignCurrentApiKey: "przypisz bieżący klucz",
+    noApiKeySet: "nie masz ustawionego klucza API",
+    apiKeyAlreadyAssigned: "ten klucz jest już przypisany",
 } as const;
 

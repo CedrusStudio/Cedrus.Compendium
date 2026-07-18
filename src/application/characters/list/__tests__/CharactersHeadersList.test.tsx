@@ -6,10 +6,15 @@ import { CharacterTag } from '@/domain/Tag';
 const useQueryMock = vi.fn();
 const useEntityTagsMock = vi.fn();
 const useDispatchMock = vi.fn();
+const useApiKeyMock = vi.fn();
 const tagFilterSpy = vi.fn();
 
 vi.mock('@tanstack/react-query', () => ({
   useQuery: (...args: unknown[]) => useQueryMock(...args),
+}));
+
+vi.mock('@/common/hooks/useApiKey', () => ({
+  useApiKey: () => useApiKeyMock(),
 }));
 
 vi.mock('react-redux', () => ({
@@ -60,6 +65,8 @@ describe('CharactersHeadersList', () => {
     useEntityTagsMock.mockReset();
     useQueryMock.mockReset();
     tagFilterSpy.mockReset();
+    useApiKeyMock.mockReset();
+    useApiKeyMock.mockReturnValue({ apiKey: null, isLoaded: true, hasApiKey: false, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
   });
 
   it('hides the built-in character tag from the visible filter props', () => {
@@ -123,5 +130,21 @@ describe('CharactersHeadersList', () => {
     expect(card).toHaveClass('w-full');
     expect(card).toHaveClass('hover:bg-accent/40');
     expect(card).not.toHaveClass('bg-gradient-to-r');
+  });
+
+  it('includes the current API key in the characters query key, so switching keys triggers a refetch', () => {
+    useEntityTagsMock.mockReturnValue({ tags: [], isLoading: false });
+    useQueryMock.mockReturnValue({ data: [] });
+
+    useApiKeyMock.mockReturnValue({ apiKey: null, isLoaded: true, hasApiKey: false, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
+    const { rerender } = render(<CharactersHeadersList />);
+    const queryKeyWithoutApiKey = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+
+    useApiKeyMock.mockReturnValue({ apiKey: 'ABC', isLoaded: true, hasApiKey: true, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
+    rerender(<CharactersHeadersList />);
+    const queryKeyWithApiKey = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+
+    expect(queryKeyWithApiKey).not.toEqual(queryKeyWithoutApiKey);
+    expect(queryKeyWithApiKey).toContain('ABC');
   });
 });

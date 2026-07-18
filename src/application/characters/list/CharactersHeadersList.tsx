@@ -22,6 +22,7 @@ import { CharacterTag, isCharacterOrSessionTag } from '@/domain/Tag';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
+import { useApiKey } from '@/common/hooks/useApiKey';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -40,13 +41,14 @@ export default function CharactersHeadersList()
   const [displayedCharacters, setDisplayedCharacters] = useState<CharacterSummary[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
-  
+  const { apiKey } = useApiKey();
+
   const tagsEnrichedByCharacter = searchTags.includes(CharacterTag) ? searchTags : [ ...searchTags, CharacterTag ];
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags);
+  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags, apiKey);
   const { data: searchResults = EMPTY_ARRAY } = useQuery
-  ({ 
-    queryKey, 
-    queryFn: async () => 
+  ({
+    queryKey,
+    queryFn: async () =>
     {
       const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, tagsEnrichedByCharacter, pageSize, excludedTags);
       return await client.search<CharacterSummary[]>(charactersQuery);

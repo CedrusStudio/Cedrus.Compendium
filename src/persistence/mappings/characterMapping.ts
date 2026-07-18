@@ -31,6 +31,7 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     shortName: characterPersistenceModel.shortName,
     description: characterPersistenceModel.description,
     tags: characterPersistenceModel.tags,
+    apiKeys: characterPersistenceModel.apiKeys,
     race: characterPersistenceModel.race ? toRace(characterPersistenceModel.race) : undefined,
 
     characteristics: characterPersistenceModel.characteristics,
@@ -246,10 +247,11 @@ export function toCharacterDetailsPersistenceModel
     description: details.description,
     tags: details.tags,
     ...(details.raceId !== undefined && {
-      race: details.raceId 
+      race: details.raceId
         ? { connect: { id: details.raceId } }
         : { disconnect: true }
     }),
+    ...(details.apiKeys !== undefined && { apiKeys: details.apiKeys }),
     perks: createUpsertPayload(existingOnCharacterPerkIds, details.perks, idsToConnect)
   };
 }

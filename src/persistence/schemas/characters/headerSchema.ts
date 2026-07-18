@@ -19,7 +19,13 @@ export const headerSchema = z.object
 
 export const detailsSchema = headerSchema.extend
 ({
-  perks: perksSchema
+  perks: perksSchema,
+  // Which API keys can see this character (from the same pool as the admin
+  // NEXT_API_KEYS). Empty/omitted means the character is public. The actual
+  // "must belong to the configured admin keys" rule is enforced server-side
+  // in charactersRepository.ts, not here — this schema also runs client-side
+  // for the edit form, and adminApiKeys (NEXT_API_KEYS) is a server-only env var.
+  apiKeys: z.array(z.string().min(1)).optional(),
 });
 
 export type DetailsDto = z.infer<typeof detailsSchema>;
