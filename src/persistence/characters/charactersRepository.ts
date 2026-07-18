@@ -15,6 +15,7 @@ import { Character } from '@/domain/characters/Character';
 import { toCharacter, toCharacterBuffsPersistenceModel } from '@/persistence/mappings/characterMapping';
 import { includeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
+import { CharacterValidationError } from '@/persistence/characters/characterErrors';
 
 //Queries
 export async function getCharactersByIds(ids: string[])
@@ -156,7 +157,7 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
     const invalidApiKeys = characterDetails.apiKeys.filter(apiKey => !adminApiKeys.includes(apiKey));
 
     if (invalidApiKeys.length > 0) {
-      throw new Error(`Invalid API key(s), not part of the configured admin keys: ${invalidApiKeys.join(', ')}`);
+      throw new CharacterValidationError(`Invalid API key(s), not part of the configured admin keys: ${invalidApiKeys.join(', ')}`);
     }
   }
 
@@ -166,9 +167,9 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
       where: { id: characterDetails.raceId },
       select: { id: true }
     });
-    
+
     if (!raceExists) {
-      throw new Error(`Race with id ${characterDetails.raceId} not found`);
+      throw new CharacterValidationError(`Race with id ${characterDetails.raceId} not found`);
     }
   }
 
