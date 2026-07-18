@@ -268,6 +268,52 @@ describe('SearchQueryBuilder', () => {
     });
   });
 
+  describe('Character visibility filter', () => {
+    it('should add characterVisibilityMode when set to "mineOnly"', () => {
+      const query = SearchQueryBuilder.for('character')
+        .visibilityFilter('mineOnly')
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.characterVisibilityMode).toBe('mineOnly');
+    });
+
+    it('should add characterVisibilityMode when set to "publicOnly"', () => {
+      const query = SearchQueryBuilder.for('character')
+        .visibilityFilter('publicOnly')
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.characterVisibilityMode).toBe('publicOnly');
+    });
+
+    it('should omit characterVisibilityMode when set to "all" (matches today\'s default payload)', () => {
+      const query = SearchQueryBuilder.for('character')
+        .visibilityFilter('all')
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.characterVisibilityMode).toBeUndefined();
+    });
+
+    it('should omit characterVisibilityMode when not called at all', () => {
+      const query = SearchQueryBuilder.for('character')
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.characterVisibilityMode).toBeUndefined();
+    });
+
+    it('should omit characterVisibilityMode when passed undefined', () => {
+      const query = SearchQueryBuilder.for('character')
+        .visibilityFilter(undefined)
+        .offsetPagination(1, 10)
+        .build();
+
+      expect(query.characterVisibilityMode).toBeUndefined();
+    });
+  });
+
   describe('Method chaining', () => {
     it('should support fluent API', () => {
       const builder = SearchQueryBuilder.for('character');

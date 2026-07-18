@@ -40,13 +40,17 @@ export type SearchEntityPayload =
   | (SearchPayload & { entity: string; select: Select; include?: undefined })
   | (SearchPayload & { entity: string; include?: undefined; select?: undefined });
 
-export type SearchPayload = 
+export type CharacterVisibilityMode = 'all' | 'mineOnly' | 'publicOnly';
+
+export type SearchPayload =
 {
   search?: { [key: string]: SearchValueInput };
   exclude?: { [key: string]: SearchValueInput };
   sort?: { [key: string]: 'asc' | 'desc' }[] | undefined;
   pagination?: OffsetPagination | KeysetPagination;
   select?: Select;
+  // Applies only to entity === 'character'; ignored for every other entity.
+  characterVisibilityMode?: CharacterVisibilityMode;
 };
 
 export type SearchByIdEntityPayload =

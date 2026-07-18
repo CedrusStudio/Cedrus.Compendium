@@ -2,6 +2,7 @@ import { searchParamKey } from "@/common/global/httpUtils";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { CastTime } from "@/domain/characters/Castable";
 import { Style } from "@/domain/characters/equipment/Weapon";
+import { CharacterVisibilityMode } from "@/common/global/SearchPayloads";
 
 // Characters
 const characterKey = 'characters';
@@ -13,7 +14,8 @@ export function createSearchCharactersKey
     includeTags?: string[],
     pageSize?: number,
     excludeTags?: string[],
-    apiKey?: string | null
+    apiKey?: string | null,
+    visibilityMode?: CharacterVisibilityMode
 )
 {
     return [
@@ -24,7 +26,8 @@ export function createSearchCharactersKey
         includeTags?.join(',') || '',
         excludeTags?.join(',') || '',
         pageSize,
-        apiKey || ''
+        apiKey || '',
+        visibilityMode || 'all'
     ] as const;
 }
 

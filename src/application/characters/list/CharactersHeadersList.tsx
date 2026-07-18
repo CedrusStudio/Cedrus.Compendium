@@ -8,6 +8,7 @@ import { actions } from '@/persistence/slices/characterSlice';
 import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 import TagsView from '@/common/components/tags/TagsView';
 import TagFilter from '@/common/components/filters/TagFilter';
+import CharacterVisibilityFilter from '@/common/components/filters/CharacterVisibilityFilter';
 import { WithScroll } from '@/common/components/WithScroll';
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
@@ -23,6 +24,7 @@ import FavoriteCharacterButton from '@/application/personalization/FavoriteChara
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
 import { useApiKey } from '@/common/hooks/useApiKey';
+import { CharacterVisibilityMode } from '@/common/global/SearchPayloads';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -41,16 +43,25 @@ export default function CharactersHeadersList()
   const [displayedCharacters, setDisplayedCharacters] = useState<CharacterSummary[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
-  const { apiKey } = useApiKey();
+  const [visibilityMode, setVisibilityMode] = useState<CharacterVisibilityMode>('all');
+  const { apiKey, hasApiKey } = useApiKey();
+
+  // If the API key disappears (e.g. removed in another tab) while "mine
+  // only" is selected, fall back to "all" instead of silently showing an
+  // empty list forever.
+  useEffect(() =>
+  {
+    if (!hasApiKey && visibilityMode === 'mineOnly') setVisibilityMode('all');
+  }, [hasApiKey, visibilityMode]);
 
   const tagsEnrichedByCharacter = searchTags.includes(CharacterTag) ? searchTags : [ ...searchTags, CharacterTag ];
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags, apiKey);
+  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags, apiKey, visibilityMode);
   const { data: searchResults = EMPTY_ARRAY } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
-      const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, tagsEnrichedByCharacter, pageSize, excludedTags);
+      const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, tagsEnrichedByCharacter, pageSize, excludedTags, visibilityMode);
       return await client.search<CharacterSummary[]>(charactersQuery);
     },
     staleTime: 5_000
@@ -89,10 +100,16 @@ export default function CharactersHeadersList()
     clearResults();
   }, [clearResults]);
 
-  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  const handleExcludedTagsChange = useCallback((tags: string[]) =>
   {
     setExcludedTags(sanitizeCharactersViewTags(tags));
     setCursor(emptyUlid);
+    clearResults();
+  }, [clearResults]);
+
+  const handleVisibilityModeChange = useCallback((mode: CharacterVisibilityMode) =>
+  {
+    setVisibilityMode(mode);
     clearResults();
   }, [clearResults]);
 
@@ -112,14 +129,19 @@ export default function CharactersHeadersList()
               className="w-full md:max-w-sm"
             />
 
-            <div className='flex w-full justify-center md:w-auto'>
-              <TagFilter 
-                includedTags={searchTags} 
+            <div className='flex w-full flex-col items-center gap-3 md:w-auto md:flex-row'>
+              <TagFilter
+                includedTags={searchTags}
                 onIncludedTagsChange={handleSearchTagsChange}
                 availableTags={availableTagsOnlyForCharacters}
                 isLoading={tagsLoading}
                 excludedTags={excludedTags}
                 onExcludedTagsChange={handleExcludedTagsChange}
+              />
+              <CharacterVisibilityFilter
+                value={visibilityMode}
+                onValueChange={handleVisibilityModeChange}
+                mineOnlyDisabled={!hasApiKey}
               />
             </div>
           </div>
