@@ -9,6 +9,7 @@ import { useFormContext } from 'react-hook-form';
 import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/common/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
+import ImportFromCharacterSheet from '@/common/components/import/ImportFromCharacterSheet';
 import StateView from "@/application/compendium/states/StateView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState } from 'react';
@@ -17,11 +18,13 @@ import { createStateKeysetQuery } from '@/infrastructure/searchQueries/states/cr
 import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
 import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
-type EditStatesCardProps = 
+type EditStatesCardProps =
 {
   isPending: boolean;
   isSuccess: boolean;
   initialStates: Mode[];
+  currentCharacterId: string;
+  currentCharacterName: string;
 }
 
 const cloneMode = (mode: Mode): Mode =>
@@ -35,7 +38,7 @@ const cloneMode = (mode: Mode): Mode =>
   tags: [...mode.tags]
 });
 
-export default function EditStatesCard({ isPending, isSuccess, initialStates }: EditStatesCardProps) 
+export default function EditStatesCard({ isPending, isSuccess, initialStates, currentCharacterId, currentCharacterName }: EditStatesCardProps)
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("states", control);
@@ -101,6 +104,20 @@ export default function EditStatesCard({ isPending, isSuccess, initialStates }: 
               createKeysetSearchStatesKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedGrade)
             }
             entityType="states"
+          />
+
+          <ImportFromCharacterSheet<Mode>
+            categoryLabel={displayedText.states}
+            currentCharacterId={currentCharacterId}
+            currentCharacterName={currentCharacterName}
+            currentItemsIds={watchedArray.map(state => state.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
+            itemsSelector={character => character.states}
+            renderItem={renderStateItem}
+            onImport={handleImportStates}
+            isPending={isPending}
           />
         </CardTitle>
       </CardHeader>

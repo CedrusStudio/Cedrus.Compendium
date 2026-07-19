@@ -1,14 +1,17 @@
 import { Item } from '@/domain/characters/equipment/Item';
 import { PropsWithChildren } from 'react';
 
-type ItemsViewProps<T extends Item> = 
+type ItemsViewProps<T extends Item> =
 {
   label: string;
   items: T[];
   itemViewFactory: (item: T, index: number) => React.ReactNode;
+  /** Items removed this editing session — kept around so they can still be restored. */
+  removedItems?: T[];
+  removedItemViewFactory?: (item: T) => React.ReactNode;
 }
 
-export default function ItemsView<T extends Item>({ items, itemViewFactory, label, children }: PropsWithChildren<ItemsViewProps<T>>)
+export default function ItemsView<T extends Item>({ items, itemViewFactory, label, children, removedItems = [], removedItemViewFactory }: PropsWithChildren<ItemsViewProps<T>>)
 {
   return (
     <div className="flex flex-col gap-3">
@@ -21,11 +24,27 @@ export default function ItemsView<T extends Item>({ items, itemViewFactory, labe
           <div className="flex flex-col gap-3">
           {
             items.map((item, index) => (
-              <div 
+              <div
                 key={item.id}
                 className="border rounded-lg p-3 bg-card hover:bg-accent/50 transition-colors"
               >
                 {itemViewFactory(item, index)}
+              </div>
+            ))
+          }
+          </div>
+        )
+      }
+      {
+        removedItems.length > 0 && removedItemViewFactory && (
+          <div className="flex flex-col gap-3">
+          {
+            removedItems.map(item => (
+              <div
+                key={item.id}
+                className="border rounded-lg p-3 bg-card hover:bg-accent/50 transition-colors"
+              >
+                {removedItemViewFactory(item)}
               </div>
             ))
           }
