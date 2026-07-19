@@ -15,6 +15,9 @@
 /raw-data/
 #/formatted-data/
 
+# mongodb backups (may contain data, don't commit)
+/backup/
+
 # testing
 /coverage
 
