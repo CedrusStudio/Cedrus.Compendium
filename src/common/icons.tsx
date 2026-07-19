@@ -42,7 +42,7 @@ import { GiBoltSpellCast } from "react-icons/gi";
 
 import { IoIosArrowRoundUp } from "react-icons/io";
 import { IoIosArrowRoundDown } from "react-icons/io";
-import { BiImport } from "react-icons/bi";
+import { BiImport, BiTransfer } from "react-icons/bi";
 import { VscGoToSearch } from "react-icons/vsc";
 import { cn } from "@/lib/utils";
 import { FaCheck, FaEye, FaEyeSlash, FaHome, FaTimes } from "react-icons/fa";
@@ -134,6 +134,7 @@ export const arrowUpIcon = <IoIosArrowRoundUp className="w-4 h-4" />;
 export const arrowDownIcon = <IoIosArrowRoundDown className="w-4 h-4" />;
 
 export const importIcon = <BiImport className="w-5 h-5" />;
+export const importFromCharacterIcon = <BiTransfer className="w-5 h-5" />;
 export const goToIcon = <VscGoToSearch className="w-5 h-5" />;
 export const deleteIcon = <IoTrashOutline className="w-5 h-5" />;
 

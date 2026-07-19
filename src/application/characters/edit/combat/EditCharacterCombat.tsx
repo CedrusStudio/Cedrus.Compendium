@@ -74,18 +74,18 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
         />
 
         <div className="grid gap-3 lg:grid-cols-2">
-          <EditStancesCard isPending={isPending} isSuccess={isSuccess} initialStances={character.stances} />
-          <EditStatesCard isPending={isPending} isSuccess={isSuccess} initialStates={character.states} />
+          <EditStancesCard isPending={isPending} isSuccess={isSuccess} initialStances={character.stances} currentCharacterId={character.id} currentCharacterName={character.name} />
+          <EditStatesCard isPending={isPending} isSuccess={isSuccess} initialStates={character.states} currentCharacterId={character.id} currentCharacterName={character.name} />
         </div>
 
-        <EditManeuversCard isPending={isPending} isSuccess={isSuccess} initialManeuvers={character.maneuvers} />
+        <EditManeuversCard isPending={isPending} isSuccess={isSuccess} initialManeuvers={character.maneuvers} currentCharacterId={character.id} currentCharacterName={character.name} />
 
         <EditArraySection<CombatDto, "powers">
           title={displayedText.powers}
           fieldArray={useFieldArray({ name: "powers", control: form.control })}
           createDefault={CreateDefaultPower}
           isPending={isPending}
-          renderItem={(power, index, remove) => <EditPowerCard key={power.id} power={power} isPending={isPending} isSuccess={isSuccess} index={index} remove={remove} /> }
+          renderItem={(power, index, remove) => <EditPowerCard key={power.id} power={power} isPending={isPending} isSuccess={isSuccess} index={index} remove={remove} currentCharacterId={character.id} currentCharacterName={character.name} /> }
           gridCols={1}
         />
 

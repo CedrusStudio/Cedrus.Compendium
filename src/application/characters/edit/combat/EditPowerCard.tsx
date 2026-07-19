@@ -15,6 +15,7 @@ import { Separator } from '@/common/components/ui/separator';
 import { PowerDto } from '@/persistence/schemas/characters/combat/powerSchema';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
+import ImportFromCharacterSheet from '@/common/components/import/ImportFromCharacterSheet';
 import SpellView from "@/application/compendium/spells/SpellView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState } from 'react';
@@ -41,6 +42,7 @@ import { type CastTime } from '@/domain/characters/Castable';
 import RestoreItemButton from '@/common/components/form/RestoreItemButton';
 import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 import { calculateSpellCost, formatSpellCost, normalizeSpellCost } from '@/domain/characters/combat/SpellCost';
+import { Character } from '@/domain/characters/Character';
 
 type EditPowersCardProps =
 {
@@ -49,7 +51,27 @@ type EditPowersCardProps =
   remove: UseFieldArrayRemove;
   isPending: boolean;
   isSuccess: boolean;
+  currentCharacterId: string;
+  currentCharacterName: string;
 }
+
+// Spells live on individual Powers, but "import from another character" flattens
+// all of the source character's spells across every one of their Powers — spells
+// are a shared library entity (like maneuvers/perks), so which Power they were
+// attached to on the source character isn't meaningful once imported.
+const selectAllSpellsAcrossPowers = (character: Character): Spell[] =>
+{
+  const seenIds = new Set<string>();
+
+  return character.powers
+    .flatMap(sourcePower => sourcePower.spells)
+    .filter(spell =>
+    {
+      if (seenIds.has(spell.id)) return false;
+      seenIds.add(spell.id);
+      return true;
+    });
+};
 
 const cloneSpell = (spell: Spell): Spell =>
 ({
@@ -65,7 +87,7 @@ const cloneSpell = (spell: Spell): Spell =>
   cost: normalizeSpellCost(spell.cost)
 });
 
-export default function EditPowerCard({ index, power, remove, isPending, isSuccess }: EditPowersCardProps)
+export default function EditPowerCard({ index, power, remove, isPending, isSuccess, currentCharacterId, currentCharacterName }: EditPowersCardProps)
 {
   const { control, setValue } = useFormContext<CombatDto>();
   const powerSpecificationFieldPath = pathToPowerField(index, 'powerSpecificationId');
@@ -247,6 +269,20 @@ export default function EditPowerCard({ index, power, remove, isPending, isSucce
                 createKeysetSearchSpellsKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedSpellCastTimes, selectedSpellGrade)
               }
               entityType="spells"
+            />
+
+            <ImportFromCharacterSheet<Spell>
+              categoryLabel={displayedText.spells}
+              currentCharacterId={currentCharacterId}
+              currentCharacterName={currentCharacterName}
+              currentItemsIds={spells.map(spell => spell.id)}
+              removedItemsIds={removedItemIds}
+              onToggleCurrentItem={removeItemById}
+              onToggleRemovedItem={restoreRemovedItem}
+              itemsSelector={selectAllSpellsAcrossPowers}
+              renderItem={renderSpellItem}
+              onImport={handleImportSpells}
+              isPending={isPending}
             />
 
           </div>

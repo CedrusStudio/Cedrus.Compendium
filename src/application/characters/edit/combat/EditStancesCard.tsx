@@ -9,6 +9,7 @@ import { useFormContext } from 'react-hook-form';
 import { CreateDefaultStance, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/common/translations';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
+import ImportFromCharacterSheet from '@/common/components/import/ImportFromCharacterSheet';
 import StanceView from "@/application/compendium/stances/StanceView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState } from 'react';
@@ -17,11 +18,13 @@ import { createStanceKeysetQuery } from '@/infrastructure/searchQueries/stances/
 import { normalizeGradeFilterInput, parseGradeFilterInput } from '@/common/global/gradeFilter';
 import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
-type EditStancesCardProps = 
+type EditStancesCardProps =
 {
   isPending: boolean;
   isSuccess: boolean;
   initialStances: Mode[];
+  currentCharacterId: string;
+  currentCharacterName: string;
 }
 
 const cloneMode = (mode: Mode): Mode =>
@@ -35,7 +38,7 @@ const cloneMode = (mode: Mode): Mode =>
   tags: [...mode.tags]
 });
 
-export default function EditStancesCard({ isPending, isSuccess, initialStances }: EditStancesCardProps) 
+export default function EditStancesCard({ isPending, isSuccess, initialStances, currentCharacterId, currentCharacterName }: EditStancesCardProps)
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("stances", control);
@@ -101,6 +104,20 @@ export default function EditStancesCard({ isPending, isSuccess, initialStances }
               createKeysetSearchStancesKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedGrade)
             }
             entityType="stances"
+          />
+
+          <ImportFromCharacterSheet<Mode>
+            categoryLabel={displayedText.stances}
+            currentCharacterId={currentCharacterId}
+            currentCharacterName={currentCharacterName}
+            currentItemsIds={watchedArray.map(stance => stance.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
+            itemsSelector={character => character.stances}
+            renderItem={renderStanceItem}
+            onImport={handleImportStances}
+            isPending={isPending}
           />
         </CardTitle>
       </CardHeader>

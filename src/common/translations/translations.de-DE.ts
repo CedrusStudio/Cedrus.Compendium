@@ -275,6 +275,18 @@ export const translations_deDE =
     import: "importieren",
     selected_items_hidden_by_filter: "ausgewählte Elemente durch Suchfilter ausgeblendet",
 
+    import_from_character: "von anderem Charakter importieren",
+    select_source_character: "quellcharakter auswählen",
+    select_source_character_description: "wählen Sie den Charakter, von dem Sie Elemente importieren möchten",
+    change_source_character: "quellcharakter ändern",
+    target_character: "zielcharakter",
+    source_character: "quellcharakter",
+    no_items_on_source_character: "der ausgewählte Charakter besitzt keine Elemente dieses Typs",
+    import_summary_imported_prefix: "importiert",
+    import_summary_elements_suffix: "elemente",
+    import_summary_skipped_prefix: "übersprungen",
+    import_summary_skipped_suffix: "elemente, da sie auf diesem Charakter bereits vorhanden sind",
+
     import_perks: "vorteile importieren",
     select_perks_to_import: "wählen Sie vorteile zum importieren",
     no_perks_found: "keine vorteile gefunden",

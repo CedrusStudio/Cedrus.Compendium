@@ -302,6 +302,18 @@ export const displayedText =
     import: translate("import"),
     selected_items_hidden_by_filter: translate("selected_items_hidden_by_filter"),
 
+    import_from_character: translate("import_from_character"),
+    select_source_character: translate("select_source_character"),
+    select_source_character_description: translate("select_source_character_description"),
+    change_source_character: translate("change_source_character"),
+    target_character: translate("target_character"),
+    source_character: translate("source_character"),
+    no_items_on_source_character: translate("no_items_on_source_character"),
+    import_summary_imported_prefix: translate("import_summary_imported_prefix"),
+    import_summary_elements_suffix: translate("import_summary_elements_suffix"),
+    import_summary_skipped_prefix: translate("import_summary_skipped_prefix"),
+    import_summary_skipped_suffix: translate("import_summary_skipped_suffix"),
+
     import_perks: translate("import_perks"),
     select_perks_to_import: translate("select_perks_to_import"),
     no_perks_found: translate("no_perks_found"),

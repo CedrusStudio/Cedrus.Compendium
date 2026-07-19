@@ -1,37 +1,36 @@
-import { pathToWeapons, splitEquipmentItemTypes } from '@/domain/characters/equipment/Equipment';
+import { pathToWeapons } from '@/domain/characters/equipment/Equipment';
 import { Weapon } from '@/domain/characters/equipment/Weapon';
 import WeaponViewFields from '@/application/common/equipment/Views/WeaponViewFields';
 import EditCharacterItemSheet from '@/application/characters/edit/equipment/EditCharacterItemSheet';
 import WeaponEditableFields from '@/application/common/equipment/EditSheets/WeaponEditableFields';
-import { useFieldArray } from 'react-hook-form';
-import { type EquipmentDto } from '@/persistence/schemas/characters/equipment/equipmentSchema';
 import ItemViewFromEditList from '@/application/characters/edit/equipment/ItemViewFromEditList';
 
-type EditWeaponViewProps = 
+type EditWeaponViewProps =
 {
   weapon: Weapon;
   index: number;
   isImported: boolean;
+  isRemoved?: boolean;
+  onRemove?: () => void;
+  onRestore?: () => void;
 };
 
-export default function EditWeaponView({ index, weapon, isImported }: EditWeaponViewProps)
+export default function EditWeaponView({ index, weapon, isImported, isRemoved, onRemove, onRestore }: EditWeaponViewProps)
 {
-  const type = pathToWeapons(index);
-  const { name } = splitEquipmentItemTypes(type);
-  const { remove } = useFieldArray<EquipmentDto>({ name });
-
   return (
     <ItemViewFromEditList
       itemViewFields={<WeaponViewFields weapon={weapon} />}
       itemEditSheet={<EditWeaponSheet index={index} />}
       index={index}
       isImported={isImported}
-      remove={remove}
+      isRemoved={isRemoved}
+      onRemove={onRemove}
+      onRestore={onRestore}
     />
   );
 }
 
-type EditWeaponSheetProps = 
+type EditWeaponSheetProps =
 {
   index: number;
 };

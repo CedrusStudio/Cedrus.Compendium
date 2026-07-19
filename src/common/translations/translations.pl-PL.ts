@@ -275,6 +275,18 @@ export const translations_plPL =
     import: "importuj",
     selected_items_hidden_by_filter: "zaznaczone elementy ukryte przez filtr wyszukiwania",
 
+    import_from_character: "importuj z innej postaci",
+    select_source_character: "wybierz postać źródłową",
+    select_source_character_description: "wybierz postać, z której chcesz zaimportować elementy",
+    change_source_character: "zmień postać źródłową",
+    target_character: "postać docelowa",
+    source_character: "postać źródłowa",
+    no_items_on_source_character: "wybrana postać nie posiada elementów tego typu",
+    import_summary_imported_prefix: "zaimportowano",
+    import_summary_elements_suffix: "elementów",
+    import_summary_skipped_prefix: "pominięto",
+    import_summary_skipped_suffix: "elementów, ponieważ już istnieją na tej postaci",
+
     import_perks: "importuj atuty",
     select_perks_to_import: "wybierz atuty do zaimportowania",
     no_perks_found: "nie znaleziono atutów",

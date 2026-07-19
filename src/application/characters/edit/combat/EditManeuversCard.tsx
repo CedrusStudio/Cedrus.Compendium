@@ -12,6 +12,7 @@ import { battleIcon, cooldownIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
 import { getBadgeVariant } from '@/common/colors';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
+import ImportFromCharacterSheet from '@/common/components/import/ImportFromCharacterSheet';
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState } from 'react';
@@ -29,11 +30,13 @@ import { type CastTime } from '@/domain/characters/Castable';
 import RestoreItemButton from '@/common/components/form/RestoreItemButton';
 import { useDraftRemovableItems } from '@/application/characters/edit/hooks/useDraftRemovableItems';
 
-type EditManeuversCardProps = 
+type EditManeuversCardProps =
 {
   isPending: boolean;
   isSuccess: boolean;
   initialManeuvers: Maneuver[];
+  currentCharacterId: string;
+  currentCharacterName: string;
 }
 
 const cloneManeuver = (maneuver: Maneuver): Maneuver =>
@@ -49,7 +52,7 @@ const cloneManeuver = (maneuver: Maneuver): Maneuver =>
   cooldown: maneuver.cooldown
 });
 
-export default function EditManeuversCard({ isPending, isSuccess, initialManeuvers }: EditManeuversCardProps) 
+export default function EditManeuversCard({ isPending, isSuccess, initialManeuvers, currentCharacterId, currentCharacterName }: EditManeuversCardProps)
 {
   const { control } = useFormContext<CombatDto>();
   const { remove, watchedArray, append } = useWatchedFormArray("maneuvers", control);
@@ -126,6 +129,20 @@ export default function EditManeuversCard({ isPending, isSuccess, initialManeuve
               createKeysetSearchManeuversKey(searchQuery, cursor, includeTags, pageSize, excludeTags, selectedCastTimes, selectedGrade)
             }
             entityType="maneuvers"
+          />
+
+          <ImportFromCharacterSheet<Maneuver>
+            categoryLabel={displayedText.maneuvers}
+            currentCharacterId={currentCharacterId}
+            currentCharacterName={currentCharacterName}
+            currentItemsIds={watchedArray.map(maneuver => maneuver.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
+            itemsSelector={character => character.maneuvers}
+            renderItem={renderManeuverItem}
+            onImport={handleImportManeuvers}
+            isPending={isPending}
           />
         </CardTitle>
       </CardHeader>

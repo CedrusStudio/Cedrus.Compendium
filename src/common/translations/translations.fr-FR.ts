@@ -275,6 +275,18 @@ export const translations_frFR =
     import: "importer",
     selected_items_hidden_by_filter: "éléments sélectionnés masqués par le filtre de recherche",
 
+    import_from_character: "importer depuis un autre personnage",
+    select_source_character: "sélectionner le personnage source",
+    select_source_character_description: "sélectionnez le personnage depuis lequel vous souhaitez importer des éléments",
+    change_source_character: "changer de personnage source",
+    target_character: "personnage cible",
+    source_character: "personnage source",
+    no_items_on_source_character: "le personnage sélectionné ne possède aucun élément de ce type",
+    import_summary_imported_prefix: "importé",
+    import_summary_elements_suffix: "éléments",
+    import_summary_skipped_prefix: "ignoré",
+    import_summary_skipped_suffix: "éléments, car ils existent déjà sur ce personnage",
+
     import_perks: "importer des avantages",
     select_perks_to_import: "sélectionnez les avantages à importer",
     no_perks_found: "aucun avantage trouvé",

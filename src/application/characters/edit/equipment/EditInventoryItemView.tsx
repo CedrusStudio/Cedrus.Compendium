@@ -1,23 +1,22 @@
 import EditCharacterItemSheet from "@/application/characters/edit/equipment/EditCharacterItemSheet";
 import { Item } from "@/domain/characters/equipment/Item";
 import InventoryItemViewFields from "@/application/common/equipment/Views/InventoryItemViewFields";
-import { useFieldArray } from "react-hook-form";
-import { type EquipmentDto } from "@/persistence/schemas/characters/equipment/equipmentSchema";
-import { splitEquipmentItemTypes, pathToInventory } from "@/domain/characters/equipment/Equipment";
+import { pathToInventory } from "@/domain/characters/equipment/Equipment";
 import ItemViewFromEditList from '@/application/characters/edit/equipment/ItemViewFromEditList';
 
-type EditInventoryItemViewProps = 
+type EditInventoryItemViewProps =
 {
   inventory: Item;
   index: number;
   isImported: boolean;
+  isRemoved?: boolean;
+  onRemove?: () => void;
+  onRestore?: () => void;
 };
 
-export default function EditInventoryItemView({ index, inventory, isImported }: EditInventoryItemViewProps)
+export default function EditInventoryItemView({ index, inventory, isImported, isRemoved, onRemove, onRestore }: EditInventoryItemViewProps)
 {
   const type = pathToInventory(index);
-  const { name } = splitEquipmentItemTypes(type);
-  const { remove } = useFieldArray<EquipmentDto>({ name });
 
   return (
     <ItemViewFromEditList
@@ -25,7 +24,9 @@ export default function EditInventoryItemView({ index, inventory, isImported }: 
       itemEditSheet={<EditCharacterItemSheet type={type} />}
       index={index}
       isImported={isImported}
-      remove={remove}
+      isRemoved={isRemoved}
+      onRemove={onRemove}
+      onRestore={onRestore}
     />
   );
 }

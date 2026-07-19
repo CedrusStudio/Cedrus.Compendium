@@ -9,6 +9,7 @@ import { DetailsDto } from "@/persistence/schemas/characters/headerSchema";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import TagsView from "@/common/components/tags/TagsView";
 import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
+import ImportFromCharacterSheet from "@/common/components/import/ImportFromCharacterSheet";
 import PerkView from "@/application/compendium/perks/PerkView";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState } from "react";
@@ -30,6 +31,8 @@ type EditPerksListProps =
   perks: FieldArrayWithId<DetailsDto, "perks">[];
   append: UseFieldArrayAppend<DetailsDto, "perks">;
   remove: UseFieldArrayRemove;
+  currentCharacterId: string;
+  currentCharacterName: string;
 }
 
 const clonePerk = (perk: Perk): Perk =>
@@ -43,7 +46,7 @@ const clonePerk = (perk: Perk): Perk =>
   tags: [...perk.tags]
 });
 
-export default function EditPerksList({ isPending, isSuccess, initialPerks, perks, append, remove }: EditPerksListProps)
+export default function EditPerksList({ isPending, isSuccess, initialPerks, perks, append, remove, currentCharacterId, currentCharacterName }: EditPerksListProps)
 {
   const [gradeFilter, setGradeFilter] = useState("");
   const selectedGrade = parseGradeFilterInput(gradeFilter);
@@ -115,8 +118,22 @@ export default function EditPerksList({ isPending, isSuccess, initialPerks, perk
             }
             entityType="perks"
           />
+
+          <ImportFromCharacterSheet<Perk>
+            categoryLabel={displayedText.perks}
+            currentCharacterId={currentCharacterId}
+            currentCharacterName={currentCharacterName}
+            currentItemsIds={perks.map(perk => perk.id)}
+            removedItemsIds={removedItemIds}
+            onToggleCurrentItem={removeItemById}
+            onToggleRemovedItem={restoreRemovedItem}
+            itemsSelector={character => character.perks}
+            renderItem={renderPerkItem}
+            onImport={handleImportPerks}
+            isPending={isPending}
+          />
         </div>
-        
+
       </div>
 
       <ul className="list-inside grid grid-cols-1 md:grid-cols-2 gap-2">
