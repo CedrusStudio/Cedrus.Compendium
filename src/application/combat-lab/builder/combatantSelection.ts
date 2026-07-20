@@ -7,6 +7,9 @@
 import type { Character } from "@/domain/characters/Character";
 import type { CombatantSnapshot, AttackKind } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { toCombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
+import { createDefaultBuffProfile } from "@/domain/characters/buffs/BuffProfile";
+import { ulid } from "ulid";
 
 export type CombatantSelection =
 {
@@ -15,11 +18,13 @@ export type CombatantSelection =
   attackKind: AttackKind;
   /** Buff-profile ids active for this simulation (overrides the character's own). */
   activeBuffProfileIds: string[];
+  /** Ad-hoc, simulation-only buff profiles layered on top. */
+  extraBuffProfiles: BuffProfile[];
 };
 
 export function createSelection(characterId: string, characterName: string): CombatantSelection
 {
-  return { characterId, characterName, attackKind: "melee", activeBuffProfileIds: [] };
+  return { characterId, characterName, attackKind: "melee", activeBuffProfileIds: [], extraBuffProfiles: [] };
 }
 
 /** Build the engine snapshot for a selection from its loaded character. */
@@ -28,5 +33,52 @@ export function buildSnapshotFromSelection(character: Character, selection: Comb
   return toCombatantSnapshot(character, {
     attackKind: selection.attackKind,
     overrideActiveBuffProfileIds: selection.activeBuffProfileIds,
+    extraBuffProfiles: selection.extraBuffProfiles,
   });
+}
+
+/**
+ * Ad-hoc temporary buff kinds offered in the picker. Only fields that actually
+ * affect the engine are exposed: offense (damage / dice / crit), defense layers,
+ * and precyzja/refleks (ranged to-hit). Characteristics are omitted because the
+ * snapshot's offense is pre-baked and wouldn't change from them.
+ */
+export type TempBuffKind =
+  | "damage" | "diceGrade" | "critPower"
+  | "block" | "parry" | "dodge" | "protection" | "resistance"
+  | "precision" | "reflex";
+
+export const TEMP_BUFF_LABELS: Record<TempBuffKind, string> = {
+  damage: "Obrażenia (płaskie)",
+  diceGrade: "Ranga kości broni",
+  critPower: "Siła krytyka",
+  block: "Blokowanie",
+  parry: "Parowanie",
+  dodge: "Unik",
+  protection: "Pancerz",
+  resistance: "Odporność",
+  precision: "Precyzja",
+  reflex: "Refleks",
+};
+
+/** Build a one-field temporary buff profile with a readable name. */
+export function createTempBuff(kind: TempBuffKind, value: number): BuffProfile
+{
+  const base = structuredClone(createDefaultBuffProfile()) as BuffProfile;
+  const profile: BuffProfile = { ...base, id: ulid(), name: `${TEMP_BUFF_LABELS[kind]} ${value >= 0 ? "+" : ""}${value}` };
+
+  switch (kind)
+  {
+    case "damage": profile.offense.damageBonus.bonus = value; break;
+    case "diceGrade": profile.offense.leadingWeapon.grade = value; break;
+    case "critPower": profile.offense.leadingWeapon.criticalPower = value; break;
+    case "block": profile.defense.block = value; break;
+    case "parry": profile.defense.parry = value; break;
+    case "dodge": profile.defense.dodge = value; break;
+    case "protection": profile.defense.protection = value; break;
+    case "resistance": profile.defense.resistance = value; break;
+    case "precision": profile.attributes.precision.value = value; break;
+    case "reflex": profile.attributes.reflex.value = value; break;
+  }
+  return profile;
 }

@@ -18,6 +18,7 @@ import { CombatReplay } from "@/application/combat-lab/replay/CombatReplay";
 import { SimulationSummaryView } from "@/application/combat-lab/runner/SimulationSummaryView";
 import { reproduceFight } from "@/domain/combat-lab/persistence/reproduceFight";
 import type { SavedSimulationConfiguration } from "@/domain/combat-lab/persistence/SavedSimulation";
+import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
 import combatLabClient from "@/infrastructure/clients/combatLabClient";
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
@@ -25,22 +26,34 @@ import { Label } from "@/common/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/common/components/ui/select";
 
-/** Only the parameterless policies are offered here (scripted needs a sequence). */
-type BasicPolicyName = "value" | "greedyDamage" | "basicAttack";
-const POLICIES: BasicPolicyName[] = ["value", "greedyDamage", "basicAttack"];
-const POLICY_LABELS: Record<string, string> = {
+type PolicyName = "value" | "greedyDamage" | "basicAttack" | "scripted";
+const POLICIES: PolicyName[] = ["value", "greedyDamage", "basicAttack", "scripted"];
+const POLICY_LABELS: Record<PolicyName, string> = {
   value: "Wartościująca (buffy/kontrola/leczenie)",
   greedyDamage: "Zachłanna (max obrażenia)",
   basicAttack: "Podstawowy atak",
+  scripted: "Skryptowana (sekwencja manewrów)",
 };
+
+function parseSequence(text: string): string[]
+{
+  return text.split(",").map(s => s.trim()).filter(Boolean);
+}
+
+function buildPolicySpec(name: PolicyName, script: string): PolicySpec
+{
+  return name === "scripted" ? { name: "scripted", sequence: parseSequence(script) } : { name };
+}
 
 export function SimulationRunner()
 {
   const [selA, setSelA] = useState<CombatantSelection | null>(null);
   const [selB, setSelB] = useState<CombatantSelection | null>(null);
   const [count, setCount] = useState(1000);
-  const [policyA, setPolicyA] = useState<BasicPolicyName>("value");
-  const [policyB, setPolicyB] = useState<BasicPolicyName>("value");
+  const [policyA, setPolicyA] = useState<PolicyName>("value");
+  const [policyB, setPolicyB] = useState<PolicyName>("value");
+  const [scriptA, setScriptA] = useState("");
+  const [scriptB, setScriptB] = useState("");
 
   const { character: charA } = useCharacterById(selA?.characterId);
   const { character: charB } = useCharacterById(selB?.characterId);
@@ -57,13 +70,16 @@ export function SimulationRunner()
   {
     if (!charA || !charB || !selA || !selB) return;
 
+    const specA = buildPolicySpec(policyA, scriptA);
+    const specB = buildPolicySpec(policyB, scriptB);
+
     const configuration: SavedSimulationConfiguration = {
       a: buildSnapshotFromSelection(charA, selA),
       b: buildSnapshotFromSelection(charB, selB),
       count,
       seedStart: 0,
-      policyA: { name: policyA },
-      policyB: { name: policyB },
+      policyA: specA,
+      policyB: specB,
     };
     setConfig(configuration);
     setReplaySeed(0);
@@ -75,8 +91,8 @@ export function SimulationRunner()
         b: configuration.b,
         count,
         seedStart: 0,
-        policyA: { name: policyA },
-        policyB: { name: policyB },
+        policyA: specA,
+        policyB: specB,
         includeResults: false,
       });
     }
@@ -121,8 +137,8 @@ export function SimulationRunner()
             <Label className="text-xs text-muted-foreground">Liczba walk</Label>
             <Input type="number" className="w-32" value={count} onChange={e => setCount(Math.max(1, Number(e.target.value) || 0))} />
           </div>
-          <PolicySelect label="Strategia A" value={policyA} onChange={setPolicyA} />
-          <PolicySelect label="Strategia B" value={policyB} onChange={setPolicyB} />
+          <PolicyPicker label="Strategia A" name={policyA} onNameChange={setPolicyA} script={scriptA} onScriptChange={setScriptA} />
+          <PolicyPicker label="Strategia B" name={policyB} onNameChange={setPolicyB} script={scriptB} onScriptChange={setScriptB} />
           <Button onClick={handleRun} disabled={!ready || isRunning}>
             {isRunning ? "Liczę…" : "Uruchom symulację"}
           </Button>
@@ -165,17 +181,31 @@ export function SimulationRunner()
   );
 }
 
-function PolicySelect({ label, value, onChange }: { label: string; value: BasicPolicyName; onChange: (v: BasicPolicyName) => void })
+function PolicyPicker({ label, name, onNameChange, script, onScriptChange }: {
+  label: string;
+  name: PolicyName;
+  onNameChange: (v: PolicyName) => void;
+  script: string;
+  onScriptChange: (v: string) => void;
+})
 {
   return (
     <div className="flex flex-col gap-1">
       <Label className="text-xs text-muted-foreground">{label}</Label>
-      <Select value={value} onValueChange={(v) => onChange(v as BasicPolicyName)}>
+      <Select value={name} onValueChange={(v) => onNameChange(v as PolicyName)}>
         <SelectTrigger className="w-56"><SelectValue /></SelectTrigger>
         <SelectContent>
           {POLICIES.map(p => <SelectItem key={p} value={p}>{POLICY_LABELS[p]}</SelectItem>)}
         </SelectContent>
       </Select>
+      {name === "scripted" && (
+        <Input
+          className="mt-1 w-56"
+          placeholder="Manewry po przecinku…"
+          value={script}
+          onChange={e => onScriptChange(e.target.value)}
+        />
+      )}
     </div>
   );
 }
