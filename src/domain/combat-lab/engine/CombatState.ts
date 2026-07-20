@@ -8,6 +8,7 @@
 import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { StatusId, DamageTick } from "@/domain/combat-lab/effects/Effect";
 import type { Castable, EndTurn } from "@/domain/characters/Castable";
+import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 
 /** An active, ticking status on a combatant. */
 export type ActiveStatus =
@@ -26,6 +27,17 @@ export type ActiveControl =
   remaining: number;
 };
 
+/**
+ * A buff/debuff profile currently affecting the combatant, with rounds left.
+ * Applied to offense/defense at resolve time (a maneuver self-buff raises the
+ * next attack), so nothing is baked destructively into the snapshot.
+ */
+export type ActiveBuff =
+{
+  profile: BuffProfile;
+  remaining: number;
+};
+
 export type CombatantRuntime =
 {
   snapshot: CombatantSnapshot;
@@ -33,13 +45,24 @@ export type CombatantRuntime =
   barrier: number;
   statuses: ActiveStatus[];
   controls: ActiveControl[];
+  /** Buff/debuff profiles in effect, applied to offense/defense at resolve time. */
+  activeBuffs: ActiveBuff[];
   /** Rounds spent at/below 0 hp (for the lethalRounds bleed-out rule). */
   roundsDowned: number;
   /**
    * Castables used so far this fight, with "end" markers between turns — the
-   * exact shape `canUseCastable` expects (Castable.ts).
+   * exact shape `canUseCastable` expects (Castable.ts). Holds ONLY maneuvers,
+   * not the basic attack: per the rulebook the attack action is independent of
+   * the maneuver budget (see `attackedThisTurn`).
    */
   usedCastables: (Castable | EndTurn)[];
+  /**
+   * Whether the basic attack action has been used this turn. The attack is a
+   * separate action from maneuvers (and from movement), so it does NOT go
+   * through `canUseCastable` — a combatant may both attack AND spend its full
+   * maneuver budget in the same turn. Reset each turn.
+   */
+  attackedThisTurn: boolean;
   initiativeRoll: number;
   alive: boolean;
 };
@@ -58,8 +81,10 @@ export function createRuntime(snapshot: CombatantSnapshot): CombatantRuntime
     barrier: snapshot.barrier,
     statuses: [],
     controls: [],
+    activeBuffs: [],
     roundsDowned: 0,
     usedCastables: [],
+    attackedThisTurn: false,
     initiativeRoll: 0,
     alive: true,
   };
@@ -80,4 +105,21 @@ export function canAct(runtime: CombatantRuntime): boolean
 {
   if (!runtime.alive) return false;
   return !runtime.controls.some(c => c.control === "stun");
+}
+
+/**
+ * Oszołomienie (stagger). Rulebook (podstawy.json): a staggered combatant loses
+ * maneuvers and postures, has half parry/dodge/block, and attacks with one fewer
+ * weapon die. Wired into actionEconomy (no maneuvers), resolveAttack (−1 die /
+ * halved guards) and applyEffect (halved guards).
+ */
+export function isStaggered(runtime: CombatantRuntime): boolean
+{
+  return runtime.statuses.some(s => s.status === "stagger");
+}
+
+/** The buff/debuff profiles currently in effect on a combatant. */
+export function activeBuffProfiles(runtime: CombatantRuntime): BuffProfile[]
+{
+  return runtime.activeBuffs.map(b => b.profile);
 }

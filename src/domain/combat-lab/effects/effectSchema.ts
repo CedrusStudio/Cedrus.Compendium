@@ -18,13 +18,11 @@ import type { CastTime } from "@/domain/characters/Castable";
 import { allowedCastTimes } from "@/domain/characters/Castable";
 
 const damageTypes = [
-  "physical",
-  "fire",
-  "cold",
-  "lightning",
-  "poison",
-  "arcane",
-  "true",
+  "zwyczajne",
+  "blokowane",
+  "bezpośrednie",
+  "śmiertelne",
+  "nieuchronne",
 ] as const satisfies readonly DamageType[];
 
 const statusIds = [

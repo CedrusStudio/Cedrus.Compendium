@@ -7,53 +7,18 @@
  * Pure domain, deterministic — same definition always yields the same text.
  */
 
-import type {
-  DamageSpec,
-  DamageType,
-  Effect,
-  StatusId,
-  ControlKind,
-  ResourceKind,
-} from "@/domain/combat-lab/effects/Effect";
+import type { DamageSpec, Effect } from "@/domain/combat-lab/effects/Effect";
 import type {
   ManeuverDefinition,
   MechanicalRequirement,
 } from "@/domain/combat-lab/effects/ManeuverDefinition";
-
-const damageTypeLabels: Record<DamageType, string> = {
-  physical: "fizycznych",
-  fire: "od ognia",
-  cold: "od zimna",
-  lightning: "od błyskawic",
-  poison: "od trucizny",
-  arcane: "arkanicznych",
-  true: "nieuchronnych",
-};
-
-const statusLabels: Record<StatusId, string> = {
-  bleeding: "Krwawienie",
-  poisoned: "Zatrucie",
-  burning: "Podpalenie",
-  stagger: "Oszołomienie",
-  stun: "Ogłuszenie",
-  root: "Unieruchomienie",
-  disarm: "Rozbrojenie",
-  slow: "Spowolnienie",
-  marked: "Naznaczenie",
-};
-
-const controlLabels: Record<ControlKind, string> = {
-  stun: "ogłusza",
-  root: "unieruchamia",
-  disarm: "rozbraja",
-  silence: "ucisza",
-};
-
-const resourceLabels: Record<ResourceKind, string> = {
-  mana: "many",
-  essence: "esencji",
-  action: "akcji",
-};
+import {
+  damageTypeLabelsPl as damageTypeLabels,
+  statusLabelsPl as statusLabels,
+  controlVerbsPl as controlLabels,
+  resourceLabelsPl as resourceLabels,
+  roundsLabelPl,
+} from "@/domain/combat-lab/i18n/labels";
 
 const requirementLabels = (requirement: MechanicalRequirement): string =>
 {
@@ -86,17 +51,7 @@ function formatDamageSpec(spec: DamageSpec): string
   return `${dice}${bonusSign}`;
 }
 
-function roundsLabel(duration: number): string
-{
-  if (duration <= 0) return "";
-  if (duration === 1) return "na 1 rundę";
-
-  // Polish plural: 2-4 (except teens) → "rundy", otherwise → "rund".
-  const lastTwo = duration % 100;
-  const last = duration % 10;
-  const useFew = last >= 2 && last <= 4 && !(lastTwo >= 12 && lastTwo <= 14);
-  return `na ${duration} ${useFew ? "rundy" : "rund"}`;
-}
+const roundsLabel = roundsLabelPl;
 
 function describeEffect(effect: Effect): string
 {

@@ -25,15 +25,25 @@ export type DamageSpec =
   isPhantom?: boolean;
 };
 
-/** Damage flavour, used later by resistances/immunities on Defense. */
+/**
+ * Damage category — the rulebook axis that decides WHICH defensive layers apply
+ * (public/data/rulebook/system-walki.json, "Defensywa"). This is NOT an elemental
+ * type: the system has no per-element resistance (an "attack ognia" is simply a
+ * blocking attack). The category maps directly to a reduction mode:
+ *   - "zwyczajne"    → pełna redukcja (block+parry+dodge+armor+unique) — melee.
+ *   - "blokowane"    → redukcja blokowalna (armor+block+unique; no dodge/parry)
+ *                      — magic ranged, or attacks you can block but not dodge.
+ *   - "bezpośrednie" → redukcja bezpośrednia (armor+unique; no dodge/parry/block)
+ *                      — would hit a motionless, non-blocking target (e.g. arrows).
+ *   - "śmiertelne"   → ignores resistance AND reduction AND barrier (np. trucizna).
+ *   - "nieuchronne"  → ignores resistance and reduction (barrier still applies).
+ */
 export type DamageType =
-  | "physical"
-  | "fire"
-  | "cold"
-  | "lightning"
-  | "poison"
-  | "arcane"
-  | "true"; // ignores resistance/protection
+  | "zwyczajne"
+  | "blokowane"
+  | "bezpośrednie"
+  | "śmiertelne"
+  | "nieuchronne";
 
 /** Statuses the engine tracks on a combatant over time. */
 export type StatusId =

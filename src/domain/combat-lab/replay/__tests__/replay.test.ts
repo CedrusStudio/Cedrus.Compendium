@@ -64,7 +64,7 @@ describe("buildReplayFrames()", () => {
           type: "status" as const,
           status: "bleeding" as const,
           duration: 2,
-          tick: { damage: { amount: 0, grade: 0, bonus: 3 }, damageType: "physical" as const },
+          tick: { damage: { amount: 0, grade: 0, bonus: 3 }, damageType: "bezpośrednie" as const },
         },
       ],
     };

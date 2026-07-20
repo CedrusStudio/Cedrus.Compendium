@@ -23,7 +23,7 @@ export const shieldBash: ManeuverDefinition = {
   cost: { castTime: "Standardowa" },
   hardRequirements: [{ kind: "shield" }],
   effects: [
-    { type: "damage", damage: { amount: 0, grade: 0, bonus: 5 }, damageType: "physical" },
+    { type: "damage", damage: { amount: 0, grade: 0, bonus: 5 }, damageType: "zwyczajne" },
     { type: "push", distance: 2 },
     { type: "chance", chance: 35, then: [{ type: "status", status: "stagger", duration: 1 }] },
   ],

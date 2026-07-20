@@ -17,8 +17,17 @@ import type { Offense } from "@/domain/characters/combat/Offense";
 import type { Statistic } from "@/domain/characters/statistics/Statistic";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
 import { toManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
-import { applyActiveBuffProfile } from "@/domain/characters/buffs/applyBuffProfile";
+import { applyActiveBuffProfile, applyBuffProfiles } from "@/domain/characters/buffs/applyBuffProfile";
+import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
+
+/**
+ * How a combatant's basic attack works:
+ * - "melee"         → zwarcie, no to-hit roll, "zwyczajne" damage.
+ * - "rangedPhysical" → łuk/kusza: precyzja to-hit test, "bezpośrednie" damage.
+ * - "rangedMagic"    → magia dystansowa: precyzja to-hit test, "blokowane" damage.
+ */
+export type AttackKind = "melee" | "rangedPhysical" | "rangedMagic";
 
 export type CombatantSnapshot =
 {
@@ -38,6 +47,18 @@ export type CombatantSnapshot =
   defaultOffenseId?: string;
   maneuvers: ManeuverDefinition[];
   initiative: Statistic;
+  /** Attack test stat (precyzja) for ranged attacks. */
+  precision: Statistic;
+  /** Defensive stat used as ranged to-hit ST (refleks). */
+  reflex: Statistic;
+  attackKind: AttackKind;
+  /**
+   * The character's buff-profile library — referenced by `buff`/`debuff`
+   * effects (by id) so the engine can apply them at runtime. These are NOT
+   * pre-applied; only profiles a maneuver activates take effect (see
+   * applyEffect + ActiveBuff).
+   */
+  buffProfiles: BuffProfile[];
 };
 
 export type SnapshotOptions =
@@ -48,6 +69,20 @@ export type SnapshotOptions =
    * participate in the action economy but produce no mechanical effect.
    */
   maneuverDefinitions?: ManeuverDefinition[];
+  /** Basic-attack mode. Defaults to "melee". */
+  attackKind?: AttackKind;
+  /**
+   * Per-simulation buffs (point 6). Replace WHICH of the character's own buff
+   * profiles are active for this run — independent of what's toggled on the
+   * saved character. If omitted, the character's own `activeBuffProfileIds` apply.
+   */
+  overrideActiveBuffProfileIds?: string[];
+  /**
+   * Extra, temporary buff profiles applied on top (e.g. a simulation-only
+   * "+2 siły" experiment). Applied after the active profiles, just like the
+   * app's existing buff mechanism.
+   */
+  extraBuffProfiles?: BuffProfile[];
 };
 
 /**
@@ -55,7 +90,17 @@ export type SnapshotOptions =
  */
 export function toCombatantSnapshot(character: Character, options: SnapshotOptions = {}): CombatantSnapshot
 {
-  const buffed = applyActiveBuffProfile(character);
+  // Per-simulation buffs: optionally override which profiles are active, then
+  // layer any extra temporary profiles on top.
+  const withActiveOverride = options.overrideActiveBuffProfileIds
+    ? { ...character, activeBuffProfileIds: options.overrideActiveBuffProfileIds }
+    : character;
+
+  let buffed = applyActiveBuffProfile(withActiveOverride);
+  if (options.extraBuffProfiles && options.extraBuffProfiles.length > 0)
+  {
+    buffed = applyBuffProfiles(buffed, options.extraBuffProfiles);
+  }
 
   const maneuvers =
     options.maneuverDefinitions ?? buffed.maneuvers.map(toManeuverDefinition);
@@ -73,6 +118,10 @@ export function toCombatantSnapshot(character: Character, options: SnapshotOptio
     defaultOffenseId: buffed.defaultOffenseId,
     maneuvers,
     initiative: buffed.attributes.initiative,
+    precision: buffed.attributes.precision,
+    reflex: buffed.attributes.reflex,
+    attackKind: options.attackKind ?? "melee",
+    buffProfiles: buffed.buffProfiles,
   };
 }
 

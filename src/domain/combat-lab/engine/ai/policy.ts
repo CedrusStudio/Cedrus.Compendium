@@ -5,11 +5,11 @@
  * choice affects balance (v1.0, "dominujące strategie").
  */
 
-import type { Effect, DamageSpec } from "@/domain/combat-lab/effects/Effect";
-import type { Offense } from "@/domain/characters/combat/Offense";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import type { Action } from "@/domain/combat-lab/engine/actionEconomy";
 import { selectDefaultOffense } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import { expectedOffenseDamage, expectedEffectDamage } from "@/domain/combat-lab/engine/ai/expectedDamage";
+import { expectedManeuverValue } from "@/domain/combat-lab/engine/ai/policyValue";
 
 export interface ActionPolicy
 {
@@ -21,52 +21,26 @@ export interface ActionPolicy
   chooseAction(self: CombatantRuntime, opponent: CombatantRuntime, available: Action[]): Action;
 }
 
-/** Average result of a `k(grade*2)` die: (2*grade + 1) / 2. */
-function expectedDie(grade: number): number
+/** Pick the highest-scoring action; stable on ties (keeps the first / a "pass"). */
+function argmax(self: CombatantRuntime, opponent: CombatantRuntime, available: Action[], score: (self: CombatantRuntime, opponent: CombatantRuntime, action: Action) => number): Action
 {
-  return grade <= 0 ? 0 : (2 * grade + 1) / 2;
-}
-
-function expectedDamageSpec(spec: DamageSpec): number
-{
-  return spec.amount * expectedDie(spec.grade) + spec.bonus;
-}
-
-function expectedOffenseDamage(offense: Offense): number
-{
-  const weapon = (o: DamageSpec & { critical?: { power: number; range: number } }): number =>
+  let best = available[0]!;
+  let bestScore = score(self, opponent, best);
+  for (let i = 1; i < available.length; i++)
   {
-    const base = o.amount * expectedDie(o.grade) + o.bonus;
-    // Rough expected critical contribution: power * (range coverage / faces).
-    const faces = Math.max(1, o.grade * 2);
-    const critChance = o.critical ? Math.min(1, Math.max(0, (o.critical.range + 1) / faces)) : 0;
-    const critBonus = o.critical ? o.critical.power * critChance * o.amount : 0;
-    return base + critBonus;
-  };
-
-  let total = weapon(offense.leadingWeapon);
-  if (offense.secondaryWeapon) total += weapon(offense.secondaryWeapon);
-  total += expectedDamageSpec(offense.damageBonus);
-  if (offense.additionalDamageBonus) total += expectedDamageSpec(offense.additionalDamageBonus);
-  return total;
-}
-
-/** Expected direct damage a maneuver's effects produce (chance-weighted). */
-export function expectedEffectDamage(effects: Effect[]): number
-{
-  let total = 0;
-  for (const effect of effects)
-  {
-    if (effect.type === "damage") total += expectedDamageSpec(effect.damage);
-    else if (effect.type === "status" && effect.tick) total += expectedDamageSpec(effect.tick.damage) * Math.max(1, effect.duration);
-    else if (effect.type === "chance") total += (effect.chance / 100) * expectedEffectDamage(effect.then);
+    const s = score(self, opponent, available[i]!);
+    if (s > bestScore)
+    {
+      best = available[i]!;
+      bestScore = s;
+    }
   }
-  return total;
+  return best;
 }
 
-function scoreAction(self: CombatantRuntime, action: Action): number
+function damageScore(self: CombatantRuntime, _opponent: CombatantRuntime, action: Action): number
 {
-  if (action.kind === "attack")
+  if (action.kind === "attack" || action.kind === "ranged")
   {
     const offense = selectDefaultOffense(self.snapshot);
     return offense ? expectedOffenseDamage(offense) : 0;
@@ -75,30 +49,49 @@ function scoreAction(self: CombatantRuntime, action: Action): number
   {
     return expectedEffectDamage(action.maneuver.effects);
   }
-  return -Infinity;
+  // "pass" scores 0 so a maneuver with no expected value is declined.
+  return 0;
+}
+
+function valueScore(self: CombatantRuntime, opponent: CombatantRuntime, action: Action): number
+{
+  if (action.kind === "attack" || action.kind === "ranged")
+  {
+    const offense = selectDefaultOffense(self.snapshot);
+    return offense ? expectedOffenseDamage(offense) : 0;
+  }
+  if (action.kind === "maneuver")
+  {
+    return expectedManeuverValue(self, opponent, action.maneuver.effects);
+  }
+  return 0;
 }
 
 /**
- * Greedy: pick the action with the highest expected damage. Ties are broken
- * deterministically by the action's original order (stable).
+ * Greedy: pick the action with the highest expected DAMAGE. Ignores the value of
+ * buffs/control/heal (use `valuePolicy` for that).
  */
 export const greedyDamagePolicy: ActionPolicy =
 {
   name: "greedyDamage",
-  chooseAction(self, _opponent, available)
+  chooseAction(self, opponent, available)
   {
-    let best = available[0]!;
-    let bestScore = scoreAction(self, best);
-    for (let i = 1; i < available.length; i++)
-    {
-      const score = scoreAction(self, available[i]!);
-      if (score > bestScore)
-      {
-        best = available[i]!;
-        bestScore = score;
-      }
-    }
-    return best;
+    return argmax(self, opponent, available, damageScore);
+  },
+};
+
+/**
+ * Value policy: like greedy, but scores maneuvers by a broader heuristic that
+ * also credits buffs (offense/defense gains), debuffs, control (denying the
+ * opponent actions), and healing (capped at missing hp) — see policyValue.ts.
+ * This is what makes defensive maneuvers and defensive REACTIONS actually fire.
+ */
+export const valuePolicy: ActionPolicy =
+{
+  name: "value",
+  chooseAction(self, opponent, available)
+  {
+    return argmax(self, opponent, available, valueScore);
   },
 };
 

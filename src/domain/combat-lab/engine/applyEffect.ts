@@ -18,16 +18,16 @@ import type { Effect } from "@/domain/combat-lab/effects/Effect";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import type { CombatLogBuilder } from "@/domain/combat-lab/engine/CombatLog";
 import type { RandomSource } from "@/domain/combat-lab/rng/Rng";
-import type { DamageResolutionConfig } from "@/domain/combat-lab/engine/damage";
-import { defaultDamageResolution, reduceDamage, dealDamage, healDamage } from "@/domain/combat-lab/engine/damage";
+import { reduceDamage, dealDamage, healDamage, bypassesBarrier, halveGuards } from "@/domain/combat-lab/engine/damage";
 import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
 import { selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import { isStaggered, activeBuffProfiles } from "@/domain/combat-lab/engine/CombatState";
+import { effectiveDefense } from "@/domain/combat-lab/engine/buffs";
 
 export type EffectContext =
 {
   random: RandomSource;
   log: CombatLogBuilder;
-  config?: DamageResolutionConfig;
 };
 
 export function applyEffects(
@@ -50,16 +50,16 @@ function applyEffect(
   ctx: EffectContext,
 ): void
 {
-  const config = ctx.config ?? defaultDamageResolution;
-
   switch (effect.type)
   {
     case "damage":
     {
       const raw = rollDamageSpec(effect.damage, ctx.random);
-      const ignoresDefense = effect.damageType === "true";
-      const dealt = reduceDamage(raw, selectDefaultDefense(target.snapshot), config, ignoresDefense);
-      const remainingHp = dealDamage(target, dealt);
+      const rawDefense = selectDefaultDefense(target.snapshot);
+      const buffedDefense = rawDefense ? effectiveDefense(rawDefense, activeBuffProfiles(target)) : undefined;
+      const defense = buffedDefense && isStaggered(target) ? halveGuards(buffedDefense) : buffedDefense;
+      const dealt = reduceDamage(raw, defense, effect.damageType);
+      const remainingHp = dealDamage(target, dealt, bypassesBarrier(effect.damageType));
       ctx.log.push({
         kind: "damage",
         sourceId: source.snapshot.id,
@@ -154,6 +154,17 @@ function applyEffect(
     case "debuff":
     {
       const recipient = effect.type === "buff" ? source : target;
+      // The profile is defined in the acting combatant's buff-profile library
+      // and applied to the recipient's runtime (raises/lowers offense/defense
+      // at resolve time). This is what lets a self-buff maneuver boost the
+      // attack that follows it this turn.
+      const profile = source.snapshot.buffProfiles.find(p => p.id === effect.profile.profileId);
+      if (profile)
+      {
+        const existing = recipient.activeBuffs.find(b => b.profile.id === profile.id);
+        if (existing) existing.remaining = Math.max(existing.remaining, effect.duration);
+        else recipient.activeBuffs.push({ profile, remaining: effect.duration });
+      }
       ctx.log.push({
         kind: "buff",
         sourceId: source.snapshot.id,

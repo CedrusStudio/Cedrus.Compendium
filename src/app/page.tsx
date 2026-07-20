@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { displayedText } from "@/common/translations";
-import { Users, BookOpen, Scroll, Swords } from "lucide-react";
+import { Users, BookOpen, Scroll, Swords, FlaskConical } from "lucide-react";
 import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 import HomeQuickAccessSection from '@/application/personalization/HomeQuickAccessSection';
 
@@ -84,6 +84,14 @@ function CategoryCards()
       description: 'Kompletny podręcznik zasad systemu RPG',
       href: '/rulebook',
       color: 'text-amber-500'
+    },
+    {
+      id: 'combat-lab',
+      title: 'Combat Lab',
+      icon: <FlaskConical className="h-12 w-12" />,
+      description: 'Symuluj walki i balansuj mechaniki na tysiącach starć',
+      href: '/combat-lab',
+      color: 'text-emerald-500'
     }
   ];
 

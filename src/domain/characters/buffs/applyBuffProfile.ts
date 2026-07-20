@@ -78,7 +78,7 @@ export function applyBuffProfile(character: Character, buffProfile: BuffProfile)
   };
 }
 
-function applyStatisticBuff(statistic: Statistic, buff: StatisticBuff): Statistic
+export function applyStatisticBuff(statistic: Statistic, buff: StatisticBuff): Statistic
 {
   return {
     grade: Math.max(1, statistic.grade + buff.grade),
@@ -101,7 +101,7 @@ function applyHealthBuff(health: Health, buff: BuffProfile["health"]): Health
   };
 }
 
-function applyDefenseBuff(defense: Defense, buff: BuffProfile["defense"]): Defense
+export function applyDefenseBuff(defense: Defense, buff: BuffProfile["defense"]): Defense
 {
   return {
     ...defense,
@@ -115,7 +115,7 @@ function applyDefenseBuff(defense: Defense, buff: BuffProfile["defense"]): Defen
   };
 }
 
-function applyOffenseBuff(offense: Offense, buffProfile: BuffProfile): Offense
+export function applyOffenseBuff(offense: Offense, buffProfile: BuffProfile): Offense
 {
   return {
     ...offense,

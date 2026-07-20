@@ -75,7 +75,7 @@ describe("Effect model", () => {
       const text = describeManeuver(shieldBash);
       expect(text).toBe(
         "Shield Bash (Standardowa, odnowienie 1). Wymaga: tarcza. " +
-          "Zadaje 5 obrażeń fizycznych; odpycha o 2; 35% szansy: nakłada Oszołomienie na 1 rundę.",
+          "Zadaje 5 obrażeń zwyczajnych; odpycha o 2; 35% szansy: nakłada Oszołomienie na 1 rundę.",
       );
     });
 
@@ -88,10 +88,10 @@ describe("Effect model", () => {
     it("renders dice-based damage with kX notation", () => {
       const maneuver = toManeuverDefinition({ ...CreateDefaultManeuver(), name: "Pchnięcie", cooldown: 0 });
       maneuver.effects = [
-        { type: "damage", damage: { amount: 2, grade: 5, bonus: 3 }, damageType: "fire" },
+        { type: "damage", damage: { amount: 2, grade: 5, bonus: 3 }, damageType: "blokowane" },
       ];
       expect(describeManeuver(maneuver)).toBe(
-        "Pchnięcie (Standardowa). Zadaje 2k10+3 obrażeń od ognia.",
+        "Pchnięcie (Standardowa). Zadaje 2k10+3 obrażeń blokowanych.",
       );
     });
   });

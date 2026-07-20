@@ -2,69 +2,101 @@
  * Damage application against a combatant's barrier + hp pools, plus the
  * defensive reduction model.
  *
- * ⚠️ RULE ASSUMPTIONS (to confirm against the Cedrus rulebook — see plan,
- * Otwarte pytania). The existing code only exposes `calculateSelectedReduction`
- * (a flat reduction from block/parry/dodge/protection/bonus) and leaves
- * `immunity` / `resistance` unmodelled. Until the rulebook pins these down, the
- * engine uses this documented baseline, isolated here so it is trivial to
- * correct in one place:
- *   - `reduction` (flat)   → subtracted from raw damage (existing function).
- *   - `resistance` (flat)  → further flat subtraction.
- *   - `immunity` (percent) → final multiplier: dealt = afterFlat * (1 - immunity/100),
- *                            clamped to [0, 100]; immunity ≥ 100 = fully immune.
- * All are floored at 0 damage.
+ * RULES (source of truth: /rulebook → public/data/rulebook/system-walki.json,
+ * sekcja "Defensywa"; see the plan, "Reguły walki z podręcznika"):
+ *   - The damage CATEGORY (`DamageType`) selects which reduction layers apply:
+ *     zwyczajne→full, blokowane→block, bezpośrednie→direct. śmiertelne /
+ *     nieuchronne ignore resistance and reduction entirely.
+ *   - Odporność (`resistance`) is subtracted FIRST, per source. Excess → redukcja.
+ *   - Redukcja is the ordered sum from `calculateSelectedReduction`. Excess →
+ *     barrier, then hp.
+ *   - śmiertelne additionally bypasses the barrier (np. trucizna).
+ *   - Niewrażliwość (`immunity`) is NOT handled here: it removes attacker dice
+ *     at attack-composition time (see rollOffense / resolveAttack).
+ * All floored at 0.
+ *
+ * 1v1 note (per rulebook clarification): resistance and reduction behave the
+ * same for a single source — both are flat subtractions. The per-round depleting
+ * ("zrywalna") reduction pool only matters with multiple sources (deferred to
+ * Scenario Builder / walka grupowa).
  */
 
 import type { Defense } from "@/domain/characters/combat/Defense";
 import { calculateSelectedReduction, type ReductionType } from "@/domain/characters/combat/Defense";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
+import type { DamageType } from "@/domain/combat-lab/effects/Effect";
 
-export type DamageResolutionConfig =
+/** Map a damage category to the reduction layers it must pass through. */
+export function reductionModeFor(damageType: DamageType): ReductionType
 {
-  /** Which defensive layers apply (full = block+parry+dodge+protection+bonus). */
-  reductionMode: ReductionType;
-};
+  switch (damageType)
+  {
+    case "zwyczajne":
+      return "full";
+    case "blokowane":
+      return "block";
+    case "bezpośrednie":
+      return "direct";
+    // śmiertelne / nieuchronne never reach here (they bypass reduction).
+    default:
+      return "direct";
+  }
+}
 
-export const defaultDamageResolution: DamageResolutionConfig =
+/** śmiertelne + nieuchronne ignore resistance and reduction. */
+export function bypassesDefense(damageType: DamageType): boolean
 {
-  reductionMode: "full",
-};
+  return damageType === "śmiertelne" || damageType === "nieuchronne";
+}
 
-/**
- * Reduce a raw damage number by a defender's defense. Pure — returns the final
- * damage that should be dealt. `damageIgnoresDefense` (true-type damage) skips
- * every layer.
- */
-export function reduceDamage(
-  raw: number,
-  defense: Defense | undefined,
-  config: DamageResolutionConfig,
-  damageIgnoresDefense = false,
-): number
+/** Only śmiertelne bypasses the barrier pool. */
+export function bypassesBarrier(damageType: DamageType): boolean
 {
-  if (raw <= 0) return 0;
-  if (damageIgnoresDefense || !defense) return Math.max(0, Math.round(raw));
-
-  const flatReduction = calculateSelectedReduction(defense, config.reductionMode);
-  const afterFlat = raw - flatReduction - defense.resistance;
-
-  if (afterFlat <= 0) return 0;
-
-  const immunityPercent = Math.min(100, Math.max(0, defense.immunity));
-  const afterImmunity = afterFlat * (1 - immunityPercent / 100);
-
-  return Math.max(0, Math.round(afterImmunity));
+  return damageType === "śmiertelne";
 }
 
 /**
- * Subtract damage from a runtime, consuming the barrier pool first, then hp.
- * Mutates the runtime and returns the actual hp remaining afterwards.
+ * Halve the active guard layers (block/parry/dodge, floored) — the defensive
+ * side of Oszołomienie (stagger). Armor/unique reduction and resistance are
+ * unaffected. Returns a copy; the input is not mutated.
  */
-export function dealDamage(runtime: CombatantRuntime, amount: number): number
+export function halveGuards(defense: Defense): Defense
+{
+  return {
+    ...defense,
+    block: Math.floor(defense.block / 2),
+    parry: Math.floor(defense.parry / 2),
+    dodge: Math.floor(defense.dodge / 2),
+  };
+}
+
+/**
+ * Reduce a raw damage number by a defender's defense following the rulebook
+ * order (resistance first, then category-selected reduction). Pure.
+ */
+export function reduceDamage(raw: number, defense: Defense | undefined, damageType: DamageType): number
+{
+  if (raw <= 0) return 0;
+  if (bypassesDefense(damageType) || !defense) return Math.max(0, Math.round(raw));
+
+  // 1) Odporność — absorbed first, per source.
+  const afterResistance = raw - Math.max(0, defense.resistance);
+  if (afterResistance <= 0) return 0;
+
+  // 2) Redukcja — ordered layers selected by the damage category.
+  const reduction = calculateSelectedReduction(defense, reductionModeFor(damageType));
+  return Math.max(0, Math.round(afterResistance - reduction));
+}
+
+/**
+ * Subtract damage from a runtime, consuming the barrier pool first (unless
+ * bypassed), then hp. Mutates the runtime and returns the hp remaining.
+ */
+export function dealDamage(runtime: CombatantRuntime, amount: number, bypassBarrier = false): number
 {
   let remaining = Math.max(0, Math.round(amount));
 
-  if (runtime.barrier > 0 && remaining > 0)
+  if (!bypassBarrier && runtime.barrier > 0 && remaining > 0)
   {
     const absorbed = Math.min(runtime.barrier, remaining);
     runtime.barrier -= absorbed;

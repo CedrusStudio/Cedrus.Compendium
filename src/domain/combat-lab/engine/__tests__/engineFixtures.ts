@@ -1,8 +1,9 @@
-import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import type { CombatantSnapshot, AttackKind } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { Offense, WeaponOffense } from "@/domain/characters/combat/Offense";
 import type { Defense } from "@/domain/characters/combat/Defense";
 import type { Statistic } from "@/domain/characters/statistics/Statistic";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
+import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 
 const weapon = (amount: number, grade: number, bonus = 0): WeaponOffense => ({
   amount,
@@ -38,7 +39,7 @@ export function makeDefense(id: string, overrides: Partial<Defense> = {}): Defen
   };
 }
 
-const initiative = (value: number): Statistic => ({ grade: 3, value, bonus: 0, testBonus: 0 });
+const stat = (value: number, grade = 3): Statistic => ({ grade, value, bonus: 0, testBonus: 0 });
 
 export function makeSnapshot(
   id: string,
@@ -51,6 +52,10 @@ export function makeSnapshot(
     lethalHealth?: number;
     lethalRounds?: number;
     barrier?: number;
+    precisionValue?: number;
+    reflexValue?: number;
+    attackKind?: AttackKind;
+    buffProfiles?: BuffProfile[];
   } = {},
 ): CombatantSnapshot {
   const offense = opts.offense ?? makeOffense(`${id}-off`, 2, 5, 2);
@@ -67,6 +72,10 @@ export function makeSnapshot(
     offenses: [offense],
     defaultOffenseId: offense.id,
     maneuvers: opts.maneuvers ?? [],
-    initiative: initiative(opts.initiativeValue ?? 0),
+    initiative: stat(opts.initiativeValue ?? 0),
+    precision: stat(opts.precisionValue ?? 0),
+    reflex: stat(opts.reflexValue ?? 0),
+    attackKind: opts.attackKind ?? "melee",
+    buffProfiles: opts.buffProfiles ?? [],
   };
 }

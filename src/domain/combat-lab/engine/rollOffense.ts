@@ -56,6 +56,44 @@ export function rollOffense(offense: Offense, random: RandomSource): OffenseRoll
   };
 }
 
+/**
+ * Apply Niewrażliwość (immunity): remove `immunity` non-phantom dice from an
+ * offense before rolling. Rulebook: "o ile mniej kości, z wyłączeniem kości
+ * widmowych, będzie stosował przeciwnik... Przeciwnik sam wybiera, która kość
+ * jest redukowana." A rational attacker drops the lowest-value dice first, so
+ * we remove from the smallest-`grade` non-phantom components first. Flat bonuses
+ * are untouched (they are not dice). Returns a shallow copy; the input is not
+ * mutated.
+ */
+export function applyImmunity(offense: Offense, immunity: number): Offense
+{
+  let toRemove = Math.max(0, Math.floor(immunity));
+  if (toRemove === 0) return offense;
+
+  const next: Offense = {
+    ...offense,
+    leadingWeapon: { ...offense.leadingWeapon },
+    secondaryWeapon: offense.secondaryWeapon ? { ...offense.secondaryWeapon } : undefined,
+    damageBonus: { ...offense.damageBonus },
+    additionalDamageBonus: offense.additionalDamageBonus ? { ...offense.additionalDamageBonus } : undefined,
+  };
+
+  // Removable components (non-phantom, with dice), smallest grade first.
+  const components = [next.leadingWeapon, next.secondaryWeapon, next.damageBonus, next.additionalDamageBonus]
+    .filter((c): c is NonNullable<typeof c> => !!c && !c.isPhantom && c.amount > 0)
+    .sort((a, b) => a.grade - b.grade);
+
+  for (const component of components)
+  {
+    if (toRemove === 0) break;
+    const removed = Math.min(component.amount, toRemove);
+    component.amount -= removed;
+    toRemove -= removed;
+  }
+
+  return next;
+}
+
 /** Roll a bare `DamageSpec` (used by damage effects). Reuses the flat-bonus path. */
 export function rollDamageSpec(spec: DamageSpec, random: RandomSource): number
 {

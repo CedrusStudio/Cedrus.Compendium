@@ -8,11 +8,11 @@
  */
 
 import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import type { DamageResolutionConfig } from "@/domain/combat-lab/engine/damage";
 import type { RawResult, SimulationSummary } from "@/domain/combat-lab/simulation/RawResult";
 
 export type PolicySpec =
   | { name: "greedyDamage" }
+  | { name: "value" }
   | { name: "basicAttack" }
   | { name: "scripted"; sequence: string[] };
 
@@ -25,7 +25,6 @@ export type SimulationWorkerRequest =
   policyA?: PolicySpec;
   policyB?: PolicySpec;
   maxRounds?: number;
-  config?: DamageResolutionConfig;
   /**
    * When false, the worker returns only the summary (not the potentially huge
    * `RawResult[]`). Default true.

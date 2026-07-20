@@ -1803,7 +1803,7 @@
             {
               "type": "paragraph",
               "id": "paragraph-1",
-              "content": "Krytyczne pudło nie jest standardową cechą wojowników, czyli domyślnie nikt nie stosuje krytycznego pudła. Natomiast jeśli posiada się odpowiedni atut lub manewr, albo mistrz gry ustali że na danych atak trzeba to stosować to wygląda to w następujący sposób: wyrzucenie na kości broni oczka mniejszego równego niż 1+szansa krytyka oznacza zmniejszenie obrażeń o siłę krytyka. Należy zaznaczyć że trafienie krytyczne i krytyczne pudło nie może nastąpić jednocześnie - jeśli miałoby się tak stać (np. kość broni k4 i szansa krytyka 2) to stosujemy trafienie krytyczne."
+              "content": "Krytyczne pudło nie jest standardową cechą wojowników, czyli domyślnie nikt nie stosuje krytycznego pudła. Natomiast jeśli posiada się odpowiedni atut lub manewr, albo mistrz gry ustali że na dany atak trzeba to stosować to wygląda to w następujący sposób: wyrzucenie na kości broni oczka mniejszego lub równego niż 1+szansa krytyka oznacza zmniejszenie obrażeń o siłę krytyka. Należy zaznaczyć że trafienie krytyczne i krytyczne pudło nie może nastąpić jednocześnie - jeśli miałoby się tak stać (np. kość broni k4 i szansa krytyka 2) to stosujemy trafienie krytyczne."
             },
             {
               "type": "paragraph",
@@ -2264,7 +2264,7 @@
             {
               "type": "paragraph",
               "id": "paragraph-1",
-              "content": "Niewrażliwość określa o ile mniej kości, z wyłączeniem kości widmowych, będzie stosował przeciwnik w każdym ataku. Przeciwnik sam wybiera, która kość jest redukowana. Niewrażliwość działa przeciwko każdej ilości przeciwników. Stąd jeśli przykładowo przeciwnik ma niewrażliwość równą , a postać atakuje 2x(k12+3)+1k8+10 to postać może wybrać dwie opcje: 1x(k12+3)+10 (redukcja kości broni i kości obrażeń) lub 1k8+10 (redukcja 2 kości broni)"
+              "content": "Niewrażliwość określa o ile mniej kości, z wyłączeniem kości widmowych, będzie stosował przeciwnik w każdym ataku. Przeciwnik sam wybiera, która kość jest redukowana. Niewrażliwość działa przeciwko każdej ilości przeciwników. Stąd jeśli przykładowo przeciwnik ma niewrażliwość równą 2, a postać atakuje 2x(k12+3)+1k8+10 to postać może wybrać dwie opcje: 1x(k12+3)+10 (redukcja kości broni i kości obrażeń) lub 1k8+10 (redukcja 2 kości broni)"
             }
           ],
           "subsections": [],
@@ -2309,34 +2309,17 @@
               "content": "Kolejność odejmowania obrażeń od poszczególnych redukcji:"
             },
             {
-              "type": "paragraph",
-              "id": "paragraph-4",
-              "content": "\\1. Redukcja z uników lub redukcja z parowania (do wyboru)"
-            },
-            {
-              "type": "paragraph",
-              "id": "paragraph-5",
-              "content": "\\2. Redukcja z uników jeśli w 1. została wybrania redukcja z parowania lub redukcja z parowania jeśli w 1. została wybrana redukcja z uników"
-            },
-            {
-              "type": "paragraph",
-              "id": "paragraph-6",
-              "content": "\\3. Redukcja z blokowania"
-            },
-            {
-              "type": "paragraph",
-              "id": "paragraph-7",
-              "content": "\\4. Redukcja ze zbroi"
-            },
-            {
-              "type": "paragraph",
-              "id": "paragraph-8",
-              "content": "\\5. Redukcja ze źródeł magicznych"
-            },
-            {
-              "type": "paragraph",
-              "id": "paragraph-9",
-              "content": "\\6. Redukcja unikatowa"
+              "type": "list",
+              "id": "list-reduction-order",
+              "ordered": true,
+              "items": [
+                "Redukcja z uników lub redukcja z parowania (do wyboru)",
+                "Redukcja z uników jeśli w 1. została wybrana redukcja z parowania lub redukcja z parowania jeśli w 1. została wybrana redukcja z uników",
+                "Redukcja z blokowania",
+                "Redukcja ze zbroi",
+                "Redukcja ze źródeł magicznych",
+                "Redukcja unikatowa"
+              ]
             },
             {
               "type": "paragraph",
@@ -2472,7 +2455,7 @@
             {
               "type": "paragraph",
               "id": "paragraph-1",
-              "content": "Wojownik walczący dwoma broniami jednocześnie musi spełnić odpowiednie wymagania. W pierwszej kolejności broń w niewiodącej ręce musi być krótsza niż w wiodące, chyba, że postać jest oburęczna lub odpowiednio wyszkolona. Taki wojownik zyskuje dodatkową kość broni: ma bazowo 2 kości broni wiodącej ręki (lub do wyboru przy obu rekach lub odpowiednim wyszkoleniu) i 1 kość drugiej ręki. Zyskując kolejną kość broni otrzymuje się kość związaną z bronią, w której mamy mniej kości broni. Walcząc dwoma broniami na każdą broń osobno liczy się siłę i szansę krytyka, lecz sumuje się premie do umiejętności bojowych i innych specjalnych zdolności broni (ale też premii do parowania)"
+              "content": "Wojownik walczący dwoma broniami jednocześnie musi spełnić odpowiednie wymagania. W pierwszej kolejności broń w niewiodącej ręce musi być krótsza niż w wiodącej, chyba, że postać jest oburęczna lub odpowiednio wyszkolona. Taki wojownik zyskuje dodatkową kość broni: ma bazowo 2 kości broni wiodącej ręki (lub do wyboru przy obu rękach lub odpowiednim wyszkoleniu) i 1 kość drugiej ręki. Zyskując kolejną kość broni otrzymuje się kość związaną z bronią, w której mamy mniej kości broni. Walcząc dwoma broniami na każdą broń osobno liczy się siłę i szansę krytyka, lecz sumuje się premie do umiejętności bojowych i innych specjalnych zdolności broni (ale też premii do parowania)"
             }
           ],
           "subsections": [],
@@ -2506,7 +2489,7 @@
         {
           "type": "paragraph",
           "id": "paragraph-1",
-          "content": "Manewry są używane przez wojowników aby wyprowadzać różnorodne ataki i w chronić się przed obrażeniami. Każda postać może w jednej turze wykonać 1 manewr zwyczajny, 1 manewr natychmiastowy i 1 manewr nadnatychmiastowy. Manewry natychmiastowe można stosować w dowolnej chwili - nawet po podliczeniu obrażeń przeciwnika w jego ataku, chyba że manewr mówi inaczej. Manewry nadnatychmiastowe można stosować w każdym momencie podyktowanym przez kryteria tego manewru."
+          "content": "Manewry są używane przez wojowników aby wyprowadzać różnorodne ataki i chronić się przed obrażeniami. Każda postać może w jednej turze wykonać 1 manewr zwyczajny, 1 manewr natychmiastowy i 1 manewr nadnatychmiastowy. Manewry natychmiastowe można stosować w dowolnej chwili - nawet po podliczeniu obrażeń przeciwnika w jego ataku, chyba że manewr mówi inaczej. Manewry nadnatychmiastowe można stosować w każdym momencie podyktowanym przez kryteria tego manewru."
         },
         {
           "type": "paragraph",
@@ -2535,19 +2518,14 @@
           "content": "Bazowo każda postać posiada następujące postawy:"
         },
         {
-          "type": "paragraph",
-          "id": "paragraph-3",
-          "content": "Postawa Ofensywna1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-4",
-          "content": "Postawa Defensywna1"
-        },
-        {
-          "type": "paragraph",
-          "id": "paragraph-5",
-          "content": "Postawa Pełna Defensywna1"
+          "type": "list",
+          "id": "list-postawy",
+          "ordered": false,
+          "items": [
+            "Postawa Ofensywna 1 – dodaje 1 obrażenie i odejmuje 1 redukcji.",
+            "Postawa Defensywna 1 – dodaje 1 odporności i odejmuje 1 obrażenie.",
+            "Postawa Pełna Defensywna 1"
+          ]
         }
       ],
       "subsections": [],
@@ -4159,5 +4137,5 @@
     }
   ],
   "version": "1.0",
-  "lastUpdated": "2025-11-29T18:52:17.735Z"
+  "lastUpdated": "2026-07-20T06:15:39.982Z"
 }

@@ -11,6 +11,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import type { CombatLog } from "@/domain/combat-lab/engine/CombatLog";
 import { buildReplayFrames } from "@/domain/combat-lab/replay/buildReplayFrames";
+import { statusLabelsPl } from "@/domain/combat-lab/i18n/labels";
 import { Button } from "@/common/components/ui/button";
 import { Card } from "@/common/components/ui/card";
 import { Badge } from "@/common/components/ui/badge";
@@ -69,7 +70,7 @@ export function CombatReplay({ log, intervalMs = 700 }: CombatReplayProps)
               <div className="mt-2 flex flex-wrap gap-1">
                 {combatant.statuses.map(status => (
                   <Badge key={status} variant="secondary" className="text-xs">
-                    {status}
+                    {statusLabelsPl[status]}
                   </Badge>
                 ))}
               </div>

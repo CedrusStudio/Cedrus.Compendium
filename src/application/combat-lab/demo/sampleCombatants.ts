@@ -52,8 +52,8 @@ const shieldBashDef: ManeuverDefinition = {
   cost: { castTime: "Standardowa" },
   hardRequirements: [{ kind: "shield" }],
   effects: [
-    { type: "damage", damage: { amount: 0, grade: 0, bonus: 6 }, damageType: "physical" },
-    { type: "chance", chance: 40, then: [{ type: "control", control: "stun", duration: 1 }] },
+    { type: "damage", damage: { amount: 0, grade: 0, bonus: 6 }, damageType: "zwyczajne" },
+    { type: "chance", chance: 40, then: [{ type: "status", status: "stagger", duration: 1 }] },
   ],
 };
 
@@ -70,12 +70,12 @@ const rendDef: ManeuverDefinition = {
   cost: { castTime: "Standardowa" },
   hardRequirements: [],
   effects: [
-    { type: "damage", damage: { amount: 1, grade: 4, bonus: 2 }, damageType: "physical" },
+    { type: "damage", damage: { amount: 1, grade: 4, bonus: 2 }, damageType: "zwyczajne" },
     {
       type: "status",
       status: "bleeding",
       duration: 3,
-      tick: { damage: { amount: 0, grade: 0, bonus: 4 }, damageType: "physical" },
+      tick: { damage: { amount: 0, grade: 0, bonus: 4 }, damageType: "śmiertelne" },
     },
   ],
 };
@@ -93,6 +93,10 @@ export const sampleKnight: CombatantSnapshot = {
   defaultOffenseId: "knight-off",
   maneuvers: [shieldBashDef],
   initiative: { grade: 3, value: 2, bonus: 0, testBonus: 0 },
+  precision: { grade: 3, value: 1, bonus: 0, testBonus: 0 },
+  reflex: { grade: 3, value: 3, bonus: 0, testBonus: 0 },
+  attackKind: "melee",
+  buffProfiles: [],
 };
 
 export const sampleAssassin: CombatantSnapshot = {
@@ -108,4 +112,8 @@ export const sampleAssassin: CombatantSnapshot = {
   defaultOffenseId: "assassin-off",
   maneuvers: [rendDef],
   initiative: { grade: 4, value: 4, bonus: 0, testBonus: 0 },
+  precision: { grade: 4, value: 3, bonus: 0, testBonus: 0 },
+  reflex: { grade: 4, value: 4, bonus: 0, testBonus: 0 },
+  attackKind: "melee",
+  buffProfiles: [],
 };

@@ -17,7 +17,9 @@ export type CombatEvent =
   | { kind: "roundStart"; round: number }
   | { kind: "turnStart"; round: number; actorId: string }
   | { kind: "attack"; actorId: string; targetId: string; raw: number; reduced: number; dealt: number; critical: boolean; remainingHp: number }
+  | { kind: "rangedAttack"; actorId: string; targetId: string; hit: boolean; attackRoll: number; st: number; dealt: number; critical: boolean; remainingHp: number }
   | { kind: "maneuver"; actorId: string; targetId: string; maneuverId: string; maneuverName: string }
+  | { kind: "reaction"; actorId: string; targetId: string; maneuverId: string; maneuverName: string }
   | { kind: "damage"; sourceId: string; targetId: string; amount: number; damageType: DamageType; remainingHp: number }
   | { kind: "heal"; sourceId: string; targetId: string; amount: number; remainingHp: number }
   | { kind: "statusApplied"; sourceId: string; targetId: string; status: StatusId; duration: number; stacks: number }

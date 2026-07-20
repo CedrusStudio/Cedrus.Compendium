@@ -32,7 +32,6 @@ ctx.addEventListener("message", (event: MessageEvent<SimulationWorkerRequest>) =
         policyA: resolvePolicy(request.policyA),
         policyB: resolvePolicy(request.policyB),
         maxRounds: request.maxRounds,
-        config: request.config,
       },
       (completed, total) => post({ type: "progress", completed, total }),
     );

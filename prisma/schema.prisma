@@ -299,6 +299,25 @@ model BattlePreset {
   @@map("battlePresets")
 }
 
+// Combat Lab saved simulation run. `configuration` holds the inputs (combatant
+// snapshots + seed range + policies), `result` the aggregated SimulationSummary.
+// Individual fights are reproduced deterministically from the config, so no
+// per-fight logs are stored. See src/domain/combat-lab/persistence/SavedSimulation.ts.
+model Simulation {
+  id            String   @id @default(ulid()) @map("_id")
+  name          String
+  apiKeyHash    String
+
+  configuration Json
+  result        Json
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([apiKeyHash])
+  @@map("simulations")
+}
+
 model Race {
   id          String @id @default(ulid()) @map("_id")
   name        String @unique

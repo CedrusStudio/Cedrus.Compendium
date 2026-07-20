@@ -8,7 +8,6 @@
  */
 
 import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import type { DamageResolutionConfig } from "@/domain/combat-lab/engine/damage";
 import type { ActionPolicy } from "@/domain/combat-lab/engine/ai/policy";
 import { runCombat } from "@/domain/combat-lab/engine/runCombat";
 import type { RawResult, SimulationSummary } from "@/domain/combat-lab/simulation/RawResult";
@@ -24,7 +23,6 @@ export type SimulationRequest =
   policyA?: ActionPolicy;
   policyB?: ActionPolicy;
   maxRounds?: number;
-  config?: DamageResolutionConfig;
 };
 
 export type SimulationRun =
@@ -76,7 +74,6 @@ export function runSimulationChunk(request: SimulationRequest): RawResult[]
       policyA: request.policyA,
       policyB: request.policyB,
       maxRounds: request.maxRounds,
-      config: request.config,
     });
     results[i] = summarizeCombat(log);
   }
