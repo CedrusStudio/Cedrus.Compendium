@@ -16,6 +16,7 @@ import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterByI
 import { useSimulation } from "@/application/combat-lab/hooks/useSimulation";
 import { CombatReplay } from "@/application/combat-lab/replay/CombatReplay";
 import { SimulationSummaryView } from "@/application/combat-lab/runner/SimulationSummaryView";
+import { StatisticsDashboard } from "@/application/combat-lab/analysis/StatisticsDashboard";
 import { reproduceFight } from "@/domain/combat-lab/persistence/reproduceFight";
 import type { SavedSimulationConfiguration } from "@/domain/combat-lab/persistence/SavedSimulation";
 import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
@@ -25,6 +26,7 @@ import { Input } from "@/common/components/ui/input";
 import { Label } from "@/common/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/common/components/ui/select";
+import { Checkbox } from "@/common/components/ui/checkbox";
 
 type PolicyName = "value" | "greedyDamage" | "basicAttack" | "scripted";
 const POLICIES: PolicyName[] = ["value", "greedyDamage", "basicAttack", "scripted"];
@@ -58,11 +60,12 @@ export function SimulationRunner()
   const { character: charA } = useCharacterById(selA?.characterId);
   const { character: charB } = useCharacterById(selB?.characterId);
 
-  const { run, isRunning, progress, summary } = useSimulation();
+  const { run, isRunning, progress, summary, results } = useSimulation();
   const queryClient = useQueryClient();
   const [config, setConfig] = useState<SavedSimulationConfiguration | null>(null);
   const [replaySeed, setReplaySeed] = useState(0);
   const [saveName, setSaveName] = useState("");
+  const [collectStats, setCollectStats] = useState(true);
 
   const ready = Boolean(charA && charB && selA && selB && count > 0);
 
@@ -93,7 +96,7 @@ export function SimulationRunner()
         seedStart: 0,
         policyA: specA,
         policyB: specB,
-        includeResults: false,
+        includeResults: collectStats,
       });
     }
     catch (error)
@@ -139,6 +142,10 @@ export function SimulationRunner()
           </div>
           <PolicyPicker label="Strategia A" name={policyA} onNameChange={setPolicyA} script={scriptA} onScriptChange={setScriptA} />
           <PolicyPicker label="Strategia B" name={policyB} onNameChange={setPolicyB} script={scriptB} onScriptChange={setScriptB} />
+          <label className="mb-1 flex items-center gap-2 text-sm">
+            <Checkbox checked={collectStats} onCheckedChange={(c) => setCollectStats(c === true)} />
+            Zbieraj statystyki
+          </label>
           <Button onClick={handleRun} disabled={!ready || isRunning}>
             {isRunning ? "Liczę…" : "Uruchom symulację"}
           </Button>
@@ -151,6 +158,15 @@ export function SimulationRunner()
       {summary && config && (
         <>
           <SimulationSummaryView summary={summary} nameA={selA?.characterName ?? "A"} nameB={selB?.characterName ?? "B"} idA={config.a.id} idB={config.b.id} />
+
+          {results && results.length > 0 && (
+            <Card>
+              <CardHeader><CardTitle className="text-base">Statystyki</CardTitle></CardHeader>
+              <CardContent>
+                <StatisticsDashboard results={results} />
+              </CardContent>
+            </Card>
+          )}
 
           <Card>
             <CardHeader><CardTitle className="text-base">Zapis biegu</CardTitle></CardHeader>
