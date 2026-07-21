@@ -9,6 +9,8 @@ import { SynergyAnalyzer } from "@/application/combat-lab/analysis/SynergyAnalyz
 import { ComboAnalyzer } from "@/application/combat-lab/analysis/ComboAnalyzer";
 import { RulesValidatorPanel } from "@/application/combat-lab/validation/RulesValidatorPanel";
 import { ParameterTuning } from "@/application/combat-lab/tuning/ParameterTuning";
+import { ScenarioBuilder } from "@/application/combat-lab/scenario/ScenarioBuilder";
+import { MetaAnalyzer } from "@/application/combat-lab/analysis/MetaAnalyzer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/common/components/ui/tabs";
 
 export function CombatLabTabs()
@@ -19,8 +21,10 @@ export function CombatLabTabs()
         <TabsTrigger value="new">Nowa symulacja</TabsTrigger>
         <TabsTrigger value="matchups">Matchupy</TabsTrigger>
         <TabsTrigger value="balance">Balans</TabsTrigger>
+        <TabsTrigger value="meta">Meta</TabsTrigger>
         <TabsTrigger value="synergy">Synergia</TabsTrigger>
         <TabsTrigger value="combos">Kombinacje</TabsTrigger>
+        <TabsTrigger value="scenarios">Scenariusze</TabsTrigger>
         <TabsTrigger value="validator">Walidator</TabsTrigger>
         <TabsTrigger value="tuning">Strojenie</TabsTrigger>
         <TabsTrigger value="explorer">Kalkulator</TabsTrigger>
@@ -35,11 +39,17 @@ export function CombatLabTabs()
       <TabsContent value="balance" className="mt-6">
         <BalanceAnalyzer />
       </TabsContent>
+      <TabsContent value="meta" className="mt-6">
+        <MetaAnalyzer />
+      </TabsContent>
       <TabsContent value="synergy" className="mt-6">
         <SynergyAnalyzer />
       </TabsContent>
       <TabsContent value="combos" className="mt-6">
         <ComboAnalyzer />
+      </TabsContent>
+      <TabsContent value="scenarios" className="mt-6">
+        <ScenarioBuilder />
       </TabsContent>
       <TabsContent value="validator" className="mt-6">
         <RulesValidatorPanel />

@@ -14,6 +14,8 @@ import { buildSnapshotFromSelection, type CombatantSelection } from "@/applicati
 import { useCharactersByIds } from "@/application/combat-lab/hooks/useCharactersByIds";
 import { useMatchup } from "@/application/combat-lab/hooks/useMatchup";
 import { MatchupHeatmap } from "@/application/combat-lab/analysis/MatchupHeatmap";
+import { downloadCsv } from "@/application/combat-lab/export/downloadCsv";
+import { matchupToCsv } from "@/domain/combat-lab/export/toCsv";
 import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
@@ -125,7 +127,10 @@ export function MatchupAnalyzer()
 
       {matrix && (
         <Card>
-          <CardHeader><CardTitle className="text-base">Macierz Win Rate ({matrix.count} walk / para)</CardTitle></CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="text-base">Macierz Win Rate ({matrix.count} walk / para)</CardTitle>
+            <Button variant="outline" size="sm" onClick={() => downloadCsv("matchupy", matchupToCsv(matrix))}>Eksport CSV</Button>
+          </CardHeader>
           <CardContent>
             <MatchupHeatmap matrix={matrix} />
           </CardContent>

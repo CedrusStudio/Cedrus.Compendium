@@ -17,6 +17,8 @@ import { useSimulation } from "@/application/combat-lab/hooks/useSimulation";
 import { CombatReplay } from "@/application/combat-lab/replay/CombatReplay";
 import { SimulationSummaryView } from "@/application/combat-lab/runner/SimulationSummaryView";
 import { StatisticsDashboard } from "@/application/combat-lab/analysis/StatisticsDashboard";
+import { downloadCsv } from "@/application/combat-lab/export/downloadCsv";
+import { rawResultsToCsv } from "@/domain/combat-lab/export/toCsv";
 import { reproduceFight } from "@/domain/combat-lab/persistence/reproduceFight";
 import type { SavedSimulationConfiguration } from "@/domain/combat-lab/persistence/SavedSimulation";
 import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
@@ -161,7 +163,10 @@ export function SimulationRunner()
 
           {results && results.length > 0 && (
             <Card>
-              <CardHeader><CardTitle className="text-base">Statystyki</CardTitle></CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="text-base">Statystyki</CardTitle>
+                <Button variant="outline" size="sm" onClick={() => downloadCsv("wyniki-symulacji", rawResultsToCsv(results))}>Eksport CSV (wyniki)</Button>
+              </CardHeader>
               <CardContent>
                 <StatisticsDashboard results={results} />
               </CardContent>

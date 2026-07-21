@@ -16,6 +16,7 @@ import { CombatReplay } from "@/application/combat-lab/replay/CombatReplay";
 import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
 import { Input } from "@/common/components/ui/input";
 import { Label } from "@/common/components/ui/label";
+import { Button } from "@/common/components/ui/button";
 
 export function SavedRunView({ id }: { id: string })
 {
@@ -43,11 +44,16 @@ export function SavedRunView({ id }: { id: string })
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <h2 className="text-xl font-semibold">{data.name}</h2>
-        <p className="text-sm text-muted-foreground">
-          {configuration.a.name} vs {configuration.b.name} · {configuration.count} walk
-        </p>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-semibold">{data.name}</h2>
+          <p className="text-sm text-muted-foreground">
+            {configuration.a.name} vs {configuration.b.name} · {configuration.count} walk
+          </p>
+        </div>
+        <Button asChild variant="outline" size="sm">
+          <a href={`/combat-lab/report/${id}`} target="_blank" rel="noopener noreferrer">Raport / PDF</a>
+        </Button>
       </div>
 
       <SimulationSummaryView
