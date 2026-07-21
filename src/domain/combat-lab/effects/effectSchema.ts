@@ -114,6 +114,11 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
       chance: z.number().min(0).max(100),
       then: z.array(effectSchema),
     }),
+    z.object({
+      type: z.literal("custom"),
+      effectType: z.string().min(1),
+      data: z.record(z.string(), z.unknown()),
+    }),
   ]),
 );
 

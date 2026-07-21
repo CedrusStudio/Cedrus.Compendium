@@ -22,6 +22,7 @@ import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import { selectDefaultOffense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { applyOffenseBuff } from "@/domain/characters/buffs/applyBuffProfile";
 import { expectedOffenseDamage, expectedDamageSpec } from "@/domain/combat-lab/engine/ai/expectedDamage";
+import { getEffectPlugin } from "@/domain/combat-lab/plugins/registry";
 
 const CONTROL_WEIGHT: Record<string, number> = { stun: 1, disarm: 0.8, silence: 0.5, root: 0.2 };
 
@@ -59,6 +60,8 @@ function effectValue(self: CombatantRuntime, opponent: CombatantRuntime, effect:
       return debuffValue(self, opponent, effect.profile.profileId, effect.duration, selfRaw);
     case "chance":
       return (effect.chance / 100) * expectedManeuverValue(self, opponent, effect.then);
+    case "custom":
+      return getEffectPlugin(effect.effectType)?.expectedValue?.(effect, self, opponent) ?? 0;
     default:
       return 0; // push / pull / resource — no value model yet
   }

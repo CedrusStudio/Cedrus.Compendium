@@ -17,9 +17,12 @@ import type { SimulationSummary } from "@/domain/combat-lab/simulation/RawResult
 /** Serializable reference to an action policy (functions can't be persisted). */
 export type SavedPolicy =
 {
-  name: "greedyDamage" | "value" | "basicAttack" | "scripted";
+  /** Built-in name ("greedyDamage" | "value" | "basicAttack" | "scripted") or a plugin policy name. */
+  name: string;
   /** Maneuver-name sequence for the "scripted" policy. */
   sequence?: string[];
+  /** Config for a plugin policy. */
+  config?: unknown;
 };
 
 export type SavedSimulationConfiguration =

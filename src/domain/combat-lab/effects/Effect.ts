@@ -157,6 +157,20 @@ export type ChanceEffect =
   then: Effect[];
 };
 
+/**
+ * Escape-hatch for plugin-provided effects (see combat-lab-plugin-system-plan.md,
+ * §7 option A). The core union stays exhaustive for built-in effects; a plugin
+ * effect rides in a single `custom` branch, keyed by `effectType`, with its
+ * payload in `data` (validated by the plugin's own schema). The engine resolves
+ * behaviour via the plugin registry.
+ */
+export type CustomEffect =
+{
+  type: "custom";
+  effectType: string;
+  data: Record<string, unknown>;
+};
+
 export type Effect =
   | DamageEffect
   | HealEffect
@@ -167,7 +181,8 @@ export type Effect =
   | PullEffect
   | ControlEffect
   | ResourceEffect
-  | ChanceEffect;
+  | ChanceEffect
+  | CustomEffect;
 
 export type EffectType = Effect["type"];
 

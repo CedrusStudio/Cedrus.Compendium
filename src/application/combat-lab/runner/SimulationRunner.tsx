@@ -22,6 +22,7 @@ import { rawResultsToCsv } from "@/domain/combat-lab/export/toCsv";
 import { reproduceFight } from "@/domain/combat-lab/persistence/reproduceFight";
 import type { SavedSimulationConfiguration } from "@/domain/combat-lab/persistence/SavedSimulation";
 import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
+import { pluginPolicies } from "@/domain/combat-lab/plugins/registry";
 import combatLabClient from "@/infrastructure/clients/combatLabClient";
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
@@ -30,14 +31,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/common/components/ui/select";
 import { Checkbox } from "@/common/components/ui/checkbox";
 
-type PolicyName = "value" | "greedyDamage" | "basicAttack" | "scripted";
-const POLICIES: PolicyName[] = ["value", "greedyDamage", "basicAttack", "scripted"];
-const POLICY_LABELS: Record<PolicyName, string> = {
+// Built-in policies plus any registered by plugins (resolved by name).
+type PolicyName = string;
+const BUILTIN_POLICY_LABELS: Record<string, string> = {
   value: "Wartościująca (buffy/kontrola/leczenie)",
   greedyDamage: "Zachłanna (max obrażenia)",
   basicAttack: "Podstawowy atak",
   scripted: "Skryptowana (sekwencja manewrów)",
 };
+
+function policyOptions(): { name: string; label: string }[]
+{
+  const builtin = Object.entries(BUILTIN_POLICY_LABELS).map(([name, label]) => ({ name, label }));
+  const plugins = pluginPolicies().map(p => ({ name: p.name, label: p.label }));
+  return [...builtin, ...plugins];
+}
 
 function parseSequence(text: string): string[]
 {
@@ -216,7 +224,7 @@ function PolicyPicker({ label, name, onNameChange, script, onScriptChange }: {
       <Select value={name} onValueChange={(v) => onNameChange(v as PolicyName)}>
         <SelectTrigger className="w-56"><SelectValue /></SelectTrigger>
         <SelectContent>
-          {POLICIES.map(p => <SelectItem key={p} value={p}>{POLICY_LABELS[p]}</SelectItem>)}
+          {policyOptions().map(o => <SelectItem key={o.name} value={o.name}>{o.label}</SelectItem>)}
         </SelectContent>
       </Select>
       {name === "scripted" && (

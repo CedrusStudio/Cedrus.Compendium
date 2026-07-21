@@ -5,6 +5,7 @@
 
 import type { ActionPolicy } from "@/domain/combat-lab/engine/ai/policy";
 import { greedyDamagePolicy, valuePolicy, basicAttackPolicy, scriptedPolicy } from "@/domain/combat-lab/engine/ai/policy";
+import { getPolicyPlugin } from "@/domain/combat-lab/plugins/registry";
 import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
 
 export function resolvePolicy(spec: PolicySpec | undefined): ActionPolicy | undefined
@@ -20,6 +21,9 @@ export function resolvePolicy(spec: PolicySpec | undefined): ActionPolicy | unde
     case "basicAttack":
       return basicAttackPolicy;
     case "scripted":
-      return scriptedPolicy(spec.sequence);
+      return "sequence" in spec ? scriptedPolicy(spec.sequence) : scriptedPolicy([]);
+    default:
+      // Plugin-provided policy, resolved by name from the registry.
+      return getPolicyPlugin(spec.name)?.create("config" in spec ? spec.config : undefined);
   }
 }

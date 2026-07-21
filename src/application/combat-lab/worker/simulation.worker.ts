@@ -15,6 +15,10 @@ import type {
   SimulationWorkerResponse,
 } from "@/application/combat-lab/worker/simulationMessages";
 
+import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
+
+loadPlugins();
+
 const ctx = self as unknown as Worker;
 
 ctx.addEventListener("message", (event: MessageEvent<SimulationWorkerRequest>) =>

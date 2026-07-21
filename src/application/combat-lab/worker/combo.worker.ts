@@ -10,6 +10,10 @@ import type { CombatLog } from "@/domain/combat-lab/engine/CombatLog";
 import { resolvePolicy } from "@/application/combat-lab/worker/policyResolver";
 import type { ComboWorkerRequest, ComboWorkerResponse } from "@/application/combat-lab/worker/comboMessages";
 
+import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
+
+loadPlugins();
+
 const ctx = self as unknown as Worker;
 
 ctx.addEventListener("message", (event: MessageEvent<ComboWorkerRequest>) =>

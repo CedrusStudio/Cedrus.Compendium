@@ -14,7 +14,9 @@ export type PolicySpec =
   | { name: "greedyDamage" }
   | { name: "value" }
   | { name: "basicAttack" }
-  | { name: "scripted"; sequence: string[] };
+  | { name: "scripted"; sequence: string[] }
+  /** Plugin-provided policy, resolved by name from the registry. */
+  | { name: string; config?: unknown };
 
 export type SimulationWorkerRequest =
 {

@@ -4,6 +4,10 @@ import { compareTuning } from "@/domain/combat-lab/tuning/parameters";
 import { resolvePolicy } from "@/application/combat-lab/worker/policyResolver";
 import type { TuningWorkerRequest, TuningWorkerResponse } from "@/application/combat-lab/worker/tuningMessages";
 
+import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
+
+loadPlugins();
+
 const ctx = self as unknown as Worker;
 
 ctx.addEventListener("message", (event: MessageEvent<TuningWorkerRequest>) =>

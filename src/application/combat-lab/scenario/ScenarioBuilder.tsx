@@ -12,6 +12,7 @@ import { buildSnapshotFromSelection, type CombatantSelection } from "@/applicati
 import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterById";
 import { useScenario } from "@/application/combat-lab/hooks/useScenario";
 import { SCENARIO_PRESETS } from "@/domain/combat-lab/scenario/scenario";
+import { pluginScenarios } from "@/domain/combat-lab/plugins/registry";
 import { downloadCsv } from "@/application/combat-lab/export/downloadCsv";
 import { scenarioReportToCsv } from "@/domain/combat-lab/export/toCsv";
 import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
@@ -32,13 +33,14 @@ export function ScenarioBuilder()
   const [count, setCount] = useState(400);
   const [policyA, setPolicyA] = useState<PolicyName>("value");
   const [policyB, setPolicyB] = useState<PolicyName>("value");
-  const [enabled, setEnabled] = useState<Set<string>>(new Set(SCENARIO_PRESETS.map(s => s.id)));
+  const allScenarios = useMemo(() => [...SCENARIO_PRESETS, ...pluginScenarios()], []);
+  const [enabled, setEnabled] = useState<Set<string>>(() => new Set(allScenarios.map(s => s.id)));
 
   const { character: charA } = useCharacterById(selA?.characterId);
   const { character: charB } = useCharacterById(selB?.characterId);
   const { run, isRunning, progress, report } = useScenario();
 
-  const scenarios = useMemo(() => SCENARIO_PRESETS.filter(s => enabled.has(s.id)), [enabled]);
+  const scenarios = useMemo(() => allScenarios.filter(s => enabled.has(s.id)), [allScenarios, enabled]);
   const ready = Boolean(charA && charB && selA && selB && count > 0 && scenarios.length > 0);
 
   const toggle = (id: string, on: boolean) => setEnabled(prev => {
@@ -78,7 +80,7 @@ export function ScenarioBuilder()
       <Card>
         <CardHeader><CardTitle className="text-base">Scenariusze</CardTitle></CardHeader>
         <CardContent className="flex flex-col gap-2">
-          {SCENARIO_PRESETS.map(scenario => (
+          {allScenarios.map(scenario => (
             <label key={scenario.id} className="flex items-start gap-2 text-sm">
               <Checkbox checked={enabled.has(scenario.id)} onCheckedChange={c => toggle(scenario.id, c === true)} className="mt-0.5" />
               <span>

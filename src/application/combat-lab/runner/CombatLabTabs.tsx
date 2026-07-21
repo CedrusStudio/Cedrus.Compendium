@@ -11,10 +11,17 @@ import { RulesValidatorPanel } from "@/application/combat-lab/validation/RulesVa
 import { ParameterTuning } from "@/application/combat-lab/tuning/ParameterTuning";
 import { ScenarioBuilder } from "@/application/combat-lab/scenario/ScenarioBuilder";
 import { MetaAnalyzer } from "@/application/combat-lab/analysis/MetaAnalyzer";
+import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
+import { pluginAnalyzers } from "@/application/combat-lab/plugins/analyzerRegistry";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/common/components/ui/tabs";
+
+// Register built-in plugins on the main thread (workers load them separately).
+loadPlugins();
 
 export function CombatLabTabs()
 {
+  const analyzers = pluginAnalyzers();
+
   return (
     <Tabs defaultValue="new" className="w-full">
       <TabsList>
@@ -28,6 +35,7 @@ export function CombatLabTabs()
         <TabsTrigger value="validator">Walidator</TabsTrigger>
         <TabsTrigger value="tuning">Strojenie</TabsTrigger>
         <TabsTrigger value="explorer">Kalkulator</TabsTrigger>
+        {analyzers.map(a => <TabsTrigger key={a.id} value={`plugin:${a.id}`}>{a.label}</TabsTrigger>)}
         <TabsTrigger value="saved">Zapisane biegi</TabsTrigger>
       </TabsList>
       <TabsContent value="new" className="mt-6">
@@ -60,6 +68,11 @@ export function CombatLabTabs()
       <TabsContent value="explorer" className="mt-6">
         <ProbabilityExplorer />
       </TabsContent>
+      {analyzers.map(a => (
+        <TabsContent key={a.id} value={`plugin:${a.id}`} className="mt-6">
+          <a.component />
+        </TabsContent>
+      ))}
       <TabsContent value="saved" className="mt-6">
         <SavedRunsList />
       </TabsContent>

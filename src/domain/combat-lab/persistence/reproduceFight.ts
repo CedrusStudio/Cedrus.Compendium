@@ -9,6 +9,7 @@ import type { SavedSimulationConfiguration, SavedPolicy } from "@/domain/combat-
 import type { CombatLog } from "@/domain/combat-lab/engine/CombatLog";
 import type { ActionPolicy } from "@/domain/combat-lab/engine/ai/policy";
 import { greedyDamagePolicy, valuePolicy, basicAttackPolicy, scriptedPolicy } from "@/domain/combat-lab/engine/ai/policy";
+import { getPolicyPlugin } from "@/domain/combat-lab/plugins/registry";
 import { runCombat } from "@/domain/combat-lab/engine/runCombat";
 
 export function resolveSavedPolicy(policy: SavedPolicy | undefined): ActionPolicy | undefined
@@ -24,6 +25,8 @@ export function resolveSavedPolicy(policy: SavedPolicy | undefined): ActionPolic
       return basicAttackPolicy;
     case "scripted":
       return scriptedPolicy(policy.sequence ?? []);
+    default:
+      return getPolicyPlugin(policy.name)?.create(policy.config);
   }
 }
 

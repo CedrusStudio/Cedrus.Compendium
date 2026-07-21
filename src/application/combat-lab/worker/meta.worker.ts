@@ -4,6 +4,10 @@ import { computeMeta } from "@/domain/combat-lab/analysis/meta";
 import { resolvePolicy } from "@/application/combat-lab/worker/policyResolver";
 import type { MetaWorkerRequest, MetaWorkerResponse } from "@/application/combat-lab/worker/metaMessages";
 
+import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
+
+loadPlugins();
+
 const ctx = self as unknown as Worker;
 
 ctx.addEventListener("message", (event: MessageEvent<MetaWorkerRequest>) =>

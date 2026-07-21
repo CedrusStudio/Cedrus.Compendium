@@ -19,6 +19,7 @@ import {
   resourceLabelsPl as resourceLabels,
   roundsLabelPl,
 } from "@/domain/combat-lab/i18n/labels";
+import { getEffectPlugin } from "@/domain/combat-lab/plugins/registry";
 
 const requirementLabels = (requirement: MechanicalRequirement): string =>
 {
@@ -86,6 +87,8 @@ function describeEffect(effect: Effect): string
       const inner = effect.then.map(describeEffect).join(", ");
       return `${effect.chance}% szansy: ${inner}`;
     }
+    case "custom":
+      return getEffectPlugin(effect.effectType)?.describe(effect) ?? `efekt „${effect.effectType}"`;
   }
 }
 

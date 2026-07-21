@@ -23,6 +23,7 @@ import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
 import { selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { isStaggered, activeBuffProfiles } from "@/domain/combat-lab/engine/CombatState";
 import { effectiveDefense } from "@/domain/combat-lab/engine/buffs";
+import { getEffectPlugin } from "@/domain/combat-lab/plugins/registry";
 
 export type EffectContext =
 {
@@ -184,6 +185,14 @@ function applyEffect(
       {
         applyEffects(effect.then, source, target, ctx);
       }
+      break;
+    }
+
+    case "custom":
+    {
+      // Plugin-provided effect: behaviour comes from the registry. Unknown types
+      // are a safe no-op (the plugin simply isn't loaded in this context).
+      getEffectPlugin(effect.effectType)?.apply(effect, source, target, ctx);
       break;
     }
   }

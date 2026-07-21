@@ -7,6 +7,10 @@ import { computeMatchupMatrix } from "@/domain/combat-lab/analysis/matchup";
 import { resolvePolicy } from "@/application/combat-lab/worker/policyResolver";
 import type { MatchupWorkerRequest, MatchupWorkerResponse } from "@/application/combat-lab/worker/matchupMessages";
 
+import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
+
+loadPlugins();
+
 const ctx = self as unknown as Worker;
 
 ctx.addEventListener("message", (event: MessageEvent<MatchupWorkerRequest>) =>

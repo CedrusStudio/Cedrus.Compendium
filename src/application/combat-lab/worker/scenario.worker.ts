@@ -4,6 +4,10 @@ import { compareScenarios } from "@/domain/combat-lab/scenario/scenario";
 import { resolvePolicy } from "@/application/combat-lab/worker/policyResolver";
 import type { ScenarioWorkerRequest, ScenarioWorkerResponse } from "@/application/combat-lab/worker/scenarioMessages";
 
+import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
+
+loadPlugins();
+
 const ctx = self as unknown as Worker;
 
 ctx.addEventListener("message", (event: MessageEvent<ScenarioWorkerRequest>) =>
