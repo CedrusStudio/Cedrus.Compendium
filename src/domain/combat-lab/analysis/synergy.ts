@@ -52,7 +52,7 @@ export function computeSynergy(
   onProgress?: (done: number, total: number) => void,
 ): SynergyReport
 {
-  const total = subject.maneuvers.length + 1;
+  const total = subject.maneuvers.length + subject.spells.length + 1;
   let done = 0;
 
   const baselineWinRate = subjectWinRate(subject, opponent, options);
@@ -67,6 +67,17 @@ export function computeSynergy(
     onProgress?.(done, total);
     return { id: maneuver.id, name: maneuver.name, withoutWinRate, contribution: baselineWinRate - withoutWinRate };
   });
+
+  // Ablate each spell the same way — a caster's spells are build elements too.
+  for (let index = 0; index < subject.spells.length; index++)
+  {
+    const spell = subject.spells[index]!;
+    const without: CombatantSnapshot = { ...subject, spells: subject.spells.filter((_, k) => k !== index) };
+    const withoutWinRate = subjectWinRate(without, opponent, options);
+    done += 1;
+    onProgress?.(done, total);
+    elements.push({ id: spell.id, name: spell.name, withoutWinRate, contribution: baselineWinRate - withoutWinRate });
+  }
 
   elements.sort((a, b) => b.contribution - a.contribution || a.name.localeCompare(b.name));
   return { baselineWinRate, elements, count: options.count };

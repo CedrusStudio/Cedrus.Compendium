@@ -207,6 +207,32 @@ export function MetaAnalyzer()
               )}
             </CardContent>
           </Card>
+
+          {(report.mostUsedSpells.length > 0 || report.neverUsedSpells.length > 0) && (
+            <Card>
+              <CardHeader><CardTitle className="text-base">Zaklęcia</CardTitle></CardHeader>
+              <CardContent className="flex flex-col gap-3">
+                {report.mostUsedSpells.length > 0 && (
+                  <div>
+                    <div className="mb-1 text-xs font-medium text-muted-foreground">Najczęściej rzucane</div>
+                    <div className="flex flex-wrap gap-2">
+                      {report.mostUsedSpells.slice(0, 12).map(s => (
+                        <span key={s.name} className="rounded border px-2 py-1 text-sm">{s.name} <span className="text-muted-foreground">×{s.count}</span></span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {report.neverUsedSpells.length > 0 && (
+                  <div>
+                    <div className="mb-1 text-xs font-medium text-muted-foreground">Nigdy nierzucane ({report.neverUsedSpells.length})</div>
+                    <div className="flex flex-wrap gap-2">
+                      {report.neverUsedSpells.map(name => <span key={name} className="rounded border px-2 py-1 text-sm text-muted-foreground">{name}</span>)}
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
         </>
       )}
     </div>

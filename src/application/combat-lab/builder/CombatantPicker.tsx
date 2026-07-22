@@ -10,6 +10,7 @@ import { useState } from "react";
 import { emptyUlid } from "@/common/global/pagination";
 import { useSearchCharactersSummary } from "@/application/characters/hooks/useSearchCharactersSummary";
 import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterById";
+import { usePowerSpecifications } from "@/application/combat-lab/hooks/usePowerSpecifications";
 import {
   createSelection,
   createTempBuff,
@@ -45,6 +46,18 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
   const [tempValue, setTempValue] = useState(1);
   const { characters } = useSearchCharactersSummary(search, emptyUlid);
   const { character } = useCharacterById(value?.characterId);
+  const { specifications } = usePowerSpecifications(character);
+
+  // Powers that have castable spells AND a specification offering >1 offense —
+  // only these need a PowerOffense choice.
+  const spellPowers = (character?.powers ?? []).filter(p =>
+    p.spells.length > 0 && (specifications[p.powerSpecificationId]?.offenses.length ?? 0) > 1);
+
+  const setSpellOffense = (powerId: string, index: number) =>
+  {
+    if (!value) return;
+    onChange({ ...value, spellOffenseSelection: { ...value.spellOffenseSelection, [powerId]: index } });
+  };
 
   const toggleBuff = (profileId: string, checked: boolean) =>
   {
@@ -149,6 +162,25 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
                 </Select>
               </div>
             )}
+
+            {spellPowers.map(power =>
+            {
+              const spec = specifications[power.powerSpecificationId]!;
+              const current = value.spellOffenseSelection?.[power.id] ?? 0;
+              return (
+                <div key={power.id} className="flex flex-col gap-1">
+                  <Label className="text-xs text-muted-foreground">Ofensywa zaklęć: {power.name}</Label>
+                  <Select value={String(current)} onValueChange={(v) => setSpellOffense(power.id, Number(v))}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {spec.offenses.map((o, i) => (
+                        <SelectItem key={i} value={String(i)}>{o.description || `Ofensywa ${i + 1}`}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              );
+            })}
 
             {character && character.buffProfiles.length > 0 && (
               <div className="flex flex-col gap-1.5">

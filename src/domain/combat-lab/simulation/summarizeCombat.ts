@@ -25,6 +25,7 @@ export function summarizeCombat(log: CombatLog): RawResult
     winnerRemainingHp: winnerId ? remainingHpFor(log.events, winnerId, start) : null,
     deathCause: loserId ? deathCauseFor(log.events, loserId) : "none",
     maneuverUsage: countManeuvers(log.events),
+    spellUsage: countSpells(log.events),
     schemaVersion: 1,
   };
 }
@@ -83,6 +84,19 @@ function countManeuvers(events: CombatEvent[]): Record<string, number>
     if (event.kind === "maneuver")
     {
       usage[event.maneuverName] = (usage[event.maneuverName] ?? 0) + 1;
+    }
+  }
+  return usage;
+}
+
+function countSpells(events: CombatEvent[]): Record<string, number>
+{
+  const usage: Record<string, number> = {};
+  for (const event of events)
+  {
+    if (event.kind === "spellCast")
+    {
+      usage[event.spellName] = (usage[event.spellName] ?? 0) + 1;
     }
   }
   return usage;

@@ -14,6 +14,8 @@ import { CombatantPicker } from "@/application/combat-lab/builder/CombatantPicke
 import { CombatantStatsCard } from "@/application/combat-lab/builder/CombatantStatsCard";
 import { buildSnapshotFromSelection, type CombatantSelection } from "@/application/combat-lab/builder/combatantSelection";
 import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterById";
+import { usePowerSpecifications } from "@/application/combat-lab/hooks/usePowerSpecifications";
+import type { PowerSpecification } from "@/domain/characters/combat/Power";
 import { useSimulation } from "@/application/combat-lab/hooks/useSimulation";
 import { CombatReplay } from "@/application/combat-lab/replay/CombatReplay";
 import { SimulationSummaryView } from "@/application/combat-lab/runner/SimulationSummaryView";
@@ -99,8 +101,8 @@ export function SimulationRunner()
     const specB = buildPolicySpec(policyB, scriptB);
 
     const configuration: SavedSimulationConfiguration = {
-      a: buildSnapshotFromSelection(charA, selA),
-      b: buildSnapshotFromSelection(charB, selB),
+      a: buildSnapshotFromSelection(charA, selWithSpecs(selA, specsA)!),
+      b: buildSnapshotFromSelection(charB, selWithSpecs(selB, specsB)!),
       count,
       seedStart: 0,
       policyA: specA,

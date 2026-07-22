@@ -22,6 +22,7 @@ export function aggregateResults(results: RawResult[]): SimulationSummary
   const reasons = emptyReasons();
   const deathCauses: Record<string, number> = {};
   const maneuverUsage: Record<string, number> = {};
+  const spellUsage: Record<string, number> = {};
 
   let draws = 0;
   let roundsTotal = 0;
@@ -37,6 +38,11 @@ export function aggregateResults(results: RawResult[]): SimulationSummary
     for (const [name, uses] of Object.entries(result.maneuverUsage))
     {
       maneuverUsage[name] = (maneuverUsage[name] ?? 0) + uses;
+    }
+
+    for (const [name, uses] of Object.entries(result.spellUsage ?? {}))
+    {
+      spellUsage[name] = (spellUsage[name] ?? 0) + uses;
     }
 
     if (result.winnerId)
@@ -70,6 +76,8 @@ export function aggregateResults(results: RawResult[]): SimulationSummary
     deathCauses,
     maneuverUsage,
     mostUsedManeuver: pickMostUsed(maneuverUsage),
+    spellUsage,
+    mostUsedSpell: pickMostUsed(spellUsage),
     schemaVersion: 1,
   };
 }

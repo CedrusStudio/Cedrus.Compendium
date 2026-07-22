@@ -24,6 +24,8 @@ export type RawResult =
   deathCause: DeathCause;
   /** How many times each maneuver (by name) was used across the whole fight. */
   maneuverUsage: Record<string, number>;
+  /** How many times each spell (by name) was cast across the whole fight. */
+  spellUsage?: Record<string, number>;
   schemaVersion: 1;
 };
 
@@ -44,5 +46,9 @@ export type SimulationSummary =
   maneuverUsage: Record<string, number>;
   /** Most-used maneuver name (null if none used). */
   mostUsedManeuver: string | null;
+  /** Aggregate spell usage across all fights (empty if no casters). */
+  spellUsage?: Record<string, number>;
+  /** Most-cast spell name (null if none cast). */
+  mostUsedSpell?: string | null;
   schemaVersion: 1;
 };

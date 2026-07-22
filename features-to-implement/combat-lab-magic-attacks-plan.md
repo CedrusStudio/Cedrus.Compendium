@@ -69,12 +69,12 @@ spells?: {
 
 ## 7. Etapy
 
-1. **Rozwiązanie danych**: znaleźć, skąd wczytać `PowerSpecification` dla postaci (relacja/repo); zbudować `SnapshotSpell` w `toCombatantSnapshot`. Test mapowania.
-2. **Model akcji**: `Action` + `availableSpells` + koszt/dostępność. Test.
-3. **Rozstrzygnięcie**: `executeAction` case „spell" (reuse `resolveRangedAttack`) + event + koszt + Replay. Golden‑log.
-4. **AI**: scoring zaklęć w greedy/value. Test.
-5. **UI**: podgląd zaklęć w `CombatantStatsCard` + render `spellCast` w Replay.
-6. **Autorstwo/analiza**: uwzględnić zaklęcia w Meta/Synergy (użycie), jeśli sensowne.
+1. ✅ **Rozwiązanie danych**: `SnapshotSpell` + `buildSpells` w `toCombatantSnapshot` (Power → PowerSpecification → wybrana `PowerOffense`); ładowanie specyfikacji hookiem `usePowerSpecifications` (searchClient by‑id). Test mapowania w `combatantSnapshot.test.ts`.
+2. ✅ **Model akcji**: `Action { kind:"spell" }` + `availableSpells` (esencja + cooldown) + `recordAction` (zajmuje akcję ataku, odejmuje esencję, ustawia cooldown) + `tickSpellCooldowns`. Test `spellAction.test.ts`.
+3. ✅ **Rozstrzygnięcie**: `executeAction` case „spell" (reuse `resolveRangedAttack` z `offenseOverride`, kategoria „blokowane") + event `spellCast` + `describeEvent` + `buildReplayFrames` + `summarizeCombat`.
+4. ✅ **AI**: scoring zaklęć w greedy/value (`expectedOffenseDamage(spell.offense)`).
+5. ✅ **UI**: podgląd zaklęć w `CombatantStatsCard`, wybór `PowerOffense` w `CombatantPicker`, wstrzyknięcie specyfikacji w `SimulationRunner`, opis `spellCast` w Replay.
+6. ✅ **Autorstwo/analiza**: `summarizeCombat` liczy `spellUsage` (zdarzenia `spellCast`), agregacja w `aggregateResults` (`spellUsage`/`mostUsedSpell`); Meta ma `mostUsedSpells`/`neverUsedSpells` (+ karta w `MetaAnalyzer`); Synergy ablatuje też zaklęcia. Testy w `meta.test.ts`.
 
 ---
 

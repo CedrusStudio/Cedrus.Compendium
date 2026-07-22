@@ -48,6 +48,20 @@ describe("computeSynergy()", () => {
     expect(seen).toEqual([1, 2, 3]);
   });
 
+  it("ablates spells too and credits a strong spell", () => {
+    const subject = {
+      ...makeSnapshot("caster", { offense: makeOffense("so", 1, 3, 0), initiativeValue: 5, maxHp: 45 }),
+      spells: [{ id: "fb", name: "Fireball", offense: makeOffense("fb-off", 4, 8, 12), costEssence: 0, castTime: "Standardowa" as const, cooldown: 0 }],
+      startingResources: { essence: 1000 },
+    };
+    const opponent = makeSnapshot("o", { offense: makeOffense("oo", 1, 3, 0), maxHp: 45 });
+
+    const report = computeSynergy(subject, opponent, { count: 150, subjectPolicy: greedyDamagePolicy, opponentPolicy: basicAttackPolicy });
+    const fireball = report.elements.find(e => e.id === "fb");
+    expect(fireball).toBeDefined();
+    expect(fireball!.contribution).toBeGreaterThan(0);
+  });
+
   it("is deterministic", () => {
     const build = () => makeSnapshot("s", { maneuvers: [damageManeuver("a", 10)], initiativeValue: 3 });
     const opp = () => makeSnapshot("o");

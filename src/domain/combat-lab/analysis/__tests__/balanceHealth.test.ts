@@ -3,7 +3,7 @@ import { computeBalanceHealth } from "@/domain/combat-lab/analysis/balanceHealth
 import type { MetaReport } from "@/domain/combat-lab/analysis/meta";
 
 const report = (ranking: { id: string; name: string; averageWinRate: number }[], over: Partial<MetaReport> = {}): MetaReport => ({
-  ranking, mostUsedManeuvers: [], neverUsedManeuvers: [], totalFights: 0, count: 0, ...over,
+  ranking, mostUsedManeuvers: [], neverUsedManeuvers: [], mostUsedSpells: [], neverUsedSpells: [], totalFights: 0, count: 0, ...over,
 });
 
 describe("computeBalanceHealth()", () => {

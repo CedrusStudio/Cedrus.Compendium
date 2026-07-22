@@ -43,6 +43,20 @@ describe("computeMeta()", () => {
     expect(report.neverUsedManeuvers).toContain("NeverUsed");
   });
 
+  it("collects cast spells and flags never-cast ones", () => {
+    const caster = {
+      ...makeSnapshot("caster", { offense: makeOffense("co", 1, 3, 0), maxHp: 50, initiativeValue: 5 }),
+      spells: [{ id: "fb", name: "Fireball", offense: makeOffense("fb-off", 4, 8, 10), costEssence: 0, castTime: "Standardowa" as const, cooldown: 0 }],
+      startingResources: { essence: 1000 },
+    };
+    const target = makeSnapshot("target", { offense: makeOffense("to", 2, 6, 4), maxHp: 40 });
+    const entries: MatchupEntry[] = [caster, target].map(snapshot => ({ snapshot, policy: greedyDamagePolicy }));
+
+    const report = computeMeta(entries, { count: 60 });
+    expect(report.mostUsedSpells.some(s => s.name === "Fireball" && s.count > 0)).toBe(true);
+    expect(report.neverUsedSpells).not.toContain("Fireball");
+  });
+
   it("reports progress for every ordered pair and is deterministic", () => {
     const entries: MatchupEntry[] = [strong(), weak()].map(snapshot => ({ snapshot, policy: basicAttackPolicy }));
     const seen: number[] = [];

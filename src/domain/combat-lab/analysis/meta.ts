@@ -19,6 +19,10 @@ export type MetaReport =
   ranking: MetaRankEntry[];
   mostUsedManeuvers: ManeuverCount[];
   neverUsedManeuvers: string[];
+  /** Cast counts across all fights, most-cast first. */
+  mostUsedSpells: ManeuverCount[];
+  /** Spells present on the roster but never cast in practice. */
+  neverUsedSpells: string[];
   totalFights: number;
   count: number;
 };
@@ -36,6 +40,7 @@ export function computeMeta(entries: MatchupEntry[], options: MetaOptions, onPro
   const winSum = new Array<number>(n).fill(0);
   const roleCount = new Array<number>(n).fill(0);
   const usage: Record<string, number> = {};
+  const spellUsage: Record<string, number> = {};
 
   const total = n * (n - 1);
   let done = 0;
@@ -66,6 +71,11 @@ export function computeMeta(entries: MatchupEntry[], options: MetaOptions, onPro
         usage[name] = (usage[name] ?? 0) + uses;
       }
 
+      for (const [name, uses] of Object.entries(summary.spellUsage ?? {}))
+      {
+        spellUsage[name] = (spellUsage[name] ?? 0) + uses;
+      }
+
       done += 1;
       onProgress?.(done, total);
     }
@@ -76,21 +86,28 @@ export function computeMeta(entries: MatchupEntry[], options: MetaOptions, onPro
     .sort((a, b) => b.averageWinRate - a.averageWinRate || a.name.localeCompare(b.name));
 
   const available = new Set<string>();
+  const availableSpells = new Set<string>();
   for (const entry of entries)
   {
     for (const maneuver of entry.snapshot.maneuvers) available.add(maneuver.name);
+    for (const spell of entry.snapshot.spells) availableSpells.add(spell.name);
   }
 
-  const mostUsedManeuvers = Object.entries(usage)
+  const toCounts = (map: Record<string, number>): ManeuverCount[] => Object.entries(map)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([name, count]) => ({ name, count }));
 
+  const mostUsedManeuvers = toCounts(usage);
   const neverUsedManeuvers = [...available].filter(name => !(usage[name] > 0)).sort();
+  const mostUsedSpells = toCounts(spellUsage);
+  const neverUsedSpells = [...availableSpells].filter(name => !(spellUsage[name] > 0)).sort();
 
   return {
     ranking,
     mostUsedManeuvers,
     neverUsedManeuvers,
+    mostUsedSpells,
+    neverUsedSpells,
     totalFights: total * options.count,
     count: options.count,
   };
