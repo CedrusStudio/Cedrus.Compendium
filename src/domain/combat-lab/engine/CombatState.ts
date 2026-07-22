@@ -6,7 +6,7 @@
  */
 
 import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import type { StatusId, DamageTick } from "@/domain/combat-lab/effects/Effect";
+import type { StatusId, DamageTick, RollModifierEffect } from "@/domain/combat-lab/effects/Effect";
 import type { Castable, EndTurn } from "@/domain/characters/Castable";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 
@@ -47,6 +47,17 @@ export type CombatantRuntime =
   controls: ActiveControl[];
   /** Buff/debuff profiles in effect, applied to offense/defense at resolve time. */
   activeBuffs: ActiveBuff[];
+  /**
+   * Roll modifiers (T2b) queued for THIS turn's attack — set by a `roll` effect
+   * and consumed (cleared) by the next attack. Transient, not duration-based.
+   */
+  rollMods: RollModifierEffect[];
+  /** Outcome of this combatant's most recent attack (for onCritical / onDamageDealt conditions). */
+  lastAttack?: { critical: boolean; dealt: number };
+  /** Spendable resource pools (mana/essence), seeded from the snapshot. */
+  resources: { mana: number; essence: number };
+  /** Rounds remaining before each spell (by id) can be cast again. Decremented per turn. */
+  spellCooldowns: Record<string, number>;
   /** Rounds spent at/below 0 hp (for the lethalRounds bleed-out rule). */
   roundsDowned: number;
   /**
@@ -82,6 +93,9 @@ export function createRuntime(snapshot: CombatantSnapshot): CombatantRuntime
     statuses: [],
     controls: [],
     activeBuffs: [],
+    rollMods: [],
+    resources: { mana: snapshot.startingResources?.mana ?? 0, essence: snapshot.startingResources?.essence ?? 0 },
+    spellCooldowns: {},
     roundsDowned: 0,
     usedCastables: [],
     attackedThisTurn: false,

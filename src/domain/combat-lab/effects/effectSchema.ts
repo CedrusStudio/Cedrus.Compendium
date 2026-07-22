@@ -52,6 +52,22 @@ const buffProfileRefSchema = z.object({
   profileId: z.string().min(1),
 });
 
+const skillRefSchema = z.object({
+  group: z.enum(["attributes", "characteristics"]),
+  key: z.string().min(1),
+});
+
+const poolTermSchema = z.object({
+  anyOf: z.array(skillRefSchema).min(1),
+});
+
+const testSideSchema = z.object({
+  pool: z.array(poolTermSchema).min(1),
+  modifier: z.number().int().optional(),
+  dieGradeDelta: z.number().int().optional(),
+  rollMod: z.enum(["advantage", "disadvantage"]).optional(),
+});
+
 /**
  * `Effect` is a discriminated union with a self-referential `chance` branch, so
  * the schema is built with `z.lazy`. The explicit `z.ZodType<Effect>`
@@ -92,6 +108,29 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
       duration: z.number().int().min(0),
     }),
     z.object({
+      type: z.literal("stat"),
+      mode: z.enum(["self", "target"]),
+      duration: z.number().int().min(0),
+      block: z.number().int().optional(),
+      parry: z.number().int().optional(),
+      dodge: z.number().int().optional(),
+      protection: z.number().int().optional(),
+      resistance: z.number().int().optional(),
+      immunity: z.number().int().optional(),
+      damage: z.number().int().optional(),
+      diceGrade: z.number().int().optional(),
+      critPower: z.number().int().optional(),
+      precision: z.number().int().optional(),
+      reflex: z.number().int().optional(),
+      initiative: z.number().int().optional(),
+      barrier: z.number().int().optional(),
+    }),
+    z.object({
+      type: z.literal("roll"),
+      modifier: z.enum(["advantage", "disadvantage", "extraDie"]),
+      grade: z.number().int().min(1).optional(),
+    }),
+    z.object({
       type: z.literal("push"),
       distance: z.number().int().min(0),
     }),
@@ -108,6 +147,57 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
       type: z.literal("resource"),
       resource: z.enum(resourceKinds),
       delta: z.number().int(),
+    }),
+    z.object({
+      type: z.literal("contested"),
+      attacker: testSideSchema,
+      defender: testSideSchema,
+      onWin: z.array(effectSchema),
+      perMargin: z.object({
+        per: z.number().int().min(1),
+        effect: effectSchema,
+        cap: z.number().int().min(0).optional(),
+      }).optional(),
+      onWinTarget: z.enum(["self", "target"]).optional(),
+    }),
+    z.object({
+      type: z.literal("save"),
+      pool: testSideSchema,
+      st: z.number().int(),
+      who: z.enum(["self", "target"]).optional(),
+      onFail: z.array(effectSchema),
+      perMarginOfFailure: z.object({
+        per: z.number().int().min(1),
+        effect: effectSchema,
+        cap: z.number().int().min(0).optional(),
+      }).optional(),
+    }),
+    z.object({
+      type: z.literal("when"),
+      condition: z.discriminatedUnion("kind", [
+        z.object({ kind: z.literal("opponentAttackKind"), value: z.enum(["melee", "rangedPhysical", "rangedMagic"]) }),
+        z.object({ kind: z.literal("targetHasStatus"), status: z.enum(statusIds) }),
+        z.object({ kind: z.literal("selfHasStatus"), status: z.enum(statusIds) }),
+        z.object({ kind: z.literal("onCritical") }),
+        z.object({ kind: z.literal("onDamageDealt") }),
+        z.object({ kind: z.literal("selfAirborne") }),
+        z.object({ kind: z.literal("opponentCharging") }),
+        z.object({ kind: z.literal("hasResource"), resource: z.enum(["mana", "essence"]), min: z.number().int() }),
+      ]),
+      then: z.array(effectSchema),
+    }),
+    z.object({
+      type: z.literal("scale"),
+      source: z.discriminatedUnion("kind", [
+        z.object({ kind: z.literal("opponentDice") }),
+        z.object({ kind: z.literal("opponentImmunity") }),
+        z.object({ kind: z.literal("selfResource"), resource: z.enum(["mana", "essence"]) }),
+        z.object({ kind: z.literal("selfStatusStacks"), status: z.enum(statusIds) }),
+        z.object({ kind: z.literal("targetStatusStacks"), status: z.enum(statusIds) }),
+      ]),
+      per: z.number().int().min(1).optional(),
+      cap: z.number().int().min(0).optional(),
+      effect: effectSchema,
     }),
     z.object({
       type: z.literal("chance"),

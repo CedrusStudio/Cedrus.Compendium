@@ -14,7 +14,7 @@
  * resource-pool model until Scenario Builder, v0.4).
  */
 
-import type { Effect } from "@/domain/combat-lab/effects/Effect";
+import type { Effect, EffectCondition } from "@/domain/combat-lab/effects/Effect";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import type { CombatLogBuilder } from "@/domain/combat-lab/engine/CombatLog";
 import type { RandomSource } from "@/domain/combat-lab/rng/Rng";
@@ -23,6 +23,9 @@ import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
 import { selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { isStaggered, activeBuffProfiles } from "@/domain/combat-lab/engine/CombatState";
 import { effectiveDefense } from "@/domain/combat-lab/engine/buffs";
+import { statEffectToProfile } from "@/domain/combat-lab/effects/statBuff";
+import { resolveContestedTest, resolveSaveTest } from "@/domain/combat-lab/engine/resolveContestedTest";
+import { countScaleSource, scaleTimes } from "@/domain/combat-lab/engine/scaleSource";
 import { getEffectPlugin } from "@/domain/combat-lab/plugins/registry";
 
 export type EffectContext =
@@ -41,6 +44,35 @@ export function applyEffects(
   for (const effect of effects)
   {
     applyEffect(effect, source, target, ctx);
+  }
+}
+
+/**
+ * Evaluate a `WhenEffect` condition against the current runtime state.
+ * Deterministic; unknown/unsupported conditions default to false (safe skip).
+ */
+export function evaluateCondition(condition: EffectCondition, source: CombatantRuntime, target: CombatantRuntime): boolean
+{
+  switch (condition.kind)
+  {
+    case "opponentAttackKind":
+      return target.snapshot.attackKind === condition.value;
+    case "targetHasStatus":
+      return target.statuses.some(s => s.status === condition.status);
+    case "selfHasStatus":
+      return source.statuses.some(s => s.status === condition.status);
+    case "onCritical":
+      return source.lastAttack?.critical === true;
+    case "onDamageDealt":
+      return (source.lastAttack?.dealt ?? 0) > 0;
+    case "selfAirborne":
+      return source.snapshot.positional?.airborne === true;
+    case "opponentCharging":
+      return target.snapshot.positional?.charging === true;
+    case "hasResource":
+      return source.resources[condition.resource] >= condition.min;
+    default:
+      return false;
   }
 }
 
@@ -142,6 +174,11 @@ function applyEffect(
     case "resource":
     {
       const recipient = effect.delta >= 0 ? source : target;
+      // Track mana/essence pools; "action" has no pool (logged only).
+      if (effect.resource === "mana" || effect.resource === "essence")
+      {
+        recipient.resources[effect.resource] = Math.max(0, recipient.resources[effect.resource] + effect.delta);
+      }
       ctx.log.push({
         kind: "resource",
         targetId: recipient.snapshot.id,
@@ -174,6 +211,110 @@ function applyEffect(
         duration: effect.duration,
         mode: effect.type,
       });
+      break;
+    }
+
+    case "stat":
+    {
+      // Build a throwaway BuffProfile from the inline deltas and apply it as an
+      // ActiveBuff — same runtime path as a profile-based buff, so it affects
+      // the recipient's effective offense/defense (defensive maneuvers work).
+      const recipient = effect.mode === "self" ? source : target;
+      const profile = statEffectToProfile(effect);
+      const existing = recipient.activeBuffs.find(b => b.profile.id === profile.id);
+      if (existing) existing.remaining = Math.max(existing.remaining, effect.duration);
+      else recipient.activeBuffs.push({ profile, remaining: effect.duration });
+      ctx.log.push({
+        kind: "buff",
+        sourceId: source.snapshot.id,
+        targetId: recipient.snapshot.id,
+        profileId: profile.id,
+        duration: effect.duration,
+        mode: effect.mode === "self" ? "buff" : "debuff",
+      });
+      break;
+    }
+
+    case "roll":
+    {
+      // Queue a roll modifier on the caster; the next attack this turn consumes
+      // it (see runCombat). Transient — not duration-based.
+      source.rollMods.push(effect);
+      ctx.log.push({
+        kind: "buff",
+        sourceId: source.snapshot.id,
+        targetId: source.snapshot.id,
+        profileId: `roll:${effect.modifier}`,
+        duration: 0,
+        mode: "buff",
+      });
+      break;
+    }
+
+    case "contested":
+    {
+      const res = resolveContestedTest(source.snapshot.skills, target.snapshot.skills, effect, ctx.random);
+      ctx.log.push({
+        kind: "contestedTest",
+        sourceId: source.snapshot.id,
+        targetId: target.snapshot.id,
+        attackerResult: res.attackerResult,
+        defenderResult: res.defenderResult,
+        margin: res.margin,
+        win: res.win,
+      });
+      if (res.win)
+      {
+        // onWin effects hit the opponent by default, or the caster ("self" —
+        // defensive tests like Akrobatyka that self-buff on a win).
+        const recipient = effect.onWinTarget === "self" ? source : target;
+        applyEffects(effect.onWin, source, recipient, ctx);
+        if (effect.perMargin)
+        {
+          const per = Math.max(1, effect.perMargin.per);
+          let times = Math.floor(res.margin / per);
+          if (effect.perMargin.cap !== undefined) times = Math.min(times, effect.perMargin.cap);
+          for (let i = 0; i < times; i++) applyEffects([effect.perMargin.effect], source, recipient, ctx);
+        }
+      }
+      break;
+    }
+
+    case "save":
+    {
+      // The saver (target by default) rolls its pool vs a fixed ST. On failure,
+      // onFail effects hit the saver, scaled by the margin of failure.
+      const saver = effect.who === "self" ? source : target;
+      const res = resolveSaveTest(saver.snapshot.skills, effect, ctx.random);
+      ctx.log.push({ kind: "saveTest", targetId: saver.snapshot.id, roll: res.roll, st: res.st, failMargin: res.failMargin, failed: res.failed });
+      if (res.failed)
+      {
+        applyEffects(effect.onFail, source, saver, ctx);
+        if (effect.perMarginOfFailure)
+        {
+          const per = Math.max(1, effect.perMarginOfFailure.per);
+          let times = Math.floor(res.failMargin / per);
+          if (effect.perMarginOfFailure.cap !== undefined) times = Math.min(times, effect.perMarginOfFailure.cap);
+          for (let i = 0; i < times; i++) applyEffects([effect.perMarginOfFailure.effect], source, saver, ctx);
+        }
+      }
+      break;
+    }
+
+    case "when":
+    {
+      if (evaluateCondition(effect.condition, source, target))
+      {
+        applyEffects(effect.then, source, target, ctx);
+      }
+      break;
+    }
+
+    case "scale":
+    {
+      const count = countScaleSource(effect.source, source, target);
+      const times = scaleTimes(count, effect.per, effect.cap);
+      for (let i = 0; i < times; i++) applyEffects([effect.effect], source, target, ctx);
       break;
     }
 

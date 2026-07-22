@@ -11,6 +11,7 @@ import { useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { CombatantPicker } from "@/application/combat-lab/builder/CombatantPicker";
+import { CombatantStatsCard } from "@/application/combat-lab/builder/CombatantStatsCard";
 import { buildSnapshotFromSelection, type CombatantSelection } from "@/application/combat-lab/builder/combatantSelection";
 import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterById";
 import { useSimulation } from "@/application/combat-lab/hooks/useSimulation";
@@ -70,6 +71,14 @@ export function SimulationRunner()
   const { character: charA } = useCharacterById(selA?.characterId);
   const { character: charB } = useCharacterById(selB?.characterId);
 
+  // Load the PowerSpecifications each character references so castable spells
+  // resolve into damage offenses (magic-as-attacks).
+  const { specifications: specsA } = usePowerSpecifications(charA);
+  const { specifications: specsB } = usePowerSpecifications(charB);
+
+  const selWithSpecs = (sel: CombatantSelection | null, specs: Record<string, PowerSpecification>): CombatantSelection | null =>
+    sel ? { ...sel, powerSpecifications: specs } : null;
+
   const { run, isRunning, progress, summary, results } = useSimulation();
   const queryClient = useQueryClient();
   const [config, setConfig] = useState<SavedSimulationConfiguration | null>(null);
@@ -78,6 +87,9 @@ export function SimulationRunner()
   const [collectStats, setCollectStats] = useState(true);
 
   const ready = Boolean(charA && charB && selA && selB && count > 0);
+
+  const previewA = useMemo(() => (charA && selA ? buildSnapshotFromSelection(charA, selWithSpecs(selA, specsA)!) : null), [charA, selA, specsA]);
+  const previewB = useMemo(() => (charB && selB ? buildSnapshotFromSelection(charB, selWithSpecs(selB, specsB)!) : null), [charB, selB, specsB]);
 
   const handleRun = async () =>
   {
@@ -142,6 +154,13 @@ export function SimulationRunner()
         <CombatantPicker title="Combatant A" value={selA} onChange={setSelA} />
         <CombatantPicker title="Combatant B" value={selB} onChange={setSelB} />
       </div>
+
+      {(previewA || previewB) && (
+        <div className="flex flex-wrap gap-4">
+          {previewA && <CombatantStatsCard title="Statystyki A" snapshot={previewA} />}
+          {previewB && <CombatantStatsCard title="Statystyki B" snapshot={previewB} />}
+        </div>
+      )}
 
       <Card>
         <CardHeader><CardTitle className="text-base">Parametry symulacji</CardTitle></CardHeader>

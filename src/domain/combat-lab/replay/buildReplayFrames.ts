@@ -74,6 +74,7 @@ function applyToViews(event: CombatEvent, views: Map<string, MutableView>): void
       break;
     case "attack":
     case "rangedAttack":
+    case "spellCast":
     case "damage":
     case "statusTick":
       setHp(views, event.targetId, event.remainingHp);

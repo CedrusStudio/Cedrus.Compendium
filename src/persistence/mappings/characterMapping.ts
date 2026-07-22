@@ -280,7 +280,9 @@ export function toCharacterCombatPersistenceModel
     defaultDefenseId: combat.defaultDefenseId,
     stances: createUpsertPayload(existingStancesIds, combat.stances, stancesIdsToConnect),
     states: createUpsertPayload(existingStatesIds, combat.states, statesIdsToConnect),
-    maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers, maneuversIdsToConnect),
+    // Cast: the payload's `effects` is a domain `Effect[]`; Prisma stores it as
+    // Json. The runtime shape is JSON-serializable, so the cast is safe.
+    maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers, maneuversIdsToConnect) as Prisma.CharacterUpdateInput["maneuvers"],
     powerSpecifications: {
       connect: [...powerSpecificationsIdsToConnect, ...uniquePowerSpecIds.filter(id => !existingPowerSpecificationsIds.includes(id))].map(id => ({ id }))
     },

@@ -8,6 +8,7 @@
 
 import { canUseCastable } from "@/domain/characters/Castable";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
+import type { SnapshotSpell } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import { isStaggered } from "@/domain/combat-lab/engine/CombatState";
 
@@ -15,6 +16,7 @@ export type Action =
   | { kind: "attack" }
   | { kind: "ranged" }
   | { kind: "maneuver"; maneuver: ManeuverDefinition }
+  | { kind: "spell"; spell: SnapshotSpell }
   | { kind: "pass" };
 
 /**
@@ -71,6 +73,28 @@ export function availableReactiveManeuvers(runtime: CombatantRuntime): Action[]
 }
 
 /**
+ * Castable damage spells available right now. A spell is cast INSTEAD of the
+ * basic attack (rulebook: it occupies the attack action), so it's only offered
+ * when the attack hasn't been spent. Gated by essence cost and per-spell
+ * cooldown. Essence does not regenerate, so the pool only shrinks.
+ */
+export function availableSpells(runtime: CombatantRuntime): Action[]
+{
+  if (runtime.attackedThisTurn) return [];
+
+  const actions: Action[] = [];
+  for (const spell of runtime.snapshot.spells)
+  {
+    const onCooldown = (runtime.spellCooldowns[spell.id] ?? 0) > 0;
+    if (!onCooldown && runtime.resources.essence >= spell.costEssence)
+    {
+      actions.push({ kind: "spell", spell });
+    }
+  }
+  return actions;
+}
+
+/**
  * Every action the combatant may legally take right now (excluding "pass").
  *
  * The basic attack is a SEPARATE action from maneuvers (rulebook): it is granted
@@ -114,9 +138,29 @@ export function recordAction(runtime: CombatantRuntime, action: Action): void
   {
     runtime.attackedThisTurn = true;
   }
+  else if (action.kind === "spell")
+  {
+    // A spell is cast in place of the basic attack: it spends the attack action,
+    // costs essence (no regen), and goes on its cooldown.
+    runtime.attackedThisTurn = true;
+    runtime.resources.essence -= action.spell.costEssence;
+    if (action.spell.cooldown && action.spell.cooldown > 0)
+    {
+      runtime.spellCooldowns[action.spell.id] = action.spell.cooldown;
+    }
+  }
   else if (action.kind === "maneuver")
   {
     runtime.usedCastables.push(action.maneuver);
+  }
+}
+
+/** Decrement per-spell cooldowns at the start of a combatant's turn. */
+export function tickSpellCooldowns(runtime: CombatantRuntime): void
+{
+  for (const id of Object.keys(runtime.spellCooldowns))
+  {
+    if (runtime.spellCooldowns[id]! > 0) runtime.spellCooldowns[id]! -= 1;
   }
 }
 
@@ -125,4 +169,5 @@ export function endTurnLedger(runtime: CombatantRuntime): void
 {
   runtime.usedCastables.push("end");
   runtime.attackedThisTurn = false;
+  runtime.rollMods = []; // roll modifiers not consumed by an attack expire at turn end
 }

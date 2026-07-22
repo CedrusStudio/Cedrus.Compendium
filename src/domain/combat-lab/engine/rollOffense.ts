@@ -14,7 +14,7 @@ import {
   handleDamageOffenseRolls,
   type Offense,
 } from "@/domain/characters/combat/Offense";
-import type { DamageSpec } from "@/domain/combat-lab/effects/Effect";
+import type { DamageSpec, RollModifierEffect } from "@/domain/combat-lab/effects/Effect";
 import type { RandomSource } from "@/domain/combat-lab/rng/Rng";
 
 export type OffenseRollBreakdown =
@@ -92,6 +92,44 @@ export function applyImmunity(offense: Offense, immunity: number): Offense
   }
 
   return next;
+}
+
+/**
+ * Roll an offense applying T2b roll modifiers deterministically:
+ *   - advantage/disadvantage → roll the whole offense twice, keep higher/lower total;
+ *   - extraDie → add one weapon die of rank `grade` on top.
+ * Shared by melee (`resolveAttack`) and ranged (`resolveRangedAttack`) so both
+ * behave identically. Extra rolls consume additional draws from the seeded rng.
+ */
+export function rollOffenseWithModifiers(
+  offense: Offense,
+  random: RandomSource,
+  rollMods: RollModifierEffect[],
+): { total: number; critical: boolean }
+{
+  const hasAdvantage = rollMods.some(m => m.modifier === "advantage");
+  const hasDisadvantage = rollMods.some(m => m.modifier === "disadvantage");
+
+  const first = rollOffense(offense, random);
+  let chosen = first;
+  if (hasAdvantage || hasDisadvantage)
+  {
+    const second = rollOffense(offense, random);
+    chosen = hasAdvantage
+      ? (second.total > first.total ? second : first)
+      : (second.total < first.total ? second : first);
+  }
+
+  let total = chosen.total;
+  for (const mod of rollMods)
+  {
+    if (mod.modifier === "extraDie")
+    {
+      total += rollDamageSpec({ amount: 1, grade: Math.max(1, mod.grade ?? 3), bonus: 0 }, random);
+    }
+  }
+
+  return { total, critical: chosen.critical };
 }
 
 /** Roll a bare `DamageSpec` (used by damage effects). Reuses the flat-bonus path. */

@@ -13,6 +13,7 @@ import { CombatantPicker } from "@/application/combat-lab/builder/CombatantPicke
 import { buildSnapshotFromSelection, type CombatantSelection } from "@/application/combat-lab/builder/combatantSelection";
 import { useCharactersByIds } from "@/application/combat-lab/hooks/useCharactersByIds";
 import { useMeta } from "@/application/combat-lab/hooks/useMeta";
+import { computeBalanceHealth } from "@/domain/combat-lab/analysis/balanceHealth";
 import { downloadCsv } from "@/application/combat-lab/export/downloadCsv";
 import { metaRankingToCsv } from "@/domain/combat-lab/export/toCsv";
 import type { PolicySpec } from "@/application/combat-lab/worker/simulationMessages";
@@ -62,6 +63,7 @@ export function MetaAnalyzer()
   };
 
   const topManeuvers = report?.mostUsedManeuvers.slice(0, 12).map(m => ({ label: m.name, count: m.count })) ?? [];
+  const health = useMemo(() => (report ? computeBalanceHealth(report) : null), [report]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -109,8 +111,48 @@ export function MetaAnalyzer()
         </CardContent>
       </Card>
 
-      {report && (
+      {report && health && (
         <>
+          <Card>
+            <CardHeader><CardTitle className="text-base">Zdrowie balansu</CardTitle></CardHeader>
+            <CardContent className="flex flex-col gap-3">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold tabular-nums">{health.score}</span>
+                  <span className="text-sm text-muted-foreground">/ 100</span>
+                </div>
+                <span className={
+                  "rounded-full px-3 py-1 text-sm font-medium " +
+                  (health.verdict === "zdrowy" ? "bg-emerald-500/15 text-emerald-600"
+                    : health.verdict === "umiarkowany" ? "bg-amber-500/15 text-amber-600"
+                    : "bg-red-500/15 text-red-600")
+                }>{health.verdict}</span>
+                <span className="text-sm text-muted-foreground">
+                  śr. odchylenie Win Rate od 50%: {(health.dispersion * 100).toFixed(1)} pkt · martwe manewry: {health.deadManeuverCount}
+                </span>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div>
+                  <div className="text-xs font-medium text-muted-foreground">Zbyt mocne (Win Rate &gt; 65%)</div>
+                  {health.overpowered.length === 0 ? <div className="text-sm text-muted-foreground">brak</div> : (
+                    <ul className="text-sm">{health.overpowered.map(r => <li key={r.id} className="text-red-600">{r.name} — {(r.averageWinRate * 100).toFixed(1)}%</li>)}</ul>
+                  )}
+                </div>
+                <div>
+                  <div className="text-xs font-medium text-muted-foreground">Zbyt słabe (Win Rate &lt; 35%)</div>
+                  {health.underpowered.length === 0 ? <div className="text-sm text-muted-foreground">brak</div> : (
+                    <ul className="text-sm">{health.underpowered.map(r => <li key={r.id} className="text-amber-600">{r.name} — {(r.averageWinRate * 100).toFixed(1)}%</li>)}</ul>
+                  )}
+                </div>
+              </div>
+              {health.dominantManeuvers.length > 0 && health.dominantManeuvers[0]!.share > 0 && (
+                <div className="text-sm text-muted-foreground">
+                  Dominujące manewry: {health.dominantManeuvers.map(m => `${m.name} (${(m.share * 100).toFixed(0)}%)`).join(", ")}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-base">Ranking buildów (śr. Win Rate, {report.totalFights} walk)</CardTitle>

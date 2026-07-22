@@ -15,10 +15,15 @@ import type { Character } from "@/domain/characters/Character";
 import type { Defense } from "@/domain/characters/combat/Defense";
 import type { Offense } from "@/domain/characters/combat/Offense";
 import type { Statistic } from "@/domain/characters/statistics/Statistic";
+import type { Attributes } from "@/domain/characters/statistics/Attributes";
+import type { Characteristics } from "@/domain/characters/statistics/Characteristics";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
 import { toManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
 import { applyActiveBuffProfile, applyBuffProfiles } from "@/domain/characters/buffs/applyBuffProfile";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
+import type { PowerSpecification } from "@/domain/characters/combat/Power";
+import type { CastTime } from "@/domain/characters/Castable";
+import { calculateSpellCost } from "@/domain/characters/combat/SpellCost";
 import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Health";
 
 /**
@@ -28,6 +33,21 @@ import { calculateTotalHealthForCharacter } from "@/domain/characters/combat/Hea
  * - "rangedMagic"    → magia dystansowa: precyzja to-hit test, "blokowane" damage.
  */
 export type AttackKind = "melee" | "rangedPhysical" | "rangedMagic";
+
+/**
+ * A castable spell resolved to a combat action: its damage offense (from the
+ * Power's PowerSpecification) plus the essence cost. Cast as a ranged-magic
+ * attack ("blokowane") that costs essence (see magic-attacks plan).
+ */
+export type SnapshotSpell =
+{
+  id: string;
+  name: string;
+  offense: Offense;
+  costEssence: number;
+  castTime: CastTime;
+  cooldown?: number;
+};
 
 export type CombatantSnapshot =
 {
@@ -46,11 +66,25 @@ export type CombatantSnapshot =
   offenses: Offense[];
   defaultOffenseId?: string;
   maneuvers: ManeuverDefinition[];
+  /** Castable damage spells resolved to combat actions (empty if none / no specs loaded). */
+  spells: SnapshotSpell[];
   initiative: Statistic;
   /** Attack test stat (precyzja) for ranged attacks. */
   precision: Statistic;
   /** Defensive stat used as ranged to-hit ST (refleks). */
   reflex: Statistic;
+  /**
+   * Raw attributes + characteristics (post-buff) for contested tests (T2c).
+   * `precision`/`initiative`/`reflex` above are duplicated here for convenience;
+   * this is the full set a test pool (e.g. "fechtunek + walka wręcz") reads from.
+   */
+  skills: { attributes: Attributes; characteristics: Characteristics };
+  /** Static positional context (set by the Scenario) read by `when` conditions. */
+  positional?: { airborne?: boolean; charging?: boolean };
+  /** Starting resource pools (mana/essence) for this simulation — a per-sim
+   * parameter, not derived from the sheet. Consumed by `resource` effects and
+   * the `hasResource` condition. Defaults to 0. */
+  startingResources?: { mana?: number; essence?: number };
   attackKind: AttackKind;
   /**
    * The character's buff-profile library — referenced by `buff`/`debuff`
@@ -83,7 +117,58 @@ export type SnapshotOptions =
    * app's existing buff mechanism.
    */
   extraBuffProfiles?: BuffProfile[];
+  /** Static positional context (set by the Scenario), read by `when` conditions. */
+  positional?: { airborne?: boolean; charging?: boolean };
+  /** Starting resource pools (mana/essence) for this simulation. */
+  startingResources?: { mana?: number; essence?: number };
+  /**
+   * PowerSpecifications (by id) needed to resolve a character's spells into
+   * damage offenses. The `Character` graph carries only `powerSpecificationId`
+   * references, so these must be loaded separately and injected here. Without
+   * them, `spells` is empty.
+   */
+  powerSpecifications?: Record<string, PowerSpecification>;
+  /** Which PowerOffense (index) each power uses for its spells. Defaults to 0. */
+  spellOffenseSelection?: Record<string, number>;
 };
+
+/** Build the castable spells for a character, resolving Power → spec → offense. */
+function buildSpells(
+  powers: Character["powers"],
+  specs: Record<string, PowerSpecification> | undefined,
+  selection: Record<string, number> | undefined,
+): SnapshotSpell[]
+{
+  if (!specs) return [];
+  const spells: SnapshotSpell[] = [];
+  for (const power of powers)
+  {
+    const spec = specs[power.powerSpecificationId];
+    if (!spec || spec.offenses.length === 0) continue;
+    const index = Math.min(Math.max(0, selection?.[power.id] ?? 0), spec.offenses.length - 1);
+    const po = spec.offenses[index]!;
+    for (const spell of power.spells)
+    {
+      spells.push({
+        id: spell.id,
+        name: spell.name,
+        offense: {
+          id: `${spell.id}-off`,
+          name: spell.name,
+          leadingWeapon: po.spellOffense,
+          secondaryWeapon: undefined,
+          damageBonus: po.spellDamage,
+          additionalDamageBonus: undefined,
+        },
+        // v1: cost at the power's level as spell strength (fixed cost ignores it).
+        costEssence: calculateSpellCost(spell.cost, power.level ?? 1),
+        castTime: spell.castTime,
+        cooldown: spell.cooldown,
+      });
+    }
+  }
+  return spells;
+}
 
 /**
  * Build a `CombatantSnapshot` from a character, baking in active modifiers.
@@ -117,9 +202,13 @@ export function toCombatantSnapshot(character: Character, options: SnapshotOptio
     offenses: buffed.offenses,
     defaultOffenseId: buffed.defaultOffenseId,
     maneuvers,
+    spells: buildSpells(buffed.powers, options.powerSpecifications, options.spellOffenseSelection),
     initiative: buffed.attributes.initiative,
     precision: buffed.attributes.precision,
     reflex: buffed.attributes.reflex,
+    skills: { attributes: buffed.attributes, characteristics: buffed.characteristics },
+    positional: options.positional,
+    startingResources: options.startingResources,
     attackKind: options.attackKind ?? "melee",
     buffProfiles: buffed.buffProfiles,
   };

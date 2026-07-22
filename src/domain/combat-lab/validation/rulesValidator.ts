@@ -56,7 +56,16 @@ export function validateManeuvers(maneuvers: ManeuverDefinition[], context: Vali
 
     if (maneuver.effects.length === 0)
     {
-      issues.push({ severity: "warning", code: "no-effects", message: "Martwa mechanika: manewr nie ma żadnych efektów (nic nie robi w silniku).", ...tag });
+      if (maneuver.simulatable === false)
+      {
+        // Deliberately excluded from simulation — expected, not a defect.
+        issues.push({ severity: "info", code: "unsupported", message: `Niesymulowalny (poza modelem walki)${maneuver.unsupportedReason ? `: ${maneuver.unsupportedReason}` : ""}.`, ...tag });
+      }
+      else
+      {
+        // Not yet authored — awaiting effects (distinct from "unsupported").
+        issues.push({ severity: "warning", code: "no-effects", message: "Do zmapowania: manewr nie ma jeszcze żadnych efektów (nic nie robi w silniku).", ...tag });
+      }
     }
 
     if (typeof maneuver.cooldown === "number" && maneuver.cooldown < 0)
@@ -89,6 +98,7 @@ function collectEffectIssues(effect: Effect, maneuver: ManeuverDefinition, conte
     case "control":
     case "buff":
     case "debuff":
+    case "stat":
       if (effect.duration <= 0)
       {
         issues.push({ severity: "warning", code: "zero-duration", message: `Efekt „${effect.type}" ma zerowy czas trwania — nie zadziała.`, ...tag });

@@ -39,6 +39,12 @@ const defense = (id: string, over: Partial<Defense>): Defense => ({
   ...over,
 });
 
+const zeroStat = { grade: 3, value: 0, bonus: 0, testBonus: 0 };
+const emptySkills = {
+  attributes: { fencing: zeroStat, artifice: zeroStat, precision: zeroStat, initiative: zeroStat, martialArt: zeroStat, horsemanship: zeroStat, fortitude: zeroStat, reflex: zeroStat, willpower: zeroStat },
+  characteristics: { strength: zeroStat, dexterity: zeroStat, constitution: zeroStat, mind: zeroStat, charisma: zeroStat, spellborn: zeroStat },
+};
+
 const shieldBashDef: ManeuverDefinition = {
   id: "demo-shield-bash",
   name: "Shield Bash",
@@ -95,6 +101,8 @@ export const sampleKnight: CombatantSnapshot = {
   initiative: { grade: 3, value: 2, bonus: 0, testBonus: 0 },
   precision: { grade: 3, value: 1, bonus: 0, testBonus: 0 },
   reflex: { grade: 3, value: 3, bonus: 0, testBonus: 0 },
+  skills: emptySkills,
+  spells: [],
   attackKind: "melee",
   buffProfiles: [],
 };
@@ -114,6 +122,8 @@ export const sampleAssassin: CombatantSnapshot = {
   initiative: { grade: 4, value: 4, bonus: 0, testBonus: 0 },
   precision: { grade: 4, value: 3, bonus: 0, testBonus: 0 },
   reflex: { grade: 4, value: 4, bonus: 0, testBonus: 0 },
+  skills: emptySkills,
+  spells: [],
   attackKind: "melee",
   buffProfiles: [],
 };

@@ -10,6 +10,9 @@ import type { Action } from "@/domain/combat-lab/engine/actionEconomy";
 import { selectDefaultOffense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { expectedOffenseDamage, expectedEffectDamage } from "@/domain/combat-lab/engine/ai/expectedDamage";
 import { expectedManeuverValue } from "@/domain/combat-lab/engine/ai/policyValue";
+import { statEffectToProfile } from "@/domain/combat-lab/effects/statBuff";
+import { applyOffenseBuff } from "@/domain/characters/buffs/applyBuffProfile";
+import type { Effect } from "@/domain/combat-lab/effects/Effect";
 
 export interface ActionPolicy
 {
@@ -38,6 +41,29 @@ function argmax(self: CombatantRuntime, opponent: CombatantRuntime, available: A
   return best;
 }
 
+/**
+ * Extra expected damage on THIS turn's attack from a maneuver's self-buffs
+ * (stat mode "self" / profile buffs). Lets greedy value a "+2 do najbliższego
+ * ataku" maneuver — which it previously ignored (no direct `damage` effect).
+ */
+function selfOffenseGain(self: CombatantRuntime, effects: Effect[]): number
+{
+  const offense = selectDefaultOffense(self.snapshot);
+  if (!offense) return 0;
+  const base = expectedOffenseDamage(offense);
+  let gain = 0;
+  for (const effect of effects)
+  {
+    const profile = effect.type === "stat" && effect.mode === "self"
+      ? statEffectToProfile(effect)
+      : effect.type === "buff"
+        ? self.snapshot.buffProfiles.find(p => p.id === effect.profile.profileId)
+        : undefined;
+    if (profile) gain += Math.max(0, expectedOffenseDamage(applyOffenseBuff(offense, profile)) - base);
+  }
+  return gain;
+}
+
 function damageScore(self: CombatantRuntime, _opponent: CombatantRuntime, action: Action): number
 {
   if (action.kind === "attack" || action.kind === "ranged")
@@ -47,7 +73,13 @@ function damageScore(self: CombatantRuntime, _opponent: CombatantRuntime, action
   }
   if (action.kind === "maneuver")
   {
-    return expectedEffectDamage(action.maneuver.effects);
+    // Direct damage PLUS the extra attack damage from any self-buffs it applies.
+    return expectedEffectDamage(action.maneuver.effects) + selfOffenseGain(self, action.maneuver.effects);
+  }
+  if (action.kind === "spell")
+  {
+    // A spell replaces the attack — score it by its own expected damage.
+    return expectedOffenseDamage(action.spell.offense);
   }
   // "pass" scores 0 so a maneuver with no expected value is declined.
   return 0;
@@ -63,6 +95,10 @@ function valueScore(self: CombatantRuntime, opponent: CombatantRuntime, action: 
   if (action.kind === "maneuver")
   {
     return expectedManeuverValue(self, opponent, action.maneuver.effects);
+  }
+  if (action.kind === "spell")
+  {
+    return expectedOffenseDamage(action.spell.offense);
   }
   return 0;
 }

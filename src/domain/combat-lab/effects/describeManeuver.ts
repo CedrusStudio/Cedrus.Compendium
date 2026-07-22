@@ -20,6 +20,55 @@ import {
   roundsLabelPl,
 } from "@/domain/combat-lab/i18n/labels";
 import { getEffectPlugin } from "@/domain/combat-lab/plugins/registry";
+import { statEffectDeltas } from "@/domain/combat-lab/effects/statBuff";
+
+import type { TestSide, EffectCondition, ScaleSource } from "@/domain/combat-lab/effects/Effect";
+
+function describeScaleSource(s: ScaleSource): string
+{
+  switch (s.kind)
+  {
+    case "opponentDice": return "kość przeciwnika";
+    case "opponentImmunity": return "niewrażliwość wroga";
+    case "selfResource": return s.resource === "mana" ? "manę" : "esencję";
+    case "selfStatusStacks": return `stack: ${statusLabels[s.status]}`;
+    case "targetStatusStacks": return `stack celu: ${statusLabels[s.status]}`;
+  }
+}
+
+const ATTACK_KIND_PL: Record<string, string> = { melee: "walce wręcz", rangedPhysical: "atakom dystansowym", rangedMagic: "magii dystansowej" };
+
+function describeCondition(c: EffectCondition): string
+{
+  switch (c.kind)
+  {
+    case "opponentAttackKind": return `tylko przeciw ${ATTACK_KIND_PL[c.value] ?? c.value}`;
+    case "targetHasStatus": return `gdy cel ma ${statusLabels[c.status]}`;
+    case "selfHasStatus": return `gdy masz ${statusLabels[c.status]}`;
+    case "onCritical": return "przy trafieniu krytycznym";
+    case "onDamageDealt": return "gdy zadano obrażenia";
+    case "selfAirborne": return "atakując z powietrza";
+    case "opponentCharging": return "tylko przeciw szarży";
+    case "hasResource": return `gdy masz ≥${c.min} ${c.resource === "mana" ? "many" : "esencji"}`;
+  }
+}
+
+const SKILL_PL: Record<string, string> = {
+  fencing: "fechtunek", artifice: "fortel", precision: "precyzja", initiative: "inicjatywa",
+  martialArt: "walka wręcz", horsemanship: "jeździectwo", fortitude: "wytrwałość", reflex: "refleks", willpower: "wola",
+  strength: "siła", dexterity: "zręczność", constitution: "budowa", mind: "umysł", charisma: "charyzma", spellborn: "czarokrwistość",
+};
+
+function describePool(side: TestSide): string
+{
+  const terms = side.pool.map(t => t.anyOf.map(r => SKILL_PL[r.key] ?? r.key).join("/")).join(" + ");
+  const mod = side.modifier ? (side.modifier > 0 ? `+${side.modifier}` : `${side.modifier}`) : "";
+  const extra = [
+    side.rollMod === "advantage" ? "przewaga" : side.rollMod === "disadvantage" ? "utrudnienie" : "",
+    side.dieGradeDelta ? `kość ${side.dieGradeDelta > 0 ? "+" : ""}${side.dieGradeDelta}` : "",
+  ].filter(Boolean).join(", ");
+  return `${terms}${mod}${extra ? ` [${extra}]` : ""}`;
+}
 
 const requirementLabels = (requirement: MechanicalRequirement): string =>
 {
@@ -71,6 +120,37 @@ function describeEffect(effect: Effect): string
       return `wzmacnia ${roundsLabel(effect.duration)}`.trim();
     case "debuff":
       return `osłabia ${roundsLabel(effect.duration)}`.trim();
+    case "stat":
+    {
+      const deltas = statEffectDeltas(effect)
+        .map(([label, value]) => `${label} ${value > 0 ? "+" : ""}${value}`)
+        .join(", ");
+      const verb = effect.mode === "self" ? "sobie" : "celowi";
+      const body = deltas.length > 0 ? `: ${deltas}` : "";
+      return `zmienia ${verb}${body} ${roundsLabel(effect.duration)}`.trim();
+    }
+    case "contested":
+    {
+      const onWin = effect.onWin.map(describeEffect).join(", ");
+      const scaling = effect.perMargin
+        ? `; za każde ${effect.perMargin.per > 1 ? `${effect.perMargin.per} oczek` : "oczko"} przewagi: ${describeEffect(effect.perMargin.effect)}${effect.perMargin.cap !== undefined ? ` (maks. ${effect.perMargin.cap}×)` : ""}`
+        : "";
+      const who = effect.onWinTarget === "self" ? " (na siebie)" : "";
+      return `test sporny ${describePool(effect.attacker)} vs ${describePool(effect.defender)} → przy wygranej${who}: ${onWin}${scaling}`;
+    }
+    case "save":
+    {
+      const onFail = effect.onFail.map(describeEffect).join(", ");
+      const scaling = effect.perMarginOfFailure
+        ? `; za każde oczko porażki: ${describeEffect(effect.perMarginOfFailure.effect)}${effect.perMarginOfFailure.cap !== undefined ? ` (maks. ${effect.perMarginOfFailure.cap}×)` : ""}`
+        : "";
+      const who = effect.who === "self" ? "atakujący" : "cel";
+      return `test ${describePool(effect.pool)} (${who}) o ST ${effect.st} → przy porażce: ${onFail}${scaling}`;
+    }
+    case "roll":
+      if (effect.modifier === "advantage") return "przewaga na rzut ataku (2 rzuty, wyższy)";
+      if (effect.modifier === "disadvantage") return "utrudnienie rzutu ataku (2 rzuty, niższy)";
+      return `dodatkowa kość obrażeń k${(effect.grade ?? 3) * 2}`;
     case "push":
       return `odpycha o ${effect.distance}`;
     case "pull":
@@ -81,6 +161,17 @@ function describeEffect(effect: Effect): string
     {
       const verb = effect.delta >= 0 ? "przywraca" : "odbiera";
       return `${verb} ${Math.abs(effect.delta)} ${resourceLabels[effect.resource]}`;
+    }
+    case "when":
+    {
+      const inner = effect.then.map(describeEffect).join(", ");
+      return `${describeCondition(effect.condition)}: ${inner}`;
+    }
+    case "scale":
+    {
+      const per = effect.per && effect.per > 1 ? `${effect.per} ` : "";
+      const cap = effect.cap !== undefined ? ` (maks. ${effect.cap}×)` : "";
+      return `za każde ${per}${describeScaleSource(effect.source)}: ${describeEffect(effect.effect)}${cap}`;
     }
     case "chance":
     {

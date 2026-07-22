@@ -116,6 +116,40 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
               </Select>
             </div>
 
+            {character && character.offenses.length > 1 && (
+              <div className="flex flex-col gap-1">
+                <Label className="text-xs text-muted-foreground">Ofensywa</Label>
+                <Select
+                  value={value.offenseId ?? character.defaultOffenseId ?? character.offenses[0]?.id}
+                  onValueChange={(id) => onChange({ ...value, offenseId: id })}
+                >
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {character.offenses.map(o => (
+                      <SelectItem key={o.id} value={o.id}>{o.name || "Ofensywa"}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            {character && character.defenses.length > 1 && (
+              <div className="flex flex-col gap-1">
+                <Label className="text-xs text-muted-foreground">Obrona</Label>
+                <Select
+                  value={value.defenseId ?? character.defaultDefenseId ?? character.defenses[0]?.id}
+                  onValueChange={(id) => onChange({ ...value, defenseId: id })}
+                >
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {character.defenses.map(d => (
+                      <SelectItem key={d.id} value={d.id}>{d.name || "Obrona"}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
             {character && character.buffProfiles.length > 0 && (
               <div className="flex flex-col gap-1.5">
                 <Label className="text-xs text-muted-foreground">Profile postaci na symulację</Label>
@@ -160,6 +194,32 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
                   aria-label="Wartość wzmocnienia"
                 />
                 <Button variant="outline" size="sm" onClick={addTempBuff}>Dodaj</Button>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <Label className="text-xs text-muted-foreground">Startowa pula zasobów (na symulację)</Label>
+              <div className="flex items-end gap-2">
+                <div className="flex flex-col gap-1">
+                  <Label className="text-[11px] text-muted-foreground">esencja</Label>
+                  <Input
+                    type="number"
+                    className="w-20"
+                    value={value.startingResources?.essence ?? ""}
+                    onChange={e => onChange({ ...value, startingResources: { ...value.startingResources, essence: e.target.value === "" ? undefined : Math.max(0, Number(e.target.value) || 0) } })}
+                    aria-label="Startowa esencja"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <Label className="text-[11px] text-muted-foreground">mana</Label>
+                  <Input
+                    type="number"
+                    className="w-20"
+                    value={value.startingResources?.mana ?? ""}
+                    onChange={e => onChange({ ...value, startingResources: { ...value.startingResources, mana: e.target.value === "" ? undefined : Math.max(0, Number(e.target.value) || 0) } })}
+                    aria-label="Startowa mana"
+                  />
+                </div>
               </div>
             </div>
           </>

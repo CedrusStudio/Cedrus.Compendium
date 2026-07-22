@@ -46,16 +46,20 @@ export type ManeuverDefinition = Maneuver &
 };
 
 /**
- * Lift a plain `Maneuver` (no structured data) into a `ManeuverDefinition` with
- * empty effects, deriving `cost` from its `castTime`. Used by the backfill
- * script and anywhere a legacy maneuver must be fed to the engine before it has
- * been authored.
+ * Lift a `Maneuver` into a `ManeuverDefinition`, deriving `cost` from its
+ * `castTime`. Authored `effects` flow straight through; a maneuver explicitly
+ * marked `simulatable === false` is lifted with NO effects so the engine keeps
+ * it in the action economy but it never produces a mechanical result (and the
+ * policies never pick it). Legacy maneuvers with no authored effects also get
+ * an empty list — the same "present but inert" behaviour as before.
  */
 export function toManeuverDefinition(maneuver: Maneuver): ManeuverDefinition
 {
+  const effects = maneuver.simulatable === false ? [] : (maneuver.effects ?? []);
+
   return {
     ...maneuver,
-    effects: [],
+    effects,
     hardRequirements: [],
     cost: { castTime: maneuver.castTime },
   };

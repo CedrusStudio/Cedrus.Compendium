@@ -27,6 +27,10 @@ export type Scenario =
   bOverrides: ParameterOverrides;
   aHpMultiplier: number;
   bHpMultiplier: number;
+  /** Static positional context per side — read by `when` conditions
+   * (selfAirborne / opponentCharging) so positional maneuvers can fire. */
+  aPositional?: { airborne?: boolean; charging?: boolean };
+  bPositional?: { airborne?: boolean; charging?: boolean };
 };
 
 const override = (partial: Partial<ParameterOverrides>): ParameterOverrides => ({ ...NO_OVERRIDES, ...partial });
@@ -37,6 +41,7 @@ export const SCENARIO_PRESETS: Scenario[] = [
   { id: "forest", name: "Las", description: "Osłona i większy dystans (+unik, dalej).", distanceST: 8, maxRounds: 100, aOverrides: override({ dodge: 2 }), bOverrides: override({ dodge: 2 }), aHpMultiplier: 1, bHpMultiplier: 1 },
   { id: "boss", name: "Boss", description: "Przeciwnik (B) z potrójnym HP i mocniejszym atakiem.", distanceST: 5, maxRounds: 150, aOverrides: NO_OVERRIDES, bOverrides: override({ damageBonus: 3 }), aHpMultiplier: 1, bHpMultiplier: 3 },
   { id: "siege", name: "Oblężenie", description: "Długie starcie, obrońca (A) w przewadze obronnej.", distanceST: 8, maxRounds: 200, aOverrides: override({ protection: 2 }), bOverrides: NO_OVERRIDES, aHpMultiplier: 1, bHpMultiplier: 1 },
+  { id: "charge", name: "Szarża jeźdźca", description: "B szarżuje (A może użyć manewrów przeciw szarży); A atakuje z powietrza.", distanceST: 8, maxRounds: 100, aOverrides: NO_OVERRIDES, bOverrides: override({ damageBonus: 2 }), aHpMultiplier: 1, bHpMultiplier: 1, aPositional: { airborne: true }, bPositional: { charging: true } },
 ];
 
 function scaleHp(snapshot: CombatantSnapshot, multiplier: number): CombatantSnapshot
@@ -48,9 +53,11 @@ function scaleHp(snapshot: CombatantSnapshot, multiplier: number): CombatantSnap
 /** Apply a scenario to a matchup, returning adjusted snapshots + fight settings. */
 export function applyScenario(a: CombatantSnapshot, b: CombatantSnapshot, scenario: Scenario): { a: CombatantSnapshot; b: CombatantSnapshot; distanceST: number; maxRounds: number }
 {
+  const withPositional = (s: CombatantSnapshot, p?: { airborne?: boolean; charging?: boolean }): CombatantSnapshot =>
+    p ? { ...s, positional: p } : s;
   return {
-    a: scaleHp(applyOverrides(a, scenario.aOverrides), scenario.aHpMultiplier),
-    b: scaleHp(applyOverrides(b, scenario.bOverrides), scenario.bHpMultiplier),
+    a: withPositional(scaleHp(applyOverrides(a, scenario.aOverrides), scenario.aHpMultiplier), scenario.aPositional),
+    b: withPositional(scaleHp(applyOverrides(b, scenario.bOverrides), scenario.bHpMultiplier), scenario.bPositional),
     distanceST: scenario.distanceST,
     maxRounds: scenario.maxRounds,
   };

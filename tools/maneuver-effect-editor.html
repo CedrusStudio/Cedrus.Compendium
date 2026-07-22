@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edytor efektów manewrów — Combat Lab</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #171a21; --panel2: #1e222c; --border: #2a2f3a;
+    --text: #e6e8ec; --muted: #9aa3b2; --accent: #6ea8fe; --good: #4ade80;
+    --warn: #fbbf24; --bad: #f87171; --chip: #232833;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.45 system-ui, sans-serif; background: var(--bg); color: var(--text); }
+  header { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
+  header h1 { font-size: 15px; margin: 0; font-weight: 600; }
+  header .spacer { flex: 1; }
+  button { font: inherit; background: var(--panel2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #08111f; border-color: var(--accent); font-weight: 600; }
+  button.good { background: #143d22; border-color: #2f7d4a; color: #c9f5d6; }
+  button.ghost { background: transparent; }
+  .layout { display: grid; grid-template-columns: 380px 1fr; height: calc(100vh - 53px); }
+  .list { border-right: 1px solid var(--border); overflow-y: auto; background: var(--panel); }
+  .filters { padding: 10px; display: flex; flex-direction: column; gap: 8px; position: sticky; top: 0; background: var(--panel); border-bottom: 1px solid var(--border); z-index: 2; }
+  .filters input, .filters select { width: 100%; padding: 6px 8px; background: var(--panel2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: var(--chip); border: 1px solid var(--border); cursor: pointer; color: var(--muted); }
+  .chip.active { color: var(--text); border-color: var(--accent); }
+  .item { padding: 9px 12px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .item:hover { background: var(--panel2); }
+  .item.sel { background: #1b2740; border-left: 3px solid var(--accent); padding-left: 9px; }
+  .item .nm { font-weight: 600; }
+  .item .meta { font-size: 12px; color: var(--muted); display: flex; gap: 6px; align-items: center; margin-top: 2px; }
+  .tier { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--chip); border: 1px solid var(--border); }
+  .dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; }
+  .dot.todo { background: #4a5163; } .dot.done { background: var(--good); } .dot.unsup { background: var(--warn); }
+  .editor { overflow-y: auto; padding: 18px 22px; }
+  .editor h2 { margin: 0 0 2px; font-size: 18px; }
+  .desc { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin: 10px 0 14px; color: #d7dbe2; }
+  .row-flags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .flag { font-size: 12px; color: var(--muted); background: var(--chip); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+  .effects { display: flex; flex-direction: column; gap: 10px; }
+  .effect { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+  .effect .top { display: flex; gap: 8px; align-items: center; }
+  .effect select, .effect input { background: var(--panel2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); padding: 5px 7px; }
+  .fields { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .field { display: flex; flex-direction: column; gap: 3px; }
+  .field label { font-size: 11px; color: var(--muted); }
+  .field input[type=number] { width: 84px; } .field input[type=text] { width: 160px; }
+  .field.check { flex-direction: row; align-items: center; gap: 6px; margin-top: 16px; }
+  .toolbar { display: flex; gap: 8px; margin: 14px 0; flex-wrap: wrap; align-items: center; }
+  .json { width: 100%; min-height: 90px; background: #0b0d11; border: 1px solid var(--border); border-radius: 8px; color: #b8c0cc; font: 12px/1.4 ui-monospace, monospace; padding: 10px; }
+  .status-bar { font-size: 12px; color: var(--muted); }
+  .ok { color: var(--good); } .err { color: var(--bad); } .muted { color: var(--muted); }
+  .empty { padding: 40px; text-align: center; color: var(--muted); }
+  .unsup-box { margin-top: 12px; padding: 10px 12px; background: #2a2413; border: 1px solid #5c4a1e; border-radius: 8px; }
+  .progress { font-size: 12px; color: var(--muted); }
+  a.hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>⚔️ Edytor efektów manewrów</h1>
+  <button id="load" class="primary">Wczytaj CSV…</button>
+  <input id="file" type="file" accept=".csv" class="hidden" style="display:none" />
+  <button id="approveHigh" title="Ustawia approve=tak dla wszystkich widocznych wierszy o pewności high (z propozycją)">✓ Zatwierdź widoczne „high”</button>
+  <button id="export">Eksportuj CSV</button>
+  <button id="reset" class="ghost" title="Wyczyść zapisane zmiany z tej przeglądarki">Wyczyść postęp</button>
+  <span class="spacer"></span>
+  <span id="progress" class="progress"></span>
+</header>
+
+<div class="layout">
+  <div class="list">
+    <div class="filters">
+      <input id="search" placeholder="Szukaj po nazwie…" />
+      <select id="statusFilter">
+        <option value="all">Wszystkie statusy</option>
+        <option value="todo" selected>Do zrobienia</option>
+        <option value="done">Zatwierdzone (effects)</option>
+        <option value="unsup">Niesymulowalne</option>
+        <option value="proposed">Mają propozycję</option>
+      </select>
+      <div class="chips" id="tierChips"></div>
+      <details>
+        <summary style="cursor:pointer; color:var(--muted); font-size:12px">Co oznaczają tiery (T1–T?)?</summary>
+        <div id="tierLegend" style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.6"></div>
+      </details>
+    </div>
+    <div id="items"></div>
+  </div>
+
+  <div class="editor" id="editor">
+    <div class="empty">Wczytaj plik <b>maneuver-classification.csv</b>, aby zacząć.</div>
+  </div>
+</div>
+
+<a id="dl" class="hidden"></a>
+
+<script>
+"use strict";
+
+// ---- effect model metadata (mirrors src/domain/combat-lab/effects/Effect.ts) ----
+// Enum VALUES stay as the engine expects (some English); only DISPLAY is Polish.
+const DAMAGE_TYPES = ["zwyczajne","blokowane","bezpośrednie","śmiertelne","nieuchronne"];
+const STATUS_IDS = ["bleeding","poisoned","burning","stagger","stun","root","disarm","slow","marked"];
+const STATUS_LABELS = { bleeding:"krwawienie", poisoned:"zatrucie", burning:"podpalenie", stagger:"oszołomienie", stun:"ogłuszenie", root:"unieruchomienie", disarm:"rozbrojenie", slow:"spowolnienie", marked:"oznaczenie" };
+const CONTROL_KINDS = ["stun","root","disarm","silence"];
+const CONTROL_LABELS = { stun:"ogłuszenie", root:"unieruchomienie", disarm:"rozbrojenie", silence:"uciszenie" };
+const RESOURCE_KINDS = ["essence","mana","action"];
+const RESOURCE_LABELS = { essence:"esencja", mana:"mana", action:"akcja" };
+const MODE_LABELS = { self:"na siebie (wzmocnienie)", target:"na cel (osłabienie)" };
+
+// Field schema per effect type — drives the form. `path` is dot-notation into the effect object.
+const EFFECT_TYPES = {
+  damage: { label: "Obrażenia", fields: [
+    { path: "damage.amount", label: "liczba kości", type: "number", def: 0 },
+    { path: "damage.grade", label: "ranga (k = ranga×2)", type: "number", def: 0 },
+    { path: "damage.bonus", label: "bonus", type: "number", def: 0 },
+    { path: "damage.isPhantom", label: "widmowa (w)", type: "check", def: false },
+    { path: "damageType", label: "kategoria", type: "enum", options: DAMAGE_TYPES, def: "zwyczajne" },
+    { path: "canCrit", label: "może trafić krytycznie", type: "check", def: false },
+  ]},
+  heal: { label: "Leczenie", fields: [
+    { path: "amount.amount", label: "liczba kości", type: "number", def: 0 },
+    { path: "amount.grade", label: "ranga", type: "number", def: 0 },
+    { path: "amount.bonus", label: "bonus", type: "number", def: 0 },
+  ]},
+  stat: { label: "Wzmocnienie / Obrona", fields: [
+    { path: "mode", label: "na kogo", type: "enum", options: ["self","target"], optLabels: MODE_LABELS, def: "self" },
+    { path: "duration", label: "czas (rundy)", type: "number", def: 1 },
+    { path: "block", label: "blok", type: "number", def: undefined },
+    { path: "parry", label: "parowanie", type: "number", def: undefined },
+    { path: "dodge", label: "unik", type: "number", def: undefined },
+    { path: "protection", label: "pancerz", type: "number", def: undefined },
+    { path: "resistance", label: "odporność", type: "number", def: undefined },
+    { path: "immunity", label: "niewrażliwość (kości)", type: "number", def: undefined },
+    { path: "damage", label: "obrażenia", type: "number", def: undefined },
+    { path: "diceGrade", label: "ranga kości", type: "number", def: undefined },
+    { path: "critPower", label: "siła krytyka", type: "number", def: undefined },
+    { path: "precision", label: "precyzja", type: "number", def: undefined },
+    { path: "reflex", label: "refleks", type: "number", def: undefined },
+    { path: "initiative", label: "inicjatywa", type: "number", def: undefined },
+    { path: "barrier", label: "bariera", type: "number", def: undefined },
+  ]},
+  roll: { label: "Modyfikator rzutu", fields: [
+    { path: "modifier", label: "rodzaj", type: "enum", options: ["advantage","disadvantage","extraDie"], optLabels: { advantage:"przewaga (2 rzuty, wyższy)", disadvantage:"utrudnienie (2 rzuty, niższy)", extraDie:"dodatkowa kość" }, def: "advantage" },
+    { path: "grade", label: "ranga kości (dla „dodatkowa”)", type: "number", def: undefined },
+  ]},
+  contested: { label: "Test sporny", custom: true },
+  save: { label: "Test vs stałe ST (save)", custom: true },
+  when: { label: "Warunek (tylko gdy…)", custom: true },
+  scale: { label: "Skalowanie (za każde X)", custom: true },
+  status: { label: "Status", fields: [
+    { path: "status", label: "status", type: "enum", options: STATUS_IDS, optLabels: STATUS_LABELS, def: "bleeding" },
+    { path: "duration", label: "czas (rundy)", type: "number", def: 1 },
+    { path: "stacks", label: "stacki (opc.)", type: "number", def: undefined },
+  ]},
+  control: { label: "Kontrola", fields: [
+    { path: "control", label: "rodzaj", type: "enum", options: CONTROL_KINDS, optLabels: CONTROL_LABELS, def: "stun" },
+    { path: "duration", label: "czas (rundy)", type: "number", def: 1 },
+  ]},
+  buff: { label: "Buff z profilu (zaawansowane)", fields: [
+    { path: "profile.profileId", label: "id profilu buffów", type: "text", def: "" },
+    { path: "duration", label: "czas (rundy)", type: "number", def: 1 },
+  ]},
+  debuff: { label: "Debuff z profilu (zaawansowane)", fields: [
+    { path: "profile.profileId", label: "id profilu buffów", type: "text", def: "" },
+    { path: "duration", label: "czas (rundy)", type: "number", def: 1 },
+  ]},
+  push: { label: "Odepchnięcie", fields: [ { path: "distance", label: "kroki", type: "number", def: 1 } ]},
+  pull: { label: "Przyciągnięcie", fields: [ { path: "distance", label: "kroki", type: "number", def: 1 } ]},
+  resource: { label: "Zasób", fields: [
+    { path: "resource", label: "zasób", type: "enum", options: RESOURCE_KINDS, optLabels: RESOURCE_LABELS, def: "essence" },
+    { path: "delta", label: "zmiana (+/-)", type: "number", def: 0 },
+  ]},
+};
+
+// Description generator — mirrors src/domain/combat-lab/effects/describeManeuver.ts
+const CONTROL_VERBS = { stun:"ogłusza", root:"unieruchamia", disarm:"rozbraja", silence:"ucisza" };
+function roundsLabelPl(n) {
+  if (!n || n <= 0) return "";
+  const r = n === 1 ? "rundę" : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? "rundy" : "rund";
+  return `przez ${n} ${r}`;
+}
+function fmtSpec(s) {
+  s = s || {}; const amt = s.amount||0, gr = s.grade||0, bo = s.bonus||0;
+  const hasDice = gr > 0 && amt > 0; const sign = bo > 0 ? `+${bo}` : bo < 0 ? `${bo}` : "";
+  return hasDice ? `${amt}k${gr*2}${s.isPhantom?"w":""}${sign}` : `${bo}`;
+}
+function statDeltasPl(e) {
+  const pairs = [["blok",e.block],["parowanie",e.parry],["unik",e.dodge],["pancerz",e.protection],["odporność",e.resistance],["niewrażliwość",e.immunity],["obrażenia",e.damage],["ranga kości",e.diceGrade],["siła krytyka",e.critPower],["precyzja",e.precision],["refleks",e.reflex],["inicjatywa",e.initiative],["bariera",e.barrier]];
+  return pairs.filter(([,v]) => v).map(([l,v]) => `${l} ${v>0?"+":""}${v}`);
+}
+function describeEffectPl(e) {
+  switch (e.type) {
+    case "damage": return `zadaje ${fmtSpec(e.damage)} obrażeń ${e.damageType||""}`.trim();
+    case "heal": return `leczy ${fmtSpec(e.amount)} punktów zdrowia`;
+    case "stat": { const d = statDeltasPl(e).join(", "); const who = e.mode==="self"?"sobie":"celowi"; return `zmienia ${who}${d?": "+d:""} ${roundsLabelPl(e.duration)}`.trim(); }
+    case "status": { const st = STATUS_LABELS[e.status]||e.status; const s = e.stacks&&e.stacks>1?` (x${e.stacks})`:""; return `nakłada ${st}${s} ${roundsLabelPl(e.duration)}`.trim(); }
+    case "control": return `${CONTROL_VERBS[e.control]||e.control} ${roundsLabelPl(e.duration)}`.trim();
+    case "buff": return `wzmacnia ${roundsLabelPl(e.duration)}`.trim();
+    case "debuff": return `osłabia ${roundsLabelPl(e.duration)}`.trim();
+    case "roll": return e.modifier==="advantage" ? "przewaga na rzut ataku" : e.modifier==="disadvantage" ? "utrudnienie rzutu ataku" : `dodatkowa kość k${(e.grade||3)*2}`;
+    case "contested": {
+      const pool = side => (side.pool||[]).map(t => (t.anyOf||[]).map(r => { const f = SKILLS.find(s => s[0]===r.group && s[1]===r.key); return f ? f[2] : r.key; }).join("/")).join(" + ") + (side.modifier ? (side.modifier>0?`+${side.modifier}`:`${side.modifier}`) : "");
+      const onWin = (e.onWin||[]).map(describeEffectPl).join(", ");
+      const sc = e.perMargin ? `; za oczko: ${describeEffectPl(e.perMargin.effect)}` : "";
+      const who = e.onWinTarget==="self" ? " (na siebie)" : "";
+      return `test sporny ${pool(e.attacker||{})} vs ${pool(e.defender||{})} → przy wygranej${who}: ${onWin}${sc}`;
+    }
+    case "save": {
+      const pool = side => (side.pool||[]).map(t => (t.anyOf||[]).map(r => { const f = SKILLS.find(s => s[0]===r.group && s[1]===r.key); return f ? f[2] : r.key; }).join("/")).join(" + ");
+      const onFail = (e.onFail||[]).map(describeEffectPl).join(", ");
+      const sc = e.perMarginOfFailure ? `; za oczko porażki: ${describeEffectPl(e.perMarginOfFailure.effect)}` : "";
+      return `test ${pool(e.pool||{})} o ST ${e.st} → przy porażce: ${onFail}${sc}`;
+    }
+    case "when": {
+      const c = e.condition || {};
+      const cond = c.kind === "opponentAttackKind" ? `tylko przeciw ${({melee:"walce wręcz",rangedPhysical:"atakom dystansowym",rangedMagic:"magii dystansowej"})[c.value]||c.value}`
+        : c.kind === "targetHasStatus" ? `gdy cel ma ${STATUS_LABELS[c.status]||c.status}`
+        : c.kind === "selfHasStatus" ? `gdy masz ${STATUS_LABELS[c.status]||c.status}`
+        : c.kind === "onCritical" ? "przy trafieniu krytycznym"
+        : c.kind === "onDamageDealt" ? "gdy zadano obrażenia"
+        : c.kind === "selfAirborne" ? "atakując z powietrza"
+        : c.kind === "opponentCharging" ? "tylko przeciw szarży"
+        : c.kind === "hasResource" ? `gdy masz ≥${c.min} ${c.resource==="mana"?"many":"esencji"}` : "warunek";
+      return `${cond}: ${(e.then||[]).map(describeEffectPl).join(", ")}`;
+    }
+    case "scale": {
+      const s = e.source || {}; const src = s.kind==="opponentDice"?"kość przeciwnika":s.kind==="opponentImmunity"?"niewrażliwość wroga":s.kind==="selfResource"?(s.resource==="mana"?"manę":"esencję"):s.kind==="selfStatusStacks"?`stack ${STATUS_LABELS[s.status]||s.status}`:s.kind==="targetStatusStacks"?`stack celu ${STATUS_LABELS[s.status]||s.status}`:"X";
+      return `za każde ${e.per&&e.per>1?e.per+" ":""}${src}: ${describeEffectPl(e.effect||{})}${e.cap!==undefined?` (maks. ${e.cap}×)`:""}`;
+    }
+    case "push": return `odpycha o ${e.distance}`;
+    case "pull": return `przyciąga o ${e.distance}`;
+    case "resource": return `${(e.delta||0)>=0?"przywraca":"odbiera"} ${Math.abs(e.delta||0)} ${RESOURCE_LABELS[e.resource]||e.resource}`;
+    case "chance": return `${e.chance}% szansy: ${(e.then||[]).map(describeEffectPl).join(", ")}`;
+    default: return `efekt „${e.type}”`;
+  }
+}
+function describeEffectsPl(effects) {
+  if (!effects || !effects.length) return "—";
+  const c = effects.map(describeEffectPl).join("; ");
+  return c.charAt(0).toUpperCase() + c.slice(1) + ".";
+}
+
+// Tier explanations (shown as legend + chip tooltips).
+const TIER_DESC = {
+  "T1": "Wyrażalne teraz istniejącymi efektami (obrażenia, kości, wzmocnienia/obrona, leczenie, kontrola).",
+  "T2b": "Modyfikatory rzutu (przerzut, wybór wyższej/niższej kości, dodatkowa kość) — wymaga rozbudowy silnika.",
+  "T2c": "Test sporny (rzut przeciwstawny na umiejętnościach) — wymaga rozbudowy silnika.",
+  "T3": "Prawdopodobnie niesymulowalne — podsystemy spoza walki (choroby, esencja, cooldowny cudzych manewrów).",
+  "T?": "Do ręcznej oceny — automat nie rozpoznał mechaniki.",
+};
+
+// ---- state ----
+let HEADERS = [];
+let ROWS = [];           // parsed CSV rows (objects keyed by header)
+let edits = {};          // key -> { effects: [...], approve, unsupportedReason }
+let selectedKey = null;
+const keyOf = (r) => `${r.name}__${r.grade}`;
+const LS = "maneuver-effect-editor-v1";
+
+// ---- CSV parse / serialize (BOM-aware, quoted fields) ----
+function parseCsv(text) {
+  const s = text.replace(/^﻿/, "");
+  const rows = []; let field = "", rec = [], q = false;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (q) {
+      if (c === '"') { if (s[i+1] === '"') { field += '"'; i++; } else q = false; }
+      else field += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { rec.push(field); field = ""; }
+    else if (c === "\n") { rec.push(field); rows.push(rec); rec = []; field = ""; }
+    else if (c === "\r") {}
+    else field += c;
+  }
+  if (field.length || rec.length) { rec.push(field); rows.push(rec); }
+  const header = rows.shift() || [];
+  const objs = rows.filter(r => r.some(x => x.trim() !== "")).map(r => {
+    const o = {}; header.forEach((h, i) => o[h] = r[i] ?? ""); return o;
+  });
+  return { header, objs };
+}
+function csvCell(v) { const s = String(v ?? ""); return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s; }
+function serializeCsv(header, objs) {
+  const lines = [header.join(",")];
+  for (const o of objs) lines.push(header.map(h => csvCell(o[h])).join(","));
+  return "﻿" + lines.join("\r\n") + "\r\n";
+}
+
+// ---- persistence ----
+function saveLS() { try { localStorage.setItem(LS, JSON.stringify(edits)); } catch(e){} }
+function loadLS() { try { edits = JSON.parse(localStorage.getItem(LS) || "{}"); } catch(e){ edits = {}; } }
+
+// ---- helpers on nested paths ----
+function setPath(obj, path, val) {
+  const parts = path.split("."); let o = obj;
+  for (let i = 0; i < parts.length - 1; i++) { o[parts[i]] = o[parts[i]] || {}; o = o[parts[i]]; }
+  if (val === undefined || val === "" || (typeof val === "number" && Number.isNaN(val))) delete o[parts[parts.length-1]];
+  else o[parts[parts.length-1]] = val;
+}
+function getPath(obj, path) { return path.split(".").reduce((o,k)=> (o==null?undefined:o[k]), obj); }
+
+function currentEdit(key) {
+  if (!edits[key]) {
+    const row = ROWS.find(r => keyOf(r) === key);
+    let eff = [];
+    if (row && row.proposedEffects) { try { eff = JSON.parse(row.proposedEffects); } catch(e){ eff = []; } }
+    edits[key] = { effects: eff, approve: (row && row.approve) || "", unsupportedReason: (row && row.unsupportedReason) || "" };
+  }
+  return edits[key];
+}
+function statusOf(key) {
+  const e = edits[key];
+  if (e && /^(tak|yes|y|x|1|true)$/i.test((e.approve||"").trim()) && e.effects && e.effects.length) return "done";
+  if (e && /nie|niesym|unsup/i.test((e.approve||"").trim())) return "unsup";
+  const row = ROWS.find(r => keyOf(r)===key);
+  if (row && row.proposedEffects) return "proposed";
+  return "todo";
+}
+
+// ---- rendering: list ----
+const TIERS = ["T1","T2b","T2c","T3","T?"];
+let activeTiers = new Set(TIERS);
+
+function renderChips() {
+  const el = document.getElementById("tierChips"); el.innerHTML = "";
+  TIERS.forEach(t => {
+    const c = document.createElement("span");
+    c.className = "chip" + (activeTiers.has(t) ? " active" : "");
+    c.textContent = t; c.title = TIER_DESC[t] || "";
+    c.onclick = () => { activeTiers.has(t) ? activeTiers.delete(t) : activeTiers.add(t); renderChips(); renderList(); };
+    el.appendChild(c);
+  });
+  const legend = document.getElementById("tierLegend");
+  if (legend) legend.innerHTML = TIERS.map(t => `<b>${t}</b> — ${escapeHtml(TIER_DESC[t])}`).join("<br>");
+}
+
+function filteredRows() {
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const sf = document.getElementById("statusFilter").value;
+  return ROWS.filter(r => {
+    if (!activeTiers.has(r.tier)) return false;
+    if (q && !r.name.toLowerCase().includes(q)) return false;
+    const st = statusOf(keyOf(r));
+    if (sf === "todo" && st !== "todo") return false;
+    if (sf === "done" && st !== "done") return false;
+    if (sf === "unsup" && st !== "unsup") return false;
+    if (sf === "proposed" && !(r.proposedEffects)) return false;
+    return true;
+  });
+}
+
+function renderList() {
+  const box = document.getElementById("items"); box.innerHTML = "";
+  const rows = filteredRows();
+  rows.slice(0, 800).forEach(r => {
+    const key = keyOf(r);
+    const d = document.createElement("div");
+    d.className = "item" + (key === selectedKey ? " sel" : "");
+    const st = statusOf(key);
+    d.innerHTML = `<div class="nm">${escapeHtml(r.name)} <span class="muted">r${r.grade}</span></div>
+      <div class="meta"><span class="dot ${st}"></span><span class="tier">${r.tier}</span>${r.proposalConfidence?`<span class="muted">${r.proposalConfidence}</span>`:""}</div>`;
+    d.onclick = () => { selectedKey = key; renderList(); renderEditor(); };
+    box.appendChild(d);
+  });
+  if (rows.length > 800) { const m = document.createElement("div"); m.className="item muted"; m.textContent = `… i ${rows.length-800} więcej (zawęź filtrem)`; box.appendChild(m); }
+  updateProgress();
+}
+
+function updateProgress() {
+  if (!ROWS.length) { document.getElementById("progress").textContent = ""; return; }
+  let done=0, unsup=0;
+  ROWS.forEach(r => { const s = statusOf(keyOf(r)); if (s==="done") done++; else if (s==="unsup") unsup++; });
+  document.getElementById("progress").textContent = `Zatwierdzone: ${done} · Niesymulowalne: ${unsup} · Wszystkich: ${ROWS.length}`;
+}
+
+// ---- rendering: editor ----
+function renderEditor() {
+  const el = document.getElementById("editor");
+  if (!selectedKey) { el.innerHTML = `<div class="empty">Wybierz manewr z listy.</div>`; return; }
+  const row = ROWS.find(r => keyOf(r) === selectedKey);
+  const e = currentEdit(selectedKey);
+
+  el.innerHTML = "";
+  const h = document.createElement("div");
+  h.innerHTML = `<h2>${escapeHtml(row.name)} <span class="muted" style="font-size:14px">ranga ${row.grade}</span></h2>
+    <div class="row-flags">
+      <span class="tier">${row.tier}</span>
+      ${row.markers?`<span class="flag">markery: ${escapeHtml(row.markers)}</span>`:""}
+      ${row.scaling?`<span class="flag">skalowanie</span>`:""}
+      ${row.condition?`<span class="flag">warunek</span>`:""}
+      ${row.cost?`<span class="flag">koszt</span>`:""}
+      ${row.proposalNote?`<span class="flag">${escapeHtml(row.proposalNote)}</span>`:""}
+    </div>
+    <div class="desc">${escapeHtml(row.description)}</div>`;
+  el.appendChild(h);
+
+  // effects list
+  const effWrap = document.createElement("div"); effWrap.className = "effects"; effWrap.id = "effWrap";
+  el.appendChild(effWrap);
+  renderEffects(e, effWrap);
+
+  const tb = document.createElement("div"); tb.className = "toolbar";
+  const addBtn = mkBtn("+ Dodaj efekt", "", () => { e.effects.push({ type: "damage", damage: { amount:0, grade:0, bonus:1 }, damageType: "zwyczajne" }); commit(e); renderEditor(); });
+  const approveBtn = mkBtn("✓ Zatwierdź (effects)", "good", () => { e.approve = "tak"; e.unsupportedReason = ""; commit(e); renderList(); renderEditor(); });
+  const unsupBtn = mkBtn("⊘ Oznacz niesymulowalny", "", () => { e.approve = "nie"; if (!e.unsupportedReason) e.unsupportedReason = row.markers || "poza modelem walki 1-na-1"; commit(e); renderList(); renderEditor(); });
+  const clearBtn = mkBtn("Wyczyść efekty", "ghost", () => { e.effects = []; e.approve = ""; commit(e); renderEditor(); });
+  tb.append(addBtn, approveBtn, unsupBtn, clearBtn);
+  el.appendChild(tb);
+
+  // Live preview of the description generated from the effects.
+  const prev = document.createElement("div"); prev.className = "desc"; prev.style.borderColor = "#2f7d4a";
+  prev.innerHTML = `<div class="status-bar" style="margin-bottom:4px">Podgląd opisu (z efektów):</div><span id="descPreview">${escapeHtml(describeEffectsPl(e.effects))}</span>`;
+  el.appendChild(prev);
+
+  // unsupported reason box (when marked)
+  if (/nie|niesym/i.test((e.approve||""))) {
+    const box = document.createElement("div"); box.className = "unsup-box";
+    box.innerHTML = `<div class="field"><label>Powód (unsupportedReason)</label><input type="text" style="width:100%" id="reasonInput" value="${escapeAttr(e.unsupportedReason||"")}"></div>`;
+    el.appendChild(box);
+    box.querySelector("#reasonInput").oninput = (ev) => { e.unsupportedReason = ev.target.value; commit(e); };
+  }
+
+  // raw JSON (escape hatch for chance/custom/advanced)
+  const jl = document.createElement("div"); jl.style.marginTop = "16px";
+  jl.innerHTML = `<div class="status-bar" style="margin-bottom:6px">Surowy JSON efektów (zaawansowane — np. <code>chance</code>, <code>custom</code>). Edytuj i kliknij „Zastosuj JSON”.</div>`;
+  const ta = document.createElement("textarea"); ta.className = "json"; ta.value = JSON.stringify(e.effects, null, 2);
+  const jbtn = mkBtn("Zastosuj JSON", "", () => {
+    try { const parsed = JSON.parse(ta.value); if (!Array.isArray(parsed)) throw new Error("Musi być tablicą."); e.effects = parsed; commit(e); renderEditor(); }
+    catch(err) { alert("Błędny JSON: " + err.message); }
+  });
+  const sb = document.createElement("div"); sb.className = "status-bar"; sb.id = "valid";
+  jl.append(ta, document.createElement("br"), jbtn, sb);
+  el.appendChild(jl);
+  validate(e);
+}
+
+function renderEffects(e, wrap) {
+  wrap.innerHTML = "";
+  if (!e.effects.length) { const p = document.createElement("div"); p.className = "muted"; p.textContent = "Brak efektów. Dodaj efekt lub oznacz manewr jako niesymulowalny."; wrap.appendChild(p); return; }
+  e.effects.forEach((eff, idx) => {
+    const card = document.createElement("div"); card.className = "effect";
+    const top = document.createElement("div"); top.className = "top";
+    const sel = document.createElement("select");
+    Object.keys(EFFECT_TYPES).forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = EFFECT_TYPES[t].label; if (eff.type === t) o.selected = true; sel.appendChild(o); });
+    // include custom types present in raw json but not in builder
+    if (!EFFECT_TYPES[eff.type]) { const o = document.createElement("option"); o.value = eff.type; o.textContent = eff.type + " (surowy)"; o.selected = true; sel.appendChild(o); }
+    sel.onchange = () => { const nt = sel.value; let fresh; if (nt === "contested") fresh = defaultContested(); else if (nt === "save") fresh = defaultSave(); else if (nt === "when") fresh = defaultWhen(); else if (nt === "scale") fresh = defaultScale(); else { fresh = { type: nt }; (EFFECT_TYPES[nt]?.fields||[]).forEach(f => { if (f.def !== undefined) setPath(fresh, f.path, f.def); }); } e.effects[idx] = fresh; commit(e); renderEditor(); };
+    const del = mkBtn("✕", "ghost", () => { e.effects.splice(idx,1); commit(e); renderEditor(); }); del.style.marginLeft = "auto";
+    top.append(sel, del); card.appendChild(top);
+
+    const meta = EFFECT_TYPES[eff.type];
+    if (eff.type === "contested") {
+      card.appendChild(buildContested(eff, () => { commit(e); renderEditor(); }));
+    } else if (eff.type === "save") {
+      card.appendChild(buildSave(eff, () => { commit(e); renderEditor(); }));
+    } else if (eff.type === "when") {
+      card.appendChild(buildWhen(eff, () => { commit(e); renderEditor(); }));
+    } else if (eff.type === "scale") {
+      card.appendChild(buildScale(eff, () => { commit(e); renderEditor(); }));
+    } else if (meta && meta.fields) {
+      const fields = document.createElement("div"); fields.className = "fields";
+      meta.fields.forEach(f => fields.appendChild(mkField(eff, f, () => commit(e))));
+      card.appendChild(fields);
+    } else {
+      const note = document.createElement("div"); note.className = "muted"; note.style.marginTop = "6px"; note.textContent = "Typ spoza edytora — edytuj w surowym JSON poniżej.";
+      card.appendChild(note);
+    }
+    wrap.appendChild(card);
+  });
+}
+
+function mkField(eff, f, onChange) {
+  const w = document.createElement("div"); w.className = "field" + (f.type === "check" ? " check" : "");
+  const cur = getPath(eff, f.path);
+  if (f.type === "check") {
+    const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !!cur;
+    cb.onchange = () => { setPath(eff, f.path, cb.checked ? true : undefined); onChange(); };
+    const lab = document.createElement("label"); lab.textContent = f.label;
+    w.append(cb, lab);
+  } else if (f.type === "enum") {
+    const lab = document.createElement("label"); lab.textContent = f.label;
+    const s = document.createElement("select");
+    f.options.forEach(op => { const o = document.createElement("option"); o.value = op; o.textContent = (f.optLabels && f.optLabels[op]) || op; if ((cur ?? f.def) === op) o.selected = true; s.appendChild(o); });
+    s.onchange = () => { setPath(eff, f.path, s.value); onChange(); };
+    w.append(lab, s);
+  } else {
+    const lab = document.createElement("label"); lab.textContent = f.label;
+    const inp = document.createElement("input"); inp.type = f.type;
+    inp.value = cur ?? "";
+    inp.oninput = () => { const v = f.type === "number" ? (inp.value === "" ? undefined : Number(inp.value)) : inp.value; setPath(eff, f.path, v); onChange(); };
+    w.append(lab, inp);
+  }
+  return w;
+}
+
+// ---- contested-test (T2c) pool builder ----
+const SKILLS = [
+  ["attributes","fencing","fechtunek"], ["attributes","artifice","fortel"], ["attributes","precision","precyzja"],
+  ["attributes","initiative","inicjatywa"], ["attributes","martialArt","walka wręcz"], ["attributes","horsemanship","jeździectwo"],
+  ["attributes","fortitude","wytrwałość"], ["attributes","reflex","refleks"], ["attributes","willpower","wola"],
+  ["characteristics","strength","siła"], ["characteristics","dexterity","zręczność"], ["characteristics","constitution","budowa"],
+  ["characteristics","mind","umysł"], ["characteristics","charisma","charyzma"], ["characteristics","spellborn","czarokrwistość"],
+];
+function defaultContested() {
+  return {
+    type: "contested",
+    attacker: { pool: [{ anyOf: [{ group: "attributes", key: "fencing" }] }] },
+    defender: { pool: [{ anyOf: [{ group: "attributes", key: "reflex" }] }] },
+    onWin: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 2 }, damageType: "zwyczajne" }],
+    onWinTarget: "target",
+  };
+}
+function skillSelect(ref, onChange) {
+  const s = document.createElement("select");
+  SKILLS.forEach(([g, k, pl]) => { const o = document.createElement("option"); o.value = `${g}:${k}`; o.textContent = pl; if (ref.group === g && ref.key === k) o.selected = true; s.appendChild(o); });
+  s.onchange = () => { const [g, k] = s.value.split(":"); ref.group = g; ref.key = k; onChange(); };
+  return s;
+}
+function buildSide(side, title, onChange) {
+  side.pool = side.pool && side.pool.length ? side.pool : [{ anyOf: [{ group: "attributes", key: "fencing" }] }];
+  const box = document.createElement("div"); box.className = "effect"; box.style.background = "var(--panel2)";
+  box.appendChild(Object.assign(document.createElement("div"), { className: "text-xs", innerHTML: `<b>${title}</b>`, style: "margin-bottom:6px" }));
+
+  side.pool.forEach((term, ti) => {
+    term.anyOf = term.anyOf && term.anyOf.length ? term.anyOf : [{ group: "attributes", key: "fencing" }];
+    const row = document.createElement("div"); row.className = "fields"; row.style.alignItems = "center";
+    if (ti > 0) { const plus = document.createElement("span"); plus.textContent = "+"; plus.style.margin = "0 4px"; box.appendChild(plus); }
+    term.anyOf.forEach((ref, ai) => {
+      if (ai > 0) { const or = document.createElement("span"); or.textContent = "/"; or.className = "muted"; row.appendChild(or); }
+      row.appendChild(skillSelect(ref, onChange));
+      if (term.anyOf.length > 1) row.appendChild(mkBtn("✕", "ghost", () => { term.anyOf.splice(ai, 1); onChange(); }));
+    });
+    row.appendChild(mkBtn("/ alternatywa", "ghost", () => { term.anyOf.push({ group: "attributes", key: "reflex" }); onChange(); }));
+    if (side.pool.length > 1) row.appendChild(mkBtn("usuń term", "ghost", () => { side.pool.splice(ti, 1); onChange(); }));
+    box.appendChild(row);
+  });
+  box.appendChild(mkBtn("+ term (dodaj do sumy)", "ghost", () => { side.pool.push({ anyOf: [{ group: "attributes", key: "reflex" }] }); onChange(); }));
+
+  const extras = document.createElement("div"); extras.className = "fields"; extras.style.marginTop = "8px";
+  extras.appendChild(mkNumField("modyfikator (±)", side.modifier, v => { side.modifier = v; onChange(); }));
+  extras.appendChild(mkNumField("zmiana rangi kości", side.dieGradeDelta, v => { side.dieGradeDelta = v; onChange(); }));
+  const rm = document.createElement("div"); rm.className = "field";
+  rm.appendChild(Object.assign(document.createElement("label"), { textContent: "rzut" }));
+  const rmSel = document.createElement("select");
+  [["","zwykły"],["advantage","przewaga"],["disadvantage","utrudnienie"]].forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if ((side.rollMod || "") === v) o.selected = true; rmSel.appendChild(o); });
+  rmSel.onchange = () => { side.rollMod = rmSel.value || undefined; onChange(); };
+  rm.appendChild(rmSel); extras.appendChild(rm);
+  box.appendChild(extras);
+  return box;
+}
+function mkNumField(label, val, onChange) {
+  const w = document.createElement("div"); w.className = "field";
+  w.appendChild(Object.assign(document.createElement("label"), { textContent: label }));
+  const inp = document.createElement("input"); inp.type = "number"; inp.value = (val ?? "");
+  inp.oninput = () => onChange(inp.value === "" ? undefined : Number(inp.value));
+  w.appendChild(inp); return w;
+}
+// A compact single-effect editor (no nested contested) for onWin / perMargin.
+function simpleEffectCard(effObj, onChange, onRemove) {
+  const card = document.createElement("div"); card.className = "effect";
+  const top = document.createElement("div"); top.className = "top";
+  const sel = document.createElement("select");
+  Object.keys(EFFECT_TYPES).filter(t => t !== "contested").forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = EFFECT_TYPES[t].label; if (effObj.type === t) o.selected = true; sel.appendChild(o); });
+  sel.onchange = () => { const nt = sel.value; for (const k of Object.keys(effObj)) delete effObj[k]; effObj.type = nt; (EFFECT_TYPES[nt]?.fields || []).forEach(f => { if (f.def !== undefined) setPath(effObj, f.path, f.def); }); onChange(); };
+  top.append(sel);
+  if (onRemove) { const del = mkBtn("✕", "ghost", onRemove); del.style.marginLeft = "auto"; top.append(del); }
+  card.appendChild(top);
+  const meta = EFFECT_TYPES[effObj.type];
+  if (meta && meta.fields) { const fields = document.createElement("div"); fields.className = "fields"; meta.fields.forEach(f => fields.appendChild(mkField(effObj, f, onChange))); card.appendChild(fields); }
+  return card;
+}
+function buildContested(eff, onChange) {
+  const wrap = document.createElement("div");
+  wrap.appendChild(buildSide(eff.attacker = eff.attacker || {}, "Atakujący (pula)", onChange));
+  wrap.appendChild(buildSide(eff.defender = eff.defender || {}, "Obrońca (pula)", onChange));
+
+  // onWinTarget
+  const tgt = document.createElement("div"); tgt.className = "field"; tgt.style.marginTop = "8px";
+  tgt.appendChild(Object.assign(document.createElement("label"), { textContent: "efekty przy wygranej działają na" }));
+  const tgtSel = document.createElement("select");
+  [["target","cel (przeciwnika)"],["self","siebie"]].forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if ((eff.onWinTarget || "target") === v) o.selected = true; tgtSel.appendChild(o); });
+  tgtSel.onchange = () => { eff.onWinTarget = tgtSel.value; onChange(); };
+  tgt.appendChild(tgtSel); wrap.appendChild(tgt);
+
+  // onWin list
+  wrap.appendChild(Object.assign(document.createElement("div"), { className: "text-xs", innerHTML: "<b>Przy wygranej (onWin):</b>", style: "margin-top:8px" }));
+  eff.onWin = eff.onWin || [];
+  eff.onWin.forEach((oe, i) => wrap.appendChild(simpleEffectCard(oe, onChange, () => { eff.onWin.splice(i, 1); onChange(); })));
+  wrap.appendChild(mkBtn("+ efekt przy wygranej", "ghost", () => { eff.onWin.push({ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }); onChange(); }));
+
+  // perMargin scaling
+  const scRow = document.createElement("label"); scRow.className = "field check"; scRow.style.marginTop = "8px";
+  const scCb = document.createElement("input"); scCb.type = "checkbox"; scCb.checked = !!eff.perMargin;
+  scCb.onchange = () => { eff.perMargin = scCb.checked ? { per: 1, effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" } } : undefined; onChange(); };
+  scRow.append(scCb, Object.assign(document.createElement("span"), { textContent: "skalowanie: za każde oczko przewagi" }));
+  wrap.appendChild(scRow);
+  if (eff.perMargin) {
+    const pm = document.createElement("div"); pm.className = "fields";
+    pm.appendChild(mkNumField("na ile oczek (per)", eff.perMargin.per, v => { eff.perMargin.per = v ?? 1; onChange(); }));
+    pm.appendChild(mkNumField("limit (maks. ×, opc.)", eff.perMargin.cap, v => { eff.perMargin.cap = v; onChange(); }));
+    wrap.appendChild(pm);
+    wrap.appendChild(Object.assign(document.createElement("div"), { className: "text-xs muted", textContent: "efekt na każde oczko:" }));
+    wrap.appendChild(simpleEffectCard(eff.perMargin.effect, onChange, null));
+  }
+  return wrap;
+}
+
+const SCALE_SOURCES = [
+  ["opponentDice", "kość przeciwnika"], ["opponentImmunity", "niewrażliwość wroga"], ["selfResource", "twój zasób"],
+  ["selfStatusStacks", "twój stack statusu"], ["targetStatusStacks", "stack statusu celu"],
+];
+function defaultScale() {
+  return { type: "scale", source: { kind: "opponentDice" }, effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" } };
+}
+function buildScale(eff, onChange) {
+  eff.source = eff.source || { kind: "opponentDice" };
+  const wrap = document.createElement("div");
+  const row = document.createElement("div"); row.className = "fields";
+  const kf = document.createElement("div"); kf.className = "field";
+  kf.appendChild(Object.assign(document.createElement("label"), { textContent: "za każde…" }));
+  const ks = document.createElement("select");
+  SCALE_SOURCES.forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if (eff.source.kind === v) o.selected = true; ks.appendChild(o); });
+  ks.onchange = () => {
+    const k = ks.value;
+    eff.source = k === "selfResource" ? { kind: k, resource: "essence" } : (k === "selfStatusStacks" || k === "targetStatusStacks") ? { kind: k, status: "bleeding" } : { kind: k };
+    onChange();
+  };
+  kf.appendChild(ks); row.appendChild(kf);
+  if (eff.source.kind === "selfResource") {
+    const f = document.createElement("div"); f.className = "field";
+    f.appendChild(Object.assign(document.createElement("label"), { textContent: "zasób" }));
+    const s = document.createElement("select");
+    RESOURCE_POOLS.forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if ((eff.source.resource || "essence") === v) o.selected = true; s.appendChild(o); });
+    s.onchange = () => { eff.source.resource = s.value; onChange(); };
+    f.appendChild(s); row.appendChild(f);
+  } else if (eff.source.kind === "selfStatusStacks" || eff.source.kind === "targetStatusStacks") {
+    const f = document.createElement("div"); f.className = "field";
+    f.appendChild(Object.assign(document.createElement("label"), { textContent: "status" }));
+    const s = document.createElement("select");
+    STATUS_IDS.forEach(k => { const o = document.createElement("option"); o.value = k; o.textContent = STATUS_LABELS[k] || k; if (eff.source.status === k) o.selected = true; s.appendChild(o); });
+    s.onchange = () => { eff.source.status = s.value; onChange(); };
+    f.appendChild(s); row.appendChild(f);
+  }
+  row.appendChild(mkNumField("na ile (per)", eff.per, v => { eff.per = v; onChange(); }));
+  row.appendChild(mkNumField("limit (opc.)", eff.cap, v => { eff.cap = v; onChange(); }));
+  wrap.appendChild(row);
+  wrap.appendChild(Object.assign(document.createElement("div"), { className: "text-xs", innerHTML: "<b>Efekt (na każde):</b>", style: "margin-top:8px" }));
+  eff.effect = eff.effect || { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" };
+  wrap.appendChild(simpleEffectCard(eff.effect, onChange, null));
+  return wrap;
+}
+function defaultSave() {
+  return {
+    type: "save",
+    pool: { pool: [{ anyOf: [{ group: "attributes", key: "fortitude" }] }] },
+    st: 7,
+    who: "target",
+    onFail: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }],
+  };
+}
+function buildSave(eff, onChange) {
+  const wrap = document.createElement("div");
+  wrap.appendChild(buildSide(eff.pool = eff.pool || { pool: [] }, "Pula testu (kto się broni)", onChange));
+
+  const opts = document.createElement("div"); opts.className = "fields"; opts.style.marginTop = "8px";
+  opts.appendChild(mkNumField("ST (próg)", eff.st, v => { eff.st = v ?? 0; onChange(); }));
+  const who = document.createElement("div"); who.className = "field";
+  who.appendChild(Object.assign(document.createElement("label"), { textContent: "kto rzuca" }));
+  const whoSel = document.createElement("select");
+  [["target","cel (przeciwnik)"],["self","atakujący"]].forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if ((eff.who || "target") === v) o.selected = true; whoSel.appendChild(o); });
+  whoSel.onchange = () => { eff.who = whoSel.value; onChange(); };
+  who.appendChild(whoSel); opts.appendChild(who);
+  wrap.appendChild(opts);
+
+  wrap.appendChild(Object.assign(document.createElement("div"), { className: "text-xs", innerHTML: "<b>Przy porażce (onFail):</b>", style: "margin-top:8px" }));
+  eff.onFail = eff.onFail || [];
+  eff.onFail.forEach((oe, i) => wrap.appendChild(simpleEffectCard(oe, onChange, () => { eff.onFail.splice(i, 1); onChange(); })));
+  wrap.appendChild(mkBtn("+ efekt przy porażce", "ghost", () => { eff.onFail.push({ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }); onChange(); }));
+
+  const scRow = document.createElement("label"); scRow.className = "field check"; scRow.style.marginTop = "8px";
+  const scCb = document.createElement("input"); scCb.type = "checkbox"; scCb.checked = !!eff.perMarginOfFailure;
+  scCb.onchange = () => { eff.perMarginOfFailure = scCb.checked ? { per: 1, effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" } } : undefined; onChange(); };
+  scRow.append(scCb, Object.assign(document.createElement("span"), { textContent: "skalowanie: za każde oczko porażki" }));
+  wrap.appendChild(scRow);
+  if (eff.perMarginOfFailure) {
+    const pm = document.createElement("div"); pm.className = "fields";
+    pm.appendChild(mkNumField("na ile oczek (per)", eff.perMarginOfFailure.per, v => { eff.perMarginOfFailure.per = v ?? 1; onChange(); }));
+    pm.appendChild(mkNumField("limit (maks. ×, opc.)", eff.perMarginOfFailure.cap, v => { eff.perMarginOfFailure.cap = v; onChange(); }));
+    wrap.appendChild(pm);
+    wrap.appendChild(Object.assign(document.createElement("div"), { className: "text-xs muted", textContent: "efekt na każde oczko:" }));
+    wrap.appendChild(simpleEffectCard(eff.perMarginOfFailure.effect, onChange, null));
+  }
+  return wrap;
+}
+
+// ---- condition (when) builder ----
+const COND_KINDS = [
+  ["opponentAttackKind", "tylko przeciw (rodzaj ataku)"],
+  ["targetHasStatus", "gdy cel ma status"],
+  ["selfHasStatus", "gdy masz status"],
+  ["onCritical", "przy trafieniu krytycznym"],
+  ["onDamageDealt", "gdy zadano obrażenia"],
+  ["selfAirborne", "atakując z powietrza"],
+  ["opponentCharging", "tylko przeciw szarży"],
+  ["hasResource", "gdy masz zasób (≥)"],
+];
+const RESOURCE_POOLS = [["essence","esencja"],["mana","mana"]];
+const ATTACK_KINDS = [["melee","walka wręcz"],["rangedPhysical","dystans fizyczny"],["rangedMagic","dystans magiczny"]];
+function defaultWhen() {
+  return { type: "when", condition: { kind: "opponentAttackKind", value: "melee" }, then: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }] };
+}
+function buildWhen(eff, onChange) {
+  eff.condition = eff.condition || { kind: "opponentAttackKind", value: "melee" };
+  const wrap = document.createElement("div");
+  const row = document.createElement("div"); row.className = "fields";
+  const kindF = document.createElement("div"); kindF.className = "field";
+  kindF.appendChild(Object.assign(document.createElement("label"), { textContent: "warunek" }));
+  const kindSel = document.createElement("select");
+  COND_KINDS.forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if (eff.condition.kind === v) o.selected = true; kindSel.appendChild(o); });
+  kindSel.onchange = () => {
+    const k = kindSel.value;
+    eff.condition = k === "opponentAttackKind" ? { kind: k, value: "melee" }
+      : (k === "targetHasStatus" || k === "selfHasStatus") ? { kind: k, status: "bleeding" }
+      : k === "hasResource" ? { kind: k, resource: "essence", min: 1 }
+      : { kind: k };
+    onChange();
+  };
+  kindF.appendChild(kindSel); row.appendChild(kindF);
+  // extra field per kind
+  if (eff.condition.kind === "opponentAttackKind") {
+    const f = document.createElement("div"); f.className = "field";
+    f.appendChild(Object.assign(document.createElement("label"), { textContent: "rodzaj ataku" }));
+    const s = document.createElement("select");
+    ATTACK_KINDS.forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if (eff.condition.value === v) o.selected = true; s.appendChild(o); });
+    s.onchange = () => { eff.condition.value = s.value; onChange(); };
+    f.appendChild(s); row.appendChild(f);
+  } else if (eff.condition.kind === "targetHasStatus" || eff.condition.kind === "selfHasStatus") {
+    const f = document.createElement("div"); f.className = "field";
+    f.appendChild(Object.assign(document.createElement("label"), { textContent: "status" }));
+    const s = document.createElement("select");
+    STATUS_IDS.forEach(k => { const o = document.createElement("option"); o.value = k; o.textContent = STATUS_LABELS[k] || k; if (eff.condition.status === k) o.selected = true; s.appendChild(o); });
+    s.onchange = () => { eff.condition.status = s.value; onChange(); };
+    f.appendChild(s); row.appendChild(f);
+  } else if (eff.condition.kind === "hasResource") {
+    const f = document.createElement("div"); f.className = "field";
+    f.appendChild(Object.assign(document.createElement("label"), { textContent: "zasób" }));
+    const s = document.createElement("select");
+    RESOURCE_POOLS.forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; if ((eff.condition.resource || "essence") === v) o.selected = true; s.appendChild(o); });
+    s.onchange = () => { eff.condition.resource = s.value; onChange(); };
+    f.appendChild(s); row.appendChild(f);
+    row.appendChild(mkNumField("próg (≥)", eff.condition.min, v => { eff.condition.min = v ?? 1; onChange(); }));
+  }
+  wrap.appendChild(row);
+  wrap.appendChild(Object.assign(document.createElement("div"), { className: "text-xs", innerHTML: "<b>Wtedy (then):</b>", style: "margin-top:8px" }));
+  eff.then = eff.then || [];
+  eff.then.forEach((oe, i) => wrap.appendChild(simpleEffectCard(oe, onChange, () => { eff.then.splice(i, 1); onChange(); })));
+  wrap.appendChild(mkBtn("+ efekt", "ghost", () => { eff.then.push({ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }); onChange(); }));
+  return wrap;
+}
+
+function commit(e) { edits[selectedKey] = e; saveLS(); updateProgress(); const t = document.getElementById("effWrap"); if (t) renderEffects(e, t); const ta = document.querySelector(".json"); if (ta) ta.value = JSON.stringify(e.effects, null, 2); const dp = document.getElementById("descPreview"); if (dp) dp.textContent = describeEffectsPl(e.effects); validate(e); }
+
+// lightweight validation mirroring effectSchema essentials
+function validate(e) {
+  const el = document.getElementById("valid"); if (!el) return;
+  const problems = [];
+  e.effects.forEach((eff, i) => {
+    if (!eff || !eff.type) { problems.push(`#${i+1}: brak type`); return; }
+    if (eff.type === "damage" && (!eff.damage || !DAMAGE_TYPES.includes(eff.damageType))) problems.push(`#${i+1}: damage wymaga damage{} i kategorii`);
+    if ((eff.type === "status") && !STATUS_IDS.includes(eff.status)) problems.push(`#${i+1}: nieznany status`);
+    if ((eff.type === "control") && !CONTROL_KINDS.includes(eff.control)) problems.push(`#${i+1}: nieznana kontrola`);
+    if ((eff.type === "buff" || eff.type === "debuff") && !(eff.profile && eff.profile.profileId)) problems.push(`#${i+1}: brak profileId`);
+  });
+  el.className = "status-bar " + (problems.length ? "err" : "ok");
+  el.textContent = problems.length ? "⚠ " + problems.join(" · ") : "✓ efekty wyglądają poprawnie";
+}
+
+// ---- export ----
+function exportCsv() {
+  if (!ROWS.length) { alert("Najpierw wczytaj CSV."); return; }
+  let header = HEADERS.slice();
+  if (!header.includes("unsupportedReason")) header.push("unsupportedReason");
+  const out = ROWS.map(r => {
+    const o = Object.assign({}, r);
+    const e = edits[keyOf(r)];
+    if (e) {
+      o.proposedEffects = (e.effects && e.effects.length) ? JSON.stringify(e.effects) : "";
+      o.approve = e.approve || "";
+      o.unsupportedReason = e.unsupportedReason || "";
+    } else if (!("unsupportedReason" in o)) { o.unsupportedReason = ""; }
+    return o;
+  });
+  const blob = new Blob([serializeCsv(header, out)], { type: "text/csv;charset=utf-8" });
+  const a = document.getElementById("dl"); a.href = URL.createObjectURL(blob); a.download = "maneuver-classification.csv"; a.click();
+}
+
+// ---- utils ----
+function mkBtn(txt, cls, on) { const b = document.createElement("button"); b.textContent = txt; if (cls) b.className = cls; b.onclick = on; return b; }
+function escapeHtml(s) { return String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+function escapeAttr(s) { return String(s ?? "").replace(/"/g, "&quot;"); }
+
+// ---- wiring ----
+document.getElementById("load").onclick = () => document.getElementById("file").click();
+document.getElementById("file").onchange = (ev) => {
+  const f = ev.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    const { header, objs } = parseCsv(rd.result);
+    HEADERS = header; ROWS = objs;
+    // merge: if CSV already has approve/proposedEffects, seed edits lazily via currentEdit
+    selectedKey = null;
+    renderChips(); renderList();
+    document.getElementById("editor").innerHTML = `<div class="empty">Wczytano ${ROWS.length} manewrów. Wybierz z listy po lewej.</div>`;
+  };
+  rd.readAsText(f, "utf-8");
+};
+document.getElementById("approveHigh").onclick = () => {
+  if (!ROWS.length) { alert("Najpierw wczytaj CSV."); return; }
+  const rows = filteredRows().filter(r => r.proposalConfidence === "high" && r.proposedEffects);
+  if (!rows.length) { alert("Brak widocznych wierszy „high” z propozycją. Poluzuj filtry (np. tier T1, status „Mają propozycję”)."); return; }
+  if (!confirm(`Zatwierdzić ${rows.length} manewrów? Ustawi approve=tak z gotowymi propozycjami efektów.`)) return;
+  rows.forEach(r => { const e = currentEdit(keyOf(r)); e.approve = "tak"; e.unsupportedReason = ""; edits[keyOf(r)] = e; });
+  saveLS(); renderList(); if (selectedKey) renderEditor();
+};
+document.getElementById("export").onclick = exportCsv;
+document.getElementById("reset").onclick = () => { if (confirm("Wyczyścić zapisany postęp z tej przeglądarki? (plik CSV nie zostanie zmieniony)")) { edits = {}; saveLS(); renderList(); renderEditor(); } };
+document.getElementById("search").oninput = renderList;
+document.getElementById("statusFilter").onchange = renderList;
+
+loadLS();
+renderChips();
+</script>
+</body>
+</html>

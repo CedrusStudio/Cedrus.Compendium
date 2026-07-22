@@ -16,8 +16,9 @@
 
 import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { selectDefaultOffense, selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import type { DamageType } from "@/domain/combat-lab/effects/Effect";
-import { rollOffense, applyImmunity } from "@/domain/combat-lab/engine/rollOffense";
+import type { Offense } from "@/domain/characters/combat/Offense";
+import type { DamageType, RollModifierEffect } from "@/domain/combat-lab/effects/Effect";
+import { applyImmunity, rollOffenseWithModifiers } from "@/domain/combat-lab/engine/rollOffense";
 import { reduceDamage } from "@/domain/combat-lab/engine/damage";
 import { effectiveOffense, effectiveDefense, effectivePrecision, effectiveReflex } from "@/domain/combat-lab/engine/buffs";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
@@ -47,6 +48,10 @@ export type RangedAttackOptions =
   /** Active buff/debuff profiles on the attacker / defender. */
   attackerBuffs?: BuffProfile[];
   defenderBuffs?: BuffProfile[];
+  /** Roll modifiers (T2b) applied to the DAMAGE roll on a hit. */
+  rollMods?: RollModifierEffect[];
+  /** Override the attacker's offense (e.g. a spell's resolved offense) instead of the default weapon. */
+  offenseOverride?: Offense;
 };
 
 const MISS: RangedAttackResolution = { hit: false, attackRoll: 0, st: 0, raw: 0, reduced: 0, dealt: 0, critical: false };
@@ -58,7 +63,7 @@ export function resolveRangedAttack(
   options: RangedAttackOptions,
 ): RangedAttackResolution
 {
-  const baseOffense = selectDefaultOffense(attacker);
+  const baseOffense = options.offenseOverride ?? selectDefaultOffense(attacker);
   if (!baseOffense) return { ...MISS };
 
   // To-hit: precyzja test vs max(refleks obrońcy, ST odległości). Active buffs
@@ -79,7 +84,7 @@ export function resolveRangedAttack(
   const defense = rawDefense ? effectiveDefense(rawDefense, options.defenderBuffs ?? []) : undefined;
   const diceToRemove = (defense?.immunity ?? 0) + (options.attackerStaggered ? 1 : 0);
   const rolledOffense = diceToRemove > 0 ? applyImmunity(offense, diceToRemove) : offense;
-  const rolled = rollOffense(rolledOffense, random);
+  const rolled = rollOffenseWithModifiers(rolledOffense, random, options.rollMods ?? []);
   const dealt = reduceDamage(rolled.total, defense, options.category);
 
   return {

@@ -42,7 +42,7 @@ function remainingHpFor(events: CombatEvent[], id: string, start: CombatEvent | 
   for (let i = events.length - 1; i >= 0; i--)
   {
     const event = events[i]!;
-    if ((event.kind === "attack" || event.kind === "rangedAttack" || event.kind === "damage" || event.kind === "statusTick") && event.targetId === id)
+    if ((event.kind === "attack" || event.kind === "rangedAttack" || event.kind === "spellCast" || event.kind === "damage" || event.kind === "statusTick") && event.targetId === id)
     {
       return event.remainingHp;
     }
@@ -68,6 +68,7 @@ function deathCauseFor(events: CombatEvent[], loserId: string): DeathCause
     const event = events[i]!;
     if (event.kind === "attack" && event.targetId === loserId) return "weapon";
     if (event.kind === "rangedAttack" && event.hit && event.targetId === loserId) return "weapon";
+    if (event.kind === "spellCast" && event.hit && event.targetId === loserId) return "ability";
     if (event.kind === "damage" && event.targetId === loserId) return "ability";
     if (event.kind === "statusTick" && event.targetId === loserId) return event.status;
   }

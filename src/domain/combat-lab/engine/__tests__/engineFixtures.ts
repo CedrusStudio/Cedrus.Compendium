@@ -2,8 +2,19 @@ import type { CombatantSnapshot, AttackKind } from "@/domain/combat-lab/engine/C
 import type { Offense, WeaponOffense } from "@/domain/characters/combat/Offense";
 import type { Defense } from "@/domain/characters/combat/Defense";
 import type { Statistic } from "@/domain/characters/statistics/Statistic";
+import type { Attributes } from "@/domain/characters/statistics/Attributes";
+import type { Characteristics } from "@/domain/characters/statistics/Characteristics";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
+
+const zeroStat = (grade = 3): Statistic => ({ grade, value: 0, bonus: 0, testBonus: 0 });
+export const makeAttributes = (over: Partial<Attributes> = {}): Attributes => ({
+  fencing: zeroStat(), artifice: zeroStat(), precision: zeroStat(), initiative: zeroStat(),
+  martialArt: zeroStat(), horsemanship: zeroStat(), fortitude: zeroStat(), reflex: zeroStat(), willpower: zeroStat(), ...over,
+});
+export const makeCharacteristics = (over: Partial<Characteristics> = {}): Characteristics => ({
+  strength: zeroStat(), dexterity: zeroStat(), constitution: zeroStat(), mind: zeroStat(), charisma: zeroStat(), spellborn: zeroStat(), ...over,
+});
 
 const weapon = (amount: number, grade: number, bonus = 0): WeaponOffense => ({
   amount,
@@ -56,6 +67,8 @@ export function makeSnapshot(
     reflexValue?: number;
     attackKind?: AttackKind;
     buffProfiles?: BuffProfile[];
+    attributes?: Partial<Attributes>;
+    characteristics?: Partial<Characteristics>;
   } = {},
 ): CombatantSnapshot {
   const offense = opts.offense ?? makeOffense(`${id}-off`, 2, 5, 2);
@@ -72,9 +85,14 @@ export function makeSnapshot(
     offenses: [offense],
     defaultOffenseId: offense.id,
     maneuvers: opts.maneuvers ?? [],
+    spells: [],
     initiative: stat(opts.initiativeValue ?? 0),
     precision: stat(opts.precisionValue ?? 0),
     reflex: stat(opts.reflexValue ?? 0),
+    skills: {
+      attributes: makeAttributes(opts.attributes),
+      characteristics: makeCharacteristics(opts.characteristics),
+    },
     attackKind: opts.attackKind ?? "melee",
     buffProfiles: opts.buffProfiles ?? [],
   };

@@ -24,7 +24,7 @@ import { resolveAttack } from "@/domain/combat-lab/engine/resolveAttack";
 import { resolveRangedAttack, rangedCategory, DISTANCE_ST } from "@/domain/combat-lab/engine/resolveRangedAttack";
 import { dealDamage, reduceDamage, bypassesBarrier } from "@/domain/combat-lab/engine/damage";
 import { applyEffects } from "@/domain/combat-lab/engine/applyEffect";
-import { availableProactiveManeuvers, availableReactiveManeuvers, recordAction, endTurnLedger, type Action } from "@/domain/combat-lab/engine/actionEconomy";
+import { availableProactiveManeuvers, availableReactiveManeuvers, availableSpells, tickSpellCooldowns, recordAction, endTurnLedger, type Action } from "@/domain/combat-lab/engine/actionEconomy";
 import { basicAttackPolicy, greedyDamagePolicy, type ActionPolicy } from "@/domain/combat-lab/engine/ai/policy";
 import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
 import { selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
@@ -90,6 +90,7 @@ export function runCombat(
       tickStatuses(actor, random, log);
       tickControls(actor);
       tickBuffs(actor);
+      tickSpellCooldowns(actor);
       applyDownedProgress(actor);
 
       if (actor.alive && canAct(actor) && actor.currentHp > 0)
@@ -176,11 +177,20 @@ function takeTurn(
   }
 
   // Phase 2 — the attack (independent action), once per turn, AFTER maneuvers.
+  // A castable spell may be used INSTEAD of the attack (occupies the same action);
+  // the policy chooses between the basic attack and any affordable spell.
   if (!actor.attackedThisTurn)
   {
     const attack: Action = actor.snapshot.attackKind === "melee" ? { kind: "attack" } : { kind: "ranged" };
-    executeAction(actor, opponent, attack, policies, random, log, distanceST);
-    recordAction(actor, attack);
+    const spells = availableSpells(actor);
+    let chosen: Action = attack;
+    if (spells.length > 0)
+    {
+      const pick = policy.chooseAction(actor, opponent, [attack, ...spells]);
+      chosen = pick.kind === "spell" || pick.kind === "attack" || pick.kind === "ranged" ? pick : attack;
+    }
+    executeAction(actor, opponent, chosen, policies, random, log, distanceST);
+    recordAction(actor, chosen);
     checkDeath(opponent, log);
   }
 }
@@ -206,7 +216,10 @@ function executeAction(
       defenderStaggered: isStaggered(opponent),
       attackerBuffs: activeBuffProfiles(actor),
       defenderBuffs: activeBuffProfiles(opponent),
+      rollMods: actor.rollMods,
     });
+    actor.rollMods = []; // consumed by this attack
+    actor.lastAttack = { critical: result.critical, dealt: result.dealt };
     const remainingHp = dealDamage(opponent, result.dealt);
     log.push({
       kind: "attack",
@@ -217,6 +230,9 @@ function executeAction(
       dealt: result.dealt,
       critical: result.critical,
       remainingHp,
+      resistance: result.breakdown.resistance,
+      reduction: result.breakdown.reduction,
+      immunityDice: result.breakdown.immunityDice,
     });
   }
   else if (action.kind === "ranged")
@@ -230,7 +246,10 @@ function executeAction(
       attackerStaggered: isStaggered(actor),
       attackerBuffs: activeBuffProfiles(actor),
       defenderBuffs: activeBuffProfiles(opponent),
+      rollMods: actor.rollMods,
     });
+    actor.rollMods = []; // consumed by this attack
+    actor.lastAttack = { critical: result.critical, dealt: result.hit ? result.dealt : 0 };
     const remainingHp = result.hit ? dealDamage(opponent, result.dealt) : opponent.currentHp;
     log.push({
       kind: "rangedAttack",
@@ -239,9 +258,48 @@ function executeAction(
       hit: result.hit,
       attackRoll: result.attackRoll,
       st: result.st,
+      raw: result.raw,
+      reduced: result.reduced,
       dealt: result.dealt,
       critical: result.critical,
       remainingHp,
+    });
+  }
+  else if (action.kind === "spell")
+  {
+    // Magic ranged attack ("blokowane"): the defender may still react first.
+    reactToAttack(opponent, actor, policies, random, log);
+
+    const result = resolveRangedAttack(actor.snapshot, opponent.snapshot, random, {
+      distanceST,
+      category: rangedCategory("rangedMagic"),
+      attackerStaggered: isStaggered(actor),
+      attackerBuffs: activeBuffProfiles(actor),
+      defenderBuffs: activeBuffProfiles(opponent),
+      rollMods: actor.rollMods,
+      offenseOverride: action.spell.offense,
+    });
+    actor.rollMods = []; // consumed by this cast
+    actor.lastAttack = { critical: result.critical, dealt: result.hit ? result.dealt : 0 };
+    const remainingHp = result.hit ? dealDamage(opponent, result.dealt) : opponent.currentHp;
+    // Essence is deducted in recordAction (called right after); report the value it will hold.
+    const remainingEssence = actor.resources.essence - action.spell.costEssence;
+    log.push({
+      kind: "spellCast",
+      actorId: actor.snapshot.id,
+      targetId: opponent.snapshot.id,
+      spellId: action.spell.id,
+      spellName: action.spell.name,
+      hit: result.hit,
+      attackRoll: result.attackRoll,
+      st: result.st,
+      raw: result.raw,
+      reduced: result.reduced,
+      dealt: result.dealt,
+      critical: result.critical,
+      remainingHp,
+      costEssence: action.spell.costEssence,
+      remainingEssence,
     });
   }
   else if (action.kind === "maneuver")

@@ -129,6 +129,15 @@ model Maneuver {
   cooldown     Int?
   tags         String[]
 
+  // Combat Lab: structured, engine-readable effects and simulation triage.
+  // `effects` is an Effect[] (see src/domain/combat-lab/effects/Effect.ts).
+  // `simulatable` = null (unassessed) / true / false; `unsupportedReason`
+  // explains a false (out-of-combat subsystem). See
+  // features-to-implement/combat-lab-maneuver-analysis-plan.md.
+  effects           Json?
+  simulatable       Boolean?
+  unsupportedReason String?
+
   // Required by prisma, can be null
   characterIds String[]
   characters   Character[] @relation(fields: [characterIds], references: [id])

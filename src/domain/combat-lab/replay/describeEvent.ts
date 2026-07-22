@@ -31,11 +31,22 @@ export function describeEvent(event: CombatEvent, nameOf: NameLookup): string
     case "turnStart":
       return `Tura: ${nameOf(event.actorId)}`;
     case "attack":
-      return `${nameOf(event.actorId)} atakuje ${nameOf(event.targetId)}: ${event.dealt} obr.${event.critical ? " (traf. kryt.)" : ""} → ${event.remainingHp} HP`;
+    {
+      const parts: string[] = [];
+      if (event.immunityDice > 0) parts.push(`niewrażliwość −${event.immunityDice}k`);
+      if (event.resistance > 0) parts.push(`odporność −${event.resistance}`);
+      if (event.reduction > 0) parts.push(`redukcja −${event.reduction}`);
+      const how = parts.length > 0 ? ` (${parts.join(", ")})` : "";
+      return `${nameOf(event.actorId)} atakuje ${nameOf(event.targetId)}: wyrzucono ${event.raw}${event.critical ? " (traf. kryt.)" : ""}, zredukowano ${event.reduced}${how} → zadano ${event.dealt} → ${event.remainingHp} HP`;
+    }
     case "rangedAttack":
       return event.hit
-        ? `${nameOf(event.actorId)} strzela do ${nameOf(event.targetId)}: trafienie (${event.attackRoll} vs ST ${event.st}), ${event.dealt} obr.${event.critical ? " (traf. kryt.)" : ""} → ${event.remainingHp} HP`
+        ? `${nameOf(event.actorId)} strzela do ${nameOf(event.targetId)}: trafienie (${event.attackRoll} vs ST ${event.st}), wyrzucono ${event.raw}${event.critical ? " (traf. kryt.)" : ""}, zredukowano ${event.reduced} → zadano ${event.dealt} → ${event.remainingHp} HP`
         : `${nameOf(event.actorId)} strzela do ${nameOf(event.targetId)}: pudło (${event.attackRoll} vs ST ${event.st})`;
+    case "spellCast":
+      return event.hit
+        ? `${nameOf(event.actorId)} rzuca „${event.spellName}" na ${nameOf(event.targetId)}: trafienie (${event.attackRoll} vs ST ${event.st}), wyrzucono ${event.raw}${event.critical ? " (traf. kryt.)" : ""}, zredukowano ${event.reduced} → zadano ${event.dealt} → ${event.remainingHp} HP (esencja: ${event.remainingEssence})`
+        : `${nameOf(event.actorId)} rzuca „${event.spellName}" na ${nameOf(event.targetId)}: pudło (${event.attackRoll} vs ST ${event.st}) (esencja: ${event.remainingEssence})`;
     case "maneuver":
       return `${nameOf(event.actorId)} używa: ${event.maneuverName}`;
     case "reaction":
@@ -58,6 +69,10 @@ export function describeEvent(event: CombatEvent, nameOf: NameLookup): string
       return `${nameOf(event.targetId)}: ${resourceLabelsPl[event.resource as keyof typeof resourceLabelsPl] ?? event.resource} ${event.delta >= 0 ? "+" : ""}${event.delta}`;
     case "buff":
       return `${nameOf(event.targetId)}: ${event.mode === "buff" ? "wzmocnienie" : "osłabienie"} (${event.duration} rund)`;
+    case "contestedTest":
+      return `Test sporny ${nameOf(event.sourceId)} vs ${nameOf(event.targetId)}: ${event.attackerResult} vs ${event.defenderResult} (margines ${event.margin >= 0 ? "+" : ""}${event.margin}) → ${event.win ? "wygrana" : "przegrana"}`;
+    case "saveTest":
+      return `Test ${nameOf(event.targetId)} o ST ${event.st}: wynik ${event.roll} → ${event.failed ? `porażka (o ${event.failMargin})` : "sukces"}`;
     case "chanceRolled":
       return `Rzut na szansę ${event.chance}%: ${event.passed ? "sukces" : "porażka"}`;
     case "pass":

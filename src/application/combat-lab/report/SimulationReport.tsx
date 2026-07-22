@@ -88,11 +88,27 @@ function SummarySection({ summary, a, b }: { summary: SimulationSummary; a: Comb
   const deathCauses = Object.entries(summary.deathCauses).sort((x, y) => y[1] - x[1]);
   const reasons = Object.entries(summary.reasons).filter(([, c]) => c > 0);
 
+  // Winner/loser of the whole series: higher Win Rate wins. Equal rates → no
+  // decisive winner (the run was a wash).
+  const rateA = summary.winRates[a.id] ?? 0;
+  const rateB = summary.winRates[b.id] ?? 0;
+  const decisive = rateA !== rateB;
+  const winner = decisive ? (rateA > rateB ? a : b) : null;
+  const loser = decisive ? (rateA > rateB ? b : a) : null;
+
   return (
     <section>
       <h3 className="mb-2 font-semibold">Wyniki</h3>
       <table className="mb-4 w-full text-sm">
         <tbody>
+          <MetricRow
+            label="Zwycięzca serii"
+            value={winner ? `${winner.name} (${winner.id})` : "nierozstrzygnięte"}
+          />
+          <MetricRow
+            label="Przegrany serii"
+            value={loser ? `${loser.name} (${loser.id})` : "nierozstrzygnięte"}
+          />
           <MetricRow label={`Win Rate — ${a.name}`} value={pct(summary.winRates[a.id])} />
           <MetricRow label={`Win Rate — ${b.name}`} value={pct(summary.winRates[b.id])} />
           <MetricRow label="Remisy" value={`${summary.draws}`} />

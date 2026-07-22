@@ -22,6 +22,9 @@ import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import { selectDefaultOffense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { applyOffenseBuff } from "@/domain/characters/buffs/applyBuffProfile";
 import { expectedOffenseDamage, expectedDamageSpec } from "@/domain/combat-lab/engine/ai/expectedDamage";
+import { statEffectToProfile } from "@/domain/combat-lab/effects/statBuff";
+import { expectedSideResult } from "@/domain/combat-lab/engine/resolveContestedTest";
+import { countScaleSource, scaleTimes } from "@/domain/combat-lab/engine/scaleSource";
 import { getEffectPlugin } from "@/domain/combat-lab/plugins/registry";
 
 const CONTROL_WEIGHT: Record<string, number> = { stun: 1, disarm: 0.8, silence: 0.5, root: 0.2 };
@@ -58,6 +61,47 @@ function effectValue(self: CombatantRuntime, opponent: CombatantRuntime, effect:
       return selfBuffValue(self, effect.profile.profileId, effect.duration, oppRaw);
     case "debuff":
       return debuffValue(self, opponent, effect.profile.profileId, effect.duration, selfRaw);
+    case "stat":
+    {
+      const profile = statEffectToProfile(effect);
+      return effect.mode === "self"
+        ? selfBuffValueFromProfile(self, profile, effect.duration, oppRaw)
+        : debuffValueFromProfile(opponent, profile, effect.duration, selfRaw);
+    }
+    case "roll":
+    {
+      if (effect.modifier === "extraDie") return ((effect.grade ?? 3) * 2 + 1) / 2; // expected value of one added die
+      // advantage ≈ a modest boost to our own expected damage; disadvantage is a
+      // self-penalty we would never choose → no positive value.
+      return effect.modifier === "advantage" ? selfRaw * 0.2 : 0;
+    }
+    case "contested":
+    {
+      // Estimate win probability from the expected margin, then credit the
+      // value of the onWin effects. Heuristic (no rolling): a +/-20 spread maps
+      // roughly to certain win/loss.
+      const margin = expectedSideResult(self.snapshot.skills, effect.attacker) - expectedSideResult(opponent.snapshot.skills, effect.defender);
+      const pWin = Math.max(0, Math.min(1, 0.5 + margin / 20));
+      return pWin * expectedManeuverValue(self, opponent, effect.onWin);
+    }
+    case "save":
+    {
+      // The target (default) saves vs a fixed ST; the more likely it fails, the
+      // more the onFail effects (usually damage to the opponent) are worth.
+      const saver = effect.who === "self" ? self : opponent;
+      const expRoll = expectedSideResult(saver.snapshot.skills, effect.pool);
+      const pFail = Math.max(0, Math.min(1, 0.5 + (effect.st - expRoll) / 20));
+      return pFail * expectedManeuverValue(self, opponent, effect.onFail);
+    }
+    case "when":
+      // We can't know statically whether the condition will hold; discount the
+      // nested value to reflect conditionality (better than treating it as free).
+      return 0.5 * expectedManeuverValue(self, opponent, effect.then);
+    case "scale":
+    {
+      const times = scaleTimes(countScaleSource(effect.source, self, opponent), effect.per, effect.cap);
+      return times * expectedManeuverValue(self, opponent, [effect.effect]);
+    }
     case "chance":
       return (effect.chance / 100) * expectedManeuverValue(self, opponent, effect.then);
     case "custom":
@@ -88,8 +132,11 @@ function signedDefenseSum(profile: BuffProfile): number
 function selfBuffValue(self: CombatantRuntime, profileId: string, duration: number, oppRaw: number): number
 {
   const profile = findProfile(self, profileId);
-  if (!profile) return 0;
+  return profile ? selfBuffValueFromProfile(self, profile, duration, oppRaw) : 0;
+}
 
+function selfBuffValueFromProfile(self: CombatantRuntime, profile: BuffProfile, duration: number, oppRaw: number): number
+{
   const offense = selectDefaultOffense(self.snapshot);
   const offenseGain = offense ? expectedOffenseDamage(applyOffenseBuff(offense, profile)) - expectedOffenseDamage(offense) : 0;
   const defenseValue = Math.min(Math.max(0, signedDefenseSum(profile)), oppRaw);
@@ -100,8 +147,11 @@ function selfBuffValue(self: CombatantRuntime, profileId: string, duration: numb
 function debuffValue(self: CombatantRuntime, opponent: CombatantRuntime, profileId: string, duration: number, selfRaw: number): number
 {
   const profile = findProfile(self, profileId);
-  if (!profile) return 0;
+  return profile ? debuffValueFromProfile(opponent, profile, duration, selfRaw) : 0;
+}
 
+function debuffValueFromProfile(opponent: CombatantRuntime, profile: BuffProfile, duration: number, selfRaw: number): number
+{
   const oppOffense = selectDefaultOffense(opponent.snapshot);
   const offenseLoss = oppOffense ? expectedOffenseDamage(oppOffense) - expectedOffenseDamage(applyOffenseBuff(oppOffense, profile)) : 0;
   // A debuff lowers the opponent's defense (negative sum) → we deal more.

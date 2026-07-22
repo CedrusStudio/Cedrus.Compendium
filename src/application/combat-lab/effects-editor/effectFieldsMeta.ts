@@ -1,0 +1,155 @@
+/**
+ * Metadata driving the in-app maneuver effect editor: per-type field lists,
+ * enum options with Polish labels, and default objects. Single source of truth
+ * shared by the editor components — Polish vocabulary reuses the domain i18n
+ * maps where possible so nothing drifts from the simulator/replay.
+ */
+
+import type { Effect } from "@/domain/combat-lab/effects/Effect";
+import { statusLabelsPl, controlNounsPl } from "@/domain/combat-lab/i18n/labels";
+
+export type FieldKind = "number" | "check" | "enum" | "text";
+
+export type FieldDef =
+{
+  /** Dot path relative to the effect object, e.g. "damage.bonus". */
+  path: string;
+  label: string;
+  kind: FieldKind;
+  options?: readonly string[];
+  optLabels?: Record<string, string>;
+  /** Default when the effect is created / type switched. */
+  def?: number | boolean | string;
+};
+
+export const DAMAGE_TYPES = ["zwyczajne", "blokowane", "bezpośrednie", "śmiertelne", "nieuchronne"] as const;
+export const STATUS_IDS = ["bleeding", "poisoned", "burning", "stagger", "stun", "root", "disarm", "slow", "marked"] as const;
+export const CONTROL_KINDS = ["stun", "root", "disarm", "silence"] as const;
+export const RESOURCE_KINDS = ["essence", "mana", "action"] as const;
+export const RESOURCE_LABELS: Record<string, string> = { essence: "esencja", mana: "mana", action: "akcja" };
+export const ROLL_MODIFIERS = ["advantage", "disadvantage", "extraDie"] as const;
+export const ROLL_MOD_LABELS: Record<string, string> = { advantage: "przewaga (2 rzuty, wyższy)", disadvantage: "utrudnienie (2 rzuty, niższy)", extraDie: "dodatkowa kość" };
+export const STAT_MODE_LABELS: Record<string, string> = { self: "na siebie (wzmocnienie)", target: "na cel (osłabienie)" };
+
+/** All character skills usable in test pools: [group, key, PL]. */
+export const SKILLS: readonly [group: "attributes" | "characteristics", key: string, pl: string][] = [
+  ["attributes", "fencing", "fechtunek"], ["attributes", "artifice", "fortel"], ["attributes", "precision", "precyzja"],
+  ["attributes", "initiative", "inicjatywa"], ["attributes", "martialArt", "walka wręcz"], ["attributes", "horsemanship", "jeździectwo"],
+  ["attributes", "fortitude", "wytrwałość"], ["attributes", "reflex", "refleks"], ["attributes", "willpower", "wola"],
+  ["characteristics", "strength", "siła"], ["characteristics", "dexterity", "zręczność"], ["characteristics", "constitution", "budowa"],
+  ["characteristics", "mind", "umysł"], ["characteristics", "charisma", "charyzma"], ["characteristics", "spellborn", "czarokrwistość"],
+];
+export const ATTACK_KINDS = ["melee", "rangedPhysical", "rangedMagic"] as const;
+export const ATTACK_KIND_LABELS: Record<string, string> = { melee: "walka wręcz", rangedPhysical: "dystans fizyczny", rangedMagic: "dystans magiczny" };
+export const CONDITION_KINDS = ["opponentAttackKind", "targetHasStatus", "selfHasStatus", "onCritical", "onDamageDealt", "selfAirborne", "opponentCharging", "hasResource"] as const;
+export const CONDITION_LABELS: Record<string, string> = {
+  opponentAttackKind: "tylko przeciw (rodzaj ataku)", targetHasStatus: "gdy cel ma status", selfHasStatus: "gdy masz status",
+  onCritical: "przy trafieniu krytycznym", onDamageDealt: "gdy zadano obrażenia",
+  selfAirborne: "atakując z powietrza", opponentCharging: "tylko przeciw szarży", hasResource: "gdy masz zasób (≥)",
+};
+export const RESOURCE_POOL_KINDS = ["essence", "mana"] as const;
+export const RESOURCE_POOL_LABELS: Record<string, string> = { essence: "esencja", mana: "mana" };
+export const SCALE_SOURCE_KINDS = ["opponentDice", "opponentImmunity", "selfResource", "selfStatusStacks", "targetStatusStacks"] as const;
+export const SCALE_SOURCE_LABELS: Record<string, string> = {
+  opponentDice: "kość przeciwnika", opponentImmunity: "niewrażliwość wroga", selfResource: "twój zasób",
+  selfStatusStacks: "twój stack statusu", targetStatusStacks: "stack statusu celu",
+};
+
+const statusOptLabels = Object.fromEntries(STATUS_IDS.map(s => [s, statusLabelsPl[s]]));
+const controlOptLabels = Object.fromEntries(CONTROL_KINDS.map(c => [c, controlNounsPl[c]]));
+
+/** Effect types offered in the editor. `simple` = fully field-driven here;
+ * complex types (contested/save/when/chance/custom/buff/debuff) get dedicated
+ * or JSON editors (later stages). */
+export type EffectTypeMeta = { label: string; simple: boolean; fields?: FieldDef[] };
+
+export const EFFECT_TYPE_META: Record<string, EffectTypeMeta> = {
+  damage: { label: "Obrażenia", simple: true, fields: [
+    { path: "damage.amount", label: "liczba kości", kind: "number", def: 0 },
+    { path: "damage.grade", label: "ranga (k = ranga×2)", kind: "number", def: 0 },
+    { path: "damage.bonus", label: "bonus", kind: "number", def: 0 },
+    { path: "damage.isPhantom", label: "widmowa (w)", kind: "check", def: false },
+    { path: "damageType", label: "kategoria", kind: "enum", options: DAMAGE_TYPES, def: "zwyczajne" },
+    { path: "canCrit", label: "może trafić krytycznie", kind: "check", def: false },
+  ] },
+  heal: { label: "Leczenie", simple: true, fields: [
+    { path: "amount.amount", label: "liczba kości", kind: "number", def: 0 },
+    { path: "amount.grade", label: "ranga", kind: "number", def: 0 },
+    { path: "amount.bonus", label: "bonus", kind: "number", def: 0 },
+  ] },
+  stat: { label: "Wzmocnienie / Obrona", simple: true, fields: [
+    { path: "mode", label: "na kogo", kind: "enum", options: ["self", "target"], optLabels: STAT_MODE_LABELS, def: "self" },
+    { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
+    { path: "block", label: "blok", kind: "number" }, { path: "parry", label: "parowanie", kind: "number" },
+    { path: "dodge", label: "unik", kind: "number" }, { path: "protection", label: "pancerz", kind: "number" },
+    { path: "resistance", label: "odporność", kind: "number" }, { path: "immunity", label: "niewrażliwość", kind: "number" },
+    { path: "damage", label: "obrażenia", kind: "number" }, { path: "diceGrade", label: "ranga kości", kind: "number" },
+    { path: "critPower", label: "siła krytyka", kind: "number" }, { path: "precision", label: "precyzja", kind: "number" },
+    { path: "reflex", label: "refleks", kind: "number" }, { path: "initiative", label: "inicjatywa", kind: "number" },
+    { path: "barrier", label: "bariera", kind: "number" },
+  ] },
+  roll: { label: "Modyfikator rzutu", simple: true, fields: [
+    { path: "modifier", label: "rodzaj", kind: "enum", options: ROLL_MODIFIERS, optLabels: ROLL_MOD_LABELS, def: "advantage" },
+    { path: "grade", label: "ranga kości (dodatkowa)", kind: "number" },
+  ] },
+  status: { label: "Status", simple: true, fields: [
+    { path: "status", label: "status", kind: "enum", options: STATUS_IDS, optLabels: statusOptLabels, def: "bleeding" },
+    { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
+    { path: "stacks", label: "stacki (opc.)", kind: "number" },
+  ] },
+  control: { label: "Kontrola", simple: true, fields: [
+    { path: "control", label: "rodzaj", kind: "enum", options: CONTROL_KINDS, optLabels: controlOptLabels, def: "stun" },
+    { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
+  ] },
+  push: { label: "Odepchnięcie", simple: true, fields: [{ path: "distance", label: "kroki", kind: "number", def: 1 }] },
+  pull: { label: "Przyciągnięcie", simple: true, fields: [{ path: "distance", label: "kroki", kind: "number", def: 1 }] },
+  resource: { label: "Zasób", simple: true, fields: [
+    { path: "resource", label: "zasób", kind: "enum", options: RESOURCE_KINDS, optLabels: RESOURCE_LABELS, def: "essence" },
+    { path: "delta", label: "zmiana (+/-)", kind: "number", def: 0 },
+  ] },
+  buff: { label: "Buff z profilu (zaawansowane)", simple: true, fields: [
+    { path: "profile.profileId", label: "id profilu buffów", kind: "text", def: "" },
+    { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
+  ] },
+  debuff: { label: "Debuff z profilu (zaawansowane)", simple: true, fields: [
+    { path: "profile.profileId", label: "id profilu buffów", kind: "text", def: "" },
+    { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
+  ] },
+  // Complex types — dedicated builders / JSON.
+  contested: { label: "Test sporny", simple: false },
+  save: { label: "Test vs stałe ST (save)", simple: false },
+  when: { label: "Warunek (tylko gdy…)", simple: false },
+  scale: { label: "Skalowanie (za każde X)", simple: false },
+  chance: { label: "Szansa (%)", simple: false },
+  custom: { label: "Własny (plugin)", simple: false },
+};
+
+/** Build a default effect object for a type (used on create / type switch). */
+export function defaultEffect(type: string): Record<string, unknown>
+{
+  switch (type)
+  {
+    case "damage": return { type, damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" };
+    case "heal": return { type, amount: { amount: 0, grade: 0, bonus: 1 } };
+    case "stat": return { type, mode: "self", duration: 1 };
+    case "roll": return { type, modifier: "advantage" };
+    case "status": return { type, status: "bleeding", duration: 1 };
+    case "control": return { type, control: "stun", duration: 1 };
+    case "push": case "pull": return { type, distance: 1 };
+    case "resource": return { type, resource: "essence", delta: 0 };
+    case "contested": return { type, attacker: { pool: [{ anyOf: [{ group: "attributes", key: "fencing" }] }] }, defender: { pool: [{ anyOf: [{ group: "attributes", key: "reflex" }] }] }, onWin: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 2 }, damageType: "zwyczajne" }], onWinTarget: "target" };
+    case "save": return { type, pool: { pool: [{ anyOf: [{ group: "attributes", key: "fortitude" }] }] }, st: 7, who: "target", onFail: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }] };
+    case "when": return { type, condition: { kind: "opponentAttackKind", value: "melee" }, then: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }] };
+    case "scale": return { type, source: { kind: "opponentDice" }, effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" } };
+    case "chance": return { type, chance: 50, then: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }] };
+    case "buff": case "debuff": return { type, profile: { profileId: "" }, duration: 1 };
+    case "custom": return { type, effectType: "", data: {} };
+    default: return { type };
+  }
+}
+
+export const EFFECT_TYPE_ORDER = Object.keys(EFFECT_TYPE_META);
+
+/** Cast helper: our effect objects are built loosely and validated by Zod. */
+export type LooseEffect = Record<string, unknown> & { type: string };
+export const asEffects = (list: LooseEffect[]): Effect[] => list as unknown as Effect[];

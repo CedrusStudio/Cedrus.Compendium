@@ -11,6 +11,14 @@ const damageManeuver = (id: string, bonus: number): ManeuverDefinition => ({
   effects: [{ type: "damage", damage: { amount: 0, grade: 0, bonus }, damageType: "nieuchronne" }],
 });
 
+// A maneuver with NO damage value — greedy's damageScore is 0 (== pass), so a
+// greedy combatant never picks it (the proactive phase offers pass + maneuvers).
+const noDamageManeuver = (id: string): ManeuverDefinition => ({
+  id, name: id, grade: 1, description: "", requirements: [], price: 1, tags: [],
+  castTime: "Standardowa", cooldown: 0, cost: { castTime: "Standardowa" }, hardRequirements: [],
+  effects: [{ type: "control", control: "root", duration: 1 }],
+});
+
 const strong = () => makeSnapshot("strong", { offense: makeOffense("s", 4, 8, 10), maxHp: 60, initiativeValue: 5 });
 const mid = () => makeSnapshot("mid", { offense: makeOffense("m", 2, 6, 4), maxHp: 45, initiativeValue: 3 });
 const weak = () => makeSnapshot("weak", { offense: makeOffense("w", 1, 3, 0), maxHp: 25, initiativeValue: 1 });
@@ -26,12 +34,12 @@ describe("computeMeta()", () => {
 
   it("collects used maneuvers and flags never-used ones", () => {
     const user = makeSnapshot("user", { offense: makeOffense("uo", 1, 3, 0), maneuvers: [damageManeuver("Burst", 20)], initiativeValue: 5, maxHp: 40 });
-    const bystander = makeSnapshot("bystander", { offense: makeOffense("bo", 2, 6, 4), maneuvers: [damageManeuver("NeverUsed", 1)], maxHp: 40 });
+    const bystander = makeSnapshot("bystander", { offense: makeOffense("bo", 2, 6, 4), maneuvers: [noDamageManeuver("NeverUsed")], maxHp: 40 });
     const entries: MatchupEntry[] = [user, bystander].map(snapshot => ({ snapshot, policy: greedyDamagePolicy }));
 
     const report = computeMeta(entries, { count: 80 });
     expect(report.mostUsedManeuvers.some(m => m.name === "Burst" && m.count > 0)).toBe(true);
-    // "NeverUsed" gives only +1 expected damage; greedy prefers the strong attack → never picked
+    // "NeverUsed" deals no damage → greedy's damageScore is 0 (== pass) → never picked
     expect(report.neverUsedManeuvers).toContain("NeverUsed");
   });
 

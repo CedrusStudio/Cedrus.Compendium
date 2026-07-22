@@ -12,11 +12,24 @@
 
 import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { selectDefaultOffense, selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import { rollOffense, applyImmunity } from "@/domain/combat-lab/engine/rollOffense";
+import { applyImmunity, rollOffenseWithModifiers } from "@/domain/combat-lab/engine/rollOffense";
 import { reduceDamage, halveGuards } from "@/domain/combat-lab/engine/damage";
+import type { RollModifierEffect } from "@/domain/combat-lab/effects/Effect";
 import { effectiveOffense, effectiveDefense } from "@/domain/combat-lab/engine/buffs";
+import { calculateSelectedReduction } from "@/domain/characters/combat/Defense";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 import type { RandomSource } from "@/domain/combat-lab/rng/Rng";
+
+/** How the raw roll was reduced — surfaced in the Replay so the numbers are legible. */
+export type ReductionBreakdown =
+{
+  /** Odporność subtracted first. */
+  resistance: number;
+  /** Redukcja (block/parry/dodge/armor per category). */
+  reduction: number;
+  /** Niewrażliwość — dice removed from the attack before rolling. */
+  immunityDice: number;
+};
 
 export type AttackResolution =
 {
@@ -24,6 +37,7 @@ export type AttackResolution =
   reduced: number;
   dealt: number;
   critical: boolean;
+  breakdown: ReductionBreakdown;
 };
 
 export type AttackModifiers =
@@ -36,6 +50,8 @@ export type AttackModifiers =
   attackerBuffs?: BuffProfile[];
   /** Active buff/debuff profiles on the defender (raise/lower the defense). */
   defenderBuffs?: BuffProfile[];
+  /** Roll modifiers (T2b) queued for this attack (advantage / extra die …). */
+  rollMods?: RollModifierEffect[];
 };
 
 /**
@@ -53,7 +69,7 @@ export function resolveAttack(
 
   if (!baseOffense)
   {
-    return { raw: 0, reduced: 0, dealt: 0, critical: false };
+    return { raw: 0, reduced: 0, dealt: 0, critical: false, breakdown: { resistance: 0, reduction: 0, immunityDice: 0 } };
   }
 
   // Active buffs raise the attacker's offense (e.g. a self-buff maneuver used
@@ -66,7 +82,9 @@ export function resolveAttack(
   // Niewrażliwość removes attacker dice before the roll; stagger removes one more.
   const diceToRemove = (buffedDefense?.immunity ?? 0) + (modifiers.attackerStaggered ? 1 : 0);
   const rolledOffense = diceToRemove > 0 ? applyImmunity(offense, diceToRemove) : offense;
-  const rolled = rollOffense(rolledOffense, random);
+
+  // Roll modifiers (T2b): advantage/disadvantage/extraDie — shared with ranged.
+  const rolled = rollOffenseWithModifiers(rolledOffense, random, modifiers.rollMods ?? []);
   const dealt = reduceDamage(rolled.total, defense, "zwyczajne");
 
   return {
@@ -74,5 +92,10 @@ export function resolveAttack(
     reduced: rolled.total - dealt,
     dealt,
     critical: rolled.critical,
+    breakdown: {
+      resistance: Math.max(0, defense?.resistance ?? 0),
+      reduction: defense ? calculateSelectedReduction(defense, "full") : 0,
+      immunityDice: diceToRemove,
+    },
   };
 }
