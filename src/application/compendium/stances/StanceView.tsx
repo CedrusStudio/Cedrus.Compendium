@@ -45,7 +45,9 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={stance} />
       </div>
-      
+
+      <ModeEffectsInfo mode={stance} />
+
       <PerkableBadgeView>
 
         <PriceBadge price={stance.price} />
@@ -54,10 +56,10 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
             <CompendiumEditView>
               <DeleteButton id={stance.id} isPending={isPending} deleteAction={deleteStance} />
 
-              <EditFormForSheet<ModeDto> 
+              <EditFormForSheet<ModeWithEffectsDto>
                 entityId={stance.id}
                 defaultValues={stance}
-                schema={modeSchema}
+                schema={modeWithEffectsSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.stance(stance.id)}
                 renderSheetContent=
@@ -69,6 +71,7 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
                       title={displayedText.editStance}
                     >
                       <PerkEditableFields entityType="stances" />
+                      <ManeuverEffectsEditableFields />
                     </EditSheet>
                   )
                 }
