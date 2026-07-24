@@ -30,6 +30,8 @@ export type CombatEvent =
   | { kind: "move"; sourceId: string; targetId: string; direction: "push" | "pull"; distance: number }
   | { kind: "resource"; targetId: string; resource: string; delta: number }
   | { kind: "buff"; sourceId: string; targetId: string; profileId: string; duration: number; mode: "buff" | "debuff" }
+  | { kind: "multiplier"; sourceId: string; targetId: string; multiplierTarget: "damageDealt" | "damageTaken"; factor: number; duration: number }
+  | { kind: "stanceRank"; actorId: string; delta: number; duration: number; target: "stance" | "state" }
   | { kind: "contestedTest"; sourceId: string; targetId: string; attackerResult: number; defenderResult: number; margin: number; win: boolean }
   | { kind: "saveTest"; targetId: string; roll: number; st: number; failMargin: number; failed: boolean }
   | { kind: "chanceRolled"; sourceId: string; chance: number; passed: boolean }

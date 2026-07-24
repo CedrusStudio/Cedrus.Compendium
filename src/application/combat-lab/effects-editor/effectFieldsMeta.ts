@@ -30,6 +30,10 @@ export const RESOURCE_LABELS: Record<string, string> = { essence: "esencja", man
 export const ROLL_MODIFIERS = ["advantage", "disadvantage", "extraDie"] as const;
 export const ROLL_MOD_LABELS: Record<string, string> = { advantage: "przewaga (2 rzuty, wyższy)", disadvantage: "utrudnienie (2 rzuty, niższy)", extraDie: "dodatkowa kość" };
 export const STAT_MODE_LABELS: Record<string, string> = { self: "na siebie (wzmocnienie)", target: "na cel (osłabienie)" };
+export const MULTIPLIER_TARGETS = ["damageDealt", "damageTaken"] as const;
+export const MULTIPLIER_TARGET_LABELS: Record<string, string> = { damageDealt: "zadawane obrażenia", damageTaken: "otrzymywane obrażenia" };
+export const ROUNDING_KINDS = ["up", "down", "nearest"] as const;
+export const ROUNDING_LABELS: Record<string, string> = { up: "w górę", down: "w dół", nearest: "do najbliższego" };
 
 /** All character skills usable in test pools: [group, key, PL]. */
 export const SKILLS: readonly [group: "attributes" | "characteristics", key: string, pl: string][] = [
@@ -49,10 +53,11 @@ export const CONDITION_LABELS: Record<string, string> = {
 };
 export const RESOURCE_POOL_KINDS = ["essence", "mana"] as const;
 export const RESOURCE_POOL_LABELS: Record<string, string> = { essence: "esencja", mana: "mana" };
-export const SCALE_SOURCE_KINDS = ["opponentDice", "opponentImmunity", "selfResource", "selfStatusStacks", "targetStatusStacks"] as const;
+export const SCALE_SOURCE_KINDS = ["opponentDice", "opponentImmunity", "selfResource", "selfStatusStacks", "targetStatusStacks", "selfStat", "opponentStat"] as const;
 export const SCALE_SOURCE_LABELS: Record<string, string> = {
   opponentDice: "kość przeciwnika", opponentImmunity: "niewrażliwość wroga", selfResource: "twój zasób",
   selfStatusStacks: "twój stack statusu", targetStatusStacks: "stack statusu celu",
+  selfStat: "twoja statystyka", opponentStat: "statystyka przeciwnika",
 };
 
 const statusOptLabels = Object.fromEntries(STATUS_IDS.map(s => [s, statusLabelsPl[s]]));
@@ -84,9 +89,23 @@ export const EFFECT_TYPE_META: Record<string, EffectTypeMeta> = {
     { path: "dodge", label: "unik", kind: "number" }, { path: "protection", label: "pancerz", kind: "number" },
     { path: "resistance", label: "odporność", kind: "number" }, { path: "immunity", label: "niewrażliwość", kind: "number" },
     { path: "damage", label: "obrażenia", kind: "number" }, { path: "diceGrade", label: "ranga kości", kind: "number" },
-    { path: "critPower", label: "siła krytyka", kind: "number" }, { path: "precision", label: "precyzja", kind: "number" },
+    { path: "critPower", label: "siła krytyka", kind: "number" }, { path: "critRange", label: "szansa krytyka", kind: "number" },
+    { path: "critDisabled", label: "nie może krytować", kind: "check", def: false },
+    { path: "precision", label: "precyzja", kind: "number" },
     { path: "reflex", label: "refleks", kind: "number" }, { path: "initiative", label: "inicjatywa", kind: "number" },
     { path: "barrier", label: "bariera", kind: "number" },
+  ] },
+  multiplier: { label: "Mnożnik obrażeń (%)", simple: true, fields: [
+    { path: "mode", label: "na kogo", kind: "enum", options: ["self", "target"], optLabels: STAT_MODE_LABELS, def: "self" },
+    { path: "target", label: "co mnoży", kind: "enum", options: MULTIPLIER_TARGETS, optLabels: MULTIPLIER_TARGET_LABELS, def: "damageDealt" },
+    { path: "factor", label: "mnożnik (2 = ×2, 0.9 = −10%)", kind: "number", def: 1 },
+    { path: "rounding", label: "zaokrąglenie", kind: "enum", options: ROUNDING_KINDS, optLabels: ROUNDING_LABELS, def: "up" },
+    { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
+  ] },
+  stanceRank: { label: "Ranga postawy/stanu", simple: true, fields: [
+    { path: "target", label: "co", kind: "enum", options: ["stance", "state"], optLabels: { stance: "postawa", state: "stan" }, def: "stance" },
+    { path: "delta", label: "o ile (+/-)", kind: "number", def: 1 },
+    { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
   ] },
   roll: { label: "Modyfikator rzutu", simple: true, fields: [
     { path: "modifier", label: "rodzaj", kind: "enum", options: ROLL_MODIFIERS, optLabels: ROLL_MOD_LABELS, def: "advantage" },
@@ -132,6 +151,8 @@ export function defaultEffect(type: string): Record<string, unknown>
     case "damage": return { type, damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" };
     case "heal": return { type, amount: { amount: 0, grade: 0, bonus: 1 } };
     case "stat": return { type, mode: "self", duration: 1 };
+    case "multiplier": return { type, mode: "self", target: "damageDealt", factor: 1, rounding: "up", duration: 1 };
+    case "stanceRank": return { type, target: "stance", delta: 1, duration: 1 };
     case "roll": return { type, modifier: "advantage" };
     case "status": return { type, status: "bleeding", duration: 1 };
     case "control": return { type, control: "stun", duration: 1 };

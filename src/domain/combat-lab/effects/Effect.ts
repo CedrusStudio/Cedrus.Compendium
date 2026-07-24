@@ -23,6 +23,9 @@ export type DamageSpec =
   grade: number;
   bonus: number;
   isPhantom?: boolean;
+  /** Dynamic dice rank: resolve `grade` from a statistic at roll time
+   * ("kość równa sile"). Overrides `grade` when present. `who` defaults to self. */
+  gradeFromStat?: { group: "attributes" | "characteristics"; key: string; who?: "self" | "target" };
 };
 
 /**
@@ -176,14 +179,54 @@ export type StatBuffEffect =
   damage?: number;
   /** Leading-weapon dice rank (k = rank × 2). */
   diceGrade?: number;
-  /** Critical power. */
+  /** Critical power (premia obrażeń krytyka). */
   critPower?: number;
+  /** Critical range — widens the crit window (krytyk gdy roll ≥ grade*2 − range). */
+  critRange?: number;
+  /** Suppress critical hits entirely (mode "self" = caster can't crit; "target"
+   * = opponent can't crit). Buffs only ADD, so zeroing crit needs its own flag. */
+  critDisabled?: boolean;
   // Test stats.
   precision?: number;
   reflex?: number;
   initiative?: number;
   // Health.
   barrier?: number;
+};
+
+/**
+ * Multiplier (procent / mnożnik) — scales damage by a factor, unlike every other
+ * effect which is additive. Attached to a combatant for `duration` rounds and
+ * applied at the END of an attack (after the roll and flat reduction).
+ *   - target "damageDealt" — scales damage this combatant DEALS ("podwaja obrażenia" → 2).
+ *   - target "damageTaken" — scales damage this combatant TAKES ("−10% obrażeń" → 0.9).
+ *   - mode "self"/"target" — whom the multiplier is attached to (debuff = "target").
+ * Multiple multipliers of the same target compound (multiply). Rounding of the
+ * final value defaults to "up" (podręcznik: „zaokrąglone w górę").
+ */
+export type MultiplierEffect =
+{
+  type: "multiplier";
+  mode: "self" | "target";
+  target: "damageDealt" | "damageTaken";
+  /** Multiplicative factor (2 = double, 0.9 = −10%). */
+  factor: number;
+  rounding?: "up" | "down" | "nearest";
+  duration: number;
+};
+
+/**
+ * Raise (or lower) the caster's active stance/state RANK for `duration` rounds
+ * ("podnosisz rangę postaw o 1"). The rank bump swaps the auto-cast to the
+ * grade+delta variant of the active mode (see engine-model-gaps §1).
+ */
+export type StanceRankEffect =
+{
+  type: "stanceRank";
+  delta: number;
+  duration: number;
+  /** Which slot to bump — defaults to the stance. */
+  target?: "stance" | "state";
 };
 
 /**
@@ -302,7 +345,9 @@ export type ScaleSource =
   | { kind: "opponentImmunity" }                               // opponent's niewrażliwość ("za każdą niewrażliwość wroga")
   | { kind: "selfResource"; resource: "mana" | "essence" }     // caster's mana/essence
   | { kind: "selfStatusStacks"; status: StatusId }
-  | { kind: "targetStatusStacks"; status: StatusId };
+  | { kind: "targetStatusStacks"; status: StatusId }
+  | { kind: "selfStat"; group: "attributes" | "characteristics"; key: string }      // caster's stat value ("równa sile")
+  | { kind: "opponentStat"; group: "attributes" | "characteristics"; key: string }; // opponent's stat value ("równa umysłowi przeciwnika")
 
 /**
  * Scaling wrapper: apply `effect` once per `per` units of `source` (capped),
@@ -353,6 +398,8 @@ export type Effect =
   | BuffEffect
   | DebuffEffect
   | StatBuffEffect
+  | MultiplierEffect
+  | StanceRankEffect
   | RollModifierEffect
   | ContestedTestEffect
   | SaveTestEffect

@@ -47,6 +47,13 @@ export function describeEvent(event: CombatEvent, nameOf: NameLookup): string
       return event.hit
         ? `${nameOf(event.actorId)} rzuca „${event.spellName}" na ${nameOf(event.targetId)}: trafienie (${event.attackRoll} vs ST ${event.st}), wyrzucono ${event.raw}${event.critical ? " (traf. kryt.)" : ""}, zredukowano ${event.reduced} → zadano ${event.dealt} → ${event.remainingHp} HP (esencja: ${event.remainingEssence})`
         : `${nameOf(event.actorId)} rzuca „${event.spellName}" na ${nameOf(event.targetId)}: pudło (${event.attackRoll} vs ST ${event.st}) (esencja: ${event.remainingEssence})`;
+    case "multiplier":
+    {
+      const what = event.multiplierTarget === "damageDealt" ? "zadawane obrażenia" : "otrzymywane obrażenia";
+      return `${nameOf(event.targetId)}: ${what} ×${event.factor} (${event.duration} r.)`;
+    }
+    case "stanceRank":
+      return `${nameOf(event.actorId)}: ranga ${event.target === "state" ? "stanu" : "postawy"} ${event.delta >= 0 ? "+" : ""}${event.delta} (${event.duration} r.)`;
     case "maneuver":
       return `${nameOf(event.actorId)} używa: ${event.maneuverName}`;
     case "reaction":

@@ -132,6 +132,21 @@ export function rollOffenseWithModifiers(
   return { total, critical: chosen.critical };
 }
 
+/**
+ * Zero out the critical window on every weapon component of an offense, so a
+ * roll can never land a crit ("nie można zadać krytycznych obrażeń"). Flat
+ * damage bonuses carry no crit. Returns a copy; the input is not mutated.
+ */
+export function stripCritical(offense: Offense): Offense
+{
+  const noCrit = <T extends { critical: { power: number; range: number } }>(w: T): T => ({ ...w, critical: { power: 0, range: 0 } });
+  return {
+    ...offense,
+    leadingWeapon: noCrit(offense.leadingWeapon),
+    secondaryWeapon: offense.secondaryWeapon ? noCrit(offense.secondaryWeapon) : undefined,
+  };
+}
+
 /** Roll a bare `DamageSpec` (used by damage effects). Reuses the flat-bonus path. */
 export function rollDamageSpec(spec: DamageSpec, random: RandomSource): number
 {

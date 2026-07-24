@@ -5,8 +5,8 @@
  * the `CombatLog`, not this object.
  */
 
-import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import type { StatusId, DamageTick, RollModifierEffect } from "@/domain/combat-lab/effects/Effect";
+import type { CombatantSnapshot, SnapshotMode } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import type { StatusId, DamageTick, RollModifierEffect, MultiplierEffect } from "@/domain/combat-lab/effects/Effect";
 import type { Castable, EndTurn } from "@/domain/characters/Castable";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 
@@ -38,6 +38,27 @@ export type ActiveBuff =
   remaining: number;
 };
 
+/** A damage multiplier in effect (procent / mnożnik), with rounds left. */
+export type ActiveMultiplier =
+{
+  target: MultiplierEffect["target"];
+  factor: number;
+  rounding: "up" | "down" | "nearest";
+  remaining: number;
+};
+
+/** An active stance/state with its temporary rank bump (from "podnieś rangę"). */
+export type ActiveMode =
+{
+  mode: SnapshotMode;
+  /** Authored grades of this mode's family, ascending (for clamping). */
+  grades: number[];
+  /** Temporary rank bonus (rounds tracked separately); resets when it expires. */
+  rankBonus: number;
+  /** Rounds the rank bonus lasts (0 = none active). */
+  rankBonusRemaining: number;
+};
+
 export type CombatantRuntime =
 {
   snapshot: CombatantSnapshot;
@@ -47,6 +68,8 @@ export type CombatantRuntime =
   controls: ActiveControl[];
   /** Buff/debuff profiles in effect, applied to offense/defense at resolve time. */
   activeBuffs: ActiveBuff[];
+  /** Damage multipliers in effect (procent / mnożnik), applied post-reduction. */
+  activeMultipliers: ActiveMultiplier[];
   /**
    * Roll modifiers (T2b) queued for THIS turn's attack — set by a `roll` effect
    * and consumed (cleared) by the next attack. Transient, not duration-based.
@@ -58,6 +81,12 @@ export type CombatantRuntime =
   resources: { mana: number; essence: number };
   /** Rounds remaining before each spell (by id) can be cast again. Decremented per turn. */
   spellCooldowns: Record<string, number>;
+  /** Rounds remaining during which THIS combatant's attacks cannot land a crit
+   * ("nie można zadać krytycznych obrażeń"). 0 = crits allowed. */
+  critSuppressedRemaining: number;
+  /** Active stance/state (their effects are auto-cast at the start of each turn). */
+  activeStance?: ActiveMode;
+  activeState?: ActiveMode;
   /** Rounds spent at/below 0 hp (for the lethalRounds bleed-out rule). */
   roundsDowned: number;
   /**
@@ -93,15 +122,27 @@ export function createRuntime(snapshot: CombatantSnapshot): CombatantRuntime
     statuses: [],
     controls: [],
     activeBuffs: [],
+    activeMultipliers: [],
     rollMods: [],
     resources: { mana: snapshot.startingResources?.mana ?? 0, essence: snapshot.startingResources?.essence ?? 0 },
     spellCooldowns: {},
+    critSuppressedRemaining: 0,
+    activeStance: toActiveMode(snapshot.stance),
+    activeState: toActiveMode(snapshot.state),
     roundsDowned: 0,
     usedCastables: [],
     attackedThisTurn: false,
     initiativeRoll: 0,
     alive: true,
   };
+}
+
+/** Build the runtime active-mode wrapper from a snapshot stance/state (if any). */
+function toActiveMode(mode: SnapshotMode | undefined): ActiveMode | undefined
+{
+  if (!mode) return undefined;
+  const grades = Object.keys(mode.variantsByGrade).map(Number).sort((a, b) => a - b);
+  return { mode, grades, rankBonus: 0, rankBonusRemaining: 0 };
 }
 
 export function findRuntime(state: CombatState, id: string): CombatantRuntime | undefined

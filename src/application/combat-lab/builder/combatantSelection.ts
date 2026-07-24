@@ -5,7 +5,7 @@
  */
 
 import type { Character } from "@/domain/characters/Character";
-import type { CombatantSnapshot, AttackKind } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import type { CombatantSnapshot, AttackKind, SnapshotMode } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { toCombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { PowerSpecification } from "@/domain/characters/combat/Power";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
@@ -31,6 +31,9 @@ export type CombatantSelection =
   powerSpecifications?: Record<string, PowerSpecification>;
   /** Which PowerOffense (index) each power uses for its spells (defaults to 0). */
   spellOffenseSelection?: Record<string, number>;
+  /** Starting stance/state for this run (chosen from the library in the picker). */
+  stance?: SnapshotMode;
+  state?: SnapshotMode;
 };
 
 export function createSelection(characterId: string, characterName: string): CombatantSelection
@@ -53,6 +56,8 @@ export function buildSnapshotFromSelection(character: Character, selection: Comb
     startingResources: selection.startingResources,
     powerSpecifications: selection.powerSpecifications,
     spellOffenseSelection: selection.spellOffenseSelection,
+    stance: selection.stance,
+    state: selection.state,
   });
 
   return {

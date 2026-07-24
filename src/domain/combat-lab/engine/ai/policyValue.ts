@@ -102,6 +102,18 @@ function effectValue(self: CombatantRuntime, opponent: CombatantRuntime, effect:
       const times = scaleTimes(countScaleSource(effect.source, self, opponent), effect.per, effect.cap);
       return times * expectedManeuverValue(self, opponent, [effect.effect]);
     }
+    case "multiplier":
+    {
+      const dur = Math.max(1, effect.duration);
+      const delta = effect.factor - 1; // >0 amplify, <0 reduce
+      if (effect.target === "damageDealt")
+      {
+        // Scales the DEALER's output: my output up = good; opponent's output down = good.
+        return effect.mode === "self" ? selfRaw * delta * dur : oppRaw * -delta * dur;
+      }
+      // damageTaken scales the TAKER's incoming: me taking less = good; opponent taking more = good.
+      return effect.mode === "self" ? oppRaw * -delta * dur : selfRaw * delta * dur;
+    }
     case "chance":
       return (effect.chance / 100) * expectedManeuverValue(self, opponent, effect.then);
     case "custom":

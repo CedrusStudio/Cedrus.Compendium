@@ -46,6 +46,11 @@ export const damageSpecSchema = z.object({
   grade: z.number().int().min(0),
   bonus: z.number().int(),
   isPhantom: z.boolean().optional(),
+  gradeFromStat: z.object({
+    group: z.enum(["attributes", "characteristics"]),
+    key: z.string().min(1),
+    who: z.enum(["self", "target"]).optional(),
+  }).optional(),
 });
 
 const buffProfileRefSchema = z.object({
@@ -120,10 +125,26 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
       damage: z.number().int().optional(),
       diceGrade: z.number().int().optional(),
       critPower: z.number().int().optional(),
+      critRange: z.number().int().optional(),
+      critDisabled: z.boolean().optional(),
       precision: z.number().int().optional(),
       reflex: z.number().int().optional(),
       initiative: z.number().int().optional(),
       barrier: z.number().int().optional(),
+    }),
+    z.object({
+      type: z.literal("multiplier"),
+      mode: z.enum(["self", "target"]),
+      target: z.enum(["damageDealt", "damageTaken"]),
+      factor: z.number().min(0),
+      rounding: z.enum(["up", "down", "nearest"]).optional(),
+      duration: z.number().int().min(0),
+    }),
+    z.object({
+      type: z.literal("stanceRank"),
+      delta: z.number().int(),
+      duration: z.number().int().min(0),
+      target: z.enum(["stance", "state"]).optional(),
     }),
     z.object({
       type: z.literal("roll"),
@@ -194,6 +215,8 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
         z.object({ kind: z.literal("selfResource"), resource: z.enum(["mana", "essence"]) }),
         z.object({ kind: z.literal("selfStatusStacks"), status: z.enum(statusIds) }),
         z.object({ kind: z.literal("targetStatusStacks"), status: z.enum(statusIds) }),
+        z.object({ kind: z.literal("selfStat"), group: z.enum(["attributes", "characteristics"]), key: z.string().min(1) }),
+        z.object({ kind: z.literal("opponentStat"), group: z.enum(["attributes", "characteristics"]), key: z.string().min(1) }),
       ]),
       per: z.number().int().min(1).optional(),
       cap: z.number().int().min(0).optional(),

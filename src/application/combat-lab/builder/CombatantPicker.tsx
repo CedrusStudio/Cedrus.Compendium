@@ -11,6 +11,7 @@ import { emptyUlid } from "@/common/global/pagination";
 import { useSearchCharactersSummary } from "@/application/characters/hooks/useSearchCharactersSummary";
 import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterById";
 import { usePowerSpecifications } from "@/application/combat-lab/hooks/usePowerSpecifications";
+import { ModeSelector } from "@/application/combat-lab/builder/ModeSelector";
 import {
   createSelection,
   createTempBuff,
@@ -181,6 +182,9 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
                 </div>
               );
             })}
+
+            <ModeSelector kind="stance" value={value.stance} onChange={(stance) => onChange({ ...value, stance })} />
+            <ModeSelector kind="state" value={value.state} onChange={(state) => onChange({ ...value, state })} />
 
             {character && character.buffProfiles.length > 0 && (
               <div className="flex flex-col gap-1.5">

@@ -56,6 +56,25 @@ export function bypassesBarrier(damageType: DamageType): boolean
 }
 
 /**
+ * Apply damage multipliers (procent / mnożnik) to a post-reduction amount. Each
+ * multiplier is folded sequentially with its own rounding; multipliers of the
+ * same target thus compound. Default rounding is "up" (podręcznik). Floored ≥ 0.
+ */
+export function applyDamageMultipliers(
+  amount: number,
+  multipliers: { factor: number; rounding: "up" | "down" | "nearest" }[],
+): number
+{
+  let value = amount;
+  for (const m of multipliers)
+  {
+    const scaled = value * m.factor;
+    value = m.rounding === "down" ? Math.floor(scaled) : m.rounding === "nearest" ? Math.round(scaled) : Math.ceil(scaled);
+  }
+  return Math.max(0, value);
+}
+
+/**
  * Halve the active guard layers (block/parry/dodge, floored) — the defensive
  * side of Oszołomienie (stagger). Armor/unique reduction and resistance are
  * unaffected. Returns a copy; the input is not mutated.

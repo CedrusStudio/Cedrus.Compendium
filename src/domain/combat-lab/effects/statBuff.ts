@@ -28,6 +28,7 @@ export function statEffectToProfile(effect: StatBuffEffect): BuffProfile
   if (effect.damage) profile.offense.damageBonus.bonus = effect.damage;
   if (effect.diceGrade) profile.offense.leadingWeapon.grade = effect.diceGrade;
   if (effect.critPower) profile.offense.leadingWeapon.criticalPower = effect.critPower;
+  if (effect.critRange) profile.offense.leadingWeapon.criticalRange = effect.critRange;
 
   if (effect.precision) profile.attributes.precision.value = effect.precision;
   if (effect.reflex) profile.attributes.reflex.value = effect.reflex;
@@ -51,6 +52,8 @@ export function statEffectDeltas(effect: StatBuffEffect): [string, number][]
     ["obrażenia", effect.damage ?? 0],
     ["ranga kości", effect.diceGrade ?? 0],
     ["siła krytyka", effect.critPower ?? 0],
+    ["szansa krytyka", effect.critRange ?? 0],
+    ["bez krytyka", effect.critDisabled ? 1 : 0],
     ["precyzja", effect.precision ?? 0],
     ["refleks", effect.reflex ?? 0],
     ["inicjatywa", effect.initiative ?? 0],

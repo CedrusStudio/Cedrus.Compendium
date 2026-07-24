@@ -22,8 +22,9 @@ import { createRng } from "@/domain/combat-lab/rng/Rng";
 import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
 import { resolveAttack } from "@/domain/combat-lab/engine/resolveAttack";
 import { resolveRangedAttack, rangedCategory, DISTANCE_ST } from "@/domain/combat-lab/engine/resolveRangedAttack";
-import { dealDamage, reduceDamage, bypassesBarrier } from "@/domain/combat-lab/engine/damage";
+import { dealDamage, reduceDamage, bypassesBarrier, applyDamageMultipliers } from "@/domain/combat-lab/engine/damage";
 import { applyEffects } from "@/domain/combat-lab/engine/applyEffect";
+import { variantEffectsAt } from "@/domain/combat-lab/effects/ModeDefinition";
 import { availableProactiveManeuvers, availableReactiveManeuvers, availableSpells, tickSpellCooldowns, recordAction, endTurnLedger, type Action } from "@/domain/combat-lab/engine/actionEconomy";
 import { basicAttackPolicy, greedyDamagePolicy, type ActionPolicy } from "@/domain/combat-lab/engine/ai/policy";
 import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
@@ -90,8 +91,18 @@ export function runCombat(
       tickStatuses(actor, random, log);
       tickControls(actor);
       tickBuffs(actor);
+      tickMultipliers(actor);
       tickSpellCooldowns(actor);
+      tickRankBonus(actor);
+      if (actor.critSuppressedRemaining > 0) actor.critSuppressedRemaining -= 1;
       applyDownedProgress(actor);
+
+      // Auto-cast the active stance/state: their effects re-apply at the start of
+      // each turn so passive bonuses stay up and conditional/tick effects fire.
+      {
+        const modeOpponent = firstLivingOpponent(state, actor);
+        if (modeOpponent && actor.alive) autoCastModes(actor, modeOpponent, random, log);
+      }
 
       if (actor.alive && canAct(actor) && actor.currentHp > 0)
       {
@@ -217,17 +228,19 @@ function executeAction(
       attackerBuffs: activeBuffProfiles(actor),
       defenderBuffs: activeBuffProfiles(opponent),
       rollMods: actor.rollMods,
+      suppressCrit: actor.critSuppressedRemaining > 0,
     });
     actor.rollMods = []; // consumed by this attack
-    actor.lastAttack = { critical: result.critical, dealt: result.dealt };
-    const remainingHp = dealDamage(opponent, result.dealt);
+    const dealt = applyDamageMultipliers(result.dealt, attackMultipliers(actor, opponent));
+    actor.lastAttack = { critical: result.critical, dealt };
+    const remainingHp = dealDamage(opponent, dealt);
     log.push({
       kind: "attack",
       actorId: actor.snapshot.id,
       targetId: opponent.snapshot.id,
       raw: result.raw,
-      reduced: result.reduced,
-      dealt: result.dealt,
+      reduced: result.raw - dealt,
+      dealt,
       critical: result.critical,
       remainingHp,
       resistance: result.breakdown.resistance,
@@ -247,10 +260,12 @@ function executeAction(
       attackerBuffs: activeBuffProfiles(actor),
       defenderBuffs: activeBuffProfiles(opponent),
       rollMods: actor.rollMods,
+      suppressCrit: actor.critSuppressedRemaining > 0,
     });
     actor.rollMods = []; // consumed by this attack
-    actor.lastAttack = { critical: result.critical, dealt: result.hit ? result.dealt : 0 };
-    const remainingHp = result.hit ? dealDamage(opponent, result.dealt) : opponent.currentHp;
+    const dealt = result.hit ? applyDamageMultipliers(result.dealt, attackMultipliers(actor, opponent)) : 0;
+    actor.lastAttack = { critical: result.critical, dealt };
+    const remainingHp = result.hit ? dealDamage(opponent, dealt) : opponent.currentHp;
     log.push({
       kind: "rangedAttack",
       actorId: actor.snapshot.id,
@@ -259,8 +274,8 @@ function executeAction(
       attackRoll: result.attackRoll,
       st: result.st,
       raw: result.raw,
-      reduced: result.reduced,
-      dealt: result.dealt,
+      reduced: result.hit ? result.raw - dealt : result.reduced,
+      dealt,
       critical: result.critical,
       remainingHp,
     });
@@ -278,10 +293,12 @@ function executeAction(
       defenderBuffs: activeBuffProfiles(opponent),
       rollMods: actor.rollMods,
       offenseOverride: action.spell.offense,
+      suppressCrit: actor.critSuppressedRemaining > 0,
     });
     actor.rollMods = []; // consumed by this cast
-    actor.lastAttack = { critical: result.critical, dealt: result.hit ? result.dealt : 0 };
-    const remainingHp = result.hit ? dealDamage(opponent, result.dealt) : opponent.currentHp;
+    const dealt = result.hit ? applyDamageMultipliers(result.dealt, attackMultipliers(actor, opponent)) : 0;
+    actor.lastAttack = { critical: result.critical, dealt };
+    const remainingHp = result.hit ? dealDamage(opponent, dealt) : opponent.currentHp;
     // Essence is deducted in recordAction (called right after); report the value it will hold.
     const remainingEssence = actor.resources.essence - action.spell.costEssence;
     log.push({
@@ -294,8 +311,8 @@ function executeAction(
       attackRoll: result.attackRoll,
       st: result.st,
       raw: result.raw,
-      reduced: result.reduced,
-      dealt: result.dealt,
+      reduced: result.hit ? result.raw - dealt : result.reduced,
+      dealt,
       critical: result.critical,
       remainingHp,
       costEssence: action.spell.costEssence,
@@ -397,6 +414,54 @@ function tickBuffs(runtime: CombatantRuntime): void
   runtime.activeBuffs = runtime.activeBuffs
     .map(b => ({ ...b, remaining: b.remaining - 1 }))
     .filter(b => b.remaining > 0);
+}
+
+function tickMultipliers(runtime: CombatantRuntime): void
+{
+  runtime.activeMultipliers = runtime.activeMultipliers
+    .map(m => ({ ...m, remaining: m.remaining - 1 }))
+    .filter(m => m.remaining > 0);
+}
+
+/** Expire a temporary stance/state rank bonus ("podnieś rangę o N" for K rund). */
+function tickRankBonus(runtime: CombatantRuntime): void
+{
+  for (const active of [runtime.activeStance, runtime.activeState])
+  {
+    if (active && active.rankBonusRemaining > 0)
+    {
+      active.rankBonusRemaining -= 1;
+      if (active.rankBonusRemaining === 0) active.rankBonus = 0;
+    }
+  }
+}
+
+/** Re-apply the active stance & state effects at the (rank-adjusted) grade. */
+function autoCastModes(actor: CombatantRuntime, opponent: CombatantRuntime, random: () => number, log: CombatLogBuilder): void
+{
+  for (const active of [actor.activeStance, actor.activeState])
+  {
+    if (!active) continue;
+    const grade = active.mode.baseGrade + active.rankBonus;
+    const effects = variantEffectsAt(
+      { name: active.mode.name, variantsByGrade: active.mode.variantsByGrade, grades: active.grades },
+      grade,
+    );
+    if (effects.length > 0) applyEffects(effects, actor, opponent, { random, log });
+  }
+}
+
+/**
+ * The damage multipliers that apply to an attack from `actor` to `opponent`:
+ * the actor's `damageDealt` scalers followed by the opponent's `damageTaken`
+ * scalers. Applied to the post-reduction amount (see `applyDamageMultipliers`).
+ */
+function attackMultipliers(actor: CombatantRuntime, opponent: CombatantRuntime): { factor: number; rounding: "up" | "down" | "nearest" }[]
+{
+  return [
+    ...actor.activeMultipliers.filter(m => m.target === "damageDealt"),
+    ...opponent.activeMultipliers.filter(m => m.target === "damageTaken"),
+  ];
 }
 
 function applyDownedProgress(runtime: CombatantRuntime): void

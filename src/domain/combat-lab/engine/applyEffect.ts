@@ -25,7 +25,7 @@ import { isStaggered, activeBuffProfiles } from "@/domain/combat-lab/engine/Comb
 import { effectiveDefense } from "@/domain/combat-lab/engine/buffs";
 import { statEffectToProfile } from "@/domain/combat-lab/effects/statBuff";
 import { resolveContestedTest, resolveSaveTest } from "@/domain/combat-lab/engine/resolveContestedTest";
-import { countScaleSource, scaleTimes } from "@/domain/combat-lab/engine/scaleSource";
+import { countScaleSource, scaleTimes, resolveDamageSpecGrade } from "@/domain/combat-lab/engine/scaleSource";
 import { getEffectPlugin } from "@/domain/combat-lab/plugins/registry";
 
 export type EffectContext =
@@ -87,7 +87,7 @@ function applyEffect(
   {
     case "damage":
     {
-      const raw = rollDamageSpec(effect.damage, ctx.random);
+      const raw = rollDamageSpec(resolveDamageSpecGrade(effect.damage, source, target), ctx.random);
       const rawDefense = selectDefaultDefense(target.snapshot);
       const buffedDefense = rawDefense ? effectiveDefense(rawDefense, activeBuffProfiles(target)) : undefined;
       const defense = buffedDefense && isStaggered(target) ? halveGuards(buffedDefense) : buffedDefense;
@@ -106,7 +106,7 @@ function applyEffect(
 
     case "heal":
     {
-      const amount = rollDamageSpec(effect.amount, ctx.random);
+      const amount = rollDamageSpec(resolveDamageSpecGrade(effect.amount, source, target), ctx.random);
       const remainingHp = healDamage(source, amount);
       ctx.log.push({
         kind: "heal",
@@ -224,6 +224,8 @@ function applyEffect(
       const existing = recipient.activeBuffs.find(b => b.profile.id === profile.id);
       if (existing) existing.remaining = Math.max(existing.remaining, effect.duration);
       else recipient.activeBuffs.push({ profile, remaining: effect.duration });
+      // Crit suppression is a flag (buffs can only add), tracked on the runtime.
+      if (effect.critDisabled) recipient.critSuppressedRemaining = Math.max(recipient.critSuppressedRemaining, effect.duration);
       ctx.log.push({
         kind: "buff",
         sourceId: source.snapshot.id,
@@ -231,6 +233,47 @@ function applyEffect(
         profileId: profile.id,
         duration: effect.duration,
         mode: effect.mode === "self" ? "buff" : "debuff",
+      });
+      break;
+    }
+
+    case "stanceRank":
+    {
+      // Bump the chosen slot's rank; fall back to whichever mode is active.
+      const chosen = effect.target === "state"
+        ? (source.activeState ?? source.activeStance)
+        : (source.activeStance ?? source.activeState);
+      if (chosen)
+      {
+        chosen.rankBonus = Math.max(chosen.rankBonus, effect.delta);
+        chosen.rankBonusRemaining = Math.max(chosen.rankBonusRemaining, effect.duration);
+      }
+      ctx.log.push({
+        kind: "stanceRank",
+        actorId: source.snapshot.id,
+        delta: effect.delta,
+        duration: effect.duration,
+        target: effect.target ?? "stance",
+      });
+      break;
+    }
+
+    case "multiplier":
+    {
+      const recipient = effect.mode === "self" ? source : target;
+      recipient.activeMultipliers.push({
+        target: effect.target,
+        factor: effect.factor,
+        rounding: effect.rounding ?? "up",
+        remaining: effect.duration,
+      });
+      ctx.log.push({
+        kind: "multiplier",
+        sourceId: source.snapshot.id,
+        targetId: recipient.snapshot.id,
+        multiplierTarget: effect.target,
+        factor: effect.factor,
+        duration: effect.duration,
       });
       break;
     }

@@ -33,6 +33,8 @@ function describeScaleSource(s: ScaleSource): string
     case "selfResource": return s.resource === "mana" ? "manę" : "esencję";
     case "selfStatusStacks": return `stack: ${statusLabels[s.status]}`;
     case "targetStatusStacks": return `stack celu: ${statusLabels[s.status]}`;
+    case "selfStat": return `${SKILL_PL[s.key] ?? s.key} (twoja)`;
+    case "opponentStat": return `${SKILL_PL[s.key] ?? s.key} przeciwnika`;
   }
 }
 
@@ -128,6 +130,17 @@ function describeEffect(effect: Effect): string
       const verb = effect.mode === "self" ? "sobie" : "celowi";
       const body = deltas.length > 0 ? `: ${deltas}` : "";
       return `zmienia ${verb}${body} ${roundsLabel(effect.duration)}`.trim();
+    }
+    case "multiplier":
+    {
+      const what = effect.target === "damageDealt" ? "zadawane obrażenia" : "otrzymywane obrażenia";
+      const verb = effect.mode === "self" ? "sobie" : "celowi";
+      return `mnoży ${verb} ${what} ×${effect.factor} ${roundsLabel(effect.duration)}`.trim();
+    }
+    case "stanceRank":
+    {
+      const slot = effect.target === "state" ? "stanu" : "postawy";
+      return `podnosi rangę ${slot} o ${effect.delta} ${roundsLabel(effect.duration)}`.trim();
     }
     case "contested":
     {

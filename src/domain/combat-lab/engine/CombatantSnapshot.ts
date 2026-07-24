@@ -19,6 +19,7 @@ import type { Attributes } from "@/domain/characters/statistics/Attributes";
 import type { Characteristics } from "@/domain/characters/statistics/Characteristics";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
 import { toManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
+import type { Effect } from "@/domain/combat-lab/effects/Effect";
 import { applyActiveBuffProfile, applyBuffProfiles } from "@/domain/characters/buffs/applyBuffProfile";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 import type { PowerSpecification } from "@/domain/characters/combat/Power";
@@ -49,6 +50,19 @@ export type SnapshotSpell =
   cooldown?: number;
 };
 
+/**
+ * An active stance/state resolved for the simulation: its name, the starting
+ * grade, and the rank family (effects per grade) so a rank-up can swap to the
+ * grade+1 variant. Its effects are auto-cast at the start of every turn (see
+ * engine-model-gaps §1). Built by the app layer from the loaded stance library.
+ */
+export type SnapshotMode =
+{
+  name: string;
+  baseGrade: number;
+  variantsByGrade: Record<number, Effect[]>;
+};
+
 export type CombatantSnapshot =
 {
   id: string;
@@ -68,6 +82,10 @@ export type CombatantSnapshot =
   maneuvers: ManeuverDefinition[];
   /** Castable damage spells resolved to combat actions (empty if none / no specs loaded). */
   spells: SnapshotSpell[];
+  /** Active stance for this run (its effects are auto-cast each turn). */
+  stance?: SnapshotMode;
+  /** Active state for this run (independent slot from the stance). */
+  state?: SnapshotMode;
   initiative: Statistic;
   /** Attack test stat (precyzja) for ranged attacks. */
   precision: Statistic;
@@ -130,6 +148,10 @@ export type SnapshotOptions =
   powerSpecifications?: Record<string, PowerSpecification>;
   /** Which PowerOffense (index) each power uses for its spells. Defaults to 0. */
   spellOffenseSelection?: Record<string, number>;
+  /** Active stance/state for this run, pre-resolved to rank families by the app
+   * layer (the character sheet doesn't carry them — chosen in the picker). */
+  stance?: SnapshotMode;
+  state?: SnapshotMode;
 };
 
 /** Build the castable spells for a character, resolving Power → spec → offense. */
@@ -203,6 +225,8 @@ export function toCombatantSnapshot(character: Character, options: SnapshotOptio
     defaultOffenseId: buffed.defaultOffenseId,
     maneuvers,
     spells: buildSpells(buffed.powers, options.powerSpecifications, options.spellOffenseSelection),
+    stance: options.stance,
+    state: options.state,
     initiative: buffed.attributes.initiative,
     precision: buffed.attributes.precision,
     reflex: buffed.attributes.reflex,

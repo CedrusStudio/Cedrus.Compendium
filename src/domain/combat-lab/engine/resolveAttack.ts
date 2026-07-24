@@ -12,7 +12,7 @@
 
 import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { selectDefaultOffense, selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import { applyImmunity, rollOffenseWithModifiers } from "@/domain/combat-lab/engine/rollOffense";
+import { applyImmunity, rollOffenseWithModifiers, stripCritical } from "@/domain/combat-lab/engine/rollOffense";
 import { reduceDamage, halveGuards } from "@/domain/combat-lab/engine/damage";
 import type { RollModifierEffect } from "@/domain/combat-lab/effects/Effect";
 import { effectiveOffense, effectiveDefense } from "@/domain/combat-lab/engine/buffs";
@@ -52,6 +52,8 @@ export type AttackModifiers =
   defenderBuffs?: BuffProfile[];
   /** Roll modifiers (T2b) queued for this attack (advantage / extra die …). */
   rollMods?: RollModifierEffect[];
+  /** Attacker's crits are suppressed this attack ("nie można zadać krytyka"). */
+  suppressCrit?: boolean;
 };
 
 /**
@@ -74,7 +76,8 @@ export function resolveAttack(
 
   // Active buffs raise the attacker's offense (e.g. a self-buff maneuver used
   // earlier this turn) and adjust the defender's defense.
-  const offense = effectiveOffense(baseOffense, modifiers.attackerBuffs ?? []);
+  const buffedOffense = effectiveOffense(baseOffense, modifiers.attackerBuffs ?? []);
+  const offense = modifiers.suppressCrit ? stripCritical(buffedOffense) : buffedOffense;
   const rawDefense = selectDefaultDefense(defender);
   const buffedDefense = rawDefense ? effectiveDefense(rawDefense, modifiers.defenderBuffs ?? []) : undefined;
   const defense = buffedDefense && modifiers.defenderStaggered ? halveGuards(buffedDefense) : buffedDefense;

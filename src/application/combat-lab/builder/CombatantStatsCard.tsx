@@ -67,6 +67,17 @@ export function CombatantStatsCard({ title, snapshot }: { title: string; snapsho
 
         <Row label="Inicjatywa / precyzja / refleks" value={`${getStatisticTotalTestValue(snapshot.initiative)} / ${getStatisticTotalTestValue(snapshot.precision)} / ${getStatisticTotalTestValue(snapshot.reflex)}`} />
 
+        {(snapshot.stance || snapshot.state) && (
+          <div>
+            <div className="text-xs font-medium text-muted-foreground">Tryby</div>
+            <div className="text-xs">
+              {snapshot.stance && <span>postawa: {snapshot.stance.name} g{snapshot.stance.baseGrade}</span>}
+              {snapshot.stance && snapshot.state && <span> · </span>}
+              {snapshot.state && <span>stan: {snapshot.state.name} g{snapshot.state.baseGrade}</span>}
+            </div>
+          </div>
+        )}
+
         {snapshot.spells.length > 0 && (
           <div>
             <div className="text-xs font-medium text-muted-foreground">Zaklęcia ({snapshot.spells.length})</div>

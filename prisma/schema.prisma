@@ -93,6 +93,13 @@ model Stance {
   price        Int
   tags         String[]
 
+  // Combat Lab: structured effects + simulation triage (mirrors Maneuver).
+  // Each rank is a separate record; "raising the rank" swaps to the grade+1
+  // sibling (see features-to-implement/combat-lab-engine-model-gaps-plan.md §1).
+  effects           Json?
+  simulatable       Boolean?
+  unsupportedReason String?
+
   // Required by prisma, can be null
   characterIds String[]
   characters   Character[] @relation(fields: [characterIds], references: [id])
@@ -109,6 +116,11 @@ model State {
   requirements String[]
   price        Int
   tags         String[]
+
+  // Combat Lab: structured effects + simulation triage (mirrors Maneuver).
+  effects           Json?
+  simulatable       Boolean?
+  unsupportedReason String?
 
   // Required by prisma, can be null
   characterIds String[]

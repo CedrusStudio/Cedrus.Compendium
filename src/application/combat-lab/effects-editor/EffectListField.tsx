@@ -12,7 +12,7 @@ import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-
 import {
   EFFECT_TYPE_META, EFFECT_TYPE_ORDER, defaultEffect,
   ATTACK_KINDS, ATTACK_KIND_LABELS, CONDITION_KINDS, CONDITION_LABELS, STATUS_IDS,
-  RESOURCE_POOL_KINDS, RESOURCE_POOL_LABELS, SCALE_SOURCE_KINDS, SCALE_SOURCE_LABELS,
+  RESOURCE_POOL_KINDS, RESOURCE_POOL_LABELS, SCALE_SOURCE_KINDS, SCALE_SOURCE_LABELS, SKILLS,
   type FieldDef, type LooseEffect,
 } from "@/application/combat-lab/effects-editor/effectFieldsMeta";
 import { statusLabelsPl } from "@/domain/combat-lab/i18n/labels";
@@ -186,6 +186,7 @@ function ScaleFields({ name, depth }: { name: string; depth: number })
   {
     const fresh = k === "selfResource" ? { kind: k, resource: "essence" }
       : (k === "selfStatusStacks" || k === "targetStatusStacks") ? { kind: k, status: "bleeding" }
+      : (k === "selfStat" || k === "opponentStat") ? { kind: k, group: "characteristics", key: "strength" }
       : { kind: k };
     setValue(`${name}.source`, fresh, { shouldDirty: true, shouldValidate: true });
   };
@@ -218,6 +219,24 @@ function ScaleFields({ name, depth }: { name: string; depth: number })
               <Select value={(field.value as string) ?? "bleeding"} onValueChange={field.onChange}>
                 <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
                 <SelectContent>{STATUS_IDS.map(s => <SelectItem key={s} value={s}>{statusLabelsPl[s]}</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+          )} />
+        )}
+        {(kind === "selfStat" || kind === "opponentStat") && (
+          <Controller control={control} name={`${name}.source.key`} render={({ field }) => (
+            <div className="flex flex-col gap-1">
+              <Label className="text-xs text-muted-foreground">statystyka</Label>
+              <Select
+                value={(field.value as string) ?? "strength"}
+                onValueChange={(key) => {
+                  const group = SKILLS.find(([, k]) => k === key)?.[0] ?? "characteristics";
+                  setValue(`${name}.source.group`, group, { shouldDirty: true, shouldValidate: true });
+                  field.onChange(key);
+                }}
+              >
+                <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
+                <SelectContent>{SKILLS.map(([, key, pl]) => <SelectItem key={key} value={key}>{pl}</SelectItem>)}</SelectContent>
               </Select>
             </div>
           )} />

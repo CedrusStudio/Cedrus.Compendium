@@ -18,7 +18,7 @@ import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnap
 import { selectDefaultOffense, selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { Offense } from "@/domain/characters/combat/Offense";
 import type { DamageType, RollModifierEffect } from "@/domain/combat-lab/effects/Effect";
-import { applyImmunity, rollOffenseWithModifiers } from "@/domain/combat-lab/engine/rollOffense";
+import { applyImmunity, rollOffenseWithModifiers, stripCritical } from "@/domain/combat-lab/engine/rollOffense";
 import { reduceDamage } from "@/domain/combat-lab/engine/damage";
 import { effectiveOffense, effectiveDefense, effectivePrecision, effectiveReflex } from "@/domain/combat-lab/engine/buffs";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
@@ -52,6 +52,8 @@ export type RangedAttackOptions =
   rollMods?: RollModifierEffect[];
   /** Override the attacker's offense (e.g. a spell's resolved offense) instead of the default weapon. */
   offenseOverride?: Offense;
+  /** Attacker's crits are suppressed this attack ("nie można zadać krytyka"). */
+  suppressCrit?: boolean;
 };
 
 const MISS: RangedAttackResolution = { hit: false, attackRoll: 0, st: 0, raw: 0, reduced: 0, dealt: 0, critical: false };
@@ -79,7 +81,8 @@ export function resolveRangedAttack(
     return { ...MISS, attackRoll, st };
   }
 
-  const offense = effectiveOffense(baseOffense, options.attackerBuffs ?? []);
+  const buffedOffense = effectiveOffense(baseOffense, options.attackerBuffs ?? []);
+  const offense = options.suppressCrit ? stripCritical(buffedOffense) : buffedOffense;
   const rawDefense = selectDefaultDefense(defender);
   const defense = rawDefense ? effectiveDefense(rawDefense, options.defenderBuffs ?? []) : undefined;
   const diceToRemove = (defense?.immunity ?? 0) + (options.attackerStaggered ? 1 : 0);

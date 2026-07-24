@@ -4,10 +4,11 @@
  * AI valuation (policyValue) so both agree on the count.
  */
 
-import type { ScaleSource } from "@/domain/combat-lab/effects/Effect";
+import type { ScaleSource, DamageSpec } from "@/domain/combat-lab/effects/Effect";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import { selectDefaultOffense, selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { Offense } from "@/domain/characters/combat/Offense";
+import type { Statistic } from "@/domain/characters/statistics/Statistic";
 
 /** Number of real (non-empty) weapon/damage dice an offense rolls. */
 function offenseDiceCount(offense: Offense): number
@@ -23,6 +24,13 @@ function offenseDiceCount(offense: Offense): number
 
 const stacksOf = (runtime: CombatantRuntime, status: string): number =>
   runtime.statuses.filter(s => s.status === status).reduce((n, s) => n + s.stacks, 0);
+
+/** A stat's magnitude (value + bonus, excluding the test-only testBonus), ≥ 0. */
+function statMagnitude(runtime: CombatantRuntime, group: "attributes" | "characteristics", key: string): number
+{
+  const st = (runtime.snapshot.skills[group] as Record<string, Statistic>)[key];
+  return st ? Math.max(0, st.value + st.bonus) : 0;
+}
 
 export function countScaleSource(source: ScaleSource, self: CombatantRuntime, target: CombatantRuntime): number
 {
@@ -41,7 +49,24 @@ export function countScaleSource(source: ScaleSource, self: CombatantRuntime, ta
       return stacksOf(self, source.status);
     case "targetStatusStacks":
       return stacksOf(target, source.status);
+    case "selfStat":
+      return statMagnitude(self, source.group, source.key);
+    case "opponentStat":
+      return statMagnitude(target, source.group, source.key);
   }
+}
+
+/**
+ * Resolve a `DamageSpec` whose dice rank is bound to a statistic ("kość równa
+ * sile"): replace `grade` with the stat magnitude (floored ≥ 1) of the caster
+ * (`who: "self"`, default) or target. A no-op for plain specs.
+ */
+export function resolveDamageSpecGrade(spec: DamageSpec, self: CombatantRuntime, target: CombatantRuntime): DamageSpec
+{
+  if (!spec.gradeFromStat) return spec;
+  const rt = spec.gradeFromStat.who === "target" ? target : self;
+  const grade = Math.max(1, statMagnitude(rt, spec.gradeFromStat.group, spec.gradeFromStat.key));
+  return { ...spec, grade };
 }
 
 /** How many times a scale effect applies: floor(count / per), capped. */

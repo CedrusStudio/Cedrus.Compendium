@@ -250,6 +250,9 @@ function parseClauseEffects(text: string, damageType: string): { effects: Propos
   const statMap: [RegExp, string][] = [
     [/dodaje\s+(\d+)\s*unik/i, "dodge"], [/dodaje\s+(\d+)\s*blok/i, "block"], [/dodaje\s+(\d+)\s*parow/i, "parry"],
     [/dodaje\s+(\d+)\s*pancerz/i, "protection"], [/dodaje\s+(\d+)\s*odpor/i, "resistance"], [/dodaje\s+(\d+)\s*niewrażliw/i, "immunity"],
+    // Redukcja (flat, number-before-word) → pancerz. Used e.g. as the per-unit
+    // effect of "Dodaje 1 redukcji za każdą kość… przeciwko tobie".
+    [/dodaje\s+(\d+)\s*(?:do\s+)?redukcj/i, "protection"],
   ];
   const stat: ProposedEffect = { type: "stat", mode: "self", duration: 1 };
   let anyStat = false;
@@ -349,6 +352,42 @@ export function proposeEffects(description: string, c: Classification): Proposal
     }
   }
 
+  // C2. Dynamic value from a statistic — "<efekt> równ- <statystyka> [przeciwnika]"
+  //     (e.g. "redukcja równa umysłowi przeciwnika", "dodaje redukcję równą sile").
+  //     Modelled as a `scale` from selfStat/opponentStat with a unit base effect.
+  const eqIdx = text.search(/równ\S+/i);
+  if (eqIdx >= 0)
+  {
+    const tail = text.slice(eqIdx);
+    const stat = matchSkill(tail);
+    if (stat)
+    {
+      const opponent = /przeciwnik|wrog/i.test(tail);
+      const who = opponent ? "target" : "self";
+
+      // C2a. Dynamic dice RANK ("kość … o randze równej sile") → damage with gradeFromStat.
+      // NOTE: "ranga" → locative "randze" (g→dz), so match `ran[dg]`, not `rang`.
+      if (/ran[dg]\S*\s+równ/i.test(text) || /koś\S*[^.]*o\s+ran[dg]/i.test(text))
+      {
+        const damage: ProposedEffect = { amount: 1, grade: 0, bonus: 0, gradeFromStat: { group: stat.group, key: stat.key, who } };
+        if (/widmow/i.test(text)) damage.isPhantom = true;
+        return { effects: [{ type: "damage", damage, damageType }], confidence: "medium", note: "dynamiczna ranga kości (równa statystyce)" };
+      }
+
+      // C2b. Flat dynamic value ("redukcja/obrażenia równe <stat>") → scale from stat.
+      const source: ProposedEffect = { kind: opponent ? "opponentStat" : "selfStat", group: stat.group, key: stat.key };
+      const head = text.slice(0, eqIdx);
+      const base: ProposedEffect | null =
+        /redukcj/i.test(head) ? { type: "stat", mode: "self", duration: 1, protection: 1 }
+        : /(obraż|dmg)/i.test(head) ? { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType }
+        : null;
+      if (base)
+      {
+        return { effects: [{ type: "scale", source, effect: base }], confidence: "medium", note: "wartość dynamiczna (równa statystyce) — sprawdź źródło i bazę" };
+      }
+    }
+  }
+
   // 1. Dice damage: "1k6w", "1k4+1", "dodaje widmową kość obrażeń k6" (implicit 1).
   const diceRe = /(\d+)\s*k\s*(\d+)\s*(w)?\s*(?:\+\s*(\d+))?/gi;
   let m: RegExpExecArray | null;
@@ -357,11 +396,18 @@ export function proposeEffects(description: string, c: Classification): Proposal
     effects.push({ type: "damage", damage: parseDice(m[1]!, m[2]!, m[3], m[4]), damageType });
     notes.push("kość obrażeń");
   }
-  // "kość obrażeń k6" without a leading count → treat as 1kX.
+  // "kość obrażeń k6" / "widmową kość obrażeń k8" without a leading count → 1kX.
+  // NOTE: `koś\S*` (not `koś\w*`) because JS `\w` is ASCII-only and won't consume
+  // the "ć" in "kość", which broke every phantom-die maneuver.
   if (effects.length === 0)
   {
-    const loneDie = /koś\w*\s+(?:obrażeń\s+)?(?:od\s+\w+\s+)?k\s*(\d+)\s*(w)?/i.exec(text);
-    if (loneDie) { effects.push({ type: "damage", damage: parseDice("1", loneDie[1]!, loneDie[2], undefined), damageType }); notes.push("pojedyncza kość obrażeń"); }
+    const loneDie = /koś\S*\s+(?:obrażeń\s+)?(?:od\s+\w+\s+)?k\s*(\d+)\s*(w)?/i.exec(text);
+    if (loneDie)
+    {
+      const phantom = loneDie[2] ?? (/widmow/i.test(text) ? "w" : undefined);
+      effects.push({ type: "damage", damage: parseDice("1", loneDie[1]!, phantom, undefined), damageType });
+      notes.push(phantom ? "widmowa kość obrażeń" : "pojedyncza kość obrażeń");
+    }
   }
 
   // 2. Flat damage: "dodaje 3 dmg", "dodaje 5 obrażeń", "+3 dmg", "zadaje 2 ... obrażeń".
@@ -401,7 +447,19 @@ export function proposeEffects(description: string, c: Classification): Proposal
     { re: /dodaje\s+(\d+)\s*precyz/i, key: "precision" },
     { re: /dodaje\s+(\d+)\s*inicjatyw/i, key: "initiative" },
     { re: /dodaje\s+(\d+)\s*refleks/i, key: "reflex" },
+    // "Zmniejsza obrażenia o N" (but NOT "o N%", where the digit is followed by
+    // another digit or a percent sign) → flat reduction ≈ pancerz.
+    { re: /zmniejsza\s+obrażenia\s+o\s+(\d+)(?![\d%])/i, key: "protection" },
+    // "Zwiększa o N rangi kości broni…" → +N do rangi kości broni (diceGrade).
+    { re: /zwiększa\s+o\s+(\d+)\s*rang\w*\s+kości\s+broni/i, key: "diceGrade" },
   ];
+  // Redukcja (flat) → pancerz, but ONLY when the maneuver is not about removing
+  // dice ("redukcję N kości"), whose trailing "dodaje N redukcji" scaling clause
+  // would otherwise be misread as flat pancerz.
+  if (!/redukcj\w*\s+\d+\s*kości/i.test(text))
+  {
+    statSpecs.push({ re: /(?:dodaje|zwiększa redukcję o)\s+(\d+)\s*(?:do\s+)?redukcj/i, key: "protection" });
+  }
   const statEffect: ProposedEffect = { type: "stat", mode: "self", duration: 1 };
   let anyStat = false;
   for (const { re, key } of statSpecs)
@@ -415,7 +473,73 @@ export function proposeEffects(description: string, c: Classification): Proposal
     const crit = /(?:zwiększa|dodaje|podnosi)\s+si[łl][ęy] krytyka(?:\s+o)?\s*\+?(\d+)|si[łl]a krytyka\s*\+(\d+)/i.exec(text);
     if (crit) { statEffect.critPower = Number(crit[1] ?? crit[2]); anyStat = true; }
   }
+  // Crit chance (szansa/zasięg krytyka): "dodaje szansę krytyka(+N)". No number → +1.
+  // NOTE: `szans\S*` (not `\w`) — JS `\w` is ASCII-only and won't consume "ę".
+  const critChance = /(?:dodaje|zwiększa|podnosi)\s+szans\S*\s+krytyka\s*(?:o\s*)?(?:\+\s*)?(\d+)?/i.exec(text);
+  if (critChance) { statEffect.critRange = critChance[1] ? Number(critChance[1]) : 1; anyStat = true; }
+  // Crit disabled: "nie można zadać krytycznych obrażeń" / "bez krytyka".
+  if (/nie można[^.]*kryt|nie zadaj\S*[^.]*kryt|bez (?:możliwości )?kryt/i.test(text)) { statEffect.critDisabled = true; anyStat = true; }
   if (anyStat) { effects.push(statEffect); notes.push("wzmocnienie/obrona (na siebie, czas=1 — sprawdź)"); }
+
+  // 6.4 Stance/state rank bump — "podnosisz rangę postaw(y)/stanu o N".
+  if (effects.length === 0)
+  {
+    const rankM = /rang\S*\s+(postaw\S*|stan\S*)\s+o\s+(\d+)/i.exec(text);
+    if (rankM)
+    {
+      const target = /postaw/i.test(rankM[1]!) ? "stance" : "state";
+      effects.push({ type: "stanceRank", target, delta: Number(rankM[2]), duration: 1 });
+      notes.push("zmiana rangi postawy/stanu (czas=1 — sprawdź)");
+    }
+  }
+
+  // 6.5 Multipliers (procent / mnożnik). Standalone only (avoid clashing with
+  //     flat stat/damage). Percent reduces incoming (damageTaken); doubling
+  //     amplifies outgoing (damageDealt).
+  if (effects.length === 0)
+  {
+    const pctDown = /zmniejsza\s+obrażenia\s+o\s+(\d+)\s*%/i.exec(text);
+    const pctUp = /zwiększa\s+obrażenia\s+o\s+(\d+)\s*%/i.exec(text);
+    if (pctDown)
+    {
+      const f = Math.round((1 - Number(pctDown[1]) / 100) * 100) / 100;
+      effects.push({ type: "multiplier", mode: "self", target: "damageTaken", factor: f, rounding: "up", duration: 1 });
+      notes.push("procent: −obrażenia otrzymywane (sprawdź czas/tryb)");
+    }
+    else if (pctUp)
+    {
+      const f = Math.round((1 + Number(pctUp[1]) / 100) * 100) / 100;
+      effects.push({ type: "multiplier", mode: "self", target: "damageDealt", factor: f, rounding: "up", duration: 1 });
+      notes.push("procent: +obrażenia zadawane (sprawdź czas/tryb)");
+    }
+    else if (/potraja\s+obrażenia/i.test(text))
+    {
+      effects.push({ type: "multiplier", mode: "self", target: "damageDealt", factor: 3, rounding: "up", duration: 1 });
+      notes.push("×3 obrażenia zadawane (sprawdź warunek/czas)");
+    }
+    else if (/podwaja\s+obrażenia/i.test(text))
+    {
+      effects.push({ type: "multiplier", mode: "self", target: "damageDealt", factor: 2, rounding: "up", duration: 1 });
+      notes.push("×2 obrażenia zadawane (sprawdź warunek/czas — często zależne)");
+    }
+  }
+
+  // 7. Roll modifiers (T2b) on THIS attack. Conservative, high-precision:
+  //    an extra WEAPON die (not damage die), or a reroll → advantage. Only when
+  //    no other effect matched, to avoid muddying damage/stat proposals.
+  if (effects.length === 0)
+  {
+    if (/(?:dodaj\w*|rzucasz)\s+(?:jedn\w+\s+)?dodatkow\w+\s+koś\S*\s+broni/i.test(text))
+    {
+      effects.push({ type: "roll", modifier: "extraDie" });
+      notes.push("dodatkowa kość broni → roll:extraDie (ranga domyślna k6 — sprawdź)");
+    }
+    else if (/przerzut|ponawiasz rzut|rzuć ponownie|rzuca\w* ponownie/i.test(text))
+    {
+      effects.push({ type: "roll", modifier: "advantage" });
+      notes.push("przerzut → roll:advantage (przybliżenie — sprawdź warunek)");
+    }
+  }
 
   if (effects.length === 0) return { effects: [], confidence: "none", note: notes.join("; ") };
 
@@ -468,11 +592,9 @@ function newestBackupManeuverJson(): string
 
 type ManeuverRecord = { name: string; grade: number; description: string; tags?: string[]; requirements?: string[] };
 
-function main(): void
+/** Classify one JSON file of {name,grade,description,tags} records → a review CSV. */
+function classifyFile(inPath: string, outPath: string, label: string): void
 {
-  const inPath = process.argv[2] ?? newestBackupManeuverJson();
-  const outPath = process.argv[3] ?? join(process.cwd(), "maneuver-classification.csv");
-
   const records = JSON.parse(readFileSync(inPath, "utf8")) as ManeuverRecord[];
   const withDescription = records.filter(r => r.description && r.description.trim().length > 0);
 
@@ -504,26 +626,43 @@ function main(): void
 
   writeFileSync(outPath, toCsv(rows), "utf8");
 
-  // Console summary.
   const byTier = new Map<Tier, number>();
   for (const row of rows) byTier.set(row.tier as Tier, (byTier.get(row.tier as Tier) ?? 0) + 1);
-  const total = rows.length;
+  const total = rows.length || 1;
   const order: Tier[] = ["T1", "T2b", "T2c", "T3", "T?"];
 
-  console.log(`Wejście:  ${inPath}`);
-  console.log(`Rekordów z opisem: ${total} (z ${records.length})\n`);
-  console.log("Rozkład tierów:");
-  for (const t of order)
-  {
-    const n = byTier.get(t) ?? 0;
-    console.log(`  ${t.padEnd(4)} ${String(n).padStart(4)}  ${((100 * n) / total).toFixed(1)}%`);
-  }
-
+  console.log(`\n=== ${label} ===`);
+  console.log(`Wejście: ${inPath}`);
+  console.log(`Rekordów z opisem: ${rows.length} (z ${records.length})`);
+  console.log("Rozkład tierów: " + order.map(t => `${t} ${byTier.get(t) ?? 0}`).join(" · "));
   const withProposal = rows.filter(r => r.proposedEffects !== "").length;
   const high = rows.filter(r => r.proposalConfidence === "high").length;
   const medium = rows.filter(r => r.proposalConfidence === "medium").length;
-  console.log(`\nAuto-propozycje efektów: ${withProposal} (${((100 * withProposal) / total).toFixed(1)}%)  [high ${high} · medium ${medium}]`);
-  console.log(`\nCSV → ${outPath}`);
+  console.log(`Auto-propozycje: ${withProposal} (${((100 * withProposal) / total).toFixed(1)}%)  [high ${high} · medium ${medium}]`);
+  console.log(`CSV → ${outPath}`);
 }
 
-main();
+function main(): void
+{
+  const inPath = process.argv[2] ?? newestBackupManeuverJson();
+  const outPath = process.argv[3] ?? join(process.cwd(), "maneuver-classification.csv");
+
+  classifyFile(inPath, outPath, "Manewry");
+
+  // Also classify stances/states if their JSON sits beside the maneuver file
+  // (same backup folder). Separate CSVs — import them into Stance/State records.
+  const dir = dirname(inPath);
+  for (const [file, label] of [["Stance.json", "Postawy"], ["State.json", "Stany"]] as const)
+  {
+    const p = join(dir, file);
+    if (existsSync(p))
+    {
+      const out = join(dirname(outPath), `${label.toLowerCase()}-classification.csv`);
+      classifyFile(p, out, label);
+    }
+  }
+}
+
+// Run as a CLI only when invoked directly (allows importing the exports above
+// from an analysis script without triggering the file-writing main()).
+if (process.argv[1] && /classify-maneuvers\.ts$/.test(process.argv[1])) main();
