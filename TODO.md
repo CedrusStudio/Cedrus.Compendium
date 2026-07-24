@@ -100,3 +100,105 @@
 * **Kryteria Akceptacji:**
   - Wszystkie dotychczasowe wymagania pozostają w systemie jako wariant *Bez rangi (Custom string)* – zero regresji.
   - Stworzenie panelu/komponentu UI (dla admina/twórcy) sugerującego mapowanie starych tekstów na nowe wymagania ustrukturyzowane (np. rozszerzenie edycji z podpowiedziami autouzupełniania).
+
+# Plan Rozbudowy i Poprawek: Combat Lab & Kompendium
+
+> **Wskazówka dla AI:** Realizuj zadania Fazy 1 (Analiza i Zapewnienie Jakości) przed przystąpieniem do refaktoryzacji UI i mechanik. Zachowaj spójność nazewnictwa oraz typowania w aplikacji.
+
+---
+
+## Faza 1: Analiza Architektury i Weryfikacja Logiki (Diagnostyka)
+
+### Task 1.1: Analiza i usunięcie zaszłości po "Manie"
+* **Kontekst:** W sekcji *Startowa pula zasobów (na symulację)* widnieje pole "Mana", mimo że system operuje wyłącznie na "Esencji".
+* **Zadanie dla AI:**
+  - Przeanalizuj bazę kodu pod kątem obecności pola `mana` / `Mana`.
+  - Ustalić, skąd wzięła się ta wartość (czy to zaszłość po starym szablonie/innym systemie, czy błędnie nazwany zasób).
+  - Bezpiecznie zrefaktoryzuj lub usuń odwołania do Many, upewniając się, że cała logika operuje wyłącznie na Esencji.
+
+### Task 1.2: Weryfikacja przeliczania statystyk z Postaw/Stanów (Rulebook Check)
+* **Kontekst:** Trzeba sprawdzić, czy bonusy z modyfikatorów (np. *Wir Walki* zwiększający Siłę) poprawnie przeliczają się na statystyki pochodne, takie jak Obrażenia.
+* **Zadanie dla AI:**
+  - Przeanalizuj silnik przeliczania statystyk w Combat Lab pod kątem kolejności kalkulacji (zgodnie z podręcznikiem zasad / rulebookiem).
+  - Upewnij się, że modyfikator do cechy podstawowej (np. +Siła) automatycznie aktualizuje bazowe Obrażenia oraz inne statystyki z niej wynikające przed uruchomieniem symulacji.
+
+---
+
+## Faza 2: Nawigacja i Layout Ogólny (App-Wide UI)
+
+### Task 2.1: Przywrócenie paska nawigacji w Combat Lab
+* **Opis:** W widoku Combat Lab brakuje górnego paska nawigacyjnego, co uniemożliwia wygodny powrót do reszty aplikacji.
+* **Kryteria Akceptacji:**
+  - Górny pasek nawigacyjny (Main Navbar/Header) jest obecny i spójny również w widoku Combat Lab.
+
+### Task 2.2: Reorganizacja kafelków na Stronie Głównym (Grid Layout)
+* **Opis:** Poprawa układu 5 kart na stronie głównej (Postacie, Bestiariusz, Kompendium, Podręcznik, Combat Lab), aby uniknąć osamotnionego kafelka w drugim wierszu (układ 4+1).
+* **Kryteria Akceptacji:**
+  - Przebudowany Responsive Grid (np. 3+2 na desktopie lub inny, estetyczny layout z wyróżnionym Combat Lab/Podręcznikiem).
+
+---
+
+## Faza 3: Dedykowane Poprawki UI / UX w Combat Lab
+
+### Task 3.1: Filtrowanie Postaw i Stanów według wybranej postaci
+* **Opis:** Przy wyborze Postawy/Stanu w Combat Lab użytkownik widzi pełną listę wszystkich dostępnych opcji, co utrudnia wybór.
+* **Kryteria Akceptacji:**
+  - Dodana możliwość przełączenia widoku/filtrowania, aby wyświetlić tylko te Postawy i Stany, które wybrana postać faktycznie posiada na swojej karcie.
+
+### Task 3.2: Czyszczenie etykiet i micro-UI w selektorach
+* **Opis:** Usunięcie zbędnych ciągów tekstowych oraz poprawa przycisków akcji.
+* **Kryteria Akceptacji:**
+  - Usunięto tekst `"g3"` z widoku wybranej postawy (informacja o randze jest już przekazywana przez `"ranga 3"` w selekcie).
+  - Zamieniono tekstowy przycisk usuwania `"x"` na czytelną ikonę (np. `TrashIcon` lub `XIcon` z biblioteki ikon).
+  - Skrócono nazwy we Wzmocnieniach Tymczasowych:
+    - `"Obrażenia (płaskie)"` $\rightarrow$ `"Obrażenia"`
+    - `"Niewrażliwość (usuwa kości)"` $\rightarrow$ `"Niewrażliwość"`
+
+### Task 3.3: Redesign i czytelność panelu "Podgląd Statystyk"
+* **Opis:** Odświeżenie wizualne sekcji statystyk w Combat Lab oraz uzupełnienie brakujących danych.
+* **Kryteria Akceptacji:**
+  - Poprawione formatowanie w sekcji Tryby: zamiana zapisu (np. `"Postawa Defensywna g2"` $\rightarrow$ `"Postawa Defensywna 2"`).
+  - Wyświetlanie brakujących Atrybutów: *Fechtunek*, *Fortel* oraz pozostałych kluczowych parametrów.
+  - W sekcji Obrona dodana **suma całkowitej redukcji** (zsumowane wartości: Blok + Parowanie + Unik + Pancerz).
+  - Uproszczony i czytelniejszy zapis Ataku: usunięty słowny przerywnik `+bonus` (np. zamiast `2(k10+2) +bonus 1k6+5` formatowanie jest bardziej zwarte i spójne).
+
+---
+
+## Faza 4: Ulepszenia Kompendium i Tworzenia Elementów
+
+### Task 4.1: Sekcja Efektów przy tworzeniu Nowego Manewru
+* **Opis:** Brak możliwości definiowania/dodawania efektów podczas formularza tworzenia nowego manewru.
+* **Kryteria Akceptacji:**
+  - Formularz dodawania/edycji manewru został rozbudowany o sekcję zarządzania efektami.
+
+### Task 4.2: Optymalizacja przypiętego panelu w Kompendium (Sticky Header & Tags)
+* **Opis:** Przypięty u góry panel w kompendium zajmuje zbyt dużo miejsca w pionie, gdy zawiera dużo tagów.
+* **Kryteria Akceptacji:**
+  - Dodana opcja zwijania/rozwijania sekcji tagów (Collapsible Tags) lub kompaktowy tryb wyświetlania paska u góry podczas przewijania.
+
+### Task 4.3: Masowe zaznaczanie tagów wykluczających
+* **Opis:** Brak opcji szybkiego zaznaczenia wszystkich filtrów wykluczających.
+* **Kryteria Akceptacji:**
+  - Dodany przycisk "Zaznacz wszystkie" / "Odznacz wszystkie" przy filtrach/tagach wykluczających (szybka personalizacja).
+
+### Task 4.4: Skrócenie etykiety Mapowania Efektów
+* **Opis:** Tekst `"Efekty (Combat Lab): do zmapowania"` jest zbyt długi i przytłacza widok.
+* **Kryteria Akceptacji:**
+  - Zmieniono etykietę na zwarto: `"Efekty: do zmapowania"`.
+
+---
+
+## Faza 5: Zaawansowane Mechaniki i Wyszukiwanie Cross-Ref
+
+### Task 5.1: Obsługa złożonych modyfikatorów obrażeń (Kości Broni)
+* **Opis:** Rozbudowa silnika symulacji o zaawansowane warunki modyfikowania obrażeń dodawanych per kość broni.
+* **Przykład:** *Zapał Wojownika 1* dodaje $+1$ obrażenie do każdej kości broni oraz dodatkowe obrażenia zależne od liczby kości.
+* **Kryteria Akceptacji:**
+  - Dodano obsługę reguł zwiększających obrażenia w przeliczeniu na pojedynczą kość broni (`damage_per_weapon_dice`).
+  - Rozszerzono kalkulator Combat Lab o uwzględnianie niestandardowych warunków modyfikacji kości obrażeń.
+
+### Task 5.2: Wyszukiwanie powiązań w Kompendium (Reverse Lookup / Cross-Reference)
+* **Opis:** Stworzenie nowej funkcjonalności pozwalającej sprawdzić, które postacie posiadają dany element z kompendium.
+* **Kryteria Akceptacji:**
+  - W widoku szczegółów danego elementu w Kompendium (Manewr, Postawa, Stan, Atut, Zaklęcie, Moc, Przedmiot itp.) znajduje się sekcja/przycisk **"Posiadane przez postacie"**.
+  - Wyświetlana jest lista postaci graczy/NPC, które mają ten element na swojej karcie, z możliwością szybkiego przejścia do widoku danej postaci.
