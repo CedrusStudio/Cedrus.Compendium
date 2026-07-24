@@ -133,9 +133,11 @@ rozwiązywany przy rzucie (grade = wartość statystyki, floor ≥ 1). Wymaga tk
 3. ✅ **Runtime + auto-cast:** `activeStance/activeState` (`CombatState`), auto-cast efektów na starcie każdej tury (`runCombat`), clamp rangi. Testy `stance.test.ts`.
 4. ✅ **Ranga:** efekt `stanceRank` + tick + `describe`/schema/edytor/log/Replay.
 5. ✅ **Proposer:** wzorzec „podnosisz rangę postaw/stanu o N" → `stanceRank`; skrypt klasyfikuje też `Stance.json`/`State.json` → osobne CSV (postawy 44, stany 6 auto-propozycji). Wartość bycia w postawie płynie z auto-castu (AI bez zmian).
-6. **(Pozostaje)** edytor efektów postaw/stanów w kompendium (autorowanie efektów na rekordach Stance/State — bez tego postawy w pickerze są bezczynne), import CSV do kolekcji Stance/State, akcja zmiany postawy w turze (pre/post-atak), wykluczenia („Amok"), Meta/Synergy.
+6. ✅ **Autorowanie (import + edytor):** Prisma `Stance`/`State` zyskały `effects`/`simulatable`/`unsupportedReason`; `scripts/import-mode-effects.ts` (`<stance|state> <csv> [--apply --high…]`) pisze do kolekcji z walidacją `effectSchema`; `StanceView` w kompendium edytuje efekty (`modeWithEffectsSchema` + `ManeuverEffectsEditableFields`) + status („zmapowany/do zmapowania/niesymulowalny"); `stancesClient.update` przyjmuje efekty (common repo je przepuszcza).
+7. **(Pozostaje)** edytor efektów dla stanów w kompendium (jeśli powstanie strona States; dziś stany autorujesz importem — jest ich 30), akcja zmiany postawy w turze (pre/post-atak), wykluczenia („Amok"), Meta/Synergy dla postaw.
 
-**Stan: v1 mechanika kompletna i przetestowana.** Silnik, model, efekt rangi, proposer i picker działają. Do pełnej użyteczności brakuje **autorowania efektów na rekordach postaw/stanów** (edytor w kompendium + import) — analogicznie do manewrów.
+**Stan: v1 kompletne end-to-end.** Silnik + model + efekt rangi + proposer + picker + autorowanie (import i edytor postaw) działają i przechodzą typecheck.
+**Wymaga uruchomienia przez autora:** `npx prisma db push` + `npx prisma generate` (nowe kolumny na Stance/State), przeindeksowanie search (żeby picker/kompendium widziały autorowane efekty), potem `classify-maneuvers.ts` → przegląd CSV postaw/stanów → `import-mode-effects.ts --apply`.
 
 **Rozmiar/ryzyko:** DUŻY, ale bez blockerów — reguły ustalone. Główna praca w warstwie danych (rodziny rang) + auto-cast; reszta reużywa istniejące szwy.
 
