@@ -6,6 +6,7 @@ import { displayedText } from '@/common/translations';
 import { PerkDto } from "@/persistence/schemas/characters/perkSchema";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import RequirementListField from "@/application/common/requirements/RequirementListField";
+import ReplacesListField from "@/application/common/replaces/ReplacesListField";
 import { PropsWithChildren } from "react";
 import AddSheet from "@/common/components/sheets/AddSheet";
 import { RequirementEntityType } from "@/common/hooks/useEntityRequirements";
@@ -44,6 +45,10 @@ export default function PerkableAddSheet({ isPending, formId, title, entityType,
 
       <FormTagsInput<PerkDto> path='tags' entityType={entityType} />
       <RequirementListField />
+
+      {/* Replacements target the same kind of entity, so the group comes from
+          `entityType`; without it there is nothing sensible to suggest. */}
+      {entityType && <ReplacesListField group={entityType} />}
 
       <div className="grid auto-rows-min gap-3">
         <Label className='justify-center capitalize'>{displayedText.price}</Label>

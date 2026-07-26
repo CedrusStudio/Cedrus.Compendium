@@ -13,6 +13,7 @@ import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { SpellDto, spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import ReplacesView from "@/application/common/ReplacesView";
+import ReplacesListField from "@/application/common/replaces/ReplacesListField";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -49,7 +50,7 @@ export default function SpellView({ spell, disableEdit = false, onDelete }: Spel
         <RequirementsView entityWithRequirements={spell} />
       </div>
 
-      <ReplacesView entity={spell} />
+      <ReplacesView entity={spell} group="spells" />
 
       <OwnedByCharacters entity="spells" id={spell.id} />
 
@@ -72,7 +73,7 @@ export default function SpellView({ spell, disableEdit = false, onDelete }: Spel
 
               <EditFormForSheet<SpellDto> 
                 entityId={spell.id}
-                defaultValues={{ ...spell, structuredRequirements: spell.structuredRequirements ?? [] }}
+                defaultValues={{ ...spell, structuredRequirements: spell.structuredRequirements ?? [], replaces: spell.replaces ?? [] }}
                 schema={spellSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.spell(spell.id)}
@@ -101,6 +102,7 @@ function EditSpellSheet({ isPending, formId }: { isPending: boolean, formId: str
       title={displayedText.editSpell}
     >
       <PerkEditableFields entityType="spells" />
+      <ReplacesListField group="spells" />
       <SpellEditableFields  />
     </EditSheet>
   )

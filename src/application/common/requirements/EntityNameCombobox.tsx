@@ -1,14 +1,19 @@
 "use client";
 
 /**
- * Searchable name picker for a ranked requirement targeting a Kompendium entity
+ * Searchable name picker for a Kompendium entity name
  * (maneuver/stance/state/spell/perk). Suggests existing names via
  * `useEntityNames`, but still allows a custom value (a requirement may reference
  * something not in the current library).
+ *
+ * Used by the requirement picker (where free text is the norm and a name outside
+ * the library is unremarkable) AND by the `replaces` editor (where it means a
+ * relation to an entity, so a name matching nothing is worth flagging —
+ * `unknownWarning`).
  */
 
 import { useMemo, useState } from "react";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, TriangleAlert } from "lucide-react";
 import { Button } from "@/common/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
@@ -23,9 +28,21 @@ type EntityNameComboboxProps = {
   onChange: (name: string) => void;
   placeholder?: string;
   triggerClassName?: string;
+  /** Flag a value that matches no entity in the library. Off by default — free text is fine for requirements. */
+  unknownWarning?: boolean;
+  /** Names kept out of the suggestions (e.g. the edited entity itself). */
+  excludeNames?: readonly string[];
 };
 
-export default function EntityNameCombobox({ group, value, onChange, placeholder = "nazwa z Kompendium", triggerClassName = "w-56" }: EntityNameComboboxProps)
+export default function EntityNameCombobox({
+  group,
+  value,
+  onChange,
+  placeholder = "nazwa z Kompendium",
+  triggerClassName = "w-56",
+  unknownWarning = false,
+  excludeNames,
+}: EntityNameComboboxProps)
 {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -33,12 +50,23 @@ export default function EntityNameCombobox({ group, value, onChange, placeholder
 
   const query = search.trim().toLowerCase();
 
-  const filtered = useMemo(() => {
-    const base = query ? names.filter((name) => name.toLowerCase().includes(query)) : names;
-    return base.slice(0, MAX_SUGGESTIONS);
-  }, [names, query]);
+  const selectable = useMemo(() => {
+    const excluded = new Set((excludeNames ?? []).map((name) => name.trim().toLowerCase()).filter(Boolean));
+    return excluded.size === 0 ? names : names.filter((name) => !excluded.has(name.toLowerCase()));
+  }, [names, excludeNames]);
 
-  const showCustom = search.trim() !== "" && !names.some((name) => name.toLowerCase() === query);
+  const filtered = useMemo(() => {
+    const base = query ? selectable.filter((name) => name.toLowerCase().includes(query)) : selectable;
+    return base.slice(0, MAX_SUGGESTIONS);
+  }, [selectable, query]);
+
+  const showCustom = search.trim() !== "" && !selectable.some((name) => name.toLowerCase() === query);
+
+  // Warn only once the list is in — mid-fetch every value looks unknown.
+  const isUnknown = unknownWarning
+    && !isLoading
+    && value.trim() !== ""
+    && !names.some((name) => name.toLowerCase() === value.trim().toLowerCase());
 
   const select = (name: string) => {
     onChange(name);
@@ -49,9 +77,18 @@ export default function EntityNameCombobox({ group, value, onChange, placeholder
   return (
     <Popover open={open} onOpenChange={(next) => { setOpen(next); if (!next) setSearch(""); }}>
       <PopoverTrigger asChild>
-        <Button type="button" variant="outline" role="combobox" aria-expanded={open} className={`${triggerClassName} justify-between font-normal`}>
+        <Button
+          type="button"
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          title={isUnknown ? "Brak encji o tej nazwie w Kompendium" : undefined}
+          className={`${triggerClassName} justify-between font-normal ${isUnknown ? "border-amber-500 text-amber-600" : ""}`}
+        >
           <span className="truncate">{value || placeholder}</span>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          {isUnknown
+            ? <TriangleAlert aria-label="Brak encji o tej nazwie w Kompendium" className="ml-2 h-4 w-4 shrink-0" />
+            : <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />}
         </Button>
       </PopoverTrigger>
 

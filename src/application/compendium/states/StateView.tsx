@@ -9,6 +9,7 @@ import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import ReplacesView from "@/application/common/ReplacesView";
+import ReplacesListField from "@/application/common/replaces/ReplacesListField";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -44,7 +45,7 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
         <RequirementsView entityWithRequirements={state} />
       </div>
 
-      <ReplacesView entity={state} />
+      <ReplacesView entity={state} group="states" />
 
       <OwnedByCharacters entity="states" id={state.id} />
 
@@ -58,7 +59,7 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
 
               <EditFormForSheet<ModeDto> 
                 entityId={state.id}
-                defaultValues={{ ...state, structuredRequirements: state.structuredRequirements ?? [] }}
+                defaultValues={{ ...state, structuredRequirements: state.structuredRequirements ?? [], replaces: state.replaces ?? [] }}
                 schema={modeSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.state(state.id)}
@@ -71,6 +72,7 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
                       title={displayedText.editState}
                     >
                       <PerkEditableFields entityType="states" />
+                      <ReplacesListField group="states" />
                     </EditSheet>
                   )
                 }

@@ -10,7 +10,10 @@ export const perkSchema = entitySchema.extend
   // Structured requirements (sole model after the legacy `requirements` cutover).
   structuredRequirements: requirementsSchema.optional(),
   // ROADMAP 8.6 — names of entities this one replaces. Not a requirement.
-  replaces: z.array(z.string()).optional(),
+  // Blank rows are stripped here rather than in the editor (8.9): the "+ Dodaj"
+  // button seeds an empty entry, and every form that touches perks — compendium
+  // edit, add sheet, character sheet — goes through this schema.
+  replaces: z.array(z.string()).optional().transform((names) => names?.map((name) => name.trim()).filter((name) => name.length > 0)),
   price: z.coerce.number<number>().int().min(0, { message: "Cena musi mieć co najmniej 0." }).max(180, { message: "Cena musi być najwyżej 180." }),
   tags: tagsSchema
 });

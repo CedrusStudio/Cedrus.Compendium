@@ -10,6 +10,7 @@ import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ModeWithEffectsDto, modeWithEffectsSchema } from "@/persistence/schemas/characters/combat/modeSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import ReplacesView from "@/application/common/ReplacesView";
+import ReplacesListField from "@/application/common/replaces/ReplacesListField";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -47,7 +48,7 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
         <RequirementsView entityWithRequirements={stance} />
       </div>
 
-      <ReplacesView entity={stance} />
+      <ReplacesView entity={stance} group="stances" />
 
       <ModeEffectsInfo mode={stance} />
 
@@ -63,7 +64,7 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
 
               <EditFormForSheet<ModeWithEffectsDto>
                 entityId={stance.id}
-                defaultValues={{ ...stance, structuredRequirements: stance.structuredRequirements ?? [] }}
+                defaultValues={{ ...stance, structuredRequirements: stance.structuredRequirements ?? [], replaces: stance.replaces ?? [] }}
                 schema={modeWithEffectsSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.stance(stance.id)}
@@ -76,6 +77,7 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
                       title={displayedText.editStance}
                     >
                       <PerkEditableFields entityType="stances" />
+                      <ReplacesListField group="stances" />
                       <ManeuverEffectsEditableFields />
                     </EditSheet>
                   )
