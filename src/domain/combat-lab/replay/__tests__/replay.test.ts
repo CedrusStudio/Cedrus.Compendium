@@ -52,7 +52,6 @@ describe("buildReplayFrames()", () => {
       name: "Rozcięcie",
       grade: 1,
       description: "",
-      requirements: [],
       price: 1,
       tags: [],
       castTime: "Standardowa" as const,

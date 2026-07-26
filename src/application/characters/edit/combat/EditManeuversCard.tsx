@@ -20,6 +20,7 @@ import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import RemovedBadge from '@/common/components/labels/RemovedBadge';
 import SummaryView from '@/application/common/SummaryView';
 import EditCharacterCombatPerkSheet from './EditCharacterCombatPerkSheet';
+import EntityRequirementsWarning from '@/application/common/requirements/EntityRequirementsWarning';
 import CastablePerkEditableFields from '@/application/common/combat/CastablePerkEditableFields';
 import { createManeuverKeysetQuery } from '@/infrastructure/searchQueries/maneuvers/createManeuverKeysetQuery';
 import { createKeysetSearchManeuversKey } from '@/persistence/cacheKeys';
@@ -45,7 +46,7 @@ const cloneManeuver = (maneuver: Maneuver): Maneuver =>
   name: maneuver.name,
   grade: maneuver.grade,
   description: maneuver.description,
-  requirements: [...maneuver.requirements],
+  structuredRequirements: [...(maneuver.structuredRequirements ?? [])],
   price: maneuver.price,
   tags: [...maneuver.tags],
   castTime: maneuver.castTime,
@@ -98,6 +99,7 @@ export default function EditManeuversCard({ isPending, isSuccess, initialManeuve
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
           <span className='capitalize'>{displayedText.maneuvers}</span>
+          <EntityRequirementsWarning characterId={currentCharacterId} entities={watchedArray} />
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultManeuver} />
 
           <ImportItemsSheet

@@ -32,7 +32,7 @@ export function ManeuverEffectsEditableFields()
       const v = getValues();
       const def = toManeuverDefinition({
         id: v.id ?? "x", name: v.name ?? "", grade: v.grade ?? 1, description: v.description ?? "",
-        requirements: v.requirements ?? [], price: v.price ?? 0, tags: v.tags ?? [],
+        price: v.price ?? 0, tags: v.tags ?? [],
         castTime: v.castTime ?? "Standardowa", cooldown: v.cooldown ?? undefined,
         effects: asEffects((watchedEffects ?? []) as LooseEffect[]),
         simulatable: v.simulatable ?? undefined, unsupportedReason: v.unsupportedReason ?? undefined,
@@ -44,7 +44,7 @@ export function ManeuverEffectsEditableFields()
 
   return (
     <div className="grid gap-4 px-4">
-      <Label className="text-base">Efekty (Combat Lab)</Label>
+      <Label className="text-base">Efekty</Label>
 
       <EffectListField name="effects" />
 

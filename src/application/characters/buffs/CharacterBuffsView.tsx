@@ -12,7 +12,7 @@ import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/common/components/ui/collapsible';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Sparkles, Zap, Heart, Shield, Swords } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 type CharacterBuffsViewProps =
@@ -206,7 +206,7 @@ type ModifierCategoryCardProps =
   selectedProfile?: BuffProfile;
   selectedProfileId: string;
   modifierCount: number;
-  modifierSections: { title: string; modifiers: string[] }[];
+  modifierSections: { title: string; icon: React.ReactNode; modifiers: string[] }[];
   isPending: boolean;
   isSelectedProfileActive: boolean;
   isSelectedProfileLinkedToCurrentMode: boolean;
@@ -248,12 +248,35 @@ function ModifierCategoryCard
             <h3 className='text-lg font-semibold capitalize text-primary'>{title}</h3>
             <Badge variant='outline'>{profiles.length}</Badge>
           </div>
+          {
+            activeProfiles.length > 0 ? (
+              <div className='flex flex-col gap-2 min-w-0'>
+                {
+                  activeProfiles.map(activeProfile => {
+                    const modifiers = collectBuffProfileModifiers(activeProfile);
+                    return (
+                      <div key={activeProfile.id} className='rounded-md border border-primary/30 bg-primary/5 p-2 min-w-0'>
+                        <div className='flex flex-wrap items-center gap-2'>
+                          <Badge className='w-fit'>{activeProfile.name}</Badge>
+                          <span className='text-xs text-muted-foreground'>{`${modifiers.length} ${displayedText.effects}`}</span>
+                        </div>
+                        {
+                          modifiers.length > 0 && (
+                            <div className='mt-1.5 flex flex-wrap gap-1'>
+                              {modifiers.map(modifier => (
+                                <Badge key={`${activeProfile.id}-${modifier}`} variant='secondary' className='w-fit font-normal'>{modifier}</Badge>
+                              ))}
+                            </div>
+                          )
+                        }
+                      </div>
+                    );
+                  })
+                }
+              </div>
+            ) : <Badge variant='outline' className='w-fit'>{displayedText.noActiveBuff}</Badge>
+          }
           <div className='flex flex-wrap gap-2 overflow-x-auto min-w-0'>
-            {
-              activeProfiles.length > 0 ? activeProfiles.map(activeProfile => (
-                <Badge key={activeProfile.id} className='w-fit'>{activeProfile.name}</Badge>
-              )) : <Badge variant='outline' className='w-fit'>{displayedText.noActiveBuff}</Badge>
-            }
             {
               selectedProfile && (
                 <Badge variant='outline' className='w-fit'>{`${modifierCount} ${displayedText.effects}`}</Badge>
@@ -347,7 +370,10 @@ function ModifierCategoryCard
                       modifierSections.map(section => (
                         <div key={section.title} className='rounded-lg border border-border/60 bg-background/60 p-4'>
                           <div className='mb-3 flex items-center justify-between gap-3'>
-                            <h4 className='text-sm font-semibold capitalize text-primary'>{section.title}</h4>
+                            <h4 className='flex items-center gap-1.5 text-sm font-semibold capitalize text-primary'>
+                              {section.icon}
+                              {section.title}
+                            </h4>
                             <Badge variant='outline'>{section.modifiers.length}</Badge>
                           </div>
                           <div className='space-y-2'>
@@ -375,14 +401,32 @@ function ModifierCategoryCard
   );
 }
 
-function collectBuffProfileModifierSections(profile: BuffProfile): { title: string; modifiers: string[] }[]
+/** Flat list of every stat this profile modifies — for the active-buff summary chips. */
+function collectBuffProfileModifiers(profile: BuffProfile): string[]
+{
+  return collectBuffProfileModifierSections(profile).flatMap(section => section.modifiers);
+}
+
+// ROADMAP 2.4 — a small icon per stat category makes the modifier list
+// scannable at a glance instead of relying on the title text alone.
+const iconClassName = 'h-3.5 w-3.5';
+const SECTION_ICONS: Record<'characteristics' | 'attributes' | 'health' | 'defense' | 'offense', React.ReactNode> =
+{
+  characteristics: <Sparkles className={iconClassName} />,
+  attributes: <Zap className={iconClassName} />,
+  health: <Heart className={iconClassName} />,
+  defense: <Shield className={iconClassName} />,
+  offense: <Swords className={iconClassName} />,
+};
+
+function collectBuffProfileModifierSections(profile: BuffProfile): { title: string; icon: React.ReactNode; modifiers: string[] }[]
 {
   return [
-    { title: displayedText.characteristics, modifiers: collectStatisticSectionModifiers(profile.characteristics) },
-    { title: displayedText.attributes, modifiers: collectStatisticSectionModifiers(profile.attributes) },
-    { title: displayedText.health, modifiers: collectSimpleModifiers(profile.health) },
-    { title: displayedText.defense, modifiers: collectSimpleModifiers(profile.defense) },
-    { title: displayedText.offense, modifiers: collectOffenseModifiers(profile) },
+    { title: displayedText.characteristics, icon: SECTION_ICONS.characteristics, modifiers: collectStatisticSectionModifiers(profile.characteristics) },
+    { title: displayedText.attributes, icon: SECTION_ICONS.attributes, modifiers: collectStatisticSectionModifiers(profile.attributes) },
+    { title: displayedText.health, icon: SECTION_ICONS.health, modifiers: collectSimpleModifiers(profile.health) },
+    { title: displayedText.defense, icon: SECTION_ICONS.defense, modifiers: collectSimpleModifiers(profile.defense) },
+    { title: displayedText.offense, icon: SECTION_ICONS.offense, modifiers: collectOffenseModifiers(profile) },
   ].filter(section => section.modifiers.length > 0);
 }
 

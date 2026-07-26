@@ -183,8 +183,8 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
               );
             })}
 
-            <ModeSelector kind="stance" value={value.stance} onChange={(stance) => onChange({ ...value, stance })} />
-            <ModeSelector kind="state" value={value.state} onChange={(state) => onChange({ ...value, state })} />
+            <ModeSelector kind="stance" value={value.stance} onChange={(stance) => onChange({ ...value, stance })} ownModes={character?.stances.map(s => ({ name: s.name, grade: s.grade }))} />
+            <ModeSelector kind="state" value={value.state} onChange={(state) => onChange({ ...value, state })} ownModes={character?.states.map(s => ({ name: s.name, grade: s.grade }))} />
 
             {character && character.buffProfiles.length > 0 && (
               <div className="flex flex-col gap-1.5">
@@ -244,16 +244,6 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
                     value={value.startingResources?.essence ?? ""}
                     onChange={e => onChange({ ...value, startingResources: { ...value.startingResources, essence: e.target.value === "" ? undefined : Math.max(0, Number(e.target.value) || 0) } })}
                     aria-label="Startowa esencja"
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <Label className="text-[11px] text-muted-foreground">mana</Label>
-                  <Input
-                    type="number"
-                    className="w-20"
-                    value={value.startingResources?.mana ?? ""}
-                    onChange={e => onChange({ ...value, startingResources: { ...value.startingResources, mana: e.target.value === "" ? undefined : Math.max(0, Number(e.target.value) || 0) } })}
-                    aria-label="Startowa mana"
                   />
                 </div>
               </div>

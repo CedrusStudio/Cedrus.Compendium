@@ -174,10 +174,10 @@ function applyEffect(
     case "resource":
     {
       const recipient = effect.delta >= 0 ? source : target;
-      // Track mana/essence pools; "action" has no pool (logged only).
-      if (effect.resource === "mana" || effect.resource === "essence")
+      // Track the essence pool; "action" has no pool (logged only).
+      if (effect.resource === "essence")
       {
-        recipient.resources[effect.resource] = Math.max(0, recipient.resources[effect.resource] + effect.delta);
+        recipient.resources.essence = Math.max(0, recipient.resources.essence + effect.delta);
       }
       ctx.log.push({
         kind: "resource",

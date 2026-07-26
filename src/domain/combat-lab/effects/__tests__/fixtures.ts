@@ -15,7 +15,6 @@ export const shieldBash: ManeuverDefinition = {
   name: "Shield Bash",
   grade: 1,
   description: "",
-  requirements: [],
   price: 1,
   tags: [],
   castTime: "Standardowa",

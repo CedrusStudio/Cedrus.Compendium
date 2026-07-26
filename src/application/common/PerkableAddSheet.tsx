@@ -5,7 +5,7 @@ import { InputFormField } from '@/common/components/form/InputFormField';
 import { displayedText } from '@/common/translations';
 import { PerkDto } from "@/persistence/schemas/characters/perkSchema";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import RequirementListField from "@/application/common/requirements/RequirementListField";
 import { PropsWithChildren } from "react";
 import AddSheet from "@/common/components/sheets/AddSheet";
 import { RequirementEntityType } from "@/common/hooks/useEntityRequirements";
@@ -43,7 +43,7 @@ export default function PerkableAddSheet({ isPending, formId, title, entityType,
       </div>
 
       <FormTagsInput<PerkDto> path='tags' entityType={entityType} />
-      <FormStringsInput<PerkDto> path='requirements' placeholder={displayedText.addRequirement} entityType={entityType} />
+      <RequirementListField />
 
       <div className="grid auto-rows-min gap-3">
         <Label className='justify-center capitalize'>{displayedText.price}</Label>

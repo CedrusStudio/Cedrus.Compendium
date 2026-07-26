@@ -13,10 +13,10 @@ import type { Effect } from "@/domain/combat-lab/effects/Effect";
 import type { CastTime } from "@/domain/characters/Castable";
 
 /**
- * A requirement the engine can actually check, as opposed to the free-text
- * `Perk.requirements: string[]` (which is human-only). Used to decide whether a
- * combatant may use the maneuver, and by the Rules Validator to detect
- * unreachable maneuvers (no character can ever satisfy them).
+ * A requirement the engine can actually check, as opposed to the human-authored
+ * `structuredRequirements` on a Perk. Used to decide whether a combatant may use
+ * the maneuver, and by the Rules Validator to detect unreachable maneuvers (no
+ * character can ever satisfy them).
  */
 export type MechanicalRequirement =
   | { kind: "weapon"; value: string }
@@ -34,7 +34,6 @@ export type MechanicalRequirement =
 export type ActionCost =
 {
   castTime: CastTime;
-  mana?: number;
   essence?: number;
 };
 

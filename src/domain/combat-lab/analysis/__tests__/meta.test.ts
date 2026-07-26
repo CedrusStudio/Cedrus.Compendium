@@ -6,7 +6,7 @@ import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDef
 import type { MatchupEntry } from "@/domain/combat-lab/analysis/matchup";
 
 const damageManeuver = (id: string, bonus: number): ManeuverDefinition => ({
-  id, name: id, grade: 1, description: "", requirements: [], price: 1, tags: [],
+  id, name: id, grade: 1, description: "", price: 1, tags: [],
   castTime: "Standardowa", cooldown: 0, cost: { castTime: "Standardowa" }, hardRequirements: [],
   effects: [{ type: "damage", damage: { amount: 0, grade: 0, bonus }, damageType: "nieuchronne" }],
 });
@@ -14,7 +14,7 @@ const damageManeuver = (id: string, bonus: number): ManeuverDefinition => ({
 // A maneuver with NO damage value — greedy's damageScore is 0 (== pass), so a
 // greedy combatant never picks it (the proactive phase offers pass + maneuvers).
 const noDamageManeuver = (id: string): ManeuverDefinition => ({
-  id, name: id, grade: 1, description: "", requirements: [], price: 1, tags: [],
+  id, name: id, grade: 1, description: "", price: 1, tags: [],
   castTime: "Standardowa", cooldown: 0, cost: { castTime: "Standardowa" }, hardRequirements: [],
   effects: [{ type: "control", control: "root", duration: 1 }],
 });

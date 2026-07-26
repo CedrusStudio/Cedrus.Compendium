@@ -75,7 +75,6 @@ export const defaultSpell: Omit<Spell, "id"> =
   cost: createFixedSpellCost(20),
   price: 9,
   cooldown: 1,
-  requirements: [],
   tags: []
 };
 

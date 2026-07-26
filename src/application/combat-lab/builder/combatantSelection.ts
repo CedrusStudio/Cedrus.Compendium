@@ -25,8 +25,8 @@ export type CombatantSelection =
   activeBuffProfileIds: string[];
   /** Ad-hoc, simulation-only buff profiles layered on top. */
   extraBuffProfiles: BuffProfile[];
-  /** Starting resource pools (mana/essence) for this run. */
-  startingResources?: { mana?: number; essence?: number };
+  /** Starting essence pool for this run. */
+  startingResources?: { essence?: number };
   /** PowerSpecifications (by id) loaded separately, needed to resolve castable spells. */
   powerSpecifications?: Record<string, PowerSpecification>;
   /** Which PowerOffense (index) each power uses for its spells (defaults to 0). */
@@ -83,7 +83,7 @@ export type TempBuffKind =
   | "precision" | "reflex";
 
 export const TEMP_BUFF_LABELS: Record<TempBuffKind, string> = {
-  damage: "Obrażenia (płaskie)",
+  damage: "Obrażenia",
   diceGrade: "Ranga kości broni",
   critPower: "Siła krytyka",
   block: "Blokowanie",
@@ -91,7 +91,7 @@ export const TEMP_BUFF_LABELS: Record<TempBuffKind, string> = {
   dodge: "Unik",
   protection: "Pancerz",
   resistance: "Odporność",
-  immunity: "Niewrażliwość (usuwa kości)",
+  immunity: "Niewrażliwość",
   precision: "Precyzja",
   reflex: "Refleks",
 };

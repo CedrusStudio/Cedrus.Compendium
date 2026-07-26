@@ -13,6 +13,7 @@ import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import PerkEditableFields from "@/application/common/PerkEditableFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
@@ -41,7 +42,9 @@ export default function PerkView({ perk, disableEdit = false, onDelete }: PerkVi
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={perk} />
       </div>
-      
+
+      <OwnedByCharacters entity="perks" id={perk.id} />
+
       <PerkableBadgeView>
 
         <PriceBadge price={perk.price} />
@@ -52,7 +55,7 @@ export default function PerkView({ perk, disableEdit = false, onDelete }: PerkVi
               
               <EditFormForSheet<PerkDto> 
                 entityId={perk.id}
-                defaultValues={perk}
+                defaultValues={{ ...perk, structuredRequirements: perk.structuredRequirements ?? [] }}
                 schema={perkSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.perk(perk.id)}

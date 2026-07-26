@@ -22,9 +22,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useEntityTags } from "@/common/hooks/useEntityTags";
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import RequirementFilter from "@/application/common/requirements/RequirementFilter";
+import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -48,15 +51,21 @@ export default function StatesList()
   const [displayedStates, setDisplayedStates] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  // ROADMAP 2.2 — client-side narrow-down to a chosen character's own states,
+  // applied on top of whatever page(s) are already loaded/paginated below.
+  const [ownNamesFilter, setOwnNamesFilter] = useState<Set<string> | null>(null);
+  const visibleStates = ownNamesFilter ? displayedStates.filter(state => ownNamesFilter.has(state.name)) : displayedStates;
+  const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
-  
-  const queryKey = createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+
+  const queryKey = [createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters];
   const { data: searchResults } = useQuery
-  ({ 
-    queryKey, 
-    queryFn: async () => 
+  ({
+    queryKey,
+    queryFn: async () =>
     {
       const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+      if (requirementFilters.length > 0) statesQuery.requirementFilters = requirementFilters;
       return await searchClient.search<Mode[]>(statesQuery);
     },
     staleTime: 5_000
@@ -101,9 +110,15 @@ export default function StatesList()
     clearResults();
   }, [clearResults]);
 
-  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  const handleExcludedTagsChange = useCallback((tags: string[]) =>
   {
     setExcludedTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleRequirementFiltersChange = useCallback((filters: RequirementSearchFilter[]) =>
+  {
+    setRequirementFilters(filters);
     clearResults();
   }, [clearResults]);
 
@@ -141,7 +156,9 @@ export default function StatesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="states"
+        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
+        <CharacterModeFilter kind="states" onOwnNamesChange={setOwnNamesFilter} />
         <Button
           variant="outline"
           size="icon"
@@ -155,7 +172,7 @@ export default function StatesList()
 
       {isGroupedView ? (
         <GroupedItemsList<Mode>
-          items={displayedStates}
+          items={visibleStates}
           renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
@@ -166,8 +183,8 @@ export default function StatesList()
       ) : (
         <WithScroll<Mode>
           parentClassName="flex flex-col gap-2"
-          items={displayedStates}
-          triggerNext={() => 
+          items={visibleStates}
+          triggerNext={() =>
           {
             setPageNumber(prev => prev + 1);
           }}

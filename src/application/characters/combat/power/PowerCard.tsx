@@ -24,6 +24,8 @@ import { cn } from '@/lib/utils';
 import CastableSearchFilters from '@/application/characters/combat/CastableSearchFilters';
 import { filterCastables, getAvailableCastableTags } from '@/application/characters/combat/castableFilters';
 import { calculateSpellCost, formatSpellCost } from '@/domain/characters/combat/SpellCost';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/common/components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
 
 type PowerCardProps =
 {
@@ -308,50 +310,71 @@ export default function PowerCard({ power }: PowerCardProps)
         </CardTitle>
       </CardHeader>
 
-      <CardContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2'>
+      <CardContent>
+        {/* ROADMAP 2.6 — the header above (name, essence, offense selector) is the
+            "quick access" part and always stays visible; the spell grid + usage
+            history is the bulkier, secondary content, collapsible to cut down on
+            scroll/information overload for characters with several Powers. Open
+            by default, so nothing is hidden unless the player chooses to. */}
+        <Collapsible defaultOpen>
+          <CollapsibleTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="mb-2 h-7 gap-1 px-2 text-xs text-muted-foreground [&[data-state=open]_svg]:rotate-180"
+            >
+              <ChevronDown className="h-3.5 w-3.5 transition-transform" />
+              {displayedText.spells}
+            </Button>
+          </CollapsibleTrigger>
 
-        {
-          hasPowerOffenses && powerSpecification && (
-            <div className="col-span-full">
-              <PowerRollsCard 
-                offenses={powerSpecification.offenses}
-                selectedIndex={Math.min(selectedOffenseIndex, powerSpecification.offenses.length - 1)}
-              />
-            </div>
-          )
-        }
+          <CollapsibleContent className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2'>
 
-        {
-          power.spells.length > 0 && (
-            <div className="col-span-full">
-              <CastableSearchFilters
-                searchInput={searchInput}
-                onSearchInputChange={setSearchInput}
-                selectedCastTimes={selectedCastTimes}
-                onSelectedCastTimesChange={setSelectedCastTimes}
-                selectedTags={selectedTags}
-                onSelectedTagsChange={setSelectedTags}
-                availableTags={availableSpellTags}
-              />
-            </div>
-          )
-        }
+            {
+              hasPowerOffenses && powerSpecification && (
+                <div className="col-span-full">
+                  <PowerRollsCard
+                    offenses={powerSpecification.offenses}
+                    selectedIndex={Math.min(selectedOffenseIndex, powerSpecification.offenses.length - 1)}
+                  />
+                </div>
+              )
+            }
 
-        {
-          filteredSpells.map(spell => <SpellView key={spell.id} spell={spell} spellStrength={spellStrength} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
-        }
+            {
+              power.spells.length > 0 && (
+                <div className="col-span-full">
+                  <CastableSearchFilters
+                    searchInput={searchInput}
+                    onSearchInputChange={setSearchInput}
+                    selectedCastTimes={selectedCastTimes}
+                    onSelectedCastTimesChange={setSelectedCastTimes}
+                    selectedTags={selectedTags}
+                    onSelectedTagsChange={setSelectedTags}
+                    availableTags={availableSpellTags}
+                  />
+                </div>
+              )
+            }
 
-        {
-          filteredSpells.length === 0 && (
-            <p className='col-span-full text-center text-sm text-muted-foreground'>
-              {displayedText.no_spells_found}
-            </p>
-          )
-        }
+            {
+              filteredSpells.map(spell => <SpellView key={spell.id} spell={spell} spellStrength={spellStrength} addSpellUse={addSpellUse} usedActions={usedActions} reduceEssence={reduceEssence} availableEssence={availableEssence} />)
+            }
 
-        <MediumUsedActionsView usedActions={usedActions} removeLastUsage={removeLastUsage} setUsedActions={setUsedActions} endTurn={endTurn} resetEssence={resetEssence} />
-        <SmallUsedActionsView usedActions={usedActions} removeLastUsage={removeLastUsage} setUsedActions={setUsedActions} endTurn={endTurn} resetEssence={resetEssence} />
-      
+            {
+              filteredSpells.length === 0 && (
+                <p className='col-span-full text-center text-sm text-muted-foreground'>
+                  {displayedText.no_spells_found}
+                </p>
+              )
+            }
+
+            <MediumUsedActionsView usedActions={usedActions} removeLastUsage={removeLastUsage} setUsedActions={setUsedActions} endTurn={endTurn} resetEssence={resetEssence} />
+            <SmallUsedActionsView usedActions={usedActions} removeLastUsage={removeLastUsage} setUsedActions={setUsedActions} endTurn={endTurn} resetEssence={resetEssence} />
+
+          </CollapsibleContent>
+        </Collapsible>
       </CardContent>
 
     </Card>

@@ -13,6 +13,7 @@ import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import PerkEditableFields from "@/application/common/PerkEditableFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
@@ -41,7 +42,9 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={state} />
       </div>
-      
+
+      <OwnedByCharacters entity="states" id={state.id} />
+
       <PerkableBadgeView>
 
         <PriceBadge price={state.price} />
@@ -52,7 +55,7 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
 
               <EditFormForSheet<ModeDto> 
                 entityId={state.id}
-                defaultValues={state}
+                defaultValues={{ ...state, structuredRequirements: state.structuredRequirements ?? [] }}
                 schema={modeSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.state(state.id)}

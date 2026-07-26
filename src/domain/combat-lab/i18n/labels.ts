@@ -47,7 +47,6 @@ export const controlNounsPl: Record<ControlKind, string> = {
 };
 
 export const resourceLabelsPl: Record<ResourceKind, string> = {
-  mana: "many",
   essence: "esencji",
   action: "akcji",
 };

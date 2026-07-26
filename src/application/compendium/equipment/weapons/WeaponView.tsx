@@ -14,6 +14,7 @@ import WeaponEditableFields from "@/application/common/equipment/EditSheets/Weap
 import WeaponViewFields from "@/application/common/equipment/Views/WeaponViewFields";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 
 type WeaponViewProps =
 {
@@ -35,6 +36,8 @@ export default function WeaponView({ weapon, disableEdit = false, onDelete }: We
     <CompendiumView>
 
       <WeaponViewFields weapon={weapon} />
+
+      <OwnedByCharacters entity="weapons" id={weapon.id} />
 
       {
         !disableEdit && (

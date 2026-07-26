@@ -160,7 +160,7 @@ describe('CharacterBuffsView', () => {
     render(
       <CharacterBuffsView
         character={createCharacter({
-          stances: [{ id: 'stance-1', name: 'Wilk', grade: 1, description: '', requirements: [], price: 0, tags: [] } as Character['stances'][number]],
+          stances: [{ id: 'stance-1', name: 'Wilk', grade: 1, description: '', price: 0, tags: [] } as Character['stances'][number]],
           stanceModifierProfiles: [linkedProfile],
         })}
         selectedStanceId="stance-1"

@@ -89,7 +89,9 @@ model Stance {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
   price        Int
   tags         String[]
 
@@ -113,7 +115,9 @@ model State {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
   price        Int
   tags         String[]
 
@@ -135,7 +139,9 @@ model Maneuver {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
   price        Int
   castTime     String
   cooldown     Int?
@@ -163,7 +169,9 @@ model Perk {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
   price        Int
   tags         String[]
 
@@ -180,11 +188,12 @@ model Spell {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
   price        Int
   castTime     String
   cooldown     Int?
-  cost         Int
   costBase         Int?
   costScalingMode  String?
   costScalingValue Int?

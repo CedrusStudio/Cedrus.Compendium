@@ -28,9 +28,10 @@ function describeScaleSource(s: ScaleSource): string
 {
   switch (s.kind)
   {
+    case "selfDice": return "kość broni";
     case "opponentDice": return "kość przeciwnika";
     case "opponentImmunity": return "niewrażliwość wroga";
-    case "selfResource": return s.resource === "mana" ? "manę" : "esencję";
+    case "selfResource": return "esencję";
     case "selfStatusStacks": return `stack: ${statusLabels[s.status]}`;
     case "targetStatusStacks": return `stack celu: ${statusLabels[s.status]}`;
     case "selfStat": return `${SKILL_PL[s.key] ?? s.key} (twoja)`;
@@ -51,7 +52,7 @@ function describeCondition(c: EffectCondition): string
     case "onDamageDealt": return "gdy zadano obrażenia";
     case "selfAirborne": return "atakując z powietrza";
     case "opponentCharging": return "tylko przeciw szarży";
-    case "hasResource": return `gdy masz ≥${c.min} ${c.resource === "mana" ? "many" : "esencji"}`;
+    case "hasResource": return `gdy masz ≥${c.min} esencji`;
   }
 }
 
@@ -206,10 +207,6 @@ export function describeManeuver(definition: ManeuverDefinition): string
   if (definition.cooldown && definition.cooldown > 0)
   {
     header.push(`odnowienie ${definition.cooldown}`);
-  }
-  if (definition.cost.mana)
-  {
-    header.push(`${definition.cost.mana} many`);
   }
   if (definition.cost.essence)
   {

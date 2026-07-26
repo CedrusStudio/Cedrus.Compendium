@@ -1,4 +1,5 @@
 import { OffsetPagination, KeysetPagination, isKeysetPagination } from "@/common/global/pagination";
+import type { RequirementTargetGroup } from "@/domain/requirements/Requirement";
 import { Character } from "@/domain/characters/Character";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
 import { Mode } from "@/domain/characters/combat/Mode";
@@ -42,6 +43,34 @@ export type SearchEntityPayload =
 
 export type CharacterVisibilityMode = 'all' | 'mineOnly' | 'publicOnly';
 
+/**
+ * Wave 5 compendium requirement filter. Two modes:
+ *  - `ranked`: keep entities that have a `ranked` structured requirement for
+ *    `group`/`targetKey` whose value is `<= maxValue` ("what a character at this
+ *    rank already satisfies").
+ *  - `text`: keep entities whose free-text `requirements` contain `text`
+ *    (case-insensitive substring) — for unstructured requirements like
+ *    "Lekka zbroja" that were never mapped to a ranked target.
+ *
+ * Handled by a dedicated Mongo aggregateRaw path in `searchEntity` (Prisma's
+ * typed API cannot elem-match inside the `structuredRequirements` JSON array).
+ */
+export type RankedRequirementSearchFilter =
+{
+  kind: 'ranked';
+  group: RequirementTargetGroup;
+  targetKey: string;
+  maxValue: number;
+};
+
+export type TextRequirementSearchFilter =
+{
+  kind: 'text';
+  text: string;
+};
+
+export type RequirementSearchFilter = RankedRequirementSearchFilter | TextRequirementSearchFilter;
+
 export type SearchPayload =
 {
   search?: { [key: string]: SearchValueInput };
@@ -51,7 +80,34 @@ export type SearchPayload =
   select?: Select;
   // Applies only to entity === 'character'; ignored for every other entity.
   characterVisibilityMode?: CharacterVisibilityMode;
+  // Applies only to compendium entities with structured requirements.
+  // Single-filter form kept for compatibility with callers (and stored queries)
+  // written before Wave 6.2; `requirementFilters` is the canonical field.
+  requirementFilter?: RequirementSearchFilter;
+  // Wave 6.2: several requirement filters at once, combined with AND — an entity
+  // must satisfy every one of them.
+  requirementFilters?: RequirementSearchFilter[];
 };
+
+/** Drops filters that carry no usable value (blank text / missing target). */
+export function isUsableRequirementFilter(filter: RequirementSearchFilter | undefined | null): filter is RequirementSearchFilter
+{
+  if (!filter) return false;
+  if (filter.kind === 'text') return filter.text.trim() !== '';
+  return filter.targetKey.trim() !== '' && Number.isFinite(filter.maxValue);
+}
+
+/**
+ * Normalizes the singular and plural requirement-filter fields into one AND-ed
+ * list. Both shapes are accepted so a payload built before Wave 6.2 keeps
+ * working; the result is what every consumer (`searchEntity`, the pipeline
+ * builder) actually reasons about.
+ */
+export function collectRequirementFilters(payload: SearchPayload): RequirementSearchFilter[]
+{
+  return [...(payload.requirementFilters ?? []), ...(payload.requirementFilter ? [payload.requirementFilter] : [])]
+    .filter(isUsableRequirementFilter);
+}
 
 export type SearchByIdEntityPayload =
   | (SearchByIdPayload & { entity: string; include: Record<string, boolean>; select?: undefined })

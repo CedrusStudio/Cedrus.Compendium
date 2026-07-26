@@ -92,7 +92,6 @@ describe('Power', () => {
       expect(spell.cost).toEqual(createFixedSpellCost(20));
       expect(spell.price).toBe(9);
       expect(spell.cooldown).toBe(1);
-      expect(spell.requirements).toEqual([]);
       expect(spell.tags).toEqual([]);
     });
   });

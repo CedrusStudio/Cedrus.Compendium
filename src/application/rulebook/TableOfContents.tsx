@@ -69,11 +69,11 @@ export function TableOfContents({ section }: TableOfContentsProps)
   );
 }
 
-function buildTableOfContents(section: RulebookSection): TocItem[] 
+function buildTableOfContents(section: RulebookSection): TocItem[]
 {
-  return section.subsections.map((subsection) => 
+  return section.subsections.map((subsection, index) =>
   ({
-    id: subsection.anchor,
+    id: subsection.anchor || `subsection-${index}`,
     title: subsection.title,
     level: 2,
     children: extractChildHeadings(subsection.content)
@@ -84,12 +84,12 @@ function extractChildHeadings(content: RulebookSection['subsections'][0]['conten
 {
   return content
     .filter((block) => block.type === 'heading' && block.level >= 3)
-    .map((block) => 
+    .map((block, index) =>
     {
-      if (block.type === 'heading') 
+      if (block.type === 'heading')
       {
         return {
-          id: block.anchor,
+          id: block.anchor || `heading-${index}`,
           title: block.content,
           level: block.level
         };

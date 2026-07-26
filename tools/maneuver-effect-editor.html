@@ -108,8 +108,8 @@ const STATUS_IDS = ["bleeding","poisoned","burning","stagger","stun","root","dis
 const STATUS_LABELS = { bleeding:"krwawienie", poisoned:"zatrucie", burning:"podpalenie", stagger:"oszołomienie", stun:"ogłuszenie", root:"unieruchomienie", disarm:"rozbrojenie", slow:"spowolnienie", marked:"oznaczenie" };
 const CONTROL_KINDS = ["stun","root","disarm","silence"];
 const CONTROL_LABELS = { stun:"ogłuszenie", root:"unieruchomienie", disarm:"rozbrojenie", silence:"uciszenie" };
-const RESOURCE_KINDS = ["essence","mana","action"];
-const RESOURCE_LABELS = { essence:"esencja", mana:"mana", action:"akcja" };
+const RESOURCE_KINDS = ["essence","action"];
+const RESOURCE_LABELS = { essence:"esencja", action:"akcja" };
 const MODE_LABELS = { self:"na siebie (wzmocnienie)", target:"na cel (osłabienie)" };
 
 // Field schema per effect type — drives the form. `path` is dot-notation into the effect object.
@@ -225,11 +225,11 @@ function describeEffectPl(e) {
         : c.kind === "onDamageDealt" ? "gdy zadano obrażenia"
         : c.kind === "selfAirborne" ? "atakując z powietrza"
         : c.kind === "opponentCharging" ? "tylko przeciw szarży"
-        : c.kind === "hasResource" ? `gdy masz ≥${c.min} ${c.resource==="mana"?"many":"esencji"}` : "warunek";
+        : c.kind === "hasResource" ? `gdy masz ≥${c.min} esencji` : "warunek";
       return `${cond}: ${(e.then||[]).map(describeEffectPl).join(", ")}`;
     }
     case "scale": {
-      const s = e.source || {}; const src = s.kind==="opponentDice"?"kość przeciwnika":s.kind==="opponentImmunity"?"niewrażliwość wroga":s.kind==="selfResource"?(s.resource==="mana"?"manę":"esencję"):s.kind==="selfStatusStacks"?`stack ${STATUS_LABELS[s.status]||s.status}`:s.kind==="targetStatusStacks"?`stack celu ${STATUS_LABELS[s.status]||s.status}`:"X";
+      const s = e.source || {}; const src = s.kind==="selfDice"?"kość broni":s.kind==="opponentDice"?"kość przeciwnika":s.kind==="opponentImmunity"?"niewrażliwość wroga":s.kind==="selfResource"?"esencję":s.kind==="selfStatusStacks"?`stack ${STATUS_LABELS[s.status]||s.status}`:s.kind==="targetStatusStacks"?`stack celu ${STATUS_LABELS[s.status]||s.status}`:"X";
       return `za każde ${e.per&&e.per>1?e.per+" ":""}${src}: ${describeEffectPl(e.effect||{})}${e.cap!==undefined?` (maks. ${e.cap}×)`:""}`;
     }
     case "push": return `odpycha o ${e.distance}`;
@@ -611,7 +611,7 @@ function buildContested(eff, onChange) {
 }
 
 const SCALE_SOURCES = [
-  ["opponentDice", "kość przeciwnika"], ["opponentImmunity", "niewrażliwość wroga"], ["selfResource", "twój zasób"],
+  ["selfDice", "kość broni"], ["opponentDice", "kość przeciwnika"], ["opponentImmunity", "niewrażliwość wroga"], ["selfResource", "twój zasób"],
   ["selfStatusStacks", "twój stack statusu"], ["targetStatusStacks", "stack statusu celu"],
 ];
 function defaultScale() {
@@ -709,7 +709,7 @@ const COND_KINDS = [
   ["opponentCharging", "tylko przeciw szarży"],
   ["hasResource", "gdy masz zasób (≥)"],
 ];
-const RESOURCE_POOLS = [["essence","esencja"],["mana","mana"]];
+const RESOURCE_POOLS = [["essence","esencja"]];
 const ATTACK_KINDS = [["melee","walka wręcz"],["rangedPhysical","dystans fizyczny"],["rangedMagic","dystans magiczny"]];
 function defaultWhen() {
   return { type: "when", condition: { kind: "opponentAttackKind", value: "melee" }, then: [{ type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" }] };

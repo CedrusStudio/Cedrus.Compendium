@@ -1527,6 +1527,7 @@
         },
         {
           "id": "subsection-walka-wrecz",
+          "anchor": "walka-wrecz",
           "slug": "walka-wrecz",
           "title": "Walka Wręcz",
           "category": "cechy-i-umiejetnosci",
@@ -2692,7 +2693,7 @@
         },
         {
           "type": "paragraph",
-          "id": "paragraph-1",
+          "id": "paragraph-2",
           "content": "Ta statystyka jest odrębna dla każdego odrębnego rodzaju mocy (osobno dla magów, kapłanów i czarokrwistych). Każde zaklęcie, zdolność nadnaturalna jest w jakiś sposób związana z Siłą Zaklęcia. Przy zaklęciach bojowych dodaje się 2 razy Siłę Zaklęcia jeśli atak nie jest w bariery do obrażeń lub 3 razy Siłę Zaklęcia jeśli atak jest w bariery. Siła Zaklęcia również jest związana ze skalą rozproszenia danego zaklęcia."
         }
       ],

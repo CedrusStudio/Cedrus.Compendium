@@ -95,6 +95,7 @@ export const translations_plPL =
     bestiary: "bestiariusz",
     compendium: "kompendium",
     rulebook: "podręcznik",
+    "combat-lab": "combat lab",
 
     battle: "bitwa",
     sum: "suma",

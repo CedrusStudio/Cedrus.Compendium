@@ -8,8 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Field } from "@/common/components/fields";
 import { displayedText } from "@/common/translations";
 import TagsView from "@/common/components/tags/TagsView";
+import ExpandableText from "@/common/components/text/ExpandableText";
 import { Separator } from "@/common/components/ui/separator";
 import { Button } from "@/ui/button";
+import { Plus, X, Check } from "lucide-react";
 
 type ModesCardProps =
 {
@@ -18,6 +20,8 @@ type ModesCardProps =
   selectedModeId?: string;
   onSelectedModeIdChange?: (modeId: string | undefined) => void;
   linkedProfiles?: LinkedModeProfile[];
+  /** Ids of modes that have a linked wzmocnienie — surfaced as a badge in the list. */
+  linkedModeIds?: string[];
 };
 
 type LinkedModeProfile =
@@ -32,7 +36,7 @@ type LinkedModeProfile =
 const NONE_SELECTED_MODE = '__none__';
 
 export default function ModesCard({ name, modes, selectedModeId, onSelectedModeIdChange, linkedProfiles = [] }: ModesCardProps)
-{  
+{
   const [internalSelectedModeId, setInternalSelectedModeId] = useState<string | undefined>(undefined);
   const resolvedSelectedModeId = selectedModeId ?? internalSelectedModeId;
   const selectedModeObj = modes.find(mode => mode.id === resolvedSelectedModeId);
@@ -88,9 +92,12 @@ export default function ModesCard({ name, modes, selectedModeId, onSelectedModeI
           selectedModeObj && (
             <div className="pt-0.5 flex flex-col place-items-center place-content-center gap-2">
               <Separator />
-              <p className="text-sm text-muted-foreground text-center italic">
-                {selectedModeObj.description}
-              </p>
+              <ExpandableText
+                text={selectedModeObj.description}
+                className="text-sm text-muted-foreground text-center italic"
+                clampClassName="line-clamp-4"
+                threshold={220}
+              />
               <TagsView tags={selectedModeObj.tags} variant="outline" />
 
               {
@@ -102,16 +109,18 @@ export default function ModesCard({ name, modes, selectedModeId, onSelectedModeI
 
                     {
                       linkedProfiles.map(profile => (
-                        <div key={profile.id} className="flex flex-col gap-2 rounded-md border border-border/40 bg-background p-3 sm:flex-row sm:items-center sm:justify-between">
-                          <span className="text-sm font-medium">{profile.name}</span>
+                        <div key={profile.id} className="flex items-center justify-between gap-2 rounded-md border border-border/40 bg-background px-3 py-2">
+                          <span className="flex items-center gap-1.5 text-sm font-medium">
+                            {profile.isActive && <Check className="h-3.5 w-3.5 text-emerald-600" />}
+                            {profile.name}
+                          </span>
 
-                          <div className="flex items-center gap-2">
-                            <Button type="button" size="sm" onClick={profile.onApply} disabled={profile.isActive}>
-                              {displayedText.applyBuff}
+                          <div className="flex items-center gap-1">
+                            <Button type="button" size="icon" variant="outline" className="h-7 w-7" onClick={profile.onApply} disabled={profile.isActive} aria-label={displayedText.applyBuff} title={displayedText.applyBuff}>
+                              <Plus className="h-4 w-4" />
                             </Button>
-
-                            <Button type="button" size="sm" variant="outline" onClick={profile.onWithdraw} disabled={!profile.isActive}>
-                              {displayedText.withdrawBuff}
+                            <Button type="button" size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground" onClick={profile.onWithdraw} disabled={!profile.isActive} aria-label={displayedText.withdrawBuff} title={displayedText.withdrawBuff}>
+                              <X className="h-4 w-4" />
                             </Button>
                           </div>
                         </div>

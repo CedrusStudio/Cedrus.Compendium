@@ -2,6 +2,7 @@ import { Castable } from '@/domain/characters/Castable';
 import { Prisma } from '@prisma/client';
 import { Perk } from '@/domain/characters/Perk';
 import type { Effect } from '@/domain/combat-lab/effects/Effect';
+import type { Requirement } from '@/domain/requirements/Requirement';
 import { toEntity } from '@/persistence/mappings/entityMapping';
 
 type PerkPersistenceParams = {
@@ -9,19 +10,22 @@ type PerkPersistenceParams = {
   name: string;
   grade: number;
   description: string;
-  requirements: string[];
   price: number;
   tags: string[];
 };
 
 export function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistenceParams): TPerk
 {
+  // Structured requirements are read defensively — the generated Prisma type may
+  // lag the schema, and records may omit the field entirely.
+  const extra = perkPersistenceModel as unknown as { structuredRequirements?: unknown };
+
   return {
     ...toEntity(perkPersistenceModel),
 
     grade: perkPersistenceModel.grade,
     description: perkPersistenceModel.description,
-    requirements: perkPersistenceModel.requirements ?? [],
+    ...(Array.isArray(extra.structuredRequirements) ? { structuredRequirements: extra.structuredRequirements as Requirement[] } : {}),
     price: perkPersistenceModel.price,
     tags: perkPersistenceModel.tags
   } as TPerk;
@@ -36,7 +40,6 @@ type CastablePerkModel = {
   name: string;
   grade: number;
   description: string;
-  requirements: string[];
   price: number;
   tags: string[];
   castTime: string;

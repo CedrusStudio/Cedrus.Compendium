@@ -63,6 +63,8 @@ type AdminEntityManagementPanelProps<TEntity extends string> = {
   cancelButtonLabel?: string;
   renameActionAriaLabel?: string;
   deleteActionAriaLabel?: string;
+  /** Optional extra action(s) rendered per row, e.g. "structure this requirement". */
+  extraRowActions?: (row: ManagedEntityRow) => React.ReactNode;
 };
 
 export default function AdminEntityManagementPanel<TEntity extends string>({
@@ -97,6 +99,7 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
   cancelButtonLabel = 'Anuluj',
   renameActionAriaLabel = 'Edytuj',
   deleteActionAriaLabel = 'Usun',
+  extraRowActions,
 }: AdminEntityManagementPanelProps<TEntity>)
 {
   const [filterText, setFilterText] = useState('');
@@ -260,6 +263,7 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
                     >
                       {deleteIcon}
                     </Button>
+                    {extraRowActions?.(row)}
                   </div>
                 </div>
               </div>

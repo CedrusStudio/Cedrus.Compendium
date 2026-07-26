@@ -62,7 +62,7 @@ export type StatusId =
 
 export type ControlKind = "stun" | "root" | "disarm" | "silence";
 
-export type ResourceKind = "mana" | "essence" | "action";
+export type ResourceKind = "essence" | "action";
 
 /** Reference to a `BuffProfile` carried by the character (buffs/BuffProfile.ts). */
 export type BuffProfileRef =
@@ -320,8 +320,8 @@ export type EffectCondition =
   | { kind: "selfAirborne" }
   /** The opponent is charging (defending against a charge). */
   | { kind: "opponentCharging" }
-  /** The caster has at least `min` of a resource (mana/essence). */
-  | { kind: "hasResource"; resource: "mana" | "essence"; min: number };
+  /** The caster has at least `min` of a resource (essence). */
+  | { kind: "hasResource"; resource: "essence"; min: number };
 
 /**
  * Conditional wrapper: the nested `then` effects fire only when `condition`
@@ -341,9 +341,10 @@ export type WhenEffect =
  * readable from the current combat state (no external subsystem).
  */
 export type ScaleSource =
+  | { kind: "selfDice" }                                       // weapon dice the caster rolls ("za każdą kość broni", "+X na kość broni")
   | { kind: "opponentDice" }                                   // weapon dice the opponent rolls ("za każdą kość przeciwnika")
   | { kind: "opponentImmunity" }                               // opponent's niewrażliwość ("za każdą niewrażliwość wroga")
-  | { kind: "selfResource"; resource: "mana" | "essence" }     // caster's mana/essence
+  | { kind: "selfResource"; resource: "essence" }              // caster's essence
   | { kind: "selfStatusStacks"; status: StatusId }
   | { kind: "targetStatusStacks"; status: StatusId }
   | { kind: "selfStat"; group: "attributes" | "characteristics"; key: string }      // caster's stat value ("równa sile")

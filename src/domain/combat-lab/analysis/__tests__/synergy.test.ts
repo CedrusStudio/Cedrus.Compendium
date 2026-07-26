@@ -5,7 +5,7 @@ import { makeSnapshot, makeOffense } from "@/domain/combat-lab/engine/__tests__/
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
 
 const damageManeuver = (id: string, bonus: number): ManeuverDefinition => ({
-  id, name: id, grade: 1, description: "", requirements: [], price: 1, tags: [],
+  id, name: id, grade: 1, description: "", price: 1, tags: [],
   castTime: "Standardowa", cooldown: 0, cost: { castTime: "Standardowa" }, hardRequirements: [],
   effects: [{ type: "damage", damage: { amount: 0, grade: 0, bonus }, damageType: "nieuchronne" }],
 });

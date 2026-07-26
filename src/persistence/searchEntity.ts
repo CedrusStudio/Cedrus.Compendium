@@ -1,11 +1,19 @@
 import { type SearchEntityPayload, type SearchByIdEntityPayload, SearchValueOutputs } from '@/common/global/SearchPayloads';
-import { createFiltering, createExcludeFiltering, createMapping, createSorting, Select } from '@/common/global/SearchPayloads';
+import { createFiltering, createExcludeFiltering, createMapping, createSorting, collectRequirementFilters, Select } from '@/common/global/SearchPayloads';
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 import prisma from '@/lib/prisma';
 import { toSpell } from '@/persistence/mappings/spellMappings';
+import { buildRequirementSearchPipeline } from '@/persistence/requirementSearchPipeline';
 import { characterVisibilityWhere, isCharacterVisible, canUseMineOnlyVisibility, CharacterVisibilityWhere } from '@/persistence/characterVisibility';
 
 const CHARACTER_ENTITY = 'character';
+
+// Mongo aggregateRaw returns the id as `_id`; the app expects `id`.
+function normalizeRawDoc(doc: Record<string, unknown>): Record<string, unknown>
+{
+  const { _id, ...rest } = doc as { _id?: unknown } & Record<string, unknown>;
+  return { id: _id, ...rest };
+}
 
 //TODO: perform mapping here based on payload.mapping
 export async function searchEntityById<TMappedResult>(id: string, payload: SearchByIdEntityPayload, apiKey?: string | null): Promise<TMappedResult[]>
@@ -73,6 +81,38 @@ export async function searchEntity<TMappedResult>(payload: SearchEntityPayload, 
   if (payload.entity === CHARACTER_ENTITY && payload.characterVisibilityMode === 'mineOnly' && !canUseMineOnlyVisibility(apiKey))
   {
     return [] as TMappedResult[];
+  }
+
+  // Wave 5: value-aware requirement filter needs a Mongo `$elemMatch` inside the
+  // `structuredRequirements` JSON array, which Prisma's typed `findMany` cannot
+  // express — drop to aggregateRaw for this (compendium-only) case. Characters
+  // are excluded so their visibility rules are never bypassed.
+  // Wave 6.2: several filters may arrive at once (AND); `collectRequirementFilters`
+  // folds the singular and plural payload fields into one list.
+  const requirementFilters = collectRequirementFilters(payload);
+
+  if (requirementFilters.length > 0 && payload.entity !== CHARACTER_ENTITY)
+  {
+    const pipeline = buildRequirementSearchPipeline({
+      search: payload.search,
+      exclude: payload.exclude,
+      sort: payload.sort,
+      offset: isOffsetPagination(payload.pagination) ? payload.pagination : undefined,
+      requirementFilters,
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const raw = await (prisma[payload.entity as any] as any).aggregateRaw({ pipeline });
+    const normalized = (Array.isArray(raw) ? raw : []).map((doc: Record<string, unknown>) => normalizeRawDoc(doc));
+
+    if (payload.entity === 'spell')
+    {
+      // `toSpell` expects the concrete SpellModel shape; the aggregateRaw docs are
+      // structurally the same rows, just typed loosely after normalization.
+      return (normalized as unknown as Parameters<typeof toSpell>[0][]).map(toSpell) as TMappedResult[];
+    }
+
+    return normalized as unknown as TMappedResult[];
   }
 
   const findInput = createSearchInput(payload, apiKey, payload.include);

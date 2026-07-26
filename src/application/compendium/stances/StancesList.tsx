@@ -22,9 +22,12 @@ import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import RequirementFilter from "@/application/common/requirements/RequirementFilter";
+import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -48,15 +51,21 @@ export default function StancesList()
   const [displayedStances, setDisplayedStances] = useState<Mode[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  // ROADMAP 2.2 — client-side narrow-down to a chosen character's own stances,
+  // applied on top of whatever page(s) are already loaded/paginated below.
+  const [ownNamesFilter, setOwnNamesFilter] = useState<Set<string> | null>(null);
+  const visibleStances = ownNamesFilter ? displayedStances.filter(stance => ownNamesFilter.has(stance.name)) : displayedStances;
+  const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
-  
-  const queryKey = createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+
+  const queryKey = [createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters];
   const { data: searchResults } = useQuery
-  ({ 
-    queryKey, 
-    queryFn: async () => 
+  ({
+    queryKey,
+    queryFn: async () =>
     {
       const stancesQuery = createStanceOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+      if (requirementFilters.length > 0) stancesQuery.requirementFilters = requirementFilters;
       return await searchClient.search<Mode[]>(stancesQuery);
     },
     staleTime: 5_000
@@ -101,9 +110,15 @@ export default function StancesList()
     clearResults();
   }, [clearResults]);
 
-  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  const handleExcludedTagsChange = useCallback((tags: string[]) =>
   {
     setExcludedTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleRequirementFiltersChange = useCallback((filters: RequirementSearchFilter[]) =>
+  {
+    setRequirementFilters(filters);
     clearResults();
   }, [clearResults]);
 
@@ -141,7 +156,9 @@ export default function StancesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="stances"
+        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
+        <CharacterModeFilter kind="stances" onOwnNamesChange={setOwnNamesFilter} />
         <Button
           variant="outline"
           size="icon"
@@ -155,7 +172,7 @@ export default function StancesList()
 
       {isGroupedView ? (
         <GroupedItemsList<Mode>
-          items={displayedStances}
+          items={visibleStances}
           renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
@@ -166,8 +183,8 @@ export default function StancesList()
       ) : (
         <WithScroll<Mode>
           parentClassName="flex flex-col gap-2"
-          items={displayedStances}
-          triggerNext={() => 
+          items={visibleStances}
+          triggerNext={() =>
           {
             setPageNumber(prev => prev + 1);
           }}

@@ -27,7 +27,13 @@ export const maneuverWithEffectsSchema = castablePerkSchema.extend
   unsupportedReason: z.string().max(500).nullish(),
 });
 
+// Create form for a brand-new maneuver, WITH Combat Lab effects. Single-record
+// form (no array nesting), so the recursive Effect union is safe here — same as
+// the edit sheet above.
+export const addManeuverWithEffectsSchema = maneuverWithEffectsSchema.omit({ id: true });
+
 export type ManeuverDto = z.infer<typeof maneuverSchema>;
 export type ManeuverWithEffectsDto = z.infer<typeof maneuverWithEffectsSchema>;
+export type AddManeuverWithEffectsDto = z.infer<typeof addManeuverWithEffectsSchema>;
 export type CastablePerkDto = z.infer<typeof castablePerkSchema>;
 export type AddManeuverDto = z.infer<typeof addManeuverSchema>;

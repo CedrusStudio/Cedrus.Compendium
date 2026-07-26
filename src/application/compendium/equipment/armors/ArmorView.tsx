@@ -12,6 +12,7 @@ import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEd
 import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import ArmorViewFields from "@/application/common/equipment/Views/ArmorViewFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
@@ -36,6 +37,8 @@ export default function ArmorView({ armor, disableEdit = false, onDelete }: Armo
     <CompendiumView>
 
       <ArmorViewFields armor={armor} />
+
+      <OwnedByCharacters entity="armors" id={armor.id} />
 
       {
         !disableEdit && (

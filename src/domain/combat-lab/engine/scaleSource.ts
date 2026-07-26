@@ -36,6 +36,11 @@ export function countScaleSource(source: ScaleSource, self: CombatantRuntime, ta
 {
   switch (source.kind)
   {
+    case "selfDice":
+    {
+      const off = selectDefaultOffense(self.snapshot);
+      return off ? offenseDiceCount(off) : 0;
+    }
     case "opponentDice":
     {
       const off = selectDefaultOffense(target.snapshot);

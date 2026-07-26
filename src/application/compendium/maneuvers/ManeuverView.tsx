@@ -23,6 +23,7 @@ import { ManeuverEffectsEditableFields } from "@/application/combat-lab/effects-
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 
 type ManeuverViewProps =
 {
@@ -51,6 +52,8 @@ export default function ManeuverView({ maneuver, disableEdit = false, onDelete }
 
       <ManeuverEffectsInfo maneuver={maneuver} />
 
+      <OwnedByCharacters entity="maneuvers" id={maneuver.id} />
+
       <PerkableBadgeView>
 
         <PriceBadge price={maneuver.price} />
@@ -67,7 +70,7 @@ export default function ManeuverView({ maneuver, disableEdit = false, onDelete }
 
               <EditFormForSheet<ManeuverWithEffectsDto>
                 entityId={maneuver.id}
-                defaultValues={maneuver}
+                defaultValues={{ ...maneuver, structuredRequirements: maneuver.structuredRequirements ?? [] }}
                 schema={maneuverWithEffectsSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.maneuver(maneuver.id)}
@@ -116,7 +119,7 @@ function ManeuverEffectsInfo({ maneuver }: { maneuver: Maneuver })
   {
     return (
       <div className="w-full px-2 text-sm text-muted-foreground">
-        Efekty (Combat Lab): <span className="text-foreground">do zmapowania</span>
+        Efekty: <span className="text-foreground">do zmapowania</span>
       </div>
     );
   }

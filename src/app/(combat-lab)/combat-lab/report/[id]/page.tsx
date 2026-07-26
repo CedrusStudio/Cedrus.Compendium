@@ -1,7 +1,7 @@
 import { SimulationReport } from "@/application/combat-lab/report/SimulationReport";
 
 export const metadata = {
-  title: "Combat Lab — Raport",
+  title: "Laboratorium Systemu — Raport",
 };
 
 type RouteParams = { params: Promise<{ id: string }> };

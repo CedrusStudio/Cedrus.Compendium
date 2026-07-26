@@ -1,5 +1,5 @@
 import { DEFAULT_PAGE_SIZE, isKeysetPagination, isOffsetPagination, KeysetPagination, OffsetPagination } from "@/common/global/pagination";
-import { anyOfValues, CharacterVisibilityMode, EntityName, EntityTypeMap, SearchEntityPayload, SearchScalarValueInput, SearchValueInput, Select } from "@/common/global/SearchPayloads";
+import { anyOfValues, CharacterVisibilityMode, EntityName, EntityTypeMap, isUsableRequirementFilter, RequirementSearchFilter, SearchEntityPayload, SearchScalarValueInput, SearchValueInput, Select } from "@/common/global/SearchPayloads";
 
 export class SearchQueryBuilder<TEntity> 
 {
@@ -11,6 +11,7 @@ export class SearchQueryBuilder<TEntity>
   private _include?: Record<string, boolean>;
   private _pagination?: OffsetPagination | KeysetPagination;
   private _characterVisibilityMode?: CharacterVisibilityMode;
+  private _requirementFilters: RequirementSearchFilter[] = [];
 
   private constructor(entity: string) 
   {
@@ -84,6 +85,19 @@ export class SearchQueryBuilder<TEntity>
   {
     if (!mode || mode === 'all') return this; // 'all' = omit the field, same as today's payload
     this._characterVisibilityMode = mode;
+    return this;
+  }
+
+  /**
+   * Wave 6.2: accumulates instead of overwriting, so repeated calls (or a single
+   * call with an array) AND together. Unusable entries — blank text, missing
+   * target — are dropped, which is what lets the UI hold a half-typed filter
+   * without corrupting the query.
+   */
+  requirementFilter(filter: RequirementSearchFilter | RequirementSearchFilter[] | undefined): this
+  {
+    const incoming = Array.isArray(filter) ? filter : [filter];
+    this._requirementFilters.push(...incoming.filter(isUsableRequirementFilter));
     return this;
   }
 
@@ -196,6 +210,11 @@ export class SearchQueryBuilder<TEntity>
     if (this._characterVisibilityMode)
     {
       query.characterVisibilityMode = this._characterVisibilityMode;
+    }
+
+    if (this._requirementFilters.length > 0)
+    {
+      query.requirementFilters = this._requirementFilters;
     }
 
     const hasSelect = this._select && Object.keys(this._select).length > 0;

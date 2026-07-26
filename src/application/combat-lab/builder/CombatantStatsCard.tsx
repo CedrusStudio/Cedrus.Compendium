@@ -17,6 +17,19 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/common/co
 
 const ATTACK_KIND_LABELS: Record<string, string> = { melee: "zwarcie", rangedPhysical: "dystans fizyczny", rangedMagic: "dystans magiczny" };
 
+/** All attributes shown in the preview (incl. Fechtunek/Fortel, previously missing). */
+const ATTRIBUTE_ROWS: [keyof CombatantSnapshot["skills"]["attributes"], string][] = [
+  ["fencing", "fechtunek"],
+  ["artifice", "fortel"],
+  ["precision", "precyzja"],
+  ["initiative", "inicjatywa"],
+  ["martialArt", "walka wręcz"],
+  ["horsemanship", "jeździectwo"],
+  ["fortitude", "wytrwałość"],
+  ["reflex", "refleks"],
+  ["willpower", "wola"],
+];
+
 export function CombatantStatsCard({ title, snapshot }: { title: string; snapshot: CombatantSnapshot })
 {
   const offense = selectDefaultOffense(snapshot);
@@ -52,7 +65,7 @@ export function CombatantStatsCard({ title, snapshot }: { title: string; snapsho
             <div className="text-xs font-medium text-muted-foreground">Atak</div>
             <div>{toOffenseString(offense.leadingWeapon) || "—"}
               {offense.secondaryWeapon ? ` + ${toOffenseString(offense.secondaryWeapon)}` : ""}
-              {offense.damageBonus.amount > 0 || offense.damageBonus.bonus !== 0 ? ` +bonus ${toOffenseString(offense.damageBonus)}` : ""}
+              {offense.damageBonus.amount > 0 || offense.damageBonus.bonus !== 0 ? ` + ${toOffenseString(offense.damageBonus)}` : ""}
             </div>
             <div className="text-xs text-muted-foreground">krytyk: szansa {offense.leadingWeapon.critical.range}, siła {offense.leadingWeapon.critical.power}</div>
           </div>
@@ -62,18 +75,29 @@ export function CombatantStatsCard({ title, snapshot }: { title: string; snapsho
           <div>
             <div className="text-xs font-medium text-muted-foreground">Obrona</div>
             <div className="text-xs">blok {defense.block} · parowanie {defense.parry} · unik {defense.dodge} · pancerz {defense.protection} · odporność {defense.resistance} · niewrażliwość {defense.immunity}</div>
+            <div className="text-xs text-muted-foreground">suma redukcji (blok + parowanie + unik + pancerz): <span className="font-medium text-foreground">{defense.block + defense.parry + defense.dodge + defense.protection}</span></div>
           </div>
         )}
 
-        <Row label="Inicjatywa / precyzja / refleks" value={`${getStatisticTotalTestValue(snapshot.initiative)} / ${getStatisticTotalTestValue(snapshot.precision)} / ${getStatisticTotalTestValue(snapshot.reflex)}`} />
+        <div>
+          <div className="text-xs font-medium text-muted-foreground">Atrybuty</div>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-xs sm:grid-cols-3">
+            {ATTRIBUTE_ROWS.map(([key, label]) => (
+              <div key={key} className="flex justify-between gap-2">
+                <span className="text-muted-foreground">{label}</span>
+                <span className="font-medium">{getStatisticTotalTestValue(snapshot.skills.attributes[key])}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {(snapshot.stance || snapshot.state) && (
           <div>
             <div className="text-xs font-medium text-muted-foreground">Tryby</div>
             <div className="text-xs">
-              {snapshot.stance && <span>postawa: {snapshot.stance.name} g{snapshot.stance.baseGrade}</span>}
+              {snapshot.stance && <span>postawa: {snapshot.stance.name} {snapshot.stance.baseGrade}</span>}
               {snapshot.stance && snapshot.state && <span> · </span>}
-              {snapshot.state && <span>stan: {snapshot.state.name} g{snapshot.state.baseGrade}</span>}
+              {snapshot.state && <span>stan: {snapshot.state.name} {snapshot.state.baseGrade}</span>}
             </div>
           </div>
         )}
@@ -86,7 +110,7 @@ export function CombatantStatsCard({ title, snapshot }: { title: string; snapsho
                 <li key={s.id}>
                   <span className="font-medium">{s.name}</span>
                   <span className="text-muted-foreground"> — {toOffenseString(s.offense.leadingWeapon) || "—"}
-                    {s.offense.damageBonus.amount > 0 || s.offense.damageBonus.bonus !== 0 ? ` +bonus ${toOffenseString(s.offense.damageBonus)}` : ""}
+                    {s.offense.damageBonus.amount > 0 || s.offense.damageBonus.bonus !== 0 ? ` + ${toOffenseString(s.offense.damageBonus)}` : ""}
                     {` · koszt ${s.costEssence} esencji`}
                     {s.cooldown ? ` · odnowienie ${s.cooldown}` : ""}</span>
                 </li>

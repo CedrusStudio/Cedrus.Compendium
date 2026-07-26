@@ -13,6 +13,8 @@ import { displayedText } from "@/common/translations";
 import InfoContentWithTags from "@/common/components/tags/InfoContentWithTags";
 import CastableSearchFilters from '@/application/characters/combat/CastableSearchFilters';
 import { filterCastables, getAvailableCastableTags } from '@/application/characters/combat/castableFilters';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/common/components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
 
 type ManeuversViewProps =
 {
@@ -70,21 +72,41 @@ export default function ManeuversCard({ maneuvers }: ManeuversViewProps)
             }
         </CardHeader>
 
-        <CardContent className='grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
-            {
-                filteredManeuvers.map(maneuver => <CombatManeuverView key={maneuver.id} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
-            }
+        <CardContent>
+          {/* ROADMAP 2.6 — search/filters above stay visible; the maneuver grid
+              itself collapses to cut down on scroll once the player has picked
+              their actions for the turn. Open by default — nothing is hidden
+              unless the player chooses to collapse it. */}
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="mb-2 h-7 gap-1 px-2 text-xs text-muted-foreground [&[data-state=open]_svg]:rotate-180"
+              >
+                <ChevronDown className="h-3.5 w-3.5 transition-transform" />
+                {displayedText.maneuvers}
+              </Button>
+            </CollapsibleTrigger>
 
-            {
-                filteredManeuvers.length === 0 && (
-                    <p className='col-span-full text-center text-sm text-muted-foreground'>
-                        {displayedText.no_maneuvers_found}
-                    </p>
-                )
-            }
+            <CollapsibleContent className='grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4'>
+                {
+                    filteredManeuvers.map(maneuver => <CombatManeuverView key={maneuver.id} maneuver={maneuver} addManeuverToUsed={addManeuverToUsed} usedManeuvers={usedManeuvers} />)
+                }
 
-            <SmallUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />
-            <MediumUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />
+                {
+                    filteredManeuvers.length === 0 && (
+                        <p className='col-span-full text-center text-sm text-muted-foreground'>
+                            {displayedText.no_maneuvers_found}
+                        </p>
+                    )
+                }
+
+                <SmallUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />
+                <MediumUsedManeuversView usedManeuvers={usedManeuvers} removeLastManeuver={removeLastManeuver} setUsedManeuvers={setUsedManeuvers} endTurn={endTurn} />
+            </CollapsibleContent>
+          </Collapsible>
         </CardContent>
 
     </Card>

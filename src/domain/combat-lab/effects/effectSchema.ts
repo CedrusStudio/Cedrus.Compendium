@@ -39,7 +39,16 @@ const statusIds = [
 
 const controlKinds = ["stun", "root", "disarm", "silence"] as const satisfies readonly ControlKind[];
 
-const resourceKinds = ["mana", "essence", "action"] as const satisfies readonly ResourceKind[];
+const resourceKinds = ["essence", "action"] as const satisfies readonly ResourceKind[];
+
+/**
+ * Backward-compat: legacy data may carry the removed "mana" resource. The system
+ * operates only on Esencja, so any stored `"mana"` is normalized to `"essence"`
+ * at parse time. Wraps a resource enum in a preprocess step.
+ */
+const legacyManaToEssence = (v: unknown) => (v === "mana" ? "essence" : v);
+const resourceEffectKind = z.preprocess(legacyManaToEssence, z.enum(resourceKinds));
+const resourcePoolKind = z.preprocess(legacyManaToEssence, z.enum(["essence"]));
 
 export const damageSpecSchema = z.object({
   amount: z.number().int().min(0),
@@ -166,7 +175,7 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
     }),
     z.object({
       type: z.literal("resource"),
-      resource: z.enum(resourceKinds),
+      resource: resourceEffectKind,
       delta: z.number().int(),
     }),
     z.object({
@@ -203,16 +212,17 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
         z.object({ kind: z.literal("onDamageDealt") }),
         z.object({ kind: z.literal("selfAirborne") }),
         z.object({ kind: z.literal("opponentCharging") }),
-        z.object({ kind: z.literal("hasResource"), resource: z.enum(["mana", "essence"]), min: z.number().int() }),
+        z.object({ kind: z.literal("hasResource"), resource: resourcePoolKind, min: z.number().int() }),
       ]),
       then: z.array(effectSchema),
     }),
     z.object({
       type: z.literal("scale"),
       source: z.discriminatedUnion("kind", [
+        z.object({ kind: z.literal("selfDice") }),
         z.object({ kind: z.literal("opponentDice") }),
         z.object({ kind: z.literal("opponentImmunity") }),
-        z.object({ kind: z.literal("selfResource"), resource: z.enum(["mana", "essence"]) }),
+        z.object({ kind: z.literal("selfResource"), resource: resourcePoolKind }),
         z.object({ kind: z.literal("selfStatusStacks"), status: z.enum(statusIds) }),
         z.object({ kind: z.literal("targetStatusStacks"), status: z.enum(statusIds) }),
         z.object({ kind: z.literal("selfStat"), group: z.enum(["attributes", "characteristics"]), key: z.string().min(1) }),
@@ -245,11 +255,24 @@ const mechanicalRequirementSchema = z.discriminatedUnion("kind", [
 
 const castTimeSchema = z.enum(allowedCastTimes as unknown as [CastTime, ...CastTime[]]);
 
-export const actionCostSchema = z.object({
-  castTime: castTimeSchema,
-  mana: z.number().int().min(0).optional(),
-  essence: z.number().int().min(0).optional(),
-});
+export const actionCostSchema = z.preprocess(
+  (v) => {
+    // Backward-compat: fold legacy `mana` cost into `essence` (single-resource system).
+    if (v && typeof v === "object" && "mana" in v)
+    {
+      const { mana, ...rest } = v as Record<string, unknown>;
+      const manaNum = typeof mana === "number" ? mana : 0;
+      const essenceNum = typeof rest.essence === "number" ? rest.essence : 0;
+      const essence = essenceNum + manaNum;
+      return essence > 0 ? { ...rest, essence } : rest;
+    }
+    return v;
+  },
+  z.object({
+    castTime: castTimeSchema,
+    essence: z.number().int().min(0).optional(),
+  }),
+);
 
 /**
  * Schema for the combat-lab specific additions to a maneuver. Kept separate

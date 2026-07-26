@@ -18,6 +18,7 @@ import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import PerkEditableFields from "@/application/common/PerkEditableFields";
 import SpellEditableFields from "@/application/common/combat/SpellEditableFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
@@ -46,7 +47,9 @@ export default function SpellView({ spell, disableEdit = false, onDelete }: Spel
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={spell} />
       </div>
-      
+
+      <OwnedByCharacters entity="spells" id={spell.id} />
+
       <PerkableBadgeView>
 
         <PriceBadge price={spell.price} />
@@ -66,7 +69,7 @@ export default function SpellView({ spell, disableEdit = false, onDelete }: Spel
 
               <EditFormForSheet<SpellDto> 
                 entityId={spell.id}
-                defaultValues={spell}
+                defaultValues={{ ...spell, structuredRequirements: spell.structuredRequirements ?? [] }}
                 schema={spellSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.spell(spell.id)}

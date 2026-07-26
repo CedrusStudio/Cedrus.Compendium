@@ -18,7 +18,6 @@ describe('Maneuver', () => {
       expect(maneuver.castTime).toBe('Standardowa');
       expect(maneuver.cooldown).toBe(1);
       expect(maneuver.price).toBe(1);
-      expect(maneuver.requirements).toEqual([]);
       expect(maneuver.tags).toEqual([]);
     });
   });

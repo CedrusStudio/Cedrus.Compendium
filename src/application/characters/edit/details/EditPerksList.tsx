@@ -11,6 +11,7 @@ import TagsView from "@/common/components/tags/TagsView";
 import ImportItemsSheet from "@/common/components/import/ImportItemSheet";
 import ImportFromCharacterSheet from "@/common/components/import/ImportFromCharacterSheet";
 import PerkView from "@/application/compendium/perks/PerkView";
+import EntityRequirementsWarning from "@/application/common/requirements/EntityRequirementsWarning";
 import SelectableItemWrapper from "@/common/components/import/SelectableItemWrapper";
 import { useState } from "react";
 import ImportedBadge from "@/common/components/labels/ImportedBadge";
@@ -41,7 +42,7 @@ const clonePerk = (perk: Perk): Perk =>
   name: perk.name,
   grade: perk.grade,
   description: perk.description,
-  requirements: [...perk.requirements],
+  structuredRequirements: [...(perk.structuredRequirements ?? [])],
   price: perk.price,
   tags: [...perk.tags]
 });
@@ -90,6 +91,8 @@ export default function EditPerksList({ isPending, isSuccess, initialPerks, perk
         <h3 className="text-lg font-semibold text-primary capitalize">
           {displayedText.perks}
         </h3>
+
+        <EntityRequirementsWarning characterId={currentCharacterId} entities={perks} />
 
         <div className="flex gap-2">
           <AppendToArrayButton<DetailsDto, "perks"> 

@@ -19,6 +19,7 @@ import { describeManeuver } from "@/domain/combat-lab/effects/describeManeuver";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 
 type StanceViewProps =
 {
@@ -47,6 +48,8 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
 
       <ModeEffectsInfo mode={stance} />
 
+      <OwnedByCharacters entity="stances" id={stance.id} />
+
       <PerkableBadgeView>
 
         <PriceBadge price={stance.price} />
@@ -57,7 +60,7 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
 
               <EditFormForSheet<ModeWithEffectsDto>
                 entityId={stance.id}
-                defaultValues={stance}
+                defaultValues={{ ...stance, structuredRequirements: stance.structuredRequirements ?? [] }}
                 schema={modeWithEffectsSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.stance(stance.id)}
@@ -105,7 +108,7 @@ function ModeEffectsInfo({ mode }: { mode: Mode })
   {
     return (
       <div className="w-full px-2 text-sm text-muted-foreground">
-        Efekty (Combat Lab): <span className="text-foreground">do zmapowania</span>
+        Efekty: <span className="text-foreground">do zmapowania</span>
       </div>
     );
   }

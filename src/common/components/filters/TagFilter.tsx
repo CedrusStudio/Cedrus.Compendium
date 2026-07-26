@@ -81,10 +81,31 @@ export default function TagFilter
     onIncludedTagsChange(includedTags.filter(tag => tag !== tagToRemove));
   };
 
-  const removeExcludedTag = (tagToRemove: string) => 
+  const removeExcludedTag = (tagToRemove: string) =>
   {
     onExcludedTagsChange(excludedTags.filter(tag => tag !== tagToRemove));
   };
+
+  // Tags still assignable to the active list (a tag can't be both included and excluded).
+  const selectableTags = (availableTags ?? []).filter(
+    tag => !includedTags.includes(tag) && !excludedTags.includes(tag),
+  );
+
+  const selectAllTags = () =>
+  {
+    if (selectableTags.length === 0) return;
+    if (mode === 'include') onIncludedTagsChange([...includedTags, ...selectableTags]);
+    else onExcludedTagsChange([...excludedTags, ...selectableTags]);
+    setOpen(false);
+  };
+
+  const clearActiveModeTags = () =>
+  {
+    if (mode === 'include') onIncludedTagsChange([]);
+    else onExcludedTagsChange([]);
+  };
+
+  const activeModeTags = mode === 'include' ? includedTags : excludedTags;
 
   const hasAnyTags = includedTags.length > 0 || excludedTags.length > 0;
 
@@ -110,6 +131,36 @@ export default function TagFilter
             {error && <div className="text-red-600 px-2 py-1">{error}</div>}
 
             <PopoverContent className="w-[300px] p-0">
+
+              {availableTags && (
+                <div className="flex items-center justify-between gap-2 border-b px-2 py-1.5">
+                  <span className="text-xs text-muted-foreground">
+                    {mode === 'include' ? 'Dołączane' : 'Wykluczane'}
+                  </span>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 px-2 text-xs"
+                      type="button"
+                      onClick={selectAllTags}
+                      disabled={selectableTags.length === 0}
+                    >
+                      Zaznacz wszystkie
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 px-2 text-xs"
+                      type="button"
+                      onClick={clearActiveModeTags}
+                      disabled={activeModeTags.length === 0}
+                    >
+                      Odznacz wszystkie
+                    </Button>
+                  </div>
+                </div>
+              )}
 
               <Command>
                 <CommandInput placeholder="Szukaj tag..." />

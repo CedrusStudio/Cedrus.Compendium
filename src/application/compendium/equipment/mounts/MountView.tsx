@@ -12,6 +12,7 @@ import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEd
 import MountEditableFields from "@/application/common/equipment/EditSheets/MountEditableFields";
 import { Mount } from "@/domain/characters/equipment/Mount";
 import MountViewFields from "@/application/common/equipment/Views/MountViewFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
@@ -35,6 +36,8 @@ export default function MountView({ mount, disableEdit = false, onDelete }: Moun
     <CompendiumView>
 
       <MountViewFields mount={mount} />
+
+      <OwnedByCharacters entity="mounts" id={mount.id} />
 
       {
         !disableEdit && (

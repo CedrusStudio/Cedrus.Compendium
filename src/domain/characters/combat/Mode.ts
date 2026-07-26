@@ -24,7 +24,6 @@ export const defaultStance: Omit<Mode, "id"> =
   name: 'Postawa',
   description: 'Opis postawy',
   grade: 1,
-  requirements: [],
   price: 0,
   tags: []
 };
@@ -34,7 +33,6 @@ export const defaultState: Omit<Mode, "id"> =
   name: 'Stan',
   description: 'Opis stanu',
   grade: 1,
-  requirements: [],
   price: 0,
   tags: []
 };

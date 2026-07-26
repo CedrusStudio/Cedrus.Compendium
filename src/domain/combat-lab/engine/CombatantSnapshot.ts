@@ -99,10 +99,10 @@ export type CombatantSnapshot =
   skills: { attributes: Attributes; characteristics: Characteristics };
   /** Static positional context (set by the Scenario) read by `when` conditions. */
   positional?: { airborne?: boolean; charging?: boolean };
-  /** Starting resource pools (mana/essence) for this simulation — a per-sim
-   * parameter, not derived from the sheet. Consumed by `resource` effects and
-   * the `hasResource` condition. Defaults to 0. */
-  startingResources?: { mana?: number; essence?: number };
+  /** Starting essence pool for this simulation — a per-sim parameter, not
+   * derived from the sheet. Consumed by `resource` effects and the
+   * `hasResource` condition. Defaults to 0. */
+  startingResources?: { essence?: number };
   attackKind: AttackKind;
   /**
    * The character's buff-profile library — referenced by `buff`/`debuff`
@@ -137,8 +137,8 @@ export type SnapshotOptions =
   extraBuffProfiles?: BuffProfile[];
   /** Static positional context (set by the Scenario), read by `when` conditions. */
   positional?: { airborne?: boolean; charging?: boolean };
-  /** Starting resource pools (mana/essence) for this simulation. */
-  startingResources?: { mana?: number; essence?: number };
+  /** Starting essence pool for this simulation. */
+  startingResources?: { essence?: number };
   /**
    * PowerSpecifications (by id) needed to resolve a character's spells into
    * damage offenses. The `Character` graph carries only `powerSpecificationId`

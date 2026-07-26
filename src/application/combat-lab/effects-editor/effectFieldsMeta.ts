@@ -25,8 +25,8 @@ export type FieldDef =
 export const DAMAGE_TYPES = ["zwyczajne", "blokowane", "bezpośrednie", "śmiertelne", "nieuchronne"] as const;
 export const STATUS_IDS = ["bleeding", "poisoned", "burning", "stagger", "stun", "root", "disarm", "slow", "marked"] as const;
 export const CONTROL_KINDS = ["stun", "root", "disarm", "silence"] as const;
-export const RESOURCE_KINDS = ["essence", "mana", "action"] as const;
-export const RESOURCE_LABELS: Record<string, string> = { essence: "esencja", mana: "mana", action: "akcja" };
+export const RESOURCE_KINDS = ["essence", "action"] as const;
+export const RESOURCE_LABELS: Record<string, string> = { essence: "esencja", action: "akcja" };
 export const ROLL_MODIFIERS = ["advantage", "disadvantage", "extraDie"] as const;
 export const ROLL_MOD_LABELS: Record<string, string> = { advantage: "przewaga (2 rzuty, wyższy)", disadvantage: "utrudnienie (2 rzuty, niższy)", extraDie: "dodatkowa kość" };
 export const STAT_MODE_LABELS: Record<string, string> = { self: "na siebie (wzmocnienie)", target: "na cel (osłabienie)" };
@@ -35,14 +35,13 @@ export const MULTIPLIER_TARGET_LABELS: Record<string, string> = { damageDealt: "
 export const ROUNDING_KINDS = ["up", "down", "nearest"] as const;
 export const ROUNDING_LABELS: Record<string, string> = { up: "w górę", down: "w dół", nearest: "do najbliższego" };
 
-/** All character skills usable in test pools: [group, key, PL]. */
-export const SKILLS: readonly [group: "attributes" | "characteristics", key: string, pl: string][] = [
-  ["attributes", "fencing", "fechtunek"], ["attributes", "artifice", "fortel"], ["attributes", "precision", "precyzja"],
-  ["attributes", "initiative", "inicjatywa"], ["attributes", "martialArt", "walka wręcz"], ["attributes", "horsemanship", "jeździectwo"],
-  ["attributes", "fortitude", "wytrwałość"], ["attributes", "reflex", "refleks"], ["attributes", "willpower", "wola"],
-  ["characteristics", "strength", "siła"], ["characteristics", "dexterity", "zręczność"], ["characteristics", "constitution", "budowa"],
-  ["characteristics", "mind", "umysł"], ["characteristics", "charisma", "charyzma"], ["characteristics", "spellborn", "czarokrwistość"],
-];
+/**
+ * All character skills usable in test pools: `[group, key, PL]`.
+ * Canonical source moved to `@/domain/characters/statistics/skills` so it can be
+ * shared with the domain-level requirements engine; re-exported here to keep the
+ * existing Combat Lab editor imports (`SKILLS` from this module) working.
+ */
+export { SKILLS } from "@/domain/characters/statistics/skills";
 export const ATTACK_KINDS = ["melee", "rangedPhysical", "rangedMagic"] as const;
 export const ATTACK_KIND_LABELS: Record<string, string> = { melee: "walka wręcz", rangedPhysical: "dystans fizyczny", rangedMagic: "dystans magiczny" };
 export const CONDITION_KINDS = ["opponentAttackKind", "targetHasStatus", "selfHasStatus", "onCritical", "onDamageDealt", "selfAirborne", "opponentCharging", "hasResource"] as const;
@@ -51,11 +50,11 @@ export const CONDITION_LABELS: Record<string, string> = {
   onCritical: "przy trafieniu krytycznym", onDamageDealt: "gdy zadano obrażenia",
   selfAirborne: "atakując z powietrza", opponentCharging: "tylko przeciw szarży", hasResource: "gdy masz zasób (≥)",
 };
-export const RESOURCE_POOL_KINDS = ["essence", "mana"] as const;
-export const RESOURCE_POOL_LABELS: Record<string, string> = { essence: "esencja", mana: "mana" };
-export const SCALE_SOURCE_KINDS = ["opponentDice", "opponentImmunity", "selfResource", "selfStatusStacks", "targetStatusStacks", "selfStat", "opponentStat"] as const;
+export const RESOURCE_POOL_KINDS = ["essence"] as const;
+export const RESOURCE_POOL_LABELS: Record<string, string> = { essence: "esencja" };
+export const SCALE_SOURCE_KINDS = ["selfDice", "opponentDice", "opponentImmunity", "selfResource", "selfStatusStacks", "targetStatusStacks", "selfStat", "opponentStat"] as const;
 export const SCALE_SOURCE_LABELS: Record<string, string> = {
-  opponentDice: "kość przeciwnika", opponentImmunity: "niewrażliwość wroga", selfResource: "twój zasób",
+  selfDice: "twoja kość broni", opponentDice: "kość przeciwnika", opponentImmunity: "niewrażliwość wroga", selfResource: "twój zasób",
   selfStatusStacks: "twój stack statusu", targetStatusStacks: "stack statusu celu",
   selfStat: "twoja statystyka", opponentStat: "statystyka przeciwnika",
 };
@@ -167,6 +166,18 @@ export function defaultEffect(type: string): Record<string, unknown>
     case "custom": return { type, effectType: "", data: {} };
     default: return { type };
   }
+}
+
+/**
+ * Preset for the common "za każdą kość broni +1 obrażenie" case — a `ScaleEffect`
+ * over `selfDice` with `per: 1` wrapping a flat +1 damage effect. One click instead
+ * of: add effect → switch type to Skalowanie → switch source to "twoja kość broni" →
+ * set per → set damage bonus. (The underlying mechanic already existed in the engine
+ * and in `ScaleFields` below — this just shortcuts the most common configuration.)
+ */
+export function weaponDiceDamageScalePreset(): Record<string, unknown>
+{
+  return { type: "scale", source: { kind: "selfDice" }, per: 1, effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne", canCrit: false } };
 }
 
 export const EFFECT_TYPE_ORDER = Object.keys(EFFECT_TYPE_META);

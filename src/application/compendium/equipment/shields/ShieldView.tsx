@@ -12,6 +12,7 @@ import ShieldEditableFields from "@/application/common/equipment/EditSheets/Shie
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 import ShieldViewFields from "@/application/common/equipment/Views/ShieldViewFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
@@ -35,6 +36,8 @@ export default function ShieldView({ shield, disableEdit = false, onDelete }: Sh
     <CompendiumView>
 
       <ShieldViewFields shield={shield} />
+
+      <OwnedByCharacters entity="shields" id={shield.id} />
 
       {
         !disableEdit && (

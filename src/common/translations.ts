@@ -122,6 +122,7 @@ export const displayedText =
     bestiary: translate("bestiary"),
     compendium: translate("compendium"),
     rulebook: translate("rulebook"),
+    "combat-lab": translate("combat-lab"),
 
     battle: translate("battle"),
     sum: translate("sum"),

@@ -146,6 +146,23 @@ describe('applyBuffProfile', () => {
     expect(character.offenses[0].leadingWeapon.bonus).toBe(1);
   });
 
+  it('does not derive damage from a Strength buff (ROADMAP 0.2 design decision: characteristics and offense are independent deltas)', () => {
+    const character = createCharacter();
+    const buffProfile = createDefaultBuffProfile();
+
+    buffProfile.characteristics.strength.value = 10;
+
+    const result = applyBuffProfile(character, buffProfile);
+
+    expect(result.characteristics.strength.value).toBe(15);
+    // Offense/damage must stay untouched by a Strength-only buff — see the
+    // design-decision comment on `applyBuffProfile`. If this starts failing
+    // because someone wired in auto-derivation, that's a deliberate mechanic
+    // change that needs its own decision, not an incidental regression.
+    expect(result.offenses[0].leadingWeapon.bonus).toBe(character.offenses[0].leadingWeapon.bonus);
+    expect(result.offenses[0].damageBonus.bonus).toBe(character.offenses[0].damageBonus.bonus);
+  });
+
   it('uses all active profiles in a category and clamps offense dice amount and grade to safe minimums', () => {
     const character = createCharacter();
     const buffProfile = createProfileWithId('buff-profile-1');
@@ -234,5 +251,43 @@ describe('applyBuffProfile', () => {
     const result = applyActiveBuffProfile(character);
 
     expect(result).toBe(character);
+  });
+});
+
+/**
+ * Characterization tests for Roadmap Fala 0 / Task 0.2 (Siła → Obrażenia).
+ * See features-to-implement/combat-lab-strength-derived-stats-findings.md.
+ *
+ * These pin the CURRENT (decoupled) behavior: raising the `strength`
+ * characteristic does NOT recompute derived physical Obrażenia, because the
+ * engine has no Siła→Obrażenia derivation. Damage only changes when a profile
+ * carries an explicit `offense.damageBonus` delta. If a future change introduces
+ * the rulebook derivation, these assertions are expected to change deliberately.
+ */
+describe('Siła → Obrażenia derivation gap (Task 0.2 characterization)', () => {
+  it('a strength-only buff does NOT change derived damage (currently decoupled)', () => {
+    const character = createCharacter();
+    const profile = createDefaultBuffProfile();
+    profile.characteristics.strength.value = 3; // "+3 Siła" only
+
+    const result = applyBuffProfile(character, profile);
+
+    // Strength rises...
+    expect(result.characteristics.strength.value).toBe(8); // 5 + 3
+    // ...but damageBonus is untouched (no derivation from strength).
+    expect(result.offenses[0].damageBonus.bonus).toBe(character.offenses[0].damageBonus.bonus);
+    expect(result.offenses[0].leadingWeapon.bonus).toBe(character.offenses[0].leadingWeapon.bonus);
+  });
+
+  it('damage changes only when the profile carries an explicit damage delta', () => {
+    const character = createCharacter();
+    const profile = createDefaultBuffProfile();
+    profile.characteristics.strength.value = 3;
+    profile.offense.damageBonus.bonus = 3; // author must add this by hand today
+
+    const result = applyBuffProfile(character, profile);
+
+    expect(result.characteristics.strength.value).toBe(8);
+    expect(result.offenses[0].damageBonus.bonus).toBe(character.offenses[0].damageBonus.bonus + 3);
   });
 });

@@ -95,6 +95,7 @@ export const translations_deDE =
     bestiary: "bestiarium",
     compendium: "kompendium",
     rulebook: "regelbuch",
+    "combat-lab": "combat lab",
 
     battle: "schlacht",
     sum: "summe",

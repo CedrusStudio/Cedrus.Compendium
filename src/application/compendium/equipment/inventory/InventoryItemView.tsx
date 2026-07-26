@@ -11,6 +11,7 @@ import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import ItemEditableFields from "@/application/common/equipment/EditSheets/ItemEditableFields";
 import InventoryItemViewFields from "@/application/common/equipment/Views/InventoryItemViewFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 
@@ -34,6 +35,8 @@ export default function InventoryItemView({ item, disableEdit = false, onDelete 
     <CompendiumView>
 
       <InventoryItemViewFields item={item} />
+
+      <OwnedByCharacters entity="inventory" id={item.id} />
 
       {
         !disableEdit && (

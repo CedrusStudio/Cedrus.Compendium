@@ -74,11 +74,15 @@ describe("when (condition) effect", () => {
   });
 });
 
-describe("resources (mana / essence)", () => {
+describe("resources (essence)", () => {
   it("seeds the runtime pool from the snapshot's startingResources", () => {
     const r = createRuntime({ ...makeSnapshot("A"), startingResources: { essence: 4 } });
     expect(r.resources.essence).toBe(4);
-    expect(r.resources.mana).toBe(0);
+  });
+
+  it("defaults the essence pool to 0 when no startingResources are given", () => {
+    const r = createRuntime(makeSnapshot("A"));
+    expect(r.resources.essence).toBe(0);
   });
 
   it("resource effect grants to self / drains the target, and hasResource reads it", () => {
@@ -118,5 +122,17 @@ describe("scale effect", () => {
       effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" },
     }], source, target, ctx());
     expect(target.currentHp).toBe(before - 2); // 5 dice capped at 2
+  });
+
+  it("scales by the caster's own weapon dice (selfDice → +1 per weapon die)", () => {
+    const source = createRuntime(makeSnapshot("A", { offense: makeOffense("o", 3, 4, 0) })); // 3 weapon dice
+    const target = createRuntime(makeSnapshot("B"));
+    const before = target.currentHp;
+    // "+1 obrażenie do każdej kości broni" — 3 dice → +3 total.
+    applyEffects([{
+      type: "scale", source: { kind: "selfDice" },
+      effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" },
+    }], source, target, ctx());
+    expect(target.currentHp).toBe(before - 3);
   });
 });

@@ -5,6 +5,7 @@ import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSc
 import EditModeView from '@/application/characters/edit/combat/EditModeView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
+import EntityRequirementsWarning from '@/application/common/requirements/EntityRequirementsWarning';
 import { useFormContext } from 'react-hook-form';
 import { CreateDefaultState, Mode } from '@/domain/characters/combat/Mode';
 import { displayedText } from '@/common/translations';
@@ -33,7 +34,7 @@ const cloneMode = (mode: Mode): Mode =>
   name: mode.name,
   grade: mode.grade,
   description: mode.description,
-  requirements: [...mode.requirements],
+  structuredRequirements: [...(mode.structuredRequirements ?? [])],
   price: mode.price,
   tags: [...mode.tags]
 });
@@ -83,6 +84,7 @@ export default function EditStatesCard({ isPending, isSuccess, initialStates, cu
       <CardHeader>
         <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
           <span>{displayedText.states}</span>
+          <EntityRequirementsWarning characterId={currentCharacterId} entities={watchedArray} />
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultState} />
 
           <ImportItemsSheet

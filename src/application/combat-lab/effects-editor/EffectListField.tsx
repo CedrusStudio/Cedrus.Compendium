@@ -3,14 +3,17 @@
 /**
  * Recursive editor for an `Effect[]` living at a form path (e.g. "effects",
  * "effects.0.then", "effects.1.onWin"). Renders each effect as a type-select +
- * body; nested lists (when/chance `then`) recurse through the same component.
- * Simple types are field-driven; contested/save/custom/buff/debuff fall back to
- * a JSON editor (dedicated builders arrive in later stages).
+ * body; nested lists (when/chance/scale `then`/`effect`) recurse through the
+ * same component. Simple types are field-driven via `EFFECT_TYPE_META`;
+ * contested/save/when/scale/chance have dedicated field-driven builders below
+ * (`ContestedEffectFields`, `SaveEffectFields`, `ScaleFields`, ...). Only
+ * `custom` (the plugin escape hatch) is intentionally raw JSON — its shape is
+ * defined by whichever plugin owns `effectType`, not by this app.
  */
 
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import {
-  EFFECT_TYPE_META, EFFECT_TYPE_ORDER, defaultEffect,
+  EFFECT_TYPE_META, EFFECT_TYPE_ORDER, defaultEffect, weaponDiceDamageScalePreset,
   ATTACK_KINDS, ATTACK_KIND_LABELS, CONDITION_KINDS, CONDITION_LABELS, STATUS_IDS,
   RESOURCE_POOL_KINDS, RESOURCE_POOL_LABELS, SCALE_SOURCE_KINDS, SCALE_SOURCE_LABELS, SKILLS,
   type FieldDef, type LooseEffect,
@@ -35,8 +38,17 @@ export function EffectListField({ name, depth = 0 }: { name: string; depth?: num
       {fields.map((f, i) => (
         <EffectItem key={f.id} name={`${name}.${i}`} onRemove={() => remove(i)} depth={depth} />
       ))}
-      <div>
+      <div className="flex flex-wrap gap-2">
         <Button type="button" variant="outline" size="sm" onClick={() => append(defaultEffect("damage"))}>+ Dodaj efekt</Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => append(weaponDiceDamageScalePreset())}
+          title='Skalowanie: "za każdą kość broni" + 1 obrażenie na kość, gotowe do edycji'
+        >
+          + Obrażenie za kość broni (+1/kość)
+        </Button>
       </div>
     </div>
   );

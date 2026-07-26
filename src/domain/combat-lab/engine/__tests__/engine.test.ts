@@ -221,7 +221,7 @@ describe("resolveRangedAttack()", () => {
 
 describe("action economy — attack independent of maneuvers (fix #2)", () => {
   const standardManeuver = {
-    id: "m-std", name: "Cios wirowy", grade: 1, description: "", requirements: [], price: 1, tags: [],
+    id: "m-std", name: "Cios wirowy", grade: 1, description: "", price: 1, tags: [],
     castTime: "Standardowa" as const, cooldown: 0, cost: { castTime: "Standardowa" as const },
     hardRequirements: [], effects: [{ type: "damage" as const, damage: { amount: 0, grade: 0, bonus: 3 }, damageType: "zwyczajne" as const }],
   };
@@ -314,7 +314,7 @@ describe("buff application (self-buff raises the attack — model (a))", () => {
 
 describe("valuePolicy — credits buffs / control / heal", () => {
   const maneuverBase = {
-    id: "m", name: "M", grade: 1, description: "", requirements: [], price: 1, tags: [],
+    id: "m", name: "M", grade: 1, description: "", price: 1, tags: [],
     castTime: "Standardowa" as const, cooldown: 0, cost: { castTime: "Standardowa" as const }, hardRequirements: [],
   };
   function defenseBuff(id: string, block: number) {
@@ -364,7 +364,7 @@ describe("valuePolicy — credits buffs / control / heal", () => {
 
 describe("reaction hook — instant maneuvers respond to attacks", () => {
   const riposte = {
-    id: "m-riposte", name: "Riposta", grade: 1, description: "", requirements: [], price: 1, tags: [],
+    id: "m-riposte", name: "Riposta", grade: 1, description: "", price: 1, tags: [],
     castTime: "Natychmiastowa" as const, cooldown: 1, cost: { castTime: "Natychmiastowa" as const },
     hardRequirements: [],
     effects: [{ type: "damage" as const, damage: { amount: 0, grade: 0, bonus: 8 }, damageType: "nieuchronne" as const }],
@@ -400,7 +400,7 @@ describe("stagger (oszołomienie)", () => {
   it("blocks maneuvers while staggered", async () => {
     const { availableActions } = await import("@/domain/combat-lab/engine/actionEconomy");
     const maneuver = {
-      id: "m", name: "Cios", grade: 1, description: "", requirements: [], price: 1, tags: [],
+      id: "m", name: "Cios", grade: 1, description: "", price: 1, tags: [],
       castTime: "Standardowa" as const, cooldown: 0, cost: { castTime: "Standardowa" as const },
       hardRequirements: [], effects: [],
     };
@@ -474,7 +474,6 @@ describe("runCombat()", () => {
       name: "Rozcięcie",
       grade: 1,
       description: "",
-      requirements: [],
       price: 1,
       tags: [],
       castTime: "Standardowa" as const,

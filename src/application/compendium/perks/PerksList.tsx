@@ -21,6 +21,8 @@ import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import RequirementFilter from "@/application/common/requirements/RequirementFilter";
+import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import { displayedText } from "@/common/translations";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
@@ -48,15 +50,17 @@ export default function PerksList()
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
-  
-  const queryKey = createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+
+  const queryKey = [createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters];
   const { data: searchResults } = useQuery
-  ({ 
-    queryKey, 
-    queryFn: async () => 
+  ({
+    queryKey,
+    queryFn: async () =>
     {
       const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+      if (requirementFilters.length > 0) perksQuery.requirementFilters = requirementFilters;
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -101,9 +105,15 @@ export default function PerksList()
     clearResults();
   }, [clearResults]);
 
-  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  const handleExcludedTagsChange = useCallback((tags: string[]) =>
   {
     setExcludedTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleRequirementFiltersChange = useCallback((filters: RequirementSearchFilter[]) =>
+  {
+    setRequirementFilters(filters);
     clearResults();
   }, [clearResults]);
 
@@ -141,6 +151,7 @@ export default function PerksList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="perks"
+        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
         <Button
           variant="outline"

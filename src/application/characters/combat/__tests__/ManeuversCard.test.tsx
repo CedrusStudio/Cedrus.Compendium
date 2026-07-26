@@ -11,7 +11,6 @@ function createManeuver(overrides: Partial<Maneuver> = {}): Maneuver
     name: 'Heavy Sweep',
     description: 'Maneuver description',
     grade: 1,
-    requirements: [],
     price: 1,
     tags: ['martial'],
     castTime: 'Standardowa',

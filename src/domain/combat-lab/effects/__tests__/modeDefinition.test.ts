@@ -7,7 +7,7 @@ const stat = (protection: number): Effect => ({ type: "stat", mode: "self", dura
 
 function mode(name: string, grade: number, over: Partial<Mode> = {}): Mode
 {
-  return { id: `${name}-${grade}`, name, grade, description: "", requirements: [], price: 0, tags: [], ...over };
+  return { id: `${name}-${grade}`, name, grade, description: "", price: 0, tags: [], ...over };
 }
 
 describe("mode definitions (stance/state families)", () =>

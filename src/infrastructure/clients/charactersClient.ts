@@ -5,16 +5,24 @@ import { EquipmentDto } from '@/persistence/schemas/characters/equipment/equipme
 import { TalentsDto } from '@/persistence/schemas/characters/talentSchema';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
+import { type OwningEntity, type OwningCharacter } from '@/common/global/owningEntity';
 import client from '@/infrastructure/clients/baseClient';
 
 const characterPathSegment = '/characters';
 
-const charactersClient = 
+const charactersClient =
 {
     //Queries
     getByIds: async (characterIds: string[]) =>
     {
         const response = await client.post(`${characterPathSegment}/by-ids`, { ids: characterIds });
+        return response.data;
+    },
+
+    /** Reverse lookup: characters that have the given compendium element on their card. */
+    getOwningCharacters: async (entity: OwningEntity, id: string): Promise<OwningCharacter[]> =>
+    {
+        const response = await client.get(`${characterPathSegment}/owning`, { params: { entity, id } });
         return response.data;
     },
 

@@ -4,9 +4,9 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const useAdminStatusMock = vi.fn();
-const getRequirementsMock = vi.fn();
-const renameRequirementMock = vi.fn();
-const deleteRequirementMock = vi.fn();
+const getStructuredRequirementsMock = vi.fn();
+const editStructuredRequirementMock = vi.fn();
+const deleteStructuredRequirementMock = vi.fn();
 
 vi.mock('@/common/hooks/useAdminStatus', () => ({
   useAdminStatus: () => useAdminStatusMock(),
@@ -15,10 +15,17 @@ vi.mock('@/common/hooks/useAdminStatus', () => ({
 vi.mock('@/infrastructure/clients/requirementsManagementClient', () => ({
   __esModule: true,
   default: {
-    getRequirements: (...args: unknown[]) => getRequirementsMock(...args),
-    renameRequirement: (...args: unknown[]) => renameRequirementMock(...args),
-    deleteRequirement: (...args: unknown[]) => deleteRequirementMock(...args),
+    getStructuredRequirements: (...args: unknown[]) => getStructuredRequirementsMock(...args),
+    editStructuredRequirement: (...args: unknown[]) => editStructuredRequirementMock(...args),
+    deleteStructuredRequirement: (...args: unknown[]) => deleteStructuredRequirementMock(...args),
   },
+}));
+
+// The edit dialog mounts the requirement picker (Radix Select) only when opened;
+// mock it so the manager can render/list without pulling in the full editor.
+vi.mock('@/application/common/requirements/RequirementPicker', () => ({
+  __esModule: true,
+  default: () => <div data-testid="requirement-picker" />,
 }));
 
 vi.mock('next/link', () => ({
@@ -48,23 +55,22 @@ function renderPage()
 describe('RequirementsManagementPage', () => {
   beforeEach(() => {
     useAdminStatusMock.mockReset();
-    getRequirementsMock.mockReset();
-    renameRequirementMock.mockReset();
-    deleteRequirementMock.mockReset();
+    getStructuredRequirementsMock.mockReset();
+    editStructuredRequirementMock.mockReset();
+    deleteStructuredRequirementMock.mockReset();
   });
 
-  it('renders fetched requirements and opens the rename confirmation panel', async () => {
+  it('renders fetched structured requirements with their formatted label', async () => {
     useAdminStatusMock.mockReturnValue({ isAdmin: true, isCheckingAdmin: false, isLoaded: true });
-    getRequirementsMock.mockResolvedValue([{ requirement: 'Alchemia', count: 3 }]);
+    getStructuredRequirementsMock.mockResolvedValue([
+      { requirement: { kind: 'rankless', text: 'lekka zbroja' }, count: 3 },
+      { requirement: { kind: 'ranked', group: 'characteristics', targetKey: 'strength', value: 3 }, count: 2 },
+    ]);
 
     renderPage();
 
-    expect(await screen.findByText('Alchemia')).toBeTruthy();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Edytuj' }));
-
-    expect(screen.getByText('Wymaganie Alchemia zostanie zmienione w 3 rekordach.')).toBeTruthy();
-    expect(screen.getByPlaceholderText('Nowa wartosc wymagania')).toBeTruthy();
+    expect(await screen.findByText('lekka zbroja')).toBeTruthy();
+    expect(screen.getByText('siła ≥ 3')).toBeTruthy();
   });
 
   it('shows an access message when the user is not an admin', () => {
@@ -75,24 +81,6 @@ describe('RequirementsManagementPage', () => {
     expect(screen.getByText('Ta sekcja jest dostepna tylko dla administratorow.')).toBeTruthy();
   });
 
-  it('calls the rename mutation with the selected entity and confirmation value', async () => {
-    useAdminStatusMock.mockReturnValue({ isAdmin: true, isCheckingAdmin: false, isLoaded: true });
-    getRequirementsMock.mockResolvedValue([{ requirement: 'Alchemia', count: 2 }]);
-    renameRequirementMock.mockResolvedValue({ updatedCount: 2 });
-
-    renderPage();
-
-    expect(await screen.findByText('Alchemia')).toBeTruthy();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Edytuj' }));
-    fireEvent.change(screen.getByPlaceholderText('Nowa wartosc wymagania'), { target: { value: 'Zrecznosc' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Potwierdz zmiane' }));
-
-    await waitFor(() => {
-      expect(renameRequirementMock).toHaveBeenCalledWith({ entity: 'perks', oldRequirement: 'Alchemia', newRequirement: 'Zrecznosc' });
-    });
-  });
-
   it('returns null while admin status is loading', () => {
     useAdminStatusMock.mockReturnValue({ isAdmin: false, isCheckingAdmin: true, isLoaded: false });
 
@@ -101,23 +89,25 @@ describe('RequirementsManagementPage', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('opens the delete confirmation panel and calls the delete mutation', async () => {
+  it('opens the delete confirmation and calls the delete mutation with the requirement', async () => {
     useAdminStatusMock.mockReturnValue({ isAdmin: true, isCheckingAdmin: false, isLoaded: true });
-    getRequirementsMock.mockResolvedValue([{ requirement: 'Alchemia', count: 3 }]);
-    deleteRequirementMock.mockResolvedValue({ updatedCount: 3 });
+    getStructuredRequirementsMock.mockResolvedValue([
+      { requirement: { kind: 'rankless', text: 'lekka zbroja' }, count: 3 },
+    ]);
+    deleteStructuredRequirementMock.mockResolvedValue({ updatedCount: 3 });
 
     renderPage();
 
-    expect(await screen.findByText('Alchemia')).toBeTruthy();
+    expect(await screen.findByText('lekka zbroja')).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: 'Usun' }));
 
-    expect(screen.getByText('Wymaganie Alchemia zostanie usuniete z 3 rekordow.')).toBeTruthy();
+    expect(screen.getByText('Wymaganie „lekka zbroja" zostanie usuniete z 3 rekordow.')).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: 'Potwierdz usuniecie' }));
 
     await waitFor(() => {
-      expect(deleteRequirementMock).toHaveBeenCalledWith({ entity: 'perks', requirement: 'Alchemia' });
+      expect(deleteStructuredRequirementMock).toHaveBeenCalledWith({ entity: 'perks', requirement: { kind: 'rankless', text: 'lekka zbroja' } });
     });
   });
 });

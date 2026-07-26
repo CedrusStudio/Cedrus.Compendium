@@ -77,8 +77,8 @@ export type CombatantRuntime =
   rollMods: RollModifierEffect[];
   /** Outcome of this combatant's most recent attack (for onCritical / onDamageDealt conditions). */
   lastAttack?: { critical: boolean; dealt: number };
-  /** Spendable resource pools (mana/essence), seeded from the snapshot. */
-  resources: { mana: number; essence: number };
+  /** Spendable resource pool (essence), seeded from the snapshot. */
+  resources: { essence: number };
   /** Rounds remaining before each spell (by id) can be cast again. Decremented per turn. */
   spellCooldowns: Record<string, number>;
   /** Rounds remaining during which THIS combatant's attacks cannot land a crit
@@ -124,7 +124,7 @@ export function createRuntime(snapshot: CombatantSnapshot): CombatantRuntime
     activeBuffs: [],
     activeMultipliers: [],
     rollMods: [],
-    resources: { mana: snapshot.startingResources?.mana ?? 0, essence: snapshot.startingResources?.essence ?? 0 },
+    resources: { essence: snapshot.startingResources?.essence ?? 0 },
     spellCooldowns: {},
     critSuppressedRemaining: 0,
     activeStance: toActiveMode(snapshot.stance),

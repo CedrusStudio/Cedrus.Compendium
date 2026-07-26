@@ -36,7 +36,6 @@ describe('Perk', () => {
       expect(perk.description).toBe('Opis perku');
       expect(perk.grade).toBe(1);
       expect(perk.price).toBe(1);
-      expect(perk.requirements).toEqual([]);
       expect(perk.tags).toEqual([]);
     });
   });

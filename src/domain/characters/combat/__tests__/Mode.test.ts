@@ -16,7 +16,6 @@ describe('Mode', () => {
       expect(stance.name).toBe('Postawa');
       expect(stance.description).toBe('Opis postawy');
       expect(stance.grade).toBe(1);
-      expect(stance.requirements).toEqual([]);
       expect(stance.price).toBe(0);
       expect(stance.tags).toEqual([]);
     });
@@ -31,7 +30,6 @@ describe('Mode', () => {
       expect(state.name).toBe('Stan');
       expect(state.description).toBe('Opis stanu');
       expect(state.grade).toBe(1);
-      expect(state.requirements).toEqual([]);
       expect(state.price).toBe(0);
       expect(state.tags).toEqual([]);
     });
@@ -58,9 +56,9 @@ describe('Mode', () => {
       expect(path).toBe('states.3.price');
     });
 
-    it('should generate correct path for requirements field', () => {
-      const path = pathToModeField(1, 'stances', 'requirements');
-      expect(path).toBe('stances.1.requirements');
+    it('should generate correct path for structuredRequirements field', () => {
+      const path = pathToModeField(1, 'stances', 'structuredRequirements');
+      expect(path).toBe('stances.1.structuredRequirements');
     });
   });
 

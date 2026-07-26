@@ -1,12 +1,12 @@
-import { ManeuverDto } from '@/persistence/schemas/characters/combat/maneuverSchema';
+import { ManeuverDto, ManeuverWithEffectsDto } from '@/persistence/schemas/characters/combat/maneuverSchema';
 import client from '@/infrastructure/clients/baseClient';
 
 const maneuverPathSegment = '/maneuvers';
 
-const maneuversClient = 
+const maneuversClient =
 {
     //Commands
-    add: async (maneuver: ManeuverDto): Promise<string> =>
+    add: async (maneuver: ManeuverWithEffectsDto): Promise<string> =>
     {
         const response = await client.post(maneuverPathSegment, maneuver);
         return response.data;

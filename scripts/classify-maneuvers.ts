@@ -338,7 +338,6 @@ export function proposeEffects(description: string, c: Classification): Proposal
       /niewrażliw/.test(w) ? { kind: "opponentImmunity" }
       : /koś/.test(w) ? { kind: "opponentDice" }
       : /esencj/.test(w) ? { kind: "selfResource", resource: "essence" }
-      : /many|manę/.test(w) ? { kind: "selfResource", resource: "mana" }
       : null;
     if (source)
     {

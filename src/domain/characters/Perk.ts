@@ -1,12 +1,18 @@
 import { Entity } from "@/domain/Entity";
 import { ulid } from "ulid";
 import { Tag } from "@/domain/Tag";
+import { Requirement } from "@/domain/requirements/Requirement";
 
 export type Perk = Entity &
 {
   grade: number;
   description: string;
-  requirements: string[];
+  /**
+   * Structured requirements (Wave 5 — the sole requirements model after the
+   * legacy `requirements: string[]` cutover). Optional — absent on records that
+   * have none. Flows to Maneuver, Mode (stance/state) and Spell, which extend Perk.
+   */
+  structuredRequirements?: Requirement[];
   price: number;
   tags: Tag[];
 };
@@ -19,7 +25,6 @@ export const defaultPerk: Omit<Perk, "id"> =
   name: "Perk",
   description: "Opis perku",
   grade: 1,
-  requirements: [],
   price: 1,
   tags: []
 };

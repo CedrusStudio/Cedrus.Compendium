@@ -10,7 +10,7 @@ import { makeDefense, makeOffense } from "@/domain/combat-lab/engine/__tests__/e
 const stat = (over: Partial<StatBuffEffect> = {}): StatBuffEffect => ({ type: "stat", mode: "self", duration: 1, ...over });
 
 const maneuver = (effects: Effect[]): ManeuverDefinition => ({
-  id: "m", name: "Manewr", grade: 1, description: "", requirements: [], price: 1, tags: [],
+  id: "m", name: "Manewr", grade: 1, description: "", price: 1, tags: [],
   castTime: "Standardowa", cooldown: 1, cost: { castTime: "Standardowa" }, hardRequirements: [], effects,
 });
 

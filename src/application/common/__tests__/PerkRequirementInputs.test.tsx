@@ -1,6 +1,6 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 const formStringsInputSpy = vi.fn();
 
@@ -42,6 +42,11 @@ vi.mock('@/common/components/inputs/FormStringsInput', () => ({
   },
 }));
 
+vi.mock('@/application/common/requirements/RequirementListField', () => ({
+  __esModule: true,
+  default: () => <div data-testid="requirement-list-field" />,
+}));
+
 vi.mock('@/common/components/sheets/AddSheet', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
@@ -55,18 +60,14 @@ describe('perk requirement inputs', () => {
     formStringsInputSpy.mockClear();
   });
 
-  it('passes the entity type to the shared edit requirements input', () => {
+  it('renders the structured requirement picker in the edit fields (no legacy input)', () => {
     render(<PerkEditableFields entityType="perks" />);
 
-    expect(formStringsInputSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        path: 'requirements',
-        entityType: 'perks',
-      }),
-    );
+    expect(screen.getByTestId('requirement-list-field')).toBeTruthy();
+    expect(formStringsInputSpy).not.toHaveBeenCalled();
   });
 
-  it('passes the entity type to the shared add requirements input', () => {
+  it('uses the structured requirement picker in the compendium add sheet', () => {
     render(
       <PerkableAddSheet
         isPending={false}
@@ -76,11 +77,7 @@ describe('perk requirement inputs', () => {
       />,
     );
 
-    expect(formStringsInputSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        path: 'requirements',
-        entityType: 'perks',
-      }),
-    );
+    expect(screen.getByTestId('requirement-list-field')).toBeTruthy();
+    expect(formStringsInputSpy).not.toHaveBeenCalled();
   });
 });

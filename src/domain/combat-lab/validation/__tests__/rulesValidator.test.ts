@@ -4,7 +4,7 @@ import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDef
 import type { Effect } from "@/domain/combat-lab/effects/Effect";
 
 const maneuver = (id: string, effects: Effect[], over: Partial<ManeuverDefinition> = {}): ManeuverDefinition => ({
-  id, name: id, grade: 1, description: "", requirements: [], price: 1, tags: [],
+  id, name: id, grade: 1, description: "", price: 1, tags: [],
   castTime: "Standardowa", cooldown: 1, cost: { castTime: "Standardowa" }, hardRequirements: [], effects, ...over,
 });
 

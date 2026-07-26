@@ -1,7 +1,7 @@
 import { ReplayDemo } from "@/application/combat-lab/demo/ReplayDemo";
 
 export const metadata = {
-  title: "Combat Lab — Replay",
+  title: "Laboratorium Systemu — Powtórka",
 };
 
 export default function CombatReplayPage()
