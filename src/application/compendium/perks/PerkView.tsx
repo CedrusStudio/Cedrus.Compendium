@@ -8,11 +8,13 @@ import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { PerkDto, perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import RequirementsView from "@/application/common/RequirementsView";
+import ReplacesView from "@/application/common/ReplacesView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
 import PerkEditableFields from "@/application/common/PerkEditableFields";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 import CompendiumView from "@/application/compendium/CompendiumView";
 import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PerkableBadgeView from "@/application/compendium/PerkableBadgeView";
@@ -41,7 +43,11 @@ export default function PerkView({ perk, disableEdit = false, onDelete }: PerkVi
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={perk} />
       </div>
-      
+
+      <ReplacesView entity={perk} />
+
+      <OwnedByCharacters entity="perks" id={perk.id} />
+
       <PerkableBadgeView>
 
         <PriceBadge price={perk.price} />
@@ -52,7 +58,7 @@ export default function PerkView({ perk, disableEdit = false, onDelete }: PerkVi
               
               <EditFormForSheet<PerkDto> 
                 entityId={perk.id}
-                defaultValues={perk}
+                defaultValues={{ ...perk, structuredRequirements: perk.structuredRequirements ?? [] }}
                 schema={perkSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.perk(perk.id)}

@@ -59,22 +59,30 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
     isPending,
   );
 
+  // Mode ids that have at least one linked wzmocnienie — surfaced in the picker.
+  const stanceLinkedModeIds = collectLinkedModeIds(character.stanceModifierProfiles);
+  const stateLinkedModeIds = collectLinkedModeIds(character.stateModifierProfiles);
+
   return (
     <div className='flex flex-col gap-3'>
 
-      <div className='flex flex-col lg:grid lg:grid-cols-5 gap-3'>
-        
-        <div className="flex flex-col gap-2 lg:col-span-3">
-          <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
-          <BarrierCard health={character.health} />
-        </div>
+      {/* Combat HUD: the vitals a player watches during a fight (HP, barrier,
+          defense). Scrolls with the rest of the tab — not pinned. */}
+      <div className='lg:rounded-lg lg:border lg:bg-background/95 lg:p-2'>
+        <div className='flex flex-col lg:grid lg:grid-cols-5 gap-3'>
 
-        <Activity mode={character.defenses.length > 0 ? "visible" : "hidden"}>
-          <div className="lg:col-span-2 flex w-full">
-            <DefenseCard defenses={character.defenses} defaultDefenseId={character.defaultDefenseId} />
+          <div className="flex flex-col gap-2 lg:col-span-3">
+            <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
+            <BarrierCard health={character.health} />
           </div>
-        </Activity>
 
+          <Activity mode={character.defenses.length > 0 ? "visible" : "hidden"}>
+            <div className="lg:col-span-2 flex w-full">
+              <DefenseCard defenses={character.defenses} defaultDefenseId={character.defaultDefenseId} />
+            </div>
+          </Activity>
+
+        </div>
       </div>
 
       {
@@ -88,6 +96,7 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
                   selectedModeId={selectedStanceId}
                   onSelectedModeIdChange={onSelectedStanceIdChange}
                   linkedProfiles={linkedStanceProfiles}
+                  linkedModeIds={stanceLinkedModeIds}
                 />
               )
             }
@@ -99,6 +108,7 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
                   selectedModeId={selectedStateId}
                   onSelectedModeIdChange={onSelectedStateIdChange}
                   linkedProfiles={linkedStateProfiles}
+                  linkedModeIds={stateLinkedModeIds}
                 />
               )
             }
@@ -155,6 +165,11 @@ function createLinkedModeProfiles(
         [activeIdsFieldName]: character[activeIdsFieldName].filter(activeId => activeId !== profile.id),
       })),
     }));
+}
+
+function collectLinkedModeIds(profiles: Character['stanceModifierProfiles'] | Character['stateModifierProfiles']): string[]
+{
+  return [...new Set(profiles.map(profile => profile.linkedEntityId).filter((id): id is string => Boolean(id)))];
 }
 
 function createBuffsPayload(character: Character, overrides: Partial<BuffsDto>): BuffsDto

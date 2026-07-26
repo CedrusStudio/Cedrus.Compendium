@@ -89,9 +89,22 @@ model Stance {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   tags         String[]
+
+  // Combat Lab: structured effects + simulation triage (mirrors Maneuver).
+  // Each rank is a separate record; "raising the rank" swaps to the grade+1
+  // sibling (see features-to-implement/combat-lab-engine-model-gaps-plan.md §1).
+  effects           Json?
+  simulatable       Boolean?
+  unsupportedReason String?
 
   // Required by prisma, can be null
   characterIds String[]
@@ -106,9 +119,20 @@ model State {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   tags         String[]
+
+  // Combat Lab: structured effects + simulation triage (mirrors Maneuver).
+  effects           Json?
+  simulatable       Boolean?
+  unsupportedReason String?
 
   // Required by prisma, can be null
   characterIds String[]
@@ -123,11 +147,26 @@ model Maneuver {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   castTime     String
   cooldown     Int?
   tags         String[]
+
+  // Combat Lab: structured, engine-readable effects and simulation triage.
+  // `effects` is an Effect[] (see src/domain/combat-lab/effects/Effect.ts).
+  // `simulatable` = null (unassessed) / true / false; `unsupportedReason`
+  // explains a false (out-of-combat subsystem). See
+  // features-to-implement/combat-lab-maneuver-analysis-plan.md.
+  effects           Json?
+  simulatable       Boolean?
+  unsupportedReason String?
 
   // Required by prisma, can be null
   characterIds String[]
@@ -142,7 +181,13 @@ model Perk {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   tags         String[]
 
@@ -159,11 +204,16 @@ model Spell {
   name         String
   grade        Int
   description  String
-  requirements String[]
+  // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
+  // Sole requirements model after the legacy `requirements String[]` cutover.
+  structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   castTime     String
   cooldown     Int?
-  cost         Int
   costBase         Int?
   costScalingMode  String?
   costScalingValue Int?
@@ -297,6 +347,25 @@ model BattlePreset {
 
   @@index([apiKeyHash])
   @@map("battlePresets")
+}
+
+// Combat Lab saved simulation run. `configuration` holds the inputs (combatant
+// snapshots + seed range + policies), `result` the aggregated SimulationSummary.
+// Individual fights are reproduced deterministically from the config, so no
+// per-fight logs are stored. See src/domain/combat-lab/persistence/SavedSimulation.ts.
+model Simulation {
+  id            String   @id @default(ulid()) @map("_id")
+  name          String
+  apiKeyHash    String
+
+  configuration Json
+  result        Json
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([apiKeyHash])
+  @@map("simulations")
 }
 
 model Race {

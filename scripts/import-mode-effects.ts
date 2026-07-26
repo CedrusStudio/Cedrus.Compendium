@@ -1,0 +1,148 @@
+/**
+ * Import reviewed stance/state effects from a classification CSV into the DB —
+ * the stance/state counterpart of import-maneuver-effects.ts. Turns approved
+ * auto-proposals (scripts/classify-maneuvers.ts, which now also emits
+ * postawy-classification.csv / stany-classification.csv) into real `effects` on
+ * the `Stance` / `State` records so the simulator's auto-cast uses them.
+ *
+ * Safe by default: DRY RUN unless `--apply`. Matches by the (name, grade) key.
+ * Every effect is validated against `effectSchema` before it is accepted.
+ *
+ * Usage:
+ *   node --experimental-strip-types scripts/import-mode-effects.ts stance postawy-classification.csv           # dry run, approved rows
+ *   node --experimental-strip-types scripts/import-mode-effects.ts stance postawy-classification.csv --high    # + high-confidence
+ *   node --experimental-strip-types scripts/import-mode-effects.ts state  stany-classification.csv --apply --medium
+ *
+ * First positional arg = "stance" | "state" (which collection). Second = CSV path.
+ */
+
+import { readFileSync } from "node:fs";
+import prisma from "../src/lib/prisma";
+import { effectSchema } from "../src/domain/combat-lab/effects/effectSchema";
+
+const args = process.argv.slice(2);
+const positional = args.filter(a => !a.startsWith("--"));
+const kind = (positional[0] === "state" ? "state" : "stance") as "stance" | "state";
+const csvPath = positional[1];
+if (!csvPath) { console.error("Podaj: <stance|state> <ścieżka-csv> [--apply --high --medium --mark-t3]"); process.exit(1); }
+
+const apply = args.includes("--apply");
+const includeHigh = args.includes("--high") || args.includes("--medium") || args.includes("--all");
+const includeMedium = args.includes("--medium") || args.includes("--all");
+const markT3 = args.includes("--mark-t3");
+
+function parseCsv(text: string): Record<string, string>[]
+{
+  const clean = text.replace(/^﻿/, "");
+  const rows: string[][] = [];
+  let field = ""; let record: string[] = []; let inQuotes = false;
+  for (let i = 0; i < clean.length; i++)
+  {
+    const ch = clean[i]!;
+    if (inQuotes)
+    {
+      if (ch === '"') { if (clean[i + 1] === '"') { field += '"'; i++; } else inQuotes = false; }
+      else field += ch;
+    }
+    else if (ch === '"') inQuotes = true;
+    else if (ch === ",") { record.push(field); field = ""; }
+    else if (ch === "\n") { record.push(field); rows.push(record); record = []; field = ""; }
+    else if (ch === "\r") { /* skip */ }
+    else field += ch;
+  }
+  if (field.length > 0 || record.length > 0) { record.push(field); rows.push(record); }
+  const header = rows.shift();
+  if (!header) return [];
+  return rows.filter(r => r.some(c => c.trim().length > 0))
+    .map(r => Object.fromEntries(header.map((h, idx) => [h, r[idx] ?? ""])));
+}
+
+const isTruthy = (v: string) => /^(tak|yes|y|x|1|true)$/i.test(v.trim());
+const isUnsupportedMark = (v: string) => /^(nie|no|niesymulowaln\w*|unsupported)$/i.test(v.trim());
+
+type Plan =
+  | { name: string; grade: number; action: "effects"; effects: unknown[] }
+  | { name: string; grade: number; action: "unsupported"; reason: string };
+
+async function main(): Promise<void>
+{
+  const rows = parseCsv(readFileSync(csvPath!, "utf8"));
+  console.log(`Kolekcja: ${kind}  ·  CSV: ${csvPath}  (${rows.length} wierszy)`);
+  console.log(apply ? "TRYB: ZAPIS (--apply)\n" : "TRYB: PRÓBNY (dry run)\n");
+
+  const plans: Plan[] = [];
+  let skippedInvalid = 0;
+
+  for (const row of rows)
+  {
+    const name = row.name?.trim();
+    const grade = Number(row.grade);
+    if (!name || Number.isNaN(grade)) continue;
+
+    const approveVal = row.approve ?? "";
+    if (isUnsupportedMark(approveVal))
+    {
+      const reason = (row.unsupportedReason?.trim() || row.markers?.trim() || "poza modelem walki 1-na-1");
+      plans.push({ name, grade, action: "unsupported", reason });
+      continue;
+    }
+
+    const wantEffects = isTruthy(approveVal)
+      || (includeHigh && row.proposalConfidence === "high")
+      || (includeMedium && row.proposalConfidence === "medium");
+
+    if (wantEffects && row.proposedEffects)
+    {
+      let parsed: unknown;
+      try { parsed = JSON.parse(row.proposedEffects); }
+      catch { console.warn(`  ⚠ ${name} (r${grade}): niepoprawny JSON — pomijam.`); skippedInvalid++; continue; }
+      const list = Array.isArray(parsed) ? parsed : [parsed];
+      if (!list.every(e => effectSchema.safeParse(e).success)) { console.warn(`  ⚠ ${name} (r${grade}): efekt nie przechodzi walidacji — pomijam.`); skippedInvalid++; continue; }
+      plans.push({ name, grade, action: "effects", effects: list });
+    }
+    else if (markT3 && row.tier === "T3")
+    {
+      plans.push({ name, grade, action: "unsupported", reason: (row.markers?.trim() || "poza modelem walki 1-na-1") });
+    }
+  }
+
+  const effCount = plans.filter(p => p.action === "effects").length;
+  const unsupCount = plans.filter(p => p.action === "unsupported").length;
+  console.log(`Do zaimportowania: ${effCount} z efektami, ${unsupCount} niesymulowalne, ${skippedInvalid} pominięte.\n`);
+
+  // The two delegates have identical shapes here; a union isn't callable, so
+  // narrow to a minimal structural interface.
+  const delegate = (kind === "state" ? prisma.state : prisma.stance) as unknown as {
+    findFirst(args: unknown): Promise<{ id: string } | null>;
+    update(args: unknown): Promise<unknown>;
+  };
+  let written = 0; let notFound = 0;
+
+  for (const plan of plans)
+  {
+    const record = await delegate.findFirst({ where: { name: plan.name, grade: plan.grade }, select: { id: true } });
+    if (!record) { console.warn(`  ✗ brak w bazie: ${plan.name} (r${plan.grade})`); notFound++; continue; }
+
+    const data: Record<string, unknown> = plan.action === "effects"
+      ? { effects: plan.effects, simulatable: true }
+      : { simulatable: false, unsupportedReason: plan.reason };
+
+    if (apply)
+    {
+      await delegate.update({ where: { id: record.id }, data });
+      written++;
+    }
+    else
+    {
+      const detail = plan.action === "effects" ? `${(plan.effects as unknown[]).length} efekt(ów)` : `niesymulowalny: ${plan.reason}`;
+      console.log(`  • ${plan.name} (r${plan.grade}) → ${detail}`);
+    }
+  }
+
+  if (apply) console.log(`\nZapisano: ${written}. Nie znaleziono: ${notFound}.`);
+  else console.log(`\n(Próbny) Gotowych: ${plans.length - notFound}. Uruchom z --apply, aby zapisać.`);
+
+  await prisma.$disconnect();
+}
+
+main().catch(async (e) => { console.error(e); await prisma.$disconnect(); process.exit(1); });

@@ -2,6 +2,7 @@ import { PathsFrom } from "@/common/global/pathTypes";
 import { defaultDiceGrade } from "@/domain/diceDefaults";
 import { ulid } from "ulid";
 import { Entity } from "@/domain/Entity";
+import type { RandomSource } from "@/domain/combat-lab/rng/Rng";
 
 export type Offense = Entity &
 {
@@ -58,14 +59,14 @@ export function toCriticalRangeString(weaponOffense: WeaponOffense): string
   return `${Math.max(weaponOffense.grade * 2 - weaponOffense.critical.range, 0)}-${weaponOffense.grade * 2}`;
 }
 
-export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: number, rolls: [number, boolean][] }
+export function handleWeaponDamageRolls(offense: WeaponOffense, random: RandomSource = Math.random) : { total: number, rolls: [number, boolean][] }
 {
   let totalOffenseDamage = 0;
   const rolls: [number, boolean][] = [];
 
-  for (let i = 0; i < offense.amount; i++) 
+  for (let i = 0; i < offense.amount; i++)
   {
-    const [damageWithoutCritical, criticalDamage] = calculateWeaponDamageRoll(offense);
+    const [damageWithoutCritical, criticalDamage] = calculateWeaponDamageRoll(offense, random);
     const weaponDiceDamageWithoutCritical = damageWithoutCritical + offense.bonus;
     rolls.push([damageWithoutCritical, criticalDamage > 0]);
     totalOffenseDamage += (weaponDiceDamageWithoutCritical + criticalDamage);
@@ -74,19 +75,19 @@ export function handleWeaponDamageRolls(offense: WeaponOffense) : { total: numbe
   return { total: totalOffenseDamage, rolls };
 };
 
-export function handleDamageOffenseRolls(offense: DamageOffense | undefined) : { total: number, rolls: number[] }
+export function handleDamageOffenseRolls(offense: DamageOffense | undefined, random: RandomSource = Math.random) : { total: number, rolls: number[] }
 {
   if (!offense)
   {
     return { total: 0, rolls: [] };
   }
-  
+
   let totalDamageBonus = 0;
   const rolls: number[] = [];
 
-  for (let i = 0; i < offense.amount; i++) 
+  for (let i = 0; i < offense.amount; i++)
   {
-    const damageBonusRoll = roll(offense.grade);
+    const damageBonusRoll = roll(offense.grade, random);
     rolls.push(damageBonusRoll);
     totalDamageBonus += damageBonusRoll;
   }
@@ -94,14 +95,21 @@ export function handleDamageOffenseRolls(offense: DamageOffense | undefined) : {
   return { total: totalDamageBonus + offense.bonus, rolls };
 }
 
-export function roll(grade: number): number
+/**
+ * Roll a single die of the given grade (a `k(grade*2)` die).
+ *
+ * `random` defaults to `Math.random` so all existing callers (and their tests,
+ * which stub `Math.random`) are unaffected. The deterministic engine passes a
+ * seeded source (`rng.next`) instead — see combat-lab/rng/Rng.ts.
+ */
+export function roll(grade: number, random: RandomSource = Math.random): number
 {
-  return Math.floor(Math.random() * grade * 2) + 1;
+  return Math.floor(random() * grade * 2) + 1;
 }
 
-export function calculateWeaponDamageRoll(offense: WeaponOffense) : [damage: number, critical: number]
+export function calculateWeaponDamageRoll(offense: WeaponOffense, random: RandomSource = Math.random) : [damage: number, critical: number]
 {
-  const weaponDamageRoll = roll(offense.grade);
+  const weaponDamageRoll = roll(offense.grade, random);
   const criticalDamage = calculateCriticalDamage(offense, weaponDamageRoll);
   return [ weaponDamageRoll, criticalDamage ];
 }

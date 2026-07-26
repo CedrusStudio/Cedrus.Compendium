@@ -30,7 +30,6 @@ function createSpell(overrides: Partial<Spell> = {}): Spell
     name: 'Arcane Pulse',
     description: 'Spell description',
     grade: 1,
-    requirements: [],
     price: 1,
     tags: [],
     castTime: 'Standardowa',

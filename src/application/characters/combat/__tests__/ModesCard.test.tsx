@@ -30,7 +30,6 @@ function createMode(id: string, name: string): Mode
     name,
     grade: 1,
     description: `${name} description`,
-    requirements: [],
     price: 0,
     tags: [],
   };

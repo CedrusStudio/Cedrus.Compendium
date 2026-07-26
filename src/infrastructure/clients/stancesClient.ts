@@ -1,9 +1,9 @@
-import { ModeDto } from '@/persistence/schemas/characters/combat/modeSchema';
+import { ModeDto, ModeWithEffectsDto } from '@/persistence/schemas/characters/combat/modeSchema';
 import client from '@/infrastructure/clients/baseClient';
 
 const stancePathSegment = '/stances';
 
-const stancesClient = 
+const stancesClient =
 {
     //Commands
     add: async (stance: ModeDto): Promise<string> =>
@@ -15,7 +15,10 @@ const stancesClient =
     {
         await client.delete(`${stancePathSegment}/${id}`);
     },
-    update: async (id: string, stanceData: ModeDto): Promise<void> =>
+    // Accepts the effects-bearing DTO so the compendium editor can persist
+    // Combat Lab `effects`/`simulatable` (the common repository passes them
+    // straight to Prisma, whose Stance model now has those columns).
+    update: async (id: string, stanceData: ModeWithEffectsDto): Promise<void> =>
     {
         await client.put(`${stancePathSegment}/${id}`, stanceData);
     }

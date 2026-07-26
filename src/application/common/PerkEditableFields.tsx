@@ -4,7 +4,7 @@ import { FieldPath } from 'react-hook-form';
 import { InputFormField } from '@/common/components/form/InputFormField';
 import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import FormTagsInput from '@/common/components/inputs/FormTagsInput';
-import FormStringsInput from "@/common/components/inputs/FormStringsInput";
+import RequirementListField from "@/application/common/requirements/RequirementListField";
 import { Perk } from "@/domain/characters/Perk";
 import { RequirementEntityType } from "@/common/hooks/useEntityRequirements";
 
@@ -50,8 +50,8 @@ export default function PerkEditableFields({ pathPrefix = "", entityType }: Perk
         </div>
 
         <FormTagsInput<Perk> path={`${pathPrefix}tags` as FieldPath<Perk>} entityType={entityType} />
-        <FormStringsInput<Perk> path={`${pathPrefix}requirements` as FieldPath<Perk>} placeholder={displayedText.addRequirement} entityType={entityType} />
-          
+        <RequirementListField name={`${pathPrefix}structuredRequirements`} />
+
         <div className="grid auto-rows-min gap-3 px-4">
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.price}</span></Label>
             <InputFormField<Perk> 

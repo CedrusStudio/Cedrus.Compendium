@@ -35,7 +35,7 @@ function SectionContent({ section }: { section: RulebookSection })
     {
       section.content.length > 0 && (
         <div className="mb-6">
-        { section.content.map(block => <ContentBlockRenderer key={block.id} block={block} />) }
+        { section.content.map((block, index) => <ContentBlockRenderer key={`${index}-${block.id}`} block={block} />) }
         </div>
       )
     }
@@ -55,7 +55,7 @@ function SubsectionContent({ section }: { section: RulebookSection })
           </h2>
 
           <div className="space-y-4">
-            { subsection.content.map(block => <ContentBlockRenderer key={block.id} block={block} /> ) }
+            { subsection.content.map((block, index) => <ContentBlockRenderer key={`${index}-${block.id}`} block={block} /> ) }
           </div>
 
           { index < section.subsections.length - 1 && <Separator className="mt-6" /> }

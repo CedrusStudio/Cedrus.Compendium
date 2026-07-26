@@ -81,7 +81,6 @@ function createPowerWithSpells(spellCount: number): Power {
       cost: createFixedSpellCost(5),
       price: 1,
       cooldown: 1,
-      requirements: [],
       tags: [],
     })),
   };

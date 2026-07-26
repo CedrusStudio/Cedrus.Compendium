@@ -12,6 +12,7 @@ import CompendiumEditView from "@/application/compendium/CompendiumEditView";
 import PowerSpecificationEditableFields from "@/application/common/combat/PowerSpecificationEditableFields";
 import PowerSpecificationViewFields from "@/application/common/combat/PowerSpecificationViewFields";
 import { EditSheet } from "@/common/components/sheets/EditSheet";
+import OwnedByCharacters from "@/application/common/OwnedByCharacters";
 
 type PowersSpecificationViewProps =
 {
@@ -34,6 +35,8 @@ export default function PowersSpecificationView({ powerSpecification, disableEdi
     <CompendiumView>
 
       <PowerSpecificationViewFields powerSpecification={powerSpecification} collapsible={true} defaultOpen={false} />
+
+      <OwnedByCharacters entity="powerSpecifications" id={powerSpecification.id} />
       
       {
         !disableEdit && (

@@ -14,7 +14,6 @@ export type SpellCost =
 
 export type SpellCostPersistenceFields =
 {
-  cost: number;
   costBase?: number | null;
   costScalingMode?: string | null;
   costScalingValue?: number | null;
@@ -23,7 +22,6 @@ export type SpellCostPersistenceFields =
 
 export type NormalizedSpellCostPersistenceFields =
 {
-  cost: number;
   costBase: number;
   costScalingMode: SpellCostScalingMode;
   costScalingValue: number;
@@ -83,7 +81,7 @@ export function normalizeSpellCost(rawCost: SpellCostInput): SpellCost
 export function fromSpellCostPersistence(rawCost: SpellCostPersistenceFields): SpellCost
 {
   return normalizeSpellCost({
-    baseCost: rawCost.costBase ?? rawCost.cost,
+    baseCost: rawCost.costBase ?? defaultSpellCost.baseCost,
     scalingMode: normalizeSpellCostScalingMode(rawCost.costScalingMode),
     scalingValue: rawCost.costScalingValue ?? defaultSpellCost.scalingValue,
     rounding: normalizeSpellCostRounding(rawCost.costRounding),
@@ -95,7 +93,6 @@ export function toSpellCostPersistence(spellCost: SpellCost | number): Normalize
   const normalizedCost = normalizeSpellCost(spellCost);
 
   return {
-    cost: normalizedCost.baseCost,
     costBase: normalizedCost.baseCost,
     costScalingMode: normalizedCost.scalingMode,
     costScalingValue: normalizedCost.scalingValue,

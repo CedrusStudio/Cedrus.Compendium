@@ -3,6 +3,7 @@ import { Separator } from "@/common/components/ui/separator";
 import { Character } from "@/domain/characters/Character";
 import PerksList from "@/application/characters/details/PerksList";
 import TagsView from "@/common/components/tags/TagsView";
+import ExpandableText from "@/common/components/text/ExpandableText";
 import Link from "next/link";
 import { Button } from "@/common/components/ui/button";
 import { displayedText } from "@/common/translations";
@@ -45,9 +46,12 @@ export default function DetailsView({ character }: { character: Character })
 
       <article>
 
-        <p className="text-md text-center text-primary pb-8 first-letter:uppercase whitespace-pre-wrap break-words">
-          {character.description}
-        </p>
+        <div className="pb-8">
+          <ExpandableText
+            text={character.description}
+            className="text-md text-center text-primary first-letter:uppercase whitespace-pre-wrap break-words"
+          />
+        </div>
 
         <Separator className="mb-6" />
         <PerksList perks={character.perks} />

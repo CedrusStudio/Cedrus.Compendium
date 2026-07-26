@@ -126,7 +126,6 @@ describe('detailsSchema', () => {
         name: 'Test Perk',
         grade: 1,
         description: 'Test perk description',
-        requirements: ['None'],
         price: 10,
         tags: ['combat']
       }
@@ -149,7 +148,6 @@ describe('detailsSchema', () => {
       name: `Perk ${i}`,
       grade: 1,
       description: 'Description',
-      requirements: [],
       price: 0,
       tags: []
     }));

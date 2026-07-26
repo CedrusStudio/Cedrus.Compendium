@@ -47,6 +47,22 @@ export function applyBuffProfiles(character: Character, buffProfiles: BuffProfil
   return buffProfiles.reduce(applyBuffProfile, character);
 }
 
+/**
+ * DESIGN DECISION (ROADMAP 0.2, zamknięte 2026-07-24 — patrz
+ * `features-to-implement/combat-lab-strength-derived-stats-findings.md`):
+ * characteristics (e.g. `strength`) and offense/damage are applied as two
+ * INDEPENDENT additive deltas. There is intentionally no `Siła → Obrażenia`
+ * derivation here — the rulebook's "+1.5× modyfikator z siły" rule is not
+ * auto-computed. Stances/states/buffs that are meant to raise damage via
+ * Strength must author the damage delta directly (`buffProfile.offense.*`),
+ * not rely on `buffProfile.characteristics.strength` alone.
+ *
+ * Do not "fix" this by wiring in an automatic derivation without revisiting
+ * that decision first — most existing compendium content already bakes its
+ * Strength contribution into authored damage values, so an automatic
+ * derivation would double-count and silently change balance across every
+ * existing character/maneuver.
+ */
 export function applyBuffProfile(character: Character, buffProfile: BuffProfile): Character
 {
   return {
@@ -78,7 +94,7 @@ export function applyBuffProfile(character: Character, buffProfile: BuffProfile)
   };
 }
 
-function applyStatisticBuff(statistic: Statistic, buff: StatisticBuff): Statistic
+export function applyStatisticBuff(statistic: Statistic, buff: StatisticBuff): Statistic
 {
   return {
     grade: Math.max(1, statistic.grade + buff.grade),
@@ -101,7 +117,7 @@ function applyHealthBuff(health: Health, buff: BuffProfile["health"]): Health
   };
 }
 
-function applyDefenseBuff(defense: Defense, buff: BuffProfile["defense"]): Defense
+export function applyDefenseBuff(defense: Defense, buff: BuffProfile["defense"]): Defense
 {
   return {
     ...defense,
@@ -115,7 +131,7 @@ function applyDefenseBuff(defense: Defense, buff: BuffProfile["defense"]): Defen
   };
 }
 
-function applyOffenseBuff(offense: Offense, buffProfile: BuffProfile): Offense
+export function applyOffenseBuff(offense: Offense, buffProfile: BuffProfile): Offense
 {
   return {
     ...offense,

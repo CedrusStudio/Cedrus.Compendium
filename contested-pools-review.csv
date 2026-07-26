@@ -1,0 +1,300 @@
+﻿name,grade,knownStats,unknownTokens,testClause
+Akrobatyka,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,ksem; kiem; elem,Test sporny Refleksu z Refleksem/Fechtunkiem/Fortelem
+Atak Rękojeścią,1,walka wręcz→attributes.martialArt; fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex; siła→characteristics.strength,,Test fechtunku/fortelu+walka wręcz-2 vs fechtunku/fortelu+refleks/siła/walka wręcz
+Atak Rękojeścią,2,walka wręcz→attributes.martialArt; fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex; siła→characteristics.strength,,Test fechtunku/fortelu+walka wręcz-1 vs fechtunku/fortelu+refleks/siła/walka wręcz
+Atak Rękojeścią,3,walka wręcz→attributes.martialArt; fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex; siła→characteristics.strength,,Test fechtunku/fortelu+walka wręcz vs fechtunku/fortelu+refleks/siła/walka wręcz
+Atak Szubrawcy,1,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła
+Atak Szubrawcy,2,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła
+Atak Szubrawcy,3,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła
+Atak Tarczą,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły; zadaje; równe; teście; oczek; skutkuje; testem; obalenia; przeciwnika,"test sporny siły-1 vs siła lub zręczność zadaje obrażenia równe 1 + 1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika"
+Atak Tarczą,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły; zadaje; równe; teście; oczek; skutkuje; testem; obalenia; przeciwnika,"test sporny siły vs siła lub zręczność zadaje obrażenia równe 1 + 1 za każde oczko przewagi w teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika"
+Atak Tarczą,3,siła→characteristics.strength; zręczność→characteristics.dexterity,siły; zadaje; równe; różnicy; wygranym; teście; oczek; skutkuje; testem; obalenia; przeciwnika,"test sporny siły+1 vs siła lub zręczność zadaje obrażenia równe 1 + 1 za każde oczko różnicy w wygranym teście spornym, wygrany test sporny o 8 oczek skutkuje testem obalenia przeciwnika"
+Bezpośredni Cios,1,fechtunek→attributes.fencing; fortel→attributes.artifice,uniki; parowanie,Test sporny fechtunku -2 vs uniki/parowanie/fortel
+Biała Szemierka,1,fechtunek→attributes.fencing; fortel→attributes.artifice; siła→characteristics.strength,elem; równe; sile; krytka,test fechtunku vs fechtunek/fortelem/siła dodaje obrażenia równe sile krytka
+Błyskawiczna Dzwignia,1,walka wręcz→attributes.martialArt; refleks→attributes.reflex; siła→characteristics.strength,walki; wręcz,Test walki wręcz-4 vs refleks/siła/walka wręcz
+Błyskawiczna Dźwignia,1,walka wręcz→attributes.martialArt; refleks→attributes.reflex; siła→characteristics.strength,walki; wręcz,Test walki wręcz-4 vs refleks/siła/walka wręcz
+Błyskawiczny Chwyt Za Nadgarstki,1,walka wręcz→attributes.martialArt; refleks→attributes.reflex; siła→characteristics.strength,walki; wręcz,Test walki wręcz vs refleks/siła/walka wręcz
+Błyskawiczny Chwyt Za Nadgarstwek,1,walka wręcz→attributes.martialArt; refleks→attributes.reflex; siła→characteristics.strength,walki; wręcz,Test walki wręcz vs refleks/siła/walka wręcz
+Błyskotliwa Zagrywka,1,refleks→attributes.reflex; umysł→characteristics.mind,ksem; przeciwnika,Test sporny umysłu z refleksem przeciwnika
+Brudna Rana,1,,wytrwałości,Test wytrwałości o ST=7
+Brudna Rana,2,,wytrwałości,Test wytrwałości o ST=8
+Brudna Rana,3,,wytrwałości,Test wytrwałości o ST=9
+Brudna Rana,4,,wytrwałości,Test wytrwałości o ST=10
+Brudna Rana,5,,wytrwałości,Test wytrwałości o ST=11
+Brudna Rana,6,,wytrwałości,Test wytrwałości o ST=12
+Całun Zimna,1,,wytrwałościo,test wytrwałościo o ST=7
+Całun Zimna,2,,wytrwałościo,test wytrwałościo o ST=8
+Chmura Czarnej Krwi,1,refleks→attributes.reflex,,Test refleksu o ST=8
+Chwyt Szelmy,1,fortel→attributes.artifice; siła→characteristics.strength,,Test sporny fortelu vs siła+3
+Chwyt Szelmy,2,fortel→attributes.artifice; siła→characteristics.strength,,Test sporny fortelu vs siła+2
+Chwyt Szelmy,3,fortel→attributes.artifice; siła→characteristics.strength,,Test sporny fortelu vs siła+1
+Chwyt:Broń Przeciwnika,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem,Test sporny fortelu -2 vs fechtunek/fortelem
+Chwyt:Oręż Przeciwnika,1,fechtunek→attributes.fencing; fortel→attributes.artifice,najmniej; oczka,test fechtunku/fortelu o co najmniej 4 oczka
+Cieniste Szpile,1,,wytrwałości; stacki,test wytrwałości o ST=7+stacki
+Cieniste Szpile,2,,wytrwałości; stacki,test wytrwałości o ST=8+stacki
+Cieniste Szpile,3,,wytrwałości; stacki,test wytrwałości o ST=10+stacki
+Ciężki Cios,1,fortel→attributes.artifice; siła→characteristics.strength,siły,Test sporny siły-1 vs siła/fortel-2
+Ciężki Cios,2,fortel→attributes.artifice; siła→characteristics.strength,siły,Test sporny siły vs siła/fortel-2
+Ciężki Cios,3,fortel→attributes.artifice; siła→characteristics.strength,siły,Test sporny siły+1 vs siła/fortel-2
+Cios Ogonem,1,siła→characteristics.strength,wytrwałość,Test siła vs wytrwałość
+Cykl Fechmistrza,1,fechtunek→attributes.fencing; fortel→attributes.artifice,przeciwnika,Test fechtunku o ST=6+fechtunek+fortel przeciwnika
+Cykl Szermierza,1,fechtunek→attributes.fencing; fortel→attributes.artifice,ekiem; elem; siłą; przeciwnika,Test sporny fechtunku z fechtunekiem/fortelem/siłą przeciwnika
+Czarcia Mgła,1,fechtunek→attributes.fencing; fortel→attributes.artifice,testów,testów fechtunku i fortelu
+Czinkciarz,1,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny walki wręcz+fortelu vs walka wręcz+fortel/walka wręcz+siła+2
+Czinkciarz,2,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny walki wręcz+fortelu +1 vs walka wręcz+fortel/walka wręcz+siła+2
+Czinkciarz,3,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny walki wręcz+fortelu +2 vs walka wręcz+fortel/walka wręcz+siła+2
+Demoniczny Postrach,1,,woli,Test woli o ST=6
+Demoniczny Postrach,2,,woli,Test woli o ST=7
+Diaboliczna Nova,1,refleks→attributes.reflex,siłą; zaklęcia,Test sporny refleksu z siłą zaklęcia+3
+Druzgoczące Uderzenie,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Druzgoczące Uderzenie,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Druzgoczące Uderzenie,3,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Dualizm Fechmistrza,1,fechtunek→attributes.fencing,dodanie; bazowego,test sporny fechtunku powoduje dodanie bazowego fechtunek do obrażeń
+Dualna Finta,1,fechtunek→attributes.fencing; fortel→attributes.artifice,kiem; elem; siłą; zadanie; bezpośrednich,test sporny fortelu -2 z fechtunkiem/fortelem/siłą powoduje zadanie bezpośrednich obrażeń
+Dynamiczna Parada,1,inicjatywa→attributes.initiative,redukuje; przeciwnika,test sporny inicjatywy-2 redukuje 1 kość broni przeciwnika
+Dynamiczne Natacie,1,fechtunek→attributes.fencing; fortel→attributes.artifice; inicjatywa→attributes.initiative,kiem; elem; siłą,Test sporny inicjatywy z fechtunkiem/fortelem/siłą
+Dynamiczny Fechtunek,1,fechtunek→attributes.fencing; inicjatywa→attributes.initiative,,Test sporny fechtunku -5 vs inicjatywa
+Dzikie Szranki,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły; rośnie; uderzenia; krytycznego,"Test siły vs siła/zręcznośc, za każde oczko przewagi rośnie siła uderzenia krytycznego"
+Dzikość,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-4vs siła/zręczność
+Dzikość,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-3 vs siła/zręczność
+Dzikość,3,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-2 vs siła/zręczność
+Dzikość Czerwia,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-2 vs siła/zręczność
+Dzikość Czerwia,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-1 vs siła/zręczność
+Eteryczny Ogień,1,refleks→attributes.reflex,,Test Refleksu o ST=7
+Eteryczny Ogień,2,refleks→attributes.reflex,,Test Refleksu o ST=8
+Eteryczny Ogień,3,refleks→attributes.reflex,,Test Refleksu o ST=9
+Falanga Pięści,1,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny Walki Wręcz vs walka wręcz/fortel/siła
+Fałszywy Zwód,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; przeciwnika,Test sporny fortelu z fortelem/fechtunku przeciwnika
+Finta,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; zadaje; równe; różnicy,test sporny fortelu +1 vs fechtunek/fortelem zadaje obrażenia równe 1 za każde oczko różnicy
+Finta,2,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; zadaje; równe; różnicy,test sporny fortelu +3 vs fechtunek/fortelem zadaje obrażenia równe 1 za każde oczko różnicy
+Finta,3,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; zadaje; równe; różnicy,test sporny fortelu +5 vs fechtunek/fortelem zadaje obrażenia równe 1 za każde oczko różnicy
+Fortelofikacja,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; kiem; siłą,Test sporny fortelu z fortelem/fechtunkiem/siłą
+Gadzi Chwyt,1,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+0"
+Gadzi Chwyt,2,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1"
+Gadzi Chwyt,3,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2"
+Girgeńska Finta,1,fechtunek→attributes.fencing; fortel→attributes.artifice,zadaje; równe; różnicy,test sporny fortelu +(fechtunek/2) vs fechtunek lub fortel zadaje obrażenia równe 1 za każde oczko różnicy
+Girgeński Młyniec,1,fechtunek→attributes.fencing; fortel→attributes.artifice; siła→characteristics.strength,elem,test (fortelu +fechtunek)/2 vs siła/fechtunek/fortelem dodaje kość broni
+Gniewne Natarcie,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test sporny siły-1 vs zręczność/siła
+Gniewne Natarcie,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test sporny siły vs zręczność/siła
+Gniewne Natarcie,3,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test sporny siły+1 vs zręczność/siła
+Grad Ciosów,1,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny Walki Wręcz-2 vs walka wręcz/fortel/siła
+Grad Ciosów,2,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny Walki Wręcz-1 vs walka wręcz/fortel/siła
+Grad Ciosów,3,walka wręcz→attributes.martialArt; fortel→attributes.artifice; siła→characteristics.strength,walki; wręcz,Test sporny Walki Wręcz vs walka wręcz/fortel/siła
+Gwałtowne Obalenie,1,siła→characteristics.strength,zrecznośc,Test sporny Siła+Zrecznośc-5
+Gwałtowne Obalenie,2,siła→characteristics.strength,zrecznośc,Test sporny Siła+Zrecznośc-4
+Gwałtowne Obalenie,3,siła→characteristics.strength,zrecznośc,Test sporny Siła+Zrecznośc-3
+Homen,1,,wytrwałości,Test wytrwałości o ST=10
+Impas,1,inicjatywa→attributes.initiative,przeciwnik; tracicie; jedną,"test sporny inicjatywy-2 powoduje, że ty i przeciwnik tracicie jedną kość broni"
+Impas,2,inicjatywa→attributes.initiative,przeciwnik; tracicie; jedną,"test sporny inicjatywy-1 powoduje, że ty i przeciwnik tracicie jedną kość broni"
+Impas,3,inicjatywa→attributes.initiative,przeciwnik; tracicie; jedną,"test sporny inicjatywy powoduje, że ty i przeciwnik tracicie jedną kość broni"
+Jadowity Zryw,1,refleks→attributes.reflex,udany; neguje; atak; nieudany; oznacza; trafienie; bezposrednie; jeżeli; podmiot; zostanie; zraniony; wytrwałości; otrzymanie; prawdziwych; straty; także; jest; powtarzany; rundę; zdania; testu; śmierci; podmiotu,"Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=8, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu"
+Jadowity Zryw,2,refleks→attributes.reflex,udany; neguje; atak; nieudany; oznacza; trafienie; bezposrednie; jeżeli; podmiot; zostanie; zraniony; wytrwałości; otrzymanie; prawdziwych; straty; także; jest; powtarzany; rundę; zdania; testu; śmierci; podmiotu,"Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=9, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu"
+Jadowity Zryw,3,refleks→attributes.reflex,udany; neguje; atak; nieudany; oznacza; trafienie; bezposrednie; jeżeli; podmiot; zostanie; zraniony; wytrwałości; otrzymanie; prawdziwych; straty; także; jest; powtarzany; rundę; zdania; testu; śmierci; podmiotu,"Test Refleksu o ST=8, udany neguje atak, nieudany oznacza trafienie bezposrednie i jeżeli podmiot zostanie zraniony test wytrwałości o ST=10, nieudany oznacza otrzymanie 1k8 prawdziwych obrażeń za każde oczko straty, a także test jest powtarzany co rundę aż do zdania testu lub śmierci podmiotu"
+Język Zgnilizny,1,refleks→attributes.reflex,,Test refleksu o ST=8
+Klątwa Cierni,1,,wytrwałości,Test wytrwałości o ST=3
+Klątwa Pyłu,1,,wytrwałości,Test wytrwałości o ST=4
+Kły Jadowe,1,refleks→attributes.reflex,,Test Refleksu o ST=7
+Kły Jadowe,2,refleks→attributes.reflex,,Test Refleksu o ST=8
+Kły Jadowe,3,refleks→attributes.reflex,,Test Refleksu o ST=9
+Kontra Fechmistrza,1,fechtunek→attributes.fencing,wytrącenie; przeciwnika; postawy; tury,Test sporny fechtunku -2 powoduje wytrącenie przeciwnika z jego postawy na 2 tury
+Kontra Fechmistrza,2,fechtunek→attributes.fencing,wytrącenie; przeciwnika; postawy; tury,Test sporny fechtunku -2 powoduje wytrącenie przeciwnika z jego postawy na 3 tury
+Krwawiący Cios,1,fortel→attributes.artifice,wytrwałością; zadanie; atakiem; zdrowie; przeciwnika; skutkuje; krwawieniem; zadającym; śmiartelnych; ture; przez; tura; ilość; zadanych,"Test sporny fortelu z wytrwałością powoduje, że zadanie obrażeń tym atakiem w zdrowie przeciwnika skutkuje krwawieniem zadającym 1 śmiartelnych obrażeń na ture przez 1tura/ilość obrażeń zadanych w zdrowie przeciwnika (max 6 tur)"
+Krwawiący Cios,2,fortel→attributes.artifice,wytrwałością; zadanie; atakiem; zdrowie; przeciwnika; skutkuje; krwawieniem; zadającym; śmiartelnych; ture; przez; tura; ilość; zadanych,"Test sporny fortelu z wytrwałością powoduje, że zadanie obrażeń tym atakiem w zdrowie przeciwnika skutkuje krwawieniem zadającym 1 śmiartelnych obrażeń na ture przez 1tura/ilość obrażeń zadanych w zdrowie przeciwnika+2 (max 8 tur)"
+Krwawiący Cios,3,fortel→attributes.artifice,wytrwałością; zadanie; atakiem; zdrowie; przeciwnika; skutkuje; krwawieniem; zadającym; śmiartelnych; ture; przez; tura; ilość; zadanych,"Test sporny fortelu z wytrwałością powoduje, że zadanie obrażeń tym atakiem w zdrowie przeciwnika skutkuje krwawieniem zadającym 1 śmiartelnych obrażeń na ture przez 1tura/ilość obrażeń zadanych w zdrowie przeciwnika+4 (max 10 tur)"
+Krzyk Banshiee,1,,woli,Test woli o ST=8
+Łańcuch Ostrzy,1,fechtunek→attributes.fencing,,test sporny fechtunku powoduje dodaje 2 dmg na każdą kość broni
+Masowe Cieniste Szpile,1,,wytrwałości; stacki,test wytrwałości o ST=7+stacki
+Masowe Cieniste Szpile,2,,wytrwałości; stacki,test wytrwałości o ST=8+stacki
+Masowe Wyssanie Sił,1,,wytrwałości,Test sporny wytrwałości
+Masowe Wyssanie Sił,2,,wytrwałości,Test sporny wytrwałości+1
+Masowy Paraliż Bazyliszka,1,refleks→attributes.reflex,każdy; krok; odległości; bazyliszka,Test refleksu o ST=14-(1 za każdy krok odległości od bazyliszka)
+Merrouderzenie,1,,siły,Test sporny siły
+Młyniec,1,fechtunek→attributes.fencing; fortel→attributes.artifice; siła→characteristics.strength,elem,test fortelu vs siła/fechtunek/fortelem dodaje kość broni
+Moc Hir'er'deno,1,refleks→attributes.reflex,wytrwałości,Test wytrwałości/refleksu o ST=14
+Morowy Oddech,1,,wytrwałości; ilość; stacków,Test wytrwałości o ST=(Ilość Stacków)/2
+Nadobalenie,1,fechtunek→attributes.fencing; refleks→attributes.reflex,,Test refleksu +1/fechtunku +1 vs refleks/fechtunek
+Nadruchliwość,1,inicjatywa→attributes.initiative,razem; użyciem,test tym razem z użyciem inicjatywy-2
+Nadruchliwość,2,inicjatywa→attributes.initiative,razem; użyciem,test tym razem z użyciem inicjatywy-1
+Nadruchliwość,3,inicjatywa→attributes.initiative,razem; użyciem,test tym razem z użyciem inicjatywy
+Namaszczenie Zarazy,1,,wytrawałości,test wytrawałości o ST=8
+Napór Włóczniarza,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,siły; elem,Test sporny Zr+Siły vs fechtunek/fortelem/refleks
+Napór Włóczniarza,2,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,siły; elem,Test sporny Zr+Siły vs fechtunek/fortelem/refleks
+Narzucenie Stylu: Fechtunek,1,fechtunek→attributes.fencing,przegrany; odejmuje; redukcji,"test fechtunku -1, wygrany dodaje 3 dmg, przegrany odejmuje 3 redukcji"
+Narzucenie Stylu: Fortel,1,fortel→attributes.artifice,przegrany; odejmuje; redukcji,"test fortelu (min 7), wygrany dodaje 3 dmg, przegrany odejmuje 3 redukcji"
+Narzucenie Stylu:Fechtunek,1,fechtunek→attributes.fencing,przegrany; odejmuje; redukcji,"test fechtunku-1, wygrany dodaje 3 dmg, przegrany odejmuje 3 redukcji"
+Narzucenie Stylu:Fortel,1,,fotelu; przegrany; odejmuje; redukcji,"test fotelu (min 7), wygrany dodaje 3 dmg, przegrany odejmuje 3 redukcji"
+Naskok Czerwia,1,refleks→attributes.reflex,równe; wytrwałości; efekt; krytyczny; powalenie,"Test refleksu+1 vs refleks, dodaje obrażenia równe wytrwałości, efekt krytyczny powoduje powalenie"
+Naskok Czerwia,2,refleks→attributes.reflex,równe; wytrwałości; efekt; krytyczny; powalenie,"Test refleksu+2 vs refleks, dodaje obrażenia równe wytrwałości, efekt krytyczny powoduje powalenie"
+Naznaczenie,1,,wytrwałości,Test wytrwałości o ST=6
+Nieposkromiony Atak,1,refleks→attributes.reflex,siły; parowanie,Test siły/refleksu vs parowanie
+Nieposkromiony Atak,2,refleks→attributes.reflex,siły; parowanie,Test siły/refleksu+1 vs parowanie
+Nieposkromiony Atak,3,refleks→attributes.reflex,siły; parowanie,Test siły/refleksu+2 vs parowanie
+Niewzruszone Ciało,1,,testów; rzutów; obronych; wytrwałość,testów i rzutów obronych na wytrwałość
+Niewzruszone Ciało,2,,testów; rzutów; obronych; wytrwałość,testów i rzutów obronych na wytrwałość
+Niski Kopniak,1,fortel→attributes.artifice; siła→characteristics.strength,,Test fortelu vs fortel/siła
+Odgrodzenie,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siłowy,Test siłowy vs siła/zręczność
+Odtrącenie,1,inicjatywa→attributes.initiative,siłowy; obniżenie,test siłowy-2 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi
+Odtrącenie,2,inicjatywa→attributes.initiative,siłowy; obniżenie,test siłowy-2 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi
+Odtrącenie,3,inicjatywa→attributes.initiative,siłowy; obniżenie,test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi
+Odtrącenie,4,inicjatywa→attributes.initiative,siłowy; obniżenie,test siłowy-3 powoduje obniżenie inicjatywy o 1 za każde oczko przewagi
+Okazyjny Unik,1,fechtunek→attributes.fencing; fortel→attributes.artifice,reflkes; elem,Test fortelu vs reflkes/fechtunek/fortelem
+Okrzyk Bojowy,1,,woli; wszystkich; testów; przeciwnika; przez; tury,test sporny woli powoduje -1 do wszystkich testów przeciwnika przez 2 tury
+Okrzyk Bojowy,2,,woli; wszystkich; testów; przeciwnika; przez; tury,test sporny woli powoduje -1 do wszystkich testów przeciwnika przez 4 tury
+Okrzyk Bojowy,3,,woli; wszystkich; testów; przeciwnika; przez,test sporny woli powoduje -1 do wszystkich testów przeciwnika przez 6 tur
+Ort,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,fechunkiem; elem; ksem; dodanie; ilość; stacków; nałożenie; stacka,test fechtunku z fechunkiem/fortelem/refleksem powoduje dodanie 1+ilość stacków Ort obrażeń oraz nałożenie stacka Ort
+Ort,2,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,fechunkiem; elem; ksem; dodanie; ilość; stacków; nałożenie; stacka,test fechtunku +1 z fechunkiem/fortelem/refleksem powoduje dodanie 1+ilość stacków Ort obrażeń oraz nałożenie stacka Ort
+Ort,3,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,fechunkiem; elem; ksem; dodanie; ilość; stacków; nałożenie; stacka,test fechtunku +2 z fechunkiem/fortelem/refleksem powoduje dodanie 1+ilość stacków Ort obrażeń oraz nałożenie stacka Ort
+Parada,1,fechtunek→attributes.fencing,ilość; otrzymanych; jednego; wroga; przed; redukcją; parowanie; redukcji,"test 3xfechtunku ze ST=ilość otrzymanych obrażeń od jednego wroga przed redukcją, dodaje parowanie do redukcji"
+Parada Fechmistrza,1,fechtunek→attributes.fencing; fortel→attributes.artifice; siła→characteristics.strength,elem; przeciwik; otrzymuje; następnego; prowokowanego; testu; następnej; turze,"Test sporny fechtunku vs fechtunek/fortelem/siła, za każde oczko przewagi przeciwik otrzymuje -1 do następnego prowokowanego testu w tej lub następnej turze"
+Parada Fechmistrza,2,fechtunek→attributes.fencing; fortel→attributes.artifice; siła→characteristics.strength,elem; przeciwik; otrzymuje; następnego; prowokowanego; testu; następnej; turze,"Test sporny fechtunku +1 vs fechtunek/fortelem/siła, za każde oczko przewagi przeciwik otrzymuje -1 do następnego prowokowanego testu w tej lub następnej turze"
+Paraliż Bazyliszka,1,wytrzymałość→attributes.fortitude,,Test wytrzymałości o ST = 10
+Pierwotny Okrzyk,1,,morale,test morale
+Pierwotny Okrzyk,2,,morale; bonusem,test morale z bonusem 1
+Pierwotny Okrzyk,3,,morale; bonusem,test morale z bonusem 2
+Plugawy Oddech,1,,wytrwałości,Test wytrwałości o ST=12
+Plugawy Oddech,2,,wytrwałości,Test wytrwałości o ST=14
+Plugawy Oddech,3,,wytrwałości,Test wytrwałości o ST=16
+Plugawy Oddech,4,,wytrwałości,Test wytrwałości o ST=18
+Po Dwakroć,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; sprawia; można; nadnaychmiastowo; użyć; innego; manewru; utraty; postaci; czasu; odnowienia; straty,"test fechtunku vs fechtunek i fortelu vs fechtunek/fortelem sprawia, że można nadnaychmiastowo użyć dowolnego innego manewru bez utraty w postaci czasu odnowienia lub straty"
+Pochwycenie Szczęk,1,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1"
+Pochwycenie Szczęk,2,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=8, Nieudany powoduje test sporny siłowy+1"
+Pochwycenie Szczęk,3,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=8, Nieudany powoduje test sporny siłowy+2"
+Podduszenie,1,,siłowy,test siłowy-1 dodaje 1k4w za każde oczko przewagi
+Podduszenie,2,,siłowy,test siłowy dodaje 1k4w za każde oczko przewagi
+Podduszenie,3,,siłowy,test siłowy+1 dodaje 1k4w za każde oczko przewagi
+Poderwanie,1,refleks→attributes.reflex; siła→characteristics.strength,siły,Test sporny siły vs Siła/Refleks
+Podstępne Kopnięcie,1,fechtunek→attributes.fencing; fortel→attributes.artifice,,test sporny fortelu z fechtunek lub fortel dodaje 2 dmg
+Podstępny Zwrot,1,fechtunek→attributes.fencing; fortel→attributes.artifice,kiem; elem; następnej; turze,test fortelu z fechtunkiem lub fortelem dodaje 3 fortelu w następnej turze
+Podstępny Zwrot,2,fechtunek→attributes.fencing; fortel→attributes.artifice,kiem; elem; następnej; turze,test fortelu z fechtunkiem lub fortelem dodaje 4 fortelu w następnej turze
+Podstępny Zwrot,3,fechtunek→attributes.fencing; fortel→attributes.artifice,kiem; elem; następnej; turze,test fortelu z fechtunkiem lub fortelem dodaje 5 fortelu w następnej turze
+Polowanie,1,refleks→attributes.reflex,uniki; ominiecie; uników; przeciwnika,test sporny refleksu vs uniki powoduje ominiecie uników przeciwnika
+Pomsta,1,,wytrwałości,Test wytrwałości o ST=9
+Popielny Dech,1,refleks→attributes.reflex,,Test Refleksu o St=7
+Popielny Dech,2,refleks→attributes.reflex,,Test Refleksu o St=8
+Powalające Uderzenie,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-1 vs siła/zręczność
+Powalające Uderzenie,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Powalające Uderzenie,3,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły+1 vs siła/zręczność
+Poznanie Skazy,1,fechtunek→attributes.fencing,skali; trudności; przeciwnika; harmonia,Test o skali trudności 8+fechtunek przeciwnika przeciwko Harmonia + fechtunek
+Pożerająca Ciemność,1,refleks→attributes.reflex,krańcach,Test refleksu na krańcach o ST=7
+Prowokazcja Odsłony,1,fechtunek→attributes.fencing; fortel→attributes.artifice,reflkes; elem,Test fortelu vs reflkes/fechtunek/fortelem
+Przebijające Uderzenie,1,fechtunek→attributes.fencing,zadaje; równe; oczka; różnicy,test sporny fechtunku vs fechtunek zadaje obrażenia równe 1 za każde 2 oczka różnicy
+Przebijające Uderzenie,2,fechtunek→attributes.fencing; fortel→attributes.artifice,zadaje; równe; oczka; różnicy,test sporny fechtunku +1 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy
+Przebijające Uderzenie,3,fechtunek→attributes.fencing; fortel→attributes.artifice,zadaje; równe; oczka; różnicy,test sporny fechtunku +2 vs fechtunek lub fortel zadaje obrażenia równe 1 za każde 2 oczka różnicy
+Przebrzydłość,1,,wytrwałość,Test sporny wytrwałość o ST=7
+Przeczytanie Przeciwnika,1,fechtunek→attributes.fencing; fortel→attributes.artifice,sprawia; następnym; ataku; dostajesz; dodatkową,"test sporny fechtunku vs fechtunek, fortel sprawia, że w następnym ataku dostajesz dodatkową kość broni"
+Przeczytanie Przeciwnika,2,fechtunek→attributes.fencing; fortel→attributes.artifice,sprawia; następnym; ataku; dostajesz; dodatkową,"test sporny fechtunku +1 vs fechtunek, fortel sprawia, że w następnym ataku dostajesz dodatkową kość broni"
+Przejrzenie Postawy,1,fechtunek→attributes.fencing; fortel→attributes.artifice,spostrzegawczości; elem; kiem,Test sporny Spostrzegawczości+3 z Fortelem/Fechtunkiem
+Przekleństwo,1,,wytrwałości; nieudany; podwojenie; zadanych; zdrowie; podmiotu; zemsty,"Test wytrwałości o ST=7, nieudany powoduje podwojenie obrażeń zadanych w zdrowie podmiotu zemsty"
+Przekleństwo,2,,wytrwałości; nieudany; podwojenie; zadanych; zdrowie; podmiotu; zemsty,"Test wytrwałości o ST=9, nieudany powoduje podwojenie obrażeń zadanych w zdrowie podmiotu zemsty"
+Przełamanie Gardy,1,walka wręcz→attributes.martialArt; fortel→attributes.artifice; zręczność→characteristics.dexterity,walki; wręcz; zadanie; bezpośrednich,Test sporny Walki Wręcz-3 vs walka wręcz/fortel/zręczność Wygrany powoduje zadanie bezpośrednich obrażeń
+Przewraz,1,,siły; jeden; redukcji,"Test sporny siły, za każde oczko przewagi dodaje jeden redukcji"
+Rezolucja,1,,woli,Test sporny woli
+Rozbłysk Cienia,1,refleks→attributes.reflex,,test refleks ST=8
+Roziskrzenie,1,refleks→attributes.reflex,,Test Refleksu o ST=6
+Roziskrzenie,2,refleks→attributes.reflex,,Test Refleksu o ST=7
+Rozprawa Fechmistrza,1,fechtunek→attributes.fencing; fortel→attributes.artifice,widmową; randze; równej; różnicy; teście,test sporny fechtunku vs fechtunek lub fortel dodaje widmową kość obrażeń o randze równej 1 za każde oczko różnicy w teście
+Roztrzaskanie,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-2 vs siła/zręczność
+Roztrzaskanie,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły-1 vs siła/zręczność
+Roztrzaskanie,3,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Ruchliwość,1,inicjatywa→attributes.initiative,razem; użyciem,test tym razem z użyciem inicjatywy-2
+Ruchliwość,2,inicjatywa→attributes.initiative,razem; użyciem,test tym razem z użyciem inicjatywy-1
+Ruchliwość,3,inicjatywa→attributes.initiative,razem; użyciem,test tym razem z użyciem inicjatywy
+Ryk Merromonstrum,1,,woli,Test sporny woli
+Ryzykowne Posunięcie,1,fechtunek→attributes.fencing; fortel→attributes.artifice,przeciwnika,Test fortelu o ST=6+fechtunek+fortel przeciwnika
+Siłowe Szranki,1,fechtunek→attributes.fencing; fortel→attributes.artifice; siła→characteristics.strength,siłowy; elem; następnych; dwóch; turach; przeciwnik; może; używać; manewrów; ofensywnych,"test siłowy vs siła/fechtunek/fortelem powoduje, że w następnych dwóch turach przeciwnik nie może używać manewrów ofensywnych"
+Skok na ofiare,1,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Skok na ofiare,2,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Skok na ofiare,3,siła→characteristics.strength; zręczność→characteristics.dexterity,siły,Test siły vs siła/zręczność
+Skowyt,1,fortel→attributes.artifice; wola→attributes.willpower,,Test fortelu vs wola/fortel
+Spojrzenie Plugawiciela,1,,wytrwałości,Test wytrwałości o ST =10
+Stabilny Strzał,1,,ataku; dystansowego; zsumowany; dzielisz; zaokrąglasz; góry,test ataku dystansowego i zsumowany wynik dzielisz na 2 (zaokrąglasz do góry)
+Strzał Dysonansu,1,,równowagi; zdrowie,test równowagi o ST=3+1 za każde 5 obrażeń w zdrowie
+Stworzenie Dystansu,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,kiem; elem; ksem; dodanie; redukcji,Test sporny fechtunek-3 vs fechtunkiem/fortelem/refleksem wygrany powoduje dodanie kości redukcji
+Stworzenie Dystansu,2,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,kiem; elem; ksem; dodanie; redukcji,Test sporny fechtunek-2 vs fechtunkiem/fortelem/refleksem wygrany powoduje dodanie kości redukcji
+Stworzenie Dystansu,3,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,kiem; elem; ksem; dodanie; redukcji,Test sporny fechtunek-1 vs fechtunkiem/fortelem/refleksem wygrany powoduje dodanie kości redukcji
+Symbiotyczna Garda,1,fechtunek→attributes.fencing; fortel→attributes.artifice,kiem; elem; dodanie; redukcji,test fechtunku z fechtunkiem i fortelu z fortelem powoduje dodanie fechtunek+fortel do redukcji
+Symbiotyzna Garda,1,fechtunek→attributes.fencing; fortel→attributes.artifice,kiem; elem; dodanie; redukcji,test fechtunku z fechtunkiem i fortelu z fortelem powoduje dodanie fechtunek+fortel do redukcji
+Szczelny Umysł,1,,testów; rzutów; obronnych; wole,testów i rzutów obronnych na wole
+Szczelny Umysł,2,,testów; rzutów; obronych; wole,testów i rzutów obronych na wole
+Szczelny Umysł,3,,testów; rzutów; obronych; wole,testów i rzutów obronych na wole
+Szczękościsk,1,refleks→attributes.reflex,,Test Refleksu o ST=7
+Sztuka Zabijania,1,fechtunek→attributes.fencing; fortel→attributes.artifice,kiem; elem; dodanie; bazowego,test fortelu z fechtunkiem/fortelem powoduje dodanie bazowego fortelu do obrażeń
+Sztych,1,fechtunek→attributes.fencing,ilość; otrzymanych; jednego; wroga; przed; redukcją; parowanie; najbliższy; atak; tego; przeciwnika,test 3xfechtunku ze ST=ilość otrzymanych obrażeń od jednego wroga przed redukcją dodaje parowanie do obrażeń na najbliższy atak w tego przeciwnika
+Śmiartelna Precyzja,1,fechtunek→attributes.fencing; fortel→attributes.artifice; zręczność→characteristics.dexterity,elem; kiem; siłą; ścią; przeciwnika,Test sporny fortelu +zręczność z fortelem/fechtunkiem+siłą/zręcznością przeciwnika
+Taniec Bitweny: Wróg Zasłoną Wroga,1,inicjatywa→attributes.initiative; umysł→characteristics.mind,,test inicjatywy o ST=umysł+inicjatywa
+Taniec Waridżaru,1,fechtunek→attributes.fencing; fortel→attributes.artifice,,Test fechtunek+fortel vs 2x(k6+fechtunek lub k6+fortel)
+Taranowanie Bestii,1,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy"
+Taranowanie Bestii,2,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+1"
+Taranowanie Bestii,3,refleks→attributes.reflex,nieudany; siłowy,"Test Refleksu o ST=7, Nieudany powoduje test sporny siłowy+2"
+Trujące Żądło Żądliszcza,1,,wytrwałość,Test wytrwałość o ST=10
+Trupi Skok,1,refleks→attributes.reflex,,Test refleksu o St=6
+Trupi Skok,2,refleks→attributes.reflex,,Test refleksu o St=7
+Trupi Skok,3,refleks→attributes.reflex,,Test refleksu o St=8
+Ucisk Szczypiec,1,,siłowy; range; przezewagi,Test Sporny Siłowy dodaje range kości broni za każde oczko przezewagi
+Ucisk Szczypiec,2,,siłowy; range; przezewagi,Test Sporny Siłowy+1 dodaje range kości broni za każde oczko przezewagi
+Ucisk Szczypiec,3,,siłowy; range; przezewagi,Test Sporny Siłowy+2 dodaje range kości broni za każde oczko przezewagi
+Uderzenie Rękawicą,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem,Test fechtunku/fortelu vs fechtunek/fortelem
+Uderzenie Wymiotne,1,,wytrwałości; różnicy; przegranym; teście; stack; choroby,Test wytrwałości o ST=5 za każde oczko różnicy w przegranym teście 1 stack choroby
+Ukąszenie,1,refleks→attributes.reflex,inaczej; zostaje; zatruty; podmiot; ture; wykonuje; wytrwałości; wyjątkiem; tury; zatrucia; udany; oznacza; zakończenie; zatrucie; zadaje; począwszy; ukąszenia; śmiertelnych,"test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k4 śmiertelnych obrażeń"
+Ukąszenie,2,refleks→attributes.reflex,inaczej; zostaje; zatruty; podmiot; ture; wykonuje; wytrwałości; wyjątkiem; tury; zatrucia; udany; oznacza; zakończenie; zatrucie; zadaje; począwszy; ukąszenia; śmiertelnych,"test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k6 śmiertelnych obrażeń"
+Ukąszenie,3,refleks→attributes.reflex,inaczej; zostaje; zatruty; podmiot; ture; wykonuje; wytrwałości; wyjątkiem; tury; zatrucia; udany; oznacza; zakończenie; zatrucie; zadaje; począwszy; ukąszenia; śmiertelnych,"test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 1k8 śmiertelnych obrażeń"
+Ukąszenie,4,refleks→attributes.reflex,inaczej; zostaje; zatruty; podmiot; ture; wykonuje; wytrwałości; wyjątkiem; tury; zatrucia; udany; oznacza; zakończenie; zatrucie; zadaje; począwszy; ukąszenia; śmiertelnych,"test sporny refleksu inaczej zostaje zatruty, zatruty podmiot co ture wykonuje test wytrwałości z wyjątkiem tury zatrucia udany oznacza zakończenie zatrucia, zatrucie zadaje począwszy od tury ukąszenia 2k4 śmiertelnych obrażeń"
+Ukradkowe Szpony,1,fortel→attributes.artifice; refleks→attributes.reflex,,Test Refleksu vs Fortel/Refleks
+Uskok,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,ksem; kiem; elem; dodanie; redukcji; jeden; atak,"test sporny Refleksu-3 vs Refleksem, Fechtunkiem lub Fortelem powoduje dodanie 2 kości redukcji na jeden atak"
+Uskok Drapieżnika,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,dodanie; niewrażliwości,test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 2 niewrażliwości
+Uskok Drapieżnika,2,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex,dodanie; niewrażliwości,test sporny Refleksu vs Refleks/Fechtunek/Fortel powoduje dodanie 3 niewrażliwości
+Ustawiczne Ciosy,1,walka wręcz→attributes.martialArt,walki; wręcz,Test sporny walki wręcz vs walka wręcz
+Ustawiczne Ciosy,2,walka wręcz→attributes.martialArt,walki; wręcz,Test sporny walki wręcz vs walka wręcz
+Ustawiczne Ciosy,3,walka wręcz→attributes.martialArt,walki; wręcz,Test sporny walki wręcz vs walka wręcz
+Widmowy Cykl,1,fechtunek→attributes.fencing; fortel→attributes.artifice,ekiem; elem; siłą,Test sporny fechtunku -2 z fechtunekiem/fortelem/siłą
+Widmowy Wir Ciosów,1,fechtunek→attributes.fencing; fortel→attributes.artifice; siła→characteristics.strength,elem,Test sporny: fechtunek vs fechtunek/fortelem/siła
+Widmowy Zwód,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; przeciwnika,Test sporny: fechtunek/fortelem vs fechtunek/fortelem przeciwnika
+Napad Szaszynszyna,1,refleks→attributes.reflex,dodanie,test refleksu powoduje dodanie kości broni
+Wir Diadżaridżi,1,fechtunek→attributes.fencing; fortel→attributes.artifice,,Test fechtunek+fortel-4 vs fechtunek+fortel
+Wojenny Sofizmat,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; kiem,Test sporny fortelu z fortelem/fechtunkiem
+Wybieg Fechmistrza,1,fechtunek→attributes.fencing,następnej; turze; przeciwnik; może; używać; manewrów; ofenswynych,"Test sporny fechtunku +1 powoduje, że w następnej turze przeciwnik nie może używać manewrów ofenswynych"
+Wybieg Fechmistrza,2,fechtunek→attributes.fencing,następnej; turze; przeciwnik; może; używać; manewrów; ofenswynych,"Test sporny fechtunku +2 powoduje, że w następnej turze przeciwnik nie może używać manewrów ofenswynych"
+Wyborowy Strzał,1,,ataku; dystansowego,test ataku dystansowego
+Wybuch Ropni,1,refleks→attributes.reflex,,test refleksu o ST=7
+Wymuszenie Fechtowania,1,fechtunek→attributes.fencing,przegrany; odejmuje; redukcji,"test fechtunku (min 7), wygrany dodaje 1 dmg, przegrany odejmuje 1 redukcji"
+Wymuszenie Fortelu,1,fortel→attributes.artifice,przegrany; odejmuje; redukcji,"test fortelu (min 7), wygrany dodaje 1 dmg, przegrany odejmuje 1 redukcji"
+Wyssanie Sił,1,,wytrwałości,Test sporny wytrwałości
+Wyssanie Sił,2,,wytrwałości,Test sporny wytrwałości+1
+Wyssanie Sił,3,,wytrwałości,Test sporny wytrwałości+1
+Wyssanie Sił,4,,wytrwałości,Test sporny wytrwałości+2
+Wyssanie Sił,5,,wytrwałości,Test sporny wytrwałości+2
+Wyścig z Czasem,1,inicjatywa→attributes.initiative,zmniejsza; przeciwnikowi; ustaloną,test sporny inicjatywy zmniejsza przeciwnikowi ustaloną inicjatywe o 1
+Wyścig z Czasem,2,inicjatywa→attributes.initiative,zmniejsza; przeciwnikowi; ustaloną,test sporny inicjatywy zmniejsza przeciwnikowi ustaloną inicjatywe o 2
+Wyścig z Czasem,3,inicjatywa→attributes.initiative,zmniejsza; przeciwnikowi; ustalona,test sporny inicjatywy zmniejsza przeciwnikowi ustalona inicjatywe o 3
+Wytrącenie Z Równowagi,1,fechtunek→attributes.fencing; siła→characteristics.strength; zręczność→characteristics.dexterity,fechunku; przeciwnik; traci; następny; atak,"test sporny fechunku+siła/zręczność -5 vs fechtunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak"
+Wytrącenie Z Równowagi,2,fechtunek→attributes.fencing; siła→characteristics.strength; zręczność→characteristics.dexterity,fechunku; przeciwnik; traci; następny; atak,"test sporny fechunku+siła/zręczność -4 vs fechtunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak"
+Wytrącenie Z Równowagi,3,fechtunek→attributes.fencing; siła→characteristics.strength; zręczność→characteristics.dexterity,fechunku; przeciwnik; traci; następny; atak,"test sporny fechunku+siła/zręczność -3 vs fechtunek+siła/zręczność powoduje, że przeciwnik traci kość broni na następny atak"
+Zabójcze Pchnięcie,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex; umysł→characteristics.mind,,Test sporny: Umysł + Fortel vs 2x Fechtunek / 2x Fortel / 2x Refleks
+Zaczajenie,1,fortel→attributes.artifice; refleks→attributes.reflex; umysł→characteristics.mind,,test sporny refleksu-1 vs fortel/3x umysł dodaje refleksu/2 do obrażeń
+Zakarznie,1,,wytrwałości,test wytrwałości o ST=7
+Zakarznie,2,,wytrwałości,test wytrwałości o ST=8
+Zakarznie,3,,wytrwałości,test wytrwałości o ST=9
+Zakarznie,4,,wytrwałości,test wytrwałości o ST=10
+Zakarznie,5,,wytrwałości,test wytrwałości o ST=11
+Zamarkowanie Odsłony,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem,Test fortelu +1 vs fechtunek/fortelem
+Zamarkowany Ruch,1,fechtunek→attributes.fencing; fortel→attributes.artifice; refleks→attributes.reflex; umysł→characteristics.mind,ksem; następnie; kiem; elem,"Test sporny umysłu z refleksem, następnie test sporny fortelu z fechtunkiem/fortelem"
+Zamarkowny Fechtunek,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem,test sporny fechtunku vs fechtunek/fortelem dodaje fortel do obrażeń
+Zaskakujący Cios,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem,test sporny fortelu vs fechtunek/fortelem dodaje fechtunek do obrażeń
+Zatrważający Okrzyk,1,,woli; punkt; strachu,test sporny woli-2 powoduje 1 punkt strachu za każde oczko przewagi
+Zatrważający Okrzyk,2,,woli; punkt; strachu,test sporny woli-1 powoduje 1 punkt strachu za każde oczko przewagi
+Zatrważający Okrzyk,3,,woli; punkt; strachu,test sporny woli powoduje 1 punkt strachu za każde oczko przewagi
+Zawadiacki Atak,1,fechtunek→attributes.fencing; fortel→attributes.artifice,przeciwnika,Test fortelu o ST=6+fechtunek+fortel przeciwnika
+Zawezwanie Odwagi,1,,woli; strachowi,test woli przeciw strachowi
+Zawezwanie Odwagi,2,,woli; strachowi,test woli przeciw strachowi
+Zawezwanie Odwagi,3,,woli; strachowi,test woli przeciw strachowi
+Zbicie Ciosu,1,fechtunek→attributes.fencing; fortel→attributes.artifice,siły; przeciwnik; traci; najbliższy; atak,"test sporny fortelu vs Fechtunek/Fortel/Siły powoduje, że przeciwnik traci kość broni na najbliższy atak"
+Zbicie Ciosu Mistrza Girgen,1,fechtunek→attributes.fencing; fortel→attributes.artifice,siły; przeciwnik; traci; najbliższy; atak,"test sporny fortelu vs Fechtunek lub Fortel lub siły powoduje, że przeciwnik traci kość broni na najbliższy atak"
+Zrozumienie Słabości,1,fechtunek→attributes.fencing,skali; trudności; przeciwnika; harmonia,Test o skali trudności 8+fechtunek przeciwnika przeciwko Harmonia + fechtunek
+Zuchwały Atak,1,fortel→attributes.artifice; refleks→attributes.reflex,ksem; elem; dodanie; przeciwnika; odpowiednio,test fortelu z refleksem lub fortelem powoduje dodanie przeciwnika odpowiednio refleksu lub fortelu do obrażeń
+Zwierzęcy Ryk,1,,morale,test morale
+Zwierzęcy Ryk,2,,morale,test morale+1
+Zwierzęcy Ryk,3,,morale,test morale+2
+Zwierzęcy Wybieg,1,refleks→attributes.reflex; siła→characteristics.strength,uniki; odejmuje; przeciwnikowi; premie; uników,Test sporny Refleks vs Uniki/Siła wygrany odejmuje przeciwnikowi premie z uników
+Zwodniczy Sztych,1,fechtunek→attributes.fencing; fortel→attributes.artifice,elem; sprawia; jeśli; największym; oczek; padło; trafienie; krytyczne; wtedy; uznaje,"test sporny fortelu vs fechtunek/fortelem sprawia, że jeśli na kości z największym wynikiem oczek nie padło trafienie krytyczne, wtedy uznaje się je za trafienie krytyczne"
+Żądło Manticory,1,refleks→attributes.reflex,uniki,Test refleksu-1 vs uniki
+Żądło Żądliszcza,1,,wytrwałość,Test wytrwałość o ST=10

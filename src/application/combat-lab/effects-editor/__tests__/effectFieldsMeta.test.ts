@@ -1,0 +1,66 @@
+import { describe, it, expect } from "vitest";
+import { EFFECT_TYPE_ORDER, EFFECT_TYPE_META, defaultEffect, weaponDiceDamageScalePreset } from "@/application/combat-lab/effects-editor/effectFieldsMeta";
+import { effectSchema } from "@/domain/combat-lab/effects/effectSchema";
+import { toManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
+import { describeManeuver } from "@/domain/combat-lab/effects/describeManeuver";
+
+// Defaults that are complete on their own (no user-supplied required string).
+const SELF_VALID = ["damage", "heal", "stat", "roll", "status", "control", "push", "pull", "resource", "contested", "save", "when", "chance"] as const;
+
+describe("defaultEffect()", () => {
+  it.each(SELF_VALID)("produces a schema-valid default for '%s'", (type) => {
+    const r = effectSchema.safeParse(defaultEffect(type));
+    expect(r.success).toBe(true);
+  });
+
+  it("every default carries the right discriminant", () => {
+    for (const type of EFFECT_TYPE_ORDER) expect(defaultEffect(type).type).toBe(type);
+  });
+
+  it("buff/debuff/custom validate once the required id/type is filled", () => {
+    expect(effectSchema.safeParse({ ...defaultEffect("buff"), profile: { profileId: "p1" } }).success).toBe(true);
+    expect(effectSchema.safeParse({ ...defaultEffect("debuff"), profile: { profileId: "p1" } }).success).toBe(true);
+    expect(effectSchema.safeParse({ ...defaultEffect("custom"), effectType: "lifesteal" }).success).toBe(true);
+  });
+});
+
+describe("weaponDiceDamageScalePreset()", () => {
+  it("is schema-valid out of the box (no field left for the user to fill before it works)", () => {
+    const r = effectSchema.safeParse(weaponDiceDamageScalePreset());
+    expect(r.success).toBe(true);
+  });
+
+  it("scales off the caster's own weapon dice, once per die", () => {
+    const preset = weaponDiceDamageScalePreset() as { type: string; source: { kind: string }; per: number };
+    expect(preset.type).toBe("scale");
+    expect(preset.source.kind).toBe("selfDice");
+    expect(preset.per).toBe(1);
+  });
+
+  it("produces a sane maneuver description ('za każdą kość broni +1 obrażenie')", () => {
+    const def = toManeuverDefinition({
+      id: "x", name: "Test", grade: 1, description: "",
+      price: 0, tags: [],
+      castTime: "Standardowa", cooldown: undefined,
+      effects: [weaponDiceDamageScalePreset()] as never,
+      simulatable: undefined, unsupportedReason: undefined,
+    });
+    expect(describeManeuver(def)).not.toBe("—");
+    expect(describeManeuver(def).length).toBeGreaterThan(0);
+  });
+});
+
+describe("EFFECT_TYPE_META", () => {
+  it("has metadata for every ordered type and no duplicates", () => {
+    expect(new Set(EFFECT_TYPE_ORDER).size).toBe(EFFECT_TYPE_ORDER.length);
+    for (const type of EFFECT_TYPE_ORDER) expect(EFFECT_TYPE_META[type]).toBeDefined();
+  });
+
+  it("simple types declare a non-empty field list", () => {
+    for (const type of EFFECT_TYPE_ORDER)
+    {
+      const meta = EFFECT_TYPE_META[type]!;
+      if (meta.simple) expect((meta.fields ?? []).length).toBeGreaterThan(0);
+    }
+  });
+});

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { displayedText } from "@/common/translations";
-import { Users, BookOpen, Scroll, Swords } from "lucide-react";
+import { Users, BookOpen, Scroll, Swords, FlaskConical } from "lucide-react";
 import { ApiKeySettings } from "@/common/components/ApiKeySettings";
 import HomeQuickAccessSection from '@/application/personalization/HomeQuickAccessSection';
 
@@ -40,7 +40,7 @@ function HeroSection()
           )
         }
       </div>
-      <h1 className="text-6xl lg:text-7xl font-bold mb-6">
+      <h1 className="text-6xl lg:text-7xl font-bold mb-4">
         {displayedText.applicationHeading}
       </h1>
       <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -59,7 +59,8 @@ function CategoryCards()
       icon: <Users className="h-12 w-12" />,
       description: 'Twórz i zarządzaj swoimi postaciami gracza',
       href: '/characters',
-      color: 'text-blue-500'
+      color: 'text-blue-500',
+      featured: false
     },
     {
       id: 'bestiary',
@@ -67,7 +68,8 @@ function CategoryCards()
       icon: <Swords className="h-12 w-12" />,
       description: 'Przeglądaj potwory i przeciwników',
       href: '/bestiary',
-      color: 'text-red-500'
+      color: 'text-red-500',
+      featured: false
     },
     {
       id: 'compendium',
@@ -75,7 +77,8 @@ function CategoryCards()
       icon: <Scroll className="h-12 w-12" />,
       description: 'Umiejętności, zaklęcia, ekwipunek i manewry',
       href: '/compendium',
-      color: 'text-purple-500'
+      color: 'text-purple-500',
+      featured: false
     },
     {
       id: 'rulebook',
@@ -83,18 +86,30 @@ function CategoryCards()
       icon: <BookOpen className="h-12 w-12" />,
       description: 'Kompletny podręcznik zasad systemu RPG',
       href: '/rulebook',
-      color: 'text-amber-500'
+      color: 'text-amber-500',
+      featured: true
+    },
+    {
+      id: 'combat-lab',
+      title: 'laboratorium systemu',
+      icon: <FlaskConical className="h-12 w-12" />,
+      description: 'Symuluj walki i balansuj mechaniki na tysiącach starć',
+      href: '/combat-lab',
+      color: 'text-emerald-500',
+      featured: true
     }
   ];
 
+  // Centered flex-wrap avoids an orphaned tile in a fixed grid: 3 per row on
+  // desktop, 2 on tablet, 1 on mobile — the final row stays centered (3+2).
   return (
     <div className="mb-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="flex flex-wrap justify-center gap-6">
         {categories.map((category) => (
-          <Link 
+          <Link
             key={category.id}
             href={category.href}
-            className="group p-8 border rounded-lg hover:bg-muted hover:shadow-xl transition-all duration-200 flex flex-col items-center text-center"
+            className={`group p-8 border rounded-lg hover:bg-muted hover:shadow-xl transition-all duration-200 flex flex-col items-center text-center w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${category.featured ? 'ring-2 ring-primary/40 border-primary/40' : ''}`}
           >
             <div className={`mb-4 ${category.color}`}>
               {category.icon}

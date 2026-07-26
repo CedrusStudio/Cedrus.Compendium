@@ -11,7 +11,8 @@ import { Label } from "@/ui/label";
 import { InputFormField } from '@/common/components/form/InputFormField';
 import { SelectFormField } from '@/common/components/form/SelectFormField';
 import { displayedText } from '@/common/translations';
-import { AddManeuverDto, addManeuverSchema, ManeuverDto } from "@/persistence/schemas/characters/combat/maneuverSchema";
+import { AddManeuverWithEffectsDto, addManeuverWithEffectsSchema, ManeuverDto } from "@/persistence/schemas/characters/combat/maneuverSchema";
+import { ManeuverEffectsEditableFields } from "@/application/combat-lab/effects-editor/ManeuverEffectsEditableFields";
 import { createOffsetSearchManeuversKey } from "@/persistence/cacheKeys";
 import { createManeuverOffsetQuery } from "@/infrastructure/searchQueries/maneuvers/createManeuverOffsetQuery";
 import ManeuverView from "@/application/compendium/maneuvers/ManeuverView";
@@ -26,13 +27,22 @@ import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
+import RequirementFilter from "@/application/common/requirements/RequirementFilter";
+import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
-import { List, Layers } from "lucide-react";
+import { List, Layers, Wand2 } from "lucide-react";
 import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
+
+/** A maneuver still awaiting effect authoring (no effects and not marked unsupported). */
+function needsEffects(m: Maneuver): boolean
+{
+  const hasEffects = Array.isArray(m.effects) && m.effects.length > 0;
+  return m.simulatable !== false && !hasEffects;
+}
 
 export default function ManeuversList()
 {
@@ -52,17 +62,20 @@ export default function ManeuversList()
   });
 
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>(EMPTY_ARRAY);
+  const [onlyNeedsEffects, setOnlyNeedsEffects] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
-  
-  const queryKey = createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
+
+  const queryKey = [createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters];
   const { data: searchResults } = useQuery
-  ({ 
-    queryKey, 
-    queryFn: async () => 
+  ({
+    queryKey,
+    queryFn: async () =>
     {
       const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
+      if (requirementFilters.length > 0) maneuversQuery.requirementFilters = requirementFilters;
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000
@@ -107,9 +120,15 @@ export default function ManeuversList()
     clearResults();
   }, [clearResults]);
 
-  const handleExcludedTagsChange = useCallback((tags: string[]) => 
+  const handleExcludedTagsChange = useCallback((tags: string[]) =>
   {
     setExcludedTags(tags);
+    clearResults();
+  }, [clearResults]);
+
+  const handleRequirementFiltersChange = useCallback((filters: RequirementSearchFilter[]) =>
+  {
+    setRequirementFilters(filters);
     clearResults();
   }, [clearResults]);
 
@@ -139,6 +158,10 @@ export default function ManeuversList()
     clearResults();
   }, [clearResults]);
 
+  // Client-side view filter over the already-loaded page(s). For the full-roster
+  // picture use `scripts/maneuver-coverage.ts`.
+  const visibleManeuvers = onlyNeedsEffects ? displayedManeuvers.filter(needsEffects) : displayedManeuvers;
+
   return (
     <>
       <ListHeader
@@ -153,8 +176,17 @@ export default function ManeuversList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="maneuvers"
+        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
         <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />
+        <Button
+          variant={onlyNeedsEffects ? "default" : "outline"}
+          size="icon"
+          onClick={() => setOnlyNeedsEffects(v => !v)}
+          title={onlyNeedsEffects ? "Pokaż wszystkie manewry" : "Tylko wymagające efektów (z załadowanych)"}
+        >
+          <Wand2 className="h-4 w-4" />
+        </Button>
         <Button
           variant="outline"
           size="icon"
@@ -168,7 +200,7 @@ export default function ManeuversList()
 
       {isGroupedView ? (
         <GroupedItemsList<Maneuver>
-          items={displayedManeuvers}
+          items={visibleManeuvers}
           renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
@@ -179,7 +211,7 @@ export default function ManeuversList()
       ) : (
         <WithScroll<Maneuver>
           parentClassName="flex flex-col gap-2"
-          items={displayedManeuvers}
+          items={visibleManeuvers}
           triggerNext={() => 
           {
             setPageNumber(prev => prev + 1);
@@ -194,18 +226,18 @@ export default function ManeuversList()
 
 function AddManeuverForm()
 {
-  const initialValues: AddManeuverDto = CreateDefaultManeuver();
+  const initialValues: AddManeuverWithEffectsDto = CreateDefaultManeuver();
 
-  const form = useForm<AddManeuverDto>
+  const form = useForm<AddManeuverWithEffectsDto>
   ({
-    resolver: typedZodResolver(addManeuverSchema),
+    resolver: typedZodResolver(addManeuverWithEffectsSchema),
     defaultValues: initialValues,
     mode: "onBlur"
   });
 
   const { handleSubmit, isPending } = useFormMutation
   (
-    async (maneuver: AddManeuverDto) => { await client.add({ ...maneuver, id: ulid() }) },
+    async (maneuver: AddManeuverWithEffectsDto) => { await client.add({ ...maneuver, id: ulid() }) },
     {
       invalidateOnSuccess: ['maneuvers'],
       toastPosition: "bottom-left"
@@ -231,6 +263,9 @@ function AddManeuverForm()
             </div>
 
           </div>
+
+          <ManeuverEffectsEditableFields />
+
         </PerkableAddSheet>
       </form>
     </Form>

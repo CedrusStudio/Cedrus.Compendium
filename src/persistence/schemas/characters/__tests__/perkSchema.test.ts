@@ -7,7 +7,6 @@ describe('perkSchema', () => {
     name: 'Strong Strike',
     grade: 5,
     description: 'A powerful strike',
-    requirements: ['Strength 10', 'Level 5'],
     price: 50,
     tags: ['combat', 'physical']
   };
@@ -74,19 +73,6 @@ describe('perkSchema', () => {
     }
   });
 
-  it('should accept empty requirements array', () => {
-    const result = perkSchema.safeParse({ ...validPerk, requirements: [] });
-    expect(result.success).toBe(true);
-  });
-
-  it('should reject requirement exceeding 1000 characters', () => {
-    const result = perkSchema.safeParse({ 
-      ...validPerk, 
-      requirements: ['A'.repeat(1001)] 
-    });
-    expect(result.success).toBe(false);
-  });
-
   it('should coerce price from string to number', () => {
     const result = perkSchema.safeParse({ ...validPerk, price: '100' });
     expect(result.success).toBe(true);
@@ -135,7 +121,6 @@ describe('addPerkSchema', () => {
       name: 'New Perk',
       grade: 1,
       description: 'New description',
-      requirements: [],
       price: 10,
       tags: []
     };
@@ -149,7 +134,6 @@ describe('addPerkSchema', () => {
       name: 'New Perk',
       grade: 1,
       description: 'Description',
-      requirements: [],
       price: 10,
       tags: []
     });
@@ -173,7 +157,6 @@ describe('perksSchema', () => {
         name: 'Perk 1',
         grade: 1,
         description: 'Desc 1',
-        requirements: [],
         price: 10,
         tags: []
       },
@@ -182,7 +165,6 @@ describe('perksSchema', () => {
         name: 'Perk 2',
         grade: 2,
         description: 'Desc 2',
-        requirements: [],
         price: 20,
         tags: []
       }
@@ -197,7 +179,6 @@ describe('perksSchema', () => {
       name: `Perk ${i}`,
       grade: 1,
       description: 'Description',
-      requirements: [],
       price: 0,
       tags: []
     }));
@@ -214,7 +195,6 @@ describe('perksSchema', () => {
       name: `Perk ${i}`,
       grade: 1,
       description: 'Description',
-      requirements: [],
       price: 0,
       tags: []
     }));

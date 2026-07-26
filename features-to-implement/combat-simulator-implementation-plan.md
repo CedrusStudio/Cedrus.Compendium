@@ -107,6 +107,174 @@ export type ManeuverDefinition = Maneuver & {
 
 ---
 
+# Reguły walki z podręcznika (ŹRÓDŁO PRAWDY)
+
+Pełny podręcznik systemu jest przechowywany statycznie w repo i serwowany pod `/rulebook`:
+- `public/data/rulebook/system-walki.json` — mechanika walki, obrażenia, krytyki, **Defensywa** (Niewrażliwość, Odporność, Redukcja, Parowanie, Uniki, Blokowanie), manewry, postawy, stany;
+- `public/data/rulebook/zdrowie-i-regeneracja.json` — Zdrowie, Bariera, Żywotność, Twardość, **Przeżywalność**, **Determinacja**, leczenie, urazy;
+- ładowany serwerowo przez `src/persistence/rulebook/rulebookLoader.ts` (`loadRulebookData`, `loadCategorySections('system-walki')`).
+
+**To jest kanoniczne źródło reguł silnika.** Poniższe zastępuje wcześniejsze "założenia do potwierdzenia" — reguły zostały wyciągnięte z podręcznika i silnik MUSI je odwzorować dokładnie. Combat Lab może też czytać podręcznik statycznie (przez `rulebookLoader`), np. by zasilać domyślne parametry Parameter Tuning albo walidować w Rules Validator.
+
+### Kolejność rozliczania obrażeń (kanoniczna)
+
+Dla pojedynczego źródła obrażeń:
+
+```
+rzut ataku (kości broni + kości obrażeń, z krytykami)
+   ↓  (przy ataku bronią) Niewrażliwość: atakujący usuwa N kości
+Odporność (odejmowana NAJPIERW, per źródło, do 6 źródeł/rundę)
+   ↓  nadmiar
+Redukcja (uporządkowana pula: uniki/parowanie → blok → pancerz → magia → unikatowa)
+   ↓  nadmiar
+Bariera (pochłania przed zdrowiem)
+   ↓  nadmiar
+Zdrowie
+```
+
+### Niewrażliwość (`immunity`) — to NIE procent
+
+"Niewrażliwość określa o ile mniej kości, z wyłączeniem kości widmowych, będzie stosował przeciwnik w każdym ataku. Przeciwnik sam wybiera, która kość jest redukowana." Czyli `immunity = N` → atakujący **usuwa N kości** (niewidmowych, `isPhantom=false`) z każdego ataku. Racjonalny atakujący usuwa kości o najmniejszej wartości oczekiwanej (najmniejszy `grade`). Działa przeciwko dowolnej liczbie przeciwników. **Korekta silnika:** dotychczasowy model (procentowy mnożnik) jest błędny — niewrażliwość realizujemy przy składaniu ataku (`rollOffense`/`resolveAttack`), nie w `reduceDamage`.
+
+### Odporność (`resistance`) — odejmowana najpierw, per źródło
+
+"Odporność jest to wartość, od której w pierwszej kolejności odejmowane są obrażenia jakiegokolwiek rodzaju poza obrażeniami śmiertelnymi i nieuchronnymi. Dopiero nadmiar przechodzi na redukcję. W każdej rundzie odporność jest odejmowana od obrażeń pierwszych 6 źródeł." Czyli odporność to płaska absorpcja **przed** redukcją, stosowana per źródło (do 6/rundę). **Korekta silnika:** odejmować odporność **przed** redukcją (dziś jest po). Nie dotyczy obrażeń śmiertelnych/nieuchronnych.
+
+### Redukcja (`block`/`parry`/`dodge`/`protection`/`bonus`) — pula z kolejnością
+
+"Całkowita redukcja = redukcja ze zbroi + z blokowania + z parowania + z uników + ze źródeł magicznych + unikatowa." Kolejność odejmowania: (1) uniki lub parowanie, (2) drugie z nich, (3) blok, (4) zbroja, (5) magia, (6) unikatowa. Podzbiory zależne od typu obrażeń:
+- **Redukcja blokowalna** = zbroja + blok + magia + unikatowa (bez parowania i uników),
+- **Redukcja bezpośrednia** = zbroja + magia + unikatowa (bez parowania, uników, bloku).
+
+To **dokładnie** odpowiada istniejącemu `calculateSelectedReduction(defense, mode)` z trybami `full`/`block`/`direct` — mapowanie: `protection`=zbroja, `bonus`=magia/unikatowa, `block`/`parry`/`dodge` wprost. Silnik używa tej funkcji poprawnie; typ obrażeń wybiera tryb (bezpośrednie→`direct`, blokowalne→`block`, zwykłe→`full`).
+- **Niedomiar redukcji przechodzi na kolejne źródła w tej samej rundzie** (pula malejąca). W 1v1 z jednym atakiem/turę bez znaczenia, ale przy wielu źródłach (druga broń, DoT, walka grupowa) trzeba to modelować. **Do zrobienia:** redukcja jako malejąca pula per runda (dziś: redukcja per atak, niepomniejszana — udokumentowane uproszczenie).
+
+### Typy obrażeń = kategorie redukcji (nie żywioły)
+
+Oś obrażeń, która steruje redukcją, to kategorie z podręcznika, a **nie** żywioły. System nie ma odporności „na ogień" itp. (atak ogniem to po prostu atak blokowalny). `DamageType` w silniku został przemapowany na:
+
+- **zwyczajne** → pełna redukcja (`full`) — atak w zwarciu. Trafia zawsze (brak testu trafienia); uniki/parowanie to redukcja, nie szansa na pudło.
+- **blokowane** → redukcja blokowalna (`block` = zbroja + blok + magia + unikatowa; bez uników/parowania) — magia dystansowa, ataki które można blokować, ale nie unikać.
+- **bezpośrednie** → redukcja bezpośrednia (`direct` = zbroja + magia + unikatowa; bez uników/parowania/bloku) — trafiłyby cel stojący bez ruchu i bez tarczy (np. strzały).
+- **śmiertelne** → omija odporność, redukcję **i barierę** (np. trucizna).
+- **nieuchronne** → omija odporność i redukcję (bariera nadal działa).
+
+`damageType` bezpośrednio wybiera tryb redukcji — usunęło to wymyślony wcześniej `reductionMode` w konfiguracji.
+
+### Ataki dystansowe (test trafienia)
+
+W przeciwieństwie do zwarcia, ataki z łuku/kuszy mają **test trafienia**: precyzja przeciw `max(refleks, ST odległości)`; tarcza dodaje refleks broniącemu; po trafieniu cel dostaje obrażenia **bezpośrednie**. Silnik dziś modeluje tylko zwarcie — test trafienia dla dystansu jest do dodania (v0.3+/Scenario).
+
+### Inicjatywa — zasób zmienny (odłożone)
+
+Inicjatywa jest ustalana na początku, ale **zmienia się** w trakcie (manewry, postawy, konkretne stany), co potrafi odwrócić kolejność; spadek poniżej 0 = obalenie. Silnik dziś rzuca inicjatywę raz i sortuje. Dynamiczna inicjatywa → **Scenario Builder (v0.4)**.
+
+### Odporność vs. redukcja + wiele źródeł
+
+W walce 1v1 odporność i redukcja są liczone tak samo (obie to płaskie odjęcie od jednego źródła — silnik: odporność, potem redukcja). Różnica ujawnia się przy wielu źródłach: **redukcja jest „zużywalna" w rundzie** (niedomiar zostaje na kolejne źródła), a **odporność nie** (działa na maks. 6 źródeł/rundę). Walka dwoma brońmi to **jedno źródło** (leading + secondary + bonusy liczone łącznie jako jeden atak — silnik już tak robi w `rollOffense`), więc pula nie ma tu znaczenia. Pełna pula → v0.4 (walka grupowa).
+
+### Krytyki
+
+"Trafienie krytyczne występuje gdy na kości broni wypadnie oczko równe maksymalnej wartości minus szansa trafienia krytycznego" → `roll >= grade*2 - critChance`, dodaje `critPower`. Bazowo `critChance=0`, `critPower=1`. To **dokładnie** istniejące `calculateCriticalDamage(offense, roll)` (`offense.critical.range`=szansa, `offense.critical.power`=siła). Silnik już to stosuje przez `handleWeaponDamageRolls`. Dodatkowo: **redukcja na obrażenia krytyczne** neguje tylko obrażenia z krytyka — do dodania jako osobne pole/efekt.
+
+### Zdrowie, Bariera, Przeżywalność, Determinacja
+
+- **Bariera** pochłania obrażenia przed Punktami Zdrowia (silnik: `dealDamage` już to robi). Wyjątek: obrażenia śmiertelne (np. trucizna) omijają barierę.
+- **Przeżywalność** (`lethalHealth`, PL "przeżywalność") = ile obrażeń **poniżej zera** postać może przyjąć wciąż walcząc.
+- **Determinacja** (`lethalRounds`, PL "determinacja") = ile rund postać może walczyć ze zdrowiem między 0 a −przeżywalność; po przekroczeniu pada.
+- Poniżej 0 (do −Poziom Leczenia) postać domyślnie pada nieprzytomna; dopiero zdolności pozwalają walczyć dalej aż do progu przeżywalności. **Model śmierci w `runCombat` jest z tym zgodny** (`isDead`: martwy gdy `hp ≤ -lethalHealth`, lub `lethalRounds ≤ 0`, lub `roundsDowned ≥ lethalRounds`; downed pomija turę). Zgodne — bez zmian.
+
+### Obrażenia śmiertelne / nieuchronne
+
+Omijają odporność (i zwykłą redukcję/barierę wg typu). W modelu efektów odpowiada im `damageType: "true"` (nieuchronne) — a osobno trzeba dodać kategorię **śmiertelnych** (`śmiertelne`), które omijają barierę i odporność, ale mogą podlegać innym regułom. **Do dodania** do `DamageType`.
+
+---
+
+# Terminologia i tłumaczenia (PL)
+
+Repo trzyma **identyfikatory w kodzie po angielsku**, a wyświetlanie tłumaczy przez moduł `@/common/translations` (`displayedText`, oparty na `translations.pl-PL.ts` / `.de-DE` / `.fr-FR`, przełączane `NEXT_LANGUAGE`). Przykłady istniejących kluczy: `immunity`→"niewrażliwość", `resistance`→"odporność", `lethalHealth`→"przeżywalność", `lethalRounds`→"determinacja", `parry`→"parowanie", `dodge`→"unikanie".
+
+**Zasada dla Combat Lab:**
+- Identyfikatory domenowe (`StatusId`, `DamageType`, `ControlKind`, `deathCause`, itd.) zostają po angielsku — spójnie z resztą kodu (`block`, `parry`, `immunity`…).
+- **Każdy tekst widoczny dla użytkownika idzie przez `displayedText`**, nie przez surowe identyfikatory. Dodajemy klucze combat-lab (statusy: `krwawienie`/`zatrucie`/`podpalenie`/`oszołomienie`/`ogłuszenie`…, typy obrażeń: `fizyczne`/`ogień`/`zimno`…, przyczyny śmierci) do `translations.pl-PL.ts` (+ pozostałych locale) i do `displayedText`.
+- `describeManeuver` i `describeEvent` (Replay) renderują po polsku; docelowo etykiety statusów/typów pobierają z `displayedText`, a nie zaszyte na sztywno.
+
+---
+
+# Postęp realizacji (stan na 2026-07-19)
+
+Zaimplementowane i przechodzące `tsc` (testy `vitest` napisane; nie uruchomione w sandboxie — niezgodność binariów rollup Windows/Linux):
+- **Etap 0** ✅ — `combat-lab/rng/Rng.ts` (seedowalny mulberry32), wstrzyknięcie `RandomSource` do `Offense.ts`, model efektów (`Effect`, `ManeuverDefinition`, `effectSchema` Zod, `describeManeuver`).
+- **Etap 1** ✅ — `combat-lab/engine/*`: `CombatantSnapshot`, `rollOffense`, `damage`, `resolveAttack`, `applyEffect`, `actionEconomy` (adapter na `canUseCastable`), `ai/policy` (greedy/scripted/basic), `CombatState`, `runCombat`, `CombatLog`.
+- **Etap 2** ✅ — `combat-lab/simulation/*`: `summarizeCombat`, `runSimulation`, `aggregateResults`, `splitSeedRange` + warstwa aplikacji: Web Worker, `useSimulation`.
+- **Etap 4 (Replay)** ✅ — `combat-lab/replay/*` (`buildReplayFrames`, `describeEvent`) + `CombatReplay.tsx` + demo + trasa `/combat-lab/replay`.
+
+**Korekty wg podręcznika — wykonane:**
+- ✅ `damage.ts`: odporność **przed** redukcją; usunięty procentowy model niewrażliwości.
+- ✅ Niewrażliwość jako **usuwanie kości** (`applyImmunity` w `rollOffense`, wpięte w `resolveAttack`); wybór po stronie atakującego (usuwa kości o najmniejszej randze), kości widmowe pominięte.
+- ✅ `DamageType` przemapowany na kategorie `zwyczajne`/`blokowane`/`bezpośrednie`/`śmiertelne`/`nieuchronne`; kategoria wybiera tryb redukcji; śmiertelne omija barierę.
+- ✅ **Oszołomienie** wpięte: brak manewrów (`actionEconomy`), −1 kość ataku i połowa gard (blok/parowanie/uniki) w `resolveAttack`/`applyEffect` (`halveGuards`, `isStaggered`).
+- ✅ Etykiety PL scentralizowane (`combat-lab/i18n/labels.ts`) i użyte w opisach/Replay.
+
+**Dodane po v0.1:**
+- ✅ **v0.3 — Probability Explorer.** `domain/combat-lab/analysis/probability.ts` (`explore`): deterministyczny Monte-Carlo pojedynczej wymiany na realnych helperach silnika (niewrażliwość=kości, redukcja wg kategorii, krytyki, test trafienia dystansowego) → śr. obrażenia surowe/zadane, szansa krytyka, szansa trafienia (dystans), trafień-do-zabicia, rozkład obrażeń. UI `ProbabilityExplorer`: pola atak/obrona/kategoria/HP/dystans, wyniki na żywo (`useMemo`) + histogram (recharts); zakładka „Kalkulator". Testy `analysis/probability.test.ts`. Bez nowych zależności ponad recharts.
+- ✅ **v0.3 — Synergy Analyzer.** `domain/combat-lab/analysis/synergy.ts` (`computeSynergy`): ablacja manewrów — baseline Win Rate vs. Win Rate z usuniętym jednym manewrem → wkład (contribution) każdego w wygrywanie, ranking. Liczone w workerze (`synergy.worker.ts` + `useSynergy`, progres per wariant). UI `SynergyAnalyzer`: 2 pickery + strategie + liczba walk → wykres słupkowy wkładów (recharts, z linią zera dla ujemnych) + tabela; zakładka „Synergia". Testy `analysis/synergy.test.ts`. (Ablacja talentów/buffów wbudowanych w statystyki + synergia parami — future.)
+- ✅ **v1.0 KOMPLETNE (Meta + CSV + Raporty/PDF + Plugin System).**
+- ✅ **v1.0 — Plugin System (MVP, statyczne rejestry).** Wg `combat-lab-plugin-system-plan.md`. `domain/combat-lab/plugins/`: `types.ts` (`CombatLabPlugin`, `EffectPlugin`, `PolicyPlugin`), `registry.ts` (efekty/polityki/scenariusze, kolizje = błąd, `resetRegistry` do testów), `loadPlugins.ts` (idempotentny), `builtinPlugins.ts`, plugin referencyjny `builtin/lifestealPlugin.ts` (efekt „lifesteal" + polityka „defensive" + scenariusz „Pojedynek"). **Escape-hatch `CustomEffect { type:"custom"; effectType; data }`** w `Effect.ts` — rdzeń pozostaje wyczerpujący; pluginowe efekty przez rejestr w `applyEffect`/`effectSchema`/`describeManeuver`/`policyValue`. Polityki: `PolicySpec.name`/`SavedPolicy.name` rozszerzone o string, fallback do rejestru w `policyResolver`/`resolveSavedPolicy`. Scenariusze: `pluginScenarios()` w `ScenarioBuilder`. Analizatory: `application/combat-lab/plugins/analyzerRegistry.ts` + `CombatLabTabs` iteruje zakładki pluginów. `loadPlugins()` wołane w wątku głównym (CombatLabTabs) **i** w 7 workerach. Runner pokazuje polityki pluginów w selektorze. Testy `plugins/plugins.test.ts` (rejestracja, kolizje, efekt lifesteal, determinizm, bezpieczny no-op przy braku pluginu). Poza MVP (świadomie): dynamiczne/zewnętrzne pluginy (sandboxing), rozszerzalne kategorie obrażeń/statusy.
+- ✅ **v1.0 — Raporty + eksport PDF (print-to-PDF, bez zależności).** `application/combat-lab/report/SimulationReport.tsx`: drukowalny raport zapisanego biegu (combatanci: HP/atak/manewry, parametry, podsumowanie: Win Rate/rundy/HP/przyczyny śmierci/sposób zakończenia) z przyciskiem „Drukuj / Zapisz PDF" (`window.print()`), chowanym w druku przez Tailwind `print:hidden`. Trasa `src/app/(combat-lab)/combat-lab/report/[id]/page.tsx`. Link „Raport / PDF" w `SavedRunView` (nowa karta). Zero nowych zależności — eksport PDF przez natywny dialog druku przeglądarki (Zapisz jako PDF).
+- ✅ **v1.0 — Eksport CSV.** `domain/combat-lab/export/toCsv.ts` (bez zależności, escaping RFC-4180): `toCsv`/`objectsToCsv` + serializery `rawResultsToCsv`/`matchupToCsv`/`metaRankingToCsv`/`scenarioReportToCsv`. `application/combat-lab/export/downloadCsv.ts` (Blob + BOM dla Excela/PL). Przyciski „Eksport CSV" w Runner (wyniki), Matchup (macierz), Meta (ranking), Scenariusze (tabela). Testy `export/toCsv.test.ts` (escaping, serializery).
+- ✅ **v1.0 — Meta Analyzer.** `domain/combat-lab/analysis/meta.ts` (`computeMeta`): round-robin po rosterze → ranking buildów po **średnim Win Rate** (każdy jako atakujący i obrońca), agregacja użycia manewrów (`SimulationSummary.maneuverUsage`) → najczęściej używane + **nigdy niewybierane** (dostępne, ale count 0). Worker `meta.worker.ts` + `useMeta`. UI `MetaAnalyzer`: roster → ranking (tabela), najczęstsze manewry (recharts) i lista nieużywanych; zakładka „Meta". Testy `analysis/meta.test.ts`. („Nigdy niewybierane talenty" z dokumentu → tu manewry, bo talenty są wliczone w statystyki.)
+- ✅ **v0.4 KOMPLETNE (Scenario Builder + Rules Validator + Parameter Tuning).**
+- ✅ **v0.4 — Scenario Builder.** `domain/combat-lab/scenario/scenario.ts`: `Scenario` (dystans/limit rund/modyfikatory per strona `ParameterOverrides`/mnożnik HP) + presety (Arena, Korytarz, Las, Boss, Oblężenie), `applyScenario` (niemutujące), `compareScenarios` (Win Rate A/B + remisy + śr. rundy per scenariusz). Worker `scenario.worker.ts` + `useScenario`. UI `ScenarioBuilder`: 2 pickery + wybór presetów + strategie/liczba walk → tabela porównawcza; zakładka „Scenariusze". Testy `scenario/scenario.test.ts` (arena=neutralna, boss ×3 HP i niższy WR A, brak mutacji, progres). Walka grupowa/oblężenie tłumu (NvN) — wymaga silnika wielopostaciowego (1v1 dziś); „Oblężenie" przybliżone parametrami. Combat Lab ma teraz 10 zakładek.
+- ✅ **v0.4 — Parameter Tuning.** `domain/combat-lab/tuning/parameters.ts`: `ParameterOverrides` (Δ obrażeń/ranga kości/krytyk/obrona/HP) → `BuffProfile`, `applyOverrides(snapshot)` (niemutujące, przez `applyOffenseBuff`/`applyDefenseBuff` + HP), `compareTuning` (baseline vs strojone → Win Rate/rundy/HP zwycięzcy + `winRateDelta`). Worker `tuning.worker.ts` + `useTuning`. UI `ParameterTuning`: 2 pickery + pola Δ ofensywne/defensywne, **auto-przeliczanie (debounce)**, wielka zmiana Win Rate (pp) + tabela baseline/strojone; zakładka „Strojenie". Testy `tuning/parameters.test.ts`.
+- ✅ **v0.4 — Rules Validator.** `domain/combat-lab/validation/rulesValidator.ts` (`validateManeuvers`): statyczne reguły na `ManeuverDefinition[]` — martwe mechaniki (brak efektów), buff/debuff z odwołaniem do nieistniejącego profilu, pusty `chance`, zerowy czas trwania status/control/buff, zduplikowane nazwy, ujemny cooldown, walidacja schematem Zod; severity error/warning/info + `countBySeverity`. UI `RulesValidatorPanel`: roster → walidacja per combatant (kontekst = jego profile buffów), lista problemów z ikonami severity; zakładka „Walidator". Statyczne, natychmiastowe. Testy `validation/rulesValidator.test.ts`. (Reguły dynamiczne — nieskończone combo/pętle z tras symulacji — future.) Przy okazji: naprawiony brakujący `TabsContent` zakładki „Kombinacje".
+- ✅ **v0.3 KOMPLETNE (Combo + Synergy + Probability Explorer).**
+- ✅ **v0.3 — Combo Analyzer.** `domain/combat-lab/analysis/combo.ts` (`computeComboGraph`/`topCombos`): graf przejść manewr→manewr z `CombatLog[]` (węzły = manewry z licznikami użyć, krawędzie = następstwa u tego samego combatanta z częstością; łańcuchy nie przechodzą między aktorami). Liczone w workerze (`combo.worker.ts` — zbiera logi, buduje graf, zwraca tylko graf; `useCombo`, progres). UI `ComboGraphView` na **React Flow (`@xyflow/react` 12.11.2)** (układ kołowy, grubość/animacja krawędzi wg częstości, węzły przeciągalne) + lista „najczęstsze kombinacje"; zakładka „Kombinacje". Testy `analysis/combo.test.ts`. (Korelacja combo z wynikiem walki — „najpotężniejsze/nieopłacalne" — future.)
+- ✅ **v0.2 KOMPLETNE (Balance + Matchup + Statistics).**
+- ✅ **v0.2 — Balance Analyzer.** `domain/combat-lab/analysis/balance.ts` (`computeRawProfile`/`computeBalanceReport`): statyczny profil buildu na 6 wymiarach (obrażenia/przeżywalność/kontrola/ekonomia/utility/mobilność) liczony ze snapshotu + efektów manewrów, normalizacja 0–100 względem rosteru, `score` = średnia + ranking. Bez symulacji (natychmiastowe). UI `BalanceAnalyzer`: roster + `RadarChart` (recharts) na combatanta + tabela rankingu; zakładka „Balans". Testy `analysis/balance.test.ts`. (Ranking oparty na wynikach walk → to Matchup/Win Rate; ten moduł to profil statyczny.)
+- ✅ **v0.2 — Statistics.** `domain/combat-lab/analysis/distributions.ts` (`computeStatistics`): rozkład długości walk (rundy), HP zwycięzcy (biny), przyczyny śmierci, sposób zakończenia (nokaut/śmiertelne/limit/remis), najczęstsze manewry — z `RawResult[]`. UI `StatisticsDashboard` na **recharts 3.9.2** (BarChart-y; zweryfikowana zgodność z React 19). Wpięte w runner: checkbox „Zbieraj statystyki" → `includeResults`, dashboard pod podsumowaniem. Testy `analysis/distributions.test.ts`. (Statystyki per-event — krytyki/uniki/armor efficiency — wymagają bogatszego `RawResult`; do dodania później.)
+- ✅ **v0.2 — Matchup Analyzer.** Macierz N×N Win Rate (`domain/combat-lab/analysis/matchup.ts`: `computeMatchupMatrix` — dla każdej uporządkowanej pary i-vs-j osobny `runSimulation`, bo inicjatywa/rola A/B nie są symetryczne; `averageWinRates`). Liczone w osobnym Web Workerze (`matchup.worker.ts` + `useMatchup`, progres per para). UI: `MatchupHeatmap` (własny grid + skala kolorów czerwony→bursztyn→zielony, **bez recharts** — recharts nie ma heatmapy i nie da się go zainstalować w sandboxie), `MatchupAnalyzer` (roster: dodawanie postaci z pickerem + wzmocnieniami, jedna strategia dla wszystkich, run → heatmapa). Postacie pobierane hurtem (`useCharactersByIds` = `getByIds` + `toCharacters`). Zakładka „Matchupy" w `CombatLabTabs`. Testy `analysis/matchup.test.ts` (kształt N×N, ranking silny>słaby, progres, determinizm). Recharts zostawiony na Statistics/Balance (radar/histogramy), gdzie realnie pomaga.
+- ✅ **Test trafienia dla ataków dystansowych** (`resolveRangedAttack`): precyzja vs `max(refleks, ST odległości)`; trafienie → obrażenia **bezpośrednie** (fizyczne) lub **blokowane** (magiczne). Snapshot ma `precision`/`reflex`/`attackKind`; akcja `ranged`, event `rangedAttack` w logu/Replay, `DISTANCE_ST` z tabeli podręcznika. Test trafienia tylko dla dystansu — zwarcie bez zmian.
+- ✅ **Persystencja `Simulation`** (`prisma/schema.prisma` model `Simulation`; `src/persistence/combat-lab/*`; `src/app/api/combat-lab/simulations/*`; `combatLabClient`). Jeden dokument = konfiguracja („Simulation") + wynik („SimulationResult"). **Logów nie zapisujemy** — dzięki determinizmowi `reproduceFight(configuration, seed)` odtwarza dowolną walkę z zapisanego biegu (Replay ładuje realne walki). Wymaga u Ciebie: `npx prisma generate` + `npx prisma db push` (w sandboxie zablokowane pobieranie silnika Prisma).
+
+**Korekty wg podręcznika — do zrobienia:**
+- Redukcja jako **malejąca pula per runda** (wiele źródeł) + odporność na maks. 6 źródeł — istotne dopiero przy walce grupowej (v0.4).
+- Redukcja na obrażenia krytyczne (osobne pole/efekt).
+- Test trafienia dla ataków **dystansowych** (precyzja vs refleks/ST).
+- Docelowo etykiety PL przez wspólny `displayedText` (dziś osobny moduł `i18n/labels.ts`).
+
+**Wzmocnienia per symulacja (punkt z rozmowy).** Modyfikatory ataku (wyszkolenie z broni, style, pozycja) są zwykle już wliczone w statystyki postaci; część pochodzi z atutów/broni. Snapshot bierze aktywne `BuffProfile` z postaci (`applyActiveBuffProfile`) — do dodania: możliwość **ustawiania wzmocnień z poziomu symulacji** (nadpisanie aktywnych profili buffów / dołożenie tymczasowych), analogicznie do istniejącego mechanizmu buffów. To część Etapu 3 (CombatantPicker/override).
+
+Pozostaje do domknięcia v0.1: **CombatantPicker** (realne postacie + wzmocnienia per symulacja) i **persystencja** `Simulation`/`SimulationResult`.
+
+## Notatki na później (TODO)
+
+- ✅ **BUG naprawiony — atak niezależny od manewrów (fix #2).** Realna ekonomia tury: osobno (1) akcja **ataku**, (2) akcja **ruchu**, oraz (3) **manewry** o łącznym koszcie pełnorundowym (np. standardowy + natychmiastowy). Wcześniej atak był modelowany jako castable „Standardowa" konkurujący z manewrami przez `canUseCastable`, więc zajmował slot standardowy i blokował standardowe manewry → mniej obrażeń/turę → timeouty. Teraz: atak jest **gwarantowany raz na turę** przez flagę `attackedThisTurn` (`CombatState`), **nie** trafia do `usedCastables`, więc manewry rozliczane są niezależnie przez `canUseCastable` — combatant może w jednej turze i zaatakować, i wydać pełny budżet manewrów. (`actionEconomy.ts`, `CombatState.ts`; testy „action economy — attack independent of maneuvers".) **Ruch** jako trzecia niezależna pula wciąż do dodania (dopiero przy pozycjonowaniu / Scenario Builder).
+- ✅ **Nawigacja z głównego widoku do symulatora.** Dodana karta „Combat Lab" (ikona `FlaskConical`, `/combat-lab`) w `CategoryCards` na stronie głównej (`src/app/page.tsx`), obok Postaci/Bestiariusza/Kompendium/Podręcznika.
+- ✅ **Kolejność w turze: manewry proaktywne → atak (fix).** `takeTurn` jest dwufazowy: najpierw manewry proaktywne (Standardowa/Pełnorundowa) przez politykę, potem atak. Manewry **natychmiastowe/nadnatychmiastowe** są klasyfikowane jako **reaktywne** (`isReactiveManeuver`) i wyłączone z fazy proaktywnej — zarezerwowane na odpowiedź na atak. Polityka zachłanna: `pass`=0, więc nie marnuje akcji na manewry o zerowej wartości. (`runCombat.ts`, `actionEconomy.ts`, `ai/policy.ts`; testy „resolves proactive maneuvers BEFORE the attack", „does not waste an action on a zero-value maneuver".)
+- **Jak obsłużone są użycia manewrów — stan i braki (odpowiedź na pytanie):** manewr to dane `ManeuverDefinition = Maneuver & { effects: Effect[], hardRequirements, cost }`. Silnik interpretuje `effects` (`applyEffects`): damage / heal / status (z DoT tick) / control (stun/root/disarm/silence) / push/pull / resource / buff / debuff / chance. **Kiedy** manewr można użyć jest modelowane wiernie (`canUseCastable`: profile czasu rzucania, raz-na-turę, cooldown). **Braki różnorodności (TODO):**
+  1. Większość istniejących manewrów ma `effects: []` (podniesione z tekstu) — nie robią nic mechanicznie, dopóki nie zostaną zredagowane (edytor efektów, Etap 1c/3).
+  2. ✅ **`buff`/`debuff` są teraz APLIKOWANE** (wybór (a)). Runtime trzyma `activeBuffs: {profile, remaining}[]`; `resolveAttack`/`resolveRangedAttack`/obrażenia efektów liczą **efektywny** offense/defense przez `effectiveOffense`/`effectiveDefense` (reużycie `applyOffenseBuff`/`applyDefenseBuff` z apki). Manewr self-buff użyty w fazie 1 podnosi `Offense` na atak w fazie 2 tej samej tury. Buffy wygasają po `duration` rund (`tickBuffs`). Profil jest referowany po id z biblioteki `snapshot.buffProfiles` (postaci). (`buffs.ts`, `applyEffect.ts`, `CombatState.ts`; testy „buff application".) ✅ Buffy statystyk (precyzja/refleks) wpływają teraz na **test trafienia dystansowego** (`effectivePrecision`/`effectiveReflex` w `resolveRangedAttack`: buff precyzji podnosi rzut atakującego, buff refleksu obrońcy podnosi ST; testy „precyzja buff", „refleks buff").
+  3. ✅ **Reaktywne manewry (hook reakcji) wpięte.** Gdy combatant jest atakowany, jego polityka może wydać **jeden manewr natychmiastowy/nadnatychmiastowy w odpowiedzi** — rozliczany **przed** policzeniem obrażeń, więc defensywny self-buff realnie zmniejsza nadchodzący cios (dzięki aplikacji buffów), a ofensywna reakcja rani/osłabia atakującego. Cooldown/raz-na-turę przez `canUseCastable`; brak rekurencji (efekty nie wywołują ataków). Reaktywne manewry są wyłączone z fazy proaktywnej. (`runCombat.reactToAttack`, `actionEconomy.availableReactiveManeuvers`, event `reaction` w logu/Replay; testy „reaction hook".) Uwaga: pod polityką zachłanną reakcje odpalają się dla manewrów zadających obrażenia; czysto defensywne (0 dmg) wymagają bogatszej polityki (pkt 5).
+  4. `hardRequirements` (broń/tarcza/status) zdefiniowane, ale nie sprawdzane przy dostępności manewru. **OPCJONALNE — być może kiedyś, nie teraz.**
+  5. ✅ **Bogatsza polityka `valuePolicy`** — wycenia nie tylko obrażenia, ale też: leczenie (limitowane brakującym HP), kontrolę (oczekiwany atak przeciwnika × waga × czas: stun 1.0 / disarm 0.8 / silence 0.5 / root 0.2), status DoT (tick × czas) i nie-DoT (częściowa denializacja), self-buff (przyrost obrażeń z buffu ofensywnego + obrażenia zablokowane przez buff obronny) oraz debuff (obrażenia odjęte przeciwnikowi + nasz zysk). Wszystko w jednostkach „oczekiwanych obrażeń", więc porównywalne z atakiem. Odblokowuje **reakcje defensywne** (defensywny self-buff w odpowiedzi na atak odpala się pod `valuePolicy`, a nie pod zachłanną). Domyślna w runnerze; dostępna w workerze/persystencji. (`ai/policyValue.ts`, `ai/expectedDamage.ts`, `ai/policy.ts`; testy „valuePolicy".) Greedy (`greedyDamage`) zostaje jako opcja damage-only.
+  6. ✅ Manewr „dodający obrażenia do ataku": wybrano i wdrożono **(a) self-buff podnoszący `Offense` na najbliższy atak** (patrz pkt 2).
+  7. Pełnorundowy manewr a atak: dziś atak jest zawsze przyznawany w fazie 2, nawet po manewrze pełnorundowym — do doprecyzowania.
+
+
+- ✅ **CombatantPicker + wzmocnienia per symulacja** (punkt 6) — ZROBIONE. `toCombatantSnapshot` przyjmuje `overrideActiveBuffProfileIds` + `extraBuffProfiles` (nadpisanie/dołożenie buffów na czas symulacji). UI: `useCharacterById` (pełna postać przez `searchClient`+`toCharacter`), `CombatantPicker` (szukaj postaci, rodzaj ataku, toggle buffów), `SimulationRunner` (2 pickery → worker → summary → zapis przez `combatLabClient` → inline Replay walki zreprodukowanej z konfiguracji), trasa `/combat-lab`. Testy `combatantSnapshot.test.ts`.
+- ✅ **Lista zapisanych biegów + ponowne otwieranie w Replay** — zakładki na `/combat-lab` (`CombatLabTabs`: „Nowa symulacja" / „Zapisane biegi"). `useSavedSimulations` (lista + usuwanie, React Query), `SavedRunsList` (wybór/usuń), `SavedRunView` (ładuje bieg `getSimulation`, pokazuje podsumowanie i odtwarza dowolną walkę przez `reproduceFight`). Zapis w runnerze inwaliduje listę. Widok podsumowania wydzielony do `SimulationSummaryView` (wspólny dla runnera i zapisanych biegów).
+- ✅ **Polityka `scripted` w UI** — `PolicyPicker` w runnerze pozwala wybrać „Skryptowana" i podać sekwencję nazw manewrów (po przecinku); budowane jako `PolicySpec`/`SavedPolicy` `{ name: "scripted", sequence }`, obsługiwane w workerze i przy odtwarzaniu.
+- ✅ **Tymczasowe wzmocnienia w pickerze** — `CombatantPicker` pozwala dodać ad-hoc buffy na czas symulacji (`createTempBuff`: obrażenia/ranga kości/krytyk/blok/parowanie/unik/pancerz/odporność/precyzja/refleks), wpinane jako `extraBuffProfiles` w `toCombatantSnapshot`. Obok istniejącego toggla profili postaci.
+- **Do zrobienia dalej (opcjonalne):** sprawdzanie `hardRequirements` manewrów przy dostępności (patrz wyżej — opcjonalne, nie teraz).
+- **Przegląd `public/data/rulebook/magia-i-zaklecia.json`** — jak modelować w silniku moce/zaklęcia (`Power`/`Spell`, koszt `SpellCost`, esencja, kości zaklęcia), obrażenia magiczne dystansowe = **blokowane**. Do rozpisania osobno.
+- **Przegląd `public/data/rulebook/zdrowie-i-regeneracja.json`** — leczenie (krótki/długi odpoczynek, poziom leczenia, medycyna, magiczne leczenie), urazy, zmęczenie, autoregeneracja mocy, efekty krytyczne. Sprawdzić, co z tego wpływa na pojedynczą walkę (raczej niewiele — leczenie w walce, DoT), a co to mechaniki poza-walkowe (pominąć w symulatorze walki 1v1).
+- Redukcja jako malejąca pula per runda + odporność na 6 źródeł (walka grupowa, v0.4).
+- Redukcja na obrażenia krytyczne (osobne pole/efekt).
+- Dynamiczna inicjatywa (manewry/postawy/stany, obalenie) — v0.4.
+
+---
+
 # Roadmapa wykonawcza
 
 Numeracja wersji zgodna z dokumentem. Każdy etap: co budujemy, konkretne pliki, na czym się opiera, kryteria "gotowe".
@@ -277,11 +445,13 @@ Twarde zależności: (1) **nic** nie ruszy bez Etapu 0; (2) każdy analizator za
 
 ## Otwarte pytania (do potwierdzenia przed startem)
 
+Reguły rozstrzygania obrażeń (niewrażliwość, odporność, redukcja, krytyki, przeżywalność/determinacja) **NIE są już otwarte** — rozstrzyga je podręcznik (patrz sekcja "Reguły walki z podręcznika"). Pozostaje:
+
 1. **Współistnienie z modułem `bestiary/battle`.** Czy Combat Lab ma pozostać w pełni odrębny, czy docelowo zasilać manualny tracker (np. import wyniku/statystyk)? Dokument sugeruje odrębność ("Nie jest to aplikacja do prowadzenia walki"), ale "Możliwe rozszerzenia" wspominają import postaci.
-2. **Stan `CombatState`: niemutowalny vs. mutowany lokalnie.** Niemutowalny = łatwiejszy debug i replay, ale wolniejszy przy 100k walk. Mutowany lokalnie w obrębie jednej symulacji + serializacja tylko logu = szybszy. Rekomendacja: mutacja lokalna, log jako jedyny trwały artefakt.
+2. **Redukcja jako malejąca pula per runda vs. per atak.** Podręcznik opisuje pulę malejącą między źródłami w rundzie. Czy modelować to od razu (istotne dla wielu źródeł/walki grupowej), czy zacząć od uproszczenia per-atak? Rekomendacja: uproszczenie na v0.1, pula w v0.4 (przy Scenario/walka grupowa).
 3. **Format modeli manewrów: YAML czy JSON w bazie?** Dokument pokazuje YAML jako *ilustrację*. W bazie i tak `Json` (Prisma). YAML sensowny tylko jako format importu/eksportu redakcyjnego. Potwierdzić, czy potrzebny import z YAML na starcie.
 4. **PDF — którą drogą?** Print-to-PDF trasy raportu (zero zależności) vs. dedykowany generator. Rekomendacja: zacząć od print-to-PDF, dodać generator tylko jeśli wymagane jest headless.
-5. **Zakres polityk AI w v0.1.** Ile polityk potrzeba na start, by wyniki balansu były wiarygodne? Rekomendacja: `greedyDamage` + `scripted` na v0.1; reszta w v0.3 (bo Meta/Combo bez zróżnicowanych polityk są mało wartościowe).
+5. **Zakres polityk AI w v0.1.** Ile polityk potrzeba na start, by wyniki balansu były wiarygodne? Rekomendacja: `greedyDamage` + `scripted` na v0.1; reszta w v0.3.
 6. **Prywatność wyników.** Czy `Simulation`/`SimulationResult` mają być per-`apiKeyHash` (jak presety), czy publiczne/współdzielone? Wpływa na model danych i endpointy.
 
 ---

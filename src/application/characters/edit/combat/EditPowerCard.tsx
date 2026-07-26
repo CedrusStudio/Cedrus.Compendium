@@ -23,6 +23,7 @@ import ImportedBadge from "@/common/components/labels/ImportedBadge";
 import RemovedBadge from '@/common/components/labels/RemovedBadge';
 import SummaryView from '@/application/common/SummaryView';
 import EditCharacterCombatPerkSheet from '@/application/characters/edit/combat/EditCharacterCombatPerkSheet';
+import EntityRequirementsWarning from '@/application/common/requirements/EntityRequirementsWarning';
 import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
 import { battleIcon, cooldownIcon, costIcon, importIcon } from '@/common/icons';
 import { Badge } from '@/common/components/ui/badge';
@@ -79,7 +80,7 @@ const cloneSpell = (spell: Spell): Spell =>
   name: spell.name,
   grade: spell.grade,
   description: spell.description,
-  requirements: [...spell.requirements],
+  structuredRequirements: [...(spell.structuredRequirements ?? [])],
   price: spell.price,
   tags: [...spell.tags],
   castTime: spell.castTime,
@@ -238,6 +239,7 @@ export default function EditPowerCard({ index, power, remove, isPending, isSucce
 
           <div className='flex flex-row items-center gap-3'>
             <h2 className='text-2xl font-semibold text-primary capitalize'>{displayedText.spells}</h2>
+            <EntityRequirementsWarning characterId={currentCharacterId} entities={spells} />
             <AppendToArrayButton append={appendSpell} isPending={isPending} toAdd={CreateDefaultSpell} />
 
             <ImportItemsSheet

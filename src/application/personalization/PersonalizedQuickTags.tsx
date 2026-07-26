@@ -36,6 +36,20 @@ export default function PersonalizedQuickTags({ context, mode = 'include', selec
     onSelectedTagsChange([...selectedTags, tag]);
   };
 
+  // Only touch this mode's quick tags — selectedTags may also hold tags added
+  // elsewhere (e.g. the main TagFilter), which "select/deselect all" here must not disturb.
+  const allSelected = quickTags.every(tag => selectedTags.includes(tag));
+
+  const selectAllQuickTags = () =>
+  {
+    onSelectedTagsChange([...selectedTags, ...quickTags.filter(tag => !selectedTags.includes(tag))]);
+  };
+
+  const deselectAllQuickTags = () =>
+  {
+    onSelectedTagsChange(selectedTags.filter(tag => !quickTags.includes(tag)));
+  };
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       <span className="text-xs uppercase tracking-wide text-muted-foreground">{label}</span>
@@ -51,6 +65,19 @@ export default function PersonalizedQuickTags({ context, mode = 'include', selec
             {tag}
           </Button>
         ))
+      }
+      {
+        quickTags.length > 1 && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="text-xs text-muted-foreground"
+            onClick={allSelected ? deselectAllQuickTags : selectAllQuickTags}
+          >
+            {allSelected ? 'Odznacz wszystkie' : 'Zaznacz wszystkie'}
+          </Button>
+        )
       }
     </div>
   );
