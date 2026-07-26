@@ -278,7 +278,9 @@ export default function StructuredRequirementsManager()
       </div>
 
       <Sheet open={Boolean(editing)} onOpenChange={(open) => { if (!open) setEditing(null); }}>
-        <SheetContent className="w-full sm:max-w-md">
+        {/* Wide enough for the alternative editor: each option row carries two
+            selects, a number and a remove button, which overflowed max-w-md. */}
+        <SheetContent className="w-full overflow-hidden sm:max-w-2xl">
           {editing && <EditForm key={`${entity}:${formatRequirement(editing)}`} entity={entity} original={editing} onClose={() => setEditing(null)} />}
         </SheetContent>
       </Sheet>
@@ -318,14 +320,34 @@ function EditForm({ entity, original, onClose }: { entity: RequirementEntityType
   const form = useForm<{ requirements: Requirement[] }>({ defaultValues: { requirements: [original] } });
   const { fields, append, remove } = useFieldArray({ control: form.control, name: "requirements" as never });
 
+  /**
+   * "Dodaj kolejne wymaganie" seeds an empty free-text row. Leaving it blank and
+   * saving used to fail validation server-side with nothing on screen to explain
+   * it, so a row the editor never filled in is simply dropped.
+   */
+  const submittedRequirements = (): Requirement[] =>
+    form.getValues("requirements").filter((requirement) => requirement.kind !== "rankless" || requirement.text.trim() !== "");
+
   const mutation = useMutation({
-    mutationFn: () => requirementsManagementClient.editStructuredRequirement({
-      entity,
-      original,
-      replacements: form.getValues("requirements"),
-    }),
+    mutationFn: () => {
+      const replacements = submittedRequirements();
+      if (replacements.length === 0)
+      {
+        // Replacing a requirement with nothing is what the delete action is for.
+        throw new Error("Uzupelnij przynajmniej jedno wymaganie albo uzyj usuwania.");
+      }
+
+      return requirementsManagementClient.editStructuredRequirement({ entity, original, replacements });
+    },
     onSuccess: async () => { await invalidate(); onClose(); },
   });
+
+  // Without this the save could fail (a rejected payload, a network error) and
+  // the sheet just sat there doing nothing, with no way to tell what happened.
+  const error = mutation.error
+    ? (mutation.error as { response?: { data?: { message?: string } }; message?: string })
+    : undefined;
+  const errorMessage = error?.response?.data?.message ?? error?.message;
 
   return (
     <>
@@ -338,23 +360,34 @@ function EditForm({ entity, original, onClose }: { entity: RequirementEntityType
       </SheetHeader>
 
       <Form {...form}>
-        <form className="flex flex-1 flex-col gap-4 overflow-y-auto px-4" onSubmit={(event) => { event.preventDefault(); mutation.mutate(); }}>
-          {fields.map((field, index) => (
-            <RequirementPicker
-              key={field.id}
-              name={`requirements.${index}`}
-              // The last remaining entry cannot be removed: replacing a
-              // requirement with nothing is what the delete action is for.
-              onRemove={fields.length > 1 ? () => remove(index) : undefined}
-            />
-          ))}
+        {/* The footer sits OUTSIDE the scrolling area: with two alternative
+            options the form grew past the viewport and „Zapisz" ended up
+            unreachable below the fold. */}
+        <form className="flex min-h-0 flex-1 flex-col" onSubmit={(event) => { event.preventDefault(); mutation.mutate(); }}>
+          <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4">
+            {fields.map((field, index) => (
+              <RequirementPicker
+                key={field.id}
+                name={`requirements.${index}`}
+                // The last remaining entry cannot be removed: replacing a
+                // requirement with nothing is what the delete action is for.
+                onRemove={fields.length > 1 ? () => remove(index) : undefined}
+              />
+            ))}
 
-          <Button type="button" variant="outline" size="sm" className="self-start" onClick={() => append({ kind: "rankless", text: "" } as never)}>
-            Dodaj kolejne wymaganie (i)
-          </Button>
+            <Button type="button" variant="outline" size="sm" className="self-start" onClick={() => append({ kind: "rankless", text: "" } as never)}>
+              Dodaj kolejne wymaganie (i)
+            </Button>
+          </div>
 
-          <SheetFooter className="px-0 pb-0">
-            <Button type="submit" disabled={mutation.isPending}>Zapisz</Button>
+          {errorMessage && (
+            <p className="px-4 pt-2 text-sm text-destructive">Nie udalo sie zapisac: {errorMessage}</p>
+          )}
+
+          <SheetFooter className="border-t px-4">
+            <Button type="submit" disabled={mutation.isPending}>
+              {mutation.isPending ? "Zapisywanie…" : "Zapisz"}
+            </Button>
             <Button type="button" variant="outline" onClick={onClose}>Anuluj</Button>
           </SheetFooter>
         </form>

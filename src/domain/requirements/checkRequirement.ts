@@ -265,12 +265,34 @@ function derivedValue(character: Character, key: string): number | undefined
     return character.offenses.some((offense) => offense.secondaryWeapon !== undefined) ? 1 : 0;
   }
 
+  if (key === "weaponDiceGrade")
+  {
+    return highest(weaponDice(character).map((dice) => dice.grade));
+  }
+
+  if (key === "phantomDamage")
+  {
+    return weaponDice(character).some((dice) => dice.isPhantom) ? 1 : 0;
+  }
+
   return undefined;
 }
 
 function highest(values: readonly number[]): number | undefined
 {
   return values.length > 0 ? Math.max(...values) : undefined;
+}
+
+/**
+ * Every damage die across the character's offences — both weapons and both
+ * damage bonuses, since a phantom die or a high rank can sit on any of them.
+ */
+function weaponDice(character: Character): readonly { grade: number; isPhantom: boolean }[]
+{
+  return character.offenses.flatMap((offense) =>
+    [offense.leadingWeapon, offense.secondaryWeapon, offense.damageBonus, offense.additionalDamageBonus]
+      .filter((dice) => dice !== undefined)
+      .map((dice) => ({ grade: dice.grade, isPhantom: dice.isPhantom })));
 }
 
 function checkDerivedRequirement(requirement: RankedRequirement, character: Character): boolean
@@ -305,21 +327,28 @@ function checkEquipmentRequirement(requirement: RankedRequirement, character: Ch
     return best >= requirement.value;
   }
 
-  if (target.slot === "armors")
-  {
-    const best = character.equipment.armors
-      .reduce((highest, armor) => Math.max(highest, tagTier(armor.tags, target.tiers ?? [])), 0);
-    return best >= requirement.value;
-  }
-
   // Some weapon categories are identified by `style` (Dwuręczny) rather than a tag.
   if (target.style)
   {
     return character.equipment.weapons.some((weapon) => weapon.style === target.style);
   }
 
+  // …and a few only by name, because no tag isolates them.
+  if (target.nameFragment)
+  {
+    const fragment = normalizeRequirementText(target.nameFragment);
+    return character.equipment.weapons.some((weapon) => normalizeRequirementText(weapon.name).includes(fragment));
+  }
+
+  // Plain membership: owning one item carrying the tag is enough. Armour weights
+  // live here rather than on a scale — „lekka zbroja" means light armour, not
+  // "light or better".
+  const items: readonly { tags: string[] }[] = target.slot === "armors"
+    ? character.equipment.armors
+    : character.equipment.weapons;
+
   const tag = normalizeRequirementText(target.tag ?? "");
-  return character.equipment.weapons.some((weapon) => weapon.tags.some((itemTag) => normalizeRequirementText(itemTag) === tag));
+  return items.some((item) => item.tags.some((itemTag) => normalizeRequirementText(itemTag) === tag));
 }
 
 /** 1-based tier of a shield, from the ordered `block` upper bounds. */

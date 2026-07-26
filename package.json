@@ -16,6 +16,8 @@
     "backfill-power-types": "tsx scripts/backfill-power-types.ts",
     "audit-legacy-requirements": "tsx scripts/audit-legacy-requirements.ts",
     "diag-requirements": "tsx scripts/diag-requirements.ts",
+    "extract-replaces": "tsx scripts/extract-replaces.ts",
+    "extract-replaces:apply": "tsx scripts/extract-replaces.ts --apply",
     "backfill-requirements": "tsx scripts/backfill-requirements-to-structured.ts",
     "backfill-requirements:apply": "tsx scripts/backfill-requirements-to-structured.ts --apply",
     "auto-map-requirements": "tsx scripts/auto-map-requirements.ts",

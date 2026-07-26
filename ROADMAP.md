@@ -595,7 +595,77 @@ Marek przejrzał realne propozycje matchera i wyszły cztery błędy, wszystkie 
 
 Dodatkowo **„dwa miecze" to styl walki, nie dwa miecze** (Marek): nowa wartość pochodna `dualWield` — spełniona, gdy któraś ofensywa ma `secondaryWeapon`. To samo dla „wymagana broń w obu rękach". Kategorie broni rozpoznają też `style` (`Dwuręczny`/`Jednoręczny`), nie tylko tagi.
 
-**Skuteczność: 1347/1413 wystąpień (95%).** Spadek z 1353 jest zamierzony — to sugestie, które wcześniej były po prostu błędne.
+**Skuteczność: 1342/1413 wystąpień (95%).** Spadek z 1353 jest zamierzony — to sugestie, które wcześniej były po prostu błędne.
+
+### 8.5 Druga runda przeglądu — semantyka sprzętu — **ZROBIONE**
+
+Marek doprecyzował mechanikę po obejrzeniu poprawionych propozycji:
+
+1. **Zbroje to DOKŁADNE kategorie, nie próg.** „lekka zbroja" znaczy lekka — ciężka jej nie spełnia. Trzy osobne cele (`armor.lekka`, `armor.średnia`, `armor.ciężka`) zamiast jednej skali; „lekka lub średnia zbroja" zapisuje się jako alternatywa tych dwóch. **Tarcze zostają progiem** — każdy ich tekst mówi wprost „co najmniej", a Marek potwierdził, że „co najmniej średnia" to średnia albo duża albo pawęż.
+2. **„walka dwiema broniami ≥ 1" to bezsens** — to własność zero-jedynkowa. `DERIVED_TARGETS` dostały flagę `boolean`, więc etykieta brzmi po prostu „walka dwiema broniami".
+3. **„broń krótkodystansowa" ≠ „broń krótka".** Błędne mapowanie usunięte. Decyzja Marka: to osobny rodzaj broni → nowa kategoria `weapon.krótkodystansowe` z tagiem `krótkodystansowe`. **Żadna broń nie ma jeszcze tego tagu** — otagowanie biblioteki to zadanie na danych; do tego czasu wymaganie po prostu nikogo nie spełnia, zamiast dopasowywać się do czegoś niewłaściwego.
+
+### 8.6 „Zastępuje X" jako relacja, nie wymaganie — **ZROBIONE**
+
+Sprawdzenie danych rozstrzygnęło sprawę: **wszystkie sześć tekstów wskazuje na realne Manewry** — Antyzapał, Młyniec, Zbicie Ciosu, Zapał Wojownika, Zakuty W Stal, Finta. To nigdy nie było wymaganie: nie mówi nic o postaci, tylko że dana encja zastępuje inną.
+
+- **Prisma:** `replaces String[]` na 5 modelach (Perk/Spell/Maneuver/Stance/State). **Wymaga `npx prisma db push` + `npx prisma generate`.**
+- **Domena:** `Perk.replaces?: string[]` (spływa do Manewru, Postawy, Stanu, Zaklęcia); `perkMapping.toPerk` czyta defensywnie, tak jak `structuredRequirements`; `perkSchema` dostał opcjonalne pole.
+- **Parsowanie:** czysty `replacedEntityName` w `src/domain/characters/replaces.ts` (z testami), żeby skrypt nie był jedynym miejscem z tą regułą.
+- **Skrypt:** `npm run extract-replaces` / `:apply` — przenosi wpisy z `structuredRequirements` do `replaces` przez `findRaw` + `$runCommandRaw`, więc **nie zależy od zregenerowanego klienta Prismy**.
+- **UI:** `ReplacesView` na karcie encji w Kompendium, wizualnie oddzielony od wymagań — zastąpienie to informacja, nie warunek, którego można nie spełnić.
+
+**Kolejność u Marka:** `npx prisma db push` → `npx prisma generate` → `npm run backup-mongodb` → `npm run extract-replaces` (dry run) → `npm run extract-replaces:apply`.
+
+### 8.7 Naprawa arkusza edycji w adminie — **ZROBIONE**
+
+Zgłoszenie: przy edycji „lekka lub średnia zbroja" na alternatywę dwóch zbroi przycisk „Zapisz" nie reagował.
+
+- **Przyczyna główna:** stopka z przyciskami była **wewnątrz** obszaru przewijanego. Formularz z dwiema opcjami alternatywy rósł poza wysokość okna i „Zapisz" lądował poniżej widocznego obszaru. Stopka jest teraz przypięta poza scrollem.
+- **Sheet był za wąski** (`sm:max-w-md`) na wiersz alternatywy — dwa selecty, liczba i przycisk usuwania. Poszerzony do `sm:max-w-2xl`.
+- **Żaden błąd zapisu nie był widoczny.** Mutacja nie miała `onError`, więc odrzucony payload albo błąd sieci wyglądały identycznie jak „nic się nie dzieje". Doszedł komunikat i stan „Zapisywanie…".
+- Walidacja payloadu sprawdzona osobno: alternatywa dwóch kategorii zbroi przechodzi `requirementSchema` — problem był wyłącznie w UI.
+
+Przy okazji zniknęło pytanie „po co tu 1": pole rangi pokazuje się **tylko tam, gdzie istnieje skala**. Dokładne kategorie sprzętu („lekka zbroja") i wartości zero-jedynkowe („walka dwiema broniami") nie mają już bezsensownego licznika, a przy tarczach etykieta brzmi „Rozmiar (min.)".
+
+**Druga runda — po odsłonięciu komunikatu okazało się, że to `400`.** Payload sprawdzony sondą przez `requirementSchema`: alternatywa dwóch kategorii zbroi przechodzi, więc winne były dwie inne rzeczy:
+
+1. **Pusty wiersz z „Dodaj kolejne wymaganie (i)".** Przycisk zasiewa pusty wpis tekstowy, a `ranklessRequirementSchema` wymaga niepustego tekstu — wystarczyło raz kliknąć i zapis przestawał działać. Wiersze, których edytor nie wypełnił, są teraz odrzucane przed wysyłką; gdy nie zostanie żadne wymaganie, pojawia się komunikat kierujący do akcji usuwania.
+2. **„Ilość (licznik)" w liście typów opcji alternatywy.** Odfiltrowałem `anyOf` i `sum`, ale nie `count` — wybranie go dawało `group: "count"`, co nie jest żadną grupą celu i leciało `400`. Warianty złożone nie mogą się zagnieżdżać (patrz `AnyOfOption`), więc `count` też zniknął z tej listy.
+
+Endpoint zwraca teraz **którą stronę** odrzucił (`original` czy `replacement`) i konkretne błędy zod ze ścieżkami, zamiast jednego „Invalid original or replacement requirement".
+
+**Ranga zapisana przed rzeczownikiem.** „Okrzyk 3 poziomu" nie mapował się, bo zabezpieczenie przed „Cios Tarczą 2" wymaga jawnego „ilość"/„liczba", a tu sygnałem jest ranga. `GRADE_QUALIFIER` rozpoznaje teraz obie kolejności — „na randze 3" i „3 poziomu" — a sam kwalifikator rangi wystarcza za sygnał licznika. „Cios Tarczą 2" nie ma takiego słowa, więc pozostaje wykluczone.
+
+### 8.8 Przegląd resztek — co da się zmapować, a co ma zostać tekstem — **ZROBIONE**
+
+Przejrzenie wszystkich pozostałych tekstów pod kątem istnienia odpowiadających encji dało cztery trafienia i jasne uzasadnienie dla reszty.
+
+**Zmapowane (decyzje Marka):**
+
+- **„okazyjny cios 1"** (2) — nie istnieje encja o tej nazwie, ale są `Okazyjny Atak` (Atut) i `Okazyjny Unik` (Manewr). Marek: chodzi o Atut → synonim.
+- **„możliwość krytycznego pudła"** (1) — Atut `Krytyczne Pudło` istnieje → synonim.
+- **„tylko w szarży"** (1) — Stan `Szarża` istnieje → synonim.
+- **„minimalna ranga kości broni to 5"** i **„co najmniej jedna widmowa kość obrażeń"** (po 1) — nowe wartości pochodne `weaponDiceGrade` i `phantomDamage`, liczone ze **wszystkich** kości w ofensywach (obie bronie i oba bonusy do obrażeń), bo widmowa kość albo wysoka ranga może siedzieć na każdej z nich.
+
+**Zostaje tekstem — świadomie:**
+
+- **Negacje** (3): „brak gardy fechmistrza", „brak tajnej gardy", „walka bronią inną niż kopia". Wszystkie wskazują na realne encje, więc operator NIE byłby wykonalny — Marek zdecydował, że trzy wystąpienia nie uzasadniają piątego wariantu w modelu. Źle zrobiona negacja cicho odwraca sens wymagania, a w filtrze Mongo wymagałaby osobnej gałęzi.
+- **Warunki o przeciwniku lub sytuacji**: „przeciwnicy muszą mieć możliwość otrzymania krytycznego pudła", „broń z możliwością pchnięć i z głownią". Wymagania opisują postać, nie scenę ani przeciwnika.
+- **Porównanie dwóch wartości**: „większa ranga kości obrażeń od kości broni" — model porównuje wartość z liczbą, nie wartość z wartością.
+- **Klasa i status**: „klasa rycerz", „klasa wojmistrz", „półepickość", „samiec alfa" — brak odpowiadających encji w bazie i brak pojęcia klasy w modelu postaci.
+- **Koniunkcja dwóch klauzul**: „dwa manewry na inicjatywę i dwa manewry na fechtunek" — rozbijane ręcznie w adminie na dwa liczniki (8.3).
+- **„rękawica na drugiej ręce"** — model zna listę posiadanych broni, ale nie to, która jest w której ręce.
+
+**Skuteczność końcowa: 1360/1413 wystąpień (96%), 0 kolizji.** Pozostałe 53 wystąpienia to rzeczy, których zamapowanie wymagałoby albo zmiany modelu postaci, albo zgadywania.
+
+**Trzecia runda — i dopiero szczegółowy komunikat (`0.options.0.targetKey: Wybierz cel wymagania`) pokazał sedno.** Selecty celu miały wartość z fallbackiem na pierwszą pozycję listy:
+
+```tsx
+value={option.targetKey || EQUIPMENT_TARGETS[0]?.key}   // ŹLE
+```
+
+Czyli **select wyświetlał wartość, której nie miał w stanie**. A Radix nie wywołuje `onValueChange`, gdy klikniesz pozycję już zaznaczoną — więc kliknięcie „lekka zbroja" było ignorowane, `targetKey` zostawał pusty, a zapis leciał `400`. Fallback usunięty ze wszystkich selectów celu (sprzęt, wartości pochodne, Moc/Więź) na rzecz `placeholder="wybierz"`, więc pusty cel wygląda jak pusty i klikniecie realnie go ustawia.
 
 ---
 

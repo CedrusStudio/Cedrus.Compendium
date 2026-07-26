@@ -13,6 +13,13 @@ export type Perk = Entity &
    * have none. Flows to Maneuver, Mode (stance/state) and Spell, which extend Perk.
    */
   structuredRequirements?: Requirement[];
+  /**
+   * Names of entities this one REPLACES (ROADMAP 8.6). The library authored
+   * these as requirement texts ("Zastępuje Młyniec"), but a replacement is a
+   * relation between entities, not a condition on the character — it never
+   * belonged among requirements. Optional; absent on records that replace nothing.
+   */
+  replaces?: string[];
   price: number;
   tags: Tag[];
 };

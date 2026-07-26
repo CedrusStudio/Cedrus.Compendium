@@ -359,13 +359,14 @@ describe("checkRequirement", () => {
   });
 
   describe("equipment — category, not a named item", () => {
-    it("treats armour weight as an ordered scale", () => {
+    it("treats each armour weight as an exact category, not a scale", () => {
       const character = baseCharacter();
       character.equipment.armors = [{ ...character.equipment.armors[0]!, tags: ["średnie"] }];
 
-      // "co najmniej średnia zbroja" is tier 2; heavy would also pass, light would not.
-      expect(checkRequirement({ kind: "ranked", group: "equipment", targetKey: "armor", value: 2 }, character)).toBe(true);
-      expect(checkRequirement({ kind: "ranked", group: "equipment", targetKey: "armor", value: 3 }, character)).toBe(false);
+      expect(checkRequirement({ kind: "ranked", group: "equipment", targetKey: "armor.średnia", value: 1 }, character)).toBe(true);
+      // Heavier armour does NOT satisfy a light-armour requirement.
+      expect(checkRequirement({ kind: "ranked", group: "equipment", targetKey: "armor.lekka", value: 1 }, character)).toBe(false);
+      expect(checkRequirement({ kind: "ranked", group: "equipment", targetKey: "armor.ciężka", value: 1 }, character)).toBe(false);
     });
 
     it("scales shields by `block`, because their tags are empty", () => {

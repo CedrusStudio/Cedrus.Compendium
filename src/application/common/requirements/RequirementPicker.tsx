@@ -148,8 +148,12 @@ function RankedFields({ name, requirement }: { name: string; requirement: Ranked
             render={({ field }) => {
               const targets = isDerivedGroup(requirement.group) ? DERIVED_TARGETS : EQUIPMENT_TARGETS;
               return (
-                <Select value={field.value ?? targets[0]?.key} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-44"><SelectValue /></SelectTrigger>
+                // The value must NOT fall back to the first target for display:
+                // Radix skips `onValueChange` when you pick what is already
+                // selected, so the picker showed „lekka zbroja" while the stored
+                // targetKey stayed empty and the save was rejected.
+                <Select value={field.value || ""} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-44"><SelectValue placeholder="wybierz" /></SelectTrigger>
                   <SelectContent>
                     {targets.map((target) => <SelectItem key={target.key} value={target.key}>{target.label}</SelectItem>)}
                   </SelectContent>
@@ -162,7 +166,7 @@ function RankedFields({ name, requirement }: { name: string; requirement: Ranked
             control={control}
             name={`${name}.targetKey`}
             render={({ field }) => (
-              <Select value={field.value ?? "moc"} onValueChange={field.onChange}>
+              <Select value={field.value || ""} onValueChange={field.onChange}>
                 <SelectTrigger className="w-44"><SelectValue placeholder="wybierz" /></SelectTrigger>
                 <SelectContent>
                   {POWER_TYPE_ITEMS.map((item) => <SelectItem key={item.key} value={item.key}>{item.label}</SelectItem>)}
@@ -181,23 +185,49 @@ function RankedFields({ name, requirement }: { name: string; requirement: Ranked
         )}
       </div>
 
-      <div className="flex flex-col gap-1">
-        <Label className="text-xs text-muted-foreground">Ranga (min.)</Label>
-        <Controller
-          control={control}
-          name={`${name}.value`}
-          render={({ field }) => (
-            <Input
-              type="number"
-              className="w-20 text-center"
-              value={field.value ?? 0}
-              onChange={(e) => field.onChange(e.target.value === "" ? 0 : Number(e.target.value))}
-            />
-          )}
-        />
-      </div>
+      {/* A rank only means something where there IS a scale. „Lekka zbroja" and
+          „walka dwiema broniami" are yes/no, so the input was pure noise. */}
+      {hasRank(requirement) && (
+        <div className="flex flex-col gap-1">
+          <Label className="text-xs text-muted-foreground">{rankLabel(requirement)}</Label>
+          <Controller
+            control={control}
+            name={`${name}.value`}
+            render={({ field }) => (
+              <Input
+                type="number"
+                className="w-20 text-center"
+                value={field.value ?? 0}
+                onChange={(e) => field.onChange(e.target.value === "" ? 0 : Number(e.target.value))}
+              />
+            )}
+          />
+        </div>
+      )}
     </>
   );
+}
+
+/** Does this target sit on a scale, or is it a plain yes/no? */
+function hasRank(requirement: RankedRequirement): boolean
+{
+  if (isEquipmentGroup(requirement.group))
+  {
+    const target = EQUIPMENT_TARGETS.find((entry) => entry.key === requirement.targetKey);
+    return Boolean(target?.tierLabels);
+  }
+
+  if (isDerivedGroup(requirement.group))
+  {
+    return !DERIVED_TARGETS.find((entry) => entry.key === requirement.targetKey)?.boolean;
+  }
+
+  return true;
+}
+
+function rankLabel(requirement: RankedRequirement): string
+{
+  return isEquipmentGroup(requirement.group) ? "Rozmiar (min.)" : "Ranga (min.)";
 }
 
 /**
@@ -239,8 +269,12 @@ function AnyOfFields({ options, onChange }: { options: AnyOfOption[]; onChange: 
               {/* Free text is offered because the library really writes
                   "Lekka lub średnia zbroja" — neither side is a structured
                   target. Nested composites are not: see `AnyOfOption`. */}
+              {/* Composite variants cannot nest inside an alternative — see
+                  `AnyOfOption`. „count" was still listed here by mistake and
+                  picking it produced `group: "count"`, which is not a target
+                  group at all and was rejected on save. */}
               {REQUIREMENT_TYPE_ORDER
-                .filter((type) => type !== "anyOf" && type !== "sum")
+                .filter((type) => type !== "anyOf" && type !== "sum" && type !== "count")
                 .map((type) => <SelectItem key={type} value={type}>{REQUIREMENT_TYPE_LABELS[type]}</SelectItem>)}
             </SelectContent>
           </Select>
@@ -264,17 +298,24 @@ function AnyOfFields({ options, onChange }: { options: AnyOfOption[]; onChange: 
                   </SelectContent>
                 </Select>
               ) : isPowerGroup(option.group) ? (
-                <Select value={option.targetKey || "moc"} onValueChange={(targetKey) => replace(index, { ...option, targetKey })}>
-                  <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+                <Select value={option.targetKey} onValueChange={(targetKey) => replace(index, { ...option, targetKey })}>
+                  <SelectTrigger className="w-40"><SelectValue placeholder="wybierz" /></SelectTrigger>
                   <SelectContent>
                     {POWER_TYPE_ITEMS.map((item) => <SelectItem key={item.key} value={item.key}>{item.label}</SelectItem>)}
                   </SelectContent>
                 </Select>
-              ) : isDerivedGroup(option.group) ? (
-                <Select value={option.targetKey || DERIVED_TARGETS[0]?.key} onValueChange={(targetKey) => replace(index, { ...option, targetKey })}>
-                  <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+              ) : isDerivedGroup(option.group) || isEquipmentGroup(option.group) ? (
+                // Equipment used to fall through to the entity combobox below,
+                // which showed the raw key („armor.lekka") as if it were a name.
+                // The value must also NOT fall back to the first target: Radix
+                // skips `onValueChange` for an already-selected item, so the row
+                // displayed a target it had never actually stored, and the save
+                // was rejected for an empty `targetKey`.
+                <Select value={option.targetKey} onValueChange={(targetKey) => replace(index, { ...option, targetKey })}>
+                  <SelectTrigger className="w-40"><SelectValue placeholder="wybierz" /></SelectTrigger>
                   <SelectContent>
-                    {DERIVED_TARGETS.map((target) => <SelectItem key={target.key} value={target.key}>{target.label}</SelectItem>)}
+                    {(isDerivedGroup(option.group) ? DERIVED_TARGETS : EQUIPMENT_TARGETS)
+                      .map((target) => <SelectItem key={target.key} value={target.key}>{target.label}</SelectItem>)}
                   </SelectContent>
                 </Select>
               ) : (
@@ -285,12 +326,14 @@ function AnyOfFields({ options, onChange }: { options: AnyOfOption[]; onChange: 
                 />
               )}
 
-              <Input
-                type="number"
-                className="w-20 text-center"
-                value={option.value}
-                onChange={(e) => replace(index, { ...option, value: e.target.value === "" ? 0 : Number(e.target.value) })}
-              />
+              {hasRank(option) && (
+                <Input
+                  type="number"
+                  className="w-20 text-center"
+                  value={option.value}
+                  onChange={(e) => replace(index, { ...option, value: e.target.value === "" ? 0 : Number(e.target.value) })}
+                />
+              )}
             </>
           )}
 

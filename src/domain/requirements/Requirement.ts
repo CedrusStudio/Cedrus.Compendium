@@ -47,8 +47,11 @@ export type PowerRequirementGroup = "powers";
  */
 export type DerivedRequirementGroup = "derived";
 
-/** Computed targets, with the Polish label the rest of the app already uses. */
-export const DERIVED_TARGETS: readonly { key: string; label: string }[] = [
+/**
+ * Computed targets, with the Polish label the rest of the app already uses.
+ * `boolean` marks a yes/no property — printing „≥ 1" next to it says nothing.
+ */
+export const DERIVED_TARGETS: readonly { key: string; label: string; boolean?: true }[] = [
   { key: "spellStrength", label: "siła zaklęcia" },
   { key: "dodge", label: "unikanie" },
   { key: "parry", label: "parowanie" },
@@ -56,7 +59,11 @@ export const DERIVED_TARGETS: readonly { key: string; label: string }[] = [
   { key: "toughness", label: "twardość" },
   // Fighting style, not a stat: satisfied when an offence carries a second
   // weapon. "Dwa miecze" and "wymagana broń w obu rękach" both mean this.
-  { key: "dualWield", label: "walka dwiema broniami" },
+  { key: "dualWield", label: "walka dwiema broniami", boolean: true },
+  // Weapon dice, read off the character's offences: „minimalna ranga kości broni
+  // to 5" and „co najmniej jedna widmowa kość obrażeń".
+  { key: "weaponDiceGrade", label: "ranga kości broni" },
+  { key: "phantomDamage", label: "widmowa kość obrażeń", boolean: true },
 ];
 
 /**
@@ -96,14 +103,22 @@ export type EquipmentTarget = {
   tierLabels?: readonly string[];
   /** Weapon `style` that identifies the category, instead of a tag. */
   style?: string;
+  /**
+   * Weapon name fragment, for kinds the library names but does not tag —
+   * „kopia" and „szpony" are weapon types with no tag of their own.
+   */
+  nameFragment?: string;
 };
 
 export const EQUIPMENT_TARGETS: readonly EquipmentTarget[] = [
-  {
-    key: "armor", label: "zbroja", slot: "armors",
-    tiers: ["lekkie", "średnie", "ciężkie"],
-    tierLabels: ["lekka", "średnia", "ciężka"],
-  },
+  // Armour weights are EXACT categories, not a scale (Marek 2026-07-25): „lekka
+  // zbroja" means light armour specifically, and heavy does not satisfy it.
+  // „Lekka lub średnia zbroja" is expressed as an alternative of two of these.
+  { key: "armor.lekka", label: "lekka zbroja", slot: "armors", tag: "lekkie" },
+  { key: "armor.średnia", label: "średnia zbroja", slot: "armors", tag: "średnie" },
+  { key: "armor.ciężka", label: "ciężka zbroja", slot: "armors", tag: "ciężkie" },
+  // Shields ARE a threshold: „co najmniej średnia tarcza" means średnia, duża or
+  // pawęż. Every requirement text for shields spells out „co najmniej".
   {
     key: "shield", label: "tarcza", slot: "shields",
     blockTiers: [5, 7, 9, 11],
@@ -111,6 +126,10 @@ export const EQUIPMENT_TARGETS: readonly EquipmentTarget[] = [
   },
   { key: "weapon.dwuręczna", label: "broń dwuręczna", slot: "weapons", style: "Dwuręczny" },
   { key: "weapon.jednoręczna", label: "broń jednoręczna", slot: "weapons", style: "Jednoręczny" },
+  // Named weapon kinds: the library asks for them by name and no tag isolates
+  // them ("Kopia" is tagged kłute+drzewcowe like several other polearms).
+  { key: "weapon.kopia", label: "kopia", slot: "weapons", nameFragment: "kopia" },
+  { key: "weapon.szpony", label: "szpony", slot: "weapons", nameFragment: "szpony" },
   { key: "weapon.miecze", label: "miecz", slot: "weapons", tag: "miecze" },
   { key: "weapon.topory", label: "topór", slot: "weapons", tag: "topory" },
   { key: "weapon.obuchowe", label: "broń obuchowa", slot: "weapons", tag: "obuchowe" },
@@ -120,6 +139,10 @@ export const EQUIPMENT_TARGETS: readonly EquipmentTarget[] = [
   { key: "weapon.krótkie", label: "broń krótka", slot: "weapons", tag: "krótkie" },
   { key: "weapon.puginały", label: "puginał", slot: "weapons", tag: "puginały" },
   { key: "weapon.dystansowe", label: "broń dystansowa", slot: "weapons", tag: "dystansowe" },
+  // New category (Marek 2026-07-25). No weapon carries this tag yet — tagging
+  // the library is a data task, and until it happens the requirement simply
+  // matches nothing rather than matching the wrong thing.
+  { key: "weapon.krótkodystansowe", label: "broń krótkodystansowa", slot: "weapons", tag: "krótkodystansowe" },
   { key: "weapon.łuki", label: "łuk", slot: "weapons", tag: "łuki" },
   { key: "weapon.kusze", label: "kusza", slot: "weapons", tag: "kusze" },
   { key: "weapon.miotane", label: "broń miotana", slot: "weapons", tag: "miotane" },

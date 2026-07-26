@@ -156,6 +156,39 @@ describe("suggestRequirementMapping", () => {
       expect(suggestRequirementMapping("ciche poruszanie 2", { talents: ["skradanie"] }))
         .toEqual({ kind: "ranked", group: "talents", targetKey: "skradanie", value: 2 });
     });
+
+    it("resolves wording that names an entity indirectly", () => {
+      // No entity is called "Okazyjny Cios"; Marek confirmed it means the Atut.
+      const library = { perks: ["Okazyjny Atak", "Krytyczne Pudło"], states: ["Szarża"] };
+
+      expect(suggestRequirementMapping("okazyjny cios 1", library))
+        .toEqual({ kind: "ranked", group: "perks", targetKey: "Okazyjny Atak", value: 1 });
+      expect(suggestRequirementMapping("możliwość krytycznego pudła", library))
+        .toEqual({ kind: "ranked", group: "perks", targetKey: "Krytyczne Pudło", value: 1 });
+      expect(suggestRequirementMapping("tylko w szarży", library))
+        .toEqual({ kind: "ranked", group: "states", targetKey: "Szarża", value: 1 });
+    });
+  });
+
+  describe("weapon dice as derived values", () => {
+    it("reads the minimum weapon die rank", () => {
+      expect(suggestRequirementMapping("minimalna ranga kości broni to 5"))
+        .toEqual({ kind: "ranked", group: "derived", targetKey: "weaponDiceGrade", value: 5 });
+    });
+
+    it("reads the phantom damage die as a yes/no", () => {
+      expect(suggestRequirementMapping("co najmniej jedna widmowa kość obrażeń"))
+        .toEqual({ kind: "ranked", group: "derived", targetKey: "phantomDamage", value: 1 });
+    });
+  });
+
+  describe("negations stay free text on purpose", () => {
+    it("never turns „brak X\" into a requirement for X", () => {
+      // Marek chose not to add a NOT operator for three occurrences — a badly
+      // built negation silently inverts the meaning of a requirement.
+      expect(suggestRequirementMapping("brak gardy fechmistrza", { maneuvers: ["Garda Fechmistrza"] })).toBeNull();
+      expect(suggestRequirementMapping("brak tajnej gardy", { maneuvers: ["Tajna Garda"] })).toBeNull();
+    });
   });
 
   describe("Moc / Więź", () => {
@@ -195,6 +228,13 @@ describe("suggestRequirementMapping", () => {
     it("reads „postawa na randze 3\" as one stance at rank 3, not three stances", () => {
       expect(suggestRequirementMapping("postawa na randze 3"))
         .toEqual({ kind: "count", groups: ["stances"], minGrade: 3, value: 1 });
+    });
+
+    it("reads the rank written before the noun — „okrzyk 3 poziomu\"", () => {
+      // The rank itself is the cue here: no „ilość"/„liczba" appears, but a
+      // rank qualifier means the number is a level, not a quantity.
+      expect(suggestRequirementMapping("okrzyk 3 poziomu"))
+        .toEqual({ kind: "count", groups: ["maneuvers"], tag: "okrzyki-bojowe", minGrade: 3, value: 1 });
     });
 
     it("reads a spelled-out number plus a tag adjective", () => {
@@ -255,9 +295,11 @@ describe("suggestRequirementMapping", () => {
   });
 
   describe("equipment phrases", () => {
-    it("reads armour weight as a tier", () => {
-      expect(suggestRequirementMapping("lekka zbroja")).toEqual({ kind: "ranked", group: "equipment", targetKey: "armor", value: 1 });
-      expect(suggestRequirementMapping("ciężka zbroja")).toEqual({ kind: "ranked", group: "equipment", targetKey: "armor", value: 3 });
+    it("reads each armour weight as its own exact category", () => {
+      // Marek: „lekka zbroja" means light armour specifically — heavy does not
+      // satisfy it — so weights are categories, not a threshold scale.
+      expect(suggestRequirementMapping("lekka zbroja")).toEqual({ kind: "ranked", group: "equipment", targetKey: "armor.lekka", value: 1 });
+      expect(suggestRequirementMapping("ciężka zbroja")).toEqual({ kind: "ranked", group: "equipment", targetKey: "armor.ciężka", value: 1 });
     });
 
     it("reads „co najmniej średnia tarcza\" as shield tier 3", () => {
@@ -267,6 +309,34 @@ describe("suggestRequirementMapping", () => {
 
     it("reads a plain weapon category", () => {
       expect(suggestRequirementMapping("miecz")).toEqual({ kind: "ranked", group: "equipment", targetKey: "weapon.miecze", value: 1 });
+    });
+
+    it("reads weapon kinds the library names but does not tag", () => {
+      // "Kopia" is tagged kłute+drzewcowe like other polearms, and the two
+      // „Szpony" weapons only share the generic `naręczne` tag — neither can be
+      // isolated by tag, so both are matched by name.
+      expect(suggestRequirementMapping("kopia")).toEqual({ kind: "ranked", group: "equipment", targetKey: "weapon.kopia", value: 1 });
+      expect(suggestRequirementMapping("szpony")).toEqual({ kind: "ranked", group: "equipment", targetKey: "weapon.szpony", value: 1 });
+    });
+
+    it("treats „lub podobna broń\" as GM latitude, not a second target", () => {
+      expect(suggestRequirementMapping("miecz lub podobna broń"))
+        .toEqual({ kind: "ranked", group: "equipment", targetKey: "weapon.miecze", value: 1 });
+    });
+  });
+
+  describe("a conjunction of two clauses is never reduced to one of them", () => {
+    it("refuses „dwa manewry na inicjatywę i dwa manewry na fechtunek\"", () => {
+      // The loose word match used to grab „fechtunek" and assert
+      // `attributes/fencing ≥ 1`, silently dropping the whole first half.
+      expect(suggestRequirementMapping("dwa manewry na inicjatywę i dwa manwery na fechtunek")).toBeNull();
+      expect(suggestRequirementMapping("ilość okrzyków 2 i okrzyk 3 poziomu")).toBeNull();
+    });
+
+    it("still reads one requirement that spans two groups", () => {
+      // One quantity, one requirement — the „i" joins group nouns, not clauses.
+      expect(suggestRequirementMapping("ilość postaw i manewrów fizycznych 3"))
+        .toEqual({ kind: "count", groups: ["maneuvers", "stances"], value: 3 });
     });
   });
 

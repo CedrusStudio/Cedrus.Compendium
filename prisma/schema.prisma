@@ -92,6 +92,10 @@ model Stance {
   // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
   // Sole requirements model after the legacy `requirements String[]` cutover.
   structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   tags         String[]
 
@@ -118,6 +122,10 @@ model State {
   // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
   // Sole requirements model after the legacy `requirements String[]` cutover.
   structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   tags         String[]
 
@@ -142,6 +150,10 @@ model Maneuver {
   // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
   // Sole requirements model after the legacy `requirements String[]` cutover.
   structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   castTime     String
   cooldown     Int?
@@ -172,6 +184,10 @@ model Perk {
   // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
   // Sole requirements model after the legacy `requirements String[]` cutover.
   structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   tags         String[]
 
@@ -191,6 +207,10 @@ model Spell {
   // Structured requirements (Requirement[] — see src/domain/requirements/Requirement.ts).
   // Sole requirements model after the legacy `requirements String[]` cutover.
   structuredRequirements Json?
+  // Names of entities this one REPLACES (ROADMAP 8.6). Was authored as a
+  // requirement text ("Zastępuje Młyniec"), which it never was — it is a
+  // relation between entities, not a condition on the character.
+  replaces     String[]
   price        Int
   castTime     String
   cooldown     Int?

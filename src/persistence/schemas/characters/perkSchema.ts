@@ -9,6 +9,8 @@ export const perkSchema = entitySchema.extend
   description: z.string().min(0).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
   // Structured requirements (sole model after the legacy `requirements` cutover).
   structuredRequirements: requirementsSchema.optional(),
+  // ROADMAP 8.6 — names of entities this one replaces. Not a requirement.
+  replaces: z.array(z.string()).optional(),
   price: z.coerce.number<number>().int().min(0, { message: "Cena musi mieć co najmniej 0." }).max(180, { message: "Cena musi być najwyżej 180." }),
   tags: tagsSchema
 });

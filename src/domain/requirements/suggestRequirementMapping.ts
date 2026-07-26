@@ -92,6 +92,10 @@ const DERIVED_PHRASES: readonly [phrase: string, key: string][] = [
   ["poziomu leczenia", "recoveryLevel"],
   ["twardość", "toughness"],
   ["twardosc", "toughness"],
+  ["minimalna ranga kości broni to", "weaponDiceGrade"],
+  ["ranga kości broni", "weaponDiceGrade"],
+  ["co najmniej jedna widmowa kość obrażeń", "phantomDamage"],
+  ["widmowa kość obrażeń", "phantomDamage"],
 ];
 
 /**
@@ -101,6 +105,13 @@ const DERIVED_PHRASES: readonly [phrase: string, key: string][] = [
 const REQUIREMENT_SYNONYMS: Readonly<Record<string, string>> = {
   // Marek: "ciche poruszanie" is how the books phrase the Talent "skradanie".
   "ciche poruszanie": "skradanie",
+  // No entity is called "Okazyjny Cios"; Marek confirmed it means the Atut.
+  "okazyjny cios": "okazyjny atak",
+  // The Atut that grants the possibility of a critical fumble.
+  "możliwość krytycznego pudła": "krytyczne pudło",
+  // The State a charging character is in.
+  "tylko w szarży": "szarża",
+  "w szarży": "szarża",
 };
 
 /** Texts that name magic generically — satisfied by either source of power. */
@@ -136,6 +147,17 @@ const COUNT_GROUP_WORDS: readonly [stem: string, group: EntityRequirementGroup][
  * `okrzyki-bojowe` (44), `girgeński` (10), `fechtunek` (93), `tarcze` (19),
  * `ofensywa` (120 perks).
  */
+/**
+ * Wording that grants the GM latitude rather than naming a second target.
+ * "Miecz lub podobna broń" is a sword requirement (Marek) — without stripping
+ * this, the „lub" makes it look like an alternative whose second half cannot be
+ * resolved, and the whole text is skipped.
+ */
+const LATITUDE_SUFFIXES: readonly RegExp[] = [
+  /\s+lub\s+podobn[aey]\s+broń\s*$/,
+  /\s+lub\s+podobn[aey]\s*$/,
+];
+
 /** Words that explicitly announce a count, letting a tag stand in for the group. */
 const COUNT_CUE_WORDS: readonly string[] = ["ilość", "ilosc", "liczba", "liczbę", "liczbe"];
 
@@ -152,8 +174,11 @@ const NEGATION_PATTERNS: readonly RegExp[] = [
   /\bnie\b/,
 ];
 
-/** "na randze 3" / "na poziomie co najmniej 2" — a floor on each counted entity. */
-const GRADE_QUALIFIER = /\bna\s+(?:randze|poziomie)\s+(?:co\s+najmniej\s+)?(-?\d+)/;
+/**
+ * A floor on each counted entity's own rank, in both orders the library uses:
+ * "na randze 3" / "na poziomie co najmniej 2", and "3 poziomu" / "2 rangi".
+ */
+const GRADE_QUALIFIER = /\bna\s+(?:randze|poziomie)\s+(?:co\s+najmniej\s+)?(-?\d+)|(-?\d+)\s+(?:poziomu|poziomie|rangi|randze)\b/;
 
 const COUNT_TAG_WORDS: readonly [word: string, tag: string, defaultGroup: EntityRequirementGroup][] = [
   ["widmow", "widmowy", "maneuvers"],
@@ -335,26 +360,31 @@ function suggestCount(normalized: string): CountRequirement | null
 
   const tagged = COUNT_TAG_WORDS.find(([word]) => words.some((entry) => entry.startsWith(word)));
 
+  // The rank qualifier ("na randze 3", "3 poziomu") is a floor on each counted
+  // entity, NOT the quantity. Extracted FIRST so the digit it owns cannot be
+  // mistaken for the count — that is how "pięć atutów ofensywnych na poziomie
+  // co najmniej 2" came out as "co najmniej 2 atuty" instead of five.
+  const gradeMatch = normalized.match(GRADE_QUALIFIER);
+  // Either alternative of the pattern can be the capturing one that fired.
+  const minGrade = gradeMatch ? Number.parseInt(gradeMatch[1] ?? gradeMatch[2]!, 10) : undefined;
+  const withoutGrade = gradeMatch ? normalized.replace(GRADE_QUALIFIER, " ") : normalized;
+
   // "Ilość okrzyków 2" names no group at all — the tag implies one, since
   // `okrzyki-bojowe` only ever appears on maneuvers. But that inference needs an
-  // explicit counting cue: without it, ANY text carrying a tag word and a number
-  // would become a count, and "Cios Tarczą 2" — a maneuver NAME — was read as
-  // "two shield maneuvers".
-  const hasCountCue = words.some((word) => COUNT_CUE_WORDS.some((cue) => word.startsWith(cue)));
+  // explicit cue: without one, ANY text carrying a tag word and a number would
+  // become a count, and "Cios Tarczą 2" — a maneuver NAME — was read as "two
+  // shield maneuvers".
+  //
+  // A rank qualifier counts as a cue too: "okrzyk 3 poziomu" states a rank, not
+  // a quantity, and „Cios Tarczą 2" has no such wording so it stays excluded.
+  const hasCountCue = words.some((word) => COUNT_CUE_WORDS.some((cue) => word.startsWith(cue)))
+    || minGrade !== undefined;
   const groups = named.length > 0 ? named : hasCountCue && tagged ? [tagged[2]] : [];
 
   if (groups.length === 0)
   {
     return null;
   }
-
-  // "na randze 3" / "na poziomie co najmniej 2" is a floor on each counted
-  // entity, NOT the count. Pulled out first so the digit it owns cannot be
-  // mistaken for the quantity — that is how "pięć atutów ofensywnych na poziomie
-  // co najmniej 2" came out as "co najmniej 2 atuty" instead of five.
-  const gradeMatch = normalized.match(GRADE_QUALIFIER);
-  const minGrade = gradeMatch ? Number.parseInt(gradeMatch[1]!, 10) : undefined;
-  const withoutGrade = gradeMatch ? normalized.replace(GRADE_QUALIFIER, " ") : normalized;
 
   const spelled = words.map((word) => NUMBER_WORDS[word]).find((entry) => entry !== undefined);
   const digits = extractRequirementValue(withoutGrade);
@@ -425,23 +455,30 @@ function suggestSum(normalized: string): SumRequirement | null
  *  - plain:  "miecz", "topór", "broń krótkodystansowa"    → category, tier 1.
  */
 /**
- * Tier words are per category, because the scales genuinely differ: armour runs
- * lekka(1) → średnia(2) → ciężka(3), while shields run
- * puklerz(1) → mała(2) → średnia(3) → duża(4) → pawęż(5). Sharing one list made
- * "co najmniej średnia tarcza" come out as tier 2 instead of 3.
+ * Tier words, only for categories that really are a scale. Shields are:
+ * puklerz(1) → mała(2) → średnia(3) → duża(4) → pawęż(5), and their texts always
+ * say „co najmniej". Armour weights are NOT here — Marek confirmed they are
+ * exact categories, so each weight is its own entry in `EQUIPMENT_TARGETS`.
  */
 const TIER_WORDS_BY_CATEGORY: Readonly<Record<string, readonly [word: string, tier: number][]>> = {
-  armor: [["lekk", 1], ["średni", 2], ["sredni", 2], ["ciężk", 3], ["ciezk", 3]],
   shield: [["puklerz", 1], ["mał", 2], ["mal", 2], ["średni", 3], ["sredni", 3], ["duż", 4], ["duz", 4], ["paweż", 5], ["pawez", 5]],
 };
 
 /** Category words → `EQUIPMENT_TARGETS` key. Longest phrases first. */
 const EQUIPMENT_CATEGORY_WORDS: readonly [phrase: string, key: string][] = [
-  ["zbroja", "armor"], ["zbroi", "armor"], ["zbroję", "armor"], ["pancerz", "armor"],
+  // Armour weights are separate exact categories, so the adjective is part of
+  // the phrase rather than a tier number.
+  ["lekka zbroja", "armor.lekka"], ["lekkiej zbroi", "armor.lekka"],
+  ["średnia zbroja", "armor.średnia"], ["średniej zbroi", "armor.średnia"],
+  ["ciężka zbroja", "armor.ciężka"], ["ciężkiej zbroi", "armor.ciężka"],
   ["tarcza", "shield"], ["tarczy", "shield"], ["tarczę", "shield"], ["puklerz", "shield"],
   ["broń dwuręczna", "weapon.dwuręczna"], ["broń dwureczna", "weapon.dwuręczna"],
   ["broń jednoręczna", "weapon.jednoręczna"],
-  ["broń krótkodystansowa", "weapon.krótkie"], ["broń krótka", "weapon.krótkie"],
+  ["broń krótkodystansowa", "weapon.krótkodystansowe"],
+  ["broń krótka", "weapon.krótkie"],
+  ["broń zadająca obrażenia kłute", "weapon.kłute"],
+  ["kopia", "weapon.kopia"], ["kopią", "weapon.kopia"],
+  ["szpony", "weapon.szpony"], ["szponami", "weapon.szpony"],
   ["broń dystansowa", "weapon.dystansowe"],
   ["broń obuchowa", "weapon.obuchowe"],
   ["broń drzewcowa", "weapon.drzewcowe"],
@@ -492,6 +529,29 @@ function winningTier(normalized: string, candidate: string, value: number, entit
  * 25 occurrences across the „lub" forms).
  */
 const ALTERNATIVE_SEPARATOR = /\s*\/\s*|\s+(?:lub|albo|bądź)\s+/;
+
+/**
+ * A conjunction joining two full clauses, each with its own quantity —
+ * "dwa manewry na inicjatywę i dwa manewry na fechtunek". The model has no
+ * single-requirement conjunction on purpose (the stored array already is one),
+ * so these must NOT be guessed: the loose word match used to grab „fechtunek"
+ * and quietly assert `attributes/fencing ≥ 1`, dropping the whole first half.
+ * The editor splits them into two entries by hand.
+ *
+ * "Ilość postaw i manewrów fizycznych 3" is deliberately NOT caught — one
+ * quantity, one requirement, two groups.
+ */
+function joinsTwoClauses(normalized: string): boolean
+{
+  if (!/\s+(?:i|oraz)\s+/.test(normalized))
+  {
+    return false;
+  }
+
+  const digits = normalized.match(/-?\d+/g)?.length ?? 0;
+  const spelled = normalized.split(/[\s,]+/).filter((word) => NUMBER_WORDS[word] !== undefined).length;
+  return digits + spelled >= 2;
+}
 
 /**
  * Reads a written-out alternative. Each side is resolved on its own; a side
@@ -549,14 +609,18 @@ export function suggestRequirementMappings(text: string, entityNames: EntityName
 {
   const empty: MappingSuggestion = { suggestion: null, candidates: [], ambiguous: false };
 
-  const normalized = normalizeRequirementText(text);
+  const normalized = LATITUDE_SUFFIXES
+    .reduce((value, suffix) => value.replace(suffix, ""), normalizeRequirementText(text))
+    .trim();
+
   if (normalized.length === 0)
   {
     return empty;
   }
 
-  // A negated or excluding text must never produce a positive requirement.
-  if (NEGATION_PATTERNS.some((pattern) => pattern.test(normalized)))
+  // A negated or excluding text must never produce a positive requirement, and
+  // a two-clause conjunction must not be reduced to one of its halves.
+  if (NEGATION_PATTERNS.some((pattern) => pattern.test(normalized)) || joinsTwoClauses(normalized))
   {
     return empty;
   }

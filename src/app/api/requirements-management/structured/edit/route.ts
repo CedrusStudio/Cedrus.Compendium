@@ -35,9 +35,19 @@ export async function POST(request: Request)
 
     const replacements = z.array(requirementSchema).min(1).safeParse(rawReplacements);
 
+    // Say WHICH side failed and why. The old catch-all message left the admin
+    // sheet with nothing actionable to show.
     if (!original.success || !replacements.success)
     {
-      return NextResponse.json({ message: 'Invalid original or replacement requirement' }, { status: 400 });
+      const failing = original.success ? replacements.error : original.error;
+      const side = original.success ? 'replacement' : 'original';
+      const details = failing!.issues
+        .map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
+        .join('; ');
+
+      console.error(`Invalid ${side} requirement`, JSON.stringify(original.success ? rawReplacements : body.original));
+
+      return NextResponse.json({ message: `Nieprawidłowe wymaganie (${side}) — ${details}` }, { status: 400 });
     }
 
     // @ts-expect-error Prisma does not type dynamic model access precisely.

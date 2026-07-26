@@ -18,7 +18,7 @@ export function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistence
 {
   // Structured requirements are read defensively — the generated Prisma type may
   // lag the schema, and records may omit the field entirely.
-  const extra = perkPersistenceModel as unknown as { structuredRequirements?: unknown };
+  const extra = perkPersistenceModel as unknown as { structuredRequirements?: unknown; replaces?: unknown };
 
   return {
     ...toEntity(perkPersistenceModel),
@@ -26,6 +26,7 @@ export function toPerk<TPerk extends Perk>(perkPersistenceModel: PerkPersistence
     grade: perkPersistenceModel.grade,
     description: perkPersistenceModel.description,
     ...(Array.isArray(extra.structuredRequirements) ? { structuredRequirements: extra.structuredRequirements as Requirement[] } : {}),
+    ...(Array.isArray(extra.replaces) ? { replaces: extra.replaces as string[] } : {}),
     price: perkPersistenceModel.price,
     tags: perkPersistenceModel.tags
   } as TPerk;

@@ -12,6 +12,7 @@ import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { SpellDto, spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
 import RequirementsView from "@/application/common/RequirementsView";
+import ReplacesView from "@/application/common/ReplacesView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -47,6 +48,8 @@ export default function SpellView({ spell, disableEdit = false, onDelete }: Spel
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={spell} />
       </div>
+
+      <ReplacesView entity={spell} />
 
       <OwnedByCharacters entity="spells" id={spell.id} />
 

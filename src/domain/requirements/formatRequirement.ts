@@ -86,9 +86,17 @@ export function formatRequirement(requirement: Requirement): string
     case "rankless":
       return requirement.text;
     case "ranked":
-      return isEquipmentGroup(requirement.group)
-        ? formatEquipment(requirement)
-        : `${requirementTargetLabel(requirement)} ≥ ${requirement.value}`;
+    {
+      if (isEquipmentGroup(requirement.group)) return formatEquipment(requirement);
+
+      // A yes/no property reads as itself; „walka dwiema broniami ≥ 1" is noise.
+      const derived = isDerivedGroup(requirement.group)
+        ? DERIVED_TARGETS.find((target) => target.key === requirement.targetKey)
+        : undefined;
+      if (derived?.boolean) return derived.label;
+
+      return `${requirementTargetLabel(requirement)} ≥ ${requirement.value}`;
+    }
     case "anyOf":
       return requirement.options.map(formatRequirement).join(" lub ");
     case "sum":

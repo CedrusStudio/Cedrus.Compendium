@@ -8,6 +8,7 @@ import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
 import RequirementsView from "@/application/common/RequirementsView";
+import ReplacesView from "@/application/common/ReplacesView";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -42,6 +43,8 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
       <div className="p-2 rounded-md w-full">
         <RequirementsView entityWithRequirements={state} />
       </div>
+
+      <ReplacesView entity={state} />
 
       <OwnedByCharacters entity="states" id={state.id} />
 
