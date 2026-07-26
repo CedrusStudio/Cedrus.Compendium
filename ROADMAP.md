@@ -667,6 +667,45 @@ value={option.targetKey || EQUIPMENT_TARGETS[0]?.key}   // ŹLE
 
 Czyli **select wyświetlał wartość, której nie miał w stanie**. A Radix nie wywołuje `onValueChange`, gdy klikniesz pozycję już zaznaczoną — więc kliknięcie „lekka zbroja" było ignorowane, `targetKey` zostawał pusty, a zapis leciał `400`. Fallback usunięty ze wszystkich selectów celu (sprzęt, wartości pochodne, Moc/Więź) na rzecz `placeholder="wybierz"`, więc pusty cel wygląda jak pusty i klikniecie realnie go ustawia.
 
+### 8.9 Edycja pola `replaces` — picker nazw zamiast martwego pola — `M` · ⭐⭐ — **ZROBIONE**
+
+Zgłoszenie Marka: `replaces` jest w bazie (8.6 przeniosło tam sześć wpisów typu „Zastępuje antyzapał"), jest w domenie, w schemacie i w `ReplacesView` — ale **w arkuszu edycji nie ma czym tego ustawić**. Pole da się dziś zmienić wyłącznie skryptem albo ręcznie w Mongo. Do tego zastąpienie to relacja **encja → encja**, więc wpisywanie nazwy z palca jest zaproszeniem do literówki; ma być picker.
+
+**Decyzje Marka (2026-07-26):**
+
+1. **Picker podpowiada tylko ten sam typ encji** — manewr manewry, postawa postawy, zaklęcie zaklęcia. Wszystkie sześć wpisów w bazie to manewry zastępujące manewry, a wariant „atut zastępuje manewr" nie występuje; gdy się pojawi, dołoży się przełącznik grupy.
+2. **Nazwa spoza listy jest dozwolona, ale oznaczona ostrzeżeniem** — trzeba móc wpisać zastąpienie encji, której jeszcze nie ma. Niedopasowana nazwa dostaje wizualny sygnał w edytorze, nie blokadę zapisu.
+3. **Pole tylko w edytorach Kompendium** — nie w `PerkEditableFields`, bo ten komponent jest współdzielony z arkuszami postaci, a prywatny manewr na karcie nie ma po co deklarować zastąpień.
+4. **Nazwa w `ReplacesView` staje się linkiem** do encji w Kompendium. Relacja odwrotna („Zastępowane przez") — poza zakresem.
+
+**Bez rangi.** Zastąpienie wskazuje na **nazwę**, nie na konkretny stopień — `Młyniec 1` i `Młyniec 3` to ta sama encja z punktu widzenia zastąpienia. Endpoint `/api/entity-names/[entity]` już grupuje po `name`, więc lista jest z natury grade-agnostyczna i nic tu nie trzeba dokładać.
+
+#### Co powstało
+
+- **`EntityNameCombobox` — dwa nowe, opcjonalne propy.** `unknownWarning` zapala bursztynowe obramowanie i ikonę ostrzeżenia, gdy wartość nie odpowiada żadnej nazwie z listy (z etykietą „Brak encji o tej nazwie w Kompendium"); ostrzeżenie **nie pojawia się w trakcie ładowania listy**, bo wtedy każda wartość wygląda na nieznaną. `excludeNames` usuwa nazwy z podpowiedzi — tędy wchodzi zakaz samoodniesienia. Wymagania nie włączają żadnego z nich; tam wolny tekst jest normą.
+- **`ReplacesListField`** (`src/application/common/replaces/ReplacesListField.tsx`) — wiersz = `EntityNameCombobox` + „✕", pod spodem „+ Dodaj zastąpienie", grupa **narzucona z góry** zamiast wybieranej w wierszu.
+  - **Bez `useFieldArray`.** Wartością jest tablica **stringów**, a field array RHF jest zaprojektowany pod obiekty (jego `fields` nie niosą wartości prymitywu). `useWatch` + `setValue` jest krótsze i przewidywalne.
+  - **Samoodniesienie** odcięte przez `excludeNames` z aktualnej wartości pola `name` w formularzu (`useWatch`), więc działa też w arkuszu dodawania, w trakcie pisania nazwy.
+- **Puste wiersze odsiewa `perkSchema`, nie edytor.** `replaces` dostało `.transform(trim + filter)`, więc pusty wpis zasiany przyciskiem „dodaj" znika przy zapisie — w **każdym** formularzu opartym o ten schemat (edycja, dodawanie, karta postaci). To dokładnie ta pułapka, która wysypała panel admina w 8.7, tylko rozwiązana raz zamiast w pięciu miejscach. Działa, bo `zodResolver` oddaje RHF-owi **wynik parsowania**, nie surowe wartości — na tym samym mechanizmie stoi dziś `z.coerce.number` przy randze i cenie.
+- **Osadzenie w pięciu edytorach Kompendium** — `ManeuverView`, `StanceView`, `StateView`, `SpellView`, `PerkView` oraz `PerkableAddSheet` (pole renderuje się tam tylko, gdy podano `entityType` — bez niego nie ma z czego podpowiadać).
+- **`ReplacesView` dostał prop `group`** i zamienił `<span>` na `<Link href={/compendium/${group}?search=${encodeURIComponent(name)}}>`. To ten sam wzorzec deep-linku, którego używa `DetailsView` dla rasy — osobnych stron encji w Kompendium nie ma i ten etap ich nie wprowadza.
+
+#### Pułapki
+
+- **`defaultValues` gubiło pole.** Wszystkie pięć widoków robiło `defaultValues={{ ...entity, structuredRequirements: … ?? [] }}`. `replaces` dostało tę samą asekurację (`replaces: entity.replaces ?? []`) — bez niej lista startuje na `undefined`.
+- **Ścieżka zapisu jest już drożna — sprawdzone.** `perkSchema` ma `replaces: z.array(z.string()).optional()`, więc pole dziedziczą wszystkie DTO (manewr, zaklęcie, postawa, stan, atut); `createCommonRepository.update` przepuszcza całą encję, a wygenerowany klient Prismy zna już `replaces` (`prisma generate` po 8.6 poszło). **Nic w API i w warstwie zapisu nie wymaga zmiany — to zadanie czysto UI-owe.**
+- **Cache nazw.** `useEntityNames` trzyma `staleTime: 5 min`. Encja utworzona przed chwilą nie pojawi się od razu w podpowiedziach — dopuszczalne, bo wolny tekst zostaje jako furtka.
+- **Wielkość liter — kosmetyka, nie bloker.** Dane z 8.6 są zapisane małą literą („antyzapał"), bo tak brzmiał tekst wymagania, a nazwy encji mają wielkie („Antyzapał"). Link zadziała: `SearchQueryBuilder` buduje `{ contains, mode: "insensitive" }`. Zgrzyta tylko **wyświetlana** nazwa i to, że picker nie uzna „antyzapał" za wpis z listy i zapali ostrzeżenie. Stąd opcjonalny, jednorazowy skrypt normalizujący sześć rekordów do kanonicznych nazw (dry run + `:apply`, wzorem `extract-replaces`) — albo poprawka ręczna w nowym edytorze, skoro właśnie po to powstaje.
+
+#### Testy
+
+- `ReplacesListField.test.tsx` — wiersz na nazwę, komunikat przy pustej liście, dodanie pustego wiersza, zapis wybranej nazwy do tablicy, usunięcie właściwego wiersza, oraz to, co komponent podaje pickerowi (grupa, `unknownWarning`, `excludeNames` z własną nazwą).
+- `EntityNameCombobox.test.tsx` — ostrzeżenie domyślnie milczy, zapala się przy nazwie spoza biblioteki, ignoruje wielkość liter, milczy przy pustej wartości i w trakcie ładowania.
+- `ReplacesView.test.tsx` — brak `replaces` → `null`; nazwa jako link do `/compendium/<group>?search=<nazwa>`, z poprawnym kodowaniem spacji i polskich znaków.
+- `PerkRequirementInputs.test.tsx` — arkusz dodawania pokazuje edytor zastąpień z właściwą grupą i pomija go bez `entityType`.
+
+**Nie uruchomione w tej sesji:** `npm test` i `npx tsc --noEmit` — sandbox nie ma linuksowej binarki `@rollup/rollup-linux-x64-gnu` (`node_modules` z Windowsa), a instalacja jest zablokowana polityką rejestru. Do odpalenia u Marka.
+
 ---
 
 ## Zależności krytyczne (skrót)

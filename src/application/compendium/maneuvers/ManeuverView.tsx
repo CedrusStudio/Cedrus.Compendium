@@ -14,6 +14,7 @@ import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
 import { ManeuverWithEffectsDto, maneuverWithEffectsSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import ReplacesView from "@/application/common/ReplacesView";
+import ReplacesListField from "@/application/common/replaces/ReplacesListField";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -51,7 +52,7 @@ export default function ManeuverView({ maneuver, disableEdit = false, onDelete }
         <RequirementsView entityWithRequirements={maneuver} />
       </div>
 
-      <ReplacesView entity={maneuver} />
+      <ReplacesView entity={maneuver} group="maneuvers" />
 
       <ManeuverEffectsInfo maneuver={maneuver} />
 
@@ -73,7 +74,7 @@ export default function ManeuverView({ maneuver, disableEdit = false, onDelete }
 
               <EditFormForSheet<ManeuverWithEffectsDto>
                 entityId={maneuver.id}
-                defaultValues={{ ...maneuver, structuredRequirements: maneuver.structuredRequirements ?? [] }}
+                defaultValues={{ ...maneuver, structuredRequirements: maneuver.structuredRequirements ?? [], replaces: maneuver.replaces ?? [] }}
                 schema={maneuverWithEffectsSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.maneuver(maneuver.id)}
@@ -86,6 +87,7 @@ export default function ManeuverView({ maneuver, disableEdit = false, onDelete }
                       title={displayedText.editManeuver}
                     >
                       <PerkEditableFields entityType="maneuvers" />
+                      <ReplacesListField group="maneuvers" />
                       <CastablePerkEditableFields />
                       <ManeuverEffectsEditableFields />
                     </EditSheet>

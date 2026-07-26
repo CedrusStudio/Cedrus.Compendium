@@ -47,6 +47,11 @@ vi.mock('@/application/common/requirements/RequirementListField', () => ({
   default: () => <div data-testid="requirement-list-field" />,
 }));
 
+vi.mock('@/application/common/replaces/ReplacesListField', () => ({
+  __esModule: true,
+  default: ({ group }: { group: string }) => <div data-testid="replaces-list-field" data-group={group} />,
+}));
+
 vi.mock('@/common/components/sheets/AddSheet', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
@@ -79,5 +84,24 @@ describe('perk requirement inputs', () => {
 
     expect(screen.getByTestId('requirement-list-field')).toBeTruthy();
     expect(formStringsInputSpy).not.toHaveBeenCalled();
+  });
+
+  it('offers the replaces editor in the add sheet, scoped to the added entity kind', () => {
+    render(
+      <PerkableAddSheet
+        isPending={false}
+        formId="perk-form"
+        title="Add perk"
+        entityType="perks"
+      />,
+    );
+
+    expect(screen.getByTestId('replaces-list-field').getAttribute('data-group')).toBe('perks');
+  });
+
+  it('leaves the replaces editor out when there is no entity kind to suggest from', () => {
+    render(<PerkableAddSheet isPending={false} formId="perk-form" title="Add perk" />);
+
+    expect(screen.queryByTestId('replaces-list-field')).toBeNull();
   });
 });
