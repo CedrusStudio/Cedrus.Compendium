@@ -6,10 +6,12 @@ import { displayedText } from '@/common/translations';
 import PriceBadge from '@/common/components/badges/PriceBadge';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
 import { useDeleteEntity } from "@/application/common/hooks/useDeleteEntity";
-import { ModeDto, modeSchema } from "@/persistence/schemas/characters/combat/modeSchema";
+import { ModeWithEffectsDto, modeWithEffectsSchema } from "@/persistence/schemas/characters/combat/modeSchema";
 import RequirementsView from "@/application/common/RequirementsView";
 import ReplacesView from "@/application/common/ReplacesView";
 import ReplacesListField from "@/application/common/replaces/ReplacesListField";
+import { ManeuverEffectsEditableFields } from "@/application/combat-lab/effects-editor/ManeuverEffectsEditableFields";
+import ModeEffectsInfo from "@/application/compendium/ModeEffectsInfo";
 import { createCompendiumFormId } from "@/application/compendium/compendiumFormConstants";
 import SummaryView from "@/application/common/SummaryView";
 import { EditFormForSheet } from "@/common/components/form/EditFormForSheet";
@@ -47,6 +49,8 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
 
       <ReplacesView entity={state} group="states" />
 
+      <ModeEffectsInfo mode={state} />
+
       <OwnedByCharacters entity="states" id={state.id} />
 
       <PerkableBadgeView>
@@ -57,10 +61,10 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
             <CompendiumEditView>
               <DeleteButton id={state.id} isPending={isPending} deleteAction={deleteState} />
 
-              <EditFormForSheet<ModeDto> 
+              <EditFormForSheet<ModeWithEffectsDto>
                 entityId={state.id}
                 defaultValues={{ ...state, structuredRequirements: state.structuredRequirements ?? [], replaces: state.replaces ?? [] }}
-                schema={modeSchema}
+                schema={modeWithEffectsSchema}
                 updateFn={client.update}
                 formId={createCompendiumFormId.state(state.id)}
                 renderSheetContent=
@@ -73,6 +77,7 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
                     >
                       <PerkEditableFields entityType="states" />
                       <ReplacesListField group="states" />
+                      <ManeuverEffectsEditableFields />
                     </EditSheet>
                   )
                 }

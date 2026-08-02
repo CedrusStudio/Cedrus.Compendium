@@ -1,4 +1,4 @@
-import { ModeDto } from '@/persistence/schemas/characters/combat/modeSchema';
+import { ModeDto, ModeWithEffectsDto } from '@/persistence/schemas/characters/combat/modeSchema';
 import client from '@/infrastructure/clients/baseClient';
 
 const statePathSegment = '/states';
@@ -15,7 +15,10 @@ const statesClient =
     {
         await client.delete(`${statePathSegment}/${id}`);
     },
-    update: async (id: string, stateData: ModeDto): Promise<void> =>
+    // Accepts the effects-bearing DTO, mirroring `stancesClient`: States are
+    // authored in the compendium too, and the common repository passes
+    // `effects`/`simulatable` straight through to Prisma.
+    update: async (id: string, stateData: ModeWithEffectsDto): Promise<void> =>
     {
         await client.put(`${statePathSegment}/${id}`, stateData);
     }

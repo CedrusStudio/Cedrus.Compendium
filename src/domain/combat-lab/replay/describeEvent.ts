@@ -54,6 +54,12 @@ export function describeEvent(event: CombatEvent, nameOf: NameLookup): string
     }
     case "stanceRank":
       return `${nameOf(event.actorId)}: ranga ${event.target === "state" ? "stanu" : "postawy"} ${event.delta >= 0 ? "+" : ""}${event.delta} (${event.duration} r.)`;
+    case "stanceChange":
+    {
+      const when = event.timing === "beforeAttack" ? "przed atakiem" : "po ataku";
+      const from = event.from ? `z „${event.from}" ` : "";
+      return `${nameOf(event.actorId)} zmienia postawę ${from}na „${event.to}" (ranga ${event.grade}, ${when})`;
+    }
     case "maneuver":
       return `${nameOf(event.actorId)} używa: ${event.maneuverName}`;
     case "reaction":

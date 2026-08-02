@@ -5,9 +5,10 @@
  * contribution = the element is pulling its weight; near zero (or negative) =
  * a candidate to cut or rework.
  *
- * Currently ablates MANEUVERS (the clear, buildable case). Talents/buff profiles
- * are baked into the snapshot's stats, so ablating them would need the source
- * character — future. Pairwise synergy (two elements at once) is also future.
+ * Ablates MANEUVERS, SPELLS and the active STANCE/STATE — everything the picker
+ * lets you choose per run. Talents/buff profiles are baked into the snapshot's
+ * stats, so ablating them would need the source character — future. Pairwise
+ * synergy (two elements at once) is also future.
  *
  * Pure domain, built on `runSimulation`; deterministic.
  */
@@ -52,7 +53,10 @@ export function computeSynergy(
   onProgress?: (done: number, total: number) => void,
 ): SynergyReport
 {
-  const total = subject.maneuvers.length + subject.spells.length + 1;
+  const modes = ([["stance", subject.stance], ["state", subject.state]] as const)
+    .filter((entry): entry is readonly ["stance" | "state", NonNullable<CombatantSnapshot["stance"]>] => entry[1] !== undefined);
+
+  const total = subject.maneuvers.length + subject.spells.length + modes.length + 1;
   let done = 0;
 
   const baselineWinRate = subjectWinRate(subject, opponent, options);
@@ -77,6 +81,23 @@ export function computeSynergy(
     done += 1;
     onProgress?.(done, total);
     elements.push({ id: spell.id, name: spell.name, withoutWinRate, contribution: baselineWinRate - withoutWinRate });
+  }
+
+  // Ablate the stance and the state: they are picked per run exactly like the
+  // rest of the build, and a stance that contributes nothing is worth knowing
+  // about — the whole point of authoring their effects.
+  for (const [slot, mode] of modes)
+  {
+    const without: CombatantSnapshot = { ...subject, [slot]: undefined };
+    const withoutWinRate = subjectWinRate(without, opponent, options);
+    done += 1;
+    onProgress?.(done, total);
+    elements.push({
+      id: `${slot}:${mode.name}`,
+      name: `${slot === "stance" ? "Postawa" : "Stan"}: ${mode.name} (r${mode.baseGrade})`,
+      withoutWinRate,
+      contribution: baselineWinRate - withoutWinRate,
+    });
   }
 
   elements.sort((a, b) => b.contribution - a.contribution || a.name.localeCompare(b.name));

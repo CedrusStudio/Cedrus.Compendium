@@ -230,6 +230,27 @@ export type StanceRankEffect =
 };
 
 /**
+ * Lock the caster out of anything carrying a library TAG — the shape of the
+ * Amok state: „uniemożliwia defensywne postawy i manewry".
+ *
+ * Deliberately keyed on the tag rather than a hardcoded category: „defensywne"
+ * is a real tag in the library, so the rule stays where the content authors
+ * already work, and any future „uniemożliwia X" needs no engine change.
+ *
+ * A `duration` of 0 means "for as long as this is re-applied", which is how
+ * stances and states behave: their effects re-fire at the start of every turn,
+ * so the ban simply persists while the mode is worn.
+ */
+export type ForbidTagEffect =
+{
+  type: "forbidTag";
+  tag: string;
+  /** What the ban covers. Defaults to everything. */
+  scope?: "maneuvers" | "stances" | "all";
+  duration: number;
+};
+
+/**
  * Roll modifier (T2b) — changes HOW this turn's attack is rolled, rather than
  * adding a post-hoc effect. Applied to the caster and consumed by the next
  * attack this turn (see runCombat + resolveAttack). Deterministic: `advantage`/
@@ -401,6 +422,7 @@ export type Effect =
   | StatBuffEffect
   | MultiplierEffect
   | StanceRankEffect
+  | ForbidTagEffect
   | RollModifierEffect
   | ContestedTestEffect
   | SaveTestEffect

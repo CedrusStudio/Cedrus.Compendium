@@ -1,0 +1,31 @@
+# Końce linii.
+#
+# Repozytorium trzyma LF (tak jest w historii), a pliki na dysku u Marka mają
+# CRLF, bo edytory na Windowsie tak zapisują. Bez tego pliku git porównuje bajt
+# w bajt i pokazuje CAŁE repo jako zmodyfikowane — diff przed commitem staje się
+# bezużyteczny. `text=auto eol=crlf` mówi: normalizuj do LF przy zapisie do
+# repo, wystawiaj CRLF przy checkoucie.
+* text=auto eol=crlf
+
+# Pliki, które muszą zostać z LF niezależnie od systemu.
+*.sh text eol=lf
+
+# Binaria — nigdy nie ruszać.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.svg text
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.zip binary
+
+# Pliki generowane — nie zaśmiecać nimi diffów w przeglądzie PR-a.
+package-lock.json linguist-generated=true -diff
+public/data/rulebook/rulebook-complete.json linguist-generated=true

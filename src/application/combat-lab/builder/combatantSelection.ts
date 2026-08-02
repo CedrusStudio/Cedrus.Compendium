@@ -33,6 +33,12 @@ export type CombatantSelection =
   spellOffenseSelection?: Record<string, number>;
   /** Starting stance/state for this run (chosen from the library in the picker). */
   stance?: SnapshotMode;
+  /**
+   * Extra stances this fighter may switch into mid-fight. Changing stance is a
+   * move-like action in the rulebook; with an empty repertoire the engine simply
+   * never offers it, so the default behaviour is unchanged.
+   */
+  stanceRepertoire?: SnapshotMode[];
   state?: SnapshotMode;
 };
 
@@ -57,6 +63,11 @@ export function buildSnapshotFromSelection(character: Character, selection: Comb
     powerSpecifications: selection.powerSpecifications,
     spellOffenseSelection: selection.spellOffenseSelection,
     stance: selection.stance,
+    // The starting stance rides along so the engine can offer a way BACK to it
+    // after a switch; `availableStanceChanges` filters out whatever is active.
+    stanceOptions: selection.stanceRepertoire && selection.stanceRepertoire.length > 0
+      ? [...(selection.stance ? [selection.stance] : []), ...selection.stanceRepertoire]
+      : undefined,
     state: selection.state,
   });
 

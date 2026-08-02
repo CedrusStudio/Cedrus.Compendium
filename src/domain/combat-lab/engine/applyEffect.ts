@@ -258,6 +258,21 @@ function applyEffect(
       break;
     }
 
+    case "forbidTag":
+    {
+      const scope = effect.scope ?? "all";
+      const existing = source.forbiddenTags.find(ban => ban.tag === effect.tag && ban.scope === scope);
+      if (existing)
+      {
+        existing.remaining = Math.max(existing.remaining, effect.duration);
+      }
+      else
+      {
+        source.forbiddenTags.push({ tag: effect.tag, scope, remaining: effect.duration });
+      }
+      break;
+    }
+
     case "multiplier":
     {
       const recipient = effect.mode === "self" ? source : target;

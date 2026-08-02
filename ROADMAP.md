@@ -1,9 +1,24 @@
 # Roadmapa Poprawek i Usprawnień — Cedrus Compendium
 
-> ⚠️ **`features-to-implement/priority-fixes-2026-07-24.md` ma pierwszeństwo przed tym dokumentem.** To Fala P0 — zbiór poprawek zgłoszonych bezpośrednio przez Marka po testach aplikacji. Realizować ją przed Falą 0 poniżej. Kilka jej punktów doprecyzowuje/koryguje zadania 1.5, 1.8 i 3.2 z tej roadmapy.
-
-> Zunifikowana roadmapa scalająca oba plany z `TODO.md` (Rozbudowa Aplikacji + Combat Lab & Kompendium).
+> Zunifikowana roadmapa. Wchłonęła oba plany z dawnego `TODO.md` (Rozbudowa Aplikacji + Combat Lab & Kompendium; plik usunięty 2026-08-02, treść w historii gita) oraz Falę P0 (`features-to-implement/done/priority-fixes-2026-07-24.md`, wykonaną 2026-07-24).
 > **Priorytetyzacja: wartość vs wysiłek** — najpierw redukcja ryzyka i quick wins, na końcu duże refaktory architektoniczne.
+
+## Co realnie zostało (stan 2026-08-02)
+
+Przegląd kodu i danych z `backup/2026-08-02T06-30-41-035Z`. Fale 0–3 i 5–8 są zamknięte; poniżej wszystko, co nie jest.
+
+| Pozycja | Gdzie | Skala |
+|---|---|---|
+| **Mapowanie efektów Combat Lab** — największa otwarta pozycja | `combat-lab-maneuver-analysis-plan.md` | 84 z 992 manewrów ma efekty; **0** z 214 Postaw, 30 Stanów i 421 Zaklęć. Nic nie jest oznaczone jako niesymulowalne, więc triaż praktycznie nie ruszył. |
+| **Autorowanie efektów Postaw/Stanów** | `combat-lab-engine-model-gaps-plan.md` §1 | Silnik jest gotowy w całości (patrz §8.10). Brakuje wyłącznie **treści**: 0 z 214 Postaw i 0 z 30 Stanów ma efekty. |
+| **Rozbudowa wzmocnień w symulacji** | `combat-lab-buff-expansion-plan.md` | Plan bez implementacji. |
+| **4.1 Prywatne encje Kompendium** | Fala 4 poniżej | `apiKeys` istnieje wyłącznie na `Character`. |
+| **2.6 Reszta redesignu zakładki Walka** | Fala 2 poniżej | Świadomie odłożone — wymaga makiety. |
+| **Dwa błędne mapowania wymagań** | dane | `Pogromienie` (rangi 1–3) i `Napór Włóczniarza` (rangi 1–2) mają nadmiarowe `siła ≥ N` obok poprawnego wpisu — 5 rekordów do wyczyszczenia w `/admin/requirements`. |
+
+Domknięte na danych 2026-08-02: legacy `requirements` usunięte ze wszystkich 5 kolekcji (0 rekordów), legacy `cost` zaklęć wyczyszczony (0 z 421), sześć wpisów `replaces` sprowadzonych do kanonicznych nazw Manewrów.
+
+Domknięte w kodzie 2026-08-02: **§8.10** — zmiana postawy w turze, blokady po tagu (Amok), Postawy/Stany w Synergy i Meta, edytor efektów Stanów w Kompendium. Oraz higiena repo: `.gitattributes` (koniec szumu CRLF w diffach), 62 śledzone śmieci usunięte, `TODO.md` wchłonięty tutaj.
 
 **Legenda wysiłku:** `S` = < 0,5 dnia · `M` = 0,5–2 dni · `L` = > 2 dni / zmiana architektoniczna
 **Wartość:** ⭐ niska · ⭐⭐ średnia · ⭐⭐⭐ wysoka
@@ -32,7 +47,9 @@ Zasada: **Fala 0 zawsze pierwsza.** Fale 1–4 są w dużej mierze niezależne i
 
 Redukcja ryzyka: naprawiamy błędy mechaniki, zanim zbudujemy na nich nowe UI.
 
-### 0.1 Usunięcie zaszłości po "Manie" — `S` · ⭐⭐
+### 0.1 Usunięcie zaszłości po "Manie" — `S` · ⭐⭐ — **ZROBIONE**
+
+- **Stan (zweryfikowano 2026-08-02):** brak jakichkolwiek odwołań do `mana`/`Mana` w `src/`; skrypt migracyjny `scripts/backfill-mana-to-essence.ts` został wykonany. Logika operuje wyłącznie na Esencji.
 - **Źródło:** Plan B / Task 1.1
 - **Zakres:** przeszukać kod pod `mana`/`Mana`, ustalić pochodzenie pola w *Startowej puli zasobów*, bezpiecznie usunąć/zrefaktoryzować tak, by logika operowała wyłącznie na **Esencji**.
 - **AC:** brak odwołań do Many; symulacja i UI używają tylko Esencji; testy przechodzą.
@@ -40,10 +57,10 @@ Redukcja ryzyka: naprawiamy błędy mechaniki, zanim zbudujemy na nich nowe UI.
 ### 0.2 Weryfikacja przeliczania statystyk pochodnych (Rulebook Check) — `M` · ⭐⭐⭐ — ✅ ZAMKNIĘTE (2026-07-24)
 - **Źródło:** Plan B / Task 1.2
 - **Zakres:** przeanalizować silnik kalkulacji w Combat Lab; upewnić się, że modyfikator cechy podstawowej (np. *+Siła* z *Wiru Walki*) aktualizuje statystyki pochodne (Obrażenia itd.) **przed** symulacją, w kolejności zgodnej z podręcznikiem.
-- **Wynik diagnozy:** to nie błąd kolejności — kolejność kalkulacji jest poprawna (bufy nakładają się przed zamrożeniem snapshotu). Problem był głębszy: zależność „Siła → Obrażenia” **w ogóle nie istnieje** w silniku — to dwie rozłączne, addytywne wartości. Pełna diagnoza: `features-to-implement/combat-lab-strength-derived-stats-findings.md`.
+- **Wynik diagnozy:** to nie błąd kolejności — kolejność kalkulacji jest poprawna (bufy nakładają się przed zamrożeniem snapshotu). Problem był głębszy: zależność „Siła → Obrażenia” **w ogóle nie istnieje** w silniku — to dwie rozłączne, addytywne wartości. Pełna diagnoza: `features-to-implement/done/combat-lab-strength-derived-stats-findings.md`.
 - **Decyzja (podjęta z Markiem 2026-07-24):** **nie** implementować automatycznej derywacji. Zbyt duże ryzyko podwójnego naliczenia — większość istniejącej zawartości Kompendium prawdopodobnie już ręcznie „wliczyła” Siłę w autorskie Obrażenia; auto-derywacja cicho zmieniłaby balans wszystkich postaci/broni. Obowiązująca zasada: **Postawy/Stany/Bufy podnoszące obrażenia z Siły autoruje się wprost na Obrażeniach**, nie na cesze Siła.
 - **AC:** ✅ decyzja projektowa udokumentowana w kodzie (`applyBuffProfile.ts`, komentarz nad `applyBuffProfile`); ✅ test regresyjny blokujący przypadkowe wprowadzenie auto-derywacji bez świadomej decyzji (`applyBuffProfile.test.ts`).
-- **Uwaga:** Fala 3 (złożone modyfikatory obrażeń, w tym „za każdą kość broni”) **nie jest już blokowana** — to osobna, niezależna mechanika (`ScaleEffect`/`selfDice`), już działająca (patrz `features-to-implement/priority-fixes-2026-07-24.md`, P0.10).
+- **Uwaga:** Fala 3 (złożone modyfikatory obrażeń, w tym „za każdą kość broni”) **nie jest już blokowana** — to osobna, niezależna mechanika (`ScaleEffect`/`selfDice`), już działająca (patrz `features-to-implement/done/priority-fixes-2026-07-24.md`, P0.10).
 
 ---
 
@@ -51,37 +68,40 @@ Redukcja ryzyka: naprawiamy błędy mechaniki, zanim zbudujemy na nich nowe UI.
 
 Drobne, izolowane zmiany front-endowe. Można realizować równolegle, każda to osobny mały PR.
 
-### 1.1 Przywrócenie paska nawigacji w Combat Lab — `S` · ⭐⭐⭐
+### 1.1 Przywrócenie paska nawigacji w Combat Lab — `S` · ⭐⭐⭐ — **ZROBIONE** (`src/app/(combat-lab)/layout.tsx` → `CombatLabNavbar`)
 - **Źródło:** Plan B / Task 2.1
 - **AC:** górny Navbar/Header obecny i spójny w widoku Combat Lab.
 
-### 1.2 Reorganizacja kafelków strony głównej (4+1 → estetyczny grid) — `S` · ⭐⭐
+### 1.2 Reorganizacja kafelków strony głównej (4+1 → estetyczny grid) — `S` · ⭐⭐ — **ZROBIONE** (wyśrodkowany flex-wrap zamiast sztywnego gridu, `src/app/page.tsx`)
 - **Źródło:** Plan B / Task 2.2
 - **AC:** responsywny grid bez osamotnionego kafelka (np. 3+2), z wyróżnieniem Combat Lab/Podręcznika.
 
-### 1.3 Czyszczenie etykiet i micro-UI w selektorach — `S` · ⭐⭐
+### 1.3 Czyszczenie etykiet i micro-UI w selektorach — `S` · ⭐⭐ — **ZROBIONE**
 - **Źródło:** Plan B / Task 3.2
 - **AC:** usunięty tekst `"g3"`; przycisk usuwania `"x"` → ikona (`TrashIcon`/`XIcon`); skróty: `"Obrażenia (płaskie)"` → `"Obrażenia"`, `"Niewrażliwość (usuwa kości)"` → `"Niewrażliwość"`.
 
-### 1.4 Skrócenie etykiety Mapowania Efektów — `S` · ⭐
+### 1.4 Skrócenie etykiety Mapowania Efektów — `S` · ⭐ — **ZROBIONE**
 - **Źródło:** Plan B / Task 4.4
 - **AC:** `"Efekty (Combat Lab): do zmapowania"` → `"Efekty: do zmapowania"`.
 
-### 1.5 Masowe zaznaczanie tagów wykluczających — `S` · ⭐⭐
+### 1.5 Masowe zaznaczanie tagów wykluczających — `S` · ⭐⭐ — **ZROBIONE** (`TagFilter.tsx`; Szybkie tagi domknięte przez P0.4 w `PersonalizedQuickTags.tsx`)
 - **Źródło:** Plan B / Task 4.3
 - **AC:** przycisk „Zaznacz wszystkie” / „Odznacz wszystkie” przy filtrach wykluczających.
 
-### 1.6 Sticky Header + zwijane tagi w Kompendium — `S/M` · ⭐⭐
+### 1.6 Sticky Header + zwijane tagi w Kompendium — `S/M` · ⭐⭐ — **ZROBIONE**
+
+- **Stan (zweryfikowano 2026-08-02):** `common/components/lists/ListHeader.tsx` jest `sticky top-0 z-10` i owija oba pasy Szybkich tagów (włączające + wykluczające) w `Collapsible` z przyciskiem-strzałką „Tagi". Zawijanie i formatowanie samych plakietek poprawił P0.5.
+- **Świadomie niezrobione (drobiazgi, nie blokery):** stan zwinięcia startuje zawsze jako **otwarty** (`useState(true)`) i nie przeżywa przeładowania — nie jest zapamiętywany w profilu personalizacji; nie ma też automatycznego kompaktowania paska przy przewijaniu (AC dopuszczało „albo—albo", zrobiono wariant ze zwijaniem ręcznym).
 - **Źródło:** Plan B / Task 4.2
 - **AC:** zwijana sekcja tagów (Collapsible) lub kompaktowy tryb paska przy przewijaniu.
 
-### 1.7 Lokalne filtrowanie w Ekwipunku — `S/M` · ⭐⭐⭐
+### 1.7 Lokalne filtrowanie w Ekwipunku — `S/M` · ⭐⭐⭐ — **ZROBIONE** (`application/characters/equipment/EquipmentView.tsx`)
 - **Źródło:** Plan A / Task 2.2
 - **AC:** instant search po nazwie/typie/kategorii, w całości po stronie klienta (bez re-fetchu).
 
-### 1.8 Ikonka statusu Vercel „Uniwersum Cedrus” — `S` · ⭐
-- **Źródło:** Plan A / Task 1.1
-- **AC:** dyskretny, spójny z design systemem wskaźnik powiązania ze środowiskiem Vercel (SVG lub status z Vercel API).
+### 1.8 Ikonka statusu Vercel „Uniwersum Cedrus” — ❌ **WYCOFANE**
+
+Zadanie zostało zrealizowane, a następnie **cofnięte na życzenie Marka** (P0.3 — wskaźnik usunięty ze strony głównej). Zostaje w dokumencie wyłącznie jako ślad, żeby nie odtworzyć go przy kolejnym porządkowaniu.
 
 ---
 
@@ -89,11 +109,11 @@ Drobne, izolowane zmiany front-endowe. Można realizować równolegle, każda to
 
 Rozbudowa karty postaci oraz ergonomii Combat Lab. Zależna od Fali 0 (poprawna mechanika).
 
-### 2.1 Redesign panelu „Podgląd Statystyk” w Combat Lab — `M` · ⭐⭐⭐
+### 2.1 Redesign panelu „Podgląd Statystyk” w Combat Lab — `M` · ⭐⭐⭐ — **ZROBIONE** (`CombatantStatsCard.tsx`: Fechtunek/Fortel, suma redukcji, zwijany podgląd)
 - **Źródło:** Plan B / Task 3.3
 - **AC:** formatowanie trybów (`"Postawa Defensywna g2"` → `"Postawa Defensywna 2"`); wyświetlanie brakujących atrybutów (*Fechtunek*, *Fortel*, …); **suma całkowitej redukcji** w Obronie (Blok + Parowanie + Unik + Pancerz); zwarty zapis Ataku (usunięty słowny `+bonus`).
 
-### 2.2 Filtrowanie Postaw i Stanów wg wybranej postaci — `M` · ⭐⭐
+### 2.2 Filtrowanie Postaw i Stanów wg wybranej postaci — `M` · ⭐⭐ — **ZROBIONE** (przełącznik „Tylko z karty postaci” w `ModeSelector.tsx`; sugerowana ranga dołożona przez P0.7)
 - **Źródło:** Plan B / Task 3.1
 - **AC:** przełącznik pokazujący tylko Postawy/Stany, które postać faktycznie posiada na karcie.
 
@@ -120,12 +140,12 @@ Rozbudowa karty postaci oraz ergonomii Combat Lab. Zależna od Fali 0 (poprawna 
   - `ManeuversCard.tsx` i `PowerCard.tsx`: siatka Manewrów/Zaklęć jest teraz zwijalna (`Collapsible`, domyślnie **otwarta** — nic nie znika bez akcji gracza). Nagłówek z esencją/poziomem/selektorem ofensywy w `PowerCard` zostaje zawsze widoczny nawet po zwinięciu reszty — to jest "szybki dostęp do zasobów" z AC.
 - **Świadomie NIE zrobione w tym przebiegu (zbyt ryzykowne bez dalszej decyzji produktowej):** pełny redesign hierarchii informacji na całej zakładce (np. wydzielenie osobnych zakładek/sekcji dla Ofensywy vs Manewrów vs Mocy, dashboard z priorytetyzacją). `PowerCard`/`ManeuversCard` mają rozbudowane, dobrze pokryte testami UI (essencja, spelle, offense selector) — głębsza przebudowa DOM-u groziła regresją bez wyraźnej specyfikacji, czego dokładnie ma dotyczyć redesign. Rekomendacja: potraktować jako osobne zadanie z makietą/wireframe zaakceptowanym z wyprzedzeniem.
 
-### 2.7 Powiązanie Stanów/Postaw ze Wzmocnieniami + szybki przycisk — `M` · ⭐⭐
+### 2.7 Powiązanie Stanów/Postaw ze Wzmocnieniami + szybki przycisk — `M` · ⭐⭐ — **ZROBIONE** (przyciski nałóż/zdejmij profil w `ModesCard.tsx`)
 - **Źródło:** Plan A / Task 4.2
 - **Zależy od:** 2.4, 2.6
 - **AC:** Stany/Postawy wykazują relację ze wzmocnieniami; nieagresywna ikonka „+” tworzy/nakłada wzmocnienie z poziomu walki.
 
-### 2.8 Sekcja Efektów przy tworzeniu Manewru — `M` · ⭐⭐
+### 2.8 Sekcja Efektów przy tworzeniu Manewru — `M` · ⭐⭐ — **ZROBIONE** (`ManeuverEffectsEditableFields` w arkuszu dodawania i edycji)
 - **Źródło:** Plan B / Task 4.1
 - **AC:** formularz tworzenia/edycji manewru rozbudowany o zarządzanie efektami.
 
@@ -133,13 +153,13 @@ Rozbudowa karty postaci oraz ergonomii Combat Lab. Zależna od Fali 0 (poprawna 
 
 ## Fala 3 — Zaawansowane Mechaniki i Cross-Reference
 
-### 3.1 Złożone modyfikatory obrażeń (per kość broni) — `L` · ⭐⭐⭐
+### 3.1 Złożone modyfikatory obrażeń (per kość broni) — `L` · ⭐⭐⭐ — **ZROBIONE** (silnik `ScaleEffect`/`selfDice` istniał; P0.10 dołożył preset w edytorze)
 - **Źródło:** Plan B / Task 5.1
 - **Zależy od:** 0.2 (poprawna kolejność kalkulacji)
 - **Przykład:** *Zapał Wojownika 1* → +1 obrażenie na każdą kość broni + dodatkowe obrażenia zależne od liczby kości.
 - **AC:** obsługa reguły `damage_per_weapon_dice`; kalkulator uwzględnia niestandardowe warunki modyfikacji kości.
 
-### 3.2 Reverse Lookup — „Posiadane przez postacie” — `M` · ⭐⭐⭐
+### 3.2 Reverse Lookup — „Posiadane przez postacie” — `M` · ⭐⭐⭐ — **ZROBIONE** (`OwnedByCharacters.tsx`, przepisany na Drawer w P0.6)
 - **Źródło:** Plan B / Task 5.2
 - **AC:** w widoku szczegółów elementu Kompendium (Manewr, Postawa, Stan, Atut, Zaklęcie, Moc, Przedmiot) sekcja/przycisk „Posiadane przez postacie” z listą postaci i szybkim przejściem do karty.
 
@@ -245,7 +265,7 @@ export type Requirement = RanklessRequirement | RankedRequirement;
 > **Zależy od:** Fala 5 (całość, wdrożona w kodzie).
 > **Kolejność jest obowiązkowa:** 6.1 → 6.2 → 6.3. 6.1 jest blokerem, bo dopóki dane są niekompletne, nie da się zweryfikować ani filtra, ani widoku.
 
-### 6.1 Audyt i dokończenie migracji wymagań legacy — `M` · ⭐⭐⭐ `[BLOKER]` — **KOD GOTOWY, CZEKA NA URUCHOMIENIE**
+### 6.1 Audyt i dokończenie migracji wymagań legacy — `M` · ⭐⭐⭐ — **ZROBIONE** (migracja 2026-07-25, `clear-legacy-requirements:apply` 2026-08-02)
 
 - **Objaw:** encje z samym starym `requirements` nie pokazują wymagań w UI. Przykład z bazy: `Akrobatyka` ma `requirements: ["Nieuchwytność", "Lekka zbroja"]` i **brak** `structuredRequirements` → w Kompendium nie widać nic. `Pogromienie` ma oba pola → widać.
 - **Przyczyna (nie bug w UI):** Faza 4c uczyniła `RequirementsView` **structured-only** (fallback do legacy usunięty), a Faza 4c-full usunęła `requirements` ze `schema.prisma`. Natomiast `backfill-requirements-to-structured --apply` **nigdy nie poszedł na produkcję**. Rekordy sprzed migracji są więc niewidoczne — dane nadal są w Mongo, tylko nikt ich nie czyta.
@@ -331,6 +351,8 @@ npm run build
 **Stan bazy przed migracją (`diag-requirements`, 2026-07-25):** 1167 rekordów z tekstem niewidocznym w UI — perks 371, spells 305, maneuvers 476, stances 10, states 5. `structuredRequirements` ma tylko 5 manewrów, więc żaden skrypt migracyjny nigdy nie zapisał na produkcji. Te 5 to ręczne wpisy z UI — w tym błędne `siła ≥ 2` na `Pogromieniu 1`, co obala wcześniejszą hipotezę, że winne było auto-mapowanie (nigdy nie zostało uruchomione).
 
 **Po migracji (2026-07-25, potwierdzone przez Marka):** 0 osieroconych, 0 częściowych, 1167 zduplikowanych. Zostały 2 wpisy do ręcznej poprawki w `/admin/requirements` — `Pogromienie` (`siła ≥ 2` → `fechtunek ≥ 2`) i `Napór Włóczniarza` (`siła ≥ 2` przy tekście „Zr 2" → zręczność).
+
+**Domknięcie (2026-08-02):** `clear-legacy-requirements:apply` wykonany — pole `requirements` nie występuje już w żadnej z pięciu kolekcji (potwierdzone na `backup/2026-08-02T06-30-41-035Z`). **Obie ręczne poprawki są nadal do zrobienia i rozrosły się do 5 rekordów:** poprawny wpis został dołożony, ale błędny `siła ≥ N` **nie zniknął**, więc `Pogromienie` (rangi 1–3) i `Napór Włóczniarza` (rangi 1–2) mają dziś oba naraz. Do usunięcia akcją kasowania w `/admin/requirements`, nie edycją.
 
 ---
 
@@ -687,6 +709,7 @@ Zgłoszenie Marka: `replaces` jest w bazie (8.6 przeniosło tam sześć wpisów 
   - **Bez `useFieldArray`.** Wartością jest tablica **stringów**, a field array RHF jest zaprojektowany pod obiekty (jego `fields` nie niosą wartości prymitywu). `useWatch` + `setValue` jest krótsze i przewidywalne.
   - **Samoodniesienie** odcięte przez `excludeNames` z aktualnej wartości pola `name` w formularzu (`useWatch`), więc działa też w arkuszu dodawania, w trakcie pisania nazwy.
 - **Puste wiersze odsiewa `perkSchema`, nie edytor.** `replaces` dostało `.transform(trim + filter)`, więc pusty wpis zasiany przyciskiem „dodaj" znika przy zapisie — w **każdym** formularzu opartym o ten schemat (edycja, dodawanie, karta postaci). To dokładnie ta pułapka, która wysypała panel admina w 8.7, tylko rozwiązana raz zamiast w pięciu miejscach. Działa, bo `zodResolver` oddaje RHF-owi **wynik parsowania**, nie surowe wartości — na tym samym mechanizmie stoi dziś `z.coerce.number` przy randze i cenie.
+  - **Kolejność ma znaczenie (naprawione 2026-08-02):** `.optional()` musi **owijać** transform, nie go poprzedzać. `z.array(...).optional().transform(...)` daje `replaces: string[] | undefined` jako klucz **wymagany**, co wywala build wszędzie, gdzie obiekt domenowy jest przepisywany do DTO (`Power[]` → `powers` w `useCreateCharacterFromCopy`). Poprawna forma to `z.array(...).transform(...).optional()`.
 - **Osadzenie w pięciu edytorach Kompendium** — `ManeuverView`, `StanceView`, `StateView`, `SpellView`, `PerkView` oraz `PerkableAddSheet` (pole renderuje się tam tylko, gdy podano `entityType` — bez niego nie ma z czego podpowiadać).
 - **`ReplacesView` dostał prop `group`** i zamienił `<span>` na `<Link href={/compendium/${group}?search=${encodeURIComponent(name)}}>`. To ten sam wzorzec deep-linku, którego używa `DetailsView` dla rasy — osobnych stron encji w Kompendium nie ma i ten etap ich nie wprowadza.
 
@@ -705,6 +728,26 @@ Zgłoszenie Marka: `replaces` jest w bazie (8.6 przeniosło tam sześć wpisów 
 - `PerkRequirementInputs.test.tsx` — arkusz dodawania pokazuje edytor zastąpień z właściwą grupą i pomija go bez `entityType`.
 
 **Nie uruchomione w tej sesji:** `npm test` i `npx tsc --noEmit` — sandbox nie ma linuksowej binarki `@rollup/rollup-linux-x64-gnu` (`node_modules` z Windowsa), a instalacja jest zablokowana polityką rejestru. Do odpalenia u Marka.
+
+### 8.10 Dogrywki przy Postawach — `M` · ⭐⭐ — **ZROBIONE (2026-08-02)**
+
+Cztery pozycje z etapu 7 planu `combat-lab-engine-model-gaps-plan.md` §1. Każda mała z osobna; razem domykają model postaw po stronie silnika, więc jedyne, czego brakuje Postawom, to autorowane efekty.
+
+**Zmiana postawy w turze.** Akcja typu **ruch**: nie zajmuje ataku ani budżetu manewrów, więc omija `canUseCastable`. Reguła kolejności z podręcznika — zmiana **przed atakiem ALBO po nim, nigdy oba** — siedzi w `runCombat` (fazy 0 i 3), bo tylko tura wie, w którym oknie jesteśmy. Zmiana po ataku zabiera okno przed atakiem w **następnej** turze; flaga jest odczytywana i kasowana na starcie tury, żeby kara nie ciągnęła się przez tury ogłuszone czy spędzone na ziemi.
+
+- **Skąd wybór:** nowy `stanceOptions` w snapshocie, wypełniany z pickera (`StanceRepertoireSelector`). Bez repertuaru silnik nie proponuje zmiany — zachowanie sprzed zmiany zostaje nietknięte.
+- **Efekty nowej postawy odpalają się natychmiast**, nie od następnego auto-castu. Inaczej zmiana przed atakiem nie wpływałaby na ten atak, czyli na to, po co to okno istnieje. **Świadome uproszczenie:** bonusy poprzedniej postawy dotrwają do końca tury (są duration-based i wygasają normalnie) — rozplątanie ich wymagałoby znakowania każdego buffa źródłem, czego silnik celowo nie robi.
+- **Wycena:** obie polityki liczą różnicę wartości „kandydat − obecna postawa"; `pass` ma 0, więc nikt nie przebiera się między równorzędnymi postawami.
+
+**Wykluczenia (Amok).** Stan `Amok` mówi wprost: „uniemożliwia defensywne postawy i manewry". Nowy efekt `forbidTag` blokuje wszystko, co niesie dany **tag z biblioteki** — celowo tag, a nie zaszyta kategoria, bo „defensywne" to realny tag, a każde kolejne „uniemożliwia X" nie będzie już wymagać zmian w silniku. `duration: 0` znaczy „póki trwa tryb": blokada jest kasowana na starcie tury i natychmiast odnawiana przez auto-cast, więc znika w chwili wyjścia z Amoku. Porównanie tagów ignoruje wielkość liter i spacje — opis pisze człowiek, tagi też.
+
+**Postawy w analizatorach.** Synergy ablatuje teraz także Postawę i Stan (obok manewrów i zaklęć) — postawa, która nic nie wnosi, wychodzi na wierzch. Meta dorobiło ranking Postaw i Stanów: średni win rate buildów, które je noszą, **bez ani jednej dodatkowej walki** (przekrój po rankingu liczonym i tak).
+
+**Edytor efektów Stanów.** `StateView` dostał to samo co `StanceView`: `modeWithEffectsSchema`, `ManeuverEffectsEditableFields` i status mapowania. Wspólny `ModeEffectsInfo` wyciągnięty ze `StanceView`, żeby triage brzmiał identycznie w obu widokach. `statesClient.update` przyjmuje DTO z efektami.
+
+**Testy:** `stanceChange.test.ts` (7 przypadków — brak repertuaru, jedno okno na turę, kara po zmianie po ataku, natychmiastowe efekty, wycena), `forbidTag.test.ts` (7 — z kontrolą, że bez Amoku ten sam manewr jest używany), test tagów rodziny w `modeDefinition.test.ts`, ablacja postawy w `synergy.test.ts`.
+
+**Niezrobione świadomie:** proposer w `classify-maneuvers.ts` nie zna jeszcze wzorca „uniemożliwia … " — `forbidTag` autoruje się ręcznie w edytorze (dotyczy 3 rekordów Amoku).
 
 ---
 

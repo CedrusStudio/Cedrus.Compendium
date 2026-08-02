@@ -34,7 +34,7 @@ export function ModeSelector({ kind, value, onChange, ownModes }: { kind: ModeKi
   const shownFamilies = onlyOwn && hasOwn ? families.filter(f => ownByName.has(f.name)) : families;
 
   const toMode = (family: ModeFamily, grade: number): SnapshotMode =>
-    ({ name: family.name, baseGrade: grade, variantsByGrade: family.variantsByGrade });
+    ({ name: family.name, baseGrade: grade, variantsByGrade: family.variantsByGrade, tags: family.tags });
 
   const current = value ? families.find(f => f.name === value.name) : undefined;
 

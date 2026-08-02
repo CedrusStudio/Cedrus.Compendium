@@ -61,6 +61,12 @@ export type SnapshotMode =
   name: string;
   baseGrade: number;
   variantsByGrade: Record<number, Effect[]>;
+  /**
+   * Library tags of this mode. Carried into the simulation only so tag bans can
+   * see them — Amok forbids „defensywne" stances, and the tag is the library's
+   * own classification rather than anything the engine invents.
+   */
+  tags?: string[];
 };
 
 export type CombatantSnapshot =
@@ -84,6 +90,13 @@ export type CombatantSnapshot =
   spells: SnapshotSpell[];
   /** Active stance for this run (its effects are auto-cast each turn). */
   stance?: SnapshotMode;
+  /**
+   * Stances this fighter may switch INTO mid-fight (the starting one included,
+   * harmlessly — `availableStanceChanges` filters out whatever is active). The
+   * rulebook makes changing stance a move-like action; without a repertoire
+   * there is simply nothing to change to, which is the default.
+   */
+  stanceOptions?: SnapshotMode[];
   /** Active state for this run (independent slot from the stance). */
   state?: SnapshotMode;
   initiative: Statistic;
@@ -151,6 +164,8 @@ export type SnapshotOptions =
   /** Active stance/state for this run, pre-resolved to rank families by the app
    * layer (the character sheet doesn't carry them — chosen in the picker). */
   stance?: SnapshotMode;
+  /** Stances available to switch into mid-fight (move-like action). */
+  stanceOptions?: SnapshotMode[];
   state?: SnapshotMode;
 };
 
@@ -226,6 +241,7 @@ export function toCombatantSnapshot(character: Character, options: SnapshotOptio
     maneuvers,
     spells: buildSpells(buffed.powers, options.powerSpecifications, options.spellOffenseSelection),
     stance: options.stance,
+    stanceOptions: options.stanceOptions,
     state: options.state,
     initiative: buffed.attributes.initiative,
     precision: buffed.attributes.precision,

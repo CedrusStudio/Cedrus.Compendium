@@ -143,6 +143,13 @@ function describeEffect(effect: Effect): string
       const slot = effect.target === "state" ? "stanu" : "postawy";
       return `podnosi rangę ${slot} o ${effect.delta} ${roundsLabel(effect.duration)}`.trim();
     }
+    case "forbidTag":
+    {
+      const what = effect.scope === "maneuvers" ? "manewrów"
+        : effect.scope === "stances" ? "postaw"
+        : "postaw i manewrów";
+      return `uniemożliwia używanie ${what} z tagiem „${effect.tag}"${effect.duration > 0 ? ` ${roundsLabel(effect.duration)}` : ""}`.trim();
+    }
     case "contested":
     {
       const onWin = effect.onWin.map(describeEffect).join(", ");

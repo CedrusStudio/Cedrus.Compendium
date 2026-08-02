@@ -13,7 +13,7 @@
  *   - A downed combatant cannot act.
  */
 
-import type { CombatantSnapshot } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import type { CombatantSnapshot, SnapshotMode } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { CombatLog, CombatEndReason } from "@/domain/combat-lab/engine/CombatLog";
 import { CombatLogBuilder } from "@/domain/combat-lab/engine/CombatLog";
 import type { CombatState, CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
@@ -25,7 +25,7 @@ import { resolveRangedAttack, rangedCategory, DISTANCE_ST } from "@/domain/comba
 import { dealDamage, reduceDamage, bypassesBarrier, applyDamageMultipliers } from "@/domain/combat-lab/engine/damage";
 import { applyEffects } from "@/domain/combat-lab/engine/applyEffect";
 import { variantEffectsAt } from "@/domain/combat-lab/effects/ModeDefinition";
-import { availableProactiveManeuvers, availableReactiveManeuvers, availableSpells, tickSpellCooldowns, recordAction, endTurnLedger, type Action } from "@/domain/combat-lab/engine/actionEconomy";
+import { availableProactiveManeuvers, availableReactiveManeuvers, availableSpells, availableStanceChanges, tickSpellCooldowns, recordAction, endTurnLedger, type Action } from "@/domain/combat-lab/engine/actionEconomy";
 import { basicAttackPolicy, greedyDamagePolicy, type ActionPolicy } from "@/domain/combat-lab/engine/ai/policy";
 import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
 import { selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
@@ -94,6 +94,13 @@ export function runCombat(
       tickMultipliers(actor);
       tickSpellCooldowns(actor);
       tickRankBonus(actor);
+      tickForbiddenTags(actor);
+      actor.stanceChangedThisTurn = false;
+      // Read-and-clear: a post-attack change costs exactly ONE pre-attack window,
+      // even if this turn is spent stunned or downed. Leaving the flag set until
+      // `takeTurn` reads it would silently extend the penalty across passed turns.
+      const stanceChangeAllowedBeforeAttack = !actor.stanceChangeBlockedBeforeAttack;
+      actor.stanceChangeBlockedBeforeAttack = false;
       if (actor.critSuppressedRemaining > 0) actor.critSuppressedRemaining -= 1;
       applyDownedProgress(actor);
 
@@ -109,7 +116,7 @@ export function runCombat(
         const opponent = firstLivingOpponent(state, actor);
         if (opponent)
         {
-          takeTurn(actor, opponent, policies, random, log, maxActionsPerTurn, distanceST);
+          takeTurn(actor, opponent, policies, random, log, maxActionsPerTurn, distanceST, stanceChangeAllowedBeforeAttack);
         }
       }
       else if (actor.alive)
@@ -165,9 +172,18 @@ function takeTurn(
   log: CombatLogBuilder,
   maxActionsPerTurn: number,
   distanceST: number,
+  stanceChangeAllowedBeforeAttack: boolean,
 ): void
 {
   const policy = policies.get(actor.snapshot.id)!;
+
+  // Phase 0 — stance change BEFORE the attack. Skipped when the previous turn
+  // ended with a post-attack change: that movement is treated as spanning the
+  // turn boundary, so this window is already spent.
+  if (stanceChangeAllowedBeforeAttack)
+  {
+    offerStanceChange(actor, opponent, policy, random, log, "beforeAttack");
+  }
 
   // Phase 1 — proactive maneuvers FIRST (a maneuver may buff / add damage before
   // the attack). The policy is offered the available maneuvers plus a "pass" so
@@ -203,7 +219,64 @@ function takeTurn(
     executeAction(actor, opponent, chosen, policies, random, log, distanceST);
     recordAction(actor, chosen);
     checkDeath(opponent, log);
+    if (!opponent.alive) return;
   }
+
+  // Phase 3 — stance change AFTER the attack, for anyone who kept the window.
+  // Paid for by losing the pre-attack window next turn (see `takeTurn` phase 0).
+  offerStanceChange(actor, opponent, policy, random, log, "afterAttack");
+}
+
+/**
+ * Offer the stance change for one window and apply the policy's pick.
+ *
+ * The new stance's effects fire IMMEDIATELY rather than waiting for the next
+ * turn's auto-cast — otherwise switching before an attack would change nothing
+ * about that attack, which is the whole point of the pre-attack window. The
+ * previous stance's bonuses stay up for the rest of this turn (they are
+ * duration-based and tick out normally); untangling them would need per-source
+ * provenance on every buff, which the engine deliberately does not carry.
+ */
+function offerStanceChange(
+  actor: CombatantRuntime,
+  opponent: CombatantRuntime,
+  policy: ActionPolicy,
+  random: () => number,
+  log: CombatLogBuilder,
+  timing: "beforeAttack" | "afterAttack",
+): void
+{
+  if (actor.stanceChangedThisTurn || !actor.alive) return;
+
+  const changes = availableStanceChanges(actor);
+  if (changes.length === 0) return;
+
+  const action = policy.chooseAction(actor, opponent, [{ kind: "pass" }, ...changes]);
+  if (action.kind !== "stanceChange") return;
+
+  const from = actor.activeStance?.mode.name ?? null;
+  actor.activeStance = toActiveStance(action.stance);
+  actor.stanceChangedThisTurn = true;
+  if (timing === "afterAttack") actor.stanceChangeBlockedBeforeAttack = true;
+
+  log.push({ kind: "stanceChange", actorId: actor.snapshot.id, from, to: action.stance.name, grade: action.stance.baseGrade, timing });
+
+  const effects = variantEffectsAt(
+    { variantsByGrade: action.stance.variantsByGrade, grades: gradesOf(action.stance) },
+    action.stance.baseGrade,
+  );
+  if (effects.length > 0) applyEffects(effects, actor, opponent, { random, log });
+}
+
+/** A freshly entered stance starts with no rank bonus — the old track is gone. */
+function toActiveStance(stance: SnapshotMode): CombatantRuntime["activeStance"]
+{
+  return { mode: stance, grades: gradesOf(stance), rankBonus: 0, rankBonusRemaining: 0 };
+}
+
+function gradesOf(stance: SnapshotMode): number[]
+{
+  return Object.keys(stance.variantsByGrade).map(Number).sort((a, b) => a - b);
 }
 
 function executeAction(
@@ -436,6 +509,19 @@ function tickRankBonus(runtime: CombatantRuntime): void
   }
 }
 
+/**
+ * Age the tag bans. Entries seeded with duration 0 are SUSTAINED by whatever
+ * keeps re-applying them (a stance/state auto-cast), so they are dropped here
+ * and immediately re-seeded a few lines later — which is exactly what makes a
+ * ban end the moment the wearer leaves the mode.
+ */
+function tickForbiddenTags(runtime: CombatantRuntime): void
+{
+  runtime.forbiddenTags = runtime.forbiddenTags
+    .map(ban => (ban.remaining > 0 ? { ...ban, remaining: ban.remaining - 1 } : ban))
+    .filter(ban => ban.remaining > 0);
+}
+
 /** Re-apply the active stance & state effects at the (rank-adjusted) grade. */
 function autoCastModes(actor: CombatantRuntime, opponent: CombatantRuntime, random: () => number, log: CombatLogBuilder): void
 {
@@ -444,7 +530,7 @@ function autoCastModes(actor: CombatantRuntime, opponent: CombatantRuntime, rand
     if (!active) continue;
     const grade = active.mode.baseGrade + active.rankBonus;
     const effects = variantEffectsAt(
-      { name: active.mode.name, variantsByGrade: active.mode.variantsByGrade, grades: active.grades },
+      { variantsByGrade: active.mode.variantsByGrade, grades: active.grades },
       grade,
     );
     if (effects.length > 0) applyEffects(effects, actor, opponent, { random, log });

@@ -33,6 +33,17 @@ describe("mode definitions (stance/state families)", () =>
     expect((tarcza.variantsByGrade[2]![0] as { protection: number }).protection).toBe(2);
   });
 
+  it("zbiera tagi z całej rodziny rang — blokady (Amok) celują w nazwę, nie w pojedynczy rekord", () =>
+  {
+    const [family] = groupModeFamilies([
+      mode("Mur Tarcz", 1, { tags: ["defensywne"] }),
+      mode("Mur Tarcz", 2, { tags: ["defensywne", "tarcza"] }),
+      mode("Mur Tarcz", 3, { tags: [] }),
+    ]);
+
+    expect(family!.tags.sort()).toEqual(["defensywne", "tarcza"]);
+  });
+
   it("variantEffectsAt returns the exact grade, else clamps to the ladder", () =>
   {
     const [family] = groupModeFamilies([

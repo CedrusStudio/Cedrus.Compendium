@@ -176,6 +176,29 @@ export function MetaAnalyzer()
             </CardContent>
           </Card>
 
+          {(report.stanceRanking.length > 0 || report.stateRanking.length > 0) && (
+            <Card>
+              <CardHeader><CardTitle className="text-base">Postawy i stany w meta</CardTitle></CardHeader>
+              <CardContent className="flex flex-col gap-3">
+                {([["Postawy", report.stanceRanking], ["Stany", report.stateRanking]] as const)
+                  .filter(([, rows]) => rows.length > 0)
+                  .map(([label, rows]) => (
+                    <div key={label}>
+                      <div className="mb-1 text-xs font-medium text-muted-foreground">{label} — śr. Win Rate noszących</div>
+                      <div className="flex flex-wrap gap-2">
+                        {rows.map(row => (
+                          <span key={row.name} className="rounded border px-2 py-1 text-sm">
+                            {row.name} <span className="tabular-nums">{(row.averageWinRate * 100).toFixed(1)}%</span>
+                            <span className="text-muted-foreground"> · {row.builds} build(ów)</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+              </CardContent>
+            </Card>
+          )}
+
           <Card>
             <CardHeader><CardTitle className="text-base">Najczęściej używane manewry</CardTitle></CardHeader>
             <CardContent>

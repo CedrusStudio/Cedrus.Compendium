@@ -12,6 +12,7 @@ import { useSearchCharactersSummary } from "@/application/characters/hooks/useSe
 import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterById";
 import { usePowerSpecifications } from "@/application/combat-lab/hooks/usePowerSpecifications";
 import { ModeSelector } from "@/application/combat-lab/builder/ModeSelector";
+import { StanceRepertoireSelector } from "@/application/combat-lab/builder/StanceRepertoireSelector";
 import {
   createSelection,
   createTempBuff,
@@ -184,6 +185,11 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
             })}
 
             <ModeSelector kind="stance" value={value.stance} onChange={(stance) => onChange({ ...value, stance })} ownModes={character?.stances.map(s => ({ name: s.name, grade: s.grade }))} />
+            <StanceRepertoireSelector
+              active={value.stance}
+              value={value.stanceRepertoire ?? []}
+              onChange={(stanceRepertoire) => onChange({ ...value, stanceRepertoire })}
+            />
             <ModeSelector kind="state" value={value.state} onChange={(state) => onChange({ ...value, state })} ownModes={character?.states.map(s => ({ name: s.name, grade: s.grade }))} />
 
             {character && character.buffProfiles.length > 0 && (

@@ -50,9 +50,16 @@ next-env.d.ts
 
 /src/generated/prisma
 /.vs
-.next-build.log
-.next-build-step1.log
-.next-build-step2.log
-src/application/characters/combat/power/PowerCard.tsx
-.next-build-check.log
+
+# build/test logs and one-off run dumps (never belong in the repo)
+.next-build*.log
 .build-check.log
+.vitest-*.json
+
+# scratch files from debugging sessions
+__repro.ts
+tsconfig.repro.json
+tsconfig.scratch.json
+
+# artefakty montowania dysku (WSL/fuse) — potrafią wpaść do commita
+.fuse_hidden*

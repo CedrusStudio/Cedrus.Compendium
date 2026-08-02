@@ -101,6 +101,11 @@ export const EFFECT_TYPE_META: Record<string, EffectTypeMeta> = {
     { path: "rounding", label: "zaokrąglenie", kind: "enum", options: ROUNDING_KINDS, optLabels: ROUNDING_LABELS, def: "up" },
     { path: "duration", label: "czas (rundy)", kind: "number", def: 1 },
   ] },
+  forbidTag: { label: "Blokada tagu (np. Amok)", simple: true, fields: [
+    { path: "tag", label: "tag z biblioteki (np. defensywne)", kind: "text", def: "defensywne" },
+    { path: "scope", label: "co blokuje", kind: "enum", options: ["all", "maneuvers", "stances"], optLabels: { all: "postawy i manewry", maneuvers: "manewry", stances: "postawy" }, def: "all" },
+    { path: "duration", label: "czas (0 = póki trwa tryb)", kind: "number", def: 0 },
+  ] },
   stanceRank: { label: "Ranga postawy/stanu", simple: true, fields: [
     { path: "target", label: "co", kind: "enum", options: ["stance", "state"], optLabels: { stance: "postawa", state: "stan" }, def: "stance" },
     { path: "delta", label: "o ile (+/-)", kind: "number", def: 1 },
@@ -152,6 +157,7 @@ export function defaultEffect(type: string): Record<string, unknown>
     case "stat": return { type, mode: "self", duration: 1 };
     case "multiplier": return { type, mode: "self", target: "damageDealt", factor: 1, rounding: "up", duration: 1 };
     case "stanceRank": return { type, target: "stance", delta: 1, duration: 1 };
+    case "forbidTag": return { type, tag: "defensywne", scope: "all", duration: 0 };
     case "roll": return { type, modifier: "advantage" };
     case "status": return { type, status: "bleeding", duration: 1 };
     case "control": return { type, control: "stun", duration: 1 };
