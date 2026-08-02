@@ -28,6 +28,25 @@ describe("computeSynergy()", () => {
     expect(report.baselineWinRate).toBeGreaterThan(report.elements[0]!.withoutWinRate);
   });
 
+  it("ablacja obejmuje postawę — obronna postawa ma dodatni wkład", () => {
+    const subject = makeSnapshot("subject", {
+      offense: makeOffense("so", 1, 3, 0),
+      initiativeValue: 5,
+      maxHp: 40,
+    });
+    const withStance = {
+      ...subject,
+      stance: { name: "Mur Tarcz", baseGrade: 1, variantsByGrade: { 1: [{ type: "stat" as const, mode: "self" as const, duration: 1, protection: 8 }] } },
+    };
+    const opponent = makeSnapshot("opponent", { offense: makeOffense("oo", 1, 3, 0), maxHp: 40 });
+
+    const report = computeSynergy(withStance, opponent, { count: 120, subjectPolicy: greedyDamagePolicy, opponentPolicy: basicAttackPolicy });
+
+    const stance = report.elements.find(e => e.id === "stance:Mur Tarcz");
+    expect(stance).toBeDefined();
+    expect(stance!.contribution).toBeGreaterThan(0);
+  });
+
   it("ranks a bigger maneuver above a smaller one", () => {
     const subject = makeSnapshot("s", {
       offense: makeOffense("so", 1, 3, 0),

@@ -1,0 +1,215 @@
+﻿name,grade,tier,suggestedType,markers,scaling,condition,cost,proposalConfidence,proposedEffects,proposalNote,approve,tags,description
+Postawa Alcanlorów,1,T?,,,,,,,,,,inicjatywa,Atakujący przeciwnik traci 1 inicjatywy. Co turę zmniejsza incjatywę o 1.
+Postawa Alcanlorów,3,T?,,,,,,,,,,inicjatywa,Atakujący przeciwnik traci 3 inicjatywy. Co turę zmniejsza incjatywę o 2.
+Postawa Alcanlorów,2,T?,,,,,,,,,,inicjatywa,Atakujący przeciwnik traci 2 inicjatywy. Co turę zmniejsza incjatywę o 2.
+Postawa Balansu,1,T?,,,,,,,,,,harmonia,Zmniejsza koszt manewrów Harmonii o 1 (min 1).
+Postawa Bastionu,1,T?,damage (obrażenia),,,,,,,,,defensywa,Odejmuje kość broni. Redukuje połowę obrażeń zadanych w zdrowie.
+Postawa Dartona,1,T?,,,,,,,,,,ofensywa,Zwiększa o 1 rangę kości broni.
+Postawa Dartona,3,T?,,,,,,,,,,ofensywa,Zwiększa o 3 rangę kości broni.
+Postawa Dartona,2,T?,,,,,,,,,,ofensywa,Zwiększa o 2 rangę kości broni.
+Postawa Dartona,4,T?,,,,,,,,,,ofensywa,Zwiększa o 4 rangę kości broni.
+Postawa Diany,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 1. Dodaje +1 siłę krytyka i +1 zasięg krytyka.
+Postawa Diany,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 2. Dodaje +2 siłę krytyka i +2 zasięg krytyka.
+Postawa Diany,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,ofensywa; krytyk,Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 3. Dodaje +3 siłę krytyka i +3 zasięg krytyka.
+Postawa Dusta Le'grief,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,defensywa,Siła uderzeń krytycznych ataków wymierzonych w postać zmniejsza się o 1.
+Postawa Dusta Le'grief,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,defensywa,Siła uderzeń krytycznych ataków wymierzonych w postać zmniejsza się o 3.
+Postawa Dusta Le'grief,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,defensywa,Siła uderzeń krytycznych ataków wymierzonych w postać zmniejsza się o 2.
+Postawa Dzentelmena,3,T?,,,,,,,,,,fechtunek; zręczność,"Zwiększa fechtunek o 2, zwiększa refleks o 1."
+Postawa Dzentelmena,5,T?,,,,,,,,,,fechtunek; zręczność,"Zwiększa fechtunek o 2, zwiększa refleks o 2, zwiększa fortel o 2."
+Postawa Dzentelmena,2,T?,,,,,,,,,,fechtunek; zręczność,"Zwiększa fechtunek o 1, zwiększa refleks o 1."
+Postawa Dzentelmena,4,T?,,,,,,,,,,fechtunek; zręczność,"Zwiększa fechtunek o 2, zwiększa refleks o 2, zwiększa fortel o 1."
+Postawa Dzentelmena,1,T?,,,,,,,,,,fechtunek,Zwiększa fechtunek o 1.
+Postawa Fechmistrza,3,T?,,,,,,,,,,fechtunek,Zwiększa fechtunek o 3.
+Postawa Fechmistrza,2,T?,,,,,,,,,,fechtunek,Zwiększa fechtunek o 2.
+Postawa Fechmistrza,1,T?,,,,,,,,,,fechtunek,Zwiększa fechtunek o 1.
+Postawa Fechmistrza,4,T?,,,,,,,,,,fechtunek,Zwiększa fechtunek o 4.
+Postawa Gerneta,1,T?,damage (obrażenia),,,,,,,,,ofensywa,Zwiększa o 2 zasięg kości obrażeń.
+Postawa Gerneta,3,T?,damage (obrażenia),,,,,,,,,ofensywa,Zwiększa o 6 zasięg kości obrażeń.
+Postawa Gerneta,2,T?,damage (obrażenia),,,,,,,,,ofensywa,Zwiększa o 4 zasięg kości obrażeń.
+Postawa Gerneta,4,T?,damage (obrażenia),,,,,,,,,ofensywa,Zwiększa o 8 zasięg kości obrażeń.
+Postawa Iris,1,T?,,,,,,,,,,inicjatywa,"Zmniejsza inicjatywe o 3, co turę zwiększa inicjatywę o 1."
+Postawa Iris,3,T?,,,,,,,,,,inicjatywa,"Zmniejsza inicjatywe o 2, co turę zwiększa inicjatywę o 2."
+Postawa Iris,2,T?,,,,,,,,,,inicjatywa,"Zmniejsza inicjatywe o 2, co turę zwiększa inicjatywę o 1."
+Postawa Irrna El'drima,3,T?,,,,,,,,,,defensywa,Dodaje +3 do refleksu przeciw atakom dystansowym [może wykroczyć poza ograniczenia refleksu].
+Postawa Irrna El'drima,2,T?,,,,,,,,,,defensywa,Dodaje +2 do refleksu przeciw atakom dystansowym [może wykroczyć poza ograniczenia refleksu].
+Postawa Irrna El'drima,1,T?,,,,,,,,,,defensywa,Dodaje +1 do refleksu przeciw atakom dystansowym [może wykroczyć poza ograniczenia refleksu].
+Postawa Kaname,2,T?,,,,,,,,,,fechtunek; fortel,Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 2. Dodaje +2 fechtunek i +2 fortel.
+Postawa Kaname,3,T?,,,,,,,,,,fechtunek; fortel,Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 3. Dodaje +3 fechtunek i +3 fortel.
+Postawa Kaname,1,T?,,,,,,,,,,fechtunek; fortel,Zmniejsza inicjatywe o 3 i co turę zmniejsza inicjatywe o 1. Dodaje +1 fechtunek i +1 fortel.
+Postawa Kontrfechtunku,1,T?,,,,,,,,,,fechtunek,Zmniejsza fechtunek o 1 podmiotowi oraz wszystkim atakującym przeciwnikom.
+Postawa Kontrfechtunku,2,T?,,,,,,,,,,fechtunek,Zmniejsza fechtunek o 2 podmiotowi oraz wszystkim atakującym przeciwnikom.
+Postawa Kruka,4,T?,,,,,,,,,,fortel,Zwiększa fortel o 4.
+Postawa Kruka,1,T?,,,,,,,,,,fortel,Zwiększa fortel o 1.
+Postawa Kruka,3,T?,,,,,,,,,,fortel,Zwiększa fortel o 3.
+Postawa Kruka,2,T?,,,,,,,,,,fortel,Zwiększa fortel o 2.
+Postawa Lisa,2,T?,,,,,,,,,,fortel,"Zwiększa fortel o 2, zmniejsza fechtunek o 1."
+Postawa Lisa,4,T?,,,,,,,,,,fortel,"Zwiększa fortel o 4, zmniejsza fechtunek o 3."
+Postawa Lisa,3,T?,,,,,,,,,,fortel,"Zwiększa fortel o 3, zmniejsza fechtunek o 2."
+Postawa Lisa,1,T?,,,,,,,,,,fortel,"Zwiększa fortel o 1, zmniejsza fechtunek o 1."
+Postawa Lisa,5,T?,,,,,,,,,,fortel,"Zwiększa fortel o 5, zmniejsza fechtunek o 3."
+Postawa Lotosu,4,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zmniejsza zasięg fizycznego trafienia krytycznego o 4, a zwiększa siłę fizycznego uderzenia krytycznego o 11."
+Postawa Lotosu,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zmniejsza zasięg fizycznego trafienia krytycznego o 3, a zwiększa siłę fizycznego uderzenia krytycznego o 8."
+Postawa Lotosu,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zmniejsza zasięg fizycznego trafienia krytycznego o 2, a zwiększa siłę fizycznego uderzenia krytycznego o 5."
+Postawa Lotosu,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zmniejsza zasięg fizycznego trafienia krytycznego o 1, a zwiększa siłę fizycznego uderzenia krytycznego o 2."
+Postawa Mędrca,1,T?,,,,,,,,,,harmonia,Zwiększa wole o 1.
+Postawa Ochronna,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,defensywa,Zasięg trafień krytycznych ataków wymierzonych w postać zmniejsza się o 3.
+Postawa Ochronna,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,defensywa,Zasięg trafień krytycznych ataków wymierzonych w postać zmniejsza się o 1.
+Postawa Ochronna,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,defensywa,Zasięg trafień krytycznych ataków wymierzonych w postać zmniejsza się o 2.
+Postawa Pelgarda,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":2,""bonus"":0},""damageType"":""zwyczajne""}]",kość obrażeń,,krytyk,"Zmniejsza zasięg trafienia krytycznego do 1, dodaje do siły trafienia krytycznego widmową kość obrażeń 1k4."
+Postawa Pelgarda,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":4,""bonus"":0},""damageType"":""zwyczajne""}]",kość obrażeń,,krytyk,"Zmniejsza zasięg trafienia krytycznego do 1, dodaje do siły trafienia krytycznego widmową kość obrażeń 1k8."
+Postawa Pelgarda,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":3,""bonus"":0},""damageType"":""zwyczajne""}]",kość obrażeń,,krytyk,"Zmniejsza zasięg trafienia krytycznego do 1, dodaje do siły trafienia krytycznego widmową kość obrażeń 1k6."
+Postawa Ratera,2,T?,,,,,,,,,,fechtunek,"Zwiększa fechtunek o 2, zmniejsza fortel o 2."
+Postawa Ratera,3,T?,,,,,,,,,,fechtunek,"Zwiększa fechtunek o 3, zmniejsza fortel o 4."
+Postawa Ratera,1,T?,,,,,,,,,,fechtunek,"Zwiększa fechtunek o 1, zmniejsza fortel o 1."
+Postawa Ratera,4,T?,,,,,,,,,,fechtunek,"Zwiększa fechtunek o 4, zmniejsza fortel o 6."
+Postawa Rlin,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zwiększa o 3 zasięg kości broni, zwiększa zasięg trafienia krytycznego o 3."
+Postawa Rlin,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zwiększa o 1 zasięg kości broni, zwiększa zasięg trafienia krytycznego o 1."
+Postawa Rlin,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zwiększa o 2 zasięg kości broni, zwiększa zasięg trafienia krytycznego o 2."
+Postawa Spokoju,1,T?,,,,,,,,,,harmonia,Zwiększa wole o 1.
+Postawa Spokoju,2,T?,,,,,,,,,,harmonia,Zwiększa wole o 2.
+Postawa Spokoju,3,T?,,,,,,,,,,harmonia,Zwiększa wole o 3.
+Postawa Szermierska,2,T?,,,,,,,,,,fechtunek; fortel,Zwiększa fechtunek i fortel o 2.
+Postawa Szermierska,4,T?,,,,,,,,,,fechtunek; fortel,Zwiększa fechtunek i fortel o 4.
+Postawa Szermierska,1,T?,,,,,,,,,,fechtunek; fortel,Zwiększa fechtunek i fortel o 1.
+Postawa Szermierska,3,T?,,,,,,,,,,fechtunek; fortel,Zwiększa fechtunek i fortel o 3.
+Postawa Szopa,4,T?,,,,,,,,,,zręczność,Zwiększa uniki o 4.
+Postawa Szopa,1,T?,,,,,,,,,,zręczność,Zwiększa uniki o 1.
+Postawa Szopa,2,T?,,,,,,,,,,zręczność,Zwiększa uniki o 2.
+Postawa Szopa,3,T?,,,,,,,,,,zręczność,Zwiększa uniki o 3.
+Postawa Szulera,1,T?,,,,,,,,,,fortel,"Zwiększa fortel o 2, zmniejsza refleks o 1."
+Postawa Tygrysa,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa siłę fizycznego uderzenia krytycznego o 1.
+Postawa Tygrysa,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa siłę fizycznego uderzenia krytycznego o 2.
+Postawa Tygrysa,4,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa siłę fizycznego uderzenia krytycznego o 4.
+Postawa Tygrysa,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa siłę fizycznego uderzenia krytycznego o 3.
+Postawa Węża,3,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa zasięg trafienia krytycznego o 3.
+Postawa Węża,4,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa zasięg trafienia krytycznego o 4.
+Postawa Węża,2,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa zasięg trafienia krytycznego o 2.
+Postawa Węża,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,Zwiększa zasięg trafienia krytycznego o 1.
+Postawa Wirtuoza,3,T?,damage (obrażenia),,,,,,,,,widmowy; ofensywa,Zamienia istniejącą widmową kość obrażeń na kość broni o randze o 1 mniejszej.
+Postawa Wirtuoza,4,T?,damage (obrażenia),,,,,,,,,widmowy; ofensywa,Zamienia istniejącą widmową kość obrażeń na kość broni o tej samej randze.
+Postawa Wirtuoza,1,T?,damage (obrażenia),,,,,,,,,widmowy; ofensywa,Zamienia istniejącą widmową kość obrażeń na kość broni o randze o 3 mniejszej.
+Postawa Wirtuoza,2,T?,damage (obrażenia),,,,,,,,,widmowy; ofensywa,Zamienia istniejącą widmową kość obrażeń na kość broni o randze o 2 mniejszej.
+Postawa Zwojów,1,T?,,,,,,,,,,harmonia,Zmniejsza czas odnawiania manewrów Harmonii o 1.
+Ciężka Tarcza,2,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""resistance"":2}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa; tarcze,"Odejmuje 2 blokowania, dodaje 2 odporności."
+Ciężka Tarcza,1,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""resistance"":1}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa; tarcze,"Odejmuje 1 blokowania, dodaje 1 odporności."
+Ciężka Tarcza,3,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""resistance"":3}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa; tarcze,"Odejmuje 3 blokowania, dodaje 3 odporności."
+Ciężka Tarcza,4,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""resistance"":4}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa; tarcze,"Odejmuje 4 blokowania, dodaje 4 odporności."
+Dłoń Mistrza,1,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""initiative"":1}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,harmonia; inicjatywa,Każda technika Harmonii dodaje 1 Inicjatywy.
+Postawa Dastana Aore,2,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa,Dodaje 2hp tarczy co ture (max 6). Wyjście z postawy anuluje bonus. W tą postawę można wejść raz dziennie.
+Postawa Dastana Aore,3,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa,Dodaje 3hp tarczy co ture (max 9). Wyjście z postawy anuluje bonus. W tą postawę można wejść raz dziennie.
+Postawa Dastana Aore,1,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa,Dodaje 1hp tarczy co ture (max 3). Wyjście z postawy anuluje bonus. W tą postawę można wejść raz dziennie.
+Postawa Defensywna,5,T1,damage (obrażenia),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":5}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Zwiększa odporność o 8, zmniejsza obrażenia o 5."
+Postawa Defensywna,2,T1,damage (obrażenia),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":2}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Zwiększa odporność o 2, zmniejsza obrażenia o 2."
+Postawa Defensywna,1,T1,damage (obrażenia),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":1}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Zwiększa odporność o 1, zmniejsza obrażenia o 1."
+Postawa Defensywna,3,T1,damage (obrażenia),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":3}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Zwiększa odporność o 4, zmniejsza obrażenia o 3."
+Postawa Defensywna,6,T1,damage (obrażenia),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":6}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Zwiększa odporność o 11, zmniejsza obrażenia o 6."
+Postawa Defensywna,4,T1,damage (obrażenia),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":4}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Zwiększa odporność o 6, zmniejsza obrażenia o 4."
+Postawa Dowódcy,3,T1,,,,,,,,,,dowódcy,Dodaje 3 woli przeciw testom strachu wszystkim sojusznikom pod dowództwem.
+Postawa Dowódcy,2,T1,,,,,,,,,,dowódcy,Dodaje 2 woli przeciw testom strachu wszystkim sojusznikom pod dowództwem.
+Postawa Dowódcy,1,T1,,,,,,,,,,dowódcy,Dodaje 1 woli przeciw testom strachu wszystkim sojusznikom pod dowództwem.
+Postawa Fortyfikacji,4,T1,,,,,,,,,,defensywa,"Nie można atakować, zamienia 16 redukcji na 16 odporności. Nie może być użyta do odpoczynku."
+Postawa Fortyfikacji,1,T1,,,,,,,,,,defensywa,"Nie można atakować, zamienia 4 redukcji na 4 odporności. Nie może być użyta do odpoczynku."
+Postawa Fortyfikacji,2,T1,,,,,,,,,,defensywa,"Nie można atakować, zamienia 8 redukcji na 8 odporności. Nie może być użyta do odpoczynku."
+Postawa Fortyfikacji,3,T1,,,,,,,,,,defensywa,"Nie można atakować, zamienia 12 redukcji na 12 odporności. Nie może być użyta do odpoczynku."
+Postawa Góry,3,T1,,,,,,,,,,harmonia,Zwiększa o 3 zasięg kości. Dodaje 1 do Harmonii.
+Postawa Góry,2,T1,,,,,,,,,,harmonia,Zwiększa o 2 zasięg kości. Dodaje 1 do Harmonii.
+Postawa Góry,1,T1,,,,,,,,,,harmonia,Zwiększa o 1 zasięg kości. Dodaje 1 do Harmonii.
+Postawa Medytacij,2,T1,,,,,,,,,,harmonia,Dodaje 2 do Harmonii.
+Postawa Medytacij,1,T1,,,,,,,,,,harmonia,Dodaje 1 do Harmonii.
+Postawa Medytacij,3,T1,,,,,,,,,,harmonia,Dodaje 3 do Harmonii.
+Postawa Mędrca,4,T1,,,,,,,,,,harmonia,"Dodaje 2 do Harmonii, Zwiększa wole o 2."
+Postawa Mędrca,3,T1,,,,,,,,,,harmonia,"Dodaje 1 do Harmonii, Zwiększa wole o 2."
+Postawa Mędrca,2,T1,,,,,,,,,,harmonia,"Dodaje 1 do Harmonii, Zwiększa wole o 1."
+Postawa Miecznika,1,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":1},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Dodaje 1 obrażeń, odejmuje 1 inicjatywy"
+Postawa Miecznika,2,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":2},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Dodaje 2 obrażeń, odejmuje 2 inicjatywy"
+Postawa Miecznika,3,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":3},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Dodaje 3 obrażeń, odejmuje 3 inicjatywy"
+Postawa Miecznika,4,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":4},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Dodaje 4 obrażeń, odejmuje 4 inicjatywy"
+Postawa Nemesis,1,T1,stat/krytyk lub warunek (przy krytyku),,,,,,,,,ofensywa; krytyk,"Dodaje dmg +3, zasięg trafień krytycznych +1, siły uderzenia krytycznego +2, redukcji +2."
+Postawa Ofensywna,3,T1,damage (obrażenia),,,,,,,,,ofensywa,"Zwiększa obrażenia o 4, zmniejsza redukcję o 3."
+Postawa Ofensywna,4,T1,damage (obrażenia),,,,,,,,,ofensywa,"Zwiększa obrażenia o 6, zmniejsza redukcję o 4."
+Postawa Ofensywna,5,T1,damage (obrażenia),,,,,,,,,ofensywa,"Zwiększa obrażenia o 8, zmniejsza redukcję o 5."
+Postawa Ofensywna,1,T1,damage (obrażenia),,,,,,,,,ofensywa,"Zwiększa obrażenia o 1, zmniejsza redukcję o 1."
+Postawa Ofensywna,6,T1,damage (obrażenia),,,,,,,,,ofensywa,"Zwiększa obrażenia o 11, zmniejsza redukcję o 6."
+Postawa Ofensywna,2,T1,damage (obrażenia),,,,,,,,,ofensywa,"Zwiększa obrażenia o 2, zmniejsza redukcję o 2."
+Postawa Pełna Defensywna,3,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":3}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Nie można atakować, dodaje 3 redukcji i 4 odporności. Nie może być użyta do odpoczynku."
+Postawa Pełna Defensywna,4,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":4}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Nie można atakować, dodaje 4 redukcji i 5 odporności. Nie może być użyta do odpoczynku."
+Postawa Pełna Defensywna,2,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":2}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Nie można atakować, dodaje 2 redukcji i 3 odporności. Nie może być użyta do odpoczynku."
+Postawa Pełna Defensywna,1,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":1}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Nie można atakować, dodaje 1 redukcji i 2 odporności. Nie może być użyta do odpoczynku."
+Postawa Pełna Defensywna,5,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""protection"":5}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,"Nie można atakować, dodaje 5 redukcji i 6 odporności. Nie może być użyta do odpoczynku."
+Postawa Rozdarcia,1,T1,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zwiększa siłę fizycznego uderzenia krytycznego o 1, zwiększa zasięg trafienia krytycznego o 1, zmniejsza redukcji o 3."
+Postawa Rozdarcia,3,T1,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zwiększa siłę fizycznego uderzenia krytycznego o 3, zwiększa zasięg trafienia krytycznego o 1, zmniejsza redukcji o 7."
+Postawa Rozdarcia,2,T1,stat/krytyk lub warunek (przy krytyku),,,,,,,,,krytyk; ofensywa,"Zwiększa siłę fizycznego uderzenia krytycznego o 2, zwiększa zasięg trafienia krytycznego o 1, zmniejsza redukcji o 5."
+Postawa Sztukmistrza,3,T1,,,,,,,,,,specjalne,Dodaje 3 Cha na czas pojedynku odbiera 6 odporności i 4dmg.
+Postawa Sztukmistrza,1,T1,,,,,,,,,,specjalne,Dodaje 1 Cha na czas pojedynku odbiera 2 odporności i 2dmg.
+Postawa Sztukmistrza,2,T1,,,,,,,,,,specjalne,Dodaje 2 Cha na czas pojedynku odbiera 4 odporności i 3dmg.
+Postawa Szulera,4,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":3},""damageType"":""zwyczajne""}]",płaskie obrażenia,,fortel,"Zwiększa fortel o 5, zmniejsza refleks o 4, dodaje 3 obrażeń."
+Postawa Szulera,2,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":1},""damageType"":""zwyczajne""}]",płaskie obrażenia,,fortel,"Zwiększa fortel o 3, zmniejsza refleks o 2, dodaje 1 obrażeń."
+Postawa Szulera,3,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":2},""damageType"":""zwyczajne""}]",płaskie obrażenia,,fortel,"Zwiększa fortel o 4, zmniejsza refleks o 3, dodaje 2 obrażeń."
+Postawa Wodza,2,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""initiative"":2}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,dowódcy; inicjatywa,Dodaje 2 inicjatywy wszystkim sojusznikom pod dowództwem.
+Postawa Wodza,1,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""initiative"":1}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,dowódcy; inicjatywa,Dodaje 1 inicjatywy wszystkim sojusznikom pod dowództwem.
+Postawa Wodza,3,T1,stat (obrona/wzmocnienie),,,,,high,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""initiative"":3}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,dowódcy; inicjatywa,Dodaje 3 inicjatywy wszystkim sojusznikom pod dowództwem.
+Postawa Wojmistrza,2,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":2},""damageType"":""zwyczajne""}]",płaskie obrażenia,,specjalne; ofensywa; defensywa,Dodaje 2 obrażeń i 1 redukcji lub 2 redukcji i 1 obrażeń. Ustalane przed wejściem w postawę.
+Postawa Wojmistrza,3,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":3},""damageType"":""zwyczajne""}]",płaskie obrażenia,,specjalne; ofensywa; defensywa,Dodaje 3 obrażeń i 2 redukcji lub 3 redukcji i 2 obrażeń. Ustalane przed wejściem w postawę.
+Postawa Wojmistrza,5,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":6},""damageType"":""zwyczajne""}]",płaskie obrażenia,,specjalne; ofensywa; defensywa,Dodaje 6 obrażeń i 5 redukcji lub 6 redukcji i 5 obrażeń. Ustalane przed wejściem w postawę.
+Postawa Wojmistrza,4,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":4},""damageType"":""zwyczajne""}]",płaskie obrażenia,,specjalne; ofensywa; defensywa,Dodaje 4 obrażeń i 3 redukcji lub 4 redukcji i 3 obrażeń. Ustalane przed wejściem w postawę.
+Postawa Wojmistrza,1,T1,damage (obrażenia),,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":1},""damageType"":""zwyczajne""}]",płaskie obrażenia,,specjalne; ofensywa; defensywa,Dodaje 1 obrażenie i 1 redukcji.
+Postawa Zondro,2,T1,,,,,,,,,,defensywa; widmowy,Dodaje redukcję dwóch widmowych kości.
+Postawa Zondro,1,T1,,,,,,,,,,defensywa; widmowy,Dodaje redukcję jednej widmowej kości.
+Styl Grupowy,3,T1,,,,,,,,,,ofensywa,Możesz atakować 1cel/bazową kość broni (max 4). Nie można używać manewrów i innych postaw.
+Styl Grupowy,4,T1,,,,,,,,,,ofensywa,Możesz atakować 1cel/bazową kość broni (max 5). Nie można używać manewrów i innych postaw.
+Styl Grupowy,1,T1,,,,,,,,,,ofensywa,Możesz atakować 1cel/bazową kość broni (max 2). Nie można używać manewrów i innych postaw.
+Styl Grupowy,2,T1,,,,,,,,,,ofensywa,Możesz atakować 1cel/bazową kość broni (max 3). Nie można używać manewrów i innych postaw.
+Ściana z tarcz,2,T1,stat (obrona/wzmocnienie),,,tak,,,,,,defensywa; tarcze,"Dodaje +4 blokowania jeśli ma się osłonę z prawej i lewej strony. Dodaje +2 blokowania jeśli ma się osłonę tylko z jednej strony. Unieruchamia. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim+1 za osłonę z każdej ze stron."
+Ściana z tarcz,1,T1,stat (obrona/wzmocnienie),,,tak,,,,,,defensywa; tarcze,"Dodaje +2 blokowania jeśli ma się osłonę z prawej i lewej strony. Dodaje +1 blokowania jeśli ma się osłonę tylko z jednej strony. Unieruchamia. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim+1 za osłonę z każdej ze stron."
+Ściana z tarcz,3,T1,stat (obrona/wzmocnienie),,,tak,,,,,,defensywa; tarcze,"Dodaje +6 redukcji jeśli ma się osłonę z prawej i lewej strony. Dodaje +3 blokowania jeśli ma się osłonę tylko z jednej strony. Unieruchamia. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim+1 za osłonę z każdej ze stron."
+Zasłona,2,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa; tarcze,"Blokowanie +2. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 8. Połowa prędkości poruszania."
+Zasłona,5,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa; tarcze,"Blokowanie +8. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 10. Połowa prędkości poruszania."
+Zasłona,3,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa; tarcze,"Blokowanie +3. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 10. Połowa prędkości poruszania."
+Zasłona,4,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa; tarcze,"Blokowanie +5. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 10. Połowa prędkości poruszania."
+Zasłona,1,T1,stat (obrona/wzmocnienie),,,,,,,,,defensywa; tarcze,"Blokowanie +1. Zeruje refleks przeciwko testom strzeleckim, ale podwaja premię z tarczy przeciwko testom strzeleckim max 6. Połowa prędkości poruszania."
+Postawa Cienistego Assasyna,1,T2b,stat/krytyk lub warunek (przy krytyku),,,,,,,,,widmowy; ofensywa; krytyk,Dodaje widmową kość obrażeń o randze równej zasięgowi trafienia krytycznego maks. k6.
+Postawa Cienistego Assasyna,2,T2b,stat/krytyk lub warunek (przy krytyku),,,,,,,,,widmowy; defensywa; krytyk,Dodaje widmową kość obrażeń o randze równej zasięgowi trafienia krytycznego maks. k8.
+Postawa Cienistego Assasyna,3,T2b,stat/krytyk lub warunek (przy krytyku),,,,,,,,,widmowy; ofensywa; krytyk,Dodaje widmową kość obrażeń o randze równej zasięgowi trafienia krytycznego maks. k10.
+Postawa Profesty,1,T2b,damage (obrażenia),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":2,""bonus"":0,""isPhantom"":true},""damageType"":""zwyczajne""}]",widmowa kość obrażeń,,widmowy; ofensywa,"Dodaje widmową kość obrażeń k4, odejmuje 1 punkt uniku i 1 punkt parowania."
+Postawa Profesty,2,T2b,damage (obrażenia),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":2,""bonus"":0,""isPhantom"":true},""damageType"":""zwyczajne""}]",widmowa kość obrażeń,,widmowy; ofensywa,"Dodaje dwie widmowe kości obrażeń k4, odejmuje 2 punkty uniku i 2 punkty parowania."
+Postawa Profesty,3,T2b,damage (obrażenia),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":2,""bonus"":0,""isPhantom"":true},""damageType"":""zwyczajne""}]",widmowa kość obrażeń,,widmowy; ofensywa,"Dodaje trzy widmowe kości obrażeń k4, odejmuje 3 punkty uniku i 3 punkty parowania."
+Postawa Widma,4,T2b,damage (obrażenia),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":5,""bonus"":0},""damageType"":""zwyczajne""}]",kość obrażeń,,widmowy; ofensywa,"Odejmuje 5 obrażeń, dodaje widmową kość obrażeń 1 k10."
+Postawa Widma,2,T2b,damage (obrażenia),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":3,""bonus"":0},""damageType"":""zwyczajne""}]",kość obrażeń,,widmowy; ofensywa,"Odejmuje 3 obrażeń, dodaje widmową kość obrażeń 1 k6."
+Postawa Widma,3,T2b,damage (obrażenia),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":4,""bonus"":0},""damageType"":""zwyczajne""}]",kość obrażeń,,widmowy; ofensywa,"Odejmuje 4 obrażeń, dodaje widmową kość obrażeń 1 k8."
+Postawa Widma,1,T2b,damage (obrażenia),,,,,medium,"[{""type"":""damage"",""damage"":{""amount"":1,""grade"":2,""bonus"":0},""damageType"":""zwyczajne""}]",kość obrażeń,,widmowy; ofensywa,"Odejmuje 2 obrażeń, dodaje widmową kość obrażeń 1 k4."
+Przez Gniew,1,T2b,damage (obrażenia),,,,,,,,,ofensywa,"Dodaje kość broni, wszystkie obrażenia które zostaną zadane użytkownikowi postawy mnożone są razy 1.5."
+Postawa Kunsztownego Szermierza,3,T2c,contested (test sporny),,,,,,,,,defensywa; fortel; fechtunek,Za wygrany test fechtunku lub fortelu bonus 5 redukcji na następny atak względem przeciwnika który przegrał test.
+Postawa Kunsztownego Szermierza,4,T2c,contested (test sporny),,,,,,,,,defensywa; fortel; fechtunek,Za wygrany test fechtunku lub fortelu bonus 6 redukcji na następny atak względem przeciwnika który przegrał test.
+Postawa Kunsztownego Szermierza,1,T2c,contested (test sporny),,,,,,,,,defensywa; fortel; fechtunek,Za wygrany test fechtunku lub fortelu bonus 3 redukcji na następny atak względem przeciwnika który przegrał test.
+Postawa Kunsztownego Szermierza,2,T2c,contested (test sporny),,,,,,,,,defensywa; fortel; fechtunek,Za wygrany test fechtunku lub fortelu bonus 4 redukcji na następny atak względem przeciwnika który przegrał test.
+Postawa Sokoła,1,T2c,contested (test sporny),,,,,,,,,fechtunek; fortel,Wygranie czterech testów spornych fechtunku lub fortelu z rzędu z wybranym przeciwnikiem powoduje zwiększenie ilości kości broni o 1 przeciwko temu przeciwnikowi.
+Postawa Sokoła,2,T2c,contested (test sporny),,,,,,,,,fechtunek; fortel,Wygranie trzech testów spornych fechtunku lub fortelu z rzędu z wybranym przeciwnikiem powoduje zwiększenie ilości kości broni o 1 przeciwko temu przeciwnikowi.
+Postawa Sokoła,3,T2c,contested (test sporny),,,,,,,,,fechtunek; fortel,Wygranie czterech lub trzech z rzędu testów spornych fechtunku lub fortelu z wybranym przeciwnikiem powoduje zwiększenie ilości kości broni o 1 przeciwko temu przeciwnikowi.
+Postawa Tura,1,T2c,contested (test sporny),,,,,,,,,ofensywa; siła,Dodaje 1 do testów siłowych.
+Postawa Tura,2,T2c,contested (test sporny),,,,,,,,,ofensywa; siła,Dodaje 2 do testów siłowych.
+Postawa Tura,3,T2c,contested (test sporny),,,,,,,,,ofensywa; siła,Dodaje 3 do testów siłowych.
+Postawa Tura,4,T2c,contested (test sporny),,,,,,,,,ofensywa; siła,Dodaje 4 do testów siłowych.
+Postawa Wyrafinowanego Szermierza,1,T2c,contested (test sporny),,tak,,,,,,,fechtunek; fortel,Za każdy wygrany test fechtunku lub fortelu bonus 1 redukcji na stałe względem 1 przeciwnika który przegrał test (bonus maksymalnie względem jednego) maks. 4 redukcji. Wytrącenie z postawy usuwa postęp.
+Postawa Wyrafinowanego Szermierza,2,T2c,contested (test sporny),,tak,,,,,,,fechtunek; fortel,Za każdy wygrany test fechtunku lub fortelu bonus 1 redukcji na stałe względem 1 przeciwnika który przegrał test (bonus maksymalnie względem jednego) maks. 6 redukcji. Wytrącenie z postawy usuwa postęp.
+Postawa Wyrafinowanego Szermierza,3,T2c,contested (test sporny),,tak,,,,,,,fechtunek; fortel,Za każdy wygrany test fechtunku lub fortelu bonus 1 redukcji na stałe względem 1 przeciwnika który przegrał test (bonus maksymalnie względem jednego) maks. 8 redukcji. Wytrącenie z postawy usuwa postęp.
+Poczucie Siły,1,T3,stat (obrona/wzmocnienie),interakcja z cudzym manewrem,,,,medium,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""resistance"":2}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,Przy użyciu manewru ofensywnego dodaje 2 odporności.
+Poczucie Siły,2,T3,stat (obrona/wzmocnienie),interakcja z cudzym manewrem,,,,medium,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""resistance"":3}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,Przy użyciu manewru ofensywnego dodaje 3 odporności.
+Poczucie Siły,3,T3,stat (obrona/wzmocnienie),interakcja z cudzym manewrem,,,,medium,"[{""type"":""stat"",""mode"":""self"",""duration"":1,""resistance"":4}]","wzmocnienie/obrona (na siebie, czas=1 — sprawdź)",,defensywa,Przy użyciu manewru ofensywnego dodaje 4 odporności.
+Postawa Antymagiczna,3,T3,,many/czar/zaklęcie,,,,,,,,defensywa,Odporność na zaklęcia 6
+Postawa Antymagiczna,1,T3,,many/czar/zaklęcie,,,,,,,,defensywa,Odporność na zaklęcia 2
+Postawa Antymagiczna,2,T3,,many/czar/zaklęcie,,,,,,,,defensywa,Odporność na zaklęcia 4
+Postawa Antymagiczna,4,T3,,many/czar/zaklęcie,,,,,,,,defensywa,Odporność na zaklęcia 8
+Postawa Asary Lu'dean,3,T3,contested (test sporny),interakcja z cudzym manewrem,,,,,,,,,Używając kontrmanewru dodajesz dodatkowe +3 do testu. Po udanym teście przeciw manewrowi przeciwnika dostaje +1 do kolejnych testów manewrów przeciwnika (max +3).
+Postawa Asary Lu'dean,2,T3,contested (test sporny),interakcja z cudzym manewrem,,,,,,,,,Używając kontrmanewru dodajesz dodatkowe +2 do testu. Po udanym teście przeciw manewrowi przeciwnika dostaje +1 do kolejnych testów manewrów przeciwnika (max +2).
+Postawa Asary Lu'dean,1,T3,contested (test sporny),interakcja z cudzym manewrem,,,,,,,,,Używając kontrmanewru dodajesz dodatkowe +1 do testu. Po udanym teście przeciw manewrowi przeciwnika dostaje +1 do kolejnych testów manewrów przeciwnika (max +1).
+Postawa Virtona Lenter,2,T3,,cooldown/odnowienie manewru,,,,,,,,,Czas odnowienia się manewrów zmniejszony o 1 ture (minimum 1//3 lub poprzednia wartość).
+Postawa Virtona Lenter,1,T3,,cooldown/odnowienie manewru,,,,,,,,,Czas odnowienia się manewrów zmniejszony o 1 ture (minimum 1//4 lub poprzednia wartość).
+Postawa Virtona Lenter,3,T3,,cooldown/odnowienie manewru,,,,,,,,,Czas odnowienia się manewrów zmniejszony o 1 ture (minimum 1//2 lub poprzednia wartość).
+Postawa Wsparcia,1,T3,,wierzchowiec/towarzysz,,,,,,,,defensywa,Oddaje towarzyszowi do 3 parowania/blokowania
+Postawa Wsparcia,2,T3,,wierzchowiec/towarzysz,,,,,,,,defensywa,Oddaje towarzyszowi do 5 parowania/blokowania
+Postawa Wsparcia,3,T3,,wierzchowiec/towarzysz,,,,,,,,defensywa,Oddaje towarzyszowi do 7 parowania/blokowania
+Postawa Wsparcia,4,T3,,wierzchowiec/towarzysz,,,,,,,,defensywa,Oddaje towarzyszowi do 9 parowania/blokowania
+Postawa Wsparcia,5,T3,,wierzchowiec/towarzysz,,,,,,,,defensywa,Oddaje towarzyszowi do 11 parowania/blokowania
+Stalowy Adwokat,2,T3,,interakcja z cudzym manewrem,,,,,,,,defensywa,Przy użyciu manewru defensywnego dodatkowo odporność 3.
+Stalowy Adwokat,1,T3,,interakcja z cudzym manewrem,,,,,,,,defensywa,Przy użyciu manewru defensywnego dodatkowo odporność 2.
+Stalowy Adwokat,3,T3,,interakcja z cudzym manewrem,,,,,,,,defensywa,Przy użyciu manewru defensywnego dodatkowo odporność 4.

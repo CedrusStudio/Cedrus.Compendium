@@ -8,7 +8,7 @@
 
 import { canUseCastable } from "@/domain/characters/Castable";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
-import type { SnapshotSpell } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import type { SnapshotMode, SnapshotSpell } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import { isStaggered } from "@/domain/combat-lab/engine/CombatState";
 
@@ -17,6 +17,13 @@ export type Action =
   | { kind: "ranged" }
   | { kind: "maneuver"; maneuver: ManeuverDefinition }
   | { kind: "spell"; spell: SnapshotSpell }
+  /**
+   * Switching stance. A MOVE-like action per the rulebook: it costs neither the
+   * attack nor the maneuver budget, so it goes nowhere near `canUseCastable`.
+   * Its only limits are the timing rule in `runCombat` (once per turn, before
+   * the attack XOR after it) and having somewhere to switch to.
+   */
+  | { kind: "stanceChange"; stance: SnapshotMode }
   | { kind: "pass" };
 
 /**
@@ -43,12 +50,29 @@ export function availableProactiveManeuvers(runtime: CombatantRuntime): Action[]
   const actions: Action[] = [];
   for (const maneuver of runtime.snapshot.maneuvers)
   {
-    if (!isReactiveManeuver(maneuver) && canUseCastable(maneuver, runtime.usedCastables))
+    if (!isReactiveManeuver(maneuver) && canUseCastable(maneuver, runtime.usedCastables) && !isTagForbidden(runtime, maneuver.tags, "maneuvers"))
     {
       actions.push({ kind: "maneuver", maneuver });
     }
   }
   return actions;
+}
+
+/**
+ * Whether a tag ban currently blocks something carrying `tags`.
+ *
+ * Comparison is case-insensitive and trimmed, because the ban text comes from a
+ * description ("defensywne") while the tags come from the library's own tag
+ * list — the two are authored by hand, at different times.
+ */
+export function isTagForbidden(runtime: CombatantRuntime, tags: string[] | undefined, scope: "maneuvers" | "stances"): boolean
+{
+  if (!tags || tags.length === 0 || runtime.forbiddenTags.length === 0) return false;
+
+  const owned = new Set(tags.map(tag => tag.trim().toLowerCase()));
+
+  return runtime.forbiddenTags.some(ban =>
+    (ban.scope === "all" || ban.scope === scope) && owned.has(ban.tag.trim().toLowerCase()));
 }
 
 /**
@@ -64,7 +88,7 @@ export function availableReactiveManeuvers(runtime: CombatantRuntime): Action[]
   const actions: Action[] = [];
   for (const maneuver of runtime.snapshot.maneuvers)
   {
-    if (isReactiveManeuver(maneuver) && canUseCastable(maneuver, runtime.usedCastables))
+    if (isReactiveManeuver(maneuver) && canUseCastable(maneuver, runtime.usedCastables) && !isTagForbidden(runtime, maneuver.tags, "maneuvers"))
     {
       actions.push({ kind: "maneuver", maneuver });
     }
@@ -92,6 +116,28 @@ export function availableSpells(runtime: CombatantRuntime): Action[]
     }
   }
   return actions;
+}
+
+/**
+ * Stances this combatant could switch INTO right now — its authored repertoire
+ * minus whatever it is already standing in. Empty unless the run was set up with
+ * more than one stance, which is the honest default: a fighter who brought a
+ * single stance has nothing to change to.
+ *
+ * The timing rule (once per turn, before the attack XOR after it) is NOT checked
+ * here — `runCombat` owns it, because only the turn knows which window it is in.
+ * A staggered combatant cannot move, so it cannot change stance either.
+ */
+export function availableStanceChanges(runtime: CombatantRuntime): Action[]
+{
+  if (isStaggered(runtime)) return [];
+
+  const repertoire = runtime.snapshot.stanceOptions ?? [];
+  const current = runtime.activeStance?.mode.name;
+
+  return repertoire
+    .filter((stance) => stance.name !== current && !isTagForbidden(runtime, stance.tags, "stances"))
+    .map((stance): Action => ({ kind: "stanceChange", stance }));
 }
 
 /**

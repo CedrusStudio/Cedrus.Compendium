@@ -24,6 +24,8 @@ export type ModeFamily =
   variantsByGrade: Record<number, Effect[]>;
   /** Sorted list of the grades that exist (ascending). */
   grades: number[];
+  /** Union of the tags across the family's records — read by tag bans (Amok). */
+  tags: string[];
 };
 
 /**
@@ -46,18 +48,28 @@ export function toModeDefinition(mode: Mode): ModeDefinition
 export function groupModeFamilies(modes: Mode[]): ModeFamily[]
 {
   const byName = new Map<string, Record<number, Effect[]>>();
+  // Tags are collected across the whole family: a ban targets the NAME (Amok
+  // forbids defensive stances), and ranks of one stance share their character
+  // even when a single record was tagged sloppily.
+  const tagsByName = new Map<string, Set<string>>();
+
   for (const mode of modes)
   {
     const def = toModeDefinition(mode);
     const variants = byName.get(mode.name) ?? {};
     variants[mode.grade] = def.effects;
     byName.set(mode.name, variants);
+
+    const tags = tagsByName.get(mode.name) ?? new Set<string>();
+    for (const tag of mode.tags ?? []) tags.add(tag);
+    tagsByName.set(mode.name, tags);
   }
 
   return [...byName.entries()].map(([name, variantsByGrade]) => ({
     name,
     variantsByGrade,
     grades: Object.keys(variantsByGrade).map(Number).sort((a, b) => a - b),
+    tags: [...(tagsByName.get(name) ?? [])],
   }));
 }
 
@@ -65,8 +77,13 @@ export function groupModeFamilies(modes: Mode[]): ModeFamily[]
  * The effects that apply for a family at an EFFECTIVE grade: the requested
  * grade, clamped to the highest authored variant at or below it, else the
  * lowest available. Used when a rank-up pushes past the top of the ladder.
+ *
+ * Takes only the rank ladder, not a whole `ModeFamily`: the engine assembles
+ * these on the fly from a `SnapshotMode` (which carries no `grades` array), and
+ * demanding fields this function never reads — `tags` — would force every call
+ * site to fabricate them.
  */
-export function variantEffectsAt(family: ModeFamily, grade: number): Effect[]
+export function variantEffectsAt(family: Pick<ModeFamily, "variantsByGrade" | "grades">, grade: number): Effect[]
 {
   if (family.grades.length === 0) return [];
   const exact = family.variantsByGrade[grade];

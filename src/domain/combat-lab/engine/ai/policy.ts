@@ -7,7 +7,7 @@
 
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import type { Action } from "@/domain/combat-lab/engine/actionEconomy";
-import { selectDefaultOffense } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import { selectDefaultOffense, type SnapshotMode } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { expectedOffenseDamage, expectedEffectDamage } from "@/domain/combat-lab/engine/ai/expectedDamage";
 import { expectedManeuverValue } from "@/domain/combat-lab/engine/ai/policyValue";
 import { statEffectToProfile } from "@/domain/combat-lab/effects/statBuff";
@@ -64,6 +64,24 @@ function selfOffenseGain(self: CombatantRuntime, effects: Effect[]): number
   return gain;
 }
 
+/**
+ * What switching stance is worth: the candidate's effects minus the ones the
+ * combatant already gets from the stance it is standing in. A swap is only
+ * chosen when it beats staying put, because "pass" scores 0 — so a fighter
+ * never fidgets between equivalent stances, which would burn the movement and
+ * churn the log for nothing.
+ */
+function stanceChangeScore(self: CombatantRuntime, stance: SnapshotMode, value: (effects: Effect[]) => number): number
+{
+  const candidate = stance.variantsByGrade[stance.baseGrade] ?? [];
+
+  const active = self.activeStance;
+  const currentGrade = active ? active.mode.baseGrade + active.rankBonus : 0;
+  const current = active ? (active.mode.variantsByGrade[currentGrade] ?? active.mode.variantsByGrade[active.mode.baseGrade] ?? []) : [];
+
+  return value(candidate) - value(current);
+}
+
 function damageScore(self: CombatantRuntime, _opponent: CombatantRuntime, action: Action): number
 {
   if (action.kind === "attack" || action.kind === "ranged")
@@ -80,6 +98,10 @@ function damageScore(self: CombatantRuntime, _opponent: CombatantRuntime, action
   {
     // A spell replaces the attack — score it by its own expected damage.
     return expectedOffenseDamage(action.spell.offense);
+  }
+  if (action.kind === "stanceChange")
+  {
+    return stanceChangeScore(self, action.stance, (effects) => expectedEffectDamage(effects) + selfOffenseGain(self, effects));
   }
   // "pass" scores 0 so a maneuver with no expected value is declined.
   return 0;
@@ -99,6 +121,10 @@ function valueScore(self: CombatantRuntime, opponent: CombatantRuntime, action: 
   if (action.kind === "spell")
   {
     return expectedOffenseDamage(action.spell.offense);
+  }
+  if (action.kind === "stanceChange")
+  {
+    return stanceChangeScore(self, action.stance, (effects) => expectedManeuverValue(self, opponent, effects));
   }
   return 0;
 }

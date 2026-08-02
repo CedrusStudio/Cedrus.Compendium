@@ -1,145 +1,53 @@
-# 📚 Rulebook Synchronization Script
+# Skrypty
 
-Skrypt do automatycznej synchronizacji pliku `rulebook-complete.json` z indywidualnych plików kategorii.
+Narzędzia jednorazowe: migracje danych, diagnostyka, raporty. Uruchamiane przez `npm run <nazwa>`.
 
-## 🎯 Cel
+## Zasady
 
-Gdy edytujesz pliki kategorii (np. `podstawy.json`, `cechy-i-umiejetnosci.json`), musisz zaktualizować również `rulebook-complete.json`. Ten skrypt robi to automatycznie.
+1. **Przed każdym skryptem zapisującym: `npm run backup-mongodb`.** To jedyna kopia danych sprzed zmiany.
+2. **Skrypty zapisujące domyślnie są dry runem.** Zapis wymaga osobnego wariantu `:apply`.
+3. **Nie używaj `npm run <skrypt> -- --apply` w PowerShellu.** PowerShell zjada separator `--`, flaga nie dociera do skryptu i przebieg po cichu zostaje dry runem — zdarzyło się to już raz przy migracji wymagań. Zawsze wariant `:apply`.
+4. Skrypty czytające pola **usunięte ze `schema.prisma`** (np. dawne `requirements`, `cost`) muszą używać `findRaw` / `$runCommandRaw` — wygenerowany klient Prismy takiego pola nie zna.
 
-## 🚀 Użycie
+## Kopie zapasowe i diagnostyka
 
-### Metoda 1: NPM Script (Zalecana)
-```bash
-npm run sync-rulebook
-```
+| Komenda | Co robi |
+|---|---|
+| `backup-mongodb` | Zrzut wszystkich kolekcji do `backup/<timestamp>/`. Katalog jest poza gitem. |
+| `diag-requirements` | Stan wymagań w bazie: liczniki per kolekcja, docelowa baza, podgląd rekordu, `process.argv` (weryfikacja, czy flagi doszły). |
+| `diag-apikeys` | Rozkład `apiKeys` na postaciach — kto co widzi. |
+| `diag-duplicate-shortnames` | Kolizje `shortName` postaci. |
+| `maneuver-coverage` | Raport pokrycia efektów: ile manewrów jest ZMAPOWANYCH, ile w KOLEJCE, ile NIESYMULOWALNYCH — per rekord i per unikalna nazwa. Tylko odczyt. |
 
-### Metoda 2: Bezpośrednie uruchomienie
-```bash
-npx tsx scripts/sync-rulebook.ts
-```
+## Podręcznik
 
-## 📁 Struktura Plików
+| Komenda | Co robi |
+|---|---|
+| `sync-rulebook` | Skleja `public/data/rulebook/rulebook-complete.json` z pięciu plików kategorii. **Uruchamiaj po każdej edycji kategorii** — pliku zbiorczego nie edytuje się ręcznie. Skrypt nie modyfikuje plików źródłowych. |
 
-```
-public/data/rulebook/
-├── rulebook-complete.json       ← WYGENEROWANY przez skrypt
-├── podstawy.json                 ← EDYTUJ ręcznie
-├── cechy-i-umiejetnosci.json    ← EDYTUJ ręcznie
-├── system-walki.json             ← EDYTUJ ręcznie
-├── magia-i-zaklecia.json         ← EDYTUJ ręcznie
-└── zdrowie-i-regeneracja.json   ← EDYTUJ ręcznie
-```
+## Wymagania (Fale 5–8)
 
-## 🔄 Workflow
+| Komenda | Co robi |
+|---|---|
+| `audit-legacy-requirements` | Tylko odczyt. Klasyfikuje teksty legacy na: osierocone / częściowe / zduplikowane / czyste. Bramka przed czyszczeniem. |
+| `backfill-requirements` / `:apply` | Dopisuje `rankless` dla każdego niepokrytego tekstu legacy. Idempotentny, nie nadpisuje istniejących wpisów. |
+| `auto-map-requirements` / `:apply` | Proponuje strukturę dla tekstów `rankless` (statystyka, encja, sprzęt…). Czyta wyłącznie `structuredRequirements`. |
+| `clear-legacy-requirements` / `:apply` | Usuwa pole `requirements` z Mongo (`$unset`) — **tylko** dla rekordów w pełni pokrytych. Nieodwracalne. Wykonane 2026-08-02. |
+| `extract-replaces` / `:apply` | Przenosi „Zastępuje X" z wymagań do pola `replaces`. Wykonane; reguła parsowania mieszka w `src/domain/characters/replaces.ts`. |
+| `fix-mismapped-strength` / `:apply` | Usuwa dwa błędne wpisy `siła` (`Pogromienie`, `Napór Włóczniarza`), które zostały po ręcznej poprawce w panelu. Nie rusza rekordu, gdy siła jest tam jedynym wymaganiem. |
+| `backfill-power-types` | Uzupełnia typy Mocy na postaciach. |
+| `backfill-spell-costs` | Rozbija tekstowy koszt zaklęcia na pola strukturalne (`costBase`, `costScalingMode`…). |
+| `backfill-character-api-keys` | Uzupełnia `apiKeys` na starych postaciach (puste = publiczna). |
 
-### Gdy dodajesz/edytujesz sekcję:
+## Combat Lab — autorstwo efektów
 
-1. **Edytuj plik kategorii** (np. `podstawy.json`):
-   ```json
-   {
-     "category": { ... },
-     "sections": [
-       {
-         "id": "section-podstawy-nowa-sekcja",
-         "title": "Nowa Sekcja",
-         ...
-       }
-     ]
-   }
-   ```
+Kolejność pracy: `classify-maneuvers` (propozycje) → ręczny przegląd CSV → `import-*-effects:apply` (zapis) → `copy-effects-across-grades` (rozlanie na rangi) → `maneuver-coverage` (kontrola postępu).
 
-2. **Uruchom synchronizację**:
-   ```bash
-   npm run sync-rulebook
-   ```
-
-3. **Rezultat**: `rulebook-complete.json` zostanie automatycznie zaktualizowany z:
-   - Wszystkimi sekcjami ze wszystkich kategorii
-   - Zaktualizowaną strukturą nawigacji
-   - Nowym timestampem `lastUpdated`
-
-## 📊 Co robi skrypt?
-
-1. **Wczytuje** wszystkie 5 plików kategorii
-2. **Agreguje**:
-   - `categories`: Lista wszystkich kategorii
-   - `sections`: Wszystkie 93+ sekcje
-   - `navigation`: Hierarchiczna struktura nawigacji
-3. **Generuje** `rulebook-complete.json` z:
-   - Posortowanymi kategoriami (według `order`)
-   - Wszystkimi sekcjami
-   - Automatycznie wygenerowaną nawigacją
-   - Aktualnym timestampem
-
-## 🛡️ Bezpieczeństwo
-
-Skrypt **NIE MODYFIKUJE** plików kategorii - tylko czyta z nich i generuje `rulebook-complete.json`.
-
-## 📝 Output Example
-
-```
-🔄 Starting rulebook synchronization...
-
-📖 Reading: podstawy.json
-   ✅ Loaded 14 sections from podstawy
-📖 Reading: cechy-i-umiejetnosci.json
-   ✅ Loaded 29 sections from cechy-i-umiejetnosci
-📖 Reading: system-walki.json
-   ✅ Loaded 32 sections from system-walki
-📖 Reading: magia-i-zaklecia.json
-   ✅ Loaded 6 sections from magia-i-zaklecia
-📖 Reading: zdrowie-i-regeneracja.json
-   ✅ Loaded 12 sections from zdrowie-i-regeneracja
-
-📊 Summary:
-   - Categories: 5
-   - Sections: 93
-
-💾 Writing to: rulebook-complete.json
-✅ Successfully generated rulebook-complete.json
-   - File size: 183.65 KB
-   - Last updated: 2025-11-11T13:33:48.203Z
-
-✨ Synchronization complete!
-```
-
-## ⚠️ Kiedy uruchamiać?
-
-Uruchom skrypt **po każdej zmianie** w plikach kategorii:
-- ✅ Dodanie nowej sekcji
-- ✅ Edycja istniejącej sekcji
-- ✅ Zmiana kolejności sekcji (`order`)
-- ✅ Aktualizacja metadanych kategorii
-- ✅ Usunięcie sekcji
-
-## 🔧 Troubleshooting
-
-### Problem: "File not found"
-**Rozwiązanie**: Upewnij się, że wszystkie 5 plików kategorii istnieją w `public/data/rulebook/`
-
-### Problem: "Error parsing JSON"
-**Rozwiązanie**: Sprawdź poprawność składni JSON w plikach kategorii
-
-### Problem: "Permission denied"
-**Rozwiązanie**: Upewnij się, że masz prawa zapisu do `public/data/rulebook/`
-
-## 🎓 Best Practices
-
-1. **Zawsze** uruchamiaj skrypt po edycji plików kategorii
-2. **Commituj** zarówno pliki kategorii jak i `rulebook-complete.json` jednocześnie
-3. **Nie edytuj** ręcznie `rulebook-complete.json` - zawsze używaj skryptu
-4. Możesz dodać skrypt do **pre-commit hook** dla automatycznej synchronizacji
-
-## 📚 Kod Używa:
-
-### `rulebook-complete.json`:
-- Strona główna `/rulebook`
-- Wyszukiwarka `/rulebook/search`
-- Command palette (Ctrl+K)
-- Lista wszystkich kategorii
-
-### Pliki kategorii (`{category}.json`):
-- Lista sekcji kategorii `/rulebook/[category]`
-- Szczegóły sekcji `/rulebook/[category]/[slug]`
-
-Oba są potrzebne dla pełnej funkcjonalności!
+| Komenda | Co robi |
+|---|---|
+| `classify-maneuvers` | Tylko odczyt, offline (czyta `backup/<timestamp>/Maneuver.json`). Klasyfikuje manewry na poziomy symulowalności i eksportuje CSV do przeglądu przez człowieka. Analogiczne CSV dla postaw i stanów. |
+| `import-maneuver-effects` / `:apply` | Wgrywa zatwierdzone efekty z CSV do manewrów. Dopasowanie po kluczu (nazwa, ranga); każdy payload walidowany schematem efektu. |
+| `import-mode-effects` | To samo dla Postaw i Stanów. Wymaga argumentów pozycyjnych, więc uruchamiaj wprost: `npx tsx scripts/import-mode-effects.ts stance postawy-classification.csv --apply`. |
+| `copy-effects-across-grades` / `:apply` | Kopiuje efekty z jednej rangi manewru na pozostałe **puste** rangi jako szkic — zostaje dostrojenie liczb zamiast pisania od zera. |
+| `extract-contested-pools` | Tylko odczyt, offline. Wyciąga nazwy pul z manewrów na testy sporne, żeby potwierdzić mapowanie PL → pole postaci i wyłapać nazwy spoza tabeli. |
+| `backfill-mana-to-essence` / `:apply` | Przepisuje zaszłość `resource: "mana"` w zapisanych efektach na `"essence"`. System zna wyłącznie Esencję. |

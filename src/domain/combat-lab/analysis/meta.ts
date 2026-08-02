@@ -14,6 +14,13 @@ import { runSimulation } from "@/domain/combat-lab/simulation/runSimulation";
 export type MetaRankEntry = { id: string; name: string; averageWinRate: number };
 export type ManeuverCount = { name: string; count: number };
 
+/**
+ * How a stance/state fares across the roster: every build wearing it, averaged.
+ * Costs no extra fights — it re-slices the ranking that was computed anyway —
+ * and answers the question authoring effects was for: is this stance worth it?
+ */
+export type ModeMetaEntry = { name: string; builds: number; averageWinRate: number };
+
 export type MetaReport =
 {
   ranking: MetaRankEntry[];
@@ -23,6 +30,10 @@ export type MetaReport =
   mostUsedSpells: ManeuverCount[];
   /** Spells present on the roster but never cast in practice. */
   neverUsedSpells: string[];
+  /** Stances worn by the roster, ranked by the average win rate of their wearers. */
+  stanceRanking: ModeMetaEntry[];
+  /** Same for states. */
+  stateRanking: ModeMetaEntry[];
   totalFights: number;
   count: number;
 };
@@ -102,13 +113,38 @@ export function computeMeta(entries: MatchupEntry[], options: MetaOptions, onPro
   const mostUsedSpells = toCounts(spellUsage);
   const neverUsedSpells = [...availableSpells].filter(name => !(spellUsage[name] > 0)).sort();
 
+  const winRateById = new Map(ranking.map(entry => [entry.id, entry.averageWinRate] as const));
+
   return {
     ranking,
     mostUsedManeuvers,
     neverUsedManeuvers,
     mostUsedSpells,
     neverUsedSpells,
+    stanceRanking: rankModes(entries, winRateById, "stance"),
+    stateRanking: rankModes(entries, winRateById, "state"),
     totalFights: total * options.count,
     count: options.count,
   };
+}
+
+/** Average the builds' win rates per stance/state name (builds without one are skipped). */
+function rankModes(entries: MatchupEntry[], winRateById: Map<string, number>, slot: "stance" | "state"): ModeMetaEntry[]
+{
+  const sums = new Map<string, { total: number; builds: number }>();
+
+  for (const entry of entries)
+  {
+    const mode = entry.snapshot[slot];
+    if (!mode) continue;
+
+    const bucket = sums.get(mode.name) ?? { total: 0, builds: 0 };
+    bucket.total += winRateById.get(entry.snapshot.id) ?? 0;
+    bucket.builds += 1;
+    sums.set(mode.name, bucket);
+  }
+
+  return [...sums.entries()]
+    .map(([name, { total, builds }]) => ({ name, builds, averageWinRate: builds ? total / builds : 0 }))
+    .sort((a, b) => b.averageWinRate - a.averageWinRate || a.name.localeCompare(b.name));
 }

@@ -1,0 +1,31 @@
+﻿name,grade,tier,suggestedType,markers,scaling,condition,cost,proposalConfidence,proposedEffects,proposalNote,approve,tags,description
+Defensywny Rytm,2,T?,,,,,,,,,,fechtunek; defensywa,"Testy fechtunku -2, parowanie +2"
+Defensywny Rytm,3,T?,,,,,,,,,,fechtunek; defensywa,"Testy fechtunku -3, parowanie +3"
+Defensywny Rytm,1,T?,,,,,,,,,,fechtunek; defensywa,"Testy fechtunku -1, parowanie +1"
+Precyzja Wnętrza,1,T?,,,,,,,,,,harmonia,Zwiększa o 1 zasięg kości broni.
+Rezonująca Sztuka,1,T?,stat/krytyk lub warunek (przy krytyku),,,,,,,,,harmonia; krytyk,"+1 do szansy trafienia krytycznego, -1 do obrażeń krytycznych."
+Stan Pojedynku,1,T?,,,,,,,,,,defensywa,Odbiera kość broni walczącemu i przeciwnikowi. Uniemożliwia użytkownikowi manewry związane z unikami.
+Umysł Przedłużeniem Ostrza,1,T?,,,,,,,,,,harmonia,Zwiększa o 1 rangę jednej kości broni i zmniejsza o 1 rangę innej kości broni.
+Amok,1,T1,damage (obrażenia),,tak,,,,,,,ofensywa,Za każde 10 brakującego HP dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.
+Amok,2,T1,damage (obrażenia),,tak,,,,,,,ofensywa,Za każde 8 brakującego HP dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.
+Amok,3,T1,damage (obrażenia),,tak,,,,,,,ofensywa,Za każde 6 brakującego HP dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.
+Ostrość Umysłu,1,T1,damage (obrażenia),,,,,,,,,ofensywa; harmonia,Dodaje +2 do obrażeń.
+Szał Bitewny,3,T1,,,,,,,,,,ofensywa,"Zwiększa siłę i budowę o 4, zmniejsza redukcję o 4, +3 Wola, +1 PL. Uniemożliwia defensywne postawy i manewry."
+Szał Bitewny,1,T1,,,,,,,,,,ofensywa,"Zwiększa siłę i budowę o 2, zmniejsza redukcję o 2, +3 Wola, +1 PL. Uniemożliwia defensywne postawy i manewry."
+Szał Bitewny,4,T1,,,,,,,,,,ofensywa,"Zwiększa siłę i budowę o 5, zmniejsza redukcję o 5, +3 Wola, +1 PL. Uniemożliwia defensywne postawy i manewry."
+Szał Bitewny,2,T1,,,,,,,,,,ofensywa,"Zwiększa siłę i budowę o 3, zmniejsza redukcję o 3, +3 Wola, +1 PL. Uniemożliwia defensywne postawy i manewry."
+Szarża,1,T1,,,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":3},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Atakując przeciwnika z szarży otrzymujesz +3 dmg, +2 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry."
+Szarża,3,T1,,,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":5},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Atakując przeciwnika z szarży otrzymujesz +5 dmg, +4 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry."
+Szarża,0,T1,,,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":2},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Atakując przeciwnika z szarży otrzymujesz +2 dmg, +1 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry."
+Szarża,2,T1,,,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":4},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa,"Atakując przeciwnika z szarży otrzymujesz +4 dmg, +3 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Uniemożliwia postawy i defensywne manewry."
+Szarża Saofie,1,T1,,,,,,high,"[{""type"":""damage"",""damage"":{""amount"":0,""grade"":0,""bonus"":3},""damageType"":""zwyczajne""}]",płaskie obrażenia,,ofensywa; specjalne,"Atakując przeciwnika z szarży otrzymujesz +3 dmg, +2 do testu siłowego na obalenie zamiast +1 dmg, +1 do testu siłowego na obalenie. Przy skoku premia rośnie do +6. Uniemożliwia postawy i defensywne manewry."
+Wir Walki,4,T1,,,,,,,,,,ofensywa,"Zwiększa siłę i budowę o 3, zmniejsza redukcję o 1. Uniemożliwia defensywne postawy."
+Wir Walki,3,T1,,,,,,,,,,ofensywa,"Zwiększa siłę i budowę o 2, zmniejsza redukcję o 1. Uniemożliwia defensywne postawy."
+Wir Walki,1,T1,,,,,,,,,,ofensywa,"Zwiększa siłę i budowę o 1, zmniejsza redukcję o 1. Uniemożliwia defensywne postawy."
+Wir Walki,2,T1,,,,,,,,,,ofensywa,"Zwiększa siłę o 2 i budowę o 1, zmniejsza redukcję o 1. Uniemożliwia defensywne postawy."
+Zewnętrzny Młot,1,T1,damage (obrażenia),,,,,,,,,ofensywa; harmonia,Zamienia obrażenia na obuchowe. Dodaje +1 do obrażeń.
+Żądza Krwi,1,T1,damage (obrażenia),,tak,,,,,,,ofensywa,Za każde 10 brakującego HP wroga dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.
+Żądza Krwi,2,T1,damage (obrażenia),,tak,,,,,,,ofensywa,Za każde 8 brakującego HP wroga dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.
+Żądza Krwi,3,T1,damage (obrażenia),,tak,,,,,,,ofensywa,Za każde 6 brakującego HP wroga dodajesz 1 dmg do obrażeń. Uniemożliwia defensywne postawy i manewry.
+Widmowa Walka,1,T2b,roll (modyfikator rzutu),,,,,,,,,widmowy,Możesz kazać przerzucić jednemu (na turę) przeciwnikowi wybraną kość broni lub obrażeń.
+Nieustanna Nawałnica Ciosów,1,T2c,save (test vs ST),,,,,medium,"[{""type"":""save"",""pool"":{""pool"":[{""anyOf"":[{""group"":""attributes"",""key"":""fortitude""}]}]},""st"":10,""who"":""target"",""onFail"":[]}]",save vs ST (wytrwałość) — sprawdź onFail/skalowanie,,ofensywa,Testy fechtunku i fortelu -3. Co turę test wytrwałości o ST = 10 + 2x(ilość poprzednich testów). Zdany powoduje dodanie kości broni.

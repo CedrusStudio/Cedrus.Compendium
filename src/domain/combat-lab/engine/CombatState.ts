@@ -47,6 +47,19 @@ export type ActiveMultiplier =
   remaining: number;
 };
 
+/**
+ * A live ban on everything carrying a library tag (Amok forbids „defensywne").
+ * `remaining` counts rounds; a ban seeded with duration 0 lives exactly as long
+ * as the mode that keeps re-applying it, and is cleared at the start of each
+ * turn before the auto-cast re-seeds it.
+ */
+export type ActiveForbiddenTag =
+{
+  tag: string;
+  scope: "maneuvers" | "stances" | "all";
+  remaining: number;
+};
+
 /** An active stance/state with its temporary rank bump (from "podnieś rangę"). */
 export type ActiveMode =
 {
@@ -87,6 +100,19 @@ export type CombatantRuntime =
   /** Active stance/state (their effects are auto-cast at the start of each turn). */
   activeStance?: ActiveMode;
   activeState?: ActiveMode;
+  /**
+   * Stance-change bookkeeping (rulebook: changing stance is a move-like action,
+   * once per turn, BEFORE the attack or AFTER it — never both).
+   *
+   * `stanceChangedThisTurn` closes the second window in the same turn.
+   * `stanceChangeBlockedBeforeAttack` carries the cost of a post-attack change
+   * into the next turn: the movement is understood to straddle the turn
+   * boundary, so the pre-attack window there is already spent.
+   */
+  stanceChangedThisTurn: boolean;
+  stanceChangeBlockedBeforeAttack: boolean;
+  /** Library tags this combatant is currently locked out of (Amok: „defensywne"). */
+  forbiddenTags: ActiveForbiddenTag[];
   /** Rounds spent at/below 0 hp (for the lethalRounds bleed-out rule). */
   roundsDowned: number;
   /**
@@ -129,6 +155,9 @@ export function createRuntime(snapshot: CombatantSnapshot): CombatantRuntime
     critSuppressedRemaining: 0,
     activeStance: toActiveMode(snapshot.stance),
     activeState: toActiveMode(snapshot.state),
+    stanceChangedThisTurn: false,
+    stanceChangeBlockedBeforeAttack: false,
+    forbiddenTags: [],
     roundsDowned: 0,
     usedCastables: [],
     attackedThisTurn: false,

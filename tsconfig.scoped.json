@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "incremental": false },
+  "include": [
+    "src/domain/combat-lab/**/*.ts",
+    "src/application/combat-lab/**/*.ts",
+    "src/application/combat-lab/**/*.tsx",
+    "src/application/compendium/**/*.tsx",
+    "src/persistence/schemas/characters/**/*.ts",
+    "src/application/characters/add/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
