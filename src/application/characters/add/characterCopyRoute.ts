@@ -1,4 +1,4 @@
-export type CharacterCreationMode = 'scratch' | 'copy';
+export type CharacterCreationMode = 'scratch' | 'copy' | 'ai';
 
 export type CharacterCreationInitialState = {
   initialMode?: CharacterCreationMode;

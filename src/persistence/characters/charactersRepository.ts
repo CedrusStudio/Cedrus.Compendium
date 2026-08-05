@@ -16,6 +16,7 @@ import { toCharacter, toCharacterBuffsPersistenceModel } from '@/persistence/map
 import { includeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 import { CharacterValidationError } from '@/persistence/characters/characterErrors';
+import { characterVisibilityWhere } from '@/persistence/characterVisibility';
 
 //Queries
 export async function getCharactersByIds(ids: string[])
@@ -27,6 +28,32 @@ export async function getCharactersByIds(ids: string[])
   ({
     where: { id: { in: ids } },
     include: includeAllRelations
+  });
+
+  return characters.map(toCharacter);
+}
+
+/**
+ * Loads full characters selected as AI references, but only when they are
+ * visible to the caller's API key. The visibility rule stays in MongoDB so
+ * hidden character data is never hydrated only to be discarded afterwards.
+ */
+export async function getCharactersVisibleToApiKeyByIds(ids: string[], apiKey: string)
+  : Promise<Character[]>
+{
+  if (ids.length === 0) return [];
+
+  const characters = await prisma.character.findMany
+  ({
+    where:
+    {
+      AND:
+      [
+        { id: { in: ids } },
+        characterVisibilityWhere(apiKey),
+      ],
+    },
+    include: includeAllRelations,
   });
 
   return characters.map(toCharacter);

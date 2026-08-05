@@ -17,6 +17,7 @@ import { useBaseCharacter } from '@/application/characters/add/useBaseCharacter'
 import { useCreateCharacterFromScratch } from '@/application/characters/add/useCreateCharacterFromScratch';
 import { useCreateCharacterFromCopy } from '@/application/characters/add/useCreateCharacterFromCopy';
 import { CharacterCreationInitialState, CharacterCreationMode } from '@/application/characters/add/characterCopyRoute';
+import AiCharacterGenerationView from '@/application/characters/ai/AiCharacterGenerationView';
 
 const initialHeaderValues: HeaderDto = 
 {
@@ -26,7 +27,11 @@ const initialHeaderValues: HeaderDto =
     description: "",
 };
 
-export default function AddCharacterView({ initialMode, initialSelectedCharacterId }: CharacterCreationInitialState)
+export type AddCharacterViewProps = CharacterCreationInitialState & {
+    aiProvider?: 'openai' | 'ollama' | 'local';
+};
+
+export default function AddCharacterView({ initialMode, initialSelectedCharacterId, aiProvider }: AddCharacterViewProps)
 {
     const form = useForm<HeaderDto>
     ({
@@ -39,6 +44,7 @@ export default function AddCharacterView({ initialMode, initialSelectedCharacter
         selectedCharacterId, 
         switchToScratch, 
         switchToCopy, 
+        switchToAi,
         selectBaseCharacter, 
         resetMode 
     } = useCharacterCreationMode({ initialMode, initialSelectedCharacterId });
@@ -84,14 +90,17 @@ export default function AddCharacterView({ initialMode, initialSelectedCharacter
     const isSubmitDisabled = isPending || (mode === 'copy' && !selectedCharacterId);
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 mx-4">
+        <div className="space-y-8">
+            <ModeSelector
+                mode={mode}
+                onScratchClick={switchToScratch}
+                onCopyClick={switchToCopy}
+                onAiClick={switchToAi}
+            />
 
-                <ModeSelector 
-                    mode={mode}
-                    onScratchClick={switchToScratch}
-                    onCopyClick={switchToCopy}
-                />
+            {mode === 'ai' ? <AiCharacterGenerationView provider={aiProvider} /> : (
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 mx-4">
 
                 {
                     mode === 'copy' && (
@@ -113,8 +122,10 @@ export default function AddCharacterView({ initialMode, initialSelectedCharacter
                 {
                     (mode === "scratch" || baseCharacter) && <SubmitButton isPending={isSubmitDisabled} />
                 }
-            </form>
-        </Form>
+                </form>
+              </Form>
+            )}
+        </div>
     );
 }
 
@@ -123,9 +134,10 @@ type ModeSelectorProps =
     mode: CharacterCreationMode;
     onScratchClick: () => void;
     onCopyClick: () => void;
+    onAiClick: () => void;
 };
 
-function ModeSelector({ mode, onScratchClick, onCopyClick }: ModeSelectorProps) 
+function ModeSelector({ mode, onScratchClick, onCopyClick, onAiClick }: ModeSelectorProps)
 {
     return (
         <div className="flex justify-center pt-8">
@@ -142,9 +154,18 @@ function ModeSelector({ mode, onScratchClick, onCopyClick }: ModeSelectorProps)
                 type="button"
                 variant={mode === 'copy' ? 'default' : 'outline'}
                 onClick={onCopyClick}
-                className="rounded-l-none"
+                className="rounded-none"
             >
                 <span className="first-letter:capitalize">{displayedText.create_from_template}</span>
+            </Button>
+
+            <Button
+                type="button"
+                variant={mode === 'ai' ? 'default' : 'outline'}
+                onClick={onAiClick}
+                className="rounded-l-none"
+            >
+                Generuj z AI
             </Button>
         </div>
     );

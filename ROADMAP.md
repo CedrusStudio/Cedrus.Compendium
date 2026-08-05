@@ -174,6 +174,11 @@ Rozbudowa karty postaci oraz ergonomii Combat Lab. Zależna od Fali 0 (poprawna 
 - **Plan wykonawczy:** `features-to-implement/private-compendium-entities-implementation-plan.md` (adaptacja `visible-only-to-api-keys` + `character-visibility-filter` z `features-to-implement/done`).
 - **Blokada do rozstrzygnięcia:** `@@unique([name, grade])` na tych encjach powoduje kolizję prywatny↔publiczny duplikat nazwy — patrz Etap 0 planu.
 
+### 4.2 Encje tworzone przez AI jako prywatne — `S` · ⭐ `[ZALEŻNE OD 4.1]`
+- **Stan obecny:** `aiCharacterGenerationConstraintsSchema` ma `allowCustomEquipment` i `allowCustomAbilities` (oba domyślnie `false`). Gdy któraś zgoda jest włączona, `acceptAiCharacterDraftInTransaction` tworzy nowe rekordy kompendium jako **publiczne** — świadoma decyzja, żeby nie blokować funkcji o niewdrożone 4.1.
+- **Zakres:** po wdrożeniu 4.1 przemyśleć, czy wpis dorobiony pod jedną postać nie powinien powstawać z `apiKeys` wywołującego zamiast lądować od razu we wspólnej bazie. Ewentualnie jako trzecia zgoda w `constraints` albo wybór w formularzu generowania.
+- **Uwaga:** to jest opcja do rozważenia, nie ustalony wymóg — dopóki kompendium jest jednoosobowe, publiczne wpisy nikomu nie przeszkadzają.
+
 ---
 
 ## Fala 5 — Refaktor Systemu Wymagań `[CORE / OSTATNI]`
@@ -748,6 +753,25 @@ Cztery pozycje z etapu 7 planu `combat-lab-engine-model-gaps-plan.md` §1. Każd
 **Testy:** `stanceChange.test.ts` (7 przypadków — brak repertuaru, jedno okno na turę, kara po zmianie po ataku, natychmiastowe efekty, wycena), `forbidTag.test.ts` (7 — z kontrolą, że bez Amoku ten sam manewr jest używany), test tagów rodziny w `modeDefinition.test.ts`, ablacja postawy w `synergy.test.ts`.
 
 **Niezrobione świadomie:** proposer w `classify-maneuvers.ts` nie zna jeszcze wzorca „uniemożliwia … " — `forbidTag` autoruje się ręcznie w edytorze (dotyczy 3 rekordów Amoku).
+
+---
+
+## Fala 9 — Karta postaci do druku `[FEATURE]`
+
+Plan i analiza: `features-to-implement/character-sheet-print-plan.md`.
+
+### 9.1 Karta postaci do druku (PDF przez przeglądarkę) — `M` · ⭐⭐⭐ — **ZROBIONE (2026-08-04)**
+
+- **Wybór technologii:** trasa `/characters/[id]/sheet` ze stylami `@media print`, wydruk przez `Ctrl+P` → „Zapisz jako PDF". Zero nowych zależności. Ścieżka wyjścia do prawdziwego pliku `.pdf` (headless Chrome renderujący tę samą trasę) opisana w §11 planu — layout nie wymagałby zmian.
+- **Dlaczego nowe komponenty, a nie istniejące widoki:** każdy widok karty postaci jest komponentem klienckim ze stanem (`ModesCard` pokazuje jedną postawę przez `Select`, `ManeuversCard` chowa listę w `Collapsible` z filtrami, `DetailsView` obcina opis przez `ExpandableText`). Wydruk dałby przyciski zamiast liczb.
+- **Architektura:** `buildSheetModel(character)` w `src/domain/characters/sheet/` liczy wszystko raz i oddaje gotowe stringi; sekcje w `src/application/characters/sheet/` są czysto prezentacyjne, bez `"use client"`. Cała matematyka idzie przez istniejące funkcje (`calculateTotalHealthForCharacter`, `calculateSelectedReduction`, `toOffenseString`, `toCriticalRangeString`), więc karta nie może rozjechać się z aplikacją.
+- **Wartości efektywne** (decyzja odwrócona 2026-08-04 po porównaniu z aplikacją). `CharacterSheetView` woła `applyActiveBuffProfile` dokładnie tak jak `CharacterView`, więc liczby na wydruku zgadzają się z ekranem; zdezaktywowanie profilu usuwa go z karty. Tabela „aktywne wzmocnienia" mówi, które profile są w tych liczbach już wliczone. Pierwotnie karta drukowała wartości bazowe z deltami obok — w praktyce wyglądało to jak błąd, bo dla Saofie na wzmocnieniu karta pokazywała 68 zdrowia zamiast 96.
+- **Budżet stron:** karta bojowa ≤ 2 strony; `ekwipunek`, `moce i zaklęcia` oraz `umiejętności` dostają własne strony, gdy przekroczą próg `needsOwnPage` (12 pozycji) — poniżej płyną w tekście, żeby nie marnować kartki na jeden pancerz. Zweryfikowane na wszystkich 215 postaciach z backupu (`npm run verify-sheet-model --all`): 154 mieszczą się na 1 stronie, 61 na 2, zero przekroczeń.
+- **Kompresja:** tabele zamiast kart, skrót opisu do pierwszego zdania (`summarizeDescription`, budżety znaków per sekcja), dwie/trzy kolumny dla list bez struktury, wycinanie pustych sekcji, skróty etykiet (`SIŁ`, `FECH`, `Std`) z legendą, pomijanie zer.
+- **Opcje w URL:** `?sections=…&appendix=1` — renderowane serwerowo, linkowalne, sterowane paskiem narzędzi widocznym tylko na ekranie.
+- **Wejście:** ikona drukarki w `CharacterView` obok „Duplikuj"/„Edytuj".
+- **Testy:** `summarizeDescription.test.ts`, `sheetOptions.test.ts`, `sheetModel.test.ts`, `CharacterSheet.test.tsx`. Samego wydruku nie da się testować automatem — ręczna checklista w §8 planu.
+- **Niezrobione świadomie:** brak przycisku „Pobierz .pdf" (świadomy koszt wybranej ścieżki), brak wydruku wielu postaci naraz.
 
 ---
 

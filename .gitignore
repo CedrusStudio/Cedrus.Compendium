@@ -63,3 +63,10 @@ tsconfig.scratch.json
 
 # artefakty montowania dysku (WSL/fuse) — potrafią wpaść do commita
 .fuse_hidden*
+
+# warsztat lokalnego generowania postaci przez AI (kontekst, drafty, żądania)
+/ai-workspace/*
+!/ai-workspace/README.md
+
+# podglądy karty postaci z `npm run verify-sheet-model --html`
+/karta-*.html

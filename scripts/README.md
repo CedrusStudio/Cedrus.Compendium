@@ -18,6 +18,16 @@ Narzędzia jednorazowe: migracje danych, diagnostyka, raporty. Uruchamiane przez
 | `diag-apikeys` | Rozkład `apiKeys` na postaciach — kto co widzi. |
 | `diag-duplicate-shortnames` | Kolizje `shortName` postaci. |
 | `maneuver-coverage` | Raport pokrycia efektów: ile manewrów jest ZMAPOWANYCH, ile w KOLEJCE, ile NIESYMULOWALNYCH — per rekord i per unikalna nazwa. Tylko odczyt. |
+| `verify-sheet-model` | Karta postaci do druku na realnych danych z `backup/`: składa `CharacterWithRelations`, przepuszcza przez `buildSheetModel` i liczy budżet stron. Bez argumentów — największa i typowa postać; `--all` — sweep po wszystkich z listą przekroczeń limitu 2 stron; fragment nazwy — konkretna postać. Nie dotyka bazy. |
+
+## Generowanie postaci przez AI
+
+| Komenda | Co robi |
+|---|---|
+| `dump-ai-context` | Zrzuca do `ai-workspace/context/` wszystko, czego potrzeba do przygotowania draftu poza aplikacją: reguły promptu, pełne kompendium, schemat propozycji, profile balansu, skale mocy i podręcznik. Bez bazy: `--from-backup=backup/<znacznik>`. |
+| `verify-ai-draft` | Sprawdza `ai-workspace/drafts/draft.json` tymi samymi walidatorami, których użyje serwer — kontrakt Zod, walidacja akceptacji, wymagania, mechanika walki, odchylenie od profilu. Uwagi nie blokują, kod wyjścia 1 tylko gdy draft w ogóle się nie wczyta. |
+
+Oba tylko do odczytu. Szczegóły przepływu: `ai-workspace/README.md`.
 
 ## Podręcznik
 
