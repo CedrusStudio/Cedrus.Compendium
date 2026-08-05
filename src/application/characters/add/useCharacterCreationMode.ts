@@ -24,6 +24,12 @@ export const useCharacterCreationMode = ({ initialMode, initialSelectedCharacter
     setMode('copy');
   };
 
+  const switchToAi = () =>
+  {
+    setMode('ai');
+    setSelectedCharacterId(undefined);
+  };
+
   const selectBaseCharacter = (characterId: string) => 
   {
     setSelectedCharacterId(characterId);
@@ -40,6 +46,7 @@ export const useCharacterCreationMode = ({ initialMode, initialSelectedCharacter
     selectedCharacterId,
     switchToScratch,
     switchToCopy,
+    switchToAi,
     selectBaseCharacter,
     resetMode,
   };

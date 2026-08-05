@@ -18,7 +18,7 @@ import { displayedText } from "@/common/translations";
 import DetailsView from "@/application/characters/details/DetailsView";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/characterSlice";
-import { editIcon } from "@/common/icons";
+import { editIcon, printIcon } from "@/common/icons";
 import DeleteButton from "@/common/components/buttons/DeleteButton";
 import NotFound from '@/common/components/NotFound';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
@@ -85,6 +85,10 @@ export default function CharacterView({ tab }: CharacterViewProps)
                                 <span className="first-letter:uppercase">{displayedText.duplicateCharacter}</span>
                             </Link>
                         </Button>
+                        <Button asChild variant="outline" size="icon" className='my-4' title="Karta do druku">
+                            <Link href={`/characters/${character.id}/sheet`}>{printIcon}</Link>
+                        </Button>
+
                         <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
 
                         <Button asChild variant="outline" size="icon" className='my-4'>

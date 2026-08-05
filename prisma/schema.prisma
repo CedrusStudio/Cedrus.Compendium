@@ -368,6 +368,74 @@ model Simulation {
   @@map("simulations")
 }
 
+// A reviewable, user-scoped output of the character generator. A draft is
+// deliberately independent from Character: generating can never create or
+// mutate a playable character before the user explicitly accepts it.
+model AiCharacterDraft {
+  id                    String                 @id @default(ulid()) @map("_id")
+  apiKeyHash            String
+  status                AiCharacterDraftStatus @default(pending)
+  request               Json
+  proposal              Json?
+  validationIssues      Json?
+  referenceCharacterIds String[]
+  provider              String
+  model                 String
+  promptVersion         String
+  generationUsage       Json?
+  costMicroUsd          Int                    @default(0)
+  expiresAt             DateTime
+  acceptedAt            DateTime?
+  acceptedCharacterId   String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  @@index([apiKeyHash, createdAt])
+  @@index([expiresAt])
+  @@map("aiCharacterDrafts")
+}
+
+// A cost reservation is created before any paid provider request. This makes
+// an application-level hard limit possible even when provider budget alerts
+// are delayed or only advisory.
+model AiGenerationLedger {
+  id               String                  @id @default(ulid()) @map("_id")
+  apiKeyHash       String
+  draftId          String?
+  provider         String
+  model            String
+  state            AiGenerationLedgerState @default(reserved)
+  dayBucketUtc     String
+  monthBucketUtc   String
+  reservedMicroUsd Int
+  actualMicroUsd   Int?
+  inputTokens      Int?
+  outputTokens     Int?
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @updatedAt
+
+  @@index([apiKeyHash, dayBucketUtc])
+  @@index([apiKeyHash, monthBucketUtc])
+  @@index([draftId])
+  @@map("aiGenerationLedger")
+}
+// Materialized counters are mutated in the same transaction as a ledger
+// reservation. They avoid a read-sum-write race between concurrent requests.
+model AiGenerationBudgetCounter {
+  id               String                   @id @default(ulid()) @map("_id")
+  apiKeyHash       String
+  period           AiGenerationBudgetPeriod
+  bucket           String
+  reservedMicroUsd Int                      @default(0)
+  spentMicroUsd    Int                      @default(0)
+  generationCount  Int                      @default(0)
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+
+  @@unique([apiKeyHash, period, bucket])
+  @@map("aiGenerationBudgetCounters")
+}
+
 model Race {
   id          String @id @default(ulid()) @map("_id")
   name        String @unique
@@ -608,4 +676,23 @@ type Power {
 enum PowerType {
   moc
   wiez
+}
+
+enum AiGenerationBudgetPeriod {
+  day
+  month
+}
+
+enum AiCharacterDraftStatus {
+  pending
+  accepted
+  rejected
+  invalid
+  expired
+}
+
+enum AiGenerationLedgerState {
+  reserved
+  completed
+  released
 }

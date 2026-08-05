@@ -17,6 +17,8 @@ const EMPTY_ARRAY: never[] = [];
 type CharacterPickerGridProps =
 {
   onSelectCharacter: (characterId: string) => void;
+  /** Optional richer selection callback for pickers that need the displayed label as well as the id. */
+  onSelectCharacterSummary?: (summary: CharacterSummary) => void;
   selectedCharacterId?: string;
   selectedCharacterName?: string;
   selectedCharacterShortName?: string;
@@ -34,6 +36,7 @@ export default function CharacterPickerGrid
 (
   {
     onSelectCharacter,
+    onSelectCharacterSummary,
     selectedCharacterId,
     selectedCharacterName,
     selectedCharacterShortName,
@@ -108,7 +111,10 @@ export default function CharacterPickerGrid
                 <CharacterSelectCard
                     key={summary.id}
                     summary={summary}
-                    onSelect={onSelectCharacter}
+                    onSelect={(id, selectedSummary) => {
+                      onSelectCharacter(id);
+                      onSelectCharacterSummary?.(selectedSummary);
+                    }}
                     isSelected={summary.id === selectedCharacterId}
                 />
               ))
@@ -131,7 +137,7 @@ function NotFoundMessage()
 type CharacterSelectCardProps =
 {
   summary: CharacterSummary;
-  onSelect: (id: string) => void;
+  onSelect: (id: string, summary: CharacterSummary) => void;
   isSelected: boolean;
 };
 
@@ -140,7 +146,7 @@ function CharacterSelectCard({ summary, onSelect, isSelected }: CharacterSelectC
   return (
     <Card
       className={`cursor-pointer transition-colors ${isSelected ? 'border-primary bg-primary/10' : 'bg-muted hover:bg-muted/80'}`}
-      onClick={() => onSelect(summary.id)}
+      onClick={() => onSelect(summary.id, summary)}
     >
       <CardHeader>
         <CardTitle className='flex flex-row justify-between gap-2'>

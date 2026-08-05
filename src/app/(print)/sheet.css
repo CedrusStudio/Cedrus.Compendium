@@ -1,0 +1,295 @@
+/*
+ * Printable character sheet.
+ *
+ * Deliberately independent of the app's theme tokens: the sheet is always black
+ * on white, because `.dark` on <html> would otherwise reach it and browsers drop
+ * backgrounds when printing — a dark-theme sheet prints as invisible text.
+ * Same reason there are no filled backgrounds carrying meaning: emphasis is
+ * done with borders and weight, which always survive a black-and-white printer.
+ *
+ * See features-to-implement/character-sheet-print-plan.md §3.4.
+ */
+
+@page {
+  size: A4;
+  margin: 9mm;
+}
+
+.sheet {
+  color-scheme: light;
+  background: #fff;
+  color: #000;
+  font-size: 8.5pt;
+  line-height: 1.25;
+  max-width: 192mm;
+  margin: 0 auto;
+  padding: 6mm 0 12mm;
+}
+
+.sheet * {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------------- structure */
+
+.sheet-section {
+  margin-bottom: 3mm;
+  break-inside: avoid;
+}
+
+/* Sections that get a page to themselves (moce, umiejętności, załącznik).
+   The rule sits on the section, so a character without powers produces no
+   blank page instead of an empty break. */
+.sheet-page-break {
+  break-before: page;
+}
+
+.sheet-heading {
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.6mm;
+  margin: 0 0 1.4mm;
+}
+
+.sheet-subheading {
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.6mm 0 0.8mm;
+}
+
+.sheet-columns-2 {
+  columns: 2;
+  column-gap: 5mm;
+}
+
+.sheet-columns-3 {
+  columns: 3;
+  column-gap: 5mm;
+}
+
+.sheet-columns-2 > *,
+.sheet-columns-3 > * {
+  break-inside: avoid;
+}
+
+.sheet-row {
+  display: flex;
+  gap: 3mm;
+  align-items: flex-start;
+}
+
+.sheet-row > * {
+  min-width: 0;
+}
+
+.sheet-grow {
+  flex: 1;
+}
+
+/* ------------------------------------------------------------------- header */
+
+.sheet-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4mm;
+  border-bottom: 2px solid #000;
+  padding-bottom: 1.2mm;
+  margin-bottom: 2mm;
+}
+
+.sheet-title h1 {
+  font-size: 15pt;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.sheet-title-meta {
+  font-size: 7.5pt;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.sheet-description {
+  white-space: pre-wrap;
+  font-size: 7.5pt;
+  margin-bottom: 2mm;
+}
+
+/* ------------------------------------------------------------------- tables */
+
+.sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet-table th,
+.sheet-table td {
+  border: 0.4pt solid #999;
+  padding: 0.5mm 1mm;
+  text-align: left;
+  vertical-align: top;
+}
+
+.sheet-table th {
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.sheet-table tr {
+  break-inside: avoid;
+}
+
+.sheet-table .is-numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.sheet-table .is-name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sheet-table .is-summary {
+  font-size: 7.5pt;
+  width: 100%;
+}
+
+/* Default defense/offense — a printer-safe marker, no fill. */
+.sheet-table tr.is-default .is-name::before {
+  content: '▸ ';
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------ vitals */
+
+.sheet-vitals {
+  display: flex;
+  gap: 2mm;
+  align-items: stretch;
+}
+
+.sheet-vitals-total {
+  border: 1pt solid #000;
+  padding: 1mm 2.5mm;
+  text-align: center;
+  min-width: 22mm;
+}
+
+.sheet-vitals-total .value {
+  font-size: 17pt;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+.sheet-vitals-total .caption {
+  font-size: 6.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sheet-vitals-pairs {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 0.4mm 3mm;
+  align-content: center;
+  font-size: 7.5pt;
+}
+
+.sheet-vitals-pairs dt {
+  display: inline;
+}
+
+.sheet-vitals-pair {
+  white-space: nowrap;
+}
+
+.sheet-vitals-pair b {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------- compact list entry */
+
+/* One-line entry used where a table would waste a full row per item
+   (atuty, przedmioty). */
+.sheet-compact-entry {
+  font-size: 7.5pt;
+  border-bottom: 0.3pt dotted #bbb;
+  break-inside: avoid;
+}
+
+/* ------------------------------------------------------------ notes lines */
+
+.sheet-writelines {
+  display: flex;
+  flex-direction: column;
+  gap: 4mm;
+  padding-top: 2mm;
+}
+
+.sheet-writeline {
+  border-bottom: 0.4pt solid #999;
+}
+
+/* ---------------------------------------------------------------- appendix */
+
+.sheet-appendix-entry {
+  break-inside: avoid;
+  margin-bottom: 1.6mm;
+  font-size: 7.5pt;
+}
+
+.sheet-appendix-entry .name {
+  font-weight: 700;
+}
+
+.sheet-appendix-entry .body {
+  white-space: pre-wrap;
+}
+
+.sheet-muted {
+  color: #555;
+}
+
+/* -------------------------------------------------------------- screen/print */
+
+/* Layout-free on purpose: `.screen-only` only decides whether something is
+   printed, so it can be dropped onto existing elements (e.g. the app's
+   scroll-to-top button in the root layout) without moving them. */
+.sheet-toolbar {
+  margin: 0 auto 6mm;
+  max-width: 192mm;
+}
+
+@media print {
+  .screen-only {
+    display: none !important;
+  }
+
+  .sheet {
+    padding: 0;
+    max-width: none;
+    font-size: 8.5pt;
+  }
+}
+
+/* On screen the sheet sits on a page-like slab so the print layout is legible
+   against the app's (possibly dark) background. */
+@media screen {
+  .sheet {
+    border: 1px solid #ccc;
+    padding: 8mm;
+    box-shadow: 0 1px 8px rgb(0 0 0 / 0.12);
+  }
+}

@@ -68,21 +68,19 @@ export default function CombatView({ character, selectedStanceId, selectedStateI
 
       {/* Combat HUD: the vitals a player watches during a fight (HP, barrier,
           defense). Scrolls with the rest of the tab — not pinned. */}
-      <div className='lg:rounded-lg lg:border lg:bg-background/95 lg:p-2'>
-        <div className='flex flex-col lg:grid lg:grid-cols-5 gap-3'>
+      <div className='flex flex-col lg:grid lg:grid-cols-5 gap-3'>
 
-          <div className="flex flex-col gap-2 lg:col-span-3">
-            <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
-            <BarrierCard health={character.health} />
-          </div>
-
-          <Activity mode={character.defenses.length > 0 ? "visible" : "hidden"}>
-            <div className="lg:col-span-2 flex w-full">
-              <DefenseCard defenses={character.defenses} defaultDefenseId={character.defaultDefenseId} />
-            </div>
-          </Activity>
-
+        <div className="flex flex-col gap-2 lg:col-span-3">
+          <HealthCard health={character.health} constitution={character.characteristics.constitution} fortitude={character.attributes.fortitude} />
+          <BarrierCard health={character.health} />
         </div>
+
+        <Activity mode={character.defenses.length > 0 ? "visible" : "hidden"}>
+          <div className="lg:col-span-2 flex w-full">
+            <DefenseCard defenses={character.defenses} defaultDefenseId={character.defaultDefenseId} />
+          </div>
+        </Activity>
+
       </div>
 
       {

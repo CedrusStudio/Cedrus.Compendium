@@ -31,7 +31,12 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>)
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         <Providers>
           {children}
-          <ScrollToTopButton />
+          {/* `screen-only` is defined in the print route group's sheet.css and is
+              inert elsewhere — it keeps this floating button off the printed
+              character sheet, which renders inside the root layout too. */}
+          <div className="screen-only">
+            <ScrollToTopButton />
+          </div>
         </Providers>
       </body>
     </html>

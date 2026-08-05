@@ -25,7 +25,7 @@ import { IoShield } from "react-icons/io5";
 import { GiDiceShield } from "react-icons/gi";
 import { GiCrenulatedShield } from "react-icons/gi";
 
-import { TbEdit, TbSum } from "react-icons/tb";
+import { TbEdit, TbPrinter, TbSum } from "react-icons/tb";
 import { MdPublishedWithChanges } from "react-icons/md";
 import { GiMagicSwirl } from "react-icons/gi";
 
@@ -121,6 +121,8 @@ export const leftIcon = <ChevronLeft />;
 export const rightIcon = <ChevronRight />;
 
 export const editIcon = <TbEdit />
+
+export const printIcon = <TbPrinter />
 
 export const spellIcon = (className: string) => <LuPlus className={className} />;
 
