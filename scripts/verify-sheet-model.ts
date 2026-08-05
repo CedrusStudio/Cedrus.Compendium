@@ -19,7 +19,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import CharacterSheet from '@/application/characters/sheet/CharacterSheet';
 import { toCharacter, CharacterWithRelations } from '@/persistence/mappings/characterMapping';
-import { buildSheetModel } from '@/domain/characters/sheet/sheetModel';
+import { buildSheetModel, SheetStatLine } from '@/domain/characters/sheet/sheetModel';
 import { summarizeDescription } from '@/domain/characters/sheet/summarizeDescription';
 import { parseSheetOptions, toSheetQuery, defaultSheetOptions } from '@/domain/characters/sheet/sheetOptions';
 import { ownPageThreshold } from '@/application/characters/sheet/primitives/needsOwnPage';
@@ -72,7 +72,7 @@ function writeHtmlPreview(fragment: string | undefined): void
     return;
   }
 
-  const model = buildSheetModel(applyActiveBuffProfile(toCharacter(assemble(row))), { generatedOn: new Date() });
+  const model = modelFor(row, new Date());
   const css = fs.readFileSync(path.resolve('src/app/(print)/sheet.css'), 'utf8');
   const body = renderToStaticMarkup(
     React.createElement(CharacterSheet, { model, options: { ...defaultSheetOptions, appendix: true } }),
@@ -115,7 +115,7 @@ function sweepAllCharacters(rows: Row[]): void
 
   for (const row of rows)
   {
-    const model = buildSheetModel(toCharacter(assemble(row)), { generatedOn: new Date('2026-08-04T12:00:00Z') });
+    const model = modelFor(row, new Date('2026-08-04T12:00:00Z'));
     const spellCount = model.powers.reduce((count, power) => count + power.spells.length, 0);
     const talentCount = model.talents.reduce((count, group) => count + group.talents.length, 0);
     const report = estimatePages(model, spellCount, talentCount);
@@ -182,9 +182,20 @@ function assemble(row: Row): CharacterWithRelations
   } as unknown as CharacterWithRelations;
 }
 
+/**
+ * Single entry point for all three modes, so a report, a sweep and an HTML
+ * preview of the same character can never disagree. `applyActiveBuffProfile`
+ * mirrors what `CharacterSheetView` does — without it the script would report
+ * base values while the printed sheet shows buffed ones.
+ */
+function modelFor(row: Row, generatedOn: Date)
+{
+  return buildSheetModel(applyActiveBuffProfile(toCharacter(assemble(row))), { generatedOn });
+}
+
 function reportCharacter(row: Row): void
 {
-  const model = buildSheetModel(toCharacter(assemble(row)), { generatedOn: new Date('2026-08-04T12:00:00Z') });
+  const model = modelFor(row, new Date('2026-08-04T12:00:00Z'));
 
   const spellCount = model.powers.reduce((count, power) => count + power.spells.length, 0);
   const talentCount = model.talents.reduce((count, group) => count + group.talents.length, 0);
@@ -192,9 +203,9 @@ function reportCharacter(row: Row): void
   console.log('='.repeat(78));
   console.log(`${model.header.name}  [${model.header.shortName}]  ${model.header.generatedOn}`);
   console.log('='.repeat(78));
-  console.log(`cechy      ${model.characteristics.map(stat => `${stat.abbr} ${stat.display}`).join('  ')}`);
-  console.log(`atrybuty   ${model.attributes.map(stat => `${stat.abbr} ${stat.display}`).join('  ')}`);
-  console.log(`zdrowie    ${model.vitals.totalHealth}  (PL ${model.vitals.recoveryLevel}, bariera ${model.vitals.barrier})`);
+  console.log(`cechy      ${model.characteristics.map(formatStat).join('  ')}`);
+  console.log(`atrybuty   ${model.attributes.map(formatStat).join('  ')}`);
+  console.log(`zdrowie    ${model.vitals.totalHealth}  (PL ${model.vitals.recoveryLevel}, ${model.vitals.rows.map(row => `${row.label} ${row.value}`).join(', ')})`);
 
   for (const defense of model.defenses)
   {
@@ -206,9 +217,20 @@ function reportCharacter(row: Row): void
     console.log(`atak       ${offense.isDefault ? '▸' : ' '} ${offense.name.padEnd(22)} ${offense.leading} kryt ${offense.leadingCritical}  obr. ${offense.damage}${offense.additionalDamage ? ` +${offense.additionalDamage}` : ''}`);
   }
 
-  for (const weapon of model.equipment.weapons) console.log(`broń       ${weapon.name.padEnd(24)} ${weapon.details}`);
-  for (const armor of model.equipment.armors) console.log(`pancerz    ${armor.name.padEnd(24)} ${armor.details}`);
-  for (const shield of model.equipment.shields) console.log(`tarcza     ${shield.name.padEnd(24)} ${shield.details}`);
+  for (const weapon of model.equipment.weapons)
+  {
+    console.log(`broń       ${weapon.name.padEnd(24)} ${weapon.style} · zasięg ${weapon.range} · atak ${weapon.attack} · kryt ${weapon.critical} · obr. ${weapon.damage}`);
+  }
+
+  for (const armor of model.equipment.armors)
+  {
+    console.log(`pancerz    ${armor.name.padEnd(24)} red. ${armor.protection} · niewr. ${armor.immunity} · odp. ${armor.resistance} · ogr. ${armor.dexterityRestriction}/${armor.reflexRestriction}/${armor.initiativeRestriction} · kara ${armor.attributePenalty}`);
+  }
+
+  for (const shield of model.equipment.shields)
+  {
+    console.log(`tarcza     ${shield.name.padEnd(24)} blok ${shield.block} · odp. ${shield.resistance} · ogr. ${shield.dexterityRestriction}/${shield.reflexRestriction}/${shield.initiativeRestriction} · kara ${shield.attributePenalty}`);
+  }
 
   console.log(`\nmanewry ${model.maneuvers.length} · postawy ${model.stances.length} · stany ${model.states.length} · atuty ${model.perks.length} · moce ${model.powers.length} · zaklęcia ${spellCount} · umiejętności ${talentCount} · wzmocnienia ${model.buffs.length}`);
 
@@ -290,6 +312,16 @@ function estimatePages(model: ReturnType<typeof buildSheetModel>, spellCount: nu
   const breakdown = `nagłówek ${headerRows} · statystyki ${statsRows} · zdrowie ${vitalsRows} · walka ${combatRows} · akcje ${actionRows} · atuty ${perkRows} · wzmocnienia ${buffRows} · notatki ${notesRows} = ${mainRows} wierszy`;
 
   return `${breakdown}\nbudżet stron: karta ${mainPages} (${verdict}, limit 2) · ekwipunek ${equipmentPages} · moce ${powerPages} · umiejętności ${talentPages} · razem ${mainPages + equipmentPages + powerPages + talentPages}`;
+}
+
+function formatStat(stat: SheetStatLine): string
+{
+  const modifiers = [stat.bonus, stat.testBonus]
+    .filter(modifier => modifier !== 0)
+    .map(modifier => `${modifier > 0 ? '+' : ''}${modifier}`)
+    .join('');
+
+  return `${stat.abbr} ${stat.dice}+${stat.value}${modifiers}=${stat.total}`;
 }
 
 function biggestCharacter(rows: Row[]): Row

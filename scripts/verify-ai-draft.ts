@@ -36,6 +36,7 @@ import { reviewAiCharacterProposalCombat } from '../src/domain/ai-character-gene
 import { compareToBalanceProfile } from '../src/domain/ai-character-generation/compareToBalanceProfile';
 import { readStructuredRequirements } from '../src/domain/requirements/legacyRequirementAudit';
 import type { Requirement } from '../src/domain/requirements/Requirement';
+import type { CharacterGenerationContext } from '../src/domain/ai-character-generation/CharacterGenerationProvider';
 
 function readArgument(name: string): string | undefined
 {
@@ -112,12 +113,10 @@ function main(): void
     throw new Error(`Brak ${draftFile}. Najpierw przygotuj propozycję.`);
   }
 
-  const request = context as {
-    request: { constraints: { allowCustomEquipment: boolean; allowCustomAbilities: boolean } };
-    references: Parameters<typeof getAiCharacterGenerationAllowedReferences>[0];
-    allowedCatalog: { entries: Parameters<typeof getAiCharacterGenerationAllowedReferences>[1] };
-    balanceProfiles: Parameters<typeof compareToBalanceProfile>[1][];
-  };
+  // The request file is a serialized CharacterGenerationContext, so it is typed
+  // as one rather than being described a second time here — a local shape would
+  // drift from the contract the application actually writes.
+  const request = context as unknown as CharacterGenerationContext;
 
   console.log(`Żądanie: ${file}`);
   console.log(`Draft:   ${path.relative(process.cwd(), draftFile)}`);
