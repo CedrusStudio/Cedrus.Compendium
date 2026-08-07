@@ -40,3 +40,28 @@ export const tagEntityCollectionMap: Record<string, string> = {
 
 /** Entities that carry `structuredRequirements` and can therefore hold `count` tag references. */
 export const requirementBearingEntities: readonly string[] = ['maneuvers', 'stances', 'states', 'spells', 'perks'];
+
+/**
+ * Search-payload entity name → tag-management entity name.
+ *
+ * The two vocabularies are NOT the same: search says `maneuver` and
+ * `inventoryItem`, tag management says `maneuvers` and `inventory`. Wave 9.3
+ * needs the bridge because facets are keyed by the tag-management name — and
+ * getting it wrong fails silently, since an index built for an entity no facet
+ * lists simply yields no conditions and the filter quietly stops narrowing.
+ */
+export const searchEntityToTagEntity: Record<string, string> = {
+  character: 'characters',
+  maneuver: 'maneuvers',
+  spell: 'spells',
+  perk: 'perks',
+  race: 'races',
+  stance: 'stances',
+  state: 'states',
+  weapon: 'weapons',
+  armor: 'armors',
+  shield: 'shields',
+  inventoryItem: 'inventory',
+  mount: 'mounts',
+  powerSpecification: 'powerSpecifications',
+};

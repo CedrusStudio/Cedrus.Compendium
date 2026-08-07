@@ -29,6 +29,7 @@ import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
 import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
+import type { TagFacetFilter } from "@/domain/tags/tagFacets";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers, Wand2 } from "lucide-react";
@@ -66,9 +67,10 @@ export default function ManeuversList()
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters];
+  const queryKey = [createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters];
   const { data: searchResults } = useQuery
   ({
     queryKey,
@@ -76,6 +78,7 @@ export default function ManeuversList()
     {
       const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
       if (requirementFilters.length > 0) maneuversQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) maneuversQuery.tagFacetFilters = facetFilters;
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000
@@ -132,6 +135,12 @@ export default function ManeuversList()
     clearResults();
   }, [clearResults]);
 
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+  {
+    setFacetFilters(filters);
+    clearResults();
+  }, [clearResults]);
+
   const handleSelectedCastTimesChange = useCallback((castTimes: CastTime[]) =>
   {
     setSelectedCastTimes(castTimes);
@@ -176,6 +185,9 @@ export default function ManeuversList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="maneuvers"
+        facetEntity="maneuvers"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
         extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
         <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />

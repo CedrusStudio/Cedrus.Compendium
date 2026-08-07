@@ -148,7 +148,14 @@ async function syncTagDefinition(client: TagRenameClient, entity: string, oldTag
     if (otherEntity === entity) continue;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const remaining = await (client[modelName] as any).count({ where: { tags: { has: oldTag } } }) as number;
+    const model = client[modelName] as any;
+
+    // A model we cannot count is a model we cannot clear: without proof the tag
+    // is gone everywhere, the safe answer is to leave the definition alone. The
+    // drift report will surface it either way.
+    if (typeof model?.count !== 'function') return false;
+
+    const remaining = await model.count({ where: { tags: { has: oldTag } } }) as number;
     if (remaining > 0) return false;
   }
 

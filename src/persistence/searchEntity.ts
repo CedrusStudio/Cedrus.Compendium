@@ -2,6 +2,7 @@ import { type SearchEntityPayload, type SearchByIdEntityPayload, SearchValueOutp
 import { createFiltering, createExcludeFiltering, createMapping, createSorting, collectRequirementFilters, collectTagFacetFilters, Select } from '@/common/global/SearchPayloads';
 import { buildTagFacetConditions, toMongoTagConditions, toPrismaTagConditions, type PrismaTagCondition } from '@/domain/tags/tagFacets';
 import { loadTagFacetIndexForFiltering } from '@/persistence/tags/tagFacetLayer';
+import { searchEntityToTagEntity } from '@/lib/tagEntityModels';
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 import prisma from '@/lib/prisma';
 import { toSpell } from '@/persistence/mappings/spellMappings';
@@ -251,6 +252,13 @@ async function resolveTagFacetConditions(payload: SearchEntityPayload)
   const filters = collectTagFacetFilters(payload);
   if (filters.length === 0) return [];
 
-  const index = await loadTagFacetIndexForFiltering(payload.entity);
+  // The payload speaks the SEARCH vocabulary (`maneuver`), facets speak the
+  // tag-management one (`maneuvers`). Skipping this translation would build an
+  // index no facet claims, producing zero conditions and a filter that quietly
+  // narrows nothing.
+  const tagEntity = searchEntityToTagEntity[payload.entity];
+  if (!tagEntity) return [];
+
+  const index = await loadTagFacetIndexForFiltering(tagEntity);
   return buildTagFacetConditions(filters, index);
 }

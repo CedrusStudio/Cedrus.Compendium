@@ -382,6 +382,79 @@ przechodzą.
 
 ---
 
+### Stan wykonania 9.2 i 9.4 (2026-08-07) — **ZROBIONE**
+
+- `src/app/api/tag-facets/admin` — CRUD facetów i definicji. Usunięcie facetu zeruje `facetKey`
+  w definicjach (tagi wracają do „Pozostałych") i **nie dotyka żadnego rekordu encji**.
+- `src/domain/tags/validateTagAlias.ts` — trzy reguły z §9.5 jako czysta funkcja, wołana przez API;
+  naruszenie to 400 z czytelnym komunikatem, nie ostrzeżenie.
+- `src/persistence/tags/deleteTagEverywhere.ts` + przepisany `/api/tag-management/delete` —
+  delete zamiata też profile personalizacji, kasuje osieroconą definicję (dopiero gdy tag zniknął
+  ze wszystkich encji) i **zwraca nazwy dotkniętych rekordów**, bo delete nie zostawia żadnego
+  innego śladu po tym, co usunął. `structuredRequirements` są liczone, ale świadomie nietykane —
+  co zrobić z niespełnialnym wymaganiem to decyzja treściowa, nie zadanie dla przycisku.
+- `FacetedTagFilter.tsx`, `TagFilterSwitcher.tsx`, `useTagFacets.ts`, wpięcie w `ListHeader`
+  (opcjonalne propsy — listy niezmigrowane zachowują się bez zmian) i w `ManeuversList`.
+
+**Złapany cichy błąd:** `searchEntity` dostaje nazwę encji w słowniku **wyszukiwania** (`maneuver`,
+`inventoryItem`), a facety są kluczowane słownikiem **zarządzania tagami** (`maneuvers`,
+`inventory`). Bez tłumaczenia indeks budowałby się dla encji, której żaden facet nie wymienia →
+zero warunków → filtr przestaje zawężać, bez błędu i bez pustego stanu. Doszło
+`searchEntityToTagEntity` plus test kontraktowy na wszystkie trzy mapy naraz, bo to jest dokładnie
+ten rodzaj dziury, którego nie widać w code review.
+
+---
+
+### Stan wykonania 9.5 i 9.6 (2026-08-07) — **ZROBIONE**
+
+- `src/application/admin/TagFacetsPanel.tsx` + zakładka „Facety" w `/admin/tags`. Raport rozjazdu
+  jest **na górze**, nie na dole: nowy tag ma rzucać się w oczy, a nie czekać na przypadkowe
+  zauważenie. Edytor aliasów pokazuje tylko encje objęte facetem (martwego aliasu nie da się nawet
+  zaproponować), a błąd walidacji wyświetla się dosłownie, nie jako „nie udało się zapisać".
+- `src/domain/tags/tagFacetDrift.ts` + `GET /api/tag-facets/drift` — trzy kierunki rozjazdu: tagi
+  bez definicji, definicje bez użycia, facety wskazujące encję, która nie niesie żadnego ich tagu.
+  Próg `DRIFT_ALERT_THRESHOLD = 10`, żeby literówka w jednym rekordzie nie uczyła ignorowania raportu.
+
+**Symulacja stanu po renamie 9.0 i wsiewie, na backupie:** 0 definicji bez użycia, 0 martwych encji
+facetów, 46 tagów nieprzypisanych (z tego 17 z co najmniej 10 wystąpieniami).
+
+**Największa dziura, jaką raport pokazał: brakuje facetu magii.** Siedemnaście istotnych
+nieprzypisanych tagów to niemal w całości jeden klaster, rozpięty na Zaklęciach, Atutach, Mocach
+i Postaciach — `moc` 106, `promieniowanie` 50, `wielorundowe` 49, `nekromancja` 41, `szamaństwo` 37,
+`esencja` 37, `ochronne` 27, `precyzja` 27, `altoria` 24, `obszar` 23, `rozpraszanie` 22, `ogień` 22,
+`wiara` 22, `zimno` 20, `vortex` 19, `błyskawice` 19. Rozpada się to na trzy osie: **źródło mocy**
+(altoria, nekromancja, szamaństwo, vortex, esencja, drążenie, boska, aramantia, czarna-magia,
+kinetyka, moc, wiara — i **`natura`**), **żywioł** (ogień, zimno, błyskawice, promieniowanie,
+światło) oraz **sposób działania** (obszar, wielorundowe, ochronne, precyzja, rozpraszanie).
+
+To retroaktywnie potwierdza projekt aliasów: `natura` jest kanonicznym tagiem **źródła mocy** na
+Zaklęciach i Atutach, a aliasem `zwierzęta` wyłącznie na Postaciach. Gdyby alias był globalny,
+107 zaklęć i atutów wpadłoby do rodzaju istoty. Facety magii to naturalna Fala 9.7 — dane są gotowe,
+brakuje tylko decyzji, gdzie przebiegają granice między tymi trzema osiami.
+
+`specjalne` (17×, na Postawach, Stanach, Atutach i Broniach) zostaje nieprzypisane świadomie —
+to worek na wyjątki, nie oś.
+
+### Poprawki po pierwszym pełnym `npm test` (2026-08-07)
+
+Dwa czerwone testy, oba moje, oba warte zapisania:
+
+1. **Zła asercja, nie zły kod** — test kolejności dryfu zakładał `krytyk` przed `fortel`, a `fortel`
+   ma 81 wystąpień wobec 71 + 4 = 75 u `krytyka`. Sumowanie po encjach jest właśnie sensem tego
+   sortowania, więc poprawiona została asercja.
+2. **Nieprzepisany test `delete`** — route dostał nową implementację, a jego test dalej mockował
+   starą (`prisma.perk.findMany/update`), więc sweep wymagań dostawał `undefined`.
+
+Przy przepisywaniu testu wyszedł **prawdziwy błąd odporności**: `removeOrphanedDefinition`
+i `syncTagDefinition` chodzą po WSZYSTKICH encjach, żeby dowieść, że tag zniknął, i wywracały się na
+modelu, którego nie ma. W produkcji klient Prismy ma komplet delegatów, więc to nie był bug widoczny
+dla użytkownika — ale zachowanie było błędne w drugą stronę: brak modelu to brak dowodu. Teraz oba
+sweepy przy niepoliczalnym modelu **zostawiają definicję w spokoju** zamiast rzucać, a rozjazd
+i tak wyłapie raport. Mocki w testach są Proxy, bo mockowanie jednego modelu wywoływałoby ten
+fail-safe zamiast testowanej ścieżki.
+
+---
+
 ### 9.1 Model i seed — `M` · ⭐⭐⭐
 
 Dwa modele Prismy (§3) + skrypt `scripts/seed-tag-facets.ts`, który wypisuje propozycję przypisania
