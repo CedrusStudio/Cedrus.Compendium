@@ -2,18 +2,22 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { isValidTag } from '@/domain/Tag';
 import { tagEntityModelMap } from '@/lib/tagEntityModels';
+import { renameTagEverywhere, type TagRenameClient } from '@/persistence/tags/renameTagEverywhere';
 
 type TagMutationBody = {
   entity?: string;
   oldTag?: string;
   newTag?: string;
+  /** Report what would change without writing anything. */
+  dryRun?: boolean;
 };
 
-type TaggableEntity = {
-  id: string;
-  tags: string[];
-};
-
+/**
+ * Wave 9.0: a rename now sweeps all three places a tag name is stored — the
+ * entity's `tags`, `count` requirement references and every user's quick tags —
+ * and the entity sweep runs as raw Mongo commands so 575 records cannot end up
+ * half-renamed. `dryRun: true` returns the same report without writing.
+ */
 export async function POST(request: Request)
 {
   try
@@ -22,9 +26,9 @@ export async function POST(request: Request)
     const entity = body.entity?.trim() ?? '';
     const oldTag = body.oldTag?.trim() ?? '';
     const newTag = body.newTag?.trim() ?? '';
-    const modelName = tagEntityModelMap[entity];
+    const dryRun = body.dryRun === true;
 
-    if (!modelName)
+    if (!tagEntityModelMap[entity])
     {
       return NextResponse.json({ message: `Invalid entity: ${entity}` }, { status: 400 });
     }
@@ -44,24 +48,11 @@ export async function POST(request: Request)
       return NextResponse.json({ message: 'newTag must be different from oldTag' }, { status: 400 });
     }
 
-    // @ts-expect-error Prisma does not type dynamic model access precisely.
-    const model = prisma[modelName];
+    const report = await renameTagEverywhere(prisma as unknown as TagRenameClient, { entity, oldTag, newTag, dryRun });
 
-    const affectedEntities = await model.findMany({
-      where: { tags: { has: oldTag } },
-      select: { id: true, tags: true },
-    }) as TaggableEntity[];
-
-    await Promise.all(
-      affectedEntities.map(entityRecord => model.update({
-        where: { id: entityRecord.id },
-        data: {
-          tags: Array.from(new Set(entityRecord.tags.map(tag => tag === oldTag ? newTag : tag))),
-        },
-      })),
-    );
-
-    return NextResponse.json({ updatedCount: affectedEntities.length }, { status: 200 });
+    // `updatedCount` is kept for callers written before Wave 9.0 (the admin
+    // panel reads it); the report carries what the sweep actually touched.
+    return NextResponse.json({ updatedCount: report.records, ...report }, { status: 200 });
   }
   catch (error)
   {

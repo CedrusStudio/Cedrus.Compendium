@@ -144,8 +144,9 @@ const COUNT_GROUP_WORDS: readonly [stem: string, group: EntityRequirementGroup][
 /**
  * Adjectives the count texts use, mapped to the tag that actually exists on the
  * entities. Verified against the library: `widmowy` (93 maneuvers),
- * `okrzyki-bojowe` (44), `girgeński` (10), `fechtunek` (93), `tarcze` (19),
- * `ofensywa` (120 perks).
+ * `okrzyki-bojowe` (44), `girgeński` (10), `fechtunek` (93), `tarcze` (19).
+ * `ofensywa` used to be perk-only; see `COUNT_TAG_WORDS` for what Wave 9.0
+ * changed about it.
  */
 /**
  * Wording that grants the GM latitude rather than naming a second target.
@@ -180,14 +181,26 @@ const NEGATION_PATTERNS: readonly RegExp[] = [
  */
 const GRADE_QUALIFIER = /\bna\s+(?:randze|poziomie)\s+(?:co\s+najmniej\s+)?(-?\d+)|(-?\d+)\s+(?:poziomu|poziomie|rangi|randze)\b/;
 
-const COUNT_TAG_WORDS: readonly [word: string, tag: string, defaultGroup: EntityRequirementGroup][] = [
+/**
+ * `defaultGroup` is the group a tag IMPLIES when the text names none — safe only
+ * while the tag lives on exactly one collection.
+ *
+ * Wave 9.0 took that property away from `ofensywa`: after unifying the
+ * vocabulary it sits on Maneuvers (575), Spells (138), Perks (120), Stances (67)
+ * and States (22), so "ilość ofensywnych 5" no longer says which. Its group is
+ * now `undefined` — the tag is still recognised and still emitted, but the text
+ * has to name its own group or be left for a human. The one requirement in the
+ * library that uses it ("pięć atutów ofensywnych…") names „atutów" explicitly,
+ * so nothing regresses.
+ */
+const COUNT_TAG_WORDS: readonly [word: string, tag: string, defaultGroup?: EntityRequirementGroup][] = [
   ["widmow", "widmowy", "maneuvers"],
   ["okrzyk", "okrzyki-bojowe", "maneuvers"],
   ["girgeń", "girgeński", "maneuvers"],
   ["girgen", "girgeński", "maneuvers"],
   ["fechtunk", "fechtunek", "maneuvers"],
   ["tarcz", "tarcze", "maneuvers"],
-  ["ofensyw", "ofensywa", "perks"],
+  ["ofensyw", "ofensywa", undefined],
 ];
 
 /** Extract the first integer in the text, if any. */
@@ -379,7 +392,8 @@ function suggestCount(normalized: string): CountRequirement | null
   // a quantity, and „Cios Tarczą 2" has no such wording so it stays excluded.
   const hasCountCue = words.some((word) => COUNT_CUE_WORDS.some((cue) => word.startsWith(cue)))
     || minGrade !== undefined;
-  const groups = named.length > 0 ? named : hasCountCue && tagged ? [tagged[2]] : [];
+  const impliedGroup = tagged?.[2];
+  const groups = named.length > 0 ? named : hasCountCue && impliedGroup ? [impliedGroup] : [];
 
   if (groups.length === 0)
   {

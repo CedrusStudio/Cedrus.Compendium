@@ -696,3 +696,57 @@ enum AiGenerationLedgerState {
   completed
   released
 }
+
+// ---------------------------------------------------------------------------
+// Wave 9 — tag facets.
+//
+// A DESCRIPTIVE LAYER over `tags: String[]`, never a source of truth about an
+// entity. Nothing here is required for the app to work: with both collections
+// empty the tag filter renders the flat list it always did. Deleting a facet or
+// a definition can never change a single entity record — the worst outcome of a
+// mistake in the admin panel is worse grouping in a dropdown.
+// ---------------------------------------------------------------------------
+
+model TagFacet {
+  id            String   @id @default(ulid()) @map("_id")
+  /// Stable key used by search payloads, e.g. "rodzaj-istoty".
+  key           String   @unique
+  label         String
+  description   String?
+  /// Display order in the filter.
+  order         Int
+  /// "multi" | "single" — only armour `klasa` is genuinely exclusive.
+  selectionMode String   @default("multi")
+  /// Whether to offer the synthetic "— brak —" value.
+  supportsNone  Boolean  @default(true)
+  /// Tag-management entity names this facet applies to, e.g. ["maneuvers"].
+  entities      String[]
+
+  @@map("tagFacets")
+}
+
+model TagDefinition {
+  id          String     @id @default(ulid()) @map("_id")
+  /// Canonical tag name.
+  tag         String     @unique
+  /// null = unassigned; such tags still show up, in the "Pozostałe" bucket.
+  facetKey    String?
+  label       String?
+  order       Int?
+  /// Live synonyms — see `TagAlias`. NOT rename history.
+  aliases     TagAlias[]
+  /// Rename history, kept apart so an old name is never treated as a synonym.
+  formerNames String[]
+
+  @@map("tagDefinitions")
+}
+
+/// A spelling equivalent to the canonical tag, valid only for the listed entities.
+///
+/// Entity scoping is not optional: `natura` means "animal" on a Character but
+/// "school of magic" on a Spell or Perk (107 records) and "natural material" on
+/// an Item. A global alias would drag all of them into the creature-kind facet.
+type TagAlias {
+  alias    String
+  entities String[]
+}

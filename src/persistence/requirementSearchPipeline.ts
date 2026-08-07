@@ -26,6 +26,13 @@ export type RequirementPipelineInput = {
   offset?: { pageNumber: number; pageSize: number };
   /** AND-ed together. Callers normalize via `collectRequirementFilters`. */
   requirementFilters: RequirementSearchFilter[];
+  /**
+   * Wave 9.3: ready-made `$match` fragments, AND-ed with everything else. The
+   * tag-facet conditions arrive this way — already rendered by
+   * `toMongoTagConditions`, so this path and the typed Prisma path are two
+   * renderings of ONE resolved condition list rather than two implementations.
+   */
+  extraConditions?: MongoStage[];
 };
 
 function escapeRegex(value: string): string
@@ -120,6 +127,8 @@ export function buildRequirementSearchPipeline(input: RequirementPipelineInput):
   {
     conditions.push(requirementCondition(filter));
   }
+
+  conditions.push(...(input.extraConditions ?? []));
 
   // `{ $and: [] }` is rejected by Mongo, so an empty condition set has to become
   // a match-everything stage. In practice `searchEntity` only takes this path
