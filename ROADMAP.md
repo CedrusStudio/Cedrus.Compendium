@@ -38,6 +38,7 @@ Domknięte w kodzie 2026-08-02: **§8.10** — zmiana postawy w turze, blokady p
 | **6** | Domknięcie Fali 5 (dane + UI) | Dokończenie migracji danych, multi-filtr wymagań, porządki w widoku tagów | Niskie/Średnie |
 | **7** | Rozszerzenie modelu Wymagań | Umiejętności, Moce/Więzi, operator LUB, sumy cech, mądrzejszy matcher, filtr rodzaju w adminie | Średnie |
 | **8** | Wymagania licznikowe i sprzętowe | Domknięcie mapowania: „ilość czegoś" + sprzęt jako kategoria | Średnie |
+| **10** | Kategorie tagów | Warstwa opisowa nad tagami: filtrowanie po kategoriach zamiast ręcznego wykluczania | Niskie (dane nietknięte) |
 
 Zasada: **Fala 0 zawsze pierwsza.** Fale 1–4 są w dużej mierze niezależne i można je zrównoleglać. Fala 5 na końcu, bo dotyka rdzenia i wymaga migracji. Fala 6 to sprzątanie po Fali 5 — zaczyna od danych (6.1), bo bez nich reszta jest nieweryfikowalna.
 
@@ -755,6 +756,75 @@ Cztery pozycje z etapu 7 planu `combat-lab-engine-model-gaps-plan.md` §1. Każd
 **Niezrobione świadomie:** proposer w `classify-maneuvers.ts` nie zna jeszcze wzorca „uniemożliwia … " — `forbidTag` autoruje się ręcznie w edytorze (dotyczy 3 rekordów Amoku).
 
 ---
+
+## Fala 10 — Kategorie tagów `[WARSTWA OPISOWA]` — **ZROBIONE (2026-08-07)**
+
+Pełny plan, decyzje i przebieg: **`features-to-implement/tag-facets-plan.md`**. Tutaj skrót.
+
+**Problem.** Żeby znaleźć „manewry ofensywne dla wojaka", trzeba było wybrać `ofensywne` i ręcznie
+wykluczyć osiem tagów bestiarnych — i pamiętać o dziewiątym, gdy ktoś go doda.
+
+**Rozwiązanie.** Kolekcje `TagFacet` i `TagDefinition` jako **warstwa opisowa** nad `tags: String[]`,
+które nie zmieniają się ani o bajt. Puste kolekcje = zachowanie sprzed Fali 9, usunięcie kategorii
+nigdy nie dotyka rekordu encji, a tag bez definicji zawsze widać w kubełku „Pozostałe”.
+
+**Semantyka:** OR wewnątrz kategorii, AND między kategoriami, plus syntetyczne **„— brak —"**
+rozwijane serwerowo do `$nin` po pełnej liście tagów kategorii. `rola: ofensywa` + `rodzaj istoty:
+— brak —` daje **339** manewrów; `zwierzęta ∪ potwory` daje **147** (nie 117, nie 0).
+
+**Aliasy per encja.** Biblioteka nazywa tę samą oś inaczej po obu stronach: Manewr mówi `nieumarli`,
+Postać `nieumarły`, a zwierzęca Postać `natura`. Jedna kategoria, wiele pisowni — bez renamów.
+Zawężenie do encji jest konieczne: `natura` znaczy zwierzę na Postaci, ale szkołę magii na Zaklęciu
+i Atucie (107 rekordów) oraz materiał na Przedmiocie.
+
+| Etap | Zakres |
+|---|---|
+| 10.0 | Ujednolicenie słownika (6 renamów) + utwardzenie `rename`/`delete`: sweep personalizacji i wymagań, dwie komendy Mongo zamiast N update'ów, dry-run |
+| 10.1 | `TagFacet`, `TagDefinition`, `type TagAlias` + seed (10 kategorii, 85 definicji) |
+| 10.2 | `GET /api/tag-facets/[entity]`, CRUD admina z walidacją aliasów, synchronizacja rename/delete z definicjami |
+| 10.3 | `tagFacetFilters` w ładunku; warunki liczone RAZ, renderowane na Prismę i na Mongo |
+| 10.4 | `FacetedTagFilter` + przełącznik `Kategorie ⇄ Tagi`; **14 list podpiętych** (całe kompendium, sprzęt, Bestiariusz, lista postaci) |
+| 10.5 | Zakładka „Kategorie tagów" w `/admin/tags`: kategorie, przypisania, edytor aliasów |
+| 10.6 | Raport rozjazdu (`/api/tag-facets/drift`) + test kontraktowy z progiem 10 wystąpień |
+
+**Trzy rzeczy złapane po drodze, każda cicha:**
+1. `rename` nie ruszał `quickTagsByContext` — szybkie tagi przestałyby działać bez błędu (3 profile).
+2. `searchEntity` dostaje nazwę encji w słowniku **wyszukiwania** (`maneuver`), a kategorie są
+   kluczowane słownikiem **zarządzania tagami** (`maneuvers`) — bez `searchEntityToTagEntity` filtr
+   przestawał zawężać, bez żadnego objawu.
+3. `ofensywa` straciła prawo do domyślnej grupy w matcherze wymagań: po ujednoliceniu siedzi na
+   pięciu kolekcjach, więc „ilość ofensywnych 5" przestało cokolwiek znaczyć.
+
+**Migracja wykonana na produkcji 2026-08-07:** `unify-tag-vocabulary:apply` (575 + 240 + 13 + 6 + 3 + 1
+rekordów, 3 profile) → `seed-tag-facets:apply` (10 kategorii, 85 definicji).
+
+**Stan końcowy:** `npm test` 201/201 plików, 1882 testy. `tsc --noEmit` czysty.
+
+**Trzy rundy poprawek po podpięciu list** — warto, bo każda była z innej warstwy i tylko jedna była
+błędem projektu:
+1. `useTagFacets` łamał własną gwarancję („awaria warstwy opisowej nie zatrzymuje filtra"): `data ??
+   EMPTY_INDEX` broni tylko przed `undefined`, a odpowiedź **osiągalna, ale o innym kształcie**
+   wywalała render i kładła całą listę. Naprawione w kodzie — kształt jest sprawdzany, nie zakładany.
+2. Testy czytały klucz zapytania przez `.at(-1)`, zakładając jedno `useQuery` w drzewie. Naprawione
+   w teście — produkcja była poprawna, to test opisywał ją zbyt ciasno.
+3. Skrypt masowego podpinania **zagnieżdżał** klucz zamiast go rozszerzać, zmieniając kształt klucza
+   cache'a na dziewięciu listach. Naprawione w kodzie.
+
+### Fala 10.7 — kategorie magii `[OTWARTE]`
+
+Raport rozjazdu pokazuje **68 nieprzypisanych tagów**, z czego 17 ma co najmniej 10 wystąpień i
+niemal wszystkie należą do jednego klastra rozpiętego na Zaklęciach, Atutach, Mocach i Postaciach:
+`moc` 106, `promieniowanie` 50, `wielorundowe` 49, `nekromancja` 41, `szamaństwo` 37, `esencja` 37,
+`ochronne` 27, `altoria` 24, `obszar` 23, `ogień` 22, `wiara` 22, `zimno` 20, `vortex` 19,
+`błyskawice` 19. Rozpada się na trzy osie do rozstrzygnięcia: **źródło mocy**, **żywioł** i **sposób
+działania zaklęcia**. `natura` jest kanonicznym tagiem źródła mocy — dlatego jej alias `zwierzęta`
+obowiązuje wyłącznie na Postaciach.
+
+Poza magią bez kategorii zostają jeszcze: `inventory` (sloty: buty, hełmy, karwasze, peleryny,
+pierścienie), `mounts` (pochodzenie: anareja, girgen, lantrewia) i `specjalne` (17×, worek na
+wyjątki — świadomie zostaje). Te trzy listy pokazują dziś sam filtr tagów, bo przełącznik chowa się,
+gdy żadna kategoria nie obejmuje encji.
+
 
 ## Fala 9 — Karta postaci do druku `[FEATURE]`
 

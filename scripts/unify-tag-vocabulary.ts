@@ -1,5 +1,5 @@
 /**
- * ROADMAP 9.0 — ujednolicenie słownika tagów przed wprowadzeniem facetów.
+ * ROADMAP 10.0 — ujednolicenie słownika tagów przed wprowadzeniem facetów.
  *
  * Wspólny facet `rola` nie ma sensu, dopóki Manewry mówią `ofensywne`, a
  * Postawy, Stany, Zaklęcia i Atuty `ofensywa`. Skrypt wykonuje sześć renamów
@@ -17,7 +17,7 @@
  * Zapis:
  *   npm run unify-tag-vocabulary:apply
  *
- * NAJPIERW `npm run backup-mongodb`. To jedyny nieodwracalny etap Fali 9;
+ * NAJPIERW `npm run backup-mongodb`. To jedyny nieodwracalny etap Fali 10;
  * wycofanie = te same renamy w drugą stronę (kolumna „wstecz" w raporcie).
  */
 

@@ -7,7 +7,7 @@ import type { TagAliasDefinition, TagDefinitionRecord, TagFacetDefinition } from
 import { invalidateTagFacetLayer, loadTagFacetLayer } from '@/persistence/tags/tagFacetLayer';
 
 /**
- * Admin CRUD for the facet layer (Wave 9.2 / 9.5).
+ * Admin CRUD for the facet layer (Wave 10.2 / 9.5).
  *
  * Nothing here can touch an entity's `tags` — the layer is descriptive, so the
  * worst a mistake does is group the filter badly. The one exception to that

@@ -1,5 +1,5 @@
 /**
- * ROADMAP 9.1 — wsiewa domyślny podział na facety do `TagFacet`/`TagDefinition`.
+ * ROADMAP 10.1 — wsiewa domyślny podział na facety do `TagFacet`/`TagDefinition`.
  *
  * Warstwa opisowa: nic tu nie dotyka `tags` na encjach. Puste kolekcje znaczą
  * „filtr działa jak dotąd", więc ten skrypt tylko włącza grupowanie, a jego
@@ -8,7 +8,7 @@
  * Dry run (domyślnie) wypisuje tabelę tag → facet → liczba wystąpień, licząc
  * wystąpienia w BAZIE, nie w kodzie. To jest właściwy moment, żeby zobaczyć, czy
  * podział zgadza się z danymi — tag z zerem wystąpień znaczy albo literówkę w
- * seedzie, albo że rename 9.0 jeszcze nie poszedł.
+ * seedzie, albo że rename 10.0 jeszcze nie poszedł.
  *
  * Dry run:  npm run seed-tag-facets
  * Zapis:    npm run seed-tag-facets:apply
@@ -101,7 +101,7 @@ async function main(): Promise<void>
   }
 
   console.log(`\nFacetów: ${DEFAULT_TAG_FACETS.length}. Definicji: ${DEFAULT_TAG_DEFINITIONS.length}.`);
-  if (missing > 0) console.log(`⚠ Definicji bez pokrycia w danych: ${missing} — sprawdź, czy rename 9.0 już poszedł.`);
+  if (missing > 0) console.log(`⚠ Definicji bez pokrycia w danych: ${missing} — sprawdź, czy rename 10.0 już poszedł.`);
   console.log(`Nieprzypisanych tagów łącznie: ${orphaned}.`);
 
   if (!shouldApply)

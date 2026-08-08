@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import RaceAddSheet from "@/application/compendium/races/RaceAddSheet";
 import { displayedText } from "@/common/translations";
@@ -35,18 +36,21 @@ export default function RacesList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('races');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedRaces, setDisplayedRaces] = useState<Race[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchRacesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = [...createKeysetSearchRacesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const racesQuery = createRaceKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      if (facetFilters.length > 0) racesQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Race[]>(racesQuery);
     },
     staleTime: 5_000
@@ -83,6 +87,17 @@ export default function RacesList()
     setSearchInput(e.target.value);
   }, [clearResults]);
 
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
@@ -112,6 +127,9 @@ export default function RacesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="races"
+        facetEntity="races"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <AddRaceForm />
       </ListHeader>

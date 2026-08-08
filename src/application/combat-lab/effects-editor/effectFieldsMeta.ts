@@ -157,7 +157,7 @@ export function defaultEffect(type: string): Record<string, unknown>
     case "stat": return { type, mode: "self", duration: 1 };
     case "multiplier": return { type, mode: "self", target: "damageDealt", factor: 1, rounding: "up", duration: 1 };
     case "stanceRank": return { type, target: "stance", delta: 1, duration: 1 };
-    // Wave 9.0: the library tag is `defensywa` across all five collections.
+    // Wave 10.0: the library tag is `defensywa` across all five collections.
     // `forbidTag` compares by name at simulation time, so a stale default here
     // would author a block that silently never fires.
     case "forbidTag": return { type, tag: "defensywa", scope: "all", duration: 0 };

@@ -1,5 +1,5 @@
 /**
- * Tag renaming, everywhere a tag name is stored (Wave 9.0).
+ * Tag renaming, everywhere a tag name is stored (Wave 10.0).
  *
  * A tag name does not live only in `tags: String[]`. It is also written into
  * `structuredRequirements` (`count` requirements filter by tag — Wave 8.1) and

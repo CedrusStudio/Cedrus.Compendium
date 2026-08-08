@@ -20,6 +20,7 @@ import { useDebounce } from "use-debounce";
 import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
@@ -41,6 +42,7 @@ export default function StancesList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('stances');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('stances-grouped-view') === 'true';
@@ -58,7 +60,7 @@ export default function StancesList()
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters];
+  const queryKey = [createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters];
   const { data: searchResults } = useQuery
   ({
     queryKey,
@@ -66,6 +68,8 @@ export default function StancesList()
     {
       const stancesQuery = createStanceOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       if (requirementFilters.length > 0) stancesQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) stancesQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Mode[]>(stancesQuery);
     },
     staleTime: 5_000
@@ -103,6 +107,17 @@ export default function StancesList()
     clearResults();
     setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -156,6 +171,9 @@ export default function StancesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="stances"
+        facetEntity="stances"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
         extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
         <CharacterModeFilter kind="stances" onOwnNamesChange={setOwnNamesFilter} />

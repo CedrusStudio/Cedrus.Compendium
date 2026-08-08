@@ -1,5 +1,5 @@
 /**
- * The write side of a tag rename (Wave 9.0).
+ * The write side of a tag rename (Wave 10.0).
  *
  * Three stores hold a tag name and all three have to move together:
  *  1. `tags: String[]` on the entity;
@@ -124,7 +124,7 @@ export async function renameTagEverywhere(client: TagRenameClient, input: TagRen
 }
 
 /**
- * Keeps the facet layer in step with a rename (Wave 9.2).
+ * Keeps the facet layer in step with a rename (Wave 10.2).
  *
  * A rename is PER ENTITY, a `TagDefinition` is global — so the definition may
  * only follow when the old name is gone everywhere. Renaming `ofensywne` on

@@ -7,12 +7,34 @@ import type { TagFacetIndex } from '@/domain/tags/tagFacets';
 const EMPTY_INDEX: TagFacetIndex = { entity: '', facets: [], unassigned: [] };
 
 /**
- * The facet layer for one entity (Wave 9.4).
+ * Coerces whatever came back into a usable index.
  *
- * A failure here is not an error state: an empty index means "no facets", which
- * the filter renders as today's flat list. The tag filter must not stop working
- * because the descriptive layer is unavailable, so the query does not retry
- * aggressively and never surfaces an error to the user.
+ * `?? EMPTY_INDEX` is not enough: it only guards against `undefined`, while a
+ * reachable-but-wrong response (an error envelope, an HTML error page, an empty
+ * object, a mocked `fetch` in a test) is a defined value with no `facets` array
+ * — and `index.facets.length` then throws inside render, taking the whole list
+ * view down with it. The tag filter must not stop working because the
+ * DESCRIPTIVE layer misbehaved, so the shape is checked rather than trusted.
+ */
+function toFacetIndex(value: unknown, entity: string): TagFacetIndex
+{
+  if (!value || typeof value !== 'object') return { ...EMPTY_INDEX, entity };
+
+  const candidate = value as Partial<TagFacetIndex>;
+
+  return {
+    entity: typeof candidate.entity === 'string' ? candidate.entity : entity,
+    facets: Array.isArray(candidate.facets) ? candidate.facets : [],
+    unassigned: Array.isArray(candidate.unassigned) ? candidate.unassigned : [],
+  };
+}
+
+/**
+ * The category layer for one entity (Wave 10.4).
+ *
+ * A failure here is not an error state: an empty index means "no categories",
+ * which the filter renders as the flat tag list. The query therefore does not
+ * retry aggressively and never surfaces an error to the user.
  */
 export const useTagFacets = (entity: EntityType) =>
 {
@@ -22,13 +44,15 @@ export const useTagFacets = (entity: EntityType) =>
     {
       const response = await fetch(`/api/tag-facets/${entity}`);
       if (!response.ok) return { ...EMPTY_INDEX, entity };
-      return await response.json() as TagFacetIndex;
+      return toFacetIndex(await response.json(), entity);
     },
     staleTime: 5 * 60 * 1000,
     retry: 1,
   });
 
-  const index = data ?? EMPTY_INDEX;
+  // Normalized again on the way out: the cache can hold a value written before
+  // this guard existed, and a test may stub `useQuery` itself.
+  const index = toFacetIndex(data, entity);
 
   return { index, isLoading, hasFacets: index.facets.length > 0 };
 };

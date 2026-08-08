@@ -16,7 +16,7 @@ export const tagEntityModelMap: Record<string, string> = {
 
 /**
  * Physical Mongo collection behind each entity, per the `@@map` directives in
- * `prisma/schema.prisma`. Needed by the raw-command path in Wave 9.0: renaming a
+ * `prisma/schema.prisma`. Needed by the raw-command path in Wave 10.0: renaming a
  * tag in one command instead of N round trips means addressing the collection
  * directly, and Prisma's model name is not always the collection name
  * (`inventoryItem` → `inventory`, and `PowerSpecification` has no `@@map` at all,
@@ -45,7 +45,7 @@ export const requirementBearingEntities: readonly string[] = ['maneuvers', 'stan
  * Search-payload entity name → tag-management entity name.
  *
  * The two vocabularies are NOT the same: search says `maneuver` and
- * `inventoryItem`, tag management says `maneuvers` and `inventory`. Wave 9.3
+ * `inventoryItem`, tag management says `maneuvers` and `inventory`. Wave 10.3
  * needs the bridge because facets are keyed by the tag-management name — and
  * getting it wrong fails silently, since an index built for an entity no facet
  * lists simply yields no conditions and the filter quietly stops narrowing.

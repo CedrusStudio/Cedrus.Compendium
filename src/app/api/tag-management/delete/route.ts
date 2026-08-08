@@ -13,7 +13,7 @@ type TagDeleteBody = {
 };
 
 /**
- * Wave 9.2: a delete now sweeps the personalization profiles too, removes the
+ * Wave 10.2: a delete now sweeps the personalization profiles too, removes the
  * orphaned `TagDefinition` once the tag is gone everywhere, and reports the
  * names of the affected records — a delete leaves no other trace of what it
  * removed. `count` requirements pointing at the tag are counted, not edited:

@@ -74,6 +74,19 @@ vi.mock('@/application/personalization/MainCharacterButton', () => ({
 
 import CharactersHeadersList from '@/application/characters/list/CharactersHeadersList';
 
+/**
+ * The CHARACTERS search key, not the category-layer one.
+ *
+ * `useQuery` is mocked once for the whole module, so every hook in the tree goes
+ * through it — since Wave 10.4 that includes `useTagFacets`, which renders below
+ * this list and would therefore win a naive `.at(-1)`. Asking for the query we
+ * actually mean keeps the assertion honest whatever else starts using `useQuery`.
+ */
+const lastCharactersQueryKey = (): unknown[] | undefined => useQueryMock.mock.calls
+  .map(call => (call[0] as { queryKey?: unknown } | undefined)?.queryKey)
+  .filter((key): key is unknown[] => Array.isArray(key) && key[0] !== 'tagFacets')
+  .at(-1);
+
 describe('CharactersHeadersList', () => {
   beforeEach(() => {
     useEntityTagsMock.mockReset();
@@ -153,11 +166,11 @@ describe('CharactersHeadersList', () => {
 
     useApiKeyMock.mockReturnValue({ apiKey: null, isLoaded: true, hasApiKey: false, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
     const { rerender } = render(<CharactersHeadersList />);
-    const queryKeyWithoutApiKey = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+    const queryKeyWithoutApiKey = lastCharactersQueryKey();
 
     useApiKeyMock.mockReturnValue({ apiKey: 'ABC', isLoaded: true, hasApiKey: true, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
     rerender(<CharactersHeadersList />);
-    const queryKeyWithApiKey = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+    const queryKeyWithApiKey = lastCharactersQueryKey();
 
     expect(queryKeyWithApiKey).not.toEqual(queryKeyWithoutApiKey);
     expect(queryKeyWithApiKey).toContain('ABC');
@@ -181,10 +194,10 @@ describe('CharactersHeadersList', () => {
     useApiKeyMock.mockReturnValue({ apiKey: 'ABC', isLoaded: true, hasApiKey: true, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
 
     render(<CharactersHeadersList />);
-    const queryKeyBefore = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+    const queryKeyBefore = lastCharactersQueryKey();
 
     fireEvent.click(screen.getByText('publicOnly'));
-    const queryKeyAfter = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+    const queryKeyAfter = lastCharactersQueryKey();
 
     expect(queryKeyAfter).not.toEqual(queryKeyBefore);
     expect(queryKeyAfter).toContain('publicOnly');

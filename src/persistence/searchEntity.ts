@@ -94,7 +94,7 @@ export async function searchEntity<TMappedResult>(payload: SearchEntityPayload, 
   // folds the singular and plural payload fields into one list.
   const requirementFilters = collectRequirementFilters(payload);
 
-  // Wave 9.3: facet conditions are resolved ONCE, before the execution path is
+  // Wave 10.3: facet conditions are resolved ONCE, before the execution path is
   // chosen, and rendered for whichever path runs. Building them separately per
   // path is how the two would drift — the reason the renderers share a source.
   const tagFacetConditions = await resolveTagFacetConditions(payload);
@@ -245,7 +245,7 @@ function createSearchInput(payload: SearchEntityPayload, apiKey: string | null |
  * Resolves the payload's facet filters against the facet layer.
  *
  * Returns nothing when the payload carries no facet filter, so a query written
- * before Wave 9 never pays for loading the layer — and never changes shape.
+ * before Wave 10 never pays for loading the layer — and never changes shape.
  */
 async function resolveTagFacetConditions(payload: SearchEntityPayload)
 {

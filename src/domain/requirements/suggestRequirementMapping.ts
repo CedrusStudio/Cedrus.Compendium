@@ -145,7 +145,7 @@ const COUNT_GROUP_WORDS: readonly [stem: string, group: EntityRequirementGroup][
  * Adjectives the count texts use, mapped to the tag that actually exists on the
  * entities. Verified against the library: `widmowy` (93 maneuvers),
  * `okrzyki-bojowe` (44), `girgeński` (10), `fechtunek` (93), `tarcze` (19).
- * `ofensywa` used to be perk-only; see `COUNT_TAG_WORDS` for what Wave 9.0
+ * `ofensywa` used to be perk-only; see `COUNT_TAG_WORDS` for what Wave 10.0
  * changed about it.
  */
 /**
@@ -185,7 +185,7 @@ const GRADE_QUALIFIER = /\bna\s+(?:randze|poziomie)\s+(?:co\s+najmniej\s+)?(-?\d
  * `defaultGroup` is the group a tag IMPLIES when the text names none — safe only
  * while the tag lives on exactly one collection.
  *
- * Wave 9.0 took that property away from `ofensywa`: after unifying the
+ * Wave 10.0 took that property away from `ofensywa`: after unifying the
  * vocabulary it sits on Maneuvers (575), Spells (138), Perks (120), Stances (67)
  * and States (22), so "ilość ofensywnych 5" no longer says which. Its group is
  * now `undefined` — the tag is still recognised and still emitted, but the text

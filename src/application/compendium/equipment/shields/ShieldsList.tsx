@@ -19,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
@@ -34,18 +35,21 @@ export default function ShieldsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('shields');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedShields, setDisplayedShields] = useState<Shield[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = [...createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const shieldsQuery = createShieldKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      if (facetFilters.length > 0) shieldsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Shield[]>(shieldsQuery);
     },
     staleTime: 5_000
@@ -82,6 +86,17 @@ export default function ShieldsList()
     setSearchInput(e.target.value);
   }, [clearResults]);
 
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
@@ -111,6 +126,9 @@ export default function ShieldsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="shields"
+        facetEntity="shields"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <AddShieldForm />
       </ListHeader>

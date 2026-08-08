@@ -27,7 +27,7 @@ export type RequirementPipelineInput = {
   /** AND-ed together. Callers normalize via `collectRequirementFilters`. */
   requirementFilters: RequirementSearchFilter[];
   /**
-   * Wave 9.3: ready-made `$match` fragments, AND-ed with everything else. The
+   * Wave 10.3: ready-made `$match` fragments, AND-ed with everything else. The
    * tag-facet conditions arrive this way — already rendered by
    * `toMongoTagConditions`, so this path and the typed Prisma path are two
    * renderings of ONE resolved condition list rather than two implementations.

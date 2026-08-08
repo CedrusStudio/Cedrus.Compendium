@@ -1,5 +1,5 @@
 /**
- * Loads the facet layer for search (Wave 9.3).
+ * Loads the facet layer for search (Wave 10.3).
  *
  * `TagFacet` and `TagDefinition` are small (tens of rows) and change only when
  * an admin edits them, but a search runs on every keystroke — so the layer is

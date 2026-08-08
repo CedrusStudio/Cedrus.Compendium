@@ -21,6 +21,7 @@ import { useDebounce } from "use-debounce";
 import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
@@ -44,6 +45,7 @@ export default function SpellsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('spells');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -58,7 +60,7 @@ export default function SpellsList()
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters];
+  const queryKey = [createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters];
   const { data: searchResults } = useQuery
   ({
     queryKey,
@@ -66,6 +68,8 @@ export default function SpellsList()
     {
       const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
       if (requirementFilters.length > 0) spellsQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) spellsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000
@@ -103,6 +107,17 @@ export default function SpellsList()
     clearResults();
     setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -162,6 +177,9 @@ export default function SpellsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="spells"
+        facetEntity="spells"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
         extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
         <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />

@@ -103,7 +103,7 @@ export class SearchQueryBuilder<TEntity>
   }
 
   /**
-   * Wave 9.3: accumulates like `requirementFilter` does. Filters that would
+   * Wave 10.3: accumulates like `requirementFilter` does. Filters that would
    * narrow nothing (no values, no "— brak —") are dropped, so the UI can hold a
    * facet section the user has opened but not chosen anything in.
    */

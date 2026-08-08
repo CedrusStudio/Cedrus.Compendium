@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import { createPowerSpecificationKeysetQuery } from "@/infrastructure/searchQueries/powers/createPowerSpecificationKeysetQuery";
 import PowersSpecificationView from "@/application/compendium/powers/PowerSpecificationView";
@@ -33,18 +34,21 @@ export default function PowersSpecificationList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('powerSpecifications');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedPowerSpecifications, setDisplayedPowerSpecifications] = useState<PowerSpecification[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchPowerSpecificationsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = [...createKeysetSearchPowerSpecificationsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const powerSpecificationsQuery = createPowerSpecificationKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      if (facetFilters.length > 0) powerSpecificationsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<PowerSpecification[]>(powerSpecificationsQuery);
     },
     staleTime: 5_000
@@ -81,6 +85,17 @@ export default function PowersSpecificationList()
     setSearchInput(e.target.value);
   }, [clearResults]);
 
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
@@ -110,6 +125,9 @@ export default function PowersSpecificationList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="powers"
+        facetEntity="powerSpecifications"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <AddPowerSpecificationForm />
       </ListHeader>

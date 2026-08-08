@@ -1,5 +1,5 @@
 /**
- * The write side of a tag deletion (Wave 9.2).
+ * The write side of a tag deletion (Wave 10.2).
  *
  * Delete is the more dangerous of the two tag operations: a rename can be undone
  * by renaming back, but a delete drops the tag from N records WITHOUT recording

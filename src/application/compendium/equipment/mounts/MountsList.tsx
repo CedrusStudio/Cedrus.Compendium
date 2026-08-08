@@ -19,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 import MountEditableFields from "@/application/common/equipment/EditSheets/MountEditableFields";
@@ -34,18 +35,21 @@ export default function MountsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('mounts');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedMounts, setDisplayedMounts] = useState<Mount[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchMountsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = [...createKeysetSearchMountsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const mountsQuery = createMountKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      if (facetFilters.length > 0) mountsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Mount[]>(mountsQuery);
     },
     staleTime: 5_000
@@ -82,6 +86,17 @@ export default function MountsList()
     setSearchInput(e.target.value);
   }, [clearResults]);
 
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
@@ -111,6 +126,9 @@ export default function MountsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="mounts"
+        facetEntity="mounts"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <AddMountForm />
       </ListHeader>

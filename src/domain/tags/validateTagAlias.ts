@@ -1,5 +1,5 @@
 /**
- * Alias validation (Wave 9.5).
+ * Alias validation (Wave 10.5).
  *
  * An alias is the one place in the facet layer where a mistake produces a
  * SILENTLY WRONG search result rather than a visible error: nothing throws, the

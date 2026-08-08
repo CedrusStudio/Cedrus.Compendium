@@ -4,7 +4,7 @@ import { tagEntityModelMap } from '@/lib/tagEntityModels';
 import { loadTagFacetIndexForDisplay } from '@/persistence/tags/tagFacetLayer';
 
 /**
- * The facet layer for one entity, ready to render (Wave 9.2).
+ * The facet layer for one entity, ready to render (Wave 10.2).
  *
  * One call feeds the whole filter: facets in display order, their values with
  * per-entity spellings, and the tags no definition claims.

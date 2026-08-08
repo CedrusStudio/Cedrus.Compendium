@@ -102,10 +102,10 @@ export type SearchPayload =
   // Wave 6.2: several requirement filters at once, combined with AND — an entity
   // must satisfy every one of them.
   requirementFilters?: RequirementSearchFilter[];
-  // Wave 9.3: faceted tag filtering. OR inside a facet, AND between facets, plus
+  // Wave 10.3: faceted tag filtering. OR inside a facet, AND between facets, plus
   // a synthetic "no tag from this facet" value. Additive — `search.tags` and
   // `exclude.tags` keep working unchanged and AND together with these, so every
-  // payload written before Wave 9 produces exactly the same query.
+  // payload written before Wave 10 produces exactly the same query.
   //
   // Values are CANONICAL tags; the server expands them to the spellings valid
   // for the entity (`nieumarli` also matches `nieumarły` on a Character). The

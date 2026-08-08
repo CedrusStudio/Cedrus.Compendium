@@ -19,6 +19,7 @@ import { useDebounce } from "use-debounce";
 import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
@@ -40,6 +41,7 @@ export default function PerksList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('perks');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('perks-grouped-view') === 'true';
@@ -53,7 +55,7 @@ export default function PerksList()
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters];
+  const queryKey = [createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters];
   const { data: searchResults } = useQuery
   ({
     queryKey,
@@ -61,6 +63,8 @@ export default function PerksList()
     {
       const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       if (requirementFilters.length > 0) perksQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) perksQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -98,6 +102,17 @@ export default function PerksList()
     clearResults();
     setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -151,6 +166,9 @@ export default function PerksList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="perks"
+        facetEntity="perks"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
         extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
         <Button

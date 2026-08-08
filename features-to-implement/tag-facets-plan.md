@@ -1,4 +1,4 @@
-# Facety tagów — plan docelowy
+# Kategorie tagów (Fala 10) — plan docelowy
 
 > Rozwiązanie docelowe problemu „chcę tylko manewrów ofensywnych, a dostaję ofensywy bestii".
 > Wariant świadomie **maksymalny** (model w bazie + panel admina), nie minimalny — priorytetem jest
@@ -57,11 +57,11 @@ wymaga tylko, żeby dało się o nią zapytać. Stąd syntetyczna wartość `—
 | Shield | 11 | 2 |
 | Mount | 6 | 4 |
 
-**Podział na facety** — zatwierdzony przez Marka 2026-08-07, do wprowadzenia seedem w 9.1:
+**Podział na facety** — zatwierdzony przez Marka 2026-08-07, do wprowadzenia seedem w 10.1:
 
 | Facet | Encje | Tagi | `selectionMode` | Uwagi |
 |---|---|---|---|---|
-| `rola` | Manewr, Postawa, Stan, Zaklęcie, Atut | ofensywa, defensywa | `multi` | po ujednoliceniu z 9.0 |
+| `rola` | Manewr, Postawa, Stan, Zaklęcie, Atut | ofensywa, defensywa | `multi` | po ujednoliceniu z 10.0 |
 | `rodzaj-istoty` | Manewr, Atut, Postać, Rasa | patrz tabela aliasów niżej | `multi` | **jeden facet, dwie pisownie** — decyzja Marka; 379 Manewrów ma ≥1, 215 ma ≥2 |
 | `rola-postaci` | Postać | wojak 48, mag 36, rycerz 14, walczący-wręcz 10, zbój 8, dystansowy 7, jeździec 5, łucznik 4, kusznik 3 | `multi` | istnieje w danych, nigdy nie był widoczny w filtrze |
 | `styl` | Manewr, Postawa, Atut | widmowy 93, fechtunek 93, fortel 81, harmonia 35, rdzeń 33, samotny-oręż 33, girgeński 10, durski 8, mord 7 | `multi` | `widmowy` to styl gracza, **nie** typ istoty — mimo współwystępowania z nieumarłymi |
@@ -109,7 +109,7 @@ Impa" (Imp = Rasa). Tag na Manewrze znaczy „dostępne dla", stąd „Raptowna 
 współwystępuje z `magiczne` (6 z 6 broni, 2 z 2 tarcz), więc jednowartościowy facet by je zjadł.
 `mistrzowskie` jest niemagiczne i stoi osobno. `multi` bez „— brak —" jako wartości domyślnej
 (96 broni, 23 zbroje i 5 tarcz nie ma żadnej flagi — to zwykły sprzęt, a nie brak informacji).
-⚠️ Broń ma `mistrzowski` (1 szt., liczba pojedyncza), Zbroje `mistrzowskie` (3 szt.) — **rename do 9.0**.
+⚠️ Broń ma `mistrzowski` (1 szt., liczba pojedyncza), Zbroje `mistrzowskie` (3 szt.) — **rename do 10.0**.
 
 **`prymitywni` zostaje w `pochodzenie` (decyzja Marka).** Współwystępuje ze `zwierzęta` 6 razy
 i zachowuje się jak reszta grupy, więc rozdzielanie tworzyłoby facet z jedną wartością.
@@ -151,7 +151,7 @@ type TagAlias {
 
 **`aliases` to nie historia renamów.** W wariancie B alias jest żywym synonimem: `zwierzęta` ma alias
 `natura` **wyłącznie dla Postaci**, bo na Zaklęciach i Atutach to samo słowo znaczy szkołę magii.
-Dlatego alias niesie własną listę encji i nie może być zwykłym `String[]`. Historia renamów z 9.0
+Dlatego alias niesie własną listę encji i nie może być zwykłym `String[]`. Historia renamów z 10.0
 przenosi się do osobnego `formerNames`, żeby dwa różne pojęcia nie dzieliły jednego pola —
 pomyłka tutaj oznaczałaby, że stara nazwa tagu zaczyna być traktowana jako równoważna bieżącej.
 
@@ -267,7 +267,7 @@ sam, bez błędu. Filtr tagów nie może przestać działać dlatego, że warstw
 
 ## 6. Etapy
 
-### 9.0 Ujednolicenie słownika — `M` · ⭐⭐⭐ — **warunek wstępny**
+### 10.0 Ujednolicenie słownika — `M` · ⭐⭐⭐ — **warunek wstępny**
 
 Wspólny facet `rola` nie ma sensu, dopóki Manewry mówią `ofensywne`, a wszystko inne `ofensywa`.
 
@@ -306,7 +306,7 @@ facetów (`pochodzenie` i `rasa`) i zostają jak są.
    Do przepisania na jedno `updateMany` (Mongo `$set` po elemencie tablicy) albo na skrypt z jawnym
    raportem przed/po.
 
-### Stan wykonania 9.0 (2026-08-07) — **KOD GOTOWY, MIGRACJA NIEURUCHOMIONA**
+### Stan wykonania 10.0 (2026-08-07) — **KOD GOTOWY, MIGRACJA NIEURUCHOMIONA**
 
 Wszystkie cztery pułapki domknięte w kodzie:
 
@@ -355,7 +355,7 @@ i personalizacji; matcher wymagań ma tę samą skuteczność co przed zmianą (
 
 ---
 
-### Stan wykonania 9.1 i 9.3 (2026-08-07) — **ZROBIONE**
+### Stan wykonania 10.1 i 10.3 (2026-08-07) — **ZROBIONE**
 
 - `prisma/schema.prisma` — `TagFacet`, `TagDefinition`, `type TagAlias`; klient wygenerowany.
 - `src/domain/tags/tagFacets.ts` — indeks facetów per encja, rozwijanie aliasów, budowanie
@@ -374,7 +374,7 @@ i personalizacji; matcher wymagań ma tę samą skuteczność co przed zmianą (
   rename jest per encja, definicja globalna, więc przemianowanie `ofensywne` na Manewrach przy
   Atutach wciąż niosących tę nazwę nie może odciągnąć definicji od rekordów, które jej używają.
 
-**Weryfikacja na backupie z nałożonym w pamięci renamem 9.0 — obie liczby z AC się zgadzają:**
+**Weryfikacja na backupie z nałożonym w pamięci renamem 10.0 — obie liczby z AC się zgadzają:**
 `rola: ofensywa` + `rodzaj-istoty: — brak —` → **339**; `zwierzęta ∪ potwory` → **147** (a nie 117
 ani 0). Pułapka aliasu sprawdzona wprost: 52 Atuty z tagiem `natura` (szkoła magii) **nie** wpadają
 do rodzaju istoty — łapią się tylko 3 prawdziwie zwierzęce. `tsc --noEmit` czysty, 22 asercje
@@ -382,11 +382,11 @@ przechodzą.
 
 ---
 
-### Stan wykonania 9.2 i 9.4 (2026-08-07) — **ZROBIONE**
+### Stan wykonania 10.2 i 10.4 (2026-08-07) — **ZROBIONE**
 
 - `src/app/api/tag-facets/admin` — CRUD facetów i definicji. Usunięcie facetu zeruje `facetKey`
   w definicjach (tagi wracają do „Pozostałych") i **nie dotyka żadnego rekordu encji**.
-- `src/domain/tags/validateTagAlias.ts` — trzy reguły z §9.5 jako czysta funkcja, wołana przez API;
+- `src/domain/tags/validateTagAlias.ts` — trzy reguły z §10.5 jako czysta funkcja, wołana przez API;
   naruszenie to 400 z czytelnym komunikatem, nie ostrzeżenie.
 - `src/persistence/tags/deleteTagEverywhere.ts` + przepisany `/api/tag-management/delete` —
   delete zamiata też profile personalizacji, kasuje osieroconą definicję (dopiero gdy tag zniknął
@@ -405,7 +405,7 @@ ten rodzaj dziury, którego nie widać w code review.
 
 ---
 
-### Stan wykonania 9.5 i 9.6 (2026-08-07) — **ZROBIONE**
+### Stan wykonania 10.5 i 10.6 (2026-08-07) — **ZROBIONE**
 
 - `src/application/admin/TagFacetsPanel.tsx` + zakładka „Facety" w `/admin/tags`. Raport rozjazdu
   jest **na górze**, nie na dole: nowy tag ma rzucać się w oczy, a nie czekać na przypadkowe
@@ -415,7 +415,7 @@ ten rodzaj dziury, którego nie widać w code review.
   bez definicji, definicje bez użycia, facety wskazujące encję, która nie niesie żadnego ich tagu.
   Próg `DRIFT_ALERT_THRESHOLD = 10`, żeby literówka w jednym rekordzie nie uczyła ignorowania raportu.
 
-**Symulacja stanu po renamie 9.0 i wsiewie, na backupie:** 0 definicji bez użycia, 0 martwych encji
+**Symulacja stanu po renamie 10.0 i wsiewie, na backupie:** 0 definicji bez użycia, 0 martwych encji
 facetów, 46 tagów nieprzypisanych (z tego 17 z co najmniej 10 wystąpieniami).
 
 **Największa dziura, jaką raport pokazał: brakuje facetu magii.** Siedemnaście istotnych
@@ -429,11 +429,50 @@ kinetyka, moc, wiara — i **`natura`**), **żywioł** (ogień, zimno, błyskawi
 
 To retroaktywnie potwierdza projekt aliasów: `natura` jest kanonicznym tagiem **źródła mocy** na
 Zaklęciach i Atutach, a aliasem `zwierzęta` wyłącznie na Postaciach. Gdyby alias był globalny,
-107 zaklęć i atutów wpadłoby do rodzaju istoty. Facety magii to naturalna Fala 9.7 — dane są gotowe,
+107 zaklęć i atutów wpadłoby do rodzaju istoty. Facety magii to naturalna Fala 10.7 — dane są gotowe,
 brakuje tylko decyzji, gdzie przebiegają granice między tymi trzema osiami.
 
 `specjalne` (17×, na Postawach, Stanach, Atutach i Broniach) zostaje nieprzypisane świadomie —
 to worek na wyjątki, nie oś.
+
+### Stan końcowy (2026-08-07) — **ZAMKNIĘTE**
+
+`npm test` 201/201 plików, 1882 testy, 2 pominięte. `tsc --noEmit` czysty. Kategorie działają na
+14 listach; `inventory`, `mounts` i `powerSpecifications` pokazują sam filtr tagów, bo żadna
+kategoria ich nie obejmuje — przełącznik chowa się sam. To czeka na 10.7.
+
+### Poprawka po podpięciu 14 list (2026-08-07)
+
+`useTagFacets` łamał własną obietnicę z nagłówka („awaria warstwy opisowej nie może zatrzymać
+filtra"). `data ?? EMPTY_INDEX` broni wyłącznie przed `undefined`, a odpowiedź **osiągalna, ale
+o innym kształcie** — koperta błędu z proxy, strona HTML, wpis cache sprzed zmiany, współdzielony
+mock `useQuery` w teście — jest wartością zdefiniowaną bez tablicy `facets`. Wtedy
+`index.facets.length` rzuca **w trakcie renderu i kładzie całą listę**, a nie tylko filtr.
+
+Ujawniło się dopiero po podpięciu Bestiariusza i listy postaci, bo ich testy mockują `useQuery`
+globalnie — jeden mock obsługuje i wyszukiwanie postaci, i kategorie. Dziesięć czerwonych testów
+w dwóch plikach, wszystkie z tym samym `Cannot read properties of undefined (reading 'length')`.
+
+Naprawa to `toFacetIndex`: kształt jest **sprawdzany, nie zakładany**, i to w dwóch miejscach —
+w `queryFn` oraz na wyjściu z hooka, bo cache może trzymać wartość zapisaną przed tą zmianą.
+Doszedł `src/common/hooks/__tests__/useTagFacets.test.tsx` z sześcioma kształtami, które realny
+deployment potrafi zwrócić (koperta błędu, tablica, `null`, goły string, payload bez `entity`).
+
+Po tej poprawce zostały trzy czerwone testy z innego powodu — i to już **założenie testu, nie błąd
+kodu**. Sprawdzały klucz zapytania przez `useQueryMock.mock.calls.at(-1)`, czyli „ostatnie
+`useQuery`", co działało dopóki w drzewie było dokładnie jedno. `useTagFacets` renderuje się niżej
+niż lista, więc `.at(-1)` zaczęło zwracać `['tagFacets','characters']` — klucz, który z definicji
+nigdy się nie zmienia. Zamiast tego doszedł helper `lastCharactersQueryKey()`, który pyta o klucz,
+o który testowi naprawdę chodzi. Asercja jest teraz odporna na kolejny hook używający `useQuery`.
+
+I trzecia runda, tym razem czysto moja niechlujność przy masowym podpinaniu list. Skrypt dopisujący
+`facetFilters` do klucza zapytania **zagnieżdżał** klucz zamiast go rozszerzać:
+`[createSearchCharactersKey(…), facetFilters]` zamiast `[...createSearchCharactersKey(…),
+facetFilters]`. Dla pięciu list kompendium było to poprawne, bo ich klucz już miał kształt
+`[klucz, requirementFilters]`, ale dziewięć pozostałych miało klucz **płaski** — i nagle
+`toContain('publicOnly')` przestało cokolwiek widzieć, bo wartość zjechała poziom niżej. Zmiana
+kształtu klucza jest przy tym zmianą zachowania cache'a, nie tylko testu. Wszystkie dziewięć
+poprawione na spread; pięć list z `requirementFilters` zostaje bez zmian.
 
 ### Poprawki po pierwszym pełnym `npm test` (2026-08-07)
 
@@ -455,7 +494,7 @@ fail-safe zamiast testowanej ścieżki.
 
 ---
 
-### 9.1 Model i seed — `M` · ⭐⭐⭐
+### 10.1 Model i seed — `M` · ⭐⭐⭐
 
 Dwa modele Prismy (§3) + skrypt `scripts/seed-tag-facets.ts`, który wypisuje propozycję przypisania
 z §2 i **nie zapisuje nic bez `--apply`**. Tagi nieprzypisane zostają nieprzypisane — brak
@@ -466,7 +505,7 @@ wystąpień; puste kolekcje nie zmieniają zachowania aplikacji.
 
 ---
 
-### 9.2 API — `S` · ⭐⭐
+### 10.2 API — `S` · ⭐⭐
 
 - `GET /api/tag-facets` — facety + definicje + tagi nieprzypisane, per encja. Jedno wywołanie
   zasila cały filtr. Cache 5 min, jak `useEntityTags`.
@@ -474,7 +513,7 @@ wystąpień; puste kolekcje nie zmieniają zachowania aplikacji.
 - `useEntityTags` zostaje nietknięty i dalej jest fallbackiem.
 - **Synchronizacja istniejącego zarządzania tagami** (patrz §8) — `rename` aktualizuje
   `TagDefinition.tag` i dopisuje starą nazwę do `aliases`; `delete` kasuje osieroconą definicję.
-  Świadomie tutaj, a nie w 9.6: od momentu istnienia `TagDefinition` każdy rename bez tego kroku
+  Świadomie tutaj, a nie w 10.6: od momentu istnienia `TagDefinition` każdy rename bez tego kroku
   osierca definicję.
 
 **AC:** endpoint działa przy pustych kolekcjach (zwraca same „nieprzypisane"); brak uprawnień
@@ -482,7 +521,7 @@ admina = 403 na ścieżkach zapisu; rename tagu z przypisanym facetem zachowuje 
 
 ---
 
-### 9.3 Semantyka wyszukiwania — `M` · ⭐⭐⭐
+### 10.3 Semantyka wyszukiwania — `M` · ⭐⭐⭐
 
 `TagFacetFilter` w `SearchPayloads.ts`, `tagFacetFilter()` w `SearchQueryBuilder`, czysta funkcja
 `buildTagFacetConditions` + dwa renderery (§4). `searchEntity` składa warunki facetowe **przed**
@@ -498,7 +537,7 @@ co przed zmianą (test regresji na serializacji).
 
 ---
 
-### 9.4 UI filtra — `M` · ⭐⭐⭐
+### 10.4 UI filtra — `M` · ⭐⭐⭐
 
 `TagFilter.tsx` rozbity na `FacetedTagFilter` (nowy) i zachowany `FlatTagFilter` (dzisiejszy,
 jako fallback). Podpięcie kolejno: Manewry → Postawy/Stany → Zaklęcia/Atuty → sprzęt.
@@ -509,7 +548,7 @@ tag spoza `TagDefinition` widoczny w „Pozostałe"; brak `TagDefinition` = dzis
 
 ---
 
-### 9.5 Panel admina — `M` · ⭐⭐⭐
+### 10.5 Panel admina — `M` · ⭐⭐⭐
 
 `/admin/tags` dostaje drugą zakładkę **„Facety"**. `AdminEntityManagementPanel`
 i `useAdminEntityManagement` zostają jako baza. Trzy poziomy zarządzania:
@@ -542,7 +581,7 @@ usunięcie facetu przenosi jego tagi do „Nieprzypisane" i **nie zmienia żadne
 
 ---
 
-### 9.6 Strażnicy dryfu — `S` · ⭐⭐
+### 10.6 Strażnicy dryfu — `S` · ⭐⭐
 
 Warstwa opisowa i dane rozjadą się — pytanie tylko kiedy. Dwa strażnicy:
 
@@ -561,16 +600,16 @@ Warstwa opisowa i dane rozjadą się — pytanie tylko kiedy. Dwa strażnicy:
 | Ryzyko | Zabezpieczenie |
 |---|---|
 | Rename gubi dane | backup przed operacją, dry-run z liczbami, `updateMany` zamiast N update'ów, weryfikacja po |
-| Rename psuje szybkie tagi / wymagania / literały w kodzie | 9.0 pkt 1–3 jako warunek wstępny, nie „do zrobienia później" |
+| Rename psuje szybkie tagi / wymagania / literały w kodzie | 10.0 pkt 1–3 jako warunek wstępny, nie „do zrobienia później" |
 | Facety ukrywają wpisy | kubełek „Pozostałe" zawsze renderowany; test na to |
 | Nowa semantyka psuje istniejące widoki | `tagFacetFilters` opcjonalne i addytywne; test regresji na serializacji ładunku |
 | Ścieżka Prismy i raw rozjeżdżają się | jedna czysta funkcja, dwa renderery, wspólna tabela testów |
 | Panel admina psuje dane | warstwa opisowa fizycznie nie ma dostępu do `tags` encji |
-| Rename w adminie osierca definicję facetu | synchronizacja w 9.2 (nie 9.6); do tego czasu degradacja jest cicha, ale nieszkodliwa — tag ląduje w „Pozostałych" (§9) |
-| **Zły alias daje cicho zły wynik** — jedyne miejsce w planie, gdzie da się popsuć wyszukiwanie bez błędu | trzy walidacje + podgląd „dopasuje N rekordów" przed zapisem (9.5); aliasy zawsze per encja; `includeNone` liczone z aliasami (osobny test) |
+| Rename w adminie osierca definicję facetu | synchronizacja w 10.2 (nie 10.6); do tego czasu degradacja jest cicha, ale nieszkodliwa — tag ląduje w „Pozostałych" (§9) |
+| **Zły alias daje cicho zły wynik** — jedyne miejsce w planie, gdzie da się popsuć wyszukiwanie bez błędu | trzy walidacje + podgląd „dopasuje N rekordów" przed zapisem (10.5); aliasy zawsze per encja; `includeNone` liczone z aliasami (osobny test) |
 
-**Wycofanie każdego etapu osobno:** 9.6→9.2 to usunięcie kodu, dane zostają. 9.1 to `db.dropCollection`
-na dwóch nowych kolekcjach. Tylko **9.0 jest nieodwracalne bez akcji** — i dlatego jako jedyne
+**Wycofanie każdego etapu osobno:** 10.6→10.2 to usunięcie kodu, dane zostają. 10.1 to `db.dropCollection`
+na dwóch nowych kolekcjach. Tylko **10.0 jest nieodwracalne bez akcji** — i dlatego jako jedyne
 wymaga backupu, dry-runu i renamu odwrotnego zapisanego w `aliases`.
 
 ---
@@ -578,13 +617,13 @@ wymaga backupu, dry-runu i renamu odwrotnego zapisanego w `aliases`.
 ## 8. Kolejność i zależności
 
 ```
-9.0 (ujednolicenie)  ──┐
-                       ├──► 9.1 (model) ──► 9.2 (API) ──┬──► 9.3 (semantyka) ──► 9.4 (UI)
-                       │                                 └──► 9.5 (admin)
-                       └──► niezależnie: sweep literałów w kodzie                    └──► 9.6 (strażnicy)
+10.0 (ujednolicenie)  ──┐
+                       ├──► 10.1 (model) ──► 10.2 (API) ──┬──► 10.3 (semantyka) ──► 10.4 (UI)
+                       │                                 └──► 10.5 (admin)
+                       └──► niezależnie: sweep literałów w kodzie                    └──► 10.6 (strażnicy)
 ```
 
-9.0 jest jedynym twardym warunkiem wstępnym. 9.3 i 9.5 można zrównoleglić po 9.2.
+10.0 jest jedynym twardym warunkiem wstępnym. 10.3 i 10.5 można zrównoleglić po 10.2.
 
 ---
 
@@ -601,30 +640,30 @@ na pojedynczych encjach przez zwykły edytor. Facety niczego z tego nie dotykaj�
 
 ### Co jest ryzykowne **niezależnie od facetów**
 
-`rename` i `delete` w `/admin/tags` mają dziś cztery luki z §6/9.0: nie ruszają personalizacji,
+`rename` i `delete` w `/admin/tags` mają dziś cztery luki z §6/10.0: nie ruszają personalizacji,
 nie ruszają 34 referencji w `structuredRequirements`, nie ruszają literałów w kodzie i nie są
 atomowe. To nie jest dług wprowadzony przez ten plan — to stan obecny. `delete` jest przy tym
 gorszy od `rename`, bo zdejmuje tag z N rekordów **bez zapisu, co usunął**; backup bazy jest
 jedyną drogą powrotu.
 
-**Rekomendacja:** wstrzymać się z masowym `rename`/`delete` do czasu 9.0. Pojedyncza literówka na
+**Rekomendacja:** wstrzymać się z masowym `rename`/`delete` do czasu 10.0. Pojedyncza literówka na
 tagu, który nie występuje w `structuredRequirements`, w szybkich tagach ani w kodzie, jest
 bezpieczna — ale to warto sprawdzić przed, a nie po.
 
-### Co zmienia się po 9.1
+### Co zmienia się po 10.1
 
 Od chwili, gdy `TagDefinition` przestaje być pusta, `rename` w adminie zaczyna **osierocać
 definicje**: rekordy encji dostają nową nazwę, definicja zostaje przy starej, tag wypada z facetu
 do „Pozostałych". Degradacja jest cicha, ale nie destrukcyjna — tag pozostaje widoczny
 i wyszukiwalny, gubi się tylko grupowanie. Naprawa to ponowne przypisanie w panelu.
 
-Dlatego synchronizacja `rename`/`delete` z `TagDefinition` siedzi w **9.2**, nie w 9.6: to jedyny
+Dlatego synchronizacja `rename`/`delete` z `TagDefinition` siedzi w **10.2**, nie w 10.6: to jedyny
 etap, po którym używanie admina „po staremu" ma jakikolwiek negatywny skutek, i domykamy go
 od razu, zamiast zostawiać na koniec.
 
 ### Podsumowanie w jednym zdaniu
 
-Rób backup i używaj admina normalnie; jedyne, co warto odłożyć do 9.0, to masowe renamy i delete'y —
+Rób backup i używaj admina normalnie; jedyne, co warto odłożyć do 10.0, to masowe renamy i delete'y —
 i to z powodów, które istniałyby także wtedy, gdyby tego planu w ogóle nie było.
 
 ---

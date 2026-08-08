@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 import { displayedText } from "@/common/translations";
@@ -33,18 +34,21 @@ export default function InventoryList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('inventory');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedInventory, setDisplayedInventory] = useState<Item[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchInventoryKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = [...createKeysetSearchInventoryKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const inventoryQuery = createInventoryItemKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      if (facetFilters.length > 0) inventoryQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Item[]>(inventoryQuery);
     },
     staleTime: 5_000
@@ -81,6 +85,17 @@ export default function InventoryList()
     setSearchInput(e.target.value);
   }, [clearResults]);
 
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
@@ -110,6 +125,9 @@ export default function InventoryList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="inventory"
+        facetEntity="inventory"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <AddInventoryItemForm />
       </ListHeader>

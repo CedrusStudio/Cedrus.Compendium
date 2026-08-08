@@ -1,5 +1,5 @@
 /**
- * Drift between the facet layer and the tags actually in the library (Wave 9.6).
+ * Drift between the facet layer and the tags actually in the library (Wave 10.6).
  *
  * The descriptive layer and the data WILL drift — the only question is when. Two
  * directions, with very different weight:

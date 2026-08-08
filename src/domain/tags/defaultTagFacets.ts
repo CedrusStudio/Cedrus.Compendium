@@ -1,5 +1,5 @@
 /**
- * The facet layout Marek approved on 2026-08-07 (Wave 9.1).
+ * The facet layout Marek approved on 2026-08-07 (Wave 10.1).
  *
  * Seed data, not a source of truth: once written to `TagFacet` /
  * `TagDefinition` the admin panel owns it. Kept in code so the seed script and

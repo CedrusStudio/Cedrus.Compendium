@@ -98,6 +98,19 @@ vi.mock('react-infinite-scroll-component', () => ({
 
 import BestiaryTable from '@/application/bestiary/BestiaryTable';
 
+/**
+ * The CHARACTERS search key, not the category-layer one.
+ *
+ * `useQuery` is mocked once for the whole module, so every hook in the tree goes
+ * through it — since Wave 10.4 that includes `useTagFacets`, which renders below
+ * this list and would therefore win a naive `.at(-1)`. Asking for the query we
+ * actually mean keeps the assertion honest whatever else starts using `useQuery`.
+ */
+const lastCharactersQueryKey = (): unknown[] | undefined => useQueryMock.mock.calls
+  .map(call => (call[0] as { queryKey?: unknown } | undefined)?.queryKey)
+  .filter((key): key is unknown[] => Array.isArray(key) && key[0] !== 'tagFacets')
+  .at(-1);
+
 describe('BestiaryTable', () => {
   beforeEach(() => {
     useEntityTagsMock.mockReset();
@@ -125,10 +138,10 @@ describe('BestiaryTable', () => {
     useApiKeyMock.mockReturnValue({ apiKey: 'ABC', isLoaded: true, hasApiKey: true, saveApiKey: vi.fn(), removeApiKey: vi.fn() });
 
     render(<BestiaryTable />);
-    const queryKeyBefore = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+    const queryKeyBefore = lastCharactersQueryKey();
 
     fireEvent.click(screen.getByText('publicOnly'));
-    const queryKeyAfter = useQueryMock.mock.calls.at(-1)?.[0]?.queryKey;
+    const queryKeyAfter = lastCharactersQueryKey();
 
     expect(queryKeyAfter).not.toEqual(queryKeyBefore);
     expect(queryKeyAfter).toContain('publicOnly');

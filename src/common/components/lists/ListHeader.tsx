@@ -30,7 +30,7 @@ type ListHeaderProps =
   /** Optional extra filter controls rendered inline in the main filter row. */
   extraFilters?: React.ReactNode;
   /**
-   * Wave 9.4: pass these three together to offer the faceted filter. Omitting
+   * Wave 10.4: pass these three together to offer the faceted filter. Omitting
    * them keeps the flat `TagFilter` exactly as it was, so a list that has not
    * been migrated yet is unaffected.
    */

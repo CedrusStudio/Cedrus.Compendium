@@ -24,7 +24,7 @@ type TagFilterSwitcherProps =
 };
 
 /**
- * Chooses between the category filter and the flat tag list (Wave 9.4).
+ * Chooses between the category filter and the flat tag list (Wave 10.4).
  *
  * The flat filter is NOT a fallback that only appears when something breaks —
  * it is a mode the user can pick, because the two answer different questions.

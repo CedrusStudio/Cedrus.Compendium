@@ -13,7 +13,7 @@ type Layer = { facets: TagFacetDefinition[]; definitions: TagDefinitionRecord[] 
 const ENTITY_OPTIONS = Object.keys(tagEntityModelMap);
 
 /**
- * Facet management (Wave 9.5).
+ * Facet management (Wave 10.5).
  *
  * Three levels, in the order they matter: the drift report at the top (a tag
  * nobody grouped should be the first thing an admin sees, not something found by

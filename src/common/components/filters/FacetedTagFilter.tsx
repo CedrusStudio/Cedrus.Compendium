@@ -18,7 +18,7 @@ type FacetedTagFilterProps =
 const NONE_LABEL = "— brak —";
 
 /**
- * Category filter (Wave 9.4).
+ * Category filter (Wave 10.4).
  *
  * Sections come from `TagFacet.order`; the "Pozostałe" bucket at the end holds
  * every tag no definition claims and is always rendered, so a newly added tag

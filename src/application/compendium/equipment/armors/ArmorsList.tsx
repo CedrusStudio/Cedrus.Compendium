@@ -19,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
@@ -34,18 +35,21 @@ export default function ArmorsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('armors');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedArmors, setDisplayedArmors] = useState<Armor[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchArmorsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const queryKey = [...createKeysetSearchArmorsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const armorsQuery = createArmorKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      if (facetFilters.length > 0) armorsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Armor[]>(armorsQuery);
     },
     staleTime: 5_000
@@ -82,6 +86,17 @@ export default function ArmorsList()
     setSearchInput(e.target.value);
   }, [clearResults]);
 
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
     setSearchTags(tags);
@@ -111,6 +126,9 @@ export default function ArmorsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="armors"
+        facetEntity="armors"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <AddArmorForm />
       </ListHeader>

@@ -20,6 +20,7 @@ import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/globa
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { useEntityTags } from "@/common/hooks/useEntityTags";
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
@@ -41,6 +42,7 @@ export default function StatesList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('states');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('states-grouped-view') === 'true';
@@ -58,7 +60,7 @@ export default function StatesList()
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters];
+  const queryKey = [createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters];
   const { data: searchResults } = useQuery
   ({
     queryKey,
@@ -66,6 +68,8 @@ export default function StatesList()
     {
       const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       if (requirementFilters.length > 0) statesQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) statesQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Mode[]>(statesQuery);
     },
     staleTime: 5_000
@@ -103,6 +107,17 @@ export default function StatesList()
     clearResults();
     setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -156,6 +171,9 @@ export default function StatesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="states"
+        facetEntity="states"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
         extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
       >
         <CharacterModeFilter kind="states" onOwnNamesChange={setOwnNamesFilter} />

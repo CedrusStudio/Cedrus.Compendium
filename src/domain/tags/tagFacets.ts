@@ -1,5 +1,5 @@
 /**
- * Tag facets — the descriptive layer over `tags: String[]` (Wave 9).
+ * Tag facets — the descriptive layer over `tags: String[]` (Wave 10).
  *
  * A facet groups tags along one axis (role, creature kind, style, weapon…) so
  * the filter can ask "offensive maneuvers that belong to no creature kind"

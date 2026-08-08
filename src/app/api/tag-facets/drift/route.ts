@@ -5,7 +5,7 @@ import { findTagFacetDrift, type TagUsage } from '@/domain/tags/tagFacetDrift';
 import { loadTagFacetLayer } from '@/persistence/tags/tagFacetLayer';
 
 /**
- * Drift report for the admin panel (Wave 9.6).
+ * Drift report for the admin panel (Wave 10.6).
  *
  * Counts every tag across every entity, then diffs against the facet layer. The
  * point is that a newly introduced tag becomes VISIBLE rather than waiting to be

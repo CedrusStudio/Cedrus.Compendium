@@ -13,7 +13,7 @@ type TagMutationBody = {
 };
 
 /**
- * Wave 9.0: a rename now sweeps all three places a tag name is stored — the
+ * Wave 10.0: a rename now sweeps all three places a tag name is stored — the
  * entity's `tags`, `count` requirement references and every user's quick tags —
  * and the entity sweep runs as raw Mongo commands so 575 records cannot end up
  * half-renamed. `dryRun: true` returns the same report without writing.
@@ -50,7 +50,7 @@ export async function POST(request: Request)
 
     const report = await renameTagEverywhere(prisma as unknown as TagRenameClient, { entity, oldTag, newTag, dryRun });
 
-    // `updatedCount` is kept for callers written before Wave 9.0 (the admin
+    // `updatedCount` is kept for callers written before Wave 10.0 (the admin
     // panel reads it); the report carries what the sweep actually touched.
     return NextResponse.json({ updatedCount: report.records, ...report }, { status: 200 });
   }
