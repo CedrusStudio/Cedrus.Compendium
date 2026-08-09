@@ -162,6 +162,11 @@ export const effectSchema: z.ZodType<Effect> = z.lazy(() =>
       duration: z.number().int().min(0),
     }),
     z.object({
+      type: z.literal("forbidAction"),
+      action: z.enum(["attack", "maneuvers", "stanceChange", "spells"]),
+      duration: z.number().int().min(0),
+    }),
+    z.object({
       type: z.literal("roll"),
       modifier: z.enum(["advantage", "disadvantage", "extraDie"]),
       grade: z.number().int().min(1).optional(),

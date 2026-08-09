@@ -76,6 +76,20 @@ export type TagFacetIndex =
   unassigned: string[];
 };
 
+/**
+ * Reserved key for the "Pozostałe" bucket (Wave 10.9).
+ *
+ * Uncategorised tags used to be printed as read-only text with "search for them
+ * in Tagi mode" — which meant leaving category mode and losing every choice
+ * already made. They are now a section like any other: OR inside, AND with the
+ * real categories. The bucket is NOT an axis, so it never offers "— brak —"
+ * (that would read as "entries with no uncategorised tag", which nobody wants).
+ *
+ * The double underscore keeps it out of reach of real keys, which are slugs;
+ * a contract test asserts the seed never claims it.
+ */
+export const UNASSIGNED_FACET_KEY = "__pozostale__";
+
 /** Spellings of one definition that are valid for `entity`, canonical first. */
 export function spellingsForEntity(definition: TagDefinitionRecord, entity: string): string[]
 {
@@ -147,12 +161,36 @@ export function buildTagFacetIndex(
     // A facet with nothing to show on this entity is noise, not information.
     .filter(facet => facet.values.length > 0);
 
+  const unassigned = (availableTags ?? [])
+    .filter(tag => !claimed.has(tag))
+    .sort((left, right) => left.localeCompare(right, "pl"));
+
   return {
     entity,
-    facets: resolved,
-    unassigned: (availableTags ?? [])
-      .filter(tag => !claimed.has(tag))
-      .sort((left, right) => left.localeCompare(right, "pl")),
+    facets: unassigned.length > 0 ? [...resolved, unassignedFacet(entity, unassigned)] : resolved,
+    unassigned,
+  };
+}
+
+/**
+ * The "Pozostałe" bucket dressed as a facet so the filter can select it.
+ *
+ * An unassigned tag has no aliases — nothing claims it — so its canonical value
+ * IS its spelling. Rendered last (`order` at the maximum) because it is the
+ * leftovers, not an axis.
+ */
+function unassignedFacet(entity: string, unassigned: readonly string[]): ResolvedTagFacet
+{
+  return {
+    key: UNASSIGNED_FACET_KEY,
+    label: "Pozostałe",
+    description: "Tagi, których nie obejmuje żadna kategoria. Wybierasz je tak samo — sumują się między sobą i zawężają razem z kategoriami.",
+    order: Number.MAX_SAFE_INTEGER,
+    selectionMode: "multi",
+    supportsNone: false,
+    entities: [entity],
+    values: unassigned.map(tag => ({ tag, label: tag, spellings: [tag] })),
+    allSpellings: [...unassigned],
   };
 }
 
@@ -207,6 +245,18 @@ export function buildTagFacetConditions(
 
   for (const filter of filters)
   {
+    // "Pozostałe" is resolved WITHOUT the index on purpose. The search-side
+    // index is built without `availableTags` (see `buildTagFacetIndex`), so the
+    // bucket is empty there — looking the facet up would drop the filter and
+    // silently widen the result set. Unassigned tags carry no aliases, so the
+    // value sent by the client is already the spelling to match.
+    if (filter.facetKey === UNASSIGNED_FACET_KEY)
+    {
+      const anyOf = filter.tags.filter((tag, position) => tag !== "" && filter.tags.indexOf(tag) === position);
+      if (anyOf.length > 0) conditions.push({ facetKey: filter.facetKey, anyOf, noneOf: null });
+      continue;
+    }
+
     const facet = index.facets.find(candidate => candidate.key === filter.facetKey);
     if (!facet) continue;
 

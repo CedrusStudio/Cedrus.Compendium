@@ -810,38 +810,122 @@ błędem projektu:
 3. Skrypt masowego podpinania **zagnieżdżał** klucz zamiast go rozszerzać, zmieniając kształt klucza
    cache'a na dziewięciu listach. Naprawione w kodzie.
 
-### Fala 10.7 — kategorie magii `[OTWARTE]`
+### Fala 10.7 — kategorie magii — **ZROBIONE (2026-08-08)**
 
-Raport rozjazdu pokazuje **68 nieprzypisanych tagów**, z czego 17 ma co najmniej 10 wystąpień i
-niemal wszystkie należą do jednego klastra rozpiętego na Zaklęciach, Atutach, Mocach i Postaciach:
-`moc` 106, `promieniowanie` 50, `wielorundowe` 49, `nekromancja` 41, `szamaństwo` 37, `esencja` 37,
-`ochronne` 27, `altoria` 24, `obszar` 23, `ogień` 22, `wiara` 22, `zimno` 20, `vortex` 19,
-`błyskawice` 19. Rozpada się na trzy osie do rozstrzygnięcia: **źródło mocy**, **żywioł** i **sposób
-działania zaklęcia**. `natura` jest kanonicznym tagiem źródła mocy — dlatego jej alias `zwierzęta`
-obowiązuje wyłącznie na Postaciach.
+**Lista Mocy w kompendium JEST słownikiem tej osi.** Nazwy Mocy to Ogień, Zimno, Altoria,
+Błyskawice, Kinetyka, Aramantia, Czarna Magia, Nekromancja, Rdzeń, Vortex, Drążenie, Rozkład —
+czyli `ogień` nie jest żywiołem, tylko **źródłem mocy dokładnie tak samo jak `nekromancja`**
+(decyzja Marka). Dane to potwierdzają: żaden „żywioł" nie występuje z innym (0 przypadków), a ze
+„szkołą" tylko 6 razy na 421 zaklęć. Dlatego **jedna oś, nie dwie.**
 
-Poza magią bez kategorii zostają jeszcze: `inventory` (sloty: buty, hełmy, karwasze, peleryny,
-pierścienie), `mounts` (pochodzenie: anareja, girgen, lantrewia) i `specjalne` (17×, worek na
-wyjątki — świadomie zostaje). Te trzy listy pokazują dziś sam filtr tagów, bo przełącznik chowa się,
-gdy żadna kategoria nie obejmuje encji.
+Doszły cztery kategorie: **Źródło mocy** (Zaklęcia, Atuty, Moce), **Sposób działania** (obszar,
+wielorundowe, ochronne, rozpraszanie, precyzja), **Miejsce noszenia** (Przedmioty) i **Pochodzenie**
+(Wierzchowce). Łącznie 13 kategorii i 119 definicji; nieprzypisanych tagów **z 68 na 14**, z czego
+istotny jest tylko `specjalne` (17×) — świadomy worek na wyjątki.
 
+**`natura` znaczy trzy różne rzeczy i wszystkie trzy są w bibliotece naraz:** magia natury na
+Zaklęciach (55) i Atutach (52), zwierzę na Postaciach (25), naturalny materiał na Przedmiotach (14).
+Rozwiązane **zakresem kategorii, bez zmiany danych**: `źródło-mocy` celowo NIE obejmuje Postaci, więc
+25 zwierząt nie może wpaść pod magię natury; na Przedmiotach `natura` zostaje nieprzypisana. Kosztem
+jest to, że magiczne tagi Postaci (nekromancja, ogień, zimno, błyskawice, altoria, kinetyka — po 6)
+zostają w „Pozostałych".
 
-## Fala 9 — Karta postaci do druku `[FEATURE]`
+**`natura` jest rodzicem, nie rodzeństwem** — `vortex` 14/14, `grzybowe` 4/4, `drążenie` 4/4,
+`liściaste` 1/1 niosą też `natura`. Przy semantyce OR hierarchii nie trzeba modelować: wybór
+`natura` obejmuje je wszystkie, wybór podgatunku zawęża.
 
-Plan i analiza: `features-to-implement/character-sheet-print-plan.md`.
+**`rdzeń` zostaje przy Stylu (decyzja Marka).** To ten sam napis w dwóch znaczeniach — styl walki
+(Manewry 33, Atuty 5) i Moc „Rdzeń" (Zaklęcia 20, Postacie 5). Aliasy tu nie pomagają, bo obie nazwy
+są kanoniczne. Zamiast renamu: na Zaklęciach ląduje w „Pozostałych", dalej wyszukiwalny w trybie
+Tagi. Zero zmian w danych; rename można zrobić kiedykolwiek później.
 
-### 9.1 Karta postaci do druku (PDF przez przeglądarkę) — `M` · ⭐⭐⭐ — **ZROBIONE (2026-08-04)**
+**Nowy test kontraktowy `defaultTagFacets.test.ts` — „jeden napis, jedna kategoria na encji".**
+Zarobił na siebie od razu: złapał, że `zdrowie` trafiłoby naraz do „Cecha" i „Sposób działania" na
+Atutach. To jedyna klasa błędu w tej warstwie, która daje **cicho zły wynik** zamiast brzydszego
+dropdowna, więc jest teraz pilnowana testem, a nie uwagą.
 
-- **Wybór technologii:** trasa `/characters/[id]/sheet` ze stylami `@media print`, wydruk przez `Ctrl+P` → „Zapisz jako PDF". Zero nowych zależności. Ścieżka wyjścia do prawdziwego pliku `.pdf` (headless Chrome renderujący tę samą trasę) opisana w §11 planu — layout nie wymagałby zmian.
-- **Dlaczego nowe komponenty, a nie istniejące widoki:** każdy widok karty postaci jest komponentem klienckim ze stanem (`ModesCard` pokazuje jedną postawę przez `Select`, `ManeuversCard` chowa listę w `Collapsible` z filtrami, `DetailsView` obcina opis przez `ExpandableText`). Wydruk dałby przyciski zamiast liczb.
-- **Architektura:** `buildSheetModel(character)` w `src/domain/characters/sheet/` liczy wszystko raz i oddaje gotowe stringi; sekcje w `src/application/characters/sheet/` są czysto prezentacyjne, bez `"use client"`. Cała matematyka idzie przez istniejące funkcje (`calculateTotalHealthForCharacter`, `calculateSelectedReduction`, `toOffenseString`, `toCriticalRangeString`), więc karta nie może rozjechać się z aplikacją.
-- **Wartości efektywne** (decyzja odwrócona 2026-08-04 po porównaniu z aplikacją). `CharacterSheetView` woła `applyActiveBuffProfile` dokładnie tak jak `CharacterView`, więc liczby na wydruku zgadzają się z ekranem; zdezaktywowanie profilu usuwa go z karty. Tabela „aktywne wzmocnienia" mówi, które profile są w tych liczbach już wliczone. Pierwotnie karta drukowała wartości bazowe z deltami obok — w praktyce wyglądało to jak błąd, bo dla Saofie na wzmocnieniu karta pokazywała 68 zdrowia zamiast 96.
-- **Budżet stron:** karta bojowa ≤ 2 strony; `ekwipunek`, `moce i zaklęcia` oraz `umiejętności` dostają własne strony, gdy przekroczą próg `needsOwnPage` (12 pozycji) — poniżej płyną w tekście, żeby nie marnować kartki na jeden pancerz. Zweryfikowane na wszystkich 215 postaciach z backupu (`npm run verify-sheet-model --all`): 154 mieszczą się na 1 stronie, 61 na 2, zero przekroczeń.
-- **Kompresja:** tabele zamiast kart, skrót opisu do pierwszego zdania (`summarizeDescription`, budżety znaków per sekcja), dwie/trzy kolumny dla list bez struktury, wycinanie pustych sekcji, skróty etykiet (`SIŁ`, `FECH`, `Std`) z legendą, pomijanie zer.
-- **Opcje w URL:** `?sections=…&appendix=1` — renderowane serwerowo, linkowalne, sterowane paskiem narzędzi widocznym tylko na ekranie.
-- **Wejście:** ikona drukarki w `CharacterView` obok „Duplikuj"/„Edytuj".
-- **Testy:** `summarizeDescription.test.ts`, `sheetOptions.test.ts`, `sheetModel.test.ts`, `CharacterSheet.test.tsx`. Samego wydruku nie da się testować automatem — ręczna checklista w §8 planu.
-- **Niezrobione świadomie:** brak przycisku „Pobierz .pdf" (świadomy koszt wybranej ścieżki), brak wydruku wielu postaci naraz.
+**Dwie kolizje wyszły dopiero z testu unikalności** (`TagDefinition.tag` jest `@unique`, więc dwie
+definicje o tej samej nazwie są niemożliwe do wsiania — nawet dla rozłącznych encji):
+- `kusze` i `łuki` były naraz w „Oręż" (Manewry) i „Rodzaj broni" (Bronie). To **jedna oś** — czym
+  się walczy — więc kategorie zostały **scalone** w „Oręż" obejmujący Manewry, Atuty i Bronie. Każda
+  encja i tak widzi tylko wartości, które naprawdę ma.
+- `durski` to styl walki (Manewry 8), więc nie może być też pochodzeniem wierzchowca (1 rekord).
+
+To ważne rozróżnienie: reguła „jeden napis, jedna kategoria **na encji**" i reguła „każdy tag
+zdefiniowany **dokładnie raz**" łapią różne rzeczy. Pierwsza złapała `zdrowie`, druga `kusze` —
+i żadna nie złapałaby tego, co znalazła druga.
+
+**`rozproszenie` vs `rozpraszanie`** — Moc nazywa się „Rozproszenie", Zaklęcia mówią `rozpraszanie`.
+Rozwiązane **aliasem** zakresowanym na Moce, czyli dokładnie tym mechanizmem, dla którego powstał.
+
+Bez kategorii zostają: `specjalne` (17, celowo), `epickie`, `konny`, `konstrukt`, `testy`,
+`wojmistrz`, `krasnoludy`, `durski` na Wierzchowcach, `anioł`/`mord` na Mocach (należą do innych
+osi), `rdzeń` i `zdrowie` na Zaklęciach.
+
+⚠️ **Kosmetyczna pozostałość po scaleniu:** kategoria `rodzaj-broni` **została w bazie** — seed robi
+wyłącznie `upsert`, nigdy nie kasuje. Żadna definicja już na nią nie wskazuje, więc w filtrze jest
+niewidoczna (`buildTagFacetIndex` odrzuca kategorie bez wartości), ale widać ją w panelu admina
+i w raporcie rozjazdu jako „kategoria bez treści". Do skasowania jednym kliknięciem — nie dotknie
+żadnego rekordu encji.
+
+### Fala 10.8 — panel edytowalny w obie strony — **ZROBIONE (2026-08-09)**
+
+Wyszło z realnej pomyłki: `krasnoludy` (Przedmioty) trafiły do kategorii „Pochodzenie" — tej od
+Wierzchowców — i **nie było jak tego cofnąć**. Trzy braki naraz, każdy innej wagi.
+
+**Przypisanie było jednokierunkowe.** Lista wyboru kategorii renderowała się wyłącznie dla tagów
+bez kategorii; z chwilą przypisania znikała, a rozwinięta karta obsługiwała tylko aliasy. Teraz
+`DefinitionRow` ma tę samą listę wyboru (z „— brak —") plus „Usuń definicję" — API miało to od 10.2,
+UI nigdy nie wołało. Kasowanie definicji nie rusza wpisów: tag zostaje na rekordach, wraca do
+„Pozostałych".
+
+**Kategorii nie dało się edytować** — trzeba było usunąć i utworzyć od nowa, co odpina wszystkie
+jej tagi. Doszedł tryb edycji na karcie, na tych samych polach co formularz tworzenia (bez `key`,
+bo to on wiąże definicje). Zwężenie zakresu liczy się przed zapisem: „zabierasz Wierzchowce,
+N tagów przestanie się tam filtrować".
+
+**Etykieta nie mówiła, czego dotyczy — to była przyczyna pomyłki.** `pochodzenie-wierzchowca`
+wyświetlało się jako samo „Pochodzenie", a dla Przedmiotu „pochodzenie krasnoludzkie" ma pełny sens.
+Listy wyboru pokazują teraz zakres: „Pochodzenie (Wierzchowce)".
+
+**Najpoważniejsze było jednak to, że przypisanie poza zakres jest ciche.** `krasnoludy` żyją na
+Przedmiotach, kategoria obejmowała tylko Wierzchowce — definicja **nie robiła nic**, a tag zniknął
+z „Nieprzypisanych", więc raport twierdził, że problem rozwiązany. Dokładnie ta klasa błędu, przed
+którą broni się cała ta fala: cichy zły wynik zamiast widocznego. Dwie warstwy obrony — picker
+oferuje tylko kategorie sięgające list, na których tag naprawdę występuje, a raport dostał czerwoną
+sekcję **„Przypisania bez efektu"** nad nieprzypisanymi.
+
+Przy okazji doszedł czwarty, stonowany kierunek raportu: **„Kategoria nie obejmuje wszystkich list"**
+— kategoria sięga części list niosących tag. To pytanie, nie błąd (gdzie nie sięga, tag ląduje
+w „Pozostałych" i tryb „Tagi" dalej go znajduje). Grupowane po **(kategoria, lista)**, bo per-tag
+dawało 20 wierszy, z czego sześć powtarzało jedno „Źródło mocy nie obejmuje Postaci"; po zgrupowaniu
+12 wierszy, każdy = jedna decyzja. Wymusiło też rozstrzyganie spornej pisowni: właścicielem słowa na
+danej liście jest definicja, której kategoria tam sięga — inaczej magiczna `natura` „występowała" na
+25 Postaciach, choć te należą do `zwierzęta` przez alias.
+
+Przedmioty dostały własną oś **„Pochodzenie"** (`pochodzenie-przedmiotu`) z `krasnoludami` — osobną
+od wierzchowcowej mimo tej samej etykiety, bo `durski` to hodowla, a `krasnoludy` wyrób kulturowy
+(Królewska Księga Kowalska i Korona Valhangar); zlanie w jedno wstawiłoby `durski` do filtra
+Przedmiotów. **Wpis w seedzie sprząta przy okazji bazę** — upsert po `tag` przestawi `krasnoludy`
+z błędnej kategorii. Raport wskazał też `natura` na dwóch Rasach (Szaszynszyn, Szczuroszczerk) —
+to zwierzę jak na Postaci, więc alias objął też Rasy.
+
+Otwarte pytania, które raport teraz zadaje zamiast milczeć: `natura` na 14 Przedmiotach (naturalny
+materiał — osobna oś?), `durski` na jednym Wierzchowcu, oraz czy „Źródło mocy" ma objąć Postaci,
+„Cecha" Postawy, a „Styl" Stany. Żadne nie psuje dziś wyników.
+
+### Fala 10.9 — „Pozostałe" da się kliknąć — **ZROBIONE (2026-08-09)**
+
+Raport obiecywał, że nieprzypisany tag nie znika, tylko trafia do „Pozostałych" — a w filtrze
+„Pozostałe" było **tekstem do przeczytania** z poradą „szukaj po nich w trybie «Tagi»". Zawężenie po
+jednym takim tagu wymagało więc wyjścia z trybu kategorii i **utraty wszystkich dotychczasowych
+wyborów**. Teraz to sekcja jak każda inna: suma w środku, iloczyn z kategoriami.
+
+Zrobione jako pseudo-kategoria o zarezerwowanym kluczu `__pozostale__`. Bez „— brak —" — to nie oś.
+**Klucz jest obsłużony zanim warunek sięgnie do indeksu**, bo indeks wyszukiwania powstaje bez
+`availableTags` (świadomie — inaczej każde zapytanie zaczynałoby się od skanu distinct tagów) i kubeł
+jest tam pusty; zwykłe wyszukanie facetu porzuciłoby filtr po cichu i **poszerzyło** wynik.
+`hasFacets` liczy tylko prawdziwe kategorie, więc lista mająca sam kubeł nie dostaje przełącznika.
 
 ---
 

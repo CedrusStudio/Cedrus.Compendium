@@ -13,7 +13,7 @@ npm test -- <ścieżka>        # testy dotkniętego obszaru
 
 ---
 
-## 9.1 `forbidAction` — zakaz akcji — `S` · ⭐⭐⭐
+## 9.1 `forbidAction` — zakaz akcji — `S` · ⭐⭐⭐ — **ZROBIONE (2026-08-09)**
 
 **Odblokowuje:** Postawa Pełna Defensywna (r1–5), Postawa Fortyfikacji (r1–4), Styl Grupowy (r1–4) — 3 rodziny / 13 rekordów. Pełna Defensywna jest jedną z częściej używanych postaw w bibliotece.
 
@@ -70,7 +70,7 @@ Dopisać do unii `Effect` (linia z `| ForbidTagEffect`).
 
 ---
 
-## 9.2 Żywe wartości atrybutów w testach spornych — `M` · ⭐⭐⭐ `[FUNDAMENT dla 9.3]`
+## 9.2 Żywe wartości atrybutów w testach spornych — `M` · ⭐⭐⭐ `[FUNDAMENT dla 9.3]` — **ZROBIONE (2026-08-09)**
 
 **Problem.** `toCombatantSnapshot` (`engine/CombatantSnapshot.ts:249`) zapisuje `skills: { attributes: buffed.attributes, characteristics: buffed.characteristics }` — **zamrożone w chwili budowy snapshotu**. `resolveContestedTest` czyta wyłącznie `source.snapshot.skills` (`applyEffect.ts:314`). Efekt nałożony w trakcie walki nigdy tam nie dotrze.
 
@@ -116,6 +116,31 @@ Implementacja: dla każdego klucza w `attributes` i `characteristics` złożyć 
 - debuff `−2 fechtunku` na celu obniża jego stronę;
 - brak profili → wynik identyczny jak przed zmianą (regresja gorącej ścieżki);
 - `expectedSideResult` po zmianie zgadza się z `resolveContestedTest` co do kierunku.
+
+---
+
+### Wykonanie 9.1 + 9.2 (2026-08-09)
+
+Zgodnie z planem, z trzema doprecyzowaniami, które wyszły dopiero w kodzie:
+
+1. **Zakaz manewrów obejmuje też reakcje.** Plan wymieniał `availableProactiveManeuvers`
+   i `availableReactiveManeuvers` osobno; warto zapisać dlaczego obie: „nie można używać manewrów"
+   nie ma wyjątku dla natychmiastowych, a to właśnie one są zwykle najcenniejsze.
+2. **Faza 2 `takeTurn` musiała zostać przebudowana, nie tylko obwarowana warunkiem.** Zaklęcie
+   zajmuje akcję ataku, ale to **osobny** zakaz — z zakazem ataku i dostępnym zaklęciem lista wyboru
+   to same zaklęcia. Stary fallback `chosen = … : attack` wracałby do zakazanego ataku, więc
+   opcje są teraz budowane raz i fallbackiem jest ich pierwszy element.
+3. **Ticki przeniesione z `runCombat` do `CombatState`.** Test wieku zakazu wołał wcześniej własną
+   kopię pętli starzejącej — sprawdzałby kopię, nie silnik. `tickForbiddenTags`
+   i `tickForbiddenActions` mieszkają teraz przy typach stanu i są eksportowane; `runCombat` je
+   importuje. Test dostaje tę samą funkcję, którą wywołuje silnik.
+
+`effectiveSkills` (9.2) dostał dodatkowo strażnika `profile.attributes?.[key]` — profil zapisany
+przed dodaniem pola nie może wywalić rzutu w środku symulacji.
+
+Testy: `forbidAction.test.ts` (7), rozszerzone `contestedTest.test.ts` (6 nowych) i `effects.test.ts`
+(2 nowe: parsowanie wszystkich czterech akcji + odrzucenie literówki, opis po polsku).
+Cały katalog `engine/__tests__` na zielono (126), `effects/__tests__` (26), `tsc` czysty.
 
 ---
 

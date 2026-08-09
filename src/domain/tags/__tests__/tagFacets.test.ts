@@ -5,6 +5,7 @@ import {
   spellingsForEntity,
   toMongoTagConditions,
   toPrismaTagConditions,
+  UNASSIGNED_FACET_KEY,
   type TagDefinitionRecord,
   type TagFacetDefinition,
 } from '@/domain/tags/tagFacets';
@@ -79,6 +80,24 @@ describe('buildTagFacetIndex', () => {
     expect(facet.allSpellings).toEqual(['zwierzęta', 'natura', 'nieumarli', 'nieumarły', 'demon']);
     expect(index.unassigned).toEqual([]);
   });
+
+  it('offers the leftovers as a selectable section, last and without "— brak —"', () => {
+    const index = buildTagFacetIndex('characters', [kindFacet], definitions, ['natura', 'wojak', 'mag']);
+    const bucket = index.facets.at(-1)!;
+
+    expect(bucket.key).toBe(UNASSIGNED_FACET_KEY);
+    expect(bucket.values.map(value => value.tag)).toEqual(['mag', 'wojak']);
+    // Nieprzypisany tag nie ma aliasów — nikt go nie zgłasza — więc wartość
+    // kanoniczna JEST pisownią.
+    expect(bucket.values[0]!.spellings).toEqual(['mag']);
+    expect(bucket.supportsNone).toBe(false);
+  });
+
+  it('leaves the bucket out when every tag has a category', () => {
+    const index = buildTagFacetIndex('maneuvers', [kindFacet], definitions, ['demoniczne']);
+
+    expect(index.facets.map(facet => facet.key)).toEqual(['rodzaj-istoty']);
+  });
 });
 
 describe('buildTagFacetConditions', () => {
@@ -106,6 +125,33 @@ describe('buildTagFacetConditions', () => {
     expect(buildTagFacetConditions([{ facetKey: 'rodzaj-istoty', tags: [] }], index)).toEqual([]);
     expect(buildTagFacetConditions([{ facetKey: 'nie-ma', tags: ['x'] }], index)).toEqual([]);
     expect(buildTagFacetConditions([{ facetKey: 'rodzaj-istoty', tags: ['nie-ma'] }], index)).toEqual([]);
+  });
+
+  it('narrows on leftovers without going through the index — the search index has no bucket', () => {
+    // Indeks serwerowy powstaje BEZ `availableTags`, więc „Pozostałe" jest tam
+    // puste. Gdyby warunek szukał facetu w indeksie, filtr zostałby po cichu
+    // porzucony i wynik by się poszerzył zamiast zawęzić.
+    const searchIndex = buildTagFacetIndex('characters', [kindFacet], definitions);
+
+    expect(buildTagFacetConditions([{ facetKey: UNASSIGNED_FACET_KEY, tags: ['wojak', 'mag'] }], searchIndex))
+      .toEqual([{ facetKey: UNASSIGNED_FACET_KEY, anyOf: ['wojak', 'mag'], noneOf: null }]);
+  });
+
+  it('combines leftovers with a real category — OR inside, AND between', () => {
+    const conditions = buildTagFacetConditions([
+      { facetKey: 'rodzaj-istoty', tags: ['zwierzęta'] },
+      { facetKey: UNASSIGNED_FACET_KEY, tags: ['wojak'] },
+    ], index);
+
+    expect(conditions).toEqual([
+      { facetKey: 'rodzaj-istoty', anyOf: ['natura'], noneOf: null },
+      { facetKey: UNASSIGNED_FACET_KEY, anyOf: ['wojak'], noneOf: null },
+    ]);
+  });
+
+  it('drops an empty leftovers filter and never emits "— brak —" for it', () => {
+    expect(buildTagFacetConditions([{ facetKey: UNASSIGNED_FACET_KEY, tags: [] }], index)).toEqual([]);
+    expect(buildTagFacetConditions([{ facetKey: UNASSIGNED_FACET_KEY, tags: [], includeNone: true }], index)).toEqual([]);
   });
 
   it('ignores "— brak —" on a facet that does not support it', () => {

@@ -251,6 +251,30 @@ export type ForbidTagEffect =
 };
 
 /**
+ * Ban on a KIND of action (Wave 9.1) — „nie mozna atakowac", „nie mozna
+ * zmieniac postawy".
+ *
+ * Distinct from `ForbidTagEffect` on purpose. A tag ban works on library
+ * entries, which carry tags; the basic attack is not a library entry and has no
+ * tags at all — `{ kind: "attack" }` is assembled in `takeTurn` out of thin air.
+ * Anything that forbids it therefore has to name the action, not a tag.
+ *
+ * `duration: 0` means "while it keeps being re-applied", same as `forbidTag`:
+ * a stance re-fires its effects every turn, so the ban lives exactly as long as
+ * the stance is worn. Pelna Defensywna is that shape — it forbids attacking and
+ * is itself a stance.
+ */
+export type ForbidActionEffect =
+{
+  type: "forbidAction";
+  action: ForbiddenActionKind;
+  duration: number;
+};
+
+/** Kinds of action a `forbidAction` effect can lock out. */
+export type ForbiddenActionKind = "attack" | "maneuvers" | "stanceChange" | "spells";
+
+/**
  * Roll modifier (T2b) — changes HOW this turn's attack is rolled, rather than
  * adding a post-hoc effect. Applied to the caster and consumed by the next
  * attack this turn (see runCombat + resolveAttack). Deterministic: `advantage`/
@@ -423,6 +447,7 @@ export type Effect =
   | MultiplierEffect
   | StanceRankEffect
   | ForbidTagEffect
+  | ForbidActionEffect
   | RollModifierEffect
   | ContestedTestEffect
   | SaveTestEffect

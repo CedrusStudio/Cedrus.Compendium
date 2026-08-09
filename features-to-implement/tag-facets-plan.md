@@ -435,6 +435,225 @@ brakuje tylko decyzji, gdzie przebiegają granice między tymi trzema osiami.
 `specjalne` (17×, na Postawach, Stanach, Atutach i Broniach) zostaje nieprzypisane świadomie —
 to worek na wyjątki, nie oś.
 
+## Fala 10.8 — braki panelu kategorii `[ZROBIONE]`
+
+Spisane po tym, jak Marek przypadkiem wrzucił `krasnoludy` (Przedmioty) do kategorii
+„Pochodzenie" — i nie miał jak tego cofnąć. Jedna z tych rzeczy to wada projektu, nie brak przycisku.
+
+### A. Przypisania są jednokierunkowe — **blokujące**
+
+`AssignmentChip` (lista wyboru z „— brak —") renderuje się **wyłącznie** w sekcji „Tagi bez
+kategorii", czyli dla definicji z `facetKey === null`. W chwili gdy tag dostanie kategorię, znika
+z tamtej sekcji i **nie ma już żadnej kontrolki**, żeby go przenieść albo odpiąć. `DefinitionRow`
+w rozwiniętej karcie obsługuje tylko aliasy.
+
+Potrzebne: w `DefinitionRow` ta sama lista wyboru kategorii co w `AssignmentChip`, z „— brak —"
+jako pełnoprawną opcją, plus „Usuń definicję" (API ma `resource: definition, action: delete` od
+10.2, UI nigdy tego nie woła).
+
+### B. Kategorii nie da się edytować
+
+Formularz istnieje tylko przy tworzeniu. Karta pokazuje `label`, `description`, `order`,
+`selectionMode`, `supportsNone` i `entities` jako **tekst**. Żeby dziś zmienić opis albo dołożyć
+encję, trzeba usunąć kategorię i utworzyć od nowa — co odpina wszystkie jej tagi.
+
+Potrzebne: tryb edycji na karcie, na tych samych polach co `AddFacetForm`.
+
+### C. Etykieta kategorii nie mówi, czego dotyczy — **to jest przyczyna pomyłki**
+
+`pochodzenie-wierzchowca` wyświetla się jako **„Pochodzenie"**. Przy przypisywaniu `krasnoludów`
+lista wyboru pokazywała samo „Pochodzenie" i wyglądało to na właściwą kategorię — bo dla Przedmiotu
+„pochodzenie krasnoludzkie" ma pełny sens. Zakres (Wierzchowce) nie był nigdzie widoczny.
+
+### D. Przypisanie poza zakresem kategorii jest **martwe i ciche** — najpoważniejsze
+
+`krasnoludy` występuje wyłącznie na Przedmiotach, a `pochodzenie-wierzchowca` obejmuje wyłącznie
+Wierzchowce. Powstała definicja, która **nie robi nic**: `buildTagFacetIndex` nigdy jej nie pokaże,
+bo kategoria nie obejmuje Przedmiotów. Ale tag **zniknął z „Nieprzypisanych"**, więc raport twierdzi,
+że problem jest rozwiązany. To dokładnie ta klasa błędu, przed którą broni się reszta tej fali:
+cichy zły wynik zamiast widocznego.
+
+Dwie warstwy obrony, obie potrzebne:
+1. **Lista wyboru w raporcie ma oferować tylko kategorie obejmujące encje, na których tag
+   faktycznie występuje.** `krasnoludy` (Przedmioty) nie powinno w ogóle widzieć kategorii
+   wierzchowców. Nazwa w liście powinna nieść zakres: „Pochodzenie (Wierzchowce)".
+2. **Raport rozjazdu potrzebuje trzeciego kierunku: „przypisania bez efektu"** — definicja, której
+   kategoria nie obejmuje żadnej encji niosącej ten tag. Dziś `deadFacetEntities` łapie odwrotność
+   (kategoria bez treści na encji), więc ta dziura przechodzi.
+
+### E. Przedmioty: brakuje osi pochodzenia
+
+Przedmioty **mają** kategorię „Miejsce noszenia" (hełmy, karwasze, peleryny, buty, pierścienie), ale
+`krasnoludy` (2) należy do innej osi — pochodzenia kulturowego. Do decyzji, czy zakładać osobną
+kategorię dla dwóch rekordów, czy zostawić w „Pozostałych" do czasu, aż takich tagów przybędzie.
+
+⚠️ **Stan bazy do posprzątania:** `krasnoludy` jest teraz przypisane do `pochodzenie-wierzchowca`.
+Po dodaniu (A) da się to cofnąć klikiem; do tego czasu naprawa wymaga ponownego
+`npm run seed-tag-facets:apply` (seed nie zna tej definicji, więc jej nie ruszy — trzeba usunąć
+ręcznie) albo dodania definicji `krasnoludy` z `facetKey: null` do seeda.
+
+---
+
+## Realizacja 10.8 (2026-08-09)
+
+### A — przenoszenie i usuwanie definicji `[ZROBIONE]`
+
+`DefinitionRow` dostał tę samą listę wyboru co sekcja „Tagi bez kategorii" oraz „Usuń definicję"
+z potwierdzeniem. Kasowanie definicji nie rusza wpisów — tag zostaje na rekordach i wraca do
+„Pozostałych", i tak też brzmi podpowiedź przy przycisku.
+
+### B — edycja kategorii `[ZROBIONE]`
+
+`FacetEditForm` na karcie, na tych samych polach co `AddFacetForm`, minus `key` — to on wiąże
+definicje z kategorią, więc jego podmiana rozjechałaby przypisania. **Zwężenie `entities` liczy
+się przed zapisem:** formularz wypisuje, które listy zabierasz i ile tagów przestanie się na nich
+filtrować. Same wpisy zostają nietknięte.
+
+### C — zakres w etykiecie `[ZROBIONE]`
+
+Wspólny `CategoryPicker` renderuje opcje jako „Pochodzenie (Wierzchowce)". Sama „Pochodzenie" była
+bezpośrednią przyczyną pomyłki z `krasnoludami`.
+
+### D — dwa nowe kierunki raportu `[ZROBIONE]`
+
+**Przypisania bez efektu** (`ineffectiveAssignments`) — kategoria nie obejmuje **żadnej** listy
+niosącej tag. Czerwona sekcja **nad** nieprzypisanymi, bo to błąd, nie zaległość: wygląda na
+załatwione, a nie działa. Tag, którego nikt nie używa, jest z tej listy wyłączony — to już
+`unusedDefinitions`, a podwójne zgłoszenie jednego zjawiska uczy ignorować raport.
+
+Drugą warstwą obrony jest sam picker: oferuje tylko kategorie sięgające list, na których tag
+faktycznie występuje (`drift.tagEntities`). Kategoria już przypisana zostaje na liście nawet jeśli
+nie pasuje — inaczej nie dałoby się jej zdjąć.
+
+**Niepełne pokrycie** (`partialCoverage`) — kategoria sięga części list niosących tag, ale nie
+wszystkich. To **pytanie, nie błąd**: tam gdzie nie sięga, tag ląduje w „Pozostałych" i tryb „Tagi"
+dalej go znajduje. Stonowana sekcja, osobno od czerwonej.
+
+Dwie decyzje projektowe, obie wymuszone przez realne dane:
+
+- **Grupowanie po (kategoria, lista), nie po tagu.** Per-tag dawało 20 wierszy, z czego sześć
+  powtarzało jedną informację („Źródło mocy nie obejmuje Postaci"). Odpowiedź i tak jest jedna dla
+  całej grupy, więc grupa jest jednostką raportu. Po zgrupowaniu: 12 wierszy.
+- **Rozstrzyganie spornej pisowni.** `entitiesUsingTag` bez `facets` przypisywał to samo słowo
+  każdej definicji, która je zgłasza — magiczna `natura` „występowała" na 25 Postaciach, choć te
+  Postacie należą do `zwierzęta` przez alias. Remis rozstrzyga pokrycie: właścicielem słowa na danej
+  liście jest definicja, której kategoria tam sięga. Gdy nikt nie sięga albo sięga kilku — nie
+  zgadujemy (pierwsze zgłosi `partialCoverage`, drugie łapie test niezmienników seeda).
+
+### E — oś pochodzenia dla Przedmiotów `[ZROBIONE]`
+
+Doszedł facet `pochodzenie-przedmiotu` („Pochodzenie", Przedmioty) z definicją `krasnoludy`.
+Osobny od `pochodzenie-wierzchowca` mimo tej samej etykiety, bo `durski` to hodowla wierzchowca,
+a `krasnoludy` wyrób kulturowy (Królewska Księga Kowalska i Korona Valhangar) — zlanie w jedną oś
+wstawiłoby `durski` do filtra Przedmiotów.
+
+**To sprząta też bazę.** Seed upsertuje po `tag`, więc `npm run seed-tag-facets:apply` przestawi
+`krasnoludy` z `pochodzenie-wierzchowca` na właściwą kategorię bez ręcznej interwencji.
+
+### Przy okazji: `natura` na Rasach
+
+Raport niepełnego pokrycia wskazał `natura` na dwóch Rasach (Szaszynszyn, Szczuroszczerk) — to
+zwierzę, dokładnie jak na Postaci. Alias `natura` przy `zwierzęta` obejmuje teraz `characters`
+**i** `races`. Oba niezmienniki trzymają: `źródło-mocy` nie sięga Ras, `rodzaj-istoty` sięga.
+
+### Zostaje do decyzji Marka (raport pyta, nie zmienia)
+
+| Co | Ile | Pytanie |
+| --- | --- | --- |
+| `natura` na Przedmiotach | 14 | Naturalny materiał (skorupa, chityna, pióra, porosty). Osobna oś „Materiał"? |
+| `durski` na Wierzchowcach | 1 | Styl walki na 8 Manewrach, hodowla na Ogierze Durskim. Zostawić w „Pozostałych"? |
+| „Źródło mocy" bez Postaci | 6 tagów | Decyzja z 10.7 — Postaci celowo wyłączone. Zamknąć temat czy objąć? |
+| „Cecha" bez Postaw | 4 tagi | Postawy niosą `siła`, `zręczność`, `krytyk`, `inicjatywa`, a kategoria ich nie obejmuje. |
+| „Styl" bez Stanów/Postaci/Mocy | 3 + 2 + 2 | To samo pytanie dla stylów walki. |
+
+Wszystkie widoczne w panelu w sekcji „Kategoria nie obejmuje wszystkich list". Żadna nie psuje
+dziś wyników — te tagi po prostu grupują się w „Pozostałych".
+
+### Czytelność raportu (poprawka po pierwszym spojrzeniu Marka)
+
+Cztery kierunki rozjazdu dzieliły **jedno zdanie wstępu** nad sekcją — opisujące tak naprawdę tylko
+nieprzypisane tagi. Reszty nie dało się zrozumieć bez czytania kodu. Doszedł `DriftBlock`: każdy blok
+mówi sam **co to jest** i **co z tym zrobić**, a kolejność (błąd → zaległość → pytanie → kosmetyka)
+niesie pilność. Wskazówka „co zrobić" jest raz na blok, nie w każdym wierszu — trzynaście kopii tego
+samego zdania czytało się jak szum.
+
+Blok „Przypisania bez efektu" pokazuje się **także pusty**, ze zdaniem „Nic takiego — każde
+przypisanie sięga tam, gdzie tag naprawdę występuje". Bez tego jedyna kontrola, która potrafi
+skłamać, jest niewidoczna dokładnie wtedy, gdy wszystko działa — i nie wiadomo, że w ogóle istnieje.
+Pusty blok traci czerwień: kolor ma znaczyć „jest problem", nie „tu bywa problem".
+
+## Fala 10.9 — „Pozostałe" da się kliknąć `[ZROBIONE]` (2026-08-09)
+
+Zgłoszone przez Marka zaraz po 10.8: raport mówi „nieprzypisany tag nie znika, trafia do
+«Pozostałych»", a w filtrze „Pozostałe" było **tekstem do przeczytania**, z poradą „szukaj po nich
+w trybie «Tagi»". Czyli: żeby zawęzić po jednym nieprzypisanym tagu, trzeba było wyjść z trybu
+kategorii i **stracić wszystkie dotychczasowe wybory**. Obietnica z opisu nie miała pokrycia w UI.
+
+„Pozostałe" jest teraz sekcją jak każda inna — suma w środku, iloczyn z kategoriami. Zrobione jako
+**pseudo-kategoria** o zarezerwowanym kluczu `__pozostale__`, doklejana na końcu przez
+`buildTagFacetIndex`. Nie oferuje „— brak —": to nie oś, a „wpisy bez żadnego nieprzypisanego tagu"
+nikomu nie jest potrzebne.
+
+**Pułapka, przez którą to nie mogło iść zwykłą ścieżką.** `buildTagFacetConditions` rozwiązuje
+wartości przez `index.facets` — a indeks **wyszukiwania** powstaje bez `availableTags` (świadomie:
+inaczej każde zapytanie zaczynałoby się od skanu po distinct tagach). Tam kubeł jest pusty, więc
+zwykłe wyszukanie facetu **porzuciłoby filtr po cichu i poszerzyło wynik**. Dlatego zarezerwowany
+klucz jest obsłużony **przed** sięgnięciem do indeksu: nieprzypisany tag z definicji nie ma aliasów,
+więc wartość przysłana przez klienta już jest pisownią do dopasowania.
+
+`hasFacets` w `useTagFacets` liczy wyłącznie **prawdziwe** kategorie — lista mająca sam kubeł nie
+dostaje przełącznika „Kategorie", bo byłby to gorszy filtr tagów pod inną nazwą.
+
+Weryfikacja na backupie (Atuty): „Pozostałe: epickie" → 6 rekordów (surowo 6), „Rola: defensywa"
+× „Pozostałe: epickie" → 5 (surowo 5, sama defensywa 166). Ten sam wynik z indeksu renderującego
+i wyszukiwania. Test kontraktowy pilnuje, że seed nigdy nie zajmie zarezerwowanego klucza.
+
+---
+
+### Stan weryfikacji
+
+`tsc --noEmit` czysty. Testy domenowe tagów **53/53** — `vitest` nie startuje w sandboxie (node_modules
+instalowane pod Windows, brak `@rollup/rollup-linux-x64-gnu`), więc prawdziwe pliki testowe poszły pod
+własnym shimem `describe/it/expect`. To ważne rozróżnienie: shim uruchamia **te same pliki**, a nie
+moją przepisaną kopię asercji — kopia sprawdzałaby kopię.
+
+Niezmienniki seeda przechodzą na realnym backupie (2026-08-08): zero podwójnych roszczeń pisowni,
+zero sierot, zero naruszeń walidacji aliasów. Rozjazd na tym samym backupie: **0 przypisań bez
+efektu**, 12 grup niepełnego pokrycia, 10 nieprzypisanych tagów (`specjalne` 17× jako jedyny powyżej
+progu), 0 definicji bez użycia. Sześć wcześniejszych skryptów kontrolnych (rename, sweep, facets,
+maps, wiring, magic) dalej na zielono.
+
+⚠️ Złapane przy przeglądzie diffa: do `tagFacetDrift.ts` wjechał **bajt NUL** w literale klucza mapy.
+Kod działał, ale git uznawał plik za binarny (`Bin 3885 -> 9316 bytes`) — czyli **żaden przyszły diff
+tego pliku nie byłby widoczny w review**. Naprawione; warto skanować `grep -rlP '\x00'` po masowych
+edycjach skryptem.
+
+---
+
+### Poprawki panelu admina po pierwszym realnym użyciu (2026-08-08)
+
+Trzy braki, które wyszły dopiero gdy Marek spróbował czegoś w panelu naprawdę dokonać:
+
+1. **Panel nie wysyłał klucza API.** Wołał goły `fetch`, a proxy odrzuca każdy nie-GET bez nagłówka
+   `x-api-key` — klucz dokłada wyłącznie interceptor w `baseClient`. Efekt: **żaden zapis nie
+   działał**, niezależnie od tego jak poprawny był klucz użytkownika. Doszedł `tagFacetsClient`
+   idący przez `baseClient`; komunikaty walidacji aliasów są przy okazji przekazywane dosłownie,
+   bo nazywają konkretny konflikt.
+2. **Nie było przycisku usuwania kategorii** — API to obsługiwało od 10.2, UI nigdy nie wołało.
+   Puste kategorie (pozostałości po scaleniach, bo seed tylko upsertuje) nie dały się w ogóle
+   usunąć. Doszedł przycisk z potwierdzeniem mówiącym wprost, co się stanie: przy pustej „nie
+   zmieni żadnego wpisu", przy pełnej „N tagów wróci do «Pozostałych», żaden rekord encji się nie
+   zmieni".
+3. **Nie było jak dodać kategorii ani przypisać taga z raportu.** Raport rozjazdu wypisywał problem
+   i kazał szukać rozwiązania gdzie indziej, więc w praktyce byłby ignorowany. Teraz każdy
+   nieprzypisany tag ma **listę wyboru wprost w raporcie** — tam gdzie widać, ile razy występuje —
+   a nad kartami kategorii jest formularz „Dodaj kategorię".
+
+Przy okazji: panel drukował **surowe nazwy encji** (`maneuvers`, `perks`). Mapa polskich nazw
+istniała, ale była zamknięta w `/admin/tags` i miała literówkę („Zaklecia"). Wyciągnięta do
+`src/common/translations/entityLabels.ts`, z testem na kompletność — nowa encja nie przejdzie bez
+nazwy.
+
 ### Stan końcowy (2026-08-07) — **ZAMKNIĘTE**
 
 `npm test` 201/201 plików, 1882 testy, 2 pominięte. `tsc --noEmit` czysty. Kategorie działają na

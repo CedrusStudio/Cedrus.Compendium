@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import type { EntityType } from '@/infrastructure/clients/tagsClient';
-import type { TagFacetIndex } from '@/domain/tags/tagFacets';
+import { UNASSIGNED_FACET_KEY, type TagFacetIndex } from '@/domain/tags/tagFacets';
 
 const EMPTY_INDEX: TagFacetIndex = { entity: '', facets: [], unassigned: [] };
 
@@ -54,5 +54,10 @@ export const useTagFacets = (entity: EntityType) =>
   // this guard existed, and a test may stub `useQuery` itself.
   const index = toFacetIndex(data, entity);
 
-  return { index, isLoading, hasFacets: index.facets.length > 0 };
+  // Liczą się WYŁĄCZNIE prawdziwe kategorie. „Pozostałe" jest też facetem
+  // (żeby dało się je klikać), ale lista mająca tylko je nie zyskuje niczego na
+  // trybie kategorii — byłby to gorszy filtr tagów pod inną nazwą.
+  const hasFacets = index.facets.some(facet => facet.key !== UNASSIGNED_FACET_KEY);
+
+  return { index, isLoading, hasFacets };
 };

@@ -88,20 +88,31 @@ export default function FacetedTagFilter({ index, filters, onFiltersChange, isLo
         </PopoverTrigger>
 
         <PopoverContent align="start" className="max-h-[70vh] w-[340px] overflow-y-auto p-0">
-          <div className="sticky top-0 z-10 flex items-center justify-between gap-2 border-b bg-popover px-3 py-2">
-            <span className="text-xs font-medium">
-              Kategorie{activeCount > 0 ? ` · wybrano ${activeCount}` : ""}
-            </span>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              className="h-7 px-2 text-xs text-muted-foreground"
-              disabled={activeCount === 0}
-              onClick={() => onFiltersChange([])}
-            >
-              Wyczyść
-            </Button>
+          <div className="sticky top-0 z-10 border-b bg-popover px-3 py-2">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs font-medium">
+                Kategorie{activeCount > 0 ? ` · wybrano ${activeCount}` : ""}
+              </span>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="h-7 px-2 text-xs text-muted-foreground"
+                disabled={activeCount === 0}
+                onClick={() => onFiltersChange([])}
+              >
+                Wyczyść
+              </Button>
+            </div>
+
+            {/* Dwie zasady, których nie da się odgadnąć z samych przycisków, a
+                obie zmieniają wynik. Jedna linijka — dłuższy wykład jest
+                w panelu admina. */}
+            <p className="mt-1 text-[11px] leading-snug text-muted-foreground">
+              W jednej kategorii wybory się <strong>sumują</strong>, między kategoriami <strong>zawężają</strong>.
+              „{NONE_LABEL}” znaczy „nie ma żadnego tagu z tej kategorii”. Tagi bez kategorii są na końcu,
+              w sekcji „Pozostałe”.
+            </p>
           </div>
 
           {
@@ -124,18 +135,6 @@ export default function FacetedTagFilter({ index, filters, onFiltersChange, isLo
                 />
               );
             })
-          }
-
-          {
-            index.unassigned.length > 0 && (
-              <div className="border-t px-3 py-2">
-                <p className="text-xs font-medium text-muted-foreground">Pozostałe ({index.unassigned.length})</p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Tagi bez przypisanej kategorii. Szukaj po nich w trybie „Tagi”.
-                </p>
-                <p className="mt-1 break-words text-xs">{index.unassigned.join(", ")}</p>
-              </div>
-            )
           }
 
           {

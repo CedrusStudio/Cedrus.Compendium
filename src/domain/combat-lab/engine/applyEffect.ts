@@ -22,7 +22,7 @@ import { reduceDamage, dealDamage, healDamage, bypassesBarrier, halveGuards } fr
 import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
 import { selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { isStaggered, activeBuffProfiles } from "@/domain/combat-lab/engine/CombatState";
-import { effectiveDefense } from "@/domain/combat-lab/engine/buffs";
+import { effectiveDefense, effectiveSkills } from "@/domain/combat-lab/engine/buffs";
 import { statEffectToProfile } from "@/domain/combat-lab/effects/statBuff";
 import { resolveContestedTest, resolveSaveTest } from "@/domain/combat-lab/engine/resolveContestedTest";
 import { countScaleSource, scaleTimes, resolveDamageSpecGrade } from "@/domain/combat-lab/engine/scaleSource";
@@ -273,6 +273,22 @@ function applyEffect(
       break;
     }
 
+    case "forbidAction":
+    {
+      // Na `source`, nie `target`: zakaz akcji opisuje, czego NIE MOŻE ten, kto
+      // nosi postawę — Pełna Defensywna zabrania atakować sobie, nie wrogowi.
+      const existing = source.forbiddenActions.find(ban => ban.action === effect.action);
+      if (existing)
+      {
+        existing.remaining = Math.max(existing.remaining, effect.duration);
+      }
+      else
+      {
+        source.forbiddenActions.push({ action: effect.action, remaining: effect.duration });
+      }
+      break;
+    }
+
     case "multiplier":
     {
       const recipient = effect.mode === "self" ? source : target;
@@ -311,7 +327,15 @@ function applyEffect(
 
     case "contested":
     {
-      const res = resolveContestedTest(source.snapshot.skills, target.snapshot.skills, effect, ctx.random);
+      // Obie strony przez `effectiveSkills`: `mode: "target"` nakłada profil
+      // o ujemnych wartościach na przeciwnika, więc debuff celu liczy się tak
+      // samo jak buff źródła.
+      const res = resolveContestedTest(
+        effectiveSkills(source.snapshot.skills, activeBuffProfiles(source)),
+        effectiveSkills(target.snapshot.skills, activeBuffProfiles(target)),
+        effect,
+        ctx.random,
+      );
       ctx.log.push({
         kind: "contestedTest",
         sourceId: source.snapshot.id,

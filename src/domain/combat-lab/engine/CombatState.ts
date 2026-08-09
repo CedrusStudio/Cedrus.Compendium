@@ -6,7 +6,7 @@
  */
 
 import type { CombatantSnapshot, SnapshotMode } from "@/domain/combat-lab/engine/CombatantSnapshot";
-import type { StatusId, DamageTick, RollModifierEffect, MultiplierEffect } from "@/domain/combat-lab/effects/Effect";
+import type { StatusId, DamageTick, RollModifierEffect, MultiplierEffect, ForbiddenActionKind } from "@/domain/combat-lab/effects/Effect";
 import type { Castable, EndTurn } from "@/domain/characters/Castable";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 
@@ -57,6 +57,13 @@ export type ActiveForbiddenTag =
 {
   tag: string;
   scope: "maneuvers" | "stances" | "all";
+  remaining: number;
+};
+
+/** A live `forbidAction` ban. Ages exactly like `ActiveForbiddenTag`. */
+export type ActiveForbiddenAction =
+{
+  action: ForbiddenActionKind;
   remaining: number;
 };
 
@@ -113,6 +120,8 @@ export type CombatantRuntime =
   stanceChangeBlockedBeforeAttack: boolean;
   /** Library tags this combatant is currently locked out of (Amok: „defensywne"). */
   forbiddenTags: ActiveForbiddenTag[];
+  /** Kinds of action locked out (Pełna Defensywna: „attack"). */
+  forbiddenActions: ActiveForbiddenAction[];
   /** Rounds spent at/below 0 hp (for the lethalRounds bleed-out rule). */
   roundsDowned: number;
   /**
@@ -158,6 +167,7 @@ export function createRuntime(snapshot: CombatantSnapshot): CombatantRuntime
     stanceChangedThisTurn: false,
     stanceChangeBlockedBeforeAttack: false,
     forbiddenTags: [],
+    forbiddenActions: [],
     roundsDowned: 0,
     usedCastables: [],
     attackedThisTurn: false,
@@ -206,4 +216,28 @@ export function isStaggered(runtime: CombatantRuntime): boolean
 export function activeBuffProfiles(runtime: CombatantRuntime): BuffProfile[]
 {
   return runtime.activeBuffs.map(b => b.profile);
+}
+
+/**
+ * Age the tag bans. Entries seeded with duration 0 are SUSTAINED by whatever
+ * keeps re-applying them (a stance/state auto-cast), so they are dropped here
+ * and immediately re-seeded when the mode fires again — which is exactly what
+ * makes a ban end the moment the wearer leaves the mode.
+ *
+ * Lives here rather than in `runCombat` so the tests can age a runtime with the
+ * SAME code the engine runs, instead of a copy that could drift from it.
+ */
+export function tickForbiddenTags(runtime: CombatantRuntime): void
+{
+  runtime.forbiddenTags = runtime.forbiddenTags
+    .map(ban => (ban.remaining > 0 ? { ...ban, remaining: ban.remaining - 1 } : ban))
+    .filter(ban => ban.remaining > 0);
+}
+
+/** Same ageing for action bans — see `tickForbiddenTags` for why 0 is dropped. */
+export function tickForbiddenActions(runtime: CombatantRuntime): void
+{
+  runtime.forbiddenActions = runtime.forbiddenActions
+    .map(ban => (ban.remaining > 0 ? { ...ban, remaining: ban.remaining - 1 } : ban))
+    .filter(ban => ban.remaining > 0);
 }

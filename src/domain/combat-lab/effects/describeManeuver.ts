@@ -150,6 +150,14 @@ function describeEffect(effect: Effect): string
         : "postaw i manewrów";
       return `uniemożliwia używanie ${what} z tagiem „${effect.tag}"${effect.duration > 0 ? ` ${roundsLabel(effect.duration)}` : ""}`.trim();
     }
+    case "forbidAction":
+    {
+      const what = effect.action === "attack" ? "atakowanie"
+        : effect.action === "maneuvers" ? "używanie manewrów"
+        : effect.action === "stanceChange" ? "zmianę postawy"
+        : "rzucanie zaklęć";
+      return `uniemożliwia ${what}${effect.duration > 0 ? ` ${roundsLabel(effect.duration)}` : ""}`.trim();
+    }
     case "contested":
     {
       const onWin = effect.onWin.map(describeEffect).join(", ");

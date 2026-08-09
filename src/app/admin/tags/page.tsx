@@ -7,27 +7,12 @@ import { Button } from '@/ui/button';
 import TagFacetsPanel from '@/application/admin/TagFacetsPanel';
 import tagManagementClient, { ManagedTag } from '@/infrastructure/clients/tagManagementClient';
 import { EntityType } from '@/infrastructure/clients/tagsClient';
+import { entityLabelsPl } from '@/common/translations/entityLabels';
 import AdminEntityManagementPanel from '@/app/admin/components/AdminEntityManagementPanel';
 import { useAdminEntityManagement } from '@/app/admin/components/useAdminEntityManagement';
 
-const entityLabels: Record<EntityType, string> = {
-  characters: 'Postacie',
-  weapons: 'Bronie',
-  armors: 'Zbroje',
-  shields: 'Tarcze',
-  spells: 'Zaklecia',
-  perks: 'Atuty',
-  races: 'Rasy',
-  maneuvers: 'Manewry',
-  stances: 'Postawy',
-  states: 'Stany',
-  inventory: 'Przedmioty',
-  mounts: 'Wierzchowce',
-  powerSpecifications: 'Moce',
-};
-
-const entityOptions = Object.keys(entityLabels) as EntityType[];
-const entitySelectItems = entityOptions.map(entity => ({ label: entityLabels[entity], value: entity }));
+const entityOptions = Object.keys(entityLabelsPl) as EntityType[];
+const entitySelectItems = entityOptions.map(entity => ({ label: entityLabelsPl[entity], value: entity }));
 
 export default function TagManagementPage()
 {

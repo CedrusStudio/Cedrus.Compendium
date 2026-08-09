@@ -106,6 +106,15 @@ export const EFFECT_TYPE_META: Record<string, EffectTypeMeta> = {
     { path: "scope", label: "co blokuje", kind: "enum", options: ["all", "maneuvers", "stances"], optLabels: { all: "postawy i manewry", maneuvers: "manewry", stances: "postawy" }, def: "all" },
     { path: "duration", label: "czas (0 = póki trwa tryb)", kind: "number", def: 0 },
   ] },
+  forbidAction: { label: "Blokada akcji (np. Pełna Defensywna)", simple: true, fields: [
+    {
+      path: "action", label: "co blokuje", kind: "enum",
+      options: ["attack", "maneuvers", "stanceChange", "spells"],
+      optLabels: { attack: "atak", maneuvers: "manewry", stanceChange: "zmianę postawy", spells: "zaklęcia" },
+      def: "attack",
+    },
+    { path: "duration", label: "czas (0 = póki trwa tryb)", kind: "number", def: 0 },
+  ] },
   stanceRank: { label: "Ranga postawy/stanu", simple: true, fields: [
     { path: "target", label: "co", kind: "enum", options: ["stance", "state"], optLabels: { stance: "postawa", state: "stan" }, def: "stance" },
     { path: "delta", label: "o ile (+/-)", kind: "number", def: 1 },
@@ -161,6 +170,10 @@ export function defaultEffect(type: string): Record<string, unknown>
     // `forbidTag` compares by name at simulation time, so a stale default here
     // would author a block that silently never fires.
     case "forbidTag": return { type, tag: "defensywa", scope: "all", duration: 0 };
+    // `duration: 0` jak przy `forbidTag` — postawa odnawia efekt co turę, więc
+    // zakaz trwa dokładnie tyle, ile jest noszona. „1" dałoby zakaz przeżywający
+    // wyjście z postawy o jedną turę.
+    case "forbidAction": return { type, action: "attack", duration: 0 };
     case "roll": return { type, modifier: "advantage" };
     case "status": return { type, status: "bleeding", duration: 1 };
     case "control": return { type, control: "stun", duration: 1 };

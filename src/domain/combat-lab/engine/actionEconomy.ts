@@ -8,6 +8,7 @@
 
 import { canUseCastable } from "@/domain/characters/Castable";
 import type { ManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
+import type { ForbiddenActionKind } from "@/domain/combat-lab/effects/Effect";
 import type { SnapshotMode, SnapshotSpell } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
 import { isStaggered } from "@/domain/combat-lab/engine/CombatState";
@@ -45,7 +46,7 @@ export function isReactiveManeuver(maneuver: ManeuverDefinition): boolean
  */
 export function availableProactiveManeuvers(runtime: CombatantRuntime): Action[]
 {
-  if (isStaggered(runtime)) return [];
+  if (isStaggered(runtime) || isActionForbidden(runtime, "maneuvers")) return [];
 
   const actions: Action[] = [];
   for (const maneuver of runtime.snapshot.maneuvers)
@@ -56,6 +57,12 @@ export function availableProactiveManeuvers(runtime: CombatantRuntime): Action[]
     }
   }
   return actions;
+}
+
+/** Whether a `forbidAction` ban currently locks this kind of action. */
+export function isActionForbidden(runtime: CombatantRuntime, action: ForbiddenActionKind): boolean
+{
+  return runtime.forbiddenActions.some(ban => ban.action === action);
 }
 
 /**
@@ -83,7 +90,9 @@ export function isTagForbidden(runtime: CombatantRuntime, tags: string[] | undef
  */
 export function availableReactiveManeuvers(runtime: CombatantRuntime): Action[]
 {
-  if (isStaggered(runtime)) return [];
+  // Zakaz manewrów obejmuje też reakcje — „nie można używać manewrów" nie ma
+  // wyjątku dla natychmiastowych, a to one są zwykle najcenniejsze.
+  if (isStaggered(runtime) || isActionForbidden(runtime, "maneuvers")) return [];
 
   const actions: Action[] = [];
   for (const maneuver of runtime.snapshot.maneuvers)
@@ -104,7 +113,7 @@ export function availableReactiveManeuvers(runtime: CombatantRuntime): Action[]
  */
 export function availableSpells(runtime: CombatantRuntime): Action[]
 {
-  if (runtime.attackedThisTurn) return [];
+  if (runtime.attackedThisTurn || isActionForbidden(runtime, "spells")) return [];
 
   const actions: Action[] = [];
   for (const spell of runtime.snapshot.spells)
@@ -130,7 +139,7 @@ export function availableSpells(runtime: CombatantRuntime): Action[]
  */
 export function availableStanceChanges(runtime: CombatantRuntime): Action[]
 {
-  if (isStaggered(runtime)) return [];
+  if (isStaggered(runtime) || isActionForbidden(runtime, "stanceChange")) return [];
 
   const repertoire = runtime.snapshot.stanceOptions ?? [];
   const current = runtime.activeStance?.mode.name;
