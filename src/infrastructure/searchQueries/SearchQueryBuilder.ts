@@ -1,5 +1,5 @@
 import { DEFAULT_PAGE_SIZE, isKeysetPagination, isOffsetPagination, KeysetPagination, OffsetPagination } from "@/common/global/pagination";
-import { anyOfValues, CharacterVisibilityMode, EntityName, EntityTypeMap, isUsableRequirementFilter, RequirementSearchFilter, SearchEntityPayload, SearchScalarValueInput, SearchValueInput, Select } from "@/common/global/SearchPayloads";
+import { anyOfValues, CharacterVisibilityMode, EntityName, EntityTypeMap, isUsableRequirementFilter, isUsableTagFacetFilter, RequirementSearchFilter, SearchEntityPayload, SearchScalarValueInput, SearchValueInput, Select, TagFacetFilter } from "@/common/global/SearchPayloads";
 
 export class SearchQueryBuilder<TEntity> 
 {
@@ -12,6 +12,7 @@ export class SearchQueryBuilder<TEntity>
   private _pagination?: OffsetPagination | KeysetPagination;
   private _characterVisibilityMode?: CharacterVisibilityMode;
   private _requirementFilters: RequirementSearchFilter[] = [];
+  private _tagFacetFilters: TagFacetFilter[] = [];
 
   private constructor(entity: string) 
   {
@@ -98,6 +99,18 @@ export class SearchQueryBuilder<TEntity>
   {
     const incoming = Array.isArray(filter) ? filter : [filter];
     this._requirementFilters.push(...incoming.filter(isUsableRequirementFilter));
+    return this;
+  }
+
+  /**
+   * Wave 10.3: accumulates like `requirementFilter` does. Filters that would
+   * narrow nothing (no values, no "— brak —") are dropped, so the UI can hold a
+   * facet section the user has opened but not chosen anything in.
+   */
+  tagFacetFilter(filter: TagFacetFilter | TagFacetFilter[] | undefined): this
+  {
+    const incoming = Array.isArray(filter) ? filter : [filter];
+    this._tagFacetFilters.push(...incoming.filter(isUsableTagFacetFilter));
     return this;
   }
 
@@ -215,6 +228,11 @@ export class SearchQueryBuilder<TEntity>
     if (this._requirementFilters.length > 0)
     {
       query.requirementFilters = this._requirementFilters;
+    }
+
+    if (this._tagFacetFilters.length > 0)
+    {
+      query.tagFacetFilters = this._tagFacetFilters;
     }
 
     const hasSelect = this._select && Object.keys(this._select).length > 0;

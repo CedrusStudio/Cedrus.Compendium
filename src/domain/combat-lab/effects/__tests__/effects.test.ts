@@ -60,6 +60,17 @@ describe("Effect model", () => {
       expect(effectSchema.safeParse({ type: "teleport" }).success).toBe(false);
     });
 
+    it("accepts every kind of action ban and rejects an invented one", () => {
+      for (const action of ["attack", "maneuvers", "stanceChange", "spells"])
+      {
+        expect(effectSchema.safeParse({ type: "forbidAction", action, duration: 0 }).success).toBe(true);
+      }
+      // Literówka w akcji musi paść przy wczytaniu, a nie zamienić się w zakaz,
+      // którego silnik nigdy nie sprawdzi.
+      expect(effectSchema.safeParse({ type: "forbidAction", action: "attacks", duration: 0 }).success).toBe(false);
+      expect(effectSchema.safeParse({ type: "forbidAction", action: "attack", duration: -1 }).success).toBe(false);
+    });
+
     it("validates the full maneuver extras", () => {
       const parsed = maneuverDefinitionExtrasSchema.safeParse({
         effects: shieldBash.effects,
@@ -83,6 +94,15 @@ describe("Effect model", () => {
       const empty = toManeuverDefinition({ ...CreateDefaultManeuver(), name: "Cios", cooldown: 0 });
       const text = describeManeuver(empty);
       expect(text).toBe("Cios (Standardowa).");
+    });
+
+    it("nazywa zakaz akcji po polsku", () => {
+      const maneuver = toManeuverDefinition({ ...CreateDefaultManeuver(), name: "Pełna Defensywna", cooldown: 0 });
+      maneuver.effects = [{ type: "forbidAction", action: "attack", duration: 0 }];
+      expect(describeManeuver(maneuver)).toBe("Pełna Defensywna (Standardowa). Uniemożliwia atakowanie.");
+
+      maneuver.effects = [{ type: "forbidAction", action: "stanceChange", duration: 2 }];
+      expect(describeManeuver(maneuver)).toBe("Pełna Defensywna (Standardowa). Uniemożliwia zmianę postawy na 2 rundy.");
     });
 
     it("renders dice-based damage with kX notation", () => {

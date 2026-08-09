@@ -28,10 +28,13 @@ import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
 import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
+import type { TagFacetFilter } from "@/domain/tags/tagFacets";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers, Wand2 } from "lucide-react";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -62,20 +65,26 @@ export default function ManeuversList()
   });
 
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [onlyNeedsEffects, setOnlyNeedsEffects] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters];
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
       const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
+      narrowToOwned(maneuversQuery, ownedFilter, debouncedSearchTerm);
       if (requirementFilters.length > 0) maneuversQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) maneuversQuery.tagFacetFilters = facetFilters;
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000
@@ -84,23 +93,32 @@ export default function ManeuversList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (pageNumber === 1)
     {
-      setDisplayedManeuvers(searchResults);
+      setDisplayedManeuvers(ownedResults);
       return;
     }
 
-    setDisplayedManeuvers(prev => [...prev, ...searchResults]);
-  }, [pageNumber, searchResults]);
+    setDisplayedManeuvers(prev => [...prev, ...ownedResults]);
+  }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
     setDisplayedManeuvers(EMPTY_ARRAY);
     setPageNumber(1);
   }, []);
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
   const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
   {
@@ -129,6 +147,12 @@ export default function ManeuversList()
   const handleRequirementFiltersChange = useCallback((filters: RequirementSearchFilter[]) =>
   {
     setRequirementFilters(filters);
+    clearResults();
+  }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+  {
+    setFacetFilters(filters);
     clearResults();
   }, [clearResults]);
 
@@ -176,7 +200,10 @@ export default function ManeuversList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="maneuvers"
-        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
+        facetEntity="maneuvers"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="maneuvers" onOwnedChange={setOwnedFilter} /></>}
       >
         <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />
         <Button

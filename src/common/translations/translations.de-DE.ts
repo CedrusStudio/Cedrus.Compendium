@@ -96,6 +96,13 @@ export const translations_deDE =
     compendium: "kompendium",
     rulebook: "regelbuch",
     "combat-lab": "combat lab",
+    races: "rassen",
+    replay: "wiederholung",
+    report: "bericht",
+    search: "suche",
+    admin: "verwaltung",
+    personalization: "personalisierung",
+    sheet: "blatt",
 
     battle: "schlacht",
     sum: "summe",

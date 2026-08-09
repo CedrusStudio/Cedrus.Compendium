@@ -1,5 +1,8 @@
 import { type SearchEntityPayload, type SearchByIdEntityPayload, SearchValueOutputs } from '@/common/global/SearchPayloads';
-import { createFiltering, createExcludeFiltering, createMapping, createSorting, collectRequirementFilters, Select } from '@/common/global/SearchPayloads';
+import { createFiltering, createExcludeFiltering, createMapping, createSorting, collectRequirementFilters, collectTagFacetFilters, Select } from '@/common/global/SearchPayloads';
+import { buildTagFacetConditions, toMongoTagConditions, toPrismaTagConditions, type PrismaTagCondition } from '@/domain/tags/tagFacets';
+import { loadTagFacetIndexForFiltering } from '@/persistence/tags/tagFacetLayer';
+import { searchEntityToTagEntity } from '@/lib/tagEntityModels';
 import { createOffsetPagination, createKeysetPagination, isKeysetPagination, isOffsetPagination } from '@/common/global/pagination';
 import prisma from '@/lib/prisma';
 import { toSpell } from '@/persistence/mappings/spellMappings';
@@ -91,6 +94,11 @@ export async function searchEntity<TMappedResult>(payload: SearchEntityPayload, 
   // folds the singular and plural payload fields into one list.
   const requirementFilters = collectRequirementFilters(payload);
 
+  // Wave 10.3: facet conditions are resolved ONCE, before the execution path is
+  // chosen, and rendered for whichever path runs. Building them separately per
+  // path is how the two would drift — the reason the renderers share a source.
+  const tagFacetConditions = await resolveTagFacetConditions(payload);
+
   if (requirementFilters.length > 0 && payload.entity !== CHARACTER_ENTITY)
   {
     const pipeline = buildRequirementSearchPipeline({
@@ -99,6 +107,7 @@ export async function searchEntity<TMappedResult>(payload: SearchEntityPayload, 
       sort: payload.sort,
       offset: isOffsetPagination(payload.pagination) ? payload.pagination : undefined,
       requirementFilters,
+      extraConditions: toMongoTagConditions(tagFacetConditions),
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -115,7 +124,7 @@ export async function searchEntity<TMappedResult>(payload: SearchEntityPayload, 
     return normalized as unknown as TMappedResult[];
   }
 
-  const findInput = createSearchInput(payload, apiKey, payload.include);
+  const findInput = createSearchInput(payload, apiKey, payload.include, toPrismaTagConditions(tagFacetConditions));
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const results = await (prisma[payload.entity as any] as any).findMany(findInput);
 
@@ -131,9 +140,9 @@ export async function searchEntity<TMappedResult>(payload: SearchEntityPayload, 
 type FilterCondition = Record<string, SearchValueOutputs>;
 type CursorCondition = { id: { gt: string } };
 type NotCondition = { NOT: FilterCondition };
-type AndConditionMember = FilterCondition | NotCondition | CursorCondition | CharacterVisibilityWhere;
+type AndConditionMember = FilterCondition | NotCondition | CursorCondition | CharacterVisibilityWhere | PrismaTagCondition;
 type AndCondition = { AND: Array<AndConditionMember> };
-type PrismaWhereClause = FilterCondition | AndCondition | NotCondition | CursorCondition | CharacterVisibilityWhere | undefined;
+type PrismaWhereClause = FilterCondition | AndCondition | NotCondition | CursorCondition | CharacterVisibilityWhere | PrismaTagCondition | undefined;
 
 // Type guards for narrowing
 function isAndCondition(where: PrismaWhereClause): where is AndCondition 
@@ -151,7 +160,7 @@ type FindInput =
   skip?: number;
 };
 
-function createSearchInput(payload: SearchEntityPayload, apiKey: string | null | undefined, includeFallback: Record<string, boolean> = {}): FindInput
+function createSearchInput(payload: SearchEntityPayload, apiKey: string | null | undefined, includeFallback: Record<string, boolean> = {}, tagFacetConditions: PrismaTagCondition[] = []): FindInput
 {
   const includeFilters = createFiltering(payload);
   const excludeFilters = createExcludeFiltering(payload);
@@ -162,11 +171,12 @@ function createSearchInput(payload: SearchEntityPayload, apiKey: string | null |
   // (user filters, exclude filters, character-visibility) is collected and
   // combined with AND — this keeps visibility enforced at the database level
   // instead of post-filtering results in application code.
-  const conditions: Array<FilterCondition | NotCondition | CharacterVisibilityWhere> = [];
+  const conditions: Array<AndConditionMember> = [];
 
   if (includeFilters) conditions.push(includeFilters);
   if (excludeFilters) conditions.push({ NOT: excludeFilters });
   if (payload.entity === CHARACTER_ENTITY) conditions.push(characterVisibilityWhere(apiKey, payload.characterVisibilityMode ?? 'all'));
+  conditions.push(...tagFacetConditions);
 
   let whereClause: PrismaWhereClause;
 
@@ -230,4 +240,25 @@ function createSearchInput(payload: SearchEntityPayload, apiKey: string | null |
   }
 
   return findInput;
+}
+/**
+ * Resolves the payload's facet filters against the facet layer.
+ *
+ * Returns nothing when the payload carries no facet filter, so a query written
+ * before Wave 10 never pays for loading the layer — and never changes shape.
+ */
+async function resolveTagFacetConditions(payload: SearchEntityPayload)
+{
+  const filters = collectTagFacetFilters(payload);
+  if (filters.length === 0) return [];
+
+  // The payload speaks the SEARCH vocabulary (`maneuver`), facets speak the
+  // tag-management one (`maneuvers`). Skipping this translation would build an
+  // index no facet claims, producing zero conditions and a filter that quietly
+  // narrows nothing.
+  const tagEntity = searchEntityToTagEntity[payload.entity];
+  if (!tagEntity) return [];
+
+  const index = await loadTagFacetIndexForFiltering(tagEntity);
+  return buildTagFacetConditions(filters, index);
 }

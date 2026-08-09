@@ -2,17 +2,23 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { isValidTag } from '@/domain/Tag';
 import { tagEntityModelMap } from '@/lib/tagEntityModels';
+import { deleteTagEverywhere } from '@/persistence/tags/deleteTagEverywhere';
+import type { TagRenameClient } from '@/persistence/tags/renameTagEverywhere';
 
 type TagDeleteBody = {
   entity?: string;
   tag?: string;
+  /** Report what would be removed without writing anything. */
+  dryRun?: boolean;
 };
 
-type TaggableEntity = {
-  id: string;
-  tags: string[];
-};
-
+/**
+ * Wave 10.2: a delete now sweeps the personalization profiles too, removes the
+ * orphaned `TagDefinition` once the tag is gone everywhere, and reports the
+ * names of the affected records — a delete leaves no other trace of what it
+ * removed. `count` requirements pointing at the tag are counted, not edited:
+ * what to do with an unsatisfiable requirement is a content decision.
+ */
 export async function POST(request: Request)
 {
   try
@@ -20,9 +26,9 @@ export async function POST(request: Request)
     const body = await request.json() as TagDeleteBody;
     const entity = body.entity?.trim() ?? '';
     const tag = body.tag?.trim() ?? '';
-    const modelName = tagEntityModelMap[entity];
+    const dryRun = body.dryRun === true;
 
-    if (!modelName)
+    if (!tagEntityModelMap[entity])
     {
       return NextResponse.json({ message: `Invalid entity: ${entity}` }, { status: 400 });
     }
@@ -37,24 +43,10 @@ export async function POST(request: Request)
       return NextResponse.json({ message: 'Tags must be lowercase single words' }, { status: 400 });
     }
 
-    // @ts-expect-error Prisma does not type dynamic model access precisely.
-    const model = prisma[modelName];
+    const report = await deleteTagEverywhere(prisma as unknown as TagRenameClient, { entity, tag, dryRun });
 
-    const affectedEntities = await model.findMany({
-      where: { tags: { has: tag } },
-      select: { id: true, tags: true },
-    }) as TaggableEntity[];
-
-    await Promise.all(
-      affectedEntities.map(entityRecord => model.update({
-        where: { id: entityRecord.id },
-        data: {
-          tags: entityRecord.tags.filter(existingTag => existingTag !== tag),
-        },
-      })),
-    );
-
-    return NextResponse.json({ updatedCount: affectedEntities.length }, { status: 200 });
+    // `updatedCount` kept for the admin panel, which predates the report.
+    return NextResponse.json({ updatedCount: report.records, ...report }, { status: 200 });
   }
   catch (error)
   {

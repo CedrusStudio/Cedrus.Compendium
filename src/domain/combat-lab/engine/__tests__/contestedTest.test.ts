@@ -7,6 +7,9 @@ import { createRng } from "@/domain/combat-lab/rng/Rng";
 import type { ContestedTestEffect, SaveTestEffect } from "@/domain/combat-lab/effects/Effect";
 import type { Statistic } from "@/domain/characters/statistics/Statistic";
 import { makeSnapshot, makeAttributes, makeCharacteristics } from "@/domain/combat-lab/engine/__tests__/engineFixtures";
+import type { SnapshotMode } from "@/domain/combat-lab/engine/CombatantSnapshot";
+import { effectiveSkills } from "@/domain/combat-lab/engine/buffs";
+import { createDefaultBuffProfile } from "@/domain/characters/buffs/BuffProfile";
 
 const s = (value: number, grade = 3): Statistic => ({ grade, value, bonus: 0, testBonus: 0 });
 const skills = (attributes = {}, characteristics = {}) => ({ attributes: makeAttributes(attributes), characteristics: makeCharacteristics(characteristics) });
@@ -81,6 +84,109 @@ describe("applyEffect — contested", () => {
     applyEffects([contested({ onWinTarget: "self", onWin: [{ type: "stat", mode: "self", duration: 1, dodge: 2 }] })], source, target, ctx());
     expect(source.activeBuffs).toHaveLength(1);
     expect(source.activeBuffs[0]!.profile.defense.dodge).toBe(2);
+  });
+});
+
+/**
+ * Wave 9.2. Before this, `resolveContestedTest` read `snapshot.skills` — frozen
+ * when the snapshot was built — so a bonus granted mid-fight never reached the
+ * one mechanic where the attribute is actually rolled.
+ */
+describe("żywe atrybuty w teście spornym", () => {
+  const ctx = () => ({ random: createRng(1).next, log: new CombatLogBuilder(1) });
+
+  /** A profile that shifts one attribute, the way a stance or maneuver would. */
+  const fencingProfile = (value: number) => {
+    const profile = createDefaultBuffProfile();
+    profile.attributes.fencing.value = value;
+    return profile;
+  };
+
+  it("nie kopiuje niczego, gdy nie ma profili — gorąca ścieżka symulacji", () => {
+    const base = skills({ fencing: s(5) });
+    expect(effectiveSkills(base, [])).toBe(base);
+  });
+
+  it("nie rusza snapshotu, który jest współdzielony między biegami symulacji", () => {
+    const base = skills({ fencing: s(5) });
+    effectiveSkills(base, [fencingProfile(4)]);
+    expect(base.attributes.fencing.value).toBe(5);
+  });
+
+  it("buff źródła podnosi jego stronę testu", () => {
+    const withBuff = effectiveSkills(skills({ fencing: s(5) }), [fencingProfile(6)]);
+    expect(expectedSideResult(withBuff, { pool: [{ anyOf: [ref("attributes", "fencing")] }] }))
+      .toBeGreaterThan(expectedSideResult(skills({ fencing: s(5) }), { pool: [{ anyOf: [ref("attributes", "fencing")] }] }));
+  });
+
+  it("wygrywa test, który bez buffa by przegrał", () => {
+    const attacker = () => createRuntime(makeSnapshot("A", { attributes: { fencing: s(1) } }));
+    const defender = () => createRuntime(makeSnapshot("B", { attributes: { reflex: s(20) } }));
+
+    // Kontrola: bez buffa fechtunek 1 nie ma szans przeciw refleksowi 20.
+    const plain = defender();
+    applyEffects([contested()], attacker(), plain, ctx());
+    expect(plain.currentHp).toBe(plain.snapshot.maxHp);
+
+    const buffed = attacker();
+    buffed.activeBuffs.push({ profile: fencingProfile(40), remaining: 1 });
+    const target = defender();
+    applyEffects([contested()], buffed, target, ctx());
+    expect(target.currentHp).toBe(target.snapshot.maxHp - 5);
+  });
+
+  it("debuff CELU też się liczy — `mode: \"target\"` daje ujemny profil na przeciwniku", () => {
+    const attacker = () => createRuntime(makeSnapshot("A", { attributes: { fencing: s(10) } }));
+
+    const reflexDebuff = createDefaultBuffProfile();
+    reflexDebuff.attributes.reflex.value = -40;
+
+    const strong = createRuntime(makeSnapshot("B", { attributes: { reflex: s(30) } }));
+    applyEffects([contested()], attacker(), strong, ctx());
+    expect(strong.currentHp).toBe(strong.snapshot.maxHp);
+
+    const weakened = createRuntime(makeSnapshot("B", { attributes: { reflex: s(30) } }));
+    weakened.activeBuffs.push({ profile: reflexDebuff, remaining: 1 });
+    applyEffects([contested()], attacker(), weakened, ctx());
+    expect(weakened.currentHp).toBe(weakened.snapshot.maxHp - 5);
+  });
+
+  /**
+   * Spina 9.2 z 9.3. Osobno każda część wygląda na działającą: 9.3 zapisuje
+   * `fencing` do profilu, 9.2 czyta profile przy rzucie. Dopiero razem znaczą,
+   * że postawa „+N fechtunku" cokolwiek robi — a to była cała stawka obu zadań.
+   */
+  it("postawa z `fencing` wygrywa test sporny, którego bez niej nie wygrywa", () => {
+    const fencingStance = (value: number): SnapshotMode =>
+      ({ name: "Postawa Fechmistrza", baseGrade: 1, variantsByGrade: { 1: [{ type: "stat", mode: "self", duration: 0, fencing: value }] } });
+
+    const run = (value: number | null) => {
+      const source = createRuntime(makeSnapshot("A", {
+        attributes: { fencing: s(1) },
+        ...(value === null ? {} : { stance: undefined }),
+      }));
+      if (value !== null)
+      {
+        // Postawa odpala swoje efekty na starcie tury; tu wołamy je wprost,
+        // żeby test mierzył rzut, a nie pętlę tur.
+        applyEffects(fencingStance(value).variantsByGrade[1]!, source, source, ctx());
+      }
+      const target = createRuntime(makeSnapshot("B", { attributes: { reflex: s(20) } }));
+      applyEffects([contested()], source, target, ctx());
+      return target.snapshot.maxHp - target.currentHp;
+    };
+
+    expect(run(null)).toBe(0);
+    expect(run(40)).toBe(5);
+  });
+
+  it("`grade` przesuwa rozkład, nie sumę — dlatego testy porównują z ustalonym seedem", () => {
+    const bigger = createDefaultBuffProfile();
+    bigger.attributes.fencing.grade = 3;
+
+    const boosted = effectiveSkills(skills({ fencing: s(5, 2) }), [bigger]);
+    expect(boosted.attributes.fencing.grade).toBe(5);
+    expect(boosted.attributes.fencing.value).toBe(5);
   });
 });
 

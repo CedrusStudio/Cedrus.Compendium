@@ -18,7 +18,8 @@
 
 import type { Effect } from "@/domain/combat-lab/effects/Effect";
 import type { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
-import type { CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
+import { activeBuffProfiles, type CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
+import { effectiveSkills } from "@/domain/combat-lab/engine/buffs";
 import { selectDefaultOffense } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { applyOffenseBuff } from "@/domain/characters/buffs/applyBuffProfile";
 import { expectedOffenseDamage, expectedDamageSpec } from "@/domain/combat-lab/engine/ai/expectedDamage";
@@ -63,6 +64,12 @@ function effectValue(self: CombatantRuntime, opponent: CombatantRuntime, effect:
       return debuffValue(self, opponent, effect.profile.profileId, effect.duration, selfRaw);
     case "stat":
     {
+      // ⚠ Znane niedoszacowanie (Fala 9.3): wycena idzie przez obrażenia
+      // i warstwy obrony, a atrybuty testowe („+2 fechtunku") nie wpływają na
+      // żadne z nich — więc postawa fechmistrzowska wycenia się na 0 i AI jej
+      // nie wybierze, mimo że w teście spornym realnie pomaga. Docelowo wycena
+      // powinna uwzględniać przewagę w testach; do tego czasu SYMULACJA jest
+      // poprawna, a tylko wybór AI zachowawczy.
       const profile = statEffectToProfile(effect);
       return effect.mode === "self"
         ? selfBuffValueFromProfile(self, profile, effect.duration, oppRaw)
@@ -80,7 +87,10 @@ function effectValue(self: CombatantRuntime, opponent: CombatantRuntime, effect:
       // Estimate win probability from the expected margin, then credit the
       // value of the onWin effects. Heuristic (no rolling): a +/-20 spread maps
       // roughly to certain win/loss.
-      const margin = expectedSideResult(self.snapshot.skills, effect.attacker) - expectedSideResult(opponent.snapshot.skills, effect.defender);
+      // Te same liczby, co potem w `resolveContestedTest` — inaczej AI wybiera
+      // manewr na podstawie wartości sprzed buffów, a rzut idzie po innych.
+      const margin = expectedSideResult(effectiveSkills(self.snapshot.skills, activeBuffProfiles(self)), effect.attacker)
+        - expectedSideResult(effectiveSkills(opponent.snapshot.skills, activeBuffProfiles(opponent)), effect.defender);
       const pWin = Math.max(0, Math.min(1, 0.5 + margin / 20));
       return pWin * expectedManeuverValue(self, opponent, effect.onWin);
     }
@@ -89,7 +99,7 @@ function effectValue(self: CombatantRuntime, opponent: CombatantRuntime, effect:
       // The target (default) saves vs a fixed ST; the more likely it fails, the
       // more the onFail effects (usually damage to the opponent) are worth.
       const saver = effect.who === "self" ? self : opponent;
-      const expRoll = expectedSideResult(saver.snapshot.skills, effect.pool);
+      const expRoll = expectedSideResult(effectiveSkills(saver.snapshot.skills, activeBuffProfiles(saver)), effect.pool);
       const pFail = Math.max(0, Math.min(1, 0.5 + (effect.st - expRoll) / 20));
       return pFail * expectedManeuverValue(self, opponent, effect.onFail);
     }

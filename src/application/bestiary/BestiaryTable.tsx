@@ -5,7 +5,6 @@ import { useState, useEffect, useCallback } from "react";
 import { displayedText } from "@/common/translations";
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
-import TagFilter from "@/common/components/filters/TagFilter";
 import CharacterVisibilityFilter from "@/common/components/filters/CharacterVisibilityFilter";
 import { Button } from "@/common/components/ui/button";
 import { addIcon } from "@/common/icons";
@@ -25,6 +24,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingSpinner from "@/common/components/LoadingSpinner";
 import { AccessorKeyColumnDef } from "@tanstack/react-table"
 import { useEntityTags } from "@/common/hooks/useEntityTags";
+import TagFilterSwitcher from '@/common/components/filters/TagFilterSwitcher';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import { Table } from "@/ui/table";
 import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import BestiaryTableRow from "@/application/bestiary/BestiaryTableRow";
@@ -45,6 +46,7 @@ export default function BestiaryTable()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [displayedCharacters, setDisplayedCharacters] = useState<Character[]>(EMPTY_ARRAY);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
@@ -62,13 +64,14 @@ export default function BestiaryTable()
 
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
 
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize, excludedTags, apiKey, visibilityMode);
+  const queryKey = [...createSearchCharactersKey(debouncedSearchTerm || '', cursor, searchTags, pageSize, excludedTags, apiKey, visibilityMode), facetFilters];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
       const charactersQuery = createCharacterQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags, visibilityMode);
+      if (facetFilters.length > 0) charactersQuery.tagFacetFilters = facetFilters;
       const rawCharacters = await client.search<CharacterWithRelations[]>(charactersQuery);
       return toCharacters(rawCharacters);
     },
@@ -105,6 +108,17 @@ export default function BestiaryTable()
     setSearchInput(e.target.value);
     clearResults();
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -190,13 +204,16 @@ export default function BestiaryTable()
             className="max-w-md"
           />
 
-          <TagFilter
+          <TagFilterSwitcher
+            entity="characters"
             includedTags={searchTags}
             onIncludedTagsChange={handleSearchTagsChange}
             availableTags={availableTags}
             isLoading={tagsLoading}
             excludedTags={excludedTags}
             onExcludedTagsChange={handleExcludedTagsChange}
+            facetFilters={facetFilters}
+            onFacetFiltersChange={handleFacetFiltersChange}
           />
 
           <CharacterVisibilityFilter

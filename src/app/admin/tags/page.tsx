@@ -1,34 +1,23 @@
 "use client";
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { useAdminStatus } from '@/common/hooks/useAdminStatus';
+import { Button } from '@/ui/button';
+import TagFacetsPanel from '@/application/admin/TagFacetsPanel';
 import tagManagementClient, { ManagedTag } from '@/infrastructure/clients/tagManagementClient';
 import { EntityType } from '@/infrastructure/clients/tagsClient';
+import { entityLabelsPl } from '@/common/translations/entityLabels';
 import AdminEntityManagementPanel from '@/app/admin/components/AdminEntityManagementPanel';
 import { useAdminEntityManagement } from '@/app/admin/components/useAdminEntityManagement';
 
-const entityLabels: Record<EntityType, string> = {
-  characters: 'Postacie',
-  weapons: 'Bronie',
-  armors: 'Zbroje',
-  shields: 'Tarcze',
-  spells: 'Zaklecia',
-  perks: 'Atuty',
-  races: 'Rasy',
-  maneuvers: 'Manewry',
-  stances: 'Postawy',
-  states: 'Stany',
-  inventory: 'Przedmioty',
-  mounts: 'Wierzchowce',
-  powerSpecifications: 'Moce',
-};
-
-const entityOptions = Object.keys(entityLabels) as EntityType[];
-const entitySelectItems = entityOptions.map(entity => ({ label: entityLabels[entity], value: entity }));
+const entityOptions = Object.keys(entityLabelsPl) as EntityType[];
+const entitySelectItems = entityOptions.map(entity => ({ label: entityLabelsPl[entity], value: entity }));
 
 export default function TagManagementPage()
 {
   const { isAdmin, isCheckingAdmin, isLoaded } = useAdminStatus();
+  const [tab, setTab] = useState<'tags' | 'facets'>('tags');
   const management = useAdminEntityManagement<EntityType, ManagedTag>({
     enabled: isLoaded && isAdmin,
     initialEntity: 'perks',
@@ -57,8 +46,20 @@ export default function TagManagementPage()
     );
   }
 
+  if (tab === 'facets')
+  {
+    return (
+      <div className="container mx-auto px-6 py-8">
+        <TabSwitch tab={tab} onTabChange={setTab} />
+        <TagFacetsPanel />
+      </div>
+    );
+  }
+
   return (
-    <AdminEntityManagementPanel
+    <div className="container mx-auto px-6 pt-8">
+      <TabSwitch tab={tab} onTabChange={setTab} />
+      <AdminEntityManagementPanel
       title="Zarządzanie tagami"
       description="Przeglądaj tagi po typie encji, sprawdzaj liczbę wystąpień i wykonuj zbiorcze zmiany."
       itemLabel="Tag"
@@ -88,7 +89,22 @@ export default function TagManagementPage()
       confirmRenameButtonLabel="Potwierdź zmianę"
       confirmDeleteButtonLabel="Potwierdź usunięcie"
       renameActionAriaLabel="Edytuj"
-      deleteActionAriaLabel="Usuń"
-    />
+        deleteActionAriaLabel="Usuń"
+      />
+    </div>
+  );
+}
+
+function TabSwitch({ tab, onTabChange }: { tab: 'tags' | 'facets'; onTabChange: (tab: 'tags' | 'facets') => void })
+{
+  return (
+    <div className="mb-4 flex gap-2">
+      <Button type="button" size="sm" variant={tab === 'tags' ? 'default' : 'outline'} onClick={() => onTabChange('tags')}>
+        Tagi
+      </Button>
+      <Button type="button" size="sm" variant={tab === 'facets' ? 'default' : 'outline'} onClick={() => onTabChange('facets')}>
+        Kategorie tagów
+      </Button>
+    </div>
   );
 }

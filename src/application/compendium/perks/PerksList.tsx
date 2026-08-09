@@ -19,6 +19,7 @@ import { useDebounce } from "use-debounce";
 import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
@@ -26,6 +27,8 @@ import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import { displayedText } from "@/common/translations";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import { List, Layers } from "lucide-react";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -40,6 +43,7 @@ export default function PerksList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('perks');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('perks-grouped-view') === 'true';
@@ -48,19 +52,25 @@ export default function PerksList()
   });
 
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters];
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
       const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+      narrowToOwned(perksQuery, ownedFilter, debouncedSearchTerm);
       if (requirementFilters.length > 0) perksQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) perksQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -69,17 +79,22 @@ export default function PerksList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (pageNumber === 1)
     {
-      setDisplayedPerks(searchResults);
+      setDisplayedPerks(ownedResults);
       return;
     }
 
-    setDisplayedPerks(prev => [...prev, ...searchResults]);
-  }, [pageNumber, searchResults]);
+    setDisplayedPerks(prev => [...prev, ...ownedResults]);
+  }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -98,6 +113,24 @@ export default function PerksList()
     clearResults();
     setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -151,7 +184,10 @@ export default function PerksList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="perks"
-        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
+        facetEntity="perks"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="perks" onOwnedChange={setOwnedFilter} /></>}
       >
         <Button
           variant="outline"

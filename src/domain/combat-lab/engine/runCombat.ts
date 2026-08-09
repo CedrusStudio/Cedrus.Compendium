@@ -17,7 +17,7 @@ import type { CombatantSnapshot, SnapshotMode } from "@/domain/combat-lab/engine
 import type { CombatLog, CombatEndReason } from "@/domain/combat-lab/engine/CombatLog";
 import { CombatLogBuilder } from "@/domain/combat-lab/engine/CombatLog";
 import type { CombatState, CombatantRuntime } from "@/domain/combat-lab/engine/CombatState";
-import { createRuntime, canAct, isStaggered, activeBuffProfiles } from "@/domain/combat-lab/engine/CombatState";
+import { createRuntime, canAct, isStaggered, activeBuffProfiles, tickForbiddenTags, tickForbiddenActions } from "@/domain/combat-lab/engine/CombatState";
 import { createRng } from "@/domain/combat-lab/rng/Rng";
 import { getStatisticTotalTestValue } from "@/domain/characters/statistics/Statistic";
 import { resolveAttack } from "@/domain/combat-lab/engine/resolveAttack";
@@ -25,7 +25,7 @@ import { resolveRangedAttack, rangedCategory, DISTANCE_ST } from "@/domain/comba
 import { dealDamage, reduceDamage, bypassesBarrier, applyDamageMultipliers } from "@/domain/combat-lab/engine/damage";
 import { applyEffects } from "@/domain/combat-lab/engine/applyEffect";
 import { variantEffectsAt } from "@/domain/combat-lab/effects/ModeDefinition";
-import { availableProactiveManeuvers, availableReactiveManeuvers, availableSpells, availableStanceChanges, tickSpellCooldowns, recordAction, endTurnLedger, type Action } from "@/domain/combat-lab/engine/actionEconomy";
+import { availableProactiveManeuvers, availableReactiveManeuvers, availableSpells, availableStanceChanges, isActionForbidden, tickSpellCooldowns, recordAction, endTurnLedger, type Action } from "@/domain/combat-lab/engine/actionEconomy";
 import { basicAttackPolicy, greedyDamagePolicy, type ActionPolicy } from "@/domain/combat-lab/engine/ai/policy";
 import { rollDamageSpec } from "@/domain/combat-lab/engine/rollOffense";
 import { selectDefaultDefense } from "@/domain/combat-lab/engine/CombatantSnapshot";
@@ -95,6 +95,7 @@ export function runCombat(
       tickSpellCooldowns(actor);
       tickRankBonus(actor);
       tickForbiddenTags(actor);
+      tickForbiddenActions(actor);
       actor.stanceChangedThisTurn = false;
       // Read-and-clear: a post-attack change costs exactly ONE pre-attack window,
       // even if this turn is spent stunned or downed. Leaving the flag set until
@@ -208,18 +209,30 @@ function takeTurn(
   // the policy chooses between the basic attack and any affordable spell.
   if (!actor.attackedThisTurn)
   {
-    const attack: Action = actor.snapshot.attackKind === "melee" ? { kind: "attack" } : { kind: "ranged" };
+    // Atak nie jest wpisem z biblioteki i nie ma tagów, więc `isTagForbidden`
+    // go nie dosięga — stąd osobny `forbidAction` (Pełna Defensywna).
+    const attackForbidden = isActionForbidden(actor, "attack");
     const spells = availableSpells(actor);
-    let chosen: Action = attack;
-    if (spells.length > 0)
+    const attack: Action = actor.snapshot.attackKind === "melee" ? { kind: "attack" } : { kind: "ranged" };
+    const options: Action[] = attackForbidden ? spells : [attack, ...spells];
+
+    if (options.length === 0)
     {
-      const pick = policy.chooseAction(actor, opponent, [attack, ...spells]);
-      chosen = pick.kind === "spell" || pick.kind === "attack" || pick.kind === "ranged" ? pick : attack;
+      // Bez tej gałęzi tura znikałaby z logu bez śladu: `pass` logował się
+      // dotąd wyłącznie przy `!canAct`, a tu aktor jest w pełni przytomny.
+      log.push({ kind: "pass", actorId: actor.snapshot.id, reason: "attackForbidden" });
     }
-    executeAction(actor, opponent, chosen, policies, random, log, distanceST);
-    recordAction(actor, chosen);
-    checkDeath(opponent, log);
-    if (!opponent.alive) return;
+    else
+    {
+      const fallback = options[0]!;
+      const pick = options.length > 1 ? policy.chooseAction(actor, opponent, options) : fallback;
+      const chosen = pick.kind === "spell" || pick.kind === "attack" || pick.kind === "ranged" ? pick : fallback;
+
+      executeAction(actor, opponent, chosen, policies, random, log, distanceST);
+      recordAction(actor, chosen);
+      checkDeath(opponent, log);
+      if (!opponent.alive) return;
+    }
   }
 
   // Phase 3 — stance change AFTER the attack, for anyone who kept the window.
@@ -509,18 +522,6 @@ function tickRankBonus(runtime: CombatantRuntime): void
   }
 }
 
-/**
- * Age the tag bans. Entries seeded with duration 0 are SUSTAINED by whatever
- * keeps re-applying them (a stance/state auto-cast), so they are dropped here
- * and immediately re-seeded a few lines later — which is exactly what makes a
- * ban end the moment the wearer leaves the mode.
- */
-function tickForbiddenTags(runtime: CombatantRuntime): void
-{
-  runtime.forbiddenTags = runtime.forbiddenTags
-    .map(ban => (ban.remaining > 0 ? { ...ban, remaining: ban.remaining - 1 } : ban))
-    .filter(ban => ban.remaining > 0);
-}
 
 /** Re-apply the active stance & state effects at the (rank-adjusted) grade. */
 function autoCastModes(actor: CombatantRuntime, opponent: CombatantRuntime, random: () => number, log: CombatLogBuilder): void

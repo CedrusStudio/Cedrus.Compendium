@@ -1,15 +1,18 @@
 "use client";
 
 /**
- * ROADMAP 2.2 — "Filtrowanie Postaw i Stanów wg wybranej postaci": lets a
- * Kompendium list of Postawy/Stany be narrowed down to only the ones a chosen
- * character actually has on their sheet. Search-and-pick a character (same
- * pattern as the Combat Lab combatant picker), then toggle the filter on/off
- * without losing the selection.
+ * ROADMAP 2.2 — "tylko to, co ma ta postac": narrows a compendium list to the
+ * entries a chosen character actually carries on their sheet. Search-and-pick a
+ * character (same pattern as the Combat Lab combatant picker), then toggle the
+ * filter on/off without losing the selection.
+ *
+ * Emits an `OwnedFilter` for the QUERY, not a set for client-side filtering —
+ * see `characterOwnership.ts` for why that distinction is the whole feature.
  */
 
-import { useEffect, useState } from "react";
-import { User, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { ExternalLink, User, X } from "lucide-react";
 import { useSearchCharactersSummary } from "@/application/characters/hooks/useSearchCharactersSummary";
 import { useCharacterById } from "@/application/combat-lab/hooks/useCharacterById";
 import { emptyUlid } from "@/common/global/pagination";
@@ -17,10 +20,11 @@ import { Input } from "@/common/components/ui/input";
 import { Button } from "@/common/components/ui/button";
 import { Checkbox } from "@/common/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
+import { ownedFilterFor, ownedFilterKey, type CharacterOwnedKind, type OwnedFilter } from "@/application/compendium/characterOwnership";
 
-export type CharacterModeFilterKind = "stances" | "states";
+export type CharacterModeFilterKind = CharacterOwnedKind;
 
-export function CharacterModeFilter({ kind, onOwnNamesChange }: { kind: CharacterModeFilterKind; onOwnNamesChange: (ownNames: Set<string> | null) => void })
+export function CharacterModeFilter({ kind, onOwnedChange }: { kind: CharacterOwnedKind; onOwnedChange: (owned: OwnedFilter | null) => void })
 {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -30,31 +34,59 @@ export function CharacterModeFilter({ kind, onOwnNamesChange }: { kind: Characte
   const { characters } = useSearchCharactersSummary(search, emptyUlid);
   const { character } = useCharacterById(characterId);
 
-  const ownNames = character ? new Set((kind === "stances" ? character.stances : character.states).map(m => m.name)) : null;
+  /*
+   * Both halves of the old "Maximum update depth exceeded" loop lived here: the
+   * effect below pushes this value into the parent's state, so anything built
+   * fresh on every render (a `new Set`, or `toCharacter` re-running inside
+   * `useCharacterById`) fed itself. The memo key is a flat string, so it changes
+   * only when the owned entries genuinely change.
+   */
+  const raw = character ? ownedFilterFor(character, kind) : null;
+  const key = ownedFilterKey(raw);
+  const owned = useMemo(() => raw, [key]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Re-notify the parent list whenever the effective filter changes (selection,
-  // the on/off toggle, or the character's own data resolving after selection).
   useEffect(() =>
   {
-    onOwnNamesChange(enabled ? ownNames : null);
+    onOwnedChange(enabled ? owned : null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characterId, enabled, character]);
+  }, [owned, enabled]);
 
+  // Zdjecie filtra musi wyczyscic tez stan rodzica - inaczej lista zostaje
+  // zawezona do postaci, ktorej juz nie widac w UI.
   const clearSelection = () =>
   {
     setCharacterId(undefined);
     setSearch("");
+    onOwnedChange(null);
   };
 
   if (character)
   {
     return (
-      <div className="flex items-center gap-2 text-sm">
-        <label className="flex items-center gap-2 rounded-md border px-2 py-1.5 text-xs">
-          <Checkbox checked={enabled} onCheckedChange={c => setEnabled(c === true)} />
-          <span className="whitespace-nowrap">Tylko posiadane przez: <span className="font-medium capitalize">{character.name}</span></span>
-        </label>
-        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={clearSelection} aria-label="Usuń filtr postaci" title="Usuń filtr postaci">
+      <div className="flex items-center gap-1 text-sm">
+        <div className="flex h-9 items-center gap-2 rounded-md border px-2 text-xs">
+          {/* Checkbox i nazwa maja WLASNE etykiety, bo robia co innego: jedno
+              wlacza filtr, drugie otwiera karte postaci. Wspolny <label>
+              przechwytywalby klikniecie w link. */}
+          <label className="flex cursor-pointer items-center gap-2" title={enabled ? "Wylacz zawezenie" : "Wlacz zawezenie"}>
+            <Checkbox checked={enabled} onCheckedChange={c => setEnabled(c === true)} />
+            <User className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+          </label>
+
+          {/* Prawdziwy <a href>, nie onClick: ma dzialac srodkowy przycisk,
+              Ctrl+klik i „otworz w nowej karcie" z menu kontekstowego. */}
+          <Link
+            href={`/characters/${character.id}`}
+            className="flex max-w-[10rem] items-center gap-1 truncate font-medium capitalize hover:underline"
+            title={`Otworz karte: ${character.name}`}
+          >
+            <span className="truncate">{character.name}</span>
+            <ExternalLink className="h-3 w-3 shrink-0 opacity-60" />
+          </Link>
+
+          {owned && owned.values.length === 0 && <span className="text-muted-foreground">(nic tutaj)</span>}
+        </div>
+        <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0" onClick={clearSelection} aria-label="Usun filtr postaci" title="Usun filtr postaci">
           <X className="h-4 w-4" />
         </Button>
       </div>
@@ -64,16 +96,17 @@ export function CharacterModeFilter({ kind, onOwnNamesChange }: { kind: Characte
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
+        {/* Sam ludek, w rozmiarze pozostalych kontrolek paska (h-9). Podpis
+            jedzie do `title`/`aria-label`, zeby nie rozpychal wiersza filtrow. */}
+        <Button variant="outline" size="icon" className="h-9 w-9 shrink-0" aria-label="Filtruj wg postaci" title="Filtruj wg postaci">
           <User className="h-4 w-4" />
-          Filtruj wg postaci
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-72 p-2">
-        <Input placeholder="Szukaj postaci…" value={search} onChange={e => setSearch(e.target.value)} className="h-8" autoFocus />
+        <Input placeholder="Szukaj postaci..." value={search} onChange={e => setSearch(e.target.value)} className="h-8" autoFocus />
         <div className="mt-2 max-h-48 overflow-y-auto rounded border">
           {characters.length === 0 && (
-            <p className="px-3 py-2 text-xs text-muted-foreground">Brak wyników.</p>
+            <p className="px-3 py-2 text-xs text-muted-foreground">Brak wynikow.</p>
           )}
           {characters.map(c => (
             <button

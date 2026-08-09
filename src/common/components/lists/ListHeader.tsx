@@ -7,6 +7,9 @@ import { Input } from "@/common/components/ui/input";
 import { Button } from "@/common/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/common/components/ui/collapsible";
 import TagFilter from "@/common/components/filters/TagFilter";
+import TagFilterSwitcher from "@/common/components/filters/TagFilterSwitcher";
+import type { EntityType } from '@/infrastructure/clients/tagsClient';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
 import { MAX_GRADE_FILTER, MIN_GRADE_FILTER } from '@/common/global/gradeFilter';
 import { type PersonalizationContext } from '@/common/personalization/personalizationProfile';
@@ -26,6 +29,14 @@ type ListHeaderProps =
   personalizationContext?: PersonalizationContext;
   /** Optional extra filter controls rendered inline in the main filter row. */
   extraFilters?: React.ReactNode;
+  /**
+   * Wave 10.4: pass these three together to offer the faceted filter. Omitting
+   * them keeps the flat `TagFilter` exactly as it was, so a list that has not
+   * been migrated yet is unaffected.
+   */
+  facetEntity?: EntityType;
+  facetFilters?: TagFacetFilter[];
+  handleFacetFiltersChange?: (filters: TagFacetFilter[]) => void;
 }
 
 export default function ListHeader
@@ -44,6 +55,9 @@ export default function ListHeader
     tagsLoading,
     personalizationContext,
     extraFilters,
+    facetEntity,
+    facetFilters,
+    handleFacetFiltersChange,
   }
   : React.PropsWithChildren<ListHeaderProps>)
 {
@@ -80,14 +94,32 @@ export default function ListHeader
             )
           }
 
-          <TagFilter
-            includedTags={searchTags}
-            onIncludedTagsChange={handleSearchTagsChange}
-            excludedTags={excludedTags}
-            onExcludedTagsChange={handleExcludedTagsChange}
-            availableTags={availableTags}
-            isLoading={tagsLoading}
-          />
+          {
+            facetEntity && facetFilters && handleFacetFiltersChange
+              ? (
+                <TagFilterSwitcher
+                  entity={facetEntity}
+                  includedTags={searchTags}
+                  onIncludedTagsChange={handleSearchTagsChange}
+                  excludedTags={excludedTags}
+                  onExcludedTagsChange={handleExcludedTagsChange}
+                  availableTags={availableTags}
+                  isLoading={tagsLoading}
+                  facetFilters={facetFilters}
+                  onFacetFiltersChange={handleFacetFiltersChange}
+                />
+              )
+              : (
+                <TagFilter
+                  includedTags={searchTags}
+                  onIncludedTagsChange={handleSearchTagsChange}
+                  excludedTags={excludedTags}
+                  onExcludedTagsChange={handleExcludedTagsChange}
+                  availableTags={availableTags}
+                  isLoading={tagsLoading}
+                />
+              )
+          }
 
           {extraFilters}
         </div>

@@ -123,6 +123,13 @@ export const displayedText =
     compendium: translate("compendium"),
     rulebook: translate("rulebook"),
     "combat-lab": translate("combat-lab"),
+    races: translate("races"),
+    replay: translate("replay"),
+    report: translate("report"),
+    search: translate("search"),
+    admin: translate("admin"),
+    personalization: translate("personalization"),
+    sheet: translate("sheet"),
 
     battle: translate("battle"),
     sum: translate("sum"),

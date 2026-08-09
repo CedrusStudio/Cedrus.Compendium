@@ -21,6 +21,7 @@ import { useDebounce } from "use-debounce";
 import { normalizeGradeFilterInput, parseGradeFilterInput } from "@/common/global/gradeFilter";
 import { DEFAULT_PAGE_SIZE } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
@@ -29,6 +30,8 @@ import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
 import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -44,6 +47,7 @@ export default function SpellsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('spells');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [selectedCastTimes, setSelectedCastTimes] = useState<CastTime[]>(EMPTY_ARRAY);
   const [isGroupedView, setIsGroupedView] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -53,19 +57,25 @@ export default function SpellsList()
   });
 
   const [displayedSpells, setDisplayedSpells] = useState<Spell[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters];
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
       const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
+      narrowToOwned(spellsQuery, ownedFilter, debouncedSearchTerm);
       if (requirementFilters.length > 0) spellsQuery.requirementFilters = requirementFilters;
+      if (facetFilters.length > 0) spellsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000
@@ -74,17 +84,22 @@ export default function SpellsList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (pageNumber === 1)
     {
-      setDisplayedSpells(searchResults);
+      setDisplayedSpells(ownedResults);
       return;
     }
 
-    setDisplayedSpells(prev => [...prev, ...searchResults]);
-  }, [pageNumber, searchResults]);
+    setDisplayedSpells(prev => [...prev, ...ownedResults]);
+  }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -103,6 +118,24 @@ export default function SpellsList()
     clearResults();
     setGradeFilter(normalizeGradeFilterInput(e.target.value));
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -162,7 +195,10 @@ export default function SpellsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="spells"
-        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
+        facetEntity="spells"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="spells" onOwnedChange={setOwnedFilter} /></>}
       >
         <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />
         <Button

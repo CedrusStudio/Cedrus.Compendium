@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { actions } from '@/persistence/slices/characterSlice';
 import { CharacterSummary } from "@/infrastructure/searchQueries/characters/createCharacterSummaryQuery";
 import TagsView from '@/common/components/tags/TagsView';
-import TagFilter from '@/common/components/filters/TagFilter';
 import CharacterVisibilityFilter from '@/common/components/filters/CharacterVisibilityFilter';
 import { WithScroll } from '@/common/components/WithScroll';
 import { useDebounce } from "use-debounce";
@@ -19,6 +18,8 @@ import client from '@/infrastructure/clients/searchClient';
 import { createSearchCharactersKey } from '@/persistence/cacheKeys';
 import { createCharacterSummaryQuery } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import TagFilterSwitcher from '@/common/components/filters/TagFilterSwitcher';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import { CharacterTag, isCharacterOrSessionTag } from '@/domain/Tag';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
@@ -36,6 +37,7 @@ export default function CharactersHeadersList()
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('characters');
   const availableTagsOnlyForCharacters = availableTags.filter(tag => isCharacterOrSessionTag(tag) && tag !== CharacterTag);
@@ -55,13 +57,14 @@ export default function CharactersHeadersList()
   }, [hasApiKey, visibilityMode]);
 
   const tagsEnrichedByCharacter = searchTags.includes(CharacterTag) ? searchTags : [ ...searchTags, CharacterTag ];
-  const queryKey = createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags, apiKey, visibilityMode);
+  const queryKey = [...createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags, apiKey, visibilityMode), facetFilters];
   const { data: searchResults = EMPTY_ARRAY } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
       const charactersQuery = createCharacterSummaryQuery(debouncedSearchTerm, cursor, tagsEnrichedByCharacter, pageSize, excludedTags, visibilityMode);
+      if (facetFilters.length > 0) charactersQuery.tagFacetFilters = facetFilters;
       return await client.search<CharacterSummary[]>(charactersQuery);
     },
     staleTime: 5_000
@@ -93,6 +96,17 @@ export default function CharactersHeadersList()
     clearResults();
     setSearchInput(e.target.value);
   }, [clearResults]);
+  
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+  
+  {
+  
+    setFacetFilters(filters);
+  
+    clearResults();
+  
+  }, [clearResults]);
+
   
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -130,13 +144,16 @@ export default function CharactersHeadersList()
             />
 
             <div className='flex w-full flex-col items-center gap-3 md:w-auto md:flex-row'>
-              <TagFilter
+              <TagFilterSwitcher
+                entity="characters"
                 includedTags={searchTags}
                 onIncludedTagsChange={handleSearchTagsChange}
                 availableTags={availableTagsOnlyForCharacters}
                 isLoading={tagsLoading}
                 excludedTags={excludedTags}
                 onExcludedTagsChange={handleExcludedTagsChange}
+                facetFilters={facetFilters}
+                onFacetFiltersChange={handleFacetFiltersChange}
               />
               <CharacterVisibilityFilter
                 value={visibilityMode}

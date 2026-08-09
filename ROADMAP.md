@@ -38,6 +38,7 @@ Domknięte w kodzie 2026-08-02: **§8.10** — zmiana postawy w turze, blokady p
 | **6** | Domknięcie Fali 5 (dane + UI) | Dokończenie migracji danych, multi-filtr wymagań, porządki w widoku tagów | Niskie/Średnie |
 | **7** | Rozszerzenie modelu Wymagań | Umiejętności, Moce/Więzi, operator LUB, sumy cech, mądrzejszy matcher, filtr rodzaju w adminie | Średnie |
 | **8** | Wymagania licznikowe i sprzętowe | Domknięcie mapowania: „ilość czegoś" + sprzęt jako kategoria | Średnie |
+| **10** | Kategorie tagów | Warstwa opisowa nad tagami: filtrowanie po kategoriach zamiast ręcznego wykluczania | Niskie (dane nietknięte) |
 
 Zasada: **Fala 0 zawsze pierwsza.** Fale 1–4 są w dużej mierze niezależne i można je zrównoleglać. Fala 5 na końcu, bo dotyka rdzenia i wymaga migracji. Fala 6 to sprzątanie po Fali 5 — zaczyna od danych (6.1), bo bez nich reszta jest nieweryfikowalna.
 
@@ -756,22 +757,256 @@ Cztery pozycje z etapu 7 planu `combat-lab-engine-model-gaps-plan.md` §1. Każd
 
 ---
 
-## Fala 9 — Karta postaci do druku `[FEATURE]`
+## Fala 10 — Kategorie tagów `[WARSTWA OPISOWA]` — **ZROBIONE (2026-08-07)**
 
-Plan i analiza: `features-to-implement/character-sheet-print-plan.md`.
+Pełny plan, decyzje i przebieg: **`features-to-implement/tag-facets-plan.md`**. Tutaj skrót.
 
-### 9.1 Karta postaci do druku (PDF przez przeglądarkę) — `M` · ⭐⭐⭐ — **ZROBIONE (2026-08-04)**
+**Problem.** Żeby znaleźć „manewry ofensywne dla wojaka", trzeba było wybrać `ofensywne` i ręcznie
+wykluczyć osiem tagów bestiarnych — i pamiętać o dziewiątym, gdy ktoś go doda.
 
-- **Wybór technologii:** trasa `/characters/[id]/sheet` ze stylami `@media print`, wydruk przez `Ctrl+P` → „Zapisz jako PDF". Zero nowych zależności. Ścieżka wyjścia do prawdziwego pliku `.pdf` (headless Chrome renderujący tę samą trasę) opisana w §11 planu — layout nie wymagałby zmian.
-- **Dlaczego nowe komponenty, a nie istniejące widoki:** każdy widok karty postaci jest komponentem klienckim ze stanem (`ModesCard` pokazuje jedną postawę przez `Select`, `ManeuversCard` chowa listę w `Collapsible` z filtrami, `DetailsView` obcina opis przez `ExpandableText`). Wydruk dałby przyciski zamiast liczb.
-- **Architektura:** `buildSheetModel(character)` w `src/domain/characters/sheet/` liczy wszystko raz i oddaje gotowe stringi; sekcje w `src/application/characters/sheet/` są czysto prezentacyjne, bez `"use client"`. Cała matematyka idzie przez istniejące funkcje (`calculateTotalHealthForCharacter`, `calculateSelectedReduction`, `toOffenseString`, `toCriticalRangeString`), więc karta nie może rozjechać się z aplikacją.
-- **Wartości efektywne** (decyzja odwrócona 2026-08-04 po porównaniu z aplikacją). `CharacterSheetView` woła `applyActiveBuffProfile` dokładnie tak jak `CharacterView`, więc liczby na wydruku zgadzają się z ekranem; zdezaktywowanie profilu usuwa go z karty. Tabela „aktywne wzmocnienia" mówi, które profile są w tych liczbach już wliczone. Pierwotnie karta drukowała wartości bazowe z deltami obok — w praktyce wyglądało to jak błąd, bo dla Saofie na wzmocnieniu karta pokazywała 68 zdrowia zamiast 96.
-- **Budżet stron:** karta bojowa ≤ 2 strony; `ekwipunek`, `moce i zaklęcia` oraz `umiejętności` dostają własne strony, gdy przekroczą próg `needsOwnPage` (12 pozycji) — poniżej płyną w tekście, żeby nie marnować kartki na jeden pancerz. Zweryfikowane na wszystkich 215 postaciach z backupu (`npm run verify-sheet-model --all`): 154 mieszczą się na 1 stronie, 61 na 2, zero przekroczeń.
-- **Kompresja:** tabele zamiast kart, skrót opisu do pierwszego zdania (`summarizeDescription`, budżety znaków per sekcja), dwie/trzy kolumny dla list bez struktury, wycinanie pustych sekcji, skróty etykiet (`SIŁ`, `FECH`, `Std`) z legendą, pomijanie zer.
-- **Opcje w URL:** `?sections=…&appendix=1` — renderowane serwerowo, linkowalne, sterowane paskiem narzędzi widocznym tylko na ekranie.
-- **Wejście:** ikona drukarki w `CharacterView` obok „Duplikuj"/„Edytuj".
-- **Testy:** `summarizeDescription.test.ts`, `sheetOptions.test.ts`, `sheetModel.test.ts`, `CharacterSheet.test.tsx`. Samego wydruku nie da się testować automatem — ręczna checklista w §8 planu.
-- **Niezrobione świadomie:** brak przycisku „Pobierz .pdf" (świadomy koszt wybranej ścieżki), brak wydruku wielu postaci naraz.
+**Rozwiązanie.** Kolekcje `TagFacet` i `TagDefinition` jako **warstwa opisowa** nad `tags: String[]`,
+które nie zmieniają się ani o bajt. Puste kolekcje = zachowanie sprzed Fali 9, usunięcie kategorii
+nigdy nie dotyka rekordu encji, a tag bez definicji zawsze widać w kubełku „Pozostałe”.
+
+**Semantyka:** OR wewnątrz kategorii, AND między kategoriami, plus syntetyczne **„— brak —"**
+rozwijane serwerowo do `$nin` po pełnej liście tagów kategorii. `rola: ofensywa` + `rodzaj istoty:
+— brak —` daje **339** manewrów; `zwierzęta ∪ potwory` daje **147** (nie 117, nie 0).
+
+**Aliasy per encja.** Biblioteka nazywa tę samą oś inaczej po obu stronach: Manewr mówi `nieumarli`,
+Postać `nieumarły`, a zwierzęca Postać `natura`. Jedna kategoria, wiele pisowni — bez renamów.
+Zawężenie do encji jest konieczne: `natura` znaczy zwierzę na Postaci, ale szkołę magii na Zaklęciu
+i Atucie (107 rekordów) oraz materiał na Przedmiocie.
+
+| Etap | Zakres |
+|---|---|
+| 10.0 | Ujednolicenie słownika (6 renamów) + utwardzenie `rename`/`delete`: sweep personalizacji i wymagań, dwie komendy Mongo zamiast N update'ów, dry-run |
+| 10.1 | `TagFacet`, `TagDefinition`, `type TagAlias` + seed (10 kategorii, 85 definicji) |
+| 10.2 | `GET /api/tag-facets/[entity]`, CRUD admina z walidacją aliasów, synchronizacja rename/delete z definicjami |
+| 10.3 | `tagFacetFilters` w ładunku; warunki liczone RAZ, renderowane na Prismę i na Mongo |
+| 10.4 | `FacetedTagFilter` + przełącznik `Kategorie ⇄ Tagi`; **14 list podpiętych** (całe kompendium, sprzęt, Bestiariusz, lista postaci) |
+| 10.5 | Zakładka „Kategorie tagów" w `/admin/tags`: kategorie, przypisania, edytor aliasów |
+| 10.6 | Raport rozjazdu (`/api/tag-facets/drift`) + test kontraktowy z progiem 10 wystąpień |
+
+**Trzy rzeczy złapane po drodze, każda cicha:**
+1. `rename` nie ruszał `quickTagsByContext` — szybkie tagi przestałyby działać bez błędu (3 profile).
+2. `searchEntity` dostaje nazwę encji w słowniku **wyszukiwania** (`maneuver`), a kategorie są
+   kluczowane słownikiem **zarządzania tagami** (`maneuvers`) — bez `searchEntityToTagEntity` filtr
+   przestawał zawężać, bez żadnego objawu.
+3. `ofensywa` straciła prawo do domyślnej grupy w matcherze wymagań: po ujednoliceniu siedzi na
+   pięciu kolekcjach, więc „ilość ofensywnych 5" przestało cokolwiek znaczyć.
+
+**Migracja wykonana na produkcji 2026-08-07:** `unify-tag-vocabulary:apply` (575 + 240 + 13 + 6 + 3 + 1
+rekordów, 3 profile) → `seed-tag-facets:apply` (10 kategorii, 85 definicji).
+
+**Stan końcowy:** `npm test` 201/201 plików, 1882 testy. `tsc --noEmit` czysty.
+
+**Trzy rundy poprawek po podpięciu list** — warto, bo każda była z innej warstwy i tylko jedna była
+błędem projektu:
+1. `useTagFacets` łamał własną gwarancję („awaria warstwy opisowej nie zatrzymuje filtra"): `data ??
+   EMPTY_INDEX` broni tylko przed `undefined`, a odpowiedź **osiągalna, ale o innym kształcie**
+   wywalała render i kładła całą listę. Naprawione w kodzie — kształt jest sprawdzany, nie zakładany.
+2. Testy czytały klucz zapytania przez `.at(-1)`, zakładając jedno `useQuery` w drzewie. Naprawione
+   w teście — produkcja była poprawna, to test opisywał ją zbyt ciasno.
+3. Skrypt masowego podpinania **zagnieżdżał** klucz zamiast go rozszerzać, zmieniając kształt klucza
+   cache'a na dziewięciu listach. Naprawione w kodzie.
+
+### Fala 10.7 — kategorie magii — **ZROBIONE (2026-08-08)**
+
+**Lista Mocy w kompendium JEST słownikiem tej osi.** Nazwy Mocy to Ogień, Zimno, Altoria,
+Błyskawice, Kinetyka, Aramantia, Czarna Magia, Nekromancja, Rdzeń, Vortex, Drążenie, Rozkład —
+czyli `ogień` nie jest żywiołem, tylko **źródłem mocy dokładnie tak samo jak `nekromancja`**
+(decyzja Marka). Dane to potwierdzają: żaden „żywioł" nie występuje z innym (0 przypadków), a ze
+„szkołą" tylko 6 razy na 421 zaklęć. Dlatego **jedna oś, nie dwie.**
+
+Doszły cztery kategorie: **Źródło mocy** (Zaklęcia, Atuty, Moce), **Sposób działania** (obszar,
+wielorundowe, ochronne, rozpraszanie, precyzja), **Miejsce noszenia** (Przedmioty) i **Pochodzenie**
+(Wierzchowce). Łącznie 13 kategorii i 119 definicji; nieprzypisanych tagów **z 68 na 14**, z czego
+istotny jest tylko `specjalne` (17×) — świadomy worek na wyjątki.
+
+**`natura` znaczy trzy różne rzeczy i wszystkie trzy są w bibliotece naraz:** magia natury na
+Zaklęciach (55) i Atutach (52), zwierzę na Postaciach (25), naturalny materiał na Przedmiotach (14).
+Rozwiązane **zakresem kategorii, bez zmiany danych**: `źródło-mocy` celowo NIE obejmuje Postaci, więc
+25 zwierząt nie może wpaść pod magię natury; na Przedmiotach `natura` zostaje nieprzypisana. Kosztem
+jest to, że magiczne tagi Postaci (nekromancja, ogień, zimno, błyskawice, altoria, kinetyka — po 6)
+zostają w „Pozostałych".
+
+**`natura` jest rodzicem, nie rodzeństwem** — `vortex` 14/14, `grzybowe` 4/4, `drążenie` 4/4,
+`liściaste` 1/1 niosą też `natura`. Przy semantyce OR hierarchii nie trzeba modelować: wybór
+`natura` obejmuje je wszystkie, wybór podgatunku zawęża.
+
+**`rdzeń` zostaje przy Stylu (decyzja Marka).** To ten sam napis w dwóch znaczeniach — styl walki
+(Manewry 33, Atuty 5) i Moc „Rdzeń" (Zaklęcia 20, Postacie 5). Aliasy tu nie pomagają, bo obie nazwy
+są kanoniczne. Zamiast renamu: na Zaklęciach ląduje w „Pozostałych", dalej wyszukiwalny w trybie
+Tagi. Zero zmian w danych; rename można zrobić kiedykolwiek później.
+
+**Nowy test kontraktowy `defaultTagFacets.test.ts` — „jeden napis, jedna kategoria na encji".**
+Zarobił na siebie od razu: złapał, że `zdrowie` trafiłoby naraz do „Cecha" i „Sposób działania" na
+Atutach. To jedyna klasa błędu w tej warstwie, która daje **cicho zły wynik** zamiast brzydszego
+dropdowna, więc jest teraz pilnowana testem, a nie uwagą.
+
+**Dwie kolizje wyszły dopiero z testu unikalności** (`TagDefinition.tag` jest `@unique`, więc dwie
+definicje o tej samej nazwie są niemożliwe do wsiania — nawet dla rozłącznych encji):
+- `kusze` i `łuki` były naraz w „Oręż" (Manewry) i „Rodzaj broni" (Bronie). To **jedna oś** — czym
+  się walczy — więc kategorie zostały **scalone** w „Oręż" obejmujący Manewry, Atuty i Bronie. Każda
+  encja i tak widzi tylko wartości, które naprawdę ma.
+- `durski` to styl walki (Manewry 8), więc nie może być też pochodzeniem wierzchowca (1 rekord).
+
+To ważne rozróżnienie: reguła „jeden napis, jedna kategoria **na encji**" i reguła „każdy tag
+zdefiniowany **dokładnie raz**" łapią różne rzeczy. Pierwsza złapała `zdrowie`, druga `kusze` —
+i żadna nie złapałaby tego, co znalazła druga.
+
+**`rozproszenie` vs `rozpraszanie`** — Moc nazywa się „Rozproszenie", Zaklęcia mówią `rozpraszanie`.
+Rozwiązane **aliasem** zakresowanym na Moce, czyli dokładnie tym mechanizmem, dla którego powstał.
+
+Bez kategorii zostają: `specjalne` (17, celowo), `epickie`, `konny`, `konstrukt`, `testy`,
+`wojmistrz`, `krasnoludy`, `durski` na Wierzchowcach, `anioł`/`mord` na Mocach (należą do innych
+osi), `rdzeń` i `zdrowie` na Zaklęciach.
+
+⚠️ **Kosmetyczna pozostałość po scaleniu:** kategoria `rodzaj-broni` **została w bazie** — seed robi
+wyłącznie `upsert`, nigdy nie kasuje. Żadna definicja już na nią nie wskazuje, więc w filtrze jest
+niewidoczna (`buildTagFacetIndex` odrzuca kategorie bez wartości), ale widać ją w panelu admina
+i w raporcie rozjazdu jako „kategoria bez treści". Do skasowania jednym kliknięciem — nie dotknie
+żadnego rekordu encji.
+
+### Fala 10.8 — panel edytowalny w obie strony — **ZROBIONE (2026-08-09)**
+
+Wyszło z realnej pomyłki: `krasnoludy` (Przedmioty) trafiły do kategorii „Pochodzenie" — tej od
+Wierzchowców — i **nie było jak tego cofnąć**. Trzy braki naraz, każdy innej wagi.
+
+**Przypisanie było jednokierunkowe.** Lista wyboru kategorii renderowała się wyłącznie dla tagów
+bez kategorii; z chwilą przypisania znikała, a rozwinięta karta obsługiwała tylko aliasy. Teraz
+`DefinitionRow` ma tę samą listę wyboru (z „— brak —") plus „Usuń definicję" — API miało to od 10.2,
+UI nigdy nie wołało. Kasowanie definicji nie rusza wpisów: tag zostaje na rekordach, wraca do
+„Pozostałych".
+
+**Kategorii nie dało się edytować** — trzeba było usunąć i utworzyć od nowa, co odpina wszystkie
+jej tagi. Doszedł tryb edycji na karcie, na tych samych polach co formularz tworzenia (bez `key`,
+bo to on wiąże definicje). Zwężenie zakresu liczy się przed zapisem: „zabierasz Wierzchowce,
+N tagów przestanie się tam filtrować".
+
+**Etykieta nie mówiła, czego dotyczy — to była przyczyna pomyłki.** `pochodzenie-wierzchowca`
+wyświetlało się jako samo „Pochodzenie", a dla Przedmiotu „pochodzenie krasnoludzkie" ma pełny sens.
+Listy wyboru pokazują teraz zakres: „Pochodzenie (Wierzchowce)".
+
+**Najpoważniejsze było jednak to, że przypisanie poza zakres jest ciche.** `krasnoludy` żyją na
+Przedmiotach, kategoria obejmowała tylko Wierzchowce — definicja **nie robiła nic**, a tag zniknął
+z „Nieprzypisanych", więc raport twierdził, że problem rozwiązany. Dokładnie ta klasa błędu, przed
+którą broni się cała ta fala: cichy zły wynik zamiast widocznego. Dwie warstwy obrony — picker
+oferuje tylko kategorie sięgające list, na których tag naprawdę występuje, a raport dostał czerwoną
+sekcję **„Przypisania bez efektu"** nad nieprzypisanymi.
+
+Przy okazji doszedł czwarty, stonowany kierunek raportu: **„Kategoria nie obejmuje wszystkich list"**
+— kategoria sięga części list niosących tag. To pytanie, nie błąd (gdzie nie sięga, tag ląduje
+w „Pozostałych" i tryb „Tagi" dalej go znajduje). Grupowane po **(kategoria, lista)**, bo per-tag
+dawało 20 wierszy, z czego sześć powtarzało jedno „Źródło mocy nie obejmuje Postaci"; po zgrupowaniu
+12 wierszy, każdy = jedna decyzja. Wymusiło też rozstrzyganie spornej pisowni: właścicielem słowa na
+danej liście jest definicja, której kategoria tam sięga — inaczej magiczna `natura` „występowała" na
+25 Postaciach, choć te należą do `zwierzęta` przez alias.
+
+Przedmioty dostały własną oś **„Pochodzenie"** (`pochodzenie-przedmiotu`) z `krasnoludami` — osobną
+od wierzchowcowej mimo tej samej etykiety, bo `durski` to hodowla, a `krasnoludy` wyrób kulturowy
+(Królewska Księga Kowalska i Korona Valhangar); zlanie w jedno wstawiłoby `durski` do filtra
+Przedmiotów. **Wpis w seedzie sprząta przy okazji bazę** — upsert po `tag` przestawi `krasnoludy`
+z błędnej kategorii. Raport wskazał też `natura` na dwóch Rasach (Szaszynszyn, Szczuroszczerk) —
+to zwierzę jak na Postaci, więc alias objął też Rasy.
+
+Otwarte pytania, które raport teraz zadaje zamiast milczeć: `natura` na 14 Przedmiotach (naturalny
+materiał — osobna oś?), `durski` na jednym Wierzchowcu, oraz czy „Źródło mocy" ma objąć Postaci,
+„Cecha" Postawy, a „Styl" Stany. Żadne nie psuje dziś wyników.
+
+### Fala 10.9 — „Pozostałe" da się kliknąć — **ZROBIONE (2026-08-09)**
+
+Raport obiecywał, że nieprzypisany tag nie znika, tylko trafia do „Pozostałych" — a w filtrze
+„Pozostałe" było **tekstem do przeczytania** z poradą „szukaj po nich w trybie «Tagi»". Zawężenie po
+jednym takim tagu wymagało więc wyjścia z trybu kategorii i **utraty wszystkich dotychczasowych
+wyborów**. Teraz to sekcja jak każda inna: suma w środku, iloczyn z kategoriami.
+
+Zrobione jako pseudo-kategoria o zarezerwowanym kluczu `__pozostale__`. Bez „— brak —" — to nie oś.
+**Klucz jest obsłużony zanim warunek sięgnie do indeksu**, bo indeks wyszukiwania powstaje bez
+`availableTags` (świadomie — inaczej każde zapytanie zaczynałoby się od skanu distinct tagów) i kubeł
+jest tam pusty; zwykłe wyszukanie facetu porzuciłoby filtr po cichu i **poszerzyło** wynik.
+`hasFacets` liczy tylko prawdziwe kategorie, więc lista mająca sam kubeł nie dostaje przełącznika.
+
+---
+
+## Fala 11 — silnik postaw: zakazy i cechy testowe — **ZROBIONE (2026-08-09)**
+
+Trzy zadania z `features-to-implement/samodzielna-roadmapa.md` (9.1–9.3), wykonane bez decyzji
+projektowych i bez dostępu do bazy. Razem odblokowują **19 rodzin postaw / 69 rekordów**.
+
+**`forbidAction` — zakaz rodzaju akcji** (Pełna Defensywna r1–5, Fortyfikacja r1–4, Styl Grupowy
+r1–4). `forbidTag` nie wystarczał: ban po tagu działa na wpisy z biblioteki, a atak podstawowy nie
+jest wpisem i nie ma tagów — `{ kind: "attack" }` powstaje w `takeTurn` z powietrza. Cztery rodzaje:
+atak, manewry, zmiana postawy, zaklęcia. `duration: 0` znaczy „póki tryb jest noszony", tak jak przy
+`forbidTag`. Zakaz manewrów obejmuje też **reakcje** — natychmiastowe są zwykle najcenniejsze, więc
+wyjątek dla nich byłby dziurą. Faza ataku w `takeTurn` wymagała przebudowy, nie dopisania warunku:
+zaklęcie zajmuje akcję ataku, ale to osobny zakaz, a stary fallback wracałby do zakazanego ataku.
+Combatant z zakazem i bez alternatywy loguje teraz `pass` z powodem — wcześniej `pass` logował się
+tylko przy `!canAct`, więc tura znikałaby bez śladu.
+
+**Żywe atrybuty w testach spornych.** `toCombatantSnapshot` zamraża `skills` przy budowie snapshotu,
+a `resolveContestedTest` czytał właśnie tę zamrożoną kopię — więc **każdy** bonus nadany w trakcie
+walki był w testach spornych martwy. Doszedł `effectiveSkills`, tą samą drogą, którą ataki od dawna
+idą przez `effectiveOffense`. Podmiana dotyczy OBU stron testu, bo `mode: "target"` nakłada profil
+o ujemnych wartościach na przeciwnika. Snapshot pozostaje nietknięty — jest współdzielony między
+biegami symulacji, więc mutacja zatrułaby kolejne walki tym samym obiektem.
+
+**Komplet cech testowych w `StatBuffEffect`.** Efekt znał trzy atrybuty z dziewięciu i zero
+charakterystyk; doszło 6 + 6. Pułapka „pole w aplikatorze, brak w deltach → dwa buffy z tym samym
+`id` i ciche nadpisywanie" jest teraz **niemożliwa z konstrukcji**: aplikator, delty i lista pól
+edytora czytają jedną mapę z `satisfies Record<keyof Attributes, string>`, więc nowa cecha w modelu
+postaci nie kompiluje się, dopóki nie zostanie nazwana.
+
+Dwie rzeczy świadomie zostawione, obie opisane w kodzie: **Harmonia** nie jest cechą w modelu
+(w bibliotece to tag stylu walki), więc rodziny Medytacji i Góry zostają niesymulowalne; **wycena AI**
+nie widzi atrybutów, bo idzie przez obrażenia i warstwy obrony — symulacja jest poprawna, zachowawczy
+jest tylko wybór manewru przez AI.
+
+⚠️ Zod **strzepuje nieznane klucze i zwraca sukces**, więc literówka `fencingg: 2` zapisze się i nic
+nie zrobi. Zaostrzenie schematu wywaliłoby wpisy niosące pola z dawnych refaktorów, więc obrona stoi
+tam, gdzie wchodzi ręcznie pisany JSON: `import-mode-effects.ts` porównuje klucze przed i po
+parsowaniu i odrzuca wiersz z nieznanym polem, nazywając je.
+
+---
+
+## Fala 12 — „tylko to, co ma ta postać" w całym kompendium — **ZROBIONE (2026-08-09)**
+
+Rozszerzenie ROADMAP 2.2 z dwóch list na dwanaście, plus naprawa trzech błędów, przez które
+pierwotna wersja w praktyce nie działała.
+
+**Filtr był liczony po stronie klienta, na już wczytanej stronie.** Przy sześciu postawach na ~300
+rekordów żadna nie trafiała na stronę 1, więc lista pustoszała i wyglądała na zepsutą. Zawężenie
+przeniesione do **zapytania** (`search.name: { in: [...] }` — warstwa payloadu znała to od dawna
+przez `anyOfValues`). Tekst z pola „Szukaj" jest **przecinany** z listą posiadanych nazw w JS, bo
+Prisma nie przyjmie `contains` i `in` na tym samym polu, a ciche zignorowanie wpisanego tekstu
+byłoby gorsze niż brak filtra. Pusta lista posiada­nych wysyła wartość niedopasowywalną — puste
+`in` jest **odrzucane** przez `hasSearchValue`, czyli filtr by zniknął i pokazało się całe
+kompendium.
+
+**Ranga była ignorowana.** Postać z „Postawą Defensywną 4" dostawała wszystkie pięć rang. Pary
+`(nazwa, ranga)` nie da się wyrazić w payloadzie (jedna wartość na pole), więc zapytanie zawęża do
+**rodzin** i do **zbioru posiadanych rang**, a dokładna para jest dobierana po stronie klienta.
+
+⚠️ Pierwsze podejście dobierało parę na zwykłej stronie wyników i **strona 1 wychodziła dziwnie
+mała**: zapytanie oddawało 10 wierszy wszystkich rang posiadanych rodzin, z czego pasujące bywały
+dwa, a reszta doklejała się dopiero przy przewijaniu. Przycięcie po stronie klienta musi więc
+dostać **komplet**, nie stronę. Iloczyn (rodziny × rangi) jest ścisłą górną granicą tego, co
+zapytanie może zwrócić, więc jest ustawiany jako rozmiar strony — cały repertuar postaci mieści się
+w jednym żądaniu (limit 400 wierszy), a `hasMore` przy aktywnym filtrze jest wprost `false`.
+
+**Pętla renderów.** `useCharacterById` wołało `toCharacter(data)` w ciele hooka, więc każdy render
+zwracał nowy obiekt; efekt zależny od `character` podnosił stan rodzica i sam się nakręcał
+(„Maximum update depth exceeded"). Mapowanie jest zmemoizowane na `data` — to naprawia też picker
+w Combat Labie, który miał tę samą wadę, tylko bez efektu, który by ją ujawnił.
+
+**Pusta lista po zdjęciu filtra.** Efekt spinający wyniki ze stanem miał zależności
+`[pageNumber, searchResults]`; po powrocie do poprzedniego klucza react-query oddawał **tę samą**
+tablicę z cache'a, więc efekt się nie odpalał i lista zostawała pusta do pierwszego przewinięcia.
+W zależnościach jest teraz też klucz filtra postaci.
+
+Moce są jedynym wyjątkiem od dopasowania po nazwie: Moc postaci nazywa się po swojemu („Moc
+Życiowa") i tylko **wskazuje** na specyfikację („Światło"), więc tam dopasowanie idzie po `id`.
+Kontrolka to teraz sam ludek w rozmiarze reszty paska, tuż za filtrem wymagań na wszystkich listach.
 
 ---
 

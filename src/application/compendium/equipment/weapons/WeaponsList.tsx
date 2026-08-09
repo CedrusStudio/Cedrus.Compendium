@@ -20,8 +20,11 @@ import StyleFilter from "@/common/components/filters/StyleFilter";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import WeaponEditableFields from "@/application/common/equipment/EditSheets/WeaponEditableFields";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -34,19 +37,26 @@ export default function WeaponsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('weapons');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const [selectedStyle, setSelectedStyle] = useState<Style | "All">("All");
 
   const [displayedWeapons, setDisplayedWeapons] = useState<Weapon[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchWeaponsKey(debouncedSearchTerm, cursor, searchTags,  pageSize, selectedStyle, excludedTags);
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[...createKeysetSearchWeaponsKey(debouncedSearchTerm, cursor, searchTags,  pageSize, selectedStyle, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const weaponsQuery = createWeaponKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags, selectedStyle);
+      narrowToOwned(weaponsQuery, ownedFilter, debouncedSearchTerm);
+      if (facetFilters.length > 0) weaponsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Weapon[]>(weaponsQuery);
     },
     staleTime: 5_000
@@ -55,21 +65,26 @@ export default function WeaponsList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (cursor === emptyUlid)
     {
-      setDisplayedWeapons(searchResults);
+      setDisplayedWeapons(ownedResults);
       return;
     }
 
     setDisplayedWeapons(prev =>  
     {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(weapon => [weapon.id, weapon])).values());
+      if (ownedResults.length === 0) return prev;
+      return Array.from(new Map([...prev, ...ownedResults].map(weapon => [weapon.id, weapon])).values());
     });
-  }, [cursor, searchResults]);
+  }, [cursor, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -82,6 +97,24 @@ export default function WeaponsList()
     clearResults();
     setSearchInput(e.target.value);
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -118,6 +151,10 @@ export default function WeaponsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="weapons"
+        extraFilters={<CharacterModeFilter kind="weapons" onOwnedChange={setOwnedFilter} />}
+        facetEntity="weapons"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <StyleFilter selectedStyle={selectedStyle} onStyleChange={handleStyleChange} styles={allowedStyles} />
         <AddWeaponForm />

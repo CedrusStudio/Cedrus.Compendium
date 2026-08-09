@@ -19,8 +19,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { DEFAULT_PAGE_SIZE, emptyUlid } from "@/common/global/pagination";
 import { useEntityTags } from '@/common/hooks/useEntityTags';
+import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ArmorEditableFields from "@/application/common/equipment/EditSheets/ArmorEditableFields";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -34,18 +37,25 @@ export default function ArmorsList()
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('armors');
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
+  const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedArmors, setDisplayedArmors] = useState<Armor[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = createKeysetSearchArmorsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[...createKeysetSearchArmorsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const armorsQuery = createArmorKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      narrowToOwned(armorsQuery, ownedFilter, debouncedSearchTerm);
+      if (facetFilters.length > 0) armorsQuery.tagFacetFilters = facetFilters;
+
       return await searchClient.search<Armor[]>(armorsQuery);
     },
     staleTime: 5_000
@@ -54,21 +64,26 @@ export default function ArmorsList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (cursor === emptyUlid)
     {
-      setDisplayedArmors(searchResults);
+      setDisplayedArmors(ownedResults);
       return;
     }
 
     setDisplayedArmors(prev =>  
     {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(armor => [armor.id, armor])).values());
+      if (ownedResults.length === 0) return prev;
+      return Array.from(new Map([...prev, ...ownedResults].map(armor => [armor.id, armor])).values());
     });
-  }, [cursor, searchResults]);
+  }, [cursor, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -81,6 +96,24 @@ export default function ArmorsList()
     clearResults();
     setSearchInput(e.target.value);
   }, [clearResults]);
+
+  const handleFacetFiltersChange = useCallback((filters: TagFacetFilter[]) =>
+
+  {
+
+    setFacetFilters(filters);
+
+    clearResults();
+
+  }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
+
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
   {
@@ -111,6 +144,10 @@ export default function ArmorsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="armors"
+        extraFilters={<CharacterModeFilter kind="armors" onOwnedChange={setOwnedFilter} />}
+        facetEntity="armors"
+        facetFilters={facetFilters}
+        handleFacetFiltersChange={handleFacetFiltersChange}
       >
         <AddArmorForm />
       </ListHeader>

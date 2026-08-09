@@ -186,10 +186,37 @@ export type StatBuffEffect =
   /** Suppress critical hits entirely (mode "self" = caster can't crit; "target"
    * = opponent can't crit). Buffs only ADD, so zeroing crit needs its own flag. */
   critDisabled?: boolean;
-  // Test stats.
+  /*
+   * Test stats — attributes (Wave 9.3).
+   *
+   * Flat keys, not `attributes: { … }`: the rest of the effect is flat and the
+   * editor addresses fields by `path`, so nesting would buy nothing and cost a
+   * component change.
+   *
+   * Every value lands in the statistic's `.value`, never `.testBonus` — the
+   * rulebook's „zwiększa fechtunek o 1" raises the stat itself, and a bonus that
+   * applied only to tests would quietly diverge from the character sheet.
+   *
+   * There is no `harmonia`: the library uses it as a fighting STYLE tag, not a
+   * statistic, so the Medytacji/Góry families stay unsimulatable until the model
+   * grows one.
+   */
   precision?: number;
   reflex?: number;
   initiative?: number;
+  fencing?: number;
+  artifice?: number;
+  martialArt?: number;
+  horsemanship?: number;
+  fortitude?: number;
+  willpower?: number;
+  // Test stats — characteristics.
+  strength?: number;
+  dexterity?: number;
+  constitution?: number;
+  mind?: number;
+  charisma?: number;
+  spellborn?: number;
   // Health.
   barrier?: number;
 };
@@ -249,6 +276,30 @@ export type ForbidTagEffect =
   scope?: "maneuvers" | "stances" | "all";
   duration: number;
 };
+
+/**
+ * Ban on a KIND of action (Wave 9.1) — „nie mozna atakowac", „nie mozna
+ * zmieniac postawy".
+ *
+ * Distinct from `ForbidTagEffect` on purpose. A tag ban works on library
+ * entries, which carry tags; the basic attack is not a library entry and has no
+ * tags at all — `{ kind: "attack" }` is assembled in `takeTurn` out of thin air.
+ * Anything that forbids it therefore has to name the action, not a tag.
+ *
+ * `duration: 0` means "while it keeps being re-applied", same as `forbidTag`:
+ * a stance re-fires its effects every turn, so the ban lives exactly as long as
+ * the stance is worn. Pelna Defensywna is that shape — it forbids attacking and
+ * is itself a stance.
+ */
+export type ForbidActionEffect =
+{
+  type: "forbidAction";
+  action: ForbiddenActionKind;
+  duration: number;
+};
+
+/** Kinds of action a `forbidAction` effect can lock out. */
+export type ForbiddenActionKind = "attack" | "maneuvers" | "stanceChange" | "spells";
 
 /**
  * Roll modifier (T2b) — changes HOW this turn's attack is rolled, rather than
@@ -423,6 +474,7 @@ export type Effect =
   | MultiplierEffect
   | StanceRankEffect
   | ForbidTagEffect
+  | ForbidActionEffect
   | RollModifierEffect
   | ContestedTestEffect
   | SaveTestEffect

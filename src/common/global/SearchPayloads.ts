@@ -1,5 +1,6 @@
 import { OffsetPagination, KeysetPagination, isKeysetPagination } from "@/common/global/pagination";
 import type { RequirementTargetGroup } from "@/domain/requirements/Requirement";
+import type { TagFacetFilter } from "@/domain/tags/tagFacets";
 import { Character } from "@/domain/characters/Character";
 import { Maneuver } from "@/domain/characters/combat/Maneuver";
 import { Mode } from "@/domain/characters/combat/Mode";
@@ -11,6 +12,20 @@ import { Shield } from "@/domain/characters/equipment/Shield";
 import { Item } from "@/domain/characters/equipment/Item";
 import { Mount } from "@/domain/characters/equipment/Mount";
 import { Race } from "@/domain/Race";
+
+export type { TagFacetFilter };
+
+/** Drops facet filters that would narrow nothing (no values and no "— brak —"). */
+export function isUsableTagFacetFilter(filter: TagFacetFilter | undefined | null): filter is TagFacetFilter
+{
+  if (!filter || !filter.facetKey.trim()) return false;
+  return filter.tags.length > 0 || filter.includeNone === true;
+}
+
+export function collectTagFacetFilters(payload: SearchPayload): TagFacetFilter[]
+{
+  return (payload.tagFacetFilters ?? []).filter(isUsableTagFacetFilter);
+}
 
 export function isAllowedSearchEntity(entity: string): boolean
 {
@@ -87,6 +102,16 @@ export type SearchPayload =
   // Wave 6.2: several requirement filters at once, combined with AND — an entity
   // must satisfy every one of them.
   requirementFilters?: RequirementSearchFilter[];
+  // Wave 10.3: faceted tag filtering. OR inside a facet, AND between facets, plus
+  // a synthetic "no tag from this facet" value. Additive — `search.tags` and
+  // `exclude.tags` keep working unchanged and AND together with these, so every
+  // payload written before Wave 10 produces exactly the same query.
+  //
+  // Values are CANONICAL tags; the server expands them to the spellings valid
+  // for the entity (`nieumarli` also matches `nieumarły` on a Character). The
+  // client never sends spellings — otherwise adding an alias in the admin panel
+  // would require reloading every open view.
+  tagFacetFilters?: TagFacetFilter[];
 };
 
 /** Drops filters that carry no usable value (blank text / missing target). */

@@ -96,6 +96,13 @@ export const translations_plPL =
     compendium: "kompendium",
     rulebook: "podręcznik",
     "combat-lab": "combat lab",
+    races: "rasy",
+    replay: "powtórka",
+    report: "raport",
+    search: "wyszukiwarka",
+    admin: "administracja",
+    personalization: "personalizacja",
+    sheet: "karta",
 
     battle: "bitwa",
     sum: "suma",

@@ -13,7 +13,7 @@ npm test -- <ścieżka>        # testy dotkniętego obszaru
 
 ---
 
-## 9.1 `forbidAction` — zakaz akcji — `S` · ⭐⭐⭐
+## 9.1 `forbidAction` — zakaz akcji — `S` · ⭐⭐⭐ — **ZROBIONE (2026-08-09)**
 
 **Odblokowuje:** Postawa Pełna Defensywna (r1–5), Postawa Fortyfikacji (r1–4), Styl Grupowy (r1–4) — 3 rodziny / 13 rekordów. Pełna Defensywna jest jedną z częściej używanych postaw w bibliotece.
 
@@ -70,7 +70,7 @@ Dopisać do unii `Effect` (linia z `| ForbidTagEffect`).
 
 ---
 
-## 9.2 Żywe wartości atrybutów w testach spornych — `M` · ⭐⭐⭐ `[FUNDAMENT dla 9.3]`
+## 9.2 Żywe wartości atrybutów w testach spornych — `M` · ⭐⭐⭐ `[FUNDAMENT dla 9.3]` — **ZROBIONE (2026-08-09)**
 
 **Problem.** `toCombatantSnapshot` (`engine/CombatantSnapshot.ts:249`) zapisuje `skills: { attributes: buffed.attributes, characteristics: buffed.characteristics }` — **zamrożone w chwili budowy snapshotu**. `resolveContestedTest` czyta wyłącznie `source.snapshot.skills` (`applyEffect.ts:314`). Efekt nałożony w trakcie walki nigdy tam nie dotrze.
 
@@ -119,7 +119,32 @@ Implementacja: dla każdego klucza w `attributes` i `characteristics` złożyć 
 
 ---
 
-## 9.3 Słownik atrybutów w `StatBuffEffect` — `M` · ⭐⭐⭐
+### Wykonanie 9.1 + 9.2 (2026-08-09)
+
+Zgodnie z planem, z trzema doprecyzowaniami, które wyszły dopiero w kodzie:
+
+1. **Zakaz manewrów obejmuje też reakcje.** Plan wymieniał `availableProactiveManeuvers`
+   i `availableReactiveManeuvers` osobno; warto zapisać dlaczego obie: „nie można używać manewrów"
+   nie ma wyjątku dla natychmiastowych, a to właśnie one są zwykle najcenniejsze.
+2. **Faza 2 `takeTurn` musiała zostać przebudowana, nie tylko obwarowana warunkiem.** Zaklęcie
+   zajmuje akcję ataku, ale to **osobny** zakaz — z zakazem ataku i dostępnym zaklęciem lista wyboru
+   to same zaklęcia. Stary fallback `chosen = … : attack` wracałby do zakazanego ataku, więc
+   opcje są teraz budowane raz i fallbackiem jest ich pierwszy element.
+3. **Ticki przeniesione z `runCombat` do `CombatState`.** Test wieku zakazu wołał wcześniej własną
+   kopię pętli starzejącej — sprawdzałby kopię, nie silnik. `tickForbiddenTags`
+   i `tickForbiddenActions` mieszkają teraz przy typach stanu i są eksportowane; `runCombat` je
+   importuje. Test dostaje tę samą funkcję, którą wywołuje silnik.
+
+`effectiveSkills` (9.2) dostał dodatkowo strażnika `profile.attributes?.[key]` — profil zapisany
+przed dodaniem pola nie może wywalić rzutu w środku symulacji.
+
+Testy: `forbidAction.test.ts` (7), rozszerzone `contestedTest.test.ts` (6 nowych) i `effects.test.ts`
+(2 nowe: parsowanie wszystkich czterech akcji + odrzucenie literówki, opis po polsku).
+Cały katalog `engine/__tests__` na zielono (126), `effects/__tests__` (26), `tsc` czysty.
+
+---
+
+## 9.3 Słownik atrybutów w `StatBuffEffect` — `M` · ⭐⭐⭐ — **ZROBIONE (2026-08-09)**
 
 **Zależy od 9.2.** Bez żywych wartości ta zmiana produkuje efekty, które nic nie robią.
 
@@ -169,6 +194,40 @@ W `StatBuffEffect` dołożyć brakujące atrybuty i charakterystyki jako opcjona
 - `effects/__tests__/statBuff.test.ts`: `statEffectToProfile({ fencing: 2 })` ustawia `profile.attributes.fencing.value === 2`; dwa różne efekty atrybutowe mają **różne** `id`;
 - `engine/__tests__/contestedTest.test.ts`: postawa z `fencing: +2` faktycznie podnosi wynik testu spornego (test end-to-end, spina 9.2 z 9.3);
 - `effectSchema` przyjmuje nowe pola i odrzuca literówkę (`fencingg`).
+
+---
+
+### Wykonanie 9.3 (2026-08-09)
+
+Doszło **6 atrybutów** (`fencing`, `artifice`, `martialArt`, `horsemanship`, `fortitude`,
+`willpower`) i **6 charakterystyk** — razem z trzema istniejącymi komplet 9 + 6.
+
+**Pułapka nr 1 rozwiązana przez konstrukcję, nie przez uwagę.** Plan ostrzegał, że pole dodane do
+`statEffectToProfile`, a pominięte w `statEffectDeltas`, daje dwóm różnym buffom ten sam `id`
+i ciche nadpisywanie. Zamiast dopisywać 12 par ręcznie, obie funkcje **i lista pól edytora** czytają
+teraz jedną mapę `ATTRIBUTE_LABELS` / `CHARACTERISTIC_LABELS` w `statBuff.ts`, opatrzoną
+`satisfies Record<keyof Attributes, string>` — nowa cecha w modelu postaci **nie kompiluje się**,
+dopóki nie zostanie nazwana. Test przechodzi po wszystkich piętnastu kluczach i sprawdza, że każdy
+ma własną deltę i własne `id`.
+
+**Harmonia odpada, zgodnie z pułapką nr 4.** W modelu postaci jej nie ma — w bibliotece `harmonia`
+jest tagiem STYLU walki, nie cechą. Rodziny Medytacji i Góry zostają niesymulowalne.
+
+**Literówka w nazwie cechy nadal przechodzi walidację.** Zod strzepuje nieznane klucze i zwraca
+sukces, więc `fencingg: 2` zapisze się i nic nie zrobi. Zaostrzenie schematu (`.strict()`) wywaliłoby
+wpisy z bazy niosące pola z dawnych refaktorów, więc obrona stanęła tam, gdzie wchodzi ręcznie pisany
+JSON: `scripts/import-mode-effects.ts` porównuje klucze przed i po parsowaniu i **odrzuca wiersz**
+z nieznanym polem, nazywając je. Test dokumentuje, że schemat sam tego nie łapie — żeby nikt nie
+liczył na coś, czego tam nie ma.
+
+**Wycena AI została świadomie nietknięta** (pułapka nr 3), z komentarzem w `policyValue.ts`: atrybuty
+nie wpływają na obrażenia ani na warstwy obrony, więc postawa fechmistrzowska wycenia się na 0.
+Symulacja jest poprawna, zachowawczy jest tylko wybór AI.
+
+Testy: 6 nowych w `statBuff.test.ts` (komplet cech, `.value` a nie `.testBonus`, delty per klucz,
+rozłączne `id`, schema, literówka) i jeden **spinający 9.2 z 9.3** w `contestedTest.test.ts` —
+postawa „+fechtunek" wygrywa test sporny, którego bez niej nie wygrywa. Osobno każda połowa wygląda
+na działającą; dopiero razem znaczą cokolwiek.
 
 ---
 
