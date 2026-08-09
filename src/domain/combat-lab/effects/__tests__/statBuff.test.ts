@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { statEffectToProfile, statEffectDeltas } from "@/domain/combat-lab/effects/statBuff";
+import {
+  statEffectToProfile,
+  statEffectDeltas,
+  statBuffLabel,
+  STAT_BUFF_ATTRIBUTES,
+  STAT_BUFF_CHARACTERISTICS,
+} from "@/domain/combat-lab/effects/statBuff";
 import { describeManeuver } from "@/domain/combat-lab/effects/describeManeuver";
 import { effectSchema } from "@/domain/combat-lab/effects/effectSchema";
 import { effectiveDefense, effectiveOffense } from "@/domain/combat-lab/engine/buffs";
@@ -43,6 +49,64 @@ describe("statEffectToProfile()", () => {
     const base = makeOffense("o", 1, 5, 0);
     const buffed = effectiveOffense(base, [statEffectToProfile(stat({ damage: 4 }))]);
     expect(buffed.damageBonus.bonus).toBe(4);
+  });
+});
+
+/**
+ * Wave 9.3. The effect used to know three attributes out of nine and no
+ * characteristics at all, which is what blocked 16 stance families.
+ */
+describe("słownik cech testowych (9.3)", () => {
+  it("zna wszystkie dziewięć atrybutów i sześć charakterystyk", () => {
+    expect(STAT_BUFF_ATTRIBUTES).toHaveLength(9);
+    expect(STAT_BUFF_CHARACTERISTICS).toHaveLength(6);
+    expect(STAT_BUFF_ATTRIBUTES).toContain("fencing");
+    expect(STAT_BUFF_CHARACTERISTICS).toContain("spellborn");
+  });
+
+  it("kładzie każdą cechę we właściwym polu profilu, w `.value`", () => {
+    const p = statEffectToProfile(stat({ fencing: 2, willpower: -1, strength: 3 }));
+
+    expect(p.attributes.fencing.value).toBe(2);
+    expect(p.attributes.willpower.value).toBe(-1);
+    expect(p.characteristics.strength.value).toBe(3);
+    // Nie `.testBonus` — podręcznikowe „zwiększa fechtunek o 1" podnosi cechę.
+    expect(p.attributes.fencing.testBonus).toBe(0);
+  });
+
+  it("każda cecha ma własny wpis w deltach — inaczej dwa buffy dostałyby ten sam id", () => {
+    // To najłatwiejszy do przeoczenia błąd w tym zadaniu: pole dodane do
+    // aplikatora, ale nie do delt, daje kolizję `id` i ciche nadpisywanie.
+    for (const key of [...STAT_BUFF_ATTRIBUTES, ...STAT_BUFF_CHARACTERISTICS])
+    {
+      const deltas = statEffectDeltas(stat({ [key]: 2 }));
+      expect(deltas).toEqual([[statBuffLabel(key), 2]]);
+    }
+  });
+
+  it("dwa różne buffy atrybutowe mają różne id", () => {
+    const ids = new Set([...STAT_BUFF_ATTRIBUTES, ...STAT_BUFF_CHARACTERISTICS]
+      .map(key => statEffectToProfile(stat({ [key]: 1 })).id));
+
+    expect(ids.size).toBe(STAT_BUFF_ATTRIBUTES.length + STAT_BUFF_CHARACTERISTICS.length);
+  });
+
+  it("schema przyjmuje nowe pola", () => {
+    for (const key of [...STAT_BUFF_ATTRIBUTES, ...STAT_BUFF_CHARACTERISTICS])
+    {
+      expect(effectSchema.safeParse({ type: "stat", mode: "self", duration: 1, [key]: 2 }).success).toBe(true);
+    }
+  });
+
+  it("literówka w nazwie cechy jest USUWANA, nie odrzucana — dlatego import osobno porównuje klucze", () => {
+    // Zod strzepuje nieznane klucze i zwraca sukces. Zaostrzenie schematu
+    // wywaliłoby wpisy z bazy niosące pola z dawnych refaktorów, więc obroną
+    // jest kontrola kluczy w `scripts/import-mode-effects.ts`, nie tutaj.
+    const typo = effectSchema.safeParse({ type: "stat", mode: "self", duration: 1, fencingg: 2 });
+
+    expect(typo.success).toBe(true);
+    expect(typo.success && "fencingg" in typo.data).toBe(false);
+    expect(statEffectDeltas(stat({ fencingg: 2 } as Partial<StatBuffEffect>))).toEqual([]);
   });
 });
 

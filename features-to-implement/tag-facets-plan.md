@@ -604,6 +604,19 @@ więc wartość przysłana przez klienta już jest pisownią do dopasowania.
 `hasFacets` w `useTagFacets` liczy wyłącznie **prawdziwe** kategorie — lista mająca sam kubeł nie
 dostaje przełącznika „Kategorie", bo byłby to gorszy filtr tagów pod inną nazwą.
 
+**Poprawka po zgłoszeniu Marka:** zdanie „Tagi bez kategorii są na końcu, w sekcji «Pozostałe»" było
+w nagłówku **bezwarunkowo**, a na Manewrach kubła po prostu nie ma — każdy tag Manewru ma kategorię.
+Obietnica bez pokrycia wygląda jak błąd wyświetlania, więc zdanie pojawia się tylko wtedy, gdy
+sekcja istnieje. Kubeł dostał też górną kreskę i dopisek „bez kategorii", żeby nie czytał się jak
+siódma oś.
+
+Gdzie kubeł faktycznie jest (backup 2026-08-08): Atuty 6 tagów, Postawy 7, Stany 5, Postacie 11,
+Zaklęcia 2, Bronie 1, Przedmioty 1, Wierzchowce 1, Moce 3. Nie ma go na Manewrach, Rasach, Zbrojach
+i Tarczach. Uwaga na Postawy i Stany: większość ich „Pozostałych" (`siła`, `zręczność`, `krytyk`,
+`inicjatywa`, `tarcze`, `fechtunek`, `harmonia`) to dokładnie te tagi, które raport wskazuje
+w „Kategorie, które nie sięgają wszędzie" — rozszerzenie zakresu „Cechy", „Oręża" i „Stylu"
+opróżniłoby te kubły.
+
 Weryfikacja na backupie (Atuty): „Pozostałe: epickie" → 6 rekordów (surowo 6), „Rola: defensywa"
 × „Pozostałe: epickie" → 5 (surowo 5, sama defensywa 166). Ten sam wynik z indeksu renderującego
 i wyszukiwania. Test kontraktowy pilnuje, że seed nigdy nie zajmie zarezerwowanego klucza.

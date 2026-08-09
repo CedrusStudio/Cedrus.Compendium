@@ -144,7 +144,7 @@ Cały katalog `engine/__tests__` na zielono (126), `effects/__tests__` (26), `ts
 
 ---
 
-## 9.3 Słownik atrybutów w `StatBuffEffect` — `M` · ⭐⭐⭐
+## 9.3 Słownik atrybutów w `StatBuffEffect` — `M` · ⭐⭐⭐ — **ZROBIONE (2026-08-09)**
 
 **Zależy od 9.2.** Bez żywych wartości ta zmiana produkuje efekty, które nic nie robią.
 
@@ -194,6 +194,40 @@ W `StatBuffEffect` dołożyć brakujące atrybuty i charakterystyki jako opcjona
 - `effects/__tests__/statBuff.test.ts`: `statEffectToProfile({ fencing: 2 })` ustawia `profile.attributes.fencing.value === 2`; dwa różne efekty atrybutowe mają **różne** `id`;
 - `engine/__tests__/contestedTest.test.ts`: postawa z `fencing: +2` faktycznie podnosi wynik testu spornego (test end-to-end, spina 9.2 z 9.3);
 - `effectSchema` przyjmuje nowe pola i odrzuca literówkę (`fencingg`).
+
+---
+
+### Wykonanie 9.3 (2026-08-09)
+
+Doszło **6 atrybutów** (`fencing`, `artifice`, `martialArt`, `horsemanship`, `fortitude`,
+`willpower`) i **6 charakterystyk** — razem z trzema istniejącymi komplet 9 + 6.
+
+**Pułapka nr 1 rozwiązana przez konstrukcję, nie przez uwagę.** Plan ostrzegał, że pole dodane do
+`statEffectToProfile`, a pominięte w `statEffectDeltas`, daje dwóm różnym buffom ten sam `id`
+i ciche nadpisywanie. Zamiast dopisywać 12 par ręcznie, obie funkcje **i lista pól edytora** czytają
+teraz jedną mapę `ATTRIBUTE_LABELS` / `CHARACTERISTIC_LABELS` w `statBuff.ts`, opatrzoną
+`satisfies Record<keyof Attributes, string>` — nowa cecha w modelu postaci **nie kompiluje się**,
+dopóki nie zostanie nazwana. Test przechodzi po wszystkich piętnastu kluczach i sprawdza, że każdy
+ma własną deltę i własne `id`.
+
+**Harmonia odpada, zgodnie z pułapką nr 4.** W modelu postaci jej nie ma — w bibliotece `harmonia`
+jest tagiem STYLU walki, nie cechą. Rodziny Medytacji i Góry zostają niesymulowalne.
+
+**Literówka w nazwie cechy nadal przechodzi walidację.** Zod strzepuje nieznane klucze i zwraca
+sukces, więc `fencingg: 2` zapisze się i nic nie zrobi. Zaostrzenie schematu (`.strict()`) wywaliłoby
+wpisy z bazy niosące pola z dawnych refaktorów, więc obrona stanęła tam, gdzie wchodzi ręcznie pisany
+JSON: `scripts/import-mode-effects.ts` porównuje klucze przed i po parsowaniu i **odrzuca wiersz**
+z nieznanym polem, nazywając je. Test dokumentuje, że schemat sam tego nie łapie — żeby nikt nie
+liczył na coś, czego tam nie ma.
+
+**Wycena AI została świadomie nietknięta** (pułapka nr 3), z komentarzem w `policyValue.ts`: atrybuty
+nie wpływają na obrażenia ani na warstwy obrony, więc postawa fechmistrzowska wycenia się na 0.
+Symulacja jest poprawna, zachowawczy jest tylko wybór AI.
+
+Testy: 6 nowych w `statBuff.test.ts` (komplet cech, `.value` a nie `.testBonus`, delty per klucz,
+rozłączne `id`, schema, literówka) i jeden **spinający 9.2 z 9.3** w `contestedTest.test.ts` —
+postawa „+fechtunek" wygrywa test sporny, którego bez niej nie wygrywa. Osobno każda połowa wygląda
+na działającą; dopiero razem znaczą cokolwiek.
 
 ---
 

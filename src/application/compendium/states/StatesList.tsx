@@ -29,6 +29,7 @@ import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
 import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -51,22 +52,23 @@ export default function StatesList()
   });
 
   const [displayedStates, setDisplayedStates] = useState<Mode[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
-  // ROADMAP 2.2 — client-side narrow-down to a chosen character's own states,
-  // applied on top of whatever page(s) are already loaded/paginated below.
-  const [ownNamesFilter, setOwnNamesFilter] = useState<Set<string> | null>(null);
-  const visibleStates = ownNamesFilter ? displayedStates.filter(state => ownNamesFilter.has(state.name)) : displayedStates;
+  const visibleStates = displayedStates;
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const queryKey = [createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters];
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
       const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+      narrowToOwned(statesQuery, ownedFilter, debouncedSearchTerm);
       if (requirementFilters.length > 0) statesQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) statesQuery.tagFacetFilters = facetFilters;
 
@@ -78,17 +80,22 @@ export default function StatesList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (pageNumber === 1)
     {
-      setDisplayedStates(searchResults);
+      setDisplayedStates(ownedResults);
       return;
     }
 
-    setDisplayedStates(prev => [...prev, ...searchResults]);
-  }, [pageNumber, searchResults]);
+    setDisplayedStates(prev => [...prev, ...ownedResults]);
+  }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -117,6 +124,13 @@ export default function StatesList()
     clearResults();
 
   }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -174,9 +188,8 @@ export default function StatesList()
         facetEntity="states"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
-        extraFilters={<RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} />}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="states" onOwnedChange={setOwnedFilter} /></>}
       >
-        <CharacterModeFilter kind="states" onOwnNamesChange={setOwnNamesFilter} />
         <Button
           variant="outline"
           size="icon"

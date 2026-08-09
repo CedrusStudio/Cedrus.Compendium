@@ -22,6 +22,8 @@ import ListHeader from "@/common/components/lists/ListHeader";
 import { createPowerSpecificationKeysetQuery } from "@/infrastructure/searchQueries/powers/createPowerSpecificationKeysetQuery";
 import PowersSpecificationView from "@/application/compendium/powers/PowerSpecificationView";
 import PowerSpecificationEditableFields from "@/application/common/combat/PowerSpecificationEditableFields";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import AddSheet from "@/common/components/sheets/AddSheet";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -37,16 +39,20 @@ export default function PowersSpecificationList()
   const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedPowerSpecifications, setDisplayedPowerSpecifications] = useState<PowerSpecification[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = [...createKeysetSearchPowerSpecificationsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[...createKeysetSearchPowerSpecificationsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const powerSpecificationsQuery = createPowerSpecificationKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      narrowToOwned(powerSpecificationsQuery, ownedFilter, debouncedSearchTerm);
       if (facetFilters.length > 0) powerSpecificationsQuery.tagFacetFilters = facetFilters;
 
       return await searchClient.search<PowerSpecification[]>(powerSpecificationsQuery);
@@ -57,21 +63,26 @@ export default function PowersSpecificationList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (cursor === emptyUlid)
     {
-      setDisplayedPowerSpecifications(searchResults);
+      setDisplayedPowerSpecifications(ownedResults);
       return;
     }
 
     setDisplayedPowerSpecifications(prev =>  
     {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(spec => [spec.id, spec])).values());
+      if (ownedResults.length === 0) return prev;
+      return Array.from(new Map([...prev, ...ownedResults].map(spec => [spec.id, spec])).values());
     });
-  }, [cursor, searchResults]);
+  }, [cursor, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -94,6 +105,13 @@ export default function PowersSpecificationList()
     clearResults();
 
   }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -125,6 +143,7 @@ export default function PowersSpecificationList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="powers"
+        extraFilters={<CharacterModeFilter kind="powerSpecifications" onOwnedChange={setOwnedFilter} />}
         facetEntity="powerSpecifications"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}

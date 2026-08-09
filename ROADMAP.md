@@ -929,6 +929,87 @@ jest tam pusty; zwykłe wyszukanie facetu porzuciłoby filtr po cichu i **poszer
 
 ---
 
+## Fala 11 — silnik postaw: zakazy i cechy testowe — **ZROBIONE (2026-08-09)**
+
+Trzy zadania z `features-to-implement/samodzielna-roadmapa.md` (9.1–9.3), wykonane bez decyzji
+projektowych i bez dostępu do bazy. Razem odblokowują **19 rodzin postaw / 69 rekordów**.
+
+**`forbidAction` — zakaz rodzaju akcji** (Pełna Defensywna r1–5, Fortyfikacja r1–4, Styl Grupowy
+r1–4). `forbidTag` nie wystarczał: ban po tagu działa na wpisy z biblioteki, a atak podstawowy nie
+jest wpisem i nie ma tagów — `{ kind: "attack" }` powstaje w `takeTurn` z powietrza. Cztery rodzaje:
+atak, manewry, zmiana postawy, zaklęcia. `duration: 0` znaczy „póki tryb jest noszony", tak jak przy
+`forbidTag`. Zakaz manewrów obejmuje też **reakcje** — natychmiastowe są zwykle najcenniejsze, więc
+wyjątek dla nich byłby dziurą. Faza ataku w `takeTurn` wymagała przebudowy, nie dopisania warunku:
+zaklęcie zajmuje akcję ataku, ale to osobny zakaz, a stary fallback wracałby do zakazanego ataku.
+Combatant z zakazem i bez alternatywy loguje teraz `pass` z powodem — wcześniej `pass` logował się
+tylko przy `!canAct`, więc tura znikałaby bez śladu.
+
+**Żywe atrybuty w testach spornych.** `toCombatantSnapshot` zamraża `skills` przy budowie snapshotu,
+a `resolveContestedTest` czytał właśnie tę zamrożoną kopię — więc **każdy** bonus nadany w trakcie
+walki był w testach spornych martwy. Doszedł `effectiveSkills`, tą samą drogą, którą ataki od dawna
+idą przez `effectiveOffense`. Podmiana dotyczy OBU stron testu, bo `mode: "target"` nakłada profil
+o ujemnych wartościach na przeciwnika. Snapshot pozostaje nietknięty — jest współdzielony między
+biegami symulacji, więc mutacja zatrułaby kolejne walki tym samym obiektem.
+
+**Komplet cech testowych w `StatBuffEffect`.** Efekt znał trzy atrybuty z dziewięciu i zero
+charakterystyk; doszło 6 + 6. Pułapka „pole w aplikatorze, brak w deltach → dwa buffy z tym samym
+`id` i ciche nadpisywanie" jest teraz **niemożliwa z konstrukcji**: aplikator, delty i lista pól
+edytora czytają jedną mapę z `satisfies Record<keyof Attributes, string>`, więc nowa cecha w modelu
+postaci nie kompiluje się, dopóki nie zostanie nazwana.
+
+Dwie rzeczy świadomie zostawione, obie opisane w kodzie: **Harmonia** nie jest cechą w modelu
+(w bibliotece to tag stylu walki), więc rodziny Medytacji i Góry zostają niesymulowalne; **wycena AI**
+nie widzi atrybutów, bo idzie przez obrażenia i warstwy obrony — symulacja jest poprawna, zachowawczy
+jest tylko wybór manewru przez AI.
+
+⚠️ Zod **strzepuje nieznane klucze i zwraca sukces**, więc literówka `fencingg: 2` zapisze się i nic
+nie zrobi. Zaostrzenie schematu wywaliłoby wpisy niosące pola z dawnych refaktorów, więc obrona stoi
+tam, gdzie wchodzi ręcznie pisany JSON: `import-mode-effects.ts` porównuje klucze przed i po
+parsowaniu i odrzuca wiersz z nieznanym polem, nazywając je.
+
+---
+
+## Fala 12 — „tylko to, co ma ta postać" w całym kompendium — **ZROBIONE (2026-08-09)**
+
+Rozszerzenie ROADMAP 2.2 z dwóch list na dwanaście, plus naprawa trzech błędów, przez które
+pierwotna wersja w praktyce nie działała.
+
+**Filtr był liczony po stronie klienta, na już wczytanej stronie.** Przy sześciu postawach na ~300
+rekordów żadna nie trafiała na stronę 1, więc lista pustoszała i wyglądała na zepsutą. Zawężenie
+przeniesione do **zapytania** (`search.name: { in: [...] }` — warstwa payloadu znała to od dawna
+przez `anyOfValues`). Tekst z pola „Szukaj" jest **przecinany** z listą posiadanych nazw w JS, bo
+Prisma nie przyjmie `contains` i `in` na tym samym polu, a ciche zignorowanie wpisanego tekstu
+byłoby gorsze niż brak filtra. Pusta lista posiada­nych wysyła wartość niedopasowywalną — puste
+`in` jest **odrzucane** przez `hasSearchValue`, czyli filtr by zniknął i pokazało się całe
+kompendium.
+
+**Ranga była ignorowana.** Postać z „Postawą Defensywną 4" dostawała wszystkie pięć rang. Pary
+`(nazwa, ranga)` nie da się wyrazić w payloadzie (jedna wartość na pole), więc zapytanie zawęża do
+**rodzin** i do **zbioru posiadanych rang**, a dokładna para jest dobierana po stronie klienta.
+
+⚠️ Pierwsze podejście dobierało parę na zwykłej stronie wyników i **strona 1 wychodziła dziwnie
+mała**: zapytanie oddawało 10 wierszy wszystkich rang posiadanych rodzin, z czego pasujące bywały
+dwa, a reszta doklejała się dopiero przy przewijaniu. Przycięcie po stronie klienta musi więc
+dostać **komplet**, nie stronę. Iloczyn (rodziny × rangi) jest ścisłą górną granicą tego, co
+zapytanie może zwrócić, więc jest ustawiany jako rozmiar strony — cały repertuar postaci mieści się
+w jednym żądaniu (limit 400 wierszy), a `hasMore` przy aktywnym filtrze jest wprost `false`.
+
+**Pętla renderów.** `useCharacterById` wołało `toCharacter(data)` w ciele hooka, więc każdy render
+zwracał nowy obiekt; efekt zależny od `character` podnosił stan rodzica i sam się nakręcał
+(„Maximum update depth exceeded"). Mapowanie jest zmemoizowane na `data` — to naprawia też picker
+w Combat Labie, który miał tę samą wadę, tylko bez efektu, który by ją ujawnił.
+
+**Pusta lista po zdjęciu filtra.** Efekt spinający wyniki ze stanem miał zależności
+`[pageNumber, searchResults]`; po powrocie do poprzedniego klucza react-query oddawał **tę samą**
+tablicę z cache'a, więc efekt się nie odpalał i lista zostawała pusta do pierwszego przewinięcia.
+W zależnościach jest teraz też klucz filtra postaci.
+
+Moce są jedynym wyjątkiem od dopasowania po nazwie: Moc postaci nazywa się po swojemu („Moc
+Życiowa") i tylko **wskazuje** na specyfikację („Światło"), więc tam dopasowanie idzie po `id`.
+Kontrolka to teraz sam ludek w rozmiarze reszty paska, tuż za filtrem wymagań na wszystkich listach.
+
+---
+
 ## Zależności krytyczne (skrót)
 
 ```

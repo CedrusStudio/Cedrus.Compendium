@@ -64,6 +64,12 @@ function effectValue(self: CombatantRuntime, opponent: CombatantRuntime, effect:
       return debuffValue(self, opponent, effect.profile.profileId, effect.duration, selfRaw);
     case "stat":
     {
+      // ⚠ Znane niedoszacowanie (Fala 9.3): wycena idzie przez obrażenia
+      // i warstwy obrony, a atrybuty testowe („+2 fechtunku") nie wpływają na
+      // żadne z nich — więc postawa fechmistrzowska wycenia się na 0 i AI jej
+      // nie wybierze, mimo że w teście spornym realnie pomaga. Docelowo wycena
+      // powinna uwzględniać przewagę w testach; do tego czasu SYMULACJA jest
+      // poprawna, a tylko wybór AI zachowawczy.
       const profile = statEffectToProfile(effect);
       return effect.mode === "self"
         ? selfBuffValueFromProfile(self, profile, effect.duration, oppRaw)

@@ -22,6 +22,8 @@ import { useEntityTags } from '@/common/hooks/useEntityTags';
 import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import ShieldEditableFields from "@/application/common/equipment/EditSheets/ShieldEditableFields";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -38,16 +40,20 @@ export default function ShieldsList()
   const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedShields, setDisplayedShields] = useState<Shield[]>([]);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = [...createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[...createKeysetSearchShieldsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const shieldsQuery = createShieldKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      narrowToOwned(shieldsQuery, ownedFilter, debouncedSearchTerm);
       if (facetFilters.length > 0) shieldsQuery.tagFacetFilters = facetFilters;
 
       return await searchClient.search<Shield[]>(shieldsQuery);
@@ -59,20 +65,25 @@ export default function ShieldsList()
   {
     if (!searchResults) return;
 
-    setHasMore(searchResults.length === pageSize);
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (cursor === emptyUlid)
     {
-      setDisplayedShields(searchResults);
+      setDisplayedShields(ownedResults);
       return;
     }
 
     setDisplayedShields(prev =>  
     {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(shield => [shield.id, shield])).values());
+      if (ownedResults.length === 0) return prev;
+      return Array.from(new Map([...prev, ...ownedResults].map(shield => [shield.id, shield])).values());
     });
-  }, [cursor, searchResults]);
+  }, [cursor, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -95,6 +106,13 @@ export default function ShieldsList()
     clearResults();
 
   }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -126,6 +144,7 @@ export default function ShieldsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="shields"
+        extraFilters={<CharacterModeFilter kind="shields" onOwnedChange={setOwnedFilter} />}
         facetEntity="shields"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}

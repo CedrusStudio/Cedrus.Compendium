@@ -98,6 +98,28 @@ async function main(): Promise<void>
       catch { console.warn(`  ⚠ ${name} (r${grade}): niepoprawny JSON — pomijam.`); skippedInvalid++; continue; }
       const list = Array.isArray(parsed) ? parsed : [parsed];
       if (!list.every(e => effectSchema.safeParse(e).success)) { console.warn(`  ⚠ ${name} (r${grade}): efekt nie przechodzi walidacji — pomijam.`); skippedInvalid++; continue; }
+
+      // Zod ODRZUCA nieznane klucze po cichu — usuwa je i zwraca sukces. Dla
+      // ręcznie pisanego JSON-a w CSV to najgorszy możliwy tryb: `fencingg: 2`
+      // przechodzi walidację, zapisuje się i nie robi nic. Porównanie kluczy
+      // przed i po parsowaniu zamienia cichy brak efektu w głośny błąd.
+      const dropped = list.flatMap((effect, index) =>
+      {
+        const parsedEffect = effectSchema.safeParse(effect);
+        if (!parsedEffect.success || typeof effect !== "object" || effect === null) return [];
+        const kept = new Set(Object.keys(parsedEffect.data as Record<string, unknown>));
+        return Object.keys(effect as Record<string, unknown>)
+          .filter(key => !kept.has(key))
+          .map(key => `#${index + 1}.${key}`);
+      });
+
+      if (dropped.length > 0)
+      {
+        console.warn(`  ⚠ ${name} (r${grade}): nieznane pola ${dropped.join(", ")} — literówka? pomijam.`);
+        skippedInvalid++;
+        continue;
+      }
+
       plans.push({ name, grade, action: "effects", effects: list });
     }
     else if (markT3 && row.tier === "T3")

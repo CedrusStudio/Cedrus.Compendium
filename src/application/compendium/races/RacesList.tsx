@@ -22,6 +22,8 @@ import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import RaceAddSheet from "@/application/compendium/races/RaceAddSheet";
 import { displayedText } from "@/common/translations";
+import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
+import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
 import { useSearchParams } from "next/navigation";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -39,16 +41,20 @@ export default function RacesList()
   const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
 
   const [displayedRaces, setDisplayedRaces] = useState<Race[]>(EMPTY_ARRAY);
+
+  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const queryKey = [...createKeysetSearchRacesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters];
+  const ownedKey = ownedFilterKey(ownedFilter);
+  const queryKey = [...[...createKeysetSearchRacesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
     queryKey, 
     queryFn: async () => 
     {
       const racesQuery = createRaceKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
+      narrowToOwned(racesQuery, ownedFilter, debouncedSearchTerm);
       if (facetFilters.length > 0) racesQuery.tagFacetFilters = facetFilters;
 
       return await searchClient.search<Race[]>(racesQuery);
@@ -59,21 +65,26 @@ export default function RacesList()
   useEffect(() => 
   {
     if (!searchResults) return;
-    
-    setHasMore(searchResults.length === pageSize);
+
+    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
+    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
+    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
+    // przewinieciu i strona 1 wygladala na dziwnie mala.
+    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
+    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
 
     if (cursor === emptyUlid)
     {
-      setDisplayedRaces(searchResults);
+      setDisplayedRaces(ownedResults);
       return;
     }
 
     setDisplayedRaces(prev =>  
     {
-      if (searchResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...searchResults].map(race => [race.id, race])).values());
+      if (ownedResults.length === 0) return prev;
+      return Array.from(new Map([...prev, ...ownedResults].map(race => [race.id, race])).values());
     });
-  }, [cursor, searchResults]);
+  }, [cursor, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
   {
@@ -96,6 +107,13 @@ export default function RacesList()
     clearResults();
 
   }, [clearResults]);
+
+
+  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
+
+  // numerze 3, a nowe wyniki dokleily sie do starej listy.
+
+  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -127,6 +145,7 @@ export default function RacesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="races"
+        extraFilters={<CharacterModeFilter kind="races" onOwnedChange={setOwnedFilter} />}
         facetEntity="races"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}

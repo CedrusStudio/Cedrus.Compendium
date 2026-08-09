@@ -7,6 +7,7 @@
  * `Character` shape the rest of the app uses.
  */
 
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createCharacterByIdKey } from "@/persistence/cacheKeys";
 import client from "@/infrastructure/clients/searchClient";
@@ -26,5 +27,12 @@ export function useCharacterById(id: string | undefined): { character: Character
     staleTime: 5_000,
   });
 
-  return { character: data ? toCharacter(data) : null, isLoading };
+  // `toCharacter` buduje NOWY obiekt przy każdym wywołaniu. Bez memoizacji każdy
+  // render zwracał inną referencję, więc dowolny `useEffect` zależny od
+  // `character` odpalał się w kółko — a jeśli ten efekt podnosił stan rodzica,
+  // powstawała pętla („Maximum update depth exceeded" w CharacterModeFilter).
+  // Referencja musi być stabilna tak długo, jak stabilne są dane z cache'a.
+  const character = useMemo(() => (data ? toCharacter(data) : null), [data]);
+
+  return { character, isLoading };
 }

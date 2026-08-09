@@ -7,6 +7,7 @@ import { createRng } from "@/domain/combat-lab/rng/Rng";
 import type { ContestedTestEffect, SaveTestEffect } from "@/domain/combat-lab/effects/Effect";
 import type { Statistic } from "@/domain/characters/statistics/Statistic";
 import { makeSnapshot, makeAttributes, makeCharacteristics } from "@/domain/combat-lab/engine/__tests__/engineFixtures";
+import type { SnapshotMode } from "@/domain/combat-lab/engine/CombatantSnapshot";
 import { effectiveSkills } from "@/domain/combat-lab/engine/buffs";
 import { createDefaultBuffProfile } from "@/domain/characters/buffs/BuffProfile";
 
@@ -148,6 +149,35 @@ describe("żywe atrybuty w teście spornym", () => {
     weakened.activeBuffs.push({ profile: reflexDebuff, remaining: 1 });
     applyEffects([contested()], attacker(), weakened, ctx());
     expect(weakened.currentHp).toBe(weakened.snapshot.maxHp - 5);
+  });
+
+  /**
+   * Spina 9.2 z 9.3. Osobno każda część wygląda na działającą: 9.3 zapisuje
+   * `fencing` do profilu, 9.2 czyta profile przy rzucie. Dopiero razem znaczą,
+   * że postawa „+N fechtunku" cokolwiek robi — a to była cała stawka obu zadań.
+   */
+  it("postawa z `fencing` wygrywa test sporny, którego bez niej nie wygrywa", () => {
+    const fencingStance = (value: number): SnapshotMode =>
+      ({ name: "Postawa Fechmistrza", baseGrade: 1, variantsByGrade: { 1: [{ type: "stat", mode: "self", duration: 0, fencing: value }] } });
+
+    const run = (value: number | null) => {
+      const source = createRuntime(makeSnapshot("A", {
+        attributes: { fencing: s(1) },
+        ...(value === null ? {} : { stance: undefined }),
+      }));
+      if (value !== null)
+      {
+        // Postawa odpala swoje efekty na starcie tury; tu wołamy je wprost,
+        // żeby test mierzył rzut, a nie pętlę tur.
+        applyEffects(fencingStance(value).variantsByGrade[1]!, source, source, ctx());
+      }
+      const target = createRuntime(makeSnapshot("B", { attributes: { reflex: s(20) } }));
+      applyEffects([contested()], source, target, ctx());
+      return target.snapshot.maxHp - target.currentHp;
+    };
+
+    expect(run(null)).toBe(0);
+    expect(run(40)).toBe(5);
   });
 
   it("`grade` przesuwa rozkład, nie sumę — dlatego testy porównują z ustalonym seedem", () => {

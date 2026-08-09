@@ -5,7 +5,7 @@ import { Button } from "@/common/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/common/components/ui/collapsible";
 import { ChevronDown, ChevronsUpDown, X } from "lucide-react";
-import type { ResolvedTagFacet, TagFacetFilter, TagFacetIndex } from "@/domain/tags/tagFacets";
+import { UNASSIGNED_FACET_KEY, type ResolvedTagFacet, type TagFacetFilter, type TagFacetIndex } from "@/domain/tags/tagFacets";
 
 type FacetedTagFilterProps =
 {
@@ -71,6 +71,7 @@ export default function FacetedTagFilter({ index, filters, onFiltersChange, isLo
     onFiltersChange(filters.filter(filter => filter.facetKey !== facetKey));
 
   const activeCount = filters.reduce((total, filter) => total + filter.tags.length + (filter.includeNone ? 1 : 0), 0);
+  const hasLeftovers = index.facets.some(facet => facet.key === UNASSIGNED_FACET_KEY);
 
   return (
     <>
@@ -110,8 +111,11 @@ export default function FacetedTagFilter({ index, filters, onFiltersChange, isLo
                 w panelu admina. */}
             <p className="mt-1 text-[11px] leading-snug text-muted-foreground">
               W jednej kategorii wybory się <strong>sumują</strong>, między kategoriami <strong>zawężają</strong>.
-              „{NONE_LABEL}” znaczy „nie ma żadnego tagu z tej kategorii”. Tagi bez kategorii są na końcu,
-              w sekcji „Pozostałe”.
+              „{NONE_LABEL}” znaczy „nie ma żadnego tagu z tej kategorii”.
+              {/* Warunkowo, bo na większości list KAŻDY tag ma kategorię i sekcji
+                  „Pozostałe” po prostu nie ma — obiecywanie jej bezwarunkowo
+                  wyglądało jak błąd wyświetlania. */}
+              {hasLeftovers && <> Tagi bez kategorii są na samym końcu, w sekcji „Pozostałe”.</>}
             </p>
           </div>
 
@@ -220,13 +224,18 @@ function FacetSection({ facet, chosen, selectedTags, noneSelected, onToggleValue
 {
   const [open, setOpen] = useState(chosen > 0);
 
+  // „Pozostałe” to nie oś, tylko resztki — dwie linijki stylu, żeby nie czytało
+  // się jak siódma kategoria.
+  const isLeftovers = facet.key === UNASSIGNED_FACET_KEY;
+
   return (
-    <Collapsible open={open} onOpenChange={setOpen} className="border-b last:border-b-0">
+    <Collapsible open={open} onOpenChange={setOpen} className={`border-b last:border-b-0 ${isLeftovers ? "border-t-2 border-t-muted" : ""}`}>
       <div className="flex items-center justify-between gap-1 px-2 py-1">
         <CollapsibleTrigger asChild>
           <Button variant="ghost" size="sm" className="h-8 flex-1 justify-start gap-1.5 px-1 text-xs">
             <ChevronDown className={`h-3.5 w-3.5 shrink-0 transition-transform ${open ? "" : "-rotate-90"}`} />
             <span className="font-medium">{facet.label}</span>
+            {isLeftovers && <span className="text-[10px] font-normal text-muted-foreground">bez kategorii</span>}
             {chosen > 0 && <span className="rounded bg-primary px-1.5 text-[10px] text-primary-foreground">{chosen}</span>}
           </Button>
         </CollapsibleTrigger>

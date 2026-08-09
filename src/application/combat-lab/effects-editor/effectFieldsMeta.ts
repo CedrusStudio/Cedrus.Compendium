@@ -7,6 +7,7 @@
 
 import type { Effect } from "@/domain/combat-lab/effects/Effect";
 import { statusLabelsPl, controlNounsPl } from "@/domain/combat-lab/i18n/labels";
+import { STAT_BUFF_ATTRIBUTES, STAT_BUFF_CHARACTERISTICS, statBuffLabel } from "@/domain/combat-lab/effects/statBuff";
 
 export type FieldKind = "number" | "check" | "enum" | "text";
 
@@ -43,6 +44,20 @@ export const ROUNDING_LABELS: Record<string, string> = { up: "w górę", down: "
  */
 export { SKILLS } from "@/domain/characters/statistics/skills";
 export const ATTACK_KINDS = ["melee", "rangedPhysical", "rangedMagic"] as const;
+
+/**
+ * Editor rows for every test statistic a `stat` effect can shift.
+ *
+ * Derived, not hand-listed: the field list, the applier and the delta list all
+ * read one map in `statBuff.ts`, so they cannot drift apart. Attributes come
+ * first because they are what the library actually authors ("+1 fechtunek");
+ * characteristics are rarer.
+ */
+function statBuffStatFields(): FieldDef[]
+{
+  return [...STAT_BUFF_ATTRIBUTES, ...STAT_BUFF_CHARACTERISTICS]
+    .map(key => ({ path: key, label: statBuffLabel(key), kind: "number" as const }));
+}
 export const ATTACK_KIND_LABELS: Record<string, string> = { melee: "walka wręcz", rangedPhysical: "dystans fizyczny", rangedMagic: "dystans magiczny" };
 export const CONDITION_KINDS = ["opponentAttackKind", "targetHasStatus", "selfHasStatus", "onCritical", "onDamageDealt", "selfAirborne", "opponentCharging", "hasResource"] as const;
 export const CONDITION_LABELS: Record<string, string> = {
@@ -90,9 +105,11 @@ export const EFFECT_TYPE_META: Record<string, EffectTypeMeta> = {
     { path: "damage", label: "obrażenia", kind: "number" }, { path: "diceGrade", label: "ranga kości", kind: "number" },
     { path: "critPower", label: "siła krytyka", kind: "number" }, { path: "critRange", label: "szansa krytyka", kind: "number" },
     { path: "critDisabled", label: "nie może krytować", kind: "check", def: false },
-    { path: "precision", label: "precyzja", kind: "number" },
-    { path: "reflex", label: "refleks", kind: "number" }, { path: "initiative", label: "inicjatywa", kind: "number" },
     { path: "barrier", label: "bariera", kind: "number" },
+    // Fala 9.3 — komplet cech testowych. Lista jest generowana z tej samej mapy,
+    // z której korzysta `statEffectToProfile`, więc nowa cecha w modelu postaci
+    // pojawia się tu sama, zamiast czekać, aż ktoś dopisze ją w trzecim miejscu.
+    ...statBuffStatFields(),
   ] },
   multiplier: { label: "Mnożnik obrażeń (%)", simple: true, fields: [
     { path: "mode", label: "na kogo", kind: "enum", options: ["self", "target"], optLabels: STAT_MODE_LABELS, def: "self" },

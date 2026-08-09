@@ -186,10 +186,37 @@ export type StatBuffEffect =
   /** Suppress critical hits entirely (mode "self" = caster can't crit; "target"
    * = opponent can't crit). Buffs only ADD, so zeroing crit needs its own flag. */
   critDisabled?: boolean;
-  // Test stats.
+  /*
+   * Test stats — attributes (Wave 9.3).
+   *
+   * Flat keys, not `attributes: { … }`: the rest of the effect is flat and the
+   * editor addresses fields by `path`, so nesting would buy nothing and cost a
+   * component change.
+   *
+   * Every value lands in the statistic's `.value`, never `.testBonus` — the
+   * rulebook's „zwiększa fechtunek o 1" raises the stat itself, and a bonus that
+   * applied only to tests would quietly diverge from the character sheet.
+   *
+   * There is no `harmonia`: the library uses it as a fighting STYLE tag, not a
+   * statistic, so the Medytacji/Góry families stay unsimulatable until the model
+   * grows one.
+   */
   precision?: number;
   reflex?: number;
   initiative?: number;
+  fencing?: number;
+  artifice?: number;
+  martialArt?: number;
+  horsemanship?: number;
+  fortitude?: number;
+  willpower?: number;
+  // Test stats — characteristics.
+  strength?: number;
+  dexterity?: number;
+  constitution?: number;
+  mind?: number;
+  charisma?: number;
+  spellborn?: number;
   // Health.
   barrier?: number;
 };
