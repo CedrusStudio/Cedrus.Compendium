@@ -12,7 +12,6 @@ import { Form } from "@/ui/form";
 import { useFieldArray } from "react-hook-form";
 import { combatSchema, type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import SubmitButton from "@/common/components/form/SubmitButton";
-import client from "@/infrastructure/clients/charactersClient";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
 import { displayedText } from "@/common/translations";
@@ -20,6 +19,7 @@ import { CreateDefaultPower } from "@/domain/characters/combat/Power";
 import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 import EditArraySection from "@/common/components/form/EditArraySection";
 import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
+import { useMembershipGuardedUpdate } from '../hooks/useMembershipGuardedUpdate';
 
 type EditCharacterCombatProps =
 {
@@ -28,6 +28,7 @@ type EditCharacterCombatProps =
 
 export default function EditCharacterCombat({ character }: EditCharacterCombatProps)
 {
+  const updateCombat = useMembershipGuardedUpdate(character, 'combat');
   const { form, handleSubmit, isPending, isSuccess, formId } = useCharacterForm<CombatDto>
   ({
     characterId: character.id,
@@ -44,7 +45,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
       defaultOffenseId: character.defaultOffenseId,
       powers: character.powers
     },
-    updateFn: client.updateCombat,
+    updateFn: updateCombat,
     formId: FORM_IDS.COMBAT,
     toastPosition: "bottom-left",
   });

@@ -13,18 +13,24 @@ export function useSearchCharactersSummary
     cursor: string,
     includeTags?: string[],
     pageSize: number = DEFAULT_PAGE_SIZE,
-    excludeTags?: string[]
+    excludeTags?: string[],
+    pageNumber?: number
 )
 {
     const { apiKey } = useApiKey();
-    const queryKey = createSearchCharactersKey(search, cursor, includeTags, pageSize, excludeTags, apiKey);
+    const baseKey = createSearchCharactersKey(search, cursor, includeTags, pageSize, excludeTags, apiKey);
+    const queryKey = pageNumber === undefined ? baseKey : [...baseKey, { pageNumber }];
 
-    const { data = [] } = useQuery<CharacterSummary[]>
+    const query = useQuery<CharacterSummary[]>
     ({
         queryKey,
-        queryFn: async () => await client.search<CharacterSummary[]>(createCharacterSummaryQuery(search, cursor, includeTags, pageSize, excludeTags)),
+        queryFn: async () => {
+            const payload = createCharacterSummaryQuery(search, cursor, includeTags, pageSize, excludeTags);
+            if (pageNumber !== undefined) payload.pagination = { pageNumber, pageSize };
+            return client.search<CharacterSummary[]>(payload);
+        },
         staleTime: 5_000,
     });
 
-    return { characters: data }
+    return { ...query, characters: query.data ?? [], accessKey: apiKey };
 };

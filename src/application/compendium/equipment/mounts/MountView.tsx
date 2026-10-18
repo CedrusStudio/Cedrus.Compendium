@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/equipment/mountsClient";
 import { displayedText } from '@/common/translations';
 import DeleteButton from '@/common/components/buttons/DeleteButton';
@@ -20,10 +21,11 @@ type MountViewProps =
 {
   mount: Mount;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function MountView({ mount, disableEdit = false, onDelete }: MountViewProps)
+export default function MountView({ mount, disableEdit = false, characterScope = false, onDelete }: MountViewProps)
 {
   const { deleteEntity: deleteMount, isPending } = useDeleteEntity({
     client,
@@ -33,7 +35,7 @@ export default function MountView({ mount, disableEdit = false, onDelete }: Moun
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="mounts" entityId={mount.id} label={mount.name} /> : undefined}>
 
       <MountViewFields mount={mount} />
 

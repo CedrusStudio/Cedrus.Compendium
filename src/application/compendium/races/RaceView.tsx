@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/racesClient";
 import { type Race } from "@/domain/Race";
 import { displayedText } from '@/common/translations';
@@ -24,10 +25,11 @@ type RaceViewProps =
 {
   race: Race;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function RaceView({ race, disableEdit = false, onDelete }: RaceViewProps)
+export default function RaceView({ race, disableEdit = false, characterScope = false, onDelete }: RaceViewProps)
 {
   const { deleteEntity: deleteRace, isPending } = useDeleteEntity
   ({
@@ -84,7 +86,7 @@ export default function RaceView({ race, disableEdit = false, onDelete }: RaceVi
   );
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="races" entityId={race.id} label={race.name} /> : undefined}>
 
       <SummaryView entity={race} />
 

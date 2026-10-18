@@ -17,6 +17,9 @@ import { includeAllRelations } from '@/infrastructure/searchQueries/characters/a
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 import { CharacterValidationError } from '@/persistence/characters/characterErrors';
 import { characterVisibilityWhere } from '@/persistence/characterVisibility';
+import { membershipSnapshot, type CharacterMembershipSnapshot } from '@/domain/characters/characterMembership';
+import { rethrowMembershipConflict, withMembershipSnapshot } from './membershipSnapshot';
+import type { Prisma } from '@prisma/client';
 
 //Queries
 export async function getCharactersByIds(ids: string[])
@@ -165,10 +168,15 @@ export async function updateCharacterEquipment(id: string, characterEquipment: E
   return !!updatedCharacter;
 }
 
-export async function updateCharacterDetails(id: string, characterDetails: DetailsDto)
-  : Promise<boolean>
+export async function updateCharacterDetails(id: string, characterDetails: DetailsDto, guard?: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
 {
-  const existingOnCharacterPerkIdsResponse = await prisma.character.findUnique
+  if (guard) return withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey, tx => saveCharacterDetails(id, characterDetails, tx));
+  return !!(await saveCharacterDetails(id, characterDetails, prisma));
+}
+
+async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db: Prisma.TransactionClient)
+{
+  const existingOnCharacterPerkIdsResponse = await db.character.findUnique
   ({ 
     where: { id },
     select: { perksIds: true, raceId: true }
@@ -190,7 +198,7 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
 
   // Validate raceId exists if provided
   if (characterDetails.raceId) {
-    const raceExists = await prisma.race.findUnique({
+    const raceExists = await db.race.findUnique({
       where: { id: characterDetails.raceId },
       select: { id: true }
     });
@@ -201,7 +209,7 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
   }
 
   // Fetch existing perk IDs
-  const existingPerkIds = await fetchExistingEntityIds(prisma.perk, characterDetails.perks, existingOnCharacterPerkIdsResponse.perksIds);
+  const existingPerkIds = await fetchExistingEntityIds(db.perk, characterDetails.perks, existingOnCharacterPerkIdsResponse.perksIds);
 
   const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel
   (
@@ -210,19 +218,24 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
     existingPerkIds
   );
 
-  const updatedCharacter = await prisma.character.update
-  ({
-    where: { id },
-    data: characterDetailsPersistenceModel
-  });
-
-  return !!updatedCharacter;
+  try {
+    const updatedCharacter = await db.character.update({
+      where: { id },
+      data: characterDetailsPersistenceModel,
+    });
+    return membershipSnapshot(updatedCharacter);
+  } catch (error) { return rethrowMembershipConflict(error); }
 }
 
-export async function updateCharacterCombat(id: string, characterCombat: CombatDto)
-  : Promise<boolean>
+export async function updateCharacterCombat(id: string, characterCombat: CombatDto, guard?: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
 {
-  const idsOnCharacter = await prisma.character.findUnique
+  if (guard) return withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey, tx => saveCharacterCombat(id, characterCombat, tx));
+  return !!(await saveCharacterCombat(id, characterCombat, prisma));
+}
+
+async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: Prisma.TransactionClient)
+{
+  const idsOnCharacter = await db.character.findUnique
   ({ 
     where: { id },
     select: 
@@ -237,13 +250,13 @@ export async function updateCharacterCombat(id: string, characterCombat: CombatD
 
   if (!idsOnCharacter) return false;
 
-  const existingManeuverIds = await fetchExistingEntityIds(prisma.maneuver, characterCombat.maneuvers, idsOnCharacter.maneuversIds, );
-  const existingStanceIds = await fetchExistingEntityIds(prisma.stance, characterCombat.stances, idsOnCharacter.stancesIds);
-  const existingStateIds = await fetchExistingEntityIds(prisma.state, characterCombat.states, idsOnCharacter.statesIds);
+  const existingManeuverIds = await fetchExistingEntityIds(db.maneuver, characterCombat.maneuvers, idsOnCharacter.maneuversIds, );
+  const existingStanceIds = await fetchExistingEntityIds(db.stance, characterCombat.stances, idsOnCharacter.stancesIds);
+  const existingStateIds = await fetchExistingEntityIds(db.state, characterCombat.states, idsOnCharacter.statesIds);
   
   // Spells need special handling because they come from powers
   const spellEntities = characterCombat.powers.flatMap(power => power.spells);
-  const existingSpellIds = await fetchExistingEntityIds(prisma.spell, spellEntities, idsOnCharacter.spellsIds);
+  const existingSpellIds = await fetchExistingEntityIds(db.spell, spellEntities, idsOnCharacter.spellsIds);
   
   // Power specifications - just collect the IDs from powers
   const powerSpecificationIds = [...new Set(characterCombat.powers.map(power => power.powerSpecificationId))];
@@ -263,13 +276,13 @@ export async function updateCharacterCombat(id: string, characterCombat: CombatD
     powerSpecificationIds
   );
 
-  const updatedCharacter = await prisma.character.update
-  ({
-    where: { id },
-    data: characterCombatPersistenceModel
-  });
-
-  return !!updatedCharacter;
+  try {
+    const updatedCharacter = await db.character.update({
+      where: { id },
+      data: characterCombatPersistenceModel,
+    });
+    return membershipSnapshot(updatedCharacter);
+  } catch (error) { return rethrowMembershipConflict(error); }
 }
 
 export async function updateCharacterBuffs(id: string, characterBuffs: BuffsDto)

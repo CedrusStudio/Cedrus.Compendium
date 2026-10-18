@@ -27,8 +27,8 @@ import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import { displayedText } from "@/common/translations";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 import { List, Layers } from "lucide-react";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -53,13 +53,21 @@ export default function PerksList()
 
   const [displayedPerks, setDisplayedPerks] = useState<Perk[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('perks');
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setPageNumber(1);
+    setDisplayedPerks([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
@@ -67,10 +75,11 @@ export default function PerksList()
     queryFn: async () =>
     {
       const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
-      narrowToOwned(perksQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(perksQuery, ownedFilter);
       if (requirementFilters.length > 0) perksQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) perksQuery.tagFacetFilters = facetFilters;
 
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<Perk[]>(perksQuery);
     },
     staleTime: 5_000
@@ -80,12 +89,8 @@ export default function PerksList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (pageNumber === 1)
     {
@@ -93,7 +98,7 @@ export default function PerksList()
       return;
     }
 
-    setDisplayedPerks(prev => [...prev, ...ownedResults]);
+    setDisplayedPerks(prev => Array.from(new Map([...prev, ...ownedResults].map(item => [item.id, item])).values()));
   }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
@@ -125,11 +130,6 @@ export default function PerksList()
   }, [clearResults]);
 
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -187,7 +187,7 @@ export default function PerksList()
         facetEntity="perks"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
-        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="perks" onOwnedChange={setOwnedFilter} /></>}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterOwnedFilter kind="perks" /></>}
       >
         <Button
           variant="outline"
@@ -203,7 +203,7 @@ export default function PerksList()
       {isGroupedView ? (
         <GroupedItemsList<Perk>
           items={displayedPerks}
-          renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
+          renderItem={perk => <PerkView characterScope key={perk.id} perk={perk} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
@@ -219,7 +219,7 @@ export default function PerksList()
             setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
-          renderItem={perk => <PerkView key={perk.id} perk={perk} onDelete={handleDelete} />}
+          renderItem={perk => <PerkView characterScope key={perk.id} perk={perk} onDelete={handleDelete} />}
         />
       )}
     </>

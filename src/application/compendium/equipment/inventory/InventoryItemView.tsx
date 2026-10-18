@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/equipment/inventoryClient";
 import { type Item } from "@/domain/characters/equipment/Item";
 import { displayedText } from '@/common/translations';
@@ -19,10 +20,11 @@ type InventoryItemViewProps =
 {
   item: Item;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function InventoryItemView({ item, disableEdit = false, onDelete }: InventoryItemViewProps)
+export default function InventoryItemView({ item, disableEdit = false, characterScope = false, onDelete }: InventoryItemViewProps)
 {
   const { deleteEntity: deleteInventoryItem, isPending } = useDeleteEntity({
     client,
@@ -32,7 +34,7 @@ export default function InventoryItemView({ item, disableEdit = false, onDelete 
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="inventory" entityId={item.id} label={item.name} /> : undefined}>
 
       <InventoryItemViewFields item={item} />
 

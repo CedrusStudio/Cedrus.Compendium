@@ -22,8 +22,8 @@ import ListHeader from "@/common/components/lists/ListHeader";
 import { createPowerSpecificationKeysetQuery } from "@/infrastructure/searchQueries/powers/createPowerSpecificationKeysetQuery";
 import PowersSpecificationView from "@/application/compendium/powers/PowerSpecificationView";
 import PowerSpecificationEditableFields from "@/application/common/combat/PowerSpecificationEditableFields";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 import AddSheet from "@/common/components/sheets/AddSheet";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -40,11 +40,19 @@ export default function PowersSpecificationList()
 
   const [displayedPowerSpecifications, setDisplayedPowerSpecifications] = useState<PowerSpecification[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('powerSpecifications');
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setCursor(emptyUlid);
+    setDisplayedPowerSpecifications([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[...createKeysetSearchPowerSpecificationsKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
@@ -52,9 +60,10 @@ export default function PowersSpecificationList()
     queryFn: async () => 
     {
       const powerSpecificationsQuery = createPowerSpecificationKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
-      narrowToOwned(powerSpecificationsQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(powerSpecificationsQuery, ownedFilter);
       if (facetFilters.length > 0) powerSpecificationsQuery.tagFacetFilters = facetFilters;
 
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<PowerSpecification[]>(powerSpecificationsQuery);
     },
     staleTime: 5_000
@@ -64,12 +73,8 @@ export default function PowersSpecificationList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (cursor === emptyUlid)
     {
@@ -107,11 +112,6 @@ export default function PowersSpecificationList()
   }, [clearResults]);
 
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -143,7 +143,7 @@ export default function PowersSpecificationList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="powers"
-        extraFilters={<CharacterModeFilter kind="powerSpecifications" onOwnedChange={setOwnedFilter} />}
+        extraFilters={<CharacterOwnedFilter kind="powerSpecifications" />}
         facetEntity="powerSpecifications"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
@@ -159,7 +159,7 @@ export default function PowersSpecificationList()
           if (displayedPowerSpecifications.length > 0) setCursor(displayedPowerSpecifications[displayedPowerSpecifications.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={powerSpecification => <PowersSpecificationView key={powerSpecification.id} powerSpecification={powerSpecification} onDelete={handleDelete} />}
+        renderItem={powerSpecification => <PowersSpecificationView characterScope key={powerSpecification.id} powerSpecification={powerSpecification} onDelete={handleDelete} />}
       />
     </>
   );

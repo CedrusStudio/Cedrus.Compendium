@@ -14,15 +14,16 @@ import EditPerksList from "@/application/characters/edit/details/EditPerksList";
 import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 import { Separator } from "@/common/components/ui/separator";
 import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
-import client from "@/infrastructure/clients/charactersClient";
 import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 import RaceSelector from "@/application/characters/edit/details/RaceSelector";
 import { Button } from "@/ui/button";
 import { useApiKey } from "@/common/hooks/useApiKey";
+import { useMembershipGuardedUpdate } from '../hooks/useMembershipGuardedUpdate';
 
 export default function EditDetailsView(input: { character: Character })
 {
     const { character } = input;
+    const updateDetails = useMembershipGuardedUpdate(character, 'details');
 
     const { form, handleSubmit, isPending, isSuccess, formId } = useCharacterForm<DetailsDto>
     ({
@@ -38,7 +39,7 @@ export default function EditDetailsView(input: { character: Character })
             raceId: character.race?.id ?? null,
             apiKeys: character.apiKeys ?? []
         },
-        updateFn: async (id, data) => client.updateDetails(id, data),
+        updateFn: updateDetails,
         formId: FORM_IDS.DETAILS,
     });
 

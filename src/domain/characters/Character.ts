@@ -15,6 +15,7 @@ import { BuffProfile } from "@/domain/characters/buffs/BuffProfile";
 import { Tag } from "@/domain/Tag";
 import { Entity } from "@/domain/Entity";
 import { Race } from "@/domain/Race";
+import type { CharacterMembershipSnapshot } from './characterMembership';
 
 export type Character = Entity &
 {
@@ -28,6 +29,7 @@ export type Character = Entity &
    * `undefined`/empty means the character is public (visible to everyone).
    */
   apiKeys?: string[];
+  membershipSnapshot?: CharacterMembershipSnapshot;
 
   characteristics: Characteristics;
   attributes: Attributes;

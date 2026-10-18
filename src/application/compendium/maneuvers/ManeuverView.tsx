@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/maneuversClient";
 import { type Maneuver } from "@/domain/characters/combat/Maneuver";
 import { toManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
@@ -31,10 +32,11 @@ type ManeuverViewProps =
 {
   maneuver: Maneuver;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function ManeuverView({ maneuver, disableEdit = false, onDelete }: ManeuverViewProps)
+export default function ManeuverView({ maneuver, disableEdit = false, characterScope = false, onDelete }: ManeuverViewProps)
 {
   const { deleteEntity: deleteManeuver, isPending } = useDeleteEntity({
     client,
@@ -44,12 +46,12 @@ export default function ManeuverView({ maneuver, disableEdit = false, onDelete }
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="maneuvers" entityId={maneuver.id} label={`${maneuver.name} ${maneuver.grade}`} /> : undefined}>
 
       <SummaryView entity={maneuver} />
       
       <div className="p-2 rounded-md w-full">
-        <RequirementsView entityWithRequirements={maneuver} />
+        <RequirementsView useCompendiumCharacter={characterScope} entityWithRequirements={maneuver} />
       </div>
 
       <ReplacesView entity={maneuver} group="maneuvers" />

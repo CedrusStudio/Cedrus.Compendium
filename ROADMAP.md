@@ -12,6 +12,7 @@ Przegląd kodu i danych z `backup/2026-08-02T06-30-41-035Z`. Fale 0–3 i 5–8 
 | **Mapowanie efektów Combat Lab** — największa otwarta pozycja | `combat-lab-maneuver-analysis-plan.md` | 84 z 992 manewrów ma efekty; **0** z 214 Postaw, 30 Stanów i 421 Zaklęć. Nic nie jest oznaczone jako niesymulowalne, więc triaż praktycznie nie ruszył. |
 | **Autorowanie efektów Postaw/Stanów** | `combat-lab-engine-model-gaps-plan.md` §1 | Silnik jest gotowy w całości (patrz §8.10). Brakuje wyłącznie **treści**: 0 z 214 Postaw i 0 z 30 Stanów ma efekty. |
 | **Rozbudowa wzmocnień w symulacji** | `combat-lab-buff-expansion-plan.md` | Plan bez implementacji. |
+| **Kontekst postaci — rozszerzenia akcji** | [Plan i analiza kodu](features-to-implement/compendium-character-scope-plan.md) | Pierwsze wydanie gotowe 2026-10-18: zapis manewrów, atutów, postaw i stanów oraz filtr w 12 kategoriach. Pozostają akcje ekwipunku, zaklęć, mocy i ras (rozszerzenia A/B). |
 | **4.1 Prywatne encje Kompendium** | Fala 4 poniżej | `apiKeys` istnieje wyłącznie na `Character`. |
 | **2.6 Reszta redesignu zakładki Walka** | Fala 2 poniżej | Świadomie odłożone — wymaga makiety. |
 | **Dwa błędne mapowania wymagań** | dane | `Pogromienie` (rangi 1–3) i `Napór Włóczniarza` (rangi 1–2) mają nadmiarowe `siła ≥ N` obok poprawnego wpisu — 5 rekordów do wyczyszczenia w `/admin/requirements`. |
@@ -1007,6 +1008,14 @@ W zależnościach jest teraz też klucz filtra postaci.
 Moce są jedynym wyjątkiem od dopasowania po nazwie: Moc postaci nazywa się po swojemu („Moc
 Życiowa") i tylko **wskazuje** na specyfikację („Światło"), więc tam dopasowanie idzie po `id`.
 Kontrolka to teraz sam ludek w rozmiarze reszty paska, tuż za filtrem wymagań na wszystkich listach.
+
+---
+
+## Kontekst postaci w kompendium — pierwsze wydanie — **ZROBIONE (2026-10-18)**
+
+Wspólny wybór postaci w bocznym panelu, status posiadania po dokładnym ID i osobny filtr „Tylko posiadane” na wszystkich 12 listach. Kontekst i filtr zachowują się między kategoriami oraz po odświeżeniu w tej samej sesji. Dla manewrów, atutów, postaw i stanów można natychmiast przypinać/odpinać istniejący wpis bez edytowania biblioteki. Wymagania są oceniane dla wybranej postaci i nie blokują dodawania.
+
+Zapis respektuje dostęp i limity kategorii; transakcje chronią przed utratą równoległych zmian. Otwarty wcześniej formularz postaci otrzymuje konflikt 409 zamiast nadpisania nowego repertuaru. Testy obejmują rzeczywistą integrację MongoDB, interfejs, API i sesję. [Analiza, szczegóły wdrożenia i dalszy zakres](features-to-implement/compendium-character-scope-plan.md).
 
 ---
 

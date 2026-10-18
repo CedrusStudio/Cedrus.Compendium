@@ -22,8 +22,8 @@ import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import RaceAddSheet from "@/application/compendium/races/RaceAddSheet";
 import { displayedText } from "@/common/translations";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 import { useSearchParams } from "next/navigation";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -42,11 +42,19 @@ export default function RacesList()
 
   const [displayedRaces, setDisplayedRaces] = useState<Race[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('races');
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setCursor(emptyUlid);
+    setDisplayedRaces([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[...createKeysetSearchRacesKey(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
@@ -54,9 +62,10 @@ export default function RacesList()
     queryFn: async () => 
     {
       const racesQuery = createRaceKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags);
-      narrowToOwned(racesQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(racesQuery, ownedFilter);
       if (facetFilters.length > 0) racesQuery.tagFacetFilters = facetFilters;
 
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<Race[]>(racesQuery);
     },
     staleTime: 5_000
@@ -66,12 +75,8 @@ export default function RacesList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (cursor === emptyUlid)
     {
@@ -109,11 +114,6 @@ export default function RacesList()
   }, [clearResults]);
 
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -145,7 +145,7 @@ export default function RacesList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="races"
-        extraFilters={<CharacterModeFilter kind="races" onOwnedChange={setOwnedFilter} />}
+        extraFilters={<CharacterOwnedFilter kind="races" />}
         facetEntity="races"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
@@ -161,7 +161,7 @@ export default function RacesList()
           if (displayedRaces.length > 0) setCursor(displayedRaces[displayedRaces.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={race => <RaceView key={race.id} race={race} onDelete={handleDelete} />}
+        renderItem={race => <RaceView characterScope key={race.id} race={race} onDelete={handleDelete} />}
       />
     </>
   );

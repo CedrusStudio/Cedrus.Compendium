@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/spellsClient";
 import { type Spell } from "@/domain/characters/combat/Power";
 import { formatSpellCost } from '@/domain/characters/combat/SpellCost';
@@ -29,10 +30,11 @@ type SpellViewProps =
 {
   spell: Spell;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function SpellView({ spell, disableEdit = false, onDelete }: SpellViewProps)
+export default function SpellView({ spell, disableEdit = false, characterScope = false, onDelete }: SpellViewProps)
 {
   const { deleteEntity: deleteSpell, isPending } = useDeleteEntity({
     client,
@@ -42,12 +44,12 @@ export default function SpellView({ spell, disableEdit = false, onDelete }: Spel
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="spells" entityId={spell.id} label={`${spell.name} ${spell.grade}`} /> : undefined}>
 
       <SummaryView entity={spell} />
 
       <div className="p-2 rounded-md w-full">
-        <RequirementsView entityWithRequirements={spell} />
+        <RequirementsView useCompendiumCharacter={characterScope} entityWithRequirements={spell} />
       </div>
 
       <ReplacesView entity={spell} group="spells" />

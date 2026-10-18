@@ -28,8 +28,8 @@ import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -53,14 +53,22 @@ export default function StatesList()
 
   const [displayedStates, setDisplayedStates] = useState<Mode[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('states');
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const visibleStates = displayedStates;
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setPageNumber(1);
+    setDisplayedStates([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
@@ -68,10 +76,11 @@ export default function StatesList()
     queryFn: async () =>
     {
       const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
-      narrowToOwned(statesQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(statesQuery, ownedFilter);
       if (requirementFilters.length > 0) statesQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) statesQuery.tagFacetFilters = facetFilters;
 
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<Mode[]>(statesQuery);
     },
     staleTime: 5_000
@@ -81,12 +90,8 @@ export default function StatesList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (pageNumber === 1)
     {
@@ -94,7 +99,7 @@ export default function StatesList()
       return;
     }
 
-    setDisplayedStates(prev => [...prev, ...ownedResults]);
+    setDisplayedStates(prev => Array.from(new Map([...prev, ...ownedResults].map(item => [item.id, item])).values()));
   }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
@@ -126,11 +131,6 @@ export default function StatesList()
   }, [clearResults]);
 
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -188,7 +188,7 @@ export default function StatesList()
         facetEntity="states"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
-        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="states" onOwnedChange={setOwnedFilter} /></>}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterOwnedFilter kind="states" /></>}
       >
         <Button
           variant="outline"
@@ -204,7 +204,7 @@ export default function StatesList()
       {isGroupedView ? (
         <GroupedItemsList<Mode>
           items={visibleStates}
-          renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
+          renderItem={state => <StateView characterScope key={state.id} state={state} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
@@ -220,7 +220,7 @@ export default function StatesList()
             setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
-          renderItem={state => <StateView key={state.id} state={state} onDelete={handleDelete} />}
+          renderItem={state => <StateView characterScope key={state.id} state={state} onDelete={handleDelete} />}
         />
       )}
     </>

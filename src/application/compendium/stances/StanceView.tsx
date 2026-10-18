@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/stancesClient";
 import { type Mode } from "@/domain/characters/combat/Mode";
 import { displayedText } from '@/common/translations';
@@ -26,10 +27,11 @@ type StanceViewProps =
 {
   stance: Mode;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function StanceView({ stance, disableEdit = false, onDelete }: StanceViewProps)
+export default function StanceView({ stance, disableEdit = false, characterScope = false, onDelete }: StanceViewProps)
 {
   const { deleteEntity: deleteStance, isPending } = useDeleteEntity({
     client,
@@ -39,12 +41,12 @@ export default function StanceView({ stance, disableEdit = false, onDelete }: St
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="stances" entityId={stance.id} label={`${stance.name} ${stance.grade}`} /> : undefined}>
 
       <SummaryView entity={stance} />
 
       <div className="p-2 rounded-md w-full">
-        <RequirementsView entityWithRequirements={stance} />
+        <RequirementsView useCompendiumCharacter={characterScope} entityWithRequirements={stance} />
       </div>
 
       <ReplacesView entity={stance} group="stances" />
