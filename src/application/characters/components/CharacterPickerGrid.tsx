@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/ui/card';
 import { displayedText } from '@/common/translations';
 import { useSearchCharactersSummary } from '@/application/characters/hooks/useSearchCharactersSummary';
@@ -10,6 +10,7 @@ import { DEFAULT_PAGE_SIZE, emptyUlid } from '@/common/global/pagination';
 import { useDebounce } from 'use-debounce';
 import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from '@/common/components/lists/ListHeader';
+import { Button } from '@/ui/button';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -52,7 +53,21 @@ export default function CharacterPickerGrid
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
 
-  const { characters: searchedCharacters } = useSearchCharactersSummary(debouncedSearchTerm, emptyUlid, searchTags, pageSize, excludedTags);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pages, setPages] = useState<CharacterSummary[]>([]);
+  const { characters: page, isPending, isFetching, isError, refetch, accessKey } = useSearchCharactersSummary(debouncedSearchTerm, emptyUlid, searchTags, pageSize, excludedTags, pageNumber);
+  const searchKey = JSON.stringify([debouncedSearchTerm, searchTags, excludedTags, accessKey]);
+  const [previousSearchKey, setPreviousSearchKey] = useState(searchKey);
+  if (previousSearchKey !== searchKey) {
+    setPreviousSearchKey(searchKey);
+    setPageNumber(1);
+    setPages([]);
+  }
+  useEffect(() => {
+    if (isPending || isError) return;
+    setPages(previous => pageNumber === 1 ? page : Array.from(new Map([...previous, ...page].map(item => [item.id, item])).values()));
+  }, [page, pageNumber, isPending, isError, searchKey]);
+  const searchedCharacters = pageNumber === 1 ? page : pages;
   const characters = excludeCharacterId
     ? searchedCharacters.filter(character => character.id !== excludeCharacterId)
     : searchedCharacters;
@@ -101,9 +116,12 @@ export default function CharacterPickerGrid
         handleExcludedTagsChange={handleExcludedTagsChange}
       />
 
+      {isPending && <p role="status">{displayedText.compendium_loading}</p>}
+      {isError && <div role="alert">{displayedText.compendium_picker_failed} <Button variant="outline" onClick={() => void refetch()}>{displayedText.compendium_retry}</Button></div>}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {
-        displayedCharacters.length === 0
+        displayedCharacters.length === 0 && !isPending && !isError
           ? <NotFoundMessage />
           : (
               displayedCharacters.map(summary =>
@@ -121,6 +139,7 @@ export default function CharacterPickerGrid
           )
       }
       </div>
+      {!isError && page.length === pageSize && <Button variant="outline" disabled={isFetching} onClick={() => setPageNumber(previous => previous + 1)}>{displayedText.compendium_load_more}</Button>}
     </div>
   );
 }
@@ -145,9 +164,9 @@ function CharacterSelectCard({ summary, onSelect, isSelected }: CharacterSelectC
 {
   return (
     <Card
-      className={`cursor-pointer transition-colors ${isSelected ? 'border-primary bg-primary/10' : 'bg-muted hover:bg-muted/80'}`}
-      onClick={() => onSelect(summary.id, summary)}
+      className={`transition-colors ${isSelected ? 'border-primary bg-primary/10' : 'bg-muted hover:bg-muted/80'}`}
     >
+      <button type="button" className="w-full cursor-pointer rounded-xl text-left focus-visible:outline-2 focus-visible:outline-primary" aria-pressed={isSelected} onClick={() => onSelect(summary.id, summary)}>
       <CardHeader>
         <CardTitle className='flex flex-row justify-between gap-2'>
           <h1 className='text-xl'>{summary.name}</h1>
@@ -155,6 +174,7 @@ function CharacterSelectCard({ summary, onSelect, isSelected }: CharacterSelectC
         </CardTitle>
         <CardDescription>{summary.shortName}</CardDescription>
       </CardHeader>
+      </button>
     </Card>
   );
 }

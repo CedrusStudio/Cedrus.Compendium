@@ -1,83 +1,53 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-const { updateCharacterDetailsMock } = vi.hoisted(() => ({
-  updateCharacterDetailsMock: vi.fn(),
-}));
-
-vi.mock('@/persistence/characters/charactersRepository', async () => {
-  const actual = await vi.importActual<typeof import('@/persistence/characters/charactersRepository')>(
-    '@/persistence/characters/charactersRepository',
-  );
-
-  return {
-    ...actual,
-    updateCharacterDetails: updateCharacterDetailsMock,
-  };
-});
-
-import { PUT } from '@/app/api/characters/[id]/details/route';
+vi.mock('@/lib/env', () => ({ adminApiKeys: ['valid'] }));
+vi.mock('@/persistence/characters/charactersRepository', () => ({ updateCharacterDetails: vi.fn(), updateCharacterCombat: vi.fn() }));
+import { updateCharacterDetails } from '@/persistence/characters/charactersRepository';
 import { CharacterValidationError } from '@/persistence/characters/characterErrors';
+import { CharacterMembershipConflictError } from '@/persistence/characters/characterMembershipErrors';
+import { PUT } from './route';
 
-function createRequest(body: unknown)
-{
-  return new Request('http://localhost/api/characters/character-1/details', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+const repository = vi.mocked(updateCharacterDetails);
+const payload = { name: 'Geralt', shortName: 'Ger', description: 'White Wolf', tags: [], perks: [], expectedMembership: { perksIds: [] } };
+function request(body: unknown = payload, key: string | null = 'valid') {
+ return new Request('http://localhost/api/characters/character/details', { method: 'PUT', headers: { 'Content-Type': 'application/json', ...(key ? { 'x-api-key': key } : {}) }, body: JSON.stringify(body) });
 }
-
-function segmentData(id: string)
-{
-  return { params: Promise.resolve({ id }) };
-}
-
-describe('PUT /api/characters/[id]/details', () => {
-  beforeEach(() => {
-    updateCharacterDetailsMock.mockReset();
-  });
-
-  it('returns 400 with the character id missing', async () => {
-    const response = await PUT(createRequest({}) as never, segmentData(''));
-
-    expect(response.status).toBe(400);
-  });
-
-  it('returns 200 on success', async () => {
-    updateCharacterDetailsMock.mockResolvedValue(true);
-
-    const response = await PUT(createRequest({ name: 'Geralt' }) as never, segmentData('character-1'));
-
-    expect(response.status).toBe(200);
-  });
-
-  it('returns 404 when the character does not exist', async () => {
-    updateCharacterDetailsMock.mockResolvedValue(false);
-
-    const response = await PUT(createRequest({ name: 'Geralt' }) as never, segmentData('missing-character'));
-
-    expect(response.status).toBe(404);
-  });
-
-  it('returns 400 with the real message for a known validation error (e.g. apiKey not in the admin pool)', async () => {
-    updateCharacterDetailsMock.mockRejectedValue(
-      new CharacterValidationError('Invalid API key(s), not part of the configured admin keys: BOGUS'),
-    );
-
-    const response = await PUT(createRequest({ apiKeys: ['BOGUS'] }) as never, segmentData('character-1'));
-    const body = await response.json();
-
-    expect(response.status).toBe(400);
-    expect(body.message).toBe('Invalid API key(s), not part of the configured admin keys: BOGUS');
-  });
-
-  it('returns a generic 500 for unexpected errors, without leaking internal details', async () => {
-    updateCharacterDetailsMock.mockRejectedValue(new Error('connection reset by peer'));
-
-    const response = await PUT(createRequest({ name: 'Geralt' }) as never, segmentData('character-1'));
-    const body = await response.json();
-
-    expect(response.status).toBe(500);
-    expect(body.message).toBe('Server error');
-  });
+const segment = (id = 'character') => ({ params: Promise.resolve({ id }) });
+describe('guarded character details route', () => {
+ beforeEach(() => { repository.mockReset(); });
+ it('validates both key and payload before calling persistence', async () => {
+  expect((await PUT(request(payload,null),segment())).status).toBe(401);
+  expect((await PUT(request(payload,'bad'),segment())).status).toBe(403);
+  expect((await PUT(request(),segment(''))).status).toBe(400);
+  expect((await PUT(request({ ...payload, expectedMembership: undefined }),segment())).status).toBe(400);
+  expect(repository).not.toHaveBeenCalled();
+ });
+ it('passes the original snapshot and validated key to persistence', async () => {
+  const snapshot = { perksIds: ['new'], maneuversIds: [], stancesIds: [], statesIds: [], spellsIds: [], powerSpecificationsIds: [] };
+  repository.mockResolvedValue(snapshot);
+  const response = await PUT(request(),segment());
+  expect(response.status).toBe(200);
+  expect(await response.json()).toEqual({ expectedMembership: snapshot });
+  expect(repository).toHaveBeenCalledWith('character', expect.objectContaining({ name: 'Geralt' }), { expectedMembership: { perksIds: [] }, apiKey: 'valid' });
+ });
+ it('returns 404 for a missing character', async () => {
+  repository.mockResolvedValue(false);
+  expect((await PUT(request(),segment())).status).toBe(404);
+ });
+ it('reports stale drafts as conflicts, not success', async () => {
+  repository.mockRejectedValue(new CharacterMembershipConflictError());
+  expect((await PUT(request(),segment())).status).toBe(409);
+ });
+ it('preserves useful validation messages', async () => {
+  repository.mockRejectedValue(new CharacterValidationError('Invalid API keys'));
+  const response = await PUT(request(),segment());
+  expect(response.status).toBe(400);
+  expect((await response.json()).message).toBe('Invalid API keys');
+ });
+ it('does not expose internal failures', async () => {
+  vi.spyOn(console,'error').mockImplementation(() => {});
+  repository.mockRejectedValue(new Error('Internal'));
+  const response = await PUT(request(),segment());
+  expect(response.status).toBe(500);
+  expect(await response.json()).toEqual({message:'Server error'});
+ });
 });

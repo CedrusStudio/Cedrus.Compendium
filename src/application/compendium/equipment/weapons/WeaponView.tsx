@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/equipment/weaponsClient";
 import { type Weapon } from "@/domain/characters/equipment/Weapon";
 import { displayedText } from '@/common/translations';
@@ -20,10 +21,11 @@ type WeaponViewProps =
 {
   weapon: Weapon;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function WeaponView({ weapon, disableEdit = false, onDelete }: WeaponViewProps)
+export default function WeaponView({ weapon, disableEdit = false, characterScope = false, onDelete }: WeaponViewProps)
 {
   const { deleteEntity: deleteWeapon, isPending } = useDeleteEntity({
     client,
@@ -33,7 +35,7 @@ export default function WeaponView({ weapon, disableEdit = false, onDelete }: We
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="weapons" entityId={weapon.id} label={weapon.name} /> : undefined}>
 
       <WeaponViewFields weapon={weapon} />
 

@@ -30,8 +30,8 @@ import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
 import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 import SpellEditableFields from '@/application/common/combat/SpellEditableFields';
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -58,13 +58,21 @@ export default function SpellsList()
 
   const [displayedSpells, setDisplayedSpells] = useState<Spell[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('spells');
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setPageNumber(1);
+    setDisplayedSpells([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
@@ -72,10 +80,11 @@ export default function SpellsList()
     queryFn: async () =>
     {
       const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
-      narrowToOwned(spellsQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(spellsQuery, ownedFilter);
       if (requirementFilters.length > 0) spellsQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) spellsQuery.tagFacetFilters = facetFilters;
 
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<Spell[]>(spellsQuery);
     },
     staleTime: 5_000
@@ -85,12 +94,8 @@ export default function SpellsList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (pageNumber === 1)
     {
@@ -98,7 +103,7 @@ export default function SpellsList()
       return;
     }
 
-    setDisplayedSpells(prev => [...prev, ...ownedResults]);
+    setDisplayedSpells(prev => Array.from(new Map([...prev, ...ownedResults].map(item => [item.id, item])).values()));
   }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
@@ -130,11 +135,6 @@ export default function SpellsList()
   }, [clearResults]);
 
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -198,7 +198,7 @@ export default function SpellsList()
         facetEntity="spells"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
-        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="spells" onOwnedChange={setOwnedFilter} /></>}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterOwnedFilter kind="spells" /></>}
       >
         <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />
         <Button
@@ -215,7 +215,7 @@ export default function SpellsList()
       {isGroupedView ? (
         <GroupedItemsList<Spell>
           items={displayedSpells}
-          renderItem={spell => <SpellView key={spell.id} spell={spell} onDelete={handleDelete} />}
+          renderItem={spell => <SpellView characterScope key={spell.id} spell={spell} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
@@ -231,7 +231,7 @@ export default function SpellsList()
             setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
-          renderItem={spell => <SpellView key={spell.id} spell={spell} onDelete={handleDelete} />}
+          renderItem={spell => <SpellView characterScope key={spell.id} spell={spell} onDelete={handleDelete} />}
         />
       )}
     </>

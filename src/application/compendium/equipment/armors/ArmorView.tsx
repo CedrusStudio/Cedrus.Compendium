@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/equipment/armorsClient";
 import { type Armor } from "@/domain/characters/equipment/Armor";
 import { displayedText } from '@/common/translations';
@@ -20,10 +21,11 @@ type ArmorViewProps =
 {
   armor: Armor;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function ArmorView({ armor, disableEdit = false, onDelete }: ArmorViewProps)
+export default function ArmorView({ armor, disableEdit = false, characterScope = false, onDelete }: ArmorViewProps)
 {
   const { deleteEntity: deleteArmor, isPending } = useDeleteEntity
   ({
@@ -34,7 +36,7 @@ export default function ArmorView({ armor, disableEdit = false, onDelete }: Armo
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="armors" entityId={armor.id} label={armor.name} /> : undefined}>
 
       <ArmorViewFields armor={armor} />
 

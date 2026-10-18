@@ -7,6 +7,8 @@ import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCha
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 import { type OwningEntity, type OwningCharacter } from '@/common/global/owningEntity';
 import client from '@/infrastructure/clients/baseClient';
+import type { CharacterMembershipSnapshot, MembershipKind } from '@/domain/characters/characterMembership';
+import type { MembershipWriteResult } from '@/persistence/characters/characterMembershipResult';
 
 const characterPathSegment = '/characters';
 
@@ -43,6 +45,16 @@ const charactersClient =
     },
 
     //Updates
+    setMembership: async (id: string, kind: MembershipKind, entityId: string, present: boolean): Promise<MembershipWriteResult> =>
+    {
+        const response = await client.put(`${characterPathSegment}/${id}/compendium-memberships/${kind}/${encodeURIComponent(entityId)}`, { present });
+        return response.data;
+    },
+    updateMembershipSection: async (id: string, section: 'combat' | 'details', data: CombatDto | DetailsDto, expectedMembership: Partial<CharacterMembershipSnapshot>): Promise<CharacterMembershipSnapshot> =>
+    {
+        const response = await client.put(`${characterPathSegment}/${id}/${section}`, { ...data, expectedMembership });
+        return response.data.expectedMembership;
+    },
     updateDetails: async (id: string, characterData: DetailsDto): Promise<void> =>
     {
         await client.put(`${characterPathSegment}/${id}/details`, characterData);

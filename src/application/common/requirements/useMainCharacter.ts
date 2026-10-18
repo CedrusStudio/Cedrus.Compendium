@@ -17,14 +17,14 @@ import type { Character } from "@/domain/characters/Character";
 
 const NO_IDS: string[] = [];
 
-export function useMainCharacter(): Character | undefined
+export function useMainCharacter(enabled = true): Character | undefined
 {
   const { apiKey } = useApiKey();
   const mainCharacterId = useSelector((state: RootState) =>
     (apiKey ? state.personalization.profilesByApiKey[apiKey]?.mainCharacterId : undefined));
 
-  const ids = useMemo(() => (mainCharacterId ? [mainCharacterId] : NO_IDS), [mainCharacterId]);
+  const ids = useMemo(() => (enabled && mainCharacterId ? [mainCharacterId] : NO_IDS), [enabled, mainCharacterId]);
   const { byId } = useCharactersByIds(ids);
 
-  return mainCharacterId ? byId.get(mainCharacterId) : undefined;
+  return enabled && mainCharacterId ? byId.get(mainCharacterId) : undefined;
 }

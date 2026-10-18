@@ -23,8 +23,8 @@ import { useEntityTags } from '@/common/hooks/useEntityTags';
 import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import ListHeader from "@/common/components/lists/ListHeader";
 import ItemAddSheet from "@/application/common/equipment/ItemAddSheet";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 import WeaponEditableFields from "@/application/common/equipment/EditSheets/WeaponEditableFields";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -42,11 +42,19 @@ export default function WeaponsList()
 
   const [displayedWeapons, setDisplayedWeapons] = useState<Weapon[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('weapons');
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setCursor(emptyUlid);
+    setDisplayedWeapons([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[...createKeysetSearchWeaponsKey(debouncedSearchTerm, cursor, searchTags,  pageSize, selectedStyle, excludedTags), facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({ 
@@ -54,9 +62,10 @@ export default function WeaponsList()
     queryFn: async () => 
     {
       const weaponsQuery = createWeaponKeysetQuery(debouncedSearchTerm, cursor, searchTags, pageSize, excludedTags, selectedStyle);
-      narrowToOwned(weaponsQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(weaponsQuery, ownedFilter);
       if (facetFilters.length > 0) weaponsQuery.tagFacetFilters = facetFilters;
 
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<Weapon[]>(weaponsQuery);
     },
     staleTime: 5_000
@@ -66,12 +75,8 @@ export default function WeaponsList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (cursor === emptyUlid)
     {
@@ -109,11 +114,6 @@ export default function WeaponsList()
   }, [clearResults]);
 
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -151,7 +151,7 @@ export default function WeaponsList()
         availableTags={availableTags}
         tagsLoading={tagsLoading}
         personalizationContext="weapons"
-        extraFilters={<CharacterModeFilter kind="weapons" onOwnedChange={setOwnedFilter} />}
+        extraFilters={<CharacterOwnedFilter kind="weapons" />}
         facetEntity="weapons"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
@@ -168,7 +168,7 @@ export default function WeaponsList()
           if (displayedWeapons.length > 0) setCursor(displayedWeapons[displayedWeapons.length - 1].id);
         }}
         hasMore={hasMore}
-        renderItem={weapon => <WeaponView key={weapon.id} weapon={weapon} onDelete={handleDelete} />}
+        renderItem={weapon => <WeaponView characterScope key={weapon.id} weapon={weapon} onDelete={handleDelete} />}
       />
     </>
   );

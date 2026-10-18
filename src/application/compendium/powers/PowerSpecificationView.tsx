@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/powerSpecificationsClient";
 import { type PowerSpecification } from "@/domain/characters/combat/Power";
 import DeleteButton from '@/common/components/buttons/DeleteButton';
@@ -18,10 +19,11 @@ type PowersSpecificationViewProps =
 {
   powerSpecification: PowerSpecification;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function PowersSpecificationView({ powerSpecification, disableEdit = false, onDelete }: PowersSpecificationViewProps)
+export default function PowersSpecificationView({ powerSpecification, disableEdit = false, characterScope = false, onDelete }: PowersSpecificationViewProps)
 {
   const { deleteEntity: deletePowerSpecification, isPending } = useDeleteEntity
   ({
@@ -32,7 +34,7 @@ export default function PowersSpecificationView({ powerSpecification, disableEdi
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="powerSpecifications" entityId={powerSpecification.id} label={powerSpecification.name} /> : undefined}>
 
       <PowerSpecificationViewFields powerSpecification={powerSpecification} collapsible={true} defaultOpen={false} />
 

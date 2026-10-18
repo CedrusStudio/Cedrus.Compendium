@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/equipment/shieldsClient";
 import { type Shield } from "@/domain/characters/equipment/Shield";
 import { displayedText } from '@/common/translations';
@@ -20,10 +21,11 @@ type ShieldViewProps =
 {
   shield: Shield;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function ShieldView({ shield, disableEdit = false, onDelete }: ShieldViewProps)
+export default function ShieldView({ shield, disableEdit = false, characterScope = false, onDelete }: ShieldViewProps)
 {
   const { deleteEntity: deleteShield, isPending } = useDeleteEntity({
     client,
@@ -33,7 +35,7 @@ export default function ShieldView({ shield, disableEdit = false, onDelete }: Sh
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="shields" entityId={shield.id} label={shield.name} /> : undefined}>
 
       <ShieldViewFields shield={shield} />
 

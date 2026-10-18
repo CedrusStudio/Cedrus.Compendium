@@ -28,13 +28,13 @@ import { useEntityTags } from '@/common/hooks/useEntityTags';
 import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
 import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import type { TagFacetFilter } from "@/domain/tags/tagFacets";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers, Wand2 } from "lucide-react";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 import CastTimeFilter from "@/common/components/filters/CastTimeFilter";
 
 const pageSize = DEFAULT_PAGE_SIZE;
@@ -66,7 +66,7 @@ export default function ManeuversList()
 
   const [displayedManeuvers, setDisplayedManeuvers] = useState<Maneuver[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('maneuvers');
   const [onlyNeedsEffects, setOnlyNeedsEffects] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -74,7 +74,15 @@ export default function ManeuversList()
   const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setPageNumber(1);
+    setDisplayedManeuvers([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
@@ -82,9 +90,10 @@ export default function ManeuversList()
     queryFn: async () =>
     {
       const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
-      narrowToOwned(maneuversQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(maneuversQuery, ownedFilter);
       if (requirementFilters.length > 0) maneuversQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) maneuversQuery.tagFacetFilters = facetFilters;
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<Maneuver[]>(maneuversQuery);
     },
     staleTime: 5_000
@@ -94,12 +103,8 @@ export default function ManeuversList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (pageNumber === 1)
     {
@@ -107,7 +112,7 @@ export default function ManeuversList()
       return;
     }
 
-    setDisplayedManeuvers(prev => [...prev, ...ownedResults]);
+    setDisplayedManeuvers(prev => Array.from(new Map([...prev, ...ownedResults].map(item => [item.id, item])).values()));
   }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
@@ -116,9 +121,6 @@ export default function ManeuversList()
     setPageNumber(1);
   }, []);
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
   const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
   {
@@ -203,7 +205,7 @@ export default function ManeuversList()
         facetEntity="maneuvers"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
-        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="maneuvers" onOwnedChange={setOwnedFilter} /></>}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterOwnedFilter kind="maneuvers" /></>}
       >
         <CastTimeFilter selectedCastTimes={selectedCastTimes} onSelectedCastTimesChange={handleSelectedCastTimesChange} />
         <Button
@@ -228,7 +230,7 @@ export default function ManeuversList()
       {isGroupedView ? (
         <GroupedItemsList<Maneuver>
           items={visibleManeuvers}
-          renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
+          renderItem={maneuver => <ManeuverView characterScope key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
@@ -244,7 +246,7 @@ export default function ManeuversList()
             setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
-          renderItem={maneuver => <ManeuverView key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
+          renderItem={maneuver => <ManeuverView characterScope key={maneuver.id} maneuver={maneuver} onDelete={handleDelete} />}
         />
       )}
     </>

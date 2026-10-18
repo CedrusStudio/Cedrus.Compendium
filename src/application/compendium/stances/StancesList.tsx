@@ -28,8 +28,8 @@ import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
-import { CharacterModeFilter } from "@/application/compendium/CharacterModeFilter";
-import { matchesOwned, narrowToOwned, ownedFilterKey, type OwnedFilter } from "@/application/compendium/characterOwnership";
+import { narrowToOwned } from '@/application/compendium/characterOwnership';
+import { CharacterOwnedFilter, useCharacterOwnedFilter } from '@/application/compendium/character-scope/CharacterOwnedFilter';
 
 const pageSize = DEFAULT_PAGE_SIZE;
 const EMPTY_ARRAY: never[] = [];
@@ -53,14 +53,22 @@ export default function StancesList()
 
   const [displayedStances, setDisplayedStances] = useState<Mode[]>(EMPTY_ARRAY);
 
-  const [ownedFilter, setOwnedFilter] = useState<OwnedFilter | null>(null);
+  const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('stances');
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const visibleStances = displayedStances;
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
-  const ownedKey = ownedFilterKey(ownedFilter);
+  const [previousOwnedKey, setPreviousOwnedKey] = useState(ownedKey);
+  // Adjust during render so a cached page from the old scope cannot be appended.
+  if (previousOwnedKey !== ownedKey) {
+    setPreviousOwnedKey(ownedKey);
+    setPageNumber(1);
+    setDisplayedStances([]);
+    setHasMore(true);
+  }
+
   const queryKey = [...[createOffsetSearchStancesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey];
   const { data: searchResults } = useQuery
   ({
@@ -68,10 +76,11 @@ export default function StancesList()
     queryFn: async () =>
     {
       const stancesQuery = createStanceOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
-      narrowToOwned(stancesQuery, ownedFilter, debouncedSearchTerm);
+      narrowToOwned(stancesQuery, ownedFilter);
       if (requirementFilters.length > 0) stancesQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) stancesQuery.tagFacetFilters = facetFilters;
 
+      if (ownedFilter?.values.length === 0) return [];
       return await searchClient.search<Mode[]>(stancesQuery);
     },
     staleTime: 5_000
@@ -81,12 +90,8 @@ export default function StancesList()
   {
     if (!searchResults) return;
 
-    // Przy filtrze postaci jedno zadanie miesci CALY jej repertuar
-    // (`narrowToOwned` podnosi rozmiar strony do iloczynu rodzin i rang), wiec
-    // nie ma czego doczytywac. Bez tego lista dogralaby sie dopiero przy
-    // przewinieciu i strona 1 wygladala na dziwnie mala.
-    setHasMore(ownedFilter ? false : searchResults.length === pageSize);
-    const ownedResults = searchResults.filter(item => matchesOwned(ownedFilter, item));
+    setHasMore(searchResults.length === pageSize);
+    const ownedResults = searchResults;
 
     if (pageNumber === 1)
     {
@@ -94,7 +99,7 @@ export default function StancesList()
       return;
     }
 
-    setDisplayedStances(prev => [...prev, ...ownedResults]);
+    setDisplayedStances(prev => Array.from(new Map([...prev, ...ownedResults].map(item => [item.id, item])).values()));
   }, [pageNumber, searchResults, ownedKey]);
 
   const clearResults = useCallback(() =>
@@ -126,11 +131,6 @@ export default function StancesList()
   }, [clearResults]);
 
 
-  // Zmiana postaci to inny zbior wynikow: bez tego strona zostaje na
-
-  // numerze 3, a nowe wyniki dokleily sie do starej listy.
-
-  useEffect(() => { clearResults(); }, [ownedFilter, clearResults]);
 
 
   const handleSearchTagsChange = useCallback((tags: string[]) => 
@@ -188,7 +188,7 @@ export default function StancesList()
         facetEntity="stances"
         facetFilters={facetFilters}
         handleFacetFiltersChange={handleFacetFiltersChange}
-        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterModeFilter kind="stances" onOwnedChange={setOwnedFilter} /></>}
+        extraFilters={<><RequirementFilter value={requirementFilters} onChange={handleRequirementFiltersChange} /><CharacterOwnedFilter kind="stances" /></>}
       >
         <Button
           variant="outline"
@@ -204,7 +204,7 @@ export default function StancesList()
       {isGroupedView ? (
         <GroupedItemsList<Mode>
           items={visibleStances}
-          renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
+          renderItem={stance => <StanceView characterScope key={stance.id} stance={stance} onDelete={handleDelete} />}
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
@@ -220,7 +220,7 @@ export default function StancesList()
             setPageNumber(prev => prev + 1);
           }}
           hasMore={hasMore}
-          renderItem={stance => <StanceView key={stance.id} stance={stance} onDelete={handleDelete} />}
+          renderItem={stance => <StanceView characterScope key={stance.id} stance={stance} onDelete={handleDelete} />}
         />
       )}
     </>

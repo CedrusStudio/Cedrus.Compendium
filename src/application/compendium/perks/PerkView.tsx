@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/perksClient";
 import { type Perk } from "@/domain/characters/Perk";
 import { displayedText } from '@/common/translations';
@@ -24,10 +25,11 @@ type PerkViewProps =
 {
   perk: Perk;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function PerkView({ perk, disableEdit = false, onDelete }: PerkViewProps)
+export default function PerkView({ perk, disableEdit = false, characterScope = false, onDelete }: PerkViewProps)
 {
   const { deleteEntity: deletePerk, isPending } = useDeleteEntity({
     client,
@@ -37,12 +39,12 @@ export default function PerkView({ perk, disableEdit = false, onDelete }: PerkVi
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="perks" entityId={perk.id} label={`${perk.name} ${perk.grade}`} /> : undefined}>
 
       <SummaryView entity={perk} />
 
       <div className="p-2 rounded-md w-full">
-        <RequirementsView entityWithRequirements={perk} />
+        <RequirementsView useCompendiumCharacter={characterScope} entityWithRequirements={perk} />
       </div>
 
       <ReplacesView entity={perk} group="perks" />

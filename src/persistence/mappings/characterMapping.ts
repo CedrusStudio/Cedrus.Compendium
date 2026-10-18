@@ -20,6 +20,7 @@ import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 import { toRace } from '@/persistence/mappings/raceMapping';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
+import { membershipSnapshot } from '@/domain/characters/characterMembership';
 
 export type CharacterWithRelations = Prisma.CharacterGetPayload<{ include: CharacterIncludeAllRelations }>;
 export type CharacterWithoutRelations = Prisma.CharacterGetPayload<null>;
@@ -32,6 +33,7 @@ export function toCharacter(characterPersistenceModel: CharacterWithRelations): 
     description: characterPersistenceModel.description,
     tags: characterPersistenceModel.tags,
     apiKeys: characterPersistenceModel.apiKeys,
+    membershipSnapshot: membershipSnapshot(characterPersistenceModel),
     race: characterPersistenceModel.race ? toRace(characterPersistenceModel.race) : undefined,
 
     characteristics: characterPersistenceModel.characteristics,

@@ -1,5 +1,6 @@
 "use client";
 
+import { CharacterMembershipAction } from '@/application/compendium/character-scope/CharacterMembershipAction';
 import client from "@/infrastructure/clients/statesClient";
 import { type Mode } from "@/domain/characters/combat/Mode";
 import { displayedText } from '@/common/translations';
@@ -26,10 +27,11 @@ type StateViewProps =
 {
   state: Mode;
   disableEdit?: boolean;
+  characterScope?: boolean;
   onDelete?: (id: string) => void;
 }
 
-export default function StateView({ state, disableEdit = false, onDelete }: StateViewProps)
+export default function StateView({ state, disableEdit = false, characterScope = false, onDelete }: StateViewProps)
 {
   const { deleteEntity: deleteState, isPending } = useDeleteEntity({
     client,
@@ -39,12 +41,12 @@ export default function StateView({ state, disableEdit = false, onDelete }: Stat
   });
 
   return (
-    <CompendiumView>
+    <CompendiumView characterActions={characterScope ? <CharacterMembershipAction kind="states" entityId={state.id} label={`${state.name} ${state.grade}`} /> : undefined}>
 
       <SummaryView entity={state} />
 
       <div className="p-2 rounded-md w-full">
-        <RequirementsView entityWithRequirements={state} />
+        <RequirementsView useCompendiumCharacter={characterScope} entityWithRequirements={state} />
       </div>
 
       <ReplacesView entity={state} group="states" />
