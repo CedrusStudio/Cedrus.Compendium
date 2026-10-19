@@ -6,8 +6,6 @@ import SummaryView from "@/application/common/SummaryView";
 import { type Weapon } from '@/domain/characters/equipment/Weapon';
 import { toCriticalRangeString, toOffenseString } from '@/domain/characters/combat/Offense';
 import { Label } from '@/common/components/ui/label';
-import ViewDetailsWrapper from '@/application/common/ViewDetailsWrapper';
-import FieldsViewWrapper from '@/application/common/FieldsViewWrapper';
 
 type WeaponViewProps =
 {
@@ -19,28 +17,28 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
   const damageBonusString = toOffenseString(weapon.damageBonus);
 
   return (
-    <FieldsViewWrapper>
+    <div className="grid w-full min-w-0 gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
 
-      <ViewDetailsWrapper>
+      <div className="grid min-w-0 gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-3">
 
-        <SummaryView entity={weapon} />
+        <SummaryView entity={weapon} className="min-w-0 [overflow-wrap:anywhere]" />
 
         <div className='flex flex-wrap gap-2 place-content-center'>
-          <Badge variant="outline">
+          <Badge variant="outline" className="whitespace-nowrap">
             <span>{toOffenseString(weapon.offense)}</span>
-            <Badge variant="secondary">{toCriticalRangeString(weapon.offense)}, {weapon.offense.critical.power >=0 ? "+" : ""}{weapon.offense.critical.power}</Badge>
+            <Badge variant="secondary" className="whitespace-nowrap">{toCriticalRangeString(weapon.offense)}, {weapon.offense.critical.power >=0 ? "+" : ""}{weapon.offense.critical.power}</Badge>
           </Badge>
 
           {
             damageBonusString && (
-              <Badge variant="outline">
+              <Badge variant="outline" className="whitespace-nowrap">
                 <span>{damageBonusString}</span>
               </Badge>
             )
           }
         </div>
 
-      </ViewDetailsWrapper>
+      </div>
 
       <div className="flex flex-wrap place-content-center gap-2">
 
@@ -54,6 +52,6 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
         </Badge>
 
       </div>
-    </FieldsViewWrapper>
+    </div>
   );
 };
