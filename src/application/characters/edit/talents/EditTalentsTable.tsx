@@ -96,6 +96,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
   const setNameFilter = (value: string) =>
   {
     table.getColumn(defaultColumnKeys.name)?.setFilterValue(value);
+    table.setPageIndex(0);
   }
 
   return (
