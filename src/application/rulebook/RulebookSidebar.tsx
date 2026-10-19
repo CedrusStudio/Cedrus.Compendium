@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { NavigationNode } from '@/domain/rulebook/RulebookTypes';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/ui/accordion';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
+import { Button } from '@/ui/button';
+import { useState } from 'react';
 
 type RulebookSidebarProps = 
 {
@@ -13,6 +16,7 @@ type RulebookSidebarProps =
 export function RulebookSidebar({ navigation }: RulebookSidebarProps) 
 {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   const currentCategory = navigation.find
   (
@@ -22,11 +26,26 @@ export function RulebookSidebar({ navigation }: RulebookSidebarProps)
   const defaultOpenCategories = currentCategory ? [currentCategory.id] : [];
 
   return (
-    <aside className="hidden xl:block w-64 border-r h-[calc(100vh-4rem)] overflow-y-auto sticky top-16 p-4">
+    <>
+      <div className="mx-3 mt-4 xl:hidden">
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild><Button variant="outline">Rozdziały podręcznika</Button></SheetTrigger>
+          <SheetContent side="left">
+            <SheetHeader><SheetTitle>Rozdziały podręcznika</SheetTitle></SheetHeader>
+            <div className="px-4 pb-4" onClick={event => { if ((event.target as HTMLElement).closest('a')) setOpen(false); }}>
+              <Accordion type="multiple" defaultValue={defaultOpenCategories}>
+                {navigation.map(category => <NavbarItem key={category.id} category={category} pathname={pathname} />)}
+              </Accordion>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+      <aside className="hidden xl:block w-64 shrink-0 border-r h-[calc(100dvh-4rem)] overflow-y-auto sticky top-16 p-4">
         <Accordion type="multiple" className="space-y-2" defaultValue={defaultOpenCategories}>
             { navigation.map(category => <NavbarItem key={category.id} category={category} pathname={pathname} />) }
         </Accordion>
     </aside>
+    </>
   );
 }
 

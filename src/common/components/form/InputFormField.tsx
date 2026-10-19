@@ -24,7 +24,7 @@ export function InputFormField<TFieldValues extends FieldValues>(input: CustomFo
         control={control}
         name={input.path}
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="min-w-0 max-w-full">
             <FormControl>
               <Input placeholder={input.inputPlaceholder} {...field} className={input.inputClassName} />
             </FormControl>

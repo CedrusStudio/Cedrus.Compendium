@@ -26,6 +26,7 @@ import MainCharacterButton from '@/application/personalization/MainCharacterButt
 import { createCharacterCopyHref } from '@/application/characters/add/characterCopyRoute';
 import CharacterBuffsView from '@/application/characters/buffs/CharacterBuffsView';
 import { applyActiveBuffProfile } from '@/domain/characters/buffs/applyBuffProfile';
+import LoadingSpinner from '@/common/components/LoadingSpinner';
 
 type CharacterViewProps = 
 {
@@ -33,14 +34,15 @@ type CharacterViewProps =
 }
 
 const defaultTab: CharacterTabs = "character";
+const characterTabClassName = 'flex-[1_0_30%] sm:flex-initial';
 
 export default function CharacterView({ tab }: CharacterViewProps)
 {
-  const { character } = useGetCharacterById();
+  const { character, isPending } = useGetCharacterById();
   const [activeTab, setActiveTab] = useState<CharacterTabs>(tab ?? defaultTab);
     const [selectedStanceId, setSelectedStanceId] = useState<string | undefined>(undefined);
     const [selectedStateId, setSelectedStateId] = useState<string | undefined>(undefined);
-  const { deleteCharacter, isPending } = useDeleteCharacterById();
+  const { deleteCharacter, isPending: isDeleting } = useDeleteCharacterById();
   const dispatch = useDispatch();
 
   useEffect(() => 
@@ -49,12 +51,13 @@ export default function CharacterView({ tab }: CharacterViewProps)
     dispatch(actions.setCharacterShortName({ id: character.id, shortName: character.shortName }));
   }, [character?.id, character?.shortName, dispatch]);               
 
+  if (isPending) return <LoadingSpinner />;
   if (!character) return <NotFound subject={displayedText.character} />;
 
     const effectiveCharacter = applyActiveBuffProfile(character);
 
   return (
-    <div className='flex flex-col-reverse gap-4 lg:grid lg:grid-cols-12'>
+    <div className='min-w-0 flex flex-col-reverse gap-4 lg:grid lg:grid-cols-12'>
 
         <div className='hidden md:block md:col-span-2'>
                         <StatisticsView character={effectiveCharacter} />
@@ -63,21 +66,21 @@ export default function CharacterView({ tab }: CharacterViewProps)
         <Tabs 
             defaultValue={tab ?? defaultTab} 
             onValueChange={v => { if (isCharacterTab(v)) setActiveTab(v); }}
-            className='lg:col-span-10 lg:ml-6 flex flex-col lg:grid'
+            className='min-w-0 max-w-full lg:col-span-10 lg:ml-6 flex flex-col lg:grid'
         >
-            <div className='lg:row-span-1 -mt-4'>
+            <div className='min-w-0 max-w-full lg:row-span-1 -mt-4'>
                 
                 <div className='flex flex-col mt-4 sm:mt-0 sm:flex-row place-content-between place-items-center'>
 
-                    <TabsList>
-                        <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
-                        <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
-                        <TabsTriggerCapitalized value="buffs" overrideValue={displayedText.buffs} />
-                        <TabsTriggerCapitalized value="talents" overrideValue={displayedText.talents} />
-                        <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
+                    <TabsList className="h-auto w-full flex-wrap justify-center overflow-visible sm:w-fit">
+                        <TabsTriggerCapitalized className={characterTabClassName} value="character" overrideValue={displayedText.character} />
+                        <TabsTriggerCapitalized className={characterTabClassName} value="combat" overrideValue={displayedText.combat} />
+                        <TabsTriggerCapitalized className={characterTabClassName} value="buffs" overrideValue={displayedText.buffs} />
+                        <TabsTriggerCapitalized className={characterTabClassName} value="talents" overrideValue={displayedText.talents} />
+                        <TabsTriggerCapitalized className={characterTabClassName} value="equipment" overrideValue={displayedText.equipment} />
                     </TabsList>
 
-                    <div className='flex flex-row place-items-center gap-3'>
+                    <div className='flex flex-wrap justify-center place-items-center gap-2 sm:gap-3'>
                         <FavoriteCharacterButton characterId={character.id} />
                         <MainCharacterButton characterId={character.id} />
                         <Button asChild variant="outline" className='my-4'>
@@ -89,7 +92,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                             <Link href={`/characters/${character.id}/sheet`}>{printIcon}</Link>
                         </Button>
 
-                        <DeleteButton id={character.id} isPending={isPending} deleteAction={deleteCharacter} />
+                        <DeleteButton id={character.id} isPending={isDeleting} deleteAction={deleteCharacter} />
 
                         <Button asChild variant="outline" size="icon" className='my-4'>
                             <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? defaultTab}`}>{editIcon}</Link>

@@ -168,8 +168,8 @@ function CharacterSelectCard({ summary, onSelect, isSelected }: CharacterSelectC
     >
       <button type="button" className="w-full cursor-pointer rounded-xl text-left focus-visible:outline-2 focus-visible:outline-primary" aria-pressed={isSelected} onClick={() => onSelect(summary.id, summary)}>
       <CardHeader>
-        <CardTitle className='flex flex-row justify-between gap-2'>
-          <h1 className='text-xl'>{summary.name}</h1>
+        <CardTitle className='flex min-w-0 flex-col justify-between gap-2 sm:flex-row'>
+          <h1 className='min-w-0 break-words text-xl'>{summary.name}</h1>
           <TagsView tags={summary.tags} variant="outline" />
         </CardTitle>
         <CardDescription>{summary.shortName}</CardDescription>

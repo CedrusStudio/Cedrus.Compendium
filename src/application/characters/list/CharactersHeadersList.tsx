@@ -133,17 +133,17 @@ export default function CharactersHeadersList()
       <div className='mt-4 w-full px-4'>
         <div className='mx-auto flex w-full max-w-5xl flex-col items-center gap-3'>
 
-          <div className='flex w-full flex-col items-stretch gap-3 md:flex-row md:items-start md:justify-center'>
+          <div className='flex w-full flex-col items-stretch gap-3 md:flex-row md:flex-wrap md:items-start md:justify-center'>
             <Input 
               name="search" 
               type="text" 
               placeholder={displayedText.searchByName}
               value={searchInput}
               onChange={handleSearchInputChange}
-              className="w-full md:max-w-sm"
+              className="w-full md:w-96"
             />
 
-            <div className='flex w-full flex-col items-center gap-3 md:w-auto md:flex-row'>
+            <div className='flex w-full min-w-0 max-w-full flex-col items-center gap-3 md:w-auto md:flex-row md:flex-wrap'>
               <TagFilterSwitcher
                 entity="characters"
                 includedTags={searchTags}
@@ -200,7 +200,7 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
 
   return (
     <div className='relative w-full'>
-      <div className='absolute inset-y-0 right-6 z-10 flex items-center gap-3'>
+      <div className='absolute top-3 right-3 z-10 flex items-center gap-2 sm:inset-y-0 sm:right-6 sm:gap-3'>
         <FavoriteCharacterButton characterId={summary.id} />
         <MainCharacterButton characterId={summary.id} />
       </div>
@@ -211,9 +211,9 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
         className='block w-full'
       >
         <Card className='w-full gap-0 border-border/60 py-6 transition-colors hover:bg-accent/40'>
-          <div className='flex flex-col gap-4 px-7 pr-32 sm:flex-row sm:items-center sm:gap-6 sm:pr-36 lg:pr-40'>
+          <div className='flex min-w-0 flex-col gap-4 px-4 pt-11 sm:pt-0 sm:px-7 sm:flex-row sm:items-center sm:gap-6 sm:pr-36 lg:pr-40'>
             <div className='min-w-0 space-y-1 sm:min-w-[16rem] lg:min-w-[20rem]'>
-              <h3 className='truncate text-xl font-semibold'>
+              <h3 className='break-words text-xl font-semibold'>
                 {summary.name}
               </h3>
               <p className='text-sm text-muted-foreground'>

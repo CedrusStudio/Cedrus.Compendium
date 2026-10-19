@@ -1,4 +1,5 @@
 "use client";
+import { ChartValues } from './ChartValues';
 
 /**
  * Meta Analyzer UI: build a roster, run a round-robin, and read the meta —
@@ -215,6 +216,7 @@ export function MetaAnalyzer()
                   </BarChart>
                 </ResponsiveContainer>
               )}
+              {topManeuvers.length > 0 && <ChartValues data={topManeuvers} />}
             </CardContent>
           </Card>
 

@@ -8,6 +8,7 @@ import { useOptionalCompendiumCharacterScope } from './CompendiumCharacterScopeP
 
 export function CharacterOwnedFilter({ kind }: { kind: CharacterOwnedKind }) {
   const scope = useOptionalCompendiumCharacterScope();
+  if (!scope?.selectedCharacterId) return null;
   const empty = scope?.character && scope.onlyOwned && ownedFilterFor(scope.character, kind).values.length === 0;
   return <div className="flex flex-wrap items-center gap-2"><label className="flex h-9 items-center gap-2 whitespace-nowrap rounded-md border px-2 text-sm">
     <Checkbox data-character-owned-filter checked={scope?.onlyOwned ?? false} disabled={!scope?.character || scope.isError}

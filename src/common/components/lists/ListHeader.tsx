@@ -64,7 +64,7 @@ export default function ListHeader
   const [tagsOpen, setTagsOpen] = useState(true);
 
   return (
-    <div className='sticky top-0 z-10 m-3 flex flex-col gap-2 bg-background md:ml-12 lg:flex-row lg:items-start lg:justify-between'>
+    <div data-slot="list-header" className='z-10 m-3 flex min-w-0 flex-col gap-2 bg-background md:ml-12 lg:sticky lg:top-0 lg:flex-row lg:items-start lg:justify-between'>
       <div className="flex min-w-0 flex-1 flex-col gap-2 sm:gap-2 lg:gap-4">
         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-start lg:gap-4">
           <Input 
@@ -89,7 +89,7 @@ export default function ListHeader
                 placeholder={`${displayedText.grade} ${MIN_GRADE_FILTER}-${MAX_GRADE_FILTER}`}
                 value={gradeFilter ?? ""}
                 onChange={handleGradeFilterChange}
-                className="w-full sm:max-w-28"
+                className="w-28 shrink-0"
               />
             )
           }

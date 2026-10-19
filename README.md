@@ -42,6 +42,8 @@ npx prisma db push         # wypchnięcie schematu do bazy
 
 ## Dokumentacja
 
+Testy wyglądu i obsługi telefonu: **[e2e/README.md](e2e/README.md)** — uruchamianie, dane testowe, raporty i sprawdzanie produkcyjnego buildu. Zestaw ma własny serwer i nie korzysta z bazy aplikacji.
+
 - **`ROADMAP.md`** — jedyne źródło prawdy o tym, co zrobione i co zostało. Zaczyna się od tabeli otwartych pozycji.
 - **`features-to-implement/`** — plany wykonawcze w toku; `features-to-implement/done/` to archiwum zrealizowanych.
 - **`features-to-implement/combat-lab-STATUS.md`** — stan symulatora walki.

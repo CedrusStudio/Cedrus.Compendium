@@ -182,7 +182,7 @@ export default function BattlePresetsPanel()
             items={presetItems}
             onChange={setSelectedPresetId}
             placeholder={displayedText.selectBattlePreset}
-            triggerClassName="w-[220px]"
+            triggerClassName="w-full sm:w-[220px]"
             capitalize={false}
           />
         ) : (
@@ -221,7 +221,7 @@ export default function BattlePresetsPanel()
             <DialogTitle className="first-letter:capitalize">{displayedText.saveAsNewPreset}</DialogTitle>
           </DialogHeader>
 
-          <div className="grid grid-cols-4 items-center gap-4 py-4">
+          <div className="grid grid-cols-1 items-center gap-4 py-4 sm:grid-cols-4">
             <Label htmlFor="battle-preset-name">
               <span className="first-letter:capitalize">{displayedText.battlePresetName}</span>
             </Label>
@@ -229,7 +229,7 @@ export default function BattlePresetsPanel()
               id="battle-preset-name"
               value={saveAsName}
               onChange={event => setSaveAsName(event.target.value)}
-              className="col-span-3"
+              className="sm:col-span-3"
             />
           </div>
 

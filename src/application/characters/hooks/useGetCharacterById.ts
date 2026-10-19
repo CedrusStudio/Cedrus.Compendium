@@ -1,29 +1,13 @@
 "use client";
 
 import { useParams } from 'next/navigation';
-import { useSuspenseQuery  } from '@tanstack/react-query';
-import { createCharacterByIdKey } from '@/persistence/cacheKeys';
-import client from "@/infrastructure/clients/searchClient";
-import { characterQueryById } from '@/infrastructure/searchQueries/characters/characterQueryById';
-import { CharacterWithRelations, toCharacter } from '@/persistence/mappings/characterMapping';
-import { useApiKey } from '@/common/hooks/useApiKey';
+import { useCharacterById } from './useCharacterById';
 
 export const useGetCharacterById = () =>
 {
     const params = useParams();
-    const characterId = String(params.id);
-    if (!characterId) throw new Error("Character ID is required");
-    const { apiKey } = useApiKey();
-    const queryKey = createCharacterByIdKey(characterId, apiKey);
-
-    const { data } = useSuspenseQuery<CharacterWithRelations>
-    ({
-        queryKey,
-        queryFn: async () => await client.searchById(characterId, characterQueryById),
-        staleTime: 5_000,
-        refetchOnWindowFocus: true,
-    });
-
-    if (!data) return { character: null };
-    return { character: toCharacter(data) };
+    // Share the hydrated cache and wait for the access key before a client
+    // fetch. An absent SSR prefetch must not invoke a browser-relative Axios
+    // URL on the server (e.g. when rendering a private printable sheet).
+    return useCharacterById(params.id ? String(params.id) : undefined);
 };

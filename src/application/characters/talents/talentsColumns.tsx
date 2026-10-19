@@ -35,7 +35,7 @@ function RollCell({ talent }: { talent: Talent })
   };
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex flex-wrap items-center gap-1 sm:flex-nowrap">
       <span className="flex items-center whitespace-nowrap text-sm">
         1k{talent.grade * 2}
         <span className={`ml-0.5 ${getColorTextChange(bonus, defaultBonus)}`}>{bonus >= 0 ? "+" : ""}{bonus}</span>

@@ -16,7 +16,7 @@ export default async function SectionPage({ params }: PageProps)
   if (!section) notFound();
 
   return (
-    <section className="flex flex-row items-start">
+    <section className="min-w-0 flex flex-col items-start gap-4 lg:flex-row">
         <RulebookSectionView section={section} />
         <TableOfContents section={section} />
     </section>

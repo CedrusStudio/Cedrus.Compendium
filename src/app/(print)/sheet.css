@@ -287,6 +287,17 @@
 /* On screen the sheet sits on a page-like slab so the print layout is legible
    against the app's (possibly dark) background. */
 @media screen {
+  .sheet-preview {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .sheet-preview .sheet {
+    width: 192mm;
+    max-width: none;
+  }
+
   .sheet {
     border: 1px solid #ccc;
     padding: 8mm;

@@ -50,7 +50,12 @@
     "copy-effects-across-grades": "tsx scripts/copy-effects-across-grades.ts",
     "copy-effects-across-grades:apply": "tsx scripts/copy-effects-across-grades.ts --apply",
     "backfill-mana-to-essence": "tsx scripts/backfill-mana-to-essence.ts",
-    "backfill-mana-to-essence:apply": "tsx scripts/backfill-mana-to-essence.ts --apply"
+    "backfill-mana-to-essence:apply": "tsx scripts/backfill-mana-to-essence.ts --apply",
+    "test:e2e": "node scripts/run-e2e.mjs --project=desktop",
+    "test:e2e:mobile": "node scripts/run-e2e.mjs --project=phone-320 --project=phone-390",
+    "test:visual:mobile": "node scripts/run-e2e.mjs --project=phone-390 --grep layout",
+    "audit:mobile": "node scripts/run-e2e.mjs --project=phone-390 --grep layout",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -103,6 +108,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",

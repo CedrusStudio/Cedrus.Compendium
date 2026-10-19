@@ -36,6 +36,13 @@ interface DataTableProps
   data: Talent[],
 }
 
+const talentColumnClassName = (columnId: string) => {
+  if (columnId === defaultColumnKeys.name) return 'whitespace-normal [overflow-wrap:anywhere] sm:whitespace-nowrap';
+  if (columnId === 'roll') return 'w-44 sm:w-auto';
+  if (columnId === defaultColumnKeys.grade || columnId === defaultColumnKeys.bonus) return 'hidden sm:table-cell';
+  return undefined;
+};
+
 export function TalentsTable({ columns, data }: DataTableProps) 
 {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -81,7 +88,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
 
   return (
     <div>
-      <div className="flex items-center -mt-2 lg:pb-1 gap-3">
+      <div className="flex min-w-0 flex-wrap items-center -mt-2 lg:pb-1 gap-3">
         <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
 
         <SelectFilter  
@@ -98,8 +105,8 @@ export function TalentsTable({ columns, data }: DataTableProps)
       </div>
 
       <div className="overflow-hidden rounded-md border">
-        <Table>
-          <DefaultTableHeader table={table} />
+        <Table className="table-fixed sm:table-auto">
+          <DefaultTableHeader table={table} columnClassName={talentColumnClassName} />
 
           <DefaultTableBody table={table} columns={columns} tableRowFactory=
           {
@@ -107,7 +114,7 @@ export function TalentsTable({ columns, data }: DataTableProps)
               <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
               {
                 row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className={talentColumnClassName(cell.column.id)}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))

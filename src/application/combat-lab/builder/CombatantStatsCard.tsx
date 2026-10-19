@@ -43,7 +43,7 @@ export function CombatantStatsCard({ title, snapshot }: { title: string; snapsho
   ].join(" · ");
 
   return (
-    <Card className="flex-1 min-w-[260px]">
+    <Card className="min-w-0 w-full sm:flex-1 sm:min-w-[260px]">
       <Collapsible defaultOpen={false}>
         <CollapsibleTrigger className="group flex w-full items-center justify-between gap-3 px-6 py-3 text-left [&[data-state=open]_svg]:rotate-180">
           <span className="flex flex-col">

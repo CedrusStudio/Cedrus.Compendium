@@ -51,7 +51,7 @@ export default function AddExternalParticipantDialog()
     <Dialog open={open} onOpenChange={setOpen}>
 
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" aria-label={displayedText.addExternalParticipant}>
           <FaUserPlus />
         </Button>
       </DialogTrigger>
@@ -62,7 +62,7 @@ export default function AddExternalParticipantDialog()
         </DialogHeader>
 
         <div className="flex flex-col gap-6 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
 
             <Label htmlFor="name">
               <span className="first-letter:capitalize">{displayedText.name}</span>
@@ -72,12 +72,12 @@ export default function AddExternalParticipantDialog()
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="col-span-3"
+              className="sm:col-span-3"
               placeholder={displayedText.enterName}
             />
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
 
             <Label htmlFor="maxHealth">
               {displayedText.maxHealth}
@@ -88,12 +88,12 @@ export default function AddExternalParticipantDialog()
               type="number"
               value={maxHealth}
               onChange={e => setMaxHealth(e.target.value)}
-              className="col-span-3"
+              className="sm:col-span-3"
               min="1"
             />
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
 
             <Label htmlFor="initiative.grade">
               {displayedText.initiativeGrade}
@@ -104,13 +104,13 @@ export default function AddExternalParticipantDialog()
               type="number"
               value={initiativeGrade}
               onChange={e => setInitiativeGrade(e.target.value)}
-              className="col-span-3"
+              className="sm:col-span-3"
               min="1"
               placeholder="10"
             />
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
 
             <Label htmlFor="initiative.value">
               {displayedText.initiativeValue}
@@ -121,12 +121,12 @@ export default function AddExternalParticipantDialog()
               type="number"
               value={initiativeTotalBonus}
               onChange={e => setInitiativeTotalBonus(e.target.value)}
-              className="col-span-3"
+              className="sm:col-span-3"
               placeholder="0"
             />
           </div>
 
-          <div className="grid grid-cols-4 items-start gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 items-start gap-4">
 
             <Label htmlFor="notes">
               {displayedText.notes}
@@ -136,7 +136,7 @@ export default function AddExternalParticipantDialog()
               id="notes"
               value={notes}
               onChange={e => setNotes(e.target.value)}
-              className="col-span-3"
+              className="sm:col-span-3"
               placeholder={displayedText.enterNotes}
               rows={3}
             />

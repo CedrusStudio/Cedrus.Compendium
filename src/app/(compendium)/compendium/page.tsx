@@ -16,7 +16,7 @@ function HeroSection()
 {
   return (
     <div className="text-center mb-12">
-      <h1 className="text-5xl font-bold mb-4">Kompendium</h1>
+      <h1 className="text-4xl sm:text-5xl font-bold mb-4">Kompendium</h1>
       <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
         Przeglądaj i zarządzaj wszystkimi elementami gry: umiejętnościami, 
         zaklęciami, manewrami i ekwipunkiem.

@@ -11,6 +11,7 @@ import type { RawResult } from "@/domain/combat-lab/simulation/RawResult";
 import { computeStatistics, type CountBucket } from "@/domain/combat-lab/analysis/distributions";
 import { deathCauseLabelsPl } from "@/domain/combat-lab/i18n/labels";
 import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
+import { ChartValues } from './ChartValues';
 
 const REASON_LABELS_PL: Record<string, string> = {
   knockout: "Nokaut",
@@ -60,6 +61,7 @@ function BarPanel({ title, data, color }: { title: string; data: CountBucket[]; 
             </BarChart>
           </ResponsiveContainer>
         )}
+        {data.length > 0 && <ChartValues data={data} />}
       </CardContent>
     </Card>
   );

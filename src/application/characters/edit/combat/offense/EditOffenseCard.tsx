@@ -42,7 +42,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
     <Card className='bg-muted'>
 
       <CardHeader>
-        <CardTitle className='mb-6 flex justify-between items-center'>
+        <CardTitle className='mb-6 flex flex-wrap gap-3 justify-between items-center'>
           <InputFormField<CombatDto> path={pathToOffenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
           <div className='flex gap-2'>
             <Button 

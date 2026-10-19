@@ -52,6 +52,7 @@ export function ApiKeySettings()
       <DialogTrigger asChild>
         <Button 
           variant={hasApiKey ? "default" : "outline"}
+          aria-label={hasApiKey ? 'API Key Set' : 'Set API Key'}
           className="gap-2"
         >
           {

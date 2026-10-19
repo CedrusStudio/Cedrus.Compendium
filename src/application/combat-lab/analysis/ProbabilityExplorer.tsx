@@ -1,4 +1,5 @@
 "use client";
+import { ChartValues } from './ChartValues';
 
 /**
  * Probability Explorer: tweak a single attack (offense dice / crit, defender
@@ -139,6 +140,7 @@ export function ProbabilityExplorer()
               <Bar dataKey="count" fill="#3b82f6" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
+          <ChartValues data={result.distribution} />
         </CardContent>
       </Card>
     </div>

@@ -21,23 +21,27 @@ export function WithScroll<TItem>({ items, triggerNext, hasMore, renderItem, par
 
   // Auto-fetch more items if container is not scrollable and more data is available
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const checkScrollable = () => {
       if (containerRef.current && hasMore) {
-        const isScrollable = document.documentElement.scrollHeight > window.innerHeight;
+        const target = scrollableTarget ? document.getElementById(scrollableTarget) : null;
+        const isScrollable = target
+          ? target.scrollHeight > target.clientHeight
+          : document.documentElement.scrollHeight > window.innerHeight;
         if (!isScrollable && items.length > 0) {
-          // Delay to avoid rapid successive calls
-          const timer = setTimeout(() => {
-            triggerNext();
-          }, 100);
-          return () => clearTimeout(timer);
+          clearTimeout(timer);
+          timer = setTimeout(triggerNext, 100);
         }
       }
     };
 
     checkScrollable();
-  }, [items.length, hasMore, triggerNext]);
+    window.addEventListener('resize', checkScrollable);
+    return () => { clearTimeout(timer); window.removeEventListener('resize', checkScrollable); };
+  }, [items.length, hasMore, triggerNext, scrollableTarget]);
 
   return (
+    <div className="w-full min-w-0">
     <InfiniteScroll
       dataLength={items.length}
       next={triggerNext}
@@ -47,10 +51,11 @@ export function WithScroll<TItem>({ items, triggerNext, hasMore, renderItem, par
       scrollableTarget={scrollableTarget}
       scrollThreshold={0.9}
     >
-      <div ref={containerRef} className={parentClassName || "flex flex-col gap-2"} style={{ minHeight: '100vh' }}>
+      <div ref={containerRef} className={parentClassName || "flex min-w-0 flex-col gap-2"}>
         {items.map(renderItem)}
       </div>
     </InfiniteScroll>
+    </div>
   );
 };
 

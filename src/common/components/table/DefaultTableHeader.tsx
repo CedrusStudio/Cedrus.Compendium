@@ -10,10 +10,11 @@ type DefaultTableHeaderProps<TData> =
 {
   table: Table<TData>,
   className?: string,
+  columnClassName?: (columnId: string) => string | undefined,
   addBorders?: boolean
 }
 
-export default function DefaultTableHeader<TData>({ table, className, addBorders }: DefaultTableHeaderProps<TData>)
+export default function DefaultTableHeader<TData>({ table, className, columnClassName, addBorders }: DefaultTableHeaderProps<TData>)
 {
   const borderClass = addBorders ? "border-r first:border-r-0 last:border-r-0 [&:nth-last-child(2)]:border-r-0" : "";
 
@@ -24,7 +25,7 @@ export default function DefaultTableHeader<TData>({ table, className, addBorders
         <TableRow key={headerGroup.id}>
         {
           headerGroup.headers.map(header => (
-            <TableHead key={header.id} className={cn(borderClass, className)}>
+            <TableHead key={header.id} className={cn(borderClass, className, columnClassName?.(header.column.id))}>
             {
               header.isPlaceholder
                 ? null

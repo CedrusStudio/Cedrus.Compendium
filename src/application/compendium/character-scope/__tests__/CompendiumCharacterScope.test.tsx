@@ -69,9 +69,10 @@ describe('compendium shared character scope', () => {
   it('starts unselected, selecting does not filter, and actions refresh authoritative status', async () => {
     const user = userEvent.setup(); setup();
     expect(screen.getByTestId('character')).toHaveTextContent('none');
-    expect(screen.getByRole('checkbox')).toBeDisabled();
+    expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
     await user.click(screen.getByText('Select A'));
     await waitFor(() => expect(screen.getByTestId('character')).toHaveTextContent('Aldara'));
+    expect(screen.getByRole('checkbox')).toBeEnabled();
     expect(screen.getByTestId('filter')).toHaveTextContent('all');
     await user.click(screen.getByRole('button', { name: /Dodaj do postaci/ }));
     await screen.findByText('Na postaci');
@@ -84,6 +85,7 @@ describe('compendium shared character scope', () => {
     expect(screen.getByRole('checkbox')).toHaveFocus();
     await user.click(screen.getByText('Clear'));
     expect(screen.getByTestId('filter')).toHaveTextContent('all');
+    expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
   });
 
   it('locks repeated clicks and a completion for A cannot change selected B', async () => {
@@ -155,7 +157,7 @@ describe('compendium shared character scope', () => {
     const user = userEvent.setup(); setup();
     await user.click(screen.getByText('Select A'));
     await waitFor(() => expect(transport.error).toHaveBeenCalledWith(expect.stringContaining('Wybór został wyczyszczony')));
-    expect(screen.getByRole('checkbox')).toBeDisabled();
+    expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
     expect(screen.getByTestId('filter')).toHaveTextContent('all');
   });
 

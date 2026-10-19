@@ -10,7 +10,7 @@ export default function CombatLabNavbar()
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center justify-between py-4 px-10 gap-3">
+    <nav className="flex flex-wrap items-center justify-between py-4 px-3 sm:px-10 gap-3">
 
       <div className="hidden md:block">
         <NavbarBreadcrumb pathname={pathname} />

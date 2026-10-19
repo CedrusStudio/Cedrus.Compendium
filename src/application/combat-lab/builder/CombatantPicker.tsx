@@ -83,7 +83,7 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
   };
 
   return (
-    <Card className="flex-1 min-w-[280px]">
+    <Card className="min-w-0 w-full sm:flex-1 sm:min-w-[280px]">
       <CardHeader>
         <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>
@@ -111,8 +111,8 @@ export function CombatantPicker({ title, value, onChange }: CombatantPickerProps
 
         {value && (
           <>
-            <div className="flex items-center justify-between">
-              <span className="font-medium">{value.characterName}</span>
+            <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
+              <span className="min-w-0 break-words font-medium">{value.characterName}</span>
               <Button variant="ghost" size="sm" onClick={() => onChange(null)}>Zmień</Button>
             </div>
 

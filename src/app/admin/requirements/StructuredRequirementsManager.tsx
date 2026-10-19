@@ -164,7 +164,7 @@ export default function StructuredRequirementsManager()
           onChange={(event) => setFilterText(event.target.value)}
           className="h-9 w-70 border bg-background px-3 py-2 text-sm shadow-sm md:w-56"
         />
-        <div className="flex items-center gap-1 rounded-md border bg-background p-1" role="group" aria-label="Rodzaj wymagania">
+        <div className="flex flex-wrap items-center gap-1 rounded-md border bg-background p-1" role="group" aria-label="Rodzaj wymagania">
           {
             KIND_ITEMS.map((item) => (
               <Button
@@ -280,7 +280,7 @@ export default function StructuredRequirementsManager()
       <Sheet open={Boolean(editing)} onOpenChange={(open) => { if (!open) setEditing(null); }}>
         {/* Wide enough for the alternative editor: each option row carries two
             selects, a number and a remove button, which overflowed max-w-md. */}
-        <SheetContent className="w-full overflow-hidden sm:max-w-2xl">
+        <SheetContent className="w-full overflow-y-auto sm:max-w-2xl">
           {editing && <EditForm key={`${entity}:${formatRequirement(editing)}`} entity={entity} original={editing} onClose={() => setEditing(null)} />}
         </SheetContent>
       </Sheet>

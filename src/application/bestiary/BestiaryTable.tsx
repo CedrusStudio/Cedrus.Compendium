@@ -1,7 +1,8 @@
 "use client";
 
 import { ColumnFiltersState, SortingState, VisibilityState, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useId } from "react";
+import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { displayedText } from "@/common/translations";
 import { columnKeys, columns } from "@/application/bestiary/columns";
 import ColumnFilter from "@/common/components/table/ColumnFilter";
@@ -51,6 +52,9 @@ export default function BestiaryTable()
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string>(emptyUlid);
   const [visibilityMode, setVisibilityMode] = useState<CharacterVisibilityMode>('all');
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const filtersId = useId();
+  const activeFilterCount = searchTags.length + excludedTags.length + facetFilters.length + (visibilityMode === 'all' ? 0 : 1);
   const { profile } = usePersonalization();
   const { apiKey, hasApiKey } = useApiKey();
 
@@ -192,9 +196,9 @@ export default function BestiaryTable()
 
   return (
     <div className="mx-3">
-      <div className="flex flex-wrap items-center justify-center py-4 gap-3 sticky top-0 bg-background z-10">
+      <div className="flex flex-wrap items-center py-4 gap-3 lg:sticky lg:top-0 bg-background z-10">
 
-        <div className="flex flex-row flex-1 gap-3">
+        <div className="min-w-0 w-full md:flex-1">
           <Input 
             name="search" 
             type="text" 
@@ -203,7 +207,35 @@ export default function BestiaryTable()
             onChange={handleSearchInputChange}
             className="max-w-md"
           />
+        </div>
 
+        <Button
+          type="button"
+          variant="outline"
+          className="md:hidden"
+          aria-expanded={filtersOpen}
+          aria-controls={filtersId}
+          onClick={() => setFiltersOpen(open => !open)}
+        >
+          <SlidersHorizontal aria-hidden="true" />
+          Filtry{activeFilterCount > 0 && ` (${activeFilterCount})`}
+          <ChevronDown aria-hidden="true" className={filtersOpen ? 'rotate-180' : ''} />
+        </Button>
+
+        <Button variant="outline" aria-label="Dodaj zaznaczone do walki" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() =>
+        {
+          const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
+          dispatch(actions.addSelectedToBattle(selectedCharacterIds));
+          toast.success(displayedText.addedToBattle);
+        }}>
+          {addIcon("scale-90")}
+        </Button>
+
+        <ColumnFilter table={table} />
+      </div>
+
+      <div id={filtersId} className={`${filtersOpen ? '' : 'hidden'} mb-4 space-y-3 md:block`}>
+        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
           <TagFilterSwitcher
             entity="characters"
             includedTags={searchTags}
@@ -215,27 +247,12 @@ export default function BestiaryTable()
             facetFilters={facetFilters}
             onFacetFiltersChange={handleFacetFiltersChange}
           />
-
           <CharacterVisibilityFilter
             value={visibilityMode}
             onValueChange={handleVisibilityModeChange}
             mineOnlyDisabled={!hasApiKey}
           />
         </div>
-
-        <Button variant="outline" disabled={table.getFilteredSelectedRowModel().rows.length === 0} onClick={() => 
-        { 
-          const selectedCharacterIds = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
-          dispatch(actions.addSelectedToBattle(selectedCharacterIds));
-          toast.success(displayedText.addedToBattle);
-        }}>
-          {addIcon("scale-90")}
-        </Button> 
-
-        <ColumnFilter table={table} />
-      </div>
-
-      <div className="mb-4 space-y-2">
         <PersonalizedQuickTags
           context="bestiary"
           selectedTags={searchTags}

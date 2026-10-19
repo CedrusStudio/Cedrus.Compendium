@@ -120,3 +120,39 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Intrinsic content must shrink inside flex/grid before its own scroll region
+   takes over. This does not clip document overflow or affect the A4 sheet. */
+[data-slot="card"],
+[data-slot="card-content"],
+[data-slot="tabs"] {
+  min-width: 0;
+}
+
+input, textarea, select {
+  max-width: 100%;
+}
+
+@media (pointer: coarse) {
+  [data-slot="button"],
+  [data-slot="tabs-trigger"],
+  [data-slot="select-trigger"],
+  [data-slot="dropdown-menu-item"],
+  [data-slot="dropdown-menu-checkbox-item"],
+  [data-slot="dropdown-menu-radio-item"],
+  [data-slot="select-item"],
+  [data-slot="command-item"] {
+    min-height: 2.75rem;
+  }
+  [data-slot="button"]:has(> svg:only-child) {
+    min-width: 2.75rem;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea, select {
+    font-size: 1rem;
+  }
+}
+
+[data-slot="sheet-content"], [data-slot="drawer-content"] {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

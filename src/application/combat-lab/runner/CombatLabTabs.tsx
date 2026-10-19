@@ -15,6 +15,8 @@ import { MetaAnalyzer } from "@/application/combat-lab/analysis/MetaAnalyzer";
 import { loadPlugins } from "@/domain/combat-lab/plugins/loadPlugins";
 import { pluginAnalyzers } from "@/application/combat-lab/plugins/analyzerRegistry";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/common/components/ui/tabs";
+import { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select";
 
 // Register built-in plugins on the main thread (workers load them separately).
 loadPlugins();
@@ -71,10 +73,20 @@ const TABS: TabDef[] = [
 export function CombatLabTabs()
 {
   const analyzers = pluginAnalyzers();
+  const [activeTab, setActiveTab] = useState('new');
 
   return (
-    <Tabs defaultValue="new" className="w-full">
-      <TabsList className="flex-wrap">
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full min-w-0">
+      <div className="sm:hidden">
+        <Select value={activeTab} onValueChange={setActiveTab}>
+          <SelectTrigger aria-label="Widok laboratorium" className="w-full"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            {TABS.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}
+            {analyzers.map(a => <SelectItem key={a.id} value={`plugin:${a.id}`}>{a.label}</SelectItem>)}
+          </SelectContent>
+        </Select>
+      </div>
+      <TabsList className="hidden flex-wrap overflow-visible sm:flex">
         {TABS.map(t => <TabsTrigger key={t.value} value={t.value}>{t.label}</TabsTrigger>)}
         {analyzers.map(a => <TabsTrigger key={a.id} value={`plugin:${a.id}`}>{a.label}</TabsTrigger>)}
       </TabsList>
