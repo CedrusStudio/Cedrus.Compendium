@@ -10,7 +10,7 @@ type RulebookSectionViewProps =
 export function RulebookSectionView({ section }: RulebookSectionViewProps) 
 {
   return (
-    <article className="w-3xl space-y-6">
+    <article className="w-full min-w-0 max-w-3xl space-y-6 [overflow-wrap:anywhere]">
       <SectionHeader section={section} />
       <SectionContent section={section} />
       <SubsectionContent section={section} />
@@ -22,7 +22,7 @@ function SectionHeader({ section }: { section: RulebookSection })
 {
   return (
     <header className="border-b pb-4 mb-6">
-      <h1 className="text-4xl font-bold mb-2">{section.title}</h1>
+      <h1 className="text-3xl sm:text-4xl font-bold mb-2">{section.title}</h1>
       { section.description && <p className="text-lg text-muted-foreground">{section.description}</p> }
     </header>
   )

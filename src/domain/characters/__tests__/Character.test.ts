@@ -426,11 +426,7 @@ describe('Character - Factory Functions', () => {
       expect(character.perks[0].price).toBe(1);
     });
 
-    it.skip('should create independent character instances', () => {
-      // KNOWN BUG: CreateEmptyCharacter uses shallow copy of emptyCharacter
-      // This means nested objects like characteristics, attributes, health, etc
-      // are SHARED between all created characters!
-      // To fix: CreateEmptyCharacter needs deep clone or proper factory pattern
+    it('should create independent character instances', () => {
       let counter = 0;
       ulidSpy.mockReset();
       ulidSpy.mockImplementation(() => {
@@ -454,10 +450,16 @@ describe('Character - Factory Functions', () => {
 
       // Modify char1
       char1.characteristics.strength.value = 10;
+      char1.health.vitality = 99;
+      char1.equipment.weapons[0].name = 'Zmieniona broń';
+      char1.offenses[0].leadingWeapon.critical.power = 99;
       char1.tags.push('modified');
 
       // char2 should not be affected
       expect(char2.characteristics.strength.value).toBe(0);
+      expect(char2.health.vitality).toBe(10);
+      expect(char2.equipment.weapons[0].name).not.toBe('Zmieniona broń');
+      expect(char2.offenses[0].leadingWeapon.critical.power).not.toBe(99);
       expect(char2.tags).toHaveLength(0);
     });
 

@@ -61,11 +61,21 @@ export function TableOfContents({ section }: TableOfContentsProps)
   if (tableOfContents.length === 0) return null;
 
   return (
-    <nav className="hidden lg:block sticky top-20 w-64 ml-20">
+    <>
+    <details className="order-first w-full rounded-lg border p-3 lg:hidden">
+      <summary className="cursor-pointer py-2 font-medium">Spis treści</summary>
+      <nav aria-label="Spis treści artykułu">
+        <ul className="space-y-2 text-sm">
+          {tableOfContents.map(item => <TocMainItem key={item.id} item={item} activeHeadingId={activeHeadingId} />)}
+        </ul>
+      </nav>
+    </details>
+    <nav aria-label="Spis treści artykułu" className="hidden lg:block sticky top-20 w-64 shrink-0 ml-6">
       <ul className="space-y-2 text-sm border rounded-lg p-4">
         { tableOfContents.map(item => <TocMainItem key={item.id} item={item} activeHeadingId={activeHeadingId} /> ) }
       </ul>
     </nav>
+    </>
   );
 }
 

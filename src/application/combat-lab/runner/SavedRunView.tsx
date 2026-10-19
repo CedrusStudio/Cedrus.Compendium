@@ -44,7 +44,7 @@ export function SavedRunView({ id }: { id: string })
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold">{data.name}</h2>
           <p className="text-sm text-muted-foreground">

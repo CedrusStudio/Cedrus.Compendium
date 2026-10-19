@@ -14,8 +14,8 @@ type CharacterVisibilityFilterProps =
 export default function CharacterVisibilityFilter({ value, onValueChange, mineOnlyDisabled }: CharacterVisibilityFilterProps)
 {
   return (
-    <Tabs value={value} onValueChange={(v) => onValueChange(v as CharacterVisibilityMode)}>
-      <TabsList>
+    <Tabs className="max-w-full shrink-0" value={value} onValueChange={(v) => onValueChange(v as CharacterVisibilityMode)}>
+      <TabsList className="h-auto flex-wrap overflow-visible">
         <TabsTrigger value="all">{displayedText.characterVisibilityAll}</TabsTrigger>
         <TabsTrigger value="mineOnly" disabled={mineOnlyDisabled}>{displayedText.characterVisibilityMineOnly}</TabsTrigger>
         <TabsTrigger value="publicOnly">{displayedText.characterVisibilityPublicOnly}</TabsTrigger>

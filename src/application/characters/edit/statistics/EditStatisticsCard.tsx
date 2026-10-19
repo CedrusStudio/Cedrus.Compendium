@@ -31,7 +31,7 @@ export default function EditStatisticsCard<TStats extends Record<string, Statist
       contentClassName="flex flex-col gap-y-4"
     >
 
-        <div className="grid grid-cols-5 gap-5 items-center border-b border-border/50 pb-2">
+        <div className="hidden sm:grid grid-cols-5 gap-5 items-center border-b border-border/50 pb-2">
           <div className="text-sm font-semibold text-muted-foreground text-center capitalize">
             {overwriteTitleSingular}
           </div>

@@ -13,7 +13,7 @@ export default function CharacterNavbar()
     const pathname = usePathname();
 
     return (
-        <nav className="flex items-center justify-between py-4 px-10 gap-3">
+        <nav className="flex flex-wrap items-center justify-between py-4 px-3 sm:px-10 gap-3">
 
             <div className="hidden md:block">
                 <NavbarBreadcrumb pathname={pathname} />
@@ -21,7 +21,7 @@ export default function CharacterNavbar()
 
             <div className="flex-1" />
 
-            <div className="flex flex-row items-center gap-2 justify-self-center">
+            <div className="flex flex-wrap items-center justify-end gap-2 justify-self-center">
                 <ApiKeySettings />
                 <Button asChild variant="outline" size="icon">
                     <Link href="/characters/add">{addIcon("h-[1.2rem] w-[1.2rem]")}</Link>

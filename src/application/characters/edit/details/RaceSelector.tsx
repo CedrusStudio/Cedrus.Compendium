@@ -115,7 +115,7 @@ export default function RaceSelector({ control, currentRace }: RaceSelectorProps
   return (
     <div className="flex flex-col gap-4">
 
-      <div className="flex flex-row gap-3 ml-1 place-items-center">
+      <div className="flex flex-wrap gap-3 ml-1 place-items-center">
         <Label className="text-base capitalize">
           {displayedText.race}
         </Label>
@@ -148,7 +148,7 @@ export default function RaceSelector({ control, currentRace }: RaceSelectorProps
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button type="button" variant="outline" onClick={() => setIsSearchOpen(!isSearchOpen)}>
           <Search className="h-4 w-4" />
           {"Wybierz rasę"}

@@ -231,5 +231,5 @@ export function CreateEmptyCharacter({name, shortName, tags, description}: {name
   newCharacter.otherModifierProfiles = [];
   newCharacter.activeOtherModifierProfileIds = [];
   newCharacter.perks = [CreateDefaultPerk()];
-  return newCharacter;
+  return structuredClone(newCharacter);
 };

@@ -15,8 +15,8 @@ export default function DetailsView({ character }: { character: Character })
 
       <header className="flex flex-col place-content-center mb-4 lg:mb-6 mt-2 gap-3">
 
-        <div className="flex flex-row place-content-center mt-2 gap-3">
-          <h1 className="font-semibold text-primary capitalize text-lg hidden sm:block">
+        <div className="flex flex-wrap place-content-center mt-2 gap-3">
+          <h1 className="break-words text-center font-semibold text-primary capitalize text-lg">
             {character.name}
           </h1>
 

@@ -88,7 +88,7 @@ export default function FacetedTagFilter({ index, filters, onFiltersChange, isLo
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent align="start" className="max-h-[70vh] w-[340px] overflow-y-auto p-0">
+        <PopoverContent align="start" className="max-h-[min(70dvh,var(--radix-popover-content-available-height))] w-[340px] overflow-y-auto p-0">
           <div className="sticky top-0 z-10 border-b bg-popover px-3 py-2">
             <div className="flex items-center justify-between gap-2">
               <span className="text-xs font-medium">
@@ -288,7 +288,7 @@ function FacetSection({ facet, chosen, selectedTags, noneSelected, onToggleValue
                       type="button"
                       size="sm"
                       variant="ghost"
-                      className="hidden h-7 px-1 text-[10px] text-muted-foreground group-hover:inline-flex"
+                      className="inline-flex h-9 px-2 text-xs text-muted-foreground"
                       onClick={() => onOnlyThis(value.tag)}
                       title="Wyłącznie ta kategoria"
                     >

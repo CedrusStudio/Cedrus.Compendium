@@ -102,7 +102,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
     <div className="flex flex-col">
       <div className="flex flex-col md:flex-row place-items-center place-content-center pt-1 gap-3">
         
-        <div className="flex flex-row items-start gap-2">
+        <div className="flex w-full min-w-0 flex-wrap items-start gap-2 md:w-auto">
 
           <NameInputSearch table={table} defaultColumnKeys={defaultColumnKeys} />
 
@@ -115,7 +115,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
           />
         </div>
 
-        <div className="flex flex-row items-start gap-2">
+        <div className="flex w-full min-w-0 flex-wrap items-start gap-2 md:w-auto">
 
           <AddTalentView append={append} setNameFilter={setNameFilter} />
           <AddBasicTalentButton talents={fields} append={append} />
@@ -156,7 +156,7 @@ export function EditTalentsTable({ columns, initialTalents }: DataTableProps)
 
         </div>
 
-        <div className="flex flex-row place-items-center place-content-center gap-2">
+        <div className="flex flex-wrap place-items-center place-content-center gap-2">
           <PaginationButtons table={table} />
           <ColumnFilter table={table} />
         </div>

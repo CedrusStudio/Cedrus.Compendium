@@ -30,7 +30,7 @@ export default function AdminPage()
     <div className="container mx-auto px-6 py-12 max-w-5xl space-y-8">
 
 
-      <div className="flex place-content-between place-items-center">
+      <div className="flex flex-wrap gap-3 place-content-between place-items-center">
 
         <div>
           <h1 className="text-4xl font-bold">Panel administracyjny</h1>

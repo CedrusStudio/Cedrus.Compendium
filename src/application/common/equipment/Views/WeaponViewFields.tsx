@@ -25,7 +25,7 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
 
         <SummaryView entity={weapon} />
 
-        <div className='flex flex-row gap-2 place-content-center'>
+        <div className='flex flex-wrap gap-2 place-content-center'>
           <Badge variant="outline">
             <span>{toOffenseString(weapon.offense)}</span>
             <Badge variant="secondary">{toCriticalRangeString(weapon.offense)}, {weapon.offense.critical.power >=0 ? "+" : ""}{weapon.offense.critical.power}</Badge>
@@ -42,7 +42,7 @@ export default function WeaponViewFields({ weapon }: WeaponViewProps)
 
       </ViewDetailsWrapper>
 
-      <div className="hidden sm:flex flex-row place-content-center gap-2">
+      <div className="flex flex-wrap place-content-center gap-2">
 
         <Badge variant="outline" className="flex place-content-center pr-2">
           <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.range}:</span></Label>

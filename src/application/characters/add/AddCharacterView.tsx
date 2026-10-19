@@ -140,12 +140,12 @@ type ModeSelectorProps =
 function ModeSelector({ mode, onScratchClick, onCopyClick, onAiClick }: ModeSelectorProps)
 {
     return (
-        <div className="flex justify-center pt-8">
+        <div className="flex flex-col gap-2 px-4 pt-8 sm:flex-row sm:gap-0">
             <Button
                 type="button"
                 variant={mode === 'scratch' ? 'default' : 'outline'}
                 onClick={onScratchClick}
-                className="rounded-r-none"
+                className="sm:rounded-r-none"
             >
                 <span className="first-letter:capitalize">{displayedText.create_new_character}</span>
             </Button>
@@ -154,7 +154,7 @@ function ModeSelector({ mode, onScratchClick, onCopyClick, onAiClick }: ModeSele
                 type="button"
                 variant={mode === 'copy' ? 'default' : 'outline'}
                 onClick={onCopyClick}
-                className="rounded-none"
+                className="sm:rounded-none"
             >
                 <span className="first-letter:capitalize">{displayedText.create_from_template}</span>
             </Button>
@@ -163,7 +163,7 @@ function ModeSelector({ mode, onScratchClick, onCopyClick, onAiClick }: ModeSele
                 type="button"
                 variant={mode === 'ai' ? 'default' : 'outline'}
                 onClick={onAiClick}
-                className="rounded-l-none"
+                className="sm:rounded-l-none"
             >
                 Generuj z AI
             </Button>

@@ -20,6 +20,9 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/.mobile-*.log
 
 # next.js
 /.next/

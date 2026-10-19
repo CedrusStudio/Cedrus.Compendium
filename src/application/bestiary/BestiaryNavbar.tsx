@@ -14,7 +14,7 @@ export default function BestiaryNavbar()
     const displayBattleNavigation = !pathname.includes("/battle");
 
     return (
-        <nav className="flex items-center justify-end md:justify-between py-4 px-10">
+        <nav className="flex items-center justify-end md:justify-between py-4 px-3 sm:px-10">
 
             <div className="hidden md:block">
                 <NavbarBreadcrumb pathname={pathname} />

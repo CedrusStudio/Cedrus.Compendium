@@ -25,7 +25,7 @@ export function ReplayDemo()
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-end gap-3">
+      <div className="flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1">
           <label htmlFor="seed" className="text-sm font-medium">Seed</label>
           <Input

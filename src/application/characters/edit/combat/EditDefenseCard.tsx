@@ -32,10 +32,10 @@ export default function EditDefenseCard({ index, defense, remove }: EditDefenseC
     <DataCard 
       variant="muted"
       className='border shadow-md'
-      headerClassName='flex justify-between items-center gap-4'
+      headerClassName='flex flex-wrap justify-between items-center gap-4'
       contentClassName='flex flex-col gap-6 -mt-2'
     >
-    <div className='flex justify-between items-center gap-4'>
+    <div className='flex flex-wrap justify-between items-center gap-4'>
       <InputFormField<CombatDto> path={pathToDefenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
       <div className='flex gap-2'>
         <Button 

@@ -40,7 +40,7 @@ function HeroSection()
           )
         }
       </div>
-      <h1 className="text-6xl lg:text-7xl font-bold mb-4">
+      <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-4">
         {displayedText.applicationHeading}
       </h1>
       <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -109,7 +109,7 @@ function CategoryCards()
           <Link
             key={category.id}
             href={category.href}
-            className={`group p-8 border rounded-lg hover:bg-muted hover:shadow-xl transition-all duration-200 flex flex-col items-center text-center w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${category.featured ? 'ring-2 ring-primary/40 border-primary/40' : ''}`}
+            className={`group min-w-0 p-5 sm:p-8 border rounded-lg hover:bg-muted hover:shadow-xl transition-all duration-200 flex flex-col items-center text-center w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${category.featured ? 'ring-2 ring-primary/40 border-primary/40' : ''}`}
           >
             <div className={`mb-4 ${category.color}`}>
               {category.icon}

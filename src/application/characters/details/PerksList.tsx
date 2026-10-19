@@ -47,10 +47,10 @@ export default function PerksList({ perks }: { perks: Perk[] })
         )
       }
 
-      <ul className="list-inside grid grid-cols-2 gap-2">
+      <ul className="list-inside grid min-w-0 grid-cols-1 gap-2 sm:grid-cols-2">
       {
         filteredPerks.map(perk => (
-          <li key={perk.id} className="flex flex-row items-center  rounded-md p-2 bg-muted">
+          <li key={perk.id} className="flex min-w-0 flex-row items-center rounded-md p-2 bg-muted">
             <SummaryView entity={perk} tagsVariant="outline" />
           </li>
         ))

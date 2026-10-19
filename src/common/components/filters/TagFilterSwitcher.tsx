@@ -66,7 +66,7 @@ export default function TagFilterSwitcher(props: TagFilterSwitcherProps)
       <div className="flex flex-wrap items-center gap-2">
         {
           hasFacets && (
-            <div className="inline-flex h-9 shrink-0 items-center rounded-md border p-0.5" role="group" aria-label="Tryb filtrowania">
+            <div className="inline-flex min-h-9 shrink-0 items-center rounded-md border p-0.5" role="group" aria-label="Tryb filtrowania">
               <Button
                 type="button"
                 size="sm"

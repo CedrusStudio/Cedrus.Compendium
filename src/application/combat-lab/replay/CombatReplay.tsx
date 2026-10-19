@@ -53,8 +53,8 @@ export function CombatReplay({ log, intervalMs = 700 }: CombatReplayProps)
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
         {frame.combatants.map(combatant => (
-          <Card key={combatant.id} className="flex-1 min-w-[200px] p-3">
-            <div className="flex items-center justify-between">
+          <Card key={combatant.id} className="min-w-0 w-full sm:flex-1 sm:min-w-[200px] p-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="font-semibold">{combatant.name}</span>
               <span className="text-sm text-muted-foreground">
                 {combatant.hp} / {combatant.maxHp}
@@ -79,7 +79,7 @@ export function CombatReplay({ log, intervalMs = 700 }: CombatReplayProps)
         ))}
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button variant="outline" size="icon" onClick={() => setIndex(0)} aria-label="Początek">
           <ChevronFirst className="size-4" />
         </Button>
@@ -102,7 +102,7 @@ export function CombatReplay({ log, intervalMs = 700 }: CombatReplayProps)
           max={lastIndex}
           value={Math.min(index, lastIndex)}
           onChange={e => { setPlaying(false); setIndex(clamp(Number(e.target.value))); }}
-          className="flex-1 accent-primary"
+          className="min-w-0 basis-full sm:basis-auto sm:flex-1 accent-primary"
           aria-label="Przewijanie"
         />
         <span className="w-20 text-right text-sm text-muted-foreground tabular-nums">

@@ -42,7 +42,7 @@ export function DataCard
 
       <CardHeader className={headerClassName}>
 
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap gap-2 justify-between items-center">
 
           { 
             (title || icon) && (

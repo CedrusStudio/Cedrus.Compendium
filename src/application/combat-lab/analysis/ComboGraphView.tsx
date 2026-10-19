@@ -21,12 +21,21 @@ export function ComboGraphView({ graph }: { graph: ComboGraph })
   }
 
   return (
-    <div className="h-[480px] w-full overflow-hidden rounded border">
-      <ReactFlow nodes={nodes} edges={edges} fitView nodesConnectable={false} edgesFocusable={false}>
+    <>
+    <div className="h-[min(480px,65dvh)] min-h-64 w-full overflow-hidden rounded border [&_.react-flow__controls-button]:min-h-11 [&_.react-flow__controls-button]:min-w-11">
+      <ReactFlow nodes={nodes} edges={edges} fitView nodesConnectable={false} edgesFocusable={false} zoomOnScroll={false} preventScrolling={false}>
         <Background />
         <Controls showInteractive={false} />
       </ReactFlow>
     </div>
+    <details className="mt-3 rounded border p-3 text-sm">
+      <summary className="cursor-pointer py-2">Manewry i połączenia</summary>
+      <ul className="space-y-2 break-words">
+        {graph.nodes.map(node => <li key={node.id}>{node.label}: {node.count}</li>)}
+        {graph.edges.map(edge => <li key={edge.id}>{graph.nodes.find(node => node.id === edge.from)?.label ?? edge.from} → {graph.nodes.find(node => node.id === edge.to)?.label ?? edge.to}: {edge.count}</li>)}
+      </ul>
+    </details>
+    </>
   );
 }
 

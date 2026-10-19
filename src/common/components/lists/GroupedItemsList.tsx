@@ -79,6 +79,7 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
   }
 
   return (
+    <div className="w-full min-w-0">
     <InfiniteScroll
       dataLength={items.length}
       next={triggerNext}
@@ -87,7 +88,7 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
       endMessage={<EndSeparator />}
       scrollThreshold={0.9}
     >
-      <div ref={containerRef} className={className} style={{ minHeight: '100vh' }}>
+      <div ref={containerRef} className={className}>
         <Accordion type="multiple" className="w-full space-y-2" value={expandedGroups} onValueChange={setExpandedGroups}>
           {groupedItems.map((group: GroupedItem<T>) => (
             <AccordionItem
@@ -132,6 +133,7 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
         </Accordion>
       </div>
     </InfiniteScroll>
+    </div>
   );
 }
 

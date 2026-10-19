@@ -34,7 +34,7 @@ export function SimulationReport({ id }: { id: string })
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="mb-4 flex items-center justify-between print:hidden">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <h1 className="text-2xl font-bold">Raport symulacji</h1>
         <Button onClick={() => window.print()}>Drukuj / Zapisz PDF</Button>
       </div>
@@ -47,7 +47,7 @@ export function SimulationReport({ id }: { id: string })
           </p>
         </header>
 
-        <section className="mb-4 grid grid-cols-2 gap-4">
+        <section className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 print:grid-cols-2">
           <CombatantCard label="Combatant A" snapshot={configuration.a} />
           <CombatantCard label="Combatant B" snapshot={configuration.b} />
         </section>
@@ -99,8 +99,8 @@ function SummarySection({ summary, a, b }: { summary: SimulationSummary; a: Comb
   return (
     <section>
       <h3 className="mb-2 font-semibold">Wyniki</h3>
-      <table className="mb-4 w-full text-sm">
-        <tbody>
+      <table className="mb-4 block w-full table-fixed text-sm [overflow-wrap:anywhere] sm:table print:table">
+        <tbody className="block sm:table-row-group print:table-row-group">
           <MetricRow
             label="Zwycięzca serii"
             value={winner ? `${winner.name} (${winner.id})` : "nierozstrzygnięte"}
@@ -118,7 +118,7 @@ function SummarySection({ summary, a, b }: { summary: SimulationSummary; a: Comb
         </tbody>
       </table>
 
-      <div className="grid grid-cols-2 gap-4 text-sm">
+      <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2 print:grid-cols-2">
         <div>
           <h4 className="mb-1 font-medium">Przyczyny śmierci</h4>
           <ul className="text-muted-foreground">
@@ -141,9 +141,9 @@ function SummarySection({ summary, a, b }: { summary: SimulationSummary; a: Comb
 function MetricRow({ label, value }: { label: string; value: string })
 {
   return (
-    <tr className="border-b">
+    <tr className="flex flex-col gap-1 border-b py-2 sm:table-row sm:py-0 print:table-row">
       <td className="py-1 pr-4">{label}</td>
-      <td className="py-1 text-right font-semibold tabular-nums">{value}</td>
+      <td className="py-1 font-semibold tabular-nums sm:text-right print:text-right">{value}</td>
     </tr>
   );
 }
