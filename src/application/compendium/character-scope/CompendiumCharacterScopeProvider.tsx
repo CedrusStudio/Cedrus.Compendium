@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useRef, useState, type PropsWithC
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { useApiKey, getStoredApiKey } from '@/common/hooks/useApiKey';
+import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { useCharacterById } from '@/application/characters/hooks/useCharacterById';
 import type { Character } from '@/domain/characters/Character';
 import type { MembershipKind } from '@/domain/characters/characterMembership';
@@ -13,7 +14,7 @@ import { displayedText as t } from '@/common/translations';
 import type { CharacterWithRelations } from '@/persistence/mappings/characterMapping';
 import { applyMembershipResult, type MembershipWriteResult } from '@/persistence/characters/characterMembershipResult';
 
-type Selection = { id?: string; onlyOwned: boolean };
+type Selection = { id?: string; onlyOwned: boolean; explicitlyCleared?: boolean };
 type CharacterScope = {
   character: Character | null;
   selectedCharacterId?: string;
@@ -54,6 +55,8 @@ export function CompendiumCharacterScopeProvider({ children }: PropsWithChildren
 function ScopeSession({ apiKey, restore, loaded, children }: PropsWithChildren<{ apiKey: string | null; restore: boolean; loaded: boolean }>) {
   const [selection, setSelection] = useState<Selection>({ onlyOwned: false });
   const [storageKey, setStorageKey] = useState<string>();
+  const [sessionRestored, setSessionRestored] = useState(false);
+  const { profile, isLoaded: profileLoaded } = usePersonalization();
   const restoreOnMount = useRef(restore);
   const touched = useRef(false);
   const active = useRef(true);
@@ -78,14 +81,28 @@ function ScopeSession({ apiKey, restore, loaded, children }: PropsWithChildren<{
         if (restoreOnMount.current && !touched.current) {
           const stored: unknown = JSON.parse(sessionStorage.getItem(key) ?? 'null');
           if (stored && typeof stored === 'object' && 'id' in stored && typeof stored.id === 'string' && stored.id.length > 0) {
+            touched.current = true;
             setSelection({ id: stored.id, onlyOwned: 'onlyOwned' in stored && stored.onlyOwned === true });
+          } else if (stored && typeof stored === 'object' && 'explicitlyCleared' in stored && stored.explicitlyCleared === true) {
+            touched.current = true;
+            setSelection({ onlyOwned: false, explicitlyCleared: true });
           }
         } else sessionStorage.removeItem(key);
       } catch { /* A corrupt or unavailable session store must not break browsing. */ }
       setStorageKey(key);
-    }).catch(() => { /* Storage is optional in restricted browser contexts. */ });
+      setSessionRestored(true);
+    }).catch(() => {
+      // Storage is optional; the main character can still initialize this mount.
+      if (!disposed) setSessionRestored(true);
+    });
     return () => { disposed = true; };
   }, [apiKey, loaded]);
+
+  useEffect(() => {
+    if (!loaded || !apiKey || !sessionRestored || !profileLoaded || touched.current) return;
+    touched.current = true;
+    if (profile.mainCharacterId) setSelection({ id: profile.mainCharacterId, onlyOwned: false });
+  }, [loaded, apiKey, sessionRestored, profileLoaded, profile.mainCharacterId]);
 
   useEffect(() => {
     if (storageKey) {
@@ -95,14 +112,14 @@ function ScopeSession({ apiKey, restore, loaded, children }: PropsWithChildren<{
 
   useEffect(() => {
     if (selection.id && query.isSuccess && !query.isFetching && !query.character) {
-      setSelection({ onlyOwned: false });
+      setSelection({ onlyOwned: false, explicitlyCleared: true });
       toast.error(t.compendium_character_unavailable);
     }
   }, [selection.id, query.isSuccess, query.isFetching, query.character]);
 
   const selectCharacter = (id?: string) => {
     touched.current = true;
-    setSelection(previous => ({ id, onlyOwned: id ? previous.onlyOwned : false }));
+    setSelection(previous => ({ id, onlyOwned: id ? previous.onlyOwned : false, explicitlyCleared: !id }));
   };
 
   const setMembership: CharacterScope['setMembership'] = async (kind, entityId, present, label) => {

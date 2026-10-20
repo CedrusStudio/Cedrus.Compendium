@@ -277,7 +277,7 @@ test('character scope panel and membership actions work by touch', async ({ page
   await page.getByRole('button', { name: 'Wybierz postać', exact: true }).click();
   const dialog = page.getByRole('dialog');
   await expectPageFits(page);
-  await dialog.getByRole('button', { name: new RegExp(characterName) }).click();
+  await dialog.getByRole('region', { name: 'Wyszukaj postać' }).getByRole('button', { name: new RegExp(characterName) }).click();
   await expect(dialog).not.toBeVisible();
   const add = page.getByRole('button', { name: /^Dodaj do postaci:/ }).first();
   await add.click();
@@ -291,7 +291,7 @@ test('character scope panel and membership actions work by touch', async ({ page
 test('membership failure can be retried; character and owned filter survive reload', async ({ page }) => {
   await page.goto('/compendium/perks');
   await page.getByRole('button', { name: 'Wybierz postać', exact: true }).click();
-  await page.getByRole('dialog').getByRole('button', { name: new RegExp(characterName) }).click();
+  await page.getByRole('region', { name: 'Wyszukaj postać' }).getByRole('button', { name: new RegExp(characterName) }).click();
   const membershipUrl = '**/api/characters/*/compendium-memberships/perks/*';
   await page.route(membershipUrl, route => route.fulfill({ status: 500, json: { error: 'Kontrolowany błąd zapisu' } }));
   const add = page.getByRole('button', { name: /^Dodaj do postaci:/ }).first();
