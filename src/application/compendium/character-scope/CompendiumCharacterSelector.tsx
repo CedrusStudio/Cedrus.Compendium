@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTr
 import CharacterPickerGrid from '@/application/characters/components/CharacterPickerGrid';
 import { displayedText as t } from '@/common/translations';
 import { useOptionalCompendiumCharacterScope } from './CompendiumCharacterScopeProvider';
+import { CharacterScopeQuickAccess } from './CharacterScopeQuickAccess';
 
 export function CompendiumCharacterSelector() {
   const scope = useOptionalCompendiumCharacterScope();
@@ -31,8 +32,12 @@ export function CompendiumCharacterSelector() {
             <Button asChild variant="outline"><Link href={`/characters/${scope.selectedCharacterId}`}>{t.compendium_open_character}</Link></Button>
             <Button variant="ghost" onClick={() => { scope.selectCharacter(); setOpen(false); }}><X className="size-4" />{t.compendium_clear_character}</Button>
           </div>}
-          <CharacterPickerGrid selectedCharacterId={scope.selectedCharacterId} selectedCharacterName={scope.character?.name}
-            onSelectCharacter={id => { scope.selectCharacter(id); setOpen(false); }} />
+          <CharacterScopeQuickAccess apiKey={scope.apiKey} selectedCharacterId={scope.selectedCharacterId}
+            onSelect={id => { scope.selectCharacter(id); setOpen(false); }} />
+          <section aria-label="Wyszukaj postać">
+            <CharacterPickerGrid selectedCharacterId={scope.selectedCharacterId} selectedCharacterName={scope.character?.name}
+              onSelectCharacter={id => { scope.selectCharacter(id); setOpen(false); }} />
+          </section>
         </div>
       </SheetContent>
     </Sheet>
