@@ -3,6 +3,7 @@ import type { CharacterMembershipSnapshot } from '@/domain/characters/characterM
 import { CharacterMembershipConflictError, CharacterMembershipError } from './characterMembershipErrors';
 import { isCharacterVisible } from '@/persistence/characterVisibility';
 import prisma from '@/lib/prisma';
+import { characterTransactionOptions } from './characterTransactionOptions';
 
 /** Mongo transaction snapshots also handle legacy records whose ID arrays are missing. */
 export async function withMembershipSnapshot(
@@ -21,7 +22,7 @@ export async function withMembershipSnapshot(
         if (JSON.stringify(current) !== JSON.stringify(ids)) throw new CharacterMembershipConflictError();
       }
       return write(tx);
-    });
+    }, characterTransactionOptions);
   } catch (error) { return rethrowMembershipConflict(error); }
 }
 
