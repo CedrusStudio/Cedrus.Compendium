@@ -30,6 +30,7 @@ describe('character write transaction timeout', () => {
     }, { expectedMembership: { perksIds: [] }, apiKey: 'key' })).resolves.toEqual(membershipSnapshot({}));
     expect(mocks.transaction).toHaveBeenCalledWith(expect.any(Function), { timeout: 10_000 });
     expect(mocks.updateCharacter).toHaveBeenCalledOnce();
+    expect(mocks.findCharacter).toHaveBeenCalledOnce();
   });
 
   it.each([true, false])('gives a scope membership change ten seconds (present=%s)', async present => {

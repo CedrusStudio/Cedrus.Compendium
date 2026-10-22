@@ -18,8 +18,13 @@ import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
 import { CharacterValidationError } from '@/persistence/characters/characterErrors';
 import { characterVisibilityWhere } from '@/persistence/characterVisibility';
 import { membershipSnapshot, type CharacterMembershipSnapshot } from '@/domain/characters/characterMembership';
-import { rethrowMembershipConflict, withMembershipSnapshot } from './membershipSnapshot';
+import { rethrowMembershipConflict, withMembershipSnapshot, membershipSnapshotSelect, type GuardedCharacter } from './membershipSnapshot';
+import { perkHasChanges, perkSaveSelect } from './unchangedPerks';
 import type { Prisma } from '@prisma/client';
+import type { RelationPayload } from '@/persistence/mappings/createUpsertPayload';
+import { changedRelations, type RelationOperationCounts } from './changedRelations';
+import { toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
+import { fromSpellCostPersistence, toSpellCostPersistence } from '@/domain/characters/combat/SpellCost';
 
 //Queries
 export async function getCharactersByIds(ids: string[])
@@ -170,13 +175,26 @@ export async function updateCharacterEquipment(id: string, characterEquipment: E
 
 export async function updateCharacterDetails(id: string, characterDetails: DetailsDto, guard?: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
 {
-  if (guard) return withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey, tx => saveCharacterDetails(id, characterDetails, tx));
-  return !!(await saveCharacterDetails(id, characterDetails, prisma));
+  const timing: DetailsSaveTiming = { startedAt: performance.now() };
+  try {
+    if (guard) return await withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey,
+      (tx, character) => saveCharacterDetails(id, characterDetails, tx, timing, character));
+    return !!(await saveCharacterDetails(id, characterDetails, prisma, timing));
+  } finally {
+    const elapsedMs = Math.round(performance.now() - timing.startedAt);
+    if (elapsedMs >= 1_000) console.info('Character details save timing', {
+      elapsedMs, writeMs: timing.writeStartedAt === undefined ? undefined : Math.round(performance.now() - timing.writeStartedAt),
+      submittedPerks: characterDetails.perks.length, operations: timing.operations,
+    });
+  }
 }
 
-async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db: Prisma.TransactionClient)
+type DetailsSaveTiming = { startedAt: number; writeStartedAt?: number; operations?: Record<string, number> };
+
+async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db: Prisma.TransactionClient,
+  timing: DetailsSaveTiming, guardedCharacter?: Pick<GuardedCharacter, 'perksIds' | 'raceId'>)
 {
-  const existingOnCharacterPerkIdsResponse = await db.character.findUnique
+  const existingOnCharacterPerkIdsResponse = guardedCharacter ?? await db.character.findUnique
   ({ 
     where: { id },
     select: { perksIds: true, raceId: true }
@@ -197,7 +215,7 @@ async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db
   }
 
   // Validate raceId exists if provided
-  if (characterDetails.raceId) {
+  if (characterDetails.raceId && characterDetails.raceId !== existingOnCharacterPerkIdsResponse.raceId) {
     const raceExists = await db.race.findUnique({
       where: { id: characterDetails.raceId },
       select: { id: true }
@@ -208,20 +226,40 @@ async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db
     }
   }
 
-  // Fetch existing perk IDs
-  const existingPerkIds = await fetchExistingEntityIds(db.perk, characterDetails.perks, existingOnCharacterPerkIdsResponse.perksIds);
+  // One batch read avoids issuing nested updates for every unchanged perk on a
+  // large sheet. Keep genuine edits, additions and removals transactional.
+  const currentPerkIds = existingOnCharacterPerkIdsResponse.perksIds ?? [];
+  const storedPerks = characterDetails.perks.length === 0 ? [] : await db.perk.findMany({
+    where: { id: { in: [...new Set(characterDetails.perks.map(perk => perk.id))] } },
+    select: perkSaveSelect,
+  });
+  const storedById = new Map(storedPerks.map(perk => [perk.id, perk]));
+  const currentIds = new Set(currentPerkIds);
+  const existingPerkIds = storedPerks.filter(perk => !currentIds.has(perk.id)).map(perk => perk.id);
 
   const characterDetailsPersistenceModel = toCharacterDetailsPersistenceModel
   (
     characterDetails, 
-    existingOnCharacterPerkIdsResponse.perksIds,
+    currentPerkIds,
     existingPerkIds
   );
 
+  const incomingById = new Map(characterDetails.perks.map(perk => [perk.id, perk]));
+  const perks = characterDetailsPersistenceModel.perks as RelationPayload<DetailsDto['perks'][number]>;
+  perks.update = perks.update.filter(update => {
+    const stored = storedById.get(update.where.id);
+    return !stored || perkHasChanges(incomingById.get(update.where.id)!, stored);
+  });
+  timing.operations = { create: perks.create.length, update: perks.update.length, connect: perks.connect.length, disconnect: perks.disconnect.length };
+  if (Object.values(timing.operations).every(count => count === 0)) delete characterDetailsPersistenceModel.perks;
+  if (characterDetails.raceId === existingOnCharacterPerkIdsResponse.raceId) delete characterDetailsPersistenceModel.race;
+
   try {
+    timing.writeStartedAt = performance.now();
     const updatedCharacter = await db.character.update({
       where: { id },
       data: characterDetailsPersistenceModel,
+      select: membershipSnapshotSelect,
     });
     return membershipSnapshot(updatedCharacter);
   } catch (error) { return rethrowMembershipConflict(error); }
@@ -229,13 +267,26 @@ async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db
 
 export async function updateCharacterCombat(id: string, characterCombat: CombatDto, guard?: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
 {
-  if (guard) return withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey, tx => saveCharacterCombat(id, characterCombat, tx));
-  return !!(await saveCharacterCombat(id, characterCombat, prisma));
+  const timing: CombatSaveTiming = { startedAt: performance.now() };
+  try {
+    if (guard) return await withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey,
+      (tx, character) => saveCharacterCombat(id, characterCombat, tx, timing, character));
+    return !!(await saveCharacterCombat(id, characterCombat, prisma, timing));
+  } finally {
+    const elapsedMs = Math.round(performance.now() - timing.startedAt);
+    if (elapsedMs >= 1_000) console.info('Character combat save timing', {
+      elapsedMs, writeMs: timing.writeStartedAt === undefined ? undefined : Math.round(performance.now() - timing.writeStartedAt),
+      submittedManeuvers: characterCombat.maneuvers.length, operations: timing.operations,
+    });
+  }
 }
 
-async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: Prisma.TransactionClient)
+type CombatSaveTiming = { startedAt: number; writeStartedAt?: number; operations?: Record<string, RelationOperationCounts> };
+
+async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: Prisma.TransactionClient,
+  timing: CombatSaveTiming, guardedCharacter?: CharacterMembershipSnapshot)
 {
-  const idsOnCharacter = await db.character.findUnique
+  const idsOnCharacter = guardedCharacter ?? await db.character.findUnique
   ({ 
     where: { id },
     select: 
@@ -250,13 +301,25 @@ async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: P
 
   if (!idsOnCharacter) return false;
 
-  const existingManeuverIds = await fetchExistingEntityIds(db.maneuver, characterCombat.maneuvers, idsOnCharacter.maneuversIds, );
-  const existingStanceIds = await fetchExistingEntityIds(db.stance, characterCombat.stances, idsOnCharacter.stancesIds);
-  const existingStateIds = await fetchExistingEntityIds(db.state, characterCombat.states, idsOnCharacter.statesIds);
-  
-  // Spells need special handling because they come from powers
-  const spellEntities = characterCombat.powers.flatMap(power => power.spells);
-  const existingSpellIds = await fetchExistingEntityIds(db.spell, spellEntities, idsOnCharacter.spellsIds);
+  const modesSelect = { ...perkSaveSelect, effects: true, simulatable: true, unsupportedReason: true } as const;
+  const castableSelect = { ...perkSaveSelect, castTime: true, cooldown: true } as const;
+  const idsWhere = (items: { id: string }[]) => ({ id: { in: [...new Set(items.map(item => item.id))] } });
+  const storedManeuvers = characterCombat.maneuvers.length === 0 ? [] : await db.maneuver.findMany({
+    where: idsWhere(characterCombat.maneuvers), select: { ...modesSelect, castTime: true, cooldown: true },
+  });
+  const storedStances = characterCombat.stances.length === 0 ? [] : await db.stance.findMany({ where: idsWhere(characterCombat.stances), select: modesSelect });
+  const storedStates = characterCombat.states.length === 0 ? [] : await db.state.findMany({ where: idsWhere(characterCombat.states), select: modesSelect });
+  const spellEntities = characterCombat.powers.flatMap(power => power.spells).map(toSpellPersistenceModel);
+  const storedSpells = spellEntities.length === 0 ? [] : await db.spell.findMany({
+    where: idsWhere(spellEntities), select: { ...castableSelect, costBase: true, costScalingMode: true, costScalingValue: true, costRounding: true },
+  });
+  const plans = {
+    maneuvers: changedRelations(idsOnCharacter.maneuversIds ?? [], characterCombat.maneuvers, storedManeuvers),
+    stances: changedRelations(idsOnCharacter.stancesIds ?? [], characterCombat.stances, storedStances),
+    states: changedRelations(idsOnCharacter.statesIds ?? [], characterCombat.states, storedStates),
+    spells: changedRelations(idsOnCharacter.spellsIds ?? [], spellEntities,
+      storedSpells.map(spell => ({ ...spell, ...toSpellCostPersistence(fromSpellCostPersistence(spell)) }))),
+  };
   
   // Power specifications - just collect the IDs from powers
   const powerSpecificationIds = [...new Set(characterCombat.powers.map(power => power.powerSpecificationId))];
@@ -264,22 +327,27 @@ async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: P
   const characterCombatPersistenceModel = toCharacterCombatPersistenceModel
   (
     characterCombat, 
-    idsOnCharacter.stancesIds,
-    existingStanceIds,
-    idsOnCharacter.statesIds, 
-    existingStateIds,
-    idsOnCharacter.maneuversIds, 
-    existingManeuverIds,
-    idsOnCharacter.spellsIds,
-    existingSpellIds,
-    idsOnCharacter.powerSpecificationsIds,
-    powerSpecificationIds
+    idsOnCharacter.stancesIds ?? [], [], idsOnCharacter.statesIds ?? [], [],
+    idsOnCharacter.maneuversIds ?? [], [], idsOnCharacter.spellsIds ?? [], [],
+    idsOnCharacter.powerSpecificationsIds ?? [], []
   );
 
+  for (const kind of ['maneuvers', 'stances', 'states', 'spells'] as const) {
+    if (plans[kind].payload) Object.assign(characterCombatPersistenceModel, { [kind]: plans[kind].payload });
+    else delete characterCombatPersistenceModel[kind];
+  }
+  timing.operations = Object.fromEntries(Object.entries(plans).map(([kind, plan]) => [kind, plan.counts]));
+  const existingSpecifications = new Set(idsOnCharacter.powerSpecificationsIds ?? []);
+  const specificationsToConnect = powerSpecificationIds.filter(id => !existingSpecifications.has(id));
+  if (specificationsToConnect.length > 0) characterCombatPersistenceModel.powerSpecifications = { connect: specificationsToConnect.map(id => ({ id })) };
+  else delete characterCombatPersistenceModel.powerSpecifications;
+
   try {
+    timing.writeStartedAt = performance.now();
     const updatedCharacter = await db.character.update({
       where: { id },
       data: characterCombatPersistenceModel,
+      select: membershipSnapshotSelect,
     });
     return membershipSnapshot(updatedCharacter);
   } catch (error) { return rethrowMembershipConflict(error); }
