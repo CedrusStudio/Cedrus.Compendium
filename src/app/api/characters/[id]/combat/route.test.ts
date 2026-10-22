@@ -3,6 +3,7 @@ vi.mock('@/lib/env', () => ({ adminApiKeys: ['valid'] }));
 vi.mock('@/persistence/characters/charactersRepository', () => ({ updateCharacterCombat: vi.fn() }));
 import { updateCharacterCombat } from '@/persistence/characters/charactersRepository';
 import { CharacterMembershipConflictError } from '@/persistence/characters/characterMembershipErrors';
+import { CharacterValidationError } from '@/persistence/characters/characterErrors';
 import { PUT } from './route';
 
 const repository = vi.mocked(updateCharacterCombat);
@@ -33,5 +34,12 @@ describe('guarded combat route', () => {
   it('returns an actual HTTP 409 for a stale draft', async () => {
     repository.mockRejectedValue(new CharacterMembershipConflictError());
     expect((await PUT(request(payload), segment)).status).toBe(409);
+  });
+  it('returns a useful HTTP 400 for inconsistent shared spell edits', async () => {
+    const message = 'Ten sam element ma różne zmiany w kilku miejscach formularza.';
+    repository.mockRejectedValue(new CharacterValidationError(message));
+    const response = await PUT(request(payload), segment);
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ message });
   });
 });
