@@ -5,6 +5,7 @@ import { membershipLimits, type MembershipKind } from '@/domain/characters/chara
 import type { MembershipWriteResult, MembershipPatch } from './characterMembershipResult';
 import { isCharacterVisible } from '@/persistence/characterVisibility';
 import { CharacterMembershipError, CharacterMembershipConflictError } from './characterMembershipErrors';
+import { characterTransactionOptions } from './characterTransactionOptions';
 
 function findEntity(tx: Prisma.TransactionClient, kind: MembershipKind, id: string) {
   const args = { where: { id }, select: { id: true } } as const;
@@ -54,7 +55,7 @@ export async function setCharacterMembership(characterId: string, kind: Membersh
           [kind]: saved[kind], [`${kind}Ids`]: saved[`${kind}Ids`],
         };
         return { ...result, characterPatch };
-      });
+      }, characterTransactionOptions);
     } catch (error) {
       if (!(error instanceof Prisma.PrismaClientKnownRequestError) || error.code !== 'P2034') throw error;
       if (attempt === 2) throw new CharacterMembershipConflictError();
