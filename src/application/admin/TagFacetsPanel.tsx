@@ -739,7 +739,7 @@ function FacetEditForm({ facet, definitions, busy, onSave, onDone }: {
     <div className="mt-3 space-y-3 rounded border border-dashed p-3">
       <div className="flex flex-wrap items-center gap-2">
         <Input value={label} onChange={event => setLabel(event.target.value)} placeholder="nazwa" className="h-8 w-56 text-sm" />
-        <Input value={order} onChange={event => setOrder(event.target.value)} placeholder="kolejność" className="h-8 w-24 text-sm" />
+        <Input numeric value={order} onChange={event => setOrder(event.target.value)} placeholder="kolejność" className="h-8 w-24 text-sm" />
 
         <Select value={selectionMode} onValueChange={value => setSelectionMode(value as TagFacetDefinition['selectionMode'])}>
           <SelectTrigger className="h-8 w-44 text-sm"><SelectValue /></SelectTrigger>

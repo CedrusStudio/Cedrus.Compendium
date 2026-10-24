@@ -297,7 +297,7 @@ function LabeledBuffInput({ path, label }: { path: FieldPath<BuffsDto>; label: s
   return (
     <div className='flex flex-col items-center gap-2'>
       <Label className='text-center capitalize'>{label}</Label>
-      <InputFormField<BuffsDto> path={path} inputClassName='w-18 h-10 text-center font-medium' />
+      <InputFormField<BuffsDto> path={path} numeric inputClassName='w-18 h-10 text-center font-medium' />
     </div>
   );
 }

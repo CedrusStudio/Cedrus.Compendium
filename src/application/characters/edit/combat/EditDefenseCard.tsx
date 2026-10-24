@@ -74,7 +74,7 @@ function InputFormWithLabel(index: number, defenseFieldName: keyof DefenseDto)
   return (
     <div key={defenseFieldName} className="flex flex-col items-center gap-2">
       <Label className="text-center capitalize">{displayedText[defenseFieldName as keyof typeof displayedText]}</Label>
-      <InputFormField<CombatDto> path={fieldPath} inputClassName='w-16 h-10 text-center font-medium' />
+      <InputFormField<CombatDto> path={fieldPath} numeric inputClassName='w-16 h-10 text-center font-medium' />
     </div>
   );
 }

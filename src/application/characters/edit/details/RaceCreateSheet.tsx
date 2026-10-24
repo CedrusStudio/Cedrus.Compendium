@@ -130,7 +130,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
                         <Label className="text-xs capitalize">{displayedText.strength}</Label>
                         <InputFormField<RaceDto> 
                           path="strengthModifier" 
-                          inputClassName="max-w-[3rem] text-center font-medium" 
+                          numeric inputClassName="max-w-[3rem] text-center font-medium"
                         />
                       </div>
                       
@@ -138,7 +138,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
                         <Label className="text-xs capitalize">{displayedText.dexterity}</Label>
                         <InputFormField<RaceDto> 
                           path="dexterityModifier" 
-                          inputClassName="max-w-[3rem] text-center font-medium" 
+                          numeric inputClassName="max-w-[3rem] text-center font-medium"
                         />
                       </div>
                       
@@ -146,7 +146,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
                         <Label className="text-xs capitalize">{displayedText.constitution}</Label>
                         <InputFormField<RaceDto> 
                           path="constitutionModifier" 
-                          inputClassName="max-w-[3rem] text-center font-medium" 
+                          numeric inputClassName="max-w-[3rem] text-center font-medium"
                         />
                       </div>
                     </div>
@@ -156,7 +156,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
                         <Label className="text-xs capitalize">{displayedText.mind}</Label>
                         <InputFormField<RaceDto> 
                           path="mindModifier" 
-                          inputClassName="max-w-[3rem] text-center font-medium" 
+                          numeric inputClassName="max-w-[3rem] text-center font-medium"
                         />
                       </div>
                       
@@ -164,7 +164,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
                         <Label className="text-xs capitalize">{displayedText.charisma}</Label>
                         <InputFormField<RaceDto> 
                           path="charismaModifier" 
-                          inputClassName="max-w-[3rem] text-center font-medium" 
+                          numeric inputClassName="max-w-[3rem] text-center font-medium"
                         />
                       </div>
                       
@@ -172,7 +172,7 @@ export default function RaceCreateSheet({ onRaceCreated }: RaceCreateSheetProps)
                         <Label className="text-xs capitalize">{displayedText.spellborn}</Label>
                         <InputFormField<RaceDto> 
                           path="spellbornModifier" 
-                          inputClassName="max-w-[3rem] text-center font-medium" 
+                          numeric inputClassName="max-w-[3rem] text-center font-medium"
                         />
                       </div>
                     </div>

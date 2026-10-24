@@ -34,7 +34,7 @@ export default function PerkEditableFields({ pathPrefix = "", entityType }: Perk
                 <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.grade}</span></Label>
                 <InputFormField<Perk> 
                     path={`${pathPrefix}grade` as FieldPath<Perk>} 
-                    inputClassName="w-11 h-10 text-center font-medium" 
+                    numeric inputClassName="w-11 h-10 text-center font-medium"
                 />
             </div>
 
@@ -56,7 +56,7 @@ export default function PerkEditableFields({ pathPrefix = "", entityType }: Perk
             <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.price}</span></Label>
             <InputFormField<Perk> 
                 path={`${pathPrefix}price` as FieldPath<Perk>} 
-                inputClassName='w-11 h-10 text-center font-medium'  
+                numeric inputClassName='w-11 h-10 text-center font-medium'
             />
         </div>
     </>

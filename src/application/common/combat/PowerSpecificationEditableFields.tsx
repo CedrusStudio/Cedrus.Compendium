@@ -223,7 +223,7 @@ function PowerOffenseEditor({ offenseIndex, defaultOffense }: PowerOffenseEditor
         <Label>Koszt</Label>
         <InputFormField<PowerSpecificationDto>
           path={`offenses.${offenseIndex}.cost`}
-          inputPlaceholder="Koszt"
+          numeric inputPlaceholder="Koszt"
         />
       </div>
     </div>

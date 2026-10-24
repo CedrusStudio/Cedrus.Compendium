@@ -12,14 +12,14 @@ type LabeledFormInputProps =
   placeholder?: string;
 }
 
-export default function LabeledFormInput({ name, label, value, onChange, errors, placeholder }: LabeledFormInputProps)
+export default function LabeledFormInput({ name, label, value, onChange, errors, placeholder, type }: LabeledFormInputProps)
 {
   const isNumber = typeof value === "number";
 
   return (
     <div className="grid gap-2 justify-center">
         <Label htmlFor={name} className="capitalize">{label}</Label>
-        <Input name={name} type={isNumber ? "number" : "text"} value={value} onChange={onChange} placeholder={placeholder} />
+        <Input id={name} name={name} type={type ?? (isNumber ? "number" : "text")} value={value} onChange={onChange} placeholder={placeholder} />
         {
           errors?.[name] && (
             <p id={`${name}-error`} className="text-sm font-medium text-destructive">

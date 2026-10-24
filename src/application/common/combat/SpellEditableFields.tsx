@@ -30,7 +30,7 @@ export default function SpellEditableFields({ pathPrefix = ""}: SpellEditableFie
           <Label className='justify-center text-center text-sm leading-snug'><span className='first-letter:uppercase'>{displayedText.baseCost}</span></Label>
           <InputFormField<SpellDto>
             path={(`${pathPrefix}cost.baseCost` as FieldPath<SpellDto>)}
-            inputClassName='w-20 h-10 text-center font-medium'
+            numeric inputClassName='w-20 h-10 text-center font-medium'
           />
         </div>
 
@@ -49,7 +49,7 @@ export default function SpellEditableFields({ pathPrefix = ""}: SpellEditableFie
               <Label className='justify-center text-center text-sm leading-snug'><span className='first-letter:uppercase'>{displayedText.scalingValue}</span></Label>
               <InputFormField<SpellDto>
                 path={(`${pathPrefix}cost.scalingValue` as FieldPath<SpellDto>)}
-                inputClassName='w-20 h-10 text-center font-medium'
+                numeric inputClassName='w-20 h-10 text-center font-medium'
               />
             </div>
           )
