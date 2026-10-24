@@ -30,6 +30,7 @@ import {
   isStatisticGroup,
 } from "@/domain/requirements/Requirement";
 import EntityNameCombobox from "@/application/common/requirements/EntityNameCombobox";
+import RequirementNumberInput from "@/application/common/requirements/RequirementNumberInput";
 import {
   POWER_TYPE_ITEMS,
   REQUIREMENT_TYPE_LABELS,
@@ -94,6 +95,7 @@ export default function RequirementPicker({ name, onRemove }: { name: string; on
 
         {current.kind === "anyOf" && (
           <AnyOfFields
+            name={name}
             options={current.options}
             onChange={(options) => setValue(name, { kind: "anyOf", options }, { shouldDirty: true, shouldValidate: true })}
           />
@@ -101,6 +103,7 @@ export default function RequirementPicker({ name, onRemove }: { name: string; on
 
         {current.kind === "sum" && (
           <SumFields
+            name={name}
             requirement={current}
             onChange={(next) => setValue(name, next, { shouldDirty: true, shouldValidate: true })}
           />
@@ -108,6 +111,7 @@ export default function RequirementPicker({ name, onRemove }: { name: string; on
 
         {current.kind === "count" && (
           <CountFields
+            name={name}
             requirement={current}
             onChange={(next) => setValue(name, next, { shouldDirty: true, shouldValidate: true })}
           />
@@ -194,11 +198,11 @@ function RankedFields({ name, requirement }: { name: string; requirement: Ranked
             control={control}
             name={`${name}.value`}
             render={({ field }) => (
-              <Input
-                type="number"
+              <RequirementNumberInput
+                name={`${name}.value`}
                 className="w-20 text-center"
                 value={field.value ?? 0}
-                onChange={(e) => field.onChange(e.target.value === "" ? 0 : Number(e.target.value))}
+                onChange={field.onChange}
               />
             )}
           />
@@ -236,7 +240,7 @@ function rankLabel(requirement: RankedRequirement): string
  * it wholesale keeps react-hook-form from holding stale indices when an option
  * is removed.
  */
-function AnyOfFields({ options, onChange }: { options: AnyOfOption[]; onChange: (options: AnyOfOption[]) => void })
+function AnyOfFields({ name, options, onChange }: { name: string; options: AnyOfOption[]; onChange: (options: AnyOfOption[]) => void })
 {
   const replace = (index: number, option: AnyOfOption) =>
     onChange(options.map((existing, i) => (i === index ? option : existing)));
@@ -327,11 +331,11 @@ function AnyOfFields({ options, onChange }: { options: AnyOfOption[]; onChange: 
               )}
 
               {hasRank(option) && (
-                <Input
-                  type="number"
+                <RequirementNumberInput
+                  name={`${name}.options.${index}.value`}
                   className="w-20 text-center"
                   value={option.value}
-                  onChange={(e) => replace(index, { ...option, value: e.target.value === "" ? 0 : Number(e.target.value) })}
+                  onChange={(value) => replace(index, { ...option, value })}
                 />
               )}
             </>
@@ -370,7 +374,7 @@ function AnyOfFields({ options, onChange }: { options: AnyOfOption[]; onChange: 
  * plain "ilość postaw 4".
  */
 function CountFields(
-  { requirement, onChange }: { requirement: Extract<Requirement, { kind: "count" }>; onChange: (next: Requirement) => void },
+  { name, requirement, onChange }: { name: string; requirement: Extract<Requirement, { kind: "count" }>; onChange: (next: Requirement) => void },
 )
 {
   const toggleGroup = (group: EntityRequirementGroup) =>
@@ -425,11 +429,11 @@ function CountFields(
 
         <div className="flex flex-col gap-1">
           <Label className="text-xs text-muted-foreground">Co najmniej</Label>
-          <Input
-            type="number"
+          <RequirementNumberInput
+            name={`${name}.value`}
             className="w-20 text-center"
             value={requirement.value}
-            onChange={(e) => onChange({ ...requirement, value: e.target.value === "" ? 0 : Number(e.target.value) })}
+            onChange={(value) => onChange({ ...requirement, value })}
           />
         </div>
       </div>
@@ -439,7 +443,7 @@ function CountFields(
 
 /** Additive requirement editor (Wave 7.4) — statistics only, `≥` only. */
 function SumFields(
-  { requirement, onChange }: { requirement: Extract<Requirement, { kind: "sum" }>; onChange: (next: Requirement) => void },
+  { name, requirement, onChange }: { name: string; requirement: Extract<Requirement, { kind: "sum" }>; onChange: (next: Requirement) => void },
 )
 {
   const setTargets = (targets: StatisticTarget[]) => onChange({ ...requirement, targets });
@@ -490,11 +494,11 @@ function SumFields(
 
         <div className="flex flex-col gap-1">
           <Label className="text-xs text-muted-foreground">Suma ≥</Label>
-          <Input
-            type="number"
+          <RequirementNumberInput
+            name={`${name}.value`}
             className="w-20 text-center"
             value={requirement.value}
-            onChange={(e) => onChange({ ...requirement, value: e.target.value === "" ? 0 : Number(e.target.value) })}
+            onChange={(value) => onChange({ ...requirement, value })}
           />
         </div>
       </div>

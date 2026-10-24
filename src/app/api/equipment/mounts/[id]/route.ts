@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { createCommonRepository } from '@/persistence/common/createCommonRepository';
@@ -10,7 +12,10 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
   {
     const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Mount ID is required' }, { status: 400 });
-    const mount = await request.json();
+    let mount = await request.json().catch(() => null);
+    const parsed = validateFormBody(mount, mountSchema);
+    if (!parsed.success) return parsed.response;
+    mount = parsed.data;
     if (!mount) return NextResponse.json({ message: 'Mount data is required' }, { status: 400 });
     if (mount.id !== id) return NextResponse.json({ message: 'Mount ID mismatch' }, { status: 400 });
     const repository = await createCommonRepository(prisma.mount);

@@ -1,3 +1,6 @@
+import { toCastablePersistenceModel } from "@/persistence/mappings/castableMapping";
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { maneuverWithEffectsSchema } from "@/persistence/schemas/characters/combat/maneuverSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { createCommonRepository } from '@/persistence/common/createCommonRepository';
@@ -10,11 +13,14 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
   {
     const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Maneuver ID is required' }, { status: 400 });
-    const maneuver = await request.json();
+    let maneuver = await request.json().catch(() => null);
+    const parsed = validateFormBody(maneuver, maneuverWithEffectsSchema);
+    if (!parsed.success) return parsed.response;
+    maneuver = parsed.data;
     if (!maneuver) return NextResponse.json({ message: 'Maneuver data is required' }, { status: 400 });
     if (maneuver.id !== id) return NextResponse.json({ message: 'Maneuver ID mismatch' }, { status: 400 });
     const repository = await createCommonRepository(prisma.maneuver);
-    const updated = await repository.update(maneuver);
+    const updated = await repository.update(toCastablePersistenceModel(maneuver));
     return NextResponse.json({ status: updated ? 200 : 500 });
   } 
   catch (error) 

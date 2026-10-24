@@ -110,11 +110,11 @@ describe('raceSchema', () => {
     }
   });
 
-  it('should coerce empty string modifier to 0', () => {
+  it('should reject an explicitly empty modifier instead of coercing it to 0', () => {
     const result = raceSchema.safeParse({ ...validRace, strengthModifier: '' });
-    expect(result.success).toBe(true);
-    if (result.success) {
-      expect(result.data.strengthModifier).toBe(0);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0]).toMatchObject({ path: ['strengthModifier'], message: 'Uzupełnij pole' });
     }
   });
 

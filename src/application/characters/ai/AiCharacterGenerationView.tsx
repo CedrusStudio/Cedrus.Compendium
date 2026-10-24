@@ -1,6 +1,7 @@
 "use client";
 
-import { normalizeNumericInput } from "@/common/global/numericInput";
+import { NumericInput } from "@/common/components/inputs/NumericInput";
+import { parseRequiredNumberInput } from "@/common/global/numericInput";
 
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -16,7 +17,7 @@ import { Textarea } from '@/ui/textarea';
 import CharacterPickerGrid from '@/application/characters/components/CharacterPickerGrid';
 import type { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 import type { AiCharacterDraft } from '@/domain/ai-character-generation/aiCharacterDraft';
-import type { AiCharacterProposal } from '@/domain/ai-character-generation/aiCharacterProposalSchema';
+import { aiCharacterProposalSchema, type AiCharacterProposal } from '@/domain/ai-character-generation/aiCharacterProposalSchema';
 import type { BalanceComparison } from '@/domain/ai-character-generation/compareToBalanceProfile';
 import type { AiCatalogSearchResult } from '@/domain/ai-character-generation/toAiCharacterCatalog';
 import aiCharacterDraftsClient from '@/infrastructure/clients/aiCharacterDraftsClient';
@@ -153,15 +154,12 @@ function StatisticGrid({ values, onChange }: {
                   {fieldLabel}
                   {onChange
                     ? (
-                      <input
+                      <NumericInput
                         type="number"
                         aria-label={`${fieldLabel}: ${label}`}
                         className="w-14 rounded border bg-transparent px-1 py-0.5"
                         value={statistic[field]}
-                        onChange={event => {
-                          normalizeNumericInput(event.currentTarget);
-                          onChange(name, field, Number(event.target.value));
-                        }}
+                        onChange={event => onChange(name, field, parseRequiredNumberInput(event.target.value))}
                       />
                     )
                     : <span className="text-foreground">{statistic[field]}</span>}
@@ -560,15 +558,12 @@ function NumberField({ label, value, onChange }: {
       {label}
       {onChange
         ? (
-          <input
+          <NumericInput
             type="number"
             aria-label={label}
             className="w-14 rounded border bg-transparent px-1 py-0.5"
             value={value}
-            onChange={event => {
-              normalizeNumericInput(event.currentTarget);
-              onChange(Number(event.target.value));
-            }}
+            onChange={event => onChange(parseRequiredNumberInput(event.target.value))}
           />
         )
         : <span className="text-foreground">{value}</span>}
@@ -798,6 +793,7 @@ function ProposalPreview({
   // Edits live here until saved, so removing three maneuvers costs one request
   // rather than three, and „Odrzuć zmiany" is a real option.
   const [edited, setEdited] = useState<AiCharacterProposal | null>(null);
+  const [editError, setEditError] = useState<string | null>(null);
   const proposal = edited ?? draft.proposal;
   if (!proposal) {
     return (
@@ -848,13 +844,22 @@ function ProposalPreview({
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-3">
-            <Button type="button" onClick={() => onSave(proposal)} disabled={isSaving}>
+            <Button type="button" onClick={() => {
+              const parsed = aiCharacterProposalSchema.safeParse(proposal);
+              if (!parsed.success) {
+                setEditError(parsed.error.issues[0]?.message ?? 'Uzupełnij pole');
+                return;
+              }
+              setEditError(null);
+              onSave(parsed.data);
+            }} disabled={isSaving}>
               {isSaving ? 'Zapisywanie…' : 'Zapisz zmiany'}
             </Button>
             <Button type="button" variant="outline" onClick={() => setEdited(null)} disabled={isSaving}>
               Odrzuć zmiany
             </Button>
           </CardContent>
+          {editError && <p role="alert" className="px-6 pb-4 text-sm text-destructive">{editError}</p>}
         </Card>
       )}
       <Card>

@@ -1,3 +1,4 @@
+import { numberInput } from "@/persistence/schemas/numericSchema";
 import { z } from "zod";
 import { acceptedPowerTypes, normalizePowerType } from "@/domain/characters/combat/Power";
 import { spellCostRoundings, spellCostScalingModes } from "@/domain/characters/combat/SpellCost";
@@ -8,13 +9,13 @@ import { weaponOffenseSchema, damageOffenseSchema } from "@/persistence/schemas/
 import { tagsSchema } from "@/persistence/schemas/tagSchema";
 
 const powerTypeSchema = z.enum(acceptedPowerTypes).transform(normalizePowerType);
-const spellCostValueSchema = z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." });
+const spellCostValueSchema = numberInput(z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." }));
 
 export const spellCostSchema = z.object
 ({
   baseCost: spellCostValueSchema,
   scalingMode: z.enum(spellCostScalingModes),
-  scalingValue: z.coerce.number<number>().int().min(1, { message: "Wartość skali musi mieć co najmniej 1." }).max(100, { message: "Wartość skali musi być najwyżej 100." }),
+  scalingValue: numberInput(z.coerce.number<number>().int().min(1, { message: "Wartość skali musi mieć co najmniej 1." }).max(100, { message: "Wartość skali musi być najwyżej 100." })),
   rounding: z.enum(spellCostRoundings),
 });
 
@@ -31,7 +32,7 @@ export const powerOffenseSchema = z.object
   spellOffense: weaponOffenseSchema,
   spellDamage: damageOffenseSchema,
   description: z.string().min(0).max(2000, { message: "Opis może mieć maksymalnie 2000 znaków." }),
-  cost: z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." })
+  cost: numberInput(z.coerce.number<number>().int().min(0, { message: "Koszt musi mieć co najmniej 0." }).max(1000, { message: "Koszt musi być najwyżej 1000." }))
 });
 
 export const powerSpecificationSchema = entitySchema.extend
@@ -46,9 +47,9 @@ export const addPowerSpecificationSchema = powerSpecificationSchema.omit({ id: t
 export const powerSchema = entitySchema.extend
 ({
   type: powerTypeSchema,
-  level: z.coerce.number<number>().int().min(0, { message: "Poziom musi mieć co najmniej 0." }).max(20, { message: "Poziom musi być najwyżej 20." }),
-  bonus: z.coerce.number<number>().int().min(0, { message: "Bonus musi mieć co najmniej 0." }).max(10, { message: "Bonus musi mieć najwyżej 10." }),
-  essence: z.coerce.number<number>().int().min(0, { message: "Esencja musi mieć co najmniej 0." }).max(15_000, { message: "Esencja musi mieć najwyżej 15000." }),
+  level: numberInput(z.coerce.number<number>().int().min(0, { message: "Poziom musi mieć co najmniej 0." }).max(20, { message: "Poziom musi być najwyżej 20." })),
+  bonus: numberInput(z.coerce.number<number>().int().min(0, { message: "Bonus musi mieć co najmniej 0." }).max(10, { message: "Bonus musi mieć najwyżej 10." })),
+  essence: numberInput(z.coerce.number<number>().int().min(0, { message: "Esencja musi mieć co najmniej 0." }).max(15_000, { message: "Esencja musi mieć najwyżej 15000." })),
   description: z.string().min(0).max(2000, { message: "Opis może mieć maksymalnie 2000 znaków." }),
   spells: z.array(spellSchema).max(100, { message: "Możesz mieć najwyżej 100 zaklęć." }),
   powerSpecificationId: z.string().min(1, { message: "Musisz wybrać specyfikację mocy." })
@@ -62,7 +63,7 @@ const formulaFieldSchema = z.string()
 
 export const powerOffenseFormulaSchema = z.object
 ({
-  count: z.coerce.number<number>().int().min(1, { message: "Liczba ofensyw musi wynosić co najmniej 1." }).max(20, { message: "Liczba ofensyw musi wynosić najwyżej 20." }),
+  count: numberInput(z.coerce.number<number>().int().min(1, { message: "Liczba ofensyw musi wynosić co najmniej 1." }).max(20, { message: "Liczba ofensyw musi wynosić najwyżej 20." })),
 
   offenseAmountFormula: formulaFieldSchema,
   offenseGradeFormula: formulaFieldSchema,

@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { mountSchema } from "@/persistence/schemas/characters/equipment/mountSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { createCommonRepository } from '@/persistence/common/createCommonRepository';
@@ -6,7 +8,10 @@ export async function POST(request: NextRequest)
 {
   try 
   {
-    const mount = await request.json();
+    let mount = await request.json().catch(() => null);
+    const parsed = validateFormBody(mount, mountSchema);
+    if (!parsed.success) return parsed.response;
+    mount = parsed.data;
     if (!mount) return NextResponse.json({ message: 'Mount data is required' }, { status: 400 });
     const repository = await createCommonRepository(prisma.mount);
     const id = await repository.add(mount);

@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { spellSchema } from "@/persistence/schemas/characters/combat/powerSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
@@ -7,7 +9,10 @@ export async function POST(request: NextRequest)
 {
   try 
   {
-    const spell = await request.json();
+    let spell = await request.json().catch(() => null);
+    const parsed = validateFormBody(spell, spellSchema);
+    if (!parsed.success) return parsed.response;
+    spell = parsed.data;
     if (!spell) return NextResponse.json({ message: 'Spell data is required' }, { status: 400 });
     const createdSpell = await prisma.spell.create({
       data: {

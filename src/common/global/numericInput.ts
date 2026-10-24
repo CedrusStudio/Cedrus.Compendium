@@ -4,6 +4,12 @@ export function normalizeLeadingZeros(value: string): string
   return value.replace(/^([+-]?)0+(?=\d)/, '$1');
 }
 
+/** NaN is an invalid numeric draft, not the valid number zero. */
+export function parseRequiredNumberInput(value: string): number
+{
+  return value.trim() === "" ? Number.NaN : Number(value);
+}
+
 /** React may keep "05" in a number input because it is numerically equal to 5. */
 export function normalizeNumericInput(input: HTMLInputElement): void
 {

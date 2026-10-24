@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { modeWithEffectsSchema } from "@/persistence/schemas/characters/combat/modeSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { createCommonRepository } from '@/persistence/common/createCommonRepository';
@@ -10,7 +12,10 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
   {
     const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'State ID is required' }, { status: 400 });
-    const state = await request.json();
+    let state = await request.json().catch(() => null);
+    const parsed = validateFormBody(state, modeWithEffectsSchema);
+    if (!parsed.success) return parsed.response;
+    state = parsed.data;
     if (!state) return NextResponse.json({ message: 'State data is required' }, { status: 400 });
     if (state.id !== id) return NextResponse.json({ message: 'State ID mismatch' }, { status: 400 });
     const repository = await createCommonRepository(prisma.state);

@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { raceSchema } from "@/persistence/schemas/characters/raceSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { createCommonRepository } from '@/persistence/common/createCommonRepository';
@@ -10,7 +12,10 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
   {
     const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Race ID is required' }, { status: 400 });
-    const race = await request.json();
+    let race = await request.json().catch(() => null);
+    const parsed = validateFormBody(race, raceSchema);
+    if (!parsed.success) return parsed.response;
+    race = parsed.data;
     if (!race) return NextResponse.json({ message: 'Race data is required' }, { status: 400 });
     if (race.id !== id) return NextResponse.json({ message: 'Race ID mismatch' }, { status: 400 });
     const repository = await createCommonRepository(prisma.race);

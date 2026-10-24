@@ -1,3 +1,4 @@
+import { numberInput } from "@/persistence/schemas/numericSchema";
 import { allowedStyles } from "@/domain/characters/equipment/Weapon";
 import { z } from "zod";
 import { itemSchema } from "@/persistence/schemas/characters/equipment/itemSchema";
@@ -8,7 +9,7 @@ export const weaponSchema = itemSchema.extend
   style: z.enum(allowedStyles),
   offense: weaponOffenseSchema,
   damageBonus: damageOffenseSchema,
-  range: z.coerce.number<number>().int().min(-5, { message: "Zasięg Krytyka musi mieć co najmniej -5." }).max(50, { message: "Zasięg Krytyka musi mieć najwyżej 50." }),
+  range: numberInput(z.coerce.number<number>().int().min(-5, { message: "Zasięg Krytyka musi mieć co najmniej -5." }).max(50, { message: "Zasięg Krytyka musi mieć najwyżej 50." })),
 });   
 
 export type WeaponDto = z.infer<typeof weaponSchema>;

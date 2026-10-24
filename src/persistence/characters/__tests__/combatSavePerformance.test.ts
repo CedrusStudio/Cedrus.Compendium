@@ -63,6 +63,28 @@ describe('combat relation write performance', () => {
     expect(data().maneuvers.update[0].data).toMatchObject({ castTime: 'Pełnorundowa', cooldown: 2 });
   });
 
+  it('persists a cleared maneuver cooldown and avoids rewriting it on the next save', async () => {
+    const snapshot = membershipSnapshot({ maneuversIds: ['existing'] });
+    mocks.character.mockResolvedValue({ ...snapshot, raceId: null, apiKeys: [] });
+    mocks.maneuver.mockResolvedValue([{ ...base(), cooldown: 3 }]);
+    const payload = { ...combat(), maneuvers: [{ ...base(), cooldown: undefined }] };
+    await updateCharacterCombat('character', payload, guard(snapshot));
+    expect(data().maneuvers.update[0].data.cooldown).toBe(0);
+    mocks.update.mockClear();
+    mocks.maneuver.mockResolvedValue([{ ...base(), cooldown: 0 }]);
+    await updateCharacterCombat('character', payload, guard(snapshot));
+    expect(data()).not.toHaveProperty('maneuvers');
+  });
+
+  it('persists a cleared spell cooldown through its power', async () => {
+    const spell = { ...defaultSpell, id: 'spell', cooldown: undefined };
+    const snapshot = membershipSnapshot({ spellsIds: ['spell'], powerSpecificationsIds: ['spec'] });
+    mocks.character.mockResolvedValue({ ...snapshot, raceId: null, apiKeys: [] });
+    mocks.spell.mockResolvedValue([toSpellPersistenceModel({ ...spell, cooldown: 3 })]);
+    await updateCharacterCombat('character', { ...combat(), powers: [{ ...defaultPower, id: 'power', powerSpecificationId: 'spec', spells: [spell] }] }, guard(snapshot));
+    expect(data().spells.update[0].data.cooldown).toBe(0);
+  });
+
   it('keeps a spell linked while another power still references it, without repeated updates/connects', async () => {
     const spell = { ...defaultSpell, id: 'spell' };
     const power = { ...defaultPower, id: 'power', powerSpecificationId: 'spec', spells: [spell] };

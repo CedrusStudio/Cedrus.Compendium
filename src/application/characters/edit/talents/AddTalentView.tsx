@@ -32,8 +32,8 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [newTalentName, setNewTalentName] = useState<string>("");
-  const [newTalentGrade, setNewTalentGrade] = useState<number>(0);
-  const [newTalentBonus, setNewTalentBonus] = useState<number>(0);
+  const [newTalentGrade, setNewTalentGrade] = useState<string | number>(defaultTalent.grade);
+  const [newTalentBonus, setNewTalentBonus] = useState<string | number>(0);
   const [newTalentPenalty, setNewTalentPenalty] = useState<TalentPenalty>("0");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedCharacteristics, setSelectedCharacteristics] = useState<string>("");
@@ -44,7 +44,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     {
       id: ulid(),
       name: newTalentName,
-      grade: newTalentGrade || defaultTalent.grade,
+      grade: newTalentGrade,
       category: selectedCategory,
       characteristics: selectedCharacteristics,
       bonus: newTalentBonus,
@@ -60,11 +60,11 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
       return;
     }
 
-    append(newTalent);
+    append(result.data);
     setNameFilter(newTalent.name);
     
     setNewTalentName("");
-    setNewTalentGrade(0);
+    setNewTalentGrade(defaultTalent.grade);
     setNewTalentBonus(0);
     setNewTalentPenalty("0");
     setSelectedCategory("");
@@ -76,7 +76,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
   const resetAddTalentForm = () =>
   {
     setNewTalentName("");
-    setNewTalentGrade(0);
+    setNewTalentGrade(defaultTalent.grade);
     setNewTalentBonus(0);
     setNewTalentPenalty("0");
     setSelectedCategory("");
@@ -115,9 +115,9 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
               <LabeledFormInput 
                 name="grade"
                 label={displayedText.grade}
-                value={newTalentGrade || defaultTalent.grade}
+                value={newTalentGrade}
                 type="number"
-                onChange={(e) => setNewTalentGrade(Number(e.target.value))}
+                onChange={(e) => setNewTalentGrade(e.target.value)}
                 errors={errors} 
               />
 
@@ -150,7 +150,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
                 label={displayedText.bonus}
                 value={newTalentBonus} 
                 type="number"
-                onChange={(e) => setNewTalentBonus(Number(e.target.value))}
+                onChange={(e) => setNewTalentBonus(e.target.value)}
                 errors={errors} 
               />
 

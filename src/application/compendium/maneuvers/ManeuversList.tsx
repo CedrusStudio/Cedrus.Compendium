@@ -283,7 +283,7 @@ function AddManeuverForm()
 
             <div className="grid auto-rows-min gap-3 px-4">
               <Label className='justify-center capitalize'>{displayedText.cooldown}</Label>
-              <InputFormField<ManeuverDto> path='cooldown' numeric inputClassName='w-11 h-10 text-center font-medium' />
+              <InputFormField<ManeuverDto> path='cooldown' numeric optional inputClassName='w-11 h-10 text-center font-medium' />
             </div>
 
             <div className="flex flex-col items-center gap-3 px-4">

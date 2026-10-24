@@ -245,6 +245,56 @@ describe.skipIf(!testUrl)('character membership against real MongoDB', () => {
     expect((await prisma.character.findUniqueOrThrow({ where: { id: character.id } })).maneuversIds).toEqual([]);
   });
 
+  it('persists cleared optional maneuver and spell cooldowns after reloading the character', async () => {
+    const character = await createCharacter();
+    const maneuverId = await createEntry('maneuver');
+    await prisma.maneuver.update({ where: { id: maneuverId }, data: { cooldown: 3 } });
+    await setCharacterMembership(character.id, 'maneuvers', maneuverId, true, key);
+    const spellId = `membership-test-${randomUUID()}`, specId = `membership-test-${randomUUID()}`;
+    entityIds.push(spellId, specId);
+    const spell = { ...defaultSpell, id: spellId, cooldown: 3 };
+    await prisma.spell.create({ data: { ...toSpellPersistenceModel(spell), structuredRequirements: [], replaces: [], characterIds: [] } });
+    await prisma.powerSpecification.create({ data: { id: specId, name: 'Spec testowa', description: '', tags: [], offenses: [], characterIds: [] } });
+    const before = await prisma.character.findUniqueOrThrow({ where: { id: character.id }, include: includeAllRelations });
+    const { perksIds: _beforePerks, ...beforeSnapshot } = membershipSnapshot(before);
+    await updateCharacterCombat(character.id, { ...toCharacter(before), powers: [{ ...defaultPower, id: 'power', powerSpecificationId: specId, spells: [spell] }] }, { expectedMembership: beforeSnapshot, apiKey: key });
+    const loaded = await prisma.character.findUniqueOrThrow({ where: { id: character.id }, include: includeAllRelations });
+    const current = toCharacter(loaded);
+    const { perksIds: _perks, ...expectedMembership } = membershipSnapshot(loaded);
+    await updateCharacterCombat(character.id, { ...current,
+      maneuvers: current.maneuvers.map(item => ({ ...item, cooldown: undefined })),
+      powers: current.powers.map(power => ({ ...power, spells: power.spells.map(item => ({ ...item, cooldown: undefined })) })),
+    }, { expectedMembership, apiKey: key });
+    const reloaded = toCharacter(await prisma.character.findUniqueOrThrow({ where: { id: character.id }, include: includeAllRelations }));
+    expect(reloaded.maneuvers[0].cooldown).toBe(0);
+    expect(reloaded.powers[0].spells[0].cooldown).toBe(0);
+    expect((await prisma.maneuver.findUniqueOrThrow({ where: { id: maneuverId } })).cooldown).toBe(0);
+    expect((await prisma.spell.findUniqueOrThrow({ where: { id: spellId } })).cooldown).toBe(0);
+  });
+
+  it('validates direct compendium requests and persists explicit zero through the real API handler', async () => {
+    const { NextRequest } = await import('next/server');
+    const { POST } = await import('@/app/api/maneuvers/route');
+    const { PUT } = await import('@/app/api/maneuvers/[id]/route');
+    const id = '01ARZ3NDEKTSV4RRFFQ69G5FAV';
+    entityIds.push(id);
+    const body = { id, name: 'Test walidacji liczb', description: '', grade: 0, price: 0, castTime: 'Standardowa', tags: [], replaces: [],
+      structuredRequirements: [{ kind: 'ranked', group: 'characteristics', targetKey: 'strength', value: 0 }] };
+    const request = (method: string, data: unknown) => new NextRequest(`http://localhost/api/maneuvers/${id}`, { method,
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    const created = await POST(request('POST', body));
+    expect(created.status).toBe(201);
+    expect(await prisma.maneuver.findUniqueOrThrow({ where: { id } })).toMatchObject({ grade: 0, price: 0, cooldown: 0 });
+    const context = { params: Promise.resolve({ id }) };
+    const invalid = await PUT(request('PUT', { ...body, price: '' }), context);
+    expect(invalid.status).toBe(400);
+    expect(await invalid.json()).toMatchObject({ message: 'Uzupełnij pole' });
+    await prisma.maneuver.update({ where: { id }, data: { cooldown: 3 } });
+    const valid = await PUT(request('PUT', { ...body, price: '0' }), context);
+    expect(valid.status).toBe(200);
+    expect(await prisma.maneuver.findUniqueOrThrow({ where: { id } })).toMatchObject({ grade: 0, price: 0, cooldown: 0 });
+  });
+
   it('enforces the limit atomically for two requests competing for the last slot', async () => {
     const character = await createCharacter();
     // Existing scalar IDs need not have hydrated relation rows to count towards capacity.

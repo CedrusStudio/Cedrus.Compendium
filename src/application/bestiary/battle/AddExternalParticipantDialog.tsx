@@ -12,6 +12,7 @@ import { createExternalParticipant } from "@/application/bestiary/battle/BattleC
 import { displayedText } from "@/common/translations";
 import { toast } from "sonner";
 import { FaUserPlus } from "react-icons/fa";
+import { externalParticipantNumbersSchema } from './externalParticipantNumbersSchema';
 
 export default function AddExternalParticipantDialog() 
 {
@@ -22,6 +23,7 @@ export default function AddExternalParticipantDialog()
   const [initiativeGrade, setInitiativeGrade] = useState("3");
   const [initiativeTotalBonus, setInitiativeTotalBonus] = useState("0");
   const [notes, setNotes] = useState("");
+  const [numericError, setNumericError] = useState('');
 
   const handleAdd = () => 
   {
@@ -31,9 +33,13 @@ export default function AddExternalParticipantDialog()
       return;
     }
 
-    const healthValue = parseInt(maxHealth, 10) || 50;
-    const gradeValue = parseInt(initiativeGrade, 10) || 3;
-    const valueValue = parseInt(initiativeTotalBonus, 10) || 0;
+    const parsed = externalParticipantNumbersSchema.safeParse({ maxHealth, initiativeGrade, initiativeValue: initiativeTotalBonus });
+    if (!parsed.success) {
+      setNumericError(parsed.error.issues[0].message);
+      return;
+    }
+    setNumericError('');
+    const { maxHealth: healthValue, initiativeGrade: gradeValue, initiativeValue: valueValue } = parsed.data;
     const participant = createExternalParticipant(name.trim(), healthValue, gradeValue, valueValue, notes.trim());
     
     dispatch(actions.addExternalParticipant(participant));
@@ -143,6 +149,7 @@ export default function AddExternalParticipantDialog()
           </div>
         </div>
 
+        {numericError && <p role="alert" className="text-sm text-destructive">{numericError}</p>}
         <DialogFooter>
 
           <Button variant="outline" onClick={() => setOpen(false)}>
