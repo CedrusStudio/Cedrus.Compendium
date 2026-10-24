@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "@/common/components/ui/button";
 import { useDispatch } from "react-redux";
 import { actions } from "@/persistence/slices/bestiarySlice";
-import { toast } from "sonner";
 import { ExternalParticipant, updateExternalParticipant } from "@/application/bestiary/battle/BattleCombatants";
 import { displayedText } from "@/common/translations";
 import {
@@ -29,6 +28,7 @@ import { Input } from "@/common/components/ui/input";
 import { Label } from "@/ui/label";
 import { deleteIcon, editIcon } from "@/common/icons";
 import { Textarea } from "@/common/components/ui/textarea";
+import { externalParticipantNumbersSchema } from './externalParticipantNumbersSchema';
 
 type ExternalParticipantActionsCellProps = 
 {
@@ -45,9 +45,14 @@ export default function ExternalParticipantActionsCell({ participant }: External
   const [maxHealth, setMaxHealth] = useState((participant.maxHealth ?? 0).toString());
   const [name, setName] = useState(participant.name ?? "");
   const [notes, setNotes] = useState(participant.notes ?? "");
+  const [numericError, setNumericError] = useState('');
 
   const handleEditOpen = () => 
   {
+    setNumericError('');
+    setName(participant.name ?? '');
+    setMaxHealth((participant.maxHealth ?? 0).toString());
+    setNotes(participant.notes ?? '');
     setInitiativeGrade((participant.initiative?.grade ?? 3).toString());
     setInitiativeValue((participant.initiative?.value ?? 0).toString());
     setIsEditDialogOpen(true);
@@ -55,15 +60,13 @@ export default function ExternalParticipantActionsCell({ participant }: External
 
   const handleEditSave = () => 
   {
-    const gradeValue = parseInt(initiativeGrade, 10);
-    const valueValue = parseInt(initiativeValue, 10);
-    const maxHealthValue = parseInt(maxHealth, 10);
-
-    if (isNaN(gradeValue) || gradeValue < 1) 
-    {
-      toast.error(displayedText.invalidGrade || "Invalid grade value");
+    const parsed = externalParticipantNumbersSchema.safeParse({ maxHealth, initiativeGrade, initiativeValue });
+    if (!parsed.success) {
+      setNumericError(parsed.error.issues[0].message);
       return;
     }
+    setNumericError('');
+    const { maxHealth: maxHealthValue, initiativeGrade: gradeValue, initiativeValue: valueValue } = parsed.data;
 
     const updated = updateExternalParticipant(participant, 
     {
@@ -72,8 +75,8 @@ export default function ExternalParticipantActionsCell({ participant }: External
       notes: notes,
       initiative: 
       {
-        grade: gradeValue || 3,
-        value: valueValue || 0,
+        grade: gradeValue,
+        value: valueValue,
         bonus: 0,
         testBonus: 0,
       },
@@ -93,11 +96,11 @@ export default function ExternalParticipantActionsCell({ participant }: External
     <>
       <div className="flex gap-2">
 
-        <Button size="sm" variant="outline" onClick={handleEditOpen}>
+        <Button size="sm" variant="outline" onClick={handleEditOpen} aria-label="Edytuj uczestnika">
           {editIcon}
         </Button>
 
-        <Button size="sm" variant="destructive" onClick={() => setIsDeleteDialogOpen(true)}>
+        <Button size="sm" variant="destructive" onClick={() => setIsDeleteDialogOpen(true)} aria-label="Usuń uczestnika">
           {deleteIcon}
         </Button>
 
@@ -186,6 +189,7 @@ export default function ExternalParticipantActionsCell({ participant }: External
             </div>
           </div>
 
+          {numericError && <p role="alert" className="text-sm text-destructive">{numericError}</p>}
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
               <span className="capitalize">{displayedText.cancel}</span>

@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { createCommonRepository } from '@/persistence/common/createCommonRepository';
@@ -10,7 +12,10 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
   {
     const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Perk ID is required' }, { status: 400 });
-    const perk = await request.json();
+    let perk = await request.json().catch(() => null);
+    const parsed = validateFormBody(perk, perkSchema);
+    if (!parsed.success) return parsed.response;
+    perk = parsed.data;
     if (!perk) return NextResponse.json({ message: 'Perk data is required' }, { status: 400 });
     if (perk.id !== id) return NextResponse.json({ message: 'Perk ID mismatch' }, { status: 400 });
     const repository = await createCommonRepository(prisma.perk);

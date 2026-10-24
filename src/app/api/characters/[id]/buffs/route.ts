@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { buffsSchema } from "@/persistence/schemas/characters/buffs/buffsSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import { updateCharacterBuffs } from '@/persistence/characters/charactersRepository';
 
@@ -9,7 +11,9 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
   {
     const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Character ID is required' }, { status: 400 });
-    const updated = await updateCharacterBuffs(id, await request.json());
+    const parsed = validateFormBody(await request.json().catch(() => null), buffsSchema);
+    if (!parsed.success) return parsed.response;
+    const updated = await updateCharacterBuffs(id, parsed.data);
     return NextResponse.json({ status: updated ? 200 : 500 });
   }
   catch (error)

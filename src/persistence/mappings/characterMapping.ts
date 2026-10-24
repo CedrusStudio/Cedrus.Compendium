@@ -17,6 +17,7 @@ import { toEntity } from '@/persistence/mappings/entityMapping';
 import { SpellModel, toSpell, toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
 import { CharacterIncludeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { toCastablePerk, toPerk } from '@/persistence/mappings/perkMapping';
+import { toCastablePersistenceModel } from '@/persistence/mappings/castableMapping';
 import { CopyCreateCharacterDto } from '@/persistence/schemas/characters/copyCharacterSchema';
 import { toRace } from '@/persistence/mappings/raceMapping';
 import { BuffsDto } from '@/persistence/schemas/characters/buffs/buffsSchema';
@@ -284,7 +285,7 @@ export function toCharacterCombatPersistenceModel
     states: createUpsertPayload(existingStatesIds, combat.states, statesIdsToConnect),
     // Cast: the payload's `effects` is a domain `Effect[]`; Prisma stores it as
     // Json. The runtime shape is JSON-serializable, so the cast is safe.
-    maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers, maneuversIdsToConnect) as Prisma.CharacterUpdateInput["maneuvers"],
+    maneuvers: createUpsertPayload(existingManeuversIds, combat.maneuvers.map(toCastablePersistenceModel), maneuversIdsToConnect) as Prisma.CharacterUpdateInput["maneuvers"],
     powerSpecifications: {
       connect: [...powerSpecificationsIdsToConnect, ...uniquePowerSpecIds.filter(id => !existingPowerSpecificationsIds.includes(id))].map(id => ({ id }))
     },

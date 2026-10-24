@@ -21,7 +21,7 @@ export default function CastablePerkEditableFields({ pathPrefix = ""}: EditCasta
           <Label className='justify-center'><span className='first-letter:uppercase'>{displayedText.cooldown}</span></Label>
           <InputFormField<CastablePerkDto> 
             path={(`${pathPrefix}cooldown` as FieldPath<CastablePerkDto>)}
-            numeric inputClassName='w-11 h-10 text-center font-medium'
+            numeric optional inputClassName='w-11 h-10 text-center font-medium'
           />
         </div>
 

@@ -24,6 +24,7 @@ import type { Prisma } from '@prisma/client';
 import type { RelationPayload } from '@/persistence/mappings/createUpsertPayload';
 import { changedRelations, type RelationOperationCounts } from './changedRelations';
 import { toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
+import { toCastablePersistenceModel } from '@/persistence/mappings/castableMapping';
 import { fromSpellCostPersistence, toSpellCostPersistence } from '@/domain/characters/combat/SpellCost';
 
 //Queries
@@ -314,7 +315,7 @@ async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: P
     where: idsWhere(spellEntities), select: { ...castableSelect, costBase: true, costScalingMode: true, costScalingValue: true, costRounding: true },
   });
   const plans = {
-    maneuvers: changedRelations(idsOnCharacter.maneuversIds ?? [], characterCombat.maneuvers, storedManeuvers),
+    maneuvers: changedRelations(idsOnCharacter.maneuversIds ?? [], characterCombat.maneuvers.map(toCastablePersistenceModel), storedManeuvers),
     stances: changedRelations(idsOnCharacter.stancesIds ?? [], characterCombat.stances, storedStances),
     states: changedRelations(idsOnCharacter.statesIds ?? [], characterCombat.states, storedStates),
     spells: changedRelations(idsOnCharacter.spellsIds ?? [], spellEntities,

@@ -1,3 +1,4 @@
+import { numberInput } from "@/persistence/schemas/numericSchema";
 import { z } from "zod";
 import {
   ENTITY_REQUIREMENT_GROUPS,
@@ -35,7 +36,7 @@ export const rankedRequirementSchema = z.object({
   kind: z.literal("ranked"),
   group: targetGroupSchema,
   targetKey: z.string().min(1, { message: "Wybierz cel wymagania." }),
-  value: z.number().int({ message: "Ranga musi być liczbą całkowitą." }),
+  value: numberInput(z.number().int({ message: "Ranga musi być liczbą całkowitą." })),
 });
 
 const statisticGroupSchema = z.enum(
@@ -53,7 +54,7 @@ export const sumRequirementSchema = z.object({
     group: statisticGroupSchema,
     targetKey: z.string().min(1, { message: "Wybierz cechę." }),
   })).min(2, { message: "Suma potrzebuje co najmniej dwóch cech." }),
-  value: z.number().int({ message: "Wartość musi być liczbą całkowitą." }),
+  value: numberInput(z.number().int({ message: "Wartość musi być liczbą całkowitą." })),
 });
 
 /**
@@ -77,8 +78,8 @@ export const countRequirementSchema = z.object({
   kind: z.literal("count"),
   groups: z.array(entityGroupSchema).min(1, { message: "Wybierz co najmniej jedną grupę." }),
   tag: z.string().optional(),
-  minGrade: z.number().int().optional(),
-  value: z.number().int({ message: "Liczba musi być całkowita." }),
+  minGrade: numberInput(z.number().int()).optional(),
+  value: numberInput(z.number().int({ message: "Liczba musi być całkowita." })),
 });
 
 export const requirementSchema = z.discriminatedUnion("kind", [

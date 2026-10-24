@@ -3,16 +3,17 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import { normalizeNumericInput } from "@/common/global/numericInput"
+import { NumericInput } from "@/common/components/inputs/NumericInput"
 
 type InputProps = React.ComponentProps<"input"> & {
   /** Numeric text fields keep their existing validation and support partial entries. */
   numeric?: boolean
 }
 
-function Input({ className, type, numeric = false, onChange, ...props }: InputProps) {
+function Input({ className, type, numeric = false, ...props }: InputProps) {
+  const Component = type === "number" || numeric ? NumericInput : "input"
   return (
-    <input
+    <Component
       type={type}
       data-slot="input"
       className={cn(
@@ -22,10 +23,6 @@ function Input({ className, type, numeric = false, onChange, ...props }: InputPr
         className
       )}
       {...props}
-      onChange={type === "number" || numeric ? event => {
-        normalizeNumericInput(event.currentTarget)
-        onChange?.(event)
-      } : onChange}
     />
   )
 }

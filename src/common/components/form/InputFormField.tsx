@@ -13,6 +13,7 @@ export type CustomFormFieldProps<TFieldValues extends FieldValues> =
   inputPlaceholder?: string;
   inputClassName?: string;
   numeric?: boolean;
+  optional?: boolean;
 };
 
 export function InputFormField<TFieldValues extends FieldValues>(input: CustomFormFieldProps<TFieldValues>) 
@@ -27,7 +28,10 @@ export function InputFormField<TFieldValues extends FieldValues>(input: CustomFo
         render={({ field }) => (
           <FormItem className="min-w-0 max-w-full">
             <FormControl>
-              <Input placeholder={input.inputPlaceholder} {...field} numeric={input.numeric} className={input.inputClassName} />
+              <Input placeholder={input.inputPlaceholder} {...field} numeric={input.numeric}
+                value={input.numeric ? field.value ?? "" : field.value}
+                onChange={event => field.onChange(input.numeric && input.optional && event.target.value.trim() === ""
+                  ? undefined : event.target.value)} className={input.inputClassName} />
             </FormControl>
             <FormMessage />
           </FormItem>

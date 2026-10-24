@@ -1,3 +1,5 @@
+import { validateFormBody } from "@/app/api/validateFormBody";
+import { armorSchema } from "@/persistence/schemas/characters/equipment/armorSchema";
 import { type NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { createCommonRepository } from '@/persistence/common/createCommonRepository';
@@ -10,7 +12,10 @@ export async function PUT(request: NextRequest, segmentData: { params: RoutePara
   {
     const { id } = await segmentData.params;
     if (!id) return NextResponse.json({ message: 'Armor ID is required' }, { status: 400 });
-    const armor = await request.json();
+    let armor = await request.json().catch(() => null);
+    const parsed = validateFormBody(armor, armorSchema);
+    if (!parsed.success) return parsed.response;
+    armor = parsed.data;
     if (!armor) return NextResponse.json({ message: 'Armor data is required' }, { status: 400 });
     if (armor.id !== id) return NextResponse.json({ message: 'Armor ID mismatch' }, { status: 400 });
     const repository = await createCommonRepository(prisma.armor);

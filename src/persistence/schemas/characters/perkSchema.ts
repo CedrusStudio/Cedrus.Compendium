@@ -1,3 +1,4 @@
+import { numberInput } from "@/persistence/schemas/numericSchema";
 import { z } from "zod";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
 import { tagsSchema } from "@/persistence/schemas/tagSchema";
@@ -5,7 +6,7 @@ import { requirementsSchema } from "@/persistence/schemas/requirementSchema";
 
 export const perkSchema = entitySchema.extend
 ({
-  grade: z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(20, { message: "Ranga musi być najwyżej 20." }),
+  grade: numberInput(z.coerce.number<number>().int().min(0, { message: "Ranga musi mieć co najmniej 0." }).max(20, { message: "Ranga musi być najwyżej 20." })),
   description: z.string().min(0).max(1000, { message: "Opis musi mieć najwyżej 1000 znaków." }),
   // Structured requirements (sole model after the legacy `requirements` cutover).
   structuredRequirements: requirementsSchema.optional(),
@@ -20,7 +21,7 @@ export const perkSchema = entitySchema.extend
   // (`Power[]` → `powers`, see useCreateCharacterFromCopy). Wrapped this way the
   // key stays optional and the transform only runs when a value is present.
   replaces: z.array(z.string()).transform((names) => names.map((name) => name.trim()).filter((name) => name.length > 0)).optional(),
-  price: z.coerce.number<number>().int().min(0, { message: "Cena musi mieć co najmniej 0." }).max(180, { message: "Cena musi być najwyżej 180." }),
+  price: numberInput(z.coerce.number<number>().int().min(0, { message: "Cena musi mieć co najmniej 0." }).max(180, { message: "Cena musi być najwyżej 180." })),
   tags: tagsSchema
 });
 

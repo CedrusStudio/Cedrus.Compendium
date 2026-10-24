@@ -6,10 +6,13 @@ import { describe, expect, it } from 'vitest';
 import type { Requirement } from '@/domain/requirements/Requirement';
 import { requirementSchema } from '@/persistence/schemas/requirementSchema';
 import RequirementPicker from '../RequirementPicker';
+import { z } from 'zod';
+import { typedZodResolver } from '@/common/global/validation';
 
 function Fixture({ requirement }: { requirement: Requirement })
 {
-  const form = useForm({ defaultValues: { structuredRequirements: [requirement] } });
+  const form = useForm({ defaultValues: { structuredRequirements: [requirement] },
+    resolver: typedZodResolver(z.object({ structuredRequirements: z.array(requirementSchema) })), mode: 'onBlur' });
   const [saved, setSaved] = useState('');
   return <FormProvider {...form}>
     <form onSubmit={form.handleSubmit(values => setSaved(JSON.stringify(requirementSchema.parse(values.structuredRequirements[0]))))}>
@@ -32,10 +35,27 @@ const cases: { label: string; requirement: Requirement; index: number; expected:
 ];
 
 describe('numeric requirement fields', () => {
+  it.each(cases)('blocks a blank $label and accepts an explicitly entered zero', async ({ requirement, index }) => {
+    const user = userEvent.setup();
+    render(<Fixture requirement={requirement} />);
+    const input = screen.getAllByRole('spinbutton')[index] as HTMLInputElement;
+    await user.clear(input);
+    await user.click(screen.getByText('save'));
+    expect(input.value).toBe('');
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('Uzupełnij pole'));
+    expect(screen.getByRole('status').textContent).toBe('');
+    await user.type(input, '0');
+    await user.click(screen.getByText('save'));
+    await waitFor(() => expect(screen.getByRole('status').textContent).not.toBe(''));
+    expect(screen.queryByRole('alert')).toBeNull();
+  });
+
   it.each(cases)('formats $label while submitting numbers', async ({ requirement, index, expected }) => {
     const user = userEvent.setup();
     render(<Fixture requirement={requirement} />);
     const input = screen.getAllByRole('spinbutton')[index] as HTMLInputElement;
+    await user.clear(input);
+    expect(input.value).toBe('');
     await user.type(input, '5');
     expect(input.value).toBe('5');
     await user.click(screen.getByText('save'));

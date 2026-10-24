@@ -1,3 +1,4 @@
+import { numberInput } from "@/persistence/schemas/numericSchema";
 import { z } from "zod";
 import { entitySchema } from "@/persistence/schemas/entitySchema";
 
@@ -8,45 +9,45 @@ const optionalBuffDescriptionSchema = z.union([
 
 export const statisticBuffSchema = z.object
 ({
-  grade: z.coerce.number<number>().int().min(-20, { message: "Modyfikator rangi musi mieć co najmniej -20." }).max(20, { message: "Modyfikator rangi musi mieć najwyżej 20." }),
-  value: z.coerce.number<number>().int().min(-100, { message: "Modyfikator wartości musi mieć co najmniej -100." }).max(100, { message: "Modyfikator wartości musi mieć najwyżej 100." }),
-  bonus: z.coerce.number<number>().int().min(-100, { message: "Modyfikator bonusu musi mieć co najmniej -100." }).max(100, { message: "Modyfikator bonusu musi mieć najwyżej 100." }),
-  testBonus: z.coerce.number<number>().int().min(-100, { message: "Modyfikator bonusu testu musi mieć co najmniej -100." }).max(100, { message: "Modyfikator bonusu testu musi mieć najwyżej 100." }),
+  grade: numberInput(z.coerce.number<number>().int().min(-20, { message: "Modyfikator rangi musi mieć co najmniej -20." }).max(20, { message: "Modyfikator rangi musi mieć najwyżej 20." })),
+  value: numberInput(z.coerce.number<number>().int().min(-100, { message: "Modyfikator wartości musi mieć co najmniej -100." }).max(100, { message: "Modyfikator wartości musi mieć najwyżej 100." })),
+  bonus: numberInput(z.coerce.number<number>().int().min(-100, { message: "Modyfikator bonusu musi mieć co najmniej -100." }).max(100, { message: "Modyfikator bonusu musi mieć najwyżej 100." })),
+  testBonus: numberInput(z.coerce.number<number>().int().min(-100, { message: "Modyfikator bonusu testu musi mieć co najmniej -100." }).max(100, { message: "Modyfikator bonusu testu musi mieć najwyżej 100." })),
 });
 
 const healthBuffSchema = z.object
 ({
-  barrier: z.coerce.number<number>().int().min(-1000).max(1000),
-  vitality: z.coerce.number<number>().int().min(-1000).max(1000),
-  toughness: z.coerce.number<number>().int().min(-100).max(100),
-  recoveryLevel: z.coerce.number<number>().int().min(-20).max(20),
-  lethalHealth: z.coerce.number<number>().int().min(-100).max(100),
-  lethalRounds: z.coerce.number<number>().int().min(-100).max(100),
-  bonus: z.coerce.number<number>().int().min(-1000).max(1000),
+  barrier: numberInput(z.coerce.number<number>().int().min(-1000).max(1000)),
+  vitality: numberInput(z.coerce.number<number>().int().min(-1000).max(1000)),
+  toughness: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  recoveryLevel: numberInput(z.coerce.number<number>().int().min(-20).max(20)),
+  lethalHealth: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  lethalRounds: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  bonus: numberInput(z.coerce.number<number>().int().min(-1000).max(1000)),
 });
 
 const defenseBuffSchema = z.object
 ({
-  immunity: z.coerce.number<number>().int().min(-100).max(100),
-  resistance: z.coerce.number<number>().int().min(-100).max(100),
-  protection: z.coerce.number<number>().int().min(-100).max(100),
-  block: z.coerce.number<number>().int().min(-100).max(100),
-  parry: z.coerce.number<number>().int().min(-100).max(100),
-  dodge: z.coerce.number<number>().int().min(-100).max(100),
-  bonus: z.coerce.number<number>().int().min(-100).max(100),
+  immunity: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  resistance: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  protection: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  block: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  parry: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  dodge: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  bonus: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
 });
 
 const damageOffenseBuffSchema = z.object
 ({
-  amount: z.coerce.number<number>().int().min(-20).max(20),
-  grade: z.coerce.number<number>().int().min(-20).max(20),
-  bonus: z.coerce.number<number>().int().min(-100).max(100),
+  amount: numberInput(z.coerce.number<number>().int().min(-20).max(20)),
+  grade: numberInput(z.coerce.number<number>().int().min(-20).max(20)),
+  bonus: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
 });
 
 const weaponOffenseBuffSchema = damageOffenseBuffSchema.extend
 ({
-  criticalPower: z.coerce.number<number>().int().min(-100).max(100),
-  criticalRange: z.coerce.number<number>().int().min(-100).max(100),
+  criticalPower: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
+  criticalRange: numberInput(z.coerce.number<number>().int().min(-100).max(100)),
 });
 
 const characteristicsBuffSchema = z.object

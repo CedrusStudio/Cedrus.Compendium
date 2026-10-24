@@ -44,11 +44,11 @@ describe('defenseItemSchema', () => {
       }
     });
 
-    it('should default initiativeRestriction to 0 when empty string', () => {
+    it('should reject an explicitly empty initiativeRestriction', () => {
       const result = defenseItemSchema.safeParse({ ...validDefensiveItem, initiativeRestriction: '' });
-      expect(result.success).toBe(true);
-      if (result.success) {
-        expect(result.data.initiativeRestriction).toBe(0);
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        expect(result.error.issues[0]).toMatchObject({ path: ['initiativeRestriction'], message: 'Uzupełnij pole' });
       }
     });
   });

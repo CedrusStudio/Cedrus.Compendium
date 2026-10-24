@@ -11,6 +11,98 @@ function NumberInput({ initial = 0 }: { initial?: number })
 }
 
 describe('numeric Input', () => {
+  it('lets a numeric zero stay empty until a replacement is typed', async () => {
+    const user = userEvent.setup();
+    render(<NumberInput />);
+    const input = screen.getByRole('spinbutton') as HTMLInputElement;
+    await user.click(input);
+    await user.keyboard('{Backspace}');
+    expect(input.value).toBe('');
+    await user.keyboard('5');
+    expect(input.value).toBe('5');
+    await user.tab();
+    expect(input.value).toBe('5');
+  });
+
+  it('keeps a cleared nonzero number blank during editing and restores the numeric fallback on blur', async () => {
+    const user = userEvent.setup();
+    render(<NumberInput initial={12} />);
+    const input = screen.getByRole('spinbutton') as HTMLInputElement;
+    await user.clear(input);
+    expect(input.value).toBe('');
+    await user.tab();
+    expect(input.value).toBe('0');
+  });
+
+  it('does not keep an empty draft after an external value changes', async () => {
+    const user = userEvent.setup();
+    function Fixture()
+    {
+      const [value, setValue] = useState(0);
+      return <>
+        <Input type="number" value={value} onChange={e => setValue(Number(e.target.value))} />
+        <button onMouseDown={e => e.preventDefault()} onClick={() => setValue(7)}>load</button>
+      </>;
+    }
+    render(<Fixture />);
+    const input = screen.getByRole('spinbutton') as HTMLInputElement;
+    await user.clear(input);
+    expect(input.value).toBe('');
+    await user.click(screen.getByText('load'));
+    expect(input.value).toBe('7');
+  });
+
+  it('preserves a field-specific minimum and reports the fallback to blur validation', async () => {
+    const user = userEvent.setup();
+    const onBlur = vi.fn();
+    function Fixture()
+    {
+      const [value, setValue] = useState(12);
+      return <Input type="number" value={value} min={1}
+        onChange={e => setValue(Math.max(1, Number(e.target.value)))}
+        onBlur={e => onBlur(e.target.value)} />;
+    }
+    render(<Fixture />);
+    const input = screen.getByRole('spinbutton') as HTMLInputElement;
+    await user.clear(input);
+    expect(input.value).toBe('');
+    await user.tab();
+    expect(input.value).toBe('1');
+    expect(onBlur).toHaveBeenCalledExactlyOnceWith('1');
+  });
+
+  it('replaces an empty draft when its form field name changes', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<Input numeric name="first" value={0} onChange={() => {}} />);
+    const input = screen.getByRole('textbox');
+    await user.clear(input);
+    expect(input).toHaveValue('');
+    rerender(<Input numeric name="second" value={0} onChange={() => {}} />);
+    expect(input).toHaveValue('0');
+  });
+
+  it('keeps a draft through unrelated parent renders', async () => {
+    const user = userEvent.setup();
+    function Fixture()
+    {
+      const [value, setValue] = useState(0);
+      const [count, setCount] = useState(0);
+      return <>
+        <Input type="number" value={value} onChange={e => setValue(Number(e.target.value))} />
+        <button onMouseDown={e => e.preventDefault()} onClick={() => setCount(count + 1)}>render {count}</button>
+      </>;
+    }
+    render(<Fixture />);
+    const input = screen.getByRole('spinbutton') as HTMLInputElement;
+    await user.clear(input);
+    await user.click(screen.getByText('render 0'));
+    expect(screen.getByText('render 1')).toBeVisible();
+    expect(input.value).toBe('');
+    expect(input).toHaveFocus();
+    await user.keyboard('5');
+    expect(input.value).toBe('5');
+  });
+
   it('removes the initial zero while typing and preserves subsequent digits', async () => {
     const user = userEvent.setup();
     render(<NumberInput />);

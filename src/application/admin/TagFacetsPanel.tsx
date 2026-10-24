@@ -710,6 +710,7 @@ function FacetEditForm({ facet, definitions, busy, onSave, onDone }: {
   const [label, setLabel] = useState(facet.label);
   const [description, setDescription] = useState(facet.description ?? '');
   const [order, setOrder] = useState(String(facet.order));
+  const [orderError, setOrderError] = useState('');
   const [entities, setEntities] = useState<string[]>([...facet.entities]);
   const [selectionMode, setSelectionMode] = useState(facet.selectionMode);
   const [supportsNone, setSupportsNone] = useState(facet.supportsNone);
@@ -718,7 +719,16 @@ function FacetEditForm({ facet, definitions, busy, onSave, onDone }: {
 
   const submit = async () =>
   {
-    const parsed = Number.parseInt(order, 10);
+    if (order.trim() === '') {
+      setOrderError('Uzupełnij pole');
+      return;
+    }
+    const parsed = Number(order);
+    if (!Number.isInteger(parsed)) {
+      setOrderError('Wpisz liczbę całkowitą');
+      return;
+    }
+    setOrderError('');
 
     const saved = await onSave({
       resource: 'facet',
@@ -726,7 +736,7 @@ function FacetEditForm({ facet, definitions, busy, onSave, onDone }: {
       key: facet.key,
       label: label.trim() || facet.label,
       description: description.trim() || null,
-      order: Number.isFinite(parsed) ? parsed : facet.order,
+      order: parsed,
       selectionMode,
       supportsNone,
       entities,
@@ -739,7 +749,9 @@ function FacetEditForm({ facet, definitions, busy, onSave, onDone }: {
     <div className="mt-3 space-y-3 rounded border border-dashed p-3">
       <div className="flex flex-wrap items-center gap-2">
         <Input value={label} onChange={event => setLabel(event.target.value)} placeholder="nazwa" className="h-8 w-56 text-sm" />
-        <Input numeric value={order} onChange={event => setOrder(event.target.value)} placeholder="kolejność" className="h-8 w-24 text-sm" />
+        <Input numeric value={order} onChange={event => { setOrder(event.target.value); setOrderError(''); }}
+          aria-invalid={Boolean(orderError)} placeholder="kolejność" className="h-8 w-24 text-sm" />
+        {orderError && <p role="alert" className="text-sm text-destructive">{orderError}</p>}
 
         <Select value={selectionMode} onValueChange={value => setSelectionMode(value as TagFacetDefinition['selectionMode'])}>
           <SelectTrigger className="h-8 w-44 text-sm"><SelectValue /></SelectTrigger>
