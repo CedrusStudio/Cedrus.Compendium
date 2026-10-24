@@ -143,42 +143,42 @@ export default function RaceView({ race, disableEdit = false, characterScope = f
                           <Label className='text-xs capitalize'>{displayedText.strength}</Label>
                           <InputFormField<Race> 
                             path={'strengthModifier' as FieldPath<Race>} 
-                            inputClassName='w-20 h-10 text-center font-medium' 
+                            numeric inputClassName='w-20 h-10 text-center font-medium'
                           />
                         </div>
                         <div className="grid auto-rows-min gap-2">
                           <Label className='text-xs capitalize'>{displayedText.dexterity}</Label>
                           <InputFormField<Race> 
                             path={'dexterityModifier' as FieldPath<Race>} 
-                            inputClassName='w-20 h-10 text-center font-medium' 
+                            numeric inputClassName='w-20 h-10 text-center font-medium'
                           />
                         </div>
                         <div className="grid auto-rows-min gap-2">
                           <Label className='text-xs capitalize'>{displayedText.constitution}</Label>
                           <InputFormField<Race> 
                             path={'constitutionModifier' as FieldPath<Race>} 
-                            inputClassName='w-20 h-10 text-center font-medium' 
+                            numeric inputClassName='w-20 h-10 text-center font-medium'
                           />
                         </div>
                         <div className="grid auto-rows-min gap-2">
                           <Label className='text-xs capitalize'>{displayedText.mind}</Label>
                           <InputFormField<Race> 
                             path={'mindModifier' as FieldPath<Race>} 
-                            inputClassName='w-20 h-10 text-center font-medium' 
+                            numeric inputClassName='w-20 h-10 text-center font-medium'
                           />
                         </div>
                         <div className="grid auto-rows-min gap-2">
                           <Label className='text-xs capitalize'>{displayedText.charisma}</Label>
                           <InputFormField<Race> 
                             path={'charismaModifier' as FieldPath<Race>} 
-                            inputClassName='w-20 h-10 text-center font-medium' 
+                            numeric inputClassName='w-20 h-10 text-center font-medium'
                           />
                         </div>
                         <div className="grid auto-rows-min gap-2">
                           <Label className='text-xs capitalize'>{displayedText.spellborn}</Label>
                           <InputFormField<Race> 
                             path={'spellbornModifier' as FieldPath<Race>} 
-                            inputClassName='w-20 h-10 text-center font-medium' 
+                            numeric inputClassName='w-20 h-10 text-center font-medium'
                           />
                         </div>
                       </div>

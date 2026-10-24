@@ -1,8 +1,16 @@
+"use client"
+
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { normalizeNumericInput } from "@/common/global/numericInput"
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+type InputProps = React.ComponentProps<"input"> & {
+  /** Numeric text fields keep their existing validation and support partial entries. */
+  numeric?: boolean
+}
+
+function Input({ className, type, numeric = false, onChange, ...props }: InputProps) {
   return (
     <input
       type={type}
@@ -14,6 +22,10 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         className
       )}
       {...props}
+      onChange={type === "number" || numeric ? event => {
+        normalizeNumericInput(event.currentTarget)
+        onChange?.(event)
+      } : onChange}
     />
   )
 }

@@ -116,6 +116,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
                 name="grade"
                 label={displayedText.grade}
                 value={newTalentGrade || defaultTalent.grade}
+                type="number"
                 onChange={(e) => setNewTalentGrade(Number(e.target.value))}
                 errors={errors} 
               />
@@ -148,6 +149,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
                 name="bonus" 
                 label={displayedText.bonus}
                 value={newTalentBonus} 
+                type="number"
                 onChange={(e) => setNewTalentBonus(Number(e.target.value))}
                 errors={errors} 
               />

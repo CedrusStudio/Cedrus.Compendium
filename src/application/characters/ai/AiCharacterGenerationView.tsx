@@ -1,5 +1,7 @@
 "use client";
 
+import { normalizeNumericInput } from "@/common/global/numericInput";
+
 import { useCallback, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
@@ -156,7 +158,10 @@ function StatisticGrid({ values, onChange }: {
                         aria-label={`${fieldLabel}: ${label}`}
                         className="w-14 rounded border bg-transparent px-1 py-0.5"
                         value={statistic[field]}
-                        onChange={event => onChange(name, field, Number(event.target.value))}
+                        onChange={event => {
+                          normalizeNumericInput(event.currentTarget);
+                          onChange(name, field, Number(event.target.value));
+                        }}
                       />
                     )
                     : <span className="text-foreground">{statistic[field]}</span>}
@@ -560,7 +565,10 @@ function NumberField({ label, value, onChange }: {
             aria-label={label}
             className="w-14 rounded border bg-transparent px-1 py-0.5"
             value={value}
-            onChange={event => onChange(Number(event.target.value))}
+            onChange={event => {
+              normalizeNumericInput(event.currentTarget);
+              onChange(Number(event.target.value));
+            }}
           />
         )
         : <span className="text-foreground">{value}</span>}

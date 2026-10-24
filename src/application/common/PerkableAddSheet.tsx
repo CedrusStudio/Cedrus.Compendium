@@ -33,7 +33,7 @@ export default function PerkableAddSheet({ isPending, formId, title, entityType,
   
         <div className="grid auto-rows-min gap-3 px-4">
           <Label className='capitalize'>{displayedText.grade}</Label>
-          <InputFormField<PerkDto> path='grade' inputClassName="w-11 h-10 text-center font-medium" />
+          <InputFormField<PerkDto> path='grade' numeric inputClassName="w-11 h-10 text-center font-medium" />
         </div>
 
       </div>
@@ -52,7 +52,7 @@ export default function PerkableAddSheet({ isPending, formId, title, entityType,
 
       <div className="grid auto-rows-min gap-3">
         <Label className='justify-center capitalize'>{displayedText.price}</Label>
-        <InputFormField<PerkDto> path='price' inputClassName='w-11 h-10 text-center font-medium'  />
+        <InputFormField<PerkDto> path='price' numeric inputClassName='w-11 h-10 text-center font-medium'  />
       </div>
 
       {children}

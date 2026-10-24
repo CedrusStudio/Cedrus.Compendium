@@ -38,7 +38,7 @@ function InputFormWithLabel(healthFieldName: keyof HealthDto)
   return (
     <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
       <Label className="text-center capitalize">{displayedText[healthFieldName as keyof typeof displayedText]}</Label>
-      <InputFormField<CombatDto> path={fieldPath} inputClassName="w-16 h-10 text-center font-medium" />
+      <InputFormField<CombatDto> path={fieldPath} numeric inputClassName="w-16 h-10 text-center font-medium" />
     </div>
   );
 }
