@@ -36,7 +36,7 @@ type CharacterSheetProps =
 export default function CharacterSheet({ model, options }: CharacterSheetProps)
 {
   return (
-    <div className="sheet">
+    <div className={options.symbolsOnly ? "sheet sheet-symbols-only" : "sheet"}>
 
       <HeaderSection header={model.header} />
 

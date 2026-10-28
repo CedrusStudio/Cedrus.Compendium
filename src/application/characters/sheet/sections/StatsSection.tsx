@@ -1,6 +1,7 @@
 import { SheetStatLine } from "@/domain/characters/sheet/sheetModel";
 import SheetSection from "@/application/characters/sheet/primitives/SheetSection";
 import SheetTable from "@/application/characters/sheet/primitives/SheetTable";
+import { SheetStatLabel } from "@/application/characters/sheet/primitives/SheetStatIcon";
 
 type StatsSectionProps =
 {
@@ -40,11 +41,11 @@ export default function StatsSection({ characteristics, attributes }: StatsSecti
 function StatTable({ nameHeader, statistics }: { nameHeader: string; statistics: SheetStatLine[] })
 {
   return (
-    <SheetTable headers={[nameHeader, "kość", "wart.", "bonus", "test", "razem"]}>
+    <SheetTable className="sheet-stats-table" headers={[<span key="name" className="sheet-stat-name">{nameHeader}</span>, "kość", "wart.", "bonus", "test", "razem"]}>
       {
         statistics.map(statistic => (
           <tr key={statistic.key}>
-            <td className="is-name">{statistic.label}</td>
+            <td className="is-name"><SheetStatLabel statKey={statistic.key} label={statistic.label} /></td>
             <td className="is-numeric">{statistic.dice}</td>
             <td className="is-numeric">{statistic.value}</td>
             <Modifier value={statistic.bonus} />

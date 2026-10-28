@@ -55,6 +55,16 @@ describe('parseSheetOptions', () =>
   {
     expect(parseSheetOptions({ sections: ['stats', 'talents'] }).sections).toEqual(['stats']);
   });
+
+  it('enables symbols only explicitly and accepts the first repeated value', () =>
+  {
+    expect(parseSheetOptions({}).symbolsOnly).toBe(false);
+    expect(parseSheetOptions({ symbolsOnly: '1' }).symbolsOnly).toBe(true);
+    expect(parseSheetOptions({ symbolsOnly: 'true' }).symbolsOnly).toBe(true);
+    expect(parseSheetOptions({ symbolsOnly: '0' }).symbolsOnly).toBe(false);
+    expect(parseSheetOptions({ symbolsOnly: 'unknown' }).symbolsOnly).toBe(false);
+    expect(parseSheetOptions({ symbolsOnly: ['1', '0'] }).symbolsOnly).toBe(true);
+  });
 });
 
 describe('toSheetQuery', () =>
@@ -72,10 +82,10 @@ describe('toSheetQuery', () =>
 
   it('round-trips through parseSheetOptions', () =>
   {
-    const options = { sections: ['vitals', 'powers'] as const, appendix: true };
+    const options = { sections: ['vitals', 'powers'] as const, appendix: true, symbolsOnly: true };
     const query = new URLSearchParams(toSheetQuery(options).slice(1));
 
-    expect(parseSheetOptions(Object.fromEntries(query))).toEqual({ sections: ['vitals', 'powers'], appendix: true });
+    expect(parseSheetOptions(Object.fromEntries(query))).toEqual({ sections: ['vitals', 'powers'], appendix: true, symbolsOnly: true });
   });
 });
 

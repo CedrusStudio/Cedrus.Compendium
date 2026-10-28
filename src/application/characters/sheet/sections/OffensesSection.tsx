@@ -9,7 +9,7 @@ export default function OffensesSection({ offenses }: { offenses: SheetOffenseLi
   if (offenses.length === 0) return null;
 
   return (
-    <SheetSection title="ataki" note="kryt: zakres / siła">
+    <SheetSection title="ataki" note="kryt: zakres / siła · ▸ domyślny atak">
       <SheetTable headers={headers}>
         {
           offenses.map(offense => (

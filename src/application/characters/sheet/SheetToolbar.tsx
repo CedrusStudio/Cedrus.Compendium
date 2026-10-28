@@ -96,6 +96,23 @@ export default function SheetToolbar({ characterId, options }: SheetToolbarProps
         </div>
       </div>
 
+      <div className="flex items-start gap-2">
+        <Checkbox
+          id="sheet-symbols-only"
+          checked={options.symbolsOnly === true}
+          onCheckedChange={checked => applyOptions({ ...options, symbolsOnly: checked === true })}
+          aria-describedby="sheet-symbols-only-description"
+        />
+        <div>
+          <Label htmlFor="sheet-symbols-only" className="text-sm font-medium">
+            Same symbole zamiast nazw
+          </Label>
+          <p id="sheet-symbols-only-description" className="text-xs text-muted-foreground">
+            Dotyczy cech, atrybutów, niewrażliwości, odporności i wszystkich rodzajów redukcji. Po odznaczeniu: same nazwy, bez symboli.
+          </p>
+        </div>
+      </div>
+
       <p className="text-xs text-muted-foreground">
         W oknie drukowania odznacz „Nagłówki i stopki”. Karta jest zaprojektowana pod czarno-biały wydruk A4 —
         „Grafika tła” nie jest potrzebna.

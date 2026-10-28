@@ -18,7 +18,7 @@ export default function ActionsSection({ maneuvers, stances, states }: ActionsSe
       {
         maneuvers.length > 0 && (
           <SheetSection title="manewry" note={`${maneuvers.length}`}>
-            <SheetTable headers={["manewr", "rg", "czas", "odn.", "efekt"]}>
+            <SheetTable headers={["manewr", "ranga", "czas", "odnow.", "efekt"]}>
               {
                 maneuvers.map(maneuver => (
                   <tr key={maneuver.id}>
@@ -50,7 +50,7 @@ function ModeTable({ title, columnLabel, modes }: { title: string; columnLabel: 
   return (
     <div className="sheet-grow">
       <SheetSection title={title}>
-        <SheetTable headers={[columnLabel, "rg", "efekt"]}>
+        <SheetTable headers={[columnLabel, "ranga", "efekt"]}>
           {
             modes.map(mode => (
               <tr key={mode.id}>

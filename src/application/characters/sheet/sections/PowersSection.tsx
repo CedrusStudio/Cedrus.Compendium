@@ -33,7 +33,7 @@ export default function PowersSection({ powers }: { powers: SheetPowerBlock[] })
             {
               power.spells.length > 0 && (
                 <div style={{ marginTop: "1.2mm" }}>
-                  <SheetTable headers={["zaklęcie", "rg", "czas", "koszt", "efekt"]}>
+                  <SheetTable headers={["zaklęcie", "ranga", "czas", "koszt", "efekt"]}>
                     {
                       power.spells.map(spell => (
                         <tr key={spell.id}>
