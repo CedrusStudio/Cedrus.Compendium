@@ -16,6 +16,7 @@ Przegląd kodu i danych z `backup/2026-08-02T06-30-41-035Z`. Fale 0–3 i 5–8 
 | **Cała aplikacja wygodna na telefonie** | [Plan M0–M6](features-to-implement/mobile-friendly-app-plan.md), [wyniki audytu](features-to-implement/mobile-audit.md) | 2026-10-18: wdrożony pierwszy przekrojowy przebieg responsywności na `codex/mobile-friendly-app`. Filtry przewijają się na telefonie; poprawione wspólne komponenty i moduły, testy wszystkich 34 stron oraz kluczowych interakcji, desktop i A4. Odbiór fizycznych urządzeń i pełna macierz języków pozostają otwarte; dokładny zakres dowodów w rejestrze. |
 | **4.1 Prywatne encje Kompendium** | Fala 4 poniżej | `apiKeys` istnieje wyłącznie na `Character`. |
 | **2.6 Reszta redesignu zakładki Walka** | Fala 2 poniżej | Świadomie odłożone — wymaga makiety. |
+| **Globalny symulator rzutu kośćmi** | [Plan i stan wdrożenia](features-to-implement/dice-roller-panel-plan.md) | Pierwsza wersja na `codex/dice-roller-panel`: panel otwierany z wielu miejsc, rzuty ręczne i z kontekstu, historia oraz przerzuty; animacja później. |
 | **Dwa błędne mapowania wymagań** | dane | `Pogromienie` (rangi 1–3) i `Napór Włóczniarza` (rangi 1–2) mają nadmiarowe `siła ≥ N` obok poprawnego wpisu — 5 rekordów do wyczyszczenia w `/admin/requirements`. |
 
 Domknięte na danych 2026-08-02: legacy `requirements` usunięte ze wszystkich 5 kolekcji (0 rekordów), legacy `cost` zaklęć wyczyszczony (0 z 421), sześć wpisów `replaces` sprowadzonych do kanonicznych nazw Manewrów.

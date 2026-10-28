@@ -1,5 +1,6 @@
 import { rollIcon } from "@/common/icons";
 import { Button } from "@/ui/button";
+import { displayedText } from '@/common/translations';
 
 export type RollButtonProps = 
 {
@@ -10,7 +11,7 @@ export type RollButtonProps =
 export default function RollButton({ onClick, rollResult}: RollButtonProps)
 {
   return (
-    <Button variant='outline' onClick={onClick} className="w-14 flex justify-center">
+    <Button variant='outline' onClick={onClick} aria-label={displayedText.roll} className="w-14 flex justify-center">
       <div>{rollIcon}</div>
       <div className="text-start">{rollResult}</div>
     </Button>

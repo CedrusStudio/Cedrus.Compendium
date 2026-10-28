@@ -8,6 +8,10 @@ import VerticalChangeButtons from "@/common/components/buttons/VerticalChangeBut
 import ResetButton from "@/common/components/buttons/ResetButton";
 import { getColorTextChange } from "@/common/colors";
 import FieldWithTooltip from "@/common/components/fields/FieldWithTooltip";
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { makeRollRecord, statisticPreset } from '@/domain/diceRoller';
+import { Button } from '@/ui/button';
+import { diceText } from '@/application/dice-roller/DiceRollerPanel';
 
 type StatisticViewProps = 
 {
@@ -21,11 +25,14 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
   const defaultBonus = calculateDefaultBonus(statistic);
   const [rollResult, setRollResult] = useState<number | null>(null);
   const [bonus, setBonus] = useState<number>(defaultBonus);
+  const diceRoller = useOptionalDiceRoller();
+  const preset = () => statisticPreset(name, statistic, bonus - defaultBonus);
 
   const handleRoll = (statistic: Statistic) => 
   {
     const result = Math.floor(Math.random() * statistic.grade * 2) + 1
     setRollResult(result);
+    diceRoller?.record(makeRollRecord(preset(), [[{ value: result, critical: false }]]));
   };
 
   return (
@@ -49,6 +56,7 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
       </div>
 
       <RollButton onClick={() => handleRoll(statistic)} rollResult={calculateRollResult(rollResult, statistic, bonus)} />
+      <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${name}`} title={diceText.open} onClick={() => diceRoller?.open(preset())}>⋯</Button>
     </div>
   );
 };

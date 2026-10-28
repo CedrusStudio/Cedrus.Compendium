@@ -16,6 +16,9 @@ import powerSpecificationsClient from '@/infrastructure/clients/powerSpecificati
 import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import PowerOffenseSelector from "@/application/characters/combat/power/PowerOffenseSelector";
 import { Input } from "@/common/components/ui/input";
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { powerPreset } from '@/domain/diceRoller';
+import { diceText, dicePoolNames } from '@/application/dice-roller/DiceRollerPanel';
 
 type CharacterPowersBattleViewProps =
 {
@@ -25,6 +28,7 @@ type CharacterPowersBattleViewProps =
 
 export default function CharacterPowersBattleView({ character, initiallyHideAdvancedCombat = true }: CharacterPowersBattleViewProps)
 {
+  const diceRoller = useOptionalDiceRoller();
   const [hideAdvancedCombat, setHideAdvancedCombat] = useState<boolean>(initiallyHideAdvancedCombat);
   const [selectedPowerIndex, setSelectedPowerIndex] = useState<number>(0);
   
@@ -106,6 +110,8 @@ export default function CharacterPowersBattleView({ character, initiallyHideAdva
             {simpleCombat}
         </Activity>
 
+        {hideAdvancedCombat && <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${power.name}`} title={diceText.open} onClick={() => diceRoller?.open(powerPreset(power.name, offense, dicePoolNames))}>⋯</Button>}
+
         <Activity mode={hideAdvancedCombat ? "hidden" : "visible"}>
             <AdvancedPowerCombat 
                 power={power}
@@ -141,6 +147,7 @@ function AdvancedPowerCombat
     : AdvancedPowerCombatProps
 )
 {
+  const diceRoller = useOptionalDiceRoller();
   const offenses = powerSpecification.offenses;
   const maxIndex = offenses.length - 1;
   const currentIndex = Math.min(selectedOffenseIndex, maxIndex);
@@ -174,6 +181,7 @@ function AdvancedPowerCombat
 
                 <div className="flex flex-col mb-1 items-center">
                     <RollButton onClick={handleRoll} rollResult={totalResult()} />
+                    <Button variant="ghost" size="sm" aria-label={diceText.open} title={diceText.open} onClick={() => diceRoller?.open(powerPreset(power.name, { ...offense, spellOffense: currentSpellOffense, spellDamage: currentSpellDamage }, dicePoolNames))}>⋯</Button>
                 </div>
 
                 <Badge variant="secondary" className="text-xs">

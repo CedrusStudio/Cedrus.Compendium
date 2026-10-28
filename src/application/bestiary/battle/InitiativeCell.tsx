@@ -10,6 +10,9 @@ import { rollInitiative } from "@/domain/characters/statistics/Attributes";
 import { displayedText } from "@/common/translations";
 import { cancelIcon, editIcon, okIcon, resetIcon, rollIcon } from "@/common/icons";
 import { Statistic } from "@/domain/characters/statistics/Statistic";
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { makeRollRecord, statisticPreset } from '@/domain/diceRoller';
+import { diceText } from '@/application/dice-roller/DiceRollerPanel';
 
 type InitiativeCellProps = 
 {
@@ -20,6 +23,7 @@ type InitiativeCellProps =
 export default function InitiativeCell({ id, initiative }: InitiativeCellProps) 
 {
   const dispatch = useDispatch();
+  const diceRoller = useOptionalDiceRoller();
   const initiativeEntry = useSelector((state: RootState) => state.bestiary.initiatives[id]);
   const [isManualMode, setIsManualMode] = useState(false);
   const [manualValue, setManualValue] = useState<string>("");
@@ -28,6 +32,7 @@ export default function InitiativeCell({ id, initiative }: InitiativeCellProps)
   const handleRoll = () => 
   {
     const rollResult = rollInitiative(initiative);
+    diceRoller?.record(makeRollRecord(statisticPreset(displayedText.initiative, initiative), [[{ value: rollResult - initiative.value - initiative.bonus - initiative.testBonus, critical: false }]]));
     dispatch(actions.rollInitiativeForCharacter({ characterId: id, rollResult }));
     setIsManualMode(false);
   };
@@ -102,6 +107,7 @@ export default function InitiativeCell({ id, initiative }: InitiativeCellProps)
           <Button variant="outline" size="icon" onClick={handleRoll} title={displayedText.rollInitiative}>
             {rollIcon}
           </Button>
+          <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${displayedText.initiative}`} title={diceText.open} onClick={() => diceRoller?.open(statisticPreset(displayedText.initiative, initiative))}>⋯</Button>
           
           <Button variant="outline" size="icon" onClick={() => setIsManualMode(true)} title={displayedText.manualInitiative}>
             {editIcon}

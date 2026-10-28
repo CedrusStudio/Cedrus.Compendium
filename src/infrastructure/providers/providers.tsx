@@ -6,6 +6,7 @@ import { store } from '@/persistence/slices/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
+import DiceRollerProvider from '@/application/dice-roller/DiceRollerProvider';
 
 type ProvidersProps = 
 {
@@ -38,7 +39,7 @@ export default function Providers({ children }: ProvidersProps)
         >
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
-            {children}
+            <DiceRollerProvider>{children}</DiceRollerProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </Provider>
         </QueryClientProvider>
