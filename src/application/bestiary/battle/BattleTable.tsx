@@ -33,6 +33,9 @@ import { Character } from "@/domain/characters/Character";
 import AddExternalParticipantDialog from "@/application/bestiary/battle/AddExternalParticipantDialog";
 import { BattleCombatant, isCharacter, isExternalParticipant, isDuplicatedCharacter } from "@/application/bestiary/battle/BattleCombatants";
 import BattlePresetsPanel from "@/application/battlePresets/components/BattlePresetsPanel";
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { makeRollRecord, statisticPreset } from '@/domain/diceRoller';
+import type { Statistic } from '@/domain/characters/statistics/Statistic';
 
 const EMPTY_ARRAY: never[] = [];
 
@@ -42,6 +45,12 @@ export default function BattleTable()
   const externalParticipants = useSelector((state: RootState) => state.bestiary.externalParticipants);
   const duplicatedCharacters = useSelector((state: RootState) => state.bestiary.duplicatedCharacters);
   const dispatch = useDispatch();
+  const diceRoller = useOptionalDiceRoller();
+  const recordInitiative = (name: string, initiative: Statistic, result: number) => {
+    diceRoller?.record(makeRollRecord(statisticPreset(`${displayedText.initiative}: ${name}`, initiative), [[{
+      value: result - initiative.value - initiative.bonus - initiative.testBonus, critical: false,
+    }]]));
+  };
 
   const queryKey = ['characters', 'battle', charactersInBattle.join(',')];
   const { data } = useQuery<Character[]>
@@ -181,18 +190,21 @@ export default function BattleTable()
             {
               const rollResult = rollInitiative(combatant.attributes.initiative);
               dispatch(actions.rollInitiativeForCharacter({ characterId: combatant.id, rollResult }));
+              recordInitiative(combatant.name, combatant.attributes.initiative, rollResult);
             } 
 
             else if (isExternalParticipant(combatant) && combatant.initiative) 
             {
               const rollResult = rollInitiativeBase(combatant.initiative.grade, combatant.initiative.value, 0, 0);
               dispatch(actions.rollInitiativeForCharacter({ characterId: combatant.id, rollResult }));
+              recordInitiative(combatant.name, combatant.initiative, rollResult);
             }
             
             else if (isDuplicatedCharacter(combatant) && combatant.character.attributes.initiative) 
             {
               const rollResult = rollInitiative(combatant.character.attributes.initiative);
               dispatch(actions.rollInitiativeForCharacter({ characterId: combatant.id, rollResult }));
+              recordInitiative(combatant.character.name, combatant.character.attributes.initiative, rollResult);
             }
           });
 

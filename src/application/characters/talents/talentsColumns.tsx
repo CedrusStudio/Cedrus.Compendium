@@ -9,6 +9,10 @@ import ResetButton from "@/common/components/buttons/ResetButton";
 import { getColorTextChange } from "@/common/colors";
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"
 import { displayedText } from "@/common/translations";
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { makeRollRecord, type RollPreset } from '@/domain/diceRoller';
+import { Button } from '@/ui/button';
+import { diceText } from '@/application/dice-roller/DiceRollerPanel';
 
 export const columns: AccessorKeyColumnDef<Talent>[] = 
 [
@@ -26,12 +30,15 @@ function RollCell({ talent }: { talent: Talent })
   // (StatisticView): adjust the bonus for a single roll, reset to the sheet value.
   const defaultBonus = talent.bonus;
   const [bonus, setBonus] = useState(defaultBonus);
-  const [rollResult, setRollResult] = useState(0);
+  const [rollResult, setRollResult] = useState<number | null>(null);
+  const diceRoller = useOptionalDiceRoller();
+  const preset = (): RollPreset => ({ label: talent.name, pools: [{ label: talent.name, amount: 1, grade: talent.grade, bonus: 0, bonusScope: 'pool' }], modifier: bonus });
 
   const handleRoll = () =>
   {
-    const result = Math.floor(Math.random() * talent.grade * 2) + 1 + bonus;
-    setRollResult(result);
+    const die = Math.floor(Math.random() * talent.grade * 2) + 1;
+    setRollResult(die + bonus);
+    diceRoller?.record(makeRollRecord(preset(), [[{ value: die, critical: false }]]));
   };
 
   return (
@@ -43,6 +50,7 @@ function RollCell({ talent }: { talent: Talent })
       <VerticalChangeButtons value={1} setValue={setBonus} />
       <ResetButton variant="ghost" defaultValuesWithSetters={[[defaultBonus, setBonus]]} />
       <RollButton onClick={handleRoll} rollResult={rollResult} />
+      <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${talent.name}`} title={diceText.open} onClick={() => diceRoller?.open(preset())}>⋯</Button>
     </div>
   );
 }

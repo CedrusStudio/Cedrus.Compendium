@@ -3,10 +3,16 @@
 import { setWithSideEffect } from '@/common/global/setterUtils';
 import { calculateCriticalDamage, calculateWeaponDamageRoll, handleDamageOffenseRolls, handleWeaponDamageRolls, roll } from '@/domain/characters/combat/Offense';
 import { PowerOffense, SpellDamage, SpellOffense } from '@/domain/characters/combat/Power';
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { makeRollRecord, powerPreset } from '@/domain/diceRoller';
+import { displayedText } from '@/common/translations';
+import { dicePoolNames } from '@/application/dice-roller/DiceRollerPanel';
 
 export const usePowerRolls = (offenses: PowerOffense[], selectedIndex: number) => 
 {
+  const diceRoller = useOptionalDiceRoller();
+  const hasRolled = useRef(false);
   const offense = useMemo(() => offenses[selectedIndex], [offenses, selectedIndex]);
 
   const [currentSpellOffense, setCurrentSpellOffense] = useState<SpellOffense>(offense.spellOffense);
@@ -17,6 +23,7 @@ export const usePowerRolls = (offenses: PowerOffense[], selectedIndex: number) =
 
   useEffect(() => 
 {
+    hasRolled.current = false;
     setCurrentSpellOffense(offense.spellOffense);
     setCurrentSpellDamage(offense.spellDamage);
     setSpellOffenseRolls([]);
@@ -25,12 +32,21 @@ export const usePowerRolls = (offenses: PowerOffense[], selectedIndex: number) =
 
   const handleRoll = () => 
   {
+    hasRolled.current = true;
     const { rolls: spellDamageRolls } = handleDamageOffenseRolls(currentSpellDamage);
     const { rolls: spellOffenseRolls } = handleWeaponDamageRolls(currentSpellOffense);
 
     setSpellDamageRolls(spellDamageRolls);
     setSpellOffenseRolls(spellOffenseRolls);
   };
+
+  useEffect(() => {
+    if (!hasRolled.current || !diceRoller?.record) return;
+    diceRoller.record(makeRollRecord(powerPreset(displayedText.power, { ...offense, spellOffense: currentSpellOffense, spellDamage: currentSpellDamage }, dicePoolNames), [
+      spellOffenseRolls.map(([value, critical]) => ({ value, critical })),
+      spellDamageRolls.map(value => ({ value, critical: false })),
+    ]));
+  }, [spellOffenseRolls, spellDamageRolls, currentSpellOffense, currentSpellDamage, offense, diceRoller?.record]);
 
   const handleSpellOffenseReroll = (rollIndex: number, offense: SpellOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>): void => 
   {

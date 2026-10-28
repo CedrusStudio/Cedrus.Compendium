@@ -3,6 +3,10 @@ import SelectOneOf from "@/common/components/selects/SelectOneOf";
 import { Offense } from "@/domain/characters/combat/Offense";
 import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction } from "react";
+import { type RollPreset, offensePreset } from '@/domain/diceRoller';
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { Button } from '@/ui/button';
+import { diceText, dicePoolNames } from '@/application/dice-roller/DiceRollerPanel';
 
 type OffenseHeaderProps =
 {
@@ -13,14 +17,17 @@ type OffenseHeaderProps =
   handleRoll: () => void;
   className?: string;
   disableInfo?: boolean;
+  preset?: RollPreset;
 };
 
-export default function OffenseHeader({ offenses, selectedOffenseIndex, setSelectedOffenseIndex, totalResult, handleRoll, className, disableInfo }: OffenseHeaderProps)
+export default function OffenseHeader({ offenses, selectedOffenseIndex, setSelectedOffenseIndex, totalResult, handleRoll, className, disableInfo, preset }: OffenseHeaderProps)
 {
+  const diceRoller = useOptionalDiceRoller();
   return (
     <div className={cn('flex flex-row place-content-center place-items-center gap-3', className)}>
 
       <RollButton onClick={handleRoll} rollResult={totalResult()} />
+      <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${offenses[selectedOffenseIndex]?.name ?? ''}`} title={diceText.open} onClick={() => diceRoller?.open(preset ?? offensePreset(offenses[selectedOffenseIndex], dicePoolNames))}>⋯</Button>
 
       {
         offenses.length > 1 && (

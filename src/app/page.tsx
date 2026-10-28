@@ -9,6 +9,9 @@ import HomeQuickAccessSection from '@/application/personalization/HomeQuickAcces
 import { Button } from "@/ui/button";
 import { useAdminStatus } from '@/common/hooks/useAdminStatus';
 import { adminIcon, personalizationIcon } from '@/common/icons';
+import { rollIcon } from '@/common/icons';
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { diceText } from '@/application/dice-roller/DiceRollerPanel';
 
 export default function HomePage() 
 {
@@ -24,10 +27,12 @@ export default function HomePage()
 function HeroSection() 
 {
   const { isAdmin, isCheckingAdmin, isLoaded } = useAdminStatus();
+  const diceRoller = useOptionalDiceRoller();
 
   return (
     <div className="text-center mb-16">
       <div className="mb-6 flex flex-wrap items-center justify-center gap-2 md:justify-end">
+        <Button variant="outline" size="icon" aria-label={diceText.open} title={diceText.open} onClick={() => diceRoller?.open()}>{rollIcon}</Button>
         <ApiKeySettings />
         <Button asChild variant="outline" size="icon">
           <Link href="/personalization" aria-label="Personalization">{personalizationIcon("h-[1.2rem] w-[1.2rem]")}</Link>

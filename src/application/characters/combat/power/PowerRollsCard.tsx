@@ -7,6 +7,10 @@ import { usePowerRolls } from '@/application/characters/combat/usePowerRolls';
 import RollButton from '@/common/components/buttons/RollButton';
 import { SpellOffenseSubcard } from '@/application/characters/combat/power/SpellOffenseSubcard';
 import SpellDamageSubcard from '@/application/characters/combat/power/SpellDamageSubcard';
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { powerPreset } from '@/domain/diceRoller';
+import { diceText, dicePoolNames } from '@/application/dice-roller/DiceRollerPanel';
+import { Button } from '@/ui/button';
 
 type PowerRollsCardProps = 
 {
@@ -16,6 +20,7 @@ type PowerRollsCardProps =
 
 export default function PowerRollsCard({ offenses, selectedIndex }: PowerRollsCardProps) 
 {
+  const diceRoller = useOptionalDiceRoller();
   const {
     totalResult,
     handleRoll,
@@ -39,6 +44,7 @@ export default function PowerRollsCard({ offenses, selectedIndex }: PowerRollsCa
       <CardHeader>
         <CardTitle className='flex justify-center items-center gap-3'>
           <RollButton onClick={handleRoll} rollResult={totalResult()} />
+          <Button variant="ghost" size="sm" aria-label={diceText.open} title={diceText.open} onClick={() => diceRoller?.open(powerPreset(displayedText.power, { ...offense, spellOffense: currentSpellOffense, spellDamage: currentSpellDamage }, dicePoolNames))}>⋯</Button>
         </CardTitle>
       </CardHeader>
 

@@ -9,6 +9,9 @@ import { useState } from "react";
 import { showHideIcon } from "@/common/icons";
 import { Button } from "@/common/components/ui/button";
 import { colors } from "@/common/colors";
+import { offensePreset } from '@/domain/diceRoller';
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { diceText, dicePoolNames } from '@/application/dice-roller/DiceRollerPanel';
 
 type CharacterOffensesBattleViewProps =
 {
@@ -19,6 +22,7 @@ type CharacterOffensesBattleViewProps =
 export default function CharacterOffensesBattleView({ character, initiallyHideAdvancedCombat = true }: CharacterOffensesBattleViewProps)
 {
   const [hideAdvancedCombat, setHideAdvancedCombat] = useState<boolean>(initiallyHideAdvancedCombat);
+  const diceRoller = useOptionalDiceRoller();
 
   const { 
     totalResult,
@@ -75,6 +79,7 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
         setSelectedOffenseIndex={setSelectedOffenseIndex}
         totalResult={totalResult}
         handleRoll={handleRoll}
+        preset={offensePreset({ ...character.offenses[selectedOffenseIndex], leadingWeapon: currentLeadingOffense, secondaryWeapon: currentSecondaryOffense, damageBonus: currentDamageBonus, additionalDamageBonus: currentAdditionalDamageBonus }, dicePoolNames)}
         className="flex-col-reverse"
         disableInfo={true}
       />
@@ -135,6 +140,8 @@ export default function CharacterOffensesBattleView({ character, initiallyHideAd
       {
         hideAdvancedCombat ? simpleCombat : advancedCombat
       }
+
+      {hideAdvancedCombat && <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${character.offenses[selectedOffenseIndex].name}`} title={diceText.open} onClick={() => diceRoller?.open(offensePreset({ ...character.offenses[selectedOffenseIndex], leadingWeapon: currentLeadingOffense, secondaryWeapon: currentSecondaryOffense, damageBonus: currentDamageBonus, additionalDamageBonus: currentAdditionalDamageBonus }, dicePoolNames))}>⋯</Button>}
 
       <Button onClick={() => setHideAdvancedCombat(!hideAdvancedCombat)} variant="ghost" >
         {showHideIcon(hideAdvancedCombat)}

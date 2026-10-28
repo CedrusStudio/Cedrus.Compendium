@@ -2,10 +2,15 @@
 
 import { setWithSideEffect } from '@/common/global/setterUtils';
 import { calculateCriticalDamage, calculateWeaponDamageRoll, DamageOffense, handleDamageOffenseRolls, handleWeaponDamageRolls, Offense, roll, WeaponOffense } from '@/domain/characters/combat/Offense';
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
+import { useOptionalDiceRoller } from '@/application/dice-roller/DiceRollerProvider';
+import { makeRollRecord, offensePreset } from '@/domain/diceRoller';
+import { dicePoolNames } from '@/application/dice-roller/DiceRollerPanel';
 
 export const useCombatRolls = (offenses: Offense[], defaultOffenseId?: string) => 
 {
+  const diceRoller = useOptionalDiceRoller();
+  const hasRolled = useRef(false);
   const getInitialIndex = () => {
     if (!defaultOffenseId) return 0;
     const index = offenses.findIndex(o => o.id === defaultOffenseId);
@@ -29,6 +34,7 @@ export const useCombatRolls = (offenses: Offense[], defaultOffenseId?: string) =
 
   const handleRoll = () => 
   {
+    hasRolled.current = true;
     const { rolls: damageBonusRolls } = handleDamageOffenseRolls(currentDamageBonus);
     const { rolls: additionalDamageBonusRolls } = handleDamageOffenseRolls(currentAdditionalDamageBonus);
     const { rolls: leadingRolls } = handleWeaponDamageRolls(currentLeadingOffense);
@@ -39,6 +45,17 @@ export const useCombatRolls = (offenses: Offense[], defaultOffenseId?: string) =
     setLeadingRolls(leadingRolls);
     setSecondaryRolls(secondaryRolls);
   };
+
+  useEffect(() => {
+    if (!hasRolled.current || !diceRoller?.record) return;
+    const preset = offensePreset({ ...offense, leadingWeapon: currentLeadingOffense, secondaryWeapon: currentSecondaryOffense, damageBonus: currentDamageBonus, additionalDamageBonus: currentAdditionalDamageBonus }, dicePoolNames);
+    diceRoller.record(makeRollRecord(preset, [
+      leadingRolls.map(([value, critical]) => ({ value, critical })),
+      ...(currentSecondaryOffense ? [secondaryRolls.map(([value, critical]) => ({ value, critical }))] : []),
+      damageBonusRolls.map(value => ({ value, critical: false })),
+      ...(currentAdditionalDamageBonus ? [additionalDamageBonusRolls.map(value => ({ value, critical: false }))] : []),
+    ]));
+  }, [leadingRolls, secondaryRolls, damageBonusRolls, additionalDamageBonusRolls, currentLeadingOffense, currentSecondaryOffense, currentDamageBonus, currentAdditionalDamageBonus, offense, diceRoller?.record]);
 
   const handleWeaponReroll = (rollIndex: number, offense: WeaponOffense, setRolls: Dispatch<SetStateAction<[number, boolean][]>>): void => 
   {
@@ -111,6 +128,8 @@ export const useCombatRolls = (offenses: Offense[], defaultOffenseId?: string) =
     {
       return;
     }
+
+    hasRolled.current = false;
 
     if (selectedOffenseIndex !== safeSelectedOffenseIndex)
     {

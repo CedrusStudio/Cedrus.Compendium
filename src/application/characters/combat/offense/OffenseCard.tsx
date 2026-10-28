@@ -10,6 +10,8 @@ import { WeaponDamageWithCriticalSubcard } from '@/application/characters/combat
 import { useEffect, useState } from 'react';
 import { Button } from '@/ui/button';
 import { showHideIcon } from '@/common/icons';
+import { offensePreset } from '@/domain/diceRoller';
+import { dicePoolNames } from '@/application/dice-roller/DiceRollerPanel';
 
 type OffenseCardProps = 
 {
@@ -107,6 +109,7 @@ function OffenseCardContent({ offenses, defaultOffenseId }: OffenseCardProps)
           setSelectedOffenseIndex={setSelectedOffenseIndex}
           totalResult={totalResult}
           handleRoll={handleRoll}
+          preset={offensePreset({ ...selectedOffense, leadingWeapon: currentLeadingOffense, secondaryWeapon: currentSecondaryOffense, damageBonus: currentDamageBonus, additionalDamageBonus: currentAdditionalDamageBonus }, dicePoolNames)}
           disableInfo
         />
       </CardHeader>
