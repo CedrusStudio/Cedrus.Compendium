@@ -42,6 +42,7 @@ export default function DiceRollerProvider({ children }: PropsWithChildren) {
       latest={latest} history={history} onRoll={doRoll} onReroll={doReroll}
       onRepeat={old => { setPreset(structuredClone(old.preset)); record(executeRoll(old.preset)); }}
       onClear={() => { setHistory([]); setLatest(null); }}
+      onNewRoll={() => { setPreset(defaultRollPreset()); setLatest(null); }}
     />
   </Context.Provider>;
 }

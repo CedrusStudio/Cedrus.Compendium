@@ -25,11 +25,32 @@ export type RollRecord = {
   rerolled?: boolean;
 };
 
-export const defaultRollPreset = (): RollPreset => ({ label: '', pools: [{ label: '', amount: 1, grade: 3, bonus: 0, bonusScope: 'pool' }], modifier: 0 });
+export const defaultRollPreset = (): RollPreset => ({ label: '', pools: [{ label: '', amount: 1, grade: 3, bonus: 0, bonusScope: 'die' }], modifier: 0 });
+export const maxDicePools = 10;
+
+export function formatDicePool(pool: DicePool): string {
+  if (pool.amount === 0) return pool.bonusScope === 'pool' ? String(pool.bonus) : '0';
+  const die = `k${pool.grade * 2}`;
+  const bonus = pool.bonus > 0 ? `+${pool.bonus}` : pool.bonus < 0 ? String(pool.bonus) : '';
+  if (pool.bonusScope === 'die') {
+    return pool.amount === 1 ? `${die}${bonus}` : bonus ? `${pool.amount}(${die}${bonus})` : `${pool.amount}${die}`;
+  }
+  const dice = pool.amount === 1 ? die : `${pool.amount}${die}`;
+  return `${dice}${bonus}`;
+}
+
+export function formatRollPreset(preset: RollPreset): string {
+  const pools = preset.pools.map(formatDicePool).reduce((text, term) => {
+    if (!text) return term;
+    return term.startsWith('-') ? `${text} - ${term.slice(1)}` : `${text} + ${term}`;
+  }, '');
+  if (!preset.modifier) return pools;
+  return `${pools} ${preset.modifier > 0 ? '+' : '-'} ${Math.abs(preset.modifier)}`;
+}
 
 export function validateRollPreset(preset: RollPreset): boolean {
   return Number.isSafeInteger(preset.modifier) && Math.abs(preset.modifier) <= 10000 &&
-    preset.pools.length >= 1 && preset.pools.length <= 4 &&
+    preset.pools.length >= 1 && preset.pools.length <= maxDicePools &&
     preset.pools.every(pool => Number.isSafeInteger(pool.amount) && pool.amount >= 0 && pool.amount <= 15 &&
       Number.isSafeInteger(pool.grade) && (pool.grade >= 1 || (pool.grade === 0 && pool.amount === 0)) && pool.grade <= 15 &&
       Number.isSafeInteger(pool.bonus) && Math.abs(pool.bonus) <= 10000);

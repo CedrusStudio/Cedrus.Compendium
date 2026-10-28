@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { executeRoll, offensePreset, rerollDie, statisticPreset, validateRollPreset, type RollPreset } from '@/domain/diceRoller';
+import { executeRoll, formatRollPreset, offensePreset, rerollDie, statisticPreset, validateRollPreset, type RollPreset } from '@/domain/diceRoller';
 import type { Offense } from '@/domain/characters/combat/Offense';
 
 describe('dice roller', () => {
@@ -13,6 +13,18 @@ describe('dice roller', () => {
     expect(second.dice[0].map(die => die.value)).toEqual([4, 6]);
     expect(second.total).toBe(13);
     expect(first.total).toBe(10);
+  });
+
+  it('combines two groups with a per-die bonus and a modifier for the whole roll', () => {
+    const preset: RollPreset = { label: '', modifier: 3, pools: [
+      { label: '', amount: 4, grade: 3, bonus: 1, bonusScope: 'die' },
+      { label: '', amount: 2, grade: 2, bonus: 2, bonusScope: 'die' },
+    ] };
+    expect(formatRollPreset(preset)).toBe('4(k6+1) + 2(k4+2) + 3');
+    const result = executeRoll(preset, () => 0);
+    expect(result.dice.map(group => group.map(die => die.value))).toEqual([[1, 1, 1, 1], [1, 1]]);
+    expect(result.total).toBe(17);
+    expect(rerollDie(result, 1, 0, () => 0.999).total).toBe(20);
   });
 
   it('uses existing offense rules: bonus per weapon die, pool bonus once, critical per die', () => {
