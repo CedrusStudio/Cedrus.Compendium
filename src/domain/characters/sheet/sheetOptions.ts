@@ -45,12 +45,15 @@ export type SheetOptions =
   sections: readonly SheetSection[];
   /** Full descriptions of maneuvers/modes/spells/perks, appended after the sheet. */
   appendix: boolean;
+  /** Hide visible labels only where a statistic has a matching symbol. */
+  symbolsOnly?: boolean;
 };
 
 export const defaultSheetOptions: SheetOptions =
 {
   sections: sheetSections,
   appendix: false,
+  symbolsOnly: false,
 };
 
 export function isSheetSection(value: string): value is SheetSection
@@ -67,6 +70,7 @@ export function parseSheetOptions(searchParams: RawSearchParams | undefined): Sh
   return {
     sections: parseSections(firstValue(searchParams['sections'])),
     appendix: parseBoolean(firstValue(searchParams['appendix'])),
+    symbolsOnly: parseBoolean(firstValue(searchParams['symbolsOnly'])),
   };
 }
 
@@ -85,6 +89,7 @@ export function toSheetQuery(options: SheetOptions): string
   }
 
   if (options.appendix) params.set('appendix', '1');
+  if (options.symbolsOnly) params.set('symbolsOnly', '1');
 
   const query = params.toString();
   return query ? `?${query}` : '';
