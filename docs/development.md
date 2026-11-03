@@ -66,3 +66,5 @@ loading remains META-M7.
 
 Recorded checks, preservation and rollback: [M5b receipt](history/m5b-guidance-20261103.md).
 The receipt records the existing scoped-typecheck baseline failure; guidance adoption does not close that application issue.
+
+Open application fixes are tracked as COMP-Q1/COMP-Q2 in the [quality follow-up plan](../features-to-implement/developer-quality-followup-plan.md) and roadmap; recording them does not implement or close them.
