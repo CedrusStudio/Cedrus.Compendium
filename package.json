@@ -55,7 +55,8 @@
     "test:e2e:mobile": "node scripts/run-e2e.mjs --project=phone-320 --project=phone-390",
     "test:visual:mobile": "node scripts/run-e2e.mjs --project=phone-390 --grep layout",
     "audit:mobile": "node scripts/run-e2e.mjs --project=phone-390 --grep layout",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "verify:ai-guidance": "node scripts/verify-ai-guidance.mjs ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

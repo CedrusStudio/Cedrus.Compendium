@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "documentKind": "adoption",
+  "items": [
+    {
+      "id": "ai-core",
+      "sourcePath": "policies/ai-working-rules.md",
+      "sourceSection": "ai-core",
+      "destinationPath": "AGENTS.md",
+      "destinationBlock": "ai-core",
+      "substitutions": [],
+      "sourceRepository": "meta",
+      "sourceRevision": "77cd7bfcfdfc4ee5909d92602a0f979e9380b4ad",
+      "sourceSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265",
+      "renderedSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265"
+    },
+    {
+      "id": "ai-working-rules",
+      "sourcePath": "policies/ai-working-rules.md",
+      "sourceSection": null,
+      "destinationPath": "docs/ai/policies/ai-working-rules.md",
+      "destinationBlock": null,
+      "substitutions": [],
+      "sourceRepository": "meta",
+      "sourceRevision": "77cd7bfcfdfc4ee5909d92602a0f979e9380b4ad",
+      "sourceSha256": "bb6d4d7ba239ce4b623386c1673d8a6e98ca05033abd8728cadb898d5f975b10",
+      "renderedSha256": "bb6d4d7ba239ce4b623386c1673d8a6e98ca05033abd8728cadb898d5f975b10"
+    },
+    {
+      "id": "copilot-ai-core",
+      "sourcePath": "policies/ai-working-rules.md",
+      "sourceSection": "ai-core",
+      "destinationPath": ".github/copilot-instructions.md",
+      "destinationBlock": "ai-core",
+      "substitutions": [],
+      "sourceRepository": "meta",
+      "sourceRevision": "77cd7bfcfdfc4ee5909d92602a0f979e9380b4ad",
+      "sourceSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265",
+      "renderedSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265"
+    }
+  ]
+}

@@ -4,6 +4,13 @@ Aplikacja do prowadzenia gry w systemie **Cedrus**: karty postaci, bestiariusz, 
 
 Next.js (App Router) + TypeScript + Prisma na MongoDB Atlas. UI: Tailwind + shadcn/ui. Testy: Vitest.
 
+## Developer guidance
+
+Start source maintenance at [AGENTS.md](AGENTS.md) and [docs/development.md](docs/development.md).
+Run `npm run verify:ai-guidance` for offline policy/link integrity using only Node.
+Product character-generation instructions and [ai-workspace](ai-workspace/README.md)
+remain application-owned.
+
 ## Uruchomienie
 
 ```bash
