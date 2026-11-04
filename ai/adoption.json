@@ -10,9 +10,9 @@
       "destinationBlock": "ai-core",
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "77cd7bfcfdfc4ee5909d92602a0f979e9380b4ad",
-      "sourceSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265",
-      "renderedSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265"
+      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
+      "sourceSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f",
+      "renderedSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f"
     },
     {
       "id": "ai-working-rules",
@@ -22,9 +22,33 @@
       "destinationBlock": null,
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "77cd7bfcfdfc4ee5909d92602a0f979e9380b4ad",
-      "sourceSha256": "bb6d4d7ba239ce4b623386c1673d8a6e98ca05033abd8728cadb898d5f975b10",
-      "renderedSha256": "bb6d4d7ba239ce4b623386c1673d8a6e98ca05033abd8728cadb898d5f975b10"
+      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
+      "sourceSha256": "82bdc987425133665f9d6dd755b6c28819959fbac12d60492e647d2b567c9893",
+      "renderedSha256": "82bdc987425133665f9d6dd755b6c28819959fbac12d60492e647d2b567c9893"
+    },
+    {
+      "id": "cedrus-documentation",
+      "sourcePath": ".agents/skills/cedrus-documentation/SKILL.md",
+      "sourceSection": null,
+      "destinationPath": ".agents/skills/cedrus-documentation/SKILL.md",
+      "destinationBlock": null,
+      "substitutions": [],
+      "sourceRepository": "meta",
+      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
+      "sourceSha256": "39ae5c56a4c29ceed249c85a96cf57c7ca56ebc1b3677b69e0121cc1f9491964",
+      "renderedSha256": "39ae5c56a4c29ceed249c85a96cf57c7ca56ebc1b3677b69e0121cc1f9491964"
+    },
+    {
+      "id": "cedrus-worktree",
+      "sourcePath": ".agents/skills/cedrus-worktree/SKILL.md",
+      "sourceSection": null,
+      "destinationPath": ".agents/skills/cedrus-worktree/SKILL.md",
+      "destinationBlock": null,
+      "substitutions": [],
+      "sourceRepository": "meta",
+      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
+      "sourceSha256": "6e8ac9089d991c287fd522a39b3f20c1c5ee874eada2a45d297a620db2a0e2e9",
+      "renderedSha256": "6e8ac9089d991c287fd522a39b3f20c1c5ee874eada2a45d297a620db2a0e2e9"
     },
     {
       "id": "copilot-ai-core",
@@ -34,9 +58,9 @@
       "destinationBlock": "ai-core",
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "77cd7bfcfdfc4ee5909d92602a0f979e9380b4ad",
-      "sourceSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265",
-      "renderedSha256": "aba5b05eff87d431e4ee9b5877293ac5c36f072c0a4cdd824f1fd777024f0265"
+      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
+      "sourceSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f",
+      "renderedSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f"
     }
   ]
 }
