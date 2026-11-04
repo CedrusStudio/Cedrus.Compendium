@@ -7,6 +7,8 @@ description: Write or update Cedrus repository documentation, plans, decisions a
 
 Read the repository's [working guide](../../../AGENTS.md), its documentation entry point and the nearest current document of the same kind. Identify the authoritative source and intended reader before choosing a destination. Maintain developer documentation in English; preserve established product-owned language and terminology where the local guide explicitly requires it.
 
+Documentation edits follow the same mandatory task-branch, separate-worktree and PR-review workflow as other versioned changes. Do not edit/commit/push directly on main; leave the PR for review and merge only with the user's explicit authorization for that concrete PR/change.
+
 Update the existing source when it already owns the information. Match local terminology, document layout, command notation and relative-link conventions without imposing a universal template. Keep active instructions, future plans, architecture decisions and dated evidence distinct. Preserve linked anchors or supply a deliberate forwarding route. Do not turn old execution records into claims about current acceptance.
 
 Check commands and paths against maintained source. Label proposed operations as proposed, and state exactly which checks ran and which remain unavailable. Keep versions and inventories at their existing authoritative source and link to them rather than copying a second list. Refresh affected entry points and references; regenerate generated indexes through their owner tool.

@@ -10,9 +10,9 @@
       "destinationBlock": "ai-core",
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
-      "sourceSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f",
-      "renderedSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f"
+      "sourceRevision": "5ea2ca027fc54201c55da53a2eb8cf463817594c",
+      "sourceSha256": "94f2a403e652b3a8c4dc43ff8e4d55e18fb3968459377cca47c1ca9045926ddc",
+      "renderedSha256": "94f2a403e652b3a8c4dc43ff8e4d55e18fb3968459377cca47c1ca9045926ddc"
     },
     {
       "id": "ai-working-rules",
@@ -22,9 +22,9 @@
       "destinationBlock": null,
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
-      "sourceSha256": "82bdc987425133665f9d6dd755b6c28819959fbac12d60492e647d2b567c9893",
-      "renderedSha256": "82bdc987425133665f9d6dd755b6c28819959fbac12d60492e647d2b567c9893"
+      "sourceRevision": "5ea2ca027fc54201c55da53a2eb8cf463817594c",
+      "sourceSha256": "aba06a67ce199418963a17d9a61a2f1927b38196ecc751e47d5c9501a40eb322",
+      "renderedSha256": "aba06a67ce199418963a17d9a61a2f1927b38196ecc751e47d5c9501a40eb322"
     },
     {
       "id": "cedrus-documentation",
@@ -34,9 +34,9 @@
       "destinationBlock": null,
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
-      "sourceSha256": "39ae5c56a4c29ceed249c85a96cf57c7ca56ebc1b3677b69e0121cc1f9491964",
-      "renderedSha256": "39ae5c56a4c29ceed249c85a96cf57c7ca56ebc1b3677b69e0121cc1f9491964"
+      "sourceRevision": "5ea2ca027fc54201c55da53a2eb8cf463817594c",
+      "sourceSha256": "6bd05d5a9368b4e6267699b86982a660e8c2e550109adadedd1918c08aa60a0f",
+      "renderedSha256": "6bd05d5a9368b4e6267699b86982a660e8c2e550109adadedd1918c08aa60a0f"
     },
     {
       "id": "cedrus-worktree",
@@ -46,9 +46,9 @@
       "destinationBlock": null,
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
-      "sourceSha256": "6e8ac9089d991c287fd522a39b3f20c1c5ee874eada2a45d297a620db2a0e2e9",
-      "renderedSha256": "6e8ac9089d991c287fd522a39b3f20c1c5ee874eada2a45d297a620db2a0e2e9"
+      "sourceRevision": "5ea2ca027fc54201c55da53a2eb8cf463817594c",
+      "sourceSha256": "4c984dd59c535630db94d7fb1569a3af5d48671b1468e60e255919512b8d53b9",
+      "renderedSha256": "4c984dd59c535630db94d7fb1569a3af5d48671b1468e60e255919512b8d53b9"
     },
     {
       "id": "copilot-ai-core",
@@ -58,9 +58,9 @@
       "destinationBlock": "ai-core",
       "substitutions": [],
       "sourceRepository": "meta",
-      "sourceRevision": "f49710cbff0b5b92528e06a23a6263f2b67ab3f2",
-      "sourceSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f",
-      "renderedSha256": "f59d731a51cc07162aafba78ef5b26698418ef93ba7c7f0fe70e3356f28b959f"
+      "sourceRevision": "5ea2ca027fc54201c55da53a2eb8cf463817594c",
+      "sourceSha256": "94f2a403e652b3a8c4dc43ff8e4d55e18fb3968459377cca47c1ca9045926ddc",
+      "renderedSha256": "94f2a403e652b3a8c4dc43ff8e4d55e18fb3968459377cca47c1ca9045926ddc"
     }
   ]
 }
