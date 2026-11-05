@@ -193,3 +193,46 @@ describe("Effect model", () => {
     });
   });
 });
+
+describe("describes authored maneuver modifiers and limits", () => {
+  const effects: [Effect, string][] = [
+    [{ type: "status", status: "poisoned", duration: 2, stacks: 3 }, " (x3) na 2 rundy"],
+    [{ type: "buff", profile: { profileId: "osłona" }, duration: 2 }, "Wzmacnia na 2 rundy"],
+    [{ type: "debuff", profile: { profileId: "osłona" }, duration: 2 }, "Osłabia na 2 rundy"],
+    [{ type: "multiplier", mode: "self", target: "damageDealt", factor: 2, duration: 1 }, "Mnoży sobie zadawane obrażenia ×2"],
+    [{ type: "multiplier", mode: "target", target: "damageTaken", factor: 0.5, duration: 2 }, "Mnoży celowi otrzymywane obrażenia ×0.5"],
+    [{ type: "stanceRank", target: "state", delta: 2, duration: 1 }, "Podnosi rangę stanu o 2"],
+    [{ type: "stanceRank", delta: 1, duration: 2 }, "Podnosi rangę postawy o 1"],
+    [{ type: "forbidTag", scope: "maneuvers", tag: "defensywne", duration: 2 }, 'Uniemożliwia używanie manewrów z tagiem „defensywne" na 2 rundy'],
+    [{ type: "forbidTag", scope: "stances", tag: "defensywne", duration: 0 }, 'Uniemożliwia używanie postaw z tagiem „defensywne".'],
+    [{ type: "forbidTag", tag: "defensywne", duration: 0 }, "Uniemożliwia używanie postaw i manewrów"],
+    [{ type: "forbidAction", action: "maneuvers", duration: 1 }, "Uniemożliwia używanie manewrów"],
+    [{ type: "forbidAction", action: "spells", duration: 1 }, "Uniemożliwia rzucanie zaklęć"],
+    [{ type: "roll", modifier: "advantage" }, "Przewaga na rzut ataku (2 rzuty, wyższy)"],
+    [{ type: "roll", modifier: "disadvantage" }, "Utrudnienie rzutu ataku (2 rzuty, niższy)"],
+    [{ type: "roll", modifier: "extraDie" }, "Dodatkowa kość obrażeń k6"],
+    [{ type: "roll", modifier: "extraDie", grade: 5 }, "Dodatkowa kość obrażeń k10"],
+    [{ type: "pull", distance: 2 }, "Przyciąga o 2"],
+    [{ type: "damage", damageType: "bezpośrednie", damage: { amount: 2, grade: 3, isPhantom: true, bonus: -2 } }, "Zadaje 2k6w-2 obrażeń"],
+    [{ type: "damage", damageType: "zwyczajne", damage: { amount: 1, grade: 3, bonus: 0 } }, "Zadaje 1k6 obrażeń"],
+    [{ type: "custom", effectType: "unsupported-demo", data: {} }, 'Efekt „unsupported-demo"'],
+  ];
+
+  it.each(effects)("shows the effect's mechanics: %j", (effect, clause) => {
+    const entry = { ...CreateDefaultManeuver(), name: "Próba lodu", cooldown: 0, effects: [effect] };
+    expect(describeManeuver(toManeuverDefinition(entry))).toContain(clause);
+  });
+
+  it("lists resource cost and requirements separately from the effects", () => {
+    const entry = toManeuverDefinition({ ...CreateDefaultManeuver(), name: "Próba lodu", cooldown: 3 });
+    const text = describeManeuver({
+      ...entry, cost: { castTime: "Standardowa", essence: 2 },
+      hardRequirements: [
+        { kind: "weapon", value: "melee" }, { kind: "shield" },
+        { kind: "statusOnTarget", value: "marked" }, { kind: "statusOnSelf", value: "stagger" },
+        { kind: "minStat", stat: "strength", value: 3 },
+      ],
+    });
+    expect(text).toBe("Próba lodu (Standardowa, odnowienie 3, 2 esencji). Wymaga: broń: melee, tarcza, cel pod efektem: marked, efekt na sobie: stagger, strength min. 3.");
+  });
+});

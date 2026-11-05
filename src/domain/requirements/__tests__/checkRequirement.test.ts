@@ -4,6 +4,9 @@ import type { Character } from "@/domain/characters/Character";
 import type { Statistic } from "@/domain/characters/statistics/Statistic";
 import { CreateDefaultManeuver } from "@/domain/characters/combat/Maneuver";
 import { CreateDefaultStance, CreateDefaultState } from "@/domain/characters/combat/Mode";
+import { CreateDefaultWeapon } from "@/domain/characters/equipment/Weapon";
+import { CreateDefaultShield } from "@/domain/characters/equipment/Shield";
+
 import { CreateDefaultPerk } from "@/domain/characters/Perk";
 import { CreateDefaultTalent } from "@/domain/characters/Talent";
 import { CreateDefaultPower, CreateDefaultSpell } from "@/domain/characters/combat/Power";
@@ -409,5 +412,67 @@ describe("checkRequirement", () => {
 
       expect(checkRequirement(requirement, character)).toBe(false);
     });
+  });
+});
+
+describe("equipment and derived requirement boundaries", () => {
+  const character = () => CreateEmptyCharacter({ name: "Borowit", shortName: "Borowit", tags: [], description: "Strażnik" });
+
+  it.each([
+    ["dodge", 6], ["parry", 8], ["recoveryLevel", 3], ["toughness", 4],
+    ["dualWield", 1], ["weaponDiceGrade", 7], ["phantomDamage", 1],
+  ] as const)("accepts the best owned value of %s, including an alternate loadout", (targetKey, value) => {
+    const source = character();
+    const defense = source.defenses[0];
+    source.defenses.push({ ...defense, dodge: 6, parry: 8 });
+    source.health = { ...source.health, recoveryLevel: 3, toughness: 4 };
+    const offense = source.offenses[0];
+    source.offenses.push({
+      ...offense, secondaryWeapon: { ...offense.leadingWeapon, grade: 5 },
+      additionalDamageBonus: { ...offense.damageBonus, grade: 7, isPhantom: true },
+    });
+
+    const requirement = { kind: "ranked", group: "derived", targetKey, value } as const;
+    expect(checkRequirement(requirement, source)).toBe(true);
+    expect(checkRequirement({ ...requirement, value: value + 1 }, source)).toBe(false);
+  });
+
+  it.each(["dodge", "parry", "weaponDiceGrade", "spellStrength", "dualWield", "phantomDamage"])(
+    "does not grant %s when there is no matching loadout", targetKey => {
+      const source = character();
+      source.defenses = [];
+      source.offenses = [];
+      source.powers = [];
+      expect(checkRequirement({ kind: "ranked", group: "derived", targetKey, value: 1 }, source)).toBe(false);
+    },
+  );
+
+  it.each([
+    { targetKey: "weapon.dwuręczna", name: "Topór", style: "Dwuręczny", met: true },
+    { targetKey: "weapon.dwuręczna", name: "Topór dwuręczny", style: "Jednoręczny", met: false },
+    { targetKey: "weapon.kopia", name: "KOPIA rycerska", style: "Jednoręczny", met: true },
+    { targetKey: "weapon.kopia", name: "Pika rycerska", style: "Dwuręczny", met: false },
+  ] as const)("matches $targetKey by its domain category for $name ($style)", ({ targetKey, name, style, met }) => {
+    const source = character();
+    source.equipment.weapons = [{ ...CreateDefaultWeapon(), name, style, tags: ["drzewcowe"] }];
+    expect(checkRequirement({ kind: "ranked", group: "equipment", targetKey, value: 1 }, source)).toBe(met);
+  });
+
+  it("uses the highest tier for shields above the last block boundary", () => {
+    const source = character();
+    source.equipment.shields = [
+      { ...CreateDefaultShield(), block: 5 },
+      { ...CreateDefaultShield(), block: 13 },
+    ];
+    const requirement = { kind: "ranked", group: "equipment", targetKey: "shield", value: 5 } as const;
+    expect(checkRequirement(requirement, source)).toBe(true);
+    expect(checkRequirement({ ...requirement, value: 6 }, source)).toBe(false);
+  });
+
+  it("does not count untagged talents for a tag requirement", () => {
+    const source = character();
+    expect(source.talents).toHaveLength(1);
+    expect(checkRequirement({ kind: "count", groups: ["talents"], value: 1 }, source)).toBe(true);
+    expect(checkRequirement({ kind: "count", groups: ["talents"], value: 1, tag: "zwiad" }, source)).toBe(false);
   });
 });

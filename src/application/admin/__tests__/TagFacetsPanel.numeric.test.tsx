@@ -1,10 +1,13 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { beforeEach, expect, it, vi } from 'vitest';
 import { TagFacetError } from '@/infrastructure/clients/tagFacetsClient';
 
-const { getLayer, upsertFacet, deleteFacet, upsertDefinition, deleteDefinition } = vi.hoisted(() => ({
+const { getLayer, getDrift, upsertFacet, deleteFacet, upsertDefinition, deleteDefinition } = vi.hoisted(() => ({
   getLayer: vi.fn(),
+  getDrift: vi.fn(),
   upsertFacet: vi.fn(),
   deleteFacet: vi.fn(),
   upsertDefinition: vi.fn(),
@@ -16,7 +19,7 @@ vi.mock('@/infrastructure/clients/tagFacetsClient', () => ({
     getLayer,
     upsertDefinition,
     deleteDefinition,
-    getDrift: async () => ({ undefinedTags: [], unusedDefinitions: [], deadFacetEntities: [], partialCoverage: [], ineffectiveAssignments: [], tagEntities: {} }),
+    getDrift,
     upsertFacet,
     deleteFacet,
   },
@@ -24,6 +27,7 @@ vi.mock('@/infrastructure/clients/tagFacetsClient', () => ({
 import TagFacetsPanel from '../TagFacetsPanel';
 
 beforeEach(() => {
+  getDrift.mockReset().mockResolvedValue({ undefinedTags: [], unusedDefinitions: [], deadFacetEntities: [], partialCoverage: [], ineffectiveAssignments: [], tagEntities: {} });
   getLayer.mockReset().mockResolvedValue({ facets: [{ key: 'role', label: 'Rola', order: 1, entities: ['maneuvers'], selectionMode: 'multi', supportsNone: true }], definitions: [], tagEntities: {} });
   upsertDefinition.mockReset().mockResolvedValue(undefined);
   deleteDefinition.mockReset().mockResolvedValue(undefined);
@@ -137,4 +141,80 @@ it('persists scoped aliases without losing existing aliases or metadata', async 
   fireEvent.click(screen.getByRole('button', { name: 'Usuń definicję' }));
   fireEvent.click(screen.getByRole('button', { name: 'Usuń wraz z aliasami' }));
   await waitFor(() => expect(deleteDefinition).toHaveBeenCalledExactlyOnceWith('obrona'));
+});
+
+it('offers only useful categories for unassigned tags and exposes all kinds of drift', async () => {
+  const user = userEvent.setup();
+  getLayer.mockResolvedValue({
+    facets: [
+      { key: 'schools', label: 'Szkoła', order: 2, entities: ['spells'], selectionMode: 'multi', supportsNone: false },
+      { key: 'role', label: 'Rola', order: 1, entities: ['maneuvers'], selectionMode: 'single', supportsNone: true },
+    ],
+    definitions: [],
+    tagEntities: {},
+  });
+  getDrift.mockResolvedValue({
+    ineffectiveAssignments: [{ tag: 'straż', facetKey: 'schools', tagEntities: ['maneuvers'], facetEntities: ['spells'] }],
+    undefinedTags: [{ tag: 'natarcie', entities: ['maneuvers'], occurrences: 3 }],
+    partialCoverage: [{ facetKey: 'role', entity: 'spells', tags: ['osłona', 'ochrona'] }],
+    unusedDefinitions: [{ tag: 'dawna-osłona', facetKey: 'role' }],
+    deadFacetEntities: [{ facetKey: 'schools', entity: 'spells' }],
+    tagEntities: {},
+  });
+  renderPanel();
+
+  expect(await screen.findByText('straż')).toBeVisible();
+  expect(screen.getByText(/2 tagi tej kategorii: osłona, ochrona/)).toBeVisible();
+  expect(screen.getByText('dawna-osłona')).toBeVisible();
+  expect(screen.getByText('schools → Zaklęcia')).toBeVisible();
+
+  const unassigned = within(screen.getByText('natarcie').closest('li')!);
+  await user.click(unassigned.getByRole('combobox'));
+  expect(await screen.findByRole('option', { name: 'Rola (Manewry)' })).toBeVisible();
+  expect(screen.queryByRole('option', { name: 'Szkoła (Zaklęcia)' })).not.toBeInTheDocument();
+  await user.click(screen.getByRole('option', { name: 'Rola (Manewry)' }));
+  await waitFor(() => expect(upsertDefinition).toHaveBeenLastCalledWith({
+    resource: 'definition', action: 'upsert', tag: 'natarcie', facetKey: 'role', aliases: [],
+  }));
+
+  const ineffective = within(screen.getByText('straż').closest('li')!);
+  const previous = ineffective.getByRole('combobox');
+  await waitFor(() => expect(previous).toBeEnabled());
+  await user.click(previous);
+  expect(await screen.findByRole('option', { name: 'Szkoła (Zaklęcia)' })).toBeVisible();
+  await user.click(screen.getByRole('option', { name: 'Rola (Manewry)' }));
+  await waitFor(() => expect(upsertDefinition).toHaveBeenLastCalledWith({
+    resource: 'definition', action: 'upsert', tag: 'straż', facetKey: 'role', aliases: [],
+  }));
+});
+
+it('warns about removing a list from a facet and saves the edited metadata under the same key', async () => {
+  const user = userEvent.setup();
+  getLayer.mockResolvedValue({
+    facets: [{ key: 'role', label: 'Rola', order: 1, entities: ['maneuvers', 'spells'], selectionMode: 'multi', supportsNone: true }],
+    definitions: [{ tag: 'obrona', facetKey: 'role' }],
+    tagEntities: {},
+  });
+  renderPanel();
+
+  fireEvent.click(await screen.findByRole('button', { name: 'Edytuj' }));
+  fireEvent.change(screen.getByPlaceholderText('nazwa'), { target: { value: '  Rola bojowa  ' } });
+  fireEvent.change(screen.getByPlaceholderText('opis — widoczny w filtrze pod nazwą kategorii'), { target: { value: '  Styl walki  ' } });
+  await user.click(screen.getByRole('combobox'));
+  await user.click(await screen.findByRole('option', { name: 'jedna wartość' }));
+  fireEvent.click(screen.getByRole('checkbox', { name: /pokaż/ }));
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Zaklęcia' }));
+  expect(screen.getByText(/Zabierasz: Zaklęcia. 1 tag/)).toBeVisible();
+
+  fireEvent.change(screen.getByPlaceholderText('kolejność'), { target: { value: '1.5' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Zapisz' }));
+  expect(screen.getByRole('alert')).toHaveTextContent('Wpisz liczbę całkowitą');
+  expect(upsertFacet).not.toHaveBeenCalled();
+
+  fireEvent.change(screen.getByPlaceholderText('kolejność'), { target: { value: '2' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Zapisz' }));
+  await waitFor(() => expect(upsertFacet).toHaveBeenCalledExactlyOnceWith({
+    resource: 'facet', action: 'upsert', key: 'role', label: 'Rola bojowa',
+    description: 'Styl walki', order: 2, selectionMode: 'single', supportsNone: false, entities: ['maneuvers'],
+  }));
 });
