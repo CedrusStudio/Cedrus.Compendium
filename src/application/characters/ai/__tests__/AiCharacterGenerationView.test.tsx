@@ -4,7 +4,7 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
+import { createDraftCatalog, createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
 import type { AiCharacterProposal } from '@/domain/ai-character-generation/aiCharacterProposalSchema';
 import { CreateDefaultPerk } from '@/domain/characters/Perk';
 import type { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
@@ -374,6 +374,88 @@ describe('AiCharacterGenerationView', () => {
       ...draft.proposal,
       header: { ...draft.proposal!.header, tags: ['walka', 'sesja-1', 'zwiad'] },
     }));
+  });
+
+
+  it.each([
+    { title: 'Atuty', kind: 'perk', select: (p: AiCharacterProposal) => p.perks },
+    { title: 'Manewry', kind: 'maneuver', select: (p: AiCharacterProposal) => p.combat.maneuvers },
+    { title: 'Postawy', kind: 'stance', select: (p: AiCharacterProposal) => p.combat.stances },
+    { title: 'Stany', kind: 'state', select: (p: AiCharacterProposal) => p.combat.states },
+    { title: 'Bronie', kind: 'weapon', select: (p: AiCharacterProposal) => p.equipment.weapons },
+    { title: 'Zbroje', kind: 'armor', select: (p: AiCharacterProposal) => p.equipment.armors },
+    { title: 'Tarcze', kind: 'shield', select: (p: AiCharacterProposal) => p.equipment.shields },
+    { title: 'Przedmioty', kind: 'inventoryItem', select: (p: AiCharacterProposal) => p.equipment.inventory },
+    { title: 'Wierzchowce', kind: 'mount', select: (p: AiCharacterProposal) => p.equipment.mounts },
+  ] as const)('adds and removes $kind in its own proposal collection', async ({ title, kind, select }) => {
+    const user = userEvent.setup();
+    const draft = createPendingDraft();
+    const entry = createDraftCatalog()[kind];
+    createDraft.mockResolvedValue(draft);
+    catalog.mockImplementation(async (requestedKind: string) => requestedKind === kind ? [{
+      id: entry.id, name: entry.name, entry,
+    }] : []);
+    updateDraft.mockImplementation(async (_id: string, proposal: AiCharacterProposal) => ({ ...draft, proposal }));
+    renderView();
+
+    fireEvent.change(screen.getByLabelText('Opis postaci'), { target: { value: draft.request.description } });
+    fireEvent.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    const row = within((await screen.findByText(title + ':', { exact: true })).parentElement!);
+    await user.click(row.getByRole('button', { name: '+ Dodaj' }));
+    const picker = within(screen.getByRole('dialog', { name: 'Dodaj: ' + title }));
+    await user.click(await picker.findByRole('button', { name: entry.name }));
+    expect(catalog.mock.calls.filter(([requestedKind]) => requestedKind !== 'race')).toEqual([[kind, '']]);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+    await waitFor(() => expect(updateDraft).toHaveBeenCalledTimes(1));
+    const saved = updateDraft.mock.calls[0][1] as AiCharacterProposal;
+    const entries = select(saved);
+    expect(entries).toEqual([expect.objectContaining({ id: entry.id, name: entry.name })]);
+    expect(select(draft.proposal!)).toEqual([]);
+    await waitFor(() => expect(screen.queryByText('Niezapisane zmiany')).not.toBeInTheDocument());
+
+    fireEvent.click(row.getByRole('button', { name: 'Usuń ' + entry.name }));
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+    await waitFor(() => expect(updateDraft).toHaveBeenCalledTimes(2));
+    expect(updateDraft.mock.calls[1][1]).toEqual(draft.proposal);
+  });
+
+  it('shows meaningful balance deviations and permits acceptance with a known review issue', async () => {
+    const user = userEvent.setup();
+    const draft = { ...createPendingDraft(), validationIssues: ['Uzupełnij osłonę.'] };
+    const high = { name: 'Fechtunek', value: 8, median: 4, high: 6, max: 7, band: 'powyżej maksimum' };
+    createDraft.mockResolvedValue(draft);
+    acceptDraft.mockRejectedValueOnce(new Error('conflict')).mockResolvedValueOnce('created-review');
+    balance.mockResolvedValue([{
+      tag: 'walka', characters: 15, speciality: high,
+      attributes: [
+        high,
+        { ...high, name: 'Precyzja', band: 'w normie', value: 5 },
+        { ...high, name: 'Kondycja', band: 'poniżej mediany', value: 0 },
+      ],
+      maneuvers: { value: 2, median: 3, high: 5, band: 'poniżej mediany' },
+      perks: { value: 1, median: 1, high: 4, band: 'w normie' },
+    }]);
+    renderView();
+
+    fireEvent.change(screen.getByLabelText('Opis postaci'), { target: { value: draft.request.description } });
+    await user.click(screen.getByRole('checkbox', { name: /Wolno wymyślić zdolności/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    expect(await screen.findByText('Uzupełnij osłonę.')).toBeVisible();
+    expect(await screen.findByText('(15 postaci w kompendium)')).toBeVisible();
+    expect(screen.getByText(/mediana 4, p90 6, max 7/, { selector: 'li span' })).toBeVisible();
+    expect(screen.queryByText(/^Precyzja 5$/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/^Kondycja 0$/)).not.toBeInTheDocument();
+    expect(createDraft).toHaveBeenCalledWith(expect.objectContaining({
+      constraints: expect.objectContaining({ allowCustomAbilities: true, allowCustomEquipment: false }),
+    }));
+
+    const accept = screen.getByRole('button', { name: 'Zatwierdź mimo braków i popraw w edytorze' });
+    await user.click(accept);
+    expect(await screen.findByText('Nie udało się utworzyć wersji roboczej. Spróbuj ponownie później.')).toBeVisible();
+    expect(navigate).not.toHaveBeenCalled();
+    await user.click(accept);
+    await waitFor(() => expect(navigate).toHaveBeenCalledWith('/characters/created-review/edit?tab=character'));
   });
 
   it('limits reference characters to three distinct entries and sends only the remaining identifiers', async () => {

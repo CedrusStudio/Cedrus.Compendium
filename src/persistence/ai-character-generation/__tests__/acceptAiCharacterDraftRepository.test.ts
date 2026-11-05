@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
+import { createDraftCatalog, createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
+import { CreateDefaultPower } from '@/domain/characters/combat/Power';
 import { AiCharacterDraftAcceptanceConflictError } from '../aiCharacterDraftAcceptanceErrors';
 import { AiCharacterDraftNotFoundError, AiCharacterDraftStateError } from '../aiCharacterDraftErrors';
 
@@ -140,6 +141,99 @@ describe('acceptAiCharacterDraftInTransaction', () => {
     expect(transaction.aiCharacterDraft.updateMany).toHaveBeenCalledExactlyOnceWith({
       where: { id: 'draft-review', apiKeyHash: 'hash-1', status: 'pending' },
       data: { status: 'accepted', acceptedAt: expect.any(Date), acceptedCharacterId: 'created-character' },
+    });
+  });
+
+
+  function withCatalogReferences()
+  {
+    const draft = pendingRecord();
+    const proposal = draft.proposal!;
+    const catalog = createDraftCatalog();
+    const power = {
+      ...CreateDefaultPower(), powerSpecificationId: catalog.powerSpecificationId, spells: [catalog.spell],
+    };
+    proposal.header.raceId = 'race-existing';
+    proposal.perks = [catalog.perk];
+    proposal.combat.maneuvers = [catalog.maneuver];
+    proposal.combat.stances = [catalog.stance];
+    proposal.combat.states = [catalog.state];
+    proposal.combat.powers = [power];
+    proposal.equipment = {
+      weapons: [catalog.weapon], armors: [catalog.armor], shields: [catalog.shield],
+      inventory: [catalog.inventoryItem], mounts: [catalog.mount],
+    };
+    const references = { ...catalog, powerSpecification: { id: catalog.powerSpecificationId }, race: { id: proposal.header.raceId } };
+    const { powerSpecificationId: _specId, ...models } = references;
+    for (const key of Object.keys(models) as (keyof typeof models)[]) {
+      transaction[key].findMany.mockResolvedValue([{ id: models[key].id }]);
+    }
+    transaction.aiCharacterDraft.findUnique.mockResolvedValue(draft);
+    return { draft, models, power };
+  }
+
+  it('links existing library entries and writes spell identifiers into the power', async () => {
+    const { models, power } = withCatalogReferences();
+    await expect(accept()).resolves.toBe('created-character');
+
+    for (const key of Object.keys(models) as (keyof typeof models)[]) {
+      expect(transaction[key].findMany).toHaveBeenCalledExactlyOnceWith({
+        where: { id: { in: [models[key].id] } }, select: { id: true },
+      });
+    }
+    expect(transaction.character.create.mock.calls[0][0].data.race).toEqual({ connect: { id: models.race.id } });
+    const data = transaction.character.update.mock.calls[0][0].data;
+    const connected = (id: string) => ({ connect: [{ id }], create: [], disconnect: [], update: [] });
+    expect(data).toMatchObject({
+      perks: connected(models.perk.id),
+      stances: connected(models.stance.id),
+      states: connected(models.state.id),
+      maneuvers: connected(models.maneuver.id),
+      spells: connected(models.spell.id),
+      powerSpecifications: { connect: [{ id: models.powerSpecification.id }] },
+      weapons: connected(models.weapon.id),
+      armors: connected(models.armor.id),
+      shields: connected(models.shield.id),
+      inventory: connected(models.inventoryItem.id),
+      mounts: connected(models.mount.id),
+      powers: [{ ...power, spells: undefined, spellsIds: [models.spell.id] }],
+    });
+  });
+
+  it.each([
+    ['spell', 'Zaklęcie'], ['powerSpecification', 'Specyfikacja mocy'],
+    ['weapon', 'Broń'], ['armor', 'Zbroja'], ['shield', 'Tarcza'],
+    ['inventoryItem', 'Przedmiot'], ['mount', 'Wierzchowiec'],
+    ['perk', 'Atut'], ['stance', 'Postawa'], ['state', 'Stan'], ['maneuver', 'Manewr'],
+  ] as const)('rejects a missing %s before creating the character', async (model, label) => {
+    withCatalogReferences();
+    transaction[model].findMany.mockResolvedValue([]);
+    await expect(accept()).rejects.toMatchObject({
+      issues: [expect.stringMatching(new RegExp('^' + label + ' użyty'))],
+    });
+    expect(transaction.character.create).not.toHaveBeenCalled();
+    expect(transaction.aiCharacterDraft.updateMany).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    { permitted: 'equipment', allowed: 'weapon', blocked: 'maneuver', label: 'Manewr', relation: 'weapons' },
+    { permitted: 'abilities', allowed: 'maneuver', blocked: 'weapon', label: 'Broń', relation: 'maneuvers' },
+  ] as const)('honors the independent permission to author $permitted', async ({ permitted, allowed, blocked, label, relation }) => {
+    const { draft, models } = withCatalogReferences();
+    draft.request.constraints = {
+      language: 'pl-PL', allowCustomEquipment: permitted === 'equipment', allowCustomAbilities: permitted === 'abilities',
+    };
+    transaction[allowed].findMany.mockResolvedValue([]);
+    transaction[blocked].findMany.mockResolvedValue([]);
+    await expect(accept()).rejects.toMatchObject({
+      issues: [expect.stringMatching(new RegExp('^' + label + ' użyty'))],
+    });
+    expect(transaction.character.create).not.toHaveBeenCalled();
+
+    transaction[blocked].findMany.mockResolvedValue([{ id: models[blocked].id }]);
+    await expect(accept()).resolves.toBe('created-character');
+    expect(transaction.character.update.mock.calls[0][0].data[relation]).toMatchObject({
+      create: [expect.objectContaining({ id: models[allowed].id })], connect: [],
     });
   });
 
