@@ -1,0 +1,29 @@
+name: Shared developer guidance
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  shared-guidance:
+    name: Check shared developer guidance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: owner
+          persist-credentials: false
+      - uses: actions/checkout@v6
+        with:
+          repository: dr-marek-jaskula/Cedrus.Meta
+          ref: main
+          fetch-depth: 0
+          path: meta-source
+          persist-credentials: false
+          token: ${{ secrets.CEDRUS_META_READ_TOKEN }}
+      - uses: ./meta-source/.github/actions/check-guidance
+        with:
+          owner-root: owner

@@ -51,7 +51,7 @@ coverage values, run link and any separately agreed follow-ups before closing th
 
 Resolve COMP-Q1 first, then COMP-Q2. Recheck the current checkout and dependency baseline
 before implementation; these recorded counts are evidence, not assumptions about future
-source. Developer-guidance integrity remains `npm run verify:ai-guidance`.
+source. See the [development guide](../docs/development.md#guidance-provenance-and-updates) for developer-guidance checks.
 Original M5b evidence is in [the local receipt](../docs/history/m5b-guidance-20261103.md)
 and [Meta integration evidence](https://github.com/dr-marek-jaskula/Cedrus.Meta/blob/main/docs/history/m5b-application-guidance.md).
 No code, test, compiler configuration or coverage threshold is changed by recording this plan.
