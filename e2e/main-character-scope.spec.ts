@@ -27,8 +27,11 @@ test('main character defaults into scope while manual replacement and clearing s
   await main.click();
   await page.getByRole('dialog').getByRole('button', { name: new RegExp(otherName) }).click();
   await expect(other).toBeVisible();
+  // Let mocked API responses settle before leaving each document in WebKit.
+  await page.waitForLoadState('networkidle');
   await page.reload();
   await expect(other).toBeVisible();
+  await page.waitForLoadState('networkidle');
   await page.goto('/compendium/maneuvers');
   await expect(other).toBeVisible();
   await other.click();
@@ -38,6 +41,7 @@ test('main character defaults into scope while manual replacement and clearing s
   await expect.poll(() => page.evaluate(() => Object.keys(sessionStorage)
     .filter(key => key.startsWith('compendium-character-scope:'))
     .some(key => JSON.parse(sessionStorage.getItem(key)!).explicitlyCleared === true))).toBe(true);
+  await page.waitForLoadState('networkidle');
   await page.reload();
   await expect(empty).toBeVisible();
   await expect(page.getByRole('checkbox', { name: 'Tylko posiadane' })).toHaveCount(0);
