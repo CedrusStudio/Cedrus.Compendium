@@ -240,7 +240,7 @@ function TagEditor({ tags, onChange }: { tags: readonly string[]; onChange: (tag
 
       <Popover open={open} onOpenChange={next => { setOpen(next); if (!next) setSearch(''); }}>
         <PopoverTrigger asChild>
-          <Button type="button" variant="outline" size="sm" role="combobox" aria-expanded={open}>
+          <Button type="button" variant="outline" size="sm" role="combobox" aria-label="Dodaj tag" aria-expanded={open}>
             Dodaj tag
             <ChevronsUpDown className="ml-1 h-3 w-3 opacity-50" />
           </Button>

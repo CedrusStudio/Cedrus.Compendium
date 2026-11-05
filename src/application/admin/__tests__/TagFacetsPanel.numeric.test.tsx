@@ -3,11 +3,19 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, expect, it, vi } from 'vitest';
 import { TagFacetError } from '@/infrastructure/clients/tagFacetsClient';
 
-const { upsertFacet, deleteFacet } = vi.hoisted(() => ({ upsertFacet: vi.fn(), deleteFacet: vi.fn() }));
+const { getLayer, upsertFacet, deleteFacet, upsertDefinition, deleteDefinition } = vi.hoisted(() => ({
+  getLayer: vi.fn(),
+  upsertFacet: vi.fn(),
+  deleteFacet: vi.fn(),
+  upsertDefinition: vi.fn(),
+  deleteDefinition: vi.fn(),
+}));
 vi.mock('@/infrastructure/clients/tagFacetsClient', () => ({
   TagFacetError: class extends Error {},
   default: {
-    getLayer: async () => ({ facets: [{ key: 'role', label: 'Rola', order: 1, entities: ['maneuvers'], selectionMode: 'multi', supportsNone: true }], definitions: [], tagEntities: {} }),
+    getLayer,
+    upsertDefinition,
+    deleteDefinition,
     getDrift: async () => ({ undefinedTags: [], unusedDefinitions: [], deadFacetEntities: [], partialCoverage: [], ineffectiveAssignments: [], tagEntities: {} }),
     upsertFacet,
     deleteFacet,
@@ -16,6 +24,9 @@ vi.mock('@/infrastructure/clients/tagFacetsClient', () => ({
 import TagFacetsPanel from '../TagFacetsPanel';
 
 beforeEach(() => {
+  getLayer.mockReset().mockResolvedValue({ facets: [{ key: 'role', label: 'Rola', order: 1, entities: ['maneuvers'], selectionMode: 'multi', supportsNone: true }], definitions: [], tagEntities: {} });
+  upsertDefinition.mockReset().mockResolvedValue(undefined);
+  deleteDefinition.mockReset().mockResolvedValue(undefined);
   upsertFacet.mockReset().mockResolvedValue(undefined);
   deleteFacet.mockReset().mockResolvedValue(undefined);
 });
@@ -86,4 +97,42 @@ it('deletes an empty category only after explicit confirmation', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Usuń kategorię' }));
   fireEvent.click(screen.getByRole('button', { name: 'Potwierdź usunięcie' }));
   await waitFor(() => expect(deleteFacet).toHaveBeenCalledExactlyOnceWith('role'));
+});
+
+it('persists scoped aliases without losing existing aliases or metadata', async () => {
+  const original = { alias: 'strażnik', entities: ['maneuvers'] };
+  const definition = { tag: 'obrona', facetKey: 'role', label: 'Obrona', order: 3, aliases: [original] };
+  getLayer.mockResolvedValue({
+    facets: [{ key: 'role', label: 'Rola', order: 1, entities: ['maneuvers', 'spells'], selectionMode: 'multi', supportsNone: true }],
+    definitions: [definition],
+    tagEntities: {},
+  });
+  renderPanel();
+
+  fireEvent.click(await screen.findByRole('button', { name: 'Tagi (1)' }));
+  const input = screen.getByPlaceholderText('nowy alias');
+  const add = screen.getByRole('button', { name: 'Dodaj alias' });
+  expect(add).toBeDisabled();
+  fireEvent.change(input, { target: { value: '  osłona  ' } });
+  expect(add).toBeDisabled();
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Zaklęcia' }));
+  fireEvent.click(add);
+
+  await waitFor(() => expect(upsertDefinition).toHaveBeenLastCalledWith({
+    ...definition, resource: 'definition', action: 'upsert',
+    aliases: [original, { alias: 'osłona', entities: ['spells'] }],
+  }));
+  await waitFor(() => expect(input).toHaveValue(''));
+
+  fireEvent.click(screen.getByRole('button', { name: /strażnik/ }));
+  await waitFor(() => expect(upsertDefinition).toHaveBeenLastCalledWith({
+    ...definition, resource: 'definition', action: 'upsert', aliases: [],
+  }));
+
+  fireEvent.click(screen.getByRole('button', { name: 'Usuń definicję' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Anuluj' }));
+  expect(deleteDefinition).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button', { name: 'Usuń definicję' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Usuń wraz z aliasami' }));
+  await waitFor(() => expect(deleteDefinition).toHaveBeenCalledExactlyOnceWith('obrona'));
 });

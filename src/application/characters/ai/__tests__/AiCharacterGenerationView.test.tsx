@@ -1,11 +1,12 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
 import type { AiCharacterProposal } from '@/domain/ai-character-generation/aiCharacterProposalSchema';
+import { CreateDefaultPerk } from '@/domain/characters/Perk';
 import type { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 
 const { createDraft, rejectDraft, balance, updateDraft, acceptDraft, navigate, catalog, discardPrepared } = vi.hoisted(() => ({
@@ -252,6 +253,127 @@ describe('AiCharacterGenerationView', () => {
     await waitFor(() => expect(updateDraft).toHaveBeenLastCalledWith('draft-review', expect.objectContaining({
       header: expect.objectContaining({ raceId: null }),
     })));
+  });
+
+  it('saves numeric changes in the correct statistic, health and combat slots', async () => {
+    const user = userEvent.setup();
+    const draft = createPendingDraft();
+    const proposal = draft.proposal!;
+    const defense = { ...proposal.combat.defenses[0], id: '01K7QBNAVF1VY58R2G1ASKYMZG', name: 'Obrona dystansowa' };
+    const offense = { ...structuredClone(proposal.combat.offenses[0]), id: '01K7QBNAVF1VY58R2G1ASKYMZH', name: 'Atak dystansowy' };
+    proposal.combat.defenses.push(defense);
+    proposal.combat.offenses.push(offense);
+    createDraft.mockResolvedValue(draft);
+    updateDraft.mockImplementation(async (_id: string, next: AiCharacterProposal) => ({ ...draft, proposal: next }));
+    renderView();
+
+    await user.type(screen.getByLabelText('Opis postaci'), 'Zwiadowczyni z lodową magią.');
+    await user.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    await screen.findByText('Obrona dystansowa');
+
+    fireEvent.change(screen.getByLabelText('wartość: siła'), { target: { value: '3' } });
+    fireEvent.change(screen.getByLabelText('żywotność'), { target: { value: '7' } });
+
+    const defenseSet = within(screen.getByText(defense.name).parentElement!.parentElement!);
+    await user.click(defenseSet.getByRole('radio', { name: 'domyślny' }));
+    fireEvent.change(defenseSet.getByLabelText('pancerz'), { target: { value: '4' } });
+
+    const offenseSet = within(screen.getByText(offense.name).parentElement!.parentElement!);
+    await user.click(offenseSet.getByRole('radio', { name: 'domyślny' }));
+    const weaponSlot = within(offenseSet.getByText('broń wiodąca', { exact: false }).parentElement!);
+    fireEvent.change(weaponSlot.getByLabelText('kości'), { target: { value: '2' } });
+    fireEvent.change(weaponSlot.getByLabelText('zasięg kryt.'), { target: { value: '1' } });
+
+    await user.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+
+    await waitFor(() => expect(updateDraft).toHaveBeenCalledWith(draft.id, {
+      ...proposal,
+      statistics: {
+        ...proposal.statistics,
+        characteristics: {
+          ...proposal.statistics.characteristics,
+          strength: { ...proposal.statistics.characteristics.strength, value: 3 },
+        },
+      },
+      combat: {
+        ...proposal.combat,
+        health: { ...proposal.combat.health, vitality: 7 },
+        defenses: [proposal.combat.defenses[0], { ...defense, protection: 4 }],
+        offenses: [
+          proposal.combat.offenses[0],
+          {
+            ...offense,
+            leadingWeapon: {
+              ...offense.leadingWeapon,
+              amount: 2,
+              critical: { ...offense.leadingWeapon.critical, range: 1 },
+            },
+          },
+        ],
+        defaultDefenseId: defense.id,
+        defaultOffenseId: offense.id,
+      },
+    }));
+  });
+
+  it('replaces a compendium perk with the complete record for the new rank', async () => {
+    const user = userEvent.setup();
+    const draft = createPendingDraft();
+    const low = { ...CreateDefaultPerk(), name: 'Fortel', grade: 1 };
+    const high = { ...CreateDefaultPerk(), id: '01K7QBNAVF1VY58R2G1ASKYMZJ', name: 'Fortel', grade: 2, price: 4, description: 'Zmyłka w walce' };
+    draft.proposal!.perks = [low];
+    createDraft.mockResolvedValue(draft);
+    updateDraft.mockImplementation(async (_id: string, next: AiCharacterProposal) => ({ ...draft, proposal: next }));
+    catalog.mockResolvedValue([{
+      id: high.id,
+      name: high.name,
+      grade: high.grade,
+      price: high.price,
+      description: high.description,
+      requirements: ['Zręczność'],
+      entry: high,
+    }]);
+    renderView();
+
+    await user.type(screen.getByLabelText('Opis postaci'), 'Zwiadowczyni z lodową magią.');
+    await user.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    await user.click(await screen.findByRole('button', { name: 'Fortel (1)' }));
+    const picker = within(screen.getByRole('dialog'));
+    expect(picker.getByRole('textbox', { name: 'Szukaj w kompendium' })).toHaveValue('Fortel');
+    expect(await picker.findByText('Wymagania: Zręczność')).toBeVisible();
+    await user.click(picker.getByRole('button', { name: /Fortel \(2\).*koszt 4/ }));
+    expect(catalog).toHaveBeenCalledWith('perk', 'Fortel');
+    expect(screen.queryByRole('button', { name: 'Fortel (1)' })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+
+    await waitFor(() => expect(updateDraft).toHaveBeenCalledWith(draft.id, {
+      ...draft.proposal,
+      perks: [high],
+    }));
+  });
+
+  it('keeps character and session tags together in the draft and normalizes a new tag', async () => {
+    const user = userEvent.setup();
+    const draft = createPendingDraft();
+    createDraft.mockResolvedValue(draft);
+    updateDraft.mockImplementation(async (_id: string, next: AiCharacterProposal) => ({ ...draft, proposal: next }));
+    renderView();
+
+    await user.type(screen.getByLabelText('Opis postaci'), 'Zwiadowczyni z lodową magią.');
+    await user.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    const addTag = await screen.findByRole('combobox', { name: 'Dodaj tag' });
+    await user.click(addTag);
+    expect(await screen.findByText('Sesje')).toBeVisible();
+    await user.click(screen.getByRole('option', { name: 'sesja-1' }));
+    await user.click(addTag);
+    await user.type(screen.getByPlaceholderText('Szukaj tagu…'), '  ZWIAD ');
+    await user.click(await screen.findByRole('option', { name: /Użyj: „zwiad"/ }));
+    await user.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+
+    await waitFor(() => expect(updateDraft).toHaveBeenCalledWith(draft.id, {
+      ...draft.proposal,
+      header: { ...draft.proposal!.header, tags: ['walka', 'sesja-1', 'zwiad'] },
+    }));
   });
 
   it('limits reference characters to three distinct entries and sends only the remaining identifiers', async () => {
