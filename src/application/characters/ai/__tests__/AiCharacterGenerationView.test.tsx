@@ -1,20 +1,22 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { aiCharacterDraftSchema } from '@/domain/ai-character-generation/aiCharacterDraft';
+import { createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
 import type { AiCharacterProposal } from '@/domain/ai-character-generation/aiCharacterProposalSchema';
-import { CreateEmptyCharacter } from '@/domain/characters/Character';
+import type { CharacterSummary } from '@/infrastructure/searchQueries/characters/createCharacterSummaryQuery';
 
-const { createDraft, rejectDraft, balance, updateDraft, acceptDraft, navigate } = vi.hoisted(() => ({
+const { createDraft, rejectDraft, balance, updateDraft, acceptDraft, navigate, catalog, discardPrepared } = vi.hoisted(() => ({
   createDraft: vi.fn(),
   rejectDraft: vi.fn(),
   balance: vi.fn(),
   updateDraft: vi.fn(),
   acceptDraft: vi.fn(),
   navigate: vi.fn(),
+  catalog: vi.fn(),
+  discardPrepared: vi.fn(),
 }));
 
 vi.mock('next/navigation', () => ({
@@ -28,6 +30,8 @@ vi.mock('@/infrastructure/clients/aiCharacterDraftsClient', () => ({
     balance,
     update: updateDraft,
     accept: acceptDraft,
+    catalog,
+    discardPreparedLocalDraft: discardPrepared,
   },
 }));
 
@@ -36,79 +40,29 @@ vi.mock('@/infrastructure/clients/tagsClient', () => ({
 }));
 
 vi.mock('@/application/characters/components/CharacterPickerGrid', () => ({
-  default: () => <div data-testid="character-picker-grid" />,
+  default: ({ onSelectCharacterSummary }: { onSelectCharacterSummary: (summary: CharacterSummary) => void }) => (
+    <div>
+      {['Aldara', 'Borowit', 'Czarny', 'Daria'].map((name, index) => (
+        <button key={name} onClick={() => onSelectCharacterSummary({ id: `reference-${index}`, name, shortName: name, tags: [] })}>
+          {name}
+        </button>
+      ))}
+    </div>
+  ),
 }));
 
 import AiCharacterGenerationView from '../AiCharacterGenerationView';
 
-function renderView()
+function renderView(provider?: 'local')
 {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
   return render(
     <QueryClientProvider client={queryClient}>
-      <AiCharacterGenerationView />
+      <AiCharacterGenerationView provider={provider} />
     </QueryClientProvider>,
   );
 }
 
-
-function pendingDraft()
-{
-  const name = 'Aldara zwiadowczyni';
-  const shortName = 'Aldara';
-  const description = 'Zwiadowczyni z lodową magią.';
-  const tags = ['walka'];
-  const character = CreateEmptyCharacter({ name, shortName, description, tags });
-  const now = new Date('2026-11-05T08:00:00Z');
-
-  return aiCharacterDraftSchema.parse({
-    id: 'draft-review',
-    status: 'pending',
-    request: { description },
-    proposal: {
-      header: { name, shortName, description, tags, raceId: null },
-      perks: [],
-      statistics: { characteristics: character.characteristics, attributes: character.attributes },
-      talents: { talents: character.talents },
-      equipment: { weapons: [], armors: [], shields: [], inventory: [], mounts: [] },
-      combat: {
-        health: character.health,
-        offenses: character.offenses,
-        defenses: character.defenses,
-        defaultOffenseId: character.defaultOffenseId,
-        defaultDefenseId: character.defaultDefenseId,
-        maneuvers: [],
-        stances: [],
-        states: [],
-        powers: [],
-      },
-      buffs: {
-        buffProfiles: [],
-        activeBuffProfileIds: [],
-        stanceModifierProfiles: [],
-        activeStanceModifierProfileIds: [],
-        stateModifierProfiles: [],
-        activeStateModifierProfileIds: [],
-        otherModifierProfiles: [],
-        activeOtherModifierProfileIds: [],
-      },
-      explanation: 'Zwiad i obrona w walce na dystans.',
-      warnings: ['Sprawdź wyposażenie przed sesją.'],
-    },
-    validationIssues: [],
-    referenceCharacterIds: [],
-    provider: 'fixture',
-    model: 'fixture',
-    promptVersion: 'character-draft-v1',
-    generationUsage: null,
-    costMicroUsd: 0,
-    expiresAt: new Date('2026-11-06T08:00:00Z'),
-    acceptedAt: null,
-    acceptedCharacterId: null,
-    createdAt: now,
-    updatedAt: now,
-  });
-}
 
 describe('AiCharacterGenerationView', () => {
   beforeEach(() => {
@@ -118,6 +72,8 @@ describe('AiCharacterGenerationView', () => {
     updateDraft.mockReset();
     acceptDraft.mockReset();
     navigate.mockReset();
+    catalog.mockReset().mockResolvedValue([]);
+    discardPrepared.mockReset();
   });
 
   it('keeps generation disabled until the description meets the server minimum', async () => {
@@ -208,7 +164,7 @@ describe('AiCharacterGenerationView', () => {
 
   it('keeps unsaved edits local, saves the reviewed proposal and opens the accepted character', async () => {
     const user = userEvent.setup();
-    const draft = pendingDraft();
+    const draft = createPendingDraft();
     createDraft.mockResolvedValue(draft);
     updateDraft.mockRejectedValueOnce(new Error('save failed'));
     updateDraft.mockImplementation(async (_id: string, proposal: AiCharacterProposal) => ({
@@ -249,7 +205,7 @@ describe('AiCharacterGenerationView', () => {
 
   it('allows retry after a failed request and removes a discarded draft from the preview', async () => {
     const user = userEvent.setup();
-    createDraft.mockRejectedValueOnce(new Error('offline')).mockResolvedValueOnce(pendingDraft());
+    createDraft.mockRejectedValueOnce(new Error('offline')).mockResolvedValueOnce(createPendingDraft());
     rejectDraft.mockResolvedValue(undefined);
     renderView();
 
@@ -264,5 +220,74 @@ describe('AiCharacterGenerationView', () => {
     await waitFor(() => expect(screen.queryByText('Aldara zwiadowczyni')).not.toBeInTheDocument());
     expect(rejectDraft).toHaveBeenCalledWith('draft-review');
     expect(generate).toBeEnabled();
+  });
+
+  it('saves the chosen compendium race by identifier and lets it be removed from the draft', async () => {
+    const user = userEvent.setup();
+    const draft = createPendingDraft();
+    createDraft.mockResolvedValue(draft);
+    catalog.mockImplementation(async (kind: string, query: string) => kind === 'race' && query === 'elf'
+      ? [{ id: 'race-elf', name: 'Elf', entry: { id: 'race-elf', name: 'Elf' } }]
+      : []);
+    updateDraft.mockImplementation(async (_id: string, proposal: AiCharacterProposal) => ({
+      ...draft, proposal, updatedAt: new Date('2026-11-05T08:02:00Z'),
+    }));
+    renderView();
+
+    await user.type(screen.getByLabelText('Opis postaci'), 'Zwiadowczyni z lodową magią.');
+    await user.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    await user.click(await screen.findByRole('button', { name: 'Wybierz rasę' }));
+    const picker = within(screen.getByRole('dialog'));
+    expect(await picker.findByText('Nic nie pasuje do tej nazwy.')).toBeVisible();
+    await user.type(picker.getByRole('textbox', { name: 'Szukaj w kompendium' }), 'elf{Enter}');
+    await user.click(await picker.findByRole('button', { name: 'Elf' }));
+    expect(catalog).toHaveBeenCalledWith('race', 'elf');
+    await user.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+    await waitFor(() => expect(updateDraft).toHaveBeenLastCalledWith('draft-review', expect.objectContaining({
+      header: expect.objectContaining({ raceId: 'race-elf' }),
+    })));
+
+    await user.click(screen.getByRole('button', { name: 'Usuń rasę' }));
+    await user.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+    await waitFor(() => expect(updateDraft).toHaveBeenLastCalledWith('draft-review', expect.objectContaining({
+      header: expect.objectContaining({ raceId: null }),
+    })));
+  });
+
+  it('limits reference characters to three distinct entries and sends only the remaining identifiers', async () => {
+    const user = userEvent.setup();
+    createDraft.mockResolvedValue({ ...createPendingDraft(), proposal: null });
+    renderView();
+    const add = screen.getByRole('button', { name: 'Dodaj postać referencyjną' });
+    await user.click(add);
+    await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Aldara' }));
+    await user.click(add);
+    await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Aldara' }));
+    expect(screen.getByRole('dialog')).toBeVisible();
+    await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Borowit' }));
+    await user.click(add);
+    await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Czarny' }));
+    expect(add).toBeDisabled();
+    await user.click(screen.getByRole('button', { name: /Borowit ×/ }));
+    expect(add).toBeEnabled();
+    await user.type(screen.getByLabelText('Opis postaci'), 'Zwiadowczyni z lodową magią.');
+    await user.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    await waitFor(() => expect(createDraft).toHaveBeenCalledWith(expect.objectContaining({
+      referenceCharacterIds: ['reference-0', 'reference-2'],
+    })));
+  });
+
+  it('reports local-file removal independently of generating or accepting a draft', async () => {
+    const user = userEvent.setup();
+    discardPrepared.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
+    renderView('local');
+    const discard = screen.getByRole('button', { name: 'Usuń przygotowaną wersję roboczą' });
+    expect(screen.getByRole('button', { name: 'Wczytaj przygotowaną wersję roboczą' })).toBeDisabled();
+    await user.click(discard);
+    expect(await screen.findByText(/Usunięto draft.json/)).toBeVisible();
+    await user.click(discard);
+    expect(await screen.findByText('Nie było czego usuwać.')).toBeVisible();
+    expect(createDraft).not.toHaveBeenCalled();
+    expect(acceptDraft).not.toHaveBeenCalled();
   });
 });

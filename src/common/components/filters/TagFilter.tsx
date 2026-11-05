@@ -107,6 +107,7 @@ export default function TagFilter
 
   const activeModeTags = mode === 'include' ? includedTags : excludedTags;
 
+  const triggerLabel = isLoading ? "Ładowanie..." : mode === 'include' ? "Dołącz tag" : "Wyklucz tag";
   const hasAnyTags = includedTags.length > 0 || excludedTags.length > 0;
 
   return (
@@ -120,11 +121,12 @@ export default function TagFilter
               <Button
                 variant="outline"
                 role="combobox"
+                aria-label={triggerLabel}
                 aria-expanded={open}
                 className="justify-between"
                 disabled={isLoading}
               >
-                {isLoading ? "Ładowanie..." : mode === 'include' ? "Dołącz tag" : "Wyklucz tag"}
+                {triggerLabel}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -197,6 +199,8 @@ export default function TagFilter
           <Button
             variant={mode === 'include' ? 'default' : 'outline'}
             size="icon"
+            aria-label="Tryb dołączania tagów"
+            aria-pressed={mode === 'include'}
             onClick={() => setMode('include')}
             type="button"
             >
@@ -205,6 +209,8 @@ export default function TagFilter
           <Button
             variant={mode === 'exclude' ? 'destructive' : 'outline'}
             size="icon"
+            aria-label="Tryb wykluczania tagów"
+            aria-pressed={mode === 'exclude'}
             onClick={() => setMode('exclude')}
             type="button"
             >

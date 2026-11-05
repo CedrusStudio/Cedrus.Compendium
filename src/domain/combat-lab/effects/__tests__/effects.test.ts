@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { flattenEffects, isEffectOfType, type Effect } from "@/domain/combat-lab/effects/Effect";
+import { flattenEffects, isEffectOfType, type Effect, type EffectCondition, type ScaleSource } from "@/domain/combat-lab/effects/Effect";
 import { effectSchema, maneuverDefinitionExtrasSchema } from "@/domain/combat-lab/effects/effectSchema";
 import { describeManeuver } from "@/domain/combat-lab/effects/describeManeuver";
 import { toManeuverDefinition } from "@/domain/combat-lab/effects/ManeuverDefinition";
@@ -113,6 +113,73 @@ describe("Effect model", () => {
       expect(describeManeuver(maneuver)).toBe(
         "Pchnięcie (Standardowa). Zadaje 2k10+3 obrażeń blokowanych.",
       );
+    });
+  });
+
+  describe("descriptions of nested combat rules", () => {
+    const describeEffectText = (effect: Effect) => describeManeuver(toManeuverDefinition({
+      ...CreateDefaultManeuver(), name: "Manewr", cooldown: 0, effects: [effect],
+    }));
+
+    const conditions: [EffectCondition, string][] = [
+      [{ kind: "opponentAttackKind", value: "rangedMagic" }, "Tylko przeciw magii dystansowej"],
+      [{ kind: "targetHasStatus", status: "bleeding" }, "Gdy cel ma Krwawienie"],
+      [{ kind: "selfHasStatus", status: "bleeding" }, "Gdy masz Krwawienie"],
+      [{ kind: "onCritical" }, "Przy trafieniu krytycznym"],
+      [{ kind: "onDamageDealt" }, "Gdy zadano obrażenia"],
+      [{ kind: "selfAirborne" }, "Atakując z powietrza"],
+      [{ kind: "opponentCharging" }, "Tylko przeciw szarży"],
+      [{ kind: "hasResource", resource: "essence", min: 3 }, "Gdy masz ≥3 esencji"],
+    ];
+
+    it.each(conditions)("keeps the trigger visible in the description: %j", (condition, label) => {
+      const text = describeEffectText({ type: "when", condition, then: [{ type: "push", distance: 2 }] });
+      expect(text).toBe(`Manewr (Standardowa). ${label}: odpycha o 2.`);
+    });
+
+    const sources: [ScaleSource, string][] = [
+      [{ kind: "selfDice" }, "kość broni"],
+      [{ kind: "opponentDice" }, "kość przeciwnika"],
+      [{ kind: "opponentImmunity" }, "niewrażliwość wroga"],
+      [{ kind: "selfResource", resource: "essence" }, "esencję"],
+      [{ kind: "selfStatusStacks", status: "bleeding" }, "stack: Krwawienie"],
+      [{ kind: "targetStatusStacks", status: "bleeding" }, "stack celu: Krwawienie"],
+      [{ kind: "selfStat", group: "characteristics", key: "strength" }, "siła (twoja)"],
+      [{ kind: "opponentStat", group: "attributes", key: "reflex" }, "refleks przeciwnika"],
+    ];
+
+    it.each(sources)("identifies the scale source and its cap: %j", (source, label) => {
+      const text = describeEffectText({
+        type: "scale", source, per: 2, cap: 3,
+        effect: { type: "heal", amount: { amount: 1, grade: 3, bonus: -1, isPhantom: true } },
+      });
+      expect(text).toBe(`Manewr (Standardowa). Za każde 2 ${label}: leczy 1k6w-1 punktów zdrowia (maks. 3×).`);
+    });
+
+    it("distinguishes the attacker and defender pools, reward target and margin cap", () => {
+      const text = describeEffectText({
+        type: "contested",
+        attacker: { pool: [{ anyOf: [{ group: "attributes", key: "fencing" }, { group: "attributes", key: "precision" }] }], modifier: 2, dieGradeDelta: 1, rollMod: "advantage" },
+        defender: { pool: [{ anyOf: [{ group: "attributes", key: "reflex" }] }], modifier: -1, dieGradeDelta: -1, rollMod: "disadvantage" },
+        onWin: [{ type: "pull", distance: 2 }],
+        onWinTarget: "self",
+        perMargin: { per: 2, cap: 3, effect: { type: "resource", resource: "essence", delta: 1 } },
+      });
+
+      expect(text).toBe("Manewr (Standardowa). Test sporny fechtunek/precyzja+2 [przewaga, kość +1] vs refleks-1 [utrudnienie, kość -1] → przy wygranej (na siebie): przyciąga o 2; za każde 2 oczek przewagi: przywraca 1 esencji (maks. 3×).");
+    });
+
+    it("shows who rolls a save and distinguishes flat failure from scaled damage", () => {
+      const text = describeEffectText({
+        type: "save",
+        pool: { pool: [{ anyOf: [{ group: "attributes", key: "fortitude" }] }] },
+        who: "self",
+        st: 7,
+        onFail: [{ type: "resource", resource: "essence", delta: -2 }],
+        perMarginOfFailure: { per: 1, effect: { type: "damage", damage: { amount: 0, grade: 0, bonus: 1 }, damageType: "zwyczajne" } },
+      });
+
+      expect(text).toBe("Manewr (Standardowa). Test wytrwałość (atakujący) o ST 7 → przy porażce: odbiera 2 esencji; za każde oczko porażki: zadaje 1 obrażeń zwyczajnych.");
     });
   });
 
