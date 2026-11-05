@@ -155,3 +155,97 @@ describe('test-based effects', () => {
     }]));
   });
 });
+
+describe('effect type and source changes', () => {
+  async function choose(user: ReturnType<typeof userEvent.setup>, label: string, option: string)
+  {
+    const field = within(screen.getByText(label, { exact: true }).parentElement!);
+    await user.click(field.getByRole('combobox'));
+    await user.click(await screen.findByRole('option', { name: option }));
+  }
+
+  it('stores the chosen damage category and removes an optional checkbox value when cleared', async () => {
+    const user = userEvent.setup();
+    const save = renderEditor([{ type: 'damage', damage: { amount: 2, grade: 3, bonus: 1 }, damageType: 'zwyczajne' }]);
+    await choose(user, 'kategoria', 'śmiertelne');
+    const phantom = screen.getByRole('checkbox', { name: 'widmowa (w)' });
+    const critical = screen.getByRole('checkbox', { name: 'może trafić krytycznie' });
+    fireEvent.click(phantom);
+    fireEvent.click(critical);
+    submit();
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{
+      type: 'damage', damage: { amount: 2, grade: 3, bonus: 1, isPhantom: true }, damageType: 'śmiertelne', canCrit: true,
+    }]));
+
+    fireEvent.click(phantom);
+    fireEvent.click(critical);
+    submit();
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{
+      type: 'damage', damage: { amount: 2, grade: 3, bonus: 1, isPhantom: undefined }, damageType: 'śmiertelne', canCrit: undefined,
+    }]));
+  });
+
+  it('replaces incompatible fields when changing an effect and saves the new profile ID', async () => {
+    const user = userEvent.setup();
+    const save = renderEditor([{ type: 'pull', distance: 3 }]);
+    await user.click(screen.getByRole('combobox'));
+    await user.click(await screen.findByRole('option', { name: 'Buff z profilu (zaawansowane)' }));
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'guard-profile' } });
+    submit();
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{
+      type: 'buff', profile: { profileId: 'guard-profile' }, duration: 1,
+    }]));
+  });
+
+  it.each([
+    { label: 'gdy cel ma status', field: 'status', option: 'Zatrucie', condition: { kind: 'targetHasStatus', status: 'poisoned' } },
+    { label: 'gdy masz status', field: 'status', option: 'Podpalenie', condition: { kind: 'selfHasStatus', status: 'burning' } },
+    { label: 'przy trafieniu krytycznym', condition: { kind: 'onCritical' } },
+    { label: 'gdy masz zasób (≥)', condition: { kind: 'hasResource', resource: 'essence', min: 1 } },
+  ])('switches the condition to $label while keeping its nested effect', async ({ label, field, option, condition }) => {
+    const user = userEvent.setup();
+    const inner = { type: 'push', distance: 3 };
+    const save = renderEditor([{ type: 'when', condition: { kind: 'opponentAttackKind', value: 'melee' }, then: [inner] }]);
+    await choose(user, 'warunek', label);
+    if (field && option) await choose(user, field, option);
+    submit();
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{ type: 'when', condition, then: [inner] }]));
+  });
+
+  it('switches back to a specific attack type without keeping the old condition fields', async () => {
+    const user = userEvent.setup();
+    const inner = { type: 'push', distance: 3 };
+    const save = renderEditor([{ type: 'when', condition: { kind: 'hasResource', resource: 'essence', min: 4 }, then: [inner] }]);
+    await choose(user, 'warunek', 'tylko przeciw (rodzaj ataku)');
+    await choose(user, 'rodzaj ataku', 'dystans magiczny');
+    submit();
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{
+      type: 'when', condition: { kind: 'opponentAttackKind', value: 'rangedMagic' }, then: [inner],
+    }]));
+  });
+
+  it.each([
+    { label: 'twój zasób', source: { kind: 'selfResource', resource: 'essence' } },
+    { label: 'stack statusu celu', field: 'status', option: 'Zatrucie', source: { kind: 'targetStatusStacks', status: 'poisoned' } },
+    { label: 'twoja statystyka', field: 'statystyka', option: 'precyzja', source: { kind: 'selfStat', group: 'attributes', key: 'precision' } },
+    { label: 'niewrażliwość wroga', source: { kind: 'opponentImmunity' } },
+  ])('saves the new scaling source $label without dropping its effect or limit', async ({ label, field, option, source }) => {
+    const user = userEvent.setup();
+    const inner = { type: 'push', distance: 1 };
+    const save = renderEditor([{
+      type: 'scale', source: { kind: 'opponentStat', group: 'characteristics', key: 'strength' }, per: 2, cap: 3, effect: inner,
+    }]);
+    await choose(user, 'za każde…', label);
+    if (field && option) await choose(user, field, option);
+    submit();
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{ type: 'scale', source, per: 2, cap: 3, effect: inner }]));
+  });
+
+  it('stores a zero chance without dropping the conditional effect', async () => {
+    const inner = { type: 'push', distance: 2 };
+    const save = renderEditor([{ type: 'chance', chance: 50, then: [inner] }]);
+    fireEvent.change(numberField('szansa (%)'), { target: { value: '0' } });
+    submit();
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{ type: 'chance', chance: 0, then: [inner] }]));
+  });
+});

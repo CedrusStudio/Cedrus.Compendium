@@ -1,17 +1,23 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { createDraftCatalog, createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
+
 import type { DetailsDto } from '@/persistence/schemas/characters/headerSchema';
 
-const { characterFindUnique, characterFindMany, characterUpdate, raceFindUnique, perkFindMany } = vi.hoisted(() => ({
+const { characterFindUnique, characterFindMany, characterUpdate, characterCreate, characterDelete, raceFindUnique, perkFindMany, weaponFindMany } = vi.hoisted(() => ({
   characterFindUnique: vi.fn(),
   characterFindMany: vi.fn(),
   characterUpdate: vi.fn(),
+  characterCreate: vi.fn(),
+  characterDelete: vi.fn(),
+  weaponFindMany: vi.fn(),
   raceFindUnique: vi.fn(),
   perkFindMany: vi.fn(),
 }));
 
 vi.mock('@/lib/prisma', () => ({
   default: {
-    character: { findUnique: characterFindUnique, findMany: characterFindMany, update: characterUpdate },
+    character: { findUnique: characterFindUnique, findMany: characterFindMany, update: characterUpdate, create: characterCreate, delete: characterDelete },
+    weapon: { findMany: weaponFindMany },
     race: { findUnique: raceFindUnique },
     perk: { findMany: perkFindMany },
   },
@@ -21,7 +27,10 @@ vi.mock('@/lib/env', () => ({
   adminApiKeys: ['VALID-KEY-1', 'VALID-KEY-2'],
 }));
 
-import { getCharactersVisibleToApiKeyByIds, updateCharacterDetails } from '@/persistence/characters/charactersRepository';
+import {
+  addCharacter, deleteCharacter, getCharactersByIds, getCharactersVisibleToApiKeyByIds,
+  updateCharacterBuffs, updateCharacterDetails, updateCharacterEquipment, updateCharacterStatistics, updateCharacterTalents,
+} from '@/persistence/characters/charactersRepository';
 import { CharacterValidationError } from '@/persistence/characters/characterErrors';
 
 function detailsPayload(overrides: Partial<DetailsDto> = {}): DetailsDto
@@ -194,5 +203,83 @@ describe('getCharactersVisibleToApiKeyByIds', () => {
         ],
       },
     }));
+  });
+});
+
+describe('character sheet write boundaries', () => {
+  const target = 'character-1';
+  const sheet = () => createPendingDraft().proposal!;
+
+  beforeEach(() => {
+    characterFindUnique.mockReset();
+    characterFindMany.mockReset().mockResolvedValue([]);
+    characterUpdate.mockReset().mockResolvedValue({ id: target });
+    characterCreate.mockReset().mockResolvedValue({ id: 'created-character' });
+    characterDelete.mockReset().mockResolvedValue({ id: target });
+    weaponFindMany.mockReset();
+  });
+
+  it('does not query for empty IDs and reads only the requested IDs otherwise', async () => {
+    await expect(getCharactersByIds([])).resolves.toEqual([]);
+    await expect(getCharactersVisibleToApiKeyByIds([], 'VALID-KEY-1')).resolves.toEqual([]);
+    expect(characterFindMany).not.toHaveBeenCalled();
+    await expect(getCharactersByIds([target])).resolves.toEqual([]);
+    expect(characterFindMany).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
+      where: { id: { in: [target] } }, include: expect.objectContaining({ perks: true, spells: true }),
+    }));
+  });
+
+  it('returns the created ID and uses the requested ID for deletion', async () => {
+    const { header } = sheet();
+    await expect(addCharacter(header)).resolves.toBe('created-character');
+    expect(characterCreate).toHaveBeenCalledExactlyOnceWith({
+      data: expect.objectContaining({
+        name: header.name, shortName: header.shortName,
+        defaultOffenseId: expect.any(String), defaultDefenseId: expect.any(String),
+      }),
+    });
+    await expect(deleteCharacter(target)).resolves.toBeUndefined();
+    expect(characterDelete).toHaveBeenCalledExactlyOnceWith({ where: { id: target } });
+  });
+
+  it('saves each independent section as its own update', async () => {
+    const { statistics, talents, buffs } = sheet();
+    await expect(updateCharacterStatistics(target, statistics)).resolves.toBe(true);
+    await expect(updateCharacterTalents(target, talents)).resolves.toBe(true);
+    await expect(updateCharacterBuffs(target, buffs)).resolves.toBe(true);
+    expect(characterUpdate.mock.calls).toEqual([statistics, talents, buffs].map(data => [{ where: { id: target }, data }]));
+  });
+
+  it('returns false without writing equipment for a missing character', async () => {
+    characterFindUnique.mockResolvedValue(null);
+    await expect(updateCharacterEquipment(target, sheet().equipment)).resolves.toBe(false);
+    expect(characterUpdate).not.toHaveBeenCalled();
+    expect(weaponFindMany).not.toHaveBeenCalled();
+  });
+
+  it('connects existing equipment, creates custom items and disconnects removed items', async () => {
+    const c = createDraftCatalog();
+    const stored = { ...c.weapon, id: 'already-owned', name: 'Włócznia po naprawie' };
+    const custom = { ...c.weapon, id: 'custom-weapon', name: 'Włócznia z herbem' };
+    characterFindUnique.mockResolvedValue({
+      weaponsIds: [stored.id, 'removed-weapon'], armorsIds: [], shieldsIds: [], inventoryIds: [], mountsIds: [],
+    });
+    weaponFindMany.mockResolvedValue([{ id: c.weapon.id }]);
+
+    await expect(updateCharacterEquipment(target, { ...sheet().equipment, weapons: [stored, c.weapon, custom] })).resolves.toBe(true);
+    expect(weaponFindMany).toHaveBeenCalledExactlyOnceWith({
+      where: { id: { in: [c.weapon.id, custom.id] } }, select: { id: true },
+    });
+    expect(characterUpdate).toHaveBeenCalledExactlyOnceWith({
+      where: { id: target },
+      data: expect.objectContaining({
+        weapons: {
+          update: [{ where: { id: stored.id }, data: { ...stored, id: undefined } }],
+          connect: [{ id: c.weapon.id }],
+          create: [custom],
+          disconnect: [{ id: 'removed-weapon' }],
+        },
+      }),
+    });
   });
 });
