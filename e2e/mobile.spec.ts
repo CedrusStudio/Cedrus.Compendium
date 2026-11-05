@@ -92,11 +92,16 @@ test('character perks use one mobile column and talent rolls need no horizontal 
   const table = page.getByRole('table');
   await expect.poll(() => table.locator('..').evaluate(element => element.scrollWidth - element.clientWidth)).toBeLessThanOrEqual(1);
   const row = page.getByRole('row').filter({ hasText: talentName });
-  const rollButton = row.getByRole('button', { name: /^0$/ });
+  const rollButton = row.getByRole('button', { name: /^rzut$/i });
+  await expect.poll(() => rollButton.evaluate(element => {
+    const bounds = element.getBoundingClientRect();
+    return bounds.left >= -1 && bounds.right <= document.documentElement.clientWidth + 1;
+  })).toBe(true);
+  await rollButton.scrollIntoViewIfNeeded();
   await expect(rollButton).toBeInViewport();
   await page.evaluate(() => { Math.random = () => 0.5; });
   await rollButton.click();
-  await expect(row.getByRole('button', { name: /^6$/ })).toBeVisible();
+  await expect(rollButton).toHaveText('6');
   await expectPageFits(page);
   await page.screenshot({ path: testInfo.outputPath('talent-roll.png'), fullPage: true });
 });
@@ -396,9 +401,9 @@ test('battle participants, column controls and preset dialog work on a phone', a
 test('mobile search header scrolls away so the results remain visible', async ({ page }, testInfo) => {
   test.skip((page.viewportSize()?.width ?? 1440) >= 1024, 'Desktop keeps its sticky header');
   await page.goto('/compendium/perks');
-  const header = page.locator('[data-slot="list-header"]');
-  await expect(header).toBeVisible();
+  const header = page.locator('[data-slot="list-header"]').filter({ visible: true });
   await expect(page.getByText('Strażnik Północnego Pogranicza z bardzo długą nazwą 1', { exact: true })).toBeVisible();
+  await expect(header).toBeVisible();
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await expect.poll(async () => (await header.boundingBox())!.y + (await header.boundingBox())!.height).toBeLessThanOrEqual(0);
   await expectPageFits(page);
