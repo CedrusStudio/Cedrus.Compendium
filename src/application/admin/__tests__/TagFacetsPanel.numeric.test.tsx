@@ -129,7 +129,9 @@ it('persists scoped aliases without losing existing aliases or metadata', async 
     ...definition, resource: 'definition', action: 'upsert', aliases: [],
   }));
 
-  fireEvent.click(screen.getByRole('button', { name: 'Usuń definicję' }));
+  const removeDefinition = screen.getByRole('button', { name: 'Usuń definicję' });
+  await waitFor(() => expect(removeDefinition).toBeEnabled());
+  fireEvent.click(removeDefinition);
   fireEvent.click(screen.getByRole('button', { name: 'Anuluj' }));
   expect(deleteDefinition).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole('button', { name: 'Usuń definicję' }));
