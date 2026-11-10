@@ -218,3 +218,23 @@ describe("buildRequirementSearchPipeline", () => {
     expect(pipeline).toEqual([{ $match: {} }]);
   });
 });
+
+describe("optional and scalar search conditions", () => {
+  it("leaves the query unrestricted when include and exclude values are empty", () => {
+    const empty = { a: undefined, b: "  ", c: [], d: { anyOf: [] } };
+    expect(buildRequirementSearchPipeline({ search: empty, exclude: empty, requirementFilters: [] })).toEqual([{ $match: {} }]);
+  });
+
+  it("escapes excluded names and uses zero and false as filter values", () => {
+    expect(buildRequirementSearchPipeline({
+      search: { id: { anyOf: ["a", "b"] }, available: false },
+      exclude: { name: "Test (A)", grade: 0, tags: { anyOf: ["wycofany"] }, enabled: false },
+      requirementFilters: [],
+      extraConditions: [{ faction: "straż" }],
+    })).toEqual([{ $match: { $and: [
+      { _id: { $in: ["a", "b"] } }, { available: false },
+      { name: { $not: { $regex: "Test \\(A\\)", $options: "i" } } }, { grade: { $ne: 0 } },
+      { tags: { $nin: ["wycofany"] } }, { enabled: { $ne: false } }, { faction: "straż" },
+    ] } }]);
+  });
+});

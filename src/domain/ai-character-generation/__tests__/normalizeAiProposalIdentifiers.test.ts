@@ -257,3 +257,43 @@ describe('normalizeAiProposalIdentifiers', () => {
     expect(normalizeAiProposalIdentifiers(null)).toBeNull();
   });
 });
+
+describe('normalizing incomplete drafts before validation', () => {
+  it('keeps declared defaults with padded placeholders and removes malformed profile references', () => {
+    const draft = proposal({
+      talents: { talents: [null, { id: '' }] },
+      combat: {
+        ...(proposal().combat as Proposal),
+        defenses: [null, { id: ' def ' }],
+        defaultDefenseId: 'def',
+      },
+      buffs: {
+        ...(proposal().buffs as Proposal),
+        buffProfiles: [null, { id: 'p1', linkedEntityId: null }, { id: 'p2', linkedEntityId: CATALOG_STANCE_ID }],
+        activeBuffProfileIds: [' p1 ', 42, 'missing'],
+        activeOtherModifierProfileIds: null,
+      },
+    });
+    normalizeAiProposalIdentifiers(draft);
+    const combat = draft.combat as Proposal;
+    const buffs = draft.buffs as Proposal;
+    const profiles = buffs.buffProfiles as ({ id: string; linkedEntityId: string | null } | null)[];
+    expect(((draft.talents as Proposal).talents as unknown[])[1]).toMatchObject({ id: expect.stringMatching(ULID) });
+    expect(combat.defaultDefenseId).toBe((combat.defenses as { id: string }[])[1].id);
+    expect(buffs.activeBuffProfileIds).toEqual([profiles[1]?.id]);
+    expect(profiles[1]?.linkedEntityId).toBeNull();
+    expect(profiles[2]?.linkedEntityId).toBe(CATALOG_STANCE_ID);
+    expect(draft.warnings).toEqual([expect.stringContaining('aktywne profile wzmocnień')]);
+  });
+
+  it('keeps a known ID without a display name and discards an unknown one without fabricating warnings', () => {
+    const index = buildCatalogIdentityIndex([
+      { id: CATALOG_STANCE_ID, name: 'Garda', grade: 1 },
+      { id: '01J0000000000000000000000B', name: 'Garda', grade: 2 },
+    ]);
+    const draft = proposal({ perks: [null, { id: CATALOG_STANCE_ID }, { id: 'invented' }], warnings: null });
+    expect(normalizeAiProposalIdentifiers(draft, { catalog: index })).toBe(draft);
+    expect(draft.perks).toEqual([{ id: CATALOG_STANCE_ID }]);
+    expect(draft.warnings).toBeNull();
+  });
+});

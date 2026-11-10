@@ -7,7 +7,7 @@ Track current status in [ROADMAP.md](../ROADMAP.md).
 
 ## COMP-Q1 — Restore scoped TypeScript verification
 
-Status: open. Baseline: ef05dd157a9a0cd9a73957ec25e88061d4a2b877 and M5b source
+Status: fixed in the CI repair candidate. Baseline: ef05dd157a9a0cd9a73957ec25e88061d4a2b877 and M5b source
 128f2a80d4eee865c02a96e4e83c7ea8a5256387 both produce the same 67 diagnostics with
 the same installed dependencies. Errors include missing testing-library matcher types
 in the character-scope tests. This is not a runtime-prompt or guidance-adoption failure.
@@ -22,6 +22,11 @@ Acceptance: scoped typecheck exits zero; affected existing tests pass; full type
 is run and its result reported separately. Keep runtime character-generation contracts
 unchanged unless an explicitly selected product fix requires otherwise. Record the final
 source revision, commands and results here and close the matching roadmap row.
+
+Verification on 2026-11-05 reproduced 67 diagnostics before the change.
+The scoped configuration now includes the existing Vitest setup, which declares
+the matchers used by tests in scope. Both `npm run typecheck:scoped` and
+`npm run typecheck` passed with the original test files included.
 
 ## COMP-Q2 — Meet the existing coverage thresholds
 

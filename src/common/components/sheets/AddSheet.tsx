@@ -39,7 +39,7 @@ export default function AddSheet
                 <span className="first-letter:uppercase">{triggerLabel}</span>
               </Button>
             ) : (
-              <Button variant="outline" size='icon' type="button">
+              <Button variant="outline" size="icon" type="button" aria-label={title}>
                 {triggerIcon}
               </Button>
             )

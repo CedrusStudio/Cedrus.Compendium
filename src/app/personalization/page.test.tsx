@@ -78,6 +78,97 @@ describe('PersonalizationPage', () => {
     sonnerMocks.error.mockReset();
   });
 
+
+  it('adds and removes manual tags in the active inclusion mode', async () => {
+    const addQuickTag = vi.fn();
+    const addQuickExcludeTag = vi.fn();
+    const removeQuickTag = vi.fn();
+    const removeQuickExcludeTag = vi.fn();
+    usePersonalizationMock.mockReturnValue({
+      hasApiKey: true, isLoaded: true,
+      profile: { ...createEmptyProfile(), quickTagsByContext: { characters: ['walka'] }, quickExcludeTagsByContext: { characters: ['dystans'] } },
+      addQuickTag, addQuickExcludeTag, removeQuickTag, removeQuickExcludeTag,
+    });
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+    render(<PersonalizationPage />);
+
+    const include = screen.getByPlaceholderText('Dodaj szybki tag dołączający');
+    fireEvent.change(include, { target: { value: 'osłona' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Dodaj tag dołączający' }));
+    expect(addQuickTag).toHaveBeenCalledExactlyOnceWith('characters', 'osłona');
+    expect(include).toHaveValue('');
+    fireEvent.click(screen.getByRole('button', { name: 'Usun tag walka' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Usun tag dystans' }));
+    expect(removeQuickTag).toHaveBeenCalledExactlyOnceWith('characters', 'walka');
+    expect(removeQuickExcludeTag).toHaveBeenCalledExactlyOnceWith('characters', 'dystans');
+
+    fireEvent.click(document.getElementById('personalization-tag-mode-select')!);
+    fireEvent.click(await screen.findByRole('option', { name: 'Wykluczające' }));
+    const exclude = screen.getByPlaceholderText('Dodaj szybki tag wykluczający');
+    fireEvent.change(exclude, { target: { value: 'przeklęty' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Dodaj tag wykluczający' }));
+    expect(addQuickExcludeTag).toHaveBeenCalledExactlyOnceWith('characters', 'przeklęty');
+    expect(exclude).toHaveValue('');
+  });
+
+  it('reports a failed profile save and disables the button while saving', async () => {
+    let rejectSave!: (reason: unknown) => void;
+    const saveToDatabase = vi.fn(() => new Promise((_resolve, reject) => { rejectSave = reject; }));
+    const profile = createEmptyProfile();
+    usePersonalizationMock.mockReturnValue({ hasApiKey: true, isLoaded: true, profile, saveToDatabase });
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: false });
+    const { rerender } = render(<PersonalizationPage />);
+    fireEvent.click(screen.getByRole('button', { name: 'Save to database' }));
+    expect(saveToDatabase).toHaveBeenCalledTimes(1);
+    usePersonalizationMock.mockReturnValue({ hasApiKey: true, isLoaded: true, isSavingToDatabase: true, profile, saveToDatabase });
+    rerender(<PersonalizationPage />);
+    expect(screen.getByRole('button', { name: 'Zapisywanie...' })).toBeDisabled();
+    rejectSave(new Error('offline'));
+    await waitFor(() => expect(sonnerMocks.error).toHaveBeenCalledWith('Nie udalo sie zapisac konfiguracji aktywnego profilu w bazie danych.'));
+    expect(sonnerMocks.success).not.toHaveBeenCalled();
+  });
+
+  it('keeps profile edit controls out of the unloaded and no-key states', () => {
+    const profile = createEmptyProfile();
+    usePersonalizationMock.mockReturnValue({ isLoaded: false, hasApiKey: false, profile });
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: true });
+    const { rerender, container } = render(<PersonalizationPage />);
+    expect(container).toBeEmptyDOMElement();
+    usePersonalizationMock.mockReturnValue({ isLoaded: true, hasApiKey: false, profile });
+    rerender(<PersonalizationPage />);
+    expect(screen.getByText('Najpierw ustaw API key.')).toBeVisible();
+    expect(screen.queryByRole('button', { name: 'Save to database' })).not.toBeInTheDocument();
+  });
+
+  it('trims a named shortcut, rejects blank labels and keeps character shortcuts distinct', () => {
+    const addQuickLink = vi.fn();
+    const removeQuickLink = vi.fn();
+    usePersonalizationMock.mockReturnValue({
+      apiKey: 'test-key', hasApiKey: true, isLoaded: true,
+      profile: { ...createEmptyProfile(), quickLinks: [{ id: 'shortcut', type: 'character', characterId: 'aldara', label: 'Aldara' }] },
+      addQuickLink, removeQuickLink,
+    });
+    useFavoriteCharactersMock.mockReturnValue({ favoriteCharacters: [], isLoading: true });
+    render(<PersonalizationPage />);
+    expect(screen.getByText('Ladowanie postaci...')).toBeVisible();
+    expect(screen.getByText('Skrot do postaci')).toBeVisible();
+    expect(screen.queryByRole('button', { name: 'Edytuj link Aldara' })).not.toBeInTheDocument();
+
+    const name = screen.getByPlaceholderText('Nazwa linku');
+    const add = screen.getByRole('button', { name: 'Dodaj link' });
+    fireEvent.change(name, { target: { value: '  ' } });
+    fireEvent.click(add);
+    expect(addQuickLink).not.toHaveBeenCalled();
+    fireEvent.change(name, { target: { value: '  Ulubione  ' } });
+    fireEvent.click(add);
+    expect(addQuickLink).toHaveBeenCalledExactlyOnceWith({
+      id: expect.any(String), type: 'route', label: 'Ulubione', href: '/characters/favorites',
+    });
+    expect(name).toHaveValue('');
+    fireEvent.click(screen.getByRole('button', { name: 'Usun link Aldara' }));
+    expect(removeQuickLink).toHaveBeenCalledExactlyOnceWith('shortcut');
+  });
+
   it('renders the stored profile user name and saves a new one', () => {
     const setUserName = vi.fn();
     const updateQuickLink = vi.fn();

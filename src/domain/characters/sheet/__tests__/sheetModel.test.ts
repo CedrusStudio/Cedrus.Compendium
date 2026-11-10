@@ -486,3 +486,54 @@ describe('formatSigned', () =>
     expect(formatSigned(-2)).toBe('-2');
   });
 });
+
+describe('sheet output for alternate and sparse equipment', () => {
+  it('prints an optional secondary weapon and damage without a fake die pool', () => {
+    const character = createCharacter();
+    const offense = character.offenses[0];
+    const empty = { amount: 0, grade: 0, bonus: 0, isPhantom: false };
+    character.offenses = [{
+      ...offense,
+      leadingWeapon: { ...empty, critical: { power: 0, range: 0 } },
+      secondaryWeapon: { ...empty, amount: 2, grade: 3, bonus: 1, critical: { power: -2, range: 1 } },
+      damageBonus: empty,
+      additionalDamageBonus: { ...empty, bonus: 2 },
+    }];
+    character.equipment.weapons = [{ ...character.equipment.weapons[0], offense: character.offenses[0].leadingWeapon }];
+    const model = buildSheetModel(character, { generatedOn });
+    expect(model.offenses[0]).toMatchObject({ leading: '—', secondary: '2(k6+1)', damage: '—', additionalDamage: '+2' });
+    expect(model.offenses[0].secondaryCritical).toMatch(/\/-2$/);
+    expect(model.equipment.weapons[0].attack).toBe('—');
+  });
+
+  it('distinguishes adjustments to the statistic die, bonuses and weapon criticals', () => {
+    const profile = createProfile('buf', 'Zapas', draft => {
+      draft.attributes.fencing.grade = 1;
+      draft.attributes.fencing.bonus = -2;
+      draft.offense.secondaryWeapon.amount = 2;
+      draft.offense.secondaryWeapon.grade = 1;
+      draft.offense.secondaryWeapon.bonus = -3;
+      draft.offense.secondaryWeapon.criticalPower = 2;
+    });
+    const model = buildSheetModel(createCharacter({ buffProfiles: [profile], activeBuffProfileIds: ['buf'] }), { generatedOn });
+    expect(model.buffs[0].changes).toEqual([
+      'fechtunek kość +1', 'fechtunek bonus -2',
+      'broń drugorzędna kości +2', 'broń drugorzędna szczebel +1',
+      'broń drugorzędna bonus -3', 'broń drugorzędna siła kryt. +2',
+    ]);
+  });
+
+  it('sorts maneuvers with the same cast time by name and retains uncategorized talents', () => {
+    const character = createCharacter();
+    const maneuver = character.maneuvers[1];
+    character.maneuvers = [{ ...maneuver, id: 'b', name: 'Zasłona' }, { ...maneuver, id: 'a', name: 'Atak' }];
+    character.talents = [
+      { ...character.talents[0], name: 'Akrobatyka', category: ' ' },
+      { ...character.talents[1], name: 'Wzrok' },
+    ];
+    const model = buildSheetModel(character, { generatedOn });
+    expect(model.maneuvers.map(entry => entry.name)).toEqual(['Atak', 'Zasłona']);
+    expect(model.talents.map(group => group.category)).toEqual(['zmysł', 'pozostałe']);
+    expect(model.talents[1].talents[0].name).toBe('Akrobatyka');
+  });
+});

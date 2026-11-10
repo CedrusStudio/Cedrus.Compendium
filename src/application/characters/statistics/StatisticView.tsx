@@ -36,7 +36,7 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
   };
 
   return (
-    <div className={'flex gap-x-2 items-center justify-around'}>
+    <div className="flex min-w-0 flex-wrap items-center justify-around gap-2">
 
       <FieldWithTooltip name={name} >
         <ResetButton variant='ghost' defaultValuesWithSetters={[[defaultBonus, setBonus]]}>
@@ -55,8 +55,10 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
         </div>
       </div>
 
-      <RollButton onClick={() => handleRoll(statistic)} rollResult={calculateRollResult(rollResult, statistic, bonus)} />
-      <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${name}`} title={diceText.open} onClick={() => diceRoller?.open(preset())}>⋯</Button>
+      <div className="flex shrink-0 items-center gap-1">
+        <RollButton onClick={() => handleRoll(statistic)} rollResult={calculateRollResult(rollResult, statistic, bonus)} />
+        <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${name}`} title={diceText.open} onClick={() => diceRoller?.open(preset())}>⋯</Button>
+      </div>
     </div>
   );
 };

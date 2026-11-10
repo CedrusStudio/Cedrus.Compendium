@@ -82,7 +82,7 @@ export default function EditStancesCard({ isPending, isSuccess, initialStances, 
     <Card className='bg-muted'>
 
       <CardHeader>
-        <CardTitle className='font-bold text-2xl capitalize text-center text-primary flex items-center justify-center gap-3'>
+        <CardTitle className='flex min-w-0 flex-wrap items-center justify-center gap-3 text-center text-2xl font-bold capitalize text-primary'>
           <span>{displayedText.stances}</span>
           <EntityRequirementsWarning characterId={currentCharacterId} entities={watchedArray} />
           <AppendToArrayButton append={append} isPending={isPending} toAdd={CreateDefaultStance} />

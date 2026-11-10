@@ -24,7 +24,7 @@ test('maneuver requirement, grade, price and cooldown normalize before submissio
     if (new URL(request.url()).pathname === '/api/maneuvers' && request.method() === 'POST') submissions.push(request.postDataJSON());
   });
   await page.goto('/compendium/maneuvers');
-  await page.locator('#add-maneuver-form button').click();
+  await page.getByRole('button', { name: /^dodaj manewr$/i }).click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await dialog.locator('input[name="name"]').fill('Manewr testowy 005');

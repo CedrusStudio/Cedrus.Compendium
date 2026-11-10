@@ -70,6 +70,15 @@ if (!HTMLElement.prototype.scrollIntoView) {
   HTMLElement.prototype.scrollIntoView = () => {};
 }
 
+// Radix Select checks browser pointer capture before opening its menu.
+if (!HTMLElement.prototype.hasPointerCapture) {
+  HTMLElement.prototype.hasPointerCapture = () => false;
+}
+
+if (!HTMLElement.prototype.releasePointerCapture) {
+  HTMLElement.prototype.releasePointerCapture = () => {};
+}
+
 // Extend Vitest matchers
 expect.extend({
   toBeWithinRange(received: number, floor: number, ceiling: number) {

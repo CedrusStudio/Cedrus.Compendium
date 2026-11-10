@@ -6,7 +6,7 @@ import { resolveAttack } from "@/domain/combat-lab/engine/resolveAttack";
 import { resolveRangedAttack } from "@/domain/combat-lab/engine/resolveRangedAttack";
 import { applyEffects } from "@/domain/combat-lab/engine/applyEffect";
 import { createRuntime } from "@/domain/combat-lab/engine/CombatState";
-import { availableActions, recordAction } from "@/domain/combat-lab/engine/actionEconomy";
+import { availableActions, recordAction, type Action } from "@/domain/combat-lab/engine/actionEconomy";
 import { CombatLogBuilder } from "@/domain/combat-lab/engine/CombatLog";
 import { runCombat } from "@/domain/combat-lab/engine/runCombat";
 import { greedyDamagePolicy, valuePolicy, basicAttackPolicy } from "@/domain/combat-lab/engine/ai/policy";
@@ -495,5 +495,74 @@ describe("runCombat()", () => {
     const log = runCombat(bleeder, victim, { seed: 5, policyA: greedyDamagePolicy, maxRounds: 20 });
     const ticks = log.events.filter(e => e.kind === "statusTick");
     expect(ticks.length).toBeGreaterThan(0);
+  });
+});
+
+describe("turn flow under ranged attacks and disabling effects", () => {
+  it.each([
+    { attackKind: "rangedPhysical", precisionValue: 12, hit: true, dealt: 10, remainingHp: 30 },
+    { attackKind: "rangedMagic", precisionValue: 12, hit: true, dealt: 6, remainingHp: 34 },
+    { attackKind: "rangedPhysical", precisionValue: -20, hit: false, dealt: 0, remainingHp: 40 },
+    { attackKind: "rangedMagic", precisionValue: -20, hit: false, dealt: 0, remainingHp: 40 },
+  ] as const)("logs $attackKind hit=$hit and uses its defense category", ({ attackKind, precisionValue, hit, dealt, remainingHp }) => {
+    const projectile = makeOffense("projectile", 0, 0);
+    projectile.damageBonus.bonus = 12;
+    const archer = makeSnapshot("archer", { attackKind, precisionValue, initiativeValue: 50, offense: projectile });
+    const guard = makeSnapshot("guard", { defense: makeDefense("guard-defense", { block: 4, parry: 8, dodge: 6, protection: 2 }) });
+    const log = runCombat(archer, guard, { seed: 2, maxRounds: 1, distanceST: 7 });
+    expect(log.events.find(event => event.kind === "rangedAttack")).toMatchObject({
+      actorId: "archer", targetId: "guard", hit, dealt, remainingHp,
+    });
+  });
+
+  function openingManeuver(effects: Effect[])
+  {
+    return {
+      id: "opening", name: "Otwarcie", grade: 1, description: "", price: 1, tags: [],
+      castTime: "Standardowa" as const, cooldown: 4, cost: { castTime: "Standardowa" as const }, hardRequirements: [], effects,
+    };
+  }
+
+  const attackAfterOpening = {
+    name: "opening then attack",
+    chooseAction: (_self: unknown, _other: unknown, available: Action[]) =>
+      available.find(action => action.kind === "maneuver") ?? available[0],
+  };
+
+  it("records a controlled turn and restores action after the stun expires", () => {
+    const attacker = makeSnapshot("A", {
+      initiativeValue: 40, offense: makeOffense("weak", 0, 0, 0),
+      maneuvers: [openingManeuver([{ type: "control", control: "stun", duration: 2 }])],
+    });
+    const guard = makeSnapshot("B", { offense: makeOffense("weak", 0, 0, 0) });
+    const events = runCombat(attacker, guard, { seed: 2, maxRounds: 2, policyA: attackAfterOpening }).events;
+    expect(events.filter(event => event.kind === "pass")).toContainEqual({ kind: "pass", actorId: "B", reason: "controlled" });
+    expect(events.filter(event => event.kind === "attack" && event.actorId === "B")).toHaveLength(1);
+  });
+
+  it("does not grant the target an action while in the lethal health buffer", () => {
+    const strike = makeOffense("strike", 0, 0);
+    strike.damageBonus.bonus = 5;
+    const attacker = makeSnapshot("A", { initiativeValue: 40, offense: strike });
+    const guard = makeSnapshot("B", { maxHp: 4, lethalHealth: 20, lethalRounds: 3 });
+    const events = runCombat(attacker, guard, { seed: 2, maxRounds: 1 }).events;
+    expect(events).toContainEqual({ kind: "pass", actorId: "B", reason: "downed" });
+    expect(events.some(event => event.kind === "attack" && event.actorId === "B")).toBe(false);
+    expect(events.at(-1)).toMatchObject({ kind: "combatEnd", reason: "timeout", winnerId: "A" });
+  });
+
+  it("stops after a finishing maneuver instead of rolling the later weapon attack", () => {
+    const attacker = makeSnapshot("A", {
+      initiativeValue: 40, maneuvers: [openingManeuver([
+        { type: "damage", damageType: "śmiertelne", damage: { amount: 0, grade: 0, bonus: 8 } },
+      ])],
+    });
+    const guard = makeSnapshot("B", { maxHp: 5, barrier: 20 });
+    const events = runCombat(attacker, guard, { seed: 2, maxRounds: 3, policyA: attackAfterOpening }).events;
+    expect(events).toContainEqual({
+      kind: "damage", sourceId: "A", targetId: "B", damageType: "śmiertelne", amount: 8, remainingHp: -3,
+    });
+    expect(events.some(event => event.kind === "attack")).toBe(false);
+    expect(events.at(-1)).toMatchObject({ kind: "combatEnd", reason: "knockout", winnerId: "A", rounds: 1 });
   });
 });
