@@ -218,3 +218,49 @@ it('warns about removing a list from a facet and saves the edited metadata under
     description: 'Styl walki', order: 2, selectionMode: 'single', supportsNone: false, entities: ['maneuvers'],
   }));
 });
+
+it('assigns an uncategorized tag and clears a category while retaining definition metadata', async () => {
+  const user = userEvent.setup();
+  const alias = { alias: 'straż', entities: ['maneuvers'] };
+  getLayer.mockResolvedValue({
+    facets: [{ key: 'role', label: 'Rola', description: 'Rola w walce', order: 1, entities: ['maneuvers'], selectionMode: 'multi', supportsNone: true }],
+    definitions: [
+      { tag: 'natarcie', facetKey: null, aliases: [] },
+      { tag: 'osłona', facetKey: 'role', label: 'Osłona', order: 4, aliases: [alias], formerNames: ['ochrona'] },
+    ],
+  });
+  renderPanel();
+
+  const unassigned = within((await screen.findByText('natarcie')).parentElement!);
+  await user.click(unassigned.getByRole('combobox'));
+  await user.click(await screen.findByRole('option', { name: 'Rola (Manewry)' }));
+  await waitFor(() => expect(upsertDefinition).toHaveBeenLastCalledWith({
+    resource: 'definition', action: 'upsert', tag: 'natarcie', facetKey: 'role', label: null, order: null, aliases: [],
+  }));
+
+  expect(screen.getByText('Rola w walce')).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Tagi (1)' }));
+  expect(screen.getByText('dawniej: ochrona')).toBeVisible();
+  const assigned = within(screen.getByText('osłona').parentElement!);
+  const category = assigned.getByRole('combobox');
+  await waitFor(() => expect(category).toBeEnabled());
+  await user.click(category);
+  await user.click(await screen.findByRole('option', { name: '— brak kategorii —' }));
+  await waitFor(() => expect(upsertDefinition).toHaveBeenLastCalledWith({
+    resource: 'definition', action: 'upsert', tag: 'osłona', facetKey: null, label: 'Osłona', order: 4, aliases: [alias],
+  }));
+});
+
+it('keeps a populated category intact after a failed delete', async () => {
+  deleteFacet.mockRejectedValueOnce(new Error('mock offline'));
+  getLayer.mockResolvedValue({
+    facets: [{ key: 'role', label: 'Rola', order: 1, entities: ['maneuvers'], selectionMode: 'multi', supportsNone: true }],
+    definitions: [{ tag: 'osłona', facetKey: 'role' }],
+  });
+  renderPanel();
+  fireEvent.click(await screen.findByRole('button', { name: 'Usuń kategorię' }));
+  expect(screen.getByText(/1 tag\(ów\) wróci/)).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Potwierdź usunięcie' }));
+  expect(await screen.findByText('Nie udało się zapisać.')).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Tagi (1)' })).toBeVisible();
+});
