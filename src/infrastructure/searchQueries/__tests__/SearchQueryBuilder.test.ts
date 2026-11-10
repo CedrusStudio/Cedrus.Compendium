@@ -327,3 +327,38 @@ describe('SearchQueryBuilder', () => {
     });
   });
 });
+
+describe('filter and projection composition', () => {
+  it('accumulates valid filters while ignoring unfinished inputs', () => {
+    const grade = { kind: 'ranked', group: 'attributes', targetKey: 'fencing', maxValue: 0 } as const;
+    const text = { kind: 'text', text: 'trening' } as const;
+    const role = { facetKey: 'role', tags: ['obrona'] };
+    const untagged = { facetKey: 'school', tags: [], includeNone: true };
+    const query = SearchQueryBuilder.for('spell')
+      .requirementFilter(undefined).requirementFilter(grade)
+      .requirementFilter([{ kind: 'text', text: ' ' }, text])
+      .tagFacetFilter(undefined).tagFacetFilter(role)
+      .tagFacetFilter([{ facetKey: 'role', tags: [] }, untagged])
+      .excludeInFilter('castTime', [])
+      .excludeFilter('name', 'abandoned').excludeFilter('tags', ['test'])
+      .sort(undefined, 'asc', [{ id: 'asc' }])
+      .offsetPagination(1, 10).build();
+    expect(query).toMatchObject({
+      requirementFilters: [grade, text], tagFacetFilters: [role, untagged],
+      exclude: { name: 'abandoned', tags: ['test'] }, sort: [{ id: 'asc' }],
+    });
+    expect(query.exclude).not.toHaveProperty('castTime');
+  });
+
+  it('merges nested selections and narrows an initially boolean projection', () => {
+    const query = SearchQueryBuilder.for('character')
+      .addSelectField('race.name', true).select({ race: { id: true }, powers: true })
+      .addSelectField('powers.name', true).addSelectField('powers.level', true)
+      .offsetPagination(1, 5).build();
+    expect(query.select).toEqual({ race: { name: true, id: true }, powers: { name: true, level: true } });
+  });
+
+  it('requires choosing pagination explicitly', () => {
+    expect(() => SearchQueryBuilder.for('character').build()).toThrow(/Must use either offset or keyset pagination/);
+  });
+});

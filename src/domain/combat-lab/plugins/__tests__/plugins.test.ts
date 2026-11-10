@@ -5,6 +5,7 @@ import { applyEffects } from "@/domain/combat-lab/engine/applyEffect";
 import { createRuntime } from "@/domain/combat-lab/engine/CombatState";
 import { CombatLogBuilder } from "@/domain/combat-lab/engine/CombatLog";
 import { createRng } from "@/domain/combat-lab/rng/Rng";
+import type { Action } from '@/domain/combat-lab/engine/actionEconomy';
 import type { Effect } from "@/domain/combat-lab/effects/Effect";
 import { makeSnapshot } from "@/domain/combat-lab/engine/__tests__/engineFixtures";
 
@@ -56,5 +57,55 @@ describe("plugin effect via applyEffects", () => {
     const target = createRuntime(makeSnapshot("t", { maxHp: 50 }));
     applyEffects([{ type: "custom", effectType: "not-loaded", data: {} }], source, target, { random: createRng(1).next, log: new CombatLogBuilder(1) });
     expect(target.currentHp).toBe(50);
+  });
+});
+
+describe("lifesteal pack extensions", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerPlugin(lifestealPlugin);
+  });
+
+  it.each([
+    { data: { amount: 8 }, dealt: 8, healed: 4 },
+    { data: { amount: 8, healFraction: 0 }, dealt: 8, healed: 0 },
+    { data: { amount: 8, healFraction: 2 }, dealt: 8, healed: 8 },
+    { data: { amount: -2, healFraction: 0.5 }, dealt: 0, healed: 0 },
+  ])("keeps lifesteal damage, healing and its description consistent for $data", ({ data, dealt, healed }) => {
+    const source = createRuntime(makeSnapshot("s", { maxHp: 50 }));
+    source.currentHp = 25;
+    const target = createRuntime(makeSnapshot("t", { maxHp: 50 }));
+    const log = new CombatLogBuilder(1);
+    const effect = { type: "custom", effectType: "lifesteal", data } as const;
+    applyEffects([effect], source, target, { random: createRng(1).next, log });
+    expect(target.currentHp).toBe(50 - dealt);
+    expect(source.currentHp).toBe(25 + healed);
+    expect(log.build().events.filter(event => event.kind === "heal")).toHaveLength(healed > 0 ? 1 : 0);
+    const plugin = getEffectPlugin("lifesteal")!;
+    expect(plugin.describe(effect)).toBe(`wysysa ${dealt} zdrowia (leczy ${healed})`);
+    expect(plugin.expectedValue?.(effect, source, target)).toBe(dealt + healed);
+  });
+
+  it("prefers defensive maneuvers to ordinary attacks and falls back to available actions", () => {
+    const policy = getPolicyPlugin("defensive")!.create();
+    const source = createRuntime(makeSnapshot("s"));
+    const target = createRuntime(makeSnapshot("t"));
+    const attack = { kind: "ranged" } as const;
+    const pass = { kind: "pass" } as const;
+    for (const effect of [
+      { type: "heal", amount: { amount: 0, grade: 0, bonus: 2 } },
+      { type: "buff", profile: { profileId: "guard" }, duration: 1 },
+      { type: "control", control: "stun", duration: 2 },
+    ] satisfies Effect[]) {
+      const defensive: Action = {
+        kind: "maneuver", maneuver: {
+          id: "guard", name: "Osłona", grade: 1, description: "", price: 1, tags: [],
+          castTime: "Standardowa", cooldown: 1, cost: { castTime: "Standardowa" }, hardRequirements: [], effects: [effect],
+        },
+      };
+      expect(policy.chooseAction(source, target, [pass, attack, defensive])).toBe(defensive);
+    }
+    expect(policy.chooseAction(source, target, [pass, attack])).toBe(attack);
+    expect(policy.chooseAction(source, target, [pass])).toBe(pass);
   });
 });

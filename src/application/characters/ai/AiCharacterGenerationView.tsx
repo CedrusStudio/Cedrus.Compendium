@@ -240,7 +240,7 @@ function TagEditor({ tags, onChange }: { tags: readonly string[]; onChange: (tag
 
       <Popover open={open} onOpenChange={next => { setOpen(next); if (!next) setSearch(''); }}>
         <PopoverTrigger asChild>
-          <Button type="button" variant="outline" size="sm" role="combobox" aria-expanded={open}>
+          <Button type="button" variant="outline" size="sm" role="combobox" aria-label="Dodaj tag" aria-expanded={open}>
             Dodaj tag
             <ChevronsUpDown className="ml-1 h-3 w-3 opacity-50" />
           </Button>
@@ -785,7 +785,7 @@ function ProposalPreview({
   isDiscarding: boolean;
   onAccept: () => void;
   isAccepting: boolean;
-  onSave: (proposal: AiCharacterProposal) => void;
+  onSave: (proposal: AiCharacterProposal, onSaved: () => void) => void;
   isSaving: boolean;
   balance: readonly BalanceComparison[] | undefined;
 })
@@ -851,7 +851,7 @@ function ProposalPreview({
                 return;
               }
               setEditError(null);
-              onSave(parsed.data);
+              onSave(parsed.data, () => setEdited(current => current === edited ? null : current));
             }} disabled={isSaving}>
               {isSaving ? 'Zapisywanie…' : 'Zapisz zmiany'}
             </Button>
@@ -1312,7 +1312,7 @@ export default function AiCharacterGenerationView({ provider }: AiCharacterGener
           onDiscard={() => discardMutation.mutate(draft.id)}
           isDiscarding={discardMutation.isPending}
           onAccept={() => acceptMutation.mutate(draft.id)}
-          onSave={proposal => saveMutation.mutate(proposal)}
+          onSave={(proposal, onSaved) => saveMutation.mutate(proposal, { onSuccess: onSaved })}
           isSaving={saveMutation.isPending}
           balance={balanceQuery.data}
           isAccepting={acceptMutation.isPending}

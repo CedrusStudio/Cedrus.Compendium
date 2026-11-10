@@ -19,7 +19,7 @@ export default function AdminPage()
     return (
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         <div className="rounded-lg border p-6 text-center">
-          <h1 className="text-3xl font-bold">Panel administracyjny</h1>
+          <h1 className="break-words text-2xl font-bold sm:text-3xl">Panel administracyjny</h1>
           <p className="mt-3 text-sm text-muted-foreground">Ten obszar jest dostepny tylko dla kluczy administracyjnych.</p>
         </div>
       </div>
@@ -32,8 +32,8 @@ export default function AdminPage()
 
       <div className="flex flex-wrap gap-3 place-content-between place-items-center">
 
-        <div>
-          <h1 className="text-4xl font-bold">Panel administracyjny</h1>
+        <div className="min-w-0">
+          <h1 className="break-words text-2xl font-bold sm:text-4xl">Panel administracyjny</h1>
           <p className="mt-2 text-muted-foreground">Zarządzaj globalnymi danymi współdzielonymi przez wszystkich użytkowników.</p>
         </div>
 

@@ -9,7 +9,7 @@ Przegląd kodu i danych z `backup/2026-08-02T06-30-41-035Z`. Fale 0–3 i 5–8 
 
 | Pozycja | Gdzie | Skala |
 |---|---|---|
-| **COMP-Q1 — Scoped TypeScript verification** (open, captured 2026-11-03) | [Quality follow-up plan](features-to-implement/developer-quality-followup-plan.md#comp-q1--restore-scoped-typescript-verification) | 67 existing diagnostics; diagnose matcher/ambient type setup and pass the original scoped gate. |
+| **COMP-Q1 — Scoped TypeScript verification** (fixed in CI repair candidate) | [Quality follow-up plan](features-to-implement/developer-quality-followup-plan.md#comp-q1--restore-scoped-typescript-verification) | Scoped and full type checks pass after including the existing matcher declarations. |
 | **COMP-Q2 — Existing coverage thresholds** (open, captured 2026-11-03) | [Quality follow-up plan](features-to-implement/developer-quality-followup-plan.md#comp-q2--meet-the-existing-coverage-thresholds) | Full unit tests pass; coverage remains below all four existing thresholds. Add meaningful coverage without weakening gates. |
 | **Mapowanie efektów Combat Lab** — największa otwarta pozycja | `combat-lab-maneuver-analysis-plan.md` | 84 z 992 manewrów ma efekty; **0** z 214 Postaw, 30 Stanów i 421 Zaklęć. Nic nie jest oznaczone jako niesymulowalne, więc triaż praktycznie nie ruszył. |
 | **Autorowanie efektów Postaw/Stanów** | `combat-lab-engine-model-gaps-plan.md` §1 | Silnik jest gotowy w całości (patrz §8.10). Brakuje wyłącznie **treści**: 0 z 214 Postaw i 0 z 30 Stanów ma efekty. |

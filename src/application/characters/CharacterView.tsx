@@ -34,7 +34,7 @@ type CharacterViewProps =
 }
 
 const defaultTab: CharacterTabs = "character";
-const characterTabClassName = 'flex-[1_0_30%] sm:flex-initial';
+const characterTabClassName = 'min-w-0 whitespace-normal text-center sm:flex-initial sm:whitespace-nowrap';
 
 export default function CharacterView({ tab }: CharacterViewProps)
 {
@@ -72,7 +72,7 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 
                 <div className='flex flex-col mt-4 sm:mt-0 sm:flex-row place-content-between place-items-center'>
 
-                    <TabsList className="h-auto w-full flex-wrap justify-center overflow-visible sm:w-fit">
+                    <TabsList className="grid h-auto w-full grid-cols-3 overflow-visible sm:inline-flex sm:w-fit sm:flex-wrap sm:justify-center">
                         <TabsTriggerCapitalized className={characterTabClassName} value="character" overrideValue={displayedText.character} />
                         <TabsTriggerCapitalized className={characterTabClassName} value="combat" overrideValue={displayedText.combat} />
                         <TabsTriggerCapitalized className={characterTabClassName} value="buffs" overrideValue={displayedText.buffs} />

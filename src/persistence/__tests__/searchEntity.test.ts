@@ -1,20 +1,27 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { buildTagFacetIndex } from '@/domain/tags/tagFacets';
 import type { SearchEntityPayload, SearchByIdEntityPayload } from '@/common/global/SearchPayloads';
 
-const { characterFindMany, characterFindUnique, spellFindMany, maneuverFindMany } = vi.hoisted(() => ({
+const { characterFindMany, characterFindUnique, spellFindMany, maneuverFindMany, spellFindUnique, spellAggregate, maneuverAggregate, loadTagFacetIndex } = vi.hoisted(() => ({
   characterFindMany: vi.fn(),
   characterFindUnique: vi.fn(),
   spellFindMany: vi.fn(),
   maneuverFindMany: vi.fn(),
+  spellFindUnique: vi.fn(),
+  spellAggregate: vi.fn(),
+  maneuverAggregate: vi.fn(),
+  loadTagFacetIndex: vi.fn(),
 }));
 
 vi.mock('@/lib/prisma', () => ({
   default: {
     character: { findMany: characterFindMany, findUnique: characterFindUnique },
-    spell: { findMany: spellFindMany },
-    maneuver: { findMany: maneuverFindMany },
+    spell: { findMany: spellFindMany, findUnique: spellFindUnique, aggregateRaw: spellAggregate },
+    maneuver: { findMany: maneuverFindMany, aggregateRaw: maneuverAggregate },
   },
 }));
+
+vi.mock('@/persistence/tags/tagFacetLayer', () => ({ loadTagFacetIndexForFiltering: loadTagFacetIndex }));
 
 import { searchEntity, searchEntityById } from '@/persistence/searchEntity';
 
@@ -242,5 +249,93 @@ describe('searchEntityById - character visibility', () => {
     const result = await searchEntityById('missing', byIdPayload, 'ABC');
 
     expect(result).toBeNull();
+  });
+});
+
+describe('search dispatch and pagination', () => {
+  beforeEach(() => {
+    maneuverFindMany.mockReset().mockResolvedValue([]);
+    spellFindMany.mockReset().mockResolvedValue([]);
+    spellFindUnique.mockReset();
+    spellAggregate.mockReset();
+    maneuverAggregate.mockReset();
+    loadTagFacetIndex.mockReset();
+    characterFindUnique.mockReset();
+    characterFindMany.mockReset().mockResolvedValue([]);
+  });
+
+  it('combines cursor, include/exclude filters and character visibility', async () => {
+    await searchEntity(characterListPayload({
+      search: { name: 'Aldara' }, exclude: { tags: ['npc'] },
+      pagination: { cursor: 'character-20', pageSize: 10 }, sort: [{ name: 'asc' }],
+      requirementFilters: [{ kind: 'text', text: 'zwiad' }],
+    }), 'KEY');
+    expect(characterFindMany).toHaveBeenCalledWith(expect.objectContaining({
+      where: { AND: [
+        { name: { contains: 'Aldara', mode: 'insensitive' } },
+        { NOT: { tags: { hasSome: ['npc'] } } },
+        { OR: [{ apiKeys: { isEmpty: true } }, { apiKeys: { has: 'KEY' } }] },
+        { id: { gt: 'character-20' } },
+      ] },
+      take: 10,
+      orderBy: [{ id: 'asc' }, { name: 'asc' }],
+    }));
+  });
+
+  it.each([
+    { name: undefined, where: { id: { gt: 'entry-5' } } },
+    { name: 'Cios', where: { AND: [{ name: { contains: 'Cios', mode: 'insensitive' } }, { id: { gt: 'entry-5' } }] } },
+  ])('builds the cursor query with name $name', async ({ name, where }) => {
+    await searchEntity({ entity: 'maneuver', search: { name }, pagination: { cursor: 'entry-5', pageSize: 5 } });
+    expect(maneuverFindMany).toHaveBeenCalledWith(expect.objectContaining({ where, take: 5 }));
+  });
+
+  it('preserves relation includes on lookups by ID', async () => {
+    const spell = { id: 'spell-1', name: 'Ogień' };
+    spellFindUnique.mockResolvedValue(spell);
+    await expect(searchEntityById('spell-1', { entity: 'spell', include: { characters: true } })).resolves.toEqual(spell);
+    expect(spellFindUnique).toHaveBeenCalledWith({ where: { id: 'spell-1' }, include: { characters: true } });
+    const character = { id: 'character-1', apiKeys: ['KEY'], perks: [] };
+    characterFindUnique.mockResolvedValue(character);
+    await expect(searchEntityById('character-1', { entity: 'character', include: { perks: true } }, 'KEY')).resolves.toEqual(character);
+    expect(characterFindUnique).toHaveBeenCalledWith({ where: { id: 'character-1' }, include: { perks: true } });
+  });
+
+  it('passes category aliases into the same aggregation as requirements and offset', async () => {
+    loadTagFacetIndex.mockResolvedValue(buildTagFacetIndex('maneuvers', [
+      { key: 'role', label: 'Rola', order: 0, entities: ['maneuvers'], selectionMode: 'multi', supportsNone: true },
+    ], [{ tag: 'osłona', facetKey: 'role', aliases: [{ alias: 'zasłona', entities: ['maneuvers'] }] }]));
+    maneuverAggregate.mockResolvedValue([{ _id: 'maneuver-1', name: 'Pchnięcie' }]);
+    await expect(searchEntity({
+      entity: 'maneuver', requirementFilters: [{ kind: 'text', text: 'trening' }],
+      tagFacetFilters: [{ facetKey: 'role', tags: ['osłona'] }], pagination: { pageNumber: 2, pageSize: 10 },
+    })).resolves.toEqual([{ id: 'maneuver-1', name: 'Pchnięcie' }]);
+    expect(loadTagFacetIndex).toHaveBeenCalledExactlyOnceWith('maneuvers');
+    expect(maneuverFindMany).not.toHaveBeenCalled();
+    const [query] = maneuverAggregate.mock.calls[0];
+    expect(query.pipeline).toEqual(expect.arrayContaining([{ $skip: 10 }, { $limit: 10 }]));
+    expect(query.pipeline[0].$match.$and).toContainEqual({ tags: { $in: ['osłona', 'zasłona'] } });
+  });
+
+  it('converts aggregate spell costs after normalizing the database ID', async () => {
+    spellAggregate.mockResolvedValue([{
+      _id: 'spell-1', name: 'Ogień', description: 'Płomień', grade: 1, price: 2,
+      tags: [], castTime: 'Standardowa', costBase: 8, costScalingMode: 'fixed', cooldown: null,
+    }]);
+    const payload = { entity: 'spell', requirementFilters: [{ kind: 'text', text: 'trening' }] } satisfies SearchEntityPayload;
+    await expect(searchEntity(payload)).resolves.toEqual([
+      expect.objectContaining({ id: 'spell-1', name: 'Ogień', cost: expect.objectContaining({ baseCost: 8, scalingMode: 'fixed' }) }),
+    ]);
+    spellAggregate.mockResolvedValue(null);
+    await expect(searchEntity(payload)).resolves.toEqual([]);
+    expect(spellFindMany).not.toHaveBeenCalled();
+  });
+
+  it('uses offset pagination with the typed delegate when there are no requirement filters', async () => {
+    await searchEntity({
+      entity: 'maneuver', search: { name: 'Cios' }, pagination: { pageNumber: 3, pageSize: 5 },
+    });
+    expect(maneuverFindMany).toHaveBeenCalledWith(expect.objectContaining({ skip: 10, take: 5 }));
+    expect(loadTagFacetIndex).not.toHaveBeenCalled();
   });
 });
