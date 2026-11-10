@@ -77,6 +77,59 @@ describe('AiCharacterGenerationView', () => {
     discardPrepared.mockReset();
   });
 
+
+  it.each([
+    { provider: undefined, idle: 'Wygeneruj wersję roboczą', loading: 'Generowanie wersji roboczej…' },
+    { provider: 'local' as const, idle: 'Wczytaj przygotowaną wersję roboczą', loading: 'Wczytywanie wersji roboczej…' },
+  ])('prevents duplicate requests while $loading and displays the server message', async ({ provider, idle, loading }) => {
+    let finish!: (error: unknown) => void;
+    createDraft.mockImplementationOnce(() => new Promise((_resolve, reject) => { finish = reject; }));
+    renderView(provider);
+    fireEvent.change(screen.getByLabelText('Opis postaci'), { target: { value: 'Zwiadowca z łukiem' } });
+    fireEvent.click(screen.getByRole('button', { name: idle }));
+    const pending = await screen.findByRole('button', { name: loading });
+    expect(pending).toBeDisabled();
+    fireEvent.click(pending);
+    expect(createDraft).toHaveBeenCalledTimes(1);
+    finish({ isAxiosError: true, response: { data: { error: 'Nie znaleziono szkicu.' } } });
+    expect(await screen.findByRole('alert')).toHaveTextContent('Nie znaleziono szkicu.');
+    expect(screen.getByRole('button', { name: idle })).toBeEnabled();
+  });
+
+  it('keeps the preview editable after a validation error in a numeric field', async () => {
+    createDraft.mockResolvedValue(createPendingDraft());
+    renderView();
+    fireEvent.change(screen.getByLabelText('Opis postaci'), { target: { value: 'Zwiadowca z łukiem' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    const vitality = await screen.findByRole('spinbutton', { name: 'żywotność' });
+    fireEvent.change(vitality, { target: { value: '' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+    expect(await screen.findByRole('alert')).toBeVisible();
+    expect(updateDraft).not.toHaveBeenCalled();
+    expect(vitality).toHaveValue(null);
+
+    fireEvent.change(vitality, { target: { value: '15' } });
+    updateDraft.mockImplementation(async (_id: string, proposal: AiCharacterProposal) => ({ ...createPendingDraft(), proposal }));
+    fireEvent.click(screen.getByRole('button', { name: 'Zapisz zmiany' }));
+    await waitFor(() => expect(updateDraft).toHaveBeenCalledWith('draft-review', expect.objectContaining({
+      combat: expect.objectContaining({ health: expect.objectContaining({ vitality: 15 }) }),
+    })));
+    await waitFor(() => expect(screen.queryByRole('alert')).not.toBeInTheDocument());
+  });
+
+  it('renders the preview of a draft with no default attack or defense sets', async () => {
+    const draft = createPendingDraft();
+    draft.proposal!.combat = { ...draft.proposal!.combat, offenses: [], defenses: [], defaultOffenseId: null, defaultDefenseId: null };
+    createDraft.mockResolvedValue(draft);
+    renderView();
+    fireEvent.change(screen.getByLabelText('Opis postaci'), { target: { value: 'Zwiadowca z łukiem' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Wygeneruj wersję roboczą' }));
+    expect(await screen.findByText('Brak zestawów obrony.')).toBeVisible();
+    expect(screen.getByText('Brak zestawów ataku.')).toBeVisible();
+    expect(screen.getAllByText(/Żaden zestaw nie jest domyślny/)).toHaveLength(2);
+    expect(screen.queryByRole('radio', { name: 'domyślny' })).not.toBeInTheDocument();
+  });
+
   it('keeps generation disabled until the description meets the server minimum', async () => {
     const user = userEvent.setup();
     renderView();

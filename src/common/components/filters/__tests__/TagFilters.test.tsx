@@ -113,3 +113,51 @@ it('selects only unclaimed flat tags and clears only the active mode', () => {
   expect(excluded).toHaveBeenLastCalledWith([]);
   expect(screen.getByRole('button', { name: 'obrona' })).toBeVisible();
 });
+
+it('selects an individual tag on either side and clears only the chosen side', () => {
+  const change = vi.fn();
+  function Filters()
+  {
+    const [included, setIncluded] = useState<string[]>([]);
+    const [excluded, setExcluded] = useState<string[]>([]);
+    return <TagFilter
+      availableTags={['mobilny', 'osłona', 'Zły tag']}
+      includedTags={included}
+      excludedTags={excluded}
+      onIncludedTagsChange={tags => { setIncluded(tags); change('include', tags); }}
+      onExcludedTagsChange={tags => { setExcluded(tags); change('exclude', tags); }}
+    />;
+  }
+
+  render(<Filters />);
+  fireEvent.click(screen.getByRole('combobox', { name: 'Dołącz tag' }));
+  fireEvent.click(screen.getByRole('option', { name: 'Zły tag' }));
+  expect(screen.getByText('Tag musi być małymi literami i nie może zawierać spacji')).toBeVisible();
+  expect(change).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('option', { name: 'mobilny' }));
+  expect(change).toHaveBeenLastCalledWith('include', ['mobilny']);
+  expect(screen.queryByText('Tag musi być małymi literami i nie może zawierać spacji')).not.toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Tryb wykluczania tagów' }));
+  fireEvent.click(screen.getByRole('combobox', { name: 'Wyklucz tag' }));
+  expect(screen.queryByRole('option', { name: 'mobilny' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('option', { name: 'osłona' }));
+  expect(change).toHaveBeenLastCalledWith('exclude', ['osłona']);
+  fireEvent.click(screen.getByRole('button', { name: 'osłona' }));
+  expect(change).toHaveBeenLastCalledWith('exclude', []);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Tryb dołączania tagów' }));
+  fireEvent.click(screen.getByRole('combobox', { name: 'Dołącz tag' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Odznacz wszystkie' }));
+  expect(change).toHaveBeenLastCalledWith('include', []);
+});
+
+it('removes a facet from the payload when the last choice is deselected', () => {
+  const changed = renderFacets();
+  fireEvent.click(screen.getByRole('button', { name: /^Rola/ }));
+  const defense = screen.getByRole('button', { name: 'Obrona' });
+  fireEvent.click(defense);
+  expect(changed).toHaveBeenLastCalledWith([{ facetKey: 'role', tags: ['defensywa'], includeNone: false }]);
+  fireEvent.click(defense);
+  expect(changed).toHaveBeenLastCalledWith([]);
+});
