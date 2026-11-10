@@ -15,8 +15,6 @@ jobs:
         with:
           node-version: 20.x
           cache: npm
-      - name: Verify local AI guidance
-        run: npm run verify:ai-guidance
       - run: npm ci
       - run: npx playwright install --with-deps chromium webkit
       - run: npm run typecheck

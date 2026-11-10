@@ -7,7 +7,7 @@ Next.js (App Router) + TypeScript + Prisma na MongoDB Atlas. UI: Tailwind + shad
 ## Developer guidance
 
 Start source maintenance at [AGENTS.md](AGENTS.md) and [docs/development.md](docs/development.md).
-Run `npm run verify:ai-guidance` for offline policy/link integrity using only Node.
+Follow the [shared profile activation](AGENTS.md#cedrus-shared-profile) for common developer guidance.
 Product character-generation instructions and [ai-workspace](ai-workspace/README.md)
 remain application-owned.
 
