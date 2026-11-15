@@ -196,8 +196,8 @@ available read permissions; this change does not modify shared guidance.
 
 ## COMP-Q6 - Guarded data review batches and local recovery journals
 
-Status: implementation candidate for the remaining selected CODE-03 / DATA-03 write
-boundary. Keep the PR draft until real MongoDB acceptance runs. No production content
+Status: PR #114 merge reported by the maintainer for the remaining selected CODE-03 /
+DATA-03 write boundary. Real MongoDB acceptance remains pending despite that merge. No production content
 has been changed and semantic corpus review remains open.
 
 The [script guide](../scripts/README.md#guarded-content-change-sets) owns commands and the
@@ -249,3 +249,65 @@ whose PR #112 merge was reported by the maintainer. GitHub fetch failed with DNS
 from this environment. Publication must replay only this stage onto freshly fetched remote
 main. The shared profile remains `0a42eb8fcc6f86a592c259aa461a49875fda6637`; no shared guidance
 changed. The Meta checkout remains outside this task's available read permissions.
+
+## COMP-Q7 - Pilot engine characterization and owner decisions
+
+Status: implementation candidate. The [owner-decision worksheet](data-quality-pilot-decisions.md)
+records five family-level choices and the technical acceptance still required. The base is
+PR #114's published head `de63fef7d01517dd86ff2a7857b4d18701d67428`; its merge is reported,
+and the exact accepted remote main remains unavailable here.
+
+Ten new characterization tests exercise the generated mode candidates against the real
+engine. They preserve the six nonlinear defensive ranks and state +2 damage, show no
+per-turn accumulation, verify independent slots and immutable snapshots, and expose timing,
+stance-exit and direct-damage scope differences. The rulebook says round-start activation;
+the existing simulator plan/engine uses pre/post-attack stance changes and own-turn mode
+refresh. Deciding the current rule belongs to the game owner. These tests describe current
+behavior and do not establish semantic acceptance or authorize a backfill.
+
+Pilot generation now records unresolved decisions on all thirteen rows, rather than only
+the previous six maneuver rows. It leaves content/application approval pending and semantic
+engine verification `NOT_RUN`. The original COMP-Q6 counts/results above remain historical
+evidence for that implementation; they are not new runs of this stage.
+
+The disposable MongoDB launcher creates a uniquely named local replica-set container,
+overrides inherited database URLs, rejects remote contexts and skipped test runs, and
+checks ownership before cleanup. Seven orchestration tests cover successful routing,
+test failure, skipped tests, Docker denial, remote engines and foreign ownership. The launcher does not
+run the separate character-membership suite or modify application data.
+
+Environment acceptance remains NOT_COMPLETED: Docker denied access to its Desktop Linux
+engine before container creation. An isolated harness bundled the actual editor/sheet and
+simulation hook/worker, but Chromium's navigation to the loopback server failed with
+`ERR_NETWORK_ACCESS_DENIED`. No rendered desktop/mobile acceptance is claimed; COMP-Q3,
+COMP-Q4 and COMP-Q5 retain their separate pending integration/browser gates.
+
+Verification on Node 22.15.1 / Vitest 4.0.15: 84 tests passed in 11 selected files and
+3 real MongoDB tests were skipped without a configured isolated database. The selected
+suite covers the data-quality domain/application/persistence/infrastructure, new launcher
+and existing stance/stance-change tests. Full and scoped TypeScript checks passed;
+`node --check scripts/run-data-change-integration.mjs` and `git diff --check` passed.
+No full application build, coverage run, live apply or deployment was performed. These
+results belong to this task candidate and its installed dependencies; publication records
+the resulting SHA separately and checks whether relevant inputs changed on transplantation.
+
+### MongoDB null-restore regression found during owner acceptance
+
+The maintainer executed the real suite on candidate
+`da8a2a0ffbda1be40eed7879ba5a698fa9b0279f`, run
+`4ffd9a47-a334-4c27-bddf-e77e8622056e`: two cases passed and the nullable-effects
+rollback case failed. The receipt confirms its container was cleaned up. This supersedes
+the initial environment-only status for that run, not the outstanding browser gate.
+
+The adapter translated literal `null` into `Prisma.DbNull` and hid the incompatible value
+behind a type assertion. MongoDB rejects that SQL null sentinel. The corrected adapter
+passes the reviewed JSON patch directly, with a checked Prisma input type and no assertion.
+See the [Prisma 6 JSON null contract](https://www.prisma.io/docs/orm/v6/prisma-client/special-fields-and-types/working-with-json-fields#using-null-values).
+Restoring null, writing empty effects and omitting effects remain distinct operations.
+
+The transaction-adapter regression now checks those three cases for Maneuver, Stance and
+State. It failed against the former adapter before the fix. After the fix, the selected
+suite again passed 84 tests (three real MongoDB cases skipped in this environment), and
+full/scoped TypeScript checks passed. A new local Docker attempt was denied before creation;
+real MongoDB acceptance of the corrected adapter still requires execution. Preserve the
+earlier failing report rather than relabeling its two passing cases as a complete pass.
