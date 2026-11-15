@@ -1,20 +1,10 @@
 /**
- * Copy authored effects across grade variants of the same maneuver. Many
- * maneuvers exist as r1/r2/r3… that share structure and differ only in numbers
- * (e.g. Assassynacja, Atak Szubrawcy). Once you author ONE grade, this seeds the
- * others with a DRAFT copy of its effects (+ simulatable / reason), so you only
- * tweak the scaling numbers instead of rebuilding each variant.
- *
- * Safe by default: DRY RUN unless `--apply`. Only writes to grades that have NO
- * effects and are not already marked unsupported (never overwrites your work).
- * The source is the lowest-grade authored variant.
- *
- * Usage:
- *   npx tsx scripts/copy-effects-across-grades.ts            # dry run
- *   npx tsx scripts/copy-effects-across-grades.ts --apply
+ * Preview possible copies across maneuver grades. Values are unapproved drafts:
+ * every rank requires its own numerical and semantic review. No data is written;
+ * `--apply` is refused before database reads. Use scripts/data-change-set.ts.
+ * Usage: npx tsx scripts/copy-effects-across-grades.ts
  */
 
-import { Prisma } from "@prisma/client";
 import prisma from "../src/lib/prisma";
 
 type Row = { id: string; name: string; grade: number; effects: unknown; simulatable: boolean | null; unsupportedReason: string | null };
@@ -26,6 +16,14 @@ const isEmpty = (r: Row) => !(Array.isArray(r.effects) && r.effects.length > 0) 
 
 async function main(): Promise<void>
 {
+  if (apply)
+  {
+    console.error("Zapis niezatwierdzonych kopii rang jest wyłączony. Przejrzyj każdą rangę w pakiecie scripts/data-change-set.ts (scripts/README.md).");
+    process.exitCode = 1;
+    await prisma.$disconnect();
+    return;
+  }
+
   const rows = (await prisma.maneuver.findMany()) as unknown as Row[];
 
   const byName = new Map<string, Row[]>();
@@ -52,7 +50,7 @@ async function main(): Promise<void>
     }
   }
 
-  console.log(apply ? "TRYB: ZAPIS (--apply)\n" : "TRYB: PRÓBNY (dry run)\n");
+  console.log("TRYB: PRÓBNY (podgląd propozycji, bez zapisu)\n");
   console.log(`Do skopiowania: ${plans.length} wariantów rang (z ${byName.size} nazw).`);
   console.log("Uwaga: liczby skalują się z rangą — skopiowane efekty to DRAFT do dostrojenia.\n");
 
@@ -60,20 +58,7 @@ async function main(): Promise<void>
   for (const p of preview) console.log(`  • ${p.name}: r${p.fromGrade} → r${p.grade}`);
   if (plans.length > preview.length) console.log(`  … i ${plans.length - preview.length} więcej`);
 
-  if (apply)
-  {
-    let written = 0;
-    for (const p of plans)
-    {
-      await prisma.maneuver.update({ where: { id: p.id }, data: p.data as unknown as Prisma.ManeuverUpdateInput });
-      written++;
-    }
-    console.log(`\nZapisano: ${written}.`);
-  }
-  else
-  {
-    console.log(`\n(Próbny) Uruchom ponownie z --apply, aby zapisać.`);
-  }
+  console.log("\n(Próbny) Każda ranga wymaga osobnego przeglądu w pakiecie scripts/data-change-set.ts.");
 
   await prisma.$disconnect();
 }

@@ -4,6 +4,10 @@
   "include": [
     "src/__tests__/setup.ts",
     "src/domain/combat-lab/**/*.ts",
+    "src/domain/data-quality/**/*.ts",
+    "src/application/data-quality/**/*.ts",
+    "src/infrastructure/data-quality/**/*.ts",
+    "src/persistence/data-quality/**/*.ts",
     "src/application/combat-lab/**/*.ts",
     "src/application/combat-lab/**/*.tsx",
     "src/application/compendium/**/*.tsx",
