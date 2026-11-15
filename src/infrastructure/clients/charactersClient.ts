@@ -9,6 +9,8 @@ import { type OwningEntity, type OwningCharacter } from '@/common/global/owningE
 import client from '@/infrastructure/clients/baseClient';
 import type { CharacterMembershipSnapshot, MembershipKind } from '@/domain/characters/characterMembership';
 import type { MembershipWriteResult } from '@/persistence/characters/characterMembershipResult';
+import { MAX_CHARACTER_IDS_PER_REQUEST } from '@/persistence/schemas/characters/characterIdsSchema';
+import type { Character } from '@/domain/characters/Character';
 
 const characterPathSegment = '/characters';
 
@@ -17,8 +19,15 @@ const charactersClient =
     //Queries
     getByIds: async (characterIds: string[]) =>
     {
-        const response = await client.post(`${characterPathSegment}/by-ids`, { ids: characterIds });
-        return response.data;
+        const ids = [...new Set(characterIds)];
+        const characters: Character[] = [];
+        for (let offset = 0; offset < ids.length; offset += MAX_CHARACTER_IDS_PER_REQUEST) {
+            const response = await client.post<Character[]>(`${characterPathSegment}/by-ids`, {
+                ids: ids.slice(offset, offset + MAX_CHARACTER_IDS_PER_REQUEST),
+            });
+            characters.push(...response.data);
+        }
+        return characters;
     },
 
     /** Reverse lookup: characters that have the given compendium element on their card. */

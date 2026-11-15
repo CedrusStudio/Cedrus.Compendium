@@ -4,8 +4,8 @@ import { API_KEY_HEADER } from '@/proxy';
 
 /**
  * Extracts the server-provided `message` field from an API error response
- * body, e.g. `{ message: "Invalid API key(s), not part of the configured
- * admin keys: BOGUS" }`. Returns undefined when there's nothing usable, so
+ * body, e.g. `{ message: "Invalid API keys." }`.
+ * Returns undefined when there's nothing usable, so
  * callers can fall back to axios's own generic message.
  */
 export function extractServerErrorMessage(error: { response?: { data?: unknown } }): string | undefined
@@ -66,8 +66,7 @@ client.interceptors.response.use
       console.error('🚫 Access denied: Invalid API key');
     }
 
-    // Surface the server's own error message (e.g. "Invalid API key(s), not
-    // part of the configured admin keys: ...") instead of axios's generic
+    // Surface the server's own error message instead of axios's generic
     // "Request failed with status code 4xx/5xx" — callers (e.g. the toast in
     // onSaveCallbacks.tsx) read `error.message`, not the response body.
     const serverMessage = extractServerErrorMessage(error);

@@ -22,26 +22,13 @@ import { rethrowMembershipConflict, withMembershipSnapshot, membershipSnapshotSe
 import { perkHasChanges, perkSaveSelect } from './unchangedPerks';
 import type { Prisma } from '@prisma/client';
 import type { RelationPayload } from '@/persistence/mappings/createUpsertPayload';
+import { withCharacterAccess } from './withCharacterAccess';
 import { changedRelations, type RelationOperationCounts } from './changedRelations';
 import { toSpellPersistenceModel } from '@/persistence/mappings/spellMappings';
 import { toCastablePersistenceModel } from '@/persistence/mappings/castableMapping';
 import { fromSpellCostPersistence, toSpellCostPersistence } from '@/domain/characters/combat/SpellCost';
 
 //Queries
-export async function getCharactersByIds(ids: string[])
-  : Promise<Character[]>
-{
-  if (ids.length === 0) return [];
-
-  const characters = await prisma.character.findMany
-  ({
-    where: { id: { in: ids } },
-    include: includeAllRelations
-  });
-
-  return characters.map(toCharacter);
-}
-
 /**
  * Loads full characters selected as AI references, but only when they are
  * visible to the caller's API key. The visibility rule stays in MongoDB so
@@ -93,94 +80,88 @@ export async function copyCreateCharacter(copyCreateCharacterData: CopyCreateCha
   return character.id;
 }
 
-export async function deleteCharacter(id: string)
+export async function deleteCharacter(id: string, apiKey: string)
   : Promise<void>
 {
-  await prisma.character.delete
-  ({
-    where: { id }
+  await withCharacterAccess(id, apiKey, async tx => {
+    await tx.character.delete({ where: { id } });
   });
 }
 
-export async function updateCharacterStatistics(id: string, characterStatistics: StatisticsDto)
+export async function updateCharacterStatistics(id: string, characterStatistics: StatisticsDto, apiKey: string)
   : Promise<boolean>
 {
-  const updatedCharacter = await prisma.character.update
-  ({
-    where: { id },
-    data: characterStatistics
+  return withCharacterAccess(id, apiKey, async tx => {
+    await tx.character.update({ where: { id }, data: characterStatistics });
+    return true;
   });
-
-  return !!updatedCharacter;
 }
 
-export async function updateCharacterTalents(id: string, characterTalents: TalentsDto)
+export async function updateCharacterTalents(id: string, characterTalents: TalentsDto, apiKey: string)
   : Promise<boolean>
 {
-  const updatedCharacter = await prisma.character.update
-  ({
-    where: { id },
-    data: characterTalents
+  return withCharacterAccess(id, apiKey, async tx => {
+    await tx.character.update({ where: { id }, data: characterTalents });
+    return true;
   });
-
-  return !!updatedCharacter;
 }
 
-export async function updateCharacterEquipment(id: string, characterEquipment: EquipmentDto)
+export async function updateCharacterEquipment(id: string, characterEquipment: EquipmentDto, apiKey: string)
   : Promise<boolean>
 {
-  const characterToUpdate = await prisma.character.findUnique
-  ({ 
-    where: { id },
-    select: 
-    { 
-      weaponsIds: true,
-      armorsIds: true,
-      shieldsIds: true,
-      inventoryIds: true,
-      mountsIds: true
-    }
+  return withCharacterAccess(id, apiKey, async tx => {
+    const characterToUpdate = await tx.character.findUnique
+    ({
+      where: { id },
+      select:
+      {
+        weaponsIds: true,
+        armorsIds: true,
+        shieldsIds: true,
+        inventoryIds: true,
+        mountsIds: true
+      }
+    });
+
+    if (!characterToUpdate) return false;
+
+    const existingWeaponIds = await fetchExistingEntityIds(tx.weapon, characterEquipment.weapons, characterToUpdate.weaponsIds);
+    const existingArmorIds = await fetchExistingEntityIds(tx.armor, characterEquipment.armors, characterToUpdate.armorsIds);
+    const existingShieldIds = await fetchExistingEntityIds(tx.shield, characterEquipment.shields, characterToUpdate.shieldsIds);
+    const existingInventoryIds = await fetchExistingEntityIds(tx.inventoryItem, characterEquipment.inventory, characterToUpdate.inventoryIds);
+    const existingMountIds = await fetchExistingEntityIds(tx.mount, characterEquipment.mounts, characterToUpdate.mountsIds);
+
+    const characterEquipmentPersistenceModel = toCharacterEquipmentPersistenceModel
+    (
+      characterEquipment,
+      characterToUpdate.weaponsIds,
+      existingWeaponIds,
+      characterToUpdate.armorsIds,
+      existingArmorIds,
+      characterToUpdate.shieldsIds,
+      existingShieldIds,
+      characterToUpdate.inventoryIds,
+      existingInventoryIds,
+      characterToUpdate.mountsIds,
+      existingMountIds
+    );
+
+    const updatedCharacter = await tx.character.update
+    ({
+      where: { id },
+      data: characterEquipmentPersistenceModel
+    });
+
+    return !!updatedCharacter;
   });
-
-  if (!characterToUpdate) return false;
-
-  const existingWeaponIds = await fetchExistingEntityIds(prisma.weapon, characterEquipment.weapons, characterToUpdate.weaponsIds);
-  const existingArmorIds = await fetchExistingEntityIds(prisma.armor, characterEquipment.armors, characterToUpdate.armorsIds);
-  const existingShieldIds = await fetchExistingEntityIds(prisma.shield, characterEquipment.shields, characterToUpdate.shieldsIds);
-  const existingInventoryIds = await fetchExistingEntityIds(prisma.inventoryItem, characterEquipment.inventory, characterToUpdate.inventoryIds);
-  const existingMountIds = await fetchExistingEntityIds(prisma.mount, characterEquipment.mounts, characterToUpdate.mountsIds);
-  
-  const characterEquipmentPersistenceModel = toCharacterEquipmentPersistenceModel
-  (
-    characterEquipment, 
-    characterToUpdate.weaponsIds,
-    existingWeaponIds,
-    characterToUpdate.armorsIds, 
-    existingArmorIds,
-    characterToUpdate.shieldsIds, 
-    existingShieldIds,
-    characterToUpdate.inventoryIds,
-    existingInventoryIds,
-    characterToUpdate.mountsIds,
-    existingMountIds
-  );
-
-  const updatedCharacter = await prisma.character.update
-  ({
-    where: { id },
-    data: characterEquipmentPersistenceModel
-  });
-
-  return !!updatedCharacter;
 }
 
-export async function updateCharacterDetails(id: string, characterDetails: DetailsDto, guard?: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
+export async function updateCharacterDetails(id: string, characterDetails: DetailsDto, guard: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
 {
   const timing: DetailsSaveTiming = { startedAt: performance.now() };
   try {
-    if (guard) return await withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey,
+    return await withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey,
       (tx, character) => saveCharacterDetails(id, characterDetails, tx, timing, character));
-    return !!(await saveCharacterDetails(id, characterDetails, prisma, timing));
   } finally {
     const elapsedMs = Math.round(performance.now() - timing.startedAt);
     if (elapsedMs >= 1_000) console.info('Character details save timing', {
@@ -193,15 +174,9 @@ export async function updateCharacterDetails(id: string, characterDetails: Detai
 type DetailsSaveTiming = { startedAt: number; writeStartedAt?: number; operations?: Record<string, number> };
 
 async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db: Prisma.TransactionClient,
-  timing: DetailsSaveTiming, guardedCharacter?: Pick<GuardedCharacter, 'perksIds' | 'raceId'>)
+  timing: DetailsSaveTiming, guardedCharacter: Pick<GuardedCharacter, 'perksIds' | 'raceId'>)
 {
-  const existingOnCharacterPerkIdsResponse = guardedCharacter ?? await db.character.findUnique
-  ({ 
-    where: { id },
-    select: { perksIds: true, raceId: true }
-  });
-
-  if (!existingOnCharacterPerkIdsResponse) return false;
+  const existingOnCharacterPerkIdsResponse = guardedCharacter;
 
   // Character apiKeys must come from the same pool as the configured admin
   // API keys (NEXT_API_KEYS) — see features-to-implement/visible-only-to-api-keys.md.
@@ -211,7 +186,7 @@ async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db
     const invalidApiKeys = characterDetails.apiKeys.filter(apiKey => !adminApiKeys.includes(apiKey));
 
     if (invalidApiKeys.length > 0) {
-      throw new CharacterValidationError(`Invalid API key(s), not part of the configured admin keys: ${invalidApiKeys.join(', ')}`);
+      throw new CharacterValidationError('Invalid API keys, not part of the configured admin keys.');
     }
   }
 
@@ -266,13 +241,12 @@ async function saveCharacterDetails(id: string, characterDetails: DetailsDto, db
   } catch (error) { return rethrowMembershipConflict(error); }
 }
 
-export async function updateCharacterCombat(id: string, characterCombat: CombatDto, guard?: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
+export async function updateCharacterCombat(id: string, characterCombat: CombatDto, guard: { expectedMembership: Partial<CharacterMembershipSnapshot>; apiKey: string })
 {
   const timing: CombatSaveTiming = { startedAt: performance.now() };
   try {
-    if (guard) return await withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey,
+    return await withMembershipSnapshot(id, guard.expectedMembership, guard.apiKey,
       (tx, character) => saveCharacterCombat(id, characterCombat, tx, timing, character));
-    return !!(await saveCharacterCombat(id, characterCombat, prisma, timing));
   } finally {
     const elapsedMs = Math.round(performance.now() - timing.startedAt);
     if (elapsedMs >= 1_000) console.info('Character combat save timing', {
@@ -285,22 +259,9 @@ export async function updateCharacterCombat(id: string, characterCombat: CombatD
 type CombatSaveTiming = { startedAt: number; writeStartedAt?: number; operations?: Record<string, RelationOperationCounts> };
 
 async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: Prisma.TransactionClient,
-  timing: CombatSaveTiming, guardedCharacter?: CharacterMembershipSnapshot)
+  timing: CombatSaveTiming, guardedCharacter: CharacterMembershipSnapshot)
 {
-  const idsOnCharacter = guardedCharacter ?? await db.character.findUnique
-  ({ 
-    where: { id },
-    select: 
-    { 
-      stancesIds: true,
-      statesIds: true,
-      maneuversIds: true,
-      spellsIds: true,
-      powerSpecificationsIds: true
-    }
-  });
-
-  if (!idsOnCharacter) return false;
+  const idsOnCharacter = guardedCharacter;
 
   const modesSelect = { ...perkSaveSelect, effects: true, simulatable: true, unsupportedReason: true } as const;
   const castableSelect = { ...perkSaveSelect, castTime: true, cooldown: true } as const;
@@ -354,16 +315,13 @@ async function saveCharacterCombat(id: string, characterCombat: CombatDto, db: P
   } catch (error) { return rethrowMembershipConflict(error); }
 }
 
-export async function updateCharacterBuffs(id: string, characterBuffs: BuffsDto)
+export async function updateCharacterBuffs(id: string, characterBuffs: BuffsDto, apiKey: string)
   : Promise<boolean>
 {
-  const updatedCharacter = await prisma.character.update
-  ({
-    where: { id },
-    data: toCharacterBuffsPersistenceModel(characterBuffs)
+  return withCharacterAccess(id, apiKey, async tx => {
+    await tx.character.update({ where: { id }, data: toCharacterBuffsPersistenceModel(characterBuffs) });
+    return true;
   });
-
-  return !!updatedCharacter;
 }
 
 //Private functions
