@@ -1,4 +1,5 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
+import * as combatEngine from "@/domain/combat-lab/engine/runCombat";
 import { runSimulation, runSimulationChunk, splitSeedRange } from "@/domain/combat-lab/simulation/runSimulation";
 import { aggregateResults } from "@/domain/combat-lab/simulation/aggregateResults";
 import { summarizeCombat } from "@/domain/combat-lab/simulation/summarizeCombat";
@@ -44,6 +45,37 @@ describe("runSimulation()", () => {
     runSimulation({ a: knight(), b: orc(), count: 1000 }, (completed) => updates.push(completed), 250);
     expect(updates).toContain(250);
     expect(updates).toContain(1000);
+  });
+
+  it("reports actual completed work before running the remaining fights", () => {
+    const spy = vi.spyOn(combatEngine, 'runCombat');
+    try {
+      const updates: number[] = [];
+      const request = { a: knight(), b: orc(), count: 7, seedStart: 23 };
+      const result = runSimulation(request, completed => {
+        expect(spy).toHaveBeenCalledTimes(completed);
+        updates.push(completed);
+      }, 2);
+      expect(updates).toEqual([2, 4, 6, 7]);
+      const independent = Array.from({ length: 7 }, (_, i) => summarizeCombat(runCombat(request.a, request.b, { seed: 23 + i })));
+      expect(result.results).toEqual(independent);
+      expect(result.summary).toEqual(aggregateResults(independent));
+    } finally { spy.mockRestore(); }
+  });
+
+  it.each([0, -1, 1.5, Infinity, NaN])("rejects invalid progress intervals (%s)", interval => {
+    expect(() => runSimulation({ a: knight(), b: orc(), count: 1 }, () => {}, interval)).toThrow(RangeError);
+  });
+
+  it.each([-1, 1.5, Infinity, NaN])("rejects invalid counts (%s)", count => {
+    expect(() => runSimulation({ a: knight(), b: orc(), count })).toThrow(RangeError);
+  });
+
+  it("reports an empty run once and prevents unsafe seed ranges", () => {
+    const progress = vi.fn();
+    expect(runSimulation({ a: knight(), b: orc(), count: 0 }, progress).results).toEqual([]);
+    expect(progress).toHaveBeenCalledExactlyOnceWith(0, 0);
+    expect(() => runSimulation({ a: knight(), b: orc(), count: 2, seedStart: Number.MAX_SAFE_INTEGER })).toThrow(RangeError);
   });
 
   it("counts each fight's rounds into the average", () => {

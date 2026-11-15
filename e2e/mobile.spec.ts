@@ -372,12 +372,38 @@ test('real simulation worker produces results that fit on a phone', async ({ pag
   await page.getByRole('button', { name: 'Uruchom symulację', exact: true }).click();
   await expect(page.getByText('Wyniki (5 walk)', { exact: true })).toBeVisible({ timeout: 30_000 });
   await expectPageFits(page);
+  await page.getByRole('spinbutton', { name: 'Liczba walk', exact: true }).fill('7');
+  await expect(page.getByText('Ustawienia zostały zmienione. Widoczne wyniki dotyczą poprzedniej symulacji.', { exact: true })).toBeVisible();
+  await expect(page.getByText('Wyniki (5 walk)', { exact: true })).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath('simulation-result.png'), fullPage: true });
+  const saveRequest = page.waitForRequest(request => request.method() === 'POST' && new URL(request.url()).pathname === '/api/combat-lab/simulations');
   await page.getByRole('button', { name: 'Zapisz bieg', exact: true }).click();
+  const savedPayload = (await saveRequest).postDataJSON();
+  expect(savedPayload.configuration.count).toBe(5);
+  expect(savedPayload.result.count).toBe(5);
+  await expect(page.getByRole('button', { name: 'Zapisz bieg', exact: true })).toBeDisabled();
   await page.goto('/combat-lab/report/mobile-run');
   await expect(page.getByRole('heading', { name: 'Raport symulacji', exact: true })).toBeVisible();
   await expectPageFits(page);
   await page.screenshot({ path: testInfo.outputPath('simulation-report.png'), fullPage: true });
+});
+
+test('real simulation worker cancels and restarts without a stale result', async ({ page }) => {
+  await page.goto('/combat-lab');
+  await page.getByRole('button', { name: characterName, exact: true }).first().click();
+  await page.getByRole('button', { name: 'Borowit z Południowej Strażnicy', exact: true }).last().click();
+  const count = page.getByRole('spinbutton', { name: 'Liczba walk', exact: true });
+  await count.fill('100000');
+  await page.getByRole('button', { name: 'Uruchom symulację', exact: true }).click();
+  await expect(page.getByRole('progressbar', { name: 'Postęp symulacji' })).toBeVisible();
+  await page.getByRole('button', { name: 'Anuluj symulację', exact: true }).click();
+  await expect(page.getByText('Anulowano symulację.', { exact: true })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Wynik zakończonej symulacji' })).toHaveCount(0);
+  await count.fill('5');
+  await page.getByRole('button', { name: 'Uruchom symulację', exact: true }).click();
+  await expect(page.getByText('Wyniki (5 walk)', { exact: true })).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByText('Anulowano symulację.', { exact: true })).toHaveCount(0);
+  await expectPageFits(page);
 });
 
 test('battle participants, column controls and preset dialog work on a phone', async ({ page }) => {
