@@ -6,7 +6,7 @@
  *
  * Safe by default: DRY RUN unless `--apply` is passed. Matches maneuvers by the
  * (name, grade) unique key. Every effect payload is validated against
- * `effectSchema` before it is accepted — a malformed hand-edit is skipped, not
+ * `effectsAuthoringSchema` before it is accepted — a malformed hand-edit is skipped, not
  * written.
  *
  * Which rows are imported:
@@ -30,7 +30,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Prisma } from "@prisma/client";
 import prisma from "../src/lib/prisma";
-import { effectSchema } from "../src/domain/combat-lab/effects/effectSchema";
+import { effectsAuthoringSchema } from "../src/domain/combat-lab/effects/effectAuthoringSchema";
+import type { Effect } from "../src/domain/combat-lab/effects/Effect";
 
 // ---- args -----------------------------------------------------------------
 
@@ -84,7 +85,7 @@ const isUnsupportedMark = (v: string) => /^(nie|no|niesymulowaln\w*|unsupported)
 // ---- main -----------------------------------------------------------------
 
 type Plan =
-  | { name: string; grade: number; action: "effects"; effects: unknown[] }
+  | { name: string; grade: number; action: "effects"; effects: Effect[] }
   | { name: string; grade: number; action: "unsupported"; reason: string };
 
 async function main(): Promise<void>
@@ -124,10 +125,16 @@ async function main(): Promise<void>
       catch { console.warn(`  ⚠ ${name} (r${grade}): proposedEffects to niepoprawny JSON — pomijam.`); skippedInvalid++; continue; }
 
       const list = Array.isArray(parsed) ? parsed : [parsed];
-      const allValid = list.every(e => effectSchema.safeParse(e).success);
-      if (!allValid) { console.warn(`  ⚠ ${name} (r${grade}): efekt nie przechodzi walidacji effectSchema — pomijam.`); skippedInvalid++; continue; }
+      const validated = effectsAuthoringSchema.safeParse(list);
+      if (!validated.success)
+      {
+        const issues = validated.error.issues.map(issue => `${issue.path.join(".")}: ${issue.message}`).join("; ");
+        console.warn(`  ⚠ ${name} (r${grade}): ${issues} — pomijam.`);
+        skippedInvalid++;
+        continue;
+      }
 
-      plans.push({ name, grade, action: "effects", effects: list });
+      plans.push({ name, grade, action: "effects", effects: validated.data });
     }
     else if (markT3 && row.tier === "T3")
     {
@@ -153,7 +160,7 @@ async function main(): Promise<void>
     // `prisma generate` runs against the updated schema. The cast is a no-op
     // once the client is regenerated.
     const data: Record<string, unknown> = plan.action === "effects"
-      ? { effects: plan.effects, simulatable: true }
+      ? { effects: plan.effects, simulatable: true, unsupportedReason: null }
       : { simulatable: false, unsupportedReason: plan.reason };
 
     if (apply)

@@ -1,5 +1,19 @@
 export const translations_plPL = 
 {
+    effectJsonSyntaxError: "Niepoprawny JSON. Popraw składnię przed zapisem.",
+    effectJsonShapeError: "JSON nie pasuje do schematu efektu.",
+    effectPluginData: "Dane pluginu (JSON obiektu)",
+    effectJson: "Efekt (JSON)",
+    effectType: "Typ efektu",
+    effectRemove: "Usuń efekt",
+    effectChangeTitle: "Zmienić typ efektu?",
+    effectChangeDescription: "Zmiana typu usunie dotychczasowe pola i efekty zagnieżdżone tego efektu.",
+    effectKeepType: "Zachowaj efekt",
+    effectReplaceType: "Zmień typ i usuń pola",
+    effectPreviewEmpty: "Brak efektów do podglądu.",
+    effectPreviewInvalid: "Podgląd niedostępny: popraw błędy efektów.",
+    effectPreviewUnsupported: "Efekty wyłączone: rekord oznaczono jako niesymulowalny.",
+
     simulationParticipantA: "Postać A",
     simulationParticipantB: "Postać B",
     simulationCount: "Liczba walk",

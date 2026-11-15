@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { CreateDefaultPerk } from '@/domain/characters/Perk';
 import { CreateDefaultManeuver } from '@/domain/characters/combat/Maneuver';
 import { CreateDefaultStance, CreateDefaultState } from '@/domain/characters/combat/Mode';
@@ -26,6 +26,7 @@ const { dbCall, models, characterUpdates } = vi.hoisted(() => {
   characterUpdates.copyCreateCharacter = vi.fn(async (data: unknown) => { dbCall('copy', 'create', data); return true; });
   return { dbCall, models, characterUpdates };
 });
+vi.mock('@/lib/env', async importOriginal => ({ ...await importOriginal<typeof import('@/lib/env')>(), adminApiKeys: ['numeric-form-test'] }));
 vi.mock('@/lib/prisma', () => ({ default: models }));
 vi.mock('@/persistence/characters/charactersRepository', () => characterUpdates);
 
@@ -59,7 +60,7 @@ function getField(body: unknown, path: string): unknown
 
 function request(path: string, method: string, body: unknown)
 {
-  return new NextRequest(`http://localhost/api/${path}`, { method, body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
+  return new NextRequest(`http://localhost/api/${path}`, { method, body: JSON.stringify(body), headers: { 'Content-Type': 'application/json', 'x-api-key': 'numeric-form-test' } });
 }
 
 describe('numeric validation at compendium API boundaries', () => {
@@ -157,4 +158,45 @@ it('rejects blank numeric data in character copies before persistence', async ()
   expect(await valid.json()).not.toHaveProperty('issues');
   expect(valid.status).toBe(201);
   expect(dbCall.mock.calls[0][2]).toMatchObject({ health: { bonus: 0 } });
+});
+
+
+describe('effect validation at compendium write boundaries', () => {
+  afterEach(async () => (await import('@/domain/combat-lab/plugins/registry')).resetRegistry());
+  for (const entry of config.filter(item => ['maneuvers', 'stances', 'states'].includes(item.path)))
+  {
+    for (const method of ['POST', 'PUT'] as const)
+    {
+      const run = async (effects: unknown[]) => {
+        const body = { ...entry.body(), effects };
+        return method === 'POST'
+          ? (await entry.post()).POST(request(entry.path, method, body))
+          : (await entry.put()).PUT(request(`${entry.path}/${id}`, method, body), { params: Promise.resolve({ id }) });
+      };
+
+      it.each([
+        { type: 'chance', chance: 50, then: [{ type: 'push', distance: 1, typo: 2 }] },
+        { type: 'custom', effectType: 'lifesteal', data: { amount: 2, typo: 1 } },
+        { type: 'resource', resource: 'mana', delta: 1 },
+      ])(`${method} /${entry.path} rejects invalid effects before persistence: %j`, async effect => {
+        const response = await run([effect]);
+        expect(response.status).toBe(400);
+        expect(await response.json()).toHaveProperty('issues');
+        expect(dbCall).not.toHaveBeenCalled();
+      });
+
+      it(`${method} /${entry.path} persists parsed plugin defaults`, async () => {
+        const { z } = await import('zod');
+        const { registerPlugin } = await import('@/domain/combat-lab/plugins/registry');
+        registerPlugin({ id: 'write-test', name: 'Test', version: '1', effects: [{
+          effectType: 'with-default', apply() {}, describe: () => '',
+          schema: z.object({ amount: z.number().default(3) }),
+        }] });
+        const response = await run([{ type: 'custom', effectType: 'with-default', data: {} }]);
+        expect(response.status).toBe(method === 'POST' ? 201 : 200);
+        expect(dbCall).toHaveBeenCalledOnce();
+        expect(dbCall.mock.calls[0][2]).toMatchObject({ effects: [{ type: 'custom', effectType: 'with-default', data: { amount: 3 } }] });
+      });
+    }
+  }
 });

@@ -11,6 +11,10 @@
  * defined by whichever plugin owns `effectType`, not by this app.
  */
 
+import { useId, useRef, useState } from "react";
+import { displayedText } from "@/common/translations";
+import { JsonDraftField } from "./JsonDraftField";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/common/components/ui/alert-dialog";
 import { Controller, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import {
   EFFECT_TYPE_META, EFFECT_TYPE_ORDER, defaultEffect, weaponDiceDamageScalePreset,
@@ -19,7 +23,6 @@ import {
   type FieldDef, type LooseEffect,
 } from "@/application/combat-lab/effects-editor/effectFieldsMeta";
 import { statusLabelsPl } from "@/domain/combat-lab/i18n/labels";
-import { effectSchema } from "@/domain/combat-lab/effects/effectSchema";
 import { ContestedEffectFields, SaveEffectFields } from "@/application/combat-lab/effects-editor/TestSideFields";
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
@@ -61,22 +64,48 @@ export function SingleEffectField({ name, depth = 0 }: { name: string; depth?: n
 
 function EffectItem({ name, onRemove, depth }: { name: string; onRemove?: () => void; depth: number })
 {
-  const { control, setValue } = useFormContext();
+  const { control, setValue, clearErrors } = useFormContext();
+  const [pendingType, setPendingType] = useState<string>();
+  const typeSelect = useRef<HTMLButtonElement>(null);
   const eff = (useWatch({ control, name }) ?? {}) as LooseEffect;
   const type = (eff.type as string) ?? "damage";
   const meta = EFFECT_TYPE_META[type];
+  const changeType = (next: string) =>
+  {
+    clearErrors(name);
+    setValue(name, defaultEffect(next), { shouldDirty: true, shouldValidate: true });
+    setPendingType(undefined);
+  };
 
   return (
     <div className="rounded-md border p-3">
       <div className="flex items-center gap-2">
-        <Select value={type} onValueChange={(t) => setValue(name, defaultEffect(t), { shouldDirty: true, shouldValidate: true })}>
-          <SelectTrigger className="w-64"><SelectValue /></SelectTrigger>
+        <Select value={type} onValueChange={next =>
+        {
+          if (next === type) return;
+          if (Object.keys(eff).some(key => key !== "type")) setPendingType(next);
+          else changeType(next);
+        }}>
+          <SelectTrigger ref={typeSelect} aria-label={displayedText.effectType} className="w-64"><SelectValue /></SelectTrigger>
           <SelectContent>
             {EFFECT_TYPE_ORDER.map(t => <SelectItem key={t} value={t}>{EFFECT_TYPE_META[t]!.label}</SelectItem>)}
           </SelectContent>
         </Select>
-        {onRemove && <Button type="button" variant="ghost" size="sm" className="ml-auto" onClick={onRemove}>✕</Button>}
+        {onRemove && <Button type="button" variant="ghost" size="sm" className="ml-auto" aria-label={displayedText.effectRemove} onClick={onRemove}>✕</Button>}
       </div>
+
+      <AlertDialog open={pendingType !== undefined} onOpenChange={open => { if (!open) setPendingType(undefined); }}>
+        <AlertDialogContent onCloseAutoFocus={event => { event.preventDefault(); typeSelect.current?.focus(); }}>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{displayedText.effectChangeTitle}</AlertDialogTitle>
+            <AlertDialogDescription>{displayedText.effectChangeDescription}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{displayedText.effectKeepType}</AlertDialogCancel>
+            <AlertDialogAction onClick={() => { if (pendingType) changeType(pendingType); }}>{displayedText.effectReplaceType}</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {meta?.simple && meta.fields ? (
         <div className="mt-3 flex flex-wrap gap-3">
@@ -101,37 +130,27 @@ function EffectItem({ name, onRemove, depth }: { name: string; onRemove?: () => 
           <div className="border-l pl-3"><EffectListField name={`${name}.then`} depth={depth + 1} /></div>
         </div>
       ) : type === "custom" ? (
-        <CustomEffectFields name={name} value={eff} />
+        <CustomEffectFields name={name} />
       ) : (
-        <RawJsonField name={name} value={eff} />
+        <JsonDraftField name={name} />
       )}
     </div>
   );
 }
 
-function CustomEffectFields({ name, value }: { name: string; value: LooseEffect })
+function CustomEffectFields({ name }: { name: string })
 {
-  const { control, setValue } = useFormContext();
-  const dataValid = value.data == null || (typeof value.data === "object" && !Array.isArray(value.data));
+  const { control } = useFormContext();
+  const id = useId();
   return (
     <div className="mt-3 flex flex-col gap-2">
       <Controller control={control} name={`${name}.effectType`} render={({ field }) => (
         <div className="flex flex-col gap-1">
-          <Label className="text-xs text-muted-foreground">effectType (klucz pluginu)</Label>
-          <Input className="w-56" value={field.value ?? ""} onChange={(e) => field.onChange(e.target.value)} />
+          <Label htmlFor={id} className="text-xs text-muted-foreground">effectType (klucz pluginu)</Label>
+          <Input {...field} id={id} className="w-56" value={field.value ?? ""} />
         </div>
       )} />
-      <div className="flex flex-col gap-1">
-        <div className="text-xs text-muted-foreground">
-          data (JSON obiektu){" "}
-          <span className={dataValid ? "text-emerald-600" : "text-destructive"}>{dataValid ? "✓" : "⚠ musi być obiektem"}</span>
-        </div>
-        <textarea
-          className="min-h-[90px] w-full rounded-md border bg-background p-2 font-mono text-xs"
-          defaultValue={JSON.stringify(value.data ?? {}, null, 2)}
-          onBlur={(e) => { try { setValue(`${name}.data`, JSON.parse(e.target.value), { shouldDirty: true, shouldValidate: true }); } catch { /* keep editing */ } }}
-        />
-      </div>
+      <JsonDraftField name={name} pluginData />
     </div>
   );
 }
@@ -139,6 +158,7 @@ function CustomEffectFields({ name, value }: { name: string; value: LooseEffect 
 export function EffectField({ name, def }: { name: string; def: FieldDef })
 {
   const { control } = useFormContext();
+  const id = useId();
 
   if (def.kind === "check")
   {
@@ -156,9 +176,9 @@ export function EffectField({ name, def }: { name: string; def: FieldDef })
     return (
       <Controller control={control} name={name} render={({ field }) => (
         <div className="flex flex-col gap-1">
-          <Label className="text-xs text-muted-foreground">{def.label}</Label>
+          <Label htmlFor={id} className="text-xs text-muted-foreground">{def.label}</Label>
           <Select value={(field.value as string) ?? (def.def as string) ?? ""} onValueChange={field.onChange}>
-            <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
+            <SelectTrigger id={id} ref={field.ref} onBlur={field.onBlur} className="w-48"><SelectValue /></SelectTrigger>
             <SelectContent>
               {(def.options ?? []).map(o => <SelectItem key={o} value={o}>{def.optLabels?.[o] ?? o}</SelectItem>)}
             </SelectContent>
@@ -172,8 +192,8 @@ export function EffectField({ name, def }: { name: string; def: FieldDef })
     return (
       <Controller control={control} name={name} render={({ field }) => (
         <div className="flex flex-col gap-1">
-          <Label className="text-xs text-muted-foreground">{def.label}</Label>
-          <Input className="w-56" value={field.value ?? ""} onChange={(e) => field.onChange(e.target.value)} />
+          <Label htmlFor={id} className="text-xs text-muted-foreground">{def.label}</Label>
+          <Input id={id} ref={field.ref} onBlur={field.onBlur} className="w-56" value={field.value ?? ""} onChange={(e) => field.onChange(e.target.value)} />
         </div>
       )} />
     );
@@ -181,8 +201,8 @@ export function EffectField({ name, def }: { name: string; def: FieldDef })
   return (
     <Controller control={control} name={name} render={({ field }) => (
       <div className="flex flex-col gap-1">
-        <Label className="text-xs text-muted-foreground">{def.label}</Label>
-        <Input type="number" className="w-24" value={field.value ?? ""} onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))} />
+        <Label htmlFor={id} className="text-xs text-muted-foreground">{def.label}</Label>
+        <Input id={id} ref={field.ref} onBlur={field.onBlur} type="number" className="w-24" value={field.value ?? ""} onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))} />
       </div>
     )} />
   );
@@ -324,29 +344,6 @@ function ConditionField({ name }: { name: string })
           <EffectField name={`${name}.min`} def={{ path: "min", label: "próg (≥)", kind: "number", def: 1 }} />
         </>
       )}
-    </div>
-  );
-}
-
-function RawJsonField({ name, value }: { name: string; value: LooseEffect })
-{
-  const { setValue } = useFormContext();
-  const valid = effectSchema.safeParse(value).success;
-  return (
-    <div className="mt-3 flex flex-col gap-1">
-      <div className="text-xs text-muted-foreground">
-        Typ złożony — edycja jako JSON (dedykowany builder w kolejnym etapie).{" "}
-        <span className={valid ? "text-emerald-600" : "text-destructive"}>{valid ? "✓ poprawny" : "⚠ niepoprawny wg schematu"}</span>
-      </div>
-      <textarea
-        className="min-h-[120px] w-full rounded-md border bg-background p-2 font-mono text-xs"
-        defaultValue={JSON.stringify(value ?? {}, null, 2)}
-        onBlur={(e) =>
-        {
-          try { setValue(name, JSON.parse(e.target.value), { shouldDirty: true, shouldValidate: true }); }
-          catch { /* invalid JSON: keep editing, don't commit */ }
-        }}
-      />
     </div>
   );
 }

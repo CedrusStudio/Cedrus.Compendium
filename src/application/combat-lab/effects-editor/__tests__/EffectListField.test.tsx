@@ -44,7 +44,7 @@ describe('EffectListField', () => {
     expect(screen.getByText('Brak efektów.')).toBeVisible();
     fireEvent.click(screen.getByRole('button', { name: '+ Dodaj efekt' }));
     fireEvent.click(screen.getByRole('button', { name: '+ Obrażenie za kość broni (+1/kość)' }));
-    fireEvent.click(screen.getAllByRole('button', { name: '✕' })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Usuń efekt' })[0]);
     fireEvent.change(numberField('bonus'), { target: { value: '3' } });
     submit();
 
@@ -71,22 +71,22 @@ describe('EffectListField', () => {
     ]));
   });
 
-  it('keeps the previous plugin data after incomplete JSON and submits a later valid edit', async () => {
-    const save = renderEditor([{ type: 'custom', effectType: 'example', data: { amount: 2 } }]);
+  it('blocks incomplete JSON and submits a later valid edit without requiring blur', async () => {
+    const save = renderEditor([{ type: 'custom', effectType: 'lifesteal', data: { amount: 2 } }]);
     const json = screen.getByDisplayValue(/"amount": 2/);
 
     fireEvent.change(json, { target: { value: '{"amount":' } });
     fireEvent.blur(json);
     submit();
-    await waitFor(() => expect(save).toHaveBeenLastCalledWith([
-      { type: 'custom', effectType: 'example', data: { amount: 2 } },
-    ]));
+    expect(await screen.findByRole('alert')).toHaveTextContent('Niepoprawny JSON');
+    expect(json).toHaveValue('{"amount":');
+    expect(json).toHaveAttribute('aria-invalid', 'true');
+    expect(save).not.toHaveBeenCalled();
 
     fireEvent.change(json, { target: { value: '{"amount": 5}' } });
-    fireEvent.blur(json);
     submit();
     await waitFor(() => expect(save).toHaveBeenLastCalledWith([
-      { type: 'custom', effectType: 'example', data: { amount: 5 } },
+      { type: 'custom', effectType: 'lifesteal', data: { amount: 5 } },
     ]));
   });
 });
@@ -190,6 +190,13 @@ describe('effect type and source changes', () => {
     const save = renderEditor([{ type: 'pull', distance: 3 }]);
     await user.click(screen.getByRole('combobox'));
     await user.click(await screen.findByRole('option', { name: 'Buff z profilu (zaawansowane)' }));
+    expect(screen.getByRole('alertdialog')).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Zachowaj efekt' })).toHaveFocus();
+    await user.click(screen.getByRole('button', { name: 'Zachowaj efekt' }));
+    expect(numberField('kroki')).toHaveValue(3);
+    await user.click(screen.getByRole('combobox'));
+    await user.click(await screen.findByRole('option', { name: 'Buff z profilu (zaawansowane)' }));
+    await user.click(screen.getByRole('button', { name: 'Zmień typ i usuń pola' }));
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'guard-profile' } });
     submit();
     await waitFor(() => expect(save).toHaveBeenLastCalledWith([{

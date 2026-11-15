@@ -53,3 +53,19 @@ Remove-Item Env:E2E_PRODUCTION
 ```
 
 Workflow `Mobile UI` wykonuje kontrolę typów, build i testy na PR-ach oraz udostępnia artefakty przez 14 dni. Nie zastępuje oględzin obrazów ani sprawdzenia prawdziwej klawiatury, pasków przeglądarki i gestów na iOS/Androidzie. Dodatkowe warianty języka aplikacji wymagają osobnego uruchomienia z `NEXT_LANGUAGE`; zmiana locale samej przeglądarki nie zmienia etykiet aplikacji. Obecne asercje nazw kontrolek zakładają PL.
+
+
+## Effect authoring acceptance
+
+`effect-authoring.spec.ts` uses the same mocked API boundary. It checks that malformed or
+schema-invalid plugin JSON blocks a stale save, focuses the JSON field, suppresses its
+preview, and preserves the draft when a destructive type change is cancelled. A repaired
+value must produce the exact expected request payload. Run this on desktop and a narrow
+viewport:
+
+```powershell
+node scripts/run-e2e.mjs effect-authoring.spec.ts --project=desktop --project=phone-320
+```
+
+This scenario has been authored but browser acceptance remains pending in COMP-Q5 of the
+[quality follow-up plan](../features-to-implement/developer-quality-followup-plan.md#comp-q5---safe-effect-authoring-and-shared-write-validation).
