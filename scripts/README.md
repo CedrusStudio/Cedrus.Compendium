@@ -185,3 +185,31 @@ The tests exercise nullable JSON restoration, whole-batch rollback and a concurr
 edit between transaction read/write. Do not use a production connection. Real MongoDB
 acceptance remains pending until this suite actually runs; the authored pilot remains a
 review draft and has not been applied.
+
+### Disposable MongoDB acceptance
+
+With dependencies installed and a local Linux-container Docker engine available, run:
+
+```powershell
+npm run test:data-change-integration
+# Optional alternate loopback port:
+node scripts/run-data-change-integration.mjs --port=27028
+```
+
+This launcher creates its own UUID-named container and `cedrus_data_change_test_...`
+database. It overrides inherited application/test connection URLs for the child commands,
+does not modify `.env`, initializes a single-node replica set and runs Prisma schema setup
+only against that generated database. The image is `mongo:7.0`; its actual image ID is
+recorded. A remote Docker context is refused; the published test port is loopback-only.
+
+A pass requires every real test to execute successfully; a skipped suite is a failure of
+acceptance. Receipts and the Vitest JSON report are kept under
+`backup/data-change-acceptance/<run-id>/`. Cleanup checks the exact container ID and owner
+label, then removes only that test container and its volumes. The downloaded image remains
+for reuse. On a forced process kill, inspect the saved receipt before manually cleaning up
+its container. There is no global Docker prune, production URL option or production apply.
+
+The [pilot owner-decision worksheet](../features-to-implement/data-quality-pilot-decisions.md)
+records timing and damage-scope questions found by engine characterization. All thirteen
+pilot rows now carry unresolved decisions. Passing characterization tests records current
+behavior; it cannot approve the mappings or fill semantic checks automatically.

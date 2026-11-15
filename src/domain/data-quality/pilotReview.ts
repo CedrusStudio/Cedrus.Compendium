@@ -11,7 +11,7 @@ function candidate(collection: ContentCollection, record: Record<string, unknown
     return {
       proposed: { description: `Zwiększa niewrażliwość o 1 i odporność o ${grade}.`, effects: [{ type: "stat", mode: "self", duration: 1, immunity: 1, resistance: grade }], simulatable: true, unsupportedReason: null },
       summary: "Candidate adds the resistance stated in each rank; duration 1 is observed data, not an accepted rule.",
-      unknowns: ["Confirm duration and the exact meaning of immunity/resistance before approving the mapping."],
+      unknowns: ["Define when the instantaneous bonus starts, when it expires and how reuse refreshes it; the stored duration 1 is not an accepted rule. Immunity 1 and resistance 1/2/3 are already stated in the source."],
       code: "DQ-SEMANTICS",
     };
   }
@@ -30,8 +30,12 @@ function candidate(collection: ContentCollection, record: Record<string, unknown
     if (!match) throw new Error("Pilot source wording changed; review the candidate rule.");
     return {
       proposed: { effects: [{ type: "stat", mode: "self", duration: 0, resistance: Number(match[1]), damage: -Number(match[2]) }], simulatable: true, unsupportedReason: null },
-      summary: "Candidate uses each source rank's actual numbers, including nonlinear resistance; duration 0 denotes active-mode lifecycle.",
-      unknowns: [], code: "DQ-SUPPORT",
+      summary: "Candidate preserves each rank's nonlinear numbers. Duration 0 is refreshed on the owner's turn by the current engine; it does not establish the intended mode lifetime.",
+      unknowns: [
+        "Resolve rulebook round-start activation versus engine own-turn activation/pre-or-post-attack changes, including protection before the first own turn.",
+        "Decide whether a replaced stance's modifiers expire immediately or remain until the next own turn, potentially overlapping the new stance.",
+        "Define whether the damage penalty applies to offense attacks/spells only or also direct maneuver damage, and how multiple damage components count.",
+      ], code: "DQ-SEMANTICS",
     };
   }
   if (collection === "State" && name === "Ostrość Umysłu")
@@ -40,7 +44,10 @@ function candidate(collection: ContentCollection, record: Record<string, unknown
     return {
       proposed: { description: "Zwiększa obrażenia o 2.", effects: [{ type: "stat", mode: "self", duration: 0, damage: 2 }], simulatable: true, unsupportedReason: null },
       summary: "Candidate maps the stated +2 damage during the active state; it adds no automatic Strength-derived damage.",
-      unknowns: [], code: "DQ-SUPPORT",
+      unknowns: [
+        "Resolve rulebook round-start state activation versus the engine's own-turn refresh and define the end of the active state.",
+        "Define whether +2 damage applies to offense attacks/spells only or also direct maneuver damage, and how multiple damage components count.",
+      ], code: "DQ-SEMANTICS",
     };
   }
 }
