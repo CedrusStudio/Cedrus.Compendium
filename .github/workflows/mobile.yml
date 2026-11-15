@@ -5,14 +5,18 @@ on:
     branches: [main, develop]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   mobile:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
+          package-manager-cache: false
           node-version: 20.x
           cache: npm
       - run: npm ci
@@ -25,7 +29,7 @@ jobs:
       - run: node scripts/run-e2e.mjs --project=phone-320 --project=desktop --project=webkit
         env:
           E2E_PRODUCTION: '1'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: mobile-ui-report
