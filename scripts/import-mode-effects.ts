@@ -1,19 +1,7 @@
 /**
- * Import reviewed stance/state effects from a classification CSV into the DB —
- * the stance/state counterpart of import-maneuver-effects.ts. Turns approved
- * auto-proposals (scripts/classify-maneuvers.ts, which now also emits
- * postawy-classification.csv / stany-classification.csv) into real `effects` on
- * the `Stance` / `State` records so the simulator's auto-cast uses them.
- *
- * Safe by default: DRY RUN unless `--apply`. Matches by the (name, grade) key.
- * Every effect is validated against `effectsAuthoringSchema` before it is accepted.
- *
- * Usage:
- *   node --experimental-strip-types scripts/import-mode-effects.ts stance postawy-classification.csv           # dry run, approved rows
- *   node --experimental-strip-types scripts/import-mode-effects.ts stance postawy-classification.csv --high    # + high-confidence
- *   node --experimental-strip-types scripts/import-mode-effects.ts state  stany-classification.csv --apply --medium
- *
- * First positional arg = "stance" | "state" (which collection). Second = CSV path.
+ * Inspect legacy stance/state-classification CSV proposals without writing data.
+ * `--apply` is refused; use reviewed ID/hash changes in scripts/data-change-set.ts.
+ * Usage: npx tsx scripts/import-mode-effects.ts <stance|state> <csvPath> [--high|--medium]
  */
 
 import { readFileSync } from "node:fs";
@@ -67,9 +55,17 @@ type Plan =
 
 async function main(): Promise<void>
 {
+  if (apply)
+  {
+    console.error("Zapis ze starego CSV jest wyłączony. Przygotuj zatwierdzony pakiet ID/hash i użyj scripts/data-change-set.ts (scripts/README.md).");
+    process.exitCode = 1;
+    await prisma.$disconnect();
+    return;
+  }
+
   const rows = parseCsv(readFileSync(csvPath!, "utf8"));
   console.log(`Kolekcja: ${kind}  ·  CSV: ${csvPath}  (${rows.length} wierszy)`);
-  console.log(apply ? "TRYB: ZAPIS (--apply)\n" : "TRYB: PRÓBNY (dry run)\n");
+  console.log("TRYB: PRÓBNY (podgląd CSV, bez zapisu)\n");
 
   const plans: Plan[] = [];
   let skippedInvalid = 0;
@@ -123,33 +119,19 @@ async function main(): Promise<void>
   // narrow to a minimal structural interface.
   const delegate = (kind === "state" ? prisma.state : prisma.stance) as unknown as {
     findFirst(args: unknown): Promise<{ id: string } | null>;
-    update(args: unknown): Promise<unknown>;
   };
-  let written = 0; let notFound = 0;
+  let notFound = 0;
 
   for (const plan of plans)
   {
     const record = await delegate.findFirst({ where: { name: plan.name, grade: plan.grade }, select: { id: true } });
     if (!record) { console.warn(`  ✗ brak w bazie: ${plan.name} (r${plan.grade})`); notFound++; continue; }
 
-    const data: Record<string, unknown> = plan.action === "effects"
-      ? { effects: plan.effects, simulatable: true, unsupportedReason: null }
-      : { simulatable: false, unsupportedReason: plan.reason };
-
-    if (apply)
-    {
-      await delegate.update({ where: { id: record.id }, data });
-      written++;
-    }
-    else
-    {
-      const detail = plan.action === "effects" ? `${(plan.effects as unknown[]).length} efekt(ów)` : `niesymulowalny: ${plan.reason}`;
-      console.log(`  • ${plan.name} (r${plan.grade}) → ${detail}`);
-    }
+    const detail = plan.action === "effects" ? `${plan.effects.length} efekt(ów)` : `niesymulowalny: ${plan.reason}`;
+    console.log(`  • ${plan.name} (r${plan.grade}) → ${detail}`);
   }
 
-  if (apply) console.log(`\nZapisano: ${written}. Nie znaleziono: ${notFound}.`);
-  else console.log(`\n(Próbny) Gotowych: ${plans.length - notFound}. Uruchom z --apply, aby zapisać.`);
+  console.log(`\n(Próbny) Propozycje: ${plans.length - notFound}. Zapis wymaga zatwierdzonego pakietu scripts/data-change-set.ts.`);
 
   await prisma.$disconnect();
 }

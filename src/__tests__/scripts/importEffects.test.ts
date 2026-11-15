@@ -4,14 +4,14 @@ import { afterEach, expect, it, vi } from "vitest";
 import { z } from "zod";
 
 const mocks = vi.hoisted(() => ({
-  read: vi.fn(), find: vi.fn(), update: vi.fn(), disconnect: vi.fn(),
+  read: vi.fn(), find: vi.fn(), findMany: vi.fn(), update: vi.fn(), disconnect: vi.fn(),
 }));
 vi.mock("node:fs", async importOriginal => {
   const actual = await importOriginal<typeof import("node:fs")>();
   return { ...actual, default: { ...actual, readFileSync: mocks.read }, readFileSync: mocks.read };
 });
 vi.mock("@/lib/prisma", () => ({ default: {
-  maneuver: { findFirst: mocks.find, update: mocks.update },
+  maneuver: { findFirst: mocks.find, findMany: mocks.findMany, update: mocks.update },
   stance: { findFirst: mocks.find, update: mocks.update },
   state: { findFirst: mocks.find, update: mocks.update },
   $disconnect: mocks.disconnect,
@@ -29,7 +29,7 @@ const commands = [
 
 for (const command of commands)
 {
-  it.each([false, true])(`${command.name} CLI validates nested payloads and uses parsed data (mock apply=%s)`, async apply =>
+  it.each([false, true])(`${command.name} CLI validates previews and refuses legacy apply (apply=%s)`, async apply =>
   {
     vi.resetModules();
     const { registerPlugin } = await import("@/domain/combat-lab/plugins/registry");
@@ -52,24 +52,23 @@ for (const command of commands)
     const finished = new Promise<void>(resolve => mocks.disconnect.mockImplementation(async () => resolve()));
     vi.spyOn(console, "log").mockImplementation(() => {});
     const warning = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
     process.argv = ["node", "script", ...command.args, ...(apply ? ["--apply"] : [])];
 
     await command.load();
     await finished;
+    expect(mocks.update).not.toHaveBeenCalled();
+    if (apply)
+    {
+      expect(process.exitCode).toBe(1);
+      expect(error).toHaveBeenCalledWith(expect.stringContaining("ID/hash"));
+      expect(mocks.find).not.toHaveBeenCalled();
+      expect(mocks.read).not.toHaveBeenCalled();
+      return;
+    }
     expect(warning).toHaveBeenCalledTimes(4);
     expect(mocks.find).toHaveBeenCalledOnce();
     expect(mocks.find).toHaveBeenCalledWith({ where: { name: "Effect0", grade: 1 }, select: { id: true } });
-    if (!apply)
-    {
-      expect(mocks.update).not.toHaveBeenCalled();
-      return;
-    }
-
-    expect(mocks.update).toHaveBeenCalledOnce();
-    expect(mocks.update).toHaveBeenCalledWith({ where: { id: "accepted" }, data: {
-      effects: [{ type: "custom", effectType: "normalized", data: { amount: 4 } }],
-      simulatable: true, unsupportedReason: null,
-    } });
   });
 }
 
@@ -94,4 +93,30 @@ it.each([false, true])("offline snapshot audit reports validation issues and exi
   }
   expect(process.exitCode).toBeUndefined();
   expect(report[0].invalid).toEqual([]);
+});
+
+
+it.each([false, true])("grade copying previews candidates and refuses unreviewed apply (apply=%s)", async apply =>
+{
+  vi.resetModules();
+  mocks.findMany.mockResolvedValue([
+    { id: "source", name: "Family", grade: 1, effects: [{ type: "push", distance: 1 }], simulatable: true },
+    { id: "target", name: "Family", grade: 2, effects: null, simulatable: null },
+  ]);
+  const finished = new Promise<void>(resolve => mocks.disconnect.mockImplementation(async () => resolve()));
+  const output = vi.spyOn(console, "log").mockImplementation(() => {});
+  const error = vi.spyOn(console, "error").mockImplementation(() => {});
+  process.argv = ["node", "script", ...(apply ? ["--apply"] : [])];
+  await import("../../../scripts/copy-effects-across-grades");
+  await finished;
+  expect(mocks.update).not.toHaveBeenCalled();
+  if (apply)
+  {
+    expect(process.exitCode).toBe(1);
+    expect(error).toHaveBeenCalledWith(expect.stringContaining("scripts/data-change-set.ts"));
+    expect(mocks.findMany).not.toHaveBeenCalled();
+    return;
+  }
+  expect(mocks.findMany).toHaveBeenCalledOnce();
+  expect(output).toHaveBeenCalledWith(expect.stringContaining("Do skopiowania: 1"));
 });

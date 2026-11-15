@@ -144,15 +144,16 @@ current accepted main, preserving any intervening changes and handling conflicts
 
 ## COMP-Q5 - Safe effect authoring and shared write validation
 
-Status: implementation candidate for the authoring portion of CODE-03 and UI-07/UI-08
-from the 2026-11-15 improvement review. The guarded bulk change-set protocol, semantic
-content corrections and broader effect-editor accessibility work remain open.
+Status: PR #112 merge reported by the maintainer. Implements the authoring portion of
+CODE-03 and UI-07/UI-08. Browser acceptance and broader effect-editor accessibility remain
+open. Current bulk-write behavior is owned by COMP-Q6 below; semantic content review remains open.
 
 `effectAuthoringSchema` adds strict write checks to the canonical compatibility parser:
 unknown fields are rejected recursively, legacy resource aliases require an explicit
 `essence` value and custom effects require a plugin schema. Registered plugins and built-in
-schemas work in the editor, API and importers. Every persistence path uses parsed output,
-including plugin defaults/transforms. Approving CSV effects clears a stale unsupported reason.
+schemas work in the editor, API and CSV previews. Persistence uses parsed output,
+including plugin defaults/transforms. Current bulk writes and reason coherence use COMP-Q6;
+legacy CSV apply is now refused.
 The existing permissive read schema and stored effect contract remain available.
 
 Raw JSON fields preserve the visible draft and distinguish syntax from schema errors.
@@ -191,3 +192,60 @@ exact repaired save payload; execute it on a working environment before marking 
 The shared profile revision remained `0a42eb8fcc6f86a592c259aa461a49875fda6637`.
 The Meta workspace guidance check could not run because its checkout was outside the
 available read permissions; this change does not modify shared guidance.
+
+
+## COMP-Q6 - Guarded data review batches and local recovery journals
+
+Status: implementation candidate for the remaining selected CODE-03 / DATA-03 write
+boundary. Keep the PR draft until real MongoDB acceptance runs. No production content
+has been changed and semantic corpus review remains open.
+
+The [script guide](../scripts/README.md#guarded-content-change-sets) owns commands and the
+operating procedure. A versioned review bundle targets immutable IDs on Maneuver, Stance
+and State; editorial changes are separate from mappings. Before-content hashes also guard
+name/rank, price, tags, requirements, replacements and cast/cooldown context. Private character
+relations are excluded. Review approvals, evidence, resolved questions and passing checks
+are required; a generator cannot approve its own drafts automatically.
+
+A batch contains 1–20 records and at most 1 MiB. Planning is the default and can operate
+entirely from a complete local backup. Explicit apply/rollback requires a complete backup
+manifest/files/counts and matching affected values. Every row is rechecked before the first
+write in a Prisma 6 MongoDB transaction; stored values are verified before commit. A mixed
+before/after state, unknown ID, stale context or write conflict aborts the batch. No automatic
+retry, splitting or cross-batch atomicity is claimed.
+
+A flushed local intent precedes the transaction. It retains the immutable reviewed bundle,
+before/parsed-after values and hashes, bound to a credential-free database identity. Attempts,
+failures and completion receipts remain available. Retries recover uncertain completion by
+checking current hashes and return `already_applied` without another write. Rollback restores
+only changed fields when every live after hash matches. Later edits block rollback. A rolled
+back journal refuses reapplication, and a completed operation cannot silently repeat after
+its result has changed. Preserve the same journal/bundle for recovery; this is local journal
+idempotency, not a server-wide service across independent machines or deleted journals.
+
+Legacy CSV import and cross-grade copying scripts retain read-only previews but refuse
+`--apply` before file/database reads. Their direct update code was removed. This prevents
+those bulk paths from bypassing the review and hash gates. Explicit legacy-resource migration
+and other unrelated maintenance tools are not migrated by this stage.
+
+The offline pilot generated 13 unapproved rows from the 2026-11-15T18-38-21-763Z complete
+21-collection export: Koci Instynkt (3), Stadne Wycie (3), Postawa Defensywna (6), Ostrość
+Umysłu (1). It retains all original owned values and nonlinear stance numbers. Six rows
+require named rule/withdrawal decisions; all thirteen require content/application approval
+and an applicable engine fixture. The actual pilot plan returned `blocked` before database
+access. Export-derived IDs and payloads remain ignored local artifacts, not versioned fixtures.
+
+Verification: 100 tests passed in 10 selected files; 3 real MongoDB tests were skipped because
+`DATA_CHANGE_TEST_DATABASE_URL` was not configured. Coverage includes whole-batch preflight,
+mode/approval/schema coherence, parsed plugin defaults, local journal retry/recovery, guarded
+rollback, CLI backup/argument boundaries and refusal of legacy writes. Memory-store tests do
+not establish MongoDB transaction correctness. The opt-in real suite covers nullable JSON
+restoration, whole-batch rollback and an external edit between transaction read/write.
+Full and scoped TypeScript checks passed; scoped coverage now includes all data-quality modules.
+No build, browser rerun, live import/apply or deployment ran for this boundary.
+
+The base is the published previous candidate `a9fe532f2923c963f9a35ac22ecd133ebf886fa6`,
+whose PR #112 merge was reported by the maintainer. GitHub fetch failed with DNS resolution
+from this environment. Publication must replay only this stage onto freshly fetched remote
+main. The shared profile remains `0a42eb8fcc6f86a592c259aa461a49875fda6637`; no shared guidance
+changed. The Meta checkout remains outside this task's available read permissions.

@@ -61,7 +61,7 @@ To osobne narzędzie, nie provider. `scripts/audit-compendium-gaps.ts` przyjmuje
 - wpisy istniejące, ale bez `structuredRequirements`,
 - kolizje `@@unique([name, grade])` przed importem.
 
-Wynik jako `ai-workspace/reports/gaps.md`. Import zostawiamy ręczny — istniejące skrypty `import-maneuver-effects` i `import-mode-effects` pokazują wzorzec `--apply`, i tego bym się trzymał: raport domyślnie, zapis tylko na wyraźne żądanie.
+Report destination: `ai-workspace/reports/gaps.md`. Import remains an explicit reviewed operation. Current bulk content writes use [ID/hash guarded review bundles](../scripts/README.md#guarded-content-change-sets); legacy CSV scripts are previews and refuse `--apply`.
 
 ## Etap 4 — Higiena
 
