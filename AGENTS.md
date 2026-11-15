@@ -24,5 +24,5 @@ their behavior. Local provider operation does not imply paid model execution.
 Repository: `compendium`. Before versioned edits, read `~/.agents/cedrus/profile.json`,
 capture its active revision and read that snapshot's `policies/ai-working-rules.md`.
 Read the C# and automation policies when relevant. If the profile is missing or
-invalid, stop edits and follow [Meta setup](https://github.com/dr-marek-jaskula/Cedrus.Meta/blob/main/docs/shared-ai-profile.md).
+invalid, stop edits and follow [Meta setup](https://github.com/CedrusStudio/Cedrus.Meta/blob/main/docs/shared-ai-profile.md).
 Keep this repository's owner instructions for its domain.
