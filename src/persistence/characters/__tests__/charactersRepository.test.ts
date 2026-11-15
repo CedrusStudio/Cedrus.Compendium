@@ -16,6 +16,10 @@ const { characterFindUnique, characterFindMany, characterUpdate, characterCreate
 
 vi.mock('@/lib/prisma', () => ({
   default: {
+    $transaction: async (write: (tx: unknown) => Promise<unknown>) => write({
+      character: { findUnique: characterFindUnique, findMany: characterFindMany, update: characterUpdate, create: characterCreate, delete: characterDelete },
+      weapon: { findMany: weaponFindMany }, race: { findUnique: raceFindUnique }, perk: { findMany: perkFindMany },
+    }),
     character: { findUnique: characterFindUnique, findMany: characterFindMany, update: characterUpdate, create: characterCreate, delete: characterDelete },
     weapon: { findMany: weaponFindMany },
     race: { findUnique: raceFindUnique },
@@ -28,10 +32,15 @@ vi.mock('@/lib/env', () => ({
 }));
 
 import {
-  addCharacter, deleteCharacter, getCharactersByIds, getCharactersVisibleToApiKeyByIds,
-  updateCharacterBuffs, updateCharacterDetails, updateCharacterEquipment, updateCharacterStatistics, updateCharacterTalents,
+  addCharacter, deleteCharacter, getCharactersVisibleToApiKeyByIds,
+  updateCharacterBuffs, updateCharacterDetails as updateGuardedDetails, updateCharacterEquipment, updateCharacterStatistics, updateCharacterTalents,
 } from '@/persistence/characters/charactersRepository';
 import { CharacterValidationError } from '@/persistence/characters/characterErrors';
+
+// Existing mapping cases now execute through the access-checked transaction.
+async function updateCharacterDetails(id: string, data: DetailsDto) {
+  return Boolean(await updateGuardedDetails(id, data, { apiKey: 'VALID-KEY-1', expectedMembership: {} }));
+}
 
 function detailsPayload(overrides: Partial<DetailsDto> = {}): DetailsDto
 {
@@ -66,10 +75,10 @@ describe('updateCharacterDetails - apiKeys pool validation', () => {
     expect(characterUpdate).not.toHaveBeenCalled();
   });
 
-  it('includes the offending key(s) in the error message', async () => {
+  it('does not include submitted keys in the error message', async () => {
     await expect(
       updateCharacterDetails('character-1', detailsPayload({ apiKeys: ['VALID-KEY-1', 'BOGUS'] })),
-    ).rejects.toThrow('BOGUS');
+    ).rejects.toThrow('Invalid API keys, not part of the configured admin keys.');
   });
 
   it('allows apiKeys that are part of the configured admin pool', async () => {
@@ -106,9 +115,7 @@ describe('updateCharacterDetails - apiKeys pool validation', () => {
   it('returns false when the character does not exist', async () => {
     characterFindUnique.mockResolvedValue(null);
 
-    const result = await updateCharacterDetails('missing-character', detailsPayload());
-
-    expect(result).toBe(false);
+    await expect(updateCharacterDetails('missing-character', detailsPayload())).rejects.toMatchObject({ status: 404 });
     expect(characterUpdate).not.toHaveBeenCalled();
   });
 
@@ -211,7 +218,7 @@ describe('character sheet write boundaries', () => {
   const sheet = () => createPendingDraft().proposal!;
 
   beforeEach(() => {
-    characterFindUnique.mockReset();
+    characterFindUnique.mockReset().mockResolvedValue({ apiKeys: [] });
     characterFindMany.mockReset().mockResolvedValue([]);
     characterUpdate.mockReset().mockResolvedValue({ id: target });
     characterCreate.mockReset().mockResolvedValue({ id: 'created-character' });
@@ -219,13 +226,13 @@ describe('character sheet write boundaries', () => {
     weaponFindMany.mockReset();
   });
 
-  it('does not query for empty IDs and reads only the requested IDs otherwise', async () => {
-    await expect(getCharactersByIds([])).resolves.toEqual([]);
+  it('does not query for empty IDs and scopes requested IDs by visibility', async () => {
     await expect(getCharactersVisibleToApiKeyByIds([], 'VALID-KEY-1')).resolves.toEqual([]);
     expect(characterFindMany).not.toHaveBeenCalled();
-    await expect(getCharactersByIds([target])).resolves.toEqual([]);
+    await expect(getCharactersVisibleToApiKeyByIds([target], 'VALID-KEY-1')).resolves.toEqual([]);
     expect(characterFindMany).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
-      where: { id: { in: [target] } }, include: expect.objectContaining({ perks: true, spells: true }),
+      where: { AND: [{ id: { in: [target] } }, { OR: [{ apiKeys: { isEmpty: true } }, { apiKeys: { has: 'VALID-KEY-1' } }] }] },
+      include: expect.objectContaining({ perks: true, spells: true }),
     }));
   });
 
@@ -238,21 +245,21 @@ describe('character sheet write boundaries', () => {
         defaultOffenseId: expect.any(String), defaultDefenseId: expect.any(String),
       }),
     });
-    await expect(deleteCharacter(target)).resolves.toBeUndefined();
+    await expect(deleteCharacter(target, 'VALID-KEY-1')).resolves.toBeUndefined();
     expect(characterDelete).toHaveBeenCalledExactlyOnceWith({ where: { id: target } });
   });
 
   it('saves each independent section as its own update', async () => {
     const { statistics, talents, buffs } = sheet();
-    await expect(updateCharacterStatistics(target, statistics)).resolves.toBe(true);
-    await expect(updateCharacterTalents(target, talents)).resolves.toBe(true);
-    await expect(updateCharacterBuffs(target, buffs)).resolves.toBe(true);
+    await expect(updateCharacterStatistics(target, statistics, 'VALID-KEY-1')).resolves.toBe(true);
+    await expect(updateCharacterTalents(target, talents, 'VALID-KEY-1')).resolves.toBe(true);
+    await expect(updateCharacterBuffs(target, buffs, 'VALID-KEY-1')).resolves.toBe(true);
     expect(characterUpdate.mock.calls).toEqual([statistics, talents, buffs].map(data => [{ where: { id: target }, data }]));
   });
 
   it('returns false without writing equipment for a missing character', async () => {
     characterFindUnique.mockResolvedValue(null);
-    await expect(updateCharacterEquipment(target, sheet().equipment)).resolves.toBe(false);
+    await expect(updateCharacterEquipment(target, sheet().equipment, 'VALID-KEY-1')).rejects.toMatchObject({ status: 404 });
     expect(characterUpdate).not.toHaveBeenCalled();
     expect(weaponFindMany).not.toHaveBeenCalled();
   });
@@ -266,7 +273,7 @@ describe('character sheet write boundaries', () => {
     });
     weaponFindMany.mockResolvedValue([{ id: c.weapon.id }]);
 
-    await expect(updateCharacterEquipment(target, { ...sheet().equipment, weapons: [stored, c.weapon, custom] })).resolves.toBe(true);
+    await expect(updateCharacterEquipment(target, { ...sheet().equipment, weapons: [stored, c.weapon, custom] }, 'VALID-KEY-1')).resolves.toBe(true);
     expect(weaponFindMany).toHaveBeenCalledExactlyOnceWith({
       where: { id: { in: [c.weapon.id, custom.id] } }, select: { id: true },
     });

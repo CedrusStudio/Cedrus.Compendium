@@ -16,7 +16,12 @@ vi.mock('@/lib/env', () => ({ adminApiKeys: ['test-key'] }));
 
 import prisma from '@/lib/prisma';
 import { setCharacterMembership } from '../characterMembershipRepository';
-import { updateCharacterCombat, updateCharacterDetails } from '../charactersRepository';
+import {
+  updateCharacterCombat, updateCharacterDetails, updateCharacterStatistics, updateCharacterTalents,
+  updateCharacterBuffs, updateCharacterEquipment, deleteCharacter, getCharactersVisibleToApiKeyByIds,
+} from '../charactersRepository';
+import { withCharacterAccess } from '../withCharacterAccess';
+import { createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
 import { toCharacterHeaderPersistenceModel, toCharacter } from '@/persistence/mappings/characterMapping';
 import { includeAllRelations } from '@/infrastructure/searchQueries/characters/allCharacterRelations';
 import { membershipSnapshot } from '@/domain/characters/characterMembership';
@@ -59,6 +64,69 @@ describe.skipIf(!testUrl)('character membership against real MongoDB', () => {
     await Promise.all([prisma.maneuver.deleteMany({ where }), prisma.perk.deleteMany({ where }), prisma.stance.deleteMany({ where }), prisma.state.deleteMany({ where }),
       prisma.spell.deleteMany({ where }), prisma.powerSpecification.deleteMany({ where })]);
     await prisma.$disconnect();
+  });
+
+  it('filters private records in batch reads and rejects cross-key writes/deletion', async () => {
+    const hidden = await createCharacter(['owner-key']);
+    const visible = await createCharacter();
+    const result = await getCharactersVisibleToApiKeyByIds([hidden.id, visible.id], key);
+    expect(result.map(character => character.id)).toEqual([visible.id]);
+    const data = createPendingDraft().proposal!;
+    const operations = [
+      () => updateCharacterStatistics(hidden.id, data.statistics, key),
+      () => updateCharacterTalents(hidden.id, data.talents, key),
+      () => updateCharacterBuffs(hidden.id, data.buffs, key),
+      () => updateCharacterEquipment(hidden.id, data.equipment, key),
+      () => deleteCharacter(hidden.id, key),
+    ];
+    for (const operation of operations) {
+      await expect(operation()).rejects.toMatchObject({ status: 404, message: 'Character not found' });
+    }
+    expect(await prisma.character.findUniqueOrThrow({ where: { id: hidden.id } })).toEqual(hidden);
+  });
+
+  it('allows public and matching-key writes', async () => {
+    const data = createPendingDraft().proposal!;
+    for (const keys of [[], [key]]) {
+      const character = await createCharacter(keys);
+      await updateCharacterStatistics(character.id, data.statistics, key);
+      await updateCharacterTalents(character.id, data.talents, key);
+      await updateCharacterBuffs(character.id, data.buffs, key);
+      await updateCharacterEquipment(character.id, data.equipment, key);
+      await deleteCharacter(character.id, key);
+      expect(await prisma.character.findUnique({ where: { id: character.id } })).toBeNull();
+    }
+  });
+
+  it('rolls back a failed guarded write', async () => {
+    const character = await createCharacter();
+    await expect(withCharacterAccess(character.id, key, async tx => {
+      await tx.character.update({ where: { id: character.id }, data: { description: 'Must roll back' } });
+      throw new Error('Simulated failure');
+    })).rejects.toThrow('Simulated failure');
+    expect((await prisma.character.findUniqueOrThrow({ where: { id: character.id } })).description).toBe('Test');
+  });
+
+  it('does not commit a write after concurrent access revocation', async () => {
+    const character = await createCharacter([key]);
+    let accessed!: () => void;
+    let resume!: () => void;
+    const accessRead = new Promise<void>(resolve => { accessed = resolve; });
+    const revoked = new Promise<void>(resolve => { resume = resolve; });
+    const write = withCharacterAccess(character.id, key, async tx => {
+      accessed();
+      await revoked;
+      return tx.character.update({ where: { id: character.id }, data: { description: 'Must not commit' } });
+    });
+    const rejected = expect(write).rejects.toBeInstanceOf(CharacterMembershipConflictError);
+    await accessRead;
+    try {
+      await prisma.character.update({ where: { id: character.id }, data: { apiKeys: ['other-owner'] } });
+    } finally {
+      resume();
+    }
+    await rejected;
+    expect((await prisma.character.findUniqueOrThrow({ where: { id: character.id } })).description).toBe('Test');
   });
 
   it.each([['maneuvers', 'maneuver'], ['perks', 'perk'], ['stances', 'stance'], ['states', 'state']] as const)('connects/disconnects %s idempotently and maintains both sides', async (kind, model) => {

@@ -1,15 +1,14 @@
 "use client";
 
 /**
- * Fetch several full domain `Character`s at once (batch endpoint + `toCharacters`
- * mapping) — used by the Matchup Analyzer, which needs every selected combatant's
+ * Fetch several full domain `Character`s at once from the batch endpoint,
+ * used by the Matchup Analyzer, which needs every selected combatant's
  * character to build snapshots.
  */
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import charactersClient from "@/infrastructure/clients/charactersClient";
-import { CharacterWithRelations, toCharacters } from "@/persistence/mappings/characterMapping";
 import { useApiKey } from "@/common/hooks/useApiKey";
 import type { Character } from "@/domain/characters/Character";
 
@@ -23,8 +22,7 @@ export function useCharactersByIds(ids: string[]): { byId: Map<string, Character
     queryFn: async () =>
     {
       if (sorted.length === 0) return [];
-      const raw = (await charactersClient.getByIds(sorted)) as CharacterWithRelations[];
-      return toCharacters(raw);
+      return charactersClient.getByIds(sorted);
     },
     enabled: sorted.length > 0,
     staleTime: 5_000,
