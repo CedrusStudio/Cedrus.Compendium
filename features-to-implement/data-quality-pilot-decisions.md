@@ -103,11 +103,18 @@ These are execution tasks, not additional game-design questions.
 
 ## Environment limits observed in this stage
 
-Docker refused access to the local `dockerDesktopLinuxEngine` named pipe, so the launcher
+In the initial local attempt Docker refused access to the `dockerDesktopLinuxEngine` named pipe, so the launcher
 stopped before container creation or schema work. The three real MongoDB tests did not
 run. A separate browser harness bundled the actual effect editor, sheet, simulation hook
 and worker, but Chromium navigation to `127.0.0.1` failed with `ERR_NETWORK_ACCESS_DENIED`.
 No rendered desktop/mobile acceptance is claimed. Existing browser gates remain open.
+
+The maintainer's later run on `da8a2a0ffbda1be40eed7879ba5a698fa9b0279f` did reach
+MongoDB: two tests passed and nullable-effects rollback failed because the adapter sent
+the SQL-only `Prisma.DbNull` sentinel. Its container was cleaned up. The adapter now
+preserves literal null and uses a checked Prisma input type. Its updated regression failed
+before the fix and the selected unit suite passes after it. The corrected real MongoDB
+suite still needs a complete passing run; this does not change D1–D5 or approve any row.
 
 The source and maintained documentation belong to the dedicated task branch. Publication
 must replay only this stage onto freshly fetched main, preserving intervening changes.

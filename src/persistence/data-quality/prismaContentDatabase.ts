@@ -1,4 +1,4 @@
-import { Prisma, type PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 import type { ContentDatabase, ContentStore } from "@/application/data-quality/dataChangeService";
 
 /** Prisma 6 MongoDB interactive transactions guard the reads and writes together.
@@ -18,7 +18,9 @@ export function prismaContentDatabase(prisma: PrismaClient): ContentDatabase
         },
         async write(collection, id, patch)
         {
-          const data = { ...patch, ...(patch.effects === null ? { effects: Prisma.DbNull } : {}) } as Prisma.StanceUpdateInput;
+          // MongoDB accepts literal JSON null; SQL's Prisma.DbNull is invalid here.
+          // Keep omitted effects and [] distinct from an explicit null restore.
+          const data: Prisma.StanceUpdateInput = patch;
           if (collection === "Maneuver") { await tx.maneuver.update({ where: { id }, data }); return; }
           if (collection === "Stance") { await tx.stance.update({ where: { id }, data }); return; }
           await tx.state.update({ where: { id }, data });

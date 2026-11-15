@@ -290,3 +290,24 @@ and existing stance/stance-change tests. Full and scoped TypeScript checks passe
 No full application build, coverage run, live apply or deployment was performed. These
 results belong to this task candidate and its installed dependencies; publication records
 the resulting SHA separately and checks whether relevant inputs changed on transplantation.
+
+### MongoDB null-restore regression found during owner acceptance
+
+The maintainer executed the real suite on candidate
+`da8a2a0ffbda1be40eed7879ba5a698fa9b0279f`, run
+`4ffd9a47-a334-4c27-bddf-e77e8622056e`: two cases passed and the nullable-effects
+rollback case failed. The receipt confirms its container was cleaned up. This supersedes
+the initial environment-only status for that run, not the outstanding browser gate.
+
+The adapter translated literal `null` into `Prisma.DbNull` and hid the incompatible value
+behind a type assertion. MongoDB rejects that SQL null sentinel. The corrected adapter
+passes the reviewed JSON patch directly, with a checked Prisma input type and no assertion.
+See the [Prisma 6 JSON null contract](https://www.prisma.io/docs/orm/v6/prisma-client/special-fields-and-types/working-with-json-fields#using-null-values).
+Restoring null, writing empty effects and omitting effects remain distinct operations.
+
+The transaction-adapter regression now checks those three cases for Maneuver, Stance and
+State. It failed against the former adapter before the fix. After the fix, the selected
+suite again passed 84 tests (three real MongoDB cases skipped in this environment), and
+full/scoped TypeScript checks passed. A new local Docker attempt was denied before creation;
+real MongoDB acceptance of the corrected adapter still requires execution. Preserve the
+earlier failing report rather than relabeling its two passing cases as a complete pass.

@@ -1,8 +1,8 @@
-import { Prisma, type PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@prisma/client";
 import { expect, it, vi } from "vitest";
 import { prismaContentDatabase } from "../prismaContentDatabase";
 
-it("keeps reads/writes on the same transaction client and translates nullable JSON restores", async () =>
+it("keeps transaction routing and preserves MongoDB null, empty effects and omitted effects", async () =>
 {
   const delegate = () => ({ findUnique: vi.fn(async () => ({ id: "synthetic" })), update: vi.fn(async () => ({})) });
   const tx = { maneuver: delegate(), stance: delegate(), state: delegate() };
@@ -15,6 +15,7 @@ it("keeps reads/writes on the same transaction client and translates nullable JS
       await store.read(collection, "synthetic");
       await store.write(collection, "synthetic", { effects: null, simulatable: null, unsupportedReason: null });
       await store.write(collection, "synthetic", { description: "Editorial" });
+      await store.write(collection, "synthetic", { effects: [], simulatable: false, unsupportedReason: "Unsupported" });
     }
   });
   expect(transaction).toHaveBeenCalledOnce();
@@ -22,8 +23,9 @@ it("keeps reads/writes on the same transaction client and translates nullable JS
   for (const model of Object.values(tx))
   {
     expect(model.findUnique).toHaveBeenCalledWith({ where: { id: "synthetic" } });
-    expect(model.update).toHaveBeenNthCalledWith(1, { where: { id: "synthetic" }, data: { effects: Prisma.DbNull, simulatable: null, unsupportedReason: null } });
+    expect(model.update).toHaveBeenNthCalledWith(1, { where: { id: "synthetic" }, data: { effects: null, simulatable: null, unsupportedReason: null } });
     expect(model.update).toHaveBeenNthCalledWith(2, { where: { id: "synthetic" }, data: { description: "Editorial" } });
+    expect(model.update).toHaveBeenNthCalledWith(3, { where: { id: "synthetic" }, data: { effects: [], simulatable: false, unsupportedReason: "Unsupported" } });
   }
 });
 
