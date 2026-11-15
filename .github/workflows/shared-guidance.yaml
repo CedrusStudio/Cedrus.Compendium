@@ -18,7 +18,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@v6
         with:
-          repository: dr-marek-jaskula/Cedrus.Meta
+          repository: CedrusStudio/Cedrus.Meta
           ref: main
           fetch-depth: 0
           path: meta-source
