@@ -1,7 +1,7 @@
 /**
  * Zod schemas for `Effect` / `ManeuverDefinition`. Single source of runtime
- * validation for: (a) YAML/JSON import of maneuvers, (b) the maneuver effect
- * editor form (React Hook Form + @hookform/resolvers), (c) the Rules Validator.
+ * validation for compatible reads and the Rules Validator. New authoring and
+ * imports use effectAuthoringSchema, which adds strict checks to this parser.
  *
  * Zod is already a dependency of the repo (see package.json).
  */

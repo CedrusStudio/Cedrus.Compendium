@@ -1,5 +1,19 @@
 export const translations_frFR = 
 {
+    effectJsonSyntaxError: "JSON invalide. Corrigez la syntaxe avant de sauvegarder.",
+    effectJsonShapeError: "Le JSON ne correspond pas au schéma de l’effet.",
+    effectPluginData: "Données du plugin (objet JSON)",
+    effectJson: "Effet (JSON)",
+    effectType: "Type d’effet",
+    effectRemove: "Supprimer l’effet",
+    effectChangeTitle: "Changer le type d’effet ?",
+    effectChangeDescription: "Ce changement supprime les champs et les effets imbriqués actuels de cet effet.",
+    effectKeepType: "Conserver l’effet",
+    effectReplaceType: "Changer le type et supprimer les champs",
+    effectPreviewEmpty: "Aucun effet à prévisualiser.",
+    effectPreviewInvalid: "Aperçu indisponible : corrigez les erreurs des effets.",
+    effectPreviewUnsupported: "Effets désactivés : l’entrée est marquée comme non simulable.",
+
     simulationParticipantA: "Personnage A",
     simulationParticipantB: "Personnage B",
     simulationCount: "Nombre de combats",

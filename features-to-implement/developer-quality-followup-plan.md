@@ -100,7 +100,8 @@ local replica-set database and retain its actual result; the merge report is not
 
 ## COMP-Q4 - Simulation lifecycle and result provenance
 
-Status: implementation candidate for CODE-04, UI-06 and the runner portion of UI-05
+Status: merge reported by the maintainer; browser acceptance remains pending. Implements
+CODE-04, UI-06 and the runner portion of UI-05
 from the 2026-11-15 improvement review. The remaining saved-list, broader UI and effect
 authoring work is independent and remains open.
 
@@ -139,3 +140,54 @@ The source base is the previously accepted candidate `36534bae21a5f5d3c1d9f0787a
 The maintainer reported its merge, but the exact current remote main revision could not
 be fetched from this environment. Publication must transplant only this stage onto the
 current accepted main, preserving any intervening changes and handling conflicts normally.
+
+
+## COMP-Q5 - Safe effect authoring and shared write validation
+
+Status: implementation candidate for the authoring portion of CODE-03 and UI-07/UI-08
+from the 2026-11-15 improvement review. The guarded bulk change-set protocol, semantic
+content corrections and broader effect-editor accessibility work remain open.
+
+`effectAuthoringSchema` adds strict write checks to the canonical compatibility parser:
+unknown fields are rejected recursively, legacy resource aliases require an explicit
+`essence` value and custom effects require a plugin schema. Registered plugins and built-in
+schemas work in the editor, API and importers. Every persistence path uses parsed output,
+including plugin defaults/transforms. Approving CSV effects clears a stale unsupported reason.
+The existing permissive read schema and stored effect contract remain available.
+
+Raw JSON fields preserve the visible draft and distinguish syntax from schema errors.
+Malformed text is represented as an invalid form value, preventing a resolver from
+submitting the last good payload. Valid edits work without blur. Field-array identity and
+record/reset handling keep drafts with the correct effect. Labels, associated errors,
+invalid state and focus support correction. Changing a type that contains fields requires
+confirmation, with cancellation focused by default. New strings use PL/DE/FR tables.
+
+The description preview distinguishes empty, invalid and unsupported effects and updates
+on changes to the effects, simulation status and maneuver metadata. Invalid drafts cannot
+produce a preview of a previously valid payload.
+
+The offline `scripts/audit-effect-authoring.ts` command checks a local MongoDB backup
+without importing Prisma or writing data. The 2026-11-15T18-38-21-763Z snapshot contained
+993 maneuvers (84 with 92 top-level effects), 217 stances and 30 states (neither with effects).
+All 92 effects pass the new write validation. This is structural evidence; the previously
+identified description/mechanics discrepancies still require reviewed content changes.
+
+The source base is the published previous candidate
+`0968d99ea39179370eedace1fe6718f3e85c0f1e`. Its merge was reported by the maintainer;
+publication must transplant only this stage onto current remote main and preserve any
+intervening changes. No live database writes, merge or deployment are part of this stage.
+
+
+Verification: 276 tests passed across 11 selected files on Node 22.15.1 / Vitest 4.0.15,
+covering recursive validation, plugins, API create/update boundaries, JSON draft handling,
+importer dry-run/mock-apply and the offline audit. Full and scoped TypeScript checks passed.
+The existing numeric-route fixtures now supply the API key required by the accepted character
+access boundary; production access checks were not changed. No real importer apply ran.
+
+Browser acceptance is NOT_COMPLETED: an isolated Next/Playwright attempt using webpack
+produced no ready application or test result and was interrupted. The new browser scenario
+covers malformed/schema-invalid JSON, focus, cancelling a destructive type change and the
+exact repaired save payload; execute it on a working environment before marking the PR ready.
+The shared profile revision remained `0a42eb8fcc6f86a592c259aa461a49875fda6637`.
+The Meta workspace guidance check could not run because its checkout was outside the
+available read permissions; this change does not modify shared guidance.

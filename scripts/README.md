@@ -61,3 +61,28 @@ Kolejność pracy: `classify-maneuvers` (propozycje) → ręczny przegląd CSV �
 | `copy-effects-across-grades` / `:apply` | Kopiuje efekty z jednej rangi manewru na pozostałe **puste** rangi jako szkic — zostaje dostrojenie liczb zamiast pisania od zera. |
 | `extract-contested-pools` | Tylko odczyt, offline. Wyciąga nazwy pul z manewrów na testy sporne, żeby potwierdzić mapowanie PL → pole postaci i wyłapać nazwy spoza tabeli. |
 | `backfill-mana-to-essence` / `:apply` | Przepisuje zaszłość `resource: "mana"` w zapisanych efektach na `"essence"`. System zna wyłącznie Esencję. |
+
+
+## Effect authoring validation
+
+New effect writes from the compendium editor, its maneuver/stance/state APIs and the two
+CSV importers use `effectsAuthoringSchema`. It rejects unknown fields recursively,
+including nested effects, test pools and plugin data. Custom effects require an available
+plugin validation schema. Legacy `mana` aliases remain readable but must be written as
+`essence`. Importers persist the parsed output, including plugin defaults, and clear an
+obsolete `unsupportedReason` when approving effects as simulatable.
+
+Audit an existing `backup-mongodb` export without connecting to MongoDB:
+
+```powershell
+node --import ./scripts/ts-alias-hooks.mjs scripts/audit-effect-authoring.ts backup/2026-11-15T18-38-21-763Z
+```
+
+The JSON report contains collection counts and zero-based record indexes/issue paths.
+It reads `Maneuver.json`, `Stance.json` and `State.json`, changes no files and returns
+exit code 1 if validation fails. It checks structure, not agreement with prose or combat
+balance. Use a fresh snapshot when assessing current database content.
+
+CSV import approval, dry-run and explicit-apply boundaries still apply. The importers
+retain their existing name/grade lookup and per-record writes; this change does not add
+the planned ID/hash guarded, atomic change-set protocol or a rollback journal.

@@ -23,7 +23,7 @@ function renderManeuver(initial: Record<string, unknown>)
 
 it('renders legacy defaults and updates the description when an effect is authored', () => {
   renderManeuver({});
-  expect(screen.getByText('(Standardowa).')).toBeVisible();
+  expect(screen.getByText('Brak efektów do podglądu.')).toBeVisible();
   expect(screen.getByText('Brak efektów.')).toBeVisible();
   fireEvent.click(screen.getByRole('button', { name: '+ Dodaj efekt' }));
   expect(screen.getByText('(Standardowa). Zadaje 1 obrażeń zwyczajnych.')).toBeVisible();
@@ -46,6 +46,7 @@ it('keeps the authored maneuver while moving between all simulation states', asy
 
   await user.click(status());
   await user.click(await screen.findByRole('option', { name: 'niesymulowalny' }));
+  expect(screen.getByRole('status')).toHaveTextContent('Efekty wyłączone');
   const reason = screen.getByRole('textbox');
   expect(reason).toHaveValue('Wcześniejsza uwaga');
   fireEvent.change(reason, { target: { value: 'Nieznany stan' } });
@@ -55,6 +56,7 @@ it('keeps the authored maneuver while moving between all simulation states', asy
   await user.click(status());
   await user.click(await screen.findByRole('option', { name: 'nieoceniony' }));
   expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+  expect(screen.getByRole('status')).toHaveTextContent('Odpycha o 2');
   fireEvent.click(screen.getByRole('button', { name: 'Zapisz' }));
   await waitFor(() => expect(save).toHaveBeenLastCalledWith(expect.objectContaining({ simulatable: null, effects: maneuver.effects })));
 
@@ -67,5 +69,5 @@ it('keeps the authored maneuver while moving between all simulation states', asy
 it('shows an empty reason field for a legacy maneuver marked unsupported', () => {
   renderManeuver({ name: 'Stary manewr', simulatable: false, effects: [{ type: 'push', distance: 2 }] });
   expect(screen.getByRole('textbox')).toHaveValue('');
-  expect(screen.getByText('Stary manewr (Standardowa).')).toBeVisible();
+  expect(screen.getByText('Efekty wyłączone: rekord oznaczono jako niesymulowalny.')).toBeVisible();
 });

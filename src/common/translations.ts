@@ -27,6 +27,20 @@ export type TranslationKey = keyof typeof displayedText;
 
 export const displayedText = 
 {
+    effectJsonSyntaxError: translate("effectJsonSyntaxError"),
+    effectJsonShapeError: translate("effectJsonShapeError"),
+    effectPluginData: translate("effectPluginData"),
+    effectJson: translate("effectJson"),
+    effectType: translate("effectType"),
+    effectRemove: translate("effectRemove"),
+    effectChangeTitle: translate("effectChangeTitle"),
+    effectChangeDescription: translate("effectChangeDescription"),
+    effectKeepType: translate("effectKeepType"),
+    effectReplaceType: translate("effectReplaceType"),
+    effectPreviewEmpty: translate("effectPreviewEmpty"),
+    effectPreviewInvalid: translate("effectPreviewInvalid"),
+    effectPreviewUnsupported: translate("effectPreviewUnsupported"),
+
     simulationParticipantA: translate("simulationParticipantA"),
     simulationParticipantB: translate("simulationParticipantB"),
     simulationCount: translate("simulationCount"),

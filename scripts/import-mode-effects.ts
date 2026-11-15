@@ -6,7 +6,7 @@
  * the `Stance` / `State` records so the simulator's auto-cast uses them.
  *
  * Safe by default: DRY RUN unless `--apply`. Matches by the (name, grade) key.
- * Every effect is validated against `effectSchema` before it is accepted.
+ * Every effect is validated against `effectsAuthoringSchema` before it is accepted.
  *
  * Usage:
  *   node --experimental-strip-types scripts/import-mode-effects.ts stance postawy-classification.csv           # dry run, approved rows
@@ -18,7 +18,8 @@
 
 import { readFileSync } from "node:fs";
 import prisma from "../src/lib/prisma";
-import { effectSchema } from "../src/domain/combat-lab/effects/effectSchema";
+import { effectsAuthoringSchema } from "../src/domain/combat-lab/effects/effectAuthoringSchema";
+import type { Effect } from "../src/domain/combat-lab/effects/Effect";
 
 const args = process.argv.slice(2);
 const positional = args.filter(a => !a.startsWith("--"));
@@ -61,7 +62,7 @@ const isTruthy = (v: string) => /^(tak|yes|y|x|1|true)$/i.test(v.trim());
 const isUnsupportedMark = (v: string) => /^(nie|no|niesymulowaln\w*|unsupported)$/i.test(v.trim());
 
 type Plan =
-  | { name: string; grade: number; action: "effects"; effects: unknown[] }
+  | { name: string; grade: number; action: "effects"; effects: Effect[] }
   | { name: string; grade: number; action: "unsupported"; reason: string };
 
 async function main(): Promise<void>
@@ -97,30 +98,16 @@ async function main(): Promise<void>
       try { parsed = JSON.parse(row.proposedEffects); }
       catch { console.warn(`  ⚠ ${name} (r${grade}): niepoprawny JSON — pomijam.`); skippedInvalid++; continue; }
       const list = Array.isArray(parsed) ? parsed : [parsed];
-      if (!list.every(e => effectSchema.safeParse(e).success)) { console.warn(`  ⚠ ${name} (r${grade}): efekt nie przechodzi walidacji — pomijam.`); skippedInvalid++; continue; }
-
-      // Zod ODRZUCA nieznane klucze po cichu — usuwa je i zwraca sukces. Dla
-      // ręcznie pisanego JSON-a w CSV to najgorszy możliwy tryb: `fencingg: 2`
-      // przechodzi walidację, zapisuje się i nie robi nic. Porównanie kluczy
-      // przed i po parsowaniu zamienia cichy brak efektu w głośny błąd.
-      const dropped = list.flatMap((effect, index) =>
+      const validated = effectsAuthoringSchema.safeParse(list);
+      if (!validated.success)
       {
-        const parsedEffect = effectSchema.safeParse(effect);
-        if (!parsedEffect.success || typeof effect !== "object" || effect === null) return [];
-        const kept = new Set(Object.keys(parsedEffect.data as Record<string, unknown>));
-        return Object.keys(effect as Record<string, unknown>)
-          .filter(key => !kept.has(key))
-          .map(key => `#${index + 1}.${key}`);
-      });
-
-      if (dropped.length > 0)
-      {
-        console.warn(`  ⚠ ${name} (r${grade}): nieznane pola ${dropped.join(", ")} — literówka? pomijam.`);
+        const issues = validated.error.issues.map(issue => `${issue.path.join(".")}: ${issue.message}`).join("; ");
+        console.warn(`  ⚠ ${name} (r${grade}): ${issues} — pomijam.`);
         skippedInvalid++;
         continue;
       }
 
-      plans.push({ name, grade, action: "effects", effects: list });
+      plans.push({ name, grade, action: "effects", effects: validated.data });
     }
     else if (markT3 && row.tier === "T3")
     {
@@ -146,7 +133,7 @@ async function main(): Promise<void>
     if (!record) { console.warn(`  ✗ brak w bazie: ${plan.name} (r${plan.grade})`); notFound++; continue; }
 
     const data: Record<string, unknown> = plan.action === "effects"
-      ? { effects: plan.effects, simulatable: true }
+      ? { effects: plan.effects, simulatable: true, unsupportedReason: null }
       : { simulatable: false, unsupportedReason: plan.reason };
 
     if (apply)

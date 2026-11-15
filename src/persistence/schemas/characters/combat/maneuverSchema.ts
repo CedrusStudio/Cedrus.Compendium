@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
 import { castableSchema } from "@/persistence/schemas/characters/castableSchema";
-import { effectSchema } from "@/domain/combat-lab/effects/effectSchema";
+import { effectsAuthoringSchema } from "@/domain/combat-lab/effects/effectAuthoringSchema";
 
 export const castablePerkSchema = perkSchema.extend
 ({
@@ -22,7 +22,7 @@ export const maneuversSchema = z.array(maneuverSchema).max(100, { message: "Moż
 // Used only by the single-maneuver edit sheet (no array nesting → no TS2589).
 export const maneuverWithEffectsSchema = castablePerkSchema.extend
 ({
-  effects: z.array(effectSchema).optional(),
+  effects: effectsAuthoringSchema.optional(),
   simulatable: z.boolean().nullish(),
   unsupportedReason: z.string().max(500).nullish(),
 });

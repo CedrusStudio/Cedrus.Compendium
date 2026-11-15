@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { perkSchema } from "@/persistence/schemas/characters/perkSchema";
-import { effectSchema } from "@/domain/combat-lab/effects/effectSchema";
+import { effectsAuthoringSchema } from "@/domain/combat-lab/effects/effectAuthoringSchema";
 
 // Base mode (stance/state) DTO — used by the character sheet form and lists.
 // Deliberately WITHOUT the recursive `effects` field, mirroring maneuverSchema:
@@ -14,7 +14,7 @@ export const addModeSchema = modeSchema.omit({ id: true });
 // Compendium stance/state editor: base + Combat Lab effects/simulatable/reason.
 export const modeWithEffectsSchema = modeSchema.extend
 ({
-  effects: z.array(effectSchema).optional(),
+  effects: effectsAuthoringSchema.optional(),
   simulatable: z.boolean().nullish(),
   unsupportedReason: z.string().max(500).nullish(),
 });
