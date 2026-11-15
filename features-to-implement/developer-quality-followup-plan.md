@@ -62,39 +62,80 @@ and [Meta integration evidence](https://github.com/dr-marek-jaskula/Cedrus.Meta/
 No code, test, compiler configuration or coverage threshold is changed by recording this plan.
 
 ## COMP-Q3 - Character access boundaries
-+
-+Status: implementation candidate for CODE-01 and the character-input portion of CODE-02
-+from the 2026-11-15 improvement review. Integration acceptance and PR review are pending.
-+
-+Batch reads now use the existing database visibility predicate. Statistics, talents,
-+equipment, buffs and deletion require a validated API key and perform their access read
-+and write in the same transaction. Details/combat repository methods require their
-+existing access/membership guard; the unguarded fallback is removed. Public and legacy
-+public characters retain the existing visibility policy. Hidden and missing characters
-+produce the same 404; transaction conflicts remain 409. Submitted keys are not echoed
-+in validation messages.
-+
-+The batch route validates nonempty string IDs and accepts at most 200 IDs per request.
-+Legacy imported identifiers remain supported. Existing clients deduplicate and split
-+larger selections into consecutive requests; a failed later batch rejects the entire
-+client operation. The endpoint returns domain Characters, so its Combat Lab consumer
-+no longer applies a second persistence mapping. Character creation uses the existing
-+header schema before persistence. Existing successful response envelopes are preserved.
-+
-+Runtime validation for battle presets/saved simulations, strict effect authoring,
-+simulation lifecycle, browse/UI work and content changes remain open. This candidate
-+does not close COMP-Q1/COMP-Q2 or authorize a database backfill.
-+
-+Verification in the isolated task worktree uses existing installed dependencies and no
-+application secrets. The selected 15-file suite passed 196 tests; 21 integration cases
-+were skipped without a configured dedicated database. Full and scoped TypeScript checks
-+pass. The integration suite includes four new cases for cross-key access, allowed writes,
-+rollback and concurrent access revocation. It requires the isolated database described
-+in [the character-scope plan](compendium-character-scope-plan.md); Docker access was denied
-+in this environment, so those scenarios are NOT_RUN. Unit mocks do not prove MongoDB
-+transaction behavior. Keep the candidate draft until that acceptance passes.
-+
-+Before merge: run the character access/membership integration suite against a disposable
-+local replica-set database, confirm no unrelated main changes conflict, and review the
-+PR. No merge or deployment is implied by the implementation candidate.
-+
+
+Status: merge reported by the maintainer on 2026-11-15 for CODE-01 and the character-input
+portion of CODE-02. The exact accepted main SHA and additional integration evidence were
+not available locally; the following test results retain their original candidate attribution.
+
+Batch reads now use the existing database visibility predicate. Statistics, talents,
+equipment, buffs and deletion require a validated API key and perform their access read
+and write in the same transaction. Details/combat repository methods require their
+existing access/membership guard; the unguarded fallback is removed. Public and legacy
+public characters retain the existing visibility policy. Hidden and missing characters
+produce the same 404; transaction conflicts remain 409. Submitted keys are not echoed
+in validation messages.
+
+The batch route validates nonempty string IDs and accepts at most 200 IDs per request.
+Legacy imported identifiers remain supported. Existing clients deduplicate and split
+larger selections into consecutive requests; a failed later batch rejects the entire
+client operation. The endpoint returns domain Characters, so its Combat Lab consumer
+no longer applies a second persistence mapping. Character creation uses the existing
+header schema before persistence. Existing successful response envelopes are preserved.
+
+Runtime validation for battle presets/saved simulations, strict effect authoring,
+simulation lifecycle, browse/UI work and content changes remain open. This candidate
+does not close COMP-Q1/COMP-Q2 or authorize a database backfill.
+
+Verification in the isolated task worktree uses existing installed dependencies and no
+application secrets. The selected 15-file suite passed 196 tests; 21 integration cases
+were skipped without a configured dedicated database. Full and scoped TypeScript checks
+pass. The integration suite includes four new cases for cross-key access, allowed writes,
+rollback and concurrent access revocation. It requires the isolated database described
+in [the character-scope plan](compendium-character-scope-plan.md); Docker access was denied
+in this environment, so those scenarios are NOT_RUN. Unit mocks do not prove MongoDB
+transaction behavior. The pending real-database acceptance remains recorded despite the reported merge.
+
+Follow-up: run the character access/membership integration suite against a disposable
+local replica-set database and retain its actual result; the merge report is not a new test execution.
+
+## COMP-Q4 - Simulation lifecycle and result provenance
+
+Status: implementation candidate for CODE-04, UI-06 and the runner portion of UI-05
+from the 2026-11-15 improvement review. The remaining saved-list, broader UI and effect
+authoring work is independent and remains open.
+
+Each simulation invocation owns a separate worker. Cancellation, supersession and
+unmount terminate the worker and settle the returned Promise with `AbortError`; late
+callbacks cannot overwrite or terminate a newer run. Startup, execution and response
+decoding failures settle as explicit failures. The internal hook now resolves an outcome
+containing both summary and raw results, so the caller captures one completed result.
+
+The pure simulation loop emits progress after the actual completed fights, preserving
+seed order and aggregation. Counts, progress intervals and seed ranges reject invalid
+integer values before execution. Empty pure-domain runs remain supported.
+
+The runner captures names, complete configuration, collection option and results for
+the completed invocation. Editing the next setup cannot rename or alter that result,
+save payload or replay range. The UI exposes cancellation and durable failure/retry
+states, and explains that switching tabs cancels active work. A new invocation clears
+the previous result; setup/result persistence across analyzer navigation is not added.
+
+Saving has an immediate in-flight guard, pending/error/success state and explicit retry
+after failure. After success the default save action is disabled for that result; a new
+run permits a new save. Cache-refresh failure cannot invite a duplicate write. This is
+a UI guarantee, not server idempotency. New controls/statuses use the existing PL/DE/FR
+translation tables and associated labels. The saved simulation JSON contract is unchanged.
+
+Verification: 86 tests passed across 14 selected files covering lifecycle, runner,
+worker transport using the real engine, deterministic simulation/analysis and existing
+translation helpers. Full and scoped TypeScript checks passed in the task worktree;
+23 new translation keys are present in PL/DE/FR. The mobile suite now checks cancellation
+and restart, retained result counts after editing setup, and the exact saved payload.
+Browser acceptance is NOT_COMPLETED: an isolated Playwright/Next startup attempt did
+not produce test results and was interrupted. Keep the PR draft until that acceptance
+is run on a working browser environment; no rendered or physical-device result is claimed.
+
+The source base is the previously accepted candidate `36534bae21a5f5d3c1d9f0787a095d02804eb065`.
+The maintainer reported its merge, but the exact current remote main revision could not
+be fetched from this environment. Publication must transplant only this stage onto the
+current accepted main, preserving any intervening changes and handling conflicts normally.

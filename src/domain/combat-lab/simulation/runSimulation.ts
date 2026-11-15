@@ -43,16 +43,7 @@ export function runSimulation(
   progressInterval = 500,
 ): SimulationRun
 {
-  const results = runSimulationChunk(request);
-
-  if (onProgress)
-  {
-    for (let done = progressInterval; done < results.length; done += progressInterval)
-    {
-      onProgress(done, request.count);
-    }
-    onProgress(results.length, request.count);
-  }
+  const results = runSimulationChunk(request, onProgress, progressInterval);
 
   return { results, summary: aggregateResults(results) };
 }
@@ -62,9 +53,22 @@ export function runSimulation(
  * aggregation). This is the unit a worker computes; the caller merges chunks
  * and aggregates once.
  */
-export function runSimulationChunk(request: SimulationRequest): RawResult[]
+export function runSimulationChunk(
+  request: SimulationRequest,
+  onProgress?: (completed: number, total: number) => void,
+  progressInterval = 500,
+): RawResult[]
 {
+  if (!Number.isSafeInteger(request.count) || request.count < 0) {
+    throw new RangeError("Simulation count must be a non-negative safe integer.");
+  }
+  if (!Number.isSafeInteger(progressInterval) || progressInterval < 1) {
+    throw new RangeError("Progress interval must be a positive safe integer.");
+  }
   const seedStart = request.seedStart ?? 0;
+  if (!Number.isSafeInteger(seedStart) || !Number.isSafeInteger(seedStart + Math.max(0, request.count - 1))) {
+    throw new RangeError("Simulation seed range must use safe integers.");
+  }
   const results: RawResult[] = new Array(request.count);
 
   for (let i = 0; i < request.count; i++)
@@ -76,7 +80,13 @@ export function runSimulationChunk(request: SimulationRequest): RawResult[]
       maxRounds: request.maxRounds,
     });
     results[i] = summarizeCombat(log);
+    const completed = i + 1;
+    if (onProgress && (completed % progressInterval === 0 || completed === request.count)) {
+      onProgress(completed, request.count);
+    }
   }
+
+  if (onProgress && request.count === 0) onProgress(0, 0);
 
   return results;
 }
