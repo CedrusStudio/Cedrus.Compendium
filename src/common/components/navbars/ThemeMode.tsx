@@ -1,20 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from 'next-themes';
 import { Button } from '@/ui/button';
 import { displayedText } from '@/common/translations';
 
+const subscribeToMount = () => () => {};
+const clientMounted = () => true;
+const serverMounted = () => false;
+
 export default function ThemeMode() 
 {
   const { resolvedTheme, setTheme, theme } = useTheme();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => 
-  {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useSyncExternalStore(subscribeToMount, clientMounted, serverMounted);
 
   useEffect(() => 
   {

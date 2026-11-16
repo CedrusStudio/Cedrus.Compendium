@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { Card } from '@/ui/card';
 import { useDispatch } from 'react-redux';
@@ -51,10 +51,7 @@ export default function CharactersHeadersList()
   // If the API key disappears (e.g. removed in another tab) while "mine
   // only" is selected, fall back to "all" instead of silently showing an
   // empty list forever.
-  useEffect(() =>
-  {
-    if (!hasApiKey && visibilityMode === 'mineOnly') setVisibilityMode('all');
-  }, [hasApiKey, visibilityMode]);
+  if (!hasApiKey && visibilityMode === 'mineOnly') setVisibilityMode('all');
 
   const tagsEnrichedByCharacter = searchTags.includes(CharacterTag) ? searchTags : [ ...searchTags, CharacterTag ];
   const queryKey = [...createSearchCharactersKey(debouncedSearchTerm || '', cursor, tagsEnrichedByCharacter, pageSize, excludedTags, apiKey, visibilityMode), facetFilters];
@@ -70,20 +67,20 @@ export default function CharactersHeadersList()
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ cursor: typeof cursor; searchResults: typeof searchResults } | null>(null);
+  if (searchResults && (!previousPage || previousPage.cursor !== cursor || previousPage.searchResults !== searchResults))
   {
-    if (!searchResults) return;
-    
+    setPreviousPage({ cursor, searchResults });
     setHasMore(searchResults.length === pageSize);
-
     if (cursor === emptyUlid)
     {
       setDisplayedCharacters(searchResults);
-      return;
     }
-
-    setDisplayedCharacters(prev => [...prev, ...searchResults]);
-  }, [cursor, searchResults]);
+    else
+    {
+      setDisplayedCharacters(prev => [...prev, ...searchResults]);
+    }
+  }
   
   const clearResults = useCallback(() =>
   {

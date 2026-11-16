@@ -9,7 +9,7 @@ import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import { PowerSpecificationDto } from "@/persistence/schemas/characters/combat/powerSchema";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/common/components/ui/select";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AppendToArrayButton from "@/common/components/form/AppendToArrayButton";
 import RemoveFromArrayButton from "@/common/components/form/RemoveFromArrayButton";
 import { usePowerOffenseForm } from "@/application/common/combat/usePowerOffenseForm";
@@ -61,19 +61,8 @@ function PowerOffenseArrayEditor()
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState(0);
 
   // Ensure selected index is valid when array changes
-  useEffect(() => 
-  {
-    if (fields.length === 0) 
-    {
-      setSelectedOffenseIndex(0);
-      return;
-    } 
-
-    if (selectedOffenseIndex >= fields.length) 
-    {
-      setSelectedOffenseIndex(fields.length - 1);
-    }
-  }, [fields.length, selectedOffenseIndex]);
+  const safeOffenseIndex = Math.max(0, Math.min(selectedOffenseIndex, fields.length - 1));
+  if (selectedOffenseIndex !== safeOffenseIndex) setSelectedOffenseIndex(safeOffenseIndex);
 
   if (fields.length === 0) 
   {

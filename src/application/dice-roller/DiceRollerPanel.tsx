@@ -51,7 +51,7 @@ export default function DiceRollerPanel({ open, onClose, preset, onPresetChange,
     window.addEventListener('keydown', keydown);
     return () => window.removeEventListener('keydown', keydown);
   }, [open, onClose]);
-  useEffect(() => { if (history.length === 0) setConfirmClear(false); }, [history.length]);
+  if (history.length === 0 && confirmClear) setConfirmClear(false);
 
   const updatePool = (index: number, patch: Partial<DicePool>) => onPresetChange(previous => ({
     ...previous,

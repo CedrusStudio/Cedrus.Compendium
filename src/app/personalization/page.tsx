@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { ulid } from 'ulid';
 import { ApiKeySettings } from '@/common/components/ApiKeySettings';
@@ -84,8 +84,8 @@ export default function PersonalizationPage()
   const [editingQuickLinkId, setEditingQuickLinkId] = useState<string | null>(null);
   const [editingQuickLinkLabel, setEditingQuickLinkLabel] = useState('');
   const [editingQuickLinkRoute, setEditingQuickLinkRoute] = useState<QuickLinkRoute>('/characters/favorites');
-  const [userNameInput, setUserNameInput] = useState('');
-  const [bestiaryColumnVisibilityDraft, setBestiaryColumnVisibilityDraft] = useState(resolveBestiaryColumnVisibility());
+  const [userNameInput, setUserNameInput] = useState(profile.userName ?? '');
+  const [bestiaryColumnVisibilityDraft, setBestiaryColumnVisibilityDraft] = useState(resolveBestiaryColumnVisibility(profile.bestiaryColumnVisibility));
   const { tags: availableTagsForSelectedContext, isLoading: areSelectedContextTagsLoading } = useEntityTags(personalizationTagEntities[selectedContext]);
 
   const favoriteCharacterOptions = useMemo(
@@ -97,15 +97,20 @@ export default function PersonalizationPage()
   const selectedContextQuickTags = selectedQuickTagMode === 'include' ? selectedContextIncludeQuickTags : selectedContextExcludeQuickTags;
   const selectedContextConfiguredQuickTags = [...selectedContextIncludeQuickTags, ...selectedContextExcludeQuickTags];
 
-  useEffect(() => 
+  const [previousUserName, setPreviousUserName] = useState(profile.userName);
+  if (previousUserName !== profile.userName)
   {
+    setPreviousUserName(profile.userName);
     setUserNameInput(profile.userName ?? '');
-  }, [profile.userName]);
+  }
 
-  useEffect(() => 
+  const visibilityKey = JSON.stringify(profile.bestiaryColumnVisibility);
+  const [previousVisibilityKey, setPreviousVisibilityKey] = useState(visibilityKey);
+  if (previousVisibilityKey !== visibilityKey)
   {
+    setPreviousVisibilityKey(visibilityKey);
     setBestiaryColumnVisibilityDraft(resolveBestiaryColumnVisibility(profile.bestiaryColumnVisibility));
-  }, [profile.bestiaryColumnVisibility]);
+  }
 
   if (!isLoaded)
   {

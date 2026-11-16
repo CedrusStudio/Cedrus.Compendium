@@ -13,7 +13,7 @@ import { createWeaponKeysetQuery } from "@/infrastructure/searchQueries/equipmen
 import WeaponView from "@/application/compendium/equipment/weapons/WeaponView";
 import { ulid } from "ulid";
 import { CreateDefaultWeapon, Weapon, allowedStyles, Style } from "@/domain/characters/equipment/Weapon";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import StyleFilter from "@/common/components/filters/StyleFilter";
@@ -71,25 +71,24 @@ export default function WeaponsList()
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ cursor: typeof cursor; searchResults: typeof searchResults; ownedKey: typeof ownedKey } | null>(null);
+  if (searchResults && (!previousPage || previousPage.cursor !== cursor || previousPage.searchResults !== searchResults || previousPage.ownedKey !== ownedKey))
   {
-    if (!searchResults) return;
-
+    setPreviousPage({ cursor, searchResults, ownedKey });
     setHasMore(searchResults.length === pageSize);
     const ownedResults = searchResults;
-
     if (cursor === emptyUlid)
     {
       setDisplayedWeapons(ownedResults);
-      return;
     }
-
-    setDisplayedWeapons(prev =>  
+    else
     {
-      if (ownedResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...ownedResults].map(weapon => [weapon.id, weapon])).values());
-    });
-  }, [cursor, searchResults, ownedKey]);
+      setDisplayedWeapons(prev => {
+        if (ownedResults.length === 0) return prev;
+        return Array.from(new Map([...prev, ...ownedResults].map(weapon => [weapon.id, weapon])).values());
+      });
+    }
+  }
 
   const clearResults = useCallback(() =>
   {

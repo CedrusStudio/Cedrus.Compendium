@@ -124,24 +124,23 @@ export default function ImportItemsSheet<TItem extends { id: string }>
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ cursor: typeof cursor; itemSearchResults: typeof itemSearchResults } | null>(null);
+  if (itemSearchResults && (!previousPage || previousPage.cursor !== cursor || previousPage.itemSearchResults !== itemSearchResults))
   {
-    if (!itemSearchResults) return;
-    
+    setPreviousPage({ cursor, itemSearchResults });
     setHasMore(itemSearchResults.length === pageSize);
-
     if (cursor === emptyUlid)
     {
       setDisplayedItems(itemSearchResults);
-      return;
     }
-
-    setDisplayedItems(prev =>  
+    else
     {
-      if (itemSearchResults.length === 0) return prev;
-      return [...prev, ...itemSearchResults]
-    });
-  }, [cursor, itemSearchResults]);
+      setDisplayedItems(prev => {
+        if (itemSearchResults.length === 0) return prev;
+        return [...prev, ...itemSearchResults]
+      });
+    }
+  }
 
   const clearResults = useCallback(() =>
   {

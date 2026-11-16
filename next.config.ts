@@ -3,6 +3,8 @@ import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin';
 import path from 'path';
 
 const nextConfig: NextConfig = {
+  // The repository maintains its own shared developer instructions.
+  agentRules: false,
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()];

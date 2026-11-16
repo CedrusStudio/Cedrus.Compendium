@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SelectOneOfStrings from '@/common/components/selects/SelectOneOfStrings';
 import { Input } from '@/common/components/ui/input';
 import {
@@ -104,9 +104,11 @@ export default function AdminEntityManagementPanel<TEntity extends string>({
 {
   const [filterText, setFilterText] = useState('');
 
-  useEffect(() => {
+  const [filterEntity, setFilterEntity] = useState(selectedEntity);
+  if (filterEntity !== selectedEntity) {
+    setFilterEntity(selectedEntity);
     setFilterText('');
-  }, [selectedEntity]);
+  }
 
   const filteredRows = filterText.trim()
     ? rows.filter(row => row.value.toLowerCase().includes(filterText.toLowerCase()))
