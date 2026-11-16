@@ -104,7 +104,7 @@ export default function EntityNameCombobox({
               ))}
               {showCustom && (
                 <CommandItem value={`__custom__:${search}`} onSelect={() => select(search.trim())}>
-                  Użyj: „{search.trim()}"
+                  Użyj: „{search.trim()}&quot;
                 </CommandItem>
               )}
             </CommandGroup>

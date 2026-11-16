@@ -1,5 +1,5 @@
 import { useForm, UseFormReturn, UseFormProps, FieldValues, DefaultValues } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { typedZodResolver } from "@/common/global/validation";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
 import { createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
 import { ZodType } from "zod";
@@ -7,7 +7,7 @@ import { ZodType } from "zod";
 type UseCharacterFormParams<TFormData extends FieldValues> = 
 {
   characterId: string;
-  schema: ZodType<TFormData, any, any>;
+  schema: ZodType<TFormData>;
   defaultValues: DefaultValues<TFormData>;
   updateFn: (id: string, data: TFormData) => Promise<void>;
   formId?: string;
@@ -29,8 +29,7 @@ export function useCharacterForm<TFormData extends FieldValues>(input : UseChara
 {
   const form = useForm<TFormData>
   ({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(input.schema) as any,
+    resolver: typedZodResolver(input.schema),
     defaultValues: input.defaultValues,
     mode: input.formMode || "onBlur",
   });

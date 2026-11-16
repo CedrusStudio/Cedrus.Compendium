@@ -55,7 +55,7 @@ vi.mock('@/application/personalization/PersonalizedQuickTags', () => ({
 }));
 
 vi.mock('@/common/components/WithScroll', () => ({
-  WithScroll: ({ items, renderItem }: { items: unknown[]; renderItem: (item: any) => React.ReactNode }) => <div>{items.map(renderItem)}</div>,
+  WithScroll: <T,>({ items, renderItem }: { items: T[]; renderItem: (item: T) => React.ReactNode }) => <div>{items.map(renderItem)}</div>,
 }));
 
 vi.mock('next/link', () => ({

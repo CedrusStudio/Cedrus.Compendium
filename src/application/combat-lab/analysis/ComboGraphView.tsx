@@ -17,7 +17,7 @@ export function ComboGraphView({ graph }: { graph: ComboGraph })
 
   if (graph.nodes.length === 0)
   {
-    return <p className="text-sm text-muted-foreground">Brak użytych manewrów w tych walkach (spróbuj strategii „Skryptowana" lub manewrów z efektami).</p>;
+    return <p className="text-sm text-muted-foreground">Brak użytych manewrów w tych walkach (spróbuj strategii „Skryptowana&quot; lub manewrów z efektami).</p>;
   }
 
   return (

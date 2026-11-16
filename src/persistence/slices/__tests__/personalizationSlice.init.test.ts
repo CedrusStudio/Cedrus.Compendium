@@ -51,8 +51,8 @@ describe('personalizationSlice initialization', () => {
         beta: null,
       });
 
-    const module = await importPersonalizationSlice('alpha', persistedProfiles);
-    const state = module.reducer(undefined, { type: '@@INIT' });
+    const personalizationModule = await importPersonalizationSlice('alpha', persistedProfiles);
+    const state = personalizationModule.reducer(undefined, { type: '@@INIT' });
 
     expect(state.activeApiKey).toBe('alpha');
     expect(state.profilesByApiKey.alpha).toEqual({
@@ -62,7 +62,7 @@ describe('personalizationSlice initialization', () => {
         powers: true,
       },
       quickTagsByContext: {
-        perks: persistedPerkTags.slice(0, module.MAX_QUICK_TAGS_PER_CONTEXT),
+        perks: persistedPerkTags.slice(0, personalizationModule.MAX_QUICK_TAGS_PER_CONTEXT),
       },
       quickExcludeTagsByContext: {},
       favoriteCharacterIds: ['character-1'],
@@ -72,12 +72,12 @@ describe('personalizationSlice initialization', () => {
       ],
       mainCharacterId: 'character-1',
     });
-    expect(state.profilesByApiKey.beta).toEqual(module.createEmptyProfile());
+    expect(state.profilesByApiKey.beta).toEqual(personalizationModule.createEmptyProfile());
   });
 
   it('falls back to empty profiles when persisted JSON is invalid', async () => {
-    const module = await importPersonalizationSlice(null, '{invalid-json');
-    const state = module.reducer(undefined, { type: '@@INIT' });
+    const personalizationModule = await importPersonalizationSlice(null, '{invalid-json');
+    const state = personalizationModule.reducer(undefined, { type: '@@INIT' });
 
     expect(state.profilesByApiKey).toEqual({});
     expect(state.activeApiKey).toBeNull();

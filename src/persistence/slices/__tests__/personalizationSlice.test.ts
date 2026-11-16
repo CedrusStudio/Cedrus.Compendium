@@ -315,7 +315,7 @@ describe('personalizationSlice', () => {
           href: '/broken',
         },
       ],
-    } as any));
+    } as unknown as Parameters<typeof actions.replaceProfile>[0]));
 
     expect(state.profilesByApiKey.alpha).toEqual({
       ...createEmptyProfile(),
