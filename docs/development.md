@@ -35,8 +35,11 @@ local prompt/proposal/provider contracts without a paid provider or live databas
 `npm test` is the existing interactive Vitest entry; use explicit `run` for a bounded check.
 Scoped typecheck covers only its declared configuration. Full `npm run typecheck`, build,
 coverage and [E2E](../e2e/README.md) retain their separate scope/prerequisites. The existing
-`lint` script calls `next lint`; check actual compatibility before using it as a gate.
-No lint/framework migration is included in developer-guidance adoption.
+`lint` script runs ESLint directly (`npm run lint`); Next 16 does not provide `next lint`
+or run lint during a build. The lint scope includes maintained source, tests, scripts and
+configuration; generated builds, backups, coverage and browser reports are ignored.
+The existing rules remain enabled. Aligning the Next ESLint package version remains part
+of dependency remediation, separate from repairing this command.
 
 ## Runtime AI boundary
 

@@ -42,9 +42,9 @@ vi.mock('@/ui/select', () => ({
 vi.mock('@/common/components/fields', () => {
   const Field = ({ children }: { children: React.ReactNode }) => <div>{children}</div>;
 
-  Field.Label = ({ children, className }: React.HTMLAttributes<HTMLDivElement>) => <div className={className}>{children}</div>;
-  Field.Value = () => <div data-testid='field-value' />;
-  Field.Info = ({ children, className }: React.HTMLAttributes<HTMLDivElement>) => <div className={className}>{children}</div>;
+  Field.Label = function Label({ children, className }: React.HTMLAttributes<HTMLDivElement>) { return <div className={className}>{children}</div>; };
+  Field.Value = function Value() { return <div data-testid='field-value' />; };
+  Field.Info = function Info({ children, className }: React.HTMLAttributes<HTMLDivElement>) { return <div className={className}>{children}</div>; };
 
   return { Field };
 });

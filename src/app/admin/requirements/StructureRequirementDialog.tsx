@@ -64,7 +64,7 @@ function StructureForm({ entity, requirementText, count, onClose }: { entity: Re
       <SheetHeader>
         <SheetTitle>Strukturyzuj wymaganie</SheetTitle>
         <SheetDescription>
-          „{requirementText}" zostanie zastąpione strukturą w {count} {count === 1 ? "rekordzie" : "rekordach"}.
+          „{requirementText}&quot; zostanie zastąpione strukturą w {count} {count === 1 ? "rekordzie" : "rekordach"}.
         </SheetDescription>
       </SheetHeader>
 

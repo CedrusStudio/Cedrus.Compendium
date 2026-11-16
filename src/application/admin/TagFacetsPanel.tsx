@@ -533,7 +533,7 @@ function AddFacetForm({ busy, onSave }: { busy: boolean; onSave: SaveFn })
         </label>
         <label className="flex items-center gap-1.5">
           <Checkbox checked={supportsNone} onCheckedChange={() => setSupportsNone(!supportsNone)} />
-          oferuj „— brak —"
+          oferuj „— brak —&quot;
         </label>
       </div>
 
@@ -763,7 +763,7 @@ function FacetEditForm({ facet, definitions, busy, onSave, onDone }: {
 
         <label className="flex items-center gap-1.5 text-sm">
           <Checkbox checked={supportsNone} onCheckedChange={() => setSupportsNone(!supportsNone)} />
-          pokaż „— brak —"
+          pokaż „— brak —&quot;
         </label>
       </div>
 

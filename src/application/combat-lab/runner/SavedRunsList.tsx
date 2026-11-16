@@ -42,7 +42,7 @@ export function SavedRunsList()
 
   if (simulations.length === 0)
   {
-    return <p className="text-sm text-muted-foreground">Brak zapisanych biegów. Uruchom i zapisz symulację w zakładce „Nowa symulacja".</p>;
+    return <p className="text-sm text-muted-foreground">Brak zapisanych biegów. Uruchom i zapisz symulację w zakładce „Nowa symulacja&quot;.</p>;
   }
 
   return (

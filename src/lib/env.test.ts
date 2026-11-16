@@ -22,23 +22,23 @@ describe('env', () => {
   });
 
   it('parses configured API keys and language settings', async () => {
-    const module = await loadEnvModule({
+    const envModule = await loadEnvModule({
       NEXT_LANGUAGE: 'de-DE',
       NEXT_LANGUAGE_FALLBACK: 'fr-FR',
       NEXT_API_KEYS: ' alpha, beta , ,gamma ',
     });
 
-    expect(module.languageSettings).toEqual({
+    expect(envModule.languageSettings).toEqual({
       NEXT_LANGUAGE: 'de-DE',
       NEXT_LANGUAGE_FALLBACK: 'fr-FR',
     });
-    expect(module.adminApiKeys).toEqual(['alpha', 'beta', 'gamma']);
+    expect(envModule.adminApiKeys).toEqual(['alpha', 'beta', 'gamma']);
   });
 
   it('returns an empty API key list when NEXT_API_KEYS is missing', async () => {
-    const module = await loadEnvModule({ NEXT_API_KEYS: undefined });
+    const envModule = await loadEnvModule({ NEXT_API_KEYS: undefined });
 
-    expect(module.adminApiKeys).toEqual([]);
+    expect(envModule.adminApiKeys).toEqual([]);
   });
 
   it('throws when language environment variables are invalid', async () => {

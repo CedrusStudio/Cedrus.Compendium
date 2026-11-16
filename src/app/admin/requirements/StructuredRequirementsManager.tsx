@@ -209,7 +209,7 @@ export default function StructuredRequirementsManager()
               suggestions.map(({ original, count, suggestion }) => (
                 <div key={original.text} className="flex flex-col gap-3 border-t px-4 py-4 text-sm sm:flex-row sm:items-center sm:justify-between">
                   <div className="min-w-0">
-                    <span className="break-all">„{original.text}"</span>
+                    <span className="break-all">„{original.text}&quot;</span>
                     <span className="mx-2 text-muted-foreground">→</span>
                     <span className="font-medium text-primary">{formatRequirement(suggestion)}</span>
                     <span className="ml-2 text-xs text-muted-foreground">({count})</span>
@@ -354,7 +354,7 @@ function EditForm({ entity, original, onClose }: { entity: RequirementEntityType
       <SheetHeader>
         <SheetTitle>Edytuj wymaganie strukturalne</SheetTitle>
         <SheetDescription>
-          „{formatRequirement(original)}" zostanie zmienione we wszystkich rekordach, ktore je maja.
+          „{formatRequirement(original)}&quot; zostanie zmienione we wszystkich rekordach, ktore je maja.
           Dodanie kolejnej pozycji rozbije je na osobne wymagania — wszystkie musza byc spelnione.
         </SheetDescription>
       </SheetHeader>

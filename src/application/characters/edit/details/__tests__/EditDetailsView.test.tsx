@@ -61,7 +61,7 @@ vi.mock('@/application/characters/edit/details/EditPerksList', () => ({
 
 vi.mock('@/infrastructure/hooks/useWatchedFormArray', () => ({
   __esModule: true,
-  default: () => useWatchedFormArrayMock(),
+  default: function useWatchedFormArray() { return useWatchedFormArrayMock(); },
 }));
 
 vi.mock('@/common/components/ui/separator', () => ({

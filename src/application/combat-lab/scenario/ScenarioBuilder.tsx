@@ -89,7 +89,7 @@ export function ScenarioBuilder()
               </span>
             </label>
           ))}
-          <p className="mt-1 text-xs text-muted-foreground">Walka grupowa / oblężenie tłumu (NvN) wymaga silnika wielopostaciowego — obecnie 1v1, więc „Oblężenie" jest przybliżone parametrami.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Walka grupowa / oblężenie tłumu (NvN) wymaga silnika wielopostaciowego — obecnie 1v1, więc „Oblężenie&quot; jest przybliżone parametrami.</p>
         </CardContent>
       </Card>
 

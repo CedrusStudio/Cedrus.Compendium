@@ -272,7 +272,7 @@ function TagEditor({ tags, onChange }: { tags: readonly string[]; onChange: (tag
               {isNew && (
                 <CommandGroup heading="Nowy">
                   <CommandItem value={`__new__:${search}`} onSelect={() => add(search)}>
-                    Użyj: „{search.trim().toLocaleLowerCase('pl-PL')}"
+                    Użyj: „{search.trim().toLocaleLowerCase('pl-PL')}&quot;
                   </CommandItem>
                 </CommandGroup>
               )}
