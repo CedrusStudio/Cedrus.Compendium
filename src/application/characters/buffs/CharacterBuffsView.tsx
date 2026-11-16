@@ -13,7 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/common/components/ui/collapsible';
 import { ChevronDown, Sparkles, Zap, Heart, Shield, Swords } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type CharacterBuffsViewProps =
 {
@@ -60,13 +60,22 @@ export default function CharacterBuffsView({ character, selectedStanceId, select
 {
   const [selectedProfileIds, setSelectedProfileIds] = useState<Record<ModifierProfilesFieldName, string>>(() => createSelectedProfileIdsState(character));
 
-  useEffect(() =>
+  const [previousCharacter, setPreviousCharacter] = useState(character);
+  if (previousCharacter !== character)
   {
+    setPreviousCharacter(character);
     setSelectedProfileIds(createSelectedProfileIdsState(character));
-  }, [character]);
+  }
 
-  useEffect(() =>
+  const [previousLinks, setPreviousLinks] = useState<{
+    stances: typeof character.stanceModifierProfiles;
+    states: typeof character.stateModifierProfiles;
+    selectedStanceId?: string;
+    selectedStateId?: string;
+  } | null>(null);
+  if (!previousLinks || previousLinks.stances !== character.stanceModifierProfiles || previousLinks.states !== character.stateModifierProfiles || previousLinks.selectedStanceId !== selectedStanceId || previousLinks.selectedStateId !== selectedStateId)
   {
+    setPreviousLinks({ stances: character.stanceModifierProfiles, states: character.stateModifierProfiles, selectedStanceId, selectedStateId });
     setSelectedProfileIds(previousValue =>
     {
       const nextValue = { ...previousValue };
@@ -88,7 +97,7 @@ export default function CharacterBuffsView({ character, selectedStanceId, select
 
       return changed ? nextValue : previousValue;
     });
-  }, [character.stanceModifierProfiles, character.stateModifierProfiles, selectedStanceId, selectedStateId]);
+  }
 
   const { handleSubmit, isPending } = useFormMutation<BuffsDto>
   (

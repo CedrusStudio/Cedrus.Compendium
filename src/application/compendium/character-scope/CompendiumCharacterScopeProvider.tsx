@@ -56,6 +56,8 @@ function ScopeSession({ apiKey, restore, loaded, children }: PropsWithChildren<{
   const [selection, setSelection] = useState<Selection>({ onlyOwned: false });
   const [storageKey, setStorageKey] = useState<string>();
   const [sessionRestored, setSessionRestored] = useState(false);
+  const [selectionInitialized, setSelectionInitialized] = useState(false);
+  const [unavailableNotice, setUnavailableNotice] = useState(0);
   const { profile, isLoaded: profileLoaded } = usePersonalization();
   const restoreOnMount = useRef(restore);
   const touched = useRef(false);
@@ -82,9 +84,11 @@ function ScopeSession({ apiKey, restore, loaded, children }: PropsWithChildren<{
           const stored: unknown = JSON.parse(sessionStorage.getItem(key) ?? 'null');
           if (stored && typeof stored === 'object' && 'id' in stored && typeof stored.id === 'string' && stored.id.length > 0) {
             touched.current = true;
+            setSelectionInitialized(true);
             setSelection({ id: stored.id, onlyOwned: 'onlyOwned' in stored && stored.onlyOwned === true });
           } else if (stored && typeof stored === 'object' && 'explicitlyCleared' in stored && stored.explicitlyCleared === true) {
             touched.current = true;
+            setSelectionInitialized(true);
             setSelection({ onlyOwned: false, explicitlyCleared: true });
           }
         } else sessionStorage.removeItem(key);
@@ -98,11 +102,10 @@ function ScopeSession({ apiKey, restore, loaded, children }: PropsWithChildren<{
     return () => { disposed = true; };
   }, [apiKey, loaded]);
 
-  useEffect(() => {
-    if (!loaded || !apiKey || !sessionRestored || !profileLoaded || touched.current) return;
-    touched.current = true;
+  if (loaded && apiKey && sessionRestored && profileLoaded && !selectionInitialized) {
+    setSelectionInitialized(true);
     if (profile.mainCharacterId) setSelection({ id: profile.mainCharacterId, onlyOwned: false });
-  }, [loaded, apiKey, sessionRestored, profileLoaded, profile.mainCharacterId]);
+  }
 
   useEffect(() => {
     if (storageKey) {
@@ -110,15 +113,17 @@ function ScopeSession({ apiKey, restore, loaded, children }: PropsWithChildren<{
     }
   }, [selection, storageKey]);
 
+  if (selection.id && query.isSuccess && !query.isFetching && !query.character) {
+    setSelection({ onlyOwned: false, explicitlyCleared: true });
+    setUnavailableNotice(previous => previous + 1);
+  }
   useEffect(() => {
-    if (selection.id && query.isSuccess && !query.isFetching && !query.character) {
-      setSelection({ onlyOwned: false, explicitlyCleared: true });
-      toast.error(t.compendium_character_unavailable);
-    }
-  }, [selection.id, query.isSuccess, query.isFetching, query.character]);
+    if (unavailableNotice > 0) toast.error(t.compendium_character_unavailable);
+  }, [unavailableNotice]);
 
   const selectCharacter = (id?: string) => {
     touched.current = true;
+    setSelectionInitialized(true);
     setSelection(previous => ({ id, onlyOwned: id ? previous.onlyOwned : false, explicitlyCleared: !id }));
   };
 

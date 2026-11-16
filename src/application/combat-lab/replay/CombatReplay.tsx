@@ -32,15 +32,11 @@ export function CombatReplay({ log, intervalMs = 700 }: CombatReplayProps)
 
   const lastIndex = frames.length - 1;
   const frame = frames[Math.min(index, lastIndex)];
+  if (playing && index >= lastIndex) setPlaying(false);
 
   useEffect(() =>
   {
-    if (!playing) return;
-    if (index >= lastIndex)
-    {
-      setPlaying(false);
-      return;
-    }
+    if (!playing || index >= lastIndex) return;
     const timer = setTimeout(() => setIndex(i => Math.min(i + 1, lastIndex)), intervalMs);
     return () => clearTimeout(timer);
   }, [playing, index, lastIndex, intervalMs]);

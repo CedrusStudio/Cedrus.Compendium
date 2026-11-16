@@ -38,8 +38,13 @@ coverage and [E2E](../e2e/README.md) retain their separate scope/prerequisites. 
 `lint` script runs ESLint directly (`npm run lint`); Next 16 does not provide `next lint`
 or run lint during a build. The lint scope includes maintained source, tests, scripts and
 configuration; generated builds, backups, coverage and browser reports are ignored.
-The existing rules remain enabled. Aligning the Next ESLint package version remains part
-of dependency remediation, separate from repairing this command.
+The Next 16 ESLint presets are native flat configurations; import their arrays directly
+rather than passing them through FlatCompat. The existing application rules remain
+enabled. A preset update can introduce new diagnostics; review them before accepting
+the updated dependency graph.
+
+Framework/security update boundaries and required acceptance are recorded in the
+[Next 16.4 update decision](history/next-security-update-20261116.md).
 
 ## Runtime AI boundary
 

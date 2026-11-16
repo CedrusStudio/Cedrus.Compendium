@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, Activity } from "react";
+import { useState, useCallback, Activity } from "react";
 import { Control, useController } from "react-hook-form";
 import { Label } from "@/common/components/ui/label";
 import { Button } from "@/common/components/ui/button";
@@ -42,7 +42,7 @@ export default function RaceSelector({ control, currentRace }: RaceSelectorProps
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
   const [excludedTags, setExcludedTags] = useState<string[]>(EMPTY_ARRAY);
-  const [selectedRace, setSelectedRace] = useState<Race | null>(currentRace ?? null);
+  const [selectedRaceSnapshot, setSelectedRace] = useState<Race | null>(currentRace ?? null);
   
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('races');
 
@@ -57,22 +57,11 @@ export default function RaceSelector({ control, currentRace }: RaceSelectorProps
     staleTime: 30_000,
   });
 
-  useEffect(() =>
-  {
-    if (!field.value)
-    {
-      setSelectedRace(null);
-      return;
-    }
-
-    const matchingRace = races.find(race => race.id === field.value)
-      ?? (currentRace?.id === field.value ? currentRace : null);
-
-    if (matchingRace)
-    {
-      setSelectedRace(matchingRace);
-    }
-  }, [currentRace, field.value, races]);
+  const selectedRace = field.value
+    ? races.find(race => race.id === field.value)
+      ?? (currentRace?.id === field.value ? currentRace : null)
+      ?? (selectedRaceSnapshot?.id === field.value ? selectedRaceSnapshot : null)
+    : null;
 
   const handleSelectRace = useCallback((raceId: string) => 
   {

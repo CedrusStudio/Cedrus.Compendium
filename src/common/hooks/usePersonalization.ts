@@ -21,7 +21,13 @@ export function usePersonalization()
   const dispatch = useDispatch<AppDispatch>();
   const { apiKey, hasApiKey, isLoaded } = useApiKey();
   const storedProfile = useSelector((state: RootState) => (apiKey ? state.personalization.profilesByApiKey[apiKey] : undefined));
-  const [isRemoteProfileReady, setIsRemoteProfileReady] = useState(false);
+  const [remoteProfileReady, setIsRemoteProfileReady] = useState(false);
+  const [previousAccess, setPreviousAccess] = useState({ apiKey, isLoaded });
+  if (previousAccess.apiKey !== apiKey || previousAccess.isLoaded !== isLoaded) {
+    setPreviousAccess({ apiKey, isLoaded });
+    setIsRemoteProfileReady(false);
+  }
+  const isRemoteProfileReady = isLoaded && (!apiKey || remoteProfileReady);
   const [isSavingToDatabase, setIsSavingToDatabase] = useState(false);
 
   useEffect(() => 
@@ -68,7 +74,6 @@ export function usePersonalization()
   useEffect(() =>
   {
     if (!isLoaded) {
-      setIsRemoteProfileReady(false);
       return;
     }
 
@@ -76,14 +81,11 @@ export function usePersonalization()
 
     if (!apiKey) {
       lastPersistedProfileRef.current = serializedProfileRef.current;
-      setIsRemoteProfileReady(true);
       return;
     }
 
     let isActive = true;
     const fallbackProfileJson = serializedProfileRef.current;
-
-    setIsRemoteProfileReady(false);
 
     void personalizationClient.getProfile()
       .then((remoteProfile) =>

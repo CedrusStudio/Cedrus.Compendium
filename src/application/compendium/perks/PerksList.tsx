@@ -12,7 +12,7 @@ import { createPerkOffsetQuery } from "@/infrastructure/searchQueries/perks/crea
 import PerkView from "@/application/compendium/perks/PerkView";
 import { ulid } from "ulid";
 import { CreateDefaultPerk, Perk } from "@/domain/characters/Perk";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
@@ -85,21 +85,21 @@ export default function PerksList()
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ pageNumber: typeof pageNumber; searchResults: typeof searchResults; ownedKey: typeof ownedKey } | null>(null);
+  if (searchResults && (!previousPage || previousPage.pageNumber !== pageNumber || previousPage.searchResults !== searchResults || previousPage.ownedKey !== ownedKey))
   {
-    if (!searchResults) return;
-
+    setPreviousPage({ pageNumber, searchResults, ownedKey });
     setHasMore(searchResults.length === pageSize);
     const ownedResults = searchResults;
-
     if (pageNumber === 1)
     {
       setDisplayedPerks(ownedResults);
-      return;
     }
-
-    setDisplayedPerks(prev => Array.from(new Map([...prev, ...ownedResults].map(item => [item.id, item])).values()));
-  }, [pageNumber, searchResults, ownedKey]);
+    else
+    {
+      setDisplayedPerks(prev => Array.from(new Map([...prev, ...ownedResults].map(item => [item.id, item])).values()));
+    }
+  }
 
   const clearResults = useCallback(() =>
   {

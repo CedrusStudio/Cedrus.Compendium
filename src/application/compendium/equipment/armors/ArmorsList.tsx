@@ -13,7 +13,7 @@ import { createArmorKeysetQuery } from "@/infrastructure/searchQueries/equipment
 import ArmorView from "@/application/compendium/equipment/armors/ArmorView";
 import { ulid } from "ulid";
 import { CreateDefaultArmor, Armor } from "@/domain/characters/equipment/Armor";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
@@ -70,25 +70,24 @@ export default function ArmorsList()
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ cursor: typeof cursor; searchResults: typeof searchResults; ownedKey: typeof ownedKey } | null>(null);
+  if (searchResults && (!previousPage || previousPage.cursor !== cursor || previousPage.searchResults !== searchResults || previousPage.ownedKey !== ownedKey))
   {
-    if (!searchResults) return;
-
+    setPreviousPage({ cursor, searchResults, ownedKey });
     setHasMore(searchResults.length === pageSize);
     const ownedResults = searchResults;
-
     if (cursor === emptyUlid)
     {
       setDisplayedArmors(ownedResults);
-      return;
     }
-
-    setDisplayedArmors(prev =>  
+    else
     {
-      if (ownedResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...ownedResults].map(armor => [armor.id, armor])).values());
-    });
-  }, [cursor, searchResults, ownedKey]);
+      setDisplayedArmors(prev => {
+        if (ownedResults.length === 0) return prev;
+        return Array.from(new Map([...prev, ...ownedResults].map(armor => [armor.id, armor])).values());
+      });
+    }
+  }
 
   const clearResults = useCallback(() =>
   {

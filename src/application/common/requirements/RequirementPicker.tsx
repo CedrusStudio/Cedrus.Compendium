@@ -8,7 +8,7 @@
  */
 
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
 import { Label } from "@/common/components/ui/label";
@@ -51,14 +51,17 @@ export default function RequirementPicker({ name, onRemove }: { name: string; on
   const { control, setValue } = useFormContext();
   const current = (useWatch({ control, name }) ?? DEFAULT_REQUIREMENT) as Requirement;
 
-  // Remember each mode's input across type switches (ref, not state — no re-render needed).
+  // Persist committed drafts; speculative renders must not mutate the cache.
   const cacheRef = useRef(defaultDraftCache());
-  cacheRef.current = updateCache(cacheRef.current, current);
+  useEffect(() => {
+    cacheRef.current = updateCache(cacheRef.current, current);
+  }, [current]);
 
   const selectedType = typeOfRequirement(current);
 
   const handleTypeChange = (type: RequirementPickerType) =>
   {
+    cacheRef.current = updateCache(cacheRef.current, current);
     setValue(name, buildRequirementForType(type, cacheRef.current), { shouldDirty: true, shouldValidate: true });
   };
 

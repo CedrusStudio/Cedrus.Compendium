@@ -3,7 +3,7 @@ import { Power, PowerSpecification } from "@/domain/characters/combat/Power";
 import { toCriticalRangeString, toOffenseString } from "@/domain/characters/combat/Offense";
 import { usePowerRolls } from '@/application/characters/combat/usePowerRolls';
 import { displayedText } from "@/common/translations";
-import { useState, useEffect, Activity, SetStateAction, Dispatch } from "react";
+import { useState, Activity, SetStateAction, Dispatch } from "react";
 import { showHideIcon, resetIcon } from "@/common/icons";
 import { Button } from "@/common/components/ui/button";
 import { colors } from "@/common/colors";
@@ -36,12 +36,13 @@ export default function CharacterPowersBattleView({ character, initiallyHideAdva
   const defaultOffenseIndex = power.level + power.bonus;
   const [selectedOffenseIndex, setSelectedOffenseIndex] = useState<number>(defaultOffenseIndex);
 
-  // Reset offense index when power changes
-  useEffect(() => 
+  const powerSelection = `${selectedPowerIndex}:${power.level}:${power.bonus}`;
+  const [previousPowerSelection, setPreviousPowerSelection] = useState(powerSelection);
+  if (previousPowerSelection !== powerSelection)
   {
-    const newDefaultIndex = power.level + power.bonus;
-    setSelectedOffenseIndex(newDefaultIndex);
-  }, [selectedPowerIndex, power.level, power.bonus]);
+    setPreviousPowerSelection(powerSelection);
+    setSelectedOffenseIndex(defaultOffenseIndex);
+  }
 
   // Fetch the PowerSpecification
   const { data: powerSpecification } = useQuery<PowerSpecification>

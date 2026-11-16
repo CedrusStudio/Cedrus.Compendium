@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/ui/card';
 import { displayedText } from '@/common/translations';
 import { useSearchCharactersSummary } from '@/application/characters/hooks/useSearchCharactersSummary';
@@ -63,10 +63,12 @@ export default function CharacterPickerGrid
     setPageNumber(1);
     setPages([]);
   }
-  useEffect(() => {
-    if (isPending || isError) return;
+  const [previousPage, setPreviousPage] = useState<{ page: typeof page; pageNumber: number; searchKey: string } | null>(null);
+  if (!isPending && !isError && (!previousPage || previousPage.page !== page || previousPage.pageNumber !== pageNumber || previousPage.searchKey !== searchKey))
+  {
+    setPreviousPage({ page, pageNumber, searchKey });
     setPages(previous => pageNumber === 1 ? page : Array.from(new Map([...previous, ...page].map(item => [item.id, item])).values()));
-  }, [page, pageNumber, isPending, isError, searchKey]);
+  }
   const searchedCharacters = pageNumber === 1 ? page : pages;
   const characters = excludeCharacterId
     ? searchedCharacters.filter(character => character.id !== excludeCharacterId)

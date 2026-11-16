@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Button } from "@/common/components/ui/button";
 import TagFilter from "@/common/components/filters/TagFilter";
 import FacetedTagFilter from "@/common/components/filters/FacetedTagFilter";
@@ -9,6 +9,18 @@ import type { EntityType } from "@/infrastructure/clients/tagsClient";
 import type { TagFacetFilter } from "@/domain/tags/tagFacets";
 
 const STORAGE_KEY = "tag-filter-mode";
+const MODE_EVENT = "tag-filter-mode-change";
+function subscribeToMode(onChange: () => void)
+{
+  window.addEventListener('storage', onChange);
+  window.addEventListener(MODE_EVENT, onChange);
+  return () => {
+    window.removeEventListener('storage', onChange);
+    window.removeEventListener(MODE_EVENT, onChange);
+  };
+}
+const readMode = () => window.localStorage.getItem(STORAGE_KEY) !== 'flat';
+const serverMode = () => false;
 
 type TagFilterSwitcherProps =
 {
@@ -40,18 +52,12 @@ type TagFilterSwitcherProps =
 export default function TagFilterSwitcher(props: TagFilterSwitcherProps)
 {
   const { index, isLoading: facetsLoading, hasFacets } = useTagFacets(props.entity);
-  const [byCategory, setByCategory] = useState(false);
-
-  // Read after mount: `localStorage` on the first render would desync SSR.
-  useEffect(() =>
-  {
-    setByCategory(window.localStorage.getItem(STORAGE_KEY) !== "flat");
-  }, []);
+  const byCategory = useSyncExternalStore(subscribeToMode, readMode, serverMode);
 
   const switchTo = (next: boolean) =>
   {
-    setByCategory(next);
     window.localStorage.setItem(STORAGE_KEY, next ? "categories" : "flat");
+    window.dispatchEvent(new Event(MODE_EVENT));
   };
 
   const showCategories = byCategory && hasFacets;

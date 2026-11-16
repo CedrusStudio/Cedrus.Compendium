@@ -13,7 +13,7 @@ import { createShieldKeysetQuery } from "@/infrastructure/searchQueries/equipmen
 import ShieldView from "@/application/compendium/equipment/shields/ShieldView";
 import { ulid } from "ulid";
 import { CreateDefaultShield, Shield } from "@/domain/characters/equipment/Shield";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
@@ -70,25 +70,24 @@ export default function ShieldsList()
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ cursor: typeof cursor; searchResults: typeof searchResults; ownedKey: typeof ownedKey } | null>(null);
+  if (searchResults && (!previousPage || previousPage.cursor !== cursor || previousPage.searchResults !== searchResults || previousPage.ownedKey !== ownedKey))
   {
-    if (!searchResults) return;
-
+    setPreviousPage({ cursor, searchResults, ownedKey });
     setHasMore(searchResults.length === pageSize);
     const ownedResults = searchResults;
-
     if (cursor === emptyUlid)
     {
       setDisplayedShields(ownedResults);
-      return;
     }
-
-    setDisplayedShields(prev =>  
+    else
     {
-      if (ownedResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...ownedResults].map(shield => [shield.id, shield])).values());
-    });
-  }, [cursor, searchResults, ownedKey]);
+      setDisplayedShields(prev => {
+        if (ownedResults.length === 0) return prev;
+        return Array.from(new Map([...prev, ...ownedResults].map(shield => [shield.id, shield])).values());
+      });
+    }
+  }
 
   const clearResults = useCallback(() =>
   {

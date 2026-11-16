@@ -12,7 +12,7 @@ import { createRaceKeysetQuery } from "@/infrastructure/searchQueries/races/crea
 import RaceView from "@/application/compendium/races/RaceView";
 import { ulid } from "ulid";
 import { CreateDefaultRace, Race } from "@/domain/Race";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { WithScroll } from "@/common/components/WithScroll";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
@@ -71,25 +71,24 @@ export default function RacesList()
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ cursor: typeof cursor; searchResults: typeof searchResults; ownedKey: typeof ownedKey } | null>(null);
+  if (searchResults && (!previousPage || previousPage.cursor !== cursor || previousPage.searchResults !== searchResults || previousPage.ownedKey !== ownedKey))
   {
-    if (!searchResults) return;
-
+    setPreviousPage({ cursor, searchResults, ownedKey });
     setHasMore(searchResults.length === pageSize);
     const ownedResults = searchResults;
-
     if (cursor === emptyUlid)
     {
       setDisplayedRaces(ownedResults);
-      return;
     }
-
-    setDisplayedRaces(prev =>  
+    else
     {
-      if (ownedResults.length === 0) return prev;
-      return Array.from(new Map([...prev, ...ownedResults].map(race => [race.id, race])).values());
-    });
-  }, [cursor, searchResults, ownedKey]);
+      setDisplayedRaces(prev => {
+        if (ownedResults.length === 0) return prev;
+        return Array.from(new Map([...prev, ...ownedResults].map(race => [race.id, race])).values());
+      });
+    }
+  }
 
   const clearResults = useCallback(() =>
   {

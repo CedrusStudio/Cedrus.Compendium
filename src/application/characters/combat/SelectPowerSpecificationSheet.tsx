@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Card } from '@/ui/card';
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
@@ -60,29 +60,30 @@ export function SelectPowerSpecificationSheet
     staleTime: 5_000
   });
 
-  useEffect(() => 
+  const [previousSelection, setPreviousSelection] = useState({ currentSpecificationId, open });
+  if (previousSelection.currentSpecificationId !== currentSpecificationId || previousSelection.open !== open)
   {
+    setPreviousSelection({ currentSpecificationId, open });
     setSelectedSpecId(currentSpecificationId);
-  }, [currentSpecificationId, open]);
+  }
 
-  useEffect(() => 
+  const [previousPage, setPreviousPage] = useState<{ cursor: typeof cursor; searchResults: typeof searchResults } | null>(null);
+  if (searchResults && (!previousPage || previousPage.cursor !== cursor || previousPage.searchResults !== searchResults))
   {
-    if (!searchResults) return;
-    
+    setPreviousPage({ cursor, searchResults });
     setHasMore(searchResults.length === pageSize);
-
-    if (cursor === emptyUlid) 
+    if (cursor === emptyUlid)
     {
       setDisplayedSpecs(searchResults);
-      return;
     }
-
-    setDisplayedSpecs(prev => 
+    else
     {
-      if (searchResults.length === 0) return prev;
-      return [...prev, ...searchResults];
-    });
-  }, [cursor, searchResults]);
+      setDisplayedSpecs(prev => {
+        if (searchResults.length === 0) return prev;
+        return [...prev, ...searchResults];
+      });
+    }
+  }
 
   const clearResults = useCallback(() => 
   {

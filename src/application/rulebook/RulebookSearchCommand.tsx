@@ -41,16 +41,17 @@ export function RulebookSearchCommand()
     return () => document.removeEventListener('keydown', down);
   }, []);
 
-  // Reset query when dialog closes
-  useEffect(() => 
+  const [wasOpen, setWasOpen] = useState(open);
+  if (wasOpen !== open)
   {
+    setWasOpen(open);
     if (!open) 
     {
       setQuery('');
       setDebouncedQuery('');
       setSelectedCategory(undefined);
     }
-  }, [open]);
+  }
 
   const handleSelectSection = useCallback((categorySlug: string, sectionSlug: string) => 
   {

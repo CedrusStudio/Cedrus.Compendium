@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/ui/card';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Field } from "@/common/components/fields";
 import ChangeButtons from '@/common/components/buttons/ChangeButtons';
 import { Label } from '@/ui/label';
@@ -75,25 +75,22 @@ export default function DefenseCard({ defenses, defaultDefenseId }: DefenseCardP
     setIsDescriptionVisible(previousValue => !previousValue);
   };
 
-  useEffect(() =>
+  if (defenses.length > 0 && selectedDefenseIndex > defenses.length - 1)
   {
-    if (defenses.length > 0 && selectedDefenseIndex > defenses.length - 1)
-    {
-      setSelectedDefenseIndex(0);
-    }
-  }, [defenses.length, selectedDefenseIndex]);
+    setSelectedDefenseIndex(0);
+  }
 
-  useEffect(() => 
+  const [previousDefense, setPreviousDefense] = useState(selectedDefense);
+  if (previousDefense !== selectedDefense)
   {
-    if (!selectedDefense)
+    setPreviousDefense(selectedDefense);
+    if (selectedDefense)
     {
-      return;
+      setImmunity(selectedDefense.immunity);
+      setResistance(selectedDefense.resistance);
+      setIsDescriptionVisible(true);
     }
-
-    setImmunity(selectedDefense.immunity);
-    setResistance(selectedDefense.resistance);
-    setIsDescriptionVisible(true);
-  }, [selectedDefense]);
+  }
 
   if (!selectedDefense)
   {

@@ -7,7 +7,7 @@ import { useCombatRolls } from '@/application/characters/combat/useCombatRolls';
 import OffenseHeader from '@/application/characters/combat/offense/OffenseHeader';
 import DamageBonusSubcard from '@/application/characters/combat/offense/DamageBonusSubcard';
 import { WeaponDamageWithCriticalSubcard } from '@/application/characters/combat/offense/WeaponDamageWithCriticalSubcard';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/ui/button';
 import { showHideIcon } from '@/common/icons';
 import { offensePreset } from '@/domain/diceRoller';
@@ -72,10 +72,12 @@ function OffenseCardContent({ offenses, defaultOffenseId }: OffenseCardProps)
     setIsDescriptionVisible(previousValue => !previousValue);
   };
 
-  useEffect(() =>
+  const [previousOffense, setPreviousOffense] = useState(selectedOffense);
+  if (previousOffense !== selectedOffense)
   {
+    setPreviousOffense(selectedOffense);
     setIsDescriptionVisible(true);
-  }, [selectedOffense]);
+  }
 
   return (
     <Card className='bg-muted w-full'>
