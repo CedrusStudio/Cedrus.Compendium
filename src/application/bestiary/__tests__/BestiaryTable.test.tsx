@@ -77,11 +77,11 @@ vi.mock('@/application/bestiary/BestiaryTableFooter', () => ({
 }));
 
 vi.mock('@/common/components/table/DefaultTableHeader', () => ({
-  default: () => <div>Header</div>,
+  default: () => <thead><tr><th>Header</th></tr></thead>,
 }));
 
 vi.mock('@/common/components/table/DefaultTableBody', () => ({
-  default: () => <div>Body</div>,
+  default: () => <tbody><tr><td>Body</td></tr></tbody>,
 }));
 
 vi.mock('@/application/personalization/PersonalizedQuickTags', () => ({
@@ -132,6 +132,15 @@ describe('BestiaryTable', () => {
     expect(visibilityFilterSpy).toHaveBeenCalled();
     const props = visibilityFilterSpy.mock.calls.at(-1)?.[0] as { mineOnlyDisabled: boolean };
     expect(props.mineOnlyDisabled).toBe(true);
+  });
+
+  it('keeps valid table sections inside the bestiary table', () => {
+    const { container } = render(<BestiaryTable />);
+    const table = container.querySelector('table');
+
+    expect(table?.querySelector(':scope > thead')).not.toBeNull();
+    expect(table?.querySelector(':scope > tbody')).not.toBeNull();
+    expect(table?.querySelector(':scope > div')).toBeNull();
   });
 
   it('changing the visibility filter updates the characters query key', () => {

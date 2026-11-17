@@ -69,6 +69,10 @@ describe('BattlePresetsPanel', () => {
     await waitFor(() => expect(screen.getByText(displayedText.noBattlePresetsSaved)).toBeTruthy());
 
     fireEvent.click(screen.getByRole('button', { name: displayedText.saveAsNewPreset }));
+    const dialog = screen.getByRole('dialog');
+    const descriptionId = dialog.getAttribute('aria-describedby');
+    expect(descriptionId).toBeTruthy();
+    expect(document.getElementById(descriptionId!)?.textContent).toContain('bieżąca konfiguracja walki');
     fireEvent.change(screen.getByLabelText(displayedText.battlePresetName), { target: { value: 'Boss Fight v2' } });
     fireEvent.click(screen.getByRole('button', { name: displayedText.save }));
 
