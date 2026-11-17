@@ -46,6 +46,29 @@ test('character sidebar controls and long equipment fit at desktop and tablet wi
         });
       });
       expect(overflow).toBe(false);
+      const rowLayouts = await sidebar.locator('[data-slot="statistic-row"]').evaluateAll(rows =>
+        rows.map(row => {
+          const bounds = row.getBoundingClientRect();
+          const [icon, value, actions] = [...row.children].map(child => {
+            const bounds = child.getBoundingClientRect();
+            return { top: bounds.top, right: bounds.right, center: bounds.top + bounds.height / 2 };
+          });
+          return {
+            iconCenter: icon.center,
+            valueCenter: value.center,
+            actionCenter: actions.center,
+            actionsRight: actions.right,
+            rowRight: bounds.right,
+          };
+        }),
+      );
+      expect(rowLayouts.slice(1).every(row =>
+        Math.max(row.iconCenter, row.valueCenter, row.actionCenter)
+          - Math.min(row.iconCenter, row.valueCenter, row.actionCenter) <= 2,
+      )).toBe(true);
+      expect(Math.abs(rowLayouts[0].iconCenter - rowLayouts[0].valueCenter)).toBeLessThanOrEqual(2);
+      expect(rowLayouts[0].actionCenter).toBeGreaterThan(rowLayouts[0].valueCenter + 2);
+      expect(rowLayouts[0].rowRight - rowLayouts[0].actionsRight).toBeLessThanOrEqual(1);
     }
     await page.getByRole('tab', { name: /^ekwipunek$/i }).click();
     await expect(page.getByText(weapon.name, { exact: true })).toBeVisible();

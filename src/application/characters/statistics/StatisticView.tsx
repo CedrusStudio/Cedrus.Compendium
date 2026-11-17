@@ -36,15 +36,15 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
   };
 
   return (
-    <div data-slot="statistic-row" className="grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-2 gap-y-1">
+    <div data-slot="statistic-row" className="flex min-w-0 flex-wrap items-center justify-between gap-2">
 
       <FieldWithTooltip name={name} >
-        <ResetButton variant='ghost' className="size-8 p-0" defaultValuesWithSetters={[[defaultBonus, setBonus]]}>
+        <ResetButton variant='ghost' className="size-8 shrink-0 p-0" defaultValuesWithSetters={[[defaultBonus, setBonus]]}>
           {icon}
         </ResetButton>
       </FieldWithTooltip>
 
-      <div className="flex min-w-0 items-center justify-end whitespace-nowrap">
+      <div className="flex shrink-0 items-center whitespace-nowrap">
         1k{statistic.grade * 2}+
         <Badge className="rounded-full px-1 font-mono inline">{statistic.value}</Badge>
         <div className={"flex items-center"}>
@@ -55,7 +55,7 @@ export default function StatisticView({ name, statistic, icon }: StatisticViewPr
         </div>
       </div>
 
-      <div className="col-start-2 flex items-center justify-end gap-1">
+      <div className="ml-auto flex shrink-0 items-center gap-1">
         <RollButton onClick={() => handleRoll(statistic)} rollResult={calculateRollResult(rollResult, statistic, bonus)} />
         <Button variant="ghost" size="sm" aria-label={`${diceText.open}: ${name}`} title={diceText.open} onClick={() => diceRoller?.open(preset())}>⋯</Button>
       </div>
