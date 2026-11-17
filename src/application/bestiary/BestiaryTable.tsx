@@ -43,6 +43,8 @@ const EMPTY_ARRAY: never[] = [];
 
 export default function BestiaryTable()
 {
+  "use no memo";
+
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
@@ -177,6 +179,8 @@ export default function BestiaryTable()
     setColumnVisibility(initialVisibility);
   }, [profile.bestiaryColumnVisibility]);
 
+  // This table library is not safe for compiler memoization; the component opts out above.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable<Character>
   ({
     data: displayedCharacters,
@@ -238,23 +242,25 @@ export default function BestiaryTable()
 
       <div id={filtersId} className={`${filtersOpen ? '' : 'hidden'} mb-4 space-y-3 md:block`}>
         <div className="flex min-w-0 flex-wrap items-start gap-3">
-          <TagFilterSwitcher
-            entity="characters"
-            includedTags={searchTags}
-            onIncludedTagsChange={handleSearchTagsChange}
-            availableTags={availableTags}
-            isLoading={tagsLoading}
-            excludedTags={excludedTags}
-            onExcludedTagsChange={handleExcludedTagsChange}
-            facetFilters={facetFilters}
-            onFacetFiltersChange={handleFacetFiltersChange}
-          />
+          <div className="flex max-w-full flex-wrap items-start gap-2 sm:flex-nowrap" data-slot="tag-filter-toolbar">
+            <TagFilterSwitcher
+              entity="characters"
+              includedTags={searchTags}
+              onIncludedTagsChange={handleSearchTagsChange}
+              availableTags={availableTags}
+              isLoading={tagsLoading}
+              excludedTags={excludedTags}
+              onExcludedTagsChange={handleExcludedTagsChange}
+              facetFilters={facetFilters}
+              onFacetFiltersChange={handleFacetFiltersChange}
+            />
+            <QuickTagsToggle open={tagsOpen} controlsId={tagsId} onOpenChange={setTagsOpen} />
+          </div>
           <CharacterVisibilityFilter
             value={visibilityMode}
             onValueChange={handleVisibilityModeChange}
             mineOnlyDisabled={!hasApiKey}
           />
-          <QuickTagsToggle open={tagsOpen} controlsId={tagsId} onOpenChange={setTagsOpen} />
         </div>
         <QuickTagsPanel id={tagsId} open={tagsOpen} context="bestiary"
           includedTags={searchTags} excludedTags={excludedTags}

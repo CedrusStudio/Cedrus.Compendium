@@ -95,40 +95,54 @@ test('quick tags share the filter toolbar and collapse without losing selections
     quickExcludeTagsByContext: { bestiary: ['nieumarli'], maneuvers: ['nieumarli'] },
   } }));
   for (const path of ['/bestiary', '/compendium/maneuvers']) {
-    await page.goto(path);
-    if (path === '/bestiary' && page.viewportSize()!.width < 768) await page.getByRole('button', { name: /^Filtry/ }).click();
-    const toggle = page.getByRole('button', { name: 'Szybkie tagi', exact: true });
-    await expect(toggle).toBeVisible();
-    const panel = page.locator('[data-slot="quick-tags-panel"]');
-    await expect(panel).toBeVisible();
-    await expect(toggle).toHaveAttribute('aria-controls', await panel.getAttribute('id') ?? '');
-    const includedTag = panel.getByRole('button', { name: 'wojak', exact: true });
-    const excludedTag = panel.getByRole('button', { name: 'nieumarli', exact: true });
-    if (testInfo.project.name === 'desktop') {
-      // The bestiary fixture has no categories, so it uses the flat tag picker.
-      const filter = path === '/bestiary'
-        ? page.getByRole('combobox', { name: 'Dołącz tag', exact: true })
-        : page.getByRole('button', { name: 'Filtruj', exact: true });
-      await expect(filter).toBeVisible();
-      const filterBounds = await filter.boundingBox();
-      const tagBounds = await toggle.boundingBox();
-      expect(Math.abs(filterBounds!.y - tagBounds!.y)).toBeLessThanOrEqual(4);
+    const widths = testInfo.project.name === 'desktop' ? [1440, 1024] : [page.viewportSize()!.width];
+    for (const width of widths) {
+      await page.setViewportSize({ width, height: page.viewportSize()!.height });
+      await page.goto(path);
+      if (path === '/bestiary' && page.viewportSize()!.width < 768) await page.getByRole('button', { name: /^Filtry/ }).click();
+      const toggle = page.getByRole('button', { name: 'Szybkie tagi', exact: true });
+      await expect(toggle).toBeVisible();
+      const panel = page.locator('[data-slot="quick-tags-panel"]');
+      await expect(panel).toHaveCount(1);
+      await expect(panel).toBeVisible();
+      const panelId = await panel.getAttribute('id');
+      expect(panelId).toBeTruthy();
+      await expect(toggle).toHaveAttribute('aria-controls', panelId!);
+      expect(await page.locator('[id]').evaluateAll((elements, id) => elements.filter(element => element.id === id).length, panelId)).toBe(1);
+      const includedTag = panel.getByRole('button', { name: 'wojak', exact: true });
+      const excludedTag = panel.getByRole('button', { name: 'nieumarli', exact: true });
+      if (testInfo.project.name === 'desktop') {
+        // The bestiary fixture has no categories, so it uses the flat tag picker.
+        const filter = path === '/bestiary'
+          ? page.getByRole('combobox', { name: 'Dołącz tag', exact: true })
+          : page.getByRole('button', { name: 'Filtruj', exact: true });
+        await expect(filter).toBeVisible();
+        const toolbar = page.locator('[data-slot="tag-filter-toolbar"]');
+        await expect(toolbar).toHaveCount(1);
+        await expect(toolbar.getByRole('button', { name: 'Szybkie tagi', exact: true })).toBeVisible();
+        await expect.poll(async () => {
+          const filterBounds = await filter.boundingBox();
+          const tagBounds = await toggle.boundingBox();
+          return Math.abs(filterBounds!.y - tagBounds!.y);
+        }).toBeLessThanOrEqual(4);
+      }
+      await includedTag.click();
+      await excludedTag.click();
+      await expect(includedTag).toHaveAttribute('aria-pressed', 'true');
+      await expect(excludedTag).toHaveAttribute('aria-pressed', 'true');
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      // Active-filter chips outside this panel intentionally remain available.
+      await expect(panel).toBeHidden();
+      await expect(includedTag).toBeHidden();
+      await expect(excludedTag).toBeHidden();
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+      await expect(panel).toBeVisible();
+      await expect(includedTag).toHaveAttribute('aria-pressed', 'true');
+      await expect(excludedTag).toHaveAttribute('aria-pressed', 'true');
+      await expectPageFits(page);
+      await page.screenshot({ path: testInfo.outputPath(`quick-tags-${path.replaceAll('/', '-')}-${width}.png`), fullPage: true });
     }
-    await includedTag.click();
-    await excludedTag.click();
-    await expect(includedTag).toHaveAttribute('aria-pressed', 'true');
-    await expect(excludedTag).toHaveAttribute('aria-pressed', 'true');
-    await toggle.click();
-    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    // Active-filter chips outside this panel intentionally remain available.
-    await expect(panel).toBeHidden();
-    await expect(includedTag).toBeHidden();
-    await expect(excludedTag).toBeHidden();
-    await toggle.click();
-    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(panel).toBeVisible();
-    await expect(includedTag).toHaveAttribute('aria-pressed', 'true');
-    await expect(excludedTag).toHaveAttribute('aria-pressed', 'true');
-    await expectPageFits(page);
   }
 });

@@ -92,35 +92,37 @@ export default function ListHeader
             )
           }
 
-          {
-            facetEntity && facetFilters && handleFacetFiltersChange
-              ? (
-                <TagFilterSwitcher
-                  entity={facetEntity}
-                  includedTags={searchTags}
-                  onIncludedTagsChange={handleSearchTagsChange}
-                  excludedTags={excludedTags}
-                  onExcludedTagsChange={handleExcludedTagsChange}
-                  availableTags={availableTags}
-                  isLoading={tagsLoading}
-                  facetFilters={facetFilters}
-                  onFacetFiltersChange={handleFacetFiltersChange}
-                />
-              )
-              : (
-                <TagFilter
-                  includedTags={searchTags}
-                  onIncludedTagsChange={handleSearchTagsChange}
-                  excludedTags={excludedTags}
-                  onExcludedTagsChange={handleExcludedTagsChange}
-                  availableTags={availableTags}
-                  isLoading={tagsLoading}
-                />
-              )
-          }
+          <div className="flex max-w-full flex-wrap items-start gap-2 sm:flex-nowrap" data-slot="tag-filter-toolbar">
+            {
+              facetEntity && facetFilters && handleFacetFiltersChange
+                ? (
+                  <TagFilterSwitcher
+                    entity={facetEntity}
+                    includedTags={searchTags}
+                    onIncludedTagsChange={handleSearchTagsChange}
+                    excludedTags={excludedTags}
+                    onExcludedTagsChange={handleExcludedTagsChange}
+                    availableTags={availableTags}
+                    isLoading={tagsLoading}
+                    facetFilters={facetFilters}
+                    onFacetFiltersChange={handleFacetFiltersChange}
+                  />
+                )
+                : (
+                  <TagFilter
+                    includedTags={searchTags}
+                    onIncludedTagsChange={handleSearchTagsChange}
+                    excludedTags={excludedTags}
+                    onExcludedTagsChange={handleExcludedTagsChange}
+                    availableTags={availableTags}
+                    isLoading={tagsLoading}
+                  />
+                )
+            }
 
+            {personalizationContext && <QuickTagsToggle open={tagsOpen} controlsId={tagsId} onOpenChange={setTagsOpen} />}
+          </div>
           {extraFilters}
-          {personalizationContext && <QuickTagsToggle open={tagsOpen} controlsId={tagsId} onOpenChange={setTagsOpen} />}
         </div>
 
         {

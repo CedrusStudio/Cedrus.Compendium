@@ -66,10 +66,10 @@ export default function TagFilterSwitcher(props: TagFilterSwitcherProps)
     // Sized to its content, NOT `w-full`: inside the header's wrapping flex row
     // a full-width filter eats the whole line and pushes the requirement filter
     // onto the next one, which is exactly what it looked like before.
-    <div className="flex w-auto max-w-[34rem] flex-col gap-2">
+    <div className="flex min-w-0 w-auto max-w-[min(34rem,100%)] flex-col gap-2">
       {/* One row for the controls so the filter lines up with the search and
           grade inputs; the chosen values wrap onto their own row below. */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
         {
           hasFacets && (
             <div className="inline-flex min-h-9 shrink-0 items-center rounded-md border p-0.5" role="group" aria-label="Tryb filtrowania">
