@@ -98,10 +98,11 @@ describe('test-based effects', () => {
   async function choose(user: ReturnType<typeof userEvent.setup>, trigger: HTMLElement, label: string)
   {
     await user.click(trigger);
-    await user.click(await screen.findByRole('option', { name: label }));
+    const listbox = await screen.findByRole('listbox');
+    await user.click(within(listbox).getByRole('option', { name: label }));
   }
 
-  it('edits a contested pool and applies the win and margin effects to the caster', async () => {
+  it('edits contested pool alternatives, terms and roll modifiers without losing win effects', async () => {
     const user = userEvent.setup();
     const heal = { type: 'heal', amount: { amount: 0, grade: 0, bonus: 2 } };
     const save = renderEditor([{ type: 'contested', attacker: basePool, defender: structuredClone(basePool), onWin: [heal] }]);
@@ -113,20 +114,13 @@ describe('test-based effects', () => {
     const roll = within(attacker.getByText('rzut', { exact: true }).parentElement!).getByRole('combobox');
     await choose(user, roll, 'przewaga');
 
-    const target = within(screen.getByText('efekty przy wygranej działają na').parentElement!).getByRole('combobox');
-    await choose(user, target, 'siebie');
-    fireEvent.click(screen.getByRole('checkbox', { name: /za każde oczko przewagi/ }));
-    fireEvent.change(numberField('na ile oczek (per)'), { target: { value: '2' } });
-    submit();
-
     const expected = {
       type: 'contested',
       attacker: { pool: [{ anyOf: [reflex, { group: 'characteristics', key: 'strength' }] }, { anyOf: [{ group: 'attributes', key: 'precision' }] }], rollMod: 'advantage' },
       defender: basePool,
       onWin: [heal],
-      onWinTarget: 'self',
-      perMargin: { per: 2, effect: { type: 'damage', damage: { amount: 0, grade: 0, bonus: 1 }, damageType: 'zwyczajne' } },
     };
+    submit();
     await waitFor(() => expect(save).toHaveBeenLastCalledWith([expected]));
 
     fireEvent.click(attacker.getAllByRole('button', { name: '✕' })[0]);
@@ -134,6 +128,22 @@ describe('test-based effects', () => {
     submit();
     await waitFor(() => expect(save).toHaveBeenLastCalledWith([{
       ...expected, attacker: { pool: [{ anyOf: [{ group: 'characteristics', key: 'strength' }] }], rollMod: 'advantage' },
+    }]));
+  });
+
+  it('applies contested win and margin effects to the caster without changing either pool', async () => {
+    const user = userEvent.setup();
+    const heal = { type: 'heal', amount: { amount: 0, grade: 0, bonus: 2 } };
+    const save = renderEditor([{ type: 'contested', attacker: basePool, defender: structuredClone(basePool), onWin: [heal] }]);
+    const target = within(screen.getByText('efekty przy wygranej działają na').parentElement!).getByRole('combobox');
+    await choose(user, target, 'siebie');
+    fireEvent.click(screen.getByRole('checkbox', { name: /za każde oczko przewagi/ }));
+    fireEvent.change(numberField('na ile oczek (per)'), { target: { value: '2' } });
+    submit();
+
+    await waitFor(() => expect(save).toHaveBeenLastCalledWith([{
+      type: 'contested', attacker: basePool, defender: basePool, onWin: [heal], onWinTarget: 'self',
+      perMargin: { per: 2, effect: { type: 'damage', damage: { amount: 0, grade: 0, bonus: 1 }, damageType: 'zwyczajne' } },
     }]));
   });
 
