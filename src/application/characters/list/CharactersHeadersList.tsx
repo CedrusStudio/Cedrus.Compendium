@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from 'react';
+import { useId, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { Card } from '@/ui/card';
 import { useDispatch } from 'react-redux';
@@ -23,7 +23,7 @@ import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import { CharacterTag, isCharacterOrSessionTag } from '@/domain/Tag';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
-import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
+import { QuickTagsPanel, QuickTagsToggle } from '@/application/personalization/QuickTagsSection';
 import { useApiKey } from '@/common/hooks/useApiKey';
 import { CharacterVisibilityMode } from '@/common/global/SearchPayloads';
 
@@ -33,6 +33,8 @@ const sanitizeCharactersViewTags = (tags: string[]) => tags.filter(tag => tag !=
 
 export default function CharactersHeadersList()
 {
+  const [tagsOpen, setTagsOpen] = useState(true);
+  const tagsId = useId();
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
@@ -140,7 +142,7 @@ export default function CharactersHeadersList()
               className="w-full md:w-96"
             />
 
-            <div className='flex w-full min-w-0 max-w-full flex-col items-center gap-3 md:w-auto md:flex-row md:flex-wrap'>
+            <div className='flex w-full min-w-0 max-w-full flex-wrap items-center justify-center gap-3 md:w-auto'>
               <TagFilterSwitcher
                 entity="characters"
                 includedTags={searchTags}
@@ -157,22 +159,13 @@ export default function CharactersHeadersList()
                 onValueChange={handleVisibilityModeChange}
                 mineOnlyDisabled={!hasApiKey}
               />
+              <QuickTagsToggle open={tagsOpen} controlsId={tagsId} onOpenChange={setTagsOpen} />
             </div>
           </div>
 
-          <div className='flex max-w-full flex-col items-center gap-2'>
-            <PersonalizedQuickTags
-              context="characters"
-              selectedTags={searchTags}
-              onSelectedTagsChange={handleSearchTagsChange}
-            />
-            <PersonalizedQuickTags
-              context="characters"
-              mode="exclude"
-              selectedTags={excludedTags}
-              onSelectedTagsChange={handleExcludedTagsChange}
-            />
-          </div>
+          <QuickTagsPanel id={tagsId} open={tagsOpen} context="characters"
+            includedTags={searchTags} excludedTags={excludedTags}
+            onIncludedTagsChange={handleSearchTagsChange} onExcludedTagsChange={handleExcludedTagsChange} />
         </div>
       </div>
 

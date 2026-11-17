@@ -5,7 +5,7 @@ import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/common/components/ui/button";
 import { displayedText } from "@/common/translations";
 import { Character } from "@/domain/characters/Character";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/ui/dropdown-menu";
 import CharacterModesViewDrawer from "@/application/bestiary/drawers/CharacterModesViewDrawer";
 import CharacterManeuversViewDrawer from "@/application/bestiary/drawers/CharacterManeuversViewDrawer";
 import CharacterPowersViewDrawer from "@/application/bestiary/drawers/CharacterPowersViewDrawer";
@@ -43,8 +43,6 @@ export default function CharacterMoreActionsMenu({ character, extraMenuItems }: 
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel className="capitalize">{displayedText.actions}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
           { hasModes && <DropdownMenuItem onClick={() => setIsModesDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showStancesStates}</span></DropdownMenuItem>}
           { hasManeuvers && <DropdownMenuItem onClick={() => setIsManeuversDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showManeuvers}</span></DropdownMenuItem>}
           { hasPerks && <DropdownMenuItem onClick={() => setIsPerksDrawerOpen(true)}><span className="first-letter:uppercase">{displayedText.showPerks}</span></DropdownMenuItem>}

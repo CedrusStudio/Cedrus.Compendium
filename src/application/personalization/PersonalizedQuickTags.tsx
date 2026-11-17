@@ -60,6 +60,7 @@ export default function PersonalizedQuickTags({ context, mode = 'include', selec
             type="button"
             variant={selectedTags.includes(tag) ? (mode === 'exclude' ? 'destructive' : 'default') : 'outline'}
             size="sm"
+            aria-pressed={selectedTags.includes(tag)}
             onClick={() => toggleTag(tag)}
           >
             {tag}

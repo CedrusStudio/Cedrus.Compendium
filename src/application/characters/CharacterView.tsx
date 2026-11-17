@@ -26,7 +26,7 @@ import MainCharacterButton from '@/application/personalization/MainCharacterButt
 import { createCharacterCopyHref } from '@/application/characters/add/characterCopyRoute';
 import CharacterBuffsView from '@/application/characters/buffs/CharacterBuffsView';
 import { applyActiveBuffProfile } from '@/domain/characters/buffs/applyBuffProfile';
-import LoadingSpinner from '@/common/components/LoadingSpinner';
+import CharacterLoading from '@/application/characters/CharacterLoading';
 
 type CharacterViewProps = 
 {
@@ -51,26 +51,26 @@ export default function CharacterView({ tab }: CharacterViewProps)
     dispatch(actions.setCharacterShortName({ id: character.id, shortName: character.shortName }));
   }, [character?.id, character?.shortName, dispatch]);               
 
-  if (isPending) return <LoadingSpinner />;
+  if (isPending) return <CharacterLoading />;
   if (!character) return <NotFound subject={displayedText.character} />;
 
     const effectiveCharacter = applyActiveBuffProfile(character);
 
   return (
-    <div className='min-w-0 flex flex-col-reverse gap-4 lg:grid lg:grid-cols-12'>
+    <div data-slot="character-layout" className='grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]'>
 
-        <div className='hidden md:block md:col-span-2'>
+        <aside aria-label="Statystyki postaci" className='hidden min-w-0 lg:block'>
                         <StatisticsView character={effectiveCharacter} />
-        </div>
+        </aside>
 
         <Tabs 
             defaultValue={tab ?? defaultTab} 
             onValueChange={v => { if (isCharacterTab(v)) setActiveTab(v); }}
-            className='min-w-0 max-w-full lg:col-span-10 lg:ml-6 flex flex-col lg:grid'
+            className='flex min-w-0 w-full max-w-full flex-col'
         >
-            <div className='min-w-0 max-w-full lg:row-span-1 -mt-4'>
+            <div className='min-w-0 max-w-full'>
                 
-                <div className='flex flex-col mt-4 sm:mt-0 sm:flex-row place-content-between place-items-center'>
+                <div className='flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-2'>
 
                     <TabsList className="grid h-auto w-full grid-cols-3 overflow-visible sm:inline-flex sm:w-fit sm:flex-wrap sm:justify-center">
                         <TabsTriggerCapitalized className={characterTabClassName} value="character" overrideValue={displayedText.character} />
@@ -83,18 +83,18 @@ export default function CharacterView({ tab }: CharacterViewProps)
                     <div className='flex flex-wrap justify-center place-items-center gap-2 sm:gap-3'>
                         <FavoriteCharacterButton characterId={character.id} />
                         <MainCharacterButton characterId={character.id} />
-                        <Button asChild variant="outline" className='my-4'>
+                        <Button asChild variant="outline">
                             <Link href={createCharacterCopyHref(character.id)}>
                                 <span className="first-letter:uppercase">{displayedText.duplicateCharacter}</span>
                             </Link>
                         </Button>
-                        <Button asChild variant="outline" size="icon" className='my-4' title="Karta do druku">
+                        <Button asChild variant="outline" size="icon" title="Karta do druku">
                             <Link href={`/characters/${character.id}/sheet`}>{printIcon}</Link>
                         </Button>
 
                         <DeleteButton id={character.id} isPending={isDeleting} deleteAction={deleteCharacter} />
 
-                        <Button asChild variant="outline" size="icon" className='my-4'>
+                        <Button asChild variant="outline" size="icon">
                             <Link href={`/characters/${character.id}/edit?tab=${activeTab ?? defaultTab}`}>{editIcon}</Link>
                         </Button>
                     </div>
@@ -103,12 +103,12 @@ export default function CharacterView({ tab }: CharacterViewProps)
                 <Separator />
             </div>
 
-            <div className='mt-1 lg:row-span-14'>
+            <div className='mt-1 min-w-0 max-w-full'>
 
                 <TabsContent value="character">
 
                     <DetailsView character={character} />
-                    <div className="my-4 md:hidden md:my-0">
+                    <div className="my-4 lg:hidden">
                         <StatisticsView character={effectiveCharacter} />
                     </div>
                     

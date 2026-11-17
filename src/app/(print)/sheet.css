@@ -104,6 +104,8 @@
 }
 
 .sheet-title h1 {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-size: 15pt;
   font-weight: 700;
   line-height: 1.1;
@@ -111,9 +113,11 @@
 }
 
 .sheet-title-meta {
+  min-width: 0;
+  max-width: 45%;
   font-size: 7.5pt;
   text-align: right;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .sheet-description {
@@ -130,6 +134,10 @@
   font-variant-numeric: tabular-nums;
 }
 
+.sheet-defenses-table {
+  table-layout: fixed;
+}
+
 .sheet-table th,
 .sheet-table td {
   border: 0.4pt solid #999;
@@ -143,7 +151,9 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .sheet-table tr {
@@ -157,7 +167,8 @@
 
 .sheet-table .is-name {
   font-weight: 600;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .sheet-table .is-summary {
@@ -371,11 +382,23 @@
 }
 
 @media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .sheet-preview {
+    width: 100%;
+    max-width: none;
+    overflow: visible;
+  }
   .screen-only {
     display: none !important;
   }
 
   .sheet {
+    width: 100%;
     padding: 0;
     max-width: none;
     font-size: 8.5pt;

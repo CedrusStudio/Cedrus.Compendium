@@ -32,7 +32,7 @@ import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import BestiaryTableRow from "@/application/bestiary/BestiaryTableRow";
 import { Table as TableType } from "@tanstack/react-table";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
-import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
+import { QuickTagsPanel, QuickTagsToggle } from '@/application/personalization/QuickTagsSection';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { CharacterWithRelations, toCharacters } from '@/persistence/mappings/characterMapping';
 import { useApiKey } from '@/common/hooks/useApiKey';
@@ -54,6 +54,8 @@ export default function BestiaryTable()
   const [visibilityMode, setVisibilityMode] = useState<CharacterVisibilityMode>('all');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const filtersId = useId();
+  const [tagsOpen, setTagsOpen] = useState(true);
+  const tagsId = useId();
   const activeFilterCount = searchTags.length + excludedTags.length + facetFilters.length + (visibilityMode === 'all' ? 0 : 1);
   const { profile } = usePersonalization();
   const { apiKey, hasApiKey } = useApiKey();
@@ -235,7 +237,7 @@ export default function BestiaryTable()
       </div>
 
       <div id={filtersId} className={`${filtersOpen ? '' : 'hidden'} mb-4 space-y-3 md:block`}>
-        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
+        <div className="flex min-w-0 flex-wrap items-start gap-3">
           <TagFilterSwitcher
             entity="characters"
             includedTags={searchTags}
@@ -252,18 +254,11 @@ export default function BestiaryTable()
             onValueChange={handleVisibilityModeChange}
             mineOnlyDisabled={!hasApiKey}
           />
+          <QuickTagsToggle open={tagsOpen} controlsId={tagsId} onOpenChange={setTagsOpen} />
         </div>
-        <PersonalizedQuickTags
-          context="bestiary"
-          selectedTags={searchTags}
-          onSelectedTagsChange={handleSearchTagsChange}
-        />
-        <PersonalizedQuickTags
-          context="bestiary"
-          mode="exclude"
-          selectedTags={excludedTags}
-          onSelectedTagsChange={handleExcludedTagsChange}
-        />
+        <QuickTagsPanel id={tagsId} open={tagsOpen} context="bestiary"
+          includedTags={searchTags} excludedTags={excludedTags}
+          onIncludedTagsChange={handleSearchTagsChange} onExcludedTagsChange={handleExcludedTagsChange} />
       </div>
 
       <InfiniteScroll
