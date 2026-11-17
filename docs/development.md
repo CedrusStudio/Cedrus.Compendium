@@ -10,6 +10,10 @@ Use the project's existing strict TypeScript configuration and `@/` aliases (inc
 the existing `@/ui` alias). Follow nearby React/TypeScript code and the owning feature's
 tests; Fronted's formatting conventions and C# rules are not imported here.
 
+TanStack Table v8's `useReactTable()` returns functions that React Compiler cannot safely
+memoize. `BestiaryTable` opts out locally with the supported `"use no memo"` directive;
+do not manually memoize its table object or disable compiler diagnostics globally.
+
 - `src/domain/` owns pure character/combat/rules logic and domain AI contracts.
 - `src/application/` owns feature UI and application interactions.
 - `src/persistence/` owns repositories, domain/Prisma mapping and persistence schemas.
@@ -53,6 +57,9 @@ owns the recipient prompt; [aiCharacterProposalSchema.ts](../src/domain/ai-chara
 owns the proposal validation contract. Provider/context/export/draft acceptance code
 remains under its existing domain, infrastructure, persistence and scripts owners.
 [ai-workspace/README.md](../ai-workspace/README.md) owns the local draft procedure.
+The local workspace path is runtime data and is intentionally excluded from Turbopack
+filesystem tracing; production local-provider use therefore requires a configured,
+writable workspace available to the server at runtime.
 Generated contexts, requests, drafts, backups and secrets remain ignored local state.
 Refreshing/exporting them is a selected product operation, not a developer-guidance check.
 
