@@ -1,7 +1,8 @@
 import React from "react";
 import { describe, expect, it, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { FormProvider, useForm } from "react-hook-form";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 
 /**
  * The combobox itself is a Radix popover over cmdk — pointless to drive here.
@@ -33,13 +34,19 @@ function Harness({ defaultValues, onValues }: { defaultValues: Values; onValues?
 {
   const form = useForm<Values>({ defaultValues });
 
-  onValues?.(form.watch());
-
   return (
     <FormProvider {...form}>
       <ReplacesListField group="maneuvers" />
+      <FormValuesProbe onValues={onValues} />
     </FormProvider>
   );
+}
+
+function FormValuesProbe({ onValues }: { onValues?: (values: Values) => void })
+{
+  const values = useWatch<Values>();
+  onValues?.({ name: values?.name ?? "", replaces: values?.replaces ?? [] });
+  return null;
 }
 
 const renderField = (defaultValues: Values) =>
@@ -64,28 +71,31 @@ describe("ReplacesListField", () => {
     expect(screen.queryByTestId("entity-name-combobox")).toBeNull();
   });
 
-  it("appends an empty row — the schema strips it if left unfilled", () => {
+  it("appends an empty row — the schema strips it if left unfilled", async () => {
+    const user = userEvent.setup();
     const values = renderField({ name: "Cios", replaces: [] });
 
-    fireEvent.click(screen.getByText("+ Dodaj zastąpienie"));
+    await user.click(screen.getByText("+ Dodaj zastąpienie"));
 
-    expect(values().replaces).toEqual([""]);
+    await waitFor(() => expect(values().replaces).toEqual([""]));
   });
 
-  it("writes the picked name back into the array", () => {
+  it("writes the picked name back into the array", async () => {
+    const user = userEvent.setup();
     const values = renderField({ name: "Cios", replaces: [""] });
 
-    fireEvent.change(screen.getByTestId("entity-name-combobox"), { target: { value: "Młyniec" } });
+    await user.type(screen.getByTestId("entity-name-combobox"), "Młyniec");
 
-    expect(values().replaces).toEqual(["Młyniec"]);
+    await waitFor(() => expect(values().replaces).toEqual(["Młyniec"]));
   });
 
-  it("removes the row it was asked to remove, keeping the rest", () => {
+  it("removes the row it was asked to remove, keeping the rest", async () => {
+    const user = userEvent.setup();
     const values = renderField({ name: "Cios", replaces: ["Antyzapał", "Młyniec"] });
 
-    fireEvent.click(screen.getAllByLabelText("Usuń zastąpienie")[0]!);
+    await user.click(screen.getAllByLabelText("Usuń zastąpienie")[0]!);
 
-    expect(values().replaces).toEqual(["Młyniec"]);
+    await waitFor(() => expect(values().replaces).toEqual(["Młyniec"]));
   });
 
   it("asks the picker for its own group, flags unknown names and hides the edited entity", () => {
