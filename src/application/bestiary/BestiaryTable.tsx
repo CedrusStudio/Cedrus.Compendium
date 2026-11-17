@@ -32,7 +32,7 @@ import DefaultTableHeader from "@/common/components/table/DefaultTableHeader";
 import BestiaryTableRow from "@/application/bestiary/BestiaryTableRow";
 import { Table as TableType } from "@tanstack/react-table";
 import DefaultTableBody from "@/common/components/table/DefaultTableBody";
-import PersonalizedQuickTags from '@/application/personalization/PersonalizedQuickTags';
+import { QuickTagsPanel, QuickTagsToggle } from '@/application/personalization/QuickTagsSection';
 import { usePersonalization } from '@/common/hooks/usePersonalization';
 import { CharacterWithRelations, toCharacters } from '@/persistence/mappings/characterMapping';
 import { useApiKey } from '@/common/hooks/useApiKey';
@@ -43,6 +43,8 @@ const EMPTY_ARRAY: never[] = [];
 
 export default function BestiaryTable()
 {
+  "use no memo";
+
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [searchTags, setSearchTags] = useState<string[]>(EMPTY_ARRAY);
@@ -54,6 +56,8 @@ export default function BestiaryTable()
   const [visibilityMode, setVisibilityMode] = useState<CharacterVisibilityMode>('all');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const filtersId = useId();
+  const [tagsOpen, setTagsOpen] = useState(true);
+  const tagsId = useId();
   const activeFilterCount = searchTags.length + excludedTags.length + facetFilters.length + (visibilityMode === 'all' ? 0 : 1);
   const { profile } = usePersonalization();
   const { apiKey, hasApiKey } = useApiKey();
@@ -175,6 +179,8 @@ export default function BestiaryTable()
     setColumnVisibility(initialVisibility);
   }, [profile.bestiaryColumnVisibility]);
 
+  // This table library is not safe for compiler memoization; the component opts out above.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable<Character>
   ({
     data: displayedCharacters,
@@ -235,35 +241,30 @@ export default function BestiaryTable()
       </div>
 
       <div id={filtersId} className={`${filtersOpen ? '' : 'hidden'} mb-4 space-y-3 md:block`}>
-        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
-          <TagFilterSwitcher
-            entity="characters"
-            includedTags={searchTags}
-            onIncludedTagsChange={handleSearchTagsChange}
-            availableTags={availableTags}
-            isLoading={tagsLoading}
-            excludedTags={excludedTags}
-            onExcludedTagsChange={handleExcludedTagsChange}
-            facetFilters={facetFilters}
-            onFacetFiltersChange={handleFacetFiltersChange}
-          />
+        <div className="flex min-w-0 flex-wrap items-start gap-3">
+          <div className="flex max-w-full flex-wrap items-start gap-2 sm:flex-nowrap" data-slot="tag-filter-toolbar">
+            <TagFilterSwitcher
+              entity="characters"
+              includedTags={searchTags}
+              onIncludedTagsChange={handleSearchTagsChange}
+              availableTags={availableTags}
+              isLoading={tagsLoading}
+              excludedTags={excludedTags}
+              onExcludedTagsChange={handleExcludedTagsChange}
+              facetFilters={facetFilters}
+              onFacetFiltersChange={handleFacetFiltersChange}
+            />
+            <QuickTagsToggle open={tagsOpen} controlsId={tagsId} onOpenChange={setTagsOpen} />
+          </div>
           <CharacterVisibilityFilter
             value={visibilityMode}
             onValueChange={handleVisibilityModeChange}
             mineOnlyDisabled={!hasApiKey}
           />
         </div>
-        <PersonalizedQuickTags
-          context="bestiary"
-          selectedTags={searchTags}
-          onSelectedTagsChange={handleSearchTagsChange}
-        />
-        <PersonalizedQuickTags
-          context="bestiary"
-          mode="exclude"
-          selectedTags={excludedTags}
-          onSelectedTagsChange={handleExcludedTagsChange}
-        />
+        <QuickTagsPanel id={tagsId} open={tagsOpen} context="bestiary"
+          includedTags={searchTags} excludedTags={excludedTags}
+          onIncludedTagsChange={handleSearchTagsChange} onExcludedTagsChange={handleExcludedTagsChange} />
       </div>
 
       <InfiniteScroll

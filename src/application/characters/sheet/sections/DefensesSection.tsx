@@ -24,7 +24,7 @@ export default function DefensesSection({ defenses }: { defenses: SheetDefenseLi
 
   return (
     <SheetSection title="obrony">
-      <SheetTable headers={headers} groups={groups}>
+      <SheetTable headers={headers} groups={groups} className="sheet-defenses-table" columnWidths={['30%', ...Array<string>(10).fill('7%')]}>
         {
           defenses.map(defense => (
             <tr key={defense.id} className={defense.isDefault ? "is-default" : undefined}>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { User, X } from 'lucide-react';
+import { LoaderCircle, User, X } from 'lucide-react';
 import { Button } from '@/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@/ui/sheet';
 import CharacterPickerGrid from '@/application/characters/components/CharacterPickerGrid';
@@ -17,9 +17,11 @@ export function CompendiumCharacterSelector() {
   return <div className="flex flex-wrap items-center gap-2">
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" className="max-w-60 gap-2">
-          <User className="size-4 shrink-0" />
-          <span className="truncate">{scope.character ? `${t.compendium_character}: ${scope.character.name}` : scope.isLoading ? t.compendium_loading : t.compendium_select_character}</span>
+        <Button variant="outline" className="max-w-60 gap-2" aria-busy={scope.isLoading || scope.isFetching}>
+          {scope.isLoading || scope.isFetching
+            ? <LoaderCircle aria-hidden="true" className="size-4 shrink-0 animate-spin" />
+            : <User aria-hidden="true" className="size-4 shrink-0" />}
+          <span className="truncate" aria-live="polite">{scope.character ? `${t.compendium_character}: ${scope.character.name}` : scope.isLoading ? t.compendium_loading : t.compendium_select_character}</span>
         </Button>
       </SheetTrigger>
       <SheetContent className="w-full sm:max-w-xl overflow-y-auto">

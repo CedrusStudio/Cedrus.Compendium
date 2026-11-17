@@ -20,6 +20,7 @@ vi.mock('@/common/hooks/useEntityTags', () => ({
 vi.mock('@/ui/sheet', () => ({
   Sheet: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   SheetContent: ({ children, id }: { children: React.ReactNode; id?: string }) => <div data-testid="sheet-content" id={id}>{children}</div>,
+  SheetDescription: ({ children }: { children: React.ReactNode }) => <p>{children}</p>,
   SheetFooter: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   SheetTitle: ({ children }: { children: React.ReactNode }) => <h2>{children}</h2>,
 }));
@@ -69,6 +70,7 @@ describe('SelectPowerSpecificationSheet', () => {
     );
 
     expect(screen.getByTestId('sheet-content')).toHaveAttribute('id', 'select-power-specification-scrollable');
+    expect(screen.getByText('Wyszukaj i wybierz specyfikację mocy do użycia w karcie postaci.')).toBeInTheDocument();
     expect(withScrollSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         scrollableTarget: 'select-power-specification-scrollable',

@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/ui/alert-dialog";
 import { Button } from "@/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
 import SelectOneOfStrings from "@/common/components/selects/SelectOneOfStrings";
@@ -219,6 +219,9 @@ export default function BattlePresetsPanel()
         <DialogContent className="sm:max-w-[420px]">
           <DialogHeader>
             <DialogTitle className="first-letter:capitalize">{displayedText.saveAsNewPreset}</DialogTitle>
+            <DialogDescription>
+              Wpisz nazwę, pod którą bieżąca konfiguracja walki zostanie zapisana jako nowy zestaw.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="grid grid-cols-1 items-center gap-4 py-4 sm:grid-cols-4">

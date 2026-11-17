@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Card } from '@/ui/card';
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
-import { Sheet, SheetContent, SheetFooter, SheetTitle } from '@/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetTitle } from '@/ui/sheet';
 import { importIcon } from '@/common/icons';
 import ListHeader from '@/common/components/lists/ListHeader';
 import { WithScroll } from '@/common/components/WithScroll';
@@ -146,6 +146,9 @@ export function SelectPowerSpecificationSheet
             {importIcon}
             <SheetTitle className="text-lg">Wybierz Moc</SheetTitle>
           </div>
+          <SheetDescription>
+            Wyszukaj i wybierz specyfikację mocy do użycia w karcie postaci.
+          </SheetDescription>
 
           <ListHeader
             searchInput={searchInput}

@@ -17,6 +17,7 @@ describe('external participant numeric values', () => {
         : <ExternalParticipantActionsCell participant={createExternalParticipant('Test', 50, 3, 0)} />);
       fireEvent.click(container.querySelector('button')!);
       const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveAttribute('aria-describedby');
       const name = dialog.querySelector('input[id="name"]')!;
       fireEvent.change(name, { target: { value: 'Testowy uczestnik' } });
       const id = mode === 'add' && field.startsWith('initiative')

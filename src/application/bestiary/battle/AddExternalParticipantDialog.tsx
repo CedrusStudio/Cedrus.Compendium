@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/common/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog";
 import { Input } from "@/common/components/ui/input";
 import { Label } from "@/common/components/ui/label";
 import { Textarea } from "@/common/components/ui/textarea";
@@ -65,6 +65,9 @@ export default function AddExternalParticipantDialog()
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader className="flex items-center">
           <DialogTitle>{displayedText.addExternalParticipant}</DialogTitle>
+          <DialogDescription>
+            Dodaj uczestnika spoza listy postaci do bieżącej walki.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-6 py-4">

@@ -28,6 +28,12 @@ Po zmianie trzeba zrestartować serwer deweloperski — `.env` czytany jest przy
 starcie procesu. Jeżeli `AI_CHARACTER_PROVIDER` nie jest ustawione, obowiązuje
 `openai` i dlatego ekran wygląda dokładnie tak jak wcześniej.
 
+W produkcji `AI_LOCAL_WORKSPACE_DIR` wskazuje katalog dostępny i zapisywalny dla
+procesu serwera. Next.js celowo nie dołącza jego zawartości do builda ani nie śledzi
+całego projektu z powodu runtime'owej ścieżki dostępu do plików. Przy providerze
+`local` przygotuj więc `drafts/draft.json` w katalogu dostępnym dla uruchomionej
+aplikacji; format i sposób ustawienia zmiennej pozostają bez zmian.
+
 ## Układ
 
 ```

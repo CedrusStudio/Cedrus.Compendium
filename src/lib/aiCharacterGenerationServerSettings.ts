@@ -65,5 +65,5 @@ export function getLocalCharacterGenerationServerSettings(): LocalCharacterGener
     workspaceDirectory: process.env.AI_LOCAL_WORKSPACE_DIR,
   });
 
-  return { workspaceDirectory: path.resolve(process.cwd(), settings.workspaceDirectory) };
+  return { workspaceDirectory: path.resolve(/* turbopackIgnore: true */ process.cwd(), settings.workspaceDirectory) };
 }

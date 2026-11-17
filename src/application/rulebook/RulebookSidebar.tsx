@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { NavigationNode } from '@/domain/rulebook/RulebookTypes';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/ui/accordion';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/sheet';
 import { Button } from '@/ui/button';
 import { useState } from 'react';
 
@@ -31,7 +31,10 @@ export function RulebookSidebar({ navigation }: RulebookSidebarProps)
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild><Button variant="outline">Rozdziały podręcznika</Button></SheetTrigger>
           <SheetContent side="left">
-            <SheetHeader><SheetTitle>Rozdziały podręcznika</SheetTitle></SheetHeader>
+            <SheetHeader>
+              <SheetTitle>Rozdziały podręcznika</SheetTitle>
+              <SheetDescription>Wybierz kategorię lub rozdział, aby otworzyć jego treść.</SheetDescription>
+            </SheetHeader>
             <div className="px-4 pb-4" onClick={event => { if ((event.target as HTMLElement).closest('a')) setOpen(false); }}>
               <Accordion type="multiple" defaultValue={defaultOpenCategories}>
                 {navigation.map(category => <NavbarItem key={category.id} category={category} pathname={pathname} />)}

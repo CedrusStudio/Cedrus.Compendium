@@ -92,6 +92,8 @@ describe('MoreBattleActions', () => {
 
     expect(screen.getByText(displayedText.showPowers)).toBeTruthy();
     expect(screen.queryByText(displayedText.showSpells)).toBeNull();
+    expect(screen.queryByText(displayedText.actions)).toBeNull();
+    expect(screen.getByRole('button', { name: displayedText.actions })).toBeTruthy();
   });
 
   it('shows the combined modes action when the character has states but no stances', () => {

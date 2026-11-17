@@ -8,7 +8,7 @@ import CharacterSheet from "@/application/characters/sheet/CharacterSheet";
 import SheetToolbar from "@/application/characters/sheet/SheetToolbar";
 import NotFound from "@/common/components/NotFound";
 import { displayedText } from "@/common/translations";
-import LoadingSpinner from '@/common/components/LoadingSpinner';
+import CharacterLoading from '@/application/characters/CharacterLoading';
 
 type CharacterSheetViewProps =
 {
@@ -25,7 +25,7 @@ export default function CharacterSheetView({ options, generatedOn }: CharacterSh
 {
   const { character, isPending } = useGetCharacterById();
 
-  if (isPending) return <LoadingSpinner />;
+  if (isPending) return <CharacterLoading />;
   if (!character) return <NotFound subject={displayedText.character} />;
 
   // Same call as `CharacterView`: the printed numbers must match what the app

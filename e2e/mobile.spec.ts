@@ -236,6 +236,7 @@ test('compendium rank search stays compact while name search remains wide', asyn
     await expect.poll(() => rank.evaluate(element => element.getBoundingClientRect().width)).toBeLessThanOrEqual(120);
     await expect.poll(() => rank.evaluate(element => element.getBoundingClientRect().width)).toBeGreaterThanOrEqual(90);
     await expect.poll(() => name.evaluate(element => element.getBoundingClientRect().width)).toBeGreaterThan(120);
+    await rank.click();
     await rank.fill('15');
     await expect(rank).toHaveValue('15');
     await rank.clear();
@@ -325,6 +326,7 @@ test('character details can be saved and read again after reload', async ({ page
     page.getByRole('button', { name: 'Zapisz', exact: true }).click(),
   ]);
   expect(saved.ok()).toBe(true);
+  await page.waitForLoadState('networkidle');
   await page.reload();
   await expect(page.locator('input[name="name"]')).toHaveValue(name);
   await expectPageFits(page);
