@@ -27,7 +27,7 @@ export async function getAiCharacterDraftBalance(input: {
   if (!draft.proposal) return [];
 
   const { proposal } = draft;
-  const profiles = await loadAiCharacterBalanceProfiles();
+  const profiles = await loadAiCharacterBalanceProfiles(draft.provider === 'mcp' ? input.apiKey : undefined);
 
   // The character's own tags decide which profiles apply — the same signal the
   // generator used, so the review measures against what it was aiming at.

@@ -1193,7 +1193,7 @@ export default function AiCharacterGenerationView({ provider }: AiCharacterGener
   });
 
   const acceptMutation = useMutation({
-    mutationFn: async (id: string) => aiCharacterDraftsClient.accept(id),
+    mutationFn: async (id: string) => draft?.reviewedRevision ? aiCharacterDraftsClient.accept(id, draft.reviewedRevision) : aiCharacterDraftsClient.accept(id),
     onSuccess: characterId => router.push(`/characters/${characterId}/edit?tab=character`),
     onError: error => setErrorMessage(getGenerationErrorMessage(error)),
   });

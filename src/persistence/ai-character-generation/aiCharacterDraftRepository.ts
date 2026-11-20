@@ -1,5 +1,6 @@
 import 'server-only';
 import type { Prisma } from '@prisma/client';
+import { creationRevision } from '@/persistence/mcp/changeIdentity';
 import prisma from '@/lib/prisma';
 import {
   aiCharacterGenerationRequestSchema,
@@ -29,6 +30,7 @@ const toDraft = (record: {
   proposal: unknown;
   validationIssues: unknown;
   referenceCharacterIds: string[];
+  mcpVisibility?: string | null;
   provider: string;
   model: string;
   promptVersion: string;
@@ -46,6 +48,7 @@ const toDraft = (record: {
   proposal: record.proposal ?? null,
   validationIssues: record.validationIssues ?? [],
   referenceCharacterIds: record.referenceCharacterIds,
+  ...(record.provider === 'mcp' && { reviewedRevision: creationRevision(record), visibility: record.mcpVisibility ?? 'mine' }),
   provider: record.provider,
   model: record.model,
   promptVersion: record.promptVersion,
@@ -99,7 +102,7 @@ export async function getAiCharacterDraftById(id: string, apiKeyHash: string, no
 
   if (record.status === 'pending' && record.expiresAt <= now) {
     const expired = await prisma.aiCharacterDraft.update({
-      where: { id: record.id },
+      where: { id: record.id, ...(record.provider === 'mcp' && { status: 'pending' }) },
       data: { status: 'expired' },
     });
     return toDraft(expired);
@@ -132,7 +135,7 @@ export async function updateAiCharacterDraftProposal(input: {
   }
 
   const updated = await prisma.aiCharacterDraft.update({
-    where: { id: input.id },
+    where: { id: input.id, ...(record.provider === 'mcp' && { apiKeyHash: input.apiKeyHash, status: 'pending', updatedAt: record.updatedAt, expiresAt: { gt: new Date() } }) },
     data: {
       proposal: asJson(proposal),
       validationIssues: asJson(input.validationIssues),
@@ -153,7 +156,7 @@ export async function rejectAiCharacterDraft(id: string, apiKeyHash: string): Pr
   if (record.status === 'rejected') return;
 
   await prisma.aiCharacterDraft.update({
-    where: { id },
+    where: { id, ...(record.provider === 'mcp' && { status: { not: 'accepted' } }) },
     data: { status: 'rejected' },
   });
 }

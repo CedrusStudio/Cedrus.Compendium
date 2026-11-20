@@ -10,6 +10,7 @@ const eslintConfig = [
       ".next/**",
       "out/**",
       "build/**",
+      "dist/mcp/**",
       "src/generated/**",
       "backup/**",
       "coverage/**",

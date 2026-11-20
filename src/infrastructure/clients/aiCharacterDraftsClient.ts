@@ -38,8 +38,10 @@ const aiCharacterDraftsClient = {
   reject: async (id: string): Promise<void> => {
     await client.delete(`${path}/${id}`);
   },
-  accept: async (id: string): Promise<string> => {
-    const response = await client.post(`${path}/${id}/accept`);
+  accept: async (id: string, reviewedRevision?: string): Promise<string> => {
+    const response = reviewedRevision
+      ? await client.post(`${path}/${id}/accept`, undefined, { headers: { 'If-Match': `"${reviewedRevision}"` } })
+      : await client.post(`${path}/${id}/accept`);
     return response.data.characterId;
   },
 };

@@ -11,6 +11,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
+    "test:mcp:integration": "node scripts/run-data-change-integration.mjs --mcp",
     "test:data-change-integration": "node scripts/run-data-change-integration.mjs",
     "postinstall": "prisma generate",
     "typecheck": "tsc --noEmit",
@@ -60,10 +61,12 @@
     "test:e2e:mobile": "node scripts/run-e2e.mjs --project=phone-320 --project=phone-390",
     "test:visual:mobile": "node scripts/run-e2e.mjs --project=phone-390 --grep layout",
     "audit:mobile": "node scripts/run-e2e.mjs --project=phone-390 --grep layout",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "build:mcp": "node node_modules/typescript/bin/tsc -p tools/mcp/tsconfig.json"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
+    "@modelcontextprotocol/sdk": "1.32.2",
     "@prisma/client": "^6.17.1",
     "@prisma/nextjs-monorepo-workaround-plugin": "^6.17.1",
     "@radix-ui/react-accordion": "^1.2.12",

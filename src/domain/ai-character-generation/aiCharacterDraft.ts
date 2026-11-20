@@ -13,6 +13,8 @@ export const aiCharacterDraftSchema = z.object({
   proposal: aiCharacterProposalSchema.nullable(),
   validationIssues: z.array(z.string()).max(50),
   referenceCharacterIds: z.array(z.string().trim().min(1)).max(3),
+  reviewedRevision: z.string().optional(),
+  visibility: z.enum(['mine', 'public']).optional(),
   provider: z.string().trim().min(1).max(100),
   model: z.string().trim().min(1).max(200),
   promptVersion: z.string().trim().min(1).max(100),
