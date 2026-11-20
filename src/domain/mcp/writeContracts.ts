@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { sheetOperations } from './sheetContracts';
 import { aiCharacterGenerationRequestSchema } from '../ai-character-generation/aiCharacterGenerationSchemas';
 import { membershipKinds } from '../characters/characterMembership';
 
@@ -21,6 +22,7 @@ export const createInput = z.strictObject({
   visibility: z.enum(['mine', 'public']).default('mine'),
 });
 export const editOperation = z.discriminatedUnion('op', [
+  ...sheetOperations,
   z.strictObject({ op: z.literal('description'), value: z.string().min(2).max(10000) }),
   z.strictObject({ op: z.literal('tags'), value: z.array(z.string().min(1).max(100)).max(100) }),
   z.strictObject({ op: z.literal('statistic'), statistic: z.string().min(1).max(40),

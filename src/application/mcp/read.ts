@@ -1,9 +1,10 @@
 import 'server-only';
 import { z } from 'zod';
 import { readStructuredRequirements } from '@/domain/requirements/legacyRequirementAudit';
-import { checkRequirement } from '@/domain/requirements/checkRequirement';
+import { checkRequirement, requirementEvidence } from '@/domain/requirements/checkRequirement';
 import { formatRequirement } from '@/domain/requirements/formatRequirement';
 import prisma from '@/lib/prisma';
+import { loadSheet, fullSheet } from './sheetRead';
 import { characterVisibilityWhere } from '@/persistence/characterVisibility';
 import { getCharactersVisibleToApiKeyByIds } from '@/persistence/characters/charactersRepository';
 import { toAiCharacterGenerationReference } from '@/domain/ai-character-generation/CharacterGenerationContextSource';
@@ -70,8 +71,10 @@ export async function readEntry(input: z.infer<typeof entryInput>, apiKey: strin
       'structuredRequirements' in entry.details ? entry.details.structuredRequirements : null });
     return { ...result, characterId: character.id, requirementChecks: requirements.map(requirement => ({
       text: formatRequirement(requirement), met: checkRequirement(requirement, character),
+      ...(input.detail === 'full' && { basis: 'base', observed: requirementEvidence(requirement, character), required: requirement }),
     })) };
   }
+  if (input.detail === 'full') return fullSheet(await loadSheet(prisma, id, apiKey), input.sections);
   const [character] = await getCharactersVisibleToApiKeyByIds([id], apiKey);
   if (!character) return unavailable();
   const c = toAiCharacterGenerationReference(character);

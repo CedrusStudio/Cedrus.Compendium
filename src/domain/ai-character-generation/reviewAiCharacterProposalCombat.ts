@@ -1,4 +1,4 @@
-import type { AiCharacterProposal } from '@/domain/ai-character-generation/aiCharacterProposalSchema';
+import type { Offense } from '@/domain/characters/combat/Offense';
 
 /**
  * Review notes about the combat sheet, measured rather than asserted.
@@ -57,28 +57,42 @@ function gearExplainsZeroCritical(weapons: readonly EquippedWeapon[]): boolean
 const describePool = (pool: { amount: number; grade: number; bonus: number }) =>
   `${pool.amount}k${pool.grade * 2}${pool.bonus === 0 ? '' : pool.bonus > 0 ? `+${pool.bonus}` : String(pool.bonus)}`;
 
-export function reviewAiCharacterProposalCombat(proposal: AiCharacterProposal): string[]
+type CombatReviewInput = {
+  combat: { offenses: readonly Pick<Offense,'id'|'name'|'leadingWeapon'|'secondaryWeapon'>[]; defenses: readonly unknown[];
+    defaultOffenseId?: string | null; defaultDefenseId?: string | null; maneuvers: readonly unknown[]; stances: readonly unknown[] };
+  perks: readonly unknown[];
+  equipment: { weapons: readonly EquippedWeapon[] };
+};
+
+export function reviewAiCharacterProposalCombat(proposal: CombatReviewInput): string[]
 {
-  const notes: string[] = [];
+  return reviewCombatFindings(proposal).map(note => note.message);
+}
+
+export function reviewCombatFindings(proposal: CombatReviewInput) {
+  const notes: { rule: string; path: string; observed: number | null; message: string }[] = [];
+  const add = (rule: string, path: string, observed: number | null, message: string) =>
+    notes.push({rule, path, observed, message});
   const { combat } = proposal;
 
   // A character with nothing on its sheet is a plain statblock, and the
   // conventions below are measured on characters that have been built.
   const isBuilt = proposal.perks.length + combat.maneuvers.length + combat.stances.length > 0;
-  const gearMayExplain = gearExplainsZeroCritical(proposal.equipment.weapons as EquippedWeapon[]);
+  const gearMayExplain = gearExplainsZeroCritical(proposal.equipment.weapons);
 
   for (const offense of combat.offenses) {
     const leading = offense.leadingWeapon;
+    const path = 'offenses/' + offense.id + '/';
 
     if (isBuilt && !gearMayExplain && leading.amount > 0 && leading.critical.power < BUILT_CHARACTER_CRITICAL_POWER) {
-      notes.push(
+      add('combat.criticalPower', path + 'leadingWeapon.critical.power', leading.critical.power,
         `Zestaw ataku „${offense.name}" ma siłę krytyka 0, choć żadna z broni tej postaci jej nie obniża. `
         + 'Mediana zbudowanej postaci to 3 — zero należy się włóczni albo walce wręcz, nie mieczowi.',
       );
     }
 
     if (leading.amount === RARE_POOL_AMOUNT) {
-      notes.push(
+      add('combat.singleDie', path + 'leadingWeapon.amount', leading.amount,
         `Zestaw ataku „${offense.name}" ma pulę jednej kości (${describePool(leading)}). `
         + 'W kompendium tak walczy 4% postaci, a wśród wojaków i rycerzy żadna — '
         + 'zwykle to znak, że przepisano statystyki broni bez wyszkolenia postaci.',
@@ -86,7 +100,7 @@ export function reviewAiCharacterProposalCombat(proposal: AiCharacterProposal): 
     }
 
     if (leading.amount === 0) {
-      notes.push(
+      add('combat.emptyPool', path + 'leadingWeapon.amount', leading.amount,
         `Zestaw ataku „${offense.name}" nie ma czym atakować: pula broni wiodącej wynosi 0.`,
       );
     }
@@ -94,7 +108,7 @@ export function reviewAiCharacterProposalCombat(proposal: AiCharacterProposal): 
     // A second weapon that rolls nothing is not a second weapon; it is an
     // optional field filled with zeros instead of left out.
     if (offense.secondaryWeapon && offense.secondaryWeapon.amount === 0) {
-      notes.push(
+      add('combat.emptySecondary', path + 'secondaryWeapon.amount', offense.secondaryWeapon.amount,
         `Zestaw ataku „${offense.name}" ma broń drugorzędną z pulą 0 — jeśli postać walczy jedną bronią, `
         + 'to pole powinno zostać puste.',
       );
@@ -102,11 +116,11 @@ export function reviewAiCharacterProposalCombat(proposal: AiCharacterProposal): 
   }
 
   if (combat.offenses.length > 0 && !combat.defaultOffenseId) {
-    notes.push('Żaden zestaw ataku nie jest domyślny, więc karta postaci nie wie, czym postać walczy.');
+    add('combat.noDefaultOffense', 'defaultOffenseId', null, 'Żaden zestaw ataku nie jest domyślny, więc karta postaci nie wie, czym postać walczy.');
   }
 
   if (combat.defenses.length > 0 && !combat.defaultDefenseId) {
-    notes.push('Żaden zestaw obrony nie jest domyślny, więc karta postaci nie wie, czym postać się broni.');
+    add('combat.noDefaultDefense', 'defaultDefenseId', null, 'Żaden zestaw obrony nie jest domyślny, więc karta postaci nie wie, czym postać się broni.');
   }
 
   return notes;

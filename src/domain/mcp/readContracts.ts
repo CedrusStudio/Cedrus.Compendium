@@ -15,4 +15,5 @@ export const entryInput = z.strictObject({
   id: z.string().min(1).max(250).describe('ID returned by search. Rulebook IDs are category/slug.'),
   forCharacterId: z.string().min(1).max(64).optional().describe('For a catalog entry, evaluate its requirements against this visible character.'),
   sections: z.array(cardSection).max(6).optional(),
+  detail: z.enum(['summary', 'full']).optional().describe('Full character sections include editable IDs, catalog data and effective combat values with active profiles.'),
 });

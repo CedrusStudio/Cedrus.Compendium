@@ -1,4 +1,8 @@
 import { readCreation } from '@/application/mcp/readCreation';
+import { auditInput, gearGroups, profileGroups } from '@/domain/mcp/sheetContracts';
+import { auditCharacter } from '@/application/mcp/sheetAudit';
+import { editCapabilities } from '@/application/mcp/editCapabilities';
+import { verificationSections } from '@/application/mcp/sheetRead';
 import { NextResponse } from 'next/server';
 import { Prisma } from '@prisma/client';
 import { applyInput, changeInput, contextInput, createInput, editInput } from '@/domain/mcp/writeContracts';
@@ -27,7 +31,10 @@ export async function POST(request: Request, { params }: { params: Promise<{ too
     switch (tool) {
       case 'get_status':
         z.strictObject({}).parse(input);
-        return NextResponse.json({ version: 1, tools: ['get_status', 'search', 'get_entry', 'get_creation_context', 'preview_create', 'preview_edit', 'get_change', 'apply_change'] });
+        return NextResponse.json({ version: 2, tools: ['get_status', 'search', 'get_entry', 'get_creation_context', 'preview_create', 'preview_edit', 'get_change', 'apply_change','audit_character'],
+          capabilities: { characterDetail: ['summary','full'], ...editCapabilities(),
+            gearGroups, profileGroups, catalogWrites: false } });
+      case 'audit_character': return NextResponse.json(await auditCharacter(auditInput.parse(input),key));
       case 'search': return NextResponse.json(await searchEntries(searchInput.parse(input), key));
       case 'get_entry': return NextResponse.json(await readEntry(entryInput.parse(input), key));
       case 'get_creation_context': return NextResponse.json(await creationContext(contextInput.parse(input), key));
@@ -39,7 +46,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ too
       }
       case 'apply_change': {
         const { changeId, revision } = applyInput.parse(input);
-        if (changeId.startsWith('edit-')) return NextResponse.json(await applyEdit(changeId, revision, key));
+        if (changeId.startsWith('edit-')) {
+          const saved = await applyEdit(changeId, revision, key);
+          const lookup = { kind: 'character', id: saved.characterId, detail: 'full', sections: verificationSections(saved.differences) } as const;
+          // Acceptance is durable even if a subsequent normal read fails.
+          const readback = await readEntry(lookup, key).catch(() => null);
+          return NextResponse.json({ ...saved, verification: readback ? { status:'read', card:readback } : { status:'unavailable', retry:lookup } });
+        }
         const draft = await readCreation(changeId, key);
         if (draft.revision !== revision) throw new CompendiumToolError(409, 'Review the current revision.');
         const characterId = await acceptAiCharacterDraft({ draftId: changeId, apiKey: key, reviewedRevision: revision });
