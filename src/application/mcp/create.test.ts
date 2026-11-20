@@ -1,11 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
+import { createDraftCatalog, createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
+import { CreateDefaultPower } from '@/domain/characters/combat/Power';
+import { hashApiKey } from '@/lib/apiKeyHash';
+import { readCreation } from './readCreation';
 import { createInput, contextInput } from '@/domain/mcp/writeContracts';
 import { creationContext, previewCreation } from './create';
 import { characterVisibilityWhere } from '@/persistence/characterVisibility';
 
 const db = vi.hoisted(() => ({
-  character: { findFirst: vi.fn(), findMany: vi.fn() },
+  character: { findFirst: vi.fn(), findMany: vi.fn(), count: vi.fn() },
   aiCharacterDraft: { findUnique: vi.fn(), findFirst: vi.fn(), create: vi.fn() },
 }));
 vi.mock('@/lib/prisma', () => ({ default: db }));
@@ -43,6 +46,37 @@ describe('chat-authored creation', () => {
     expect(await creationContext(contextInput.parse({ brief, part: 'instructions' }), 'test')).toHaveProperty('instructions');
     expect(await creationContext(contextInput.parse({ brief, part: 'schema', section: 'header' }), 'test')).toHaveProperty('schema');
     expect(db.character.findMany).not.toHaveBeenCalled();
+  });
+  it('shows an expired preview with its spell count and distinct warnings', async () => {
+    const draft = createPendingDraft();
+    const proposal = draft.proposal!;
+    const catalog = createDraftCatalog();
+    const power = { ...CreateDefaultPower(), powerSpecificationId: catalog.powerSpecificationId, spells: [catalog.spell] };
+    db.aiCharacterDraft.findFirst.mockResolvedValue({
+      ...draft, proposal: { ...proposal, combat: { ...proposal.combat, powers: [power] } },
+      expiresAt: new Date(0), validationIssues: [proposal.warnings[0], 'Review the stats', null],
+      mcpVisibility: 'mine',
+    });
+    const preview = await readCreation(draft.id, 'test-key');
+    expect(preview).toMatchObject({ status: 'expired', visibility: 'mine', warnings: [...proposal.warnings, 'Review the stats'],
+      summary: { name: proposal.header.name, spells: 1 }, characterId: null });
+    expect(db.aiCharacterDraft.findFirst).toHaveBeenCalledWith({
+      where: { id: draft.id, apiKeyHash: hashApiKey('test-key'), provider: 'mcp' },
+    });
+  });
+  it('rechecks visibility before giving the caller a link to an accepted character', async () => {
+    const draft = createPendingDraft();
+    db.aiCharacterDraft.findFirst.mockResolvedValue({
+      ...draft, expiresAt: new Date(0), status: 'accepted', acceptedCharacterId: 'guard', referenceCharacterIds: ['reference'],
+    });
+    db.character.count.mockResolvedValueOnce(0).mockResolvedValueOnce(1);
+    await expect(readCreation(draft.id, 'test-key')).rejects.toMatchObject({ status: 404 });
+    await expect(readCreation(draft.id, 'test-key')).resolves.toMatchObject({
+      status: 'accepted', characterId: 'guard', href: '/characters/guard',
+    });
+    expect(db.character.count).toHaveBeenCalledWith({
+      where: { AND: [{ id: { in: ['guard'] } }, characterVisibilityWhere('test-key')] },
+    });
   });
   it('refuses authoring shared catalog records or claiming a stale preview', async () => {
     const draft = createPendingDraft();

@@ -2,11 +2,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { hashApiKey } from '@/lib/apiKeyHash';
 import { editInput } from '@/domain/mcp/writeContracts';
 import { CreateEmptyCharacter } from '@/domain/characters/Character';
-import { previewEdit, applyEdit } from './edit';
+import { previewEdit, applyEdit, readEdit } from './edit';
 
 const db = vi.hoisted(() => ({
   character: { findUnique: vi.fn(), update: vi.fn() },
   maneuver: { findUnique: vi.fn() },
+  stance: { findUnique: vi.fn() },
   mcpCharacterEdit: { findUnique: vi.fn(), findFirst: vi.fn(), create: vi.fn(), update: vi.fn() },
 }));
 vi.mock('@/lib/prisma', () => ({ default: { ...db, $transaction: (work: (tx: typeof db) => unknown) => work(db) } }));
@@ -49,6 +50,23 @@ describe('targeted character edits', () => {
     db.character.findUnique.mockResolvedValueOnce({ ...card(), description: 'Modified in UI' });
     await expect(applyEdit(preview.changeId, preview.revision, key)).rejects.toMatchObject({ status: 409 });
     expect(db.character.update).not.toHaveBeenCalled();
+  });
+  it('resumes the same preview and hides it if the character is no longer visible', async () => {
+    const preview = await prepare();
+    await expect(readEdit(preview.changeId, key)).resolves.toEqual(preview);
+    db.character.findUnique.mockResolvedValueOnce({ ...card(), apiKeys: ['other'] });
+    await expect(readEdit(preview.changeId, key)).rejects.toMatchObject({ status: 404 });
+  });
+  it('protects a stance still linked to a modifier profile', async () => {
+    const stance = { id: 'guard-stance', name: 'Guard', grade: 1, structuredRequirements: [] };
+    db.stance.findUnique.mockResolvedValue(stance);
+    db.character.findUnique.mockResolvedValue({
+      ...card(), stancesIds: [stance.id], stanceModifierProfiles: [{ linkedEntityId: stance.id }],
+    });
+    await expect(previewEdit({ ...input, operations: [
+      { op: 'membership', entityId: stance.id, kind: 'stances', present: false },
+    ] }, key)).rejects.toMatchObject({ status: 422 });
+    expect(db.mcpCharacterEdit.create).not.toHaveBeenCalled();
   });
   it('scopes the change to the caller and rejects expired previews', async () => {
     const preview = await prepare();
