@@ -1,4 +1,6 @@
 import 'server-only';
+import { fromSpellCostPersistence } from '@/domain/characters/combat/SpellCost';
+import type { AiCatalogKind } from '@/domain/ai-character-generation/catalogKinds';
 import prisma from '@/lib/prisma';
 import type { CharacterGenerationCatalogEntry } from '@/domain/ai-character-generation/CharacterGenerationProvider';
 import type { Requirement } from '@/domain/requirements/Requirement';
@@ -136,6 +138,44 @@ export async function searchAiCharacterCatalog(
   return toAiCharacterCatalog({ [kind]: records } as Parameters<typeof toAiCharacterCatalog>[0])
     .map(display => ({ ...display, entry: byId.get(display.id) ?? {} }))
     .sort((left, right) => left.name.localeCompare(right.name) || (left.grade ?? 0) - (right.grade ?? 0));
+}
+
+export async function readCatalogPage(
+  kind: AiCatalogKind,
+  input: { query?: string; tag?: string; id?: string; offset: number; limit: number },
+) {
+  const args = {
+    where: {
+      ...(input.id && { id: input.id }),
+      ...(input.query && { name: { contains: input.query, mode: 'insensitive' as const } }),
+      ...(input.tag && { tags: { has: input.tag } }),
+    },
+    orderBy: [{ name: 'asc' as const }, { id: 'asc' as const }], skip: input.offset, take: input.limit,
+  };
+  const castable = { ...requirableSelect, castTime: true, cooldown: true } as const;
+  const spell = { ...castable, costBase: true, costScalingMode: true, costScalingValue: true, costRounding: true } as const;
+  // Each branch supplies the exact Prisma projection for its record kind.
+  const reads = {
+    race: () => prisma.race.findMany({ ...args, select: raceSelect }),
+    stance: () => prisma.stance.findMany({ ...args, select: requirableSelect }),
+    state: () => prisma.state.findMany({ ...args, select: requirableSelect }),
+    maneuver: () => prisma.maneuver.findMany({ ...args, select: castable }),
+    perk: () => prisma.perk.findMany({ ...args, select: requirableSelect }),
+    spell: async () => (await prisma.spell.findMany({ ...args, select: spell }))
+      .map(record => ({ ...record, cost: fromSpellCostPersistence(record) })),
+    powerSpecification: () => prisma.powerSpecification.findMany({ ...args, select: { ...plainSelect, offenses: true } }),
+    weapon: () => prisma.weapon.findMany({ ...args, select: weaponSelect }),
+    armor: () => prisma.armor.findMany({ ...args, select: armorSelect }),
+    shield: () => prisma.shield.findMany({ ...args, select: shieldSelect }),
+    inventoryItem: () => prisma.inventoryItem.findMany({ ...args, select: plainSelect }),
+    mount: () => prisma.mount.findMany({ ...args, select: mountSelect }),
+  };
+  const records = await reads[kind]();
+  const entries = toAiCharacterCatalog({ [kind]: records });
+  return entries.map((entry, index) => {
+    const record = records[index];
+    return { ...entry, description: record.description, details: record };
+  });
 }
 
 export async function loadAiCharacterCatalog(): Promise<CharacterGenerationCatalogEntry[]>

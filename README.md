@@ -1,5 +1,8 @@
 # Cedrus Compendium
 
+[Local MCP setup and character workflows](docs/local-mcp.md)
+
+
 Aplikacja do prowadzenia gry w systemie **Cedrus**: karty postaci, bestiariusz, kompendium (atuty, manewry, postawy, stany, zaklęcia, ekwipunek), podręcznik zasad oraz **Laboratorium Systemu** — deterministyczny symulator walki służący do balansowania mechaniki.
 
 Next.js (App Router) + TypeScript + Prisma na MongoDB Atlas. UI: Tailwind + shadcn/ui. Testy: Vitest.

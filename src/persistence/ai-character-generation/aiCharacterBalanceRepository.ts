@@ -1,4 +1,5 @@
 import 'server-only';
+import { characterVisibilityWhere } from '@/persistence/characterVisibility';
 import prisma from '@/lib/prisma';
 import {
   buildBalanceProfiles,
@@ -12,9 +13,10 @@ import {
  * reads are selected: this touches every character, and their maneuvers and
  * perks are needed as counts, not as records.
  */
-export async function loadAiCharacterBalanceProfiles(): Promise<BalanceProfile[]>
+export async function loadAiCharacterBalanceProfiles(apiKey?: string): Promise<BalanceProfile[]>
 {
   const characters = await prisma.character.findMany({
+    ...(apiKey && { where: characterVisibilityWhere(apiKey) }),
     select: {
       tags: true,
       characteristics: true,

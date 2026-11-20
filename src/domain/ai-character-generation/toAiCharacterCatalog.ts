@@ -2,27 +2,8 @@ import { formatRequirement } from '@/domain/requirements/formatRequirement';
 import { readStructuredRequirements } from '@/domain/requirements/legacyRequirementAudit';
 import type { CharacterGenerationCatalogEntry } from '@/domain/ai-character-generation/CharacterGenerationProvider';
 
-/**
- * Kinds are the vocabulary the model uses to talk about the compendium, and
- * they map one-to-one onto the reference checks in
- * `validateAiCharacterProposalForAcceptance`.
- */
-export const AI_CATALOG_KINDS = [
-  'race',
-  'perk',
-  'maneuver',
-  'stance',
-  'state',
-  'spell',
-  'powerSpecification',
-  'weapon',
-  'armor',
-  'shield',
-  'inventoryItem',
-  'mount',
-] as const;
-
-export type AiCatalogKind = (typeof AI_CATALOG_KINDS)[number];
+import { AI_CATALOG_KINDS, type AiCatalogKind } from './catalogKinds';
+export { AI_CATALOG_KINDS, type AiCatalogKind } from './catalogKinds';
 
 /**
  * A compendium record as the draft reviewer's picker sees it: the display

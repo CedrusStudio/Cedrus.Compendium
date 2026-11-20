@@ -14,7 +14,8 @@ export async function POST(request: Request, { params }: RouteParams)
 
   const { id } = await params;
   try {
-    const characterId = await acceptAiCharacterDraft({ draftId: id, apiKey: apiKeyOrResponse });
+    const reviewedRevision = request.headers.get('if-match')?.replace(/^"|"$/g, '');
+    const characterId = await acceptAiCharacterDraft({ draftId: id, apiKey: apiKeyOrResponse, ...(reviewedRevision && { reviewedRevision }) });
     return NextResponse.json({ characterId }, { status: 201 });
   } catch (error) {
     if (error instanceof AiCharacterDraftNotFoundError) {

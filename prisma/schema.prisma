@@ -371,7 +371,23 @@ model Simulation {
 // A reviewable, user-scoped output of the character generator. A draft is
 // deliberately independent from Character: generating can never create or
 // mutate a playable character before the user explicitly accepts it.
+model McpCharacterEdit {
+  id          String   @id @map("_id")
+  apiKeyHash  String
+  characterId String
+  operations  Json
+  differences Json
+  revision    String
+  inputHash   String
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+
+  @@map("mcpCharacterEdits")
+}
+
 model AiCharacterDraft {
+  mcpVisibility String?
+  mcpInputHash  String?
   id                    String                 @id @default(ulid()) @map("_id")
   apiKeyHash            String
   status                AiCharacterDraftStatus @default(pending)

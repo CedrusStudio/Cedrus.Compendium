@@ -1,4 +1,6 @@
 import 'server-only';
+import { creationRevision } from '@/persistence/mcp/changeIdentity';
+import { characterVisibilityWhere } from '@/persistence/characterVisibility';
 import prisma from '@/lib/prisma';
 import {
   aiCharacterProposalSchema,
@@ -70,6 +72,7 @@ export async function acceptAiCharacterDraftInTransaction(input: {
   draftId: string;
   apiKeyHash: string;
   allowedReferences: AiCharacterGenerationAllowedReferences;
+  mcp?: { apiKey: string; revision?: string };
 }): Promise<string>
 {
   return prisma.$transaction(async transaction => {
@@ -78,8 +81,17 @@ export async function acceptAiCharacterDraftInTransaction(input: {
       throw new AiCharacterDraftNotFoundError();
     }
 
+    if (draft.provider === 'mcp' && (!input.mcp || creationRevision(draft) !== input.mcp.revision)) {
+      throw new AiCharacterDraftStateError('Review the current draft revision before accepting it.');
+    }
     if (draft.status === 'accepted' && draft.acceptedCharacterId) {
       return draft.acceptedCharacterId;
+    }
+    if (draft.provider === 'mcp' && input.mcp) {
+      const visible = await transaction.character.count({ where: { AND: [
+        { id: { in: draft.referenceCharacterIds } }, characterVisibilityWhere(input.mcp.apiKey),
+      ] } });
+      if (visible !== draft.referenceCharacterIds.length) throw new AiCharacterDraftStateError('A reference is unavailable.');
     }
     if (draft.status !== 'pending') {
       throw new AiCharacterDraftStateError('Only a pending AI character draft can be accepted.');
@@ -131,6 +143,7 @@ export async function acceptAiCharacterDraftInTransaction(input: {
     const raceStillExists = proposal.header.raceId
       ? races.some(race => race.id === proposal.header.raceId)
       : true;
+    if (draft.provider === 'mcp' && !raceStillExists) throw new AiCharacterDraftStateError('Selected race is unavailable.');
     const header = raceStillExists ? proposal.header : { ...proposal.header, raceId: null };
 
     const foundStanceIds = stances.map(stance => stance.id);
@@ -163,7 +176,9 @@ export async function acceptAiCharacterDraftInTransaction(input: {
     }
 
     const character = await transaction.character.create({
-      data: toCharacterHeaderPersistenceModel(header),
+      data: { ...toCharacterHeaderPersistenceModel(header),
+        ...(draft.provider === 'mcp' && draft.mcpVisibility !== 'public' && input.mcp && { apiKeys: [input.mcp.apiKey] }),
+      },
       select: { id: true },
     });
 

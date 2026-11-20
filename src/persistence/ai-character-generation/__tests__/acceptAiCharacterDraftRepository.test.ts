@@ -1,3 +1,4 @@
+import { creationRevision } from '@/persistence/mcp/changeIdentity';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createDraftCatalog, createPendingDraft } from '@/__tests__/fixtures/aiCharacterDraft';
 import { CreateDefaultPower } from '@/domain/characters/combat/Power';
@@ -7,7 +8,7 @@ import { AiCharacterDraftNotFoundError, AiCharacterDraftStateError } from '../ai
 const { transaction, prisma } = vi.hoisted(() => {
   const transaction = {
     aiCharacterDraft: { findUnique: vi.fn(), updateMany: vi.fn() },
-    character: { findFirst: vi.fn(), create: vi.fn(), update: vi.fn() },
+    character: { count: vi.fn(), findFirst: vi.fn(), create: vi.fn(), update: vi.fn() },
     race: { findMany: vi.fn() },
     stance: { findMany: vi.fn() },
     state: { findMany: vi.fn() },
@@ -68,6 +69,26 @@ describe('acceptAiCharacterDraftInTransaction', () => {
     ]) {
       model.findMany.mockReset().mockResolvedValue([]);
     }
+  });
+
+  it.each(['public', 'mine'])('applies MCP visibility %s in the character insert', async visibility => {
+    const draft = { ...pendingRecord(), provider: 'mcp', mcpVisibility: visibility, referenceCharacterIds: [] };
+    transaction.aiCharacterDraft.findUnique.mockResolvedValue(draft);
+    transaction.character.count.mockResolvedValue(0);
+    await acceptAiCharacterDraftInTransaction({ draftId: draft.id, apiKeyHash: draft.apiKeyHash,
+      mcp: { apiKey: 'local-key', revision: creationRevision(draft) }, allowedReferences: emptyAllowedReferences });
+    const data = transaction.character.create.mock.calls[0][0].data;
+    expect(data.apiKeys ?? []).toEqual(visibility === 'mine' ? ['local-key'] : []);
+  });
+
+  it('rejects a revision changed in the UI and a reference that has become private', async () => {
+    const draft = { ...pendingRecord(), provider: 'mcp', mcpVisibility: 'mine', referenceCharacterIds: ['guard'] };
+    transaction.aiCharacterDraft.findUnique.mockResolvedValue(draft);
+    const params = { draftId: draft.id, apiKeyHash: draft.apiKeyHash, allowedReferences: emptyAllowedReferences };
+    await expect(acceptAiCharacterDraftInTransaction({ ...params, mcp: { apiKey: 'key', revision: 'stale' } })).rejects.toThrow(/revision/);
+    transaction.character.count.mockResolvedValue(0);
+    await expect(acceptAiCharacterDraftInTransaction({ ...params, mcp: { apiKey: 'key', revision: creationRevision(draft) } })).rejects.toThrow(/reference/);
+    expect(transaction.character.create).not.toHaveBeenCalled();
   });
 
   it('is idempotent: an accepted draft returns its original character without another insert', async () => {

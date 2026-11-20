@@ -46,15 +46,15 @@ function execute(file, args, { cwd, env, timeout = 120_000 } = {}) {
  * executeCommand injection is for orchestration tests, not a database URL override.
  * @param {{ root?: string, port?: number, runId?: string, executeCommand?: Executor, environment?: Record<string, string | undefined>, log?: (message: string) => void }} [options]
  */
-export async function runIntegrationAcceptance({ root = repositoryRoot, port = 27027, runId = randomUUID(), executeCommand = execute, environment = process.env, log = console.log } = {}) {
+export async function runIntegrationAcceptance({ root = repositoryRoot, mcp = false, port = 27027, runId = randomUUID(), executeCommand = execute, environment = process.env, log = console.log } = {}) {
   const configuration = integrationConfiguration(port, runId);
   if (JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8')).name !== 'cedrus-compendium') throw new Error('Select the Compendium checkout.');
   if (environment.DOCKER_HOST && !isLocalDockerEndpoint(environment.DOCKER_HOST)) throw new Error('Use a local Docker Desktop/unix engine for acceptance.');
-  const output = path.join(root, 'backup', 'data-change-acceptance', runId);
+  const output = path.join(root, 'backup', mcp ? 'mcp-acceptance' : 'data-change-acceptance', runId);
   mkdirSync(output, { recursive: true });
   const reportPath = path.join(output, 'vitest.json');
   const env = { ...environment, NODE_ENV: 'test', AI_CHARACTER_GENERATION_ENABLED: 'false',
-    DATABASE_CONNECTION_STRING: configuration.url, DATA_CHANGE_TEST_DATABASE_URL: configuration.url };
+    DATABASE_CONNECTION_STRING: configuration.url, DATA_CHANGE_TEST_DATABASE_URL: configuration.url, ...(mcp && { MCP_TEST_DATABASE_URL: configuration.url }) };
   /** @type {Receipt} */
   const receipt = { status: 'NOT_COMPLETED', stage: 'docker-access', runId, database: configuration.database, port, image: configuration.image, containerName: configuration.name, startedAt: new Date().toISOString(), reportPath };
   let containerId;
@@ -99,7 +99,7 @@ export async function runIntegrationAcceptance({ root = repositoryRoot, port = 2
     await checked(process.execPath, [prismaCli, 'db', 'push', '--schema', path.join(root, 'prisma/schema.prisma'), '--skip-generate'], 'Isolated schema preparation');
     log('Running the real MongoDB transaction/rollback/race tests...');
     receipt.stage = 'mongo-tests';
-    await checked(process.execPath, [vitestCli, 'run', 'src/persistence/data-quality/__tests__/dataChangeSet.integration.test.ts', '--reporter=json', `--outputFile=${reportPath}`], 'MongoDB acceptance tests');
+    await checked(process.execPath, [vitestCli, 'run', mcp ? 'src/application/mcp/mcp.integration.test.ts' : 'src/persistence/data-quality/__tests__/dataChangeSet.integration.test.ts', '--reporter=json', `--outputFile=${reportPath}`], 'MongoDB acceptance tests');
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
     if (!report.success || report.numPassedTests < 3 || report.numPendingTests !== 0 || report.numFailedTests !== 0 || report.numPassedTests !== report.numTotalTests) throw new Error('Acceptance requires every real test to execute and pass; skipped tests are not a pass.');
     receipt.passedTests = report.numPassedTests;
@@ -123,11 +123,12 @@ export async function runIntegrationAcceptance({ root = repositoryRoot, port = 2
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
-  const options = process.argv.slice(2);
+  const mcp = process.argv[2] === '--mcp';
+  const options = process.argv.slice(mcp ? 3 : 2);
   const portArgument = options[0];
   if (options.length > 1 || (portArgument && !/^--port=\d+$/.test(portArgument))) {
-    console.error('Usage: node scripts/run-data-change-integration.mjs [--port=27027]'); process.exitCode = 1;
+    console.error('Usage: node scripts/run-data-change-integration.mjs [--mcp] [--port=27027]'); process.exitCode = 1;
   } else {
-    runIntegrationAcceptance({ port: portArgument ? Number(portArgument.slice(7)) : 27027 }).catch(error => { console.error(error.message); process.exitCode = 1; });
+    runIntegrationAcceptance({ mcp, port: portArgument ? Number(portArgument.slice(7)) : 27027 }).catch(error => { console.error(error.message); process.exitCode = 1; });
   }
 }

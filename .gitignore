@@ -73,3 +73,5 @@ tsconfig.scratch.json
 
 # podglądy karty postaci z `npm run verify-sheet-model --html`
 /karta-*.html
+
+/dist/mcp/
