@@ -1,4 +1,5 @@
 import 'server-only';
+import { aiCharacterProposalSchema } from '@/domain/ai-character-generation/aiCharacterProposalSchema';
 import prisma from '@/lib/prisma';
 import { hashApiKey } from '@/lib/apiKeyHash';
 import { characterVisibilityWhere } from '@/persistence/characterVisibility';
@@ -13,7 +14,13 @@ export async function readCreation(id: string, key: string) {
     { id: { in: requiredIds } }, characterVisibilityWhere(key),
   ] } }) !== requiredIds.length) return unavailable();
   const expired = draft.status === 'pending' && draft.expiresAt <= new Date();
+  const parsed = aiCharacterProposalSchema.safeParse(draft.proposal);
+  const proposal = parsed.success ? parsed.data : undefined;
+  const summary = proposal && { name: proposal.header.name, shortName: proposal.header.shortName, description: proposal.header.description,
+    tags: proposal.header.tags, maneuvers: proposal.combat.maneuvers.length, perks: proposal.perks.length,
+    spells: proposal.combat.powers.reduce((count, power) => count + power.spells.length, 0) };
+  const notes = Array.isArray(draft.validationIssues) ? draft.validationIssues.filter((note): note is string => typeof note === 'string') : [];
   return { changeId: id, revision: creationRevision(draft), status: expired ? 'expired' : draft.status,
-    visibility: draft.mcpVisibility, proposal: draft.proposal, warnings: draft.validationIssues, expiresAt: draft.expiresAt,
+    visibility: draft.mcpVisibility, summary, proposal: draft.proposal, warnings: [...new Set([...(proposal?.warnings ?? []), ...notes])], expiresAt: draft.expiresAt,
     characterId: draft.acceptedCharacterId, href: draft.acceptedCharacterId ? '/characters/' + draft.acceptedCharacterId : undefined };
 }

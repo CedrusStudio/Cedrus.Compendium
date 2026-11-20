@@ -70,7 +70,7 @@ export async function previewCreation(input: z.infer<typeof createInput>, key: s
     throw new CompendiumToolError(409, 'Draft changed or expired. Read the current preview.');
   if (!existing && input.expectedRevision) return unavailable();
   const data = await creationData(input.brief, key);
-  const normalized = normalizeAiProposalIdentifiers(stripWireNulls(input.proposal), { catalog: buildCatalogIdentityIndex(data.catalogEntries) });
+  const normalized = normalizeAiProposalIdentifiers(stripWireNulls(structuredClone(input.proposal)), { catalog: buildCatalogIdentityIndex(data.catalogEntries) });
   const proposal = aiCharacterProposalSchema.parse(normalized);
   const blockers = validateAiCharacterProposalForAcceptance(proposal, getAiCharacterGenerationAllowedReferences(data.references, data.catalogEntries));
   const equipment = proposal.equipment;
