@@ -17,6 +17,9 @@ import { statisticSchema } from '@/persistence/schemas/characters/statistics/sta
 import { tagsSchema } from '@/persistence/schemas/tagSchema';
 import { changeId, digest, jsonValue } from '@/persistence/mcp/changeIdentity';
 import { CompendiumToolError, unavailable } from './errors';
+import { planSheetEdit } from './planSheetEdit';
+import { loadSheet } from './sheetRead';
+import { editCapabilities } from './editCapabilities';
 
 async function visibleCard(tx: Prisma.TransactionClient, id: string, key: string) {
   const card = await tx.character.findUnique({ where: { id }, select: { id: true, name: true, apiKeys: true,
@@ -83,7 +86,9 @@ async function planOperations(tx: Prisma.TransactionClient, card: Card, operatio
 
 type StoredEdit = Prisma.McpCharacterEditGetPayload<object>;
 function summary(edit: StoredEdit) {
+  const review = edit.operations && typeof edit.operations === 'object' && !Array.isArray(edit.operations) ? edit.operations : undefined;
   return { changeId: edit.id, revision: edit.revision, characterId: edit.characterId, differences: edit.differences,
+    ...(review && { impact: review.impact, catalog: review.dependencies }),
     expiresAt: edit.expiresAt, status: edit.acceptedAt ? 'accepted' : edit.expiresAt <= new Date() ? 'expired' : 'pending',
     href: '/characters/' + encodeURIComponent(edit.characterId) };
 }
@@ -99,13 +104,17 @@ export async function previewEdit(input: z.infer<typeof editInput>, key: string)
   return prisma.$transaction(async tx => {
     const existing = await tx.mcpCharacterEdit.findUnique({ where: { id } });
     if (existing && (existing.apiKeyHash !== owner || existing.characterId !== input.characterId)) return unavailable();
-    const card = await visibleCard(tx, input.characterId, key);
+    const card = await loadSheet(tx, input.characterId, key);
     const inputHash = digest(input.operations);
     if (existing && existing.inputHash === inputHash && (!input.expectedRevision || existing.revision !== input.expectedRevision || existing.acceptedAt)) return summary(existing);
     if (existing && (existing.revision !== input.expectedRevision || existing.acceptedAt || existing.expiresAt <= new Date())) throw new CompendiumToolError(409, 'Review the current edit or start a new draft.');
     if (!existing && input.expectedRevision) return unavailable();
-    const { differences } = await planOperations(tx, card, input.operations);
-    const fields = { revision: digest([id, input.operations, differences]), inputHash, differences: jsonValue(differences), operations: jsonValue(input.operations) };
+    const capabilities = editCapabilities();
+    if (input.operations.some(op => !capabilities.editOperations.includes(op.op)))
+      throw new CompendiumToolError(400,'Extended character writes are disabled on this instance.');
+    const plan = capabilities.draftFormat === 2 ? await planSheetEdit(tx, card, input.operations) : await planOperations(tx, card, input.operations);
+    const payload = 'impact' in plan ? { version: 2, operations: input.operations, impact: plan.impact, dependencies: plan.dependencies } : input.operations;
+    const fields = { revision: digest([id, payload, plan.differences]), inputHash, differences: jsonValue(plan.differences), operations: jsonValue(payload) };
     const saved = existing ? await tx.mcpCharacterEdit.update({ where: { id }, data: fields })
       : await tx.mcpCharacterEdit.create({ data: { ...fields, id, apiKeyHash: owner, characterId: card.id,
         expiresAt: new Date(Date.now() + aiCharacterGenerationSettings.draftTtlHours * 3600000) } });
@@ -113,20 +122,34 @@ export async function previewEdit(input: z.infer<typeof editInput>, key: string)
   }, characterTransactionOptions);
 }
 
+function stale() { return new CompendiumToolError(409, 'The card or catalog entry changed. Refresh this preview with expectedRevision.'); }
+
 export async function applyEdit(id: string, revision: string, key: string) {
   return prisma.$transaction(async tx => {
     const edit = await tx.mcpCharacterEdit.findFirst({ where: { id, apiKeyHash: hashApiKey(key) } });
     if (!edit) return unavailable();
-    const card = await visibleCard(tx, edit.characterId, key);
+    const card = await loadSheet(tx, edit.characterId, key);
     if (edit.revision !== revision) throw new CompendiumToolError(409, 'The reviewed revision changed.');
     if (edit.acceptedAt) return summary(edit);
     if (edit.expiresAt <= new Date()) throw new CompendiumToolError(409, 'Edit expired.');
-    const operations = z.array(editOperation).parse(edit.operations);
-    const { differences, update } = await planOperations(tx, card, operations);
-    if (digest([id, operations, differences]) !== revision) throw new CompendiumToolError(409, 'The card or catalog entry changed. Refresh this preview with expectedRevision.');
-    if (Object.keys(update).length) await tx.character.update({ where: { id: card.id }, data: update });
-    for (const op of operations) {
-      if (op.op === 'membership') await setMembershipInTransaction(tx, card.id, op.kind, op.entityId, op.present, key);
+    if (Array.isArray(edit.operations)) {
+      const operations = z.array(editOperation).parse(edit.operations);
+      const { differences, update } = await planOperations(tx, card, operations);
+      if (digest([id, operations, differences]) !== revision) throw stale();
+      if (Object.keys(update).length) await tx.character.update({ where: { id: card.id }, data: update });
+      for (const op of operations) {
+        if (op.op === 'membership') await setMembershipInTransaction(tx, card.id, op.kind, op.entityId, op.present, key);
+      }
+    } else {
+      const { operations } = z.object({version:z.literal(2),operations:z.array(editOperation)}).parse(edit.operations);
+      const plan = await planSheetEdit(tx,card,operations).catch(error => {
+        if (error instanceof CompendiumToolError || error instanceof z.ZodError) throw stale();
+        throw error;
+      });
+      const payload = {version:2, operations, impact:plan.impact, dependencies:plan.dependencies};
+      if (digest([id,payload,plan.differences]) !== revision) throw stale();
+      if (Object.keys(plan.update).length) await tx.character.update({where:{id:card.id},data:plan.update});
+      if (Object.keys(plan.orphanCleanup).length) await tx.character.update({where:{id:card.id},data:plan.orphanCleanup});
     }
     const saved = await tx.mcpCharacterEdit.update({ where: { id }, data: { acceptedAt: new Date() } });
     return summary(saved);

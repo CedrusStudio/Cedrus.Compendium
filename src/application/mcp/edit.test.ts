@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { hashApiKey } from '@/lib/apiKeyHash';
 import { editInput } from '@/domain/mcp/writeContracts';
-import { CreateEmptyCharacter } from '@/domain/characters/Character';
+import { sheetFixture } from '@/__tests__/fixtures/mcpCharacterSheet';
+import { changeId, digest } from '@/persistence/mcp/changeIdentity';
 import { previewEdit, applyEdit, readEdit } from './edit';
 
 const db = vi.hoisted(() => ({
@@ -14,10 +15,7 @@ vi.mock('@/lib/prisma', () => ({ default: { ...db, $transaction: (work: (tx: typ
 
 describe('targeted character edits', () => {
   const key = 'local-fixture-key';
-  const card = () => ({
-    ...CreateEmptyCharacter({ name: 'Guard', shortName: 'Guard', description: 'Old description', tags: ['guard'] }),
-    id: 'guard', apiKeys: [key], perksIds: [], maneuversIds: [], statesIds: [], stancesIds: [],
-  });
+  const card = () => sheetFixture(key);
   const input = editInput.parse({ requestId: 'stable', characterId: 'guard', operations: [
     { op: 'description', value: 'New description' }, { op: 'statistic', statistic: 'dexterity', component: 'value', value: 4 },
   ] });
@@ -61,12 +59,20 @@ describe('targeted character edits', () => {
     const stance = { id: 'guard-stance', name: 'Guard', grade: 1, structuredRequirements: [] };
     db.stance.findUnique.mockResolvedValue(stance);
     db.character.findUnique.mockResolvedValue({
-      ...card(), stancesIds: [stance.id], stanceModifierProfiles: [{ linkedEntityId: stance.id }],
+      ...card(), stances: [stance], stancesIds: [stance.id], stanceModifierProfiles: [{ id:'linked', linkedEntityId: stance.id }],
     });
     await expect(previewEdit({ ...input, operations: [
       { op: 'membership', entityId: stance.id, kind: 'stances', present: false },
     ] }, key)).rejects.toMatchObject({ status: 422 });
     expect(db.mcpCharacterEdit.create).not.toHaveBeenCalled();
+  });
+  it('can apply a pending edit issued by the original adapter', async () => {
+    const operations = [{ op:'description', value:'Updated by v1' }];
+    const differences = [{ field:'description',label:'description',before:'Old description',after:'Updated by v1' }];
+    const id = changeId('edit',hashApiKey(key),'pending-v1'), revision = digest([id,operations,differences]);
+    db.mcpCharacterEdit.findFirst.mockResolvedValue({id,characterId:'guard',revision,operations,differences,expiresAt:new Date(Date.now()+60000)});
+    await applyEdit(id,revision,key);
+    expect(db.character.update).toHaveBeenCalledWith({where:{id:'guard'},data:{description:'Updated by v1'}});
   });
   it('scopes the change to the caller and rejects expired previews', async () => {
     const preview = await prepare();

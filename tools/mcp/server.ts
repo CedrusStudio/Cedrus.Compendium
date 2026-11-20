@@ -1,6 +1,7 @@
 import { applyInput, changeInput, contextInput, createInput, editInput } from '../../src/domain/mcp/writeContracts';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { auditInput } from '../../src/domain/mcp/sheetContracts';
 import { entryInput, searchInput } from '../../src/domain/mcp/readContracts';
 
 const app = new URL(process.env.COMPENDIUM_URL || 'http://127.0.0.1:3000');
@@ -8,7 +9,7 @@ if (!['http:', 'https:'].includes(app.protocol) || !['127.0.0.1', '[::1]', 'loca
     || app.username || app.password || app.pathname !== '/' || app.search || app.hash) {
   throw new Error('COMPENDIUM_URL must be a loopback origin, for example http://127.0.0.1:3000.');
 }
-const server = new McpServer({ name: 'cedrus-compendium', version: '1.0.0' });
+const server = new McpServer({ name: 'cedrus-compendium', version: '2.0.0' });
 
 async function call(tool: string, input: unknown) {
   try {
@@ -30,12 +31,13 @@ async function call(tool: string, input: unknown) {
 }
 
 server.registerTool('get_status', { description: 'Check the local Compendium connection and capabilities.', inputSchema: {}, annotations: { readOnlyHint: true } }, () => call('get_status', {}));
+server.registerTool('audit_character', { description: 'Inspect a visible sheet for integrity, game requirements and review notes. Propose repairs through preview_edit.', inputSchema: auditInput.shape, annotations: { readOnlyHint: true } }, input => call('audit_character',input));
 server.registerTool('search', { description: 'Search visible characters, catalog entries or the rulebook. Use offset for subsequent pages.', inputSchema: searchInput.shape, annotations: { readOnlyHint: true } }, input => call('search', input));
 server.registerTool('get_entry', { description: 'Read a selected result. Use sections for game data on a character. Relative links resolve against applicationUrl.', inputSchema: entryInput.shape, annotations: { readOnlyHint: true } }, input => call('get_entry', input));
 
 server.registerTool('get_creation_context', { description: 'Get canonical rules and proposal schema for a character brief. Uses visible reference characters.', inputSchema: contextInput.shape, annotations: { readOnlyHint: true } }, input => call('get_creation_context', input));
 server.registerTool('preview_create', { description: 'Prepare or revise a draft. Show visibility, character and warnings before applying.', inputSchema: createInput.shape }, input => call('preview_create', input));
-server.registerTool('preview_edit', { description: 'Prepare or revise a targeted edit. Show before and after values.', inputSchema: editInput.shape }, input => call('preview_edit', input));
+server.registerTool('preview_edit', { description: 'Preview one compound character edit. Read full sections for exact IDs. If gear could map to multiple sets, ask which set. Show named deltas, effective values and warnings. Wait for explicit approval.', inputSchema: editInput.shape }, input => call('preview_edit', input));
 server.registerTool('get_change', { description: 'Resume a preview or recover its saved character link.', inputSchema: changeInput.shape, annotations: { readOnlyHint: true } }, input => call('get_change', input));
 server.registerTool('apply_change', { description: 'Commit the exact revision the user reviewed and asked to save. Return the character link.', inputSchema: applyInput.shape, annotations: { idempotentHint: true } }, input => call('apply_change', input));
 

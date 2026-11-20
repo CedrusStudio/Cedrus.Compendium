@@ -67,7 +67,7 @@ export function checkRequirement(requirement: Requirement, character: Character)
     case "sum":
       return checkSumRequirement(requirement, character);
     case "count":
-      return checkCountRequirement(requirement, character);
+      return countMatching(requirement, character) >= requirement.value;
     default:
     {
       const unhandled: never = requirement;
@@ -128,7 +128,7 @@ function checkSumRequirement(requirement: SumRequirement, character: Character):
  * tag-filtered count simply never matches them — that is correct rather than a
  * gap: the library's tag vocabulary belongs to the compendium entities.
  */
-function checkCountRequirement(requirement: CountRequirement, character: Character): boolean
+function countMatching(requirement: CountRequirement, character: Character): number
 {
   const owned = requirement.groups.flatMap((group) => ownedEntities(character, group));
 
@@ -141,7 +141,7 @@ function checkCountRequirement(requirement: CountRequirement, character: Charact
     return (entity.tags ?? []).some((entityTag) => normalizeRequirementText(entityTag) === tag);
   });
 
-  return matching.length >= requirement.value;
+  return matching.length;
 }
 
 function readStatistic(character: Character, group: "characteristics" | "attributes", targetKey: string): Statistic | undefined
@@ -393,6 +393,37 @@ function ownedEntities(character: Character, group: EntityRequirementGroup): rea
       return character.talents;
     case "spells":
       return character.powers.flatMap((power) => power.spells);
+  }
+}
+
+/** Base sheet evidence used to explain the existing requirement check in chat. */
+export function requirementEvidence(requirement: Requirement, character: Character): unknown
+{
+  switch (requirement.kind) {
+    case 'rankless': return { matchedName: checkRanklessRequirement(requirement, character) ? requirement.text : null };
+    case 'count': return countMatching(requirement, character);
+    case 'anyOf': return requirement.options.map(option => requirementEvidence(option, character));
+    case 'sum': return requirement.targets.map(target => {
+      const stat = readStatistic(character, target.group, target.targetKey);
+      return { target: target.targetKey, value: stat ? getStatisticTotalTestValue(stat) : null };
+    });
+    case 'ranked': {
+      const { group, targetKey } = requirement;
+      if (isStatisticGroup(group)) {
+        const stat = readStatistic(character, group, targetKey);
+        return stat ? getStatisticTotalTestValue(stat) : null;
+      }
+      if (isDerivedGroup(group)) return derivedValue(character, targetKey) ?? null;
+      if (isPowerGroup(group)) return highest(character.powers.filter(p => p.type === targetKey).map(p => p.level)) ?? null;
+      if (isEquipmentGroup(group)) {
+        const target = EQUIPMENT_TARGETS.find(entry => entry.key === targetKey);
+        if (!target) return null;
+        if (target.slot === 'shields') return { bestTier: Math.max(0, ...character.equipment.shields.map(s => shieldTier(s.block, target.blockTiers ?? []))) };
+        return { ownsCategory: checkEquipmentRequirement(requirement, character), category: targetKey };
+      }
+      const owned = ownedEntities(character, group).filter(item => normalizeRequirementText(item.name) === normalizeRequirementText(targetKey));
+      return highest(owned.map(item => item.grade)) ?? null;
+    }
   }
 }
 

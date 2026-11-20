@@ -157,9 +157,9 @@ export async function readCatalogPage(
   // Each branch supplies the exact Prisma projection for its record kind.
   const reads = {
     race: () => prisma.race.findMany({ ...args, select: raceSelect }),
-    stance: () => prisma.stance.findMany({ ...args, select: requirableSelect }),
-    state: () => prisma.state.findMany({ ...args, select: requirableSelect }),
-    maneuver: () => prisma.maneuver.findMany({ ...args, select: castable }),
+    stance: () => prisma.stance.findMany({ ...args, select: { ...requirableSelect, effects:true, simulatable:true, unsupportedReason:true } }),
+    state: () => prisma.state.findMany({ ...args, select: { ...requirableSelect, effects:true, simulatable:true, unsupportedReason:true } }),
+    maneuver: () => prisma.maneuver.findMany({ ...args, select: { ...castable, effects:true, simulatable:true, unsupportedReason:true } }),
     perk: () => prisma.perk.findMany({ ...args, select: requirableSelect }),
     spell: async () => (await prisma.spell.findMany({ ...args, select: spell }))
       .map(record => ({ ...record, cost: fromSpellCostPersistence(record) })),

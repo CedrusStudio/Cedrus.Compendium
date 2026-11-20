@@ -16,7 +16,15 @@ describe('local chat API', () => {
     vi.stubEnv('COMPENDIUM_MCP_ENABLED', 'true');
     expect((await call('get_status', {}, '')).status).toBe(401);
     expect((await call('search', {}, 'wrong')).status).toBe(403);
-    expect((await (await call('get_status', {})).json()).tools).toHaveLength(8);
+    expect((await (await call('get_status', {})).json()).tools).toContain('audit_character');
+  });
+  it('advertises the active edit format during a staged rollout',async()=>{
+    vi.stubEnv('COMPENDIUM_MCP_ENABLED','true');
+    vi.stubEnv('COMPENDIUM_MCP_LEGACY_WRITES','true');
+    const status=await (await call('get_status',{})).json();
+    expect(status.capabilities).toMatchObject({draftFormat:1,editOperations:['description','tags','statistic','membership']});
+    vi.stubEnv('COMPENDIUM_MCP_LEGACY_WRITES','false');
+    expect((await (await call('get_status',{})).json()).capabilities.editOperations).toContain('replaceGear');
   });
   it('scopes character searches and rejects unsupported requests', async () => {
     vi.stubEnv('COMPENDIUM_MCP_ENABLED', 'true');
