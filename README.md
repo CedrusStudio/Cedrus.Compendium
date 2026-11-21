@@ -16,12 +16,18 @@ remain application-owned.
 
 ## Uruchomienie
 
+Zainstaluj Node.js z dołączonym npm. Minimalną wersję dla aplikacji określa wpis
+`node_modules/next` w [package-lock.json](package-lock.json), a używaną wersję CI
+określa [workflow testów](.github/workflows/test.yml). Sprawdź polecenia
+`node --version` i `npm --version` w tej samej sesji.
+
 ```bash
-npm install                # postinstall odpala prisma generate
+npm ci                     # instalacja z lockfile i wygenerowanie klienta Prisma
 npm run dev                # http://localhost:3000
 ```
 
-Wymaga pliku `.env` z `DATABASE_URL` do MongoDB.
+Przed uruchomieniem aplikacji ustaw `DATABASE_URL` do MongoDB w lokalnym pliku `.env`.
+Instalacja generuje klienta Prisma. Operacje na bazie mają osobną [instrukcję](scripts/README.md#zasady).
 
 ## Codzienne komendy
 

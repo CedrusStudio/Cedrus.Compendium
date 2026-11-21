@@ -4,28 +4,29 @@ Start Compendium on your Windows PC, then open a local desktop chat with the `ce
 
 ## Start the application and adapter
 
-1. Follow the normal Compendium setup, including Node, MongoDB and the configured application keys. Use a transaction-capable MongoDB replica set for saving. Add `COMPENDIUM_MCP_ENABLED=true` to the application's local environment and restart it. The application AI provider can stay disabled.
-2. At the repository root run `npm ci` and `npm run build:mcp`. Start the application with the normal `npm run dev`. The default address for the adapter is `http://127.0.0.1:3000`.
-3. Set the local client environment variable `COMPENDIUM_API_KEY` to one existing Compendium key. Restart the desktop client after changing its environment. To select a different loopback port set `COMPENDIUM_URL`. Keep credentials outside the repository and the conversation.
-4. In the local desktop client open Settings → MCP servers → Add server → STDIO. Set the command to the absolute path to Node (use `(Get-Command node).Source` in PowerShell). Set its single argument to the absolute path to `dist/mcp/tools/mcp/server.js` under this checkout. Alternatively configure the local Codex host as below, substituting the two paths.
+1. Follow [application setup](../README.md#uruchomienie) from the checkout you intend to expose. A transaction-capable MongoDB replica set supports saving. Add `COMPENDIUM_MCP_ENABLED=true` to the application's local environment and start or restart it with `npm run dev`. The adapter defaults to `http://127.0.0.1:3000`.
+2. Build the adapter in the same checkout as the app. Resolve the exact command and script paths in PowerShell:
 
-```toml
-[mcp_servers.cedrus-compendium]
-command = 'C:\Program Files\nodejs\node.exe'
-args = ['C:\path\to\Cedrus.Compendium\dist\mcp\tools\mcp\server.js']
-env_vars = ['COMPENDIUM_API_KEY', 'COMPENDIUM_URL']
+```powershell
+npm run build:mcp
+if ($LASTEXITCODE -ne 0) { throw 'The Compendium MCP build failed.' }
+$node = (Get-Command node.exe -CommandType Application | Select-Object -First 1).Source
+$adapter = (Resolve-Path -LiteralPath './dist/mcp/tools/mcp/server.js').Path
+$node
+$adapter
 ```
 
-In a fresh local chat check `/mcp`, then ask “Sprawdź połączenie z Compendium”. Ask for a rulebook section and one actual character. A browser-hosted session has a different connection model.
+3. Set the client environment variable `COMPENDIUM_API_KEY` to an existing Compendium key. To select another loopback port, set `COMPENDIUM_URL`. Keep credentials outside the repository and conversation.
+4. In the desktop client's MCP settings, add a STDIO server. Use the first printed path as the command and the second as its argument. In Codex, use the resolved values for `command` and `args` and pass the existing environment names with `env_vars = ['COMPENDIUM_API_KEY', 'COMPENDIUM_URL']`. Restart the client after changing the adapter or its environment.
 
-If the desktop client does not inherit the shell environment, use a dedicated Node env file, for example `C:\Users\Marek\.cedrus\compendium\mcp.env`. Give it a line named `COMPENDIUM_API_KEY` with the key as its value, and optionally `COMPENDIUM_URL=http://127.0.0.1:3000`. Keep it outside Git. In the client's STDIO settings use the Node executable as the command and enter these **two separate arguments**, one per row.
+If the client can't inherit those environment variables, use a dedicated Node environment file stored outside Git. Put `COMPENDIUM_API_KEY` and the optional `COMPENDIUM_URL` there. Set the adapter's two STDIO arguments in this order, substituting your actual absolute paths:
 
 ```text
---env-file=C:\Users\Marek\.cedrus\compendium\mcp.env
-C:\workspace\compendium-character-mcp\dist\mcp\tools\mcp\server.js
+--env-file=<absolute path to external environment file>
+<adapter path printed by PowerShell>
 ```
 
-Use the actual retained checkout for the second path. Build and run the application from that same revision. Restart the adapter after rebuilding or changing its environment. A variable set in one PowerShell process belongs to that process and its children.
+For a fresh chat, check `/mcp` and read one rulebook section and one visible character through the intended connection. The local STDIO client and a browser-hosted session have separate setup.
 
 ## Create and edit
 
@@ -66,7 +67,7 @@ For a staged rollout set `COMPENDIUM_MCP_LEGACY_WRITES=true` on the new applicat
 ## Acceptance
 
 1. Run `npm run build:mcp` and `node tools/mcp/smoke.mjs`. The real SDK checks STDIO discovery and the stopped-app error. A handshake failure precedes any HTTP or database call. Check the Node executable and the two argument paths.
-2. Run the application and use `node --env-file=C:\Users\Marek\.cedrus\compendium\mcp.env tools/mcp/smoke.mjs --live`. Authenticated status and the rulebook lookup check the adapter and application. A missing key points to adapter configuration. An unauthorized response points to the key supplied to the running application.
+2. Run the application from the same revision. With the key set in the current process, run `node tools/mcp/smoke.mjs --live` from the checkout. For an external environment file, pass `--env-file=<absolute path>` as one argument before the script. The live smoke compares both sets of tool names and verifies rulebook lookup. Review the key used by the running application if it returns an unauthorized response.
 3. Run `npm run test:mcp:integration` with Docker Desktop available. The runner creates its own test replica set and reports executed tests. The normal unit suite skips these tests without an isolated database URL.
 4. In a fresh local chat targeting a private fixture in a test database, read the equipped shield and default defense, replace the shield and preview the new block. Approve, reopen the card in the UI and compare base and effective numbers. Confirm the original maneuvers and attack dice.
 5. Activate a +1 block profile, deactivate it in a second revision, then change a talent, a power and one spell on a caster fixture. Ask for an audit and select one correction. Test an overlapping UI edit before approval and retry an accepted revision after reconnecting. Record the checkout commit, client and results. The application AI provider can stay disabled throughout.

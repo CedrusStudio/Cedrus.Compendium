@@ -1,6 +1,6 @@
 # Roadmapa robót nieblokowanych — Fala 9
 
-Zadania, które da się zrobić **bez decyzji Marka i bez dostępu do produkcyjnej bazy**. Wszystko, co go wymaga, siedzi w `TWOJA-KOLEJKA.md`.
+Ten plan opisuje historyczną Falę 9. Bieżące decyzje i prace są w [roadmapie](../ROADMAP.md), a zapis dawnej kolejki prowadzi do [checkpointu](../TWOJA-KOLEJKA.md).
 
 Kolejność jest wiążąca tam, gdzie zaznaczono zależność. Każde zadanie kończy się:
 
