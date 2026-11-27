@@ -1,4 +1,4 @@
-import { requiredNumericInput } from "@cedrus/react-forms/zod";
+import { requiredNumericInput } from "@cedrusstudio/react-forms/zod";
 import type { z } from "zod";
 
 export const REQUIRED_NUMBER_MESSAGE = "Uzupełnij pole";

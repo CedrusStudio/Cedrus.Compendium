@@ -2,7 +2,7 @@
 
 import { DataCard } from '@/common/components/cards/DataCard';
 import { displayedText } from "@/common/translations";
-import { useNumericField } from "@cedrus/react-forms";
+import { useNumericField } from "@cedrusstudio/react-forms";
 import { useFormContext } from "react-hook-form";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { type HealthDto } from "@/persistence/schemas/characters/combat/healthSchema";

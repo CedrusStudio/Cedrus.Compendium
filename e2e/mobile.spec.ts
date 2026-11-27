@@ -271,8 +271,10 @@ test('rulebook chapters and article anchors work on a phone', async ({ page }) =
     await page.getByRole('dialog').getByRole('link').first().click();
     await expect(page.getByRole('dialog')).not.toBeVisible();
   }
-  const summary = page.locator('summary').filter({ hasText: 'Spis treści' });
-  if (await summary.isVisible()) await summary.click();
+  if (page.viewportSize()!.width < 1024) {
+    const summary = page.locator('details:has(> nav[aria-label="Spis treści artykułu"]) > summary:visible');
+    await summary.click();
+  }
   await page.getByRole('navigation', { name: 'Spis treści artykułu', exact: true }).getByRole('link').first().click();
   await expect(page).toHaveURL(/#/);
   await expectPageFits(page);

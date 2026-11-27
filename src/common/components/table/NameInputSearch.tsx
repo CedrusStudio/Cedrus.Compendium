@@ -1,3 +1,4 @@
+import { getTextFilterProps } from "@cedrusstudio/react-filters";
 import { displayedText } from "@/common/translations";
 import { Input } from "@/ui/input";
 import { Table } from "@tanstack/react-table";
@@ -7,8 +8,7 @@ export default function NameInputSearch<TData>({ table , defaultColumnKeys }: { 
   return (
     <Input
       placeholder={displayedText.searchByName}
-      value={(table.getColumn(defaultColumnKeys.name)?.getFilterValue() as string) ?? ""}
-      onChange={event => table.getColumn(defaultColumnKeys.name)?.setFilterValue(event.target.value)}
+      {...getTextFilterProps(table.getColumn(defaultColumnKeys.name))}
       className="max-w-sm"
     />
   );
