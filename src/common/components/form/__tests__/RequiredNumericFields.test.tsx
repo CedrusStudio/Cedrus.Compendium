@@ -17,7 +17,7 @@ function Fixture()
   const [saved, setSaved] = useState('');
   return <FormProvider {...form}>
     <form onSubmit={form.handleSubmit(values => setSaved(JSON.stringify(values)))}>
-      <InputFormField path="bonus" numeric inputPlaceholder="bonus" />
+      <InputFormField path="bonus" label="Premia" numeric inputPlaceholder="bonus" />
       <InputFormField path="cooldown" numeric optional inputPlaceholder="cooldown" />
       <button type="submit">save</button><output>{saved}</output>
     </form>
@@ -25,6 +25,24 @@ function Fixture()
 }
 
 describe('required and optional numeric form fields', () => {
+  it('associates the numeric label and only describes the field while invalid', async () => {
+    const user = userEvent.setup();
+    render(<Fixture />);
+    const input = screen.getByRole('textbox', { name: 'Premia' });
+    await user.click(screen.getByText('Premia'));
+    expect(input).toHaveFocus();
+    expect(input).not.toHaveAttribute('aria-describedby');
+
+    await user.clear(input);
+    await user.tab();
+    await waitFor(() => expect(input).toHaveAccessibleDescription('Uzupełnij pole'));
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    await user.type(input, '0');
+    await user.tab();
+    await waitFor(() => expect(input).not.toHaveAttribute('aria-describedby'));
+    expect(input).toHaveAttribute('aria-invalid', 'false');
+  });
+
   it('blocks blank input and saves only after explicitly entering zero', async () => {
     const user = userEvent.setup();
     render(<Fixture />);
