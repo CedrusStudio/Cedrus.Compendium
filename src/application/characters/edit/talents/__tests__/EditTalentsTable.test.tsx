@@ -10,11 +10,11 @@ import { displayedText } from '@/common/translations';
 
 vi.mock('@/common/components/table/PaginationButtons', () => ({
   default: ({ table }: { table: Table<Talent> }) => (
-    <div>
+    <nav aria-label="Talent pagination">
       <span>Page {table.getState().pagination.pageIndex + 1}</span>
       <button type="button" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>Next page</button>
       <button type="button" disabled={!table.getCanPreviousPage()}>Previous page</button>
-    </div>
+    </nav>
   ),
 }));
 
@@ -49,8 +49,12 @@ function TalentEditor() {
 describe('EditTalentsTable pagination after adding a talent', () => {
   it.each([1, 3])('shows the new talent on page one when added from page %i', page => {
     const { container } = render(<TalentEditor />);
-    for (let index = 1; index < page; index++) fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
-    expect(screen.getByText(`Page ${page}`)).toBeInTheDocument();
+    const pagination = within(screen.getByRole('navigation', { name: 'Talent pagination' }));
+    for (let index = 1; index < page; index++) {
+      fireEvent.click(pagination.getByRole('button', { name: 'Next page' }));
+    }
+
+    expect(pagination.getByText(`Page ${page}`)).toBeInTheDocument();
     if (page === 3) expect(screen.getByText('Existing skill 21')).toBeVisible();
 
     fireEvent.click(container.querySelector('[data-slot="sheet-trigger"]')!);
@@ -61,10 +65,11 @@ describe('EditTalentsTable pagination after adding a talent', () => {
     fireEvent.click(within(dialog).getByRole('button', { name: displayedText.addTalent }));
 
     expect(screen.getByPlaceholderText(displayedText.searchByName)).toHaveValue('Newly added skill');
-    expect(screen.getByText('Page 1')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Next page' })).toBeDisabled();
-    expect(within(screen.getByRole('table')).getByText('Newly added skill')).toBeVisible();
-    expect(within(screen.getByRole('table')).queryByText('Existing skill 21')).not.toBeInTheDocument();
+    expect(pagination.getByText('Page 1')).toBeInTheDocument();
+    expect(pagination.getByRole('button', { name: 'Previous page' })).toBeDisabled();
+    expect(pagination.getByRole('button', { name: 'Next page' })).toBeDisabled();
+    const table = within(screen.getByRole('table'));
+    expect(table.getByText('Newly added skill')).toBeVisible();
+    expect(table.queryByText('Existing skill 21')).not.toBeInTheDocument();
   });
 });
