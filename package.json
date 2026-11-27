@@ -2,6 +2,9 @@
   "name": "cedrus-compendium",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "^22.13.0 || >=24.0.0"
+  },
   "scripts": {
     "storybook": "storybook dev --port 6006",
     "build:storybook": "storybook build",

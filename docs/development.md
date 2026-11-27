@@ -44,8 +44,9 @@ the backup/dry-run/explicit-apply rules in [scripts/README.md](../scripts/README
 
 ## Verification
 
-Use Node/npm already required by this application. `npm ci` runs the existing Prisma
-generation postinstall; it is not a database migration.
+Use Node 22 as selected in `.nvmrc` for the same runtime as application CI. The
+OpenAI SDK requires Node 22 or newer. Run `npm ci` to install the locked graph and
+generate the Prisma client.
 
 ```sh
 node node_modules/vitest/vitest.mjs run src/domain/ai-character-generation/__tests__ src/infrastructure/ai-character-generation/__tests__/LocalFileCharacterGenerationProvider.test.ts src/infrastructure/ai-character-generation/__tests__/openAiCharacterProposalResponseFormat.test.ts
