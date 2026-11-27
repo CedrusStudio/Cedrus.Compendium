@@ -26,6 +26,8 @@ npm ci                     # instalacja z lockfile i wygenerowanie klienta Prism
 npm run dev                # http://localhost:3000
 ```
 
+[GitHub Packages access](docs/development.md#verification) is required to install the Cedrus dependencies.
+
 Przed uruchomieniem aplikacji ustaw `DATABASE_URL` do MongoDB w lokalnym pliku `.env`.
 Instalacja generuje klienta Prisma. Operacje na bazie mają osobną [instrukcję](scripts/README.md#zasady).
 

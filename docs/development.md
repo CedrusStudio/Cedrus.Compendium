@@ -45,6 +45,12 @@ the backup/dry-run/explicit-apply rules in [scripts/README.md](../scripts/README
 
 ## Verification
 
+Local installs and external build runners need a GitHub personal access token (classic)
+with package read access. Supply it as the `NODE_AUTH_TOKEN` environment variable
+before running `npm ci`. GitHub Actions uses its repository token. Grant this
+repository the Read role under Manage Actions access in each of the three
+`@cedrusstudio` package settings.
+
 Follow [application setup](../README.md#uruchomienie) for Node, npm, dependencies and environment configuration.
 
 ```sh

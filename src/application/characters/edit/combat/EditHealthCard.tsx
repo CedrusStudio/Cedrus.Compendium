@@ -2,10 +2,12 @@
 
 import { DataCard } from '@/common/components/cards/DataCard';
 import { displayedText } from "@/common/translations";
-import { FieldPath } from "react-hook-form";
+import { useNumericField } from "@cedrusstudio/react-forms";
+import { useFormContext } from "react-hook-form";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
 import { type HealthDto } from "@/persistence/schemas/characters/combat/healthSchema";
-import { InputFormField } from "@/common/components/form/InputFormField";
+import { Input } from "@/ui/input";
+import { Label } from "@/ui/label";
 import { Health } from "@/domain/characters/combat/Health";
 
 type EditHealthCardProps =
@@ -24,18 +26,25 @@ export default function EditHealthCard(input: EditHealthCardProps)
       contentClassName="grid grid-cols-2 items-start gap-x-2 gap-y-4 px-4 @md:grid-cols-4 @2xl:grid-cols-[repeat(7,auto)] [&_label]:min-h-8 [&_label]:justify-center [&_label]:leading-4 [&_label]:hyphens-auto [&_label]:[overflow-wrap:anywhere]"
     >
       { 
-        Object.keys(input.health).map(key => InputFormWithLabel(key as keyof HealthDto)) 
+        Object.keys(input.health).map(key => <HealthField key={key} name={key as keyof HealthDto} />)
       }
     </DataCard>
   );
 };
 
-function InputFormWithLabel(healthFieldName: keyof HealthDto)
-{   
-  const fieldPath = `health.${healthFieldName}` as FieldPath<CombatDto>;
-
+function HealthField({ name }: { name: keyof HealthDto })
+{
+  const { control } = useFormContext<CombatDto>();
+  const { labelProps, inputProps, messageProps, message } = useNumericField({ control, name: `health.${name}` as const });
   return (
-    <InputFormField<CombatDto> key={healthFieldName} path={fieldPath} numeric
-      label={displayedText[healthFieldName]} inputClassName="w-16 h-10 text-center font-medium" />
+    <div className="w-full flex justify-center gap-2">
+      <div className="grid gap-2 min-w-0 max-w-full justify-items-center">
+        <Label {...labelProps} data-error={inputProps["aria-invalid"]} className="text-center capitalize data-[error=true]:text-form-error">
+          {displayedText[name]}
+        </Label>
+        <Input {...inputProps} numeric className="w-16 h-10 text-center font-medium" />
+        {message && <p {...messageProps} className="text-form-error text-sm">{message}</p>}
+      </div>
+    </div>
   );
 }

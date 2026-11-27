@@ -71,6 +71,9 @@
     "build:mcp": "node node_modules/typescript/bin/tsc -p tools/mcp/tsconfig.json"
   },
   "dependencies": {
+    "@cedrusstudio/react-filters": "0.1.0-preview.1",
+    "@cedrusstudio/react-forms": "0.1.0-preview.1",
+    "@cedrusstudio/theme": "0.1.0-preview.1",
     "@hookform/resolvers": "^5.2.1",
     "@modelcontextprotocol/sdk": "1.32.2",
     "@prisma/client": "^6.17.1",
