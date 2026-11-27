@@ -75,3 +75,4 @@ tsconfig.scratch.json
 /karta-*.html
 
 /dist/mcp/
+/storybook-static/

@@ -10,7 +10,7 @@ import CombatView from '@/application/characters/combat/CombatView';
 import Link from 'next/link';
 import { Button } from '@/ui/button';
 import TabsTriggerCapitalized from '@/ui/TabsTriggerCapitalized';
-import { useEffect, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import { CharacterTabs, isCharacterTab } from '@/common/tabsUtils';
 import { useGetCharacterById } from '@/application/characters/hooks/useGetCharacterById';
 import { useDeleteCharacterById } from "@/application/characters/hooks/useDeleteCharacterById";
@@ -64,8 +64,8 @@ export default function CharacterView({ tab }: CharacterViewProps)
         </aside>
 
         <Tabs 
-            defaultValue={tab ?? defaultTab} 
-            onValueChange={v => { if (isCharacterTab(v)) setActiveTab(v); }}
+            value={activeTab}
+            onValueChange={v => { if (isCharacterTab(v)) startTransition(() => setActiveTab(v)); }}
             className='flex min-w-0 w-full max-w-full flex-col'
         >
             <div className='min-w-0 max-w-full'>

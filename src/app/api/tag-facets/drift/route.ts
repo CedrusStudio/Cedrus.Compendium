@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { connection, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { tagEntityModelMap } from '@/lib/tagEntityModels';
 import { findTagFacetDrift, type TagUsage } from '@/domain/tags/tagFacetDrift';
@@ -13,6 +13,7 @@ import { loadTagFacetLayer } from '@/persistence/tags/tagFacetLayer';
  */
 export async function GET()
 {
+  await connection();
   try
   {
     const usage: TagUsage = {};

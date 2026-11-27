@@ -1,6 +1,5 @@
 "use client";
 
-import SubmitButton from '@/common/components/form/SubmitButton';
 import EditArraySection from '@/common/components/form/EditArraySection';
 import { Character } from '@/domain/characters/Character';
 import { BuffProfile, createDefaultBuffProfile, createDefaultOtherModifierProfile, createDefaultStateModifierProfile, createDefaultStanceModifierProfile } from '@/domain/characters/buffs/BuffProfile';
@@ -53,9 +52,10 @@ const modifierCategories: ModifierCategoryConfig[] =
 
 export default function EditCharacterBuffs({ character }: { character: Character })
 {
-  const { form, handleSubmit, isPending } = useCharacterForm<BuffsDto>
+  const { form, handleSubmit, isPending, formId } = useCharacterForm<BuffsDto>
   ({
     characterId: character.id,
+    tab: "buffs",
     schema: buffsSchema,
     defaultValues:
     {
@@ -87,7 +87,7 @@ export default function EditCharacterBuffs({ character }: { character: Character
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-6'>
+      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)} className='space-y-6'>
         {
           modifierCategories.map(category => (
             <EditModifierCategorySection
@@ -99,8 +99,6 @@ export default function EditCharacterBuffs({ character }: { character: Character
             />
           ))
         }
-
-        <SubmitButton isPending={isPending} />
       </form>
     </Form>
   );

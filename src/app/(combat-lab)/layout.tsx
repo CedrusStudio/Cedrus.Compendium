@@ -2,15 +2,16 @@ import CombatLabNavbar from "@/application/combat-lab/CombatLabNavbar";
 import { Separator } from "@/ui/separator";
 import { PropsWithChildren } from "react";
 
-export const dynamic = 'force-dynamic';
+import LayoutFallback from "@/common/components/skeletons/LayoutFallback";
+import RequestContent from "@/common/components/RequestContent";
 
 export default function layout({children}: PropsWithChildren)
 {
   return (
-    <>
+    <RequestContent fallback={<LayoutFallback />}>
       <CombatLabNavbar />
       <Separator />
       {children}
-    </>
+    </RequestContent>
   );
 };

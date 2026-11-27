@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, type MutationKey } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { FieldValues } from 'react-hook-form';
@@ -8,6 +8,7 @@ export function useFormMutation<TData extends FieldValues>
 (
   mutationFn: (data: TData) => Promise<void>,
   options: {
+    mutationKey?: MutationKey;
     invalidateOnSuccess?: string[];
     toastPosition?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
   }
@@ -32,6 +33,7 @@ export function useFormMutation<TData extends FieldValues>
 
   const mutation = useMutation
   ({
+    mutationKey: options.mutationKey,
     mutationFn,
     onSuccess: onSuccessWithRefresh,
     onError: (error: Error) => onError(error, options.toastPosition),

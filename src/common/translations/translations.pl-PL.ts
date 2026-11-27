@@ -257,6 +257,7 @@ export const translations_plPL =
     characterVisibilityMineOnly: "Tylko moje",
     characterVisibilityPublicOnly: "Tylko publiczne",
     saving: "Zapisuję...",
+    back: "Cofnij",
     save: "Zapisz",
     activeBuff: "aktywny profil",
     activeProfiles: "aktywne profile",

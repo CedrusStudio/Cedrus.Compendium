@@ -5,7 +5,6 @@ import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { type DetailsDto, detailsSchema } from "@/persistence/schemas/characters/headerSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
-import SubmitButton from "@/common/components/form/SubmitButton";
 import AreaInputFormField from "@/common/components/form/AreaInputFormField";
 import FormTagsInput from "@/common/components/inputs/FormTagsInput";
 import FormStringsInput from "@/common/components/inputs/FormStringsInput";
@@ -14,7 +13,6 @@ import EditPerksList from "@/application/characters/edit/details/EditPerksList";
 import useWatchedFormArray from "@/infrastructure/hooks/useWatchedFormArray";
 import { Separator } from "@/common/components/ui/separator";
 import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
-import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 import RaceSelector from "@/application/characters/edit/details/RaceSelector";
 import { Button } from "@/ui/button";
 import { useApiKey } from "@/common/hooks/useApiKey";
@@ -28,6 +26,7 @@ export default function EditDetailsView(input: { character: Character })
     const { form, handleSubmit, isPending, isSuccess, formId } = useCharacterForm<DetailsDto>
     ({
         characterId: character.id,
+        tab: "character",
         schema: detailsSchema,
         defaultValues: 
         {
@@ -40,7 +39,6 @@ export default function EditDetailsView(input: { character: Character })
             apiKeys: character.apiKeys ?? []
         },
         updateFn: updateDetails,
-        formId: FORM_IDS.DETAILS,
     });
 
     const { watchedArray: perks, append: appendPerk, remove: removePerk } = useWatchedFormArray("perks", form.control);
@@ -58,7 +56,6 @@ export default function EditDetailsView(input: { character: Character })
                 />
                 <Separator className="my-4" />
                                 <EditPerksList isPending={isPending} isSuccess={isSuccess} initialPerks={character.perks} perks={perks} append={appendPerk} remove={removePerk} currentCharacterId={character.id} currentCharacterName={character.name} />
-                <SubmitButton isPending={isPending} formName={formId} />
             </form>
         </Form>
     );

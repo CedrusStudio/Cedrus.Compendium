@@ -17,7 +17,16 @@ type PowersSpecificationsPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function PowersSpecificationsPage(input: PowersSpecificationsPageProps)
+export default function PowersSpecificationsPage(input: PowersSpecificationsPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <PowersSpecificationsContent {...input} />
+    </Suspense>
+  );
+}
+
+async function PowersSpecificationsContent(input: PowersSpecificationsPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function PowersSpecificationsPage(input: PowersSpecificatio
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <PowersSpecificationList />
-      </Suspense>
+      <PowersSpecificationList />
     </HydrationBoundary>
   );
 };

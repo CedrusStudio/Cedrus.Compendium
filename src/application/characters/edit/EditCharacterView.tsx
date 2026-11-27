@@ -10,6 +10,9 @@ import EditDetailsView from '@/application/characters/edit/details/EditDetailsVi
 import EditCharacterStatistics from '@/application/characters/edit/statistics/EditCharacterStatistics';
 import EditCharacterTalents from '@/application/characters/edit/talents/EditCharacterTalents';
 import EditEquipmentView from '@/application/characters/edit/equipment/EditEquipmentView';
+import { useIsMutating } from "@tanstack/react-query";
+import SubmitButton from "@/common/components/form/SubmitButton";
+import { characterEditFormIds, characterSaveKey } from "./editFormConstants";
 import { useState } from "react";
 import { CharacterTabs, isCharacterTab } from "@/common/tabsUtils";
 import EditCharacterCombat from "@/application/characters/edit/combat/EditCharacterCombat";
@@ -34,14 +37,14 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
   
   return (
     <Tabs 
-        defaultValue={tab} 
+        value={activeTab}
         onValueChange={v => { if (isCharacterTab(v)) setActiveTab(v); }}
         className='min-w-0 max-w-full flex flex-col justify-center items-stretch lg:justify-stretch lg:grid lg:col-span-10 -mt-4'
     >
 
         <div className='min-w-0 max-w-full lg:row-span-1'>
-            <div className='flex flex-row flex-wrap justify-between items-center'>
-                <TabsList className='flex m-1 max-w-[calc(100%-0.5rem)]'>
+            <div className='flex min-w-0 items-center gap-2 px-1 py-2'>
+                <TabsList className='min-w-0 shrink'>
                     <TabsTriggerCapitalized value="statistics" overrideValue={displayedText.statistics} />
                     <TabsTriggerCapitalized value="character" overrideValue={displayedText.character} />
                     <TabsTriggerCapitalized value="combat" overrideValue={displayedText.combat} />
@@ -50,9 +53,7 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
                     <TabsTriggerCapitalized value="equipment" overrideValue={displayedText.equipment} />
                 </TabsList>
 
-                <Button asChild variant="default" size="icon" className='m-2 flex-1 lg:m-4 lg:flex-initial'>
-                    <Link href={`/characters/${character.id}?tab=${activeTab}`}><RiArrowGoBackFill /></Link>
-                </Button>
+                <CharacterEditorActions characterId={character.id} tab={activeTab} />
             </div>    
 
             <Separator />
@@ -87,3 +88,18 @@ export default function EditCharacterView({ tab }: EditCharacterViewProps)
     </Tabs>
   );
 };
+
+function CharacterEditorActions({ characterId, tab }: { characterId: string; tab: CharacterTabs }) {
+  const saving = useIsMutating({ mutationKey: characterSaveKey(characterId, tab), exact: true }) > 0;
+
+  return (
+    <div className="ml-auto flex shrink-0 items-center gap-2">
+      <SubmitButton iconOnly formName={characterEditFormIds[tab]} isPending={saving} className="size-10 sm:size-9" />
+      <Button asChild size="icon" className="size-10 sm:size-9">
+        <Link href={`/characters/${characterId}?tab=${tab}`} aria-label={displayedText.back}>
+          <RiArrowGoBackFill aria-hidden="true" />
+        </Link>
+      </Button>
+    </div>
+  );
+}

@@ -25,6 +25,7 @@ import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
 import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import { displayedText } from "@/common/translations";
+import { narrowToGroup, useGroupedNameSearch } from "@/application/compendium/useGroupedNameSearch";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { narrowToOwned } from '@/application/compendium/characterOwnership';
@@ -36,8 +37,6 @@ const EMPTY_ARRAY: never[] = [];
 
 export default function PerksList()
 {
-  const [searchInput, setSearchInput] = useState("");
-  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [gradeFilter, setGradeFilter] = useState("");
   const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('perks');
@@ -56,6 +55,7 @@ export default function PerksList()
   const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('perks');
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const { searchInput, searchTerm, groupName, handleSearchInputChange, handleScopeToGroup } = useGroupedNameSearch(setPageNumber);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
@@ -68,14 +68,15 @@ export default function PerksList()
     setHasMore(true);
   }
 
-  const queryKey = [...[createOffsetSearchPerksKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey];
+  const queryKey = [...[createOffsetSearchPerksKey(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey, ...(groupName === null ? [] : [groupName])];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
-      const perksQuery = createPerkOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+      const perksQuery = createPerkOffsetQuery(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       narrowToOwned(perksQuery, ownedFilter);
+      narrowToGroup(perksQuery, groupName);
       if (requirementFilters.length > 0) perksQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) perksQuery.tagFacetFilters = facetFilters;
 
@@ -106,12 +107,6 @@ export default function PerksList()
     setDisplayedPerks(EMPTY_ARRAY);
     setPageNumber(1);
   }, []);
-
-  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    clearResults();
-    setSearchInput(e.target.value);
-  }, [clearResults]);
 
   const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
   {
@@ -165,11 +160,6 @@ export default function PerksList()
     });
   }, []);
 
-  const handleScopeToGroup = useCallback((groupName: string) => {
-    setSearchInput(groupName);
-    clearResults();
-  }, [clearResults]);
-
   return (
     <>
       <ListHeader
@@ -207,7 +197,8 @@ export default function PerksList()
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
-          hasMore={hasMore}
+          hasMore={hasMore && !!searchResults}
+          groupName={groupName}
           onScopeToGroup={handleScopeToGroup}
         />
       ) : (

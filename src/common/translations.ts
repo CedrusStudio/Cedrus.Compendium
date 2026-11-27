@@ -284,6 +284,7 @@ export const displayedText =
     characterVisibilityMineOnly: translate("characterVisibilityMineOnly"),
     characterVisibilityPublicOnly: translate("characterVisibilityPublicOnly"),
     saving: translate("saving"),
+    back: translate("back"),
     save: translate("save"),
     activeBuff: translate("activeBuff"),
     activeProfiles: translate("activeProfiles"),

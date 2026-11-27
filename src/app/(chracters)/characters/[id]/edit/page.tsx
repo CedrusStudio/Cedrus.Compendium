@@ -1,3 +1,5 @@
+import CharacterLoading from "@/application/characters/CharacterLoading";
+import { Suspense } from "react";
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { isCharacterTab } from '@/common/tabsUtils';
 import EditCharacterView from '@/application/characters/edit/EditCharacterView';
@@ -5,10 +7,21 @@ import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 import { searchEntityById } from '@/persistence/searchEntity';
 import { characterQueryById } from '@/infrastructure/searchQueries/characters/characterQueryById';
 
-type Params = Promise<{ id: string }>
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+type EditCharacterPageProps = {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export default async function EditPage(props: { params: Params, searchParams: SearchParams })
+export default function EditPage(props: EditCharacterPageProps)
+{
+  return (
+    <Suspense fallback={<CharacterLoading />}>
+      <EditCharacterContent {...props} />
+    </Suspense>
+  );
+}
+
+async function EditCharacterContent(props: EditCharacterPageProps)
 {
   const params = await props.params
   const searchParams = await props.searchParams

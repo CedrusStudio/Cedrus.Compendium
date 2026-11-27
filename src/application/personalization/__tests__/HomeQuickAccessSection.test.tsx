@@ -2,6 +2,7 @@ import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { PersonalizationProvider } from '@/infrastructure/providers/PersonalizationProvider';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const { useApiKeyMock, getProfileMock, saveProfileMock } = vi.hoisted(() => ({
@@ -56,7 +57,9 @@ describe('HomeQuickAccessSection', () => {
 
     render(
       <Provider store={store}>
-        <HomeQuickAccessSection />
+        <PersonalizationProvider>
+          <HomeQuickAccessSection />
+        </PersonalizationProvider>
       </Provider>,
     );
 
@@ -103,7 +106,9 @@ describe('HomeQuickAccessSection', () => {
 
     render(
       <Provider store={store}>
-        <HomeQuickAccessSection />
+        <PersonalizationProvider>
+          <HomeQuickAccessSection />
+        </PersonalizationProvider>
       </Provider>,
     );
 

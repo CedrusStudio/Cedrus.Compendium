@@ -9,7 +9,6 @@ import EditArmorView from '@/application/characters/edit/equipment/EditArmorView
 import client from "@/infrastructure/clients/charactersClient";
 import EditMountView from '@/application/characters/edit/equipment/EditMountView';
 import AppendToArrayButton from '@/common/components/form/AppendToArrayButton';
-import SubmitButton from '@/common/components/form/SubmitButton';
 import ItemsView from '@/application/characters/equipment/ItemsView';
 import EditInventoryItemView from '@/application/characters/edit/equipment/EditInventoryItemView';
 import useWatchedFormArray from '@/infrastructure/hooks/useWatchedFormArray';
@@ -19,7 +18,6 @@ import { CreateDefaultShield, Shield } from '@/domain/characters/equipment/Shiel
 import { CreateDefaultInventoryItem, Item } from '@/domain/characters/equipment/Item';
 import { CreateDefaultMount, Mount } from '@/domain/characters/equipment/Mount';
 import { displayedText } from '@/common/translations';
-import { FORM_IDS } from '@/application/characters/edit/editFormConstants';
 import { useCharacterForm } from '@/application/characters/edit/hooks/useCharacterForm';
 import ImportItemsSheet from '@/common/components/import/ImportItemSheet';
 import ImportFromCharacterSheet from '@/common/components/import/ImportFromCharacterSheet';
@@ -109,10 +107,10 @@ export default function EditEquipmentView(input: { character: Character })
   const { form, handleSubmit, isPending, isSuccess, formId } = useCharacterForm<EquipmentDto>
   ({
     characterId: character.id,
+    tab: "equipment",
     schema: equipmentSchema,
     defaultValues: character.equipment,
     updateFn: client.updateEquipment,
-    formId: FORM_IDS.EQUIPMENT,
   });
 
   const { watchedArray: weapons, append: appendWeapon, remove: removeWeapon } = useWatchedFormArray("weapons", form.control);
@@ -508,8 +506,6 @@ export default function EditEquipmentView(input: { character: Character })
               isPending={isPending}
             />
           </ItemsView>
-
-        <SubmitButton isPending={isPending} />
       </form>
     </Form>
   );

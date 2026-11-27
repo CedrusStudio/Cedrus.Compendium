@@ -15,11 +15,6 @@ vi.mock('@/common/components/form/InputFormField', () => ({
   InputFormField: () => <div data-testid="input-form-field" />,
 }));
 
-vi.mock('@/common/components/form/SubmitButton', () => ({
-  __esModule: true,
-  default: () => <button type="button">submit</button>,
-}));
-
 vi.mock('@/common/components/form/AreaInputFormField', () => ({
   __esModule: true,
   default: () => <div data-testid="area-input-form-field" />,
@@ -76,12 +71,6 @@ vi.mock('@/infrastructure/clients/charactersClient', () => ({
   __esModule: true,
   default: {
     updateDetails: vi.fn(),
-  },
-}));
-
-vi.mock('@/application/characters/edit/editFormConstants', () => ({
-  FORM_IDS: {
-    DETAILS: 'details-form',
   },
 }));
 

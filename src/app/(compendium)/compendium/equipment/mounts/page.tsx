@@ -17,7 +17,16 @@ type MountsPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function MountsPage(input: MountsPageProps)
+export default function MountsPage(input: MountsPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <MountsContent {...input} />
+    </Suspense>
+  );
+}
+
+async function MountsContent(input: MountsPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function MountsPage(input: MountsPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <MountsList />
-      </Suspense>
+      <MountsList />
     </HydrationBoundary>
   );
 };

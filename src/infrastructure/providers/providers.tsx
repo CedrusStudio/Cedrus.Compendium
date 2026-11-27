@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
 import DiceRollerProvider from '@/application/dice-roller/DiceRollerProvider';
+import { PersonalizationProvider } from './PersonalizationProvider';
 
 type ProvidersProps = 
 {
@@ -39,7 +40,9 @@ export default function Providers({ children }: ProvidersProps)
         >
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
-            <DiceRollerProvider>{children}</DiceRollerProvider>
+            <PersonalizationProvider>
+              <DiceRollerProvider>{children}</DiceRollerProvider>
+            </PersonalizationProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </Provider>
         </QueryClientProvider>

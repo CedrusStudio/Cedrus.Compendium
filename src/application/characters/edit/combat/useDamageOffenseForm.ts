@@ -1,6 +1,6 @@
 import { type DamageOffensePath, DamageOffense } from "@/domain/characters/combat/Offense";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
-import { Control, useController } from "react-hook-form";
+import { Control, useController, useFormContext } from "react-hook-form";
 import { setWithSideEffect } from "@/common/global/setterUtils";
 import { useState } from "react";
 
@@ -11,6 +11,7 @@ export function useDamageOffenseForm
   defaults: DamageOffense
 ) 
 {
+  const { setValue } = useFormContext<CombatDto>();
   const [amount, setAmount] = useState(defaults.amount);
   const [grade, setGrade] = useState(defaults.grade);
   const [bonus, setBonus] = useState(defaults.bonus);
@@ -23,9 +24,11 @@ export function useDamageOffenseForm
 
   const resetAll = () =>
   {
+    setValue(fieldPath, defaults, { shouldDirty: true });
     setAmount(defaults.amount);
     setGrade(defaults.grade);
     setBonus(defaults.bonus);
+    setIsPhantom(defaults.isPhantom);
   };
 
   return { 

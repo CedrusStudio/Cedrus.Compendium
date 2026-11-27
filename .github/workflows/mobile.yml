@@ -9,6 +9,27 @@ permissions:
   contents: read
 
 jobs:
+  component-stories:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install chromium
+      - run: npm run build:storybook
+      - run: npm run test:storybook
+      - uses: actions/upload-artifact@v6
+        if: failure()
+        with:
+          name: health-form-screenshot-diffs
+          path: test-results/
+          retention-days: 14
+
   mobile:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -17,7 +38,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
-          node-version: 20.x
+          node-version-file: .nvmrc
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium webkit

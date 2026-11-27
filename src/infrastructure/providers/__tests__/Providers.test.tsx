@@ -15,14 +15,6 @@ vi.mock('@/ui/sonner', () => ({
   Toaster: () => null,
 }));
 
-vi.mock('react-redux', () => ({
-  Provider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
-
-vi.mock('@/persistence/slices/store', () => ({
-  store: {},
-}));
-
 vi.mock('@tanstack/react-query-devtools', () => ({
   ReactQueryDevtools: () => null,
 }));

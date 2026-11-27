@@ -8,7 +8,7 @@ import AreaInputFormField from '@/common/components/form/AreaInputFormField';
 import RemoveFromArrayButton from '@/common/components/form/RemoveFromArrayButton';
 import { UseFieldArrayRemove, useFormContext } from 'react-hook-form';
 import { displayedText } from '@/common/translations';
-import { Button } from '@/ui/button';
+import DefaultCombatSetButton from './DefaultCombatSetButton';
 
 type EditDefenseCardProps =
 {
@@ -38,14 +38,7 @@ export default function EditDefenseCard({ index, defense, remove }: EditDefenseC
     <div className='flex flex-wrap justify-between items-center gap-4'>
       <InputFormField<CombatDto> path={pathToDefenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
       <div className='flex gap-2'>
-        <Button 
-          type='button'
-          variant={isDefault ? "default" : "outline"}
-          onClick={handleSetAsDefault}
-          className='text-xs'
-        >
-          {isDefault ? '✓ Default' : 'Set as Default'}
-        </Button>
+        <DefaultCombatSetButton selected={isDefault} onSelect={handleSetAsDefault} />
         <RemoveFromArrayButton index={index} remove={remove} />
       </div>
     </div>

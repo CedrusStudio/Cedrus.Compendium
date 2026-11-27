@@ -7,7 +7,6 @@ import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSc
 import { type HealthDto } from "@/persistence/schemas/characters/combat/healthSchema";
 import { InputFormField } from "@/common/components/form/InputFormField";
 import { Health } from "@/domain/characters/combat/Health";
-import { Label } from "@/ui/label";
 
 type EditHealthCardProps =
 {
@@ -20,9 +19,9 @@ export default function EditHealthCard(input: EditHealthCardProps)
     <DataCard 
       title={displayedText.health} 
       variant="muted"
-      className='border shadow-md'
-      headerClassName='mb-6'
-      contentClassName="grid grid-cols-2 lg:grid-cols-4 gap-6"
+      className="@container gap-3 py-4 shadow-md"
+      headerClassName="justify-items-center px-4"
+      contentClassName="grid grid-cols-2 items-start gap-x-2 gap-y-4 px-4 @md:grid-cols-4 @2xl:grid-cols-[repeat(7,auto)] [&_label]:min-h-8 [&_label]:justify-center [&_label]:leading-4 [&_label]:hyphens-auto [&_label]:[overflow-wrap:anywhere]"
     >
       { 
         Object.keys(input.health).map(key => InputFormWithLabel(key as keyof HealthDto)) 
@@ -36,9 +35,7 @@ function InputFormWithLabel(healthFieldName: keyof HealthDto)
   const fieldPath = `health.${healthFieldName}` as FieldPath<CombatDto>;
 
   return (
-    <div key={healthFieldName} className={"flex flex-col items-center gap-2"}>
-      <Label className="text-center capitalize">{displayedText[healthFieldName as keyof typeof displayedText]}</Label>
-      <InputFormField<CombatDto> path={fieldPath} numeric inputClassName="w-16 h-10 text-center font-medium" />
-    </div>
+    <InputFormField<CombatDto> key={healthFieldName} path={fieldPath} numeric
+      label={displayedText[healthFieldName]} inputClassName="w-16 h-10 text-center font-medium" />
   );
 }

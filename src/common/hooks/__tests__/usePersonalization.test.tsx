@@ -23,6 +23,7 @@ vi.mock('@/infrastructure/clients/personalizationClient', () => ({
 }));
 
 import { usePersonalization } from '@/common/hooks/usePersonalization';
+import { PersonalizationProvider } from '@/infrastructure/providers/PersonalizationProvider';
 import { createEmptyProfile, reducer, type PersonalizationProfile, type PersonalizationSliceState } from '@/persistence/slices/personalizationSlice';
 
 function createWrapper(preloadedState?: PersonalizationSliceState)
@@ -36,7 +37,7 @@ function createWrapper(preloadedState?: PersonalizationSliceState)
 
   return function Wrapper({ children }: PropsWithChildren)
   {
-    return <Provider store={store}>{children}</Provider>;
+    return <Provider store={store}><PersonalizationProvider>{children}</PersonalizationProvider></Provider>;
   };
 }
 
@@ -72,6 +73,36 @@ describe('usePersonalization', () => {
 
     expect(result.current.profile).toEqual(remoteProfile);
     expect(saveProfileMock).not.toHaveBeenCalled();
+  });
+
+  it('shares one read and one automatic save across mounted consumers', async () => {
+    const profile = createEmptyProfile();
+    getProfileMock.mockResolvedValue(profile);
+    saveProfileMock.mockImplementation(async value => value);
+    const { result } = renderHook(() => [usePersonalization(), usePersonalization()], { wrapper: createWrapper() });
+    await waitFor(() => expect(result.current[1].isLoaded).toBe(true));
+    act(() => result.current[0].setUserName('Saofie'));
+    await waitFor(() => expect(result.current[1].profile.userName).toBe('Saofie'));
+    expect(getProfileMock).toHaveBeenCalledTimes(1);
+    expect(saveProfileMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps the new profile when a save for the previous key finishes late', async () => {
+    const empty = createEmptyProfile();
+    const second = { ...empty, userName: 'Second profile' };
+    getProfileMock.mockResolvedValueOnce(empty).mockResolvedValueOnce(second);
+    let finish!: (profile: PersonalizationProfile) => void;
+    saveProfileMock.mockReturnValue(new Promise<PersonalizationProfile>(resolve => { finish = resolve; }));
+    const { result, rerender } = renderHook(() => usePersonalization(), { wrapper: createWrapper() });
+    await waitFor(() => expect(result.current.isLoaded).toBe(true));
+    act(() => result.current.setUserName('First profile'));
+    await waitFor(() => expect(saveProfileMock).toHaveBeenCalledTimes(1));
+    useApiKeyMock.mockReturnValue({ apiKey: 'beta', hasApiKey: true, isLoaded: true });
+    rerender();
+    await waitFor(() => expect(result.current.profile).toEqual(second));
+    await act(async () => finish({ ...empty, userName: 'First profile (saved)' }));
+    expect(result.current.profile).toEqual(second);
+    expect(saveProfileMock).toHaveBeenCalledTimes(1);
   });
 
   it('uploads an existing local profile when the server does not have one yet', async () => {

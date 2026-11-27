@@ -26,6 +26,7 @@ import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
 import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
+import { narrowToGroup, useGroupedNameSearch } from "@/application/compendium/useGroupedNameSearch";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
@@ -40,8 +41,6 @@ const EMPTY_ARRAY: never[] = [];
 
 export default function SpellsList()
 {
-  const [searchInput, setSearchInput] = useState("");
-  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [gradeFilter, setGradeFilter] = useState("");
   const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('spells');
@@ -61,6 +60,7 @@ export default function SpellsList()
   const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('spells');
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const { searchInput, searchTerm, groupName, handleSearchInputChange, handleScopeToGroup } = useGroupedNameSearch(setPageNumber);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
 
@@ -73,14 +73,15 @@ export default function SpellsList()
     setHasMore(true);
   }
 
-  const queryKey = [...[createOffsetSearchSpellsKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey];
+  const queryKey = [...[createOffsetSearchSpellsKey(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey, ...(groupName === null ? [] : [groupName])];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
-      const spellsQuery = createSpellOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
+      const spellsQuery = createSpellOffsetQuery(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
       narrowToOwned(spellsQuery, ownedFilter);
+      narrowToGroup(spellsQuery, groupName);
       if (requirementFilters.length > 0) spellsQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) spellsQuery.tagFacetFilters = facetFilters;
 
@@ -111,12 +112,6 @@ export default function SpellsList()
     setDisplayedSpells(EMPTY_ARRAY);
     setPageNumber(1);
   }, []);
-
-  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    clearResults();
-    setSearchInput(e.target.value);
-  }, [clearResults]);
 
   const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
   {
@@ -176,11 +171,6 @@ export default function SpellsList()
     });
   }, []);
 
-  const handleScopeToGroup = useCallback((groupName: string) => {
-    setSearchInput(groupName);
-    clearResults();
-  }, [clearResults]);
-
   return (
     <>
       <ListHeader
@@ -219,7 +209,8 @@ export default function SpellsList()
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
-          hasMore={hasMore}
+          hasMore={hasMore && !!searchResults}
+          groupName={groupName}
           onScopeToGroup={handleScopeToGroup}
         />
       ) : (

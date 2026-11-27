@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { useApiKey } from '@/common/hooks/useApiKey';
-import { createEmptyProfile, type PersonalizationContext, type PersonalizationProfile, type QuickLink } from '@/common/personalization/personalizationProfile';
+import { createEmptyProfile, type PersonalizationContext as QuickTagContext, type PersonalizationProfile, type QuickLink } from '@/common/personalization/personalizationProfile';
 import personalizationClient from '@/infrastructure/clients/personalizationClient';
 import { AppDispatch, RootState } from '@/persistence/slices/store';
 import { actions } from '@/persistence/slices/personalizationSlice';
@@ -16,9 +16,19 @@ function serializeProfile(profile: PersonalizationProfile)
   return JSON.stringify(profile);
 }
 
+export const PersonalizationContext = createContext<ReturnType<typeof useProfileSynchronization> | null>(null);
+
 export function usePersonalization()
 {
+  const value = useContext(PersonalizationContext);
+  if (!value) throw new Error('PersonalizationProvider is required.');
+  return value;
+}
+
+export function useProfileSynchronization()
+{
   const dispatch = useDispatch<AppDispatch>();
+  const store = useStore<RootState>();
   const { apiKey, hasApiKey, isLoaded } = useApiKey();
   const storedProfile = useSelector((state: RootState) => (apiKey ? state.personalization.profilesByApiKey[apiKey] : undefined));
   const [remoteProfileReady, setIsRemoteProfileReady] = useState(false);
@@ -45,7 +55,7 @@ export function usePersonalization()
     serializedProfileRef.current = serializedProfile;
   }, [serializedProfile]);
 
-  const persistProfileToDatabase = async (
+  const persistProfileToDatabase = useCallback(async (
     profileToSave: PersonalizationProfile,
     serializedProfileToSave: string,
   ) =>
@@ -54,6 +64,9 @@ export function usePersonalization()
 
     try {
       const savedProfile = await personalizationClient.saveProfile(profileToSave);
+      if (store.getState().personalization.activeApiKey !== apiKey || serializedProfileRef.current !== serializedProfileToSave) {
+        return savedProfile;
+      }
       const savedProfileJson = serializeProfile(savedProfile);
 
       lastPersistedProfileRef.current = savedProfileJson;
@@ -69,7 +82,7 @@ export function usePersonalization()
     } finally {
       setIsSavingToDatabase(false);
     }
-  };
+  }, [apiKey, dispatch, store]);
 
   useEffect(() =>
   {
@@ -140,12 +153,6 @@ export function usePersonalization()
     lastPersistedProfileRef.current = serializedProfile;
 
     void persistProfileToDatabase(profile, serializedProfile)
-      .then((savedProfile) =>
-      {
-        if (!isActive) {
-          return;
-        }
-      })
       .catch((error: unknown) =>
       {
         if (!isActive) {
@@ -159,7 +166,7 @@ export function usePersonalization()
     {
       isActive = false;
     };
-  }, [apiKey, dispatch, isLoaded, isRemoteProfileReady, profile, serializedProfile]);
+  }, [apiKey, isLoaded, isRemoteProfileReady, persistProfileToDatabase, profile, serializedProfile]);
 
   return {
     apiKey,
@@ -170,10 +177,10 @@ export function usePersonalization()
     setUserName: (userName?: string) => dispatch(actions.setUserName(userName)),
     setBestiaryColumnVisibility: (visibility: Partial<Record<BestiaryColumnPreferenceKey, boolean>>) => dispatch(actions.setBestiaryColumnVisibility(visibility)),
     clearBestiaryColumnVisibility: () => dispatch(actions.clearBestiaryColumnVisibility()),
-    addQuickTag: (context: PersonalizationContext, tag: string) => dispatch(actions.addQuickTag({ context, tag })),
-    addQuickExcludeTag: (context: PersonalizationContext, tag: string) => dispatch(actions.addQuickExcludeTag({ context, tag })),
-    removeQuickTag: (context: PersonalizationContext, tag: string) => dispatch(actions.removeQuickTag({ context, tag })),
-    removeQuickExcludeTag: (context: PersonalizationContext, tag: string) => dispatch(actions.removeQuickExcludeTag({ context, tag })),
+    addQuickTag: (context: QuickTagContext, tag: string) => dispatch(actions.addQuickTag({ context, tag })),
+    addQuickExcludeTag: (context: QuickTagContext, tag: string) => dispatch(actions.addQuickExcludeTag({ context, tag })),
+    removeQuickTag: (context: QuickTagContext, tag: string) => dispatch(actions.removeQuickTag({ context, tag })),
+    removeQuickExcludeTag: (context: QuickTagContext, tag: string) => dispatch(actions.removeQuickExcludeTag({ context, tag })),
     addFavoriteCharacter: (characterId: string) => dispatch(actions.addFavoriteCharacter(characterId)),
     removeFavoriteCharacter: (characterId: string) => dispatch(actions.removeFavoriteCharacter(characterId)),
     toggleFavoriteCharacter: (characterId: string) => dispatch(actions.toggleFavoriteCharacter(characterId)),

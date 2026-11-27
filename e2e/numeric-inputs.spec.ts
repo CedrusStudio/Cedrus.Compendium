@@ -1,5 +1,6 @@
 import { test, expect, type Locator, type Page } from '@playwright/test';
-import { mockApplication, characterId } from './fixtures';
+import { mockApplication, characterId, fixtureCharacter } from './fixtures';
+import { CreateDefaultTalent } from '../src/domain/characters/Talent';
 
 async function appendToZero(input: Locator, digit = '5')
 {
@@ -107,7 +108,7 @@ test('character numeric text preserves the caret, negatives and empty drafts', a
   page.on('request', request => {
     if (new URL(request.url()).pathname === `/api/characters/${characterId}/combat` && request.method() === 'PUT') updates.push(request.postDataJSON());
   });
-  await page.locator('#edit-combat-form button[type="submit"]').last().click();
+  await page.getByRole('button', { name: 'Zapisz', exact: true }).click();
   await expect(page.getByText('Uzupełnij pole', { exact: true })).toBeVisible();
   expect(updates).toHaveLength(0);
   await expect(input).toHaveValue('');
@@ -180,4 +181,30 @@ test('manual battle participant dialogs require numbers and preserve cancellatio
   await dialog.getByRole('button', { name: /^anuluj$/i }).click();
   await row.getByRole('button', { name: 'Edytuj uczestnika', exact: true }).click();
   await expect(page.getByRole('dialog').locator('input[id="maxHealth"]')).toHaveValue('50');
+});
+
+test('saves the complete talent draft from the toolbar above a filtered list', async ({ page }) => {
+  const talents = Array.from({ length: 25 }, (_, i) => ({ ...CreateDefaultTalent(), name: `Talent ${i + 1}`, grade: 3 }));
+  await page.route(`**/api/search/${characterId}*`, route => route.fulfill({ json: { ...fixtureCharacter(), talents } }));
+  await page.goto(`/characters/${characterId}/edit`);
+  await page.getByRole('tab', { name: /^umiejętności$/i }).click();
+
+  const panel = page.getByRole('tabpanel');
+  const toolbar = panel.getByRole('group', { name: 'Narzędzia talentów' });
+  const save = page.getByRole('button', { name: 'Zapisz', exact: true });
+  await expect(save).toBeInViewport();
+
+  const rows = panel.locator('tbody tr');
+  await expect.poll(async () => {
+    await rows.last().evaluate(row => row.scrollIntoView({ block: 'start' }));
+    return rows.count();
+  }).toBe(talents.length);
+  const row = panel.getByRole('row').filter({ hasText: 'Talent 25' });
+  await row.getByRole('cell').nth(1).getByRole('button').first().click();
+  await toolbar.getByPlaceholder(/szukaj po nazwie/i).fill('Talent 1');
+  await expect(row).toHaveCount(0);
+  const submitted = page.waitForRequest(request =>
+    new URL(request.url()).pathname === `/api/characters/${characterId}/talents` && request.method() === 'PUT');
+  await save.click();
+  expect((await submitted).postDataJSON()).toEqual({ talents: talents.map((talent, i) => i === 24 ? { ...talent, grade: 4 } : talent) });
 });

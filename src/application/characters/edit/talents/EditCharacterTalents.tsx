@@ -2,7 +2,6 @@
 
 import { Form } from "@/ui/form";
 import { talentsSchema, type TalentsDto } from "@/persistence/schemas/characters/talentSchema";
-import SubmitButton from "@/common/components/form/SubmitButton";
 import { defaultColumns } from "@/application/characters/talents/defaultColumns"
 import { EditTalentsTable } from "@/application/characters/edit/talents/EditTalentsTable"
 import { Character } from "@/domain/characters/Character";
@@ -13,9 +12,10 @@ export default function EditCharacterTalents(input: { character: Character })
 {
   const { character } = input;
 
-  const { form, handleSubmit, isPending } = useCharacterForm<TalentsDto>
+  const { form, handleSubmit, formId } = useCharacterForm<TalentsDto>
   ({
     characterId: character.id,
+    tab: "talents",
     schema: talentsSchema,
     defaultValues: 
     {
@@ -26,9 +26,8 @@ export default function EditCharacterTalents(input: { character: Character })
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <EditTalentsTable columns={defaultColumns} initialTalents={character.talents} isPending={isPending}/>
-        <SubmitButton isPending={isPending} />
+      <form id={formId} onSubmit={form.handleSubmit(handleSubmit)}>
+        <EditTalentsTable columns={defaultColumns} initialTalents={character.talents} />
       </form>
     </Form>
   );

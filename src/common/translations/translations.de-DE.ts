@@ -257,6 +257,7 @@ export const translations_deDE =
     characterVisibilityMineOnly: "Nur meine",
     characterVisibilityPublicOnly: "Nur öffentliche",
     saving: "speichern...",
+    back: "Zurück",
     save: "speichern",
     activeBuff: "aktives profil",
     activeProfiles: "aktive profile",

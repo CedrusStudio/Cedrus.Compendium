@@ -19,6 +19,7 @@ import { displayedText } from '@/common/translations';
 import EditWeaponDamageView from '@/application/characters/edit/combat/offense/EditWeaponDamageView';
 import EditDamageBonusView from '@/application/characters/edit/combat/offense/EditDamageBonusView';
 import EditCriticalView from '@/application/characters/edit/combat/offense/EditCriticalView';
+import DefaultCombatSetButton from '../DefaultCombatSetButton';
 
 type EditOffenseCardProps =
 {
@@ -45,14 +46,7 @@ export default function EditOffenseCard({ offense, index, remove }: EditOffenseC
         <CardTitle className='mb-6 flex flex-wrap gap-3 justify-between items-center'>
           <InputFormField<CombatDto> path={pathToOffenseField(index, 'name')} inputClassName='w-50 sm:w-60 h-10 text-center font-medium' />
           <div className='flex gap-2'>
-            <Button 
-              type='button'
-              variant={isDefault ? "default" : "outline"}
-              onClick={handleSetAsDefault}
-              className='text-xs'
-            >
-              {isDefault ? '✓ Default' : 'Set as Default'}
-            </Button>
+            <DefaultCombatSetButton selected={isDefault} onSelect={handleSetAsDefault} />
             <RemoveFromArrayButton index={index} remove={remove} />
           </div>
         </CardTitle>

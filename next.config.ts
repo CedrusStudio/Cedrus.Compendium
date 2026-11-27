@@ -5,6 +5,9 @@ import path from 'path';
 const nextConfig: NextConfig = {
   // The repository maintains its own shared developer instructions.
   agentRules: false,
+  reactCompiler: { compilationMode: 'annotation' },
+  cacheComponents: true,
+  partialPrefetching: true,
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()];

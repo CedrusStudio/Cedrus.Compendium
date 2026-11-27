@@ -2,6 +2,7 @@ import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { PersonalizationProvider } from '@/infrastructure/providers/PersonalizationProvider';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/common/hooks/useApiKey', () => ({
@@ -40,7 +41,9 @@ describe('MainCharacterButton', () => {
 
     render(
       <Provider store={store}>
-        <MainCharacterButton characterId="character-1" />
+        <PersonalizationProvider>
+          <MainCharacterButton characterId="character-1" />
+        </PersonalizationProvider>
       </Provider>,
     );
 

@@ -1,17 +1,19 @@
 import CompendiumNavbar from "@/application/compendium/CompendiumNavbar";
 import { Separator } from "@/ui/separator";
-import { PropsWithChildren } from "react";
+import { Suspense, type PropsWithChildren } from "react";
 import { CompendiumCharacterScopeProvider } from '@/application/compendium/character-scope/CompendiumCharacterScopeProvider';
 
-export const dynamic = 'force-dynamic';
+import LayoutFallback from "@/common/components/skeletons/LayoutFallback";
 
 export default function layout({children}: PropsWithChildren)
 {
   return (
-    <CompendiumCharacterScopeProvider>
-      <CompendiumNavbar />
-      <Separator />
-      {children}
-    </CompendiumCharacterScopeProvider>
+    <Suspense fallback={<LayoutFallback />}>
+      <CompendiumCharacterScopeProvider>
+        <CompendiumNavbar />
+        <Separator />
+        {children}
+      </CompendiumCharacterScopeProvider>
+    </Suspense>
   );
 };

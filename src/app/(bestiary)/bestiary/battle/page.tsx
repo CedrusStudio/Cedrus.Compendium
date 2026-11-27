@@ -5,14 +5,23 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { Character } from "@/domain/characters/Character";
-import { Suspense } from 'react';
+import RequestContent from "@/common/components/RequestContent";
 import BestiaryGridSkeleton from "@/application/bestiary/BestiaryTableSkeleton";
 import BattleTable from "@/application/bestiary/battle/BattleTable";
 import { allCharactersKey } from "@/persistence/cacheKeys";
 import { createCharacterQuery } from "@/infrastructure/searchQueries/characters/createCharacterQuery";
 import { CharacterWithRelations, toCharacters } from '@/persistence/mappings/characterMapping';
 
-export default async function BattlePage()
+export default function BattlePage()
+{
+  return (
+    <RequestContent fallback={<BestiaryGridSkeleton />}>
+      <BattleContent />
+    </RequestContent>
+  );
+}
+
+async function BattleContent()
 {
   const queryClient = new QueryClient();
 
@@ -24,9 +33,7 @@ export default async function BattlePage()
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<BestiaryGridSkeleton />}>
-        <BattleTable />
-      </Suspense>
+      <BattleTable />
     </HydrationBoundary>
   );
 };
