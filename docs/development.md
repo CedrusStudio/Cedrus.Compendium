@@ -44,9 +44,8 @@ the backup/dry-run/explicit-apply rules in [scripts/README.md](../scripts/README
 
 ## Verification
 
-Use Node 22 as selected in `.nvmrc` for the same runtime as application CI. The
-OpenAI SDK requires Node 22 or newer. Run `npm ci` to install the locked graph and
-generate the Prisma client.
+Use Node/npm already required by this application. `npm ci` runs the existing Prisma
+generation postinstall; it is not a database migration.
 
 ```sh
 node node_modules/vitest/vitest.mjs run src/domain/ai-character-generation/__tests__ src/infrastructure/ai-character-generation/__tests__/LocalFileCharacterGenerationProvider.test.ts src/infrastructure/ai-character-generation/__tests__/openAiCharacterProposalResponseFormat.test.ts
@@ -83,6 +82,8 @@ npm run build:storybook
 npm run test:storybook
 ```
 
+Application CI and the component stories use Node 22 from `.nvmrc`. Supported
+developer runtimes are declared in `package.json` under `engines.node`.
 The reference images use Chromium on Windows. To run the same checks on the hosted
 Windows runner, open Actions, choose the Mobile UI workflow and select Run workflow.
 On a different platform run `npm run test:storybook -- --ignore-snapshots` for the
