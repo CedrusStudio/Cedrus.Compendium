@@ -12,9 +12,9 @@ import { OWNING_ENTITY_ID_FIELDS, isOwningEntity } from '@/common/global/owningE
  */
 export async function GET(request: NextRequest)
 {
+  const { searchParams } = new URL(request.url);
   try
   {
-    const { searchParams } = new URL(request.url);
     const entity = searchParams.get('entity');
     const id = searchParams.get('id');
 

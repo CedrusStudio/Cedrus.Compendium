@@ -7,6 +7,7 @@ import ExpandableText from "@/common/components/text/ExpandableText";
 import Link from "next/link";
 import { Button } from "@/common/components/ui/button";
 import { displayedText } from "@/common/translations";
+import CharacterTitleTransition from "@/application/characters/CharacterTitleTransition";
 
 export default function DetailsView({ character }: { character: Character }) 
 {
@@ -16,9 +17,9 @@ export default function DetailsView({ character }: { character: Character })
       <header className="flex flex-col place-content-center mb-4 lg:mb-6 mt-2 gap-3">
 
         <div className="flex flex-wrap place-content-center mt-2 gap-3">
-          <h1 className="break-words text-center font-semibold text-primary capitalize text-lg">
-            {character.name}
-          </h1>
+          <CharacterTitleTransition id={character.id} detail>
+            <h1 className="break-words text-center font-semibold text-primary capitalize text-lg">{character.name}</h1>
+          </CharacterTitleTransition>
 
           <Badge variant="outline" className="text-md text-primary capitalize">
             {character.shortName}

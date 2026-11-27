@@ -14,6 +14,24 @@ TanStack Table v8's `useReactTable()` returns functions that React Compiler cann
 memoize. `BestiaryTable` opts out locally with the supported `"use no memo"` directive;
 do not manually memoize its table object or disable compiler diagnostics globally.
 
+Next runs React Compiler in annotation mode. The character summary card opts in with
+`"use memo"`. In a local React Profiler comparison, twenty stable summaries received
+forty parent updates after five warm-ups. The instrumented favorite button rendered
+800 times with compilation disabled and zero times with compilation enabled. Median
+list render time in jsdom was 2.93 ms and 0.82 ms respectively. This measures React
+render work for unchanged summaries. Search latency and database time need separate
+measurements.
+
+Next's Cache Components and Partial Prefetching provide reusable shells for navigation.
+Previously dynamic route groups keep request-time content behind Suspense and
+`connection()`. Tag facet administration and drift reports also wait for a request
+before reading Prisma. Character links enable automatic prefetch on pointer hover or
+keyboard focus. The character detail route has its own loading boundary. The list and
+detail headings share a View Transition name derived from the character ID. A shared
+animation requires both headings to change in one transition. A cold client query can
+show the loading state before the detail heading arrives. Reduced-motion users get the
+same navigation with the heading animation disabled.
+
 - `src/domain/` owns pure character/combat/rules logic and domain AI contracts.
 - `src/application/` owns feature UI and application interactions.
 - `src/persistence/` owns repositories, domain/Prisma mapping and persistence schemas.
@@ -49,6 +67,27 @@ the updated dependency graph.
 
 Framework/security update boundaries and required acceptance are recorded in the
 [Next 16.4 update decision](history/next-security-update-20261116.md).
+
+### Component stories
+
+Run `npm run storybook` to open the character health editor in isolation. Its stories
+use the application form, validation schema and Tailwind stylesheet. The browser checks
+cover the two- and four-column panel layouts, disabled inputs, label focus, the Polish
+validation message, and WCAG 2.0/2.1 A/AA rules in axe. The dark and light error states
+also have visual references.
+
+```sh
+npx playwright install chromium
+npm run build:storybook
+npm run test:storybook
+```
+
+The reference images use Chromium on Windows. To run the same checks on the hosted
+Windows runner, open Actions, choose the Mobile UI workflow and select Run workflow.
+On a different platform run `npm run test:storybook -- --ignore-snapshots` for the
+layout, accessibility and interaction checks. After reviewing an intentional design
+change on Windows, run `npm run test:storybook -- --update-snapshots` and review the
+image diff. Story checks read the static build directly and can run without a database.
 
 ## Runtime AI boundary
 

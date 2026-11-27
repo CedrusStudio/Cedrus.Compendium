@@ -1,4 +1,5 @@
-import { PropsWithChildren, Suspense } from "react";
+import { PropsWithChildren } from "react";
+import RequestContent from "@/common/components/RequestContent";
 import "./sheet.css";
 
 /**
@@ -8,13 +9,11 @@ import "./sheet.css";
  * which the character query needs) — the only things stripped are the
  * character-area navigation and padding.
  */
-export const dynamic = 'force-dynamic';
-
 export default function PrintLayout({ children }: PropsWithChildren)
 {
   return (
-    <Suspense fallback={null}>
+    <RequestContent fallback={null}>
       {children}
-    </Suspense>
+    </RequestContent>
   );
 };

@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+::view-transition-group(.character-title) { animation-duration: 160ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(.character-title),
+  ::view-transition-old(.character-title),
+  ::view-transition-new(.character-title) { animation: none; }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -25,6 +33,7 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-form-error: var(--form-error);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -60,6 +69,7 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
+  --form-error: oklch(0.49 0.18 27);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -94,6 +104,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
+  --form-error: oklch(0.80 0.14 24);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);

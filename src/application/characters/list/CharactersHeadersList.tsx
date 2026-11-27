@@ -23,6 +23,7 @@ import type { TagFacetFilter } from '@/domain/tags/tagFacets';
 import { CharacterTag, isCharacterOrSessionTag } from '@/domain/Tag';
 import FavoriteCharacterButton from '@/application/personalization/FavoriteCharacterButton';
 import MainCharacterButton from '@/application/personalization/MainCharacterButton';
+import CharacterTitleTransition from '@/application/characters/CharacterTitleTransition';
 import { QuickTagsPanel, QuickTagsToggle } from '@/application/personalization/QuickTagsSection';
 import { useApiKey } from '@/common/hooks/useApiKey';
 import { CharacterVisibilityMode } from '@/common/global/SearchPayloads';
@@ -186,7 +187,9 @@ export default function CharactersHeadersList()
 
 function CharactersListCard({ summary }: { summary: CharacterSummary })
 {
+  "use memo";
   const dispatch = useDispatch();
+  const [prefetchOnIntent, setPrefetchOnIntent] = useState(false);
 
   return (
     <div className='relative w-full'>
@@ -197,15 +200,18 @@ function CharactersListCard({ summary }: { summary: CharacterSummary })
 
       <Link 
         href={`/characters/${summary.id}`}
+        prefetch={prefetchOnIntent ? null : false}
+        onMouseEnter={() => setPrefetchOnIntent(true)}
+        onFocus={() => setPrefetchOnIntent(true)}
         onClick={() => dispatch(actions.clearCharacterNavbarSearch())}
         className='block w-full'
       >
         <Card className='w-full gap-0 border-border/60 py-6 transition-colors hover:bg-accent/40'>
           <div className='flex min-w-0 flex-col gap-4 px-4 pt-11 sm:pt-0 sm:px-7 sm:flex-row sm:items-center sm:gap-6 sm:pr-36 lg:pr-40'>
             <div className='min-w-0 space-y-1 sm:min-w-[16rem] lg:min-w-[20rem]'>
-              <h3 className='break-words text-xl font-semibold'>
-                {summary.name}
-              </h3>
+              <CharacterTitleTransition id={summary.id}>
+                <h3 className='break-words text-xl font-semibold'>{summary.name}</h3>
+              </CharacterTitleTransition>
               <p className='text-sm text-muted-foreground'>
                 {summary.shortName}
               </p>

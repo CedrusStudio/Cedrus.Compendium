@@ -59,8 +59,8 @@ vi.mock('@/common/components/WithScroll', () => ({
 }));
 
 vi.mock('next/link', () => ({
-  default: ({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; children: React.ReactNode }) => (
-    <a href={href} {...props}>{children}</a>
+  default: ({ href, children, prefetch, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; prefetch?: boolean | null }) => (
+    <a href={href} data-prefetch={prefetch === false ? 'off' : 'auto'} {...props}>{children}</a>
   ),
 }));
 
@@ -133,6 +133,19 @@ describe('CharactersHeadersList', () => {
 
     expect(screen.getByRole('button', { name: 'Favorite character-1' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Main character-1' })).toBeTruthy();
+  });
+
+  it.each(['focus', 'hover'])('enables route prefetch only for a card with %s intent', intent => {
+    useEntityTagsMock.mockReturnValue({ tags: [], isLoading: false });
+    useQueryMock.mockReturnValue({ data: ['Geralt', 'Triss'].map(name => ({ id: name, name, shortName: name, tags: [] })) });
+    render(<CharactersHeadersList />);
+    const target = screen.getByRole('link', { name: /Geralt/ });
+    const other = screen.getByRole('link', { name: /Triss/ });
+    expect(target).toHaveAttribute('data-prefetch', 'off');
+    if (intent === 'focus') fireEvent.focus(target);
+    else fireEvent.mouseEnter(target);
+    expect(target).toHaveAttribute('data-prefetch', 'auto');
+    expect(other).toHaveAttribute('data-prefetch', 'off');
   });
 
   it('renders the calmer character card style with the short name', () => {

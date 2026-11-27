@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { connection, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { isValidTag } from '@/domain/Tag';
 import { tagEntityModelMap } from '@/lib/tagEntityModels';
@@ -38,6 +38,7 @@ type AdminBody = { resource?: 'facet' | 'definition'; action?: 'upsert' | 'delet
 
 export async function GET()
 {
+  await connection();
   try
   {
     const layer = await loadTagFacetLayer();
