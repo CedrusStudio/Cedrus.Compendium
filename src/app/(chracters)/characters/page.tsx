@@ -17,7 +17,16 @@ type CharactersPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function CharactersPage(input: CharactersPageProps)
+export default function CharactersPage(input: CharactersPageProps)
+{
+  return (
+    <Suspense fallback={<CharactersHeadersListSkeleton />}>
+      <CharactersContent {...input} />
+    </Suspense>
+  );
+}
+
+async function CharactersContent(input: CharactersPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -31,9 +40,7 @@ export default async function CharactersPage(input: CharactersPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<CharactersHeadersListSkeleton />}>
-        <CharactersHeadersList />
-      </Suspense>
+      <CharactersHeadersList />
     </HydrationBoundary>
   );
 };

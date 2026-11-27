@@ -23,9 +23,10 @@ render work for unchanged summaries. Search latency and database time need separ
 measurements.
 
 Next's Cache Components and Partial Prefetching provide reusable shells for navigation.
-Previously dynamic route groups keep request-time content behind Suspense and
-`connection()`. Tag facet administration and drift reports also wait for a request
-before reading Prisma. Character links enable automatic prefetch on pointer hover or
+Character, bestiary and compendium pages render their fallback before awaiting route
+parameters and prefetching from Prisma. Bestiary pages without request parameters
+wait for `connection()` inside that boundary. Tag facet administration and drift reports
+also wait for a request before reading Prisma. Character links enable automatic prefetch on pointer hover or
 keyboard focus. The character detail route has its own loading boundary. The list and
 detail headings share a View Transition name derived from the character ID. A shared
 animation requires both headings to change in one transition. A cold client query can
@@ -72,7 +73,7 @@ Framework/security update boundaries and required acceptance are recorded in the
 
 Run `npm run storybook` to open the character health editor in isolation. Its stories
 use the application form, validation schema and Tailwind stylesheet. The browser checks
-cover the two- and four-column panel layouts, disabled inputs, label focus, the Polish
+cover the two-, four- and seven-column panel layouts, disabled inputs, label focus, the Polish
 validation message, and WCAG 2.0/2.1 A/AA rules in axe. The dark and light error states
 also have visual references.
 

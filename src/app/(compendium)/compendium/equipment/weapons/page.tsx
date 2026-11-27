@@ -17,7 +17,16 @@ type WeaponsPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function WeaponsPage(input: WeaponsPageProps)
+export default function WeaponsPage(input: WeaponsPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <WeaponsContent {...input} />
+    </Suspense>
+  );
+}
+
+async function WeaponsContent(input: WeaponsPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function WeaponsPage(input: WeaponsPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <WeaponsList />
-      </Suspense>
+      <WeaponsList />
     </HydrationBoundary>
   );
 };

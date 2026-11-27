@@ -17,7 +17,16 @@ type StancesPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function StancesPage(input: StancesPageProps)
+export default function StancesPage(input: StancesPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <StancesContent {...input} />
+    </Suspense>
+  );
+}
+
+async function StancesContent(input: StancesPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function StancesPage(input: StancesPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <StancesList />
-      </Suspense>
+      <StancesList />
     </HydrationBoundary>
   );
 };

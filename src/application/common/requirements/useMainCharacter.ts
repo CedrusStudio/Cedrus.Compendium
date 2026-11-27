@@ -2,10 +2,8 @@
 
 /**
  * The user's "main" character as a full domain `Character` (or `undefined` when
- * none is set). Reads `mainCharacterId` via a lightweight Redux selector — NOT
- * `usePersonalization`, which carries a save-to-DB effect that would fire once
- * per mount (this hook is used in per-item compendium views). The heavy fetch +
- * mapping is shared/cached through `useCharactersByIds`.
+ * none is set). Per-item compendium views subscribe to the ID only. Fetching
+ * and mapping the character are shared through `useCharactersByIds`.
  */
 
 import { useMemo } from "react";

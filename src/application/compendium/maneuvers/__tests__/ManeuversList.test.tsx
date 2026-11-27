@@ -111,8 +111,10 @@ describe('ManeuversList', () => {
     }));
     const next = [{ ...first[0], name: 'Updated entry 0' }, { ...first[1], id: 'later-entry', name: 'Next page entry' }];
     const narrowed = [{ ...first[0], id: 'group-entry', name: 'Zasłona' }];
+    const nameFilter = mode === 'grouped' ? { anyOf: ['Zasłona'] } : 'Zasłona';
     search.mockImplementation(async query => {
-      if (query?.search?.name === 'Zasłona') return narrowed;
+      const name = query?.search?.name;
+      if (name === 'Zasłona' || (typeof name === 'object' && name !== null && 'anyOf' in name && name.anyOf.includes('Zasłona'))) return narrowed;
       const pagination = query?.pagination;
       return pagination && 'pageNumber' in pagination && pagination.pageNumber === 2 ? next : first;
     });
@@ -140,8 +142,16 @@ describe('ManeuversList', () => {
     expect(results.queryByText('Original entry 1')).not.toBeInTheDocument();
     expect(search).toHaveBeenLastCalledWith(expect.objectContaining({
       pagination: { pageNumber: 1, pageSize: DEFAULT_PAGE_SIZE },
-      search: expect.objectContaining({ name: 'Zasłona' }),
+      search: expect.objectContaining({ name: nameFilter }),
     }));
+    if (mode === 'grouped') {
+      const calls = search.mock.calls.length;
+      fireEvent.click(results.getByRole('button', { name: 'Search this group' }));
+      expect(results.getByText('Zasłona')).toBeVisible();
+      expect(search).toHaveBeenCalledTimes(calls);
+      fireEvent.change(screen.getByLabelText('Search by name'), { target: { value: '' } });
+      expect(await results.findByText('Original entry 1')).toBeVisible();
+    }
   });
 
   it('composes the filters and clears displayed results for a character with no owned entries', async () => {

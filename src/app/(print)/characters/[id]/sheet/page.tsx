@@ -1,3 +1,5 @@
+import CharacterLoading from "@/application/characters/CharacterLoading";
+import { Suspense } from "react";
 import {
   dehydrate,
   HydrationBoundary,
@@ -9,8 +11,10 @@ import { characterQueryById } from '@/infrastructure/searchQueries/characters/ch
 import { parseSheetOptions } from '@/domain/characters/sheet/sheetOptions';
 import CharacterSheetView from '@/application/characters/sheet/CharacterSheetView';
 
-type Params = Promise<{ id: string }>
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+type CharacterSheetPageProps = {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 /**
  * Printable character sheet at `/characters/:id/sheet`.
@@ -21,7 +25,16 @@ type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
  * `useApiKey` supplies the key. Diverging from that pattern would render
  * private characters as a blank page.
  */
-export default async function CharacterSheetPage(props: { params: Params, searchParams: SearchParams })
+export default function CharacterSheetPage(props: CharacterSheetPageProps)
+{
+  return (
+    <Suspense fallback={<CharacterLoading />}>
+      <CharacterSheetContent {...props} />
+    </Suspense>
+  );
+}
+
+async function CharacterSheetContent(props: CharacterSheetPageProps)
 {
   const params = await props.params;
   const searchParams = await props.searchParams;

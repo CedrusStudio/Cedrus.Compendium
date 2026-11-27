@@ -17,7 +17,16 @@ type PerksPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function PerksPage(input: PerksPageProps)
+export default function PerksPage(input: PerksPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <PerksContent {...input} />
+    </Suspense>
+  );
+}
+
+async function PerksContent(input: PerksPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function PerksPage(input: PerksPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <PerksList />
-      </Suspense>
+      <PerksList />
     </HydrationBoundary>
   );
 };

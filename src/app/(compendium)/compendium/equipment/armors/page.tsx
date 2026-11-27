@@ -17,7 +17,16 @@ type ArmorsPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function ArmorsPage(input: ArmorsPageProps)
+export default function ArmorsPage(input: ArmorsPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <ArmorsContent {...input} />
+    </Suspense>
+  );
+}
+
+async function ArmorsContent(input: ArmorsPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function ArmorsPage(input: ArmorsPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <ArmorsList />
-      </Suspense>
+      <ArmorsList />
     </HydrationBoundary>
   );
 };

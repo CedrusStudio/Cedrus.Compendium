@@ -26,8 +26,16 @@ for (const story of ["default", "narrow", "disabled", "dark"]) {
     const input = form.locator('input[name="health.barrier"]');
     await expect(input).toHaveAccessibleName(/.+/);
     const grid = form.locator('[data-slot="card-content"]');
-    await expect.poll(() => grid.evaluate(element => getComputedStyle(element).gridTemplateColumns.split(" ").length))
-      .toBe(story === "narrow" ? 2 : 4);
+    const title = form.locator('[data-slot="card-title"] span');
+    const card = form.locator('[data-slot="card"]');
+    const titleBox = (await title.boundingBox())!;
+    const cardBox = (await card.boundingBox())!;
+    expect(Math.abs(titleBox.x + titleBox.width / 2 - cardBox.x - cardBox.width / 2)).toBeLessThan(1);
+    const fields = grid.locator("input");
+    await expect(fields).toHaveCount(7);
+    const positions = await fields.evaluateAll(inputs => inputs.map(input => input.getBoundingClientRect().top));
+    expect(new Set(positions).size).toBe(story === "narrow" ? 4 : 1);
+    expect(await grid.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
     if (story === "disabled") await expect(input).toBeDisabled();
     else {
       await form.locator("label").first().click();
@@ -46,3 +54,13 @@ for (const story of ["default", "narrow", "disabled", "dark"]) {
     await expect(form).toHaveScreenshot(`health-${story}.png`, { animations: "disabled" });
   });
 }
+
+test("the health fields reflow on tablet and mobile viewports", async ({ page }) => {
+  await page.goto("http://storybook.test/iframe.html?id=characters-health-form--default&viewMode=story");
+  const grid = page.getByRole("form", { name: "Zdrowie postaci" }).locator('[data-slot="card-content"]');
+  for (const [width, columns] of [[560, 4], [320, 2]]) {
+    await page.setViewportSize({ width, height: 700 });
+    await expect.poll(() => grid.evaluate(element => getComputedStyle(element).gridTemplateColumns.split(" ").length)).toBe(columns);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+});

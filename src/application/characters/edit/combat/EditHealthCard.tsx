@@ -19,9 +19,9 @@ export default function EditHealthCard(input: EditHealthCardProps)
     <DataCard 
       title={displayedText.health} 
       variant="muted"
-      className='@container border shadow-md'
-      headerClassName='mb-6'
-      contentClassName="grid grid-cols-2 @2xl:grid-cols-4 gap-6"
+      className="@container gap-3 py-4 shadow-md"
+      headerClassName="justify-items-center px-4"
+      contentClassName="grid grid-cols-2 items-start gap-x-2 gap-y-4 px-4 @md:grid-cols-4 @2xl:grid-cols-[repeat(7,auto)] [&_label]:min-h-8 [&_label]:justify-center [&_label]:leading-4 [&_label]:hyphens-auto [&_label]:[overflow-wrap:anywhere]"
     >
       { 
         Object.keys(input.health).map(key => InputFormWithLabel(key as keyof HealthDto)) 

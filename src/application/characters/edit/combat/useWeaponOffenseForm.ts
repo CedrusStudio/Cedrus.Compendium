@@ -1,6 +1,6 @@
 import { type WeaponOffensePath, WeaponOffense } from "@/domain/characters/combat/Offense";
 import { type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
-import { Control, useController } from "react-hook-form";
+import { Control, useController, useFormContext } from "react-hook-form";
 import { setWithSideEffect } from "@/common/global/setterUtils";
 import { useState } from "react";
 
@@ -11,6 +11,7 @@ export function useWeaponOffenseForm
   defaults: WeaponOffense
 ) 
 {
+  const { setValue } = useFormContext<CombatDto>();
   const [criticalPower, setCriticalPower] = useState(defaults.critical.power);
   const [criticalRange, setCriticalRange] = useState(defaults.critical.range);
   const [amount, setAmount] = useState(defaults.amount);
@@ -27,6 +28,7 @@ export function useWeaponOffenseForm
 
   const resetAll = () =>
   {
+    setValue(fieldPath, defaults, { shouldDirty: true });
     setCriticalPower(defaults.critical.power);
     setCriticalRange(defaults.critical.range);
     setAmount(defaults.amount);

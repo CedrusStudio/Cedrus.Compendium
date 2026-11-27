@@ -25,6 +25,7 @@ import ListHeader from "@/common/components/lists/ListHeader";
 import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
 import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
+import { narrowToGroup, useGroupedNameSearch } from "@/application/compendium/useGroupedNameSearch";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers } from "lucide-react";
@@ -36,8 +37,6 @@ const EMPTY_ARRAY: never[] = [];
 
 export default function StatesList()
 {
-  const [searchInput, setSearchInput] = useState("");
-  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [gradeFilter, setGradeFilter] = useState("");
   const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('states');
@@ -56,6 +55,7 @@ export default function StatesList()
   const { filter: ownedFilter, key: ownedKey } = useCharacterOwnedFilter('states');
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const { searchInput, searchTerm, groupName, handleSearchInputChange, handleScopeToGroup } = useGroupedNameSearch(setPageNumber);
   const visibleStates = displayedStates;
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
@@ -69,14 +69,15 @@ export default function StatesList()
     setHasMore(true);
   }
 
-  const queryKey = [...[createOffsetSearchStatesKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey];
+  const queryKey = [...[createOffsetSearchStatesKey(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade), requirementFilters, facetFilters], ownedKey, ...(groupName === null ? [] : [groupName])];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
-      const statesQuery = createStateOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
+      const statesQuery = createStateOffsetQuery(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedGrade);
       narrowToOwned(statesQuery, ownedFilter);
+      narrowToGroup(statesQuery, groupName);
       if (requirementFilters.length > 0) statesQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) statesQuery.tagFacetFilters = facetFilters;
 
@@ -107,12 +108,6 @@ export default function StatesList()
     setDisplayedStates(EMPTY_ARRAY);
     setPageNumber(1);
   }, []);
-
-  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    clearResults();
-    setSearchInput(e.target.value);
-  }, [clearResults]);
 
   const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
   {
@@ -166,11 +161,6 @@ export default function StatesList()
     });
   }, []);
 
-  const handleScopeToGroup = useCallback((groupName: string) => {
-    setSearchInput(groupName);
-    clearResults();
-  }, [clearResults]);
-
   return (
     <>
       <ListHeader
@@ -208,7 +198,8 @@ export default function StatesList()
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
-          hasMore={hasMore}
+          hasMore={hasMore && !!searchResults}
+          groupName={groupName}
           onScopeToGroup={handleScopeToGroup}
         />
       ) : (

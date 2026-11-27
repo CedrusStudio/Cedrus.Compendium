@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-import RequestContent from "@/common/components/RequestContent";
 import "./sheet.css";
 
 /**
@@ -11,9 +10,5 @@ import "./sheet.css";
  */
 export default function PrintLayout({ children }: PropsWithChildren)
 {
-  return (
-    <RequestContent fallback={null}>
-      {children}
-    </RequestContent>
-  );
+  return children;
 };

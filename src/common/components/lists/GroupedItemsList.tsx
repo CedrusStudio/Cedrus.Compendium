@@ -20,6 +20,7 @@ interface GroupedItemsListProps<T extends { id: string; name: string; grade: num
   renderItem: (item: T) => ReactNode;
   triggerNext: () => void;
   hasMore: boolean;
+  groupName?: string | null;
   onScopeToGroup?: (groupName: string) => void;
   className?: string;
 }
@@ -34,45 +35,23 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
   renderItem,
   triggerNext,
   hasMore,
+  groupName,
   onScopeToGroup,
   className = "flex flex-col gap-2",
 }: GroupedItemsListProps<T>) {
-  const groupedItems = useMemo(() => groupByName(items), [items]);
+  const groupedItems = useMemo(
+    () => groupByName(groupName == null ? items : items.filter(item => item.name === groupName)),
+    [items, groupName],
+  );
   const containerRef = useRef<HTMLDivElement>(null);
   const [expandedGroups, setExpandedGroups] = useState<string[]>([]);
 
   // Auto-fetch more items if container is not scrollable and more data is available
   useEffect(() => {
-    const checkScrollable = () => {
-      if (containerRef.current && hasMore) {
-        const isScrollable = document.documentElement.scrollHeight > window.innerHeight;
-        if (!isScrollable && items.length > 0) {
-          // Delay to avoid rapid successive calls
-          const timer = setTimeout(() => {
-            triggerNext();
-          }, 100);
-          return () => clearTimeout(timer);
-        }
-      }
-    };
-
-    checkScrollable();
+    if (!containerRef.current || !hasMore || items.length === 0 || document.documentElement.scrollHeight > window.innerHeight) return;
+    const timer = setTimeout(triggerNext, 100);
+    return () => clearTimeout(timer);
   }, [items.length, hasMore, triggerNext]);
-
-  const handleScopeClick = (groupName: string) => {
-    // Expand the group
-    setExpandedGroups(prev => {
-      if (!prev.includes(groupName)) {
-        return [...prev, groupName];
-      }
-      return prev;
-    });
-    
-    // Call the scope callback
-    if (onScopeToGroup) {
-      onScopeToGroup(groupName);
-    }
-  };
 
   if (groupedItems.length === 0) {
     return null;
@@ -96,35 +75,39 @@ export default function GroupedItemsList<T extends { id: string; name: string; g
               value={group.name}
               className="border rounded-md bg-card"
             >
-              <AccordionTrigger className="px-4 hover:no-underline hover:bg-accent/50">
-                <div className="flex items-center justify-between w-full pr-2">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold">{group.name}</span>
-                    <div className="flex gap-1">
-                      {group.items.map((item) => (
-                        <Badge key={item.id} variant="secondary" className="text-xs">
-                          {item.grade}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  {onScopeToGroup && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-7 px-2 text-xs"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleScopeClick(group.name);
-                      }}
-                      title={`Filter by "${group.name}"`}
-                    >
-                      <Search className="h-3 w-3 mr-1" />
-                      Zawęź do grupy
-                    </Button>
-                  )}
+              <div className="flex items-center gap-1 pr-2">
+                <div className="min-w-0 flex-1">
+                  <AccordionTrigger className="items-center px-4 hover:no-underline hover:bg-accent/50">
+                    <span className="flex min-w-0 flex-wrap items-center gap-2">
+                      <span className="font-semibold">{group.name}</span>
+                      <span className="flex flex-wrap gap-1">
+                        {group.items.map((item) => (
+                          <Badge key={item.id} variant="secondary" className="text-xs">
+                            {item.grade}
+                          </Badge>
+                        ))}
+                      </span>
+                    </span>
+                  </AccordionTrigger>
                 </div>
-              </AccordionTrigger>
+                {onScopeToGroup && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="h-auto px-2 py-1 text-xs"
+                    disabled={group.name === groupName}
+                    onClick={() => {
+                      setExpandedGroups(prev => prev.includes(group.name) ? prev : [...prev, group.name]);
+                      onScopeToGroup(group.name);
+                    }}
+                    aria-label={group.name === groupName ? `Wybrana grupa „${group.name}”` : `Zawęź do grupy „${group.name}”`}
+                  >
+                    <Search aria-hidden="true" className="h-3 w-3" />
+                    {group.name === groupName ? "Wybrana grupa" : "Zawęź do grupy"}
+                  </Button>
+                )}
+              </div>
               <AccordionContent className="px-4 pb-4 space-y-2">
                 {group.items.map((item) => renderItem(item))}
               </AccordionContent>

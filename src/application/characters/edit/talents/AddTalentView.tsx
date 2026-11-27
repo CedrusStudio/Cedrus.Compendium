@@ -87,7 +87,7 @@ export default function AddTalentView({ append, setNameFilter }: AddTalentViewPr
     <Sheet open={open} onOpenChange={setOpen}>
 
       <SheetTrigger asChild>
-        <Button variant="outline">{addIcon("h-[1.2rem] w-[1.2rem]")}</Button>
+        <Button type="button" variant="outline" aria-label={displayedText.addNewTalent}>{addIcon("h-[1.2rem] w-[1.2rem]")}</Button>
       </SheetTrigger>
 
       <SheetContent>

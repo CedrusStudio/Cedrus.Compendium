@@ -30,6 +30,7 @@ import PerkableAddSheet from "@/application/common/PerkableAddSheet";
 import RequirementFilter from "@/application/common/requirements/RequirementFilter";
 import type { RequirementSearchFilter } from "@/common/global/SearchPayloads";
 import type { TagFacetFilter } from "@/domain/tags/tagFacets";
+import { narrowToGroup, useGroupedNameSearch } from "@/application/compendium/useGroupedNameSearch";
 import GroupedItemsList from "@/common/components/lists/GroupedItemsList";
 import { Button } from "@/ui/button";
 import { List, Layers, Wand2 } from "lucide-react";
@@ -49,8 +50,6 @@ function needsEffects(m: Maneuver): boolean
 
 export default function ManeuversList()
 {
-  const [searchInput, setSearchInput] = useState("");
-  const [debouncedSearchTerm] = useDebounce(searchInput, 300);
   const [gradeFilter, setGradeFilter] = useState("");
   const [debouncedGradeFilter] = useDebounce(gradeFilter, 300);
   const { tags: availableTags, isLoading: tagsLoading } = useEntityTags('maneuvers');
@@ -70,6 +69,7 @@ export default function ManeuversList()
   const [onlyNeedsEffects, setOnlyNeedsEffects] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const { searchInput, searchTerm, groupName, handleSearchInputChange, handleScopeToGroup } = useGroupedNameSearch(setPageNumber);
   const [requirementFilters, setRequirementFilters] = useState<RequirementSearchFilter[]>(EMPTY_ARRAY);
   const [facetFilters, setFacetFilters] = useState<TagFacetFilter[]>(EMPTY_ARRAY);
   const selectedGrade = parseGradeFilterInput(debouncedGradeFilter);
@@ -83,14 +83,15 @@ export default function ManeuversList()
     setHasMore(true);
   }
 
-  const queryKey = [...[createOffsetSearchManeuversKey(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey];
+  const queryKey = [...[createOffsetSearchManeuversKey(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade), requirementFilters, facetFilters], ownedKey, ...(groupName === null ? [] : [groupName])];
   const { data: searchResults } = useQuery
   ({
     queryKey,
     queryFn: async () =>
     {
-      const maneuversQuery = createManeuverOffsetQuery(debouncedSearchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
+      const maneuversQuery = createManeuverOffsetQuery(searchTerm, pageNumber, searchTags, pageSize, excludedTags, selectedCastTimes, selectedGrade);
       narrowToOwned(maneuversQuery, ownedFilter);
+      narrowToGroup(maneuversQuery, groupName);
       if (requirementFilters.length > 0) maneuversQuery.requirementFilters = requirementFilters;
       if (facetFilters.length > 0) maneuversQuery.tagFacetFilters = facetFilters;
       if (ownedFilter?.values.length === 0) return [];
@@ -121,12 +122,6 @@ export default function ManeuversList()
     setPageNumber(1);
   }, []);
 
-
-  const handleSearchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => 
-  {
-    clearResults();
-    setSearchInput(e.target.value);
-  }, [clearResults]);
 
   const handleGradeFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
   {
@@ -179,11 +174,6 @@ export default function ManeuversList()
     });
   }, []);
 
-  const handleScopeToGroup = useCallback((groupName: string) => {
-    setSearchInput(groupName);
-    clearResults();
-  }, [clearResults]);
-
   // Client-side view filter over the already-loaded page(s). For the full-roster
   // picture use `scripts/maneuver-coverage.ts`.
   const visibleManeuvers = onlyNeedsEffects ? displayedManeuvers.filter(needsEffects) : displayedManeuvers;
@@ -234,7 +224,8 @@ export default function ManeuversList()
           triggerNext={() => {
             setPageNumber(prev => prev + 1);
           }}
-          hasMore={hasMore}
+          hasMore={hasMore && !!searchResults}
+          groupName={groupName}
           onScopeToGroup={handleScopeToGroup}
         />
       ) : (

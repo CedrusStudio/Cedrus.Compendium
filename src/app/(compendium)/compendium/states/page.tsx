@@ -17,7 +17,16 @@ type StatesPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function StatesPage(input: StatesPageProps)
+export default function StatesPage(input: StatesPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <StatesContent {...input} />
+    </Suspense>
+  );
+}
+
+async function StatesContent(input: StatesPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function StatesPage(input: StatesPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <StatesList />
-      </Suspense>
+      <StatesList />
     </HydrationBoundary>
   );
 };

@@ -17,7 +17,16 @@ type ShieldsPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function ShieldsPage(input: ShieldsPageProps)
+export default function ShieldsPage(input: ShieldsPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <ShieldsContent {...input} />
+    </Suspense>
+  );
+}
+
+async function ShieldsContent(input: ShieldsPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function ShieldsPage(input: ShieldsPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <ShieldsList />
-      </Suspense>
+      <ShieldsList />
     </HydrationBoundary>
   );
 };

@@ -17,7 +17,16 @@ type RacesPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function RacesPage(input: RacesPageProps)
+export default function RacesPage(input: RacesPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <RacesContent {...input} />
+    </Suspense>
+  );
+}
+
+async function RacesContent(input: RacesPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function RacesPage(input: RacesPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <RacesList />
-      </Suspense>
+      <RacesList />
     </HydrationBoundary>
   );
 };

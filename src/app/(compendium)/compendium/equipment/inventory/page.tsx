@@ -17,7 +17,16 @@ type InventoryPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function InventoryPage(input: InventoryPageProps)
+export default function InventoryPage(input: InventoryPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <InventoryContent {...input} />
+    </Suspense>
+  );
+}
+
+async function InventoryContent(input: InventoryPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function InventoryPage(input: InventoryPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <InventoryList />
-      </Suspense>
+      <InventoryList />
     </HydrationBoundary>
   );
 };

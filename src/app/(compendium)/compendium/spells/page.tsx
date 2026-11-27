@@ -17,7 +17,16 @@ type SpellsPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function SpellsPage(input: SpellsPageProps)
+export default function SpellsPage(input: SpellsPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <SpellsContent {...input} />
+    </Suspense>
+  );
+}
+
+async function SpellsContent(input: SpellsPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function SpellsPage(input: SpellsPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <SpellsList />
-      </Suspense>
+      <SpellsList />
     </HydrationBoundary>
   );
 };

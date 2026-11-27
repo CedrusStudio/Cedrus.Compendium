@@ -2,6 +2,7 @@ import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { PersonalizationProvider } from '@/infrastructure/providers/PersonalizationProvider';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/common/hooks/useApiKey', () => ({
@@ -47,7 +48,9 @@ describe('PersonalizedQuickTags', () => {
 
     render(
       <Provider store={store}>
-        <PersonalizedQuickTags context="perks" selectedTags={[]} onSelectedTagsChange={onSelectedTagsChange} />
+        <PersonalizationProvider>
+          <PersonalizedQuickTags context="perks" selectedTags={[]} onSelectedTagsChange={onSelectedTagsChange} />
+        </PersonalizationProvider>
       </Provider>,
     );
 
@@ -80,7 +83,9 @@ describe('PersonalizedQuickTags', () => {
 
     render(
       <Provider store={store}>
-        <PersonalizedQuickTags context="perks" mode="exclude" selectedTags={[]} onSelectedTagsChange={onSelectedTagsChange} />
+        <PersonalizationProvider>
+          <PersonalizedQuickTags context="perks" mode="exclude" selectedTags={[]} onSelectedTagsChange={onSelectedTagsChange} />
+        </PersonalizationProvider>
       </Provider>,
     );
 

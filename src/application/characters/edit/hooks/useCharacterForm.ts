@@ -1,7 +1,8 @@
 import { useForm, UseFormReturn, UseFormProps, FieldValues, DefaultValues } from "react-hook-form";
 import { typedZodResolver } from "@/common/global/validation";
 import { useFormMutation } from "@/infrastructure/hooks/useFormMutation";
-import { createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
+import type { CharacterTabs } from "@/common/tabsUtils";
+import { characterEditFormIds, characterSaveKey, createCharacterCacheKeys } from "@/application/characters/edit/editFormConstants";
 import { ZodType } from "zod";
 
 type UseCharacterFormParams<TFormData extends FieldValues> = 
@@ -10,7 +11,7 @@ type UseCharacterFormParams<TFormData extends FieldValues> =
   schema: ZodType<TFormData>;
   defaultValues: DefaultValues<TFormData>;
   updateFn: (id: string, data: TFormData) => Promise<void>;
-  formId?: string;
+  tab: CharacterTabs;
   formMode?: UseFormProps<TFormData>["mode"];
   toastPosition?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
 };
@@ -21,7 +22,7 @@ type UseCharacterFormReturn<TFormData extends FieldValues> =
   handleSubmit: (data: TFormData) => void;
   isPending: boolean;
   isSuccess: boolean;
-  formId?: string;
+  formId: string;
 };
 
 export function useCharacterForm<TFormData extends FieldValues>(input : UseCharacterFormParams<TFormData>)
@@ -38,6 +39,7 @@ export function useCharacterForm<TFormData extends FieldValues>(input : UseChara
   (
     async (data: TFormData) => await input.updateFn(input.characterId, data),
     {
+      mutationKey: characterSaveKey(input.characterId, input.tab),
       invalidateOnSuccess: createCharacterCacheKeys(input.characterId),
       toastPosition: input.toastPosition,
     }
@@ -48,6 +50,6 @@ export function useCharacterForm<TFormData extends FieldValues>(input : UseChara
     handleSubmit,
     isPending,
     isSuccess,
-    formId: input.formId,
+    formId: characterEditFormIds[input.tab],
   };
 }

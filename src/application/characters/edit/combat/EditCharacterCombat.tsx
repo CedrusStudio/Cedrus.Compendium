@@ -11,12 +11,10 @@ import { Character } from "@/domain/characters/Character";
 import { Form } from "@/ui/form";
 import { useFieldArray } from "react-hook-form";
 import { combatSchema, type CombatDto } from "@/persistence/schemas/characters/combat/combatSchema";
-import SubmitButton from "@/common/components/form/SubmitButton";
 import { CreateDefaultOffense } from "@/domain/characters/combat/Offense";
 import { CreateDefaultDefense } from "@/domain/characters/combat/Defense";
 import { displayedText } from "@/common/translations";
 import { CreateDefaultPower } from "@/domain/characters/combat/Power";
-import { FORM_IDS } from "@/application/characters/edit/editFormConstants";
 import EditArraySection from "@/common/components/form/EditArraySection";
 import { useCharacterForm } from "@/application/characters/edit/hooks/useCharacterForm";
 import { useMembershipGuardedUpdate } from '../hooks/useMembershipGuardedUpdate';
@@ -32,6 +30,7 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
   const { form, handleSubmit, isPending, isSuccess, formId } = useCharacterForm<CombatDto>
   ({
     characterId: character.id,
+    tab: "combat",
     schema: combatSchema,
     defaultValues: 
     {
@@ -46,7 +45,6 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
       powers: character.powers
     },
     updateFn: updateCombat,
-    formId: FORM_IDS.COMBAT,
     toastPosition: "bottom-left",
   });
 
@@ -89,8 +87,6 @@ export default function EditCharacterCombat({ character }: EditCharacterCombatPr
           renderItem={(power, index, remove) => <EditPowerCard key={power.id} power={power} isPending={isPending} isSuccess={isSuccess} index={index} remove={remove} currentCharacterId={character.id} currentCharacterName={character.name} /> }
           gridCols={1}
         />
-
-        <SubmitButton isPending={isPending} />
       </form>
     </Form>
   );

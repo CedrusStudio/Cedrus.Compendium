@@ -17,7 +17,16 @@ type ManeuversPageProps =
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 };
 
-export default async function ManeuversPage(input: ManeuversPageProps)
+export default function ManeuversPage(input: ManeuversPageProps)
+{
+  return (
+    <Suspense fallback={<ItemListSkeleton />}>
+      <ManeuversContent {...input} />
+    </Suspense>
+  );
+}
+
+async function ManeuversContent(input: ManeuversPageProps)
 {
   const searchParams = await input.searchParams;
   const searchQuery = getSearchQuery(searchParams);
@@ -33,9 +42,7 @@ export default async function ManeuversPage(input: ManeuversPageProps)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ItemListSkeleton />}>
-        <ManeuversList />
-      </Suspense>
+      <ManeuversList />
     </HydrationBoundary>
   );
 };

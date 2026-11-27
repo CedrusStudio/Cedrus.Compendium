@@ -1,3 +1,5 @@
+import CharacterLoading from "@/application/characters/CharacterLoading";
+import { Suspense } from "react";
 import {
   dehydrate,
   HydrationBoundary,
@@ -9,10 +11,21 @@ import { createCharacterByIdKey } from '@/persistence/cacheKeys';
 import { searchEntityById } from '@/persistence/searchEntity';
 import { characterQueryById } from '@/infrastructure/searchQueries/characters/characterQueryById';
 
-type Params = Promise<{ id: string }>
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+type CharacterPageProps = {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export default async function CharacterPage(props: {params: Params, searchParams: SearchParams})
+export default function CharacterPage(props: CharacterPageProps)
+{
+  return (
+    <Suspense fallback={<CharacterLoading />}>
+      <CharacterContent {...props} />
+    </Suspense>
+  );
+}
+
+async function CharacterContent(props: CharacterPageProps)
 {
   const params = await props.params;
   const searchParams = await props.searchParams;
