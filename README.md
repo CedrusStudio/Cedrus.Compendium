@@ -16,10 +16,9 @@ remain application-owned.
 
 ## Uruchomienie
 
-Zainstaluj Node.js z dołączonym npm. Minimalną wersję dla aplikacji określa wpis
-`node_modules/next` w [package-lock.json](package-lock.json), a używaną wersję CI
-określa [workflow testów](.github/workflows/test.yml). Sprawdź polecenia
-`node --version` i `npm --version` w tej samej sesji.
+Install Node.js 24 LTS with npm. The runtime selection for local development, CI, and
+Vercel is documented in [development](docs/development.md#verification). Check
+`node --version` and `npm --version` in the shell that will run the application.
 
 ```bash
 npm ci                     # instalacja z lockfile i wygenerowanie klienta Prisma

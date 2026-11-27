@@ -51,7 +51,13 @@ before running `npm ci`. GitHub Actions uses its repository token. Grant this
 repository the Read role under Manage Actions access in each of the three
 `@cedrusstudio` package settings.
 
-Follow [application setup](../README.md#uruchomienie) for Node, npm, dependencies and environment configuration.
+Use Node.js 24 LTS for local development. Application CI and the component stories read
+[`.nvmrc`](../.nvmrc). Vercel uses `engines.node` in [`package.json`](../package.json),
+which selects its latest Node.js 24 patch for builds and Node.js functions.
+Prisma ORM 6 is the current MongoDB dependency and its
+[runtime requirements](https://www.prisma.io/docs/orm/v6/reference/system-requirements)
+list Node.js 24 as the highest supported major. Review MongoDB support and rerun
+runtime acceptance before upgrading Prisma or moving to a newer Node.js major.
 
 ```sh
 node node_modules/vitest/vitest.mjs run src/domain/ai-character-generation/__tests__ src/infrastructure/ai-character-generation/__tests__/LocalFileCharacterGenerationProvider.test.ts src/infrastructure/ai-character-generation/__tests__/openAiCharacterProposalResponseFormat.test.ts
@@ -88,8 +94,6 @@ npm run build:storybook
 npm run test:storybook
 ```
 
-Application CI and the component stories use Node 22 from `.nvmrc`. Supported
-developer runtimes are declared in `package.json` under `engines.node`.
 The reference images use Chromium on Windows. To run the same checks on the hosted
 Windows runner, open Actions, choose the Mobile UI workflow and select Run workflow.
 On a different platform run `npm run test:storybook -- --ignore-snapshots` for the
