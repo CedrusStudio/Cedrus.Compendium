@@ -69,6 +69,7 @@ export default function ListHeader
             name="search" 
             type="text" 
             placeholder={displayedText.searchByName}
+            aria-label={displayedText.searchByName}
             value={searchInput}
             onChange={handleSearchInputChange}
             className="w-full sm:max-w-xs md:max-w-sm"
